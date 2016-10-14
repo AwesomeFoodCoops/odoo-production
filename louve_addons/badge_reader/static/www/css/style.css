@@ -1,0 +1,31 @@
+ion-content.padding{
+    padding-top:70px;
+}
+
+div.jumbotron{
+    background-color: #c0c0c0;
+}
+
+.partner-success {
+    background-color: #5cb85c;
+}
+
+.partner-warning {
+    background-color: #f0ad4e;
+}
+
+.partner-danger {
+    background-color: #d9534f;
+}
+
+.partner-search {
+    background-color: #FFF;
+}
+
+.authentication-ok {
+    background-color: #FFF;
+}
+
+.authentication-acces-right-problem, .authentication-incorrect {
+    background-color: #d9534f;
+}

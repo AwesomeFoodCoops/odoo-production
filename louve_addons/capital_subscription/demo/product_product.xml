@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="product.product" id="product_fundraising_category_A">
+        <field name="name">Share Fundraising Product (Category A)</field>
+        <field name="type">service</field>
+        <field name="list_price">10</field>
+        <field name="is_capital_fundraising" eval="True" />
+        <field name="sale_ok" eval="False" />
+        <field name="categ_id" ref="product_category_fundraising"/>
+        <field name="uom_id" ref="product.product_uom_unit"/>
+        <field name="uom_po_id" ref="product.product_uom_unit"/>
+        <field name="taxes_id">[[6, False, []]]</field>
+        <field name="supplier_taxes_id">[[6, False, []]]</field>
+        <field name="property_account_income_id" ref="unpaid_capital_account_category_A" />
+    </record>
+
+
+    <record model="product.product" id="product_fundraising_category_B">
+        <field name="name">Share Fundraising Product (Category B)</field>
+        <field name="type">service</field>
+        <field name="list_price">10</field>
+        <field name="is_capital_fundraising" eval="True" />
+        <field name="sale_ok" eval="False" />
+        <field name="categ_id" ref="product_category_fundraising"/>
+        <field name="uom_id" ref="product.product_uom_unit"/>
+        <field name="uom_po_id" ref="product.product_uom_unit"/>
+        <field name="taxes_id">[[6, False, []]]</field>
+        <field name="supplier_taxes_id">[[6, False, []]]</field>
+        <field name="property_account_income_id" ref="unpaid_capital_account_category_B" />
+    </record>
+
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.ui.view" id="view_capital_fundraising_category_form">
+        <field name="model">capital.fundraising.category</field>
+        <field name="inherit_id" ref="capital_subscription.view_capital_fundraising_category_form"/>
+        <field name="arch" type="xml">
+            <field name="minimum_share_qty" position="after">
+                <field name="is_default"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

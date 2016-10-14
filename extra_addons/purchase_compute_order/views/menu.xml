@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- *********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- *********************************************************************** -->    
+<openerp>
+    <data>
+        <menuitem id="menu_computed_purchase_order"
+            parent="purchase.menu_procurement_management"
+            sequence="1"
+            action="action_view_computed_purchase_order_tree"/>
+    </data>
+</openerp>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="shift_sale_product_template_form">
+             <field name="model">product.template</field>
+             <field name="inherit_id" ref="product.product_template_form_view" />
+             <field name="arch" type="xml">
+                <div name="options" position="inside">
+                    <field name="shift_ok" groups="base.group_no_one"/>
+                    <label for="shift_ok" groups="base.group_no_one"/>
+                </div>
+                <field name='type' position="after">
+                    <field name="shift_type_id" attrs="{'invisible': [('shift_ok', '=', False)]}"/>
+                </field>
+             </field>
+        </record>
+
+        <record model="ir.ui.view" id="event_sale_product_template_form_inherit">
+             <field name="model">product.template</field>
+             <field name="inherit_id" ref="event_sale.event_sale_product_template_form" />
+             <field name="arch" type="xml">
+                <field name="event_ok" position="attributes">
+                    <attribute name="groups">base.group_no_one</attribute>
+                </field>
+                <label for="event_ok" position="attributes">
+                    <attribute name="groups">base.group_no_one</attribute>
+                </label>
+             </field>
+        </record>
+    </data>
+</openerp>

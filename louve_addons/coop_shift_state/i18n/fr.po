@@ -1,0 +1,256 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_shift_state
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-30 16:08+0000\n"
+"PO-Revision-Date: 2016-09-30 16:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_shift_state
+#: selection:res.partner,cooperative_state:0
+msgid "Alert"
+msgstr "Alerte"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_date_start
+msgid "Begin Date"
+msgstr "Date de début"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_is_blocked
+#: selection:res.partner,cooperative_state:0
+msgid "Blocked"
+msgstr "Bloqué(e)"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_create_uid
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_create_date
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,help:coop_shift_state.field_shift_extension_type_duration
+msgid "Default duration (in days)"
+msgstr "Durée par défaut (en jours)"
+
+#. module: coop_shift_state
+#: selection:res.partner,cooperative_state:0
+msgid "Delay"
+msgstr "Délai"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_display_name
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_duration
+#: model:ir.ui.view,arch_db:coop_shift_state.view_shift_extension_type_form
+msgid "Duration"
+msgstr "Durée"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_date_alert_stop
+msgid "End Alert Date"
+msgstr "Date de Fin d'alerte"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_date_stop
+msgid "End Date"
+msgstr "Date de fin"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_date_delay_stop
+msgid "End Delay Date"
+msgstr "Date de fin de délai"
+
+#. module: coop_shift_state
+#: model:ir.ui.view,arch_db:coop_shift_state.view_res_partner_form_header
+msgid "Ext."
+msgstr "Ext."
+
+#. module: coop_shift_state
+#: model:ir.actions.act_window,name:coop_shift_state.action_shift_extension
+#: model:ir.actions.act_window,name:coop_shift_state.action_shift_extension_from_partner
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_extension_ids
+#: model:ir.ui.menu,name:coop_shift_state.menu_shift_extension
+#: model:ir.ui.view,arch_db:coop_shift_state.view_res_partner_form_shift
+msgid "Extensions"
+msgstr "Extensions"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_extension_qty
+msgid "Extensions Quantity"
+msgstr "Extensions Quantity"
+
+#. module: coop_shift_state
+#: model:ir.actions.act_window,name:coop_shift_state.action_shift_extension_type
+#: model:ir.ui.menu,name:coop_shift_state.menu_shift_extension_type
+msgid "Extensions Types"
+msgstr "Types d'extensions"
+
+#. module: coop_shift_state
+#: selection:res.partner,shift_type:0
+msgid "FTOP"
+msgstr "FTOP"
+
+#. module: coop_shift_state
+#: model:ir.ui.view,arch_db:coop_shift_state.view_res_partner_form_shift
+msgid "FTOP Part"
+msgstr "Partie FTOP"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_final_ftop_point
+msgid "Final FTOP points"
+msgstr "Points FTOP (Final)"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_final_standard_point
+msgid "Final Standard points"
+msgstr "Points Standard (Final)"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_id
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_id_4486
+msgid "ID"
+msgstr "ID"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension___last_update
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_write_uid
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_write_date
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_manual_ftop_correction
+msgid "Manual FTOP Correction"
+msgstr "Correction FTOP (manuelle)"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_manual_standard_correction
+msgid "Manual Standard Correction"
+msgstr "Correction Standard (manuelle)"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_name
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_name
+#: model:ir.ui.view,arch_db:coop_shift_state.view_shift_extension_form
+#: model:ir.ui.view,arch_db:coop_shift_state.view_shift_extension_type_form
+msgid "Name"
+msgstr "Nom"
+
+#. module: coop_shift_state
+#: model:ir.model,name:coop_shift_state.model_res_partner
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_partner_id
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_shift_type
+msgid "Shift type"
+msgstr "Type de Shift"
+
+#. module: coop_shift_state
+#: selection:res.partner,shift_type:0
+msgid "Standard"
+msgstr "Standard"
+
+#. module: coop_shift_state
+#: model:ir.ui.view,arch_db:coop_shift_state.view_res_partner_form_shift
+msgid "Standard Part"
+msgstr "Partie Standard"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_cooperative_state
+msgid "State"
+msgstr "État"
+
+#. module: coop_shift_state
+#: selection:res.partner,cooperative_state:0
+msgid "Suspended"
+msgstr "Suspendu(e)"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,help:coop_shift_state.field_res_partner_date_alert_stop
+msgid "This date mention the date when the 'alert' state stops and when the partner will be suspended."
+msgstr "Ce champ mentionne la date à laquelle l'état 'en alerte' se termine et à partir du moment ou le partenaire est 'suspendu'."
+
+#. module: coop_shift_state
+#: model:ir.model.fields,help:coop_shift_state.field_res_partner_date_delay_stop
+msgid "This date mention the date when the 'delay' state stops and when the partner will be suspended."
+msgstr "Ce champ mentionne la date à laquelle l'état 'délai' se termine et à partir du moment ou le partenaire est 'suspendu'."
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_id
+msgid "Type"
+msgstr "Type"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_is_unpayed
+#: selection:res.partner,cooperative_state:0
+msgid "Unpayed"
+msgstr "Impayé"
+
+#. module: coop_shift_state
+#: selection:res.partner,cooperative_state:0
+msgid "Unsubscribed"
+msgstr "Désinscrit(e)"
+
+#. module: coop_shift_state
+#: selection:res.partner,cooperative_state:0
+msgid "Up to date"
+msgstr "A jour"
+
+#. module: coop_shift_state
+#: model:ir.ui.view,arch_db:coop_shift_state.view_res_partner_form_header
+msgid "View partner Extensions"
+msgstr "Voir les extensions du partenaire"
+
+#. module: coop_shift_state
+#: model:ir.model,name:coop_shift_state.model_shift_extension
+msgid "shift.extension"
+msgstr "shift.extension"
+
+#. module: coop_shift_state
+#: model:ir.model,name:coop_shift_state.model_shift_extension_type
+msgid "shift.extension.type"
+msgstr "shift.extension.type"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_theoritical_ftop_point
+msgid "theoritical FTOP points"
+msgstr "Points FTOP (Théorique)"
+
+#. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_theoritical_standard_point
+msgid "theoritical Standard points"
+msgstr "Points Standard (Théorique)"
+

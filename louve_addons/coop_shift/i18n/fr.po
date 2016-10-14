@@ -1,0 +1,2737 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_shift
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-18 15:02+0000\n"
+"PO-Revision-Date: 2016-08-18 15:02+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_registration_template_start_date
+#: model:ir.model.fields,help:coop_shift.field_shift_template_start_date
+msgid "\n"
+"        First date this shift will be scheduled"
+msgstr "\n"
+"        Date du premier shift de ce créneau"
+
+#. module: coop_shift
+#: code:addons/coop_shift/wizard/create_shifts_wizard.py:79
+#, python-format
+msgid "'From date' can't be before 'Last shift date'"
+msgstr "Attention ! Veuillez vérifier les dates renseignées."
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "**-FTOP Workers Below-**"
+msgstr "**-Membres volants-**"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "<br/><font size=\"15\">(Regular or Sub)</font>"
+msgstr "<br/><font size=\"15\">(Classiques ou volants)</font>"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_kanban
+msgid "<i class=\"fa fa-clock-o\"/>\n"
+"                                        <b>From</b>"
+msgstr "<i class=\"fa fa-clock-o\"/>\n"
+"                                        <b>From</b>"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_kanban
+msgid "<i class=\"fa fa-clock-o\"/>\n"
+"                                        <b>To</b>"
+msgstr "<i class=\"fa fa-clock-o\"/>\n"
+"<b>À</b>"
+
+#. module: coop_shift
+#: model:mail.template,body_html:coop_shift.shift_reminder
+msgid "<p>Hello ${object.name},</p>\n"
+"<p>This is a reminder for ${object.shift_id.name} that you registered for is confirmed and will be held from ${object.shift_id.date_begin_located} to ${object.shift_id.date_end_located}.\n"
+"For any further information please contact our shift department.</p>\n"
+"<p>Thank you for your participation!</p>\n"
+"<p>Best regards</p>"
+msgstr "<p>Bonjour ${object.name},</p>\n"
+"<p>Nous vous rappelons que le shift ${object.shift_id.name} sur lequel vous êtes inscrit(e) a été confirmé et aura lieu de ${object.shift_id.date_begin_located} à ${object.shift_id.date_end_located}.\n"
+"Pour plus d'informations, veuillez contacter le bureau des membres ou le responsable du shift.</p>\n"
+"<p>Merci de votre participation !</p>\n"
+"<p>L'équipe La Louve</p>"
+
+#. module: coop_shift
+#: model:mail.template,body_html:coop_shift.shift_thanks
+msgid "<p>Hello ${object.name},</p>\n"
+"<p>We would like to thank you for your presence at our shift ${object.shift_id.name}.\n"
+"<br/><br/>\n"
+"    % if object.shift_id.organizer_id and object.shift_id.organizer_id.is_company:\n"
+"        <strong>The ${object.shift_id.organizer_id.name} Team</strong>\n"
+"    % elif object.shift_id.organizer_id:\n"
+"        <strong>${object.shift_id.organizer_id.name}</strong>\n"
+"    % endif\n"
+"</p>"
+msgstr "<p>Bonjour ${object.name},</p>\n"
+"<p>Nous vous remercions de votre présence au shift ${object.shift_id.name}.\n"
+"<br/><br/>\n"
+"    % if object.shift_id.organizer_id and object.shift_id.organizer_id.is_company:\n"
+"        <strong>L'équipe ${object.shift_id.organizer_id.name}</strong>\n"
+"    % elif object.shift_id.organizer_id:\n"
+"        <strong>${object.shift_id.organizer_id.name}</strong>\n"
+"    % endif\n"
+"</p>"
+
+#. module: coop_shift
+#: model:mail.template,body_html:coop_shift.shift_subscription
+msgid "<p>Hello ${object.name},</p>\n"
+"<p>You have been subscribded to the shift ${object.shift_id.name}.\n"
+"Please confirm as soon as possible that you intend to participate to this shift.</p>\n"
+"<p>Thank you for your participation!</p>\n"
+"<p>Best regards</p>"
+msgstr "<p>Bonjour ${object.name},</p>\n"
+"<p>Votre inscription au shift ${object.shift_id.name} a été enregistrée.\n"
+"Veuillez prévenir votre responsable d'équipe si vous ne pouvez être présent.</p>\n"
+"<p>Merci de votre participation !</p>\n"
+"<p>L'équipe La Louve</p>"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "<small><small>Squad leader <br/>use only </small></small>"
+msgstr "<small><small>Réservé</small></small>"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "<small><small>Squad leader use only</small></small>"
+msgstr "<small><small>Réservé</small></small>"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "<small>Nb of<br/>MakeUps<br/>if absent</small>"
+msgstr "<small>Nb. rattrapages</small>"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "<span attrs=\"{'invisible': [('seats_availability', '=', 'unlimited')]}\" class=\"oe_read_only\">\n"
+"                                                to \n"
+"                                            </span>"
+msgstr "<span attrs=\"{'invisible': [('seats_availability', '=', 'unlimited')]}\" class=\"oe_read_only\">\n"
+"à\n"
+"</span>"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "ABCD"
+msgstr "ABCD"
+
+#. module: coop_shift
+#: selection:add.template.registration.wizard,state:0
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree
+#: selection:shift.registration,state:0
+#: selection:shift.template.registration.line,state:0
+msgid "Absent"
+msgstr "Absent"
+
+#. module: coop_shift
+#: model:res.groups,name:coop_shift.group_event_without_menu
+msgid "Access"
+msgstr "Accès"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_needaction
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_needaction
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_needaction
+msgid "Action Needed"
+msgstr "A besoin d'une action"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_active
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_active
+msgid "Active"
+msgstr "Actif"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.action_add_template_registration
+#: model:ir.ui.view,arch_db:coop_shift.view_add_template_registration_wizard_form
+#: model:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
+msgid "Add Template Registration"
+msgstr "Inscription à un créneau"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_add_template_registration_wizard
+msgid "Add Template Registration Wizard"
+msgstr "Inscription à un créneau"
+
+#. module: coop_shift
+#: selection:shift.mail,interval_type:0
+#: selection:shift.template.mail,interval_type:0
+msgid "After each subscription"
+msgstr "Après chaque inscription"
+
+#. module: coop_shift
+#: selection:shift.mail,interval_type:0
+msgid "After the event"
+msgstr "Après le shift"
+
+#. module: coop_shift
+#: selection:shift.template.mail,interval_type:0
+msgid "After the shift"
+msgstr "Après le shift"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "All members who owe time for more than four weeks will be suspended, unless an extension is recorded in the Squad Leader Notes Section Below."
+msgstr "Les coopérateurs qui ne sont pas à jour de leurs shifts pendant plus de quatre semaines seront suspendus. Une extension peut toutefois être demandée par le responsable d'équipe dans la section réservée ci-dessous."
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_search
+msgid "Archived"
+msgstr "Archivé"
+
+#. module: coop_shift
+#: selection:add.template.registration.wizard,state:0
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+#: selection:shift.registration,state:0
+#: selection:shift.template.registration,state:0
+#: selection:shift.template.registration.line,state:0
+msgid "Attended"
+msgstr "Présent"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_date_closed
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_date_closed
+msgid "Attended Date"
+msgstr "Date de présence"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree
+msgid "Attended the Shift"
+msgstr "Présents"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_shift_registration
+#: model:ir.model,name:coop_shift.model_shift_template_registration
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_registration_registration_id
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_form
+msgid "Attendee"
+msgstr "Présences"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_shift_template_registration_line
+msgid "Attendee Line"
+msgstr "Présences"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_name
+msgid "Attendee Name"
+msgstr "Nom du coopérateur"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.act_shift_registration_from_partner
+#: model:ir.actions.act_window,name:coop_shift.act_shift_registration_from_shift
+#: model:ir.actions.act_window,name:coop_shift.act_template_registration_from_template
+#: model:ir.actions.act_window,name:coop_shift.act_template_registration_line_from_partner
+#: model:ir.actions.act_window,name:coop_shift.action_registration
+#: model:ir.actions.act_window,name:coop_shift.action_template_registration
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_registration_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_ids
+#: model:ir.ui.menu,name:coop_shift.menu_action_registration
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Attendees"
+msgstr "Programmation"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_seats_availability
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_seats_availability
+msgid "Available Seat"
+msgstr "Places disponibles"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_seats_available
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_seats_available
+msgid "Available Seats"
+msgstr "Places disponibles"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_badge_back
+msgid "Badge Back"
+msgstr "Verso du badge"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_badge_front
+msgid "Badge Front"
+msgstr "Recto du badge"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_badge_innerright
+msgid "Badge Inner Right"
+msgstr "Badge Intérieur Droit"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_badge_innerleft
+msgid "Badge Innner Left"
+msgstr "Badge Intérieur Gauche"
+
+#. module: coop_shift
+#: selection:shift.mail,interval_type:0
+msgid "Before the event"
+msgstr "Avant le shift"
+
+#. module: coop_shift
+#: selection:shift.template.mail,interval_type:0
+msgid "Before the shift"
+msgstr "Avant le shift"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_date_begin
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_date_begin
+msgid "Begin Date"
+msgstr "Date de début"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template_registration.py:97
+#: code:addons/coop_shift/model/shift_template_registration.py:107
+#, python-format
+msgid "Begin date is greater than End date: \n"
+" begin: %s    end: %s    state: %s;"
+msgstr "La date de début est postétieure à la date de fin : \n"
+" begin: %s    end: %s    state: %s;"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_byday
+msgid "By day"
+msgstr "Par jour"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.shift_report_timesheet_view
+#: model:ir.ui.view,arch_db:coop_shift.shift_report_wallchart_view
+#: model:ir.ui.view,arch_db:coop_shift.view_add_template_registration_wizard_form
+#: model:ir.ui.view,arch_db:coop_shift.view_replace_registration_wizard_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_wizard_form
+#: model:ir.ui.view,arch_db:coop_shift.view_update_shifts_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree
+msgid "Cancel Registration"
+msgstr "Annuler l'inscription"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+msgid "Cancel Shift"
+msgstr "Annuler le service"
+
+#. module: coop_shift
+#: selection:add.template.registration.wizard,state:0
+#: selection:shift.registration,state:0
+#: selection:shift.shift,state:0
+#: selection:shift.template.registration,state:0
+#: selection:shift.template.registration.line,state:0
+#: selection:update.shifts.wizard.line,state:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Cashier<br/>start<br/>time"
+msgstr "<br/>Session de caisse<br/>"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_event_type_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_shift_type_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_shift_type_id
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_shift_type_id
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_updated_fields
+msgid "Changes to repercute on selected shifts"
+msgstr "Modifications à repoter sur les shifts sélectionnés"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Click here if you don't want to repercute the template changes on the linked shifts."
+msgstr "Veuillez cliquer ici pour ne pas repercuter ces modifications sur les shifts associés."
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Click here to update some shifts linked to this template."
+msgstr "Veuillez cliquer ici pour mettre à jour les shifts associés à ce créneau."
+
+#. module: coop_shift
+#: model:ir.actions.act_window,help:coop_shift.action_shift_view
+msgid "Click to add a new shift."
+msgstr "Cliquer pour créer un shift."
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Commitee/Squad:"
+msgstr "Equipe:"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Committee"
+msgstr "Groupe"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_company_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_company_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_company_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: coop_shift
+#: model:ir.ui.menu,name:coop_shift.menu_shift_configuration
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree
+msgid "Confirm Registration"
+msgstr "Confirmer l'inscription"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+msgid "Confirm Shift"
+msgstr "Confirmer le service"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_auto_confirm
+msgid "Confirmation not required"
+msgstr "Confirmation non requise"
+
+#. module: coop_shift
+#: selection:add.template.registration.wizard,state:0
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+#: selection:shift.registration,state:0
+#: selection:shift.shift,state:0
+#: selection:shift.template.registration,state:0
+#: selection:shift.template.registration.line,state:0
+#: selection:update.shifts.wizard.line,state:0
+msgid "Confirmed"
+msgstr "Confirmé"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_kanban
+msgid "Confirmed attendees"
+msgstr "Participants confirmés"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+msgid "Confirmed shifts"
+msgstr "Services confirmés"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_partner_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_partner_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_partner_id
+msgid "Contact"
+msgstr "Contact"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_country_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_country_id
+msgid "Country"
+msgstr "Pays"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_is_current
+msgid "Current"
+msgstr "Courant"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.action_create_shift_shifts
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_wizard_form
+msgid "Create Shifts"
+msgstr "Créer les services"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_create_shifts_wizard
+msgid "Create Shifts Wizard"
+msgstr "Créer les services"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Create shifts"
+msgstr "Créer les shifts"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_report_timesheet_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_registration_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_type_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_create_uid
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_template_created
+msgid "Created by a Template"
+msgstr "Créé depuis un créneau"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_report_timesheet_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_registration_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_type_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_create_date
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_report_timesheet_date_report
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_date_without_time
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+msgid "Date"
+msgstr "Date"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_day
+#: selection:shift.template,month_by:0
+msgid "Date of month"
+msgstr "Jour dans le mois"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_registration_message_last_post
+#: model:ir.model.fields,help:coop_shift.field_shift_shift_message_last_post
+#: model:ir.model.fields,help:coop_shift.field_shift_template_registration_message_last_post
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur cet enregistrement"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Day of Month"
+msgstr "Jour dans le mois"
+
+#. module: coop_shift
+#: selection:shift.template,month_by:0
+msgid "Day of month"
+msgstr "Jour dans le mois"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Day of<br/>Week"
+msgstr "Jour de la semainre<br/>Week"
+
+#. module: coop_shift
+#: selection:shift.mail,interval_unit:0
+#: selection:shift.template,rrule_type:0
+#: selection:shift.template.mail,interval_unit:0
+msgid "Day(s)"
+msgstr "Jour(s)"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_type_default_registration_max
+msgid "Default Maximum Registration"
+msgstr "Nombre maximum d'inscriptions par défaut"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_type_default_registration_min
+msgid "Default Minimum Registration"
+msgstr "Inscription minimale par défaut"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_ticket_seats_max
+#: model:ir.model.fields,help:coop_shift.field_shift_ticket_seats_max
+msgid "Define the number of available tickets. If you have too much registrations you will not be able to sell tickets anymore. Set 0 to ignore this rule set as unlimited."
+msgstr "Définissez le nombre de places disponibles. Lorsque la limite est atteinte, les inscriptions sont stoppées. Mettez 0 pour ignorer cette règle."
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_kanban
+msgid "Delete"
+msgstr "Supprimer"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_description
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_description
+msgid "Description"
+msgstr "Description"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_product_product_shift_ok
+#: model:ir.model.fields,help:coop_shift.field_product_template_shift_ok
+msgid "Determine if a product needs to create\n"
+"        automatically an event registration at the confirmation of a sales\n"
+"        order line."
+msgstr "Determine if a product needs to create\n"
+"        automatically an event registration at the confirmation of a sales\n"
+"        order line."
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_timesheet_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_wallchart_common_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_wallchart_ftop_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_wallchart_template_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_report_timesheet_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_registration_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_type_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_display_name
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_sequence
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_sequence
+msgid "Display order"
+msgstr "Afficher l'ordre"
+
+#. module: coop_shift
+#: selection:shift.shift,state:0
+#: selection:update.shifts.wizard.line,state:0
+msgid "Done"
+msgstr "Effectué"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_duration
+msgid "Duration (hours)"
+msgstr "Durée (heures)"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_email
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_email
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_email
+msgid "Email"
+msgstr "Courriel"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Email Schedule"
+msgstr "Courriel planifié"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_template_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_template_id
+msgid "Email to Send"
+msgstr "Courriel à envoyer"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+msgid "End"
+msgstr "Fin"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_date_end
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_date_end
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_date_end
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_date_end
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_date_end
+msgid "End Date"
+msgstr "Date de fin"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_date_end_located
+msgid "End Date Located"
+msgstr "Date de fin située"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_end_time
+msgid "End Time"
+msgstr "Heure de fin"
+
+#. module: coop_shift
+#: selection:shift.template,end_type:0
+msgid "End date"
+msgstr "Date de fin"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "End<br/>signature"
+msgstr "Signature<br/>fin"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_event_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_event_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_event_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_event_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_event_id
+msgid "Event"
+msgstr "Shift"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_event_end_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_event_end_date
+msgid "Event End Date"
+msgstr "Date de fin"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_event_logo
+msgid "Event Logo"
+msgstr "Logo"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_event_begin_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_event_begin_date
+msgid "Event Start Date"
+msgstr "Date de début"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_event_ticket_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_event_ticket_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_event_ticket_id
+msgid "Event Ticket"
+msgstr "Place"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:375
+#: code:addons/coop_shift/model/shift_template.py:382
+#, python-format
+msgid "Event recurrence interval cannot be negative."
+msgstr "L'intervale ne peut être négatif."
+
+#. module: coop_shift
+#: selection:add.template.registration.wizard,state:0
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree
+#: selection:shift.registration,state:0
+#: selection:shift.template.registration.line,state:0
+msgid "Excused"
+msgstr "Excusé"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+msgid "Expected"
+msgstr "Attendu"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_kanban
+msgid "Expected attendees"
+msgstr "participants attendus"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:157
+#, python-format
+msgid "FR"
+msgstr "VE"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_shift.py:99
+#: code:addons/coop_shift/model/shift_shift.py:103
+#: code:addons/coop_shift/model/shift_template.py:171
+#: code:addons/coop_shift/model/shift_template.py:178
+#, python-format
+msgid "FTOP"
+msgstr "Volant"
+
+#. module: coop_shift
+#: model:product.product,name:coop_shift.product_product_shift_ftop
+#: model:product.template,name:coop_shift.product_product_shift_ftop_product_template
+msgid "FTOP Subscription"
+msgstr "Inscription Volants"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.shift_report_wallchart_view
+msgid "FTOP Wallchart"
+msgstr "Places volants"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_wallchart_ftop
+msgid "FTOP workers sign-ups as of<br/>"
+msgstr "Inscription des volants au <br/>"
+
+#. module: coop_shift
+#: selection:shift.template,byday:0
+msgid "Fifth"
+msgstr "Cinquième"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+msgid "Finish Shift"
+msgstr "Clôturer le service"
+
+#. module: coop_shift
+#: selection:shift.template,byday:0
+msgid "First"
+msgstr "Premier"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_follower_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_follower_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_follower_ids
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_channel_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_channel_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Abonnés (Canaux)"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_partner_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_partner_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Abonnés (Partenaires)"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "For MAKE-UPS Only (Subs Use Page 1)"
+msgstr "Uniquement les rattrapages"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_shift_seats_max
+msgid "For each event you can define a maximum registration of seats(number of attendees), above this numbers the registrations are not accepted."
+msgstr "Pour chaque shifts, vous pouvez définir un nombre maximum de places (nombre de participants), au delà de ce chiffre, les inscriptions sont stoppées."
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_shift_seats_min
+msgid "For each event you can define a minimum reserved seats (number of attendees), if it does not reach the mentioned registrations the event can not be confirmed (keep 0 to ignore this rule)"
+msgstr "Pour chaque évènement, vous pouvez définir un nombre minimum de place réservées (nombre de participants), si vous n'obtenez pas suffisamment d'inscriptions, vous ne pourrez pas confirmer votre shift. (Mettez 0 pour ignorer cette règle)"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_seats_max
+msgid "For each shift you can define a maximum registration of\n"
+"        seats(number of attendees), above this numbers the registrations\n"
+"        are not accepted."
+msgstr "Pour chaque shift vous pouvez définir un nb. maximum d'inscriptions de\n"
+"        places(nombre de participants). Au-delà, les inscriptions\n"
+"        ne sont plus acceptées."
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_seats_min
+msgid "For each shift you can define a minimum reserved seats (number\n"
+"        of attendees), if it does not reach the mentioned registrations the\n"
+"        shift can not be confirmed (keep 0 to ignore this rule)"
+msgstr "pour chaque shift vous pouvez définir un minimum d'inscriptions (nombre\n"
+"        de participants). Si les inscriptions ne sont pas suffisantes\n"
+"        le shift ne pourra être confirmé (Mettez 0 pour ignorer ce contrôle)"
+
+#. module: coop_shift
+#: selection:shift.template,byday:0
+msgid "Fourth"
+msgstr "Quatrième"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:239
+#, python-format
+msgid "Fr"
+msgstr "Ve"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_fr
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_fr
+msgid "Fri"
+msgstr "Ven."
+
+#. module: coop_shift
+#: code:addons/coop_shift/report/report_wallchart_ftop.py:34
+#: code:addons/coop_shift/report/report_wallchart_template.py:34
+#: selection:shift.shift,week_list:0
+#: selection:shift.template,week_list:0
+msgid "Friday"
+msgstr "Vendredi"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_is_future
+msgid "Future"
+msgstr "Futur"
+
+#. module: coop_shift
+#: model:shift.type,name:coop_shift.shift_type
+msgid "Generic Shifts"
+msgstr "Classique"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_line_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_search
+#: model:ir.ui.view,arch_db:coop_shift.view_template_registration_search
+msgid "Group By"
+msgstr "Regrouper par"
+
+#. module: coop_shift
+#: model:res.groups,name:coop_shift.group_recurrency
+msgid "Handle Recurrency"
+msgstr "Récurrence"
+
+#. module: coop_shift
+#: model:ir.module.category,description:coop_shift.module_category_shift_management
+msgid "Helps you manage your Shifts."
+msgstr "Permet de catégoriser les services."
+
+#. module: coop_shift
+#: selection:shift.mail,interval_unit:0
+#: selection:shift.template.mail,interval_unit:0
+msgid "Hour(s)"
+msgstr "Heure(s)"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_id
+#: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard_id
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_id
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_timesheet_id
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_wallchart_common_id
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_wallchart_ftop_id
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_wallchart_template_id
+#: model:ir.model.fields,field_description:coop_shift.field_report_timesheet_id
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_registration_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_type_id
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_id
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_id
+msgid "ID"
+msgstr "ID"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_registration_message_unread
+#: model:ir.model.fields,help:coop_shift.field_shift_shift_message_unread
+#: model:ir.model.fields,help:coop_shift.field_shift_template_registration_message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages nécessitent votre attention."
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_registration_message_needaction
+#: model:ir.model.fields,help:coop_shift.field_shift_shift_message_needaction
+#: model:ir.model.fields,help:coop_shift.field_shift_template_registration_message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "si elle est cochée, de nouveaux messages nécessitent votre attention."
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_shift_state
+msgid "If event is created, the status is 'Draft'. If event is confirmed for the particular dates the status is set to 'Confirmed'. If the event is over, the status is set to 'Done'. If event is cancelled the status is set to 'Cancelled'."
+msgstr "Si un shift est créé, le statut sera \"Brouillon\". Si le shift est confirmé pour une date particulière, le statut sera \"Confirmé\". Si le shift est terminé, le statut sera \"Terminé\". Si l'événement est annulé, le statut sera \"Annulé\"."
+
+#. module: coop_shift
+#: selection:shift.mail,interval_unit:0
+#: selection:shift.template.mail,interval_unit:0
+msgid "Immediately"
+msgstr "Immédiat"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template_registration.py:72
+#, python-format
+msgid "Inscriptions on Templates must be Standard type!"
+msgstr "Les inscriptions sur les créneaux doivent être de type 'Classique'!"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_interval_nbr
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_interval_nbr
+msgid "Interval"
+msgstr "Intervalle"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_is_expired
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_is_expired
+msgid "Is Expired"
+msgstr "Expiré"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_is_follower
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_is_follower
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_is_follower
+msgid "Is Follower"
+msgstr "Est un abonné"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_is_current
+msgid "Is current"
+msgstr "Courante"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_type_default_registration_max
+msgid "It will select this default maximum value when you choose\n"
+"        this shift"
+msgstr "Perment de définir une valeur maximum par défaut sur\n"
+"        ce shift"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_type_default_registration_min
+msgid "It will select this default minimum value when you choose\n"
+"        this shift"
+msgstr "Perment de définir une valeur minimum par défaut sur\n"
+"        ce shift"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_color
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_color
+msgid "Kanban Color Index"
+msgstr "Code Couleur Kanban"
+
+#. module: coop_shift
+#: selection:shift.template,byday:0
+msgid "Last"
+msgstr "Dernier"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_last_post
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_last_post
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_last_post
+msgid "Last Message Date"
+msgstr "Dernier message"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_timesheet___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_wallchart_common___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_wallchart_ftop___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_report_coop_shift_report_wallchart_template___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_report_timesheet___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_registration___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_shift_type___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard___last_update
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_last_shift_date
+msgid "Last Scheduled Shift"
+msgstr "Dernier service programmé"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_report_timesheet_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_registration_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_shift_type_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_write_uid
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_report_timesheet_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_registration_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_shift_type_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_write_date
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard_last_shift_date
+msgid "Last created shift date"
+msgstr "Date du dernier shift créé"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_rrule_type
+msgid "Let the shift automatically repeat at that interval"
+msgstr "Fréquence"
+
+#. module: coop_shift
+#: selection:shift.shift,seats_availability:0
+#: selection:shift.template,seats_availability:0
+#: selection:shift.template.ticket,seats_availability:0
+#: selection:shift.ticket,seats_availability:0
+msgid "Limited"
+msgstr "Limité"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_ids
+msgid "Line ids"
+msgstr "Line ids"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_ids
+msgid "Lines"
+msgstr "Lignes"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_address_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_address_id
+msgid "Location"
+msgstr "Lieu"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "MEMBERS WORKING"
+msgstr "Coopérateurs travailleurs"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:156
+#, python-format
+msgid "MO"
+msgstr "LU"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_event_mail_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_shift_mail_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_shift_mail_ids
+msgid "Mail Schedule"
+msgstr "Planification de courriel"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_registration_scheduler_id
+msgid "Mail Scheduler"
+msgstr "Planificateur de courriel"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_registration_mail_sent
+msgid "Mail Sent"
+msgstr "Courriel Envoyé"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_mail_sent
+msgid "Mail Sent on Event"
+msgstr "Courriel Envoyé sur l'événement"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_mail_registration_ids
+msgid "Mail registration ids"
+msgstr "ids d'enregistrement Mail"
+
+#. module: coop_shift
+#: model:res.groups,name:coop_shift.group_shift_manager
+msgid "Manager"
+msgstr "Responsable"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:157
+#, python-format
+msgid "SA"
+msgstr "SA"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_seats_availability
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_seats_available
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_seats_availability
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_seats_available
+msgid "Maximum Attendees"
+msgstr "Maximum de participants"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_seats_max
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_seats_max
+msgid "Maximum Attendees Number"
+msgstr "Nombre maximum de participants"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_seats_max
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_seats_max
+msgid "Maximum Available Seats"
+msgstr "Nombre de places maximum"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Member #"
+msgstr "Membre #"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Member Name"
+msgstr "Nom du membre"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Member Working"
+msgstr "Membre travailleur"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Member to Receive Make-Up Credit"
+msgstr "Membre à créditer"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Member<br/>Number"
+msgstr "N° membre"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Members Working"
+msgstr "Membres travailleurs"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_seats_min
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_seats_min
+msgid "Minimum Attendees"
+msgstr "Minimum de participants"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:235
+#, python-format
+msgid "Mo"
+msgstr "Lu"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_mo
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mo
+msgid "Mon"
+msgstr "Lun."
+
+#. module: coop_shift
+#: code:addons/coop_shift/report/report_wallchart_ftop.py:30
+#: code:addons/coop_shift/report/report_wallchart_template.py:30
+#: selection:shift.shift,week_list:0
+#: selection:shift.template,week_list:0
+msgid "Monday"
+msgstr "Lundi"
+
+#. module: coop_shift
+#: selection:shift.mail,interval_unit:0
+#: selection:shift.template,rrule_type:0
+#: selection:shift.template.mail,interval_unit:0
+msgid "Month(s)"
+msgstr "Mois"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+msgid "My Shifts"
+msgstr "Mes Services"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_name
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_name
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: coop_shift
+#: selection:shift.template,end_type:0
+msgid "No end"
+msgstr "Pas de date de fin"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_ticket.py:96
+#, python-format
+msgid "No more available seats for the ticket"
+msgstr "Aucune place restante de ce type"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_registration.py:83
+#, python-format
+msgid "No more available seats for this ticket"
+msgstr "Aucune place restante de ce type"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_shift.py:111
+#: code:addons/coop_shift/model/shift_shift.py:115
+#: code:addons/coop_shift/model/shift_template.py:218
+#: code:addons/coop_shift/model/shift_template.py:225
+#, python-format
+msgid "No more available seats."
+msgstr "Aucune place restante"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_needaction_counter
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_needaction_counter
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_needaction_counter
+msgid "Number of Actions"
+msgstr "Nombre d'actions"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_seats_expected
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_seats_expected
+msgid "Number of Expected Attendees"
+msgstr "participants attendus"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_seats_used
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_seats_used
+msgid "Number of Participants"
+msgstr "Nombre de participants"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_res_partner_tmpl_registration_count
+msgid "Number of Template registrations"
+msgstr "Nombre d'inscriptions sur ce créneau"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_res_partner_active_tmpl_reg_line_count
+msgid "Number of active registration lines"
+msgstr "Nombre d'inscriptions actives"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_registration_message_needaction_counter
+#: model:ir.model.fields,help:coop_shift.field_shift_shift_message_needaction_counter
+#: model:ir.model.fields,help:coop_shift.field_shift_template_registration_message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Nombre de messages demandant une action"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_res_partner_upcoming_registration_count
+msgid "Number of registrations"
+msgstr "Nombre d'inscriptions"
+
+#. module: coop_shift
+#: selection:shift.template,end_type:0
+msgid "Number of repetitions"
+msgstr "Number of repetitions"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_shifts_count
+msgid "Number of shifts"
+msgstr "Nombre de shifts"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_registration_message_unread_counter
+#: model:ir.model.fields,help:coop_shift.field_shift_shift_message_unread_counter
+#: model:ir.model.fields,help:coop_shift.field_shift_template_registration_message_unread_counter
+msgid "Number of unread messages"
+msgstr "Nombre de messages non lus"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,help:coop_shift.action_shift_view
+msgid "Odoo helps you schedule and efficiently organize your shifts:\n"
+"    track subscriptions and participations, automate the confirmation emails,\n"
+"    sell tickets, etc."
+msgstr "Odoo vous permet de programmer et d'organiser efficacement le travail des coopérateurs :\n"
+"    enregistrer les inscriptions et les présences, envoyer des courriels automatiques, etc.\n"
+"    sell tickets, etc."
+
+#. module: coop_shift
+#: model:ir.actions.client,name:coop_shift.action_client_shift_menu
+msgid "Open Shift Menu"
+msgstr "Ouvrir le service"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_month_by
+msgid "Option"
+msgstr "Option"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_organizer_id
+msgid "Organizer"
+msgstr "Agenda"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+#: model:ir.ui.view,arch_db:coop_shift.view_template_registration_search
+msgid "Participant"
+msgstr "Participant(e)"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_res_partner
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_line_search
+#: model:ir.ui.view,arch_db:coop_shift.view_template_registration_search
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_is_past
+msgid "Past"
+msgstr "Passé"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_phone
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_phone
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_phone
+msgid "Phone"
+msgstr "Tél."
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard_date_from
+msgid "Plan this Template from"
+msgstr "Date de début"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard_date_to
+msgid "Plan this Template until"
+msgstr "Date de fin"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Please be as Specific as possible when noting corrections, extensions, etc. Please refer to: the date of the problem, what the problem was; what change should happen now. Please sign your notes.<br/>_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________"
+msgstr "Veillez à donner toutes les précisions sur les corrections, les extensions, etc. Veuillez renseigner : la date du problème, sa description et les modifications à apporter. Les notes doivent être signées pour être valables."
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:391
+#: code:addons/coop_shift/model/shift_template.py:398
+#, python-format
+msgid "Please select a proper day of the month."
+msgstr "Le jour est invalide."
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_price
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_price
+msgid "Price"
+msgstr "Prix"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_price_reduce
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_price_reduce
+msgid "Price Reduce"
+msgstr "Réduction de Prix"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.shift_report_timesheet_view
+msgid "Print"
+msgstr "Imprimer"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Prior<br/>Shifts<br/>Due"
+msgstr "Rattrapages<br/>dûs<br/>"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_product_product
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_product_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_product_id
+msgid "Product"
+msgstr "Type"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Recurrence"
+msgstr "Récurrence"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_end_type
+msgid "Recurrence Termination"
+msgstr "Fin de la période"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_rrule_type
+msgid "Recurrency"
+msgstr "Récurrence"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_recurrency
+msgid "Recurrent"
+msgstr "Récurrence"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_recurrent_id
+msgid "Recurrent ID"
+msgstr "Recurrent ID"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_recurrent_id_date
+msgid "Recurrent ID date"
+msgstr "Recurrent ID date"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_recurrency
+msgid "Recurrent Meeting"
+msgstr "Service"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_rrule
+msgid "Recurrent Rule"
+msgstr "Répétition"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_registration_origin
+#: model:ir.model.fields,help:coop_shift.field_shift_template_registration_origin
+msgid "Reference of the document that created the registration, for example a sale order"
+msgstr "Référence du document ayant crée l'inscription"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+msgid "Register with this shift"
+msgstr "S'inscrire à ce shift"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Register with this template"
+msgstr "S'inscrire à ce créneau"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_registration_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_registration_id
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_graph
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_pivot
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_graph
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_pivot
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_tree
+msgid "Registration"
+msgstr "Inscription"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_date_open
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_date_open
+msgid "Registration Date"
+msgstr "Date d'inscription"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+#: model:ir.ui.view,arch_db:coop_shift.view_template_registration_search
+msgid "Registration Day"
+msgstr "Journée"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+#: model:ir.ui.view,arch_db:coop_shift.view_template_registration_search
+msgid "Registration ID"
+msgstr "ID Inscription"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_line_tree
+msgid "Registration Lines"
+msgstr "Lignes d'inscription"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_shift_mail_registration
+msgid "Registration Mail Scheduler"
+msgstr "Planificateur d'email d'inscription"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_mail_form
+msgid "Registration Mails"
+msgstr "Mail à l'inscription"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+#: model:ir.ui.view,arch_db:coop_shift.view_template_registration_search
+msgid "Registration Month"
+msgstr "Mois"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_form
+msgid "Registration dates"
+msgstr "Période de l'inscription"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_mail_form
+msgid "Registration mail"
+msgstr "Courriel d'inscription"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_res_partner_registration_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_shift_registration_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_registration_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_registration_ids
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Registrations"
+msgstr "Inscriptions"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_wallchart_template
+msgid "Regular workers sign-ups as of<br/>"
+msgstr "Travailleurs classiques au :<br/>"
+
+#. module: coop_shift
+#: model:mail.template,subject:coop_shift.shift_reminder
+msgid "Reminder of shift ${object.shift_id.name}"
+msgstr "Rappel sur le shift ${object.shift_id.name}"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_count
+msgid "Repeat"
+msgstr "Répéter"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_interval
+msgid "Repeat Every"
+msgstr "Planifier à partir de"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_final_date
+msgid "Repeat Until"
+msgstr "Planifier jusqu'à"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_interval
+msgid "Repeat every (Days/Week/Month/Year)"
+msgstr "Répéter chaque (Jour/Semaine/Mois/Année)"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_count
+msgid "Repeat x times"
+msgstr "Répéter n fois"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_replace_registration_wizard_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree
+msgid "Replace Member"
+msgstr "Remplacé"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.action_replace_registration
+msgid "Replace Registration"
+msgstr "Remplaçant"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_replace_registration_wizard
+msgid "Replace Registration Wizard"
+msgstr "Enregistrement du remplacement"
+
+#. module: coop_shift
+#: selection:add.template.registration.wizard,state:0
+#: selection:shift.registration,state:0
+#: selection:shift.template.registration.line,state:0
+msgid "Replaced"
+msgstr "Remplacé"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_partner_id
+#: model:ir.ui.view,arch_db:coop_shift.view_replace_registration_wizard_form
+msgid "Replaced Member"
+msgstr "Remplacement d'un membre"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_replaced_reg_id
+msgid "Replaced Registration"
+msgstr "Remplacé"
+
+#. module: coop_shift
+#: selection:add.template.registration.wizard,state:0
+#: selection:shift.registration,state:0
+#: selection:shift.template.registration.line,state:0
+msgid "Replacing"
+msgstr "Remplaçant"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_new_partner_id
+msgid "Replacing Member"
+msgstr "Remplaçant"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_replacing_reg_id
+msgid "Replacing Registration"
+msgstr "Enregistrement du remplacement"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_type_default_reply_to
+msgid "Reply To"
+msgstr "Répondre à"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_reply_to
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_reply_to
+msgid "Reply-To Email"
+msgstr "Email de réponse"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.shift_report_timesheet_view
+#: model:ir.ui.view,arch_db:coop_shift.shift_report_wallchart_view
+msgid "Report Options"
+msgstr "Options du rapport"
+
+#. module: coop_shift
+#: model:ir.ui.menu,name:coop_shift.menu_reporting_shifts
+msgid "Reports"
+msgstr "Rapports"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_seats_reserved
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_seats_reserved
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_seats_reserved
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_seats_reserved
+msgid "Reserved Seats"
+msgstr "Places réservées"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_user_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_user_id
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_user_id
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "SCHEDULED MEMBERS"
+msgstr "Membres inscrits"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:158
+msgid "SU"
+msgstr "DI"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_sale_order_line_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_sale_order_line_id
+msgid "Sale Order Line"
+msgstr "Ligne de commande"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_deadline
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_deadline
+msgid "Sales End"
+msgstr "Fin des ventes"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:240
+#, python-format
+msgid "Sa"
+msgstr "Sa"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_sa
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_sa
+msgid "Sat"
+msgstr "Sam."
+
+#. module: coop_shift
+#: code:addons/coop_shift/report/report_wallchart_ftop.py:35
+#: code:addons/coop_shift/report/report_wallchart_template.py:35
+#: selection:shift.shift,week_list:0
+#: selection:shift.template,week_list:0
+msgid "Saturday"
+msgstr "Samedi"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_scheduled_date
+msgid "Scheduled Sent Mail"
+msgstr "Mails planifiés envoyés"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_registration_scheduled_date
+msgid "Scheduled Time"
+msgstr "Heure prévue"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_seats_used
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_seats_used
+msgid "Seats used"
+msgstr "Places occupées"
+
+#. module: coop_shift
+#: selection:shift.template,byday:0
+msgid "Second"
+msgstr "Deuxième"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_product_product_shift_type_id
+#: model:ir.model.fields,help:coop_shift.field_product_template_shift_type_id
+msgid "Select event types so when\n"
+"        we use this product in sales order lines, it will filter events of\n"
+"        this type only."
+msgstr "Renseigner le type de shift pour\n"
+"        facilement filtrer les\n"
+"        shifts de ce type."
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+msgid "Send by Email"
+msgstr "Envoyer par courriel"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_done
+msgid "Sent"
+msgstr "Envoyé"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+msgid "Set To Draft"
+msgstr "Mettre en statut brouillon"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+msgid "Set To Unconfirmed"
+msgstr "Marquer comme non confirmé"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_shift_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_shift_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_shift_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_shift_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_shift_id
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+msgid "Shift"
+msgstr "Service"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+msgid "Shift Information"
+msgstr "Information du service"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_wallchart_ftop
+msgid "Shift Inscriptions:"
+msgstr "Inscriptions au service:"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_user_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_user_id
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_search
+msgid "Shift Leader"
+msgstr "Responsable du service"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_mail_form
+msgid "Shift Mail Scheduler"
+msgstr "Planification des envois de courriels"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_mail_tree
+msgid "Shift Mail Schedulers"
+msgstr "Planification des envois de courriels"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_name
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+msgid "Shift Name"
+msgstr "Nom"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_calendar
+msgid "Shift Organization"
+msgstr "Organisation du service"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_shift_id
+msgid "Shift Reference"
+msgstr "Référence"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_calendar
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
+msgid "Shift Registration"
+msgstr "Inscription aux services"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
+msgid "Shift Registrations"
+msgstr "Inscription aux services"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_shit_begin_date
+msgid "Shift Start Date"
+msgstr "Date de début"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_product_product_shift_ok
+#: model:ir.model.fields,field_description:coop_shift.field_product_template_shift_ok
+msgid "Shift Subscription"
+msgstr "Créneau"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_shift_shift
+#: model:ir.model,name:coop_shift.model_shift_template
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_shift_template_id
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Shift Template"
+msgstr "Créneau"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_shift_template_ticket
+msgid "Shift Template Ticket"
+msgstr "Place"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:157
+#, python-format
+msgid "TH"
+msgstr "JE"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:156
+#, python-format
+msgid "TU"
+msgstr "MA"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.action_shift_template
+msgid "Shift Templates"
+msgstr "Créneaux"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_shift_ticket
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_shift_ticket_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_shift_ticket_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_shift_ticket_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_shift_ticket_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_shift_ticket_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_shift_ticket_ids
+msgid "Shift Ticket"
+msgstr "Type"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_product_product_shift_ticket_ids
+msgid "Shift Tickets"
+msgstr "Type"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_shift_type
+#: model:ir.model.fields,field_description:coop_shift.field_shift_type_name
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_type_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_type_tree
+msgid "Shift Type"
+msgstr "Type de service"
+
+#. module: coop_shift
+#: model:ir.ui.menu,name:coop_shift.shift_main_menu
+msgid "Members"
+msgstr "Membres"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.action_shift_view
+#: model:ir.model.fields,field_description:coop_shift.field_report_timesheet_shift_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_shift_ids
+#: model:ir.module.category,name:coop_shift.module_category_shift_management
+#: model:ir.ui.menu,name:coop_shift.menu_shift_shift
+#: model:ir.ui.menu,name:coop_shift.shift_menu
+#: model:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_tree
+msgid "Shifts"
+msgstr "Services"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.action_shift_mail
+msgid "Shifts Mail Schedulers"
+msgstr "Shifts Mail Schedulers"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.action_shift_type
+#: model:ir.ui.menu,name:coop_shift.menu_shift_type
+msgid "Shifts Types"
+msgstr "Types de services"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+msgid "Shifts in New state"
+msgstr "Nouveaux services"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_origin
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_origin
+msgid "Source Document"
+msgstr "Document Source"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_sale_order_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_sale_order_id
+msgid "Source Sale Order"
+msgstr "Origine de la commande de vente"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Squad Leader Notes to the Membership Office"
+msgstr "Notes du responsable à l'attention du Bureau des Membres"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Squad Leader Use Only"
+msgstr "Réservé"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_shift.py:94
+#: code:addons/coop_shift/model/shift_shift.py:98
+#: code:addons/coop_shift/model/shift_template.py:166
+#: code:addons/coop_shift/model/shift_template.py:173
+#, python-format
+msgid "Standard"
+msgstr "Classique"
+
+#. module: coop_shift
+#: model:product.product,name:coop_shift.product_product_shift_standard
+#: model:product.template,name:coop_shift.product_product_shift_standard_product_template
+msgid "Standard Subscription"
+msgstr "Inscription classique"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+msgid "Start"
+msgstr "Début"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_date_begin
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_date_begin
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_date_begin
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_start_date
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_date_begin
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_date_end
+msgid "Start Date"
+msgstr "Date de début"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_date_begin_located
+msgid "Start Date Located"
+msgstr "Date de début"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+msgid "Start Month"
+msgstr "Mois de début"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_begin_time
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_end_time
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_start_time
+msgid "Start Time"
+msgstr "Heure"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Start<br/>Time"
+msgstr "Heure<br/>de début"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Start<br/>signature"
+msgstr "Signature<br/>début"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_state
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_state
+msgid "State"
+msgstr "État"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_state
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_state
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_state
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_state
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_line_search
+msgid "Status"
+msgstr "Statut"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.act_register_shift_partner
+#: model:ir.actions.act_window,name:coop_shift.act_register_template_partner
+msgid "Subscribe"
+msgstr "S'inscrire"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:241
+#, python-format
+msgid "Su"
+msgstr "Di"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_su
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_su
+msgid "Sun"
+msgstr "Dim."
+
+#. module: coop_shift
+#: code:addons/coop_shift/report/report_wallchart_ftop.py:36
+#: code:addons/coop_shift/report/report_wallchart_template.py:36
+#: selection:shift.shift,week_list:0
+#: selection:shift.template,week_list:0
+msgid "Sunday"
+msgstr "Dimanche"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_template_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_shift_template_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_shift_template_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_shift_template_id
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_shift_template_id
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_search
+#: model:ir.ui.view,arch_db:coop_shift.view_template_registration_search
+msgid "Template"
+msgstr "Créneaux"
+
+#. module: coop_shift
+#: model:ir.ui.menu,name:coop_shift.menu_action_template_registration
+msgid "Template Attendees"
+msgstr "Inscriptions"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_form
+msgid "Template Information"
+msgstr "Informations sur le créneau"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_wallchart_template
+msgid "Template Inscriptions:"
+msgstr "Inscriptions :"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_name
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Template Name"
+msgstr "Nom"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_calendar
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_form
+#: model:ir.ui.view,arch_db:coop_shift.view_template_registration_search
+msgid "Template Registration"
+msgstr "Inscriptions au créneau"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_tmpl_reg_line_id
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_line_search
+msgid "Template Registration Line"
+msgstr "Inscriptions"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_res_partner_tmpl_reg_line_ids
+msgid "Template Registration Lines"
+msgstr "Lignes d'inscription aux créneaux"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_res_partner_tmpl_reg_ids
+#: model:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
+msgid "Template Registrations"
+msgstr "Inscriptions"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_template_start_date
+msgid "Template Start Date"
+msgstr "Début du créneau"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_template_start_time
+msgid "Template Start Time"
+msgstr "Heure de début"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.shift_report_wallchart_view
+msgid "Template Wallchart"
+msgstr "Tableau des créneaux"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_template_id
+msgid "Template id"
+msgstr "Template id"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard_template_ids
+#: model:ir.ui.menu,name:coop_shift.menu_shift_template
+#: model:ir.ui.menu,name:coop_shift.template_menu
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_tree
+msgid "Templates"
+msgstr "Créneaux"
+
+#. module: coop_shift
+#: model:mail.template,subject:coop_shift.shift_thanks
+msgid "Thanks for attending ${object.shift_id.name}"
+msgstr "Merci de votre participation au shift ${object.shift_id.name}"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "The"
+msgstr "Le"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_reply_to
+msgid "The email address of the organizer is likely to be put here,\n"
+"        with the effect to be in the 'Reply-To' of the mails sent automatically\n"
+"        at shift or registrations confirmation. You can also put the email\n"
+"        address of your mail gateway if you use one."
+msgstr "The email address of the organizer is likely to be put here,\n"
+"        with the effect to be in the 'Reply-To' of the mails sent automatically\n"
+"        at shift or registrations confirmation. You can also put the email\n"
+"        address of your mail gateway if you use one."
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_shift_reply_to
+msgid "The email address of the organizer is likely to be put here, with the effect to be in the 'Reply-To' of the mails sent automatically at event or registrations confirmation. You can also put the email address of your mail gateway if you use one."
+msgstr "L'adresse email de l'organisateur doit être mise ici, avec l'effet d'être dans le champ \"adresse de réponse\" des mails envoyés automatiquement lors de l'événement ou lors de la confirmation d'inscription. Vous pouvez aussi ajouter l'adresse email de votre passerelle de messagerie si vous en utilisez une. "
+
+#. module: coop_shift
+#: sql_constraint:shift.shift:0
+msgid "The same template cannot be planned several time at the same date !"
+msgstr "Attention ! La planification des shifts pour ce créneau a déjà effectuée sur cette période. Veuillez vérifier la liste des shifts associés."
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template_registration.py:119
+#: code:addons/coop_shift/model/shift_template_registration.py:129
+#, python-format
+msgid "These dates overlap: \n"
+" - Line1: begin: %s    end: %s    state: %s; \n"
+" - Line2: begin: %s    end: %s    state: %s;"
+msgstr "Ces dates sont en conflit \n"
+" - Line1: début: %s    fin: %s    statut: %s; \n"
+" - Line2: début: %s    fin: %s    statut: %s;"
+
+#. module: coop_shift
+#: selection:shift.template,byday:0
+msgid "Third"
+msgstr "Troisième"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_mail_template_id
+#: model:ir.model.fields,help:coop_shift.field_shift_template_mail_template_id
+msgid "This field contains the template of the mail that will be\n"
+"        automatically sent"
+msgstr "This field contains the template of the mail that will be\n"
+"        automatically sent"
+
+#. module: coop_shift
+#: sql_constraint:shift.registration:0
+msgid "This partner is already registered on this Shift !"
+msgstr "Ce membre est déjà inscrit sur ce service!"
+
+#. module: coop_shift
+#: sql_constraint:shift.template.registration:0
+msgid "This partner is already registered on this Shift Template !"
+msgstr "Ce membre est déjà inscrit sur ce créneau !"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:238
+#, python-format
+msgid "Th"
+msgstr "Je"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_th
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_th
+msgid "Thu"
+msgstr "Jeu."
+
+#. module: coop_shift
+#: code:addons/coop_shift/report/report_wallchart_ftop.py:33
+#: code:addons/coop_shift/report/report_wallchart_template.py:33
+#: selection:shift.shift,week_list:0
+#: selection:shift.template,week_list:0
+msgid "Thursday"
+msgstr "Jeudi"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_shift_ticket_id
+msgid "Ticket"
+msgstr "Place"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_line_search
+msgid "Ticket Type"
+msgstr "Type de place"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Tickets"
+msgstr "Type"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_wallchart_ftop
+#: model:ir.ui.view,arch_db:coop_shift.report_wallchart_template
+msgid "Time"
+msgstr "Heure"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.action_timesheet_wizard
+#: model:ir.actions.report.xml,name:coop_shift.timesheet
+#: model:ir.ui.menu,name:coop_shift.menu_timesheet
+msgid "Timesheet"
+msgstr "Feuilles de présences"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Timesheet of:"
+msgstr "Présences du :"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_date_tz
+msgid "Timezone"
+msgstr "Fuseau horaire"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
+msgid "Tmpl. Registr."
+msgstr "Créneau"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:236
+#, python-format
+msgid "Tu"
+msgstr "Ma"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_tu
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_tu
+msgid "Tue"
+msgstr "Mar."
+
+#. module: coop_shift
+#: code:addons/coop_shift/report/report_wallchart_ftop.py:31
+#: code:addons/coop_shift/report/report_wallchart_template.py:31
+#: selection:shift.shift,week_list:0
+#: selection:shift.template,week_list:0
+msgid "Tuesday"
+msgstr "Mardi"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_product_product_shift_type_id
+#: model:ir.model.fields,field_description:coop_shift.field_product_template_shift_type_id
+msgid "Type of Shift"
+msgstr "Type de service"
+
+#. module: coop_shift
+#: selection:add.template.registration.wizard,state:0
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+#: selection:shift.registration,state:0
+#: selection:shift.shift,state:0
+#: selection:shift.template.registration,state:0
+#: selection:shift.template.registration.line,state:0
+#: selection:update.shifts.wizard.line,state:0
+msgid "Unconfirmed"
+msgstr "Non confirmé"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_seats_unconfirmed
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_seats_unconfirmed
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_seats_unconfirmed
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_seats_unconfirmed
+msgid "Unconfirmed Seat Reservations"
+msgstr "Places réservées non confirmées"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_interval_unit
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_interval_unit
+msgid "Unit"
+msgstr "Unité"
+
+#. module: coop_shift
+#: selection:shift.shift,seats_availability:0
+#: selection:shift.template,seats_availability:0
+#: selection:shift.template.ticket,seats_availability:0
+#: selection:shift.ticket,seats_availability:0
+msgid "Unlimited"
+msgstr "Illimité"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_unread
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_unread
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_unread
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+#: model:ir.ui.view,arch_db:coop_shift.view_template_registration_search
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_unread_counter
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_unread_counter
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Compteur de messages non lus"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Until"
+msgstr "Jusqu'à"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
+msgid "Upc. Registr."
+msgstr "Présences"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+msgid "Upcoming"
+msgstr "A venir"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_registration_search
+msgid "Upcoming registrations from today"
+msgstr "Inscriptions à venir"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+msgid "Upcoming shifts from today"
+msgstr "Services à venir"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.action_update_shifts
+#: model:ir.ui.view,arch_db:coop_shift.view_update_shifts_form
+msgid "Update Shifts"
+msgstr "Mettre à jour les services"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_update_shifts_wizard
+msgid "Update Shifts Wizard"
+msgstr "Mettre à jour les services"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_update_shifts_wizard_line
+msgid "Update Shifts Wizard Line"
+msgstr "Mises à jours"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_date_from
+msgid "Update shifts from"
+msgstr "Shits à partir de :"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_date_to
+msgid "Update shifts until"
+msgstr "Jusqu'au"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_update_shifts_form
+msgid "Update the following shifts"
+msgstr "Mettre à jour les shifts"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_updated_fields
+msgid "Updated Fields"
+msgstr "Champs mis à jours"
+
+#. module: coop_shift
+#: model:res.groups,name:coop_shift.group_shift_user
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "View Shifts"
+msgstr "Voir les Services"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
+msgid "View partner Registrations"
+msgstr "Voir les inscriptions"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
+msgid "View partner Template Registrations"
+msgstr "Inscriptions à des créneaux"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:156
+#, python-format
+msgid "WE"
+msgstr "ME"
+
+#. module: coop_shift
+#: selection:add.template.registration.wizard,state:0
+#: selection:shift.registration,state:0
+#: selection:shift.template.registration.line,state:0
+msgid "Waiting"
+msgstr "En attente"
+
+#. module: coop_shift
+#: model:ir.actions.report.xml,name:coop_shift.wallchart_ftop
+msgid "Wall Chart - FTOP"
+msgstr "Tableau des places - Volants"
+
+#. module: coop_shift
+#: model:ir.actions.report.xml,name:coop_shift.wallchart_template
+msgid "Wall Chart - Template"
+msgstr "Tableau des créneaux"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.action_wallchart_wizard
+#: model:ir.ui.menu,name:coop_shift.menu_wallchart_template
+msgid "WallChart"
+msgstr "Tableau"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:237
+#, python-format
+msgid "We"
+msgstr "Me"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_we
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_we
+msgid "Wed"
+msgstr "Mer."
+
+#. module: coop_shift
+#: code:addons/coop_shift/report/report_wallchart_ftop.py:32
+#: code:addons/coop_shift/report/report_wallchart_template.py:32
+#: selection:shift.shift,week_list:0
+#: selection:shift.template,week_list:0
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_week_number
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_week_number
+#: model:ir.ui.view,arch_db:coop_shift.report_wallchart_ftop
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_search
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_search
+msgid "Week"
+msgstr "Semaine"
+
+#. module: coop_shift
+#: selection:shift.shift,week_number:0
+#: selection:shift.template,week_number:0
+msgid "Week A"
+msgstr "A"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_wallchart_template
+msgid "Week A<br/>"
+msgstr "A<br/>"
+
+#. module: coop_shift
+#: selection:shift.shift,week_number:0
+#: selection:shift.template,week_number:0
+msgid "Week B"
+msgstr "B"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_wallchart_template
+msgid "Week B<br/>"
+msgstr "B<br/>"
+
+#. module: coop_shift
+#: selection:shift.shift,week_number:0
+#: selection:shift.template,week_number:0
+msgid "Week C"
+msgstr "C"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_wallchart_template
+msgid "Week C<br/>"
+msgstr "C<br/>"
+
+#. module: coop_shift
+#: selection:shift.shift,week_number:0
+#: selection:shift.template,week_number:0
+msgid "Week D"
+msgstr "D"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_wallchart_template
+msgid "Week D<br/>"
+msgstr "D<br/>"
+
+#. module: coop_shift
+#: selection:shift.mail,interval_unit:0
+#: selection:shift.template,rrule_type:0
+#: selection:shift.template.mail,interval_unit:0
+msgid "Week(s)"
+msgstr "Semaine(s)"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_week_list
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_week_list
+msgid "Weekday"
+msgstr "Jour"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_mail_interval_type
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_mail_interval_type
+msgid "When to Run "
+msgstr "Exécution"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_wizard_id
+msgid "Wizard Reference"
+msgstr "Référence"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Work<br/>Status"
+msgstr "Statut"
+
+#. module: coop_shift
+#: selection:shift.template,rrule_type:0
+msgid "Year(s)"
+msgstr "Année(s)"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_shift.py:160
+#: code:addons/coop_shift/model/shift_shift.py:164
+#, python-format
+msgid "You can only repercute changes on draft shifts."
+msgstr "Vous ne pouvez pas modifier des shifts qui ont été confirmés."
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "You have some changes on this template. You should consider"
+msgstr "Des modifications ont été effectuées sur ce créneau, souhaitez-vous les répercuter sur les shifts ?"
+
+#. module: coop_shift
+#: code:addons/coop_shift/wizard/report_wallchart_wizard.py:55
+#, python-format
+msgid "You must check at least one day."
+msgstr "Veuillez sélectionner au moins une journée."
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_registration.py:91
+#: code:addons/coop_shift/model/shift_registration.py:100
+#, python-format
+msgid "You must wait for the starting day of the shift                to do this action."
+msgstr "Cette action ne peut être effectuée avant la date du shift."
+
+#. module: coop_shift
+#: model:mail.template,subject:coop_shift.shift_subscription
+msgid "Your subscription at ${object.shift_id.name}"
+msgstr "Votre inscription au shift ${object.shift_id.name}"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_report_wallchart_all_days
+msgid "all"
+msgstr "Tous"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "as of"
+msgstr "au"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "discarding the changes"
+msgstr "Annuler les changements"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template.py:373
+#: code:addons/coop_shift/model/shift_template.py:380
+#, python-format
+msgid "interval cannot be negative."
+msgstr "L'intervalle ne peut être négatif."
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.shift_report_timesheet_view
+#: model:ir.ui.view,arch_db:coop_shift.shift_report_wallchart_view
+#: model:ir.ui.view,arch_db:coop_shift.view_add_template_registration_wizard_form
+#: model:ir.ui.view,arch_db:coop_shift.view_replace_registration_wizard_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_wizard_form
+#: model:ir.ui.view,arch_db:coop_shift.view_update_shifts_form
+msgid "or"
+msgstr "ou"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_report_coop_shift_report_timesheet
+msgid "report.coop_shift.report_timesheet"
+msgstr "report.coop_shift.report_timesheet"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_report_coop_shift_report_wallchart_common
+msgid "report.coop_shift.report_wallchart_common"
+msgstr "report.coop_shift.report_wallchart_common"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_report_coop_shift_report_wallchart_ftop
+msgid "report.coop_shift.report_wallchart_ftop"
+msgstr "report.coop_shift.report_wallchart_ftop"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_report_coop_shift_report_wallchart_template
+msgid "report.coop_shift.report_wallchart_template"
+msgstr "report.coop_shift.report_wallchart_template"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_report_timesheet
+msgid "report.timesheet"
+msgstr "report.timesheet"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_report_wallchart
+msgid "report.wallchart"
+msgstr "report.wallchart"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_shift_mail
+msgid "shift.mail"
+msgstr "Notifications shifts"
+
+#. module: coop_shift
+#: model:ir.model,name:coop_shift.model_shift_template_mail
+msgid "shift.template.mail"
+msgstr "Notifications créneaux"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "updating the linked shifts"
+msgstr "Mettre à jour les shifts associés"
+

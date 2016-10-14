@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="capital.fundraising.category.line" id="capital_fundraising_category_line_A">
+        <field name="fundraising_category_id" ref="capital_fundraising_category_A" />
+        <field name="minimum_share_qty">1</field>
+        <field name="fundraising_partner_type_id" ref="underclass_population_fundraising_partner_type" />
+    </record>
+
+</odoo>

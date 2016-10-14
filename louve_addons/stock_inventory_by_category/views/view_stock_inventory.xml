@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+    # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    # @author: Julien Weste
+    # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+    <record id="view_stock_inventory_byu_category_form" model="ir.ui.view">
+        <field name="name">stock.inventory.by.category.form</field>
+        <field name="model">stock.inventory</field>
+        <field eval="7" name="priority"/>
+        <field name="inherit_id" ref="stock.view_inventory_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group/group[2]/field[3]" position="after">
+                <field name="category_ids" attrs="{'invisible': [('filter', '!=', 'category')], 'required': [('filter', '=', 'category')]}" widget="many2many_tags" options="{'no_create_edit': True}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

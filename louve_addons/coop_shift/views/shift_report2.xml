@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- QWeb Reports -->
+    <record id="coop_shift.timesheet" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="report.paperformat_euro"/>
+        <field name="attachment_use" eval="0"/>
+    </record>
+
+    <record id="coop_shift.wallchart_template" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="report.paperformat_euro"/>
+        <field name="attachment_use" eval="0"/>
+    </record>
+
+    <record id="coop_shift.wallchart_ftop" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="report.paperformat_euro"/>
+        <field name="attachment_use" eval="0"/>
+    </record>
+</odoo>

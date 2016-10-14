@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<openerp>
+    <data>
+        <!-- SHIFT.MAIL VIEWS -->
+        <record model="ir.ui.view" id="view_shift_mail_form">
+            <field name="name">shift.mail.form</field>
+            <field name="model">shift.mail</field>
+            <field name="arch" type="xml">
+                <form string="Shift Mail Scheduler">
+                    <group>
+                        <field name="shift_id"/>
+                        <field name="template_id"/>
+                        <field name="mail_sent"/>
+                    </group>
+                    <group>
+                        <field name="interval_nbr" attrs="{'readonly':[('interval_unit', '=', 'now')]}"/>
+                        <field name="interval_unit"/>
+                        <field name="interval_type"/>
+                        <field name="scheduled_date"/>
+                    </group>
+                    <notebook>
+                        <page string="Registration Mails">
+                            <field name="mail_registration_ids">
+                                <tree string="Registration mail" editable="bottom">
+                                    <field name="registration_id"/>
+                                    <field name="scheduled_date"/>
+                                    <field name="mail_sent"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_shift_mail_tree">
+            <field name="name">shift.mail.tree</field>
+            <field name="model">shift.mail</field>
+            <field name="arch" type="xml">
+                <tree string="Shift Mail Schedulers">
+                    <field name="shift_id"/>
+                    <field name="template_id"/>
+                    <field name="scheduled_date"/>
+                    <field name="mail_sent"/>
+                    <field name="done"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_shift_mail">
+            <field name="name">Shift Mail Schedulers</field>
+            <field name="res_model">shift.mail</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem
+            name="Mail Schedulers"
+            id="menu_shift_type"
+            action="action_shift_mail"
+            parent="menu_shift_configuration"
+            groups="base.group_no_one"/>
+    </data>
+</openerp>

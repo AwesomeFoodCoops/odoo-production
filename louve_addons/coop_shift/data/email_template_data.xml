@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="shift_subscription" model="mail.template">
+            <field name="name">Shift subscription</field>
+            <field name="model_id" ref="coop_shift.model_shift_registration"/>
+            <field name="email_from">${(object.shift_id.organizer_id.email or object.shift_id.user_id.email or '')|safe}</field>
+            <field name="email_to" >${object.email|safe}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="reply_to">${object.shift_id.reply_to|safe}</field>
+            <field name="subject">Your subscription at ${object.shift_id.name}</field>
+            <field name="body_html"><![CDATA[<p>Hello ${object.name},</p>
+<p>You have been subscribded to the shift ${object.shift_id.name}.
+Please confirm as soon as possible that you intend to participate to this shift.</p>
+<p>Thank you for your participation!</p>
+<p>Best regards</p>]]></field>
+        </record>
+
+        <record id="shift_reminder" model="mail.template">
+            <field name="name">Shift: reminder</field>
+            <field name="model_id" ref="coop_shift.model_shift_registration"/>
+            <field name="email_from">${(object.shift_id.organizer_id.email or object.shift_id.user_id.email or '')|safe}</field>
+            <field name="email_to" >${object.partner_id.email or object.email|safe}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="reply_to">${object.shift_id.reply_to|safe}</field>
+            <field name="subject">Reminder of shift ${object.shift_id.name}</field>
+            <field name="body_html"><![CDATA[<p>Hello ${object.name},</p>
+<p>This is a reminder for ${object.shift_id.name} that you registered for is confirmed and will be held from ${object.shift_id.date_begin_located} to ${object.shift_id.date_end_located}.
+For any further information please contact our shift department.</p>
+<p>Thank you for your participation!</p>
+<p>Best regards</p>]]></field>
+        </record>
+
+        <record id="shift_thanks" model="mail.template">
+            <field name="name">Shift: thanks for attending</field>
+            <field name="model_id" ref="coop_shift.model_shift_registration"/>
+            <field name="email_from">${(object.shift_id.organizer_id.email or object.shift_id.user_id.email or '')|safe}</field>
+            <field name="email_to" >${object.partner_id.email or object.email|safe}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="reply_to">${object.shift_id.reply_to|safe}</field>
+            <field name="subject">Thanks for attending ${object.shift_id.name}</field>
+            <field name="body_html"><![CDATA[<p>Hello ${object.name},</p>
+<p>We would like to thank you for your presence at our shift ${object.shift_id.name}.
+<br/><br/>
+    % if object.shift_id.organizer_id and object.shift_id.organizer_id.is_company:
+        <strong>The ${object.shift_id.organizer_id.name} Team</strong>
+    % elif object.shift_id.organizer_id:
+        <strong>${object.shift_id.organizer_id.name}</strong>
+    % endif
+</p>]]></field>
+        </record>
+
+</odoo>

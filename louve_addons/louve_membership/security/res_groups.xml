@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="res.groups" id="subscriptions_reader">
+        <field name="name">See Subscriptions</field>
+        <field name="category_id" ref="category_subscriptions" />
+    </record>
+
+    <record model="res.groups" id="subscriptions_creator">
+        <field name="name">Create Subscriptions</field>
+        <field name="category_id" ref="category_subscriptions" />
+        <field name="implied_ids" eval="[(4, ref('louve_membership.subscriptions_reader'))]" />
+    </record>
+
+    <record model="res.groups" id="subscriptions_creator_payment">
+        <field name="name">Create Subscriptions and payment</field>
+        <field name="category_id" ref="category_subscriptions" />
+        <field name="implied_ids" eval="[(4, ref('louve_membership.subscriptions_creator'))]" />
+    </record>
+
+    <record model="res.groups" id="subscriptions_can_change_fundraising_category">
+        <field name="name">Can Change Fundraising Category in Wizard</field>
+        <field name="category_id" ref="base.module_category_extra" />
+    </record>
+
+    <record model="res.groups" id="louve_membership_manager">
+        <field name="name">Manage Louve Membership</field>
+        <field name="category_id" ref="base.module_category_extra" />
+    </record>
+
+</odoo>

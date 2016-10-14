@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.ui.menu" id="menu_res_users_move">
+        <field name="name">User Moves</field>
+        <field name="action" ref="action_res_users_move"/>
+        <field name="parent_id" ref="base.menu_users"/>
+        <field name="sequence">2</field>
+    </record>
+
+</odoo>

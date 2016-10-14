@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2013-Today: GRAP (http://www.grap.coop)
+Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="account_acount_internal_use" model="account.account">
+        <field name="name">Internal Use Expense Account (Expense Transfer Demo)</field>
+        <field name="code">229100</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="company_id" ref="base.main_company" />
+    </record>
+
+</odoo>

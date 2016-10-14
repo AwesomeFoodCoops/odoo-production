@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.ui.view" id="view_res_partner_form">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="ref" position="before">
+                <field name="state" />
+                <field name="bootstrap_state" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_tree">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="email" position="after">
+                <field name="state"/>
+                <field name="bootstrap_state" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_res_partner_search">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <filter name="type_person" position="after">
+                <filter string="Success Status" name="type_status_success" domain="[('bootstrap_state', '=', 'success')]"/>
+                <filter string="Warning Status" name="type_status_warning" domain="[('bootstrap_state', '=', 'warning')]"/>
+                <filter string="Warning Status" name="type_status_danger" domain="[('bootstrap_state', '=', 'danger')]"/>
+            </filter>
+            <filter name="salesperson" position="after">
+               <filter name="group_by_stat" string="State" context="{'group_by' : 'state'}"/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>
+

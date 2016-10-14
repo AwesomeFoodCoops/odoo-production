@@ -1,0 +1,152 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* badge_reader
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-22 17:12+0000\n"
+"PO-Revision-Date: 2016-04-22 17:12+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: badge_reader
+#: model:res.groups,name:badge_reader.category_badge_reader
+msgid "Badge Reader"
+msgstr "Badgeuse"
+
+#. module: badge_reader
+#: model:res.groups,name:badge_reader.group_manager
+msgid "Badge Reader Manager"
+msgstr "Badgeuse - Responsable"
+
+#. module: badge_reader
+#: model:res.groups,name:badge_reader.group_user
+msgid "Badge Reader User"
+msgstr "Badgeuse - Utilisateur"
+
+#. module: badge_reader
+#: model:ir.model.fields,field_description:badge_reader.field_res_partner_bootstrap_state
+#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_bootstrap_state
+msgid "Bootstrap State"
+msgstr "Etat Bootstrap"
+
+#. module: badge_reader
+#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: badge_reader
+#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: badge_reader
+#: selection:res.partner,bootstrap_state:0
+#: selection:res.users.move,bootstrap_state:0
+msgid "Danger"
+msgstr "Danger"
+
+#. module: badge_reader
+#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: badge_reader
+#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_id
+msgid "ID"
+msgstr "ID"
+
+#. module: badge_reader
+#: model:ir.model.fields,field_description:badge_reader.field_res_users_move___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: badge_reader
+#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: badge_reader
+#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: badge_reader
+#: selection:res.partner,state:0
+#: selection:res.users.move,state:0
+msgid "Membership Problem"
+msgstr "Problème d'adhésion"
+
+#. module: badge_reader
+#: selection:res.partner,bootstrap_state:0
+#: selection:res.partner,state:0
+#: selection:res.users.move,bootstrap_state:0
+#: selection:res.users.move,state:0
+msgid "OK"
+msgstr "OK"
+
+#. module: badge_reader
+#: model:ir.model,name:badge_reader.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+
+#. module: badge_reader
+#: model:ir.model.fields,field_description:badge_reader.field_res_partner_state
+#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_state
+#: model:ir.ui.view,arch_db:badge_reader.view_res_partner_search
+#: model:ir.ui.view,arch_db:badge_reader.view_res_users_move_search
+msgid "State"
+msgstr "État"
+
+#. module: badge_reader
+#: model:ir.ui.view,arch_db:badge_reader.view_res_partner_search
+#: model:ir.ui.view,arch_db:badge_reader.view_res_users_move_search
+msgid "Success Status"
+msgstr "Statut OK"
+
+#. module: badge_reader
+#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_user_id
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: badge_reader
+#: model:ir.actions.act_window,name:badge_reader.action_res_users_move
+#: model:ir.ui.menu,name:badge_reader.menu_res_users_move
+msgid "User Moves"
+msgstr "Mouvements Utilisateur"
+
+#. module: badge_reader
+#: model:ir.model,name:badge_reader.model_res_users
+msgid "Users"
+msgstr "Utilisateurs"
+
+#. module: badge_reader
+#: selection:res.partner,bootstrap_state:0
+#: selection:res.users.move,bootstrap_state:0
+msgid "Warning"
+msgstr "Attention"
+
+#. module: badge_reader
+#: model:ir.ui.view,arch_db:badge_reader.view_res_partner_search
+#: model:ir.ui.view,arch_db:badge_reader.view_res_users_move_search
+msgid "Warning Status"
+msgstr "Statut Avec Problème"
+
+#. module: badge_reader
+#: selection:res.partner,state:0
+#: selection:res.users.move,state:0
+msgid "Work Problem"
+msgstr "Problème de Shift"
+
+#. module: badge_reader
+#: model:ir.model,name:badge_reader.model_res_users_move
+msgid "res.users.move"
+msgstr "res.users.move"
+

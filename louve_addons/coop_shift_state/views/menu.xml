@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.ui.menu" id="menu_shift_extension">
+        <field name="name">Extensions</field>
+        <field name="action" ref="action_shift_extension"/>
+        <field name="parent_id" ref="coop_shift.shift_menu"/>
+        <field name="sequence">30</field>
+    </record>
+
+    <record model="ir.ui.menu" id="menu_shift_extension_type">
+        <field name="name">Extensions Types</field>
+        <field name="action" ref="action_shift_extension_type"/>
+        <field name="parent_id" ref="coop_shift.menu_shift_configuration"/>
+        <field name="sequence">15</field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,126 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* louve_membership
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-16 10:51+0000\n"
+"PO-Revision-Date: 2016-09-16 10:51+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: louve_membership
+#: model:res.groups,name:louve_membership.subscriptions_can_change_fundraising_category
+msgid "Can Change Fundraising Category in Wizard"
+msgstr "Peux changer la catégorie de titre dans l'assistant"
+
+#. module: louve_membership
+#: model:ir.model.fields,field_description:louve_membership.field_capital_fundraising_wizard_can_change_fundraising_category
+msgid "Can Change fundraising Category"
+msgstr "Peux changer la catégorie de titre"
+
+#. module: louve_membership
+#: model:ir.ui.menu,name:louve_membership.menu_account_invoice_subscriptions
+msgid "Contracts"
+msgstr "Contrats"
+
+#. module: louve_membership
+#: model:res.groups,name:louve_membership.subscriptions_creator
+msgid "Create Subscriptions"
+msgstr "Créer les souscriptions"
+
+#. module: louve_membership
+#: model:res.groups,name:louve_membership.subscriptions_creator_payment
+msgid "Create Subscriptions and payment"
+msgstr "Créer les souscriptions et les paiements"
+
+#. module: louve_membership
+#: model:ir.model.fields,field_description:louve_membership.field_res_partner_is_louve_member
+msgid "Is Louve Member"
+msgstr "Est un membre de la louve"
+
+#. module: louve_membership
+#: model:product.product,name:louve_membership.product_fundraising_category_A
+#: model:product.template,name:louve_membership.product_fundraising_category_A_product_template
+msgid "Levée de fond initiale - Part A"
+msgstr "Levée de fond initiale - Part A"
+
+#. module: louve_membership
+#: model:product.product,name:louve_membership.product_fundraising_category_B
+#: model:product.template,name:louve_membership.product_fundraising_category_B_product_template
+msgid "Levée de fond initiale - Part B"
+msgstr "Levée de fond initiale - Part B"
+
+#. module: louve_membership
+#: model:product.product,name:louve_membership.product_fundraising_category_C
+#: model:product.template,name:louve_membership.product_fundraising_category_C_product_template
+msgid "Levée de fond initiale - Part C"
+msgstr "Levée de fond initiale - Part C"
+
+#. module: louve_membership
+#: model:ir.actions.act_window,name:louve_membership.action_res_partner_subscriptions
+#: model:ir.ui.menu,name:louve_membership.menu_louve_member_submain
+#: model:ir.ui.menu,name:louve_membership.menu_res_partner_members
+msgid "Members"
+msgstr "Membres"
+
+#. module: louve_membership
+#: model:ir.model,name:louve_membership.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: louve_membership
+#: model:ir.actions.act_window,name:louve_membership.action_account_payment_subscriptions
+#: model:ir.ui.menu,name:louve_membership.menu_account_payment_subscriptions
+msgid "Payments"
+msgstr "Paiements"
+
+#. module: louve_membership
+#: model:ir.ui.view,arch_db:louve_membership.view_res_partner_form_subscription
+msgid "Remove 'Underclass Population'"
+msgstr "Retirer 'Minima Sociaux'"
+
+#. module: louve_membership
+#: model:res.groups,name:louve_membership.subscriptions_reader
+msgid "See Subscriptions"
+msgstr "Voir les souscriptions"
+
+#. module: louve_membership
+#: model:ir.ui.view,arch_db:louve_membership.view_res_partner_form_subscription
+msgid "Set 'Underclass Population'"
+msgstr "Mettre 'Minima Sociaux'"
+
+#. module: louve_membership
+#: model:product.category,name:louve_membership.product_category_fundraising
+msgid "Share Fundraising"
+msgstr "Levée de fond"
+
+#. module: louve_membership
+#: model:ir.module.category,name:louve_membership.category_subscriptions
+#: model:ir.actions.act_window,name:louve_membership.action_account_invoice_customer_subscriptions
+#: model:ir.ui.menu,name:louve_membership.menu_louve_subscriptions_submain
+msgid "Subscriptions"
+msgstr "Souscriptions"
+
+#. module: louve_membership
+#: model:ir.actions.act_window,name:louve_membership.action_capital_fundraising_wizard
+#: model:ir.ui.menu,name:louve_membership.menu_capital_fundraising_wizard
+msgid "Wizard"
+msgstr "Assistant"
+
+#. module: louve_membership
+#: model:ir.model,name:louve_membership.model_capital_fundraising_wizard
+msgid "capital.fundraising.wizard"
+msgstr "capital.fundraising.wizard"
+
+#. module: louve_membership
+#: model:ir.model.fields,field_description:louve_membership.field_res_partner_is_underclass_population
+msgid "is Underclass Population"
+msgstr "Minima sociaux"
+

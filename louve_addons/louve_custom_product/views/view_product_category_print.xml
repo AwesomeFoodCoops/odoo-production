@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+    <record model="ir.ui.view" id="view_product_product_form_print">
+        <field name="model">product.category.print</field>
+        <field name="inherit_id" ref="product_to_print.view_product_category_print_form" />
+        <field name="name">product.category.print.food</field>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="pricetag_model_id" />
+            </field>
+        </field>
+    </record>
+</odoo>

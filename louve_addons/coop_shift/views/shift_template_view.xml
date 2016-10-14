@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<openerp>
+    <data>
+        <record id="action_create_shift_shifts" model="ir.actions.act_window">
+            <field name="name">Create Shifts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">create.shifts.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_shift_template_wizard_form"/>
+        </record>
+        <record id="action_update_shifts" model="ir.actions.act_window">
+            <field name="name">Update Shifts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">update.shifts.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_update_shifts_form"/>
+        </record>
+
+<!-- View : shift.template -->
+
+        <record model="ir.ui.view" id="view_shift_template_tree">
+            <field name="name">shift.template.tree</field>
+            <field name="model">shift.template</field>
+            <field name="arch" type="xml">
+                <tree string="Templates">
+                    <field name="name"/>
+                    <field name="week_number"/>
+                    <field name="week_list" invisible="1"/>
+                    <field name="user_id"/>
+                    <field name="start_date"/>
+                    <field name="start_time" widget="float_time"/>
+                    <field name="end_time" widget="float_time"/>
+                    <field name="seats_min"/>
+                    <field name="seats_availability"/>
+                    <field name="seats_max" attrs="{'invisible': [('seats_availability','=','unlimited')]}"/>
+                    <field name="last_shift_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_shift_template_search">
+            <field name="name">shift.template.search</field>
+            <field name="model">shift.template</field>
+            <field name="arch" type="xml">
+                <search string="Templates">
+                    <field name="name" string="Template"/>
+                    <field name="week_number"/>
+                    <field name="shift_type_id"/>
+                    <field name="user_id"/>
+                    <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Shift Leader" context="{'group_by': 'user_id'}"/>
+                        <filter string="Shift Type" context="{'group_by':'shift_type_id'}"/>
+                        <filter string="Week" context="{'group_by':'week_number'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_shift_template_form" model="ir.ui.view">
+            <field name="model">shift.template</field>
+            <field name="arch" type="xml">
+                <form string="Shift Template">
+                    <sheet>
+                        <header>
+                            <button name="%(coop_shift.action_create_shift_shifts)d" type="action" class="oe_highlight" icon="fa-cogs" string="Create shifts"/>
+                        </header>
+                        <div class="oe_button_box" name="button_box" groups="base.group_user">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                            <button name="%(coop_shift.act_template_registration_from_template)d"
+                                type="action"
+                                class="oe_stat_button oe_shift_attendee_button"
+                                icon="fa-users"
+                                help="Register with this template"
+                                string="Attendees">
+                            </button>
+                            <button name="act_template_shift_from_template"
+                                type="object"
+                                class="oe_stat_button oe_shift_attendee_button"
+                                icon="fa-calendar"
+                                help="View Shifts">
+                                <field name="shifts_count" widget="statinfo" string="Shifts"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Template Name"/></h1>
+                        </div>
+                        <group attrs="{'invisible': [('updated_fields','=',False)]}">
+                            <p class='alert alert-warning'> You have some changes on this template. You should consider <button type="action" name="%(coop_shift.action_update_shifts)d"  string="updating the linked shifts"  help="Click here to update some shifts linked to this template. " class="oe_link"/> or <button type="object" name="discard_changes" string="discarding the changes"  help="Click here if you don't want to repercute the template changes on the linked shifts. " class="oe_link"/> <br/>
+                            </p>
+                        </group>
+                        <group name="main_field_group">
+                            <group name="header">
+                                <field name="updated_fields" invisible="1"/>
+                                <field name="address_id" context="{'show_address': 1}" options='{"always_reload": True}' invisible="1"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="user_id" options="{'no_create': True}"/>
+                                <field name="week_number"/>
+                                <field name="shift_type_id" options="{'no_create': True}" groups="coop_shift.group_shift_config"/>
+                            </group>
+                            <group name="datetime">
+                                <field name="start_date"/>
+                                <field name="start_time" widget="float_time"/>
+                                <field name="duration" widget="float_time"/>
+                                <field name="end_time" widget="float_time" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="registrations" string="Registrations">
+                                <group>
+                                    <group>
+                                        <field name="seats_min"/>
+                                        <label for="seats_availability"/>
+                                        <div>
+                                            <field name="seats_availability" widget='radio'/>
+                                            <span  attrs="{'invisible': [('seats_availability', '=', 'unlimited')]}" class="oe_read_only">
+                                                to 
+                                            </span>
+                                            <field name="seats_max" attrs="{'invisible': [('seats_availability', '=', 'unlimited')], 'required': [('seats_availability', '=', 'limited')]}"/>
+                                        </div>
+                                    </group>
+                                </group>
+                                <field name="shift_ticket_ids" context="{'default_name': name}">
+                                    <tree string="Tickets" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="product_id" context="{'shift_ok':1}" domain="[('shift_type_id','!=',False)]" options="{'no_create': True}"/>
+                                        <field name="seats_max"/>
+                                        <field name="seats_reserved" readonly="1"/>
+                                        <field name="seats_unconfirmed" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Recurrence" groups="coop_shift.group_recurrency">
+                                <group>
+                                    <div>
+                                        <group>
+                                            <field name="recurrency"/>
+                                        </group>
+                                        <div attrs="{'invisible': [('recurrency', '=', False)]}">
+                                            <group>
+                                                <label for="interval"/>
+                                                <div class="o_row">
+                                                    <field name="interval" attrs="{'required': [('recurrency', '=', True)]}"/>
+                                                    <field name="rrule_type" attrs="{'required': [('recurrency', '=', True)]}"/>
+                                                </div>
+                                                <label string="Until" for="end_type"/>
+                                                <div class="o_row">
+                                                    <field name="end_type" attrs="{'required': [('recurrency', '=', True)]}"/>
+                                                    <field name="count" attrs="{'invisible': [('end_type', '!=', 'count')], 'required': [('recurrency', '=', True)]}"/>
+                                                    <field name="final_date" attrs="{'invisible': [('end_type', '!=', 'end_date')], 'required': [('end_type', '=', 'end_date')]}"/>
+                                                </div>
+                                            </group>
+                                            <group attrs="{'invisible': [('rrule_type', '!=', 'weekly')]}" name="weekdays">
+                                                <field name="mo"/>
+                                                <field name="tu"/>
+                                                <field name="we"/>
+                                                <field name="th"/>
+                                                <field name="fr"/>
+                                                <field name="sa"/>
+                                                <field name="su"/>
+                                            </group>
+                                            <group attrs="{'invisible': [('rrule_type', '!=', 'monthly')]}">
+                                                <label string="Day of Month" for="month_by"/>
+                                                <div class="o_row">
+                                                    <field name="month_by"/>
+                                                    <field name="day"
+                                                        attrs="{'required': [('month_by', '=', 'date'), ('rrule_type', '=', 'monthly')],
+                                                                'invisible': [('month_by', '!=', 'date')]}"/>
+                                                    <field name="byday" string="The"
+                                                        attrs="{'required': [('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],
+                                                                'invisible': [('month_by', '!=', 'day')]}"/>
+                                                    <field name="week_list" nolabel="1"
+                                                        attrs="{'required': [('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],
+                                                                'invisible': [('month_by', '!=', 'day')]}"/>
+                                                </div>
+                                            </group>
+                                        </div>
+                                    </div>
+                                    <group>
+                                        <!-- <field name="rrule"/>  -->
+                                        <!-- <field name="rrule" invisible="1"/>                                     -->
+                                        <field name="recurrent_id" invisible="1" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Email Schedule" groups="event.group_email_scheduling">
+                                <group>
+                                    <field name="reply_to"/>
+                                </group>
+                                <field name="shift_mail_ids">
+                                    <tree string="Email Schedule" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="template_id" />
+                                        <field name="interval_nbr" attrs="{'readonly':[('interval_unit','=','now')]}"/>
+                                        <field name="interval_unit"/>
+                                        <field name="interval_type"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_shift_template" model="ir.actions.act_window">
+            <field name="name">Shift Templates</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shift.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem
+            id="menu_shift_template"
+            action="action_shift_template"
+            name="Templates"
+            parent="coop_shift.template_menu"
+            groups="group_shift_manager"
+            sequence="14"/>
+    </data>
+</openerp>

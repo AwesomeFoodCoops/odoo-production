@@ -1,0 +1,134 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * louve_custom_purchase
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-23 09:29+0000\n"
+"PO-Revision-Date: 2016-08-23 09:29+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.report_purchaseorder_louve
+#: model:ir.ui.view,arch_db:louve_custom_purchase.report_purchasequotation_louve
+msgid "<strong>Nb of Packages</strong>"
+msgstr "<strong>Nb Colis</strong>"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.report_purchaseorder_louve
+msgid "<strong>Package Price</strong>"
+msgstr "<strong>Prix Colis</strong>"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.report_purchaseorder_louve
+#: model:ir.ui.view,arch_db:louve_custom_purchase.report_purchasequotation_louve
+msgid "<strong>Package qty</strong>"
+msgstr "<strong>Colisage</strong>"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.report_purchaseorder_louve
+#: model:ir.ui.view,arch_db:louve_custom_purchase.report_purchasequotation_louve
+msgid "<strong>Qty</strong>"
+msgstr "<strong>Qté</strong>"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.view_qupplierinfo_search
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: louve_custom_purchase
+#: model:ir.model.fields,field_description:louve_custom_purchase.field_product_supplierinfo_taxes_id
+msgid "Customer Taxes"
+msgstr "Taxes à la vente"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.view_qupplierinfo_search
+msgid "Group By"
+msgstr "Regrouper par"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.view_qupplierinfo_search
+msgid "Indicative Package"
+msgstr "Colisage indicatif"
+
+#. module: louve_custom_purchase
+#: model:ir.model,name:louve_custom_purchase.model_product_supplierinfo
+msgid "Information about a product vendor"
+msgstr "Information sur le vendeur de l'article"
+
+#. module: louve_custom_purchase
+#: model:ir.model.fields,field_description:louve_custom_purchase.field_product_supplierinfo_categ_id
+msgid "Internal Category"
+msgstr "Catégorie interne"
+
+#. module: louve_custom_purchase
+#: model:ir.model.fields,field_description:louve_custom_purchase.field_product_supplierinfo_default_code
+msgid "Internal Reference"
+msgstr "Référence interne"
+
+#. module: louve_custom_purchase
+#: model:ir.model.fields,field_description:louve_custom_purchase.field_purchase_order_line_package_price
+msgid "Package Price"
+msgstr "Prix Colis"
+
+#. module: louve_custom_purchase
+#: model:ir.model.fields,field_description:louve_custom_purchase.field_purchase_order_line_price_unit_tax
+msgid "Price Unit Tax Included"
+msgstr "Prix Unitaire TTC"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.view_qupplierinfo_search
+msgid "Product"
+msgstr "Article"
+
+#. module: louve_custom_purchase
+#: model:ir.model,name:louve_custom_purchase.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Ligne de commande d'achat"
+
+#. module: louve_custom_purchase
+#: model:ir.model.fields,field_description:louve_custom_purchase.field_product_supplierinfo_price_taxes_excluded
+msgid "Sale Price Taxes Excluded"
+msgstr "Prix unitaire HT"
+
+#. module: louve_custom_purchase
+#: model:ir.model.fields,field_description:louve_custom_purchase.field_product_supplierinfo_price_taxes_included
+msgid "Sale Price Taxes Included"
+msgstr "Prix de vente TTC"
+
+#. module: louve_custom_purchase
+#: model:ir.model.fields,help:louve_custom_purchase.field_product_supplierinfo_categ_id
+msgid "Select category for the current product"
+msgstr "Sélectionnez la catégorie de l'article actuel"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.view_qupplierinfo_search
+msgid "Supplier"
+msgstr "Fournisseur"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.view_qupplierinfo_search
+msgid "Supplierinfo"
+msgstr "Infos Fournisseur"
+
+#. module: louve_custom_purchase
+#: model:ir.model.fields,field_description:louve_custom_purchase.field_purchase_order_line_unit_price
+msgid "Unit Price"
+msgstr "Prix unitaire"
+
+#. module: louve_custom_purchase
+#: model:ir.model.fields,field_description:louve_custom_purchase.field_product_supplierinfo_supplier_taxes_id
+msgid "Vendor Taxes"
+msgstr "Taxes fournisseur"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.view_qupplierinfo_search
+msgid "not Indicative Package"
+msgstr "Colisage exact"

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ********************************************************************** -->
+<!--Sale - Food Module for Odoo                                             -->
+<!--Copyright (C) 2012-Today GRAP (http://www.grap.coop)                    -->
+<!--@author Julien Weste                                                    -->
+<!--@author Sylvain LE GAL (https://twitter.com/legalsylvain)               -->
+
+<!--This program is free software: you can redistribute it and/or modify    -->
+<!--it under the terms of the GNU Affero General Public License as          -->
+<!--published by the Free Software Foundation, either version 3 of the      -->
+<!--License, or (at your option) any later version.                         -->
+
+<!--This program is distributed in the hope that it will be useful,         -->
+<!--but WITHOUT ANY WARRANTY; without even the implied warranty of          -->
+<!--MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           -->
+<!--GNU Affero General Public License for more details.                     -->
+
+<!--You should have received a copy of the GNU Affero General Public License-->
+<!--along with this program.  If not, see <http://www.gnu.org/licenses/>.   -->
+<!-- ********************************************************************** -->
+<odoo>
+
+    <record id="product_template_form_view_food" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Food Informations" groups="louve_custom_product.group_food_user">
+                    <group colspan="4">
+                        <group>
+                            <separator string="Origin" colspan="2"/>
+                            <field name="country_id" options="{'quick_create':false}"/>
+                            <field name="department_id" options="{'quick_create':false}"/>
+                            <field name="origin_description"/>
+                            <field name="maker_description"/>
+                        </group>
+                        <group>
+                            <separator string="Food" colspan="2"/>
+                            <field name="fresh_category"/>
+                            <field name="fresh_range"/>
+                            <field name="is_mercuriale"/>
+                            <field name="label_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <separator string="Price Tag" colspan="4"/>
+                            <field name="expiration_date_days"/>
+                            <field name="extra_note_bizerba_pricetag_1"/>
+                            <field name="extra_note_bizerba_pricetag_2"/>
+                            <field name="ingredients" widget="hmtl"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+            <xpath expr="//field[@name='weight']/.." position="after">
+                <field name="weight_net"/>
+                <field name="price_weight_net"/>
+            </xpath>
+            <xpath expr="//field[@name='volume']/.." position="after">
+                <field name="price_volume"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- Form view -->
+		<record id="view_smile_export_sage_100_form" model="ir.ui.view">
+			<field name="name">Smile Export Sage 100</field>
+			<field name="model">smile.export.sage</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Smile Export Sage 100" version="7.0">
+					<sheet>
+						<label for="name" class="oe_edit_only" />
+						<h1>
+							<field name="name" />
+						</h1>
+							<group string="Options" colspan="4" col="4">
+								<field name="filter_move_lines" />
+								<field name="extension" />
+								<field name="last_export_date" />
+							</group>
+							<separator string="Filters" colspan="2"/>
+							<notebook>
+								<page string="Dates">
+									<group colspan="4" col="4">
+										<field name="date_from" help="Move lines created after" />
+										<field name="date_to" help="Move lines created before" />
+									</group>
+								</page>
+								<page string="Invoices">
+									<field name="invoice_ids" />
+								</page>
+								<page string="Journals">
+									<field name="journal_ids" />
+								</page>
+								<page string="Moves">
+									<field name="move_ids" />
+								</page>
+								<page string="Partners">
+									<field name="partner_ids" />
+								</page>
+							</notebook>
+						<!-- Export button -->
+						<button name="create_report" string="Export" type="object"
+							default_focus="1" class="oe_highlight" />
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- Tree view -->
+		<record id="view_attachment_tree" model="ir.ui.view">
+			<field name="name">Smile Export Sage 100</field>
+			<field name="model">smile.export.sage</field>
+			<field name="arch" type="xml">
+				<tree string="Smile Export Sage 100">
+					<field name="name" />
+					<field name="last_export_date" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- Search view -->
+		<record id="view_smile_export_sage_100_search" model="ir.ui.view">
+			<field name="model">smile.export.sage</field>
+			<field name="arch" type="xml">
+				<search string="Smile Export Sage 100">
+					<filter name="my_exports_filter" string="My Exports" domain="[('create_uid', '=', uid)]"
+						help="Filter on my exports" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action -->
+		<record id="action_smile_export_sage_100" model="ir.actions.act_window">
+			<field name="name">Smile Export Sage 100</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">smile.export.sage</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_smile_export_sage_100_search" />
+		</record>
+
+		<!-- Menus -->
+		<menuitem id="menu_smile_export" parent="account.menu_finance" name="Exports"
+			sequence="4" />
+		<menuitem id="menu_smile_export_sage_100" parent="menu_smile_export"
+			name="Export Sage 100"
+			sequence="1"/>
+		<menuitem id="menu_smile_export_sage_100_export" parent="menu_smile_export_sage_100"
+			name="Export Sage 100" action="action_smile_export_sage_100"
+			sequence="10"/>
+		<menuitem id="menu_move_lines_to_export" parent="menu_smile_export_sage_100"
+			name="Move lines to export" action="action_move_lines_to_export"
+			sequence="20"/>
+
+	</data>
+</openerp>

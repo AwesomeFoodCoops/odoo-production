@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- QWeb Reports -->
+    <report
+        id="pricetag"
+        model="report.pricetag"
+        string="Pricetags"
+        report_type="qweb-pdf"
+        name="louve_custom_product.report_pricetag"
+        file="louve_custom_product.report_pricetag"
+        attachment_use="False"
+    />
+</odoo>

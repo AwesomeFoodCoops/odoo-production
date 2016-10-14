@@ -1,0 +1,340 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * base_setup
+# 
+# Translators:
+# Goutoudis Kostas <goutoudis@gmail.com>, 2015-2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-29 10:25+0000\n"
+"PO-Revision-Date: 2016-02-12 10:37+0000\n"
+"Last-Translator: Martin Trigaux\n"
+"Language-Team: Greek (http://www.transifex.com/odoo/odoo-9/language/el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_module_portal
+msgid "Activate the customer portal"
+msgstr "Ενεργοποίηση της πύλης των πελατών"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_module_share
+msgid "Allow documents sharing"
+msgstr "Επιτρέπει τον διαμοιρασμό εγγράφων"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_module_google_calendar
+msgid "Allow the users to synchronize their calendar  with Google Calendar"
+msgstr "Επιτρέπει στους χρήστες να συγχρονίζουν αυτό το ημερολόγιο με το Google Calendar"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_module_base_import
+msgid "Allow users to import data from CSV/XLS/XLSX/ODS files"
+msgstr ""
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+#: model:ir.ui.view,arch_db:base_setup.view_sale_config_settings
+msgid "Apply"
+msgstr "Εφαρμογή"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_module_google_drive
+msgid "Attach Google documents to any record"
+msgstr "Επισύναψη αρχείων Google σε οποιαδήποτε εγγραφή"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Authentication"
+msgstr "Πιστοποίηση"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+#: model:ir.ui.view,arch_db:base_setup.view_sale_config_settings
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#. module: base_setup
+#: selection:base.setup.terminology,partner:0
+msgid "Client"
+msgstr "Πελάτης"
+
+#. module: base_setup
+#: model:ir.actions.act_window,name:base_setup.action_sale_config
+#: model:ir.ui.view,arch_db:base_setup.view_sale_config_settings
+msgid "Configure Sales"
+msgstr "Διαμόρφωσε Πωλήσεις"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Configure outgoing email servers"
+msgstr "Ρυθμίσετε τον διακομιστή εξερχόμενων emails"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Configure your company data"
+msgstr "Διαμορφώστε τα δεδομένα της εταιρίας σας"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_create_uid
+#: model:ir.model.fields,field_description:base_setup.field_base_setup_terminology_create_uid
+#: model:ir.model.fields,field_description:base_setup.field_sale_config_settings_create_uid
+msgid "Created by"
+msgstr "Δημιουργήθηκε από"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_create_date
+#: model:ir.model.fields,field_description:base_setup.field_base_setup_terminology_create_date
+#: model:ir.model.fields,field_description:base_setup.field_sale_config_settings_create_date
+msgid "Created on"
+msgstr "Δημιουργήθηκε στις"
+
+#. module: base_setup
+#: selection:base.setup.terminology,partner:0
+msgid "Customer"
+msgstr "Πελάτης"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_display_name
+#: model:ir.model.fields,field_description:base_setup.field_base_setup_terminology_display_name
+#: model:ir.model.fields,field_description:base_setup.field_sale_config_settings_display_name
+msgid "Display Name"
+msgstr "Εμφάνιση Ονόματος"
+
+#. module: base_setup
+#: selection:base.setup.terminology,partner:0
+msgid "Donor"
+msgstr "Δότης"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Email"
+msgstr "Email"
+
+#. module: base_setup
+#: model:ir.actions.act_window,name:base_setup.action_general_configuration
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "General Settings"
+msgstr "Γενικές Ρυθμίσεις"
+
+#. module: base_setup
+#: model:ir.model.fields,help:base_setup.field_base_config_settings_module_portal
+msgid "Give your customers access to their documents."
+msgstr "Δώστε στους πελάτες σας πρόσβαση στα έγγραφά τους"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Google Calendar"
+msgstr "Ημερολόγιο Google"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Google Drive"
+msgstr "Google Drive"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Google Integration"
+msgstr ""
+
+#. module: base_setup
+#: selection:base.setup.terminology,partner:0
+msgid "Guest"
+msgstr "Επισκέπτης"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_setup_terminology_partner
+msgid "How do you call a Customer"
+msgstr "Πώς καλείς έναν Πελάτη"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_id
+#: model:ir.model.fields,field_description:base_setup.field_base_setup_terminology_id
+#: model:ir.model.fields,field_description:base_setup.field_sale_config_settings_id
+msgid "ID"
+msgstr "ID"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Import / Export"
+msgstr "Εισαγωγές / Εξαγωγές"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Inter company"
+msgstr ""
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings___last_update
+#: model:ir.model.fields,field_description:base_setup.field_base_setup_terminology___last_update
+#: model:ir.model.fields,field_description:base_setup.field_sale_config_settings___last_update
+msgid "Last Modified on"
+msgstr "Τελευταία αλλαγή στις"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_write_uid
+#: model:ir.model.fields,field_description:base_setup.field_base_setup_terminology_write_uid
+#: model:ir.model.fields,field_description:base_setup.field_sale_config_settings_write_uid
+msgid "Last Updated by"
+msgstr "Τελευταία Ενημέρωση από"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_write_date
+#: model:ir.model.fields,field_description:base_setup.field_base_setup_terminology_write_date
+#: model:ir.model.fields,field_description:base_setup.field_sale_config_settings_write_date
+msgid "Last Updated on"
+msgstr "Τελευταία Ενημέρωση στις"
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_module_inter_company_rules
+msgid "Manage Inter Company"
+msgstr ""
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_group_light_multi_company
+msgid "Manage multiple companies"
+msgstr "Διαχείριση πολλαπλών εταιριών"
+
+#. module: base_setup
+#: selection:base.setup.terminology,partner:0
+msgid "Member"
+msgstr "Μέλος"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Multi Company"
+msgstr "Πολυ Εταιρική"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid ""
+"Once installed, you can configure your API credentials for \"Google "
+"calendar\""
+msgstr "Μόλις εγκατασταθεί μπορείτε να ρυθμίσετε τα στοιχεία εισόδου API για το \"Google calendar\""
+
+#. module: base_setup
+#: selection:base.setup.terminology,partner:0
+msgid "Partner"
+msgstr "Συνεργάτης"
+
+#. module: base_setup
+#: selection:base.setup.terminology,partner:0
+msgid "Patient"
+msgstr "Ασθενής"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Portal access"
+msgstr "Πρόσβαση Πύλης"
+
+#. module: base_setup
+#: model:ir.model.fields,help:base_setup.field_base_config_settings_module_share
+msgid "Share or embbed any screen of Odoo."
+msgstr "Διαμοιρασμός ή ενσωμάτωση οποιαδήποτε οθόνης του Odoo."
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_company_share_partner
+msgid "Share partners to all companies"
+msgstr ""
+
+#. module: base_setup
+#: model:ir.model.fields,help:base_setup.field_base_config_settings_company_share_partner
+msgid ""
+"Share your partners to all companies defined in your instance.\n"
+" * Checked : Partners are visible for every companies, even if a company is defined on the partner.\n"
+" * Unchecked : Each company can see only its partner (partners where company is defined). Partners not related to a company are visible for all companies."
+msgstr ""
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid "Shared resources"
+msgstr ""
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.base_setup_terminology_form
+msgid "Specify Your Terminology"
+msgstr "Καθορίστε την Ορολογία σας"
+
+#. module: base_setup
+#: selection:base.setup.terminology,partner:0
+msgid "Tenant"
+msgstr "Ενοικιαστής"
+
+#. module: base_setup
+#: model:ir.model.fields,help:base_setup.field_base_config_settings_module_google_calendar
+msgid "This installs the module google_calendar."
+msgstr "Αυτό εγκαθιστά την εφαρμογή google_calendar."
+
+#. module: base_setup
+#: model:ir.model.fields,help:base_setup.field_base_config_settings_module_google_drive
+msgid "This installs the module google_docs."
+msgstr "Αυτό εγκαθιστά την εφαρμογή google_docs."
+
+#. module: base_setup
+#: model:ir.model.fields,help:base_setup.field_base_config_settings_module_inter_company_rules
+msgid ""
+"This installs the module inter_company_rules.\n"
+" Configure company rules to automatically create SO/PO when one of your company sells/buys to another of your company."
+msgstr ""
+
+#. module: base_setup
+#: model:ir.actions.act_window,name:base_setup.action_partner_terminology_config_form
+msgid "Use another word to say \"Customer\""
+msgstr "Χρησιμοποίησε μια άλλη λέξη για να πεις \"Πελάτης\""
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_base_config_settings_module_auth_oauth
+msgid "Use external authentication providers, sign in with Google..."
+msgstr "Χρησιμοποίηση εξωτερικών πάροχων αυθεντικότητας, συνδέση με Google..."
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid ""
+"When you send a document to a customer\n"
+"                                    (quotation, invoice), your customer will be\n"
+"                                    able to signup to get all his documents,\n"
+"                                    read your company news, check his projects,\n"
+"                                    etc."
+msgstr "Όταν στέλνεις ένα έγγραφο σε ένα πελάτη\n(προσφορά, τιμολόγιο), ο πελάτης θα μπορεί\nνα έχει την δυνατότητα εγγραφής για να πάρει όλα αυτά τα έγγραφα,\nνα διαβάσει τα εταιρικά σου νέα, ελέγξει τα έργα του,\nκλπ."
+
+#. module: base_setup
+#: model:ir.model.fields,help:base_setup.field_base_config_settings_group_light_multi_company
+msgid ""
+"Work in multi-company environments, with appropriate security access between"
+" companies."
+msgstr ""
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.base_setup_terminology_form
+msgid ""
+"You can use this wizard to change the terminologies for customers in the "
+"whole application."
+msgstr "Μπορείς να χρησιμοποιήσεις αυτόν τον οδηγό για να αλλάξεις τις ορολογίες για τους πελάτες σε όλη την εφαρμογή"
+
+#. module: base_setup
+#: model:ir.ui.view,arch_db:base_setup.view_general_configuration
+msgid ""
+"You will find more options in your company details: address for the header "
+"and footer, overdue payments texts, etc."
+msgstr "Θα βρείτε περισσότερες δυνατότητες στις λεπτομέρειες της εταιρίας σας: διεύθυνση για την επικεφαλίδα και το υποσέλιδο, κείμενα ληξιπρόθεσμων οφειλών, κλπ."
+
+#. module: base_setup
+#: model:ir.model,name:base_setup.model_base_config_settings
+msgid "base.config.settings"
+msgstr "base.config.settings"
+
+#. module: base_setup
+#: model:ir.model,name:base_setup.model_base_setup_terminology
+msgid "base.setup.terminology"
+msgstr ""
+
+#. module: base_setup
+#: model:ir.model,name:base_setup.model_sale_config_settings
+msgid "sale.config.settings"
+msgstr "sale.config.settings"

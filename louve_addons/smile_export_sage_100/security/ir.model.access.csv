@@ -1,0 +1,36 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+smile_export_sage_100.access_export_sage,smile.export.sage,smile_export_sage_100.model_smile_export_sage,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_move_line,account.move.line,account.model_account_move_line,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_analytic_line,account.analytic.line export sage,account.model_account_analytic_line,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_invoice,account.invoice export sage,account.model_account_invoice,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_account,account.account export sage,account.model_account_account,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_bank_statement,account.bank.statement export sage,account.model_account_bank_statement,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_move,account.move export sage,account.model_account_move,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_uom,product.uom export sage,product.model_product_uom,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_journal,account.journal export sage,account.model_account_journal,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_company,res.company export sage,account.model_res_company,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_tax,account.tax export sage,account.model_account_tax,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_partner,res.partner export sage,account.model_res_partner,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_01,ir_attachment manager,base.model_ir_attachment,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_02,product.template salemanager,account.model_product_template,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_03,product.product salemanager,product.model_product_product,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_04,product.category salemanager,account.model_product_category,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_05,account.account sale manager,account.model_account_account,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_10,account.account.template,account.model_account_account_template,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_12,account.chart.template,account.model_account_chart_template,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_13,account.tax.template,account.model_account_tax_template,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_14,account.analytic.line manager,account.model_account_analytic_line,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_15,account.payment.term,account.model_account_payment_term,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_16,account.payment.term.line,account.model_account_payment_term_line,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_17,account.tax,account.model_account_tax,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_18,account.journal,account.model_account_journal,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_23,res.currency.rate account manager,base.model_res_currency_rate,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_25,account.fiscal.position account.manager,account.model_account_fiscal_position,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_26,account.fiscal.position.tax account.manager,account.model_account_fiscal_position_tax,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_27,account.fiscal.position account.manager,account.model_account_fiscal_position_account,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_28,account.fiscal.position.template,account.model_account_fiscal_position_template,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_29,account.fiscal.position.tax.template,account.model_account_fiscal_position_tax_template,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_30,account.fiscal.position.account.template,account.model_account_fiscal_position_account_template,smile_export_sage_100.group_export_sage,1,1,1,1
+smile_export_sage_100.access_37,res_partner group_account_manager,account.model_res_partner,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_38,account.move.line manager,account.model_account_move_line,smile_export_sage_100.group_export_sage,1,0,0,0
+smile_export_sage_100.access_39,account.move manager,account.model_account_move,smile_export_sage_100.group_export_sage,1,0,0,0

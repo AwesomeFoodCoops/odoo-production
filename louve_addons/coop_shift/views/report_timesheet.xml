@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <template id="report_timesheet">
+        <t t-call="report.html_container">
+        <tr t-foreach="Shifts" t-as="shift">
+            <t t-call="report.external_layout">
+                <div class="page" style="page-break-after:always">
+                    <div class="row mt0 mb0">
+                        <div class="col-xs-4" style="text-align:right"><h2>Timesheet of: </h2></div>
+                        <div class="col-xs-4"><h3><span t-esc="shift['shift'].date_without_time"/></h3></div>
+                        <div class="col-xs-1 col-xs-push-1" style="text-align:right"><h4>as of</h4></div>
+                        <div class="col-xs-2 col-xs-push-1"><h4><span t-esc="date.today()"/></h4></div>
+                    </div>
+                    <div class="row mt0 mb0">
+                        <div class="col-xs-4" style="text-align:right"><h2>Commitee/Squad: </h2></div>
+                        <div class="col-xs-5"><h2><span t-esc="shift['shift'].name"/></h2></div>
+                    </div>
+                    <div style="border: 2px solid black">
+                        <div class="row mt0 mb0">
+                            <div class="col-xs-5" style="text-align:center"><bold>SCHEDULED MEMBERS</bold></div>
+                            <div class="col-xs-1" style="text-align:center"><small><small>Squad leader use only</small></small></div>
+                            <div class="col-xs-5" style="text-align:center"><bold>MEMBERS WORKING</bold><br/><font size="15">(Regular or Sub)</font></div>
+                            <div class="col-xs-1" style="text-align:center"><small><small>Squad leader <br/>use only </small></small></div>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="7%">Prior<br/>Shifts<br/>Due</th>
+                                <th width="7%">Work<br/>Status</th>
+                                <th width="20%">Member Name</th>
+                                <th width="8%" style="background:#DDDDDD">Start<br/>signature</th>
+                                <th width="8%" style="background:#DDDDDD">End<br/>signature</th>
+                                <th width="8.34%">Member<br/>Number</th>
+                                <th width="33.33%">Member Working</th>
+                                <th width="8.33%" style="background:#DDDDDD"><small>Nb of<br/>MakeUps<br/>if absent</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="shift['registrations']" t-as="registration">
+                                <td></td>
+                                <td></td>
+                                <td><span t-esc="registration['registration'].name"/></td>
+                                <td style="background:#DDDDDD"></td>
+                                <td style="background:#DDDDDD"></td>
+                                <td></td>
+                                <td><span t-esc="registration['replacement'].name"/></td>
+                                <td style="background:#DDDDDD"></td>
+                            </tr>
+                            <t t-set="nb_lines" t-value="(((shift['registration_number']+shift['ftop_number'])*3/2)//21+1)*21"/>
+                            <t t-set="nb_free_lines" t-value="nb_lines-shift['registration_number']-shift['ftop_number']-1"/>
+                            <tr t-foreach="int(nb_free_lines*2/3)" t-as="i" style="height:19px">
+                                <td><font color="white">_</font></td>
+                                <td></td>
+                                <td></td>
+                                <td style="background:#DDDDDD"></td>
+                                <td style="background:#DDDDDD"></td>
+                                <td></td>
+                                <td></td>
+                                <td style="background:#DDDDDD"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><bold>**-FTOP Workers Below-**</bold></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr t-foreach="shift['ftop']" t-as="ftop">
+                                <td></td>
+                                <td></td>
+                                <td><span t-esc="ftop.name"/></td>
+                                <td style="background:#DDDDDD"></td>
+                                <td></td>
+                                <td></td>
+                                <td style="background:#DDDDDD"></td>
+                            </tr>
+                            <t t-set="nb_lines_ftop" t-value="int(nb_lines*1/3)"/>
+                            <tr t-foreach="int(nb_free_lines*1/3)" t-as="i">
+                                <td><font color="white">_</font></td>
+                                <td></td>
+                                <td></td>
+                                <td style="background:#DDDDDD"></td>
+                                <td style="background:#DDDDDD"></td>
+                                <td></td>
+                                <td></td>
+                                <td style="background:#DDDDDD"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+
+            <t t-call="report.external_layout">
+                <div class="page" style="page-break-after:always">
+                    <div class="row mt0 mb0">
+                        <div class="col-xs-4" style="text-align:right"><h2>Timesheet of: </h2></div>
+                        <div class="col-xs-4"><h3><span t-esc="shift['shift'].date_without_time"/></h3></div>
+                        <div class="col-xs-1 col-xs-push-1" style="text-align:right"><h4>as of</h4></div>
+                        <div class="col-xs-2 col-xs-push-1"><h4><span t-esc="date.today()"/></h4></div>
+                    </div>
+                    <div class="row mt0 mb0">
+                        <div class="col-xs-4" style="text-align:right"><h2>Commitee/Squad: </h2></div>
+                        <div class="col-xs-5"><h2><span t-esc="shift['shift'].name"/></h2></div>
+                    </div>
+                    <div class="row mt0 mb0">
+                        <div class="col-xs-12" style="background:#000000"><font color="white"><h1>For MAKE-UPS Only (Subs Use Page 1)</h1></font></div>
+                    </div>
+                    <div style="border: 3px solid black">
+                        <div class="row mt8 mb0">
+                            <div class="col-xs-8"><h2>Member to Receive Make-Up Credit</h2></div>
+                            <div class="col-xs-4"><h2>Members Working</h2></div>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="25%">Member Name</th>
+                                <th width="8.34%">Member #</th>
+                                <th width="8.33%">Committee</th>
+                                <th width="8.33%">Day of<br/>Week</th>
+                                <th width="8.33%">ABCD</th>
+                                <th width="8.34%">Start<br/>Time</th>
+                                <th width="25%">Member Working</th>
+                                <th width="8.34%">Member #</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="9" t-as="i">
+                                <td><font color="white">_</font></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row mt0 mb0">
+                        <div class="col-xs-12">All members who owe time for more than four weeks will be suspended, unless an extension is recorded in the Squad Leader Notes Section Below.</div>
+                    </div>
+                    <div style="background:#DDDDDD">
+                        <div class="row mt0 mb0">
+                            <div class="col-xs-10"><h2>Squad Leader Notes to the Membership Office</h2></div>
+                            <div class="col-xs-2">Squad Leader Use Only</div>
+                        </div>
+                        <div class="row mt0 mb0">
+                            <div class="col-xs-12">Please be as Specific as possible when noting corrections, extensions, etc. Please refer to: the date of the problem, what the problem was; what change should happen now. Please sign your notes.<br/>_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________</div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </tr>
+        </t>
+    </template>
+</data>
+</odoo>

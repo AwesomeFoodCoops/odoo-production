@@ -1,0 +1,47 @@
+<ion-view view-title="Identification"
+        class="{{login.css_class}}">
+    <ion-content class="padding">
+
+        <form ng-submit="submit()">
+            <div class="container theme-showcase" role="main">
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <span class="input-label">Base</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input ng-model="login.db" type="text" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <span class="input-label">Identifiant</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input ng-model="login.username" type="text" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <span class="input-label">Mot de passe</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input ng-model="login.password" type="password" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="text-align:center;padding-top:30px">
+                            <input type="submit" class="button button-positive" value="S'identifier">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="text-align:center;padding-top:30px">
+                            <div class="label label-danger" ng-show="errorMessage">{{ errorMessage }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </ion-content>
+</ion-view>

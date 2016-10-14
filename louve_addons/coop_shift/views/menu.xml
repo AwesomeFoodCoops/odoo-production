@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="action_shift_members" model="ir.actions.act_window">
+            <field name="name">Members</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem
+            name="Members"
+            id="shift_main_menu"
+            sequence="66"
+            groups="coop_shift.group_shift_user"
+            web_icon="coop_shift,static/description/icon.png"/>
+        <menuitem
+            name="Shifts"
+            parent="shift_main_menu"
+            id="shift_menu"
+            sequence="11"
+            groups="coop_shift.group_shift_user"/>
+        <menuitem
+            name="Templates"
+            parent="shift_main_menu"
+            id="template_menu"
+            sequence="22"
+            groups="coop_shift.group_shift_manager"/>
+        <menuitem
+            parent="shift_main_menu"
+            id="menu_reporting_shifts"
+            sequence="99"
+            groups="coop_shift.group_shift_manager"
+            name="Reports"/>
+        <menuitem
+            id="menu_shift_configuration"
+            name="Configuration"
+            parent="shift_main_menu"
+            sequence="100"
+            groups="base.group_configuration"/>
+    </data>
+</odoo>

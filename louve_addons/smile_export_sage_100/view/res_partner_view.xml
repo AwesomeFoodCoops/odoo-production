@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="smile_export_sage_view_partner_form" model="ir.ui.view">
+			<field name="name">smile.export.sage.res.partner.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='property_account_receivable_id']" position="after">
+					<field name="property_account_receivable_sage" />
+				</xpath>
+				<xpath expr="//field[@name='property_account_payable_id']" position="after">
+					<field name="property_account_payable_sage" />
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>
+ 

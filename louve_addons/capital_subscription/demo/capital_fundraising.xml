@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="capital.fundraising" id="capital_fundraising">
+        <field name="name">Demo Capital Fundraising</field>
+        <field name="share_value">10</field>
+        <field name="journal_id" ref="capital_journal" />
+
+    </record>
+
+</odoo>

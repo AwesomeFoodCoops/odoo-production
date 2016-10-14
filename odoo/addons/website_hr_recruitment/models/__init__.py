@@ -1,0 +1,3 @@
+import hr_job
+import hr_recruitment_source
+import hr_applicant

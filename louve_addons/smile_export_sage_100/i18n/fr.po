@@ -1,0 +1,277 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* smile_export_sage_100
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-14 10:22+0000\n"
+"PO-Revision-Date: 2016-07-14 10:22+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_journal_ids
+msgid "Account Journals"
+msgstr "Journaux des comptes"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_res_partner_property_account_payable_sage
+msgid "Account Payable Sage"
+msgstr "Compte fournisseur Sage"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_res_partner_property_account_receivable_sage
+msgid "Account Receivable Sage"
+msgstr "Compte client Sage"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,help:smile_export_sage_100.field_account_move_line_state
+msgid "All manually created new journal entries are usually in the status 'Unposted', but you can set the option to skip that status on the related journal. In that case, they will behave as journal entries automatically created by the system on document validation (invoices, bank statements...) and will be created in 'Posted' status."
+msgstr "Toutes les nouvelles entrées de journal créées manuellement sont généralement à l'état \"Non validé\", mais vous pouvez définir l'option  de sauter ce statut dans le journal lié. Dans ce cas, elles se comporteront comme des entrées de journal créées automatiquement par le système de validation de document (factures, relevés bancaires, etc.) et seront créées avec le statut \"Validé\"."
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_attachment_ids
+msgid "Attachments"
+msgstr "Pièces jointes"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_form
+msgid "Dates"
+msgstr "Dates"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_display_name
+msgid "Display Name"
+msgstr "Afficher le nom"
+
+#. module: smile_export_sage_100
+#: selection:smile.export.sage,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_form
+msgid "Export"
+msgstr "Exporter"
+
+#. module: smile_export_sage_100
+#: model:res.groups,name:smile_export_sage_100.group_export_sage
+msgid "Export Sage"
+msgstr "Export Sage"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.menu,name:smile_export_sage_100.menu_smile_export_sage_100
+#: model:ir.ui.menu,name:smile_export_sage_100.menu_smile_export_sage_100_export
+msgid "Export Sage 100"
+msgstr "Export Sage 100"
+
+#. module: smile_export_sage_100
+#: selection:smile.export.sage,filter_move_lines:0
+msgid "Export all move lines"
+msgstr "Export de toutes les écritures"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_name
+msgid "Export filename"
+msgstr "Nom du fichier d'export"
+
+#. module: smile_export_sage_100
+#: selection:smile.export.sage,filter_move_lines:0
+msgid "Export only non exported move lines"
+msgstr "Export des écritures non exportées"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_account_move_line_exported
+#: selection:smile.export.sage,state:0
+msgid "Exported"
+msgstr "Exporté"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.menu,name:smile_export_sage_100.menu_smile_export
+msgid "Exports"
+msgstr "Exports"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_extension
+msgid "Extension"
+msgstr "Extension"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_search
+msgid "Filter on my exports"
+msgstr "Filtrer sur mes exports"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_form
+msgid "Filters"
+msgstr "Filtres"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_date_from
+msgid "From date"
+msgstr "Depuis le"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_invoice_ids
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_form
+msgid "Invoices"
+msgstr "Factures"
+
+#. module: smile_export_sage_100
+#: model:ir.model,name:smile_export_sage_100.model_account_journal
+msgid "Journal"
+msgstr "Journal"
+
+#. module: smile_export_sage_100
+#: model:ir.model,name:smile_export_sage_100.model_account_move_line
+msgid "Journal Item"
+msgstr "Écriture comptable"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_form
+msgid "Journals"
+msgstr "Journaux"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_last_export_date
+msgid "Last Export Date"
+msgstr "Date du dernier export"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,help:smile_export_sage_100.field_smile_export_sage_last_export_date
+msgid "Last date of export"
+msgstr "Date du dernier export"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_move_ids
+msgid "Move"
+msgstr "Pièce"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_form
+msgid "Move lines created after"
+msgstr "Écritures comptables créées après"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_form
+msgid "Move lines created before"
+msgstr "Écritures comptables créées avant"
+
+#. module: smile_export_sage_100
+#: model:ir.actions.act_window,name:smile_export_sage_100.action_move_lines_to_export
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_filter_move_lines
+#: model:ir.ui.menu,name:smile_export_sage_100.menu_move_lines_to_export
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_move_line_search
+msgid "Move lines to export"
+msgstr "Écritures comptables à exporter"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_form
+msgid "Moves"
+msgstr "Pièces"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_search
+msgid "My Exports"
+msgstr "Mes Exports"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_form
+msgid "Options"
+msgstr "Options"
+
+#. module: smile_export_sage_100
+#: model:ir.model,name:smile_export_sage_100.model_res_partner
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_partner_ids
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_form
+msgid "Partners"
+msgstr "Partenaires"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_account_journal_sage_code
+msgid "Sage Code"
+msgstr "Code Sage"
+
+#. module: smile_export_sage_100
+#: model:ir.actions.act_window,name:smile_export_sage_100.action_smile_export_sage_100
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_attachment_tree
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_form
+#: model:ir.ui.view,arch_db:smile_export_sage_100.view_smile_export_sage_100_search
+msgid "Smile Export Sage 100"
+msgstr "Smile Export Sage 100"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_state
+msgid "State"
+msgstr "État"
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_account_move_line_state
+msgid "Status"
+msgstr "État"
+
+#. module: smile_export_sage_100
+#: code:addons/smile_export_sage_100/models/smile_export_sage.py:155
+#, python-format
+msgid "There are no move lines to export."
+msgstr "Il n'y a aucune écriture comptable à exporter."
+
+#. module: smile_export_sage_100
+#: model:ir.model.fields,field_description:smile_export_sage_100.field_smile_export_sage_date_to
+msgid "To date"
+msgstr "Jusqu'au"
+
+#. module: smile_export_sage_100
+#: selection:smile.export.sage,extension:0
+msgid "Txt"
+msgstr "Txt"
+
+#. module: smile_export_sage_100
+#: model:ir.model,name:smile_export_sage_100.model_smile_export_sage
+msgid "smile.export.sage"
+msgstr "smile.export.sage"
+

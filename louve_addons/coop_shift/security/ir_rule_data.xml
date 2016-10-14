@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+    <record id="shift_registration_user" model="ir.rule">
+        <field name="name">Access to shift_registration User</field>
+        <field ref="model_shift_registration" name="model_id"/>
+        <field name="domain_force">[('partner_id','=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('coop_shift.group_shift_user'))]"/>
+    </record>
+    <record id="shift_registration_manager" model="ir.rule">
+        <field name="name">Access to shift_registration Manager</field>
+        <field ref="model_shift_registration" name="model_id"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
+    </record>
+</data>
+</openerp>

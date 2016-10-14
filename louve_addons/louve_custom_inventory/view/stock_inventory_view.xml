@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_inventory_line_tree_louve" model="ir.ui.view">
+        <field name="model">stock.inventory.line</field>
+        <field name="inherit_id" ref="stock.stock_inventory_line_tree" />
+        <field name="arch" type="xml">
+            <field name="product_qty" position="before">
+                <field name="product_qty1"/>
+                <field name="product_qty2"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_inventory_form_louve" model="ir.ui.view">
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_qty'][1]" position="before">
+                <field name="product_qty1"/>
+                <field name="product_qty2"/>
+            </xpath>
+            <xpath expr="//field[@name='product_qty'][1]" position="attributes">
+                <attribute name="readonly" eval="True"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']//field[@name='package_id']" position="replace"/>
+        </field>
+    </record>
+</odoo>

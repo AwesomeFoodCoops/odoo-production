@@ -1,0 +1,34 @@
+<ion-view view-title="Fiche membre" class="{{partner.css_class}}">
+    <ion-content class="padding">
+
+        <form ng-submit="go_back()">
+            <div class="container theme-showcase" role="main">
+
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img ng-src="{{partner.image_url}}" class="img-thumbnail"/>
+                        </div>
+                        <div class="col-sm-8">
+                            <h1><span ng-bind="partner.name"/></h1>
+                            <h3>Statut :
+                                <span class="label label-success" ng-show="partner.state == 'ok'">OK</span>
+                                <span class="label label-warning" ng-show="partner.state == 'membership_problem'">Problème d'adhésion</span>
+                                <span class="label label-danger" ng-show="partner.state == 'work_problem'">Travail non réalisé</span>
+                            </h3>
+                            <h3>Peut acheter :
+                                <span class="label label-success" ng-show="partner.customer">OUI</span>
+                                <span class="label label-danger" ng-hide="partner.customer">NON</span>
+                            </h3>
+                            <br /><br /><br />
+                            <input type="submit" class="button button-positive" value="Retour">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <audio id="sound_res_partner_success" src="./audio/res_partner_success.mp3"></audio>
+        <audio id="sound_res_partner_warning" src="./audio/res_partner_warning.mp3"></audio>
+        <audio id="sound_res_partner_danger" src="./audio/res_partner_danger.mp3"></audio>
+    </ion-content>
+</ion-view>

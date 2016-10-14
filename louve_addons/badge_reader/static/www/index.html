@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Badge Reader for Odoo</title>
+
+        <!-- Ionic - CSS -->
+        <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+
+        <!-- Ionic - JS -->
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+        <!-- AngularJS - JS -->
+        <script src="lib/angular-cookies/angular-cookies.js"></script>
+
+        <!-- Bootstrap - CSS -->
+        <link href="./lib/bootstrap-3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Bootstrap - theme -->
+        <link href="./lib/bootstrap-3.3.6/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+        <!-- Bootstrap - JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="./lib/bootstrap-3.3.6/dist/js/bootstrap.min.js"></script>
+
+        <!-- Odoo Connection - JS -->
+        <script src="lib/odoo/dist/odoo.js"></script>
+
+        <!-- Import Custom CSS -->
+        <link href="css/style.css" rel="stylesheet">
+
+        <!-- Import Custom JS Apps -->
+        <script src="js/app.js"></script>
+
+        <!-- Import Models -->
+        <script src="models/m_res_users.js"></script>
+        <script src="models/m_res_partner.js"></script>
+
+        <!-- Import Controllers -->
+        <script src="controllers/c_login.js"></script>
+        <script src="controllers/c_user_search.js"></script>
+        <script src="controllers/c_partner_form.js"></script>
+
+    </head>
+
+    <body ng-app="starter">
+        <ion-nav-view/>
+    </body>
+</html>

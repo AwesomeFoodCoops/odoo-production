@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<odoo>
+    <record id="view_add_template_registration_wizard_form" model="ir.ui.view">
+        <field name="model">add.template.registration.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Template Registration">
+                <group>
+                    <field name="template_id"/>
+                    <field name="shift_ticket_id" domain="[('shift_template_id', '=', template_id)]"/>
+                    <field name="date_begin"/>
+                    <field name="date_end"/>
+                    <field name="state" required="1"/>
+                </group>
+                <footer>
+                    <button name="add_template_registration" string="Add Template Registration" type="object" class="oe_highlight"/>
+                    <label string="or" />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+################################################################################
+#    See __openerp__.py file for Copyright and Licence Informations.
+################################################################################
+
+- 
+  Creating a ir.rule record
+- 
+  !record {model: ir.rule, id: ir_rule_computed_purchase_order}:
+    name: u'Access to computed purchase order'
+    model_id: purchase_compute_order.model_computed_purchase_order
+    domain_force: "['|',('company_id','=', False),('company_id','in',[user.company_id.id])]"
+
+

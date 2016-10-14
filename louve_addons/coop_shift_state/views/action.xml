@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_shift_extension">
+        <field name="name">Extensions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shift.extension</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_shift_extension_type">
+        <field name="name">Extensions Types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shift.extension.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_shift_extension_from_partner">
+        <field name="res_model">shift.extension</field>
+        <field name="view_type">form</field>
+        <field name="name">Extensions</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id}</field>
+    </record>
+
+</odoo>
+

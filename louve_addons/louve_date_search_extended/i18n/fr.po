@@ -1,0 +1,73 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* louve_date_search_extended
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-16 13:46+0000\n"
+"PO-Revision-Date: 2016-09-16 13:46+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: louve_date_search_extended
+#: model:ir.model,name:louve_date_search_extended.model_account_move
+msgid "Account Entry"
+msgstr "Écriture comptable"
+
+#. module: louve_date_search_extended
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_account_move_line_search_day
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_account_move_search_day
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_pos_order_search_day
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_pos_session_search_day
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_account_move_line_search
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_account_move_search
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_pos_order_search
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_pos_session_search
+msgid "Day (Search)"
+msgstr "Jour (Recherche)"
+
+#. module: louve_date_search_extended
+#: model:ir.model,name:louve_date_search_extended.model_account_move_line
+msgid "Journal Item"
+msgstr "Écriture comptable"
+
+#. module: louve_date_search_extended
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_account_move_line_search_month
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_account_move_search_month
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_pos_order_search_month
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_pos_session_search_month
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_account_move_line_search
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_account_move_search
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_pos_order_search
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_pos_session_search
+msgid "Month (Search)"
+msgstr "Mois (Recherche)"
+
+#. module: louve_date_search_extended
+#: model:ir.model,name:louve_date_search_extended.model_pos_order
+msgid "Point of Sale"
+msgstr "Point de vente"
+
+#. module: louve_date_search_extended
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_account_move_line_search_year
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_account_move_search_year
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_pos_order_search_year
+#: model:ir.model.fields,field_description:louve_date_search_extended.field_pos_session_search_year
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_account_move_line_search
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_account_move_search
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_pos_order_search
+#: model:ir.ui.view,arch_db:louve_date_search_extended.view_pos_session_search
+msgid "Year (Search)"
+msgstr "Année (Recherche)"
+
+#. module: louve_date_search_extended
+#: model:ir.model,name:louve_date_search_extended.model_pos_session
+msgid "pos.session"
+msgstr "pos.session"
+

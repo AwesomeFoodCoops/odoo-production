@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <menuitem id="menu_product_coefficient"
+        name="Products Coefficients"
+        parent="base.menu_sale_config"
+        sequence="20"
+        action="action_product_coefficient" />
+
+    <menuitem id="menu_product_template_coefficient"
+        name="Products (Coefficients View)"
+        parent="base.menu_sales"
+        sequence="20"
+        action="action_product_template_coefficient_tree"
+        groups="base.group_sale_manager"/>
+
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="view_stock_picking_search" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <filter name="available" position="after">
+                <filter name="transfer_expense_done" string="Expense Transfer Accounting Entries Generated" domain="[('is_expense_transfer','=', True), ('expense_transfer_move_id','!=', False)]"/>
+                <filter name="transfer_expense_todo" string="Expense Transfer Accounting Entries To Generate" domain="[('is_expense_transfer','=', True), ('expense_transfer_move_id','=', False), ('state', '=', 'done')]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_stock_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="pack_operation_product_ids" position="after">
+                <field name="is_expense_transfer" invisible="1"/>
+                <group class="oe_subtotal_footer oe_right" attrs="{'invisible': [('is_expense_transfer', '=', False)]}">
+                    <field name="inventory_value" class="oe_subtotal_footer_separator"/>
+                </group>
+            </field>
+            <field name="picking_type_id" position="after">
+                <field name="expense_transfer_move_id" attrs="{'invisible': [('is_expense_transfer', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_picking_tree" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="location_dest_id"/>
+                <field name="date" invisible="1"/>
+                <field name="min_date"/>
+                <field name="group_id" invisible="1"/>
+                <field name="priority" invisible="1"/>
+                <field name="picking_type_id"/>
+                <field name="is_expense_transfer" invisible="1"/>
+                <field name="expense_transfer_move_id"/>
+                <field name="inventory_value" sum="Total"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

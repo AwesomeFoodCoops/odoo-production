@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+Copyright (C) 2016-Today GRAP (http://www.lalouve.net)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="barcode_louve_member" model="barcode.rule">
+        <field name="name">Louve Member</field>
+        <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+        <field name="is_partner_available" eval="True" />
+        <field name="is_louve_member" eval="True" />
+        <field name="type">client</field>
+        <field name="encoding">ean13</field>
+        <field name="pattern">0420......{NN}</field>
+        <field name="sequence">900</field>
+    </record>
+
+    <record id="barcode_associated_people" model="barcode.rule">
+        <field name="name">Associated People</field>
+        <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+        <field name="is_partner_available" eval="True" />
+        <field name="is_associated_people" eval="True" />
+        <field name="type">client</field>
+        <field name="encoding">ean13</field>
+        <field name="pattern">0421......{NN}</field>
+        <field name="sequence">901</field>
+    </record>
+
+
+
+
+</odoo>
+

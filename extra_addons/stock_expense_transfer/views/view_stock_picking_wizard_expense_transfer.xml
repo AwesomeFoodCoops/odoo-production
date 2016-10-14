@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="view_stock_picking_wizard_expense_transfer_form" model="ir.ui.view">
+        <field name="model">stock.picking.wizard.expense.transfer</field>
+        <field name="arch" type="xml">
+            <form>
+                <group string="This will generate accounting transfer entries for the following pickings">
+                    <field name="selected_picking_qty"/>
+                </group>
+                <footer>
+                    <button name="button_generate_expense_entry" type="object" string="Generate" class="oe_highlight"/>
+                    or
+                    <button special="cancel" string="Cancel" type="object" class="oe_link" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

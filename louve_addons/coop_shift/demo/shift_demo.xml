@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    <record id="base.user_demo" model="res.users">
+             <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_user'))]"/>
+     </record>
+ </data>
+</openerp>

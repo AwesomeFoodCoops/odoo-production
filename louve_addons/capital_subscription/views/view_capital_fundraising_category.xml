@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.ui.view" id="view_capital_fundraising_category_form">
+        <field name="model">capital.fundraising.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="fundraising_id"/>
+                        <field name="minimum_share_qty"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="partner_account_id"/>
+                        <field name="capital_account_id"/>
+                        <field name="product_id"/>
+                        <field name="line_ids">
+                            <tree editable="bottom">
+                                <field name="fundraising_partner_type_id"/>
+                                <field name="minimum_share_qty"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_capital_fundraising_category_tree">
+        <field name="model">capital.fundraising.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="minimum_share_qty"/>
+                <field name="partner_account_id"/>
+                <field name="capital_account_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_capital_fundraising_category_search">
+        <field name="model">capital.fundraising.category</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+</odoo>

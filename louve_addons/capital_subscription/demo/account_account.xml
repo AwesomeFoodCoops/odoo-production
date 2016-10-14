@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="account.account" id="partner_account_category_A">
+        <field name="name">Demo Account Payable (Fundraising Category A)</field>
+        <field name="user_type_id" ref="account.data_account_type_receivable" />
+        <field name="reconcile">True</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="code">1111A</field>
+    </record>
+
+    <record model="account.account" id="partner_account_category_B">
+        <field name="name">Demo Account Payable (Fundraising Category B)</field>
+        <field name="user_type_id" ref="account.data_account_type_receivable" />
+        <field name="reconcile">True</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="code">1111B</field>
+    </record>
+
+    <record model="account.account" id="paid_capital_account_category_A">
+        <field name="name">Demo Subscribed and Paid Capital (Fundraising Category A)</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="company_id" ref="base.main_company" />
+        <field name="code">1011A</field>
+    </record>
+
+    <record model="account.account" id="paid_capital_account_category_B">
+        <field name="name">Demo Subscribed and Paid Capital (Fundraising Category B)</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="company_id" ref="base.main_company" />
+        <field name="code">1011B</field>
+    </record>
+
+    <record model="account.account" id="unpaid_capital_account_category_A">
+        <field name="name">Demo Subscribed and Unpaid Capital (Fundraising Category A)</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="company_id" ref="base.main_company" />
+        <field name="code">1012A</field>
+    </record>
+
+    <record model="account.account" id="unpaid_capital_account_category_B">
+        <field name="name">Demo Subscribed and Unpaid Capital (Fundraising Category B)</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="company_id" ref="base.main_company" />
+        <field name="code">1012B</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,15 @@
+################################################################################
+#    See __openerp__.py file for Copyright and Licence Informations.
+################################################################################
+
+- 
+  Creating a ir.model.access record
+- 
+  !record {model: ir.model.access, id: ir_model_access_product_history}:
+    group_id: stock.group_stock_user
+    model_id: product_history.model_product_history
+    name: product_history user
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<odoo>
+    <record id="view_update_shifts_form" model="ir.ui.view">
+        <field name="model">update.shifts.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update the following shifts">
+                <group>
+                    <field name="template_id" readonly="True" groups="base.group_no_one"/>
+                    <field name="updated_fields"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <group colspan="2">
+                        <field name="line_ids" nolabel="1">
+                            <tree create="0">
+                                <field name="shift_id"/>
+                                <field name="name"/>
+                                <field name="user_id"/>
+                                <field name="shift_type_id"/>
+                                <field name="date_begin"/>
+                                <field name="date_end"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+                <footer>
+                    <button name="update_shifts" string="Update Shifts" type="object" class="oe_highlight"/>
+                    <label string="or" />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

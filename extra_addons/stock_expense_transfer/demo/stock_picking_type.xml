@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2013-Today: GRAP (http://www.grap.coop)
+Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="stock_picking_type_internal_use" model="stock.picking.type">
+        <field name="name">Internal Use (Expense Transfer Demo)</field>
+        <field name="sequence_id" ref="ir_sequence_internal_use" />
+        <field name="code">internal</field>
+        <field name="expense_transfer_account_id" ref="account_acount_internal_use"/>
+        <field name="default_location_src_id" ref="stock.picking_type_internal" />
+        <field name="default_location_dest_id" ref="stock_location_internal_use" />
+    </record>
+
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pricetag_model_default" model="pricetag.model">
+        <field name="name">Default pricetag model</field>
+        <field name="columns" eval="3"/>
+        <field name="lines" eval="8"/>
+        <field name="pricetag_paperformat_id" ref="louve_custom_product.paperformat_pricetag"/>
+        <field name="report_model">louve_custom_product.report_pricetag</field>
+    </record>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="capital.fundraising.category" id="capital_fundraising_category_A">
+        <field name="name">Demo Capital Fundraising Category A</field>
+        <field name="fundraising_id" ref="capital_fundraising" />
+        <field name="minimum_share_qty">10</field>
+        <field name="partner_account_id" ref="partner_account_category_A" />
+        <field name="capital_account_id" ref="paid_capital_account_category_A" />
+        <field name="product_id" ref="product_fundraising_category_A" />
+    </record>
+
+    <record model="capital.fundraising.category" id="capital_fundraising_category_B">
+        <field name="name">Demo Capital Fundraising Category B</field>
+        <field name="fundraising_id" ref="capital_fundraising" />
+        <field name="minimum_share_qty">50</field>
+        <field name="partner_account_id" ref="partner_account_category_B" />
+        <field name="capital_account_id" ref="paid_capital_account_category_B" />
+        <field name="product_id" ref="product_fundraising_category_B" />
+    </record>
+
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- Views -->
+		<record id="smile_export_sage_view_account_journal_form" model="ir.ui.view">
+			<field name="name">smile.export.sage.account.journal.form</field>
+			<field name="model">account.journal</field>
+			<field name="inherit_id" ref="account.view_account_journal_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='code']" position="after">
+					<field name="sage_code" />
+				</xpath>
+			</field>
+		</record>
+
+		<record id="smile_export_sage_view_move_line_tree" model="ir.ui.view">
+			<field name="name">smile.export.sage.account.move.line.tree</field>
+			<field name="model">account.move.line</field>
+			<field name="inherit_id" ref="account.view_move_line_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='company_id']" position="after">
+					<field name="exported" />
+				</xpath>
+			</field>
+		</record>
+
+		<!-- Search view -->
+		<record id="view_smile_export_sage_move_line_search" model="ir.ui.view">
+			<field name="model">account.move.line</field>
+			<field name="arch" type="xml">
+				<search string="Move lines to export">
+					<filter name="my_exports_filter" string="Move lines to export"
+						domain="[('exported', '=', False)]" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Actions -->
+		<record id="action_move_lines_to_export" model="ir.actions.act_window">
+			<field name="name">Move lines to export</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">account.move.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_smile_export_sage_move_line_search" />
+			<field name="context">{'search_default_my_exports_filter': True}</field>
+		</record>
+
+	</data>
+</openerp>
+ 

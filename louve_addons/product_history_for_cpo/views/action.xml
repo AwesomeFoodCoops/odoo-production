@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- *********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- *********************************************************************** -->
+<openerp>
+    <data>
+        <record id="action_view_history" model="ir.actions.act_window">
+            <field name="name">View Product History</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="product_history_for_cpo.view_product_history_tree"/>
+            <field name="target">new</field>
+            <field name="domain">[]</field>
+        </record>
+    </data>
+</openerp>
