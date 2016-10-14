@@ -1,0 +1,19 @@
+/*
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+*/
+
+.pos .clientlist-screen .client-picture {
+    height: 384px;
+    width: 384px;
+}
+
+.pos .clientlist-screen .client-picture > img {
+    max-height: 384px;
+    height: 384px;
+}
+
+.pos .clientlist-screen .client-details-left {
+    float:right;
+}
