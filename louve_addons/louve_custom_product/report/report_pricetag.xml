@@ -26,7 +26,7 @@
                         </div>
                         <div class="label_right">
                             <div class="product_price">
-                                <t t-esc="product['product'].list_price"/>€
+                                <t t-esc="'%0.2f' % (product['product'].list_price)"/>€
                             </div>
                         </div>
                         <div class="label_bottom">
