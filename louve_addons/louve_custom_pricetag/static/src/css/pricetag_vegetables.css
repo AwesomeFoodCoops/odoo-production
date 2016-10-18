@@ -1,0 +1,54 @@
+.page_pricetag_vege{
+    padding:0px;margin:58mm;border:0px;overflow:hidden;
+}
+.body_pricetag_vege{
+    padding:0px;margin:50mm;border:0px;overflow:hidden;
+}
+.label_container_vege{
+    page-break-inside: avoid;
+    width:16cm; height:11cm; float:left;
+    margin-left:0cm;
+    margin-right:0cm;
+    margin-top:0cm;
+    margin-bottom:0cm;
+    padding:1cm;
+}
+.label_border_vege{
+    border:1px solid;
+}
+.pricetag_vege{
+    height: 100%;
+    width:100%; 
+    padding:0.1cm;
+    }
+.label_top_vege{
+    width:100%; height:30%; float:left;
+    margin-bottom:0.5cm;
+    }
+.label_left_vege{
+    width:60%; height:35%; float:left;
+    }
+.label_right_vege{
+    width:40%; height:35%; float:right;
+}
+.label_bottom_vege{
+    width:100%; height:30%; float:left;
+}
+.product_name_vege{
+    height: 100%;
+    width:100%;
+    font-size: 33px;
+    font-weight:bold;
+    line-height:34px;
+    overflow: hidden;
+    }
+.product_informations_vege{
+    background-color: rgba(255, 255, 255, 1);
+    width:100%;height:100%;
+    font-size:20px;
+    }
+.product_price_vege{
+    width:100%;height:100%;
+    line-height: 2.4cm;
+    text-align:center; font-size:44px; font-weight:bold;
+    }

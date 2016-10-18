@@ -44,8 +44,13 @@ Copyright, Author and Licence :
         'data/report_paperformat.xml',
         'data/pricetag_model.xml',
         'data/product_category_print.xml',
+        'report/louve_custom_pricetag_report.xml',
         'report/report_pricetag.xml',
+        'report/report_pricetag_vegetables.xml',
         'views/view_product_template.xml',
         'views/view_product_category_print.xml',
+    ],
+    'css': [
+        'static/src/css/pricetag_vegetables.css',
     ],
 }
