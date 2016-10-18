@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-01 06:27+0000\n"
-"PO-Revision-Date: 2016-10-06 00:09+0000\n"
+"PO-Revision-Date: 2016-08-29 01:40+0000\n"
 "Last-Translator: Yoshi Tashiro <tashiro@roomsfor.hk>\n"
 "Language-Team: Japanese (http://www.transifex.com/odoo/odoo-9/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -936,7 +936,7 @@ msgstr ""
 #. module: event
 #: model:event.event,name:event.event_1
 msgid "Functional Webinar"
-msgstr "ファンクショナルウェビナー"
+msgstr ""
 
 #. module: event
 #: model:event.event,description:event.event_2
@@ -1348,7 +1348,7 @@ msgstr "Odoo 公式サイト"
 #: model:event.event,description:event.event_1
 #: model:event.event,description:event.event_3
 msgid "Odoo Web Client"
-msgstr "Odooウェブクライアント"
+msgstr ""
 
 #. module: event
 #: model:ir.actions.act_window,help:event.action_event_view
@@ -1828,7 +1828,7 @@ msgstr "ウェブサイトコミュニケーション履歴"
 #. module: event
 #: selection:event.mail,interval_unit:0
 msgid "Week(s)"
-msgstr "週"
+msgstr ""
 
 #. module: event
 #: model:event.event,description:event.event_0

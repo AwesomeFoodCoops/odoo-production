@@ -1183,8 +1183,8 @@ ListView.List = Class.extend( /** @lends instance.web.ListView.List# */{
                                    _(names).pluck(1).join(', '));
                         record.set(column.id, ids);
                     });
-                // temporary empty display name
-                record.set(column.id + '__display', false);
+                // temp empty value
+                record.set(column.id, false);
             }
         }
         return column.format(record.toForm().data, {
@@ -1823,6 +1823,7 @@ var Column = Class.extend({
             id: id,
             tag: tag
         });
+
         this.modifiers = attrs.modifiers ? JSON.parse(attrs.modifiers) : {};
         delete attrs.modifiers;
         _.extend(this, attrs);
@@ -1849,14 +1850,10 @@ var Column = Class.extend({
         if (this.type !== 'integer' && this.type !== 'float' && this.type !== 'monetary') {
             return {};
         }
-
-        var aggregation_func = (this.sum && 'sum') || (this.avg && 'avg') ||
-                               (this.max && 'max') || (this.min && 'min') || this.group_operator;
-
-        if (!aggregation_func) {
+        var aggregation_func = this['group_operator'] || 'sum';
+        if (!(aggregation_func in this)) {
             return {};
         }
-
         var C = function (fn, label) {
             this['function'] = fn;
             this.label = label;

@@ -66,7 +66,7 @@ var KanbanView = View.extend({
         this.qweb.default_dict = _.clone(QWeb.default_dict);
 
         this.model = this.dataset.model;
-        this.limit = options.limit;
+        this.limit = options.limit || 40;
         this.grouped = undefined;
         this.group_by_field = undefined;
         this.default_group_by = undefined;
@@ -84,10 +84,6 @@ var KanbanView = View.extend({
     },
 
     view_loading: function(fvg) {
-        if (!this.limit) {
-            this.limit = parseInt(fvg.arch.attrs.limit, 10) || 40;
-        }
-
         this.$el.addClass(fvg.arch.attrs.class);
         this.fields_view = fvg;
         this.default_group_by = fvg.arch.attrs.default_group_by;

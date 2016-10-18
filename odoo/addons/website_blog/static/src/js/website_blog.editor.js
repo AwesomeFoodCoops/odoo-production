@@ -102,12 +102,8 @@ odoo.define('website_blog.editor', function (require) {
             editor.on('saved', self, function (event, img) {
                 var url = self.$image.attr('src');
                 self.$cover.css({"background-image": url ? 'url(' + url + ')' : "", 'min-height': $(window).height()-this.$cover.offset().top});
-                if (!self.$target.hasClass("cover")) {
-                    var $li = self.$el.find("[data-cover_class]").first();
-                    self.cover_class(type, $li.data("cover_class"), $li);
-                }
+                self.$target.addClass('o_dirty cover cover_full');
                 self.set_active();
-                self.$target.addClass("o_dirty");
             });
         },
         cover_class : function(type, value, $li) {

@@ -9,15 +9,14 @@
 # Inigo Zuluaga <inigo_zuluaga@yahoo.es>, 2016
 # Mateo Tibaquirá Palacios <nestormateo@gmail.com>, 2015
 # Pedro M. Baeza <pedro.baeza@gmail.com>, 2016
-# RGB Consulting <odoo@rgbconsulting.com>, 2016
 # Roberto Lizana <robertolizana@trey.es>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-09 09:17+0000\n"
-"PO-Revision-Date: 2016-10-05 09:56+0000\n"
-"Last-Translator: RGB Consulting <odoo@rgbconsulting.com>\n"
+"PO-Revision-Date: 2016-07-30 06:11+0000\n"
+"Last-Translator: Inigo Zuluaga <inigo_zuluaga@yahoo.es>\n"
 "Language-Team: Spanish (http://www.transifex.com/odoo/odoo-9/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -154,7 +153,7 @@ msgid ""
 "                                            <span class=\"fa fa-mobile\"/>\n"
 "                                            <strong> From your Mobile phone</strong>\n"
 "                                        </span>"
-msgstr "<span class=\"panel-title\">\n                                            <span class=\"fa fa-mobile\"/>\n                                            <strong> Des de tu teléfono móvil</strong>\n                                        </span>"
+msgstr ""
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -172,7 +171,7 @@ msgid ""
 "                                            <span class=\"fa fa-puzzle-piece\"/>\n"
 "                                            <strong> Via Chrome extension</strong>\n"
 "                                        </span>"
-msgstr "<span class=\"panel-title\">\n                                            <span class=\"fa fa-puzzle-piece\"/>\n                                            <strong> Vía una extensión de Chrome</strong>\n                                        </span>"
+msgstr ""
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -190,7 +189,7 @@ msgid ""
 "                                            <span class=\"fa fa-tasks\"/>\n"
 "                                            <strong> Directly in Odoo</strong>\n"
 "                                        </span>"
-msgstr "<span class=\"panel-title\">\n                                            <span class=\"fa fa-tasks\"/>\n                                            <strong> \nDirectamente en Odoo</strong>\n                                        </span>"
+msgstr ""
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -200,7 +199,7 @@ msgid ""
 "                                            <strong> Exercise 1</strong><br/>\n"
 "                                            <span class=\"small\">Check Workload</span>\n"
 "                                        </span>"
-msgstr "<span class=\"panel-title\">\n                                            <span class=\"fa fa-thumb-tack\"/>\n                                            <strong> Ejercicio 1</strong><br/>\n                                            <span class=\"small\">Comprobar la carga de trabajo</span>\n                                        </span>"
+msgstr ""
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -2835,7 +2834,7 @@ msgstr "Buscar proyecto"
 #: code:addons/project/static/src/js/project.js:46
 #, python-format
 msgid "Select"
-msgstr "Seleccionar"
+msgstr ""
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -3053,7 +3052,7 @@ msgstr "Tubería de tareas"
 #: model:mail.message.subtype,name:project.mt_project_task_ready
 #: model:mail.message.subtype,name:project.mt_task_ready
 msgid "Task Ready"
-msgstr "Tarea preparada"
+msgstr ""
 
 #. module: project
 #: model:ir.model,name:project.model_project_task_type
@@ -3086,14 +3085,14 @@ msgstr "Tarea bloqueada"
 #. module: project
 #: selection:project.config.settings,module_pad:0
 msgid "Task description is a plain text"
-msgstr "La descripción de la tarea es un texto plano"
+msgstr ""
 
 #. module: project
 #. openerp-web
 #: code:addons/project/static/src/js/web_planner_project.js:24
 #, python-format
 msgid "Task is Developed"
-msgstr "La tasca es desarrollada"
+msgstr ""
 
 #. module: project
 #. openerp-web
@@ -3107,7 +3106,7 @@ msgstr "La tarea está completa"
 #: code:addons/project/static/src/js/web_planner_project.js:25
 #, python-format
 msgid "Task is tested"
-msgstr "La tarea es testeado"
+msgstr ""
 
 #. module: project
 #: model:mail.message.subtype,description:project.mt_task_new
@@ -3152,7 +3151,7 @@ msgstr "Tareas"
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "Tasks &amp; Issues"
-msgstr "Tareas y incidencias"
+msgstr ""
 
 #. module: project
 #: model:ir.actions.act_window,name:project.action_project_task_user_tree
@@ -3344,7 +3343,7 @@ msgstr ""
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_config_settings_group_time_work_estimation_tasks
 msgid "Time on Tasks"
-msgstr "Tiempo en las tareas"
+msgstr ""
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_res_company_project_time_mode_id
@@ -3413,7 +3412,7 @@ msgstr ""
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "To use Issues, install the"
-msgstr "Para usar las incidencias, instala el"
+msgstr ""
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -3471,7 +3470,7 @@ msgstr "Usar tareas como"
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "Use Timesheets"
-msgstr "Utilizar hojas de trabajo"
+msgstr ""
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -3527,7 +3526,7 @@ msgstr "Ver estadísticas para la semana"
 #: code:addons/project/static/src/js/web_planner_project.js:81
 #, python-format
 msgid "Wait. Customer"
-msgstr "Espere. Cliente"
+msgstr ""
 
 #. module: project
 #. openerp-web
@@ -3535,7 +3534,7 @@ msgstr "Espere. Cliente"
 #: code:addons/project/static/src/js/web_planner_project.js:82
 #, python-format
 msgid "Wait. Expert"
-msgstr "Espere. Experto"
+msgstr ""
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -3673,12 +3672,12 @@ msgstr ""
 msgid ""
 "You can reply directly to a message from you email software; the message and"
 " its attachments will be added to the Chatter."
-msgstr "Puede contestar directamente a un mensaje de su software de correo electrónico; el mensaje i sus adjuntos serán añadidos a la conversación."
+msgstr ""
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "You can save your reports to for easy reuse later"
-msgstr "Puede guardar sus informes para reutilizarlo mas fácilmente despues."
+msgstr ""
 
 #. module: project
 #: code:addons/project/project.py:87
@@ -3722,12 +3721,12 @@ msgstr "etc.."
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "for Issues: 'Activate timesheets on issues'"
-msgstr "para incidencias: 'Active los partes de horas en incidencias'"
+msgstr ""
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "for Tasks: 'Log work activities on tasks'"
-msgstr "para Tareas: 'Registra actividades de trabajo en las tareas'"
+msgstr ""
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.view_task_kanban

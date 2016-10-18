@@ -12,7 +12,6 @@ It also will include the feedback tool for the livechat, and web pages to displa
         """,
     'depends': ['website', 'im_livechat'],
     'installable': True,
-    'auto_install': True,
     'data': [
         'views/website_livechat.xml',
         'views/res_config.xml',

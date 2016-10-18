@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/home/lalouve-dev/lalouvenv/bin python
 #----------------------------------------------------------
 # odoo cli
 #

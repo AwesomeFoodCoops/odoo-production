@@ -3,17 +3,15 @@
 # * hr
 # 
 # Translators:
-# zbik2607 <darek@krokus.com.pl>, 2016
 # Grzegorz Grzelak <grzegorz.grzelak@openglobe.pl>, 2015
-# Mariusz, 2016
 # Piotr Szlązak <szlazakpiotr@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-15 10:41+0000\n"
-"PO-Revision-Date: 2016-10-06 09:44+0000\n"
-"Last-Translator: zbik2607 <darek@krokus.com.pl>\n"
+"PO-Revision-Date: 2016-07-08 10:42+0000\n"
+"Last-Translator: Piotr Szlązak <szlazakpiotr@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/odoo/odoo-9/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -132,7 +130,7 @@ msgstr "Analiza potrzeb, napisz specjalne dokumenty i oferty cenowe"
 #. module: hr
 #: model:ir.ui.view,arch_db:hr.view_employee_filter
 msgid "Archived"
-msgstr "Archiwalne"
+msgstr "Zarchiwizowane"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee_bank_account_id
@@ -191,7 +189,7 @@ msgstr "Działy podrzędne"
 #. module: hr
 #: model:ir.ui.view,arch_db:hr.view_employee_form
 msgid "Citizenship & Other Information"
-msgstr "Obywatelstwo i inne informacje"
+msgstr "obywatelstwo i inne informacje"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee_city
@@ -275,7 +273,7 @@ msgstr "Konfiguracja"
 #. module: hr
 #: model:hr.job,name:hr.job_consultant
 msgid "Consultant"
-msgstr "Konsultant"
+msgstr "konsultant"
 
 #. module: hr
 #: model:ir.ui.view,arch_db:hr.view_employee_form
@@ -885,7 +883,7 @@ msgstr "Nazwa"
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee_country_id
 msgid "Nationality (Country)"
-msgstr "Narodowość (Kraj)"
+msgstr ""
 
 #. module: hr
 #: model:hr.job,website_description:hr.job_ceo

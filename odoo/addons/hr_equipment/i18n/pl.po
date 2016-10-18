@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 13:18+0000\n"
-"PO-Revision-Date: 2016-10-06 09:28+0000\n"
-"Last-Translator: zbik2607 <darek@krokus.com.pl>\n"
+"POT-Creation-Date: 2015-09-29 10:27+0000\n"
+"PO-Revision-Date: 2016-08-12 10:16+0000\n"
+"Last-Translator: Piotr Szlązak <szlazakpiotr@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/odoo/odoo-9/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -156,7 +156,7 @@ msgstr "przydzielony do departamentów"
 #. module: hr_equipment
 #: model:ir.model.fields,field_description:hr_equipment.field_hr_equipment_employee_id
 msgid "Assigned to Employee"
-msgstr "Przydzielony do pracownika"
+msgstr "przydzielony do pracownika"
 
 #. module: hr_equipment
 #: model:ir.ui.view,arch_db:hr_equipment.hr_equipment_view_search
@@ -546,7 +546,7 @@ msgstr "Ostatnia zmiana"
 #. module: hr_equipment
 #: model:ir.model.fields,field_description:hr_equipment.field_hr_equipment_location
 msgid "Location"
-msgstr "Lokalizacja"
+msgstr "Strefa"
 
 #. module: hr_equipment
 #: selection:hr.equipment.request,priority:0
@@ -617,6 +617,13 @@ msgstr "Konserwacja ids"
 #: model:ir.model.fields,field_description:hr_equipment.field_hr_equipment_request_message_ids
 msgid "Messages"
 msgstr "Wiadomosći"
+
+#. module: hr_equipment
+#: model:ir.model.fields,help:hr_equipment.field_hr_equipment_category_message_ids
+#: model:ir.model.fields,help:hr_equipment.field_hr_equipment_message_ids
+#: model:ir.model.fields,help:hr_equipment.field_hr_equipment_request_message_ids
+msgid "Messages and communication history"
+msgstr "Wiadomości i historia komunikacji"
 
 #. module: hr_equipment
 #: model:ir.model.fields,field_description:hr_equipment.field_hr_equipment_model
@@ -728,7 +735,7 @@ msgid ""
 "Policy to post a message on the document using the mailgateway.\n"
 "- everyone: everyone can post\n"
 "- partners: only authenticated partners\n"
-"- followers: only followers of the related document or members of following channels\n"
+"- followers: only followers of the related document\n"
 msgstr ""
 
 #. module: hr_equipment

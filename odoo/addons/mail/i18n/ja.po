@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-22 13:16+0000\n"
-"PO-Revision-Date: 2016-10-06 00:13+0000\n"
+"POT-Creation-Date: 2016-07-22 13:00+0000\n"
+"PO-Revision-Date: 2016-09-10 07:17+0000\n"
 "Last-Translator: Yoshi Tashiro <tashiro@roomsfor.hk>\n"
 "Language-Team: Japanese (http://www.transifex.com/odoo/odoo-9/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -393,7 +393,7 @@ msgstr "エイリアス"
 #. module: mail
 #: model:ir.ui.view,arch_db:mail.view_users_form_mail
 msgid "Alias Accepts Emails From"
-msgstr "Eメール受付対象"
+msgstr ""
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_alias_alias_contact
@@ -560,7 +560,7 @@ msgstr "自動サブスクリプション"
 #: model:ir.model.fields,help:mail.field_mail_mail_body
 #: model:ir.model.fields,help:mail.field_mail_message_body
 msgid "Automatically sanitized HTML contents"
-msgstr "自動サニタイズ済HTML内容"
+msgstr ""
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_res_users_chatter_needaction_auto
@@ -847,14 +847,9 @@ msgstr "会話"
 
 #. module: mail
 #. openerp-web
-#: code:addons/mail/static/src/js/client_action.js:300
+#: code:addons/mail/static/src/js/client_action.js:250
 #, python-format
 msgid "Create %s"
-msgstr ""
-
-#. module: mail
-#: model:ir.model.fields,field_description:mail.field_mail_channel_create_date
-msgid "Create Date"
 msgstr ""
 
 #. module: mail
@@ -876,6 +871,7 @@ msgstr "作成者"
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_email_template_preview_create_date
 #: model:ir.model.fields,field_description:mail.field_mail_alias_create_date
+#: model:ir.model.fields,field_description:mail.field_mail_channel_create_date
 #: model:ir.model.fields,field_description:mail.field_mail_channel_partner_create_date
 #: model:ir.model.fields,field_description:mail.field_mail_compose_message_create_date
 #: model:ir.model.fields,field_description:mail.field_mail_mail_create_date
@@ -1929,7 +1925,7 @@ msgstr ""
 #. module: mail
 #: model:ir.ui.view,arch_db:mail.view_users_form_mail
 msgid "Messaging Alias"
-msgstr "メッセージングエイリアス"
+msgstr ""
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_message_subtype_res_model
@@ -3037,7 +3033,7 @@ msgstr "宛先 (取引先)"
 #: code:addons/mail/static/src/xml/chat_window.xml:24
 #, python-format
 msgid "To:"
-msgstr "To:"
+msgstr ""
 
 #. module: mail
 #. openerp-web

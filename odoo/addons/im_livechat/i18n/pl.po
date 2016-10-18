@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-26 12:06+0000\n"
-"PO-Revision-Date: 2016-10-06 09:37+0000\n"
-"Last-Translator: zbik2607 <darek@krokus.com.pl>\n"
+"PO-Revision-Date: 2016-08-04 14:54+0000\n"
+"Last-Translator: Piotr Szlązak <szlazakpiotr@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/odoo/odoo-9/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -149,7 +149,7 @@ msgstr "Kanały"
 #. module: im_livechat
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_channel_input_placeholder
 msgid "Chat Input Placeholder"
-msgstr "Tekst zastępczy wejścia chat"
+msgstr ""
 
 #. module: im_livechat
 #. openerp-web
@@ -173,7 +173,7 @@ msgstr "Kod"
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_report_channel_channel_id
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_report_operator_channel_id
 msgid "Conversation"
-msgstr "Konwersacja"
+msgstr "konwersacja"
 
 #. module: im_livechat
 #: model:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
@@ -268,7 +268,7 @@ msgstr "Wyświetlana nazwa "
 #. module: im_livechat
 #: selection:im_livechat.channel.rule,action:0
 msgid "Display the button"
-msgstr "Pokaż przycisk"
+msgstr "pokaż przycisk"
 
 #. module: im_livechat
 #: model:ir.model.fields,help:im_livechat.field_im_livechat_report_channel_duration
@@ -288,7 +288,7 @@ msgstr ""
 #: code:addons/im_livechat/static/src/xml/im_livechat.xml:19
 #, python-format
 msgid "Explain your note"
-msgstr "Wyjaśnij swoją notatkę"
+msgstr "wyjaśnij swoją notatkę"
 
 #. module: im_livechat
 #: model:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
@@ -591,7 +591,7 @@ msgstr "Wyjdź"
 #: model:ir.model,name:im_livechat.model_rating_rating
 #: model:ir.model.fields,field_description:im_livechat.field_mail_channel_rating_ids
 msgid "Rating"
-msgstr "Ocena"
+msgstr "ocena"
 
 #. module: im_livechat
 #. openerp-web
@@ -779,7 +779,7 @@ msgstr "Strona internetowa"
 #. module: im_livechat
 #: model:ir.ui.menu,name:im_livechat.menu_livechat_root
 msgid "Website Live Chat"
-msgstr "Strona kanału czatu"
+msgstr "strona internetowa czatu"
 
 #. module: im_livechat
 #: model:ir.actions.act_window,name:im_livechat.im_livechat_channel_action

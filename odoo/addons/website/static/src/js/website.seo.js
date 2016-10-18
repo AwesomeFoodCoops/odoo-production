@@ -343,8 +343,8 @@ var Configurator = Widget.extend({
     template: 'website.seo_configuration',
     events: {
         'keyup input[name=seo_page_keywords]': 'confirmKeyword',
-        'blur input[name=seo_page_title]': 'titleChanged',
-        'blur textarea[name=seo_page_description]': 'descriptionChanged',
+        'keyup input[name=seo_page_title]': 'titleChanged',
+        'keyup textarea[name=seo_page_description]': 'descriptionChanged',
         'click button[data-action=add]': 'addKeyword',
         'click button[data-action=update]': 'update',
         'hidden.bs.modal': 'destroy',

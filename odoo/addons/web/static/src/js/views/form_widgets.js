@@ -1152,9 +1152,6 @@ var FieldReference = common.AbstractField.extend(common.ReinitializeFieldMixin, 
         this.m2o.do_toggle(!!this.get('value')[0]);
         this.reference_ready = true;
     },
-    is_false: function() {
-        return this.get('value')[0] == false || this.get('value')[1] == false;
-    },
 });
 
 var FieldBinary = common.AbstractField.extend(common.ReinitializeFieldMixin, {

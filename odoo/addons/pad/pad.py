@@ -91,24 +91,7 @@ class pad_common(osv.osv_memory):
 
     def create(self, cr, uid, vals, context=None):
         self._set_pad_value(cr, uid, vals, context)
-        res = super(pad_common, self).create(cr, uid, vals, context=context)
-
-        # In case the pad is created programmatically, the content is not filled in yet since it is
-        # normally initialized by the JS layer
-        pad_urls = {}
-        for k, field in self._fields.iteritems():
-            if hasattr(field, 'pad_content_field') and k not in vals:
-                ctx = dict(context or {})
-                ctx.update({
-                    'model': self._name,
-                    'field_name': k,
-                    'object_id': res,
-                })
-                pad = self.pad_generate_url(cr, uid, ctx)
-                pad_urls[k] = pad.get('url')
-        if pad_urls:
-            self.write(cr, uid, res, pad_urls, context=context)
-        return res
+        return super(pad_common, self).create(cr, uid, vals, context=context)
 
     # Set the pad content in vals
     def _set_pad_value(self, cr, uid, vals, context=None):

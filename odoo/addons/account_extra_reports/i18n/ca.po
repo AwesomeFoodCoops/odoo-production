@@ -26,12 +26,12 @@ msgstr ""
 #. module: account_extra_reports
 #: model:ir.ui.view,arch_db:account_extra_reports.report_partnerledger
 msgid "<strong>Date from :</strong>"
-msgstr "<strong>Data des de :</strong>"
+msgstr ""
 
 #. module: account_extra_reports
 #: model:ir.ui.view,arch_db:account_extra_reports.report_partnerledger
 msgid "<strong>Date to :</strong>"
-msgstr "<strong>Data fins :</strong>"
+msgstr ""
 
 #. module: account_extra_reports
 #: model:ir.ui.view,arch_db:account_extra_reports.report_journal
@@ -47,7 +47,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_extra_reports.report_journal
 #: model:ir.ui.view,arch_db:account_extra_reports.report_partnerledger
 msgid "<strong>Target Moves:</strong>"
-msgstr "<strong>Moviments senyalats:</strong>"
+msgstr ""
 
 #. module: account_extra_reports
 #: model:ir.ui.view,arch_db:account_extra_reports.report_journal

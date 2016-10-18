@@ -3,15 +3,14 @@
 # * website
 # 
 # Translators:
-# zbik2607 <darek@krokus.com.pl>, 2016
 # Piotr Szlązak <szlazakpiotr@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-09 09:18+0000\n"
-"PO-Revision-Date: 2016-10-06 09:49+0000\n"
-"Last-Translator: zbik2607 <darek@krokus.com.pl>\n"
+"PO-Revision-Date: 2016-08-19 07:34+0000\n"
+"Last-Translator: Piotr Szlązak <szlazakpiotr@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/odoo/odoo-9/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +47,7 @@ msgstr "&times;"
 msgid ""
 ",\n"
 "                                updated:"
-msgstr ",\n                                zaktualizowane:"
+msgstr ",\n                                aktualizowanie:"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.layout_footer_copyright
@@ -165,7 +164,7 @@ msgstr "<b>mały podtytuł</b>"
 #. module: website
 #: model:ir.ui.view,arch_db:website.snippet_options
 msgid "<b>Choose an image...</b>"
-msgstr "<b>Wybierz obraz...</b>"
+msgstr "<b>wybierz obraz...</b>"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.s_text_block
@@ -200,7 +199,7 @@ msgstr "<b>Nie znaleziono modułu strony!</b>"
 #. module: website
 #: model:ir.ui.view,arch_db:website.show_sign_in
 msgid "<b>Sign in</b>"
-msgstr "<b>Zaloguj się</b>"
+msgstr "<b>zaloguj się</b>"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.s_button
@@ -214,7 +213,7 @@ msgstr "<i class=\"fa fa-arrow-right\"/>\n                        skontaktuj si�
 msgid ""
 "<i class=\"fa fa-plus-circle\"/>\n"
 "                Add a language..."
-msgstr "<i class=\"fa fa-plus-circle\"/>\n                Dodaj język..."
+msgstr "<i class=\"fa fa-plus-circle\"/>\n                dodaj język..."
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.user_navbar
@@ -1051,7 +1050,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.snippet_options
 msgid "Baby Blue"
-msgstr "Jasnoniebieski"
+msgstr "jasnoniebieski"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.500
@@ -1066,7 +1065,7 @@ msgstr "Tło"
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "Background image"
-msgstr "Obrazek tła"
+msgstr "tło obrazu"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.s_banner
@@ -1100,7 +1099,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "Before starting,"
-msgstr "Przed rozpoczęciem,"
+msgstr "przed rozpoczęciem,"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.s_comparisons
@@ -1303,7 +1302,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.snippet_options
 msgid "Columns"
-msgstr "Kolumny"
+msgstr "kolumny"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
@@ -3906,7 +3905,7 @@ msgstr "Menu na stronie"
 #: model:ir.model.fields,field_description:website.field_website_config_settings_website_name
 #: model:ir.model.fields,field_description:website.field_website_name
 msgid "Website Name"
-msgstr "Nazwa strony"
+msgstr "nazwa strony"
 
 #. module: website
 #: model:ir.actions.server,name:website.action_partner_post
@@ -4033,7 +4032,7 @@ msgstr "Jakie urządzenia wspiera Point of Sale Odoo?"
 msgid ""
 "While an internet connection is required to start the Point of\n"
 "                                Sale, it will stay operational even after a complete disconnection."
-msgstr "Mimo, że połączenie z internetem jest niezbędne do rozpoczęcia pracy z \n                    Punktem sprzedaży, będzie on działał dalej nawet po całkowitym zerwaniu połączenia."
+msgstr "Mimo że połączenie z internetem jest niezbędne do rozpoczęcia pracy z \n                    Point of Sale, będzie on działał dalej nawet po całkowitym zerwaniu połączenia."
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.s_faq
@@ -4221,17 +4220,17 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "Your Homepage"
-msgstr "Twoja strona główna"
+msgstr "twoja strona główna"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "Your Main Menu"
-msgstr "Twoje menu główne"
+msgstr "twoje menu główne"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "Your Objectives"
-msgstr "Twoje cele"
+msgstr "twoje projekty"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.s_title
@@ -4290,7 +4289,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "button."
-msgstr "przycisk."
+msgstr "Przycisk"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
