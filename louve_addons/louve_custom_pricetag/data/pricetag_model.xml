@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pricetag_model_vegetables" model="pricetag.model">
+        <field name="name">Vegetables pricetag model</field>
+        <field name="columns" eval="2"/>
+        <field name="lines" eval="2"/>
+        <field name="pricetag_paperformat_id" ref="louve_custom_pricetag.paperformat_pricetag_vegetables"/>
+        <field name="report_model">louve_custom_pricetag.report_pricetag_vegetables</field>
+    </record>
+</odoo>
