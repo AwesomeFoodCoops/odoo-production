@@ -37,9 +37,9 @@
 .product_name{
     height: 100%;
     width:100%;
-    font-size: 17px;
+    font-size: 15px;
     font-weight:bold;
-    line-height:18px;
+    line-height:16px;
     overflow: hidden;
     }
 .product_informations{
