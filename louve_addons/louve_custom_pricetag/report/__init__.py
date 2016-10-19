@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Purchase - Package Quantity Module for Odoo
-#    Copyright (C) 2016-Today Akretion (https://www.akretion.com)
+#    Sale - Food Module for Odoo
+#    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -21,6 +21,4 @@
 #
 ##############################################################################
 
-from . import model
-from . import report
-
+from . import report_pricetag_vegetables
