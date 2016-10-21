@@ -105,15 +105,18 @@ class ShiftShift(models.Model):
         'The same template cannot be planned several time at the same date !'),
     ]
 
+    @api.multi
     @api.depends('date_without_time')
     def _compute_week_number(self):
-        if not self.date_without_time:
-            self.week_number = False
-        else:
-            weekA_date = fields.Date.from_string(
-                self.env.ref('coop_shift.config_parameter_weekA').value)
-            start_date = fields.Date.from_string(self.date_without_time)
-            self.week_number = 1 + (((start_date - weekA_date).days // 7) % 4)
+        for shift in self:
+            if not shift.date_without_time:
+                shift.week_number = False
+            else:
+                weekA_date = fields.Date.from_string(
+                    self.env.ref('coop_shift.config_parameter_weekA').value)
+                start_date = fields.Date.from_string(shift.date_without_time)
+                shift.week_number =\
+                    1 + (((start_date - weekA_date).days // 7) % 4)
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
