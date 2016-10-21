@@ -21,6 +21,7 @@ This module add state to partners depending of its attendees
         'coop_shift',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'security/shift_security.xml',
         'data/ir_sequence.xml',
         'data/ir_cron.xml',

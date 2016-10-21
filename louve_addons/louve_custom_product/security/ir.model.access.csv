@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+,,,,,,,
+access_model_product_label,access_model_product_label,louve_custom_product.model_product_label,,1,0,0,0
+access_model_product_label,access_model_product_label,louve_custom_product.model_product_label,louve_custom_product.group_food_manager,1,1,1,0
