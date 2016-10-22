@@ -40,10 +40,10 @@ Functionnalities
         'l10n_fr_department',
     ],
     'data': [
-        'security/ir.model.access.csv',
-        'security/ir_model_access.yml',
         'security/ir_module_category.yml',
         'security/res_groups.yml',
+        'security/ir.model.access.csv',
+        'security/ir_model_access.yml',
         'data/report_paperformat.xml',
         'data/pricetag_model.xml',
         'wizard/product_pricetag_wizard_view.xml',
