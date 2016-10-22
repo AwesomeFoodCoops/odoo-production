@@ -95,7 +95,7 @@ Suggestions & Feedback to: corentin.pouhet-brunerie@smile.fr
     "qweb": [
         "static/src/xml/code_version.xml",
     ],
-    "auto_install": False,
+    "auto_install": True,
     "installable": True,
     "application": False,
 }
