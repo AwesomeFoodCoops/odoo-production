@@ -70,7 +70,7 @@ Suggestions & Feedback to: corentin.pouhet-brunerie@smile.fr
         "static/src/xml/base.xml",
         "static/src/xml/env_ribbon.xml",
     ],
-    "auto_install": False,
+    "auto_install": True,
     "installable": True,
     "application": False,
 }
