@@ -33,4 +33,12 @@
             </tree>
         </field>
     </record>
+
+    <record id="view_product_history_action" model="ir.actions.act_window">
+        <field name="name">Product History</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.history</field>
+        <field name="context">{'search_default_product_tmpl_id': [active_id], 'default_product_tmpl_id': active_id}</field>
+        <field name="search_view_id" ref="view_product_history_search"/>
+    </record>
 </odoo>
