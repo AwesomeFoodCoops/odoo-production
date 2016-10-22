@@ -28,7 +28,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='product_qty']" position="before">
                     <field name="product_qty_package"/>
-                    <field name="package_qty" readonly="True"/>
+                    <field name="package_qty" readonly="True" string="Pack. Qty"/>
                 </xpath>
                 <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='qty_done']" position="before">
                     <field name="qty_done_package"/>
