@@ -8,11 +8,9 @@
                 <field name="product_id"/>
                 <field name="from_date"/>
                 <field name="to_date"/>
-                <!-- <field name="location_id" groups="stock.group_locations"/> -->
                 <field name="start_qty"/>
-                <field name="purchase_qty"/> <!-- groups="group_purchase_user" -->
-                <!-- <field name="production_qty"/> --> <!-- groups="group_mrp_user" -->
-                <field name="sale_qty"/> <!-- groups="group_sale_user" -->
+                <field name="purchase_qty"/>
+                <field name="sale_qty"/>
                 <field name="loss_qty"/>
                 <field name="end_qty"/>
                 <field name="incoming_qty"/>
