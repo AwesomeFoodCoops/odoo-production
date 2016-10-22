@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_product_history_search" model="ir.ui.view">
+        <field name="name">product.history.search</field>
+        <field name="model">product.history</field>
+        <field name="arch" type="xml">
+            <search string="History">
+                <field name="history_range"/>
+                <field name="product_tmpl_id"/>
+            </search>
+        </field>
+    </record>
+
     <record id="view_product_history_tree" model="ir.ui.view">
         <field name="model">product.history</field>
         <field name="arch" type="xml">
