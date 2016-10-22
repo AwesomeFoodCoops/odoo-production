@@ -18,6 +18,9 @@
                     <attribute name="invisible">1</attribute>
                 </field>
                 <field name="account_analytic_id" position="replace"/>
+                <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                    <attribute name="decoration-success">product_qty==qty_invoiced</attribute>
+                </xpath>
              </field>
         </record>
     </data>
