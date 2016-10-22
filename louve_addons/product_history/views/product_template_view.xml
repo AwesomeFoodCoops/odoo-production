@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <page name="sales" position="after">
-                <page string="History" name="history">
+                <page string="History" name="history" groups="base.group_no_one">
                     <group name="options">
                         <field name="history_range"/>
                     </group>
