@@ -12,7 +12,7 @@
         <field name="name">product.category.print.food</field>
         <field name="arch" type="xml">
             <field name="company_id" position="after">
-                <field name="pricetag_model_id" />
+                <field name="pricetag_model_id" attrs="{'required':True}"/>
             </field>
         </field>
     </record>
