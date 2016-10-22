@@ -10,4 +10,9 @@
         file="louve_custom_product.report_pricetag"
         attachment_use="False"
     />
+
+    <record id="louve_custom_product.pricetag" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="louve_custom_product.paperformat_pricetag"/>
+        <field name="attachment_use" eval="0"/>
+    </record>
 </odoo>

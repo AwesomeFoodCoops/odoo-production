@@ -87,12 +87,13 @@ class ProductPricetagWizard(models.TransientModel):
         data['ids'] = self.env.context.get('active_ids', [])
         data['model'] = self.env.context.get('active_model', 'ir.ui.menu')
         data['form'] = self._get_data_form()
+        action = self.category_print_id.pricetag_model_id.report_model
 
         # mark the selected products as Up To Date
         self.line_ids.mapped('product_id').write({'to_print': False})
 
         return self.env['report'].get_action(
-            self, 'louve_custom_product.report_pricetag', data=data)
+            self, action, data=data)
 
     @api.multi
     def initialize_product(self):
