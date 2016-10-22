@@ -1,49 +1,47 @@
 <?xml version="1.0"?>
-<openerp>
-    <data>
-        <record model="ir.ui.view" id="louve_product_supplierinfo_tree">
-             <field name="model">product.supplierinfo</field>
-             <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
-             <field name="arch" type="xml">
-                <xpath expr="//field[@name='product_tmpl_id']" position="before">
-                    <field name="categ_id"/>
-                </xpath>
-                <xpath expr="//field[@name='product_tmpl_id']" position="after">
-                    <field name="product_code"/>
-                    <field name="product_name"/>
-                    <field name="default_code"/>
-                </xpath>
-                <xpath expr="//field[@name='date_start']" position="replace"/>
-                <xpath expr="//field[@name='date_end']" position="replace"/>
-                <xpath expr="//field[@name='price']" position="after">
-                    <field name="price_taxes_excluded"/>
-                    <field name="price_taxes_included"/>
-                    <field name="taxes_id" widget="many2many_tags"/>
-                    <field name="supplier_taxes_id" widget="many2many_tags"/>
-                </xpath>
-                <xpath expr="//tree" position="attributes">
-                    <attribute name="editable">top</attribute>
-                </xpath>
-             </field>
-        </record>
+<odoo>
+    <record model="ir.ui.view" id="louve_product_supplierinfo_tree">
+         <field name="model">product.supplierinfo</field>
+         <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+         <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_tmpl_id']" position="before">
+                <field name="categ_id"/>
+            </xpath>
+            <xpath expr="//field[@name='product_tmpl_id']" position="after">
+                <field name="product_code"/>
+                <field name="product_name"/>
+                <field name="default_code"/>
+            </xpath>
+            <xpath expr="//field[@name='date_start']" position="replace"/>
+            <xpath expr="//field[@name='date_end']" position="replace"/>
+            <xpath expr="//field[@name='price']" position="after">
+                <field name="price_taxes_excluded"/>
+                <field name="price_taxes_included"/>
+                <field name="taxes_id" widget="many2many_tags"/>
+                <field name="supplier_taxes_id" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="editable">top</attribute>
+            </xpath>
+         </field>
+    </record>
 
-        <record id="view_qupplierinfo_search" model="ir.ui.view">
-            <field name="name">product.supplierinfo.search</field>
-            <field name="model">product.supplierinfo</field>
-            <field name="arch" type="xml">
-                <search string="Supplierinfo">
-                    <field name="name" string="Supplier"/>
-                    <field name="product_tmpl_id" string="Product" filter_domain="['|', '|', '|', ('product_tmpl_id.name', 'ilike', self), ('default_code', 'ilike', self), ('product_name', 'ilike', self), ('product_code', 'ilike', self)]"/>
-                    <field name="categ_id" string="Category"/>
-                    <filter string="Indicative Package" domain="[('indicative_package','=', True)]"/>
-                    <filter string="not Indicative Package" domain="[('indicative_package','=', False)]"/>
-                    <group expand="0" string="Group By">
-                        <filter string="Product" domain="" context="{'group_by':'product_tmpl_id'}"/>
-                        <filter string="Supplier" domain="" context="{'group_by': 'name'}"/>
-                        <filter string="Category" domain="" context="{'group_by':'categ_id'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
-    </data>
-</openerp>
+    <record id="view_qupplierinfo_search" model="ir.ui.view">
+        <field name="name">product.supplierinfo.search</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="arch" type="xml">
+            <search string="Supplierinfo">
+                <field name="name" string="Supplier"/>
+                <field name="product_tmpl_id" string="Product" filter_domain="['|', '|', '|', ('product_tmpl_id.name', 'ilike', self), ('default_code', 'ilike', self), ('product_name', 'ilike', self), ('product_code', 'ilike', self)]"/>
+                <field name="categ_id" string="Category"/>
+                <filter string="Indicative Package" domain="[('indicative_package','=', True)]"/>
+                <filter string="not Indicative Package" domain="[('indicative_package','=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Product" domain="" context="{'group_by':'product_tmpl_id'}"/>
+                    <filter string="Supplier" domain="" context="{'group_by': 'name'}"/>
+                    <filter string="Category" domain="" context="{'group_by':'categ_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
