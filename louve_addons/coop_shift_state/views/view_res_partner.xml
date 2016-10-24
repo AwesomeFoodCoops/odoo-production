@@ -34,7 +34,7 @@
     <record id="view_res_partner_form_shift" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
-        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
+        <field name="groups_id" eval="[(4, ref('coop_shift_state.group_shift_see_counter'))]"/>
         <field name="arch" type="xml">
             <group name="button" position="before">
                 <group name="state">
@@ -45,16 +45,30 @@
                     <field name="date_delay_stop"/>
                     <group string="Standard Part" cols="4">
                         <field name="theoritical_standard_point"/>
-                        <field name="manual_standard_correction"/>
+                        <field name="manual_standard_correction" readonly="1"/>
                         <field name="final_standard_point"/>
                     </group>
                     <group string="FTOP Part" cols="4">
                         <field name="theoritical_ftop_point"/>
-                        <field name="manual_ftop_correction"/>
+                        <field name="manual_ftop_correction" readonly="1"/>
                         <field name="final_ftop_point"/>
                     </group>
                 </group>
             </group>
+        </field>
+    </record>
+
+    <record id="view_res_partner_form_shift_manage_counter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_shift_state.view_res_partner_form_shift"/>
+        <field name="groups_id" eval="[(4, ref('coop_shift_state.group_shift_manage_counter'))]"/>
+        <field name="arch" type="xml">
+            <field name="manual_standard_correction" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+            <field name="manual_ftop_correction" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
         </field>
     </record>
 </odoo>
