@@ -21,6 +21,15 @@
 #
 ##############################################################################
 
-from . import purchase_order_line
-from . import product_supplierinfo
-from . import stock_picking
+from openerp import api, models
+
+
+class StockPicking(models.Model):
+    _inherit = "stock.picking"
+
+    @api.multi
+    def copy_expected_qtys(self):
+        for picking in self:
+            for pack in picking.pack_operation_product_ids:
+                pack.qty_done = pack.product_qty
+                pack.qty_done_package = pack.product_qty_package

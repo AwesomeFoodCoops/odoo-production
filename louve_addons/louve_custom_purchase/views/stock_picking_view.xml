@@ -28,6 +28,9 @@
             <xpath expr="//field[@name='pack_operation_product_ids']/tree" position="attributes">
                 <attribute name="decoration-danger">qty_done!=product_qty</attribute>
             </xpath>
+            <xpath expr="//field[@name='origin']" position="after">
+                <button name="copy_expected_qtys" string="Copy expected qtys" type="object"/>
+            </xpath>
         </field>
     </record>
 </odoo>

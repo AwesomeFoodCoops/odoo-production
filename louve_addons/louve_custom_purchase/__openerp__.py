@@ -43,6 +43,7 @@ Copyright, Author and Licence :
         'purchase',
         'product',
         'purchase_package_qty',
+        'stock',
     ],
     'data': [
         'views/purchase_order_view.xml',
