@@ -14,5 +14,5 @@ class ProductCategoryprint(models.Model):
         return self.env['pricetag.model'].search([], limit=1)
 
     pricetag_model_id = fields.Many2one(
-        'pricetag.model', 'Pricetag Model', required=True,
+        'pricetag.model', 'Pricetag Model',
         default=lambda s: s._get_default_model())
