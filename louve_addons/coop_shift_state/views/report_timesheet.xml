@@ -7,5 +7,13 @@
         <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[4]//td[1]" position="inside">
             <t t-if="ftop.partner_id.final_standard_point&lt;0"><span t-esc="-1 * ftop.partner_id.final_ftop_point"/></t>
         </xpath>
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[1]//td[2]" position="inside">
+            <t t-if="registration['registration'].partner_id.cooperative_state=='alert'">A</t>
+            <t t-if="registration['registration'].partner_id.cooperative_state=='suspended'">S</t>
+        </xpath>
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[4]//td[2]" position="inside">
+            <t t-if="ftop.partner_id.cooperative_state=='alert'">A</t>
+            <t t-if="ftop.partner_id.cooperative_state=='suspended'">S</t>
+        </xpath>
     </template>
 </openerp>
