@@ -2259,6 +2259,12 @@ msgstr "This field contains the template of the mail that will be\n"
 "        automatically sent"
 
 #. module: coop_shift
+#: code:addons/coop_shift/model/shift_template_registration.py:88
+#, python-format
+msgid "This partner does not have a type A capital subscription!"
+msgstr "Ce partenaire n'a pas souscrit de part A au capital!"
+
+#. module: coop_shift
 #: sql_constraint:shift.registration:0
 msgid "This partner is already registered on this Shift !"
 msgstr "Ce membre est déjà inscrit sur ce service!"

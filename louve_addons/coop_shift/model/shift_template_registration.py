@@ -84,9 +84,10 @@ class ShiftTemplateRegistration(models.Model):
     @api.constrains('partner_id')
     def _check_partner_subscription(self):
         for reg in self:
-            if not reg.partner_id.has_capital_subscription:
-                raise ValidationError(_('This partner does not have a capital\
-                    subscription!'))
+            if not reg.partner_id.has_type_A_capital_subscription:
+                raise ValidationError(_(
+                    'This partner does not have a type A capital subscription!'
+                ))
 
     @api.multi
     @api.model
