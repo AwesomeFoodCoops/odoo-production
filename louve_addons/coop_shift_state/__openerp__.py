@@ -30,6 +30,7 @@ This module add state to partners depending of its attendees
         'views/view_shift_extension.xml',
         'views/view_res_partner.xml',
         'views/view_shift_extension_type.xml',
+        'views/report_timesheet.xml',
         'views/menu.xml',
     ],
     'demo': [
