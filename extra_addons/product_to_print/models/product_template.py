@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
         string="Pricetag to reprint", compute="_compute_to_print", store=True)
 
     @api.multi
-    @api.depends('product_variant_ids')
+    @api.depends('product_variant_ids.to_print')
     def _compute_to_print(self):
         for template in self:
             template.to_print = any(
