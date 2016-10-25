@@ -30,7 +30,7 @@
                     <h1><field name="name" placeholder="Product Name"/></h1>
                 </div>
                     <div class="oe_right oe_button_box" name="buttons">
-                        <button type="action" class="oe_stat_button" name="%(product.product_normal_action)d"
+                        <button type="action" class="oe_stat_button" name="%(product_to_print.action_product_pricetag_wizard)d"
                             attrs="{'invisible': [('product_to_print_qty', '=', 0)]}"
                             context="{'search_category_print_id': active_id, 'to_print': 1}">
                             <div><strong><field name="product_to_print_qty"/></strong> Products To Print</div>
@@ -82,7 +82,7 @@
                                 <div class="row">
                                     <div class="col-xs-6 o_kanban_primary_left">
                                         <button class="btn btn-primary" type="action"
-                                            name="%(product_to_print.product_normal_action_print)d"
+                                            name="%(product_to_print.action_product_pricetag_wizard)d"
                                             attrs="{'invisible': [('product_to_print_qty', '=', 0)]}">
                                             <t t-esc="record.product_to_print_qty.value"/> To Print
                                         </button>
