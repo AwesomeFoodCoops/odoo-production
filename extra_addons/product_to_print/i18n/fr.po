@@ -270,7 +270,7 @@ msgstr "Configuration"
 #: model:ir.model.fields,field_description:product_to_print.field_product_product_to_print
 #: model:ir.ui.view,arch_db:product_to_print.view_product_category_print_kanban
 msgid "To Print"
-msgstr "À réimprimer"
+msgstr "à réimprimer"
 
 #. module: product_to_print
 #: model:ir.ui.view,arch_db:product_to_print.view_product_category_print_kanban
