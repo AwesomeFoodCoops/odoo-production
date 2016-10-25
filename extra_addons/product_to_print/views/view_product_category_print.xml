@@ -82,8 +82,7 @@
                                 <div class="row">
                                     <div class="col-xs-6 o_kanban_primary_left">
                                         <button class="btn btn-primary" type="action"
-                                            name="%(product_to_print.action_product_pricetag_wizard)d"
-                                            attrs="{'invisible': [('product_to_print_qty', '=', 0)]}">
+                                            name="%(product_to_print.action_product_pricetag_wizard)d">
                                             <t t-esc="record.product_to_print_qty.value"/> To Print
                                         </button>
                                     </div>
