@@ -38,6 +38,7 @@ Functionnalities
         'product_to_print',
         'report',
         'l10n_fr_department',
+        'purchase_package_qty',
     ],
     'data': [
         'security/res_groups.yml',

@@ -2,7 +2,7 @@
 <odoo>
      <template id="minimal_layout_vegetables" inherit_id="report.minimal_layout">
           <xpath expr="//head" position="inside">
-                 <link rel='stylesheet' href="/louve_custom_pricetag/static/src/css/pricetag_vegetables.css"/>
+                 <link rel='stylesheet' href="/louve_custom_product/static/src/css/pricetag_vegetables.css"/>
           </xpath>
     </template>
     <template id="report_pricetag_vegetables">
