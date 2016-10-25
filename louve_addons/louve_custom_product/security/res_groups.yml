@@ -20,42 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'Louve Custom - Extra Information for Products',
-    'version': '9.0.0.0.0',
-    'category': 'Custom',
-    'description': """
-Functionnalities
 
-* Add various information about origin, makers, etc...
-    """,
-    'author': 'GRAP,'
-              'Akretion - Julien WESTE',
-    'website': 'http://www.grap.coop',
-    'license': 'AGPL-3',
-    'depends': [
-        'product',
-        'product_to_print',
-        'report',
-        'l10n_fr_department',
-    ],
-    'data': [
-        'security/res_groups.yml',
-        'security/ir.model.access.csv',
-        'data/report_paperformat.xml',
-        'report/louve_custom_product_report.xml',
-        'report/report_pricetag.xml',
-        'views/view_product_label.xml',
-        'views/view_product_product.xml',
-        'views/view_product_template.xml',
-        'views/view_product_uom_categ.xml',
-        'views/action.xml',
-        'views/menu.xml',
-    ],
-    'demo': [
-        'demo/res_groups.yml',
-    ],
-    'css': [
-        'static/src/css/pricetag.css',
-    ],
-}
+- !record {model: res.groups, id: group_food_manager}:
+    category_id: product_to_print.module_product_to_print
+    name: Manage Food fields
