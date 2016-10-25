@@ -6,7 +6,7 @@
 {
     'name': 'Product - To Print',
     'summary': 'Automate products print, when data has changed',
-    'version': '9.0.1.0.0',
+    'version': '9.0.1.0.1',
     'category': 'Product',
     'author': 'La Louve, Odoo Community Association (OCA)',
     'website': 'http://www.lalouve.net/',
