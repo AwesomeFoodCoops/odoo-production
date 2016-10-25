@@ -10,7 +10,7 @@ class ProductProduct(models.Model):
     _inherit = 'product.product'
 
     category_print_id = fields.Many2one(
-        string='Print Category', comodel_name='product.category.print')
+        string='Print Category', related='product_tmpl_id.category_print_id')
 
     to_print = fields.Boolean(string='To Print')
 
