@@ -21,11 +21,9 @@
 <odoo>
 
 <!-- Model: product.label -->
-        <menuitem id="menu_product_label"
-            parent="base.menu_sale_config"
-            action="action_product_label"/>
-
+    <menuitem id="menu_product_label"
         parent="base.menu_sale_config"
+        action="action_product_label"/>
 
 <!-- Model: product.product -->
     <menuitem id="menu_product_product_food"
