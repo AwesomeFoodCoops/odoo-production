@@ -39,8 +39,6 @@ class ReportPricetag(models.AbstractModel):
             'data': data['form'],
             'docs': docs,
             'Products': product_res,
-            'columns': pricetag_model.columns,
-            'lines': pricetag_model.lines,
         }
         return self.env['report'].render(
             report_model, docargs)
