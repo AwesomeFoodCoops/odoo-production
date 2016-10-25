@@ -74,7 +74,9 @@ class ProductCategoryprint(models.Model):
     @api.multi
     def products_to_print(self):
         ctx = self._context.copy()
-        ctx.update({'journal_category_print_id': self.id, 'default_category_print_id': self.id})
+        ctx.update({
+            'journal_category_print_id': self.id,
+            'default_category_print_id': self.id})
         return {
             'name': _('Products To Print'),
             'type': 'ir.actions.act_window',
