@@ -15,4 +15,19 @@
         <field name="paperformat_id" ref="louve_custom_product.paperformat_pricetag"/>
         <field name="attachment_use" eval="0"/>
     </record>
+
+    <report
+        id="pricetag_vegetables"
+        model="report.pricetag_vegetables"
+        string="Vegetable Pricetags"
+        report_type="qweb-pdf"
+        name="louve_custom_pricetag.report_pricetag_vegetables"
+        file="louve_custom_pricetag.report_pricetag_vegetables"
+        attachment_use="False"
+    />
+
+    <record id="louve_custom_pricetag.pricetag_vegetables" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="louve_custom_pricetag.paperformat_pricetag_vegetables"/>
+        <field name="attachment_use" eval="0"/>
+    </record>
 </odoo>

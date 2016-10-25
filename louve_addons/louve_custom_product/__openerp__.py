@@ -43,8 +43,11 @@ Functionnalities
         'security/res_groups.yml',
         'security/ir.model.access.csv',
         'data/report_paperformat.xml',
+        'data/pricetag_model.xml',
+        'data/product_category_print.xml',
         'report/louve_custom_product_report.xml',
         'report/report_pricetag.xml',
+        'report/report_pricetag_vegetables.xml',
         'views/view_product_label.xml',
         'views/view_product_product.xml',
         'views/view_product_template.xml',
@@ -57,5 +60,6 @@ Functionnalities
     ],
     'css': [
         'static/src/css/pricetag.css',
+        'static/src/css/pricetag_vegetables.css',
     ],
 }

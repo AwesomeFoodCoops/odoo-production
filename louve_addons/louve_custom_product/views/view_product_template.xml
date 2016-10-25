@@ -58,6 +58,15 @@
             <xpath expr="//field[@name='volume']/.." position="after">
                 <field name="price_volume"/>
             </xpath>
+            <xpath expr="//group[@name='group_standard_price']" position="after">
+                <group string="Sticker Information" name="sticker_info">
+                    <field name="rack_instruction"/>
+                    <field name="rack_location"/>
+                    <field name="rack_number_of_packages"/>
+                    <field name="farming_method"/>
+                    <field name="other_information"/>
+                </group>
+            </xpath>
         </field>
     </record>
 
