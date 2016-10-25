@@ -80,9 +80,8 @@
                                 <div class="row">
                                     <div class="col-xs-6 o_kanban_primary_left">
                                         <button class="btn btn-primary" type="action"
-                                            name="%(product.product_normal_action)d"
-                                            attrs="{'invisible': [('product_to_print_qty', '=', 0)]}"
-                                            context="{'search_default_category_print_id': record.id, 'search_category_print_id': record.id}">
+                                            name="%(product_to_print.product_normal_action_print)d"
+                                            attrs="{'invisible': [('product_to_print_qty', '=', 0)]}">
                                             <t t-esc="record.product_to_print_qty.value"/> To Print
                                         </button>
                                     </div>
@@ -99,6 +98,4 @@
             </kanban>
         </field>
     </record>
-
-<!--v                                        <button class="" name="get_action_picking_tree_ready" type="object">-->
 </odoo>
