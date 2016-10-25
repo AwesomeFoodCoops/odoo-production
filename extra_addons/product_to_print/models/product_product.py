@@ -28,7 +28,7 @@ class ProductProduct(models.Model):
             if product.category_print_id:
                 if len(list(
                         set(vals.keys()) &
-                        set(product.category_print_id.field_ids.\
+                        set(product.category_print_id.field_ids.
                             mapped('name')))):
                     product_ids.append(product.id)
         products = self.browse(product_ids)

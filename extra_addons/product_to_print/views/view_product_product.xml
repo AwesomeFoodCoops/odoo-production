@@ -8,7 +8,7 @@
 <odoo>
 
         <record model="ir.ui.view" id="view_product_product_form_print">
-        <field name="model">product.product</field>
+            <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="name">view.product.product.form.print</field>
             <field name="arch" type="xml">
@@ -20,7 +20,7 @@
         </record>
 
         <record model="ir.ui.view" id="view_product_product_search_print">
-        <field name="model">product.product</field>
+            <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_search_form_view"/>
             <field name="name">view.product.product.search.form.print</field>
             <field name="arch" type="xml">
