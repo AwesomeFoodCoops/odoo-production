@@ -16,6 +16,10 @@ class ProductCategoryprint(models.Model):
         product_obj = self.env['product.product']
         return len(product_obj.search([('to_print', '=', True)]))
 
+    @api.model
+    def _get_default_model(self):
+        return self.env['pricetag.model'].search([], limit=1)
+
     # Fields Section
     name = fields.Char(string='Name', required=True)
 
@@ -47,6 +51,10 @@ class ProductCategoryprint(models.Model):
         comodel_name='ir.model.fields',
         relation='product_category_print_field_rel', column1='category_id',
         column2='field_id', domain="[('model', '=', 'product.template')]")
+
+    pricetag_model_id = fields.Many2one(
+        'pricetag.model', 'Pricetag Model',
+        default=lambda s: s._get_default_model())
 
     # Compute Section
     @api.multi

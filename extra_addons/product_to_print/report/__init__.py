@@ -21,12 +21,4 @@
 #
 ##############################################################################
 
-- !record {model: res.groups, id: group_food_user}:
-    category_id: module_category_food
-    name: User
-
-- !record {model: res.groups, id: group_food_manager}:
-    category_id: module_category_food
-    name: Manager
-    implied_ids:
-        - group_food_user
+from . import report_pricetag

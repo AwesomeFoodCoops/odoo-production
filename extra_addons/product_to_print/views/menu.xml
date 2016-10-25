@@ -11,4 +11,11 @@
         parent="base.menu_sales" sequence="110"
         action="action_product_category_print"/>
 
+<!-- Model: pricetag.model -->
+    <menuitem id="menu_pricetag_model" 
+        name="Pricetag Model"
+        parent="base.menu_sale_config"
+        action="action_pricetag_model"
+        groups="product_to_print.group_pricetag_manager"/>
+
 </odoo>

@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Sale - Food Module for Odoo
@@ -21,6 +21,12 @@
 #
 ##############################################################################
 
-- !record {model: ir.module.category, id: module_category_food}:
-    name: Sale Food
-    sequence: 80
+- !record {model: res.groups, id: group_pricetag_user}:
+    category_id: module_product_to_print
+    name: Pricetag User
+
+- !record {model: res.groups, id: group_pricetag_manager}:
+    category_id: module_product_to_print
+    name: Pricetag Manager
+    implied_ids:
+        - group_pricetag_user

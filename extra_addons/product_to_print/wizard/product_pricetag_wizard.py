@@ -37,8 +37,12 @@ class ProductPricetagWizard(models.TransientModel):
 
     @api.model
     def _get_default_print_category(self):
-        pcp = self.env['product.category.print'].search([])
-        return pcp and pcp[0] or False
+        active_id = self.env.context.get('active_id', False)
+        if active_id:
+            return self.env['product.category.print'].browse(active_id)
+        else:
+            pcp = self.env['product.category.print'].search([])
+            return pcp and pcp[0] or False
 
     @api.model
     def _get_line_ids(self):
@@ -72,12 +76,12 @@ class ProductPricetagWizard(models.TransientModel):
     # Columns Section
     offset = fields.Integer(
         'Offset', required=True, help="Number of empty pricetags", default=0)
-    line_ids = fields.One2many(
-        'product.pricetag.wizard.line', 'wizard_id', 'Products',
-        default=lambda s: s._get_line_ids())
     category_print_id = fields.Many2one(
         'product.category.print', 'Print Category', required=True,
         default=lambda s: s._get_default_print_category())
+    line_ids = fields.One2many(
+        'product.pricetag.wizard.line', 'wizard_id', 'Products',
+        default=lambda s: s._get_line_ids())
     # border = fields.Boolean('Add a border', default=False)
 
     @api.multi
@@ -130,4 +134,3 @@ class ProductPricetagWizardLine(models.TransientModel):
         'product.pricetag.wizard', 'Wizard', select=True)
     product_id = fields.Many2one('product.product', 'Product', required=True)
     quantity = fields.Integer('Quantity', required=True, default=1)
-    print_unit_price = fields.Boolean('Print unit price', default=True)

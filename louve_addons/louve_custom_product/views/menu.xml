@@ -25,11 +25,7 @@
             parent="base.menu_sale_config"
             action="action_product_label"/>
 
-<!-- Model: pricetag.model -->
-    <menuitem id="menu_pricetag_model" 
-        name="Pricetag Model"
         parent="base.menu_sale_config"
-        action="action_pricetag_model"/>
 
 <!-- Model: product.product -->
     <menuitem id="menu_product_product_food"

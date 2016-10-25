@@ -15,6 +15,7 @@
             <field name="product_to_print_qty" />
             <field name="product_qty" />
             <field name="company_id" groups="base.group_multi_company"/>
+            <field name="pricetag_model_id" attrs="{'required':True}"/>
         </field>
     </record>
 
@@ -44,6 +45,7 @@
                     <page name="general" string="General Information">
                         <group cols="4">
                             <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="pricetag_model_id" attrs="{'required':True}"/>
                             <field name="field_ids" widget="many2many_tags"/>
 
                         </group>

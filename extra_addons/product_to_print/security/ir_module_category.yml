@@ -21,10 +21,6 @@
 #
 ##############################################################################
 
-- !record {model: ir.model.access, id: ir_model_access_pricetag_model}:
-    model_id: louve_custom_product.model_pricetag_model
-    name: Pricetag Model
-    perm_read: true
-    perm_create: true
-    perm_write: true
-    perm_unlink: true
+- !record {model: ir.module.category, id: module_product_to_print}:
+    name: Pricetags
+    sequence: 80

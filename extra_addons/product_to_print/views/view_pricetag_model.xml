@@ -41,8 +41,6 @@
                 </div>
                 <group cols="4">
                     <field name="pricetag_paperformat_id"/>
-                    <field name="lines"/>
-                    <field name="columns"/>
                     <field name="report_model"/>
                 </group>
             </form>

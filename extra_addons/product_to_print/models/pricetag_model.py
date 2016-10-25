@@ -37,8 +37,6 @@ class PricetagModel(models.Model):
     _name = 'pricetag.model'
 
     name = fields.Char("Name", required=True)
-    columns = fields.Integer('Number of columns', required=True)
-    lines = fields.Integer('Number of lines', required=True)
     pricetag_paperformat_id = fields.Many2one(
         'report.paperformat', 'Paper Format', required=True)
     report_model = fields.Char("ID of the report template", required=True)
