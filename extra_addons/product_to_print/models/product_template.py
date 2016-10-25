@@ -11,6 +11,15 @@ class ProductTemplate(models.Model):
 
     category_print_id = fields.Many2one(
         string='Print Category', comodel_name='product.category.print')
+    to_print = fields.Boolean(
+        string="Pricetag to reprint", compute="_compute_to_print", store=True)
+
+    @api.multi
+    @api.depends('product_variant_ids')
+    def _compute_to_print(self):
+        for template in self:
+            template.to_print = any(
+                p.to_print for p in template.product_variant_ids)
 
     @api.model
     def create(self, vals):
