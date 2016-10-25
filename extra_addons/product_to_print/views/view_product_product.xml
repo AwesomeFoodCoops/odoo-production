@@ -7,9 +7,10 @@
 
 <odoo>
 
-        <record model="ir.ui.view" id="view_product_product_form">
+        <record model="ir.ui.view" id="view_product_product_form_print">
         <field name="model">product.product</field>
-            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="name">view.product.product.form.print</field>
             <field name="arch" type="xml">
                 <field name="barcode" position="after">
                     <field name="to_print" />
@@ -18,9 +19,10 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="view_product_product_search">
+        <record model="ir.ui.view" id="view_product_product_search_print">
         <field name="model">product.product</field>
-            <field name="inherit_id" ref="product.product_search_form_view" />
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="name">view.product.product.search.form.print</field>
             <field name="arch" type="xml">
                 <field name="product_tmpl_id" position="after">
                     <field name="category_print_id"/>
