@@ -10,6 +10,12 @@ from openerp.osv.orm import Model
 class product_scale_system(Model):
     _name = 'product.scale.system'
 
+    # Constant section
+    _ENCODING_SELECTION = [
+        ('iso-8859-1', 'Latin 1 (iso-8859-1)'),
+    ]
+
+    # Compute Section
     def _get_field_ids(
             self, cr, uid, ids, field_names, arg=None, context=None):
         res = {}
@@ -21,6 +27,7 @@ class product_scale_system(Model):
                     res[system.id].append(product_line.field_id.id)
         return res
 
+    # Column Section
     _columns = {
         'name': fields.char(
             string='Name', required=True),
@@ -34,6 +41,8 @@ class product_scale_system(Model):
             string='FTP Login'),
         'ftp_password': fields.char(
             string='FTP Password'),
+        'encoding': fields.selection(
+            _ENCODING_SELECTION, string='Encoding', required=True),
         'csv_relative_path': fields.char(
             string='Relative Path for CSV', required=True),
         'product_image_relative_path': fields.char(
@@ -58,6 +67,7 @@ class product_scale_system(Model):
         'active': True,
         'company_id': lambda s, cr, uid, c: s.pool.get('res.company').
         _company_default_get(cr, uid, 'product.template', context=c),
+        'encoding': 'iso-8859-1',
         'ftp_url': 'xxx.xxx.xxx.xxx',
         'csv_relative_path': '/',
         'product_image_relative_path': '/',
