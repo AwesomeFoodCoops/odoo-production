@@ -88,10 +88,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <record id="demo_scale_system_product_line_EAN1" model="product.scale.system.product.line">
         <field name="scale_system_id" ref="demo_scale_system"/>
         <field name="code">EAN1</field>
-        <field name="name">Product EAN13</field>
+        <field name="name">Product Barcode</field>
         <field name="sequence">9</field>
         <field name="type">text</field>
-        <field name="field_id" ref="product.field_product_product_ean13"/>
+        <field name="field_id" ref="product.field_product_product_barcode"/>
         <field name="delimiter">#</field>
     </record>
 
@@ -124,7 +124,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="name">Fixed Weight</field>
         <field name="sequence">12</field>
         <field name="type">numeric</field>
-        <field name="field_id" ref="product.field_product_template_weight_net"/>
+        <field name="field_id" ref="product.field_product_template_weight"/>
         <field name="numeric_coefficient">1000</field>
         <field name="numeric_round">1</field>
         <field name="delimiter">#</field>

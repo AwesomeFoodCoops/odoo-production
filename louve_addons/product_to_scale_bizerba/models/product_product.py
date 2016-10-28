@@ -12,7 +12,6 @@ import openerp.addons.decimal_precision as dp
 
 class product_product(Model):
     _inherit = 'product.product'
-    _order = 'scale_sequence, default_code, name_template'
 
     # Column Section
     _columns = {

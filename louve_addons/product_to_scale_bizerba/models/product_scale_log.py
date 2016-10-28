@@ -12,6 +12,7 @@ from openerp.osv import fields
 from openerp.osv.orm import Model
 
 _logger = logging.getLogger(__name__)
+
 try:
     from ftplib import FTP
 except ImportError:
@@ -75,20 +76,14 @@ class product_scale_log(Model):
         return self._EXTERNAL_TEXT_DELIMITER.join(external_text_list)
 
     # Compute Section
-    def _compute_action_code(
-            self, cr, uid, ids, field_names, arg=None, context=None):
-        res = {}
-        for log in self.browse(cr, uid, ids, context=context):
-            res[log.id] = self._ACTION_MAPPING[log.action]
-        return res
-
     def _compute_text(
             self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         for log in self.browse(cr, uid, ids, context):
 
             group = log.product_id.scale_group_id
-            product_text = log.action_code + self._DELIMITER
+            product_text =\
+                self._ACTION_MAPPING[log.action] + self._DELIMITER
             external_texts = []
 
             # Set custom fields
@@ -121,8 +116,6 @@ class product_scale_log(Model):
                 elif product_line.type == 'external_constant':
                     # Constant Value are like product ID = 0
                     external_id = str(product_line.id)
-#                    product_text += self._clean_value(
-#                        product_line.constant_value, product_line)
 
                     external_texts.append(self._generate_external_text(
                         product_line.constant_value, product_line, external_id,
@@ -188,8 +181,6 @@ class product_scale_log(Model):
                     'scale_system_id', 'product_id', 'product_id'], 10)}),
         'action': fields.selection(
             _ACTION_SELECTION, string='Action', required=True),
-        'action_code': fields.function(
-            _compute_action_code, string='Action Code'),
         'sent': fields.boolean(string='Is Sent'),
         'last_send_date': fields.datetime('Last Send Date'),
     }
@@ -199,7 +190,6 @@ class product_scale_log(Model):
         return len(
             self.search(cr, uid, [('sent', '=', False)], context=context))
 
-    # Custom Section
     def ftp_connection_open(self, cr, uid, scale_system, context=None):
         """Return a new FTP connection with found parameters."""
         _logger.info("Trying to connect to ftp://%s@%s" % (
@@ -230,19 +220,19 @@ class product_scale_log(Model):
         if lines:
             # Generate temporary file
             f_name = datetime.now().strftime(pattern)
-            full_path = os.path.join(local_folder_path, f_name)
-            f = open(full_path, 'w')
+            local_path = os.path.join(local_folder_path, f_name)
+            distant_path = os.path.join(distant_folder_path, f_name)
+            f = open(local_path, 'w')
             for line in lines:
                 f.write(line)
-                f.close()
+            f.close()
 
             # Send File
-            f = open(full_path, 'r')
-            ftp.storbinary(
-                'STOR ' + os.path.join(distant_folder_path, f_name), f)
+            f = open(local_path, 'r')
+            ftp.storbinary('STOR ' + distant_path, f)
 
             # Delete temporary file
-            os.remove(full_path)
+            os.remove(local_path)
 
     def send_log(self, cr, uid, ids, context=None):
         config_obj = self.pool['ir.config_parameter']
@@ -252,7 +242,7 @@ class product_scale_log(Model):
         log_ids = self.search(cr, uid, [], order='log_date', context=context)
         system_map = {}
         for log in self.browse(cr, uid, log_ids, context=context):
-            if log.scale_system_id.id in system_map.keys():
+            if log.scale_system_id in system_map.keys():
                 system_map[log.scale_system_id].append(log)
             else:
                 system_map[log.scale_system_id] = [log]

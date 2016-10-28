@@ -39,5 +39,5 @@ class product_scale_group(Model):
     _defaults = {
         'active': True,
         'company_id': lambda s, cr, uid, c: s.pool.get('res.company').
-        _company_default_get(cr, uid, 'product.template', context=c),
+        _company_default_get(cr, uid, 'product.product', context=c),
     }
