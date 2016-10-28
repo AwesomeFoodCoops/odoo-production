@@ -28,9 +28,6 @@
             <filter name="filter_to_sell" position="after">
                 <separator/>
                 <filter string="Mercuriale Product" name="is_mercuriale" domain="[('is_mercuriale', '=', True)]"/>
-                <!-- <filter string="Print to do" name="print_todo" domain="[('pricetag_state', 'in', ('1', '2'))]"/> -->
-                <!-- <filter string="Print Up To Date" name="print_uptodate" domain="[('pricetag_state', '=', '0')]"/>
-                <filter string="Print Ignored" name="print_never" domain="[('pricetag_state', '=', '3')]"/> -->
             </filter>
         </field>
     </record>

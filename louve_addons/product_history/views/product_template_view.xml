@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
+<odoo>
     <record id="view_template_history_form" model="ir.ui.view">
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <page name="sales" position="after">
-                <page string="History" name="history">
+                <page string="History" name="history" groups="base.group_no_one">
                     <group name="options">
                         <field name="history_range"/>
                     </group>
@@ -15,11 +14,9 @@
                             <field name="product_id"/>
                             <field name="from_date"/>
                             <field name="to_date"/>
-                            <!-- <field name="location_id"/> -->
                             <field name="start_qty"/>
-                            <field name="purchase_qty"/>  <!--groups="group_purchase_user" -->
-                            <!-- <field name="production_qty"/> -->  <!--groups="group_mrp_user" -->
-                            <field name="sale_qty"/>  <!--groups="group_sale_user" -->
+                            <field name="purchase_qty"/>
+                            <field name="sale_qty"/>
                             <field name="loss_qty"/>
                             <field name="end_qty"/>
                             <field name="incoming_qty"/>
@@ -32,6 +29,19 @@
                     </field>
                 </page>
             </page>
+            <div name="button_box" position="inside">
+                <button name="%(product_history.view_product_history_action)d" type="action"
+                    icon="fa-line-chart" class="oe_stat_button"
+                    groups="stock.group_stock_manager"
+                    string="History">
+                </button>
+            </div>
+        </field>
+    </record>
+    <record id="view_template_history_form2" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product_average_consumption.view_template_consumption_form"/>
+        <field name="arch" type="xml">
             <group name="ConsumptionMove" position="after">
                 <group name="ConsumptionHistory" attrs="{'invisible': [('consumption_calculation_method','!=','history')]}">
                     <field name="number_of_periods" />
@@ -42,5 +52,4 @@
             </group>
         </field>
     </record>
-    </data>
-</openerp>
+</odoo>

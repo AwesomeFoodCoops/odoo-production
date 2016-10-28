@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
-
-        <record id="view_cpo_config_settings" model="ir.ui.view">
-            <field name="name">cpo settings</field>
-            <field name="model">purchase.config.settings</field>
-            <field name="inherit_id" ref="purchase.view_purchase_configuration"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='module_stock_dropshipping']/.." position="after">
-                    <group name="purchaseorder" string="Purchase Order">
-                        <field name="default_valid_psi" widget="radio"/>
-                    </group>
-                </xpath>
-            </field>
-        </record>
-    </data>
-</openerp>
+<odoo>
+    <record id="view_cpo_config_settings" model="ir.ui.view">
+        <field name="name">cpo settings</field>
+        <field name="model">purchase.config.settings</field>
+        <field name="inherit_id" ref="purchase.view_purchase_configuration"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='module_stock_dropshipping']/.." position="after">
+                <group name="purchaseorder" string="Purchase Order">
+                    <field name="default_valid_psi" widget="radio"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

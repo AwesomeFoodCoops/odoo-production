@@ -20,15 +20,6 @@
 <!-- ********************************************************************** -->
 <odoo>
 
-    <record id="action_pricetag_model" model="ir.actions.act_window">
-        <field name="name">Pricetag Model</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">pricetag.model</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="view_pricetag_model_search"/>
-    </record>
-
     <record id="action_product_product_food" model="ir.actions.act_window">
         <field name="name">Products (Food)</field>
         <field name="type">ir.actions.act_window</field>
@@ -58,12 +49,12 @@
         <!-- <field name="view_id" ref="view_product_product_pricetag_tree"/> -->
     </record>
 
-        <record id="action_product_label" model="ir.actions.act_window">
-            <field name="name">Labels</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">product.label</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">kanban,tree,form</field>
-        </record>
+    <record id="action_product_label" model="ir.actions.act_window">
+        <field name="name">Labels</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.label</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
 
 </odoo>

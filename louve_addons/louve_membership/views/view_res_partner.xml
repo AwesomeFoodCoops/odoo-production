@@ -23,13 +23,13 @@
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@id='add_template_registration']" position="attributes">
-                <attribute name="attrs">{'invisible':[('has_capital_subscription', '=', 'False')]}</attribute>
+                <attribute name="attrs">{'invisible':[('has_type_A_capital_subscription', '=', False)]}</attribute>
             </xpath>
             <xpath expr="//button[@id='view_partner_registrations']" position="attributes">
-                <attribute name="attrs">{'invisible':[('has_capital_subscription', '=', 'False')]}</attribute>
+                <attribute name="attrs">{'invisible':[('has_type_A_capital_subscription', '=', False)]}</attribute>
             </xpath>
             <xpath expr="//button[@id='view_partner_template_registrations']" position="attributes">
-                <attribute name="attrs">{'invisible':[('has_capital_subscription', '=', 'False')]}</attribute>
+                <attribute name="attrs">{'invisible':[('has_type_A_capital_subscription', '=', False)]}</attribute>
             </xpath>
         </field>
     </record>

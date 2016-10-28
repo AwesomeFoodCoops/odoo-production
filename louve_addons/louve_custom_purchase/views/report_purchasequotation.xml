@@ -1,27 +1,25 @@
 <?xml version="1.1" encoding="utf-8"?>
-<openerp>
-    <data>
-        <template id="report_purchasequotation_louve" inherit_id="purchase.report_purchasequotation_document">
-            <xpath expr="//table[@class='table table-condensed'][1]/thead/tr//th[3]" position="replace"/>
-            <xpath expr="//table[@class='table table-condensed'][1]/thead/tr//th[2]" position="replace"/>
-            <xpath expr="//table[@class='table table-condensed'][1]/thead/tr//th[1]" position="before">
-                <th class="text-right"><strong>Nb of Packages</strong></th>
-                <th class="text-right"><strong>Package qty</strong></th>
-                <th class="text-right"><strong>Qty</strong></th>
-            </xpath>
-            <xpath expr="//table[@class='table table-condensed'][1]/tbody/tr//td[3]" position="replace"/>
-            <xpath expr="//table[@class='table table-condensed'][1]/tbody/tr//td[2]" position="replace"/>
-            <xpath expr="//table[@class='table table-condensed'][1]/tbody/tr//td[1]" position="before">
-                <td class="text-right">
-                    <span t-field="order_line.product_qty_package"/>
-                </td>
-                <td class="text-right">
-                    <span t-field="order_line.package_qty"/>
-                </td>
-                <td class="text-right">
-                    <span t-field="order_line.product_qty"/>
-                </td>
-            </xpath>
-        </template>
-    </data>
-</openerp>
+<odoo>
+    <template id="report_purchasequotation_louve" inherit_id="purchase.report_purchasequotation_document">
+        <xpath expr="//table[@class='table table-condensed'][1]/thead/tr//th[3]" position="replace"/>
+        <xpath expr="//table[@class='table table-condensed'][1]/thead/tr//th[2]" position="replace"/>
+        <xpath expr="//table[@class='table table-condensed'][1]/thead/tr//th[1]" position="before">
+            <th class="text-right"><strong>Nb of Packages</strong></th>
+            <th class="text-right"><strong>Package qty</strong></th>
+            <th class="text-right"><strong>Qty</strong></th>
+        </xpath>
+        <xpath expr="//table[@class='table table-condensed'][1]/tbody/tr//td[3]" position="replace"/>
+        <xpath expr="//table[@class='table table-condensed'][1]/tbody/tr//td[2]" position="replace"/>
+        <xpath expr="//table[@class='table table-condensed'][1]/tbody/tr//td[1]" position="before">
+            <td class="text-right">
+                <span t-field="order_line.product_qty_package"/>
+            </td>
+            <td class="text-right">
+                <span t-field="order_line.package_qty"/>
+            </td>
+            <td class="text-right">
+                <span t-field="order_line.product_qty"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>

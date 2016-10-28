@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
+<odoo>
+    <record id="view_product_history_search" model="ir.ui.view">
+        <field name="name">product.history.search</field>
+        <field name="model">product.history</field>
+        <field name="arch" type="xml">
+            <search string="History">
+                <field name="history_range"/>
+                <field name="product_tmpl_id"/>
+            </search>
+        </field>
+    </record>
+
     <record id="view_product_history_tree" model="ir.ui.view">
         <field name="model">product.history</field>
         <field name="arch" type="xml">
             <tree string="Product History" edit="false" create="false" delete="false">
+                <field name="history_range"/>
                 <field name="product_id"/>
                 <field name="from_date"/>
                 <field name="to_date"/>
-                <!-- <field name="location_id" groups="stock.group_locations"/> -->
                 <field name="start_qty"/>
-                <field name="purchase_qty"/> <!-- groups="group_purchase_user" -->
-                <!-- <field name="production_qty"/> --> <!-- groups="group_mrp_user" -->
-                <field name="sale_qty"/> <!-- groups="group_sale_user" -->
+                <field name="purchase_qty"/>
+                <field name="sale_qty"/>
                 <field name="loss_qty"/>
                 <field name="end_qty"/>
                 <field name="incoming_qty"/>
@@ -24,5 +33,12 @@
             </tree>
         </field>
     </record>
-    </data>
-</openerp>
+
+    <record id="view_product_history_action" model="ir.actions.act_window">
+        <field name="name">Product History</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.history</field>
+        <field name="context">{'search_default_product_tmpl_id': [active_id], 'default_product_tmpl_id': active_id}</field>
+        <field name="search_view_id" ref="view_product_history_search"/>
+    </record>
+</odoo>

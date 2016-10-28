@@ -42,7 +42,7 @@
                             <tr t-foreach="shift['registrations']" t-as="registration">
                                 <td></td>
                                 <td></td>
-                                <td><span t-esc="registration['registration'].name"/></td>
+                                <td><t t-if="registration['registration'].partner_id.ref"><span t-esc="registration['registration'].partner_id.ref"/> - </t><span t-esc="registration['registration'].name"/></td>
                                 <td style="background:#DDDDDD"></td>
                                 <td style="background:#DDDDDD"></td>
                                 <td></td>
@@ -73,7 +73,7 @@
                             <tr t-foreach="shift['ftop']" t-as="ftop">
                                 <td></td>
                                 <td></td>
-                                <td><span t-esc="ftop.name"/></td>
+                                <td><t t-if="ftop.partner_id.ref"><span t-esc="ftop.partner_id.ref"/> - </t><span t-esc="ftop.name"/></td>
                                 <td style="background:#DDDDDD"></td>
                                 <td></td>
                                 <td></td>

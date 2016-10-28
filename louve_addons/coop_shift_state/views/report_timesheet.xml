@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<openerp>
+    <template id="report_timesheet_state" inherit_id="coop_shift.report_timesheet">
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[1]//td[1]" position="inside">
+            <t t-if="registration['registration'].partner_id.final_standard_point&lt;0"><span t-esc="-1 * registration['registration'].partner_id.final_standard_point"/></t>
+        </xpath>
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[4]//td[1]" position="inside">
+            <t t-if="ftop.partner_id.final_standard_point&lt;0"><span t-esc="-1 * ftop.partner_id.final_ftop_point"/></t>
+        </xpath>
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[1]//td[2]" position="inside">
+            <t t-if="registration['registration'].partner_id.cooperative_state=='alert'">A</t>
+            <t t-if="registration['registration'].partner_id.cooperative_state=='suspended'">S</t>
+            <t t-if="registration['registration'].partner_id.cooperative_state=='delay'">E</t>
+            <t t-if="registration['registration'].partner_id.cooperative_state=='unpayed'">I</t>
+            <t t-if="registration['registration'].partner_id.cooperative_state=='blocked'">B</t>
+        </xpath>
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[4]//td[2]" position="inside">
+            <t t-if="ftop.partner_id.cooperative_state=='alert'">A</t>
+            <t t-if="ftop.partner_id.cooperative_state=='suspended'">S</t>
+            <t t-if="ftop.partner_id.cooperative_state=='delay'">E</t>
+            <t t-if="ftop.partner_id.cooperative_state=='unpayed'">I</t>
+            <t t-if="ftop.partner_id.cooperative_state=='blocked'">B</t>
+        </xpath>
+    </template>
+</openerp>

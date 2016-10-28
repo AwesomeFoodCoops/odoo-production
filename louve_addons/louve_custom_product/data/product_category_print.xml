@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Julien Weste
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="product.category.print" id="vegetable_category">
+        <field name="name">Vegetables</field>
+        <field name="pricetag_model_id" ref="louve_custom_product.pricetag_model_vegetables"/>
+        <field name="field_ids" eval="[(4, ref('product.field_product_product_name')),(4, ref('product.field_product_product_list_price'))]" />
+    </record>
+
+    <record model="product.category.print" id="demo_category">
+        <field name="name">Default Category</field>
+        <field name="field_ids" eval="[(4, ref('product.field_product_product_name')),(4, ref('product.field_product_product_list_price'))]" />
+        <field name="pricetag_model_id" ref="product_to_print.pricetag_model_default"/>
+    </record>
+
+</odoo>

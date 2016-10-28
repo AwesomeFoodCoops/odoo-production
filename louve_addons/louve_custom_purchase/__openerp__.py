@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Purchase - Package Quantity Module for Odoo
@@ -43,11 +43,13 @@ Copyright, Author and Licence :
         'purchase',
         'product',
         'purchase_package_qty',
+        'stock',
     ],
     'data': [
         'views/purchase_order_view.xml',
         'views/product_supplierinfo_view.xml',
         'views/report_purchaseorder.xml',
         'views/report_purchasequotation.xml',
+        'views/stock_picking_view.xml',
     ],
 }
