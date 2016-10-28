@@ -4,7 +4,6 @@
     'description': '',
     'modules_to_upgrade': [
         'base',
-        'louve_custom_pricetag',
         'barcodes_generate',
         'coop_shift_state',
         'pos_automatic_cashdrawer',
