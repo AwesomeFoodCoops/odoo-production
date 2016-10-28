@@ -22,7 +22,7 @@
                 <page name="sales_purchases" position="after">
                     <page name="shifts" string="Shifts">
                         <group name="button" groups="coop_shift.group_shift_manager">
-                            <button name="%(coop_shift.action_add_template_registration)d" type="action" class="oe_highlight" icon="fa-cogs" string="Add Template Registration" id="add_template_registration"/>
+                            <button name="%(coop_shift.action_add_template_registration)d" type="action" class="oe_highlight" icon="fa-cogs" string="Add Template Registration" id="add_template_registration" attrs="{'invisible':[('has_type_A_capital_subscription','=',False)]}"/>
                         </group>
                     </page>
                 </page>
@@ -40,7 +40,7 @@
                         class="oe_stat_button oe_event_attendee_button"
                         icon="fa-calendar-plus-o"
                         help="View partner Template Registrations"
-                        groups="coop_shift.group_shift_manager" id="view_partner_template_registrations">
+                        groups="coop_shift.group_shift_manager" id="view_partner_template_registrations" attrs="{'invisible':[('has_type_A_capital_subscription','=',False)]}">
                         <field name="active_tmpl_reg_line_count" widget="statinfo" string="Tmpl. Registr."/>
                     </button>
                 </div>
