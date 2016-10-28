@@ -47,11 +47,12 @@ Copyright, Author and Licence :
     'depends': [
         'product',
         'stock',
+        'product_average_consumption',
     ],
     'data': [
         'views/res_config_view.xml',
-        'views/product_template_view.xml',
         'views/product_history_view.xml',
+        'views/product_template_view.xml',
         'data/function.xml',
         'data/cron.xml',
         'security/ir_model_access_data.yml',

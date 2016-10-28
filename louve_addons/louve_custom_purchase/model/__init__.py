@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Purchase - Package Quantity Module for Odoo
@@ -23,3 +23,4 @@
 
 from . import purchase_order_line
 from . import product_supplierinfo
+from . import stock_picking

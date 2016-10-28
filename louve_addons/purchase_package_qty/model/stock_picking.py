@@ -31,12 +31,27 @@ class StockPicking(models.Model):
     def _prepare_pack_ops(self, picking, quants, forced_qties):
         vals = super(StockPicking, self)._prepare_pack_ops(
             picking, quants, forced_qties)
+        if picking.origin[0:2] == 'PO':
+            order_id = self.env['purchase.order'].search(
+                [('name', '=', picking.origin)])
+            if order_id:
+                for pack in vals:
+                    line = order_id.order_line.filtered(
+                        lambda l, p=pack['product_id'],
+                        q=pack['product_qty']: l.product_id.id == p and
+                        l.product_qty == q)
+                    if line:
+                        pack['package_qty'] = line[0].package_qty
+                        pack['product_qty_package'] = line[0].\
+                            product_qty_package
+                return vals
         for pack in vals:
-            picking = self.browse(pack['picking_id'])
-            product = self.env['product.product'].browse(pack['product_id'])
+            product = self.env['product.product'].browse(
+                pack['product_id'])
             uom = self.env['product.uom'].browse(pack['product_uom_id'])
             psi = self.env['product.product']._select_seller(
-                product, picking.partner_id, pack['product_qty'], uom_id=uom)
+                product, picking.partner_id, pack['product_qty'],
+                uom_id=uom)
             psi = psi and psi[0] or False
             if psi:
                 pack['package_qty'] = psi.package_qty

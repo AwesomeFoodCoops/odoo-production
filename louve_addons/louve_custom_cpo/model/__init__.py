@@ -1,7 +1,7 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Purchase - Computed Purchase Order Module for Odoo
+#    Product - Average Consumption Module for Odoo
 #    Copyright (C) 2013-Today GRAP (http://www.grap.coop)
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
@@ -21,4 +21,4 @@
 #
 ##############################################################################
 
-from . import update_products_wizard
+from . import computed_purchase_order_line

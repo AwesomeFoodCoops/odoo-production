@@ -2,155 +2,153 @@
 <!-- ********************************************************************** -->
 <!-- See __openerp__.py file for Copyright and Licence Informations.         -->
 <!-- ********************************************************************** -->
-<openerp>
-    <data>
+<odoo>
 
 <!-- View : computed.purchase.order -->
-        <record id="view_computed_purchase_order_form" model="ir.ui.view">
-            <field name="name">computed.purchase.order.form</field>
-            <field name="model">computed.purchase.order</field>
-            <field name="arch" type="xml">
-                <form name="Computed Purchase Order" version="7.0">
-                    <sheet>
-                        <header>
-                            <button name="make_order" states="draft" string="Make Purchase Order" type="object" class="oe_highlight"/>
-                            <button name="%(action_view_update_products)d" string="Update Products" type="action" class="oe_highlight" attrs="{'invisible':[('products_updated','=',False)]}"/>
-                            <field name="state" widget="statusbar" statusbar_visible="draft,done,canceled" statusbar_colors='{"canceled":"red","done":"blue"}' readonly="1"/>
-                        </header>
-                        <group colspan="8" col="4">
-                            <h1>
-                                <field name="name" class="oe_inline" nolabel="1"/>
-                            </h1>
+    <record id="view_computed_purchase_order_form" model="ir.ui.view">
+        <field name="name">computed.purchase.order.form</field>
+        <field name="model">computed.purchase.order</field>
+        <field name="arch" type="xml">
+            <form name="Computed Purchase Order" version="7.0">
+                <sheet>
+                    <header>
+                        <button name="make_order" states="draft" string="Make Purchase Order" type="object" class="oe_highlight"/>
+                        <button name="%(action_view_update_products)d" string="Update Products" type="action" class="oe_highlight" attrs="{'invisible':[('products_updated','=',False)]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done,canceled" statusbar_colors='{"canceled":"red","done":"blue"}' readonly="1"/>
+                    </header>
+                    <group colspan="8" col="4">
+                        <h1>
+                            <field name="name" class="oe_inline" nolabel="1"/>
+                        </h1>
+                    </group>
+                    <group col="7">
+                        <group colspan="3" col="2">
+                            <field name="partner_id"/>
                         </group>
-                        <group col="7">
-                            <group colspan="3" col="2">
-                                <field name="partner_id"/>
-                            </group>
-                            <field name="incoming_date"/>
-                            <field name="purchase_order_id" states="done"/>
-                            <field name="products_updated" invisible="1"/>
-                            <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="incoming_date"/>
+                        <field name="purchase_order_id" states="done"/>
+                        <field name="products_updated" invisible="1"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    <group states="draft" col="8">
+                        <group string="Get Products" colspan="3">
+                            <field name="compute_pending_quantity" />
+                            <button name="compute_active_product_stock" 
+                                type="object"
+                                string="Get products and stocks" 
+                                help="Fetch all active products sold by selected supplier and calculate the available quantities. It ignores inactive products and products in state 'obsolete' or 'end'" 
+                                states="draft"/>
                         </group>
-                        <group states="draft" col="8">
-                            <group string="Get Products" colspan="3">
-                                <field name="compute_pending_quantity" />
-                                <button name="compute_active_product_stock" 
-                                    type="object"
-                                    string="Get products and stocks" 
-                                    help="Fetch all active products sold by selected supplier and calculate the available quantities. It ignores inactive products and products in state 'obsolete' or 'end'" 
-                                    states="draft"/>
-                            </group>
-                            <group string="Compute Order" colspan="3" col="3">
-                                <field name="purchase_target"/>
-                                <field name="target_type" nolabel="1"/>
-                                <button name="compute_purchase_quantities" 
-                                    type="object"
-                                    string="Compute Purchase Quantities" 
-                                    help="Compute the optimal purchase quantities of selected products according to the objective." 
-                                    states="draft"/>
-                            </group>
+                        <group string="Compute Order" colspan="3" col="3">
+                            <field name="purchase_target"/>
+                            <field name="target_type" nolabel="1"/>
+                            <button name="compute_purchase_quantities" 
+                                type="object"
+                                string="Compute Purchase Quantities" 
+                                help="Compute the optimal purchase quantities of selected products according to the objective." 
+                                states="draft"/>
                         </group>
-                        <group string="Result" col="6">
-                            <field name="computed_amount"/>
-                            <field name="computed_duration"/>
-                        </group>
-                        <notebook colspan="4">
-                            <page name="orderlines" string="Order lines">
-                                <field name="line_ids" options="{'reload_on_button': true}">
-                                    <tree 
-                        string="Computed purchase order lines" 
-                        colors="brown:state == 'updated';blue:state == 'new'" 
-                        editable="bottom">
-                                        <field name="product_id"/>
-                                        <field name="product_code_inv"/>
-                                        <field name="product_name_inv"/>
-                                        <field name="computed_qty"/>
-                                        <field name="manual_input_output_qty"/>
-                                        <field name="consumption_range"/>
-                                        <field name="displayed_average_consumption"/>
-                                        <field name="uom_id"/>
-                                        <field name="stock_duration"/>
-                                        <field name="purchase_qty_package"/>
-                                        <field name="package_qty_inv"/>
-                                        <field name="purchase_qty"/>
-                                        <field name="uom_po_id"/>
-                                        <field name="product_price_inv"/>
-                                        <field name="discount_inv"/>
-                                        <field name="price_policy"/>
-                                        <field name="virtual_duration"/>
-                                        <field name="subtotal"/>
-                                        <field name="state" />
-                                        <button name="unlink_psi" states="up_to_date,updated" type="object" icon="gtk-stop"
-            help="If you click this button, it means you don't want to buy this product to this supplier anymore. The supplier will thus be removed from the product form."/>
-                                        <button name="create_psi" states="new" type="object" icon="terp-personal+"
-            help="If you click this button, it means you want to buy this product to this supplier regularly. The supplier will thus be added to the product form."/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page name="stockdetails" string="Stock details">
-                                <field name="stock_line_ids">
-                                    <tree editable="True">
-                                        <field name="product_id"/>
-                                        <field name="qty_available"/>
-                                        <field name="incoming_qty"/>
-                                        <field name="outgoing_qty"/>
-                                        <field name="manual_input_output_qty"/>
-                                        <field name="computed_qty"/>
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+                    </group>
+                    <group string="Result" col="6">
+                        <field name="computed_amount"/>
+                        <field name="computed_duration"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page name="orderlines" string="Order lines">
+                            <field name="line_ids" options="{'reload_on_button': true}">
+                                <tree 
+                    string="Computed purchase order lines" 
+                    colors="brown:state == 'updated';blue:state == 'new'" 
+                    editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="product_code_inv"/>
+                                    <field name="product_name_inv"/>
+                                    <field name="computed_qty"/>
+                                    <field name="manual_input_output_qty"/>
+                                    <field name="consumption_range"/>
+                                    <field name="displayed_average_consumption"/>
+                                    <field name="uom_id"/>
+                                    <field name="stock_duration"/>
+                                    <field name="purchase_qty_package"/>
+                                    <field name="package_qty_inv"/>
+                                    <field name="purchase_qty"/>
+                                    <field name="uom_po_id"/>
+                                    <field name="product_price_inv"/>
+                                    <field name="discount_inv"/>
+                                    <field name="price_policy"/>
+                                    <field name="virtual_duration"/>
+                                    <field name="subtotal"/>
+                                    <field name="state" />
+                                    <button name="unlink_psi" states="up_to_date,updated" type="object" icon="gtk-stop"
+        help="If you click this button, it means you don't want to buy this product to this supplier anymore. The supplier will thus be removed from the product form."/>
+                                    <button name="create_psi" states="new" type="object" icon="terp-personal+"
+        help="If you click this button, it means you want to buy this product to this supplier regularly. The supplier will thus be added to the product form."/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="stockdetails" string="Stock details">
+                            <field name="stock_line_ids">
+                                <tree editable="True">
+                                    <field name="product_id"/>
+                                    <field name="qty_available"/>
+                                    <field name="incoming_qty"/>
+                                    <field name="outgoing_qty"/>
+                                    <field name="manual_input_output_qty"/>
+                                    <field name="computed_qty"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-        <record id="view_computed_purchase_order_tree" model="ir.ui.view">
-            <field name="name">computed.purchase.order.tree</field>
-            <field name="model">computed.purchase.order</field>
-            <field name="arch" type="xml">
-                <tree 
-                    string="Computed Purchase Order List" 
-                    version="7.0" 
-                    colors="red:state == 'canceled';blue:state == 'draft'">
-                    <field name="name"/>
-                    <field name="partner_id"/>
-                    <field name="incoming_date"/>
-                    <field name="company_id" groups="base.group_multi_company"/>
-                    <field name="state"/>
-                </tree>
-            </field>
-        </record>
+    <record id="view_computed_purchase_order_tree" model="ir.ui.view">
+        <field name="name">computed.purchase.order.tree</field>
+        <field name="model">computed.purchase.order</field>
+        <field name="arch" type="xml">
+            <tree 
+                string="Computed Purchase Order List" 
+                version="7.0" 
+                colors="red:state == 'canceled';blue:state == 'draft'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="incoming_date"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
 
-        <record id="view_computed_purchase_order_search" model="ir.ui.view">
-            <field name="name">computed.purchase.order.search</field>
-            <field name="model">computed.purchase.order</field>
-            <field name="arch" type="xml">
-                <search string="Search Purchase Order">
-                    <field name="name"/>
-                    <field name="partner_id"/>
-                    <field name="company_id" groups="base.group_multi_company"/>
-                    <field name="state"/>
-                    <filter icon="terp-document-new" name="draft" string="Draft" domain="[('state','=','draft')]" help="Computations in draft state"/>
-                    <filter icon="terp-check" name="done" string="Converted" domain="[('state','=','done')]" help="Computations already converted into purchase orders"/>
-                </search>
-            </field>
-        </record>
+    <record id="view_computed_purchase_order_search" model="ir.ui.view">
+        <field name="name">computed.purchase.order.search</field>
+        <field name="model">computed.purchase.order</field>
+        <field name="arch" type="xml">
+            <search string="Search Purchase Order">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state"/>
+                <filter icon="terp-document-new" name="draft" string="Draft" domain="[('state','=','draft')]" help="Computations in draft state"/>
+                <filter icon="terp-check" name="done" string="Converted" domain="[('state','=','done')]" help="Computations already converted into purchase orders"/>
+            </search>
+        </field>
+    </record>
 
 
 <!-- View : res.partner -->
-        <record id="view_partner_form_cpo" model="ir.ui.view">
-            <field name="name">res.partner.form.cpo</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
-                <field name="user_id" position="after">
-                    <group colspan='2' col='3'>
-                        <field name="purchase_target"/>
-                        <field name="target_type" nolabel="1"/>
-                    </group>
-                </field>
+    <record id="view_partner_form_cpo" model="ir.ui.view">
+        <field name="name">res.partner.form.cpo</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <group colspan='2' col='3'>
+                    <field name="purchase_target"/>
+                    <field name="target_type" nolabel="1"/>
+                </group>
             </field>
-        </record>
-    </data>
-</openerp>
+        </field>
+    </record>
+</odoo>

@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Purchase - Computed Purchase Order Module for Odoo
@@ -21,8 +21,9 @@
 #
 ##############################################################################
 
-from . import computed_purchase_order
-from . import computed_purchase_order_line
-from . import res_partner
-from . import product_product
-from . import res_config
+from openerp import models
+
+
+class ComputedPurchaseOrderLine(models.Model):
+    _inherit = 'computed.purchase.order.line'
+    _order = 'product_code'

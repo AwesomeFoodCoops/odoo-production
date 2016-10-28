@@ -1,8 +1,8 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Purchase - Computed Purchase Order Module for Odoo
-#    Copyright (C) 2013-Today GRAP (http://www.grap.coop)
+#    Purchase - Package Quantity Module for Odoo
+#    Copyright (C) 2016-Today Akretion (https://www.akretion.com)
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -21,5 +21,15 @@
 #
 ##############################################################################
 
-from . import model
-from . import wizard
+from openerp import api, models
+
+
+class StockPicking(models.Model):
+    _inherit = "stock.picking"
+
+    @api.multi
+    def copy_expected_qtys(self):
+        for picking in self:
+            for pack in picking.pack_operation_product_ids:
+                pack.qty_done = pack.product_qty
+                pack.qty_done_package = pack.product_qty_package

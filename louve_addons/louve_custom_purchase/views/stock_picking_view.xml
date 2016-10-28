@@ -19,21 +19,18 @@
 <!--along with this program.  If not, see <http://www.gnu.org/licenses/>.   -->
 <!-- ********************************************************************** -->
 
-<openerp>
-    <data>
-        <record id="stock_picking_form_view_package" model="ir.ui.view">
-            <field name="name">stock.picking.form.view.package</field>
-            <field name="model">stock.picking</field>
-            <field name="inherit_id" ref="stock.view_picking_form" />
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='product_qty']" position="before">
-                    <field name="product_qty_package"/>
-                    <field name="package_qty" readonly="True" string="Pack. Qty"/>
-                </xpath>
-                <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='qty_done']" position="before">
-                    <field name="qty_done_package"/>
-                </xpath>
-            </field>
-        </record>
-    </data>
-</openerp>
+<odoo>
+    <record id="stock_picking_form_view_louve" model="ir.ui.view">
+        <field name="name">stock.picking.form.view.louve</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pack_operation_product_ids']/tree" position="attributes">
+                <attribute name="decoration-danger">qty_done!=product_qty</attribute>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="after">
+                <button name="copy_expected_qtys" string="Copy expected qtys" type="object"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

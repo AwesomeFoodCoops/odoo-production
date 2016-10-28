@@ -1,24 +1,25 @@
 <?xml version="1.0"?>
-<openerp>
-    <data>
-        <record model="ir.ui.view" id="louve_purchase_order_form">
-             <field name="model">purchase.order</field>
-             <field name="inherit_id" ref="purchase.purchase_order_form" />
-             <field name="arch" type="xml">
-                <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//field[@name='price_subtotal']" position="after">
-                    <field name="price_total"/>
-                </xpath>
-                <xpath expr="//field[@name='price_unit']" position="after">
-                    <field name="price_unit_tax"/>
-                </xpath>
-                <field name="taxes_id" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </field>
-                <field name="account_analytic_id" position="replace"/>
-             </field>
-        </record>
-    </data>
-</openerp>
+<odoo>
+    <record model="ir.ui.view" id="louve_purchase_order_form">
+         <field name="model">purchase.order</field>
+         <field name="inherit_id" ref="purchase.purchase_order_form" />
+         <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_subtotal']" position="after">
+                <field name="price_total"/>
+            </xpath>
+            <xpath expr="//field[@name='price_unit']" position="after">
+                <field name="price_unit_tax"/>
+            </xpath>
+            <field name="taxes_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="account_analytic_id" position="replace"/>
+            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                <attribute name="decoration-success">product_qty==qty_invoiced</attribute>
+            </xpath>
+         </field>
+    </record>
+</odoo>
