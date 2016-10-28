@@ -21,10 +21,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="model">product.scale.group</field>
         <field name="arch" type="xml">
             <form string="Scale Group" version="7.0">
-                <header>
-<!--                    <button name="action_merge_account_moves" string="Merge account moves" type="object"-->
-<!--                        groups="account_merge_moves_by_patterns.group_account_merge_manager" />-->
-                </header>
+                <header/>
                 <sheet>
                     <group>
                         <group>
