@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record id="base.user_root" model="res.users">
+        <field name="groups_id" eval="[
+            (4, ref('base.group_no_one')),
+            (4, ref('base.group_sale_manager')),
+            (4, ref('product.group_uom')),
+            (4, ref('product.group_uos')),
+            (4, ref('product.group_product_variant')),
+            ]" />
+    </record>
+
+</data></openerp>
