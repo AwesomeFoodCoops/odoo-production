@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Sale - Food Module for Odoo
@@ -21,12 +21,6 @@
 #
 ##############################################################################
 
-- !record {model: res.groups, id: group_food_user}:
-    category_id: module_category_food
-    name: User
-
 - !record {model: res.groups, id: group_food_manager}:
-    category_id: module_category_food
-    name: Manager
-    implied_ids:
-        - group_food_user
+    category_id: product_to_print.module_product_to_print
+    name: Manage Food fields

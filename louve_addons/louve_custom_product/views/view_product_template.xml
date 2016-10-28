@@ -25,7 +25,7 @@
         <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
             <notebook position="inside">
-                <page string="Food Informations" groups="louve_custom_product.group_food_user">
+                <page string="Food Informations" groups="louve_custom_product.group_food_manager">
                     <group colspan="4">
                         <group>
                             <separator string="Origin" colspan="2"/>
@@ -57,6 +57,15 @@
             </xpath>
             <xpath expr="//field[@name='volume']/.." position="after">
                 <field name="price_volume"/>
+            </xpath>
+            <xpath expr="//group[@name='group_standard_price']" position="after">
+                <group string="Pricetag Information" name="sticker_info">
+                    <field name="rack_instruction"/>
+                    <field name="rack_location"/>
+                    <field name="rack_number_of_packages"/>
+                    <field name="farming_method"/>
+                    <field name="other_information"/>
+                </group>
             </xpath>
         </field>
     </record>

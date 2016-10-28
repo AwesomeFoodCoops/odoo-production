@@ -25,20 +25,12 @@
           <field name="arch" type="xml">
             <form string="Print Price Tags">
                 <group colspan="2">
-                    <group string="Print Parameters" col="4" colspan="2">
-                        <field name="category_print_id"/>
-                    </group>
-                    <group col="5" colspan="2">
-                        <button name="initialize_product" type="object" string="Initialize Products"/>
-                        <field name="offset"/>
-                        <!-- <field name="border"/> -->
-                   </group>
                     <group string="Products" col="4" colspan="2">
+                        <field name="category_print_id" invisible="1"/>
                         <field name="line_ids" options="{'reload_on_button': true}" nolabel="1">
                             <tree string="Products" editable="top">
-                                <field name="product_id"/>
+                                <field name="product_id" domain="[('category_print_id', '=', parent.category_print_id)]"/>
                                 <field name="quantity"/>
-                                <field name="print_unit_price"/>
                             </tree>
                         </field>
                     </group>
@@ -60,7 +52,19 @@
         <field name="target">new</field>
     </record>
 
-    <menuitem id="menu_product_pricetag_wizard"
-        parent="base.menu_product" sequence="45"
-        action="action_product_pricetag_wizard"/>
+    <record id="print_pricetags_server_action" model="ir.actions.server">
+        <field name="name">Print Pricetags</field>
+        <field name="model_id" ref="product.model_product_product" />
+        <field name="state">code</field>
+        <field name="code">self.print_pricetags(cr, uid, context['active_ids'], context=context)</field>
+    </record>
+
+    <record id="print_pricetags" model="ir.values">
+        <field name="model_id" ref="product_to_print.model_product_pricetag_wizard" />
+        <field name="name">Print Pricetags</field>
+        <field name="key2">client_action_multi</field>
+        <field name="key">action</field>
+        <field name="model">product.product</field>
+        <field name="value" eval="'ir.actions.server,' + str(ref('print_pricetags_server_action'))" />
+    </record>
 </odoo>

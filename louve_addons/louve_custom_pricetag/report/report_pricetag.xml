@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <template id="report_pricetag_louve" inherit_id="louve_custom_product.report_pricetag">
-        <xpath expr="//t[@name='pricetag_origine']" position="after">
-            <t t-if="product['product'].pricetag_rackinfos"><t t-esc="product['product'].pricetag_rackinfos"/><br/></t>
-            <t t-if="product['product'].pricetag_louveinfos"><t t-esc="product['product'].pricetag_louveinfos"/><br/></t>
-        </xpath>
-    </template>
-</odoo>

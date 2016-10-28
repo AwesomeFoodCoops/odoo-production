@@ -22,8 +22,36 @@
 ##############################################################################
 
 - !record {model: ir.model.access, id: ir_model_access_pricetag_model}:
-    model_id: louve_custom_product.model_pricetag_model
-    name: Pricetag Model
+    model_id: product_to_print.model_pricetag_model
+    group_id: product_to_print.group_pricetag_user
+    name: Pricetag Model User
+    perm_read: true
+    perm_create: false
+    perm_write: false
+    perm_unlink: false
+
+- !record {model: ir.model.access, id: ir_model_access_pricetag_model_manager}:
+    model_id: product_to_print.model_pricetag_model
+    group_id: product_to_print.group_pricetag_manager
+    name: Pricetag Model Manager
+    perm_read: true
+    perm_create: true
+    perm_write: true
+    perm_unlink: true
+
+- !record {model: ir.model.access, id: ir_model_access_product_category_print_user}:
+    model_id: product_to_print.model_product_category_print
+    group_id: product_to_print.group_pricetag_user
+    name: Print Category User
+    perm_read: true
+    perm_create: false
+    perm_write: false
+    perm_unlink: false
+
+- !record {model: ir.model.access, id: ir_model_access_product_category_print_manager}:
+    model_id: product_to_print.model_product_category_print
+    group_id: product_to_print.group_pricetag_manager
+    name: Print Category Manager
     perm_read: true
     perm_create: true
     perm_write: true

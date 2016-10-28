@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Sale - Food Module for Odoo
@@ -22,3 +22,4 @@
 ##############################################################################
 
 from . import report_pricetag
+from . import report_pricetag_vegetables

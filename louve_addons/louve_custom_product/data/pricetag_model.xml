@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="pricetag_model_default" model="pricetag.model">
-        <field name="name">Default pricetag model</field>
-        <field name="columns" eval="3"/>
-        <field name="lines" eval="8"/>
+    <record id="pricetag_model_vegetables" model="pricetag.model">
+        <field name="name">Vegetables pricetag model</field>
+        <field name="columns" eval="2"/>
+        <field name="lines" eval="2"/>
+        <field name="pricetag_paperformat_id" ref="louve_custom_product.paperformat_pricetag_vegetables"/>
+        <field name="report_model">louve_custom_product.report_pricetag_vegetables</field>
+    </record>
+
+    <record id="product_to_print.pricetag_model_default" model="pricetag.model">
         <field name="pricetag_paperformat_id" ref="louve_custom_product.paperformat_pricetag"/>
         <field name="report_model">louve_custom_product.report_pricetag</field>
     </record>

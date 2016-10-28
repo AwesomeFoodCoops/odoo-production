@@ -1,8 +1,8 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Purchase - Package Quantity Module for Odoo
-#    Copyright (C) 2016-Today Akretion (https://www.akretion.com)
+#    Sale - Food Module for Odoo
+#    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -21,6 +21,22 @@
 #
 ##############################################################################
 
-from . import model
-from . import report
+from openerp import fields, models
 
+PRICETAG_FIELDS = [
+    "name",
+    "list_price",
+    "price_volume",
+    "price_weight_net",
+    "volume",
+    "weight_net",
+]
+
+
+class PricetagModel(models.Model):
+    _name = 'pricetag.model'
+
+    name = fields.Char("Name", required=True)
+    pricetag_paperformat_id = fields.Many2one(
+        'report.paperformat', 'Paper Format', required=True)
+    report_model = fields.Char("ID of the report template", required=True)
