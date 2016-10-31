@@ -45,7 +45,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                                         <field name="name"/>
                                         <field name="type"/>
                                         <field name="field_id"
-                                            attrs="{'invisible': [('type', 'not in', ['external_text', 'numeric', 'text', 'many2many', 'product_image'])]}"/>
+                                            attrs="{'invisible': [('type', 'not in', ['external_text', 'numeric', 'text', 'many2one', 'many2many', 'product_image'])]}"/>
                                         <field name="related_field_id"
                                             attrs="{'invisible': [('type', 'not in', ['many2many', 'many2one'])]}"/>
                                         <field name="x2many_range"

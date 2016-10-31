@@ -35,22 +35,22 @@ class product_scale_system_product_line(Model):
         'name': fields.char(string='Name', required=True),
         'sequence': fields.integer(string='Sequence', required=True),
         'type': fields.selection(
-            _TYPE_SELECTION, string='Type', help="TODO WRITE ME."),
+            _TYPE_SELECTION, string='Type'),
         'field_id': fields.many2one(
             'ir.model.fields', string='Product Field', domain="["
             "('model', 'in', ['product.product', 'product.template'])]"),
         # TODO Improve. Set domain, depending on the other field
         'related_field_id': fields.many2one(
-            'ir.model.fields', string='O2M / M2O Field', help="Used only"
+            'ir.model.fields', string='M2M / M2O Field', help="Used only"
             " for the x2x fields. Set here the field of the related model"
             " that you want to send to the scale. Let empty to send the ID."),
         'x2many_range': fields.integer(
             string='range of the x2Many Fields', help="Used if type is"
-            " 'Many2Many Field' or a 'One2Many Field', to mention the"
+            " 'Many2Many Field', to mention the"
             " range of the field  to send. Begin by 0. (used for exemple"
             " for product logos)"),
         'constant_value': fields.char(
-            string='Constante Value', help="Used if type is 'constant',"
+            string='Constant Value', help="Used if type is 'constant',"
             " to send allways the same value."),
         'multiline_length': fields.integer(
             string='Length for Multiline',
@@ -70,12 +70,12 @@ class product_scale_system_product_line(Model):
             " of the file. Exemple : '_01.jpg'."),
         'numeric_coefficient': fields.float(
             string='Numeric Coefficient', help="Used if type is"
-            " 'Numeric Field', to mention with with coefficient numeric"
+            " 'Numeric Field', to mention with coefficient numeric"
             " field should be multiplyed."),
         'numeric_round': fields.float(
             string='Rounding Method', help="Used if type is"
             " 'Numeric Field', to mention how the value should be rounded.\n"
-            " Set to 0, to avoid to apply rounding method."),
+            " Do not Use 0, because it will truncate the value."),
         'delimiter': fields.char(
             string='Delimiter Char', help="Used to finish the column"),
     }
@@ -85,6 +85,6 @@ class product_scale_system_product_line(Model):
         'multiline_length': 0,
         'multiline_separator': '\n',
         'numeric_coefficient': 1,
-        'numeric_round': 0,
+        'numeric_round': 1,
         'delimiter': '#',
     }
