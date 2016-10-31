@@ -153,8 +153,7 @@ class ProductTemplate(models.Model):
     pricetag_louveinfos = fields.Char(
         compute=_compute_pricetag_louveinfos, string='La Louve custom fields')
     category_print_id = fields.Many2one(
-        comodel_name='product.category.print', string='Print Category',
-        default=lambda self: self._default_category_print_id())
+        comodel_name='product.category.print', string='Print Category')
 
     # Compute Section
     @api.depends('list_price', 'volume')
@@ -235,9 +234,3 @@ class ProductTemplate(models.Model):
         for pt in self:
             if pt.country_id:
                 pt.department_id = False
-
-    def _default_category_print_id(self):
-        category_obj = self.env['product.category.print']
-        category_ids = category_obj.search(
-            [('is_default', '=', True)], limit=1)
-        return category_ids and category_ids[0] or category_ids
