@@ -26,9 +26,7 @@ class product_scale_log(Model):
     _inherit = 'ir.needaction_mixin'
     _order = 'log_date desc, id desc'
 
-    _EXTERNAL_ID_PRODUCT_SIZE = 8
-
-    _EXTERNAL_SIZE_ID_RIGHT = 6
+    _EXTERNAL_SIZE_ID_RIGHT = 4
 
     _DELIMITER = '#'
 
@@ -42,6 +40,10 @@ class product_scale_log(Model):
         'create': 'C',
         'write': 'C',
         'unlink': 'S',
+    }
+
+    _ENCODING_MAPPING = {
+        'iso-8859-1': '\r\n',
     }
 
     _EXTERNAL_TEXT_ACTION_CODE = 'C'
@@ -62,16 +64,17 @@ class product_scale_log(Model):
                     res += product_line.multiline_separator
         else:
             res = value
-        return str(res).replace(product_line.delimiter, '')
+        if product_line.delimiter:
+            return res.replace(product_line.delimiter, '')
+        else:
+            return res
 
     def _generate_external_text(self, value, product_line, external_id, log):
-        # TODO: IMPROVE ME. Some hardcoded design
         external_text_list = [
             self._EXTERNAL_TEXT_ACTION_CODE,                    # WALO Code
             log.product_id.scale_group_id.external_identity,    # ABNR Code
             external_id,                                        # TXNR Code
             self._clean_value(value, product_line),             # TEXT Code
-            '',
         ]
         return self._EXTERNAL_TEXT_DELIMITER.join(external_text_list)
 
@@ -104,7 +107,9 @@ class product_scale_log(Model):
                     product_text += self._clean_value(value, product_line)
 
                 elif product_line.type == 'external_text':
-                    external_id = str(log.product_id.id) + str(product_line.id)
+                    external_id = str(log.product_id.id)\
+                        + str(product_line.id).rjust(
+                            self._EXTERNAL_SIZE_ID_RIGHT, '0')
                     external_texts.append(self._generate_external_text(
                         value, product_line, external_id, log))
                     product_text += external_id
@@ -148,10 +153,12 @@ class product_scale_log(Model):
                     product_text += str(log.product_id.id) +\
                         product_line.suffix
 
-                product_text += product_line.delimiter
+                if product_line.delimiter:
+                    product_text += product_line.delimiter
+            break_line = self._ENCODING_MAPPING[log.scale_system_id.encoding]
             res[log.id] = {
-                'product_text': product_text,
-                'external_text': '\n'.join(external_texts),
+                'product_text': product_text + break_line,
+                'external_text': break_line.join(external_texts) + break_line,
                 'external_text_display': '\n'.join(
                     [x.replace('\n', '') for x in external_texts]),
             }
@@ -216,7 +223,7 @@ class product_scale_log(Model):
 
     def ftp_connection_push_text_file(
             self, cr, uid, ftp, distant_folder_path, local_folder_path,
-            pattern, lines, context=None):
+            pattern, lines, encoding, context=None):
         if lines:
             # Generate temporary file
             f_name = datetime.now().strftime(pattern)
@@ -224,10 +231,10 @@ class product_scale_log(Model):
             distant_path = os.path.join(distant_folder_path, f_name)
             f = open(local_path, 'w')
             for line in lines:
-                f.write(line)
+                f.write(line.encode(encoding))
             f.close()
 
-            # Send File
+            # Send File by FTP
             f = open(local_path, 'r')
             ftp.storbinary('STOR ' + distant_path, f)
 
@@ -239,9 +246,8 @@ class product_scale_log(Model):
         folder_path = config_obj.get_param(
             cr, uid, 'bizerba.local_folder_path', context=context)
 
-        log_ids = self.search(cr, uid, [], order='log_date', context=context)
         system_map = {}
-        for log in self.browse(cr, uid, log_ids, context=context):
+        for log in self.browse(cr, uid, ids, context=context):
             if log.scale_system_id in system_map.keys():
                 system_map[log.scale_system_id].append(log)
             else:
@@ -268,11 +274,11 @@ class product_scale_log(Model):
             self.ftp_connection_push_text_file(
                 cr, uid, ftp, scale_system.csv_relative_path,
                 folder_path, scale_system.external_text_file_pattern,
-                external_text_lst, context=context)
+                external_text_lst, scale_system.encoding, context=context)
             self.ftp_connection_push_text_file(
                 cr, uid, ftp, scale_system.csv_relative_path,
                 folder_path, scale_system.product_text_file_pattern,
-                product_text_lst, context=context)
+                product_text_lst, scale_system.encoding, context=context)
 
             # Close FTP Connection
             self.ftp_connection_close(cr, uid, ftp, context=context)
@@ -285,3 +291,8 @@ class product_scale_log(Model):
                     'last_send_date': now,
                 }, context=context)
         return True
+
+    def cron_send_to_scale(self, cr, uid, context=None):
+        log_ids = self.search(
+            cr, uid, [('sent', '=', False)], order='log_date', context=context)
+        self.send_log(cr, uid, log_ids, context=context)
