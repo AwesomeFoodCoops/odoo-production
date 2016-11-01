@@ -541,12 +541,12 @@ class ShiftTemplate(models.Model):
                 rec_date = datetime(
                     rec_date.year, rec_date.month, rec_date.day)
                 date_begin = datetime.strftime(
-                    rec_date + timedelta(hours=(template.start_time - 2)),
+                    rec_date + timedelta(hours=(template.start_time - 1)),
                     "%Y-%m-%d %H:%M:%S")
                 if date_begin.split(" ")[0] <= template.last_shift_date:
                     continue
                 date_end = datetime.strftime(
-                    rec_date + timedelta(hours=(template.end_time - 2)),
+                    rec_date + timedelta(hours=(template.end_time - 1)),
                     "%Y-%m-%d %H:%M:%S")
                 rec_date = datetime.strftime(rec_date, "%Y-%m-%d")
                 vals = {
