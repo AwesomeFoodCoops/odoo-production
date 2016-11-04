@@ -39,10 +39,10 @@
             <group name="button" position="before">
                 <group name="state">
                     <field name="shift_type"/>
-                    <field name="is_unpayed"/>
                     <field name="is_blocked"/>
                     <field name="date_alert_stop"/>
                     <field name="date_delay_stop"/>
+                    <field name="working_state"/>
                     <group string="Standard Part" cols="4">
                         <field name="theoritical_standard_point"/>
                         <field name="manual_standard_correction" readonly="1"/>

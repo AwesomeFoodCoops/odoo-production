@@ -11,6 +11,19 @@ from openerp.exceptions import ValidationError
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
+    EXTRA_COOPERATIVE_STATE_SELECTION = [
+        ('not_concerned', 'Not Concerned'),
+        ('up_to_date', 'Up to date'),
+        ('alert', 'Alert'),
+        ('suspended', 'Suspended'),
+        ('delay', 'Delay'),
+        ('blocked', 'Blocked'),
+        ('unpayed', 'Unpayed'),
+        ('unsubscribed', 'Unsubscribed'),
+    ]
+
+    COOPERATIVE_STATE_CUSTOMER = ['up_to_date', 'alert', 'delay']
+
     # Compute Section
     @api.multi
     @api.depends('fundraising_partner_type_ids')
@@ -20,10 +33,19 @@ class ResPartner(models.Model):
             partner.is_underclass_population =\
                 xml_id in partner.fundraising_partner_type_ids.ids
 
-    # Column Section
+    # New Column Section
     is_louve_member = fields.Boolean('Is Louve Member')
 
     is_associated_people = fields.Boolean('Is Associated People')
+
+    is_unpayed = fields.Boolean(
+        string='Unpayed', help="Check this box, if the partner has late"
+        " payments for him capital subscriptions. this will prevent him"
+        " to buy.")
+
+    is_unsubscribed = fields.Boolean(
+        string='Unsubscribed', help="Check this box, if the partner left the"
+        " the cooperative. this will prevent him to buy.")
 
     adult_number_home = fields.Integer('Number of Adult in the Home')
 
@@ -43,6 +65,14 @@ class ResPartner(models.Model):
         'Has a type A capital subscription', store=True,
         compute="_compute_is_type_A_capital_subscriptor")
 
+    # Important : Overloaded Field Section
+    is_customer = fields.Boolean(compute='_compute_is_customer', store=True)
+
+    # Note we use selection instead of selection_add, to have a correct
+    # order in the status widget
+    cooperative_state = fields.Selection(
+        selection=EXTRA_COOPERATIVE_STATE_SELECTION)
+
     # Compute Section
     @api.multi
     @api.depends('invoice_ids.fundraising_category_id', 'invoice_ids.state')
@@ -57,28 +87,33 @@ class ResPartner(models.Model):
                 ('fundraising_category_id', 'in', A_categories.ids)])
             partner.is_type_A_capital_subscriptor = len(invoices)
 
-    @api.depends('parent_id.is_louve_member', 'is_associated_people')
-    @api.multi
-    def make_associated_people(self):
-        # TODO FIXME
-        for partner in self:
-            if partner.is_associated_people and partner.parent_id:
-                partner.is_louve_member = partner.parent_id.is_louve_member
-                partner.customer = partner.parent_id.customer
-                partner.cooperative_state = partner.parent_id.cooperative_state
-
     @api.depends(
-        'is_blocked', 'is_unpayed', 'final_standard_point', 'final_ftop_point',
-        'shift_type', 'date_alert_stop', 'date_delay_stop')
+        'working_state', 'is_unpayed', 'is_unsubscribed',
+        'is_type_A_capital_subscriptor', 'is_associated_people',
+        'parent_id.cooperative_state')
     @api.multi
-    def compute_cooperative_state(self):
-        # TODO TEST
+    def _compute_cooperative_state(self):
         for partner in self:
-            if partner.is_associated_people and partner.parent_id:
+            if partner.is_associated_people:
+                # Associated People
                 partner.cooperative_state = partner.parent_id.cooperative_state
+            elif partner.is_type_A_capital_subscriptor:
+                # Type A Subscriptor
+                    if partner.is_unsubscribed:
+                        partner.cooperative_state = 'unsubscribed'
+                    elif partner.is_unpayed:
+                        partner.cooperative_state = 'unpayed'
+                    else:
+                        partner.cooperative_state = partner.working_state
             else:
-                partner.cooperative_state =\
-                    super(ResPartner, partner).compute_cooperative_state()
+                partner.cooperative_state = 'not_concerned'
+
+    @api.depends('cooperative_state')
+    @api.multi
+    def _compute_is_customer(self):
+        for partner in self:
+            partner.is_customer =\
+                partner.cooperative_state in self.COOPERATIVE_STATE_CUSTOMER
 
     # Overload Section
     @api.model

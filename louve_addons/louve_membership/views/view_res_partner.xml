@@ -43,7 +43,10 @@
                     <group>
                         <group string="MemberShip">
                             <field name="is_louve_member" groups="louve_membership.louve_membership_manager"/>
-                            <field name="is_type_A_capital_subscriptor" groups="base.group_no_one"/>                            <field name="is_associated_people" groups="louve_membership.louve_membership_manager"/>
+                            <field name="is_type_A_capital_subscriptor" groups="base.group_no_one"/>
+                            <field name="is_associated_people" groups="louve_membership.louve_membership_manager"/>
+                            <field name="is_unpayed"/>
+                            <field name="is_unsubscribed"/>
                         </group>
                         <group string="Extra Data">
                             <field name="adult_number_home"/>
