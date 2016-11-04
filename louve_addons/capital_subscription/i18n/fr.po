@@ -16,11 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: capital_subscription
-#: model:ir.model.fields,help:capital_subscription.field_product_template_is_part_A
-msgid " Check this box if this product is a type A capital subscription."
-msgstr " Cochez cette case si ce produit correspond à une part A de capital."
-
-#. module: capital_subscription
 #: model:ir.model.fields,help:capital_subscription.field_product_template_is_capital_fundraising
 msgid " Check this box if you want to use this product for capital fundraising.\n"
 " If yes, please check accounting and fiscal settings."
@@ -179,11 +174,6 @@ msgstr "Types de partenaire pour les levées de fonds"
 #: model:ir.ui.menu,name:capital_subscription.menu_capital_fundraising
 msgid "Fundraisings"
 msgstr "Levées de fonds"
-
-#. module: capital_subscription
-#: model:ir.model.fields,field_description:capital_subscription.field_res_partner_has_type_A_capital_subscription
-msgid "Has a type A capital subscription"
-msgstr "a souscrit des parts A"
 
 #. module: capital_subscription
 #: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category_id

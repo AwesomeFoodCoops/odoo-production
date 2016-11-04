@@ -5,6 +5,7 @@
 
 from openerp import models, fields
 
+
 class ShiftExtensionType(models.Model):
     _name = 'shift.extension.type'
 

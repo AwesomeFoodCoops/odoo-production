@@ -5,10 +5,9 @@
 # @author: Julien WESTE
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api, _
+from openerp import models, fields, api
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from openerp.exceptions import UserError
 
 
 class ResPartner(models.Model):
@@ -49,7 +48,7 @@ class ResPartner(models.Model):
         string='Manual Standard Correction')
 
     final_standard_point = fields.Integer(
-        string='Final Standard points',compute='compute_final_standard_point',
+        string='Final Standard points', compute='compute_final_standard_point',
         store=True)
 
     theoritical_ftop_point = fields.Integer(
@@ -60,7 +59,7 @@ class ResPartner(models.Model):
         string='Manual FTOP Correction')
 
     final_ftop_point = fields.Integer(
-        string='Final FTOP points',compute='compute_final_ftop_point',
+        string='Final FTOP points', compute='compute_final_ftop_point',
         store=True)
 
     date_alert_stop = fields.Date(
@@ -177,7 +176,6 @@ class ResPartner(models.Model):
                     datetime.today() + relativedelta(days=alert_duration)
                 partner.date_alert_stop = partner.date_alert_stop
 
-
     @api.depends(
         'is_blocked', 'is_unpayed', 'final_standard_point', 'final_ftop_point',
         'shift_type', 'date_alert_stop', 'date_delay_stop')
@@ -203,7 +201,8 @@ class ResPartner(models.Model):
                             # Grace State
                             state = 'alert'
                         else:
-                            print "WEIRD STATE TO FIX. partner %d" % partner.id
+                            print(
+                                "WEIRD STATE TO FIX. partner %d" % partner.id)
                             state = 'suspended'
                     else:
                         state = 'suspended'

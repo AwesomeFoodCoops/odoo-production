@@ -24,11 +24,6 @@ msgstr "\n"
 "        Date du premier shift"
 
 #. module: coop_shift
-#: model:ir.model.fields,help:coop_shift.field_product_product_is_part_A
-msgid " Check this box if this product is a type A capital subscription."
-msgstr " Cochez cette case si ce produit correspond à une part A de capital."
-
-#. module: coop_shift
 #: code:addons/coop_shift/wizard/create_shifts_wizard.py:79
 #, python-format
 msgid "'From date' can't be before 'Last shift date'"
@@ -2300,12 +2295,6 @@ msgstr "Attention ! Ce membre s'est déjà inscrit sur cette journée, cette ins
 #, python-format
 msgid "This member already has %s registrations in the                    preceding %s days. You can't program more."
 msgstr "Attention ! Ce membre a déjà atteint son quota d'inscriptions sur la période, cette inscription ne peut être enregistrée."
-
-#. module: coop_shift
-#: code:addons/coop_shift/model/shift_template_registration.py:88
-#, python-format
-msgid "This partner does not have a type A capital subscription!"
-msgstr "Attention ! Aucune souscription (part A) n'est enregistrée pour ce membre. Vous ne pouvez donc procéder à son inscription."
 
 #. module: coop_shift
 #: sql_constraint:shift.registration:0

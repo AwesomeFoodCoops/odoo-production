@@ -10,10 +10,12 @@ from openerp import models, fields
 class BarcodeRule(models.Model):
     _inherit = 'barcode.rule'
 
-    is_louve_member = fields.Boolean(
-        string='Checked for Louve Members', help="If checked, Louve members"
-        " will have this barcode rule by default.")
+    for_type_A_capital_subscriptor = fields.Boolean(
+        string='Checked for Type A Subscriptors', old='is_louve_member',
+        help="If checked, Louve members that subscribe type A capital will"
+        " have this barcode rule by default.")
 
-    is_associated_people = fields.Boolean(
-        string='Checked for Associated People', help="If checked, Associated"
-        " people will have this barcode rule by default.")
+    for_associated_people = fields.Boolean(
+        string='Checked for Associated People', old='is_associated_people',
+        help="If checked, Associated people will have this barcode rule by"
+        " default.")

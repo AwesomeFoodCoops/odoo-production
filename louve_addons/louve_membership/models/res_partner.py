@@ -37,6 +37,23 @@ class ResPartner(models.Model):
 
     is_deceased = fields.Boolean(string='Is Deceased')
 
+    is_type_A_capital_subscriptor = fields.Boolean(
+        'Has a type A capital subscription', store=True,
+        compute="_compute_is_type_A_capital_subscriptor")
+
+    @api.multi
+    @api.depends('invoice_ids.fundraising_category_id', 'invoice_ids.state')
+    def _compute_is_type_A_capital_subscriptor(self):
+        category_obj = self.env['capital.fundraising.category']
+        A_categories = category_obj.search([('is_part_A', '=', True)])
+        for partner in self:
+            invoice_obj = self.env['account.invoice']
+            invoices = invoice_obj.search([
+                ('partner_id', '=', partner.id),
+                ('state', 'in', ['open', 'paid']),
+                ('fundraising_category_id', 'in', A_categories.ids)])
+            partner.is_type_A_capital_subscriptor = len(invoices)
+
     @api.depends('parent_id.is_louve_member', 'is_associated_people')
     @api.multi
     def make_associated_people(self):
@@ -60,7 +77,6 @@ class ResPartner(models.Model):
                 partner.cooperative_state =\
                     super(ResPartner, partner).compute_cooperative_state()
 
-
     # Overload Section
     @api.model
     def create(self, vals):
@@ -72,13 +88,6 @@ class ResPartner(models.Model):
             xml_id = self.env.ref('louve_membership.default_member_type').id
             vals.get('fundraising_partner_type_ids', []).append((4, xml_id))
 
-            # Add the barcode rule
-            barcode_rule_id = barcode_rule_obj.search(
-                [('is_louve_member', '=', True)], limit=1)
-            if barcode_rule_id:
-                vals['barcode_rule_id'] = barcode_rule_id.id
-                generate_barcode = True
-
         if vals.get('parent_id', False):
             parent_partner = self.browse(vals.get('parent_id', False))
             if parent_partner.is_louve_member:
@@ -87,7 +96,7 @@ class ResPartner(models.Model):
 
                 # Generate Associated Barcode
                 barcode_rule_id = barcode_rule_obj.search(
-                    [('is_associated_people', '=', True)], limit=1)
+                    [('for_associated_people', '=', True)], limit=1)
                 if barcode_rule_id:
                     vals['barcode_rule_id'] = barcode_rule_id.id
                     generate_barcode = True

@@ -13,8 +13,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="inherit_id" ref="barcodes.view_barcode_rule_form"/>
         <field name="arch" type="xml">
             <field name="encoding" position="after">
-                <field name="is_louve_member"/>
-                <field name="is_associated_people"/>
+                <field name="for_type_A_capital_subscriptor"/>
+                <field name="for_associated_people"/>
             </field>
         </field>
     </record>

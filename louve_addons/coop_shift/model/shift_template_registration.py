@@ -81,15 +81,6 @@ class ShiftTemplateRegistration(models.Model):
                 'Inscriptions on FTOP Templates must be FTOP type!'))
 
     @api.multi
-    @api.constrains('partner_id')
-    def _check_partner_subscription(self):
-        for reg in self:
-            if not reg.partner_id.has_type_A_capital_subscription:
-                raise ValidationError(_(
-                    'This partner does not have a type A capital subscription!'
-                ))
-
-    @api.multi
     @api.model
     def _compute_current(self):
         for reg in self:

@@ -23,13 +23,13 @@
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@id='add_template_registration']" position="attributes">
-                <attribute name="attrs">{'invisible':[('has_type_A_capital_subscription', '=', False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
             </xpath>
             <xpath expr="//button[@id='view_partner_registrations']" position="attributes">
-                <attribute name="attrs">{'invisible':[('has_type_A_capital_subscription', '=', False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
             </xpath>
             <xpath expr="//button[@id='view_partner_template_registrations']" position="attributes">
-                <attribute name="attrs">{'invisible':[('has_type_A_capital_subscription', '=', False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
             </xpath>
         </field>
     </record>
@@ -43,7 +43,7 @@
                     <group>
                         <group string="MemberShip">
                             <field name="is_louve_member" groups="louve_membership.louve_membership_manager"/>
-                            <field name="is_associated_people" groups="louve_membership.louve_membership_manager"/>
+                            <field name="is_type_A_capital_subscriptor" groups="base.group_no_one"/>                            <field name="is_associated_people" groups="louve_membership.louve_membership_manager"/>
                         </group>
                         <group string="Extra Data">
                             <field name="adult_number_home"/>
@@ -55,6 +55,20 @@
                     </group>
                 </page>
             </notebook>
+        </field>
+    </record>
+
+    <record id="view_res_partner_shift_form_shift_manager" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="name">res.partner.form.shift</field>
+        <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
+        <field name="arch" type="xml">
+            <button id="add_template_registration" position="attributes">
+                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor','=',False)]}</attribute>
+            </button>
+            <button id="view_partner_template_registrations" position="attributes">
+                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor','=',False)]}</attribute>
+            </button>
         </field>
     </record>
 
