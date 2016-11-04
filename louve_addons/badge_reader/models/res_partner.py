@@ -37,7 +37,8 @@ class ResPartner(models.Model):
     def _compute_bootstrap_cooperative_state(self):
         for partner in self:
             partner.bootstrap_cooperative_state =\
-                self.MAPPING_COOPERATIVE_STATE[partner.cooperative_state]
+                self.MAPPING_COOPERATIVE_STATE.get(
+                    partner.cooperative_state, 'danger')
 
     # Custom Section
     @api.multi
