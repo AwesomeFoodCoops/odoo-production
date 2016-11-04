@@ -7,20 +7,20 @@ from openerp import models, fields, api, _
 
 from openerp.exceptions import ValidationError
 
+EXTRA_COOPERATIVE_STATE_SELECTION = [
+    ('not_concerned', 'Not Concerned'),
+    ('up_to_date', 'Up to date'),
+    ('alert', 'Alert'),
+    ('suspended', 'Suspended'),
+    ('delay', 'Delay'),
+    ('blocked', 'Blocked'),
+    ('unpayed', 'Unpayed'),
+    ('unsubscribed', 'Unsubscribed'),
+]
+
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
-
-    EXTRA_COOPERATIVE_STATE_SELECTION = [
-        ('not_concerned', 'Not Concerned'),
-        ('up_to_date', 'Up to date'),
-        ('alert', 'Alert'),
-        ('suspended', 'Suspended'),
-        ('delay', 'Delay'),
-        ('blocked', 'Blocked'),
-        ('unpayed', 'Unpayed'),
-        ('unsubscribed', 'Unsubscribed'),
-    ]
 
     COOPERATIVE_STATE_CUSTOMER = ['up_to_date', 'alert', 'delay']
 

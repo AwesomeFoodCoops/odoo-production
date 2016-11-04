@@ -1,3 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_model_res_users_move_manager,access_model_res_users_move_manager,model_res_users_move,badge_reader.group_manager,1,0,1,0
-access_model_res_users_move_reader,access_model_res_users_move_reader,model_res_users_move,badge_reader.group_user,1,0,0,0
+access_model_res_partner_move_manager,access_model_res_partner_move_manager,model_res_partner_move,badge_reader.group_manager,1,0,1,0
+access_model_res_partner_move_reader,access_model_res_partner_move_reader,model_res_partner_move,badge_reader.group_user,1,0,0,0

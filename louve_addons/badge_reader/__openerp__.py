@@ -13,13 +13,14 @@
     'website': 'http://www.lalouve.net',
     'depends': [
         'base',
+        'louve_membership',
     ],
     'data': [
         'security/ir_module_category.xml',
         'security/res_groups.xml',
         'security/ir.model.access.csv',
         'views/view_res_partner.xml',
-        'views/view_res_users_move.xml',
+        'views/view_res_partner_move.xml',
         'views/action.xml',
         'views/menu.xml',
     ],

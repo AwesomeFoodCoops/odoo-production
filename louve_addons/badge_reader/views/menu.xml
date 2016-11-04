@@ -7,9 +7,9 @@
 
 <odoo>
 
-    <record model="ir.ui.menu" id="menu_res_users_move">
-        <field name="name">User Moves</field>
-        <field name="action" ref="action_res_users_move"/>
+    <record model="ir.ui.menu" id="menu_res_partner_move">
+        <field name="name">Partner Moves</field>
+        <field name="action" ref="action_res_partner_move"/>
         <field name="parent_id" ref="base.menu_users"/>
         <field name="sequence">2</field>
     </record>

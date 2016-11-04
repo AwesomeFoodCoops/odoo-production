@@ -6,7 +6,7 @@ angular.module('starter').controller('PartnerFormCtrl', ['$scope', '$state', 'Re
     $scope.partner = {};
 
     $scope.go_back = function () {
-        $state.go('user_search');
+        $state.go('partner_search');
     };
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
@@ -14,8 +14,8 @@ angular.module('starter').controller('PartnerFormCtrl', ['$scope', '$state', 'Re
         if (toState.name == 'partner_form'){
             ResPartnerModel.GetById(toParams['partner_id']).then(function (partner_res) {
                 // Add style and Sound
-                partner_res.css_class = 'partner-' + partner_res.bootstrap_state;
-                $document[0].getElementById('sound_res_partner_' + partner_res.bootstrap_state).play();
+                partner_res.css_class = 'partner-' + partner_res.bootstrap_cooperative_state;
+                $document[0].getElementById('sound_res_partner_' + partner_res.bootstrap_cooperative_state).play();
                 $scope.partner = partner_res;
             });
         }
