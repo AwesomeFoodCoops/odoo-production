@@ -5,10 +5,9 @@
 # @author: Julien WESTE
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api, _
+from openerp import models, fields, api
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from openerp.exceptions import UserError
 
 
 class ResPartner(models.Model):
@@ -19,27 +18,30 @@ class ResPartner(models.Model):
         ('ftop', 'FTOP'),
     ]
 
-    COOPERATIVE_STATE_SELECTION = [
+    WORKING_STATE_SELECTION = [
         ('up_to_date', 'Up to date'),
         ('alert', 'Alert'),
         ('suspended', 'Suspended'),
         ('delay', 'Delay'),
-        ('unpayed', 'Unpayed'),
         ('blocked', 'Blocked'),
-        ('unsubscribed', 'Unsubscribed'),
     ]
 
-    is_unpayed = fields.Boolean('Unpayed')
-
-    is_blocked = fields.Boolean('Blocked')
+    is_blocked = fields.Boolean(
+        string='Blocked', help="Check this box to manually block this user.")
 
     shift_type = fields.Selection(
         selection=SHIFT_TYPE_SELECTION, string='Shift type', required=True,
         default='standard')
 
+    working_state = fields.Selection(
+        selection=WORKING_STATE_SELECTION, string='Working State', store=True,
+        compute='_compute_working_state', help="This state depends on the"
+        " shifts realized by the partner.")
+
     cooperative_state = fields.Selection(
-        selection=COOPERATIVE_STATE_SELECTION, string='State', store=True,
-        compute='compute_cooperative_state')
+        selection=WORKING_STATE_SELECTION, string='Cooperative State',
+        store=True, compute='_compute_cooperative_state', help="This state"
+        " depends on the 'Working State' and extra custom settings.")
 
     theoritical_standard_point = fields.Integer(
         string='theoritical Standard points', store=True,
@@ -49,7 +51,7 @@ class ResPartner(models.Model):
         string='Manual Standard Correction')
 
     final_standard_point = fields.Integer(
-        string='Final Standard points',compute='compute_final_standard_point',
+        string='Final Standard points', compute='compute_final_standard_point',
         store=True)
 
     theoritical_ftop_point = fields.Integer(
@@ -60,17 +62,13 @@ class ResPartner(models.Model):
         string='Manual FTOP Correction')
 
     final_ftop_point = fields.Integer(
-        string='Final FTOP points',compute='compute_final_ftop_point',
+        string='Final FTOP points', compute='compute_final_ftop_point',
         store=True)
 
     date_alert_stop = fields.Date(
         string='End Alert Date', compute='compute_date_alert_stop',
         store=True, help="This date mention the date when"
         " the 'alert' state stops and when the partner will be suspended.")
-
-#    date_alert_stop_hidden = fields.Date(
-#        string='End Alert Date(Hidden)', help="Technical Field, used to"
-#        " know the previous alert date when alert date stop is recomputed.")
 
     date_delay_stop = fields.Date(
         string='End Delay Date', compute='compute_date_delay_stop',
@@ -177,19 +175,16 @@ class ResPartner(models.Model):
                     datetime.today() + relativedelta(days=alert_duration)
                 partner.date_alert_stop = partner.date_alert_stop
 
-
     @api.depends(
-        'is_blocked', 'is_unpayed', 'final_standard_point', 'final_ftop_point',
+        'is_blocked', 'final_standard_point', 'final_ftop_point',
         'shift_type', 'date_alert_stop', 'date_delay_stop')
     @api.multi
-    def compute_cooperative_state(self):
+    def _compute_working_state(self):
         """This function should be called in a daily CRON"""
         for partner in self:
             state = 'up_to_date'
             if partner.is_blocked:
                 state = 'blocked'
-            elif partner.is_unpayed:
-                state = 'unpayed'
             else:
                 point = partner.shift_type == 'standard'\
                     and partner.final_standard_point\
@@ -203,15 +198,22 @@ class ResPartner(models.Model):
                             # Grace State
                             state = 'alert'
                         else:
-                            print "WEIRD STATE TO FIX. partner %d" % partner.id
                             state = 'suspended'
                     else:
                         state = 'suspended'
-            partner.cooperative_state = state
+            partner.working_state = state
 
+    @api.depends('working_state')
+    @api.multi
+    def _compute_cooperative_state(self):
+        """Overwrite me in a custom module, to add extra state"""
+        for partner in self:
+            partner.cooperative_state = partner.working_state
+
+    # Custom Section
     @api.model
-    def update_cooperative_state(self):
+    def update_working_state(self):
+        # Function Called by the CRON
         partners = self.search([])
-        partners.compute_cooperative_state()
         partners.compute_date_alert_stop()
         partners.compute_date_delay_stop()

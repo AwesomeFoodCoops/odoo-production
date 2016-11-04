@@ -11,3 +11,8 @@ class CapitalFundraisingCategory(models.Model):
 
     # Column Section
     is_default = fields.Boolean(string='Is default')
+
+    is_part_A = fields.Boolean(
+        string='Is Part A', help="If checked, partner that have subscribed"
+        " such fundraising category will belong to 'Type A subscriptor'"
+        " category")

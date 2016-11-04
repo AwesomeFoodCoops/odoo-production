@@ -13,6 +13,7 @@
         <field name="arch" type="xml">
             <field name="minimum_share_qty" position="after">
                 <field name="is_default"/>
+                <field name="is_part_A"/>
             </field>
         </field>
     </record>

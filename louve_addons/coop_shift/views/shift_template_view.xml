@@ -25,6 +25,18 @@
 
 <!-- View : shift.template -->
 
+        <record id="view_shift_template_calendar" model="ir.ui.view">
+            <field name="model">shift.template</field>
+            <field name="arch" type="xml">
+            <calendar string="Templates"
+                    date_start="start_datetime" date_stop="end_datetime"
+                    color="shift_type_id" mode="week" quick_add="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+            </calendar>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="view_shift_template_tree">
             <field name="name">shift.template.tree</field>
             <field name="model">shift.template</field>
@@ -34,9 +46,8 @@
                     <field name="week_number"/>
                     <field name="week_list" invisible="1"/>
                     <field name="user_id"/>
-                    <field name="start_date"/>
-                    <field name="start_time" widget="float_time"/>
-                    <field name="end_time" widget="float_time"/>
+                    <field name="start_datetime"/>
+                    <field name="end_datetime"/>
                     <field name="seats_min"/>
                     <field name="seats_availability"/>
                     <field name="seats_max" attrs="{'invisible': [('seats_availability','=','unlimited')]}"/>
@@ -112,10 +123,9 @@
                                 <field name="shift_type_id" options="{'no_create': True}" groups="coop_shift.group_shift_config"/>
                             </group>
                             <group name="datetime">
-                                <field name="start_date"/>
-                                <field name="start_time" widget="float_time"/>
-                                <field name="duration" widget="float_time"/>
-                                <field name="end_time" widget="float_time" readonly="1"/>
+                                <field name="start_datetime"/>
+                                <field name="end_datetime"/>
+                                <field name="duration"/>
                             </group>
                         </group>
                         <notebook>
@@ -210,6 +220,13 @@
                                     </tree>
                                 </field>
                             </page>
+                            <page name="technical_fields" string="Technicals">
+                                <group>
+                                    <field name="start_date"/>
+                                    <field name="start_time"/>
+                                    <field name="end_time"/>
+                                </group>
+                            </page>
                         </notebook>
                     </sheet>
                 </form>
@@ -220,7 +237,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">shift.template</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,calendar,form</field>
             <field name="target">current</field>
             <field name="domain">[]</field>
         </record>

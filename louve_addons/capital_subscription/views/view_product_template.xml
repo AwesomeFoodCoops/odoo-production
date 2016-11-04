@@ -16,10 +16,6 @@
                     <field name="is_capital_fundraising"/>
                     <label for="is_capital_fundraising"/>
                 </div>
-                <div groups="account.group_account_user">
-                    <field name="is_part_A" attrs="{'invisible':[('is_capital_fundraising', '=', False)]}"/>
-                    <label for="is_part_A" attrs="{'invisible':[('is_capital_fundraising', '=', False)]}"/>
-                </div>
             </div>
         </field>
     </record>

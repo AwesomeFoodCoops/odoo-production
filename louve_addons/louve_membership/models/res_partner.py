@@ -3,11 +3,26 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
+
+from openerp.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
+
+    EXTRA_COOPERATIVE_STATE_SELECTION = [
+        ('not_concerned', 'Not Concerned'),
+        ('up_to_date', 'Up to date'),
+        ('alert', 'Alert'),
+        ('suspended', 'Suspended'),
+        ('delay', 'Delay'),
+        ('blocked', 'Blocked'),
+        ('unpayed', 'Unpayed'),
+        ('unsubscribed', 'Unsubscribed'),
+    ]
+
+    COOPERATIVE_STATE_CUSTOMER = ['up_to_date', 'alert', 'delay']
 
     # Compute Section
     @api.multi
@@ -18,10 +33,19 @@ class ResPartner(models.Model):
             partner.is_underclass_population =\
                 xml_id in partner.fundraising_partner_type_ids.ids
 
-    # Column Section
+    # New Column Section
     is_louve_member = fields.Boolean('Is Louve Member')
 
     is_associated_people = fields.Boolean('Is Associated People')
+
+    is_unpayed = fields.Boolean(
+        string='Unpayed', help="Check this box, if the partner has late"
+        " payments for him capital subscriptions. this will prevent him"
+        " to buy.")
+
+    is_unsubscribed = fields.Boolean(
+        string='Unsubscribed', help="Check this box, if the partner left the"
+        " the cooperative. this will prevent him to buy.")
 
     adult_number_home = fields.Integer('Number of Adult in the Home')
 
@@ -37,29 +61,60 @@ class ResPartner(models.Model):
 
     is_deceased = fields.Boolean(string='Is Deceased')
 
-    @api.depends('parent_id.is_louve_member', 'is_associated_people')
+    is_type_A_capital_subscriptor = fields.Boolean(
+        'Has a type A capital subscription', store=True,
+        compute="_compute_is_type_A_capital_subscriptor")
+
+    # Important : Overloaded Field Section
+    customer = fields.Boolean(
+        compute='_compute_customer', store=True, readonly=True)
+
+    # Note we use selection instead of selection_add, to have a correct
+    # order in the status widget
+    cooperative_state = fields.Selection(
+        selection=EXTRA_COOPERATIVE_STATE_SELECTION)
+
+    # Compute Section
     @api.multi
-    def make_associated_people(self):
-        # TODO FIXME
+    @api.depends('invoice_ids.fundraising_category_id', 'invoice_ids.state')
+    def _compute_is_type_A_capital_subscriptor(self):
+        category_obj = self.env['capital.fundraising.category']
+        A_categories = category_obj.search([('is_part_A', '=', True)])
         for partner in self:
-            if partner.is_associated_people and partner.parent_id:
-                partner.is_louve_member = partner.parent_id.is_louve_member
-                partner.customer = partner.parent_id.customer
-                partner.cooperative_state = partner.parent_id.cooperative_state
+            invoice_obj = self.env['account.invoice']
+            invoices = invoice_obj.search([
+                ('partner_id', '=', partner.id),
+                ('state', 'in', ['open', 'paid']),
+                ('fundraising_category_id', 'in', A_categories.ids)])
+            partner.is_type_A_capital_subscriptor = len(invoices)
 
     @api.depends(
-        'is_blocked', 'is_unpayed', 'final_standard_point', 'final_ftop_point',
-        'shift_type', 'date_alert_stop', 'date_delay_stop')
+        'working_state', 'is_unpayed', 'is_unsubscribed',
+        'is_type_A_capital_subscriptor', 'is_associated_people',
+        'parent_id.cooperative_state')
     @api.multi
-    def compute_cooperative_state(self):
-        # TODO TEST
+    def _compute_cooperative_state(self):
         for partner in self:
-            if partner.is_associated_people and partner.parent_id:
+            if partner.is_associated_people:
+                # Associated People
                 partner.cooperative_state = partner.parent_id.cooperative_state
+            elif partner.is_type_A_capital_subscriptor:
+                # Type A Subscriptor
+                    if partner.is_unsubscribed:
+                        partner.cooperative_state = 'unsubscribed'
+                    elif partner.is_unpayed:
+                        partner.cooperative_state = 'unpayed'
+                    else:
+                        partner.cooperative_state = partner.working_state
             else:
-                partner.cooperative_state =\
-                    super(ResPartner, partner).compute_cooperative_state()
+                partner.cooperative_state = 'not_concerned'
 
+    @api.depends('cooperative_state')
+    @api.multi
+    def _compute_customer(self):
+        for partner in self:
+            partner.customer =\
+                partner.cooperative_state in self.COOPERATIVE_STATE_CUSTOMER
 
     # Overload Section
     @api.model
@@ -72,22 +127,19 @@ class ResPartner(models.Model):
             xml_id = self.env.ref('louve_membership.default_member_type').id
             vals.get('fundraising_partner_type_ids', []).append((4, xml_id))
 
-            # Add the barcode rule
-            barcode_rule_id = barcode_rule_obj.search(
-                [('is_louve_member', '=', True)], limit=1)
-            if barcode_rule_id:
-                vals['barcode_rule_id'] = barcode_rule_id.id
-                generate_barcode = True
-
         if vals.get('parent_id', False):
             parent_partner = self.browse(vals.get('parent_id', False))
             if parent_partner.is_louve_member:
+                if not parent_partner.is_type_A_capital_subscriptor:
+                    raise ValidationError(_(
+                        "You can not associate a people to that person"
+                        " because he didn't subscribed A part."))
                 # Set associated People
                 vals['is_associated_people'] = True
 
                 # Generate Associated Barcode
                 barcode_rule_id = barcode_rule_obj.search(
-                    [('is_associated_people', '=', True)], limit=1)
+                    [('for_associated_people', '=', True)], limit=1)
                 if barcode_rule_id:
                     vals['barcode_rule_id'] = barcode_rule_id.id
                     generate_barcode = True

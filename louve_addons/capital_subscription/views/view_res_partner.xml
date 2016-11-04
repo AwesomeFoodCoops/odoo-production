@@ -16,7 +16,6 @@
                     <group >
                         <group string="Partner Type">
                             <field name="fundraising_partner_type_ids" widget="many2many_tags"/>
-                            <field name="has_type_A_capital_subscription" groups="base.group_no_one"/>
                         </group>
                         <group string="Subscriptions">
                             <button id="new_subscription" name="%(action_capital_fundraising_wizard)d" type="action"

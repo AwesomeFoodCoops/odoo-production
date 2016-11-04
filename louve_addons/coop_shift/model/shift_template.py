@@ -21,6 +21,7 @@
 #
 ##############################################################################
 
+import pytz
 import re
 from openerp import models, fields, api, _
 from datetime import datetime, timedelta
@@ -43,7 +44,7 @@ SHIFT_CREATION_DAYS = 90
 class ShiftTemplate(models.Model):
     _name = 'shift.template'
     _description = 'Shift Template'
-    _order = 'shift_type_id,start_time'
+    _order = 'shift_type_id, start_datetime'
 
     @api.multi
     def _compute_shifts_counts(self):
@@ -121,11 +122,28 @@ class ShiftTemplate(models.Model):
     description = fields.Html(
         string='Description', oldname='note', translate=True,
         readonly=False,)
-    start_date = fields.Date(string='Start Date', required=True, help="""
-        First date this shift will be scheduled""")
-    start_time = fields.Float(string='Start Time', required=True,)
-    duration = fields.Float('Duration (hours)', default=3.0)
-    end_time = fields.Float(string='End Time')
+    start_datetime = fields.Datetime(
+        string='Start Date Time', required=True, help="First date this shift"
+        " will be scheduled")
+    end_datetime = fields.Datetime(
+        string='End Date Time', required=True, help="End date of the first"
+        "  shift")
+    start_date = fields.Date(
+        string='Obsolete Start Date', compute='_compute_start_date',
+        help="Technical Field. First date this shift will be scheduled",
+        store=True)
+
+    start_time = fields.Float(
+        string='Obsolete Start Time', compute='_compute_start_time',
+        store=True)
+
+    end_time = fields.Float(
+        string='Obsolete End Time', compute='_compute_end_time',
+        store=True)
+
+    duration = fields.Float(
+        string='Duration (hours)', compute='_compute_duration', store=True)
+
     updated_fields = fields.Char('Updated Fields')
     last_shift_date = fields.Date(
         "Last Scheduled Shift", compute="_compute_last_shift_date")
@@ -308,25 +326,73 @@ class ShiftTemplate(models.Model):
     def _default_shift_type(self):
         return self.env.ref('coop_shift.shift_type')
 
-    @api.onchange('duration', 'start_time')
+    @api.depends('start_datetime')
     @api.multi
-    def _compute_end_datetime(self):
+    def _compute_start_date(self):
         for template in self:
-            if template.start_time > 24:
-                template.start_time = template.start_time -\
-                    24 * (template.start_time // 24)
-            if template.start_time and template.duration:
-                template.end_time = template.start_time + template.duration
+            template.start_date = datetime.strptime(
+                template.start_datetime, '%Y-%m-%d %H:%M:%S').strftime(
+                    '%Y-%m-%d')
 
-    @api.onchange('end_time')
+    @api.depends('start_datetime', 'end_datetime')
     @api.multi
     def _compute_duration(self):
         for template in self:
-            if template.end_time > 24:
-                template.end_time = template.end_time -\
-                    24 * (template.end_time // 24)
-            if template.start_time and template.end_time:
-                template.duration = template.end_time - template.start_time
+            start_date_object = datetime.strptime(
+                template.start_datetime, '%Y-%m-%d %H:%M:%S')
+            end_date_object = datetime.strptime(
+                template.end_datetime, '%Y-%m-%d %H:%M:%S')
+            template.duration = \
+                (end_date_object - start_date_object).seconds / 3600.0
+
+    @api.depends('start_datetime')
+    @api.multi
+    def _compute_start_time(self):
+        for template in self:
+            start_date_object = datetime.strptime(
+                template.start_datetime, '%Y-%m-%d %H:%M:%S')
+            utc_timestamp = pytz.utc.localize(start_date_object, is_dst=False)
+            tz_name = self._context.get('tz') or self.env.user.tz
+            context_tz = pytz.timezone(tz_name)
+            start_date_object_tz = utc_timestamp.astimezone(context_tz)
+            template.start_time = (
+                start_date_object_tz.hour +
+                (start_date_object_tz.minute / 60.0))
+
+    @api.depends('end_datetime')
+    @api.multi
+    def _compute_end_time(self):
+        for template in self:
+            end_date_object = datetime.strptime(
+                template.end_datetime, '%Y-%m-%d %H:%M:%S')
+            utc_timestamp = pytz.utc.localize(end_date_object, is_dst=False)
+            tz_name = self._context.get('tz') or self.env.user.tz
+            context_tz = pytz.timezone(tz_name)
+            end_date_object_tz = utc_timestamp.astimezone(context_tz)
+            template.end_time = (
+                end_date_object_tz.hour +
+                (end_date_object_tz.minute / 60.0))
+
+#
+#    @api.onchange('duration', 'start_time')
+#    @api.multi
+#    def _compute_end_datetime(self):
+#        for template in self:
+#            if template.start_time > 24:
+#                template.start_time = template.start_time -\
+#                    24 * (template.start_time // 24)
+#            if template.start_time and template.duration:
+#                template.end_time = template.start_time + template.duration
+
+#    @api.onchange('end_time')
+#    @api.multi
+#    def _compute_duration(self):
+#        for template in self:
+#            if template.end_time > 24:
+#                template.end_time = template.end_time -\
+#                    24 * (template.end_time // 24)
+#            if template.start_time and template.end_time:
+#                template.duration = template.end_time - template.start_time
 
     @api.onchange('start_date')
     @api.multi
@@ -476,23 +542,23 @@ class ShiftTemplate(models.Model):
             'week_list': False
         }
 
-    @api.multi
-    def write(self, vals):
-        if vals.get('start_time', False) or vals.get('duration', False):
-            vals['end_time'] = (
-                vals.get('start_time', False) or self.start_time or 0) +\
-                (vals.get('duration', False) or self.duration or 0)
-        if 'updated_fields' not in vals.keys() and len(self.shift_ids):
-            vals['updated_fields'] = str(vals)
-        return super(ShiftTemplate, self).write(vals)
+#    @api.multi
+#    def write(self, vals):
+#        if vals.get('start_time', False) or vals.get('duration', False):
+#            vals['end_time'] = (
+#                vals.get('start_time', False) or self.start_time or 0) +\
+#                (vals.get('duration', False) or self.duration or 0)
+#        if 'updated_fields' not in vals.keys() and len(self.shift_ids):
+#            vals['updated_fields'] = str(vals)
+#        return super(ShiftTemplate, self).write(vals)
 
-    @api.model
-    def create(self, vals):
-        if vals.get('start_time', False) or vals.get('duration', False):
-            vals['end_time'] = (
-                vals.get('start_time', False) or self.start_time or 0) +\
-                (vals.get('duration', False) or self.duration or 0)
-        return super(ShiftTemplate, self).create(vals)
+#    @api.model
+#    def create(self, vals):
+#        if vals.get('start_time', False) or vals.get('duration', False):
+#            vals['end_time'] = (
+#                vals.get('start_time', False) or self.start_time or 0) +\
+#                (vals.get('duration', False) or self.duration or 0)
+#        return super(ShiftTemplate, self).create(vals)
 
     @api.multi
     def discard_changes(self):
@@ -538,15 +604,19 @@ class ShiftTemplate(models.Model):
             rec_dates = template.get_recurrent_dates(
                 after=after, before=before)
             for rec_date in rec_dates:
-                rec_date = datetime(
-                    rec_date.year, rec_date.month, rec_date.day)
+                start_date_object = datetime.strptime(
+                    template.start_datetime, '%Y-%m-%d %H:%M:%S')
                 date_begin = datetime.strftime(
-                    rec_date + timedelta(hours=(template.start_time - 2)),
+                    rec_date + timedelta(hours=(start_date_object.hour)) +
+                    timedelta(minutes=(start_date_object.minute)),
                     "%Y-%m-%d %H:%M:%S")
                 if date_begin.split(" ")[0] <= template.last_shift_date:
                     continue
+                end_date_object = datetime.strptime(
+                    template.end_datetime, '%Y-%m-%d %H:%M:%S')
                 date_end = datetime.strftime(
-                    rec_date + timedelta(hours=(template.end_time - 2)),
+                    rec_date + timedelta(hours=(end_date_object.hour)) +
+                    timedelta(minutes=(end_date_object.minute)),
                     "%Y-%m-%d %H:%M:%S")
                 rec_date = datetime.strftime(rec_date, "%Y-%m-%d")
                 vals = {
