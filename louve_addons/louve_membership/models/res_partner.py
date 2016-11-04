@@ -66,7 +66,8 @@ class ResPartner(models.Model):
         compute="_compute_is_type_A_capital_subscriptor")
 
     # Important : Overloaded Field Section
-    is_customer = fields.Boolean(compute='_compute_is_customer', store=True)
+    customer = fields.Boolean(
+        compute='_compute_customer', store=True, readonly=True)
 
     # Note we use selection instead of selection_add, to have a correct
     # order in the status widget
@@ -110,9 +111,9 @@ class ResPartner(models.Model):
 
     @api.depends('cooperative_state')
     @api.multi
-    def _compute_is_customer(self):
+    def _compute_customer(self):
         for partner in self:
-            partner.is_customer =\
+            partner.customer =\
                 partner.cooperative_state in self.COOPERATIVE_STATE_CUSTOMER
 
     # Overload Section
