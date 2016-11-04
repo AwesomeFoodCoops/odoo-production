@@ -76,7 +76,9 @@ class ResPartner(models.Model):
 
     # Compute Section
     @api.multi
-    @api.depends('invoice_ids.fundraising_category_id', 'invoice_ids.state')
+    @api.depends(
+        'invoice_ids.fundraising_category_id.is_part_A',
+        'invoice_ids.fundraising_category_id', 'invoice_ids.state')
     def _compute_is_type_A_capital_subscriptor(self):
         category_obj = self.env['capital.fundraising.category']
         A_categories = category_obj.search([('is_part_A', '=', True)])
