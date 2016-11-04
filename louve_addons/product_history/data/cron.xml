@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="0">
+<odoo noupdate="1">
      <record forcecreate="True" id="ir_cron_product_stock_history_day" model="ir.cron">
       <field name="name">Calculation of product stock history per day</field>
       <field name="active" eval="True"/>
