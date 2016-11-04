@@ -4,6 +4,7 @@
     'description': '',
     'modules_to_upgrade': [
         'base',                     # Update all
+        'badge_reader',
     ],
     'pre-load': [
         './pre_load.sql'],
