@@ -3,7 +3,9 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
+
+from openerp.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
@@ -41,6 +43,7 @@ class ResPartner(models.Model):
         'Has a type A capital subscription', store=True,
         compute="_compute_is_type_A_capital_subscriptor")
 
+    # Compute Section
     @api.multi
     @api.depends('invoice_ids.fundraising_category_id', 'invoice_ids.state')
     def _compute_is_type_A_capital_subscriptor(self):
@@ -91,6 +94,10 @@ class ResPartner(models.Model):
         if vals.get('parent_id', False):
             parent_partner = self.browse(vals.get('parent_id', False))
             if parent_partner.is_louve_member:
+                if not parent_partner.is_type_A_capital_subscriptor:
+                    raise ValidationError(_(
+                        "You can not associate a people to that person"
+                        " because he didn't subscribed A part."))
                 # Set associated People
                 vals['is_associated_people'] = True
 
