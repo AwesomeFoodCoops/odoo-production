@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 from . import res_users
 from . import res_partner
-from . import res_users_move
+from . import res_partner_move

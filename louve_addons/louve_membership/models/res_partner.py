@@ -7,20 +7,20 @@ from openerp import models, fields, api, _
 
 from openerp.exceptions import ValidationError
 
+EXTRA_COOPERATIVE_STATE_SELECTION = [
+    ('not_concerned', 'Not Concerned'),
+    ('up_to_date', 'Up to date'),
+    ('alert', 'Alert'),
+    ('suspended', 'Suspended'),
+    ('delay', 'Delay'),
+    ('blocked', 'Blocked'),
+    ('unpayed', 'Unpayed'),
+    ('unsubscribed', 'Unsubscribed'),
+]
+
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
-
-    EXTRA_COOPERATIVE_STATE_SELECTION = [
-        ('not_concerned', 'Not Concerned'),
-        ('up_to_date', 'Up to date'),
-        ('alert', 'Alert'),
-        ('suspended', 'Suspended'),
-        ('delay', 'Delay'),
-        ('blocked', 'Blocked'),
-        ('unpayed', 'Unpayed'),
-        ('unsubscribed', 'Unsubscribed'),
-    ]
 
     COOPERATIVE_STATE_CUSTOMER = ['up_to_date', 'alert', 'delay']
 
@@ -76,7 +76,9 @@ class ResPartner(models.Model):
 
     # Compute Section
     @api.multi
-    @api.depends('invoice_ids.fundraising_category_id', 'invoice_ids.state')
+    @api.depends(
+        'invoice_ids.fundraising_category_id.is_part_A',
+        'invoice_ids.fundraising_category_id', 'invoice_ids.state')
     def _compute_is_type_A_capital_subscriptor(self):
         category_obj = self.env['capital.fundraising.category']
         A_categories = category_obj.search([('is_part_A', '=', True)])

@@ -7,10 +7,10 @@
 
 <odoo>
 
-    <record model="ir.actions.act_window" id="action_res_users_move">
-        <field name="name">User Moves</field>
+    <record model="ir.actions.act_window" id="action_res_partner_move">
+        <field name="name">Partner Moves</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">res.users.move</field>
+        <field name="res_model">res.partner.move</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>

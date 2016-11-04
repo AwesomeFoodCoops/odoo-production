@@ -35,10 +35,10 @@ angular.module('starter', ['ionic', 'ui.router', 'odoo'])
         templateUrl: 'views/v_login.html',
         controller: 'LoginCtrl'
   }).state(
-    'user_search', {
-        url: '/user_search',
-        templateUrl: 'views/v_user_search.html',
-        controller: 'UserSearchCtrl'
+    'partner_search', {
+        url: '/partner_search',
+        templateUrl: 'views/v_partner_search.html',
+        controller: 'PartnerSearchCtrl'
   }).state(
     'partner_form', {
         url: '/partner_form/:partner_id',

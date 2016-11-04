@@ -11,7 +11,7 @@ angular.module('starter').controller('LoginCtrl', ['$scope', 'jsonRpc', '$state'
                 if (res){
                     $scope.login.css_class = 'authentication-ok';
                     $scope.errorMessage = "";
-                    $state.go('user_search');
+                    $state.go('partner_search');
                 }
                 else{
                     $scope.login.css_class = 'authentication-acces-right-problem';

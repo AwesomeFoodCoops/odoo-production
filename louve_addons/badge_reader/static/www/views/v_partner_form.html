@@ -12,9 +12,14 @@
                         <div class="col-sm-8">
                             <h1><span ng-bind="partner.name"/></h1>
                             <h3>Statut :
-                                <span class="label label-success" ng-show="partner.state == 'ok'">OK</span>
-                                <span class="label label-warning" ng-show="partner.state == 'membership_problem'">Problème d'adhésion</span>
-                                <span class="label label-danger" ng-show="partner.state == 'work_problem'">Travail non réalisé</span>
+                                <span class="label label-success" ng-show="partner.cooperative_state == 'up_to_date'">A jour</span>
+                                <span class="label label-warning" ng-show="partner.cooperative_state == 'alert'">En alerte</span>
+                                <span class="label label-warning" ng-show="partner.cooperative_state == 'delay'">Délai accordé</span>
+                                <span class="label label-danger" ng-show="partner.cooperative_state == 'suspended'">Suspendu(e)</span>
+                                <span class="label label-danger" ng-show="partner.cooperative_state == 'not_concerned'">Non concerné(e)</span>
+                                <span class="label label-danger" ng-show="partner.cooperative_state == 'blocked'">Bloqué(e)</span>
+                                <span class="label label-danger" ng-show="partner.cooperative_state == 'unpayed'">Impayé constaté</span>
+                                <span class="label label-danger" ng-show="partner.cooperative_state == 'unsubscribed'">Désinscrit</span>
                             </h3>
                             <h3>Peut acheter :
                                 <span class="label label-success" ng-show="partner.customer">OUI</span>

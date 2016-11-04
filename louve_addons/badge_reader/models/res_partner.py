@@ -5,14 +5,7 @@
 
 from openerp import fields, models, api
 
-# TODO @LA LOUVE. Set exhaustive state
-_BADGE_PARTNER_STATE = [
-    ('ok', 'OK'),
-    ('membership_problem', 'Membership Problem'),
-    ('work_problem', 'Work Problem'),
-]
-
-_BADGE_PARTNER_BOOTSTRAP_STATE = [
+BADGE_PARTNER_BOOTSTRAP_COOPERATIVE_STATE = [
     ('success', 'OK'),
     ('warning', 'Warning'),
     ('danger', 'Danger'),
@@ -22,23 +15,39 @@ _BADGE_PARTNER_BOOTSTRAP_STATE = [
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    # Column Section
-    state = fields.Selection(
-        selection=_BADGE_PARTNER_STATE, state='state', default='ok')
+    MAPPING_COOPERATIVE_STATE = {
+        'up_to_date': 'success',
+        'alert': 'warning',
+        'delay': 'warning',
+        'suspended': 'danger',
+        'not_concerned': 'danger',
+        'blocked': 'danger',
+        'unpayed': 'danger',
+        'unsubscribed': 'danger',
+    }
 
-    bootstrap_state = fields.Selection(
-        compute='_compute_bootstrap_state', string='Bootstrap State',
-        selection=_BADGE_PARTNER_BOOTSTRAP_STATE, store=True)
+    bootstrap_cooperative_state = fields.Selection(
+        compute='_compute_bootstrap_cooperative_state',
+        string='Bootstrap State', store=True,
+        selection=BADGE_PARTNER_BOOTSTRAP_COOPERATIVE_STATE)
 
     # Compute Section
+    @api.depends('cooperative_state')
     @api.multi
-    @api.depends('state')
-    def _compute_bootstrap_state(self):
+    def _compute_bootstrap_cooperative_state(self):
         for partner in self:
-            # TODO @LA LOUVE. Define boostrap state for each partner state
-            if partner.state == 'work_problem':
-                partner.bootstrap_state = 'danger'
-            elif partner.state == 'membership_problem':
-                partner.bootstrap_state = 'warning'
-            elif partner.state == 'ok':
-                partner.bootstrap_state = 'success'
+            partner.bootstrap_cooperative_state =\
+                self.MAPPING_COOPERATIVE_STATE.get(
+                    partner.cooperative_state, 'danger')
+
+    # Custom Section
+    @api.multi
+    def log_move(self):
+        partner_move_obj = self.env['res.partner.move']
+        for partner in self:
+            partner_move_obj.create({
+                'partner_id': partner.id,
+                'cooperative_state': partner.cooperative_state,
+                'bootstrap_cooperative_state':
+                partner.bootstrap_cooperative_state,
+            })
