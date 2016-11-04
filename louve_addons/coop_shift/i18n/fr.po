@@ -6,22 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-04 14:48+0000\n"
-"PO-Revision-Date: 2016-11-04 14:48+0000\n"
+"POT-Creation-Date: 2016-11-04 19:19+0000\n"
+"PO-Revision-Date: 2016-11-04 19:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: coop_shift
-#: model:ir.model.fields,help:coop_shift.field_shift_template_registration_template_start_date
-#: model:ir.model.fields,help:coop_shift.field_shift_template_start_date
-msgid "\n"
-"        First date this shift will be scheduled"
-msgstr "\n"
-"        Date du premier shift de ce créneau"
 
 #. module: coop_shift
 #: code:addons/coop_shift/wizard/create_shifts_wizard.py:79
@@ -690,14 +682,19 @@ msgid "End Date Located"
 msgstr "Date de fin située"
 
 #. module: coop_shift
-#: model:ir.model.fields,field_description:coop_shift.field_shift_template_end_time
-msgid "End Time"
-msgstr "Heure de fin"
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_end_datetime
+msgid "End Date Time"
+msgstr "Horaire de fin"
 
 #. module: coop_shift
 #: selection:shift.template,end_type:0
 msgid "End date"
 msgstr "Date de fin"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_end_datetime
+msgid "End date of the first  shift"
+msgstr "Horaire de fin du premier shift"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
@@ -738,7 +735,7 @@ msgid "Event Ticket"
 msgstr "Billet d'événement"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:409
+#: code:addons/coop_shift/model/shift_template.py:475
 #, python-format
 msgid "Event recurrence interval cannot be negative."
 msgstr "L'intervale ne peut être négatif."
@@ -764,7 +761,7 @@ msgstr "Nombre de participants attendus"
 
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_shift.py:161
-#: code:addons/coop_shift/model/shift_template.py:182
+#: code:addons/coop_shift/model/shift_template.py:200
 #: selection:shift.template.ticket,shift_type:0
 #: selection:shift.ticket,shift_type:0
 #, python-format
@@ -806,6 +803,11 @@ msgstr "Shifts terminés"
 #: selection:shift.template,byday:0
 msgid "First"
 msgstr "Premier"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_start_datetime
+msgid "First date this shift will be scheduled"
+msgstr "Horaire du premier shift"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_follower_ids
@@ -867,8 +869,8 @@ msgid "Fourth"
 msgstr "Quatrième"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:244
-#: code:addons/coop_shift/model/shift_template.py:259
+#: code:addons/coop_shift/model/shift_template.py:262
+#: code:addons/coop_shift/model/shift_template.py:277
 #, python-format
 msgid "Fr"
 msgstr "Ve"
@@ -1259,8 +1261,8 @@ msgid "Minimum Attendees"
 msgstr "Minimum de participants"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:240
-#: code:addons/coop_shift/model/shift_template.py:255
+#: code:addons/coop_shift/model/shift_template.py:258
+#: code:addons/coop_shift/model/shift_template.py:273
 #, python-format
 msgid "Mo"
 msgstr "Lu"
@@ -1324,7 +1326,7 @@ msgstr "Aucune place restante de ce type"
 
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_shift.py:174
-#: code:addons/coop_shift/model/shift_template.py:230
+#: code:addons/coop_shift/model/shift_template.py:248
 #, python-format
 msgid "No more available seats."
 msgstr "Aucune place restante"
@@ -1386,6 +1388,21 @@ msgstr "Nombre de shifts"
 #: model:ir.model.fields,help:coop_shift.field_shift_template_registration_message_unread_counter
 msgid "Number of unread messages"
 msgstr "Nombre de messages non lus"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_end_time
+msgid "Obsolete End Time"
+msgstr "Horaire de fin (obsolete)"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_start_date
+msgid "Obsolete Start Date"
+msgstr "Date de début (obsolete)"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_start_time
+msgid "Obsolete Start Time"
+msgstr "Horaire de début (obsolete)"
 
 #. module: coop_shift
 #: model:ir.actions.act_window,help:coop_shift.action_shift_view
@@ -1453,7 +1470,7 @@ msgid "Please be as Specific as possible when noting corrections, extensions, et
 msgstr "Veillez à donner toutes les précisions sur les corrections, les extensions, etc. Veuillez renseigner : la date du problème, sa description et les modifications à apporter. Les notes doivent être signées pour être valables."
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:425
+#: code:addons/coop_shift/model/shift_template.py:491
 #, python-format
 msgid "Please select a proper day of the month."
 msgstr "Le jour est invalide."
@@ -1756,8 +1773,8 @@ msgid "SCHEDULED MEMBERS"
 msgstr "Membres inscrits"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:245
-#: code:addons/coop_shift/model/shift_template.py:260
+#: code:addons/coop_shift/model/shift_template.py:263
+#: code:addons/coop_shift/model/shift_template.py:278
 #, python-format
 msgid "Sa"
 msgstr "Sa"
@@ -2027,7 +2044,7 @@ msgstr "Réservé"
 
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_shift.py:156
-#: code:addons/coop_shift/model/shift_template.py:177
+#: code:addons/coop_shift/model/shift_template.py:195
 #: selection:shift.template.ticket,shift_type:0
 #: selection:shift.ticket,shift_type:0
 #, python-format
@@ -2049,7 +2066,6 @@ msgstr "Début"
 #: model:ir.model.fields,field_description:coop_shift.field_replace_registration_wizard_date_begin
 #: model:ir.model.fields,field_description:coop_shift.field_shift_registration_date_begin
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_date_begin
-#: model:ir.model.fields,field_description:coop_shift.field_shift_template_start_date
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_date_begin
 #: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_date_begin
 #: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_date_begin
@@ -2063,6 +2079,11 @@ msgid "Start Date Located"
 msgstr "Date de début située"
 
 #. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_start_datetime
+msgid "Start Date Time"
+msgstr "Horaire de début"
+
+#. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_search
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_ticket_search
 msgid "Start Month"
@@ -2071,7 +2092,6 @@ msgstr "Mois de début"
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_begin_time
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_end_time
-#: model:ir.model.fields,field_description:coop_shift.field_shift_template_start_time
 msgid "Start Time"
 msgstr "Heure"
 
@@ -2103,8 +2123,8 @@ msgid "Status"
 msgstr "Statut"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:246
-#: code:addons/coop_shift/model/shift_template.py:261
+#: code:addons/coop_shift/model/shift_template.py:264
+#: code:addons/coop_shift/model/shift_template.py:279
 #, python-format
 msgid "Su"
 msgstr "Di"
@@ -2129,6 +2149,17 @@ msgstr "Dim."
 #, python-format
 msgid "Sunday"
 msgstr "Dimanche"
+
+#. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_shift_template_registration_template_start_date
+#: model:ir.model.fields,help:coop_shift.field_shift_template_start_date
+msgid "Technical Field. First date this shift will be scheduled"
+msgstr "Champs technique. date du premier shift"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
+msgid "Technicals"
+msgstr "Technique"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_template_id
@@ -2209,14 +2240,15 @@ msgstr "Template id"
 #: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard_template_ids
 #: model:ir.ui.menu,name:coop_shift.menu_shift_template
 #: model:ir.ui.menu,name:coop_shift.template_menu
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_calendar
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_template_search
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_template_tree
 msgid "Templates"
 msgstr "Créneaux"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:243
-#: code:addons/coop_shift/model/shift_template.py:258
+#: code:addons/coop_shift/model/shift_template.py:261
+#: code:addons/coop_shift/model/shift_template.py:276
 #, python-format
 msgid "Th"
 msgstr "Je"
@@ -2366,8 +2398,8 @@ msgid "Tmpl. Registr."
 msgstr "Créneau"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:241
-#: code:addons/coop_shift/model/shift_template.py:256
+#: code:addons/coop_shift/model/shift_template.py:259
+#: code:addons/coop_shift/model/shift_template.py:274
 #, python-format
 msgid "Tu"
 msgstr "Ma"
@@ -2556,8 +2588,8 @@ msgid "WallChart"
 msgstr "Tableau"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:242
-#: code:addons/coop_shift/model/shift_template.py:257
+#: code:addons/coop_shift/model/shift_template.py:260
+#: code:addons/coop_shift/model/shift_template.py:275
 #, python-format
 msgid "We"
 msgstr "Me"
@@ -2685,7 +2717,7 @@ msgid "discarding the changes"
 msgstr "Annuler les changements"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:407
+#: code:addons/coop_shift/model/shift_template.py:473
 #, python-format
 msgid "interval cannot be negative."
 msgstr "L'intervalle ne peut être négatif."
