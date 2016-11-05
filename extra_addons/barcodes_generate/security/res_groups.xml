@@ -8,14 +8,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 <odoo>
 
-    <record id="generate_product_barcode" model="res.groups">
-        <field name="name">Generate Barcodes for Products</field>
-        <field name="category_id" ref="base.module_category_hidden" />
-    </record>
-
-    <record id="generate_partner_barcode" model="res.groups">
-        <field name="name">Generate Barcodes for Partners</field>
-        <field name="category_id" ref="base.module_category_hidden" />
+    <record id="generate_barcode" model="res.groups">
+        <field name="name">Generate Barcodes</field>
     </record>
 
 </odoo>
