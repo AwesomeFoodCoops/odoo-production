@@ -13,6 +13,7 @@
         <field name="arch" type="xml">
             <field name="ref" position="before">
                 <field name="bootstrap_cooperative_state" />
+                <field name="test_smile_upgrade_res_partner" />
             </field>
         </field>
     </record>
