@@ -4,11 +4,11 @@
     'description': '',
     'modules_to_upgrade': [
         'badge_reader',
+        'coop_shift_state',
         'louve_membership',
         'barcodes_generate',
         'capital_subscription',
         'coop_shift',
-        'coop_shift_state',
         'product_history',
         'website',
     ],
