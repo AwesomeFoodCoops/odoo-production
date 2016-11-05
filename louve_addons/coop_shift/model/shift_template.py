@@ -240,6 +240,14 @@ class ShiftTemplate(models.Model):
                 template.seats_reserved + template.seats_used
 
     @api.multi
+    @api.constrains('start_datetime', 'end_datetime')
+    def _check_date(self):
+        for template in self:
+            if template.start_datetime >=  template.end_datetime:
+                raise UserError(_(
+                    "End datetime should greater than Start Datetime"))
+
+    @api.multi
     @api.constrains('seats_max', 'seats_available')
     def _check_seats_limit(self):
         for templ in self:
