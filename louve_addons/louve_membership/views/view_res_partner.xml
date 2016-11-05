@@ -11,9 +11,17 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="barcodes_generate.view_res_partner_form"/>
         <field name="arch" type="xml">
+            <!-- Block reinitialisation of Barcode) -->
+            <button name="generate_barcode" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|',
+                    ('generate_type', '!=', 'sequence'),
+                    ('barcode_base', '!=', 0),
+                    ('barcode', '!=', '')]}
+                </attribute>
+            </button>
             <button name="generate_barcode" position="after">
                 <button id="create_new_barcode" name="%(action_res_partner_generate_barcode_wizard)d" type="action"
-                    string="New Barcode" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}"/>
+                    string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}"/>
             </button>
         </field>
     </record>

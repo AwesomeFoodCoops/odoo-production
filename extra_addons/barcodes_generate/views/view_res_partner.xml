@@ -26,6 +26,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     ('barcode_base', '!=', 0)]}"
                     groups="barcodes_generate.generate_barcode" colspan="2"/>
             </field>
+
             <field name="barcode" position="attributes">
                 <attribute name="attrs">{'readonly': [('generate_type', '=', 'sequence')]}</attribute>
             </field>

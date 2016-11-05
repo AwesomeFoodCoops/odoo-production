@@ -49,5 +49,6 @@ class CapitalFundraisingWizard(models.TransientModel):
                 [('for_type_A_capital_subscriptor', '=', True)], limit=1)
             if barcode_rule_id:
                 wizard.partner_id.barcode_rule_id = barcode_rule_id.id
-                wizard.partner_id.generate_base_barcode()
+                wizard.partner_id.generate_base()
+                wizard.partner_id.generate_barcode()
         return res

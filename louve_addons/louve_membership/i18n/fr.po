@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-04 14:53+0000\n"
-"PO-Revision-Date: 2016-11-04 14:53+0000\n"
+"POT-Creation-Date: 2016-11-05 16:22+0000\n"
+"PO-Revision-Date: 2016-11-05 16:22+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -172,11 +172,6 @@ msgid "Is Part A"
 msgstr "Part A"
 
 #. module: louve_membership
-#: model:ir.model.fields,field_description:louve_membership.field_res_partner_is_customer
-msgid "Is customer"
-msgstr "Est client"
-
-#. module: louve_membership
 #: model:ir.model.fields,field_description:louve_membership.field_capital_fundraising_category_is_default
 msgid "Is default"
 msgstr "Par défaut"
@@ -229,8 +224,8 @@ msgstr "Nom"
 
 #. module: louve_membership
 #: model:ir.ui.view,arch_db:louve_membership.view_res_partner_form
-msgid "New Barcode"
-msgstr "Nouveau Code Barre"
+msgid "New Barcode (Card Lost)"
+msgstr "Nouveau Code Barre (Carte perdue)"
 
 #. module: louve_membership
 #: model:ir.model.fields,field_description:louve_membership.field_res_partner_adult_number_home
@@ -299,7 +294,7 @@ msgid "Wizard"
 msgstr "Assistant"
 
 #. module: louve_membership
-#: code:addons/louve_membership/models/res_partner.py:133
+#: code:addons/louve_membership/models/res_partner.py:136
 #, python-format
 msgid "You can not associate a people to that person because he didn't subscribed A part."
 msgstr "Vous ne pouvez pas associer de personne à ce partenaire, car ce dernier n'a pas souscrit de part A."

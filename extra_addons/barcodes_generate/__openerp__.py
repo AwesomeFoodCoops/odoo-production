@@ -22,12 +22,13 @@
     'data': [
         'security/res_groups.xml',
         'views/view_res_partner.xml',
-#        'views/view_product_product.xml',
+        'views/view_product_product.xml',
         'views/view_barcode_rule.xml',
     ],
     'demo': [
         'demo/res_users.xml',
-#        'demo/barcode_rule.xml',
+        'demo/barcode_rule.xml',
+        'demo/ir_sequence.xml',
     ],
     'images': [
         'static/description/barcode_rule.png'
