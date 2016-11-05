@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* coop_shift_state
+#   * coop_shift_state
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-04 14:50+0000\n"
-"PO-Revision-Date: 2016-11-04 14:50+0000\n"
+"POT-Creation-Date: 2016-10-24 15:41+0000\n"
+"PO-Revision-Date: 2016-10-24 15:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,6 @@ msgstr ""
 
 #. module: coop_shift_state
 #: selection:res.partner,cooperative_state:0
-#: selection:res.partner,working_state:0
 msgid "Alert"
 msgstr "Alerte"
 
@@ -29,24 +28,8 @@ msgstr "Date de début"
 #. module: coop_shift_state
 #: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_is_blocked
 #: selection:res.partner,cooperative_state:0
-#: selection:res.partner,working_state:0
 msgid "Blocked"
 msgstr "Bloqué(e)"
-
-#. module: coop_shift_state
-#: model:ir.model.fields,help:coop_shift_state.field_res_partner_is_blocked
-msgid "Check this box to manually block this user."
-msgstr "Cochez cette case pour bloquer manuellement l'utilisateur."
-
-#. module: coop_shift_state
-#: model:ir.model.fields,help:coop_shift_state.field_res_partner_is_unpayed
-msgid "Check this box, if the partner has late payments for him capital subscriptions. this will prevent him to buy."
-msgstr "Cochez cette case, si le partenaire a des retards de paiements pour une souscriptions de capital. Cela va le bloquer pour acheter."
-
-#. module: coop_shift_state
-#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_cooperative_state
-msgid "Cooperative State"
-msgstr "Etat coopératif"
 
 #. module: coop_shift_state
 #: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_create_uid
@@ -67,7 +50,6 @@ msgstr "Durée par défaut (j)"
 
 #. module: coop_shift_state
 #: selection:res.partner,cooperative_state:0
-#: selection:res.partner,working_state:0
 msgid "Delay"
 msgstr "Délai"
 
@@ -75,7 +57,7 @@ msgstr "Délai"
 #: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_display_name
 #: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_display_name
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr "Nom"
 
 #. module: coop_shift_state
 #: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_duration
@@ -144,7 +126,7 @@ msgstr "Total ABCD"
 
 #. module: coop_shift_state
 #: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_id
-#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_id_6925
+#: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_id_5712
 msgid "ID"
 msgstr "ID"
 
@@ -190,11 +172,6 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: coop_shift_state
-#: selection:res.partner,cooperative_state:0
-msgid "Not Concerned"
-msgstr "Non concerné"
-
-#. module: coop_shift_state
 #: model:ir.model,name:coop_shift_state.model_res_partner
 #: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_partner_id
 msgid "Partner"
@@ -221,8 +198,12 @@ msgid "Standard Part"
 msgstr "Equipe ABCD"
 
 #. module: coop_shift_state
+#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_cooperative_state
+msgid "State"
+msgstr "État"
+
+#. module: coop_shift_state
 #: selection:res.partner,cooperative_state:0
-#: selection:res.partner,working_state:0
 msgid "Suspended"
 msgstr "Suspendu(e)"
 
@@ -235,16 +216,6 @@ msgstr "Ce champ mentionne la date à laquelle l'état 'en alerte' se termine et
 #: model:ir.model.fields,help:coop_shift_state.field_res_partner_date_delay_stop
 msgid "This date mention the date when the 'delay' state stops and when the partner will be suspended."
 msgstr "Ce champ mentionne la date à laquelle l'état 'délai' se termine et à partir du moment ou le partenaire est 'suspendu'."
-
-#. module: coop_shift_state
-#: model:ir.model.fields,help:coop_shift_state.field_res_partner_cooperative_state
-msgid "This state depends on the 'Working State' and extra custom settings."
-msgstr "Ce Champs dépends du champs 'Etat au travail', et d'autres paramétrages personnalisés."
-
-#. module: coop_shift_state
-#: model:ir.model.fields,help:coop_shift_state.field_res_partner_working_state
-msgid "This state depends on the shifts realized by the partner."
-msgstr "Cet état dépends des shifts réalisés par le partenaire."
 
 #. module: coop_shift_state
 #: model:ir.model.fields,field_description:coop_shift_state.field_shift_extension_type_id
@@ -264,7 +235,6 @@ msgstr "Désinscrit(e)"
 
 #. module: coop_shift_state
 #: selection:res.partner,cooperative_state:0
-#: selection:res.partner,working_state:0
 msgid "Up to date"
 msgstr "A jour"
 
@@ -272,11 +242,6 @@ msgstr "A jour"
 #: model:ir.ui.view,arch_db:coop_shift_state.view_res_partner_form_header
 msgid "View partner Extensions"
 msgstr "Voir les extensions"
-
-#. module: coop_shift_state
-#: model:ir.model.fields,field_description:coop_shift_state.field_res_partner_working_state
-msgid "Working State"
-msgstr "Etat au travail"
 
 #. module: coop_shift_state
 #: model:ir.model,name:coop_shift_state.model_shift_extension
