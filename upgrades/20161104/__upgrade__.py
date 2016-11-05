@@ -3,8 +3,14 @@
     'databases': [],
     'description': '',
     'modules_to_upgrade': [
-        'base',                     # Update all
+        'barcodes_generate',
         'badge_reader',
+        'capital_subscription',
+        'coop_shift',
+        'coop_shift_state',
+        'louve_membership',
+        'product_history',
+        'website',
     ],
     'pre-load': [
         './pre_load.sql'],
