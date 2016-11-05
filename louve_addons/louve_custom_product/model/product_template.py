@@ -77,6 +77,9 @@ class ProductTemplate(models.Model):
                     (' - ' + tmp if tmp else '')
             pt.pricetag_rackinfos = tmp
 
+    # Overloaded Columns section
+    name = fields.Char(translate=False)
+
     # Columns section
     label_ids = fields.Many2many(
         string='Labels', comodel_name='product.label',
