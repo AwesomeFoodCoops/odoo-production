@@ -3,6 +3,7 @@
     'databases': [],
     'description': '',
     'modules_to_upgrade': [
+        'product'
         'badge_reader',
         'coop_shift_state',
         'louve_membership',
