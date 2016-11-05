@@ -26,6 +26,8 @@ class ResPartner(models.Model):
         'unsubscribed': 'danger',
     }
 
+    test_smile_upgrade_res_partner = fields.Char(string='Technical Field')
+
     bootstrap_cooperative_state = fields.Selection(
         compute='_compute_bootstrap_cooperative_state',
         string='Bootstrap State', store=True,
