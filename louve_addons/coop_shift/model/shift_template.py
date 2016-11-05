@@ -243,7 +243,7 @@ class ShiftTemplate(models.Model):
     @api.constrains('start_datetime', 'end_datetime')
     def _check_date(self):
         for template in self:
-            if template.start_datetime >=  template.end_datetime:
+            if template.start_datetime >= template.end_datetime:
                 raise UserError(_(
                     "End datetime should greater than Start Datetime"))
 

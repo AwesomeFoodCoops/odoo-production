@@ -152,7 +152,8 @@ class ProductTemplate(models.Model):
         compute=_compute_pricetag_rackinfos, string='La Louve rack fields')
     pricetag_louveinfos = fields.Char(
         compute=_compute_pricetag_louveinfos, string='La Louve custom fields')
-    category_print_id = fields.Many2one(comodel_name='product.category.print', string='Print Category')
+    category_print_id = fields.Many2one(
+        comodel_name='product.category.print', string='Print Category')
 
     # Compute Section
     @api.depends('list_price', 'volume')
