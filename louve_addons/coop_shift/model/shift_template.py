@@ -330,69 +330,63 @@ class ShiftTemplate(models.Model):
     @api.multi
     def _compute_start_date(self):
         for template in self:
-            template.start_date = datetime.strptime(
-                template.start_datetime, '%Y-%m-%d %H:%M:%S').strftime(
-                    '%Y-%m-%d')
+            if template.start_datetime:
+                template.start_date = datetime.strptime(
+                    template.start_datetime, '%Y-%m-%d %H:%M:%S').strftime(
+                        '%Y-%m-%d')
 
     @api.depends('start_datetime', 'end_datetime')
     @api.multi
     def _compute_duration(self):
         for template in self:
-            start_date_object = datetime.strptime(
-                template.start_datetime, '%Y-%m-%d %H:%M:%S')
-            end_date_object = datetime.strptime(
-                template.end_datetime, '%Y-%m-%d %H:%M:%S')
-            template.duration = \
-                (end_date_object - start_date_object).seconds / 3600.0
+            if template.start_datetime and template.end_datetime:
+                start_date_object = datetime.strptime(
+                    template.start_datetime, '%Y-%m-%d %H:%M:%S')
+                end_date_object = datetime.strptime(
+                    template.end_datetime, '%Y-%m-%d %H:%M:%S')
+                template.duration = \
+                    (end_date_object - start_date_object).seconds / 3600.0
 
     @api.depends('start_datetime')
     @api.multi
     def _compute_start_time(self):
+        tz_name = self._context.get('tz') or self.env.user.tz
+        if not tz_name:
+            raise UserError(_(
+                "You can not create Shift Template if your timezone is not"
+                " defined."))
         for template in self:
-            start_date_object = datetime.strptime(
-                template.start_datetime, '%Y-%m-%d %H:%M:%S')
-            utc_timestamp = pytz.utc.localize(start_date_object, is_dst=False)
-            tz_name = self._context.get('tz') or self.env.user.tz
-            context_tz = pytz.timezone(tz_name)
-            start_date_object_tz = utc_timestamp.astimezone(context_tz)
-            template.start_time = (
-                start_date_object_tz.hour +
-                (start_date_object_tz.minute / 60.0))
+            if template.start_datetime:
+                start_date_object = datetime.strptime(
+                    template.start_datetime, '%Y-%m-%d %H:%M:%S')
+                utc_timestamp = pytz.utc.localize(
+                    start_date_object, is_dst=False)
+                context_tz = pytz.timezone(tz_name)
+                start_date_object_tz = utc_timestamp.astimezone(context_tz)
+                template.start_time = (
+                    start_date_object_tz.hour +
+                    (start_date_object_tz.minute / 60.0))
 
     @api.depends('end_datetime')
     @api.multi
     def _compute_end_time(self):
+        tz_name = self._context.get('tz') or self.env.user.tz
+        if not tz_name:
+            raise UserError(_(
+                "You can not create Shift Template if your timezone is not"
+                " defined."))
         for template in self:
-            end_date_object = datetime.strptime(
-                template.end_datetime, '%Y-%m-%d %H:%M:%S')
-            utc_timestamp = pytz.utc.localize(end_date_object, is_dst=False)
-            tz_name = self._context.get('tz') or self.env.user.tz
-            context_tz = pytz.timezone(tz_name)
-            end_date_object_tz = utc_timestamp.astimezone(context_tz)
-            template.end_time = (
-                end_date_object_tz.hour +
-                (end_date_object_tz.minute / 60.0))
+            if template.end_datetime:
+                end_date_object = datetime.strptime(
+                    template.end_datetime, '%Y-%m-%d %H:%M:%S')
+                utc_timestamp = pytz.utc.localize(
+                    end_date_object, is_dst=False)
 
-#
-#    @api.onchange('duration', 'start_time')
-#    @api.multi
-#    def _compute_end_datetime(self):
-#        for template in self:
-#            if template.start_time > 24:
-#                template.start_time = template.start_time -\
-#                    24 * (template.start_time // 24)
-#            if template.start_time and template.duration:
-#                template.end_time = template.start_time + template.duration
-
-#    @api.onchange('end_time')
-#    @api.multi
-#    def _compute_duration(self):
-#        for template in self:
-#            if template.end_time > 24:
-#                template.end_time = template.end_time -\
-#                    24 * (template.end_time // 24)
-#            if template.start_time and template.end_time:
-#                template.duration = template.end_time - template.start_time
+                context_tz = pytz.timezone(tz_name)
+                end_date_object_tz = utc_timestamp.astimezone(context_tz)
+                template.end_time = (
+                    end_date_object_tz.hour +
+                    (end_date_object_tz.minute / 60.0))
 
     @api.onchange('start_date')
     @api.multi
