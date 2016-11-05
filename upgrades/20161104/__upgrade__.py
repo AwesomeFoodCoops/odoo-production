@@ -14,6 +14,6 @@
         'website',
     ],
     'pre-load': [
-        './pre_load.sql'],
+        './pre-load.sql'],
     'post-load': [],
 }
