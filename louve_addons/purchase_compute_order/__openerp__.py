@@ -98,5 +98,6 @@ Copyright, Author and Licence :
         'views/view.xml',
         'views/menu.xml',
         'views/res_config_view.xml',
+        'action_export_PO.xml',
     ],
 }
