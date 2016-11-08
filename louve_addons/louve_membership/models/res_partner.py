@@ -148,7 +148,8 @@ class ResPartner(models.Model):
 
         partner = super(ResPartner, self).create(vals)
         if generate_barcode:
-            partner.generate_base_barcode()
+            partner.generate_base()
+            partner.generate_barcode()
         return partner
 
     # View section

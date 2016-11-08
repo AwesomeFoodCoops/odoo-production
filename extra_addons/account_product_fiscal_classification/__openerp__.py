@@ -8,7 +8,7 @@
     'summary': 'Simplify taxes management for products',
     'version': '9.0.1.0.0',
     'category': 'Accounting',
-    'author': 'Akretion,GRAP,Odoo Community Association (OCA)',
+    'author': 'Akretion,GRAP,La Louve,Odoo Community Association (OCA)',
     'website': 'https://odoo-community.org/',
     'license': 'AGPL-3',
     'depends': [
@@ -25,11 +25,11 @@
         'views/view_product_category.xml',
     ],
     'demo': [
-        'demo/product_category.xml',
         'demo/account_tax.yml',
         'demo/account_tax_template.yml',
         'demo/account_product_fiscal_classification.yml',
         'demo/account_product_fiscal_classification_template.yml',
+        'demo/product_category.xml',
         'demo/product_template.yml',
         'demo/res_company.yml',
         'demo/res_groups.yml',
