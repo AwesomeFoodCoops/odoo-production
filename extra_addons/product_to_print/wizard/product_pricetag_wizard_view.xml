@@ -51,20 +51,4 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
-
-    <record id="print_pricetags_server_action" model="ir.actions.server">
-        <field name="name">Print Pricetags</field>
-        <field name="model_id" ref="product.model_product_product" />
-        <field name="state">code</field>
-        <field name="code">self.print_pricetags(cr, uid, context['active_ids'], context=context)</field>
-    </record>
-
-    <record id="print_pricetags" model="ir.values">
-        <field name="model_id" ref="product_to_print.model_product_pricetag_wizard" />
-        <field name="name">Print Pricetags</field>
-        <field name="key2">client_action_multi</field>
-        <field name="key">action</field>
-        <field name="model">product.product</field>
-        <field name="value" eval="'ir.actions.server,' + str(ref('print_pricetags_server_action'))" />
-    </record>
 </odoo>
