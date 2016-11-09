@@ -22,6 +22,7 @@
 ##############################################################################
 
 from openerp import api, fields, models, _
+from openerp.exceptions import UserError
 
 
 class ProductPricetagWizard(models.TransientModel):
@@ -36,42 +37,66 @@ class ProductPricetagWizard(models.TransientModel):
             ('category_print_id', '=', self.category_print_id.id)]
 
     @api.model
+    def check_unique_pricetag_categ(self, pricetag_categ):
+        if len(pricetag_categ) == 0:
+            raise UserError(
+                _("""The products you selected don't have a
+                    Print Category!"""))
+        if len(pricetag_categ) > 1:
+            raise UserError(
+                _("""The products you selected have different
+                    Print Categories! Please select products belonging
+                    to a single Print Category."""))
+
+    @api.model
     def _get_default_print_category(self):
-        active_id = self.env.context.get('active_id', False)
-        if active_id:
-            return self.env['product.category.print'].browse(active_id)
-        else:
-            pcp = self.env['product.category.print'].search([])
-            return pcp and pcp[0] or False
+        context = self.env.context
+        if context.get("active_model", False) ==\
+                'product.category.print':
+            active_id = self.env.context.get('active_id', False)
+            if active_id:
+                return self.env['product.category.print'].browse(active_id)
+            else:
+                pcp = self.env['product.category.print'].search([])
+                return pcp and pcp[0] or False
+        if context.get("active_model", False) == 'product.product':
+            product_ids = context.get("active_ids", [])
+            if not product_ids:
+                return False
+            products = self.env['product.product'].browse(product_ids)
+            pricetag_categ = products.mapped(lambda p: p.category_print_id)
+            self.check_unique_pricetag_categ(pricetag_categ)
+            return pricetag_categ.id
 
     @api.model
     def _get_line_ids(self):
+        context = self.env.context
         res = []
-        dom = self._domain_get()
         pp_obj = self.env['product.product']
-        pp_ids = pp_obj.search(dom)
-        for pp_id in pp_ids:
-            res.append((0, 0, {
-                'product_id': pp_id,
-                'quantity': 1,
-                'print_unit_price': True,
-            }))
-        return res
-
-    @api.onchange('category_print_id')
-    def _onchange_category_print_id(self):
-        self.ensure_one()
-        res = []
-        dom = self._domain_get()
-        pp_obj = self.env['product.product']
-        pp_ids = pp_obj.search(dom)
-        for pp_id in pp_ids:
-            res.append((0, 0, {
-                'product_id': pp_id,
-                'quantity': 1,
-                'print_unit_price': True,
-            }))
-        self.line_ids = res
+        if context.get("active_model", False) == 'product.category.print':
+            dom = self._domain_get()
+            pp_ids = pp_obj.search(dom)
+            for pp_id in pp_ids:
+                res.append((0, 0, {
+                    'product_id': pp_id,
+                    'quantity': 1,
+                    'print_unit_price': True,
+                }))
+            return res
+        if context.get("active_model", False) == 'product.product':
+            product_ids = context.get("active_ids", [])
+            if not product_ids:
+                return res
+            products = pp_obj.browse(product_ids)
+            pricetag_categ = products.mapped(lambda p: p.category_print_id)
+            self.check_unique_pricetag_categ(pricetag_categ)
+            for product in products:
+                res.append((0, 0, {
+                    'product_id': product.id,
+                    'quantity': 1,
+                    'print_unit_price': True,
+                }))
+            return res
 
     # Columns Section
     offset = fields.Integer(
@@ -117,7 +142,6 @@ class ProductPricetagWizard(models.TransientModel):
         res['line_ids'] = [line.id for line in self.line_ids]
         res['fields'] = self._get_pricetag_fields()
         res['category_print_id'] = self.category_print_id.id
-        # res['border'] = self.border
         return res
 
     @api.model
