@@ -13,7 +13,7 @@
       <field name="function" eval="'run_shift_creation'"/>
     </record>
 
-     <record forcecreate="True" id="ir_cron_shift_creation" model="ir.cron">
+     <record forcecreate="True" id="ir_cron_shift_confirmation" model="ir.cron">
       <field name="name">Shifts Confirmation</field>
       <field name="active" eval="True"/>
       <field name="user_id" ref="base.user_root" />
