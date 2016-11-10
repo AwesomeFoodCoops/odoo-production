@@ -28,6 +28,9 @@
                             <div class="product_price_vege">
                                 <t t-esc="'%0.2f' % (product['product'].list_price)"/>€
                             </div>
+                            <div class="product_price_uom_vege">
+                                /<t t-esc="product['product'].uom_id.name"/>
+                            </div>
                         </div>
                         <div class="label_bottom_vege">
                             <div class="product_informations_vege">
