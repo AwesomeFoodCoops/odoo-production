@@ -12,7 +12,7 @@
     'website': 'http://www.lalouve.net',
     'category': 'Product',
     'depends': [
-        'product',
+        'product_supplierinfo_discount',
         'account',
     ],
     'data': [
