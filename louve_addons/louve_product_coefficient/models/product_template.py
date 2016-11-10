@@ -192,12 +192,14 @@ class ProductTemplate(models.Model):
                     template.product_variant_ids[0], quantity=10000.0)
                 if seller:
                     if seller.product_uom.id == template.uom_id.id:
-                        base_price = seller.price
+                        base_price =\
+                            seller.price * (100 - seller.discount) / 100
                     else:
                         base_price = ((
                             seller.price /
                             seller.product_uom.factor_inv) *
-                            template.uom_id.factor_inv)
+                            template.uom_id.factor_inv *
+                            (100 - seller.discount) / 100)
             template.base_price = base_price
 
     @api.multi
