@@ -6,7 +6,7 @@
 
 {
     'name': 'Louve - Membership',
-    'version': '9.0.0.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Custom',
     'summary': 'Custom settings for membership in La Louve',
     'author': 'La Louve',

@@ -3,9 +3,8 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api, _
+from openerp import models, fields, api
 
-from openerp.exceptions import ValidationError
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
     ('not_concerned', 'Not Concerned'),
@@ -36,8 +35,6 @@ class ResPartner(models.Model):
     # New Column Section
     is_louve_member = fields.Boolean('Is Louve Member')
 
-    is_associated_people = fields.Boolean('Is Associated People')
-
     is_unpayed = fields.Boolean(
         string='Unpayed', help="Check this box, if the partner has late"
         " payments for him capital subscriptions. this will prevent him"
@@ -65,6 +62,10 @@ class ResPartner(models.Model):
         'Has a type A capital subscription', store=True,
         compute="_compute_is_type_A_capital_subscriptor")
 
+    is_associated_people = fields.Boolean(
+        string='Is Associated People', store=True,
+        compute="_compute_is_associated_people")
+
     # Important : Overloaded Field Section
     customer = fields.Boolean(
         compute='_compute_customer', store=True, readonly=True)
@@ -89,6 +90,13 @@ class ResPartner(models.Model):
                 ('state', 'in', ['open', 'paid']),
                 ('fundraising_category_id', 'in', A_categories.ids)])
             partner.is_type_A_capital_subscriptor = len(invoices)
+
+    @api.multi
+    @api.depends('parent_id.is_louve_member')
+    def _compute_is_associated_people(self):
+        for partner in self:
+            partner.is_associated_people =\
+                partner.parent_id and partner.parent_id.is_louve_member
 
     @api.depends(
         'working_state', 'is_unpayed', 'is_unsubscribed',
@@ -121,36 +129,34 @@ class ResPartner(models.Model):
     # Overload Section
     @api.model
     def create(self, vals):
-        generate_barcode = False
-        barcode_rule_obj = self.env['barcode.rule']
-
         if vals.get('is_louve_member', False):
-            # Affect a default member type
+            # Affect a useless default member type
             xml_id = self.env.ref('louve_membership.default_member_type').id
             vals.get('fundraising_partner_type_ids', []).append((4, xml_id))
 
-        if vals.get('parent_id', False):
-            parent_partner = self.browse(vals.get('parent_id', False))
-            if parent_partner.is_louve_member:
-                if not parent_partner.is_type_A_capital_subscriptor:
-                    raise ValidationError(_(
-                        "You can not associate a people to that person"
-                        " because he didn't subscribed A part."))
-                # Set associated People
-                vals['is_associated_people'] = True
-
-                # Generate Associated Barcode
-                barcode_rule_id = barcode_rule_obj.search(
-                    [('for_associated_people', '=', True)], limit=1)
-                if barcode_rule_id:
-                    vals['barcode_rule_id'] = barcode_rule_id.id
-                    generate_barcode = True
-
         partner = super(ResPartner, self).create(vals)
-        if generate_barcode:
+        self._generate_associated_barcode(partner)
+        return partner
+
+    @api.multi
+    def write(self, vals):
+        res = super(ResPartner, self).write(vals)
+        for partner in self:
+            self._generate_associated_barcode(partner)
+        return res
+
+    @api.model
+    def _generate_associated_barcode(self, partner):
+        barcode_rule_obj = self.env['barcode.rule']
+        if partner.is_associated_people and not partner.barcode_rule_id\
+                and not partner.barcode:
+            # Generate Associated Barcode
+            barcode_rule_id = barcode_rule_obj.search(
+                [('for_associated_people', '=', True)], limit=1)
+            if barcode_rule_id:
+                partner.barcode_rule_id = barcode_rule_id.id
             partner.generate_base()
             partner.generate_barcode()
-        return partner
 
     # View section
     @api.multi
