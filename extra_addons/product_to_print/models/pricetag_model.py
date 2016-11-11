@@ -33,5 +33,5 @@ class PricetagModel(models.Model):
 
     pricetag_paperformat_id = fields.Many2one(
         'report.paperformat', 'Paper Format', required=True)
-    
+
     report_model = fields.Char("ID of the report template", required=True)
