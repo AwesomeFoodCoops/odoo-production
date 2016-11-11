@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-05 16:22+0000\n"
-"PO-Revision-Date: 2016-11-05 16:22+0000\n"
+"POT-Creation-Date: 2016-11-11 11:31+0000\n"
+"PO-Revision-Date: 2016-11-11 11:31+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,12 @@ msgstr "Le champs 'Pour les personnes rattachées' doit être unique."
 #, python-format
 msgid "'For Type A Subscriptors' field should be unique."
 msgstr "Le champs 'Pour les souscripteurs de parts A' doit être unique."
+
+#. module: louve_membership
+#: model:ir.actions.act_window,name:louve_membership.action_res_partner_associated
+#: model:ir.ui.menu,name:louve_membership.menu_res_partner_associated
+msgid "Associated People"
+msgstr "Rattachés"
 
 #. module: louve_membership
 #: model:ir.model,name:louve_membership.model_shift_template_registration
@@ -292,12 +298,6 @@ msgstr "Désinscrit"
 #: model:ir.ui.menu,name:louve_membership.menu_capital_fundraising_wizard
 msgid "Wizard"
 msgstr "Assistant"
-
-#. module: louve_membership
-#: code:addons/louve_membership/models/res_partner.py:136
-#, python-format
-msgid "You can not associate a people to that person because he didn't subscribed A part."
-msgstr "Vous ne pouvez pas associer de personne à ce partenaire, car ce dernier n'a pas souscrit de part A."
 
 #. module: louve_membership
 #: model:ir.model,name:louve_membership.model_barcode_rule

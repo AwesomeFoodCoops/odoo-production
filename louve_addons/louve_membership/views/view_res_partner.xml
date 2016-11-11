@@ -7,6 +7,21 @@
 
 <odoo>
 
+    <record model="ir.ui.view" id="view_res_partner_search">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="is_louve_member"/>
+                <field name="is_type_A_capital_subscriptor"/>
+                <field name="is_associated_people"/>
+                <field name="is_unpayed"/>
+                <field name="is_unsubscribed"/>
+                <field name="old_coop_number"/>
+            </field>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="view_res_partner_form">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="barcodes_generate.view_res_partner_form"/>
@@ -50,8 +65,9 @@
                 <page string="Louve Custom">
                     <group>
                         <group string="MemberShip">
-                            <field name="is_louve_member" groups="louve_membership.louve_membership_manager"/>
-                            <field name="is_type_A_capital_subscriptor" groups="base.group_no_one"/>
+                            <field name="is_louve_member" groups="louve_membership.louve_membership_manager"
+                                readonly="1"/>
+                            <field name="is_type_A_capital_subscriptor" groups="louve_membership.louve_membership_manager"/>
                             <field name="is_associated_people" groups="louve_membership.louve_membership_manager"/>
                             <field name="is_unpayed"/>
                             <field name="is_unsubscribed"/>

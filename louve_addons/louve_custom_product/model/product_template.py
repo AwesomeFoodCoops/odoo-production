@@ -234,9 +234,3 @@ class ProductTemplate(models.Model):
         for pt in self:
             if pt.country_id:
                 pt.department_id = False
-
-    def _default_category_print_id(self):
-        category_obj = self.env['product.category.print']
-        category_ids = category_obj.search(
-            [('is_default', '=', True)], limit=1)
-        return category_ids and category_ids[0] or category_ids
