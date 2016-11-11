@@ -29,13 +29,7 @@ class ProductPricetagWizard(models.TransientModel):
     _name = 'product.pricetag.wizard'
     _rec_name = 'offset'
 
-    # Fields Function Section
-    @api.model
-    def _domain_get(self):
-        return [
-            ('to_print', '=', True),
-            ('category_print_id', '=', self.category_print_id.id)]
-
+    # Constraint Section Section
     @api.model
     def check_unique_pricetag_categ(self, pricetag_categ):
         if len(pricetag_categ) == 0:
@@ -73,8 +67,14 @@ class ProductPricetagWizard(models.TransientModel):
         context = self.env.context
         res = []
         pp_obj = self.env['product.product']
+
+        # Initialize with all products to print of the current category
         if context.get("active_model", False) == 'product.category.print':
-            dom = self._domain_get()
+            dom = [
+                ('to_print', '=', True),
+                ('category_print_id', '=', context.get('active_id', False))
+            ]
+
             pp_ids = pp_obj.search(dom)
             for pp_id in pp_ids:
                 res.append((0, 0, {
@@ -83,6 +83,8 @@ class ProductPricetagWizard(models.TransientModel):
                     'print_unit_price': True,
                 }))
             return res
+
+        # Initialize with the current selected product
         if context.get("active_model", False) == 'product.product':
             product_ids = context.get("active_ids", [])
             if not product_ids:
@@ -107,7 +109,6 @@ class ProductPricetagWizard(models.TransientModel):
     line_ids = fields.One2many(
         'product.pricetag.wizard.line', 'wizard_id', 'Products',
         default=lambda s: s._get_line_ids())
-    # border = fields.Boolean('Add a border', default=False)
 
     @api.multi
     def check_report(self):

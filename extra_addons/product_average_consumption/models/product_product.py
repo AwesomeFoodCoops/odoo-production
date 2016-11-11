@@ -57,13 +57,16 @@ class ProductProduct(models.Model):
     # Private Function Section
     @api.model
     def _min_date(self, product_id):
-        query = """SELECT to_char(min(date), 'YYYY-MM-DD') \
-                from stock_move where product_id = %s""" % (product_id)
-        cr = self.env.cr
-        cr.execute(query)
-        results = cr.fetchall()
-        return results and results[0] and results[0][0] \
-            or time.strftime('%Y-%m-%d')
+        if product_id:
+            query = """SELECT to_char(min(date), 'YYYY-MM-DD') \
+                    from stock_move where product_id = %s""" % (product_id)
+            cr = self.env.cr
+            cr.execute(query)
+            results = cr.fetchall()
+            return results and results[0] and results[0][0] \
+                or time.strftime('%Y-%m-%d')
+        else:
+            return time.strftime('%Y-%m-%d')
 
     # Fields Function Section
     @api.depends(
