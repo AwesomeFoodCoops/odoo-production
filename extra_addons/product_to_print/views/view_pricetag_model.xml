@@ -40,6 +40,7 @@
                     <h1><field name="name" placeholder="Model Name"/></h1>
                 </div>
                 <group cols="4">
+                    <field name="active"/>
                     <field name="pricetag_paperformat_id"/>
                     <field name="report_model"/>
                 </group>

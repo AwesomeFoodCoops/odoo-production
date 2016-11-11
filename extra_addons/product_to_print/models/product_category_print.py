@@ -23,6 +23,8 @@ class ProductCategoryprint(models.Model):
     # Fields Section
     name = fields.Char(string='Name', required=True)
 
+    active = fields.Boolean(string='Active', default=True)
+
     company_id = fields.Many2one(
         string='Company', comodel_name='res.company', index=True,
         default=lambda self: self.env['res.company']._company_default_get())
@@ -44,7 +46,7 @@ class ProductCategoryprint(models.Model):
         multi='to_print', string='Products Quantity To Print')
 
     product_to_print_rate = fields.Float(
-        compute='_compute_to_print',
+        compute='_compute_to_print', digits=(4, 2),
         multi='to_print', string='Products Quantity To Print (%)')
 
     field_ids = fields.Many2many(
