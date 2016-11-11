@@ -23,20 +23,15 @@
 
 from openerp import fields, models
 
-PRICETAG_FIELDS = [
-    "name",
-    "list_price",
-    "price_volume",
-    "price_weight_net",
-    "volume",
-    "weight_net",
-]
-
 
 class PricetagModel(models.Model):
     _name = 'pricetag.model'
 
     name = fields.Char("Name", required=True)
+
+    active = fields.Boolean(string='Active', default=True)
+
     pricetag_paperformat_id = fields.Many2one(
         'report.paperformat', 'Paper Format', required=True)
+
     report_model = fields.Char("ID of the report template", required=True)

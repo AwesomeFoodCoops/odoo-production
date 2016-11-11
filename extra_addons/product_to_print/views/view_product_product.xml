@@ -72,8 +72,6 @@
         <field name="context">{'search_default_category_print_id': [active_id], 'search_category_print_id': active_id}</field>
     </record>
 
-    <delete model="ir.actions.report.xml" id="product.report_product_label"/>
-
     <record id="print_pricetags" model="ir.values">
         <field name="model_id" ref="product.model_product_product"/>
         <field name="name">Print Pricetags</field>
@@ -81,5 +79,5 @@
         <field name="key">action</field>
         <field name="model">product.product</field>
         <field name="value" eval="'ir.actions.act_window,' +str(ref('action_product_pricetag_wizard'))"/>
-    </record> -->
+    </record>
 </odoo>

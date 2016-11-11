@@ -44,6 +44,7 @@ class barcode_generate_mixin(models.AbstractModel):
             else:
                 item.barcode_base =\
                     item.barcode_rule_id.sequence_id.next_by_id()
+        return True
 
     @api.multi
     def generate_barcode(self):
@@ -56,6 +57,7 @@ class barcode_generate_mixin(models.AbstractModel):
                 barcode_class = barcode.get_barcode_class(
                     item.barcode_rule_id.encoding)
                 item.barcode = barcode_class(custom_code)
+        return True
 
     # Custom Section
     @api.model
