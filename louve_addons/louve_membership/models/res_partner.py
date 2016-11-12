@@ -8,13 +8,13 @@ from openerp import models, fields, api
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
     ('not_concerned', 'Not Concerned'),
+    ('unsubscribed', 'Unsubscribed'),
     ('up_to_date', 'Up to date'),
     ('alert', 'Alert'),
     ('suspended', 'Suspended'),
     ('delay', 'Delay'),
     ('blocked', 'Blocked'),
     ('unpayed', 'Unpayed'),
-    ('unsubscribed', 'Unsubscribed'),
 ]
 
 
@@ -22,15 +22,6 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     COOPERATIVE_STATE_CUSTOMER = ['up_to_date', 'alert', 'delay']
-
-    # Compute Section
-    @api.multi
-    @api.depends('fundraising_partner_type_ids')
-    def _compute_is_underclass_population(self):
-        xml_id = self.env.ref('louve_membership.underclass_population_type').id
-        for partner in self:
-            partner.is_underclass_population =\
-                xml_id in partner.fundraising_partner_type_ids.ids
 
     # New Column Section
     is_louve_member = fields.Boolean('Is Louve Member')
@@ -42,16 +33,8 @@ class ResPartner(models.Model):
 
     is_unsubscribed = fields.Boolean(
         string='Unsubscribed', help="Check this box, if the partner left the"
-        " the cooperative. this will prevent him to buy.",
+        " the cooperative. this will prevent him to buy.", store=True,
         compute="_compute_is_unsubscribed")
-
-    @api.multi
-    def _compute_is_unsubscribed(self):
-        for partner in self:
-            res = True
-            if (partner.tmpl_registration_count > 0):
-                res = False
-            partner.is_unsubscribed = res
 
     adult_number_home = fields.Integer('Number of Adult in the Home')
 
@@ -60,7 +43,8 @@ class ResPartner(models.Model):
     old_coop_number = fields.Char('Civi CRM Old Number')
 
     is_underclass_population = fields.Boolean(
-        'is Underclass Population', compute=_compute_is_underclass_population)
+        'is Underclass Population',
+        compute='_compute_is_underclass_population')
 
     contact_origin_id = fields.Many2one(
         comodel_name='res.contact.origin', string='Contact Origin')
@@ -69,11 +53,11 @@ class ResPartner(models.Model):
 
     is_type_A_capital_subscriptor = fields.Boolean(
         'Has a type A capital subscription', store=True,
-        compute="_compute_is_type_A_capital_subscriptor")
+        compute='_compute_is_type_A_capital_subscriptor')
 
     is_associated_people = fields.Boolean(
         string='Is Associated People', store=True,
-        compute="_compute_is_associated_people")
+        compute='_compute_is_associated_people')
 
     # Important : Overloaded Field Section
     customer = fields.Boolean(
@@ -85,6 +69,27 @@ class ResPartner(models.Model):
         selection=EXTRA_COOPERATIVE_STATE_SELECTION)
 
     # Compute Section
+    @api.multi
+    @api.depends(
+        'tmpl_reg_line_ids.date_begin', 'tmpl_reg_line_ids.date_end')
+    def _compute_is_unsubscribed(self):
+        for partner in self:
+            # Optimization. As this function will be call by cron
+            # every night, we do not realize a write, that would raise
+            # useless triger for state
+            if (partner.is_unsubscribed
+                    != (partner.active_tmpl_reg_line_count == 0)):
+                partner.is_unsubscribed =\
+                    partner.active_tmpl_reg_line_count == 0
+
+    @api.multi
+    @api.depends('fundraising_partner_type_ids')
+    def _compute_is_underclass_population(self):
+        xml_id = self.env.ref('louve_membership.underclass_population_type').id
+        for partner in self:
+            partner.is_underclass_population =\
+                xml_id in partner.fundraising_partner_type_ids.ids
+
     @api.multi
     @api.depends(
         'invoice_ids.fundraising_category_id.is_part_A',
@@ -154,6 +159,7 @@ class ResPartner(models.Model):
             self._generate_associated_barcode(partner)
         return res
 
+    # Custom Section
     @api.model
     def _generate_associated_barcode(self, partner):
         barcode_rule_obj = self.env['barcode.rule']
@@ -166,6 +172,12 @@ class ResPartner(models.Model):
                 partner.barcode_rule_id = barcode_rule_id.id
             partner.generate_base()
             partner.generate_barcode()
+
+    @api.model
+    def update_is_unsubscribed(self):
+        # Function Called by the CRON
+        partners = self.search([])
+        partners._compute_is_unsubscribed()
 
     # View section
     @api.multi

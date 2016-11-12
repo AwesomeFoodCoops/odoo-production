@@ -6,7 +6,7 @@
 
 {
     'name': 'Louve - Membership',
-    'version': '9.0.1.0.0',
+    'version': '9.0.2.0.0',
     'category': 'Custom',
     'summary': 'Custom settings for membership in La Louve',
     'author': 'La Louve',
@@ -31,6 +31,7 @@
         'views/menu.xml',
 
         # Custom Data
+        'data/ir_cron.xml',
         'data/capital_fundraising_partner_type.xml',
     ],
     'demo': [

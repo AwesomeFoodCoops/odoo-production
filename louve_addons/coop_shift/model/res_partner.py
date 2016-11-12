@@ -43,15 +43,19 @@ class ResPartner(models.Model):
         'shift.registration', "partner_id", 'Registrations')
     upcoming_registration_count = fields.Integer(
         "Number of registrations", compute="_compute_registration_counts")
+
     tmpl_reg_ids = fields.One2many(
         'shift.template.registration', "partner_id",
         'Template Registrations')
+
     tmpl_reg_line_ids = fields.One2many(
         'shift.template.registration.line', "partner_id",
         'Template Registration Lines')
+
     tmpl_registration_count = fields.Integer(
         "Number of Template registrations",
         compute="_compute_registration_counts")
+
     active_tmpl_reg_line_count = fields.Integer(
         "Number of active registration lines",
         compute="_compute_registration_counts")
