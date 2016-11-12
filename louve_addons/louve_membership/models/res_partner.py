@@ -42,7 +42,16 @@ class ResPartner(models.Model):
 
     is_unsubscribed = fields.Boolean(
         string='Unsubscribed', help="Check this box, if the partner left the"
-        " the cooperative. this will prevent him to buy.")
+        " the cooperative. this will prevent him to buy.",
+        compute="_compute_is_unsubscribed")
+
+    @api.multi
+    def _compute_is_unsubscribed(self):
+        for partner in self:
+            res = True
+            if (partner.tmpl_registration_count > 0):
+                res = False
+            partner.is_unsubscribed = res
 
     adult_number_home = fields.Integer('Number of Adult in the Home')
 
