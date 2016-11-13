@@ -15,7 +15,9 @@ class CapitalFundraisingWizard(models.TransientModel):
 
     # Column Section
     date_invoice = fields.Date(string='Invoice Date', required=True)
-        #default=fields.Date.context_today) uncoment this line when the membre registration will be done in real time
+    # TODO : uncoment this line when the membre registration will be done
+    # in real time
+    # default=fields.Date.context_today)
 
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Partner', required=True,
