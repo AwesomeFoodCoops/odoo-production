@@ -15,6 +15,7 @@
         <field name="model" eval="'res.partner'"/>
         <field name="function" eval="'update_working_state'"/>
         <field name="args" eval="'()'"/>
+        <field name="active" eval="False"/>
     </record>
 
 </odoo>
