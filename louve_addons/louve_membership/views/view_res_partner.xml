@@ -66,8 +66,7 @@
                     <group>
                         <group string="MemberShip">
                             <field name="barcode_base" string="Num. membre" readonly="1"/>
-                            <field name="is_louve_member" groups="louve_membership.louve_membership_manager"
-                                readonly="1"/>
+                            <field name="is_louve_member" groups="louve_membership.louve_membership_manager" string="Afficher via menu Membres"/>
                             <field name="is_type_A_capital_subscriptor" groups="louve_membership.louve_membership_manager"/>
                             <field name="is_associated_people" readonly="1" groups="louve_membership.louve_membership_manager"/>
                             <field name="is_unpayed"/>
