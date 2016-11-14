@@ -296,13 +296,11 @@ class ShiftTemplate(models.Model):
 
     @api.model
     def _default_shift_mail_ids(self):
-        return None
-        # we temporarily desactivate the default mail
-        # return [(0, 0, {
-        #     'interval_unit': 'now',
-        #     'interval_type': 'after_sub',
-        #     'template_id': self.env.ref('coop_shift.shift_subscription')
-        # })]
+        return [(0, 0, {
+            'interval_unit': 'now',
+            'interval_type': 'after_sub',
+            'template_id': self.env.ref('coop_shift.shift_subscription')
+        })]
 
     @api.model
     def _default_shift_type(self):
