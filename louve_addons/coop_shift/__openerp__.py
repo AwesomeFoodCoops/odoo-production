@@ -36,6 +36,7 @@
         'event',
         'event_sale',
         'mail',
+        'barcodes_generate',
     ],
     'data': [
         'data/coop_shift_data.xml',
