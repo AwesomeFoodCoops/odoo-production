@@ -5,10 +5,9 @@
 # @author: Julien WESTE
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api, _
+from openerp import models, fields, api
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from openerp.exceptions import UserError
 
 
 class ResPartner(models.Model):
@@ -176,7 +175,6 @@ class ResPartner(models.Model):
                 partner.date_alert_stop =\
                     datetime.today() + relativedelta(days=alert_duration)
                 partner.date_alert_stop = partner.date_alert_stop
-
 
     @api.depends(
         'is_blocked', 'is_unpayed', 'final_standard_point', 'final_ftop_point',
