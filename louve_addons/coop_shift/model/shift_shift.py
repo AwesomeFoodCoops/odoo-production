@@ -92,9 +92,11 @@ class ShiftShift(models.Model):
         string='Begin Date', compute='_compute_begin_date_fields', store=True,
         multi="begin_date")
     begin_time = fields.Float(
-        string='Start Time', compute='_compute_begin_time', store=True)
+        string='Start Time', compute='_compute_begin_date_fields', store=True,
+        multi="begin_date")
     end_time = fields.Float(
-        string='Start Time', compute='_compute_end_time', store=True)
+        string='Start Time', compute='_compute_end_date_fields', store=True,
+        multi="end_date")
     user_id = fields.Many2one(comodel_name='res.partner', default=False)
 
     _sql_constraints = [(
@@ -266,26 +268,21 @@ class ShiftShift(models.Model):
             shift.begin_date_string = datetime.strftime(
                 datetime.strptime(shift.date_begin, "%Y-%m-%d %H:%M:%S") +
                 timedelta(hours=2), "%d/%m/%Y %H:%M:%S")
+            shift.begin_time = self._convert_time_float(datetime.strptime(
+                shift.date_begin, "%Y-%m-%d %H:%M:%S").time())
+
+    @api.multi
+    @api.depends('date_end')
+    def _compute_end_date_fields(self):
+        for shift in self:
+            shift.end_time = self._convert_time_float(datetime.strptime(
+                shift.date_end, "%Y-%m-%d %H:%M:%S").time())
 
     @api.model
     def _convert_time_float(self, t):
         return (((
             float(t.microsecond) / 1000000) + float(t.second) / 60) + float(
             t.minute)) / 60 + t.hour
-
-    @api.multi
-    @api.depends('date_begin')
-    def _compute_begin_time(self):
-        for shift in self:
-            shift.begin_time = self._convert_time_float(datetime.strptime(
-                shift.date_begin, "%Y-%m-%d %H:%M:%S").time())
-
-    @api.multi
-    @api.depends('date_end')
-    def _compute_end_time(self):
-        for shift in self:
-            shift.end_time = self._convert_time_float(datetime.strptime(
-                shift.date_end, "%Y-%m-%d %H:%M:%S").time())
 
     @api.multi
     def button_confirm(self):
