@@ -103,6 +103,9 @@ class ShiftShift(models.Model):
     begin_time = fields.Float(
         string='Start Time', compute='_compute_begin_date_fields', store=True,
         multi="begin_date")
+    begin_time_for_mail = fields.Char(
+        string='Start Time', compute='_compute_begin_date_fields', store=True,
+        multi="begin_date")
     end_time = fields.Float(
         string='Start Time', compute='_compute_end_date_fields', store=True,
         multi="end_date")
@@ -284,6 +287,8 @@ class ShiftShift(models.Model):
                 fields.Datetime.from_string(shift.date_begin), "%d/%m/%Y")
             shift.begin_time = self._convert_time_float(datetime.strptime(
                 shift.date_begin, "%Y-%m-%d %H:%M:%S").time())
+            shift.begin_time_for_mail = datetime.strftime(
+                fields.Datetime.from_string(shift.date_begin), "%H:%M")
 
     @api.multi
     @api.depends('date_end')
