@@ -33,15 +33,15 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr style="font-size:9px;background:#DDDDDD">
-                            <th width="7%">Statut</th>
-                            <th width="7%">Services<br/>Dus</th>
+                            <th width="6%">Statut</th>
+                            <th width="6%">Services<br/>Dus</th>
                             <th width="8%">Qualité</th>
-                            <th width="10%">Numéro</th>
-                            <th width="18%">Nom</th>
-                            <th width="7%">Remplacé<br/>??</th>
-                            <th width="10%">Numéro</th>
-                            <th width="23%">Nom</th>
-                            <th width="10%">Signature<br/>départ</th>
+                            <th width="8%">Numéro</th>
+                            <th width="22%">Nom</th>
+                            <th width="6%">Remplacé<br/>??</th>
+                            <th width="8%">Numéro</th>
+                            <th width="28%">Nom</th>
+                            <th width="8%">Signature<br/>départ</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,7 +50,7 @@
                             <td></td>
                             <td></td>
                             <td style="padding: 4px"><span t-esc="registration['registration'].partner_id.barcode_base"/></td>
-                            <td style="padding: 4px"><span t-esc="registration['registration'].name"/></td>
+                            <td style="font-size:11px;padding: 4px"><span t-esc="registration['registration'].name"/></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -77,7 +77,7 @@
                             <td></td>
                             <td></td>
                             <td style="padding: 4px"><span t-esc="ftop.partner_id.barcode_base"/></td>
-                            <td style="padding: 1px"><span t-esc="ftop.name"/></td>
+                            <td style="font-size:11px;padding: 1px"><span t-esc="ftop.name"/></td>
                             <td></td>
                             <td></td>
                             <td></td>
