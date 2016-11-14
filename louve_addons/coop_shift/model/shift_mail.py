@@ -38,6 +38,6 @@ class ShiftMailScheduler(models.Model):
         'shift.mail.registration', 'scheduler_id')
     template_id = fields.Many2one(
         'mail.template', string='Email to Send', ondelete='restrict',
-        domain=[('model', '=', 'event.registration')], required=True,
+        domain=[('model', '=', 'shift.registration')], required=True,
         help="""This field contains the template of the mail that will be
         automatically sent""")
