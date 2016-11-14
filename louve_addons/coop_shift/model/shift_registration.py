@@ -150,3 +150,11 @@ class ShiftRegistration(models.Model):
                     preceding %s days. You can't program more.""") % (
                     len(regs), NUMBER_OF_DAYS_IN_PERIOD))
         return super(ShiftRegistration, self).create(vals)
+
+    @api.multi
+    def confirm_registration(self):
+        super(ShiftRegistration, self).confirm_registration()
+        for reg in self:
+            onsubscribe_schedulers = reg.shift_id.shift_mail_ids.filtered(
+                lambda s: s.interval_type == 'after_sub')
+            onsubscribe_schedulers.execute()
