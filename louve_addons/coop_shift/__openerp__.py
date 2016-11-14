@@ -26,8 +26,8 @@
     'version': '9.0.5.0.0',
     'category': 'Tools',
     'author':
-        'Julien WESTE, Sylvain LE GAL (https://twitter.com/legalsylvain),'
-        'Odoo Community Association (OCA)',
+    'Julien WESTE, Sylvain LE GAL (https://twitter.com/legalsylvain),'
+    'Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com/fr',
     'license': 'AGPL-3',
     'depends': [
