@@ -10,15 +10,9 @@
             <field name="subject">Your subscription at ${object.shift_id.name}</field>
             <field name="body_html"><![CDATA[<p>Hello ${object.name},</p>
 <p>
-    % if object.shift_id.shift_template_id:
-    As a member of team <bold>${object.shift_id.shift_template_id.name}</bold>, you
-    %else:
-    You
-    % endif
-    have been subscribded to the shift ${object.shift_id.name} of <bold>${object.shift_id.begin_date_without_time_for_mail}</bold>.<br/>
-    Begin: ${object.shift_id.begin_date_for_mail}<br/>
-    End: ${object.shift_id.end_date_for_mail}
-    </p>
+    We remind you that your next shift is scheduled for <bold>${object.shift_id.begin_date_without_time_for_mail}</bold> and will begin at ${object.shift_id.begin_time_for_mail}
+</p>
+<p>For more information, please contact the the Member Bureau or your shift leader.</p>
 <p>Thank you for your participation!</p>
 <p>Best regards</p>]]></field>
         </record>
