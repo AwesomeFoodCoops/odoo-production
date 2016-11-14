@@ -73,7 +73,7 @@
                             <field name="is_unsubscribed"/>
                         </group>
                         <group string="Extra Data">
-                            <field name="birthdate" widget="date"/>
+                            <field name="birthdate"/>
                             <field name="adult_number_home"/>
                             <field name="old_coop_number"/>
                             <field name="contact_origin_id"/>
