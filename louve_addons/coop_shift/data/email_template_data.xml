@@ -9,8 +9,16 @@
             <field name="reply_to">${object.shift_id.reply_to|safe}</field>
             <field name="subject">Your subscription at ${object.shift_id.name}</field>
             <field name="body_html"><![CDATA[<p>Hello ${object.name},</p>
-<p>You have been subscribded to the shift ${object.shift_id.name}.
-Please confirm as soon as possible that you intend to participate to this shift.</p>
+<p>
+    % if object.shift_id.shift_template_id:
+    As a member of team <bold>${object.shift_id.shift_template_id.name}</bold>, you
+    %else:
+    You
+    % endif
+    have been subscribded to the shift ${object.shift_id.name} of <bold>${object.shift_id.begin_date_without_time_for_mail}</bold>.<br/>
+    Begin: ${object.shift_id.begin_date_for_mail}<br/>
+    End: ${object.shift_id.end_date_for_mail}
+    </p>
 <p>Thank you for your participation!</p>
 <p>Best regards</p>]]></field>
         </record>
