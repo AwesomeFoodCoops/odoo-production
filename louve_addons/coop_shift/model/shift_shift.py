@@ -309,8 +309,7 @@ class ShiftShift(models.Model):
     def confirm_registrations(self):
         for shift in self:
             for ticket in shift.shift_ticket_ids:
-                ticket.registration_ids.write(
-                    {'state': 'open'})
+                ticket.registration_ids.confirm_registration()
 
     @api.model
     def run_shift_confirmation(self):
@@ -320,5 +319,4 @@ class ShiftShift(models.Model):
         shifts = self.env['shift.shift'].search([
             ('state', '=', 'draft'),
             ('date_begin', '<=', compare_date)])
-        shifts.confirm_registrations()
-        shifts.write({'state': 'confirm'})
+        shifts.button_confirm()
