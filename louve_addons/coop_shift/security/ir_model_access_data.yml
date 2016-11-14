@@ -193,3 +193,12 @@
     perm_read: true
     perm_write: true
     perm_unlink: true
+-
+  !record {model: ir.model.access, id: ir_model_access_event_mail_registration}:
+    group_id: coop_shift.group_event_without_menu
+    model_id: event.model_event_mail_registration
+    name: event.mail.registration access
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true

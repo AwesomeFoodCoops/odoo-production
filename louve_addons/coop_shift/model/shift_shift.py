@@ -46,13 +46,11 @@ class ShiftShift(models.Model):
 
     @api.model
     def _default_shift_mail_ids(self):
-        return None
-        # we temporarily desactivate the default mail
-        # return [(0, 0, {
-        #     'interval_unit': 'now',
-        #     'interval_type': 'after_sub',
-        #     'template_id': self.env.ref('coop_shift.shift_subscription')
-        # })]
+        return [(0, 0, {
+            'interval_unit': 'now',
+            'interval_type': 'after_sub',
+            'template_id': self.env.ref('coop_shift.shift_subscription')
+        })]
 
     name = fields.Char(string="Shift Name")
     event_mail_ids = fields.One2many(default=None)
@@ -93,10 +91,24 @@ class ShiftShift(models.Model):
     begin_date_string = fields.Char(
         string='Begin Date', compute='_compute_begin_date_fields', store=True,
         multi="begin_date")
+    begin_date_for_mail = fields.Char(
+        string='Begin Date for mail', compute='_compute_begin_date_fields',
+        store=True, multi="begin_date")
+    end_date_for_mail = fields.Char(
+        string='End Date for mail', compute='_compute_end_date_fields',
+        store=True, multi="end_date")
+    begin_date_without_time_for_mail = fields.Char(
+        string='Begin Date for mail without time', multi="begin_date",
+        compute='_compute_begin_date_fields', store=True)
     begin_time = fields.Float(
-        string='Start Time', compute='_compute_begin_time', store=True)
+        string='Start Time', compute='_compute_begin_date_fields', store=True,
+        multi="begin_date")
+    begin_time_for_mail = fields.Char(
+        string='Start Time', compute='_compute_begin_date_fields', store=True,
+        multi="begin_date")
     end_time = fields.Float(
-        string='Start Time', compute='_compute_end_time', store=True)
+        string='Start Time', compute='_compute_end_date_fields', store=True,
+        multi="end_date")
     user_id = fields.Many2one(comodel_name='res.partner', default=False)
 
     _sql_constraints = [(
@@ -268,6 +280,24 @@ class ShiftShift(models.Model):
             shift.begin_date_string = datetime.strftime(
                 datetime.strptime(shift.date_begin, "%Y-%m-%d %H:%M:%S") +
                 timedelta(hours=2), "%d/%m/%Y %H:%M:%S")
+            shift.begin_date_for_mail = datetime.strftime(
+                fields.Datetime.from_string(shift.date_begin),
+                "%d/%m/%Y %H:%M")
+            shift.begin_date_without_time_for_mail = datetime.strftime(
+                fields.Datetime.from_string(shift.date_begin), "%d/%m/%Y")
+            shift.begin_time = self._convert_time_float(datetime.strptime(
+                shift.date_begin, "%Y-%m-%d %H:%M:%S").time())
+            shift.begin_time_for_mail = datetime.strftime(
+                fields.Datetime.from_string(shift.date_begin), "%H:%M")
+
+    @api.multi
+    @api.depends('date_end')
+    def _compute_end_date_fields(self):
+        for shift in self:
+            shift.end_time = self._convert_time_float(datetime.strptime(
+                shift.date_end, "%Y-%m-%d %H:%M:%S").time())
+            shift.end_date_for_mail = datetime.strftime(
+                fields.Datetime.from_string(shift.date_end), "%d/%m/%Y %H:%M")
 
     @api.model
     def _convert_time_float(self, t):
@@ -276,25 +306,15 @@ class ShiftShift(models.Model):
             t.minute)) / 60 + t.hour
 
     @api.multi
-    @api.depends('date_begin')
-    def _compute_begin_time(self):
-        for shift in self:
-            shift.begin_time = self._convert_time_float(datetime.strptime(
-                shift.date_begin, "%Y-%m-%d %H:%M:%S").time())
-
-    @api.multi
-    @api.depends('date_end')
-    def _compute_end_time(self):
-        for shift in self:
-            shift.end_time = self._convert_time_float(datetime.strptime(
-                shift.date_end, "%Y-%m-%d %H:%M:%S").time())
+    def button_confirm(self):
+        super(ShiftShift, self).button_confirm()
+        self.confirm_registrations()
 
     @api.multi
     def confirm_registrations(self):
         for shift in self:
             for ticket in shift.shift_ticket_ids:
-                ticket.registration_ids.write(
-                    {'state': 'open'})
+                ticket.registration_ids.confirm_registration()
 
     @api.model
     def run_shift_confirmation(self):
@@ -304,5 +324,4 @@ class ShiftShift(models.Model):
         shifts = self.env['shift.shift'].search([
             ('state', '=', 'draft'),
             ('date_begin', '<=', compare_date)])
-        shifts.confirm_registrations()
-        shifts.write({'state': 'confirm'})
+        shifts.button_confirm()

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-24 15:41+0000\n"
-"PO-Revision-Date: 2016-10-24 15:41+0000\n"
+"POT-Creation-Date: 2016-11-14 16:45+0000\n"
+"PO-Revision-Date: 2016-11-14 16:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,13 @@ msgid " Check this box if this product is a type A capital subscription."
 msgstr " Cochez cette case si ce produit correspond à une part A de capital."
 
 #. module: coop_shift
+#: model:ir.model.fields,help:coop_shift.field_product_product_is_capital_fundraising
+msgid " Check this box if you want to use this product for capital fundraising.\n"
+" If yes, please check accounting and fiscal settings."
+msgstr " Cochez cette case si vous voulez utiliser le produit pour des levées de fonds.\n"
+" Dans ce cas, veuillez paramétrer le produit comptablement et fiscalement."
+
+#. module: coop_shift
 #: code:addons/coop_shift/wizard/create_shifts_wizard.py:79
 #, python-format
 msgid "'From date' can't be before 'Last shift date'"
@@ -37,12 +44,7 @@ msgstr "Attention ! Veuillez vérifier les dates renseignées."
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
 msgid "**-FTOP Workers Below-**"
-msgstr "**-Membres volants-**"
-
-#. module: coop_shift
-#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "<br/><font size=\"15\">(Regular or Sub)</font>"
-msgstr "<br/><font size=\"15\">(ABCD ou volants)</font>"
+msgstr "**-VACATIONS-**"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_kanban
@@ -57,6 +59,23 @@ msgid "<i class=\"fa fa-clock-o\"/>\n"
 "                                        <b>To</b>"
 msgstr "<i class=\"fa fa-clock-o\"/>\n"
 "<b>À</b>"
+
+#. module: coop_shift
+#: model:mail.template,body_html:coop_shift.shift_subscription
+msgid "<p>Hello ${object.name},</p>\n"
+"<p>\n"
+"    We remind you that your next shift is scheduled for <bold>${object.shift_id.begin_date_without_time_for_mail}</bold> and will begin at ${object.shift_id.begin_time_for_mail}\n"
+"</p>\n"
+"<p>For more information, please contact the the Member Bureau or your shift leader.</p>\n"
+"<p>Thank you for your participation!</p>\n"
+"<p>Best regards</p>"
+msgstr "<p>Hello ${object.name},</p>\n"
+"<p>\n"
+"    Nous vous rappelons que votre prochain service aura lieu le <bold>${object.shift_id.begin_date_without_time_for_mail}</bold> à partir de ${object.shift_id.begin_time_for_mail}\n"
+"</p>\n"
+"<p>Pour plus d'informations, vous pouvez contacter le bureau des membres ou votre coordinateur(trice) d'équipe.</p>\n"
+"<p>Merci de votre participation!</p>\n"
+"<p>L'équipe La Louve</p>"
 
 #. module: coop_shift
 #: model:mail.template,body_html:coop_shift.shift_reminder
@@ -91,34 +110,6 @@ msgstr "<p>Bonjour ${object.name},</p>\n"
 "        <strong>${object.shift_id.organizer_id.name}</strong>\n"
 "    % endif\n"
 "</p>"
-
-#. module: coop_shift
-#: model:mail.template,body_html:coop_shift.shift_subscription
-msgid "<p>Hello ${object.name},</p>\n"
-"<p>You have been subscribded to the shift ${object.shift_id.name}.\n"
-"Please confirm as soon as possible that you intend to participate to this shift.</p>\n"
-"<p>Thank you for your participation!</p>\n"
-"<p>Best regards</p>"
-msgstr "<p>Bonjour ${object.name},</p>\n"
-"<p>Votre inscription au shift ${object.shift_id.name} a été enregistrée.\n"
-"Veuillez prévenir votre responsable d'équipe si vous ne pouvez être présent.</p>\n"
-"<p>Merci de votre participation !</p>\n"
-"<p>L'équipe La Louve</p>"
-
-#. module: coop_shift
-#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "<small><small>Squad leader <br/>use only </small></small>"
-msgstr "<small><small>Réservé</small></small>"
-
-#. module: coop_shift
-#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "<small><small>Squad leader use only</small></small>"
-msgstr "<small><small>Réservé</small></small>"
-
-#. module: coop_shift
-#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "<small>Nb of<br/>MakeUps<br/>if absent</small>"
-msgstr "<small>Rattrapages</small>"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
@@ -196,8 +187,8 @@ msgstr "Après le service"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "All members who owe time for more than four weeks will be suspended, unless an extension is recorded in the Squad Leader Notes Section Below."
-msgstr "Les coopérateurs qui ne sont pas à jour de leurs services pendant plus de quatre semaines seront suspendus. Une extension peut toutefois être demandée par le responsable d'équipe dans la section réservée ci-dessous."
+msgid "Squad leaders, please notify here: any extension request, any case of single make-up attribution, any other information useful to the Member Bureau."
+msgstr "Coordinateurs, notez ci-dessous : Toute demande d’extension, tout cas d’attribution d’un seul rattrapage, toute autre info utile pour le Bureau des membres."
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_search
@@ -313,6 +304,16 @@ msgid "Begin Date"
 msgstr "Date de début"
 
 #. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_begin_date_for_mail
+msgid "Begin Date for mail"
+msgstr "Begin Date for mail"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_begin_date_without_time_for_mail
+msgid "Begin Date for mail without time"
+msgstr "Begin Date for mail without time"
+
+#. module: coop_shift
 #: code:addons/coop_shift/model/shift_template_registration.py:148
 #, python-format
 msgid "Begin date is greater than End date: \n"
@@ -387,11 +388,6 @@ msgstr "Cliquer pour créer un service."
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "Commitee/Squad:"
-msgstr "Equipe:"
-
-#. module: coop_shift
-#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
 msgid "Committee"
 msgstr "Groupe"
 
@@ -402,6 +398,11 @@ msgstr "Groupe"
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_company_id
 msgid "Company"
 msgstr "Société"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_product_product_is_capital_fundraising
+msgid "Concerns Capital Fundraising"
+msgstr "utilisé pour les levées de fonds"
 
 #. module: coop_shift
 #: model:ir.ui.menu,name:coop_shift.menu_shift_configuration
@@ -552,7 +553,12 @@ msgstr "Jour dans le mois"
 #: model:ir.model.fields,help:coop_shift.field_shift_shift_message_last_post
 #: model:ir.model.fields,help:coop_shift.field_shift_template_registration_message_last_post
 msgid "Date of the last message posted on the record."
-msgstr "Date du dernier message posté sur cet enregistrement"
+msgstr "Date du dernier message publié sur cet enregistrement"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Date:"
+msgstr "Date:"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
@@ -637,7 +643,7 @@ msgstr "Determine if a product needs to create\n"
 #: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_display_name
 #: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_display_name
 msgid "Display Name"
-msgstr "Nom"
+msgstr "Nom affiché"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_mail_sequence
@@ -695,6 +701,11 @@ msgid "End Date Located"
 msgstr "Date de fin"
 
 #. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_end_date_for_mail
+msgid "End Date for mail"
+msgstr "End Date for mail"
+
+#. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_end_time
 msgid "End Time"
 msgstr "Heure de fin"
@@ -703,11 +714,6 @@ msgstr "Heure de fin"
 #: selection:shift.template,end_type:0
 msgid "End date"
 msgstr "Date de fin"
-
-#. module: coop_shift
-#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "End<br/>signature"
-msgstr "Signature<br/>fin"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_mail_event_id
@@ -743,7 +749,7 @@ msgid "Event Ticket"
 msgstr "Types de places"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:409
+#: code:addons/coop_shift/model/shift_template.py:407
 #, python-format
 msgid "Event recurrence interval cannot be negative."
 msgstr "L'intervale ne peut être négatif."
@@ -768,7 +774,7 @@ msgid "Expected attendees"
 msgstr "Nombre de participants attendus"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_shift.py:161
+#: code:addons/coop_shift/model/shift_shift.py:173
 #: code:addons/coop_shift/model/shift_template.py:182
 #: selection:shift.template.ticket,shift_type:0
 #: selection:shift.ticket,shift_type:0
@@ -836,7 +842,7 @@ msgstr "Abonnés (Partenaires)"
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
 msgid "For MAKE-UPS Only (Subs Use Page 1)"
-msgstr "Uniquement les rattrapages"
+msgstr "RATTRAPAGES"
 
 #. module: coop_shift
 #: model:ir.model.fields,help:coop_shift.field_shift_shift_seats_max
@@ -955,7 +961,7 @@ msgstr "ID"
 #: model:ir.model.fields,help:coop_shift.field_shift_shift_message_unread
 #: model:ir.model.fields,help:coop_shift.field_shift_template_registration_message_unread
 msgid "If checked new messages require your attention."
-msgstr "Si coché, de nouveaux messages requièrent votre attention."
+msgstr "Si coché, de nouveaux messages demandent votre attention."
 
 #. module: coop_shift
 #: model:ir.model.fields,help:coop_shift.field_shift_registration_message_needaction
@@ -1046,7 +1052,7 @@ msgstr "Dernier"
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_last_post
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_last_post
 msgid "Last Message Date"
-msgstr "Dernier message"
+msgstr "Date du dernier message"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard___last_update
@@ -1160,7 +1166,7 @@ msgstr "Lieu"
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
 msgid "MEMBERS WORKING"
-msgstr "Coopérateurs travailleurs"
+msgstr "Membre Présent"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_event_mail_ids
@@ -1236,13 +1242,8 @@ msgstr "Membre travailleur"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "Member to Receive Make-Up Credit"
-msgstr "Membre à créditer"
-
-#. module: coop_shift
-#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "Member<br/>Number"
-msgstr "N° membre"
+msgid "Member Receiving Credit"
+msgstr "Membre Crédité"
 
 #. module: coop_shift
 #: model:ir.actions.act_window,name:coop_shift.action_shift_members
@@ -1253,7 +1254,7 @@ msgstr "Membres"
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
 msgid "Members Working"
-msgstr "Membres travailleurs"
+msgstr "Membre Présent"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_ids
@@ -1312,6 +1313,7 @@ msgstr "My places"
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_name
 #: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_name
 #: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_name
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
 msgid "Name"
 msgstr "Nom"
 
@@ -1333,18 +1335,23 @@ msgid "No more available seats for this ticket"
 msgstr "Aucune place restante de ce type"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_shift.py:174
+#: code:addons/coop_shift/model/shift_shift.py:186
 #: code:addons/coop_shift/model/shift_template.py:230
 #, python-format
 msgid "No more available seats."
 msgstr "Aucune place restante"
 
 #. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Number"
+msgstr "Numéro"
+
+#. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_registration_message_needaction_counter
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_message_needaction_counter
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_message_needaction_counter
 msgid "Number of Actions"
-msgstr "Nombre d'actions"
+msgstr "Nombre d'Actions"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_seats_expected
@@ -1463,7 +1470,7 @@ msgid "Please be as Specific as possible when noting corrections, extensions, et
 msgstr "Veillez à donner toutes les précisions sur les corrections, les extensions, etc. Veuillez renseigner : la date du problème, sa description et les modifications à apporter. Les notes doivent être signées pour être valables."
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:425
+#: code:addons/coop_shift/model/shift_template.py:423
 #, python-format
 msgid "Please select a proper day of the month."
 msgstr "Le jour est invalide."
@@ -1486,11 +1493,6 @@ msgid "Print"
 msgstr "Imprimer"
 
 #. module: coop_shift
-#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "Prior<br/>Shifts<br/>Due"
-msgstr "Rattrapages<br/>dûs<br/>"
-
-#. module: coop_shift
 #: model:ir.model,name:coop_shift.model_product_product
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_product_id
 #: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_product_id
@@ -1501,6 +1503,11 @@ msgstr "Article"
 #: model:ir.model,name:coop_shift.model_product_template
 msgid "Product Template"
 msgstr "Modèle d'article"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Quality"
+msgstr "Qualité"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
@@ -1623,16 +1630,12 @@ msgid "Registration mail"
 msgstr "Courriel d'inscription"
 
 #. module: coop_shift
-#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_registration_ids
-#: model:ir.ui.view,arch_db:coop_shift.view_shift_form
-msgid "Registrations"
-msgstr "Présences"
-
-#. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_res_partner_registration_ids
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_shift_registration_ids
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_registration_ids
+#: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_registration_ids
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_form
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
 msgid "Registrations"
 msgstr "Inscriptions"
 
@@ -1707,6 +1710,11 @@ msgid "Replaced Registration"
 msgstr "Remplacé"
 
 #. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Replaced??"
+msgstr "Remplacé??"
+
+#. module: coop_shift
 #: selection:add.template.registration.wizard,state:0
 #: selection:shift.registration,state:0
 #: selection:shift.template.registration.line,state:0
@@ -1767,7 +1775,7 @@ msgstr "Responsable"
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
 msgid "SCHEDULED MEMBERS"
-msgstr "Services programmés"
+msgstr "Membre Programmé"
 
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_template.py:245
@@ -2018,6 +2026,16 @@ msgid "Shifts in New state"
 msgstr "Nouveaux services"
 
 #. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Shifts<br/>Due"
+msgstr "Services<br/>dus"
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Signature"
+msgstr "Signature<br/>Départ"
+
+#. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_registration_origin
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_origin
 msgid "Source Document"
@@ -2040,7 +2058,12 @@ msgid "Squad Leader Use Only"
 msgstr "Réservé"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_shift.py:156
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
+msgid "Squad:"
+msgstr "Équipe:"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_shift.py:168
 #: code:addons/coop_shift/model/shift_template.py:177
 #: selection:shift.template.ticket,shift_type:0
 #: selection:shift.ticket,shift_type:0
@@ -2084,6 +2107,7 @@ msgstr "Mois de début"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_begin_time
+#: model:ir.model.fields,field_description:coop_shift.field_shift_shift_begin_time_for_mail
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_end_time
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_start_time
 msgid "Start Time"
@@ -2093,11 +2117,6 @@ msgstr "Heure"
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
 msgid "Start<br/>Time"
 msgstr "Heure<br/>de début"
-
-#. module: coop_shift
-#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "Start<br/>signature"
-msgstr "Signature<br/>début"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard_state
@@ -2110,6 +2129,7 @@ msgstr "État"
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_state
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_state
 #: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line_state
+#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
 #: model:ir.ui.view,arch_db:coop_shift.view_registration_search
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_search
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_line_search
@@ -2651,17 +2671,12 @@ msgid "Wizard Reference"
 msgstr "Référence"
 
 #. module: coop_shift
-#: model:ir.ui.view,arch_db:coop_shift.report_timesheet
-msgid "Work<br/>Status"
-msgstr "Statut"
-
-#. module: coop_shift
 #: selection:shift.template,rrule_type:0
 msgid "Year(s)"
 msgstr "Année(s)"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_shift.py:224
+#: code:addons/coop_shift/model/shift_shift.py:236
 #, python-format
 msgid "You can only repercute changes on draft shifts."
 msgstr "Vous ne pouvez pas modifier des shifts qui ont été confirmés."
@@ -2705,7 +2720,7 @@ msgid "discarding the changes"
 msgstr "Annuler les modifications"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template.py:407
+#: code:addons/coop_shift/model/shift_template.py:405
 #, python-format
 msgid "interval cannot be negative."
 msgstr "L'intervalle ne peut être négatif."
