@@ -288,6 +288,11 @@ class ShiftShift(models.Model):
                 shift.date_end, "%Y-%m-%d %H:%M:%S").time())
 
     @api.multi
+    def button_confirm(self):
+        super(ShiftShift, self).button_confirm()
+        self.confirm_registrations()
+
+    @api.multi
     def confirm_registrations(self):
         for shift in self:
             for ticket in shift.shift_ticket_ids:
