@@ -81,7 +81,7 @@
                                 <field name="shift_mail_ids">
                                     <tree string="Email Schedule" editable="bottom">
                                         <field name="sequence" widget="handle"/>
-                                        <field name="template_id" />
+                                        <field name="template_id"/>
                                         <field name="interval_nbr" attrs="{'readonly':[('interval_unit','=','now')]}"/>
                                         <field name="interval_unit"/>
                                         <field name="interval_type"/>
