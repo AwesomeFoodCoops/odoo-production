@@ -94,7 +94,8 @@ class ShiftTemplateRegistrationLine(models.Model):
             vals['registration_id'] = st_reg_id
         if not st_reg_id:
             st_reg_id = self.env['shift.template.registration'].with_context({
-                'no_default_line': True}).create({
+                'no_default_line': True}).create(
+                {
                     'shift_template_id': shift_template_id,
                     'partner_id': partner_id,
                     'shift_ticket_id': vals.get('shift_ticket_id', False),

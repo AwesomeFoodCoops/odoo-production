@@ -77,8 +77,8 @@ class ResPartner(models.Model):
             # Optimization. As this function will be call by cron
             # every night, we do not realize a write, that would raise
             # useless triger for state
-            if (partner.is_unsubscribed
-                    != (partner.active_tmpl_reg_line_count == 0)):
+            if (partner.is_unsubscribed !=
+                    (partner.active_tmpl_reg_line_count == 0)):
                 partner.is_unsubscribed =\
                     partner.active_tmpl_reg_line_count == 0
 

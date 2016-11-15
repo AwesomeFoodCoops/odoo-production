@@ -2,7 +2,7 @@
 <odoo>
     <!-- QWeb Reports -->
     <record id="coop_shift.timesheet" model="ir.actions.report.xml">
-        <field name="paperformat_id" ref="report.paperformat_euro"/>
+        <field name="paperformat_id" ref="event.paperformat_euro_lowmargin"/>
         <field name="attachment_use" eval="0"/>
     </record>
 

@@ -104,8 +104,8 @@ class ReportWallchartFTOP(models.AbstractModel):
             result = []
             for t in self.env.cr.fetchall():
                 res = {}
-                res['start_time'] = self.format_float_time(t[0] + 2)
-                res['end_time'] = self.format_float_time(t[1] + 2)
+                res['start_time'] = self.format_float_time(t[0])
+                res['end_time'] = self.format_float_time(t[1])
                 base_search = [
                     ('begin_time', '>=', t[0] - rounding_limit),
                     ('begin_time', '<=', t[0] + rounding_limit),
