@@ -38,7 +38,7 @@
                             <th width="8%">Qualité</th>
                             <th width="8%">Numéro</th>
                             <th width="22%">Nom</th>
-                            <th width="6%">Remplacé<br/>??</th>
+                            <th width="6%" style="text-align:center">Remplacé<br/>??</th>
                             <th width="8%">Numéro</th>
                             <th width="28%">Nom</th>
                             <th width="8%">Signature<br/>départ</th>
@@ -56,7 +56,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        <t t-set="nb_lines" t-value="(((shift['registration_number']+shift['ftop_number'])*3/2)//35+1)*35"/>
+                        <t t-set="nb_lines" t-value="(((shift['registration_number']+shift['ftop_number'])*3/2)//33+1)*33"/>
                         <t t-set="nb_free_lines" t-value="nb_lines-shift['registration_number']-shift['ftop_number']-1"/>
                         <tr t-foreach="int(nb_free_lines*2/3)" t-as="i" style="font-size:13px">
                             <td style="padding: 4px"><font color="white">_</font></td>
@@ -122,8 +122,8 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th style="text-align:center" width="58.33%">Membre Crédité</th>
-                            <th style="text-align:center" width="41.67%">Membre Présent</th>
+                            <th style="text-align:center" width="65.33%">Membre Crédité</th>
+                            <th style="text-align:center" width="34.67%">Membre Présent</th>
                         </tr>
                     </thead>
                 </table>
@@ -136,7 +136,7 @@
                             <th width="7.7%">Jour</th>
                             <th width="7.7%">ABCD</th>
                             <th width="7.7%">Heure</th>
-                            <th width="7%">Remplacé<br/>??</th>
+                            <th width="7%" style="text-align:center">Remplacé<br/>??</th>
                             <th width="7%">Numéro</th>
                             <th width="20.67%">Nom</th>
                             <th width="7%">Signature<br/>départ</th>
