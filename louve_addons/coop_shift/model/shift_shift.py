@@ -21,6 +21,7 @@
 #
 ##############################################################################
 
+import pytz
 from openerp import models, fields, api, _
 from openerp.exceptions import UserError
 from datetime import datetime, timedelta
@@ -99,15 +100,18 @@ class ShiftShift(models.Model):
         store=True, multi="end_date")
     begin_date_without_time_for_mail = fields.Char(
         string='Begin Date for mail without time', multi="begin_date",
-        compute='_compute_begin_date_fields', store=True)
+        compute='_compute_begin_date_fields')
     begin_time = fields.Float(
         string='Start Time', compute='_compute_begin_date_fields', store=True,
         multi="begin_date")
     begin_time_for_mail = fields.Char(
-        string='Start Time', compute='_compute_begin_date_fields', store=True,
+        string='Start Time', compute='_compute_begin_date_fields',
         multi="begin_date")
     end_time = fields.Float(
         string='Start Time', compute='_compute_end_date_fields', store=True,
+        multi="end_date")
+    end_time_for_mail = fields.Char(
+        string='End Time', compute='_compute_end_date_fields',
         multi="end_date")
     user_id = fields.Many2one(comodel_name='res.partner', default=False)
 
@@ -274,36 +278,61 @@ class ShiftShift(models.Model):
     @api.multi
     @api.depends('date_begin')
     def _compute_begin_date_fields(self):
+        tz_name = self._context.get('tz') or self.env.user.tz
+        if not tz_name:
+            raise UserError(_(
+                "You can not create Shift if your timezone is not defined."))
         for shift in self:
             shift.date_without_time = datetime.strftime(datetime.strptime(
                 shift.date_begin, "%Y-%m-%d %H:%M:%S"), "%Y-%m-%d")
-            shift.begin_date_string = datetime.strftime(
-                datetime.strptime(shift.date_begin, "%Y-%m-%d %H:%M:%S") +
-                timedelta(hours=2), "%d/%m/%Y %H:%M:%S")
             shift.begin_date_for_mail = datetime.strftime(
                 fields.Datetime.from_string(shift.date_begin),
                 "%d/%m/%Y %H:%M")
             shift.begin_date_without_time_for_mail = datetime.strftime(
                 fields.Datetime.from_string(shift.date_begin), "%d/%m/%Y")
-            shift.begin_time = self._convert_time_float(datetime.strptime(
-                shift.date_begin, "%Y-%m-%d %H:%M:%S").time())
             shift.begin_time_for_mail = datetime.strftime(
                 fields.Datetime.from_string(shift.date_begin), "%H:%M")
+            if shift.date_begin:
+                start_date_object = datetime.strptime(
+                    shift.date_begin, '%Y-%m-%d %H:%M:%S')
+                utc_timestamp = pytz.utc.localize(
+                    start_date_object, is_dst=False)
+                context_tz = pytz.timezone(tz_name)
+                start_date_object_tz = utc_timestamp.astimezone(context_tz)
+                shift.begin_time = (
+                    start_date_object_tz.hour +
+                    (start_date_object_tz.minute / 60.0))
+                shift.begin_date_string = "%02d/%02d/%s %02d:%02d" % (
+                    start_date_object_tz.day,
+                    start_date_object_tz.month,
+                    start_date_object_tz.year,
+                    start_date_object_tz.hour,
+                    start_date_object_tz.minute,
+                )
 
     @api.multi
     @api.depends('date_end')
     def _compute_end_date_fields(self):
+        tz_name = self._context.get('tz') or self.env.user.tz
+        if not tz_name:
+            raise UserError(_(
+                "You can not create Shift if your timezone is not defined."))
         for shift in self:
-            shift.end_time = self._convert_time_float(datetime.strptime(
-                shift.date_end, "%Y-%m-%d %H:%M:%S").time())
             shift.end_date_for_mail = datetime.strftime(
                 fields.Datetime.from_string(shift.date_end), "%d/%m/%Y %H:%M")
+            shift.end_time_for_mail = datetime.strftime(
+                fields.Datetime.from_string(shift.date_end), "%H:%M")
 
-    @api.model
-    def _convert_time_float(self, t):
-        return (((
-            float(t.microsecond) / 1000000) + float(t.second) / 60) + float(
-            t.minute)) / 60 + t.hour
+            if shift.date_end:
+                start_date_object = datetime.strptime(
+                    shift.date_end, '%Y-%m-%d %H:%M:%S')
+                utc_timestamp = pytz.utc.localize(
+                    start_date_object, is_dst=False)
+                context_tz = pytz.timezone(tz_name)
+                start_date_object_tz = utc_timestamp.astimezone(context_tz)
+                shift.end_time = (
+                    start_date_object_tz.hour +
+                    (start_date_object_tz.minute / 60.0))
 
     @api.multi
     def button_confirm(self):
