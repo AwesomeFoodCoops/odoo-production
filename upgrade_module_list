@@ -6,4 +6,4 @@
 # 16/11/2016 at 23:43
 #louve_membership,purchase_compute_order,coop_shift,coop_shift_state
 # next
-export MODULE_LIST_TO_UPGRADE="louve_membership"
+export MODULE_LIST_TO_UPGRADE="louve_membership,purchase_compute_order,coop_shift,coop_shift_state"
