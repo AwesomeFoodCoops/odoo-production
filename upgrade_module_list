@@ -3,5 +3,6 @@
 ######################
 # 14/11/2016 at 15:04
 #product,product_to_print,coop_shift,louve_custom_product,louve_membership,louve_product_coefficient,barcodes_generate,product_average_consumption,capital_subscription
+# 16/11/2016 at 23:43
+#louve_membership,purchase_compute_order,coop_shift,coop_shift_state
 # next
-louve_membership,purchase_compute_order,coop_shift,coop_shift_state
