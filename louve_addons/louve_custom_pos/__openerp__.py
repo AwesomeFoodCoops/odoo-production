@@ -16,6 +16,7 @@
     ],
     'data': [
         'static/src/xml/templates.xml',
+        'views/view_pos_order.xml',
     ],
     'installable': True,
 }
