@@ -41,14 +41,25 @@ class CapitalFundraisingWizard(models.TransientModel):
         barcode_rule_obj = self.env['barcode.rule']
         res = super(CapitalFundraisingWizard, self).button_confirm()
         wizard = self[0]
-        if (wizard.category_id.is_part_A and
-                not wizard.partner_id.barcode_rule_id and
-                not wizard.partner_id.barcode_base):
-            # Add the barcode rule
-            barcode_rule_id = barcode_rule_obj.search(
-                [('for_type_A_capital_subscriptor', '=', True)], limit=1)
-            if barcode_rule_id:
-                wizard.partner_id.barcode_rule_id = barcode_rule_id.id
-                wizard.partner_id.generate_base()
-                wizard.partner_id.generate_barcode()
+        member_barcode_rule_id = barcode_rule_obj.search(
+            [('for_type_A_capital_subscriptor', '=', True)], limit=1)
+        associated_barcode_rule_id = barcode_rule_obj.search(
+            [('for_associated_people', '=', True)], limit=1)
+        if wizard.category_id.is_part_A:
+            if wizard.partner_id.barcode_rule_id\
+                    == associated_barcode_rule_id:
+                # Associated people become member
+                # We remove current associated barcode rule
+                wizard.partner_id.barcode_rule_id = False
+                # We remove the parent
+                wizard.partner_id.parent_id = False
+
+            if not wizard.partner_id.barcode_rule_id:
+                # Add the member barcode rule and (re) generate barcode
+                if member_barcode_rule_id:
+                    wizard.partner_id.barcode_rule_id =\
+                        member_barcode_rule_id.id
+                    wizard.partner_id.generate_base()
+                    wizard.partner_id.generate_barcode()
+
         return res
