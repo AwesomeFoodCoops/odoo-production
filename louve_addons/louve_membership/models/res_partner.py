@@ -38,6 +38,9 @@ class ResPartner(models.Model):
 
     adult_number_home = fields.Integer('Number of Adult in the Home')
 
+    barcode_base_related = fields.Integer(
+        related='barcode_base', readonly=True)
+
     sex = fields.Char('Sex')
 
     old_coop_number = fields.Char('Civi CRM Old Number')
