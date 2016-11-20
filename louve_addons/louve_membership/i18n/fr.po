@@ -300,6 +300,12 @@ msgid "Wizard"
 msgstr "Assistant"
 
 #. module: louve_membership
+#: code:addons/louve_membership/models/shift_registration.py:39
+#, python-format
+msgid "You can't register this partner on a shift because he isn't registered on a template"
+msgstr "Vous ne pouvez pas inscrire cette personne, parce qu'elle n'est pas inscrite à un créneau."
+
+#. module: louve_membership
 #: model:ir.model,name:louve_membership.model_barcode_rule
 msgid "barcode.rule"
 msgstr "barcode.rule"
