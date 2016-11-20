@@ -26,6 +26,7 @@ import re
 from openerp import models, fields, api, _
 from datetime import datetime, timedelta
 from dateutil import rrule
+from dateutil.relativedelta import relativedelta
 from openerp.exceptions import UserError
 
 
@@ -606,9 +607,15 @@ class ShiftTemplate(models.Model):
                     continue
                 end_date_object = datetime.strptime(
                     template.end_datetime, '%Y-%m-%d %H:%M:%S')
+                diff_day = end_date_object.day - start_date_object.day
+                diff_month = end_date_object.month - start_date_object.month
+                diff_year = end_date_object.year - start_date_object.year
                 date_end = datetime.strftime(
                     rec_date + timedelta(hours=(end_date_object.hour)) +
-                    timedelta(minutes=(end_date_object.minute)),
+                    timedelta(minutes=(end_date_object.minute)) +
+                    relativedelta(days=diff_day) +
+                    relativedelta(months=diff_month) +
+                    relativedelta(years=diff_year),
                     "%Y-%m-%d %H:%M:%S")
                 rec_date = datetime.strftime(rec_date, "%Y-%m-%d")
                 vals = {
