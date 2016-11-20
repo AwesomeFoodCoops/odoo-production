@@ -21,7 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, fields
+from openerp import api, models, fields, _
+from openerp.exceptions import UserError
 
 
 class ShiftRegistration(models.Model):
@@ -29,3 +30,13 @@ class ShiftRegistration(models.Model):
 
     partner_id = fields.Many2one(
         domain=[('is_type_A_capital_subscriptor', '=', True)])
+
+    @api.model
+    def create(self, vals):
+        partner_id = vals.get('partner_id', False)
+        partner = self.env['res.partner'].browse(partner_id)
+        if partner.is_unsubscribed:
+            raise UserError(_(
+                """You can't register this partner on a shift because """
+                """he isn't registered on a template"""))
+        return super(ShiftRegistration, self).create(vals)
