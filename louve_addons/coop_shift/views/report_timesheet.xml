@@ -24,8 +24,8 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th style="text-align:center" width="58.33%">Membre Programmé</th>
-                            <th style="text-align:center" width="41.67%">Membre Présent</th>
+                            <th style="text-align:center" width="52.33%">Membre Programmé</th>
+                            <th style="text-align:center" width="47.67%">Membre Présent</th>
                         </tr>
                     </thead>
                 </table>
@@ -122,8 +122,8 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th style="text-align:center" width="65.33%">Membre Crédité</th>
-                            <th style="text-align:center" width="34.67%">Membre Présent</th>
+                            <th style="text-align:center" width="58.33%">Membre Crédité</th>
+                            <th style="text-align:center" width="41.67%">Membre Présent</th>
                         </tr>
                     </thead>
                 </table>
