@@ -542,24 +542,6 @@ class ShiftTemplate(models.Model):
             'week_list': False
         }
 
-#    @api.multi
-#    def write(self, vals):
-#        if vals.get('start_time', False) or vals.get('duration', False):
-#            vals['end_time'] = (
-#                vals.get('start_time', False) or self.start_time or 0) +\
-#                (vals.get('duration', False) or self.duration or 0)
-#        if 'updated_fields' not in vals.keys() and len(self.shift_ids):
-#            vals['updated_fields'] = str(vals)
-#        return super(ShiftTemplate, self).write(vals)
-
-#    @api.model
-#    def create(self, vals):
-#        if vals.get('start_time', False) or vals.get('duration', False):
-#            vals['end_time'] = (
-#                vals.get('start_time', False) or self.start_time or 0) +\
-#                (vals.get('duration', False) or self.duration or 0)
-#        return super(ShiftTemplate, self).create(vals)
-
     @api.multi
     def discard_changes(self):
         return self.write({'updated_fields': ''})
