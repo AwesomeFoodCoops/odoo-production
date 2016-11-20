@@ -394,13 +394,22 @@ class ShiftTemplate(models.Model):
                     end_date_object_tz.hour +
                     (end_date_object_tz.minute / 60.0))
 
-    @api.onchange('start_date')
+    @api.onchange('start_datetime')
     @api.multi
     def _onchange_start_date(self):
+        tz_name = self._context.get('tz') or self.env.user.tz
+        if not tz_name:
+            raise UserError(_(
+                "You can not create Shift if your timezone is not defined."))
         for template in self:
-            if template.start_date:
-                start_date = fields.Date.from_string(template.start_date)
-                wd = start_date.weekday()
+            if template.start_datetime:
+                start_date_object = datetime.strptime(
+                    template.start_datetime, '%Y-%m-%d %H:%M:%S')
+                utc_timestamp = pytz.utc.localize(
+                    start_date_object, is_dst=False)
+                context_tz = pytz.timezone(tz_name)
+                start_date_object_tz = utc_timestamp.astimezone(context_tz)
+                wd = start_date_object_tz.weekday()
                 template.mo = 0
                 template.tu = 0
                 template.we = 0
@@ -429,8 +438,9 @@ class ShiftTemplate(models.Model):
                 elif wd == 6:
                     template.su = True
                     template.week_list = "SU"
-                template.day = start_date.day
-                template.byday = "%s" % ((start_date.day - 1) // 7 + 1)
+                template.day = start_date_object_tz.day
+                template.byday = "%s" % (
+                    (start_date_object_tz.day - 1) // 7 + 1)
 
     @api.depends('start_date')
     def _compute_week_number(self):
