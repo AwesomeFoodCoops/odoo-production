@@ -262,39 +262,32 @@ class ShiftTemplate(models.Model):
                 raise UserError(_('No more available seats.'))
 
     # Private section
+    @api.multi
     @api.depends(
         'shift_type_id', 'week_number', 'mo', 'tu', 'we', 'th', 'fr', 'sa',
         'su', 'start_time')
     def _compute_template_name(self):
-        if self.shift_type_id == self.env.ref('coop_shift.shift_type'):
-            name = self.week_number and (
-                WEEK_NUMBERS[self.week_number - 1][1]) or ""
-            name += _("Mo") if self.mo else ""
-            name += _("Tu") if self.tu else ""
-            name += _("We") if self.we else ""
-            name += _("Th") if self.th else ""
-            name += _("Fr") if self.fr else ""
-            name += _("Sa") if self.sa else ""
-            name += _("Su") if self.su else ""
+        for template in self:
+            if template.shift_type_id == template.env.ref(
+                    'coop_shift.shift_type'):
+                name = ""
+            else:
+                name = template.shift_type_id.name\
+                    and template.shift_type_id.name + ' - ' or ''
+            name += template.week_number and (
+                WEEK_NUMBERS[template.week_number - 1][1]) or ""
+            name += _("Mo") if template.mo else ""
+            name += _("Tu") if template.tu else ""
+            name += _("We") if template.we else ""
+            name += _("Th") if template.th else ""
+            name += _("Fr") if template.fr else ""
+            name += _("Sa") if template.sa else ""
+            name += _("Su") if template.su else ""
             name += " - %02d:%02d" % (
-                int(self.start_time),
-                int(round((self.start_time - int(self.start_time)) * 60)))
-        else:
-            name = self.shift_type_id.name and self.shift_type_id.name\
-                + ' - ' or ''
-            name += self.week_number and (
-                WEEK_NUMBERS[self.week_number - 1][1]) or ""
-            name += _("Mo") if self.mo else ""
-            name += _("Tu") if self.tu else ""
-            name += _("We") if self.we else ""
-            name += _("Th") if self.th else ""
-            name += _("Fr") if self.fr else ""
-            name += _("Sa") if self.sa else ""
-            name += _("Su") if self.su else ""
-            name += " - %02d:%02d" % (
-                int(self.start_time),
-                int(round((self.start_time - int(self.start_time)) * 60)))
-        self.name = name
+                int(template.start_time),
+                int(round((template.start_time - int(template.start_time)) *
+                    60)))
+            template.name = name
 
     def _get_recurrent_fields(self):
         return ['byday', 'recurrency', 'final_date', 'rrule_type', 'month_by',
