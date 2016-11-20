@@ -92,19 +92,16 @@ class ShiftShift(models.Model):
     begin_date_string = fields.Char(
         string='Begin Date', compute='_compute_begin_date_fields', store=True,
         multi="begin_date")
-    begin_date_for_mail = fields.Char(
-        string='Begin Date for mail', compute='_compute_begin_date_fields',
-        store=True, multi="begin_date")
     end_date_for_mail = fields.Char(
         string='End Date for mail', compute='_compute_end_date_fields',
         store=True, multi="end_date")
-    begin_date_without_time_for_mail = fields.Char(
+    begin_date_without_time_string = fields.Char(
         string='Begin Date for mail without time', multi="begin_date",
         compute='_compute_begin_date_fields')
     begin_time = fields.Float(
         string='Start Time', compute='_compute_begin_date_fields', store=True,
         multi="begin_date")
-    begin_time_for_mail = fields.Char(
+    begin_time_string = fields.Char(
         string='Start Time', compute='_compute_begin_date_fields',
         multi="begin_date")
     end_time = fields.Float(
@@ -285,13 +282,6 @@ class ShiftShift(models.Model):
         for shift in self:
             shift.date_without_time = datetime.strftime(datetime.strptime(
                 shift.date_begin, "%Y-%m-%d %H:%M:%S"), "%Y-%m-%d")
-            shift.begin_date_for_mail = datetime.strftime(
-                fields.Datetime.from_string(shift.date_begin),
-                "%d/%m/%Y %H:%M")
-            shift.begin_date_without_time_for_mail = datetime.strftime(
-                fields.Datetime.from_string(shift.date_begin), "%d/%m/%Y")
-            shift.begin_time_for_mail = datetime.strftime(
-                fields.Datetime.from_string(shift.date_begin), "%H:%M")
             if shift.date_begin:
                 start_date_object = datetime.strptime(
                     shift.date_begin, '%Y-%m-%d %H:%M:%S')
@@ -302,12 +292,21 @@ class ShiftShift(models.Model):
                 shift.begin_time = (
                     start_date_object_tz.hour +
                     (start_date_object_tz.minute / 60.0))
+                shift.begin_time_string = "%02d:%02d" % (
+                    start_date_object_tz.hour,
+                    start_date_object_tz.minute,
+                )
                 shift.begin_date_string = "%02d/%02d/%s %02d:%02d" % (
                     start_date_object_tz.day,
                     start_date_object_tz.month,
                     start_date_object_tz.year,
                     start_date_object_tz.hour,
                     start_date_object_tz.minute,
+                )
+                shift.begin_date_without_time_string = "%02d/%02d/%s" % (
+                    start_date_object_tz.day,
+                    start_date_object_tz.month,
+                    start_date_object_tz.year,
                 )
 
     @api.multi
