@@ -149,7 +149,10 @@ class ShiftRegistration(models.Model):
                     """This member already has %s registrations in the\
                     preceding %s days. You can't program more.""") % (
                     len(regs), NUMBER_OF_DAYS_IN_PERIOD))
-        return super(ShiftRegistration, self).create(vals)
+        reg_id = super(ShiftRegistration, self).create(vals)
+        if reg_id.shift_id.state == "confirm":
+            reg_id.confirm_registration()
+        return reg_id
 
     @api.multi
     def confirm_registration(self):

@@ -26,6 +26,7 @@ import re
 from openerp import models, fields, api, _
 from datetime import datetime, timedelta
 from dateutil import rrule
+from dateutil.relativedelta import relativedelta
 from openerp.exceptions import UserError
 
 
@@ -125,9 +126,14 @@ class ShiftTemplate(models.Model):
     start_datetime = fields.Datetime(
         string='Start Date Time', required=True, help="First date this shift"
         " will be scheduled")
+    start_datetime_tz = fields.Datetime(
+        string='Start Date Time', compute="_compute_start_datetime_tz",
+        store=True)
     end_datetime = fields.Datetime(
         string='End Date Time', required=True, help="End date of the first"
         "  shift")
+    end_datetime_tz = fields.Datetime(
+        string='End Date Time', compute="_compute_end_datetime_tz")
     start_date = fields.Date(
         string='Obsolete Start Date', compute='_compute_start_date',
         help="Technical Field. First date this shift will be scheduled",
@@ -355,7 +361,7 @@ class ShiftTemplate(models.Model):
 
     @api.depends('start_datetime')
     @api.multi
-    def _compute_start_time(self):
+    def _compute_start_datetime_tz(self):
         tz_name = self._context.get('tz') or self.env.user.tz
         if not tz_name:
             raise UserError(_(
@@ -369,13 +375,18 @@ class ShiftTemplate(models.Model):
                     start_date_object, is_dst=False)
                 context_tz = pytz.timezone(tz_name)
                 start_date_object_tz = utc_timestamp.astimezone(context_tz)
-                template.start_time = (
-                    start_date_object_tz.hour +
-                    (start_date_object_tz.minute / 60.0))
+                template.start_datetime_tz = "%s-%02d-%02d %02d:%02d:%02d" % (
+                    start_date_object_tz.year,
+                    start_date_object_tz.month,
+                    start_date_object_tz.day,
+                    start_date_object_tz.hour,
+                    start_date_object_tz.minute,
+                    start_date_object_tz.second,
+                )
 
     @api.depends('end_datetime')
     @api.multi
-    def _compute_end_time(self):
+    def _compute_end_datetime_tz(self):
         tz_name = self._context.get('tz') or self.env.user.tz
         if not tz_name:
             raise UserError(_(
@@ -387,20 +398,47 @@ class ShiftTemplate(models.Model):
                     template.end_datetime, '%Y-%m-%d %H:%M:%S')
                 utc_timestamp = pytz.utc.localize(
                     end_date_object, is_dst=False)
-
                 context_tz = pytz.timezone(tz_name)
                 end_date_object_tz = utc_timestamp.astimezone(context_tz)
-                template.end_time = (
-                    end_date_object_tz.hour +
-                    (end_date_object_tz.minute / 60.0))
+                template.end_datetime_tz = "%s-%02d-%02d %02d:%02d:%02d" % (
+                    end_date_object_tz.year,
+                    end_date_object_tz.month,
+                    end_date_object_tz.day,
+                    end_date_object_tz.hour,
+                    end_date_object_tz.minute,
+                    end_date_object_tz.second,
+                )
 
-    @api.onchange('start_date')
+    @api.depends('start_datetime_tz')
+    @api.multi
+    def _compute_start_time(self):
+        for template in self:
+            if template.start_datetime_tz:
+                start_date_object = datetime.strptime(
+                    template.start_datetime_tz, '%Y-%m-%d %H:%M:%S')
+                template.start_time = (
+                    start_date_object.hour +
+                    (start_date_object.minute / 60.0))
+
+    @api.depends('end_datetime_tz')
+    @api.multi
+    def _compute_end_time(self):
+        for template in self:
+            if template.end_datetime_tz:
+                end_date_object = datetime.strptime(
+                    template.end_datetime_tz, '%Y-%m-%d %H:%M:%S')
+                template.end_time = (
+                    end_date_object.hour +
+                    (end_date_object.minute / 60.0))
+
+    @api.onchange('start_datetime')
     @api.multi
     def _onchange_start_date(self):
         for template in self:
-            if template.start_date:
-                start_date = fields.Date.from_string(template.start_date)
-                wd = start_date.weekday()
+            if template.start_datetime_tz:
+                start_date_object_tz = datetime.strptime(
+                    template.start_datetime_tz, '%Y-%m-%d %H:%M:%S')
+                wd = start_date_object_tz.weekday()
                 template.mo = 0
                 template.tu = 0
                 template.we = 0
@@ -429,8 +467,9 @@ class ShiftTemplate(models.Model):
                 elif wd == 6:
                     template.su = True
                     template.week_list = "SU"
-                template.day = start_date.day
-                template.byday = "%s" % ((start_date.day - 1) // 7 + 1)
+                template.day = start_date_object_tz.day
+                template.byday = "%s" % (
+                    (start_date_object_tz.day - 1) // 7 + 1)
 
     @api.depends('start_date')
     def _compute_week_number(self):
@@ -542,24 +581,6 @@ class ShiftTemplate(models.Model):
             'week_list': False
         }
 
-#    @api.multi
-#    def write(self, vals):
-#        if vals.get('start_time', False) or vals.get('duration', False):
-#            vals['end_time'] = (
-#                vals.get('start_time', False) or self.start_time or 0) +\
-#                (vals.get('duration', False) or self.duration or 0)
-#        if 'updated_fields' not in vals.keys() and len(self.shift_ids):
-#            vals['updated_fields'] = str(vals)
-#        return super(ShiftTemplate, self).write(vals)
-
-#    @api.model
-#    def create(self, vals):
-#        if vals.get('start_time', False) or vals.get('duration', False):
-#            vals['end_time'] = (
-#                vals.get('start_time', False) or self.start_time or 0) +\
-#                (vals.get('duration', False) or self.duration or 0)
-#        return super(ShiftTemplate, self).create(vals)
-
     @api.multi
     def discard_changes(self):
         return self.write({'updated_fields': ''})
@@ -604,19 +625,28 @@ class ShiftTemplate(models.Model):
             rec_dates = template.get_recurrent_dates(
                 after=after, before=before)
             for rec_date in rec_dates:
+                start_date_object_tz = datetime.strptime(
+                    template.start_datetime_tz, '%Y-%m-%d %H:%M:%S')
                 start_date_object = datetime.strptime(
                     template.start_datetime, '%Y-%m-%d %H:%M:%S')
                 date_begin = datetime.strftime(
-                    rec_date + timedelta(hours=(start_date_object.hour)) +
-                    timedelta(minutes=(start_date_object.minute)),
+                    rec_date + timedelta(hours=(start_date_object_tz.hour)) +
+                    timedelta(minutes=(start_date_object_tz.minute)) +
+                    (start_date_object - start_date_object_tz),
                     "%Y-%m-%d %H:%M:%S")
                 if date_begin.split(" ")[0] <= template.last_shift_date:
                     continue
                 end_date_object = datetime.strptime(
                     template.end_datetime, '%Y-%m-%d %H:%M:%S')
+                diff_day = end_date_object.day - start_date_object_tz.day
+                diff_month = end_date_object.month - start_date_object_tz.month
+                diff_year = end_date_object.year - start_date_object_tz.year
                 date_end = datetime.strftime(
                     rec_date + timedelta(hours=(end_date_object.hour)) +
-                    timedelta(minutes=(end_date_object.minute)),
+                    timedelta(minutes=(end_date_object.minute)) +
+                    relativedelta(days=diff_day) +
+                    relativedelta(months=diff_month) +
+                    relativedelta(years=diff_year),
                     "%Y-%m-%d %H:%M:%S")
                 rec_date = datetime.strftime(rec_date, "%Y-%m-%d")
                 vals = {
