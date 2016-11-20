@@ -18,6 +18,7 @@
                 <field name="is_unpayed"/>
                 <field name="is_unsubscribed"/>
                 <field name="old_coop_number"/>
+                <field name="temp_coop_number"/>
             </field>
         </field>
     </record>

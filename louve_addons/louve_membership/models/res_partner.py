@@ -44,6 +44,7 @@ class ResPartner(models.Model):
     sex = fields.Char('Sex')
 
     old_coop_number = fields.Char('Civi CRM Old Number')
+    temp_coop_number = fields.Char('Temporary number')
 
     is_underclass_population = fields.Boolean(
         'is Underclass Population',
