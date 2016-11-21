@@ -89,6 +89,8 @@ class ShiftMailScheduler(models.Model):
         for sm in self:
             if sm.shift_id.shift_type_id.is_ftop:
                 continue
+            if sm.shift_id.state != 'confirm':
+                continue
             if self.interval_type == 'after_sub':
                 # update registration lines
                 lines = []
