@@ -25,7 +25,9 @@ from openerp import models, fields, api
 
 
 HISTORY_RANGE = [
-    ('days', 'Days'),
+    # TODO: find a way to speed up the day history computation before
+    # enabling this in selection again
+    # ('days', 'Days'),
     ('weeks', 'Week'),
     ('months', 'Month'),
 ]
