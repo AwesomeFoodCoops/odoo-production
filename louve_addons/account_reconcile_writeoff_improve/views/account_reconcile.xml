@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_move_line_reconcile_writeoff_improve" model="ir.ui.view">
+        <field name="model">account.move.line.reconcile.writeoff</field>
+        <field name="inherit_id" ref="account.account_move_line_reconcile_writeoff"/>
+        <field name="arch" type="xml">
+            <field name="date_p" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <field name="comment" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
