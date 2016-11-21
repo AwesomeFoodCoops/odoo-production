@@ -54,6 +54,18 @@ class ShiftTicket(models.Model):
         string='Begin Date', compute='_compute_begin_date_fields', store=True,)
     user_id = fields.Many2one(
         'res.partner', related="shift_id.user_id", store=True)
+    hide_in_member_space = fields.Boolean(
+        "Masquer dans l'Espace Membre", default=False,
+        compute="_compute_hide_in_member_space", store=True)
+
+    @api.multi
+    @api.depends('shift_id.shift_type_id.is_ftop')
+    def _compute_hide_in_member_space(self):
+        for ticket in self:
+            if ticket.shift_id.shift_type_id.is_ftop:
+                ticket.hide_in_member_space = True
+            else:
+                ticket.hide_in_member_space = False
 
     @api.multi
     @api.depends('date_begin')

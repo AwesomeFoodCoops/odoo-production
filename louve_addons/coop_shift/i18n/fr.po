@@ -2310,16 +2310,16 @@ msgstr "This field contains the template of the mail that will be\n"
 "        automatically sent"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_registration.py:138
+#: code:addons/coop_shift/model/shift_registration.py:150
 #, python-format
-msgid "This member already has %s registrations                in the same day. You can't program more."
-msgstr "Attention ! Ce membre s'est déjà inscrit sur cette journée, cette inscription ne peut être enregistrée."
+msgid "This member already has %s registrations in the preceding %s days. You can't program more."
+msgstr "Attention ! Ce membre a déjà atteint son quota de %s inscriptions sur la période de %s jours, cette inscription ne peut être enregistrée."
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_registration.py:148
+#: code:addons/coop_shift/model/shift_registration.py:138
 #, python-format
-msgid "This member already has %s registrations in the                    preceding %s days. You can't program more."
-msgstr "Attention ! Ce membre a déjà atteint son quota d'inscriptions sur la période, cette inscription ne peut être enregistrée."
+msgid "This member already has %s registrations in the same day. You can't program more."
+msgstr "Attention ! Ce membre s'est déjà inscrit %s fois sur cette journée, cette inscription ne peut être enregistrée."
 
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_template_registration.py:88
@@ -2628,23 +2628,23 @@ msgstr "Semaine"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_wallchart_template
-msgid "Week A<br/>"
-msgstr "A<br/>"
+msgid "Week A"
+msgstr "A"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_wallchart_template
-msgid "Week B<br/>"
-msgstr "B<br/>"
+msgid "Week B"
+msgstr "B"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_wallchart_template
-msgid "Week C<br/>"
-msgstr "C<br/>"
+msgid "Week C"
+msgstr "C"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_wallchart_template
-msgid "Week D<br/>"
-msgstr "D<br/>"
+msgid "Week D"
+msgstr "D"
 
 #. module: coop_shift
 #: selection:shift.mail,interval_unit:0
