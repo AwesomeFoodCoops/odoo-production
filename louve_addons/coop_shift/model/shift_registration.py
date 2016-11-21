@@ -135,8 +135,10 @@ class ShiftRegistration(models.Model):
                 fields.Date.from_string(r.date_begin) == d and
                 r.state != 'cancel')
             if len(regs) >= MAX_REGISTRATIONS_PER_DAY:
-                raise UserError(_("""This member already has %s registrations\
-                in the same day. You can't program more.""") % len(regs))
+                raise UserError(_(
+                    """This member already has %s registrations """
+                    """in the same day. You can't program more.""") %
+                    len(regs))
             check_begin_date = date_reg - timedelta(
                 days=NUMBER_OF_DAYS_IN_PERIOD - 1)
             regs = partner.registration_ids.filtered(
@@ -146,8 +148,8 @@ class ShiftRegistration(models.Model):
                 r.state != 'cancel')
             if len(regs) >= MAX_REGISTRATION_PER_PERIOD:
                 raise UserError(_(
-                    """This member already has %s registrations in the\
-                    preceding %s days. You can't program more.""") % (
+                    """This member already has %s registrations in the """
+                    """preceding %s days. You can't program more.""") % (
                     len(regs), NUMBER_OF_DAYS_IN_PERIOD))
         return super(ShiftRegistration, self).create(vals)
 
