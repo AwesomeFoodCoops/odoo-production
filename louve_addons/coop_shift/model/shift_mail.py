@@ -87,6 +87,10 @@ class ShiftMailScheduler(models.Model):
     @api.multi
     def execute(self):
         for sm in self:
+            if sm.shift_id.shift_type_id.is_ftop:
+                continue
+            if sm.shift_id.state != 'confirm':
+                continue
             if self.interval_type == 'after_sub':
                 # update registration lines
                 lines = []
@@ -108,3 +112,16 @@ class ShiftMailScheduler(models.Model):
                     sm.shift_id.mail_attendees(sm.template_id.id)
                     sm.write({'mail_sent': True})
             return True
+
+    @api.model
+    def run(self, autocommit=False):
+        schedulers = self.search([
+            ('done', '=', False), (
+                'scheduled_date', '<=', datetime.strftime(
+                    fields.datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT
+                ))])
+        for scheduler in schedulers:
+            scheduler.execute()
+            if autocommit:
+                self.env.cr.commit()
+        return True

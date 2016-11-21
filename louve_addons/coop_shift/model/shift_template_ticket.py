@@ -40,6 +40,18 @@ class ShiftTemplateTicket(models.Model):
     seats_available = fields.Integer(compute='_compute_seats')
     seats_unconfirmed = fields.Integer(compute='_compute_seats')
     seats_used = fields.Integer(compute='_compute_seats',)
+    hide_in_member_space = fields.Boolean(
+        "Masquer dans l'Espace Membre", default=False,
+        compute="_compute_hide_in_member_space", store=True)
+
+    @api.multi
+    @api.depends('shift_template_id.shift_type_id.is_ftop')
+    def _compute_hide_in_member_space(self):
+        for ticket in self:
+            if ticket.shift_template_id.shift_type_id.is_ftop:
+                ticket.hide_in_member_space = True
+            else:
+                ticket.hide_in_member_space = False
 
     @api.multi
     @api.depends('seats_max', 'registration_ids.state')

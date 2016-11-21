@@ -21,9 +21,11 @@
     <data noupdate="0">
         <record id="shift_type" model="shift.type">
             <field name="name">ABCD Shift</field>
+            <field name="is_ftop" eval="0"/>
         </record>
         <record id="shift_type_ftop" model="shift.type">
             <field name="name">FTOP Shift</field>
+            <field name="is_ftop" eval="1"/>
         </record>
 
         <record id="product_product_shift_standard" model="product.product">

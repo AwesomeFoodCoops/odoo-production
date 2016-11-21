@@ -40,3 +40,4 @@ class ShiftType(models.Model):
         'Default Maximum Registration', default=0,
         help="""It will select this default maximum value when you choose
         this shift""")
+    is_ftop = fields.Boolean("FTOP Shift", default=False)

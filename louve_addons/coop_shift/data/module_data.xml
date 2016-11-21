@@ -11,19 +11,5 @@
             <field name="action_id" ref="action_client_shift_menu"/>
             <field name="state">open</field>
         </record>
-
-        <!-- Shift Mail Scheduler-->
-        <record model="ir.cron" forcecreate="True" id="shift_mail_scheduler">
-            <field name="name">[shift] mail scheduler</field>
-            <field name="active">False</field>
-            <field name="user_id" ref="base.user_root"/>
-            <field name="interval_number">1</field>
-            <field name="interval_type">hours</field>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="False" />
-            <field eval="'(True,)'" name="args"/>
-            <field name="model">shift.mail</field>
-            <field name="function">run</field>
-        </record>
     </data>
 </odoo>
