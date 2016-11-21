@@ -87,6 +87,8 @@ class ShiftMailScheduler(models.Model):
     @api.multi
     def execute(self):
         for sm in self:
+            if sm.shift_id.shift_type_id.is_ftop:
+                continue
             if self.interval_type == 'after_sub':
                 # update registration lines
                 lines = []
