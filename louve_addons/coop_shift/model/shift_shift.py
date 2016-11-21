@@ -114,12 +114,22 @@ class ShiftShift(models.Model):
         string='End Time', compute='_compute_end_date_fields',
         multi="end_date")
     user_id = fields.Many2one(comodel_name='res.partner', default=False)
+    seats_max = fields.Integer(compute="_compute_seats_max", store=True)
 
     _sql_constraints = [(
         'template_date_uniq',
         'unique (shift_template_id, date_begin, company_id)',
         'The same template cannot be planned several time at the same date !'),
     ]
+
+    @api.multi
+    @api.depends('shift_ticket_ids.seats_max')
+    def _compute_seats_max(self):
+        for shift in self:
+            seats = 0
+            for ticket in shift.shift_ticket_ids:
+                seats += ticket.seats_max
+            shift.seats_max = seats
 
     @api.multi
     @api.depends('date_without_time')
@@ -180,14 +190,6 @@ class ShiftShift(models.Model):
                 }]
         except ValueError:
             return self.env['shift.ticket']
-
-    @api.multi
-    @api.constrains('seats_max', 'seats_available')
-    def _check_seats_limit(self):
-        for shift in self:
-            if shift.seats_availability == 'limited' and shift.seats_max and\
-                    shift.seats_available < 0:
-                raise UserError(_('No more available seats.'))
 
     @api.multi
     def _compute_auto_confirm(self):
