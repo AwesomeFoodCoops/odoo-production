@@ -6,7 +6,7 @@ class AccountMoveLineReconcileWriteoff(models.TransientModel):
     _inherit = 'account.move.line.reconcile.writeoff'
 
     date_p = fields.Date(default=False)
-    comment = fields.Date(default="")
+    comment = fields.Char(default="")
 
     @api.onchange('journal_id')
     def onchange_journal_id(self):
