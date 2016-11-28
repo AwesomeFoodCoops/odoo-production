@@ -113,6 +113,7 @@ class ReportWallchartTemplate(models.AbstractModel):
                     ('start_time', '<=', t[0] + rounding_limit),
                     ('end_time', '>=', t[1] - rounding_limit),
                     ('end_time', '<=', t[1] + rounding_limit),
+                    ('week_list', '=', week_day.upper()),
                 ]
                 week_letter = ['A', 'B', 'C', 'D']
                 for week in [1, 2, 3, 4]:

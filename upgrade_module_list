@@ -8,4 +8,6 @@
 # 20/11/2016
 #export MODULE_LIST_TO_UPGRADE="louve_membership,purchase_compute_order,coop_shift,coop_shift_state"
 # 21/11/2016
-export MODULE_LIST_TO_UPGRADE="coop_shift,product_history"
+#export MODULE_LIST_TO_UPGRADE="coop_shift,product_history"
+# 27/11/2016
+export MODULE_LIST_TO_UPGRADE="coop_shift,account_reconcile_writeoff_improve,res_partner_account_move_line"
