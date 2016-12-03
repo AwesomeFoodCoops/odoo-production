@@ -40,6 +40,8 @@ class ShiftTemplateTicket(models.Model):
     seats_available = fields.Integer(compute='_compute_seats')
     seats_unconfirmed = fields.Integer(compute='_compute_seats')
     seats_used = fields.Integer(compute='_compute_seats',)
+    seats_future = fields.Integer(
+        string="Future reservations", compute='_compute_seats',)
     hide_in_member_space = fields.Boolean(
         "Masquer dans l'Espace Membre", default=False,
         compute="_compute_hide_in_member_space", store=True)
@@ -63,7 +65,8 @@ class ShiftTemplateTicket(models.Model):
             ticket.seats_availability = 'unlimited' if ticket.seats_max == 0\
                 else 'limited'
             ticket.seats_unconfirmed = ticket.seats_reserved =\
-                ticket.seats_used = ticket.seats_available = 0
+                ticket.seats_used = ticket.seats_available =\
+                ticket.seats_future = 0
         # aggregate registrations by ticket and by state
         state_field = {
             'draft': 'seats_reserved',
@@ -77,6 +80,8 @@ class ShiftTemplateTicket(models.Model):
                     lambda r, states=state_field.keys(): r.state in states):
                 if reg.is_current:
                     ticket[state_field[reg.state]] += 1
+                if reg.is_future:
+                    ticket['seats_future'] += 1
             if ticket.seats_max > 0:
                 ticket.seats_available = ticket.seats_max - (
                     ticket.seats_reserved + ticket.seats_used)

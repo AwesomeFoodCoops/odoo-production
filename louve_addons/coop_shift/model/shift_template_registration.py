@@ -55,7 +55,9 @@ class ShiftTemplateRegistration(models.Model):
     template_start_time = fields.Float(
         string="Template Start Time", related='shift_template_id.start_time',
         readonly=True)
-    is_current = fields.Boolean(compute="_compute_current")
+    is_current = fields.Boolean(compute="_compute_current", multi="current")
+    is_future = fields.Boolean(compute="_compute_current", multi="current")
+    is_past = fields.Boolean(compute="_compute_current", multi="current")
 
     _sql_constraints = [(
         'template_registration_uniq',
@@ -85,6 +87,15 @@ class ShiftTemplateRegistration(models.Model):
     def _compute_current(self):
         for reg in self:
             reg.is_current = any(line.is_current for line in reg.line_ids)
+            if reg.is_current:
+                reg.is_future = False
+                reg.is_past = False
+            else:
+                reg.is_future = any(line.is_future for line in reg.line_ids)
+                if reg.is_future:
+                    reg.is_past = False
+                else:
+                    reg.is_past = any(line.is_past for line in reg.line_ids)
 
     @api.model
     def _get_default_ticket(self):

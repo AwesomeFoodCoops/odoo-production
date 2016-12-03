@@ -150,6 +150,7 @@
                                         <field name="seats_max"/>
                                         <field name="seats_reserved" readonly="1"/>
                                         <field name="seats_available" readonly="1"/>
+                                        <field name="seats_future" readonly="1"/>
                                     </tree>
                                 </field>
                             </page>

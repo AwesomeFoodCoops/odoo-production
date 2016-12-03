@@ -46,6 +46,7 @@ class ReportWallchartTemplate(models.AbstractModel):
     @api.model
     def _get_ticket_partners(self, ticket):
         partners = []
+        future_seats = 0
         for reg in ticket.registration_ids:
             ok = False
             dates = ""
@@ -60,16 +61,18 @@ class ReportWallchartTemplate(models.AbstractModel):
                     date_begin = datetime.strftime(fields.Date.from_string(
                         line.date_begin) - timedelta(days=1), "%x")
                     dates = ("+ until %s " % date_begin) + dates
+                    future_seats += 1
                 if line.date_end:
                     date_end = datetime.strftime(fields.Date.from_string(
                         line.date_end) + timedelta(days=1), "%x")
                     dates = ("+ from %s " % date_end) + dates
+                    future_seats -= 1
             dates = dates and (" (" + dates[2:-1] + ")")
             if ok:
                 partners.append({
                     'partner_id': reg.partner_id,
                     'dates': dates})
-        return partners
+        return partners, future_seats
 
     @api.model
     def _get_tickets(
@@ -84,10 +87,13 @@ class ReportWallchartTemplate(models.AbstractModel):
         tickets = self._get_tickets(template)
         partners = []
         seats_max = 0
+        future_seats = 0
         for ticket in tickets:
-            partners += self._get_ticket_partners(ticket)
+            p, f = self._get_ticket_partners(ticket)
+            partners += p
+            future_seats += f
             seats_max += ticket.seats_max
-        return partners, seats_max
+        return partners, seats_max, future_seats
 
     @api.model
     def _get_templates(self, data):
@@ -124,7 +130,8 @@ class ReportWallchartTemplate(models.AbstractModel):
                         res['free_seats' + week_letter[week - 1]] = 0
                         continue
                     template = template[0]
-                    partners, seats_max = self._get_template_info(template)
+                    partners, seats_max, future_seats =\
+                        self._get_template_info(template)
                     res['partners' + week_letter[week - 1]] = partners
                     res['free_seats' + week_letter[week - 1]] =\
                         max(0, seats_max - len(partners))
