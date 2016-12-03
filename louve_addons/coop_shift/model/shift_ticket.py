@@ -114,7 +114,7 @@ class ShiftTicket(models.Model):
         # aggregate registrations by ticket and by state
         if self.ids:
             state_field = {
-                'draft': 'seats_unconfirmed',
+                'draft': 'seats_reserved',
                 'open': 'seats_reserved',
                 'done': 'seats_used',
             }
