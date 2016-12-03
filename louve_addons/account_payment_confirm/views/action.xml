@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<odoo>
+    <record id="action_confirm_payments_server" model="ir.actions.server">
+             <field name="name">Confirm Payments</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="state">code</field>
+            <field name="code">action = self.post(cr, uid, context.get('active_ids', []), context=context)</field>
+    </record>
+
+   <record id="action_confirm_payments" model="ir.values">
+       <field name="name">Confirm Payments</field>
+       <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%action_confirm_payments_server" name="value"/>
+       <field name="key">action</field>
+       <field name="model">account.payment</field>
+    </record>
+</odoo>
