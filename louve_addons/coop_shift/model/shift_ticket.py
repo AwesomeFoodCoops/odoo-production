@@ -21,8 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api, _
-from openerp.exceptions import UserError
+from openerp import models, fields, api
 from datetime import datetime, timedelta
 
 
@@ -134,14 +133,17 @@ class ShiftTicket(models.Model):
                 ticket.seats_available = ticket.seats_max - (
                     ticket.seats_reserved + ticket.seats_used)
 
-    @api.multi
-    @api.constrains('registration_ids', 'seats_max')
-    def _check_seats_limit(self):
-        for ticket in self:
-            if ticket.seats_max and ticket.seats_available < 0:
-                raise UserError(_('No more available seats for the ticket'))
-
     @api.onchange('product_id')
     def onchange_product_id(self):
         price = self.product_id.list_price if self.product_id else 0
         return {'value': {'price': price}}
+
+    @api.one
+    @api.constrains('event_ticket_id', 'state')
+    def _check_ticket_seats_limit(self):
+        return True
+
+    @api.one
+    @api.constrains('registration_ids', 'seats_max')
+    def _check_seats_limit(self):
+        return True

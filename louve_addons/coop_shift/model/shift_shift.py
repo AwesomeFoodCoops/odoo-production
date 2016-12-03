@@ -356,3 +356,8 @@ class ShiftShift(models.Model):
             ('state', '=', 'draft'),
             ('date_begin', '<=', compare_date)])
         shifts.button_confirm()
+
+    @api.one
+    @api.constrains('seats_max', 'seats_available')
+    def _check_seats_limit(self):
+        return True
