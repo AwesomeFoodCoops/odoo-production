@@ -54,7 +54,7 @@ class ShiftTemplateTicket(models.Model):
                 ticket.hide_in_member_space = False
 
     @api.multi
-    @api.depends('seats_max', 'registration_ids.state')
+    @api.depends('seats_max', 'registration_ids.line_ids')
     def _compute_seats(self):
         """ Determine reserved, available, reserved but unconfirmed and used
             seats. """
@@ -65,24 +65,18 @@ class ShiftTemplateTicket(models.Model):
             ticket.seats_unconfirmed = ticket.seats_reserved =\
                 ticket.seats_used = ticket.seats_available = 0
         # aggregate registrations by ticket and by state
-        if self.ids:
-            state_field = {
-                'draft': 'seats_reserved',
-                'open': 'seats_reserved',
-                'done': 'seats_used',
-            }
-            query = """ SELECT shift_ticket_id, state, count(shift_template_id)
-                        FROM shift_template_registration
-                        WHERE shift_ticket_id IN %s
-                        AND state IN ('draft', 'open', 'done')
-                        GROUP BY shift_ticket_id, state
-                    """
-            self._cr.execute(query, (tuple(self.ids),))
-            for shift_ticket_id, state, num in self._cr.fetchall():
-                ticket = self.browse(shift_ticket_id)
-                ticket[state_field[state]] += num
+        state_field = {
+            'draft': 'seats_reserved',
+            'open': 'seats_reserved',
+            'done': 'seats_used',
+        }
+
         # compute seats_available
         for ticket in self:
+            for reg in ticket.registration_ids.filtered(
+                    lambda r, states=state_field.keys(): r.state in states):
+                if reg.is_current:
+                    ticket[state_field[reg.state]] += 1
             if ticket.seats_max > 0:
                 ticket.seats_available = ticket.seats_max - (
                     ticket.seats_reserved + ticket.seats_used)

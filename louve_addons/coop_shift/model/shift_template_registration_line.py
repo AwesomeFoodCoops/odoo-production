@@ -146,6 +146,7 @@ class ShiftTemplateRegistrationLine(models.Model):
     @api.multi
     def write(self, vals):
         res = super(ShiftTemplateRegistrationLine, self).write(vals)
+        self.mapped(lambda s: s.partner_id)._compute_registration_counts()
         for line in self:
             sr_obj = self.env['shift.registration']
             st_reg = self.registration_id
