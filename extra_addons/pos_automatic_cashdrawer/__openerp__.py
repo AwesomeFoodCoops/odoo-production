@@ -30,6 +30,7 @@
     'license': 'AGPL-3',
     'depends': ['point_of_sale'],
     'data': [
+        'security/res_groups.xml',
         'pos_automatic_cashdrawer_view.xml',
         'account_journal_view.xml',
         'static/src/xml/templates.xml',
