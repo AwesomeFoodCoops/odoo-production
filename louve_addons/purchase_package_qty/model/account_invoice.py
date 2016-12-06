@@ -31,10 +31,13 @@ class AccountInvoice(models.Model):
     def purchase_order_change(self):
         res = super(AccountInvoice, self).purchase_order_change()
         for line in self.invoice_line_ids:
-            line.price_policy = line.purchase_line_id.price_policy
-            line.package_qty = line.purchase_line_id.package_qty
-            line.product_qty_package = line.package_qty and\
-                line.quantity / line.package_qty or 0
+            if line.quantity == 0:
+                self.invoice_line_ids -= line
+            else:
+                line.price_policy = line.purchase_line_id.price_policy
+                line.package_qty = line.purchase_line_id.package_qty
+                line.product_qty_package = line.package_qty and\
+                    line.quantity / line.package_qty or 0
         return res
 
     @api.multi
