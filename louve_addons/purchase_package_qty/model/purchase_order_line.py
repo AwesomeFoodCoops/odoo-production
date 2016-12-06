@@ -180,6 +180,7 @@ class PurchaseOrderLine(models.Model):
                     self.price_policy = supplier.price_policy
                     if supplier.price_policy == "package":
                         self.price_unit = supplier.base_price
+                    break
         return res
 
     @api.onchange('product_qty', 'product_uom')
