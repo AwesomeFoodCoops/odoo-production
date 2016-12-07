@@ -35,8 +35,10 @@ class product_scale_system(Model):
             'res.company', string='Company', select=True),
         'active': fields.boolean(
             string='Active'),
-        'ftp_url': fields.char(
-            string='FTP Server URL'),
+        'ftp_host': fields.char(
+            string='FTP Server Host', oldname='ftp_url'),
+        'ftp_port': fields.integer(
+            string='FTP Server Port'),
         'ftp_login': fields.char(
             string='FTP Login'),
         'ftp_password': fields.char(
@@ -68,7 +70,8 @@ class product_scale_system(Model):
         'company_id': lambda s, cr, uid, c: s.pool.get('res.company').
         _company_default_get(cr, uid, 'product.template', context=c),
         'encoding': 'iso-8859-1',
-        'ftp_url': 'xxx.xxx.xxx.xxx',
+        'ftp_host': 'xxx.xxx.xxx.xxx',
+        'ftp_port': 21,
         'csv_relative_path': '/',
         'product_image_relative_path': '/',
         'product_text_file_pattern': 'product.csv',

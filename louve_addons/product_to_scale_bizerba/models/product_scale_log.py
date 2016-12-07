@@ -199,10 +199,12 @@ class product_scale_log(Model):
 
     def ftp_connection_open(self, cr, uid, scale_system, context=None):
         """Return a new FTP connection with found parameters."""
-        _logger.info("Trying to connect to ftp://%s@%s" % (
-            scale_system.ftp_login, scale_system.ftp_url))
+        _logger.info("Trying to connect to ftp://%s@%s:%d" % (
+            scale_system.ftp_login, scale_system.ftp_host,
+            scale_system.ftp_port))
         try:
-            ftp = FTP(scale_system.ftp_url)
+            ftp = FTP()
+            ftp.connect(scale_system.ftp_host, scale_system.ftp_port)
             if scale_system.ftp_login:
                 ftp.login(
                     scale_system.ftp_login,
@@ -211,8 +213,9 @@ class product_scale_log(Model):
                 ftp.login()
             return ftp
         except:
-            _logger.error("Connection to ftp://%s@%s failed." % (
-                scale_system.ftp_login, scale_system.ftp_url))
+            _logger.error("Connection to ftp://%s@%s:%d failed." % (
+                scale_system.ftp_login, scale_system.ftp_host,
+                scale_system.ftp_port))
             return False
 
     def ftp_connection_close(self, cr, uid, ftp, context=None):

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-28 18:49+0000\n"
-"PO-Revision-Date: 2016-10-28 18:49+0000\n"
+"POT-Creation-Date: 2016-12-07 21:46+0000\n"
+"PO-Revision-Date: 2016-12-07 21:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -59,8 +59,8 @@ msgid "Company"
 msgstr "Société"
 
 #. module: product_to_scale_bizerba
-#: selection:product.scale.system.product.line,type:0
 #: model:ir.model.fields,field_description:product_to_scale_bizerba.field_product_scale_system_product_line_constant_value
+#: selection:product.scale.system.product.line,type:0
 msgid "Constant Value"
 msgstr "Constante"
 
@@ -154,9 +154,14 @@ msgid "FTP Password"
 msgstr "Mot de passe FTP"
 
 #. module: product_to_scale_bizerba
-#: model:ir.model.fields,field_description:product_to_scale_bizerba.field_product_scale_system_ftp_url
-msgid "FTP Server URL"
-msgstr "URL du serveur FTP"
+#: model:ir.model.fields,field_description:product_to_scale_bizerba.field_product_scale_system_ftp_host
+msgid "FTP Server Host"
+msgstr "Hôte du serveur FTP"
+
+#. module: product_to_scale_bizerba
+#: model:ir.model.fields,field_description:product_to_scale_bizerba.field_product_scale_system_ftp_port
+msgid "FTP Server Port"
+msgstr "Port du serveur FTP"
 
 #. module: product_to_scale_bizerba
 #: model:ir.model.fields,field_description:product_to_scale_bizerba.field_product_scale_system_field_ids
@@ -232,6 +237,11 @@ msgid "Logs"
 msgstr "Logs"
 
 #. module: product_to_scale_bizerba
+#: model:ir.model.fields,field_description:product_to_scale_bizerba.field_product_scale_system_product_line_related_field_id
+msgid "M2M / M2O Field"
+msgstr "Champ M2M / M2O"
+
+#. module: product_to_scale_bizerba
 #: model:ir.ui.view,arch_db:product_to_scale_bizerba.view_product_product_form
 msgid "Manual Deletion in the Scale System"
 msgstr "Suppression manuelle sur le système de balance"
@@ -262,11 +272,6 @@ msgstr "Coefficient Numérique"
 #: selection:product.scale.system.product.line,type:0
 msgid "Numeric Field"
 msgstr "Champ numérique"
-
-#. module: product_to_scale_bizerba
-#: model:ir.model.fields,field_description:product_to_scale_bizerba.field_product_scale_system_product_line_related_field_id
-msgid "M2M / M2O Field"
-msgstr "Champ M2M / M2O"
 
 #. module: product_to_scale_bizerba
 #: model:ir.model.fields,help:product_to_scale_bizerba.field_product_scale_system_external_text_file_pattern
