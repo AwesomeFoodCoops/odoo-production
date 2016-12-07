@@ -28,7 +28,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                             <field name="external_text_file_pattern"/>
                         </group>
                         <group string="FTP Connexion">
-                            <field name="ftp_url"/>
+                            <field name="ftp_host"/>
+                            <field name="ftp_port"/>
                             <field name="ftp_login"/>
                             <field name="ftp_password"/>
                             <field name="csv_relative_path"/>
