@@ -48,3 +48,24 @@ class StockPackOperation(models.Model):
     def onchange_qty_done_package(self):
         if self.qty_done_package == int(self.qty_done_package):
             self.qty_done = self.package_qty * self.qty_done_package
+
+    def product_id_change(
+            self, cr, uid, ids, product_id, product_uom_id, product_qty,
+            context=None):
+        res = super(StockPackOperation, self).product_id_change(
+            cr, uid, ids, product_id, product_uom_id, product_qty,
+            context=None)
+        picking_id = context.get("default_picking_id", False)
+        picking = self.pool.get('stock.picking').browse(
+            cr, uid, picking_id, context=context)
+        partner = picking.partner_id
+        if product_id and partner:
+            product = self.pool.get('product.product').browse(
+                cr, uid, product_id, context=context)
+            for supplier in product.seller_ids:
+                if supplier.name == partner:
+                    if not res.get('value', False):
+                        res['value'] = {}
+                    res['value']['package_qty'] = supplier.package_qty
+                break
+        return res
