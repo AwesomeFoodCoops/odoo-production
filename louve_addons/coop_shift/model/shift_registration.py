@@ -88,16 +88,6 @@ class ShiftRegistration(models.Model):
     ]
 
     @api.multi
-    @api.constrains('shift_ticket_id', 'state')
-    def _check_ticket_seats_limit(self):
-        for reg in self:
-            if reg.template_created:
-                return True
-            if reg.shift_ticket_id.seats_max and\
-                    reg.shift_ticket_id.seats_available < 0:
-                raise UserError(_('No more available seats for this ticket'))
-
-    @api.multi
     def button_reg_absent(self):
         for reg in self:
             if reg.event_id.date_begin <= fields.Datetime.now():
@@ -125,6 +115,10 @@ class ShiftRegistration(models.Model):
 
     @api.model
     def create(self, vals):
+        if not self.template_created:
+            if self.shift_ticket_id.seats_max and\
+                    self.shift_ticket_id.seats_available <= 0:
+                raise UserError(_('No more available seats for this ticket'))
         partner_id = vals.get('partner_id', False)
         partner = self.env['res.partner'].browse(partner_id)
         date_reg = vals.get('date_begin', False)

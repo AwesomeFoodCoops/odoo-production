@@ -10,7 +10,7 @@
             <field name="name">shift.template.registration.tree</field>
             <field name="model">shift.template.registration</field>
             <field name="arch" type="xml">
-                <tree string="Registration" decoration-danger="not is_current" editable="top">
+                <tree string="Registration" colors="blue:is_current;grey:is_past;orange:is_future" editable="top">
                     <field name="shift_template_id" options="{'no_create_edit': True, 'no_create': True}"/>
                     <field name="shift_ticket_id" domain="[('shift_template_id', '=', shift_template_id)]" options="{'no_create_edit': True, 'no_create': True}"/>
                     <field name="template_start_date"/>
@@ -21,6 +21,8 @@
                     <field name="message_needaction" invisible="1"/>
                     <field name="state" invisible="1"/>
                     <field name="is_current" invisible="1"/>
+                    <field name="is_future" invisible="1"/>
+                    <field name="is_past" invisible="1"/>
                 </tree>
             </field>
         </record>

@@ -149,7 +149,8 @@
                                         <field name="product_id" context="{'shift_ok':1}" domain="[('shift_type_id','!=',False)]" options="{'no_create': True}"/>
                                         <field name="seats_max"/>
                                         <field name="seats_reserved" readonly="1"/>
-                                        <field name="seats_unconfirmed" readonly="1"/>
+                                        <field name="seats_available" readonly="1"/>
+                                        <field name="seats_future" readonly="1"/>
                                     </tree>
                                 </field>
                             </page>

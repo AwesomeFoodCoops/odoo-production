@@ -37,7 +37,7 @@ class ResPartner(models.Model):
             partner.tmpl_registration_count = len(partner.tmpl_reg_line_ids)
             partner.active_tmpl_reg_line_count = len(
                 partner.tmpl_reg_line_ids.filtered(
-                    lambda l: l.is_current is True))
+                    lambda l: l.is_current or l.is_future))
 
     registration_ids = fields.One2many(
         'shift.registration', "partner_id", 'Registrations')

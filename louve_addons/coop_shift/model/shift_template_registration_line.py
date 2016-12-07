@@ -106,6 +106,8 @@ class ShiftTemplateRegistrationLine(models.Model):
         st_reg = self.env['shift.template.registration'].browse(st_reg_id)
         partner = st_reg.partner_id
 
+        strl_id = super(ShiftTemplateRegistrationLine, self).create(vals)
+
         shifts = st_reg.shift_template_id.shift_ids.filtered(
             lambda s, b=begin, e=end: (s.date_begin > b or not b) and
             (s.date_end < e or not e) and (s.state != 'done'))
@@ -139,11 +141,12 @@ class ShiftTemplateRegistrationLine(models.Model):
             })
             created_registrations.append((0, 0, values))
         vals['shift_registration_ids'] = created_registrations
-        return super(ShiftTemplateRegistrationLine, self).create(vals)
+        return strl_id
 
     @api.multi
     def write(self, vals):
         res = super(ShiftTemplateRegistrationLine, self).write(vals)
+        self.mapped(lambda s: s.partner_id)._compute_registration_counts()
         for line in self:
             sr_obj = self.env['shift.registration']
             st_reg = self.registration_id
