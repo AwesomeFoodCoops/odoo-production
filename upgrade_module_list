@@ -12,4 +12,4 @@
 # 27/11/2016
 #export MODULE_LIST_TO_UPGRADE="coop_shift,account_reconcile_writeoff_improve,res_partner_account_move_line"
 # 07/12/2016
-export MODULE_LIST_TO_UPGRADE="account_payment_confirm,coop_shift,purchase_package_qty"
+export MODULE_LIST_TO_UPGRADE="account_payment_confirm,coop_shift,purchase_package_qty,product_to_scale_bizerba"
