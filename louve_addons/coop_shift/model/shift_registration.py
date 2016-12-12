@@ -157,3 +157,11 @@ class ShiftRegistration(models.Model):
             onsubscribe_schedulers = reg.shift_id.shift_mail_ids.filtered(
                 lambda s: s.interval_type == 'after_sub')
             onsubscribe_schedulers.execute()
+
+    @api.multi
+    def unlink(self):
+        shift_ids = self.mapped(lambda r: r.shift_id)
+        res = super(ShiftRegistration, self).unlink()
+        for shift in shift_ids:
+            shift.compute_ftop_seats()
+        return res

@@ -202,7 +202,7 @@ class ShiftShift(models.Model):
         # aggregate registrations by shift and by state
         if self.ids:
             state_field = {
-                'draft': 'seats_unconfirmed',
+                'draft': 'seats_reserved',
                 'open': 'seats_reserved',
                 'replacing': 'seats_reserved',
                 'done': 'seats_used',

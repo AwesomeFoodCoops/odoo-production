@@ -83,11 +83,16 @@ class ShiftTicket(models.Model):
         except ValueError:
             return False
 
-    seats_availability = fields.Selection(compute='_compute_seats')
-    seats_reserved = fields.Integer(compute='_compute_seats')
-    seats_available = fields.Integer(compute='_compute_seats')
-    seats_unconfirmed = fields.Integer(compute='_compute_seats')
-    seats_used = fields.Integer(compute='_compute_seats',)
+    seats_availability = fields.Selection(
+        compute='_compute_seats', store=False)
+    seats_reserved = fields.Integer(
+        compute='_compute_seats', store=False)
+    seats_available = fields.Integer(
+        compute='_compute_seats', store=False)
+    seats_unconfirmed = fields.Integer(
+        compute='_compute_seats', store=False)
+    seats_used = fields.Integer(
+        compute='_compute_seats', store=False)
 
     @api.depends('product_id')
     @api.multi
