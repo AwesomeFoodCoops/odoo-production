@@ -60,6 +60,9 @@ class ResPartner(models.Model):
         string='Is Associated People', store=True,
         compute='_compute_is_associated_people')
 
+    welcome_email = fields.Boolean(
+        string='Welcome email sent', default=False)
+
     # Important : Overloaded Field Section
     customer = fields.Boolean(
         compute='_compute_customer', store=True, readonly=True)
@@ -174,11 +177,37 @@ class ResPartner(models.Model):
             partner.generate_base()
             partner.generate_barcode()
 
+    @api.multi
+    def send_welcome_email(self):
+        mail_template = self.env.ref('louve_membership.welcome_email')
+        if not mail_template:
+            return False
+        attachment = self.env['ir.attachment'].search([
+            ('name', '=',
+                'La Louve - Procédure initialisation Espace Membres.pdf')])[0]
+
+        for partner in self:
+            mail_id = mail_template.send_mail(partner.id)
+            mail = self.env['mail.mail'].browse(mail_id)
+            if attachment:
+                mail.attachment_ids = [(6, 0, [attachment.id])]
+            partner.welcome_email = True
+        return True
+
+    # CRON section
     @api.model
     def update_is_unsubscribed(self):
-        # Function Called by the CRON
         partners = self.search([])
         partners._compute_is_unsubscribed()
+
+    @api.model
+    def send_welcome_emails(self):
+        partners = self.search([
+            ('welcome_email', '=', False),
+            ('is_type_A_capital_subscriptor', '=', True),
+            ('is_unsubscribed', '=', False),
+        ])
+        partners.send_welcome_email()
 
     # View section
     @api.multi

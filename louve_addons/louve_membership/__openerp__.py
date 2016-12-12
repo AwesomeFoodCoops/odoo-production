@@ -33,6 +33,7 @@
         # Custom Data
         'data/ir_cron.xml',
         'data/capital_fundraising_partner_type.xml',
+        'data/email_template_data.xml',
     ],
     'demo': [
         'demo/res_groups.xml',
