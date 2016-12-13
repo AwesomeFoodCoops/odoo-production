@@ -27,18 +27,6 @@ from openerp import models, fields, api
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    @api.multi
-    def _compute_registration_counts(self):
-        d = fields.Datetime.now()
-        for partner in self:
-            partner.upcoming_registration_count = len(
-                partner.registration_ids.filtered(
-                    lambda r, d=d: r.date_begin >= d))
-            partner.tmpl_registration_count = len(partner.tmpl_reg_line_ids)
-            partner.active_tmpl_reg_line_count = len(
-                partner.tmpl_reg_line_ids.filtered(
-                    lambda l: l.is_current or l.is_future))
-
     registration_ids = fields.One2many(
         'shift.registration', "partner_id", 'Registrations')
     upcoming_registration_count = fields.Integer(
@@ -59,3 +47,33 @@ class ResPartner(models.Model):
     active_tmpl_reg_line_count = fields.Integer(
         "Number of active registration lines",
         compute="_compute_registration_counts")
+
+    current_template_name = fields.Char(
+        string='Current Template', compute='_compute_current_template_name')
+
+    # Compute section
+    @api.multi
+    def _compute_registration_counts(self):
+        d = fields.Datetime.now()
+        for partner in self:
+            partner.upcoming_registration_count = len(
+                partner.registration_ids.filtered(
+                    lambda r, d=d: r.date_begin >= d))
+            partner.tmpl_registration_count = len(partner.tmpl_reg_line_ids)
+            partner.active_tmpl_reg_line_count = len(
+                partner.tmpl_reg_line_ids.filtered(
+                    lambda l: l.is_current or l.is_future))
+
+    @api.multi
+    def _compute_current_template_name(self):
+        for partner in self:
+            reg = partner.tmpl_reg_ids.filtered(
+                lambda r: r.is_current)
+            if reg:
+                partner.current_template_name = reg[0].shift_template_id.name
+            else:
+                reg = partner.tmpl_reg_ids.filtered(
+                    lambda r: r.is_future)
+                if reg:
+                    partner.current_template_name =\
+                        reg[0].shift_template_id.name
