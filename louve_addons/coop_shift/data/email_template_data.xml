@@ -28,6 +28,7 @@
             <field name="body_html"><![CDATA[<p>Hello ${object.name},</p>
 <p>This is a reminder for ${object.shift_id.name} that you registered for is confirmed and will be held from ${object.shift_id.date_begin_located} to ${object.shift_id.date_end_located}.
 For any further information please contact our shift department.</p>
+<p>You can get your next shift on our website : https://membres.cooplalouve.fr/</p>
 <p>Thank you for your participation!</p>
 <p>Best regards</p>]]></field>
         </record>
