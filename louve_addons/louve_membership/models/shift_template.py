@@ -27,5 +27,5 @@ from openerp import models, fields
 class ShiftTemplate(models.Model):
     _inherit = 'shift.template'
 
-    user_id = fields.Many2one(
+    user_ids = fields.Many2many(
         domain=[('is_type_A_capital_subscriptor', '=', True)])

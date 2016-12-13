@@ -3,7 +3,7 @@
         <record id="shift_subscription" model="mail.template">
             <field name="name">Shift subscription</field>
             <field name="model_id" ref="coop_shift.model_shift_registration"/>
-            <field name="email_from">${(object.shift_id.organizer_id.email or object.shift_id.user_id.email or '')|safe}</field>
+            <field name="email_from">${(object.shift_id.organizer_id.email or object.shift_id.user_ids[0].email or '')|safe}</field>
             <field name="email_to" >${object.email|safe}</field>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="reply_to">${object.shift_id.reply_to|safe}</field>
@@ -20,7 +20,7 @@
         <record id="shift_reminder" model="mail.template">
             <field name="name">Shift: reminder</field>
             <field name="model_id" ref="coop_shift.model_shift_registration"/>
-            <field name="email_from">${(object.shift_id.organizer_id.email or object.shift_id.user_id.email or '')|safe}</field>
+            <field name="email_from">${(object.shift_id.organizer_id.email or object.shift_id.user_ids[0].email or '')|safe}</field>
             <field name="email_to" >${object.partner_id.email or object.email|safe}</field>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="reply_to">${object.shift_id.reply_to|safe}</field>
@@ -36,7 +36,7 @@ For any further information please contact our shift department.</p>
         <record id="shift_thanks" model="mail.template">
             <field name="name">Shift: thanks for attending</field>
             <field name="model_id" ref="coop_shift.model_shift_registration"/>
-            <field name="email_from">${(object.shift_id.organizer_id.email or object.shift_id.user_id.email or '')|safe}</field>
+            <field name="email_from">${(object.shift_id.organizer_id.email or object.shift_id.user_ids[0].email or '')|safe}</field>
             <field name="email_to" >${object.partner_id.email or object.email|safe}</field>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="reply_to">${object.shift_id.reply_to|safe}</field>

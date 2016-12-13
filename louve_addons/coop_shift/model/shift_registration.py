@@ -64,7 +64,7 @@ class ShiftRegistration(models.Model):
     phone = fields.Char(readonly=True, related='partner_id.phone')
     name = fields.Char(readonly=True, related='partner_id.name', store=True)
     partner_id = fields.Many2one(required=True)
-    user_id = fields.Many2one(related="shift_id.user_id")
+    user_ids = fields.Many2many(related="shift_id.user_ids")
     shift_ticket_id = fields.Many2one(
         'shift.ticket', 'Shift Ticket', required=True, ondelete="cascade")
     shift_ticket_product_id = fields.Many2one(

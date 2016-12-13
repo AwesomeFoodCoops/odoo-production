@@ -39,7 +39,7 @@
                         <group name="main_field_group">
                             <group>
                                 <field name="shift_template_id" groups="coop_shift.group_shift_manager" options="{'no_create': True}"/>
-                                <field name="user_id" options="{'no_create': True}"/>
+                                <field name="user_ids" options="{'no_create': True}" widget="many2many_tags"/>
                                 <field name="shift_type_id" options="{'no_create': True}"/>
                                 <!-- <field name="date_tz" /> -->
                             </group>
@@ -112,7 +112,7 @@
                     <field name="seats_reserved"/>
                     <field name="seats_min"/>
                     <field name="seats_max" invisible="1"/>
-                    <field name="user_id"/>
+                    <field name="user_ids"/>
                     <field name="state"/>
                     <field name="message_needaction" invisible="1"/>
                 </tree>
@@ -124,7 +124,7 @@
             <field name="model">shift.shift</field>
             <field name="arch" type="xml">
                 <kanban class="o_event_kanban_view">
-                    <field name="user_id"/>
+                    <field name="user_ids"/>
                     <field name="date_begin"/>
                     <field name="date_end"/>
                     <field name="seats_unconfirmed"/>
@@ -199,19 +199,18 @@
                     <filter string="Unconfirmed" name="draft" domain="[('state','=','draft')]" help="Shifts in New state"/>
                     <filter string="Confirmed" domain="[('state','=','confirm')]" help="Confirmed shifts"/>
                     <separator/>
-                    <filter string="My Shifts" help="My Shifts" domain="[('user_id','=',uid)]"/>
+                    <filter string="My Shifts" help="My Shifts" domain="[('user_ids','in',uid)]"/>
                     <separator/>
                     <filter string="Upcoming" name="upcoming"
                         domain="['&amp;', ('state', '!=', 'cancel'), ('date_begin','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]" help="Upcoming shifts from today" />
                     <field name="week_number"/>
                     <field name="week_list"/>
                     <field name="shift_type_id"/>
-                    <field name="user_id"/>
+                    <field name="user_ids"/>
                     <field name="begin_date_string" string="Date"/>
                     <separator/>
                     <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
                     <group expand="0" string="Group By">
-                        <filter string="Responsible" context="{'group_by': 'user_id'}"/>
                         <filter string="Shift Type" context="{'group_by':'shift_type_id'}"/>
                         <filter string="Week" context="{'group_by':'week_number'}"/>
                         <filter string="Status" context="{'group_by':'state'}"/>

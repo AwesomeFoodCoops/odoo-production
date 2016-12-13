@@ -112,6 +112,9 @@ class ShiftShift(models.Model):
     end_time_for_mail = fields.Char(
         string='End Time', compute='_compute_end_date_fields',
         multi="end_date")
+    user_ids = fields.Many2many(
+        'res.partner', 'res_partner_shift_shift_rel', 'shift_template_id',
+        'partner_id', string='Shift Leaders')
     user_id = fields.Many2one(comodel_name='res.partner', default=False)
     seats_max = fields.Integer()
 
@@ -237,7 +240,7 @@ class ShiftShift(models.Model):
     def _onchange_template_id(self):
         if self.shift_template_id:
             self.name = self.shift_template_id.name
-            self.user_id = self.shift_template_id.user_id
+            self.user_ids = self.shift_template_id.user_ids
             self.shift_type_id = self.shift_template_id.shift_type_id
             self.week_number = self.shift_template_id.week_number
             cur_date = self.date_begin and datetime.strptime(

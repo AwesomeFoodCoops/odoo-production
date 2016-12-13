@@ -17,7 +17,7 @@
                             <tree create="0">
                                 <field name="shift_id"/>
                                 <field name="name"/>
-                                <field name="user_id"/>
+                                <field name="user_ids"/>
                                 <field name="shift_type_id"/>
                                 <field name="date_begin"/>
                                 <field name="date_end"/>

@@ -51,6 +51,8 @@ class ShiftTicket(models.Model):
     date_begin = fields.Datetime(related="shift_id.date_begin")
     begin_date_string = fields.Char(
         string='Begin Date', compute='_compute_begin_date_fields', store=True,)
+    user_ids = fields.Many2many(
+        'res.partner', related="shift_id.user_ids", store=True)
     user_id = fields.Many2one(
         'res.partner', related="shift_id.user_id", store=True)
     hide_in_member_space = fields.Boolean(

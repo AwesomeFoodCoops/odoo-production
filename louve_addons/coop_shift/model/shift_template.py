@@ -62,6 +62,9 @@ class ShiftTemplate(models.Model):
         "Number of shifts", compute="_compute_shifts_counts")
     user_id = fields.Many2one(
         'res.partner', string='Shift Leader', required=True)
+    user_ids = fields.Many2many(
+        'res.partner', 'res_partner_shift_template_rel', 'shift_template_id',
+        'partner_id', string='Shift Leaders', required=True)
     company_id = fields.Many2one(
         'res.company', string='Company', change_default=True,
         default=lambda self: self.env['res.company']._company_default_get(
@@ -639,7 +642,7 @@ class ShiftTemplate(models.Model):
                 vals = {
                     'shift_template_id': template.id,
                     'name': template.name,
-                    'user_id': template.user_id.id,
+                    'user_ids': [(6, 0, template.user_ids.ids)],
                     'company_id': template.company_id.id,
                     'seats_max': template.seats_max,
                     'seats_availability': template.seats_availability,
@@ -680,7 +683,7 @@ class ShiftTemplate(models.Model):
                         if state:
                             vals = {
                                 'partner_id': attendee.partner_id.id,
-                                'user_id': template.user_id.id,
+                                'user_ids': [(6, 0, template.user_ids.ids)],
                                 'state': state,
                                 'email': attendee.email,
                                 'phone': attendee.phone,
