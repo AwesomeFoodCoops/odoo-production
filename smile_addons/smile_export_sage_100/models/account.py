@@ -31,5 +31,6 @@ class account_journal(models.Model):
 class account_move_line(models.Model):
     _inherit = "account.move.line"
 
-    state = fields.Selection([('draft', 'Unposted'), ('posted', 'Posted')], string='Status', related='move_id.state',
-                             store=True, readonly=True,)
+    state = fields.Selection(
+        [('draft', 'Unposted'), ('posted', 'Posted')], string='Status',
+        related='move_id.state', store=True, readonly=True, )
