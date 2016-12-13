@@ -572,6 +572,12 @@ class ShiftTemplate(models.Model):
         }
 
     @api.multi
+    def write(self, vals):
+        if 'updated_fields' not in vals.keys() and len(self.shift_ids):
+            vals['updated_fields'] = str(vals)
+        return super(ShiftTemplate, self).write(vals)
+
+    @api.multi
     def discard_changes(self):
         return self.write({'updated_fields': ''})
 
