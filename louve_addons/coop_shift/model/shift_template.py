@@ -702,3 +702,16 @@ class ShiftTemplate(models.Model):
         templates.create_shifts_from_template(
             before=fields.Datetime.to_string(
                 datetime.today() + timedelta(days=SHIFT_CREATION_DAYS)))
+
+    @api.model
+    def _migrate_user_ids(self):
+        for template in self.search([]):
+            if template.user_id and template.user_id not in template.user_ids:
+                template.user_ids += template.user_id
+                template.discard_changes
+        for shift in self.env['shift.shift'].search([('state', '=', 'draft')]):
+            if shift.user_id and shift.user_id not in shift.user_ids:
+                shift.user_ids += shift.user_id
+            for ticket in shift.shift_ticket_ids:
+                if ticket.user_id and ticket.user_id not in ticket.user_ids:
+                    ticket.user_ids += ticket.user_id

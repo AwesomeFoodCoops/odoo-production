@@ -38,6 +38,7 @@
         'barcodes_generate',
     ],
     'data': [
+        'data/function.xml',
         'data/coop_shift_data.xml',
         'wizard/create_shifts_wizard_view.xml',
         'wizard/update_shifts_wizard_view.xml',
