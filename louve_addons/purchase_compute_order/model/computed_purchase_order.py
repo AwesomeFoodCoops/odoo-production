@@ -337,8 +337,8 @@ class ComputedPurchaseOrder(models.Model):
             # Get product_product and compute stock
             for psi in psi_obj.search([('name', '=', cpo.partner_id.id)]):
                 for pp in psi.product_tmpl_id.filtered(
-                        lambda pt: pt.state not in ('end', 'obsolete')
-                ).product_variant_ids:
+                        lambda pt: pt.state not in ('end', 'obsolete') and
+                        pt.purchase_ok).product_variant_ids:
                     valid_psi = pp._valid_psi(cpo.valid_psi)
                     if valid_psi and psi in valid_psi[0]:
                         cpol_list.append((0, 0, {
