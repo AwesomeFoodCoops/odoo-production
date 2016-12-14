@@ -179,6 +179,7 @@ class SmileExportSage(models.Model):
         datas = self._get_datas(move_line_ids)
 
         # Create a document with output as content
+        import pdb; pdb.set_trace()
         vals = {
             'name': "%s.%s" % (self.name, self.extension),
             'type': 'binary',
@@ -208,7 +209,7 @@ class SmileExportSage(models.Model):
                 "\n\nAucun compte Sage n'a été défini pour ces comptes: {}."\
                 .format(', '.join(set(self.UNASSIGNED_ACCOUNT_SAGE_CODES)))
         if message != '':
-            raise exceptions.Warning(_(message))
+            raise exceptions.UserError(_(message))
         return True
 
     @api.multi
@@ -220,9 +221,12 @@ class SmileExportSage(models.Model):
         self.ensure_one()
         output = []
         # Content of the export
-        output += self.build_header()
+        header = self.build_header()
+        if header:
+            output += header
+        import pdb; pdb.set_trace()
         for move_line_id in move_line_ids:
-            output += self.build_account_move_line(move_line_id)
+            output.append(",".join(self.build_account_move_line(move_line_id)))
         output += self.build_footer()
         datas = self.LINE_SEPARATOR.join(output)
         # Marks move lines as exported
@@ -314,11 +318,12 @@ class SmileExportSage(models.Model):
 
         @return: str list
         """
-        args = []
-        args.append('#FLG 000')
-        args.append('#VER 5')
-        args.append('#DEV EUR')
-        return args
+        # args = []
+        # args.append('#FLG 000')
+        # args.append('#VER 5')
+        # args.append('#DEV EUR')
+        # return args
+        return None
 
     @api.model
     def build_footer(self):
