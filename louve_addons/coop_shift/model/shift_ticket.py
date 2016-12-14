@@ -138,10 +138,11 @@ class ShiftTicket(models.Model):
         price = self.product_id.list_price if self.product_id else 0
         return {'value': {'price': price}}
 
-    @api.one
-    @api.constrains('event_ticket_id', 'state')
-    def _check_ticket_seats_limit(self):
-        return True
+    # TODO JW : FIXME. 'event_ticket_id' field doesn't not exists
+    #    @api.one
+    #    @api.constrains('event_ticket_id', 'state')
+    #    def _check_ticket_seats_limit(self):
+    #        return True
 
     @api.one
     @api.constrains('registration_ids', 'seats_max')
