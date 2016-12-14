@@ -166,3 +166,8 @@ class ShiftRegistration(models.Model):
         for shift in shift_ids:
             shift.compute_ftop_seats()
         return res
+
+    @api.one
+    @api.constrains('event_ticket_id', 'state')
+    def _check_ticket_seats_limit(self):
+        return True
