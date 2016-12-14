@@ -51,6 +51,9 @@ class ResPartner(models.Model):
     current_template_name = fields.Char(
         string='Current Template', compute='_compute_current_template_name')
 
+    is_squadleader = fields.Boolean(
+        "is an active Squadleader", compute="_compute_is_squadleader")
+
     # Compute section
     @api.multi
     def _compute_registration_counts(self):
@@ -77,3 +80,16 @@ class ResPartner(models.Model):
                 if reg:
                     partner.current_template_name =\
                         reg[0].shift_template_id.name
+
+    # Compute section
+    @api.multi
+    def _compute_is_squadleader(self):
+        for partner in self:
+            partner.is_squadleader = False
+            shifts = self.env['shift.shift'].search([
+                ('user_ids', 'in', partner.id),
+                ('date_begin', '>=', fields.Date.today())
+            ])
+            if len(shifts):
+                partner.is_squadleader = True
+

@@ -22,6 +22,9 @@
             <field name="arch" type="xml">
                 <page name="sales_purchases" position="after">
                     <page name="shifts" string="Shifts">
+                        <group name="squedleader">
+                            <field name="is_squadleader"/>
+                        </group>
                         <group name="button" groups="coop_shift.group_shift_manager">
                             <button name="%(coop_shift.action_add_template_registration)d" type="action" class="oe_highlight" icon="fa-cogs" string="Add Template Registration" id="add_template_registration"/>
                         </group>
