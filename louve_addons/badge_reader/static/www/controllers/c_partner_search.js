@@ -8,6 +8,16 @@ angular.module('starter').controller('PartnerSearchCtrl', ['$scope', '$state', '
         'css_class': 'partner-search',
     };
 
+    $scope.$on(
+            '$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams){
+        if ($state.current.name === 'partner_search') {
+            // Init Barcode value
+            $scope.search_value.barcode = '';
+        }
+    });
+
+
     $scope.submit_barcode = function () {
         ResPartnerModel.GetByBarcode($scope.search_value.barcode).then(function (partner_res) {
             if (partner_res.length == 1){
