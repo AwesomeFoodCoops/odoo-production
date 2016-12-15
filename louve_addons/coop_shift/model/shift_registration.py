@@ -64,7 +64,7 @@ class ShiftRegistration(models.Model):
     phone = fields.Char(readonly=True, related='partner_id.phone')
     name = fields.Char(readonly=True, related='partner_id.name', store=True)
     partner_id = fields.Many2one(required=True)
-    user_id = fields.Many2one(related="shift_id.user_id")
+    user_ids = fields.Many2many(related="shift_id.user_ids")
     shift_ticket_id = fields.Many2one(
         'shift.ticket', 'Shift Ticket', required=True, ondelete="cascade")
     shift_ticket_product_id = fields.Many2one(
@@ -148,6 +148,7 @@ class ShiftRegistration(models.Model):
         reg_id = super(ShiftRegistration, self).create(vals)
         if reg_id.shift_id.state == "confirm":
             reg_id.confirm_registration()
+        reg_id.shift_id.compute_ftop_seats()
         return reg_id
 
     @api.multi
@@ -157,3 +158,16 @@ class ShiftRegistration(models.Model):
             onsubscribe_schedulers = reg.shift_id.shift_mail_ids.filtered(
                 lambda s: s.interval_type == 'after_sub')
             onsubscribe_schedulers.execute()
+
+    @api.multi
+    def unlink(self):
+        shift_ids = self.mapped(lambda r: r.shift_id)
+        res = super(ShiftRegistration, self).unlink()
+        for shift in shift_ids:
+            shift.compute_ftop_seats()
+        return res
+
+    @api.one
+    @api.constrains('event_ticket_id', 'state')
+    def _check_ticket_seats_limit(self):
+        return True

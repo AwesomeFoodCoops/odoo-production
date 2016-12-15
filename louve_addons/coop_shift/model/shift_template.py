@@ -62,6 +62,9 @@ class ShiftTemplate(models.Model):
         "Number of shifts", compute="_compute_shifts_counts")
     user_id = fields.Many2one(
         'res.partner', string='Shift Leader', required=True)
+    user_ids = fields.Many2many(
+        'res.partner', 'res_partner_shift_template_rel', 'shift_template_id',
+        'partner_id', string='Shift Leaders', required=True)
     company_id = fields.Many2one(
         'res.company', string='Company', change_default=True,
         default=lambda self: self.env['res.company']._company_default_get(
@@ -569,6 +572,12 @@ class ShiftTemplate(models.Model):
         }
 
     @api.multi
+    def write(self, vals):
+        if 'updated_fields' not in vals.keys() and len(self.shift_ids):
+            vals['updated_fields'] = str(vals)
+        return super(ShiftTemplate, self).write(vals)
+
+    @api.multi
     def discard_changes(self):
         return self.write({'updated_fields': ''})
 
@@ -639,7 +648,7 @@ class ShiftTemplate(models.Model):
                 vals = {
                     'shift_template_id': template.id,
                     'name': template.name,
-                    'user_id': template.user_id.id,
+                    'user_ids': [(6, 0, template.user_ids.ids)],
                     'company_id': template.company_id.id,
                     'seats_max': template.seats_max,
                     'seats_availability': template.seats_availability,
@@ -656,6 +665,8 @@ class ShiftTemplate(models.Model):
                     'shift_ticket_ids': None,
                 }
                 shift_id = self.env['shift.shift'].create(vals)
+                classic_ticket = self.shift_ticket_ids.filtered(
+                    lambda s: s.product_id.shift_type_id.is_ftop is False)
                 for ticket in template.shift_ticket_ids:
                     vals = {
                         'name': ticket.name,
@@ -666,6 +677,11 @@ class ShiftTemplate(models.Model):
                         'seats_availability': ticket.seats_availability,
                         'seats_max': ticket.seats_max,
                     }
+                    if ticket.product_id.shift_type_id.is_ftop:
+                        vals['seats_availability'] = 'limited'
+                        vals['seats_max'] = self.seats_max -\
+                            classic_ticket.seats_reserved -\
+                            classic_ticket.seats_unconfirmed
                     ticket_id = self.env['shift.ticket'].create(vals)
 
                     for attendee in ticket.registration_ids:
@@ -673,7 +689,7 @@ class ShiftTemplate(models.Model):
                         if state:
                             vals = {
                                 'partner_id': attendee.partner_id.id,
-                                'user_id': template.user_id.id,
+                                'user_ids': [(6, 0, template.user_ids.ids)],
                                 'state': state,
                                 'email': attendee.email,
                                 'phone': attendee.phone,
@@ -692,3 +708,16 @@ class ShiftTemplate(models.Model):
         templates.create_shifts_from_template(
             before=fields.Datetime.to_string(
                 datetime.today() + timedelta(days=SHIFT_CREATION_DAYS)))
+
+    @api.model
+    def _migrate_user_ids(self):
+        for template in self.search([]):
+            if template.user_id and template.user_id not in template.user_ids:
+                template.user_ids += template.user_id
+                template.discard_changes
+        for shift in self.env['shift.shift'].search([('state', '=', 'draft')]):
+            if shift.user_id and shift.user_id not in shift.user_ids:
+                shift.user_ids += shift.user_id
+            for ticket in shift.shift_ticket_ids:
+                if ticket.user_id and ticket.user_id not in ticket.user_ids:
+                    ticket.user_ids += ticket.user_id

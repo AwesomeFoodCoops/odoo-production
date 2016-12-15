@@ -48,7 +48,7 @@ class UpdateShiftsWizard(models.TransientModel):
                     'wizard_id': self.id,
                     'shift_id': shift,
                     'name': shift.name,
-                    'user_id': shift.user_id.id,
+                    'user_ids': [(6, 0, shift.user_ids.ids)],
                     'shift_type_id': shift.shift_type_id.id,
                     'date_begin': shift.date_begin,
                     'date_end': shift.date_end,
@@ -121,7 +121,9 @@ class UpdateShiftsWizardLine(models.TransientModel):
     shift_id = fields.Many2one(
         'shift.shift', 'Shift Reference', required=True)
     name = fields.Char('Name')
-    user_id = fields.Many2one('res.partner', string='Responsible')
+    user_ids = fields.Many2many(
+        'res.partner', 'res_partner_shift_uswl_rel', 'shift_template_id',
+        'partner_id', string='Shift Leader')
     shift_type_id = fields.Many2one('shift.type', string='Category')
     date_begin = fields.Datetime(string='Start Date')
     date_end = fields.Datetime(string='Start Date')

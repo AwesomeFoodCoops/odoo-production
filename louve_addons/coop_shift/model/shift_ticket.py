@@ -51,6 +51,8 @@ class ShiftTicket(models.Model):
     date_begin = fields.Datetime(related="shift_id.date_begin")
     begin_date_string = fields.Char(
         string='Begin Date', compute='_compute_begin_date_fields', store=True,)
+    user_ids = fields.Many2many(
+        'res.partner', related="shift_id.user_ids", store=True)
     user_id = fields.Many2one(
         'res.partner', related="shift_id.user_id", store=True)
     hide_in_member_space = fields.Boolean(
@@ -83,11 +85,16 @@ class ShiftTicket(models.Model):
         except ValueError:
             return False
 
-    seats_availability = fields.Selection(compute='_compute_seats')
-    seats_reserved = fields.Integer(compute='_compute_seats')
-    seats_available = fields.Integer(compute='_compute_seats')
-    seats_unconfirmed = fields.Integer(compute='_compute_seats')
-    seats_used = fields.Integer(compute='_compute_seats',)
+    seats_availability = fields.Selection(
+        compute='_compute_seats', store=False)
+    seats_reserved = fields.Integer(
+        compute='_compute_seats', store=False)
+    seats_available = fields.Integer(
+        compute='_compute_seats', store=False)
+    seats_unconfirmed = fields.Integer(
+        compute='_compute_seats', store=False)
+    seats_used = fields.Integer(
+        compute='_compute_seats', store=False)
 
     @api.depends('product_id')
     @api.multi
@@ -137,12 +144,6 @@ class ShiftTicket(models.Model):
     def onchange_product_id(self):
         price = self.product_id.list_price if self.product_id else 0
         return {'value': {'price': price}}
-
-    # TODO JW : FIXME. 'event_ticket_id' field doesn't not exists
-    #    @api.one
-    #    @api.constrains('event_ticket_id', 'state')
-    #    def _check_ticket_seats_limit(self):
-    #        return True
 
     @api.one
     @api.constrains('registration_ids', 'seats_max')

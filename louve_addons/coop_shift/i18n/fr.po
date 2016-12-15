@@ -2719,7 +2719,7 @@ msgstr "au"
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_template_form
 msgid "discarding the changes"
-msgstr "Annuler les modifications"
+msgstr "ne pas répercuter les modifications"
 
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_template.py:405

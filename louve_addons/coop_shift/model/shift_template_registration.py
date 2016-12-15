@@ -38,7 +38,7 @@ class ShiftTemplateRegistration(models.Model):
     phone = fields.Char(readonly=True, related='partner_id.phone')
     name = fields.Char(readonly=True, related='partner_id.name', store=True)
     partner_id = fields.Many2one(required=True)
-    user_id = fields.Many2one(related="shift_template_id.user_id")
+    user_ids = fields.Many2many(related="shift_template_id.user_ids")
     shift_ticket_id = fields.Many2one(
         'shift.template.ticket', 'Shift Ticket', required=True,
         default=lambda rec: rec._get_default_ticket(), copy=True)
