@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="capital.fundraising.category" id="capital_subscription.capital_fundraising_category_A">
+        <field name="is_part_A">True</field>
+    </record>
+
+    <record model="capital.fundraising.category" id="capital_subscription.capital_fundraising_category_B">
+        <field name="is_part_B">True</field>
+    </record>
+
+    <record model="capital.fundraising.category" id="capital_subscription.capital_fundraising_category_C">
+        <field name="is_part_C">True</field>
+    </record>
+
+</odoo>

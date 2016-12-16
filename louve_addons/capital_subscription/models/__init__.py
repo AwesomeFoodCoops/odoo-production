@@ -12,3 +12,4 @@ from . import capital_fundraising_category
 from . import capital_fundraising_category_line
 from . import capital_fundraising_partner_type
 from . import capital_fundraising_wizard
+from . import capital_subscription_transfer_wizard

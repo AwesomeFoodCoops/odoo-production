@@ -25,4 +25,13 @@
         <field name="product_id" ref="product_fundraising_category_B" />
     </record>
 
+    <record model="capital.fundraising.category" id="capital_fundraising_category_C">
+        <field name="name">Demo Capital Fundraising Category C</field>
+        <field name="fundraising_id" ref="capital_fundraising" />
+        <field name="minimum_share_qty">25</field>
+        <field name="partner_account_id" ref="partner_account_category_C" />
+        <field name="capital_account_id" ref="paid_capital_account_category_C" />
+        <field name="product_id" ref="product_fundraising_category_C" />
+    </record>
+
 </odoo>

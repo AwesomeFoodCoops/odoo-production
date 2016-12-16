@@ -21,6 +21,7 @@
         'security/ir.model.access.csv',
         'views/action.xml',
         'views/view_capital_fundraising_wizard.xml',
+        'views/view_subscription_transfer_wizard.xml',
         'views/view_product_template.xml',
         'views/view_res_partner.xml',
         'views/view_account_invoice.xml',
