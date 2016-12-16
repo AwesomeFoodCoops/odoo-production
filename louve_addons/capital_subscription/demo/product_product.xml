@@ -12,7 +12,7 @@
         <field name="type">service</field>
         <field name="list_price">10</field>
         <field name="is_capital_fundraising" eval="True" />
-        <field name="sale_ok" eval="False" />
+        <field name="sale_ok" eval="True" />
         <field name="categ_id" ref="product_category_fundraising"/>
         <field name="uom_id" ref="product.product_uom_unit"/>
         <field name="uom_po_id" ref="product.product_uom_unit"/>
@@ -27,7 +27,7 @@
         <field name="type">service</field>
         <field name="list_price">10</field>
         <field name="is_capital_fundraising" eval="True" />
-        <field name="sale_ok" eval="False" />
+        <field name="sale_ok" eval="True" />
         <field name="categ_id" ref="product_category_fundraising"/>
         <field name="uom_id" ref="product.product_uom_unit"/>
         <field name="uom_po_id" ref="product.product_uom_unit"/>
@@ -41,7 +41,7 @@
         <field name="type">service</field>
         <field name="list_price">10</field>
         <field name="is_capital_fundraising" eval="True" />
-        <field name="sale_ok" eval="False" />
+        <field name="sale_ok" eval="True" />
         <field name="categ_id" ref="product_category_fundraising"/>
         <field name="uom_id" ref="product.product_uom_unit"/>
         <field name="uom_po_id" ref="product.product_uom_unit"/>
