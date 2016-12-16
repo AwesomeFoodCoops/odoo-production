@@ -16,3 +16,13 @@ class CapitalFundraisingCategory(models.Model):
         string='Is Part A', help="If checked, partner that have subscribed"
         " such fundraising category will belong to 'Type A subscriptor'"
         " category")
+
+    is_part_B = fields.Boolean(
+        string='Is Part B', help="If checked, partner that have subscribed"
+        " such fundraising category will belong to 'Type B subscriptor'"
+        " category")
+
+    is_part_C = fields.Boolean(
+        string='Is Part C', help="If checked, partner that have subscribed"
+        " such fundraising category will belong to 'Type C subscriptor'"
+        " category")

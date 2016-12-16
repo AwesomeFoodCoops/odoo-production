@@ -92,4 +92,3 @@ class ResPartner(models.Model):
             ])
             if len(shifts):
                 partner.is_squadleader = True
-

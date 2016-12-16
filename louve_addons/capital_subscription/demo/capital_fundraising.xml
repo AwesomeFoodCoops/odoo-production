@@ -11,7 +11,6 @@
         <field name="name">Demo Capital Fundraising</field>
         <field name="share_value">10</field>
         <field name="journal_id" ref="capital_journal" />
-
     </record>
 
 </odoo>

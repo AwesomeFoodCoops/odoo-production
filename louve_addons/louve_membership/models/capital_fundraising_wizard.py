@@ -47,7 +47,7 @@ class CapitalFundraisingWizard(models.TransientModel):
             # Add the barcode rule
             barcode_rule_id = barcode_rule_obj.search(
                 [('for_type_A_capital_subscriptor', '=', True)], limit=1)
-            if barcode_rule_id:
+            if barcode_rule_id and barcode_rule_id.generate_type == 'sequence':
                 wizard.partner_id.barcode_rule_id = barcode_rule_id.id
                 wizard.partner_id.generate_base()
                 wizard.partner_id.generate_barcode()

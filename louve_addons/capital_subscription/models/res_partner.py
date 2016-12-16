@@ -13,6 +13,7 @@ class ResPartner(models.Model):
     fundraising_partner_type_ids = fields.Many2many(
         comodel_name='capital.fundraising.partner.type',
         string='Fundraising Partner Type')
+
     amount_subscription = fields.Float(
         string="Total Subscribed Amount",
         compute='compute_amount_subscription')

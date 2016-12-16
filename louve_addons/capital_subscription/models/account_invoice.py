@@ -17,6 +17,18 @@ class AccountInvoice(models.Model):
         comodel_name='capital.fundraising.category',
         string='Fundraising Category')
 
+    # Overload Section
+    @api.model
+    def _prepare_refund(
+            self, invoice, date_invoice=None, date=None, description=None,
+            journal_id=None):
+        res = super(AccountInvoice, self)._prepare_refund(
+            invoice, date_invoice=date_invoice, date=date,
+            description=description, journal_id=journal_id)
+        res['is_capital_fundraising'] = invoice.is_capital_fundraising
+        res['fundraising_category_id'] = invoice.fundraising_category_id.id
+        return res
+
     # Constraint Section
     @api.one
     @api.constrains(
@@ -24,6 +36,8 @@ class AccountInvoice(models.Model):
         'partner_id', 'invoice_line_ids')
     def _check_capital_fundraising(self):
         invoice = self
+        product_ids = invoice.invoice_line_ids.mapped('product_id.id')
+
         if invoice.is_capital_fundraising:
             # Check mandatory field
             if not invoice.fundraising_category_id:
@@ -32,7 +46,6 @@ class AccountInvoice(models.Model):
                     " defined"))
 
             # Check products
-            product_ids = invoice.invoice_line_ids.mapped('product_id.id')
             forbidden_product_ids =\
                 list(set(product_ids) - set(
                     [invoice.fundraising_category_id.product_id.id]))
@@ -53,6 +66,18 @@ class AccountInvoice(models.Model):
                 raise exceptions.UserError(_(
                     "This category and (previous orders) requires at least"
                     " %d shares.") % (to_order_qty))
+        else:
+            capital_product_ids = self.env['product.product'].search(
+                [('is_capital_fundraising', '=', True)]).ids
+            forbidden_product_ids =\
+                list(set(product_ids).intersection(capital_product_ids))
+            if forbidden_product_ids:
+                forbidden_product_names = ', '.join(
+                    self.env['product.product'].browse(
+                        forbidden_product_ids).mapped('name'))
+                raise exceptions.UserError(_(
+                    "Non capital invoice do not accept line with capital"
+                    " subscription products : %s") % (forbidden_product_names))
 
     # OnChange Section
     @api.onchange('fundraising_category_id')

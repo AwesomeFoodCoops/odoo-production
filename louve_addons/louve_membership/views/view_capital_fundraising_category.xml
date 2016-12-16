@@ -14,6 +14,8 @@
             <field name="minimum_share_qty" position="after">
                 <field name="is_default"/>
                 <field name="is_part_A"/>
+                <field name="is_part_B"/>
+                <field name="is_part_C"/>
             </field>
         </field>
     </record>
