@@ -3,7 +3,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
@@ -70,7 +70,7 @@ class ResPartner(models.Model):
     # Note we use selection instead of selection_add, to have a correct
     # order in the status widget
     cooperative_state = fields.Selection(
-        selection=EXTRA_COOPERATIVE_STATE_SELECTION)
+        selection=EXTRA_COOPERATIVE_STATE_SELECTION, default='not_concerned')
 
     # Compute Section
     @api.multi
