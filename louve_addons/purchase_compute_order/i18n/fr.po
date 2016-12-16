@@ -200,7 +200,7 @@ msgstr "Brouillon"
 #. module: purchase_compute_order
 #: model:ir.ui.view,arch_db:purchase_compute_order.view_computed_purchase_order_form
 msgid "Fetch all active products sold by selected supplier and calculate the available quantities. It ignores inactive or not purchasable products and products in state 'obsolete' or 'end'"
--msgstr "Récupère tous les produits actifs vendus par le fournisseur et calcule les stocks disponibles. Les produits inactifs ou non achetable sont ignorés ainsi que les produit en état 'fin de cycle de vie' ou 'obsolète'."
+msgstr "Récupère tous les produits actifs vendus par le fournisseur et calcule les stocks disponibles. Les produits inactifs ou non achetable sont ignorés ainsi que les produit en état 'fin de cycle de vie' ou 'obsolète'."
 
 #. module: purchase_compute_order
 #: model:ir.ui.view,arch_db:purchase_compute_order.view_computed_purchase_order_form
