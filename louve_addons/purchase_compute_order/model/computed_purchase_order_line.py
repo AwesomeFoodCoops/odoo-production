@@ -49,7 +49,8 @@ class ComputedPurchaseOrderLine(models.Model):
         help="""Gives the sequence order when displaying a list of"""
         """ purchase order lines.""")
     product_id = fields.Many2one(
-        'product.product', 'Product', required=True)
+        'product.product', 'Product', required=True,
+        domain=[('purchase_ok', '=', True)])
     uom_id = fields.Many2one(
         related='product_id.uom_id', string="UoM", readonly='True')
     product_code = fields.Char('Supplier Product Code',)

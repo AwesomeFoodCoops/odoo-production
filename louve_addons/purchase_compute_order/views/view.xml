@@ -36,7 +36,7 @@
                             <button name="compute_active_product_stock" 
                                 type="object"
                                 string="Get products and stocks" 
-                                help="Fetch all active products sold by selected supplier and calculate the available quantities. It ignores inactive products and products in state 'obsolete' or 'end'" 
+                                help="Fetch all active products sold by selected supplier and calculate the available quantities. It ignores inactive or not purchasable products and products in state 'obsolete' or 'end'" 
                                 states="draft"/>
                         </group>
                         <group string="Compute Order" colspan="3" col="3">
