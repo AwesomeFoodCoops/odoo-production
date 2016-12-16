@@ -15,5 +15,13 @@
 }
 
 .pos .clientlist-screen .client-details-left {
-    float:right;
+    float: right;
+}
+
+.edit-buttons{
+    display: none;
+}
+
+section.top-content .new-customer{
+    display: none;
 }
