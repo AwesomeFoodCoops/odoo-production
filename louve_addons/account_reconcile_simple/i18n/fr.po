@@ -1,0 +1,39 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_reconcile_simple
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-17 13:26+0000\n"
+"PO-Revision-Date: 2016-12-17 13:26+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_reconcile_simple
+#: model:ir.model,name:account_reconcile_simple.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr "Ligne de relevé bancaire"
+
+#. module: account_reconcile_simple
+#: model:ir.model.fields,help:account_reconcile_simple.field_account_journal_simple_reconcile
+msgid "Check this box if you want to reduce reconciliation proposition.\n"
+" If checked, reconciliation wizard will propose only account move lines of the current journal accounts"
+msgstr "Cochez cette case si vous voulez réduire les propositions lors du rapprochement bancaire.\n"
+" Si la case est cochée, l'assistant de réconciliation ne proposera que les lignes d'écritures comptable avec les comptes comptables paramétrés sur le journal courant."
+
+#. module: account_reconcile_simple
+#: model:ir.model,name:account_reconcile_simple.model_account_journal
+msgid "Journal"
+msgstr "Journal"
+
+#. module: account_reconcile_simple
+#: model:ir.model.fields,field_description:account_reconcile_simple.field_account_journal_simple_reconcile
+msgid "Simple Reconciliation"
+msgstr "Rapprochement simple"
+
