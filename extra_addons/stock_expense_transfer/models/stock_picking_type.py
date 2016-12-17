@@ -29,11 +29,11 @@ class StockPickingType(models.Model):
         " Accounting Entries.")
 
     @api.multi
-    @api.constrains('default_location_src_id')
+    @api.constrains('is_expense_transfer', 'default_location_src_id')
     def _constrains_default_location_src_id(self):
         for picking_type in self:
-            if (picking_type.default_location_src_id.usage != 'internal'
-                    and picking_type.is_expense_transfer):
+            if (picking_type.default_location_src_id.usage != 'internal' and
+                    picking_type.is_expense_transfer):
                 raise exceptions.Warning(_(
                     "Expense Transfer must have a Source location type"
                     " 'Internal'."))
@@ -43,8 +43,8 @@ class StockPickingType(models.Model):
     def _constrains_default_location_dest_id(self):
         for picking_type in self:
             if (picking_type.default_location_dest_id.usage not in [
-                    'inventory', 'production', 'procurement', 'transit']
-                    and picking_type.is_expense_transfer):
+                    'inventory', 'production', 'procurement', 'transit'] and
+                    picking_type.is_expense_transfer):
                 raise exceptions.Warning(_(
                     "Expense Transfer must have a destication location type"
                     " 'inventory Loss', 'Production', 'Procurement' or"
