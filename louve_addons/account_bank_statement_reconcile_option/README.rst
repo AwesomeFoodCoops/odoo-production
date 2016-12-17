@@ -15,7 +15,7 @@ This setting is made on each journal.
 
 .. image:: /louve_addons/account_bank_statement_reconcile_option/static/description/account_reconcile_normal.png
 
-* 'Single Account' Option:
+* 'Journal Accounts' Option:
 
 .. image:: /louve_addons/account_bank_statement_reconcile_option/static/description/account_reconcile_journal_account.png
 
