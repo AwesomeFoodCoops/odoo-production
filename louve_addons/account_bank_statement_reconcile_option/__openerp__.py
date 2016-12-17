@@ -5,10 +5,10 @@
 
 
 {
-    'name': 'Account Reconcile Simple',
+    'name': 'Account Bank Statement Reconcile Options',
     'version': '9.0.0.0.0',
     'category': 'Accounting',
-    'summary': 'Allow to reconcile only with the current journal accounts',
+    'summary': "Give options on the reconciliation propositions",
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'depends': [

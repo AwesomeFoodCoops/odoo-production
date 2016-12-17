@@ -12,7 +12,7 @@ class AccountBankStatementLine(models.Model):
     def get_move_lines_for_reconciliation(
             self, excluded_ids=None, str=False, offset=0, limit=None,
             additional_domain=None, overlook_partner=False):
-        if self.journal_id.simple_reconcile:
+        if self.journal_id.reconcile_mode == 'journal_account':
             reconciliation_aml_accounts = [
                 self.journal_id.default_credit_account_id.id,
                 self.journal_id.default_debit_account_id.id,
