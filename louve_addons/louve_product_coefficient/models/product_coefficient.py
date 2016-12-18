@@ -27,7 +27,7 @@ class ProductCoefficient(models.Model):
 
     active = fields.Boolean(
         string='Active', help="If unchecked, it will allow you to hide"
-        " the coefficient without removing it.")
+        " the coefficient without removing it.", default=True)
 
     note = fields.Text(string='Note')
 
