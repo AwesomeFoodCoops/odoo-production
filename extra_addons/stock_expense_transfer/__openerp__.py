@@ -23,6 +23,8 @@
         'views/view_stock_picking_wizard_expense_transfer.xml',
     ],
     'demo': [
+        'demo/res_groups.xml',
+        'demo/account_journal.xml',
         'demo/account_account.xml',
         'demo/stock_location.xml',
         'demo/ir_sequence.xml',
