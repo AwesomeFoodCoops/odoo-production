@@ -46,28 +46,29 @@ class StockMove(models.Model):
                     if pol.partner_id and (supplier.name == pol.partner_id):
                         pol.package_qty = supplier.package_qty
 
-    # Views section
-    @api.onchange('product_id')
-    def onchange_product_id(self):
-        res = super(StockMove, self).onchange_product_id()
-        if self.product_id:
-            for supplier in self.product_id.seller_ids:
-                if self.partner_id and (supplier.name == self.partner_id):
-                    self.package_qty = supplier.package_qty
-                    self.product_qty = supplier.package_qty
-                    self.product_qty_package = 1
-                    self.price_policy = supplier.price_policy
-                    self.indicative_package = supplier.indicative_package
-        return res
+    # TODO: FIXME
+    #    # Views section
+    #    @api.onchange('product_id')
+    #    def onchange_product_id(self):
+    #        res = super(StockMove, self).onchange_product_id()
+    #        if self.product_id:
+    #            for supplier in self.product_id.seller_ids:
+    #                if self.partner_id and (supplier.name == self.partner_id):
+    #                    self.package_qty = supplier.package_qty
+    #                    self.product_qty = supplier.package_qty
+    #                    self.product_qty_package = 1
+    #                    self.price_policy = supplier.price_policy
+    #                    self.indicative_package = supplier.indicative_package
+    #        return res
 
-    @api.onchange('product_qty', 'product_uom')
-    def onchange_product_qty(self):
-        super(StockMove, self)._onchange_quantity()
-        res = {}
-        if self.package_qty:
-            self.product_qty_package = self.product_qty / self.package_qty
-        self._compute_amount()
-        return res
+    #    @api.onchange('product_qty', 'product_uom')
+    #    def onchange_product_qty(self):
+    #        super(StockMove, self)._onchange_quantity()
+    #        res = {}
+    #        if self.package_qty:
+    #            self.product_qty_package = self.product_qty / self.package_qty
+    #        self._compute_amount()
+    #        return res
 
     @api.onchange('product_qty_package')
     def onchange_product_qty_package(self):
