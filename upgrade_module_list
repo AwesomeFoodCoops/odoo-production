@@ -12,5 +12,5 @@
 # 27/11/2016
 #export MODULE_LIST_TO_UPGRADE="coop_shift,account_reconcile_writeoff_improve,res_partner_account_move_line"
 # 07/12/2016
-export MODULE_LIST_TO_UPGRADE='-u "account_payment_confirm,coop_shift,purchase_package_qty,product_to_scale_bizerba,louve_membership,capital_subscription,pos_automatic_cashdrawer,compute_purchase_order,louve_product_coefficient"'
-export MODULE_LIST_TO_INSTALL='-i "account_bank_statement_reconcile_option,louve_custom_pos"'
+export MODULE_LIST_TO_UPGRADE="account_payment_confirm,coop_shift,purchase_package_qty,product_to_scale_bizerba,louve_membership,capital_subscription,pos_automatic_cashdrawer,compute_purchase_order,louve_product_coefficient"
+export MODULE_LIST_TO_INSTALL="account_bank_statement_reconcile_option,louve_custom_pos"
