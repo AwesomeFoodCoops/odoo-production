@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- Views -->
+		<record id="account_export_view_account_journal_form" model="ir.ui.view">
+			<field name="name">account.export.account.journal.form</field>
+			<field name="model">account.journal</field>
+			<field name="inherit_id" ref="account.view_account_journal_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@name='advanced_settings']" position="after">
+                    <page name="export" string="Export Settings">
+                        <group name="main">
+							<field name="export_code"/>
+							<field name="group_fields" widget="many2many_tags"/>
+						</group>
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="account_export_view_move_tree" model="ir.ui.view">
+			<field name="name">account.export.account.move.tree</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_move_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='state']" position="after">
+					<field name="exported" />
+				</xpath>
+			</field>
+		</record>
+
+		<!-- Search view -->
+		<record id="account_export_move_search" model="ir.ui.view">
+			<field name="model">account.move</field>
+			<field name="arch" type="xml">
+				<search string="Moves to export">
+					<filter name="my_exports_filter" string="Move to export"
+						domain="[('exported', '=', False)]" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Actions -->
+		<record id="action_moves_to_export" model="ir.actions.act_window">
+			<field name="name">Move to export</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">account.move</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="account_export_move_search" />
+			<field name="context">{'search_default_my_exports_filter': True}</field>
+		</record>
+
+	</data>
+</openerp>
+ 
