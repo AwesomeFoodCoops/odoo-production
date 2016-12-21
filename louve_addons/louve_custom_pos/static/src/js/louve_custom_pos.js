@@ -30,6 +30,7 @@ Overload models.PosModel
     models.PosModel = models.PosModel.extend({
         initialize: function (session, attributes) {
             var partner_model = _.find(this.models, function(model){ return model.model === 'res.partner'; });
+            partner_model.fields.push('barcode_base');
             partner_model.fields.push('cooperative_state');
             return _super_posmodel.initialize.apply(this, arguments);
         },
