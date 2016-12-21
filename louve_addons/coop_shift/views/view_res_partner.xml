@@ -11,7 +11,7 @@
     <record id="view_res_partner_form_header" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
-        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
+        <field name="groups_id" eval="[(4, ref('group_shift_manager'))]"/>
         <field name="arch" type="xml">
             <sheet position="before">
                 <header>
@@ -19,7 +19,7 @@
                 </header>
             </sheet>
                 <div name="button_box" position="inside">
-                    <button name="%(coop_shift_state.action_shift_extension_from_partner)d"
+                    <button name="%(coop_shift.action_shift_extension_from_partner)d"
                             type="action"
                             class="oe_stat_button oe_event_attendee_button"
                             icon="fa-calendar"
@@ -34,7 +34,7 @@
     <record id="view_res_partner_form_shift" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
-        <field name="groups_id" eval="[(4, ref('coop_shift_state.group_shift_see_counter'))]"/>
+        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_see_counter'))]"/>
         <field name="arch" type="xml">
             <group name="button" position="before">
                 <group name="state">
@@ -60,8 +60,8 @@
 
     <record id="view_res_partner_form_shift_manage_counter" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="coop_shift_state.view_res_partner_form_shift"/>
-        <field name="groups_id" eval="[(4, ref('coop_shift_state.group_shift_manage_counter'))]"/>
+        <field name="inherit_id" ref="coop_shift.view_res_partner_form_shift"/>
+        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manage_counter'))]"/>
         <field name="arch" type="xml">
             <field name="manual_standard_correction" position="attributes">
                 <attribute name="readonly">0</attribute>

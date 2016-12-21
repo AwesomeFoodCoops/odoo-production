@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <openerp>
-    <template id="report_timesheet_state" inherit_id="coop_shift.report_timesheet">
+    <!-- TODO REFACTOR ME, merging in report_timesheet.xml file -->
+    <template id="report_timesheet_state" inherit_id="report_timesheet">
         <xpath expr="//table[@class='table table-bordered'][2]/tbody/tr[1]/td[2]" position="inside">
             <t t-if="registration['registration'].partner_id.final_standard_point&lt;0"><span t-esc="-1 * registration['registration'].partner_id.final_standard_point"/></t>
         </xpath>

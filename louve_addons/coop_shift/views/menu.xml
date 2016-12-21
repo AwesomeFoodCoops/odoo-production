@@ -40,5 +40,20 @@
             parent="shift_main_menu"
             sequence="100"
             groups="base.group_configuration"/>
+
+    <record model="ir.ui.menu" id="menu_shift_extension">
+        <field name="name">Extensions</field>
+        <field name="action" ref="action_shift_extension"/>
+        <field name="parent_id" ref="shift_menu"/>
+        <field name="sequence">30</field>
+    </record>
+
+    <record model="ir.ui.menu" id="menu_shift_extension_type">
+        <field name="name">Extensions Types</field>
+        <field name="action" ref="action_shift_extension_type"/>
+        <field name="parent_id" ref="menu_shift_configuration"/>
+        <field name="sequence">15</field>
+    </record>
+
     </data>
 </odoo>
