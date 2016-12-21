@@ -179,7 +179,6 @@ class SmileExportSage(models.Model):
         datas = self._get_datas(move_line_ids)
 
         # Create a document with output as content
-        import pdb; pdb.set_trace()
         vals = {
             'name': "%s.%s" % (self.name, self.extension),
             'type': 'binary',
@@ -224,7 +223,6 @@ class SmileExportSage(models.Model):
         header = self.build_header()
         if header:
             output += header
-        import pdb; pdb.set_trace()
         for move_line_id in move_line_ids:
             output.append(",".join(self.build_account_move_line(move_line_id)))
         output += self.build_footer()
