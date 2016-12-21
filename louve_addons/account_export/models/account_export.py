@@ -306,7 +306,7 @@ class AccountExport(models.Model):
         account = self._get_account(move_line)
         move_line_values['account'] = account[:13] if account else ''
 
-        move_line_values['aux'] = move_line.move_id.partner_id.barcode or ''
+        move_line_values['aux'] = move_line.move_id.partner_id.barcode or 'EE'
 
         account_move_name = self._get_account_move_desc(move_lines)
         move_line_values['account_move_name'] = account_move_name[:13]\
