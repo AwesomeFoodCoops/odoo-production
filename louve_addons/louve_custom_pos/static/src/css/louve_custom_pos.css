@@ -25,3 +25,7 @@
 section.top-content .new-customer{
     display: none;
 }
+
+.client-detail .label{
+    width: 100px !important;
+}
