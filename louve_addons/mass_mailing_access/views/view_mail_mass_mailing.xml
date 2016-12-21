@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_mail_mass_mailing_form" model="ir.ui.view">
+        <field name="model">mail.mass_mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form"/>
+        <field name="arch" type="xml">
+            <button name="put_in_queue" position="attributes">
+                <attribute name="groups">mass_mailing_access.group_manager</attribute>
+            </button>
+            <button name="retry_failed_mail" position="attributes">
+                <attribute name="groups">mass_mailing_access.group_manager</attribute>
+            </button>
+        </field>
+    </record>
+</odoo>
