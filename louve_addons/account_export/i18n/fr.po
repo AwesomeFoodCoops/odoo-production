@@ -132,7 +132,7 @@ msgstr "Exports Comptables"
 #. module: account_export
 #: model:ir.ui.view,arch_db:account_export.account_export_view_account_journal_form
 msgid "Export Settings"
-msgstr "Réglages de l'Exportation"
+msgstr "Export"
 
 #. module: account_export
 #: selection:account.export,filter_move_lines:0
