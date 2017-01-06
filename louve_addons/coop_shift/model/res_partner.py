@@ -26,6 +26,8 @@ from dateutil.relativedelta import relativedelta
 
 from openerp import models, fields, api
 
+from .date_tools import conflict_period
+
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
@@ -37,6 +39,8 @@ class ResPartner(models.Model):
     ]
 
     WORKING_STATE_SELECTION = [
+        ('exempted', 'Exempted'),
+        ('vacation', 'On Vacation'),
         ('up_to_date', 'Up to date'),
         ('alert', 'Alert'),
         ('suspended', 'Suspended'),
@@ -45,8 +49,12 @@ class ResPartner(models.Model):
     ]
 
     # Columns Section
+    leave_ids = fields.One2many(
+        comodel_name='shift.leave', inverse_name='partner_id', string='Leaves')
+
     registration_ids = fields.One2many(
         'shift.registration', "partner_id", 'Registrations')
+
     upcoming_registration_count = fields.Integer(
         "Number of registrations", compute="_compute_registration_counts")
 
@@ -74,6 +82,12 @@ class ResPartner(models.Model):
     template_ids = fields.Many2many(
         'shift.template', 'res_partner_shift_template_rel',
         'partner_id', 'shift_template_id', string='Leader on these templates')
+
+    is_exempted = fields.Boolean(
+        "Is Exempted", compute='_compute_is_exempted')
+
+    is_vacation = fields.Boolean(
+        "Is on Vacation", compute='_compute_is_vacation')
 
     is_blocked = fields.Boolean(
         string='Blocked', help="Check this box to manually block this user.")
@@ -229,10 +243,33 @@ class ResPartner(models.Model):
                         point += 1
             partner.theoritical_ftop_point = point
 
+    def _compute_is_vacation(self):
+        for partner in self:
+            conflict = False
+            for leave in partner.leave_ids.filtered(
+                    lambda l: l.partner_state == 'vacation' and
+                    l.state == 'done'):
+                conflict = conflict or conflict_period(
+                        leave.start_date, leave.stop_date,
+                        fields.Datetime.now(),
+                        fields.Datetime.now())['conflict']
+            partner.is_vacation = conflict
+
+    def _compute_is_exempted(self):
+        for partner in self:
+            conflict = False
+            for leave in partner.leave_ids.filtered(
+                    lambda l: l.partner_state == 'exempted' and
+                    l.state == 'done'):
+                conflict = conflict or conflict_period(
+                        leave.start_date, leave.stop_date,
+                        fields.Datetime.now(),
+                        fields.Datetime.now())['conflict']
+            partner.is_exempted = conflict
+
     @api.depends(
         'extension_ids.date_start', 'extension_ids.date_stop',
         'extension_ids.partner_id')
-    @api.multi
     def compute_date_delay_stop(self):
         """This function should be called in a daily CRON"""
         for partner in self:
@@ -263,7 +300,7 @@ class ResPartner(models.Model):
 
     @api.depends(
         'is_blocked', 'final_standard_point', 'final_ftop_point',
-        'shift_type', 'date_alert_stop', 'date_delay_stop')
+        'shift_type', 'date_alert_stop', 'date_delay_stop', 'leave_ids.state')
     @api.multi
     def _compute_working_state(self):
         """This function should be called in a daily CRON"""
@@ -271,6 +308,8 @@ class ResPartner(models.Model):
             state = 'up_to_date'
             if partner.is_blocked:
                 state = 'blocked'
+            elif partner.is_vacation:
+                state = 'vacation'
             else:
                 point = partner.shift_type == 'standard'\
                     and partner.final_standard_point\
@@ -287,6 +326,8 @@ class ResPartner(models.Model):
                             state = 'suspended'
                     else:
                         state = 'suspended'
+                elif partner.is_exempted:
+                    state = 'exempted'
             partner.working_state = state
 
     @api.depends('working_state')
@@ -303,4 +344,3 @@ class ResPartner(models.Model):
         partners = self.search([])
         partners.compute_date_alert_stop()
         partners.compute_date_delay_stop()
-

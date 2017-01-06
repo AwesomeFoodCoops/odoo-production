@@ -40,6 +40,8 @@
                 <group name="state">
                     <field name="shift_type"/>
                     <field name="is_blocked"/>
+                    <field name="is_exempted"/>
+                    <field name="is_vacation"/>
                     <field name="date_alert_stop"/>
                     <field name="date_delay_stop"/>
                     <field name="working_state"/>

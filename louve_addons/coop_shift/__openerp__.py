@@ -9,7 +9,7 @@
     'name': 'Coop Shift',
     'version': '9.0.6.0.0',
     'category': 'Tools',
-    'author':'Julien WESTE, Sylvain LE GAL, Cyril Gaspard, La Louve',
+    'author': 'Julien WESTE, Sylvain LE GAL, Cyril Gaspard, La Louve',
     'website': 'http://www.lalouve.net',
     'license': 'AGPL-3',
     'depends': [
@@ -51,6 +51,9 @@
         'views/view_res_partner.xml',
         'views/view_shift_extension.xml',
         'views/view_shift_extension_type.xml',
+        'views/view_shift_leave.xml',
+        'views/view_shift_leave_type.xml',
+        'views/view_shift_leave_wizard.xml',
         'data/module_data.xml',
         'views/shift_report.xml',
         'views/shift_report2.xml',
@@ -61,7 +64,9 @@
         'data/ir_cron.xml',
     ],
     'demo': [
-        'demo/shift_demo.xml',
         'demo/res_groups.xml',
+        'demo/res_partner.xml',
+        'demo/shift_template.xml',
+        'demo/shift_template_registration.xml',
     ],
 }

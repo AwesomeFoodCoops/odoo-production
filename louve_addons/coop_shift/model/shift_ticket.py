@@ -40,21 +40,30 @@ class ShiftTicket(models.Model):
         compute='compute_shift_type', store=True)
 
     name = fields.Char(translate=False)
+
     shift_id = fields.Many2one(
         'shift.shift', "Shift", required=True, ondelete='cascade')
+
     event_id = fields.Many2one(required=False)
+
     product_id = fields.Many2one(
         default=lambda self: self._default_product_id(),
         domain=[("shift_type_id", "!=", False)],)
+
     registration_ids = fields.One2many(
         'shift.registration', 'shift_ticket_id', 'Registrations')
+
     date_begin = fields.Datetime(related="shift_id.date_begin")
+
     begin_date_string = fields.Char(
         string='Begin Date', compute='_compute_begin_date_fields', store=True,)
+
     user_ids = fields.Many2many(
         'res.partner', related="shift_id.user_ids", store=True)
+
     user_id = fields.Many2one(
         'res.partner', related="shift_id.user_id", store=True)
+
     hide_in_member_space = fields.Boolean(
         "Masquer dans l'Espace Membre", default=False,
         compute="_compute_hide_in_member_space", store=True)

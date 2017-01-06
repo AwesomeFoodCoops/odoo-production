@@ -1385,7 +1385,7 @@ msgid "Number of repetitions"
 msgstr "Nombre d'occurences"
 
 #. module: coop_shift
-#: model:ir.model.fields,field_description:coop_shift.field_shift_template_shifts_count
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_shift_qty
 msgid "Number of shifts"
 msgstr "Nombre de services"
 
