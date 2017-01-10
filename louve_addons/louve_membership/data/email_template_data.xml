@@ -16,6 +16,15 @@
 <p>La version actuelle du site sera amenée à évoluer et de nouvelles fonctionnalités seront ajoutées dans les mois à venir. Une équipe de membres bénévoles travaille à enrichir cet Espace pour le rendre utile et convivial.</p>
 <p>Vous trouverez ci-jointe une procédure vous permettant d'activer votre espace personnel.</p>
 <p>Cordialement,</p>
-<p>Tom Boothe</p>]]></field>
+<p>Tom Boothe</p>
+<p></p>
+<p>Activation de votre espace membre :</p>
+<p>Afin d'activer votre accès à l'Espace Membres de La Louve, veuillez suivre la procédure suivante:</p>
+<p>1. Cliquez sur le lien ci-dessous afin de renseigner votre adresse mail:</p>
+<p>https://membres.cooplalouve.fr/selfservice/?action=sendtoken</p>
+<p>Attention : utilisez uniquement le mail transmis à La Louve</p>
+<p>2. Vous recevrez alors un mail de l'expéditeur : "Self Service Password"</p>
+<p>Cliquez sur le lien contenu dans le mail afin d'initialiser votre mot de passe.</p>
+<p>3. Vous pouvez désormais vous connecter à votre Espace Membre : https://membres.cooplalouve.fr</p>]]></field>
     </record>
 </odoo>
