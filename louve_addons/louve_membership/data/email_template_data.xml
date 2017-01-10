@@ -11,7 +11,7 @@
         <field name="body_html"><![CDATA[<p>Bonjour ${object.name},</p>
 <p>Votre souscription à La Louve d’un montant de ${object.amount_subscription}€ a bien été enregistrée. Bienvenue !</p>
 <p>Vous avez été inscrit(e) sur le créneau ${object.current_template_name}. Vous recevrez un rappel quelques jours avant votre prochain service.</p>
-<p>Vous pouvez dès maintenant venir découvrir le magasin et faire vos courses. Votre badge sera imprimé prochainement, vous pourrez le récupérer à l’accueil dès qu’il sera prêt. Votre numéro de membre est ${object.barcode}.</p>
+<p>Vous pouvez dès maintenant venir découvrir le magasin et faire vos courses. Votre badge sera imprimé prochainement, vous pourrez le récupérer à l’accueil dès qu’il sera prêt. Votre numéro de membre est ${object.barcode_base}.</p>
 <p>L'Espace Membre de La Louve vous est également accessible. Vous pourrez y trouver de nombreuses informations, en particulier vos prochains services, et un forum qui vous permettra de communiquer entre membres.</p>
 <p>La version actuelle du site sera amenée à évoluer et de nouvelles fonctionnalités seront ajoutées dans les mois à venir. Une équipe de membres bénévoles travaille à enrichir cet Espace pour le rendre utile et convivial.</p>
 <p>Vous trouverez ci-jointe une procédure vous permettant d'activer votre espace personnel.</p>
