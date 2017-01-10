@@ -25,7 +25,7 @@ class ResPartner(models.Model):
             invoices = inv_obj.search([
                 ('partner_id', '=', partner.id),
                 ('is_capital_fundraising', '=', True),
-                ('state', '=', 'paid')
+                ('state', 'in', ['paid', 'open'])
             ])
             partner.amount_subscription = reduce(
                 lambda x, y: x + y.amount_total, invoices, 0)
