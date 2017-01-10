@@ -5,9 +5,9 @@
 <odoo>
     <record id="action_confirm_payments_server" model="ir.actions.server">
              <field name="name">Confirm Payments</field>
-            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="model_id" ref="account_payment_confirm.model_account_payment"/>
             <field name="state">code</field>
-            <field name="code">action = self.post(cr, uid, context.get('active_ids', []), context=context)</field>
+            <field name="code">action = self.check_post(cr, uid, context.get('active_ids', []), context=context)</field>
     </record>
 
    <record id="action_confirm_payments" model="ir.values">
