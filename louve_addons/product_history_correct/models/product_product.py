@@ -32,7 +32,6 @@ class ProductProduct(models.Model):
     def correct_history(self):
         histories = self.env['product.history'].search([
             ('from_date', '>=', '2016-12-12')])
-        import pdb; pdb.set_trace()
         histories.unlink()
         products = self.env['product.product'].search([
             '|', ('active', '=', True),
