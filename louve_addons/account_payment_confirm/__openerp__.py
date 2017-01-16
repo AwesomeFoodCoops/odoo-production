@@ -6,7 +6,7 @@
 
 {
     'name': 'Account Payment Confirm',
-    'version': '9.0.0.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Improve payment confirmation',
     'author': 'La Louve',
