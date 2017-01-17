@@ -47,29 +47,36 @@ class StockMove(models.Model):
                         pol.package_qty = supplier.package_qty
 
     # Views section
-    @api.onchange('product_id')
-    def onchange_product_id(self):
-        res = super(StockMove, self).onchange_product_id()
-        if self.product_id:
-            for supplier in self.product_id.seller_ids:
-                if self.partner_id and (supplier.name == self.partner_id):
-                    self.package_qty = supplier.package_qty
-                    self.product_qty = supplier.package_qty
-                    self.product_qty_package = 1
-                    self.price_policy = supplier.price_policy
-                    self.indicative_package = supplier.indicative_package
+    def onchange_product_id(
+            self, cr, uid, ids, product_id=False, loc_id=False,
+            loc_dest_id=False, partner_id=False):
+        res = super(StockMove, self).onchange_product_id(
+            cr, uid, ids, prod_id=product_id)
+        if product_id and partner_id:
+            product = self.pool.get('product.product').browse(
+                cr, uid, product_id)
+            for supplier in product.seller_ids:
+                if partner_id and (supplier.name.id == partner_id):
+                    if not res.get('value', False):
+                        res['value'] = {}
+                    res['value']['package_qty'] = supplier.package_qty
+                    res['value']['product_qty'] = supplier.package_qty
+                    res['value']['product_qty_package'] = 1
+                    res['value']['indicative_package'] =\
+                        supplier.indicative_package
         return res
 
-    @api.onchange('product_qty', 'product_uom')
-    def onchange_product_qty(self):
-        super(StockMove, self)._onchange_quantity()
-        res = {}
-        if self.package_qty:
-            self.product_qty_package = self.product_qty / self.package_qty
-        self._compute_amount()
+    def onchange_product_qty(
+            self, cr, uid, ids, product_id, product_qty, product_uom,
+            package_qty):
+        res = super(StockMove, self).onchange_quantity()
+        if package_qty:
+            if not res.get('value', False):
+                res['value'] = {}
+            res['value']['product_qty_package'] = product_qty / package_qty
         return res
 
     @api.onchange('product_qty_package')
     def onchange_product_qty_package(self):
-            if self.product_qty_package == int(self.product_qty_package):
-                self.product_qty = self.package_qty * self.product_qty_package
+        if self.product_qty_package == int(self.product_qty_package):
+            self.product_qty = self.package_qty * self.product_qty_package
