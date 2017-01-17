@@ -113,8 +113,6 @@ class ShiftTicket(models.Model):
             seats. """
         # initialize fields to 0 + compute seats availability
         for ticket in self:
-            ticket.seats_availability = 'unlimited' if ticket.seats_max == 0\
-                else 'limited'
             ticket.seats_unconfirmed = ticket.seats_reserved =\
                 ticket.seats_used = ticket.seats_available = 0
         # aggregate registrations by ticket and by state
@@ -136,9 +134,8 @@ class ShiftTicket(models.Model):
                 ticket[state_field[state]] += num
         # compute seats_available
         for ticket in self:
-            if ticket.seats_max > 0:
-                ticket.seats_available = ticket.seats_max - (
-                    ticket.seats_reserved + ticket.seats_used)
+            ticket.seats_available = ticket.seats_max - (
+                ticket.seats_reserved + ticket.seats_used)
 
     @api.onchange('product_id')
     def onchange_product_id(self):
