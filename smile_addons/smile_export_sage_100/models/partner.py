@@ -25,5 +25,7 @@ from openerp import fields, models
 class res_partner(models.Model):
     _inherit = "res.partner"
 
-    property_account_receivable_sage = fields.Char('Account Receivable Sage', size=17, translate=True)
-    property_account_payable_sage = fields.Char('Account Payable Sage', size=17, translate=True)
+    property_account_receivable_sage = fields.Char(
+        'Account Receivable Sage', size=17, translate=True)
+    property_account_payable_sage = fields.Char(
+        'Account Payable Sage', size=17, translate=True)

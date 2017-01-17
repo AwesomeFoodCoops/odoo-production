@@ -2,7 +2,9 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Author Julien Weste - La Louve 2016
+#    Inspired by Smile (smile_export_sage_100)
+#    and GRAP (account_export_ebp)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,15 +24,12 @@
 from openerp import fields, models
 
 
-class account_journal(models.Model):
-    _inherit = "account.journal"
+class res_partner(models.Model):
+    _inherit = "res.partner"
 
-    sage_code = fields.Char('Sage Code', size=6)
-
-
-class account_move_line(models.Model):
-    _inherit = "account.move.line"
-
-    state = fields.Selection(
-        [('draft', 'Unposted'), ('posted', 'Posted')], string='Status',
-        related='move_id.state', store=True, readonly=True, )
+    property_account_receivable_software = fields.Char(
+        'Account Receivable (software)', size=17,
+        help='Receivable account in your accounting software')
+    property_account_payable_software = fields.Char(
+        'Account Payable (software)', size=17,
+        help='Payable account in your accounting software')

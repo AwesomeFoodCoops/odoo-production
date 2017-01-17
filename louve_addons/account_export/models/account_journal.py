@@ -2,7 +2,9 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Author Julien Weste - La Louve 2016
+#    Inspired by Smile (smile_export_sage_100)
+#    and GRAP (account_export_ebp)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -25,12 +27,11 @@ from openerp import fields, models
 class account_journal(models.Model):
     _inherit = "account.journal"
 
-    sage_code = fields.Char('Sage Code', size=6)
-
-
-class account_move_line(models.Model):
-    _inherit = "account.move.line"
-
-    state = fields.Selection(
-        [('draft', 'Unposted'), ('posted', 'Posted')], string='Status',
-        related='move_id.state', store=True, readonly=True, )
+    export_code = fields.Char(
+        'Export Account Code', size=6,
+        help="Code of this journal in your accounting software")
+    group_fields = fields.Many2many(
+        string='Group export by', comodel_name='ir.model.fields',
+        domain=[('model', '=', 'account.move.line')],
+        help="""If you specify fields here, they will be used to group the
+        move lines in the generated exported file.""")

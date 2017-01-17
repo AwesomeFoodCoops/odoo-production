@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+
+		<!-- Groups export sage -->
+		<record id="group_account_export" model="res.groups">
+			<field name="name">Account Export</field>
+			<field name="users" eval="[(4, ref('base.user_root'))]" />
+			<field name="menu_access"
+				eval="[
+						(4, ref('account.menu_finance')),
+						(4, ref('menu_account_exports')),
+						(4, ref('menu_account_export_moves')),
+						(4, ref('menu_account_export_config')),
+						(4, ref('menu_move_to_export'))
+					]" />
+		</record>
+
+	</data>
+</openerp>

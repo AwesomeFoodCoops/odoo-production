@@ -1,0 +1,37 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+account_export.access_account_export,account.export,account_export.model_account_export,account_export.group_account_export,1,1,1,1
+account_export.access_move_line,account.move.line,account.model_account_move_line,account_export.group_account_export,1,1,1,1
+account_export.access_analytic_line,account.analytic.line account export,account.model_account_analytic_line,account_export.group_account_export,1,0,0,0
+account_export.access_invoice,account.invoice account export,account.model_account_invoice,account_export.group_account_export,1,0,0,0
+account_export.access_account,account.account account export,account.model_account_account,account_export.group_account_export,1,0,0,0
+account_export.access_bank_statement,account.bank.statement account export,account.model_account_bank_statement,account_export.group_account_export,1,0,0,0
+account_export.access_move,account.move account export,account.model_account_move,account_export.group_account_export,1,0,0,0
+account_export.access_uom,product.uom account export,product.model_product_uom,account_export.group_account_export,1,0,0,0
+account_export.access_journal,account.journal account export,account.model_account_journal,account_export.group_account_export,1,0,0,0
+account_export.access_company,res.company account export,account.model_res_company,account_export.group_account_export,1,0,0,0
+account_export.access_tax,account.tax account export,account.model_account_tax,account_export.group_account_export,1,0,0,0
+account_export.access_partner,res.partner account export,account.model_res_partner,account_export.group_account_export,1,0,0,0
+account_export.access_01,ir_attachment manager,base.model_ir_attachment,account_export.group_account_export,1,1,1,1
+account_export.access_02,product.template salemanager,account.model_product_template,account_export.group_account_export,1,1,1,1
+account_export.access_03,product.product salemanager,product.model_product_product,account_export.group_account_export,1,1,1,1
+account_export.access_04,product.category salemanager,account.model_product_category,account_export.group_account_export,1,1,1,1
+account_export.access_05,account.account sale manager,account.model_account_account,account_export.group_account_export,1,0,0,0
+account_export.access_10,account.account.template,account.model_account_account_template,account_export.group_account_export,1,1,1,1
+account_export.access_12,account.chart.template,account.model_account_chart_template,account_export.group_account_export,1,1,1,1
+account_export.access_13,account.tax.template,account.model_account_tax_template,account_export.group_account_export,1,1,1,1
+account_export.access_14,account.analytic.line manager,account.model_account_analytic_line,account_export.group_account_export,1,0,0,0
+account_export.access_15,account.payment.term,account.model_account_payment_term,account_export.group_account_export,1,1,1,1
+account_export.access_16,account.payment.term.line,account.model_account_payment_term_line,account_export.group_account_export,1,1,1,1
+account_export.access_17,account.tax,account.model_account_tax,account_export.group_account_export,1,1,1,1
+account_export.access_18,account.journal,account.model_account_journal,account_export.group_account_export,1,1,1,1
+account_export.access_23,res.currency.rate account manager,base.model_res_currency_rate,account_export.group_account_export,1,1,1,1
+account_export.access_25,account.fiscal.position account.manager,account.model_account_fiscal_position,account_export.group_account_export,1,1,1,1
+account_export.access_26,account.fiscal.position.tax account.manager,account.model_account_fiscal_position_tax,account_export.group_account_export,1,1,1,1
+account_export.access_27,account.fiscal.position account.manager,account.model_account_fiscal_position_account,account_export.group_account_export,1,1,1,1
+account_export.access_28,account.fiscal.position.template,account.model_account_fiscal_position_template,account_export.group_account_export,1,1,1,1
+account_export.access_29,account.fiscal.position.tax.template,account.model_account_fiscal_position_tax_template,account_export.group_account_export,1,1,1,1
+account_export.access_30,account.fiscal.position.account.template,account.model_account_fiscal_position_account_template,account_export.group_account_export,1,1,1,1
+account_export.access_37,res_partner group_account_manager,account.model_res_partner,account_export.group_account_export,1,0,0,0
+account_export.access_38,account.move.line manager,account.model_account_move_line,account_export.group_account_export,1,0,0,0
+account_export.access_39,account.move manager,account.model_account_move,account_export.group_account_export,1,0,0,0
+account_export.access_export_config,account.export.config manager,account_export.model_account_export_config,account_export.group_account_export,1,1,1,1

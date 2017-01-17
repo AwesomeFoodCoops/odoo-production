@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- Account Export views -->
+		<record id="view_account_export_form" model="ir.ui.view">
+			<field name="name">Account Export</field>
+			<field name="model">account.export</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Account Export">
+					<sheet>
+						<label for="name" class="oe_edit_only" />
+						<h1>
+							<field name="name" />
+						</h1>
+							<group string="Options" colspan="4" col="4">
+								<field name="filter_move_lines" />
+								<field name="extension" />
+								<field name="last_export_date" />
+								<field name="config_id" />
+							</group>
+							<separator string="Filters" colspan="2"/>
+							<notebook>
+								<page string="Dates">
+									<group colspan="4" col="4">
+										<field name="date_from" help="Move lines created after" />
+										<field name="date_to" help="Move lines created before" />
+									</group>
+								</page>
+								<page string="Invoices">
+									<field name="invoice_ids" />
+								</page>
+								<page string="Journals">
+									<field name="journal_ids" />
+								</page>
+								<page string="Partners">
+									<field name="partner_ids" />
+								</page>
+							</notebook>
+						<!-- Export button -->
+						<button name="create_report" string="Export" type="object"
+							default_focus="1" class="oe_highlight" />
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_attachment_tree" model="ir.ui.view">
+			<field name="name">Account Export</field>
+			<field name="model">account.export</field>
+			<field name="arch" type="xml">
+				<tree string="Account Export">
+					<field name="name" />
+					<field name="last_export_date" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_account_export_search" model="ir.ui.view">
+			<field name="model">account.export</field>
+			<field name="arch" type="xml">
+				<search string="Account Export">
+					<filter name="my_exports_filter" string="My Exports" domain="[('create_uid', '=', uid)]"
+						help="Filter on my exports" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Account Export Config views -->
+		<record id="view_account_export_config_form" model="ir.ui.view">
+			<field name="name">Account Export Configuration</field>
+			<field name="model">account.export.config</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Account Export Config">
+					<sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+						<label for="name" class="oe_edit_only" />
+						<h1>
+							<field name="name" />
+						</h1>
+						<group colspan="4" col="4">
+							<field name="is_default"/>
+							<field name="dateformat"/>
+							<field name="header"/>
+							<field name="footer"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_account_export_config_tree" model="ir.ui.view">
+			<field name="name">Account Export Configuration</field>
+			<field name="model">account.export.config</field>
+			<field name="arch" type="xml">
+				<tree string="Account Export Configuration">
+					<field name="name" />
+					<field name="is_default"/>
+					<field name="dateformat"/>
+					<field name="header"/>
+					<field name="footer"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Action -->
+		<record id="action_account_export" model="ir.actions.act_window">
+			<field name="name">Account Export</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">account.export</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_account_export_search"/>
+		</record>
+
+		<record id="action_export_config" model="ir.actions.act_window">
+			<field name="name">Export Configuration</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">account.export.config</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!-- Menus -->
+		<menuitem id="menu_account_exports" parent="account.menu_finance" name="Exports"
+			sequence="4" />
+		<menuitem id="menu_account_export_moves" parent="menu_account_exports"
+			name="Export Moves" action="action_account_export"
+			sequence="10"/>
+		<menuitem id="menu_move_to_export" parent="menu_account_exports"
+			name="Moves to export" action="action_moves_to_export"
+			sequence="20"/>
+		<menuitem id="menu_account_export_config" parent="menu_account_exports"
+			name="Export Configuration" action="action_export_config"
+			sequence="30"/>
+
+	</data>
+</openerp>

@@ -58,7 +58,9 @@ def strip_accents(s):
     @s: unicode
     @return: unicode
     """
-    return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
+    return ''.join(
+        c for c in unicodedata.normalize('NFD', s) if
+        unicodedata.category(c) != 'Mn')
 
 
 class AccountMoveLine(models.Model):
@@ -70,27 +72,40 @@ class AccountMoveLine(models.Model):
 class SmileExportSage(models.Model):
     _name = "smile.export.sage"
 
-    name = fields.Char('Export filename', size=32, required=True, translate=True, default=lambda self: self._get_default_name())
-    extension = fields.Selection([('txt', 'Txt')], 'Extension', default='txt')
-    state = fields.Selection([('draft', 'Draft'), ('exported', 'Exported')], 'State', default='draft')
-    last_export_date = fields.Date(string='Last Export Date', compute='_get_last_export_date', readonly=True, help='Last date of export')
+    name = fields.Char(
+        'Export filename', size=32, required=True, translate=True,
+        default=lambda self: self._get_default_name())
+    extension = fields.Selection(
+        [('txt', 'Txt')], 'Extension', default='txt')
+    state = fields.Selection([
+        ('draft', 'Draft'), ('exported', 'Exported')],
+        'State', default='draft')
+    last_export_date = fields.Date(
+        string='Last Export Date', compute='_get_last_export_date',
+        readonly=True, help='Last date of export')
     # Options
-    filter_move_lines = fields.Selection([('all', 'Export all move lines'), ('non_exported', 'Export only non exported move lines')],
-                                         'Move lines to export', default='non_exported')
+    filter_move_lines = fields.Selection([
+        ('all', 'Export all move lines'),
+        ('non_exported', 'Export only non exported move lines')],
+        'Move lines to export', default='non_exported')
     # Filters
     date_from = fields.Date('From date')
     date_to = fields.Date('To date')
     invoice_ids = fields.Many2many('account.invoice', string='Invoice')
-    journal_ids = fields.Many2many('account.journal', string='Account Journals')
+    journal_ids = fields.Many2many(
+        'account.journal', string='Account Journals')
     move_ids = fields.Many2many('account.move', string='Move')
     partner_ids = fields.Many2many('res.partner', string='Partner')
 
     @api.one
     def _get_last_export_date(self):
-        ir_attachment_ids = self.env["ir.attachment"].search([('res_model', '=', 'smile.export.sage'), ('res_id', '=', self.id)])
+        ir_attachment_ids = self.env["ir.attachment"].search([
+            ('res_model', '=', 'smile.export.sage'),
+            ('res_id', '=', self.id)])
         if ir_attachment_ids:
             ir_attachment_ids.sorted(key=lambda v: v.write_date)
-        self.last_export_date = ir_attachment_ids and ir_attachment_ids[-1].write_date or False
+        self.last_export_date = ir_attachment_ids and\
+            ir_attachment_ids[-1].write_date or False
 
     @api.model
     def _get_default_name(self):
@@ -127,8 +142,10 @@ class SmileExportSage(models.Model):
 
     @api.model
     def _get_unbalanced_moves(self):
-        unbalanced_move_lines = self.env["account.move.line"].search([('state', '=', 'draft')])
-        return [str(move_line.move_id.id) for move_line in unbalanced_move_lines]
+        unbalanced_move_lines = self.env["account.move.line"].search(
+            [('state', '=', 'draft')])
+        return [
+            str(move_line.move_id.id) for move_line in unbalanced_move_lines]
 
     @api.multi
     def create_report(self):
@@ -139,12 +156,18 @@ class SmileExportSage(models.Model):
         self.ensure_one()
         self.UNASSIGNED_JOURNAL_SAGE_CODES = []
         self.UNASSIGNED_ACCOUNT_SAGE_CODES = []
-        # The order of the list elements is important. Sage 100 uses the order of the elements of the imported file.
-        self.MOVE_LINE_KEYS = ['marker', 'journal_code', 'move_line_date', 'export_date', 'account_move_name', 'invoice_number',
-                               'treasury_piece', 'general_account', 'compensation_general_account', 'partner_account',
-                               'compensation_partner_account', 'title', 'payment_number', 'maturity_date', 'parity', 'quantity',
-                               'currency_number', 'sense', 'amount', 'total_letter_number', 'currency_letter_number', 'counting_number',
-                               'reminder_count', 'deferral_method_type', 'revision_type', 'currency_amount', 'tax_code']
+        # The order of the list elements is important. Sage 100 uses the order
+        # of the elements of the imported file.
+        self.MOVE_LINE_KEYS = [
+            'marker', 'journal_code', 'move_line_date', 'export_date',
+            'account_move_name', 'invoice_number', 'treasury_piece',
+            'general_account', 'compensation_general_account',
+            'partner_account', 'compensation_partner_account', 'title',
+            'payment_number', 'maturity_date', 'parity', 'quantity',
+            'currency_number', 'sense', 'amount', 'total_letter_number',
+            'currency_letter_number', 'counting_number', 'reminder_count',
+            'deferral_method_type', 'revision_type', 'currency_amount',
+            'tax_code']
         self.LINE_SEPARATOR = '\r\n'
 
         move_line_obj = self.env["account.move.line"]
@@ -169,19 +192,23 @@ class SmileExportSage(models.Model):
         # Change report state to exported
         self.state = 'exported'
 
-        # Prepare warning about unbalanced moves and unassigned Sage account and journal codes
+        # Prepare warning about unbalanced moves and unassigned Sage account
+        # and journal codes
         message = ''
         unbalanced_moves = self._get_unbalanced_moves()
         if unbalanced_moves:
-            message += "Les pièces suivantes ne sont pas équilibrées: {}.".format(', '.join(set(unbalanced_moves)))
+            message += "Les pièces suivantes ne sont pas équilibrées: {}."\
+                .format(', '.join(set(unbalanced_moves)))
         if self.UNASSIGNED_JOURNAL_SAGE_CODES:
             message += \
-                "\n\nAucun journal Sage n'a été défini pour ces journaux: {}.".format(', '.join(set(self.UNASSIGNED_JOURNAL_SAGE_CODES)))
+                "\n\nAucun journal Sage n'a été défini pour ces journaux: {}."\
+                .format(', '.join(set(self.UNASSIGNED_JOURNAL_SAGE_CODES)))
         if self.UNASSIGNED_ACCOUNT_SAGE_CODES:
             message += \
-                "\n\nAucun compte Sage n'a été défini pour ces comptes: {}.".format(', '.join(set(self.UNASSIGNED_ACCOUNT_SAGE_CODES)))
+                "\n\nAucun compte Sage n'a été défini pour ces comptes: {}."\
+                .format(', '.join(set(self.UNASSIGNED_ACCOUNT_SAGE_CODES)))
         if message != '':
-            raise exceptions.Warning(_(message))
+            raise exceptions.UserError(_(message))
         return True
 
     @api.multi
@@ -193,9 +220,11 @@ class SmileExportSage(models.Model):
         self.ensure_one()
         output = []
         # Content of the export
-        output += self.build_header()
+        header = self.build_header()
+        if header:
+            output += header
         for move_line_id in move_line_ids:
-            output += self.build_account_move_line(move_line_id)
+            output.append(",".join(self.build_account_move_line(move_line_id)))
         output += self.build_footer()
         datas = self.LINE_SEPARATOR.join(output)
         # Marks move lines as exported
@@ -210,7 +239,8 @@ class SmileExportSage(models.Model):
         @return: str
         """
         self.ensure_one()
-        return move_line.move_id and move_line.move_id.name and ustr(move_line.move_id.name)
+        return move_line.move_id and move_line.move_id.name and\
+            ustr(move_line.move_id.name)
 
     @api.multi
     def _get_invoice_number(self, move_line):
@@ -233,22 +263,27 @@ class SmileExportSage(models.Model):
         general_account = ''
         account_code = move_line.account_id and move_line.account_id.code
         if account_code:
-            # The context MUST be passed to get the Sage codes related to this partner in the right company.
-            # context['company_id'] = invoice and invoice.company_id and invoice.company_id.id
-            # partner = invoice and invoice.partner_id and self.pool.get('res.partner').browse(cr, uid, invoice.partner_id.id, context)
+            # The context MUST be passed to get the Sage codes related to this
+            # partner in the right company.
+            # context['company_id'] = invoice and invoice.company_id and
+            # invoice.company_id.id
+            # partner = invoice and invoice.partner_id and
+            # self.env['res.partner'].browse(invoice.partner_id.id)
             partner = move_line.invoice_id and move_line.invoice_id.partner_id
             if partner and account_code[:3] == '401':
                 if partner.property_account_payable_sage:
                     general_account = partner.property_account_payable_sage
                 else:
                     general_account = account_code
-                    self.UNASSIGNED_ACCOUNT_SAGE_CODES.append("(%s, %s %s)" % (partner.name, account_code, move_line.account_id.name))
+                    self.UNASSIGNED_ACCOUNT_SAGE_CODES.append("(%s, %s %s)" % (
+                        partner.name, account_code, move_line.account_id.name))
             elif partner and account_code[:3] == '411':
                 if partner.property_account_receivable_sage:
                     general_account = partner.property_account_receivable_sage
                 else:
                     general_account = account_code
-                    self.UNASSIGNED_ACCOUNT_SAGE_CODES.append("(%s, %s %s)" % (partner.name, account_code, move_line.account_id.name))
+                    self.UNASSIGNED_ACCOUNT_SAGE_CODES.append("(%s, %s %s)" % (
+                        partner.name, account_code, move_line.account_id.name))
             else:
                 general_account = "%s000" % account_code
         return general_account
@@ -261,7 +296,8 @@ class SmileExportSage(models.Model):
         @return: str
         """
         self.ensure_one()
-        partner_account = move_line.partner_id and move_line.partner_id.property_account_receivable_sage
+        partner_account = move_line.partner_id and\
+            move_line.partner_id.property_account_receivable_sage
         return partner_account[3:] if partner_account else ''
 
     @api.multi
@@ -280,11 +316,12 @@ class SmileExportSage(models.Model):
 
         @return: str list
         """
-        args = []
-        args.append('#FLG 000')
-        args.append('#VER 5')
-        args.append('#DEV EUR')
-        return args
+        # args = []
+        # args.append('#FLG 000')
+        # args.append('#VER 5')
+        # args.append('#DEV EUR')
+        # return args
+        return None
 
     @api.model
     def build_footer(self):
@@ -315,27 +352,35 @@ class SmileExportSage(models.Model):
                 journal_code = move_line.journal_id.sage_code
             else:
                 journal_code = move_line.journal_id.code
-                self.UNASSIGNED_JOURNAL_SAGE_CODES.append(move_line.journal_id.code)
+                self.UNASSIGNED_JOURNAL_SAGE_CODES.append(
+                    move_line.journal_id.code)
         else:
             journal_code = ''
         move_line_values['journal_code'] = journal_code[:6]
-        move_line_values['move_line_date'] = convert_to_sage_date_format(move_line.date) if move_line.date else ''
-        move_line_values['export_date'] = convert_to_sage_date_format(date.today())
+        move_line_values['move_line_date'] = convert_to_sage_date_format(
+            move_line.date) if move_line.date else ''
+        move_line_values['export_date'] = convert_to_sage_date_format(
+            date.today())
         account_move_name = self._get_account_move_name(move_line)
-        move_line_values['account_move_name'] = account_move_name[:13] if account_move_name else ''
+        move_line_values['account_move_name'] = account_move_name[:13]\
+            if account_move_name else ''
         invoice_number = self._get_invoice_number(move_line)
-        move_line_values['invoice_number'] = invoice_number[:17] if invoice_number else ''
+        move_line_values['invoice_number'] = invoice_number[:17]\
+            if invoice_number else ''
         move_line_values['treasury_piece'] = ''
         general_account = self._get_general_account(move_line)
-        move_line_values['general_account'] = general_account[:13] if general_account else ''
+        move_line_values['general_account'] = general_account[:13]\
+            if general_account else ''
         move_line_values['compensation_general_account'] = ''
         partner_account = self._get_partner_account(move_line)
-        move_line_values['partner_account'] = partner_account[:17] if partner_account else ''
+        move_line_values['partner_account'] = partner_account[:17]\
+            if partner_account else ''
         move_line_values['compensation_partner_account'] = ''
         title = self._get_title(move_line)
         move_line_values['title'] = title[:35] if title else ''
         move_line_values['payment_number'] = '0'
-        move_line_values['maturity_date'] = convert_to_sage_date_format(move_line.date_maturity) if move_line.date_maturity else ''
+        move_line_values['maturity_date'] = convert_to_sage_date_format(
+            move_line.date_maturity) if move_line.date_maturity else ''
         move_line_values['parity'] = '0,000000'
         move_line_values['quantity'] = '0,00'
         move_line_values['currency_number'] = '0'
@@ -360,5 +405,6 @@ class SmileExportSage(models.Model):
         # Strip accents to fix encoding problems
         for key in self.MOVE_LINE_KEYS:
             value = move_line_values[key]
-            move_line_values[key] = strip_accents(value) if type(value) == unicode else value
+            move_line_values[key] = strip_accents(value)\
+                if type(value) == unicode else value
         return dict_to_list(self.MOVE_LINE_KEYS, move_line_values)
