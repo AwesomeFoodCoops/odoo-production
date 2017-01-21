@@ -215,6 +215,7 @@ class ProductProduct(models.Model):
                 elif history_range == "weeks":
                     from_date = from_date - td(days=from_date.weekday())
                 last_qty = 0
+            history_id = False
             while from_date + delta <= now:
                 last_date = from_date + delta - td(days=1)
                 res = product.with_context({
