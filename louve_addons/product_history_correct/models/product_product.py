@@ -31,7 +31,7 @@ class ProductProduct(models.Model):
     @api.model
     def correct_history(self):
         histories = self.env['product.history'].search([
-            ('from_date', '>=', '2016-12-12')])
+            ('to_date', '>=', '2016-12-12')])
         histories.unlink()
         products = self.env['product.product'].search([
             '|', ('active', '=', True),
