@@ -51,6 +51,12 @@ class ProductProduct(models.Model):
         help="""Number of valid history periods used for the calculation""")
     number_of_periods_target = fields.Integer(
         related='product_tmpl_id.number_of_periods')
+    last_history_day = fields.Many2one(
+        string='last day history record', comodel_name='product.history',)
+    last_history_week = fields.Many2one(
+        string='last day history record', comodel_name='product.history',)
+    last_history_month = fields.Many2one(
+        string='last day history record', comodel_name='product.history',)
 
 # Private section
     @api.onchange(
@@ -238,6 +244,13 @@ class ProductProduct(models.Model):
                     'outgoing_qty': -res2['outgoing_qty'],
                     'history_range': history_range,
                 }
-                self.env['product.history'].create(vals)
+                history_id = self.env['product.history'].create(vals)
                 last_qty = res3['total_qty']
                 from_date = last_date + td(days=1)
+            if history_id:
+                if history_range == "months":
+                    self.last_history_month = history_id.id
+                elif history_range == "weeks":
+                    self.last_history_week = history_id.id
+                else:
+                    self.last_history_day = history_id.id
