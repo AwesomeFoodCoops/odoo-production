@@ -33,9 +33,9 @@ class ProductProduct(models.Model):
         histories = self.env['product.history'].search([
             ('to_date', '>=', '2016-12-12')])
         histories.unlink()
-        products = self.env['product.product'].search([
-            '|', ('active', '=', True),
-            ('active', '=', False)])
-        products._compute_history('months')
-        products._compute_history('weeks')
-            # product._compute_history('days')
+        # products = self.env['product.product'].search([
+        #     '|', ('active', '=', True),
+        #     ('active', '=', False)])
+        # products._compute_history('months')
+        # products._compute_history('weeks')
+        # product._compute_history('days')
