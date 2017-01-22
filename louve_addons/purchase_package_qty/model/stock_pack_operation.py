@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Purchase - Package Quantity Module for Odoo
@@ -32,8 +32,7 @@ class StockPackOperation(models.Model):
         'Package Qty',
         help="""The quantity of products in the supplier package.""")
     product_qty_package = fields.Float(
-        'Number of packages', help="""The number of packages you'll buy.""",
-        readonly=True)
+        'Number of packages', help="""The number of packages you'll buy.""",)
     qty_done = fields.Float("Done (uom)")
     qty_done_package = fields.Float(
         "Done (package)", help="""The number of packages you've received.""",
