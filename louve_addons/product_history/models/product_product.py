@@ -51,6 +51,12 @@ class ProductProduct(models.Model):
         help="""Number of valid history periods used for the calculation""")
     number_of_periods_target = fields.Integer(
         related='product_tmpl_id.number_of_periods')
+    last_history_day = fields.Many2one(
+        string='last day history record', comodel_name='product.history',)
+    last_history_week = fields.Many2one(
+        string='last day history record', comodel_name='product.history',)
+    last_history_month = fields.Many2one(
+        string='last day history record', comodel_name='product.history',)
 
 # Private section
     @api.onchange(
@@ -174,13 +180,19 @@ class ProductProduct(models.Model):
     @api.multi
     def _compute_history(self, history_range):
         now = date.today()
+        if history_range == "months":
+            delta = rd(months=1)
+        elif history_range == "weeks":
+            delta = rd(weeks=1)
+        else:
+            delta = rd(days=1)
+        last_dates = {}
+        last_qtys = {}
+        product_ids = []
+        location_ids = self.env['stock.location'].search([]).read(['usage'])
+        location_ids = dict(map(lambda l: (l['id'], l['usage']), location_ids))
         for product in self:
-            if history_range == "months":
-                delta = rd(months=1)
-            elif history_range == "weeks":
-                delta = rd(weeks=1)
-            else:
-                delta = rd(days=1)
+            product_ids.append(product.id)
             history_ids = self.env['product.history'].search([
                 ('history_range', '=', history_range),
                 ('product_id', '=', product.id)])
@@ -209,35 +221,120 @@ class ProductProduct(models.Model):
                 elif history_range == "weeks":
                     from_date = from_date - td(days=from_date.weekday())
                 last_qty = 0
+            last_dates[product.id] = from_date
+            last_qtys[product.id] = last_qty
+
+        product_ids.sort()
+        last_date = min(last_dates.values())
+
+        sql = """
+            SELECT min(sm.id), sm.product_id, date_trunc('day',sm.date),
+            sm.state, sum(sm.product_qty) as product_qty, orig.usage,
+            dest.usage
+            FROM stock_move as sm, stock_location as orig,
+            stock_location as dest
+            WHERE sm.location_id = orig.id and sm.location_dest_id = dest.id
+            and sm.product_id in %s and sm.date >= %s and sm.state != 'cancel'
+            GROUP BY sm.product_id, date_trunc('day',sm.date),
+            sm.state, orig.usage, dest.usage
+            ORDER BY sm.product_id, date_trunc('day',sm.date)
+        """
+        params = (tuple(product_ids), fields.Datetime.to_string(last_date))
+        self.env.cr.execute(sql, params)
+        stock_moves = self.env.cr.fetchall()
+
+        for product_id in product_ids:
+            stock_moves_product = []
+
+            while len(stock_moves):
+                if stock_moves[0][1] == product_id:
+                    stock_moves_product.append(stock_moves.pop(0))
+                else:
+                    break
+
+            if not stock_moves_product:
+                continue
+
+            product = self.env['product.product'].browse(product_id)
+            from_date = last_dates.get(product_id, old_date)
+            last_qty = last_qtys.get(product_id, 0)
+            history_id = False
+
             while from_date + delta <= now:
+                stock_moves_product_dates = []
+                start_qty = last_qty
                 last_date = from_date + delta - td(days=1)
-                res = product.with_context({
-                    'from_date': dt.strftime(from_date, "%Y-%m-%d"),
-                    'to_date': dt.strftime(last_date, "%Y-%m-%d")
-                })._compute_qtys()
-                res2 = product.with_context({
-                    'to_date': dt.strftime(last_date, "%Y-%m-%d"),
-                })._product_available()[product.id]
-                res3 = product.with_context({
-                    'to_date': dt.strftime(last_date, "%Y-%m-%d")
-                })._compute_qtys()
+                purchase_qty = sale_qty = loss_qty = 0
+                incoming_qty = outgoing_qty = 0
+
+                i_move = 0
+                while i_move < len(stock_moves_product):
+                    if stock_moves_product[i_move][2] >=\
+                            fields.Datetime.to_string(from_date) and\
+                            stock_moves_product[i_move][2] <=\
+                            fields.Datetime.to_string(last_date):
+                        stock_moves_product_dates.append(
+                            stock_moves_product.pop(i_move))
+                    else:
+                        i_move += 1
+
+                for move in stock_moves_product_dates:
+                    if move[3] == 'done':
+                        if move[5] == 'internal':
+                            if move[6] == 'supplier':
+                                purchase_qty -= move[4]
+                            elif move[6] == 'customer':
+                                sale_qty -= move[4]
+                            elif move[6] == 'inventory':
+                                loss_qty -= move[4]
+                        elif move[6] == 'internal':
+                            if move[5] == 'supplier':
+                                purchase_qty += move[4]
+                            elif move[5] == 'customer':
+                                sale_qty += move[4]
+                            elif move[5] == 'inventory':
+                                loss_qty += move[4]
+                    else:
+                        if move[5] == 'internal':
+                            if move[6] == 'supplier':
+                                incoming_qty -= move[4]
+                            elif move[6] == 'customer':
+                                outgoing_qty -= move[4]
+                            elif move[6] == 'inventory':
+                                outgoing_qty -= move[4]
+                        elif move[6] == 'internal':
+                            if move[5] == 'supplier':
+                                incoming_qty += move[4]
+                            elif move[5] == 'customer':
+                                outgoing_qty += move[4]
+                            elif move[5] == 'inventory':
+                                outgoing_qty += move[4]
+
+                last_qty = start_qty + purchase_qty + sale_qty + loss_qty
+
                 vals = {
-                    'product_id': product.id,
+                    'product_id': product_id,
                     'product_tmpl_id': product.product_tmpl_id.id,
                     'location_id': self.env['stock.location'].search([])[0].id,
                     'from_date': dt.strftime(from_date, "%Y-%m-%d"),
                     'to_date': dt.strftime(last_date, "%Y-%m-%d"),
-                    'purchase_qty': res['purchase_qty'],
-                    'sale_qty': res['sale_qty'],
-                    'loss_qty': res['inventory_qty'],
-                    'start_qty': last_qty,
-                    'end_qty': res3['total_qty'],
-                    'virtual_qty': res3['total_qty'] +
-                    res2['incoming_qty'] - res2['outgoing_qty'],
-                    'incoming_qty': res2['incoming_qty'],
-                    'outgoing_qty': -res2['outgoing_qty'],
+                    'purchase_qty': purchase_qty,
+                    'sale_qty': sale_qty,
+                    'loss_qty': loss_qty,
+                    'start_qty': start_qty,
+                    'end_qty': last_qty,
+                    'virtual_qty': last_qty + incoming_qty + outgoing_qty,
+                    'incoming_qty': incoming_qty,
+                    'outgoing_qty': outgoing_qty,
                     'history_range': history_range,
                 }
-                self.env['product.history'].create(vals)
-                last_qty = res3['total_qty']
+                history_id = self.env['product.history'].create(vals)
                 from_date = last_date + td(days=1)
+
+            if history_id:
+                if history_range == "months":
+                    product.last_history_month = history_id.id
+                elif history_range == "weeks":
+                    product.last_history_week = history_id.id
+                else:
+                    product.last_history_day = history_id.id

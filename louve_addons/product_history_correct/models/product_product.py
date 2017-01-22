@@ -31,14 +31,11 @@ class ProductProduct(models.Model):
     @api.model
     def correct_history(self):
         histories = self.env['product.history'].search([
-            ('from_date', '>=', '2016-12-12')])
+            ('to_date', '>=', '2016-12-12')])
         histories.unlink()
         products = self.env['product.product'].search([
             '|', ('active', '=', True),
             ('active', '=', False)])
-        for product in products:
-            product.with_context(
-                prefetch_fields=False)._compute_history('months')
-            product.with_context(
-                prefetch_fields=False)._compute_history('weeks')
+        products._compute_history('months')
+        products._compute_history('weeks')
             # product._compute_history('days')
