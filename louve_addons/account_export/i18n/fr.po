@@ -1,0 +1,376 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_export
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-21 18:11+0000\n"
+"PO-Revision-Date: 2016-12-21 18:11+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_export
+#: model:ir.model.fields,help:account_export.field_account_export_config_dateformat
+msgid "\n"
+"        %d: day on 2 digits\n"
+"        %m: month on 2 digits\n"
+"        %y: year on 2 digits\n"
+"        %Y: year on 4 digits\n"
+"        exemple: %d%m%y -> 211216"
+msgstr "\n"
+"        %d: jour sur 2 digits\n"
+"        %m: mois sur 2 digits\n"
+"        %y: année sur 2 digits\n"
+"        %Y: année sur 4 digits\n"
+"        exemple: %d%m%y -> 211216"
+
+#. module: account_export
+#: model:ir.model,name:account_export.model_account_move
+msgid "Account Entry"
+msgstr "Écriture comptable"
+
+#. module: account_export
+#: model:ir.actions.act_window,name:account_export.action_account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_form
+#: model:ir.ui.view,arch_db:account_export.view_account_export_search
+#: model:ir.ui.view,arch_db:account_export.view_attachment_tree
+#: model:res.groups,name:account_export.group_account_export
+msgid "Account Export"
+msgstr "Export Comptable"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_config_form
+msgid "Account Export Config"
+msgstr "Config Export Comptable"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_config_tree
+msgid "Account Export Configuration"
+msgstr "Configuration Export Comptable"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_journal_ids
+msgid "Account Journals"
+msgstr "Journaux Comptable"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_res_partner_property_account_payable_software
+msgid "Account Payable (software)"
+msgstr "Compte Fournisseur (export)"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_res_partner_property_account_receivable_software
+msgid "Account Receivable (software)"
+msgstr "Compte Client (export)"
+
+#. module: account_export
+#: model:ir.model.fields,help:account_export.field_account_journal_export_code
+msgid "Code of this journal in your accounting software"
+msgstr "Code de ce journal dans votre logiciel de comptabilité"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_create_uid
+#: model:ir.model.fields,field_description:account_export.field_account_export_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_create_date
+#: model:ir.model.fields,field_description:account_export.field_account_export_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: account_export
+#: selection:account.export,extension:0
+msgid "Csv"
+msgstr "Csv"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_form
+msgid "Dates"
+msgstr "Dates"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_display_name
+#: model:ir.model.fields,field_description:account_export.field_account_export_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: account_export
+#: selection:account.export,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_form
+msgid "Export"
+msgstr "Exporter"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_journal_export_code
+msgid "Export Account Code"
+msgstr "Code d'export"
+
+#. module: account_export
+#: model:ir.actions.act_window,name:account_export.action_export_config
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_id
+#: model:ir.ui.menu,name:account_export.menu_account_export_config
+msgid "Export Configuration"
+msgstr "Configuration Exports"
+
+#. module: account_export
+#: model:ir.ui.menu,name:account_export.menu_account_export_moves
+msgid "Export Moves"
+msgstr "Exports Comptables"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.account_export_view_account_journal_form
+msgid "Export Settings"
+msgstr "Export"
+
+#. module: account_export
+#: selection:account.export,filter_move_lines:0
+msgid "Export all move lines"
+msgstr "Exporter toutes les écritures"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_name
+msgid "Export filename"
+msgstr "Nom du fichier"
+
+#. module: account_export
+#: selection:account.export,filter_move_lines:0
+msgid "Export only non exported move lines"
+msgstr "Exporter seulement les écritures non exportées"
+
+#. module: account_export
+#: selection:account.export,state:0
+#: model:ir.model.fields,field_description:account_export.field_account_move_exported
+msgid "Exported"
+msgstr "Exporté"
+
+#. module: account_export
+#: model:ir.ui.menu,name:account_export.menu_account_exports
+msgid "Exports"
+msgstr "Exports"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_extension
+msgid "Extension"
+msgstr "Extension"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_search
+msgid "Filter on my exports"
+msgstr "Filtrer sur mes exports"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_form
+msgid "Filters"
+msgstr "Filtres"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_footer
+msgid "Footer"
+msgstr "Pied de page"
+
+#. module: account_export
+#: model:ir.model.fields,help:account_export.field_account_export_config_footer
+msgid "Footer of the exported file.\n"
+"        exemple: END"
+msgstr "Pied de page du fichier.\n"
+"        exemple: FIN"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_date_from
+msgid "From date"
+msgstr "Date début"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_journal_group_fields
+msgid "Group export by"
+msgstr "Champs de regroupement pour export"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_header
+msgid "Header"
+msgstr "Entête"
+
+#. module: account_export
+#: model:ir.model.fields,help:account_export.field_account_export_config_header
+msgid "Header of the exported file.\n"
+"        exemple: journal,account,ref,amount"
+msgstr "Entête du fichier.\n"
+"        exemple: journal,compte,ref,montant"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_id_7668
+#: model:ir.model.fields,field_description:account_export.field_account_export_id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_export
+#: model:ir.model.fields,help:account_export.field_account_journal_group_fields
+msgid "If you specify fields here, they will be used to group the\n"
+"        move lines in the generated exported file."
+msgstr "Si vous spécifiez des champs ici, ils seront utilisés pour\n"
+"        regrouper les écritures comptables lors de l'export comptable."
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_invoice_ids
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_form
+msgid "Invoices"
+msgstr "Factures"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_is_default
+msgid "Is Default"
+msgstr "Défaut"
+
+#. module: account_export
+#: model:ir.model,name:account_export.model_account_journal
+msgid "Journal"
+msgstr "Journal"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_form
+msgid "Journals"
+msgstr "Journaux"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_last_export_date
+msgid "Last Export Date"
+msgstr "Dernier export"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export___last_update
+#: model:ir.model.fields,field_description:account_export.field_account_export_config___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_write_uid
+#: model:ir.model.fields,field_description:account_export.field_account_export_write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_write_date
+#: model:ir.model.fields,field_description:account_export.field_account_export_write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: account_export
+#: model:ir.model.fields,help:account_export.field_account_export_last_export_date
+msgid "Last date of export"
+msgstr "Dernier export"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_form
+msgid "Move lines created after"
+msgstr "Écritures générées après le"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_form
+msgid "Move lines created before"
+msgstr "Écritures générées avant le"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_filter_move_lines
+msgid "Move lines to export"
+msgstr "Écritures à exporter"
+
+#. module: account_export
+#: model:ir.actions.act_window,name:account_export.action_moves_to_export
+#: model:ir.ui.view,arch_db:account_export.account_export_move_search
+msgid "Move to export"
+msgstr "Pièce à exporter"
+
+#. module: account_export
+#: model:ir.ui.menu,name:account_export.menu_move_to_export
+#: model:ir.ui.view,arch_db:account_export.account_export_move_search
+msgid "Moves to export"
+msgstr "Pièces à exporter"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_search
+msgid "My Exports"
+msgstr "Mes Exports"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_form
+msgid "Options"
+msgstr "Options"
+
+#. module: account_export
+#: model:ir.model,name:account_export.model_res_partner
+#: model:ir.model.fields,field_description:account_export.field_account_export_partner_ids
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: account_export
+#: model:ir.ui.view,arch_db:account_export.view_account_export_form
+msgid "Partners"
+msgstr "Partenaires"
+
+#. module: account_export
+#: model:ir.model.fields,help:account_export.field_res_partner_property_account_payable_software
+msgid "Payable account in your accounting software"
+msgstr "Compte Fournisseur dans votre logiciel de comptabilité"
+
+#. module: account_export
+#: model:ir.model.fields,help:account_export.field_res_partner_property_account_receivable_software
+msgid "Receivable account in your accounting software"
+msgstr "Compte Client dans votre logiciel de comptabilité"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_dateformat
+msgid "Software Date Format"
+msgstr "Format de Date"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_state
+msgid "State"
+msgstr "État"
+
+#. module: account_export
+#: code:addons/account_export/models/account_export.py:152
+#, python-format
+msgid "There are no moves to export."
+msgstr "Aucune écriture à exporter."
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_date_to
+msgid "To date"
+msgstr "Date fin"
+
+#. module: account_export
+#: model:ir.model,name:account_export.model_account_export
+msgid "account.export"
+msgstr "account.export"
+
+#. module: account_export
+#: model:ir.model,name:account_export.model_account_export_config
+msgid "account.export.config"
+msgstr "account.export.config"
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_active
+msgid "active"
+msgstr "actif"
+

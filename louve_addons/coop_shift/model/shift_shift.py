@@ -375,11 +375,3 @@ class ShiftShift(models.Model):
     @api.constrains('seats_max', 'seats_available')
     def _check_seats_limit(self):
         return True
-
-    @api.onchange('seats_max')
-    def compute_ftop_seats(self):
-        normal_ticket = self.shift_ticket_ids.filtered(
-            lambda s: s.product_id.shift_type_id.is_ftop is False)
-        ftop_ticket = self.shift_ticket_ids.filtered(
-            lambda s: s.product_id.shift_type_id.is_ftop)
-        ftop_ticket.seats_max = self.seats_max - normal_ticket.seats_reserved

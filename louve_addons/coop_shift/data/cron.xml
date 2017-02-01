@@ -32,6 +32,7 @@
         <field name="user_id" ref="base.user_root"/>
         <field name="interval_number">1</field>
         <field name="interval_type">hours</field>
+        <field name="nextcall" eval="DateTime(2016,9,11,2,30,1)"/>
         <field name="numbercall">-1</field>
         <field name="doall" eval="False" />
         <field eval="'(True,)'" name="args"/>

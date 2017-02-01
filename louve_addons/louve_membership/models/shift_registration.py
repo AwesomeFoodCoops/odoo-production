@@ -35,7 +35,8 @@ class ShiftRegistration(models.Model):
     def create(self, vals):
         partner_id = vals.get('partner_id', False)
         partner = self.env['res.partner'].browse(partner_id)
-        if partner.is_unsubscribed:
+        if partner.is_unsubscribed and not self.env.context.get(
+                'creation_in_progress', False):
             raise UserError(_(
                 """You can't register this partner on a shift because """
                 """he isn't registered on a template"""))

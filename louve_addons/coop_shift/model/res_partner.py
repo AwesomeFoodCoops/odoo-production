@@ -53,6 +53,9 @@ class ResPartner(models.Model):
 
     is_squadleader = fields.Boolean(
         "is an active Squadleader", compute="_compute_is_squadleader")
+    template_ids = fields.Many2many(
+        'shift.template', 'res_partner_shift_template_rel',
+        'partner_id', 'shift_template_id', string='Leader on these templates')
 
     # Compute section
     @api.multi
