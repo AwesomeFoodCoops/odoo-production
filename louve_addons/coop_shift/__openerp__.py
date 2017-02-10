@@ -56,6 +56,8 @@
         'views/view_shift_leave_type.xml',
         'views/view_shift_leave_wizard.xml',
         'data/module_data.xml',
+        'data/report_paperformat.xml',
+        'views/report_layout_custom.xml',
         'views/shift_report.xml',
         'views/shift_report2.xml',
         'views/report_timesheet.xml',
