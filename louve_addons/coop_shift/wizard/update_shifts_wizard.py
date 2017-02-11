@@ -95,8 +95,11 @@ class UpdateShiftsWizard(models.TransientModel):
                 if "updated_fields" in vals.keys():
                     vals = eval(vals["updated_fields"])
                 shift_ids = [line.shift_id.id for line in wizard.line_ids]
+                if 'shift_ticket_ids' in vals.keys():
+                    special = ['shift_ticket_ids']
+                    del vals['shift_ticket_ids']
                 shift_obj.browse(shift_ids).with_context(
-                    tracking_disable=True).write(vals)
+                    tracking_disable=True).write(vals, special=special)
                 wizard.template_id.updated_fields = ""
         return True
 
