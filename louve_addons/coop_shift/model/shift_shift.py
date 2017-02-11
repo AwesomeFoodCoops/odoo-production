@@ -230,11 +230,10 @@ class ShiftShift(models.Model):
 
     @api.multi
     def write(self, vals):
-        for shift in self:
-            if shift.state == "done":
-                raise UserError(_(
-                    'You can only repercute changes on draft shifts.'))
         return super(ShiftShift, self).write(vals)
+        if any(shift.state == "done" for shift in self):
+            raise UserError(_(
+                'You can only repercute changes on draft shifts.'))
 
     @api.onchange('shift_template_id')
     def _onchange_template_id(self):

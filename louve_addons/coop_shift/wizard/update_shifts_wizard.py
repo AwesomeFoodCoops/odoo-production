@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Purchase - Computed Purchase Order Module for Odoo
@@ -22,9 +22,6 @@
 ##############################################################################
 
 from openerp import models, fields, api
-# from datetime import datetime, timedelta
-# from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-# from openerp.exceptions import UserError
 
 
 class UpdateShiftsWizard(models.TransientModel):
@@ -102,14 +99,6 @@ class UpdateShiftsWizard(models.TransientModel):
                     tracking_disable=True).write(vals)
                 wizard.template_id.updated_fields = ""
         return True
-
-    # @api.multi
-    # def write(self, vals):
-    #     import pdb; pdb.set_trace()
-    #     if vals.get("updated_fields", False) and\
-    #             "updated_fields" in vals["updated_fields"]:
-    #         del vals['updated_fields']
-    #     return super(UpdateShiftsWizard, self).write(vals)
 
 
 class UpdateShiftsWizardLine(models.TransientModel):
