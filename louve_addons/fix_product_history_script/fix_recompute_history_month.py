@@ -26,12 +26,12 @@ openerp, uid = init_openerp(
 )
 
 
-def fix_recompute_history_week():
+def fix_recompute_history_month():
     print "==============================================================="
-    print "================= Recomputing Weekly Histories================="
+    print "================= Recomputing Monthly Histories================="
     print "==============================================================="
 
-    history_range = "weeks"
+    history_range = "months"
 
     now = date.today()
     if history_range == "months":
@@ -50,7 +50,7 @@ def fix_recompute_history_week():
     # takes too much time. You'll have to launch it several times, and after
     # each time you have to add the number of processed products to the offset
     products = openerp.ProductProduct.browse(
-        [], order="id", limit=400, offset=863)
+        [], order="id", limit=118, offset=2282)
 
     i = 0
     for product in products:
@@ -200,4 +200,4 @@ def fix_recompute_history_week():
     print "==============================================================="
 
 
-fix_recompute_history_week()
+fix_recompute_history_month()
