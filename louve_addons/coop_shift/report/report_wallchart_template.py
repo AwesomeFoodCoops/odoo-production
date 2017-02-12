@@ -155,20 +155,20 @@ class ReportWallchartTemplate(models.AbstractModel):
             delta = (i + 1 - week_number[0]) % 4
             result["week" + ["A", "B", "C", "D"][i]] =\
                 "(%s, %s, %s, %s, %s, %s, %s, ...)" % (
-                datetime.strftime(
-                    next_date + timedelta(weeks=delta), "%d/%m"),
-                datetime.strftime(
-                    next_date + timedelta(weeks=delta + 4), "%d/%m"),
-                datetime.strftime(
-                    next_date + timedelta(weeks=delta + 8), "%d/%m"),
-                datetime.strftime(
-                    next_date + timedelta(weeks=delta + 12), "%d/%m"),
-                datetime.strftime(
-                    next_date + timedelta(weeks=delta + 16), "%d/%m"),
-                datetime.strftime(
-                    next_date + timedelta(weeks=delta + 20), "%d/%m"),
-                datetime.strftime(
-                    next_date + timedelta(weeks=delta + 24), "%d/%m"),)
+                    datetime.strftime(
+                        next_date + timedelta(weeks=delta), "%d/%m"),
+                    datetime.strftime(
+                        next_date + timedelta(weeks=delta + 4), "%d/%m"),
+                    datetime.strftime(
+                        next_date + timedelta(weeks=delta + 8), "%d/%m"),
+                    datetime.strftime(
+                        next_date + timedelta(weeks=delta + 12), "%d/%m"),
+                    datetime.strftime(
+                        next_date + timedelta(weeks=delta + 16), "%d/%m"),
+                    datetime.strftime(
+                        next_date + timedelta(weeks=delta + 20), "%d/%m"),
+                    datetime.strftime(
+                        next_date + timedelta(weeks=delta + 24), "%d/%m"),)
         return result
 
     @api.multi

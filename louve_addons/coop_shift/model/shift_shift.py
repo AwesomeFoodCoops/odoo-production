@@ -229,12 +229,29 @@ class ShiftShift(models.Model):
                 shift.seats_reserved + shift.seats_used
 
     @api.multi
-    def write(self, vals):
-        for shift in self:
-            if shift.state == "done":
-                raise UserError(_(
-                    'You can only repercute changes on draft shifts.'))
-        return super(ShiftShift, self).write(vals)
+    def write(self, vals, special=[]):
+        if any(shift.state == "done" for shift in self):
+            raise UserError(_(
+                'You can only repercute changes on draft shifts.'))
+        res = super(ShiftShift, self).write(vals)
+        for field in special:
+            if field == 'shift_ticket_ids':
+                for shift in self:
+                    template = shift.shift_template_id
+                    ftop_ticket = template.shift_ticket_ids.filtered(
+                        lambda t: t.shift_type == 'ftop')
+                    standard_ticket = template.shift_ticket_ids.filtered(
+                        lambda t: t.shift_type == 'standard')
+                    ftop_seats_max = ftop_ticket and ftop_ticket[0].seats_max\
+                        or False
+                    standard_seats_max = standard_ticket and\
+                        standard_ticket[0].seats_max or False
+                    for ticket in shift.shift_ticket_ids:
+                        if ticket.shift_type == 'ftop':
+                            ticket.seats_max = ftop_seats_max
+                        if ticket.shift_type == 'standard':
+                            ticket.seats_max = standard_seats_max
+        return res
 
     @api.onchange('shift_template_id')
     def _onchange_template_id(self):

@@ -95,8 +95,9 @@ class ReportWallchartFTOP(models.AbstractModel):
                 datetime.strftime(h['date'], "\'%Y-%m-%d\'") for h in header]
 
             sql = """SELECT begin_time, end_time
-                FROM shift_shift
-                WHERE date_without_time IN (%s)
+                FROM shift_shift as ss, shift_type as st
+                WHERE date_without_time IN (%s) AND ss.shift_type_id = st.id
+                AND st.is_ftop = false
                 GROUP BY begin_time, end_time
                 ORDER BY begin_time""" % ",".join(dates)
             self.env.cr.execute(sql)
@@ -111,6 +112,7 @@ class ReportWallchartFTOP(models.AbstractModel):
                     ('begin_time', '<=', t[0] + rounding_limit),
                     ('end_time', '>=', t[1] - rounding_limit),
                     ('end_time', '<=', t[1] + rounding_limit),
+                    ('shift_type_id.is_ftop', '=', False),
                 ]
                 shift_list = []
                 for h in header:
