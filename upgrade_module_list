@@ -23,3 +23,6 @@
 # 23/01/2017
 export MODULE_LIST_TO_UPGRADE="louve_custom_pos,account_payment_term_restricted,capital_subscription,coop_shift,purchase_package_qty,product_history"
 export MODULE_LIST_TO_INSTALL="mass_mailing_access,account_payment_term_restricted,account_export,account_payment_confirm,account_partner_journal"
+# 12/02/2017
+export MODULE_LIST_TO_UPGRADE="product_history,coop_shift"
+export MODULE_LIST_TO_INSTALL=""
