@@ -178,14 +178,24 @@ class PurchaseOrderLine(models.Model):
                     self.product_qty = supplier.package_qty
                     self.product_qty_package = 1
                     self.price_policy = supplier.price_policy
-                    if supplier.price_policy == "package":
-                        self.price_unit = supplier.base_price
                     break
         return res
 
     @api.onchange('product_qty', 'product_uom')
-    def onchange_product_qty(self):
+    def _onchange_quantity(self):
+        if not self.product_id:
+            return
         super(PurchaseOrderLine, self)._onchange_quantity()
+        seller = self.product_id._select_seller(
+            self.product_id,
+            partner_id=self.partner_id,
+            quantity=self.product_qty,
+            date=self.order_id.date_order and self.order_id.date_order[:10],
+            uom_id=self.product_uom)
+        if not seller:
+            return
+        if seller.price_policy == "package":
+            self.price_unit = seller.base_price
         res = {}
         if (not(self.indicative_package) and self.package_qty > 0 and
                 int(self.product_qty / self.package_qty) !=
