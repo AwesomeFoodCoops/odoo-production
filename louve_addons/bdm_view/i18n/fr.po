@@ -1,0 +1,177 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * bdm_view
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-15 14:14+0000\n"
+"PO-Revision-Date: 2017-02-15 14:14+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Afficher via menu Membres"
+msgstr "Afficher via menu Membres"
+
+#. module: bdm_view
+#: model:ir.module.category,name:bdm_view.module_bdm_management
+msgid "BDM"
+msgstr "BDM"
+
+#. module: bdm_view
+#: model:res.groups,name:bdm_view.group_bdm_user
+msgid "BDM Assistant"
+msgstr "BDM Assistant"
+
+#. module: bdm_view
+#: model:res.groups,name:bdm_view.group_bdm_manager
+msgid "BDM Manager"
+msgstr "BDM Manager"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Capital"
+msgstr "Capital"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Contact Information"
+msgstr "Informations"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Ext."
+msgstr "Ext."
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Extra Data"
+msgstr "Information complémentaire"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "FTOP Points"
+msgstr "Compteur Volant"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Internal note..."
+msgstr "Notes internes..."
+
+#. module: bdm_view
+#: model:ir.module.category,description:bdm_view.module_bdm_management
+msgid "Manage BDM views."
+msgstr "Gérer les vues BDM."
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "MemberShip"
+msgstr "Adhésion"
+
+#. module: bdm_view
+#: model:ir.actions.act_window,name:bdm_view.action_bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_tree
+msgid "Members"
+msgstr "Membres"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Name"
+msgstr "Nom"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "New Capital Subscription"
+msgstr "Nouvelle souscription de capital"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Notes"
+msgstr "Notes"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Number"
+msgstr "Numéro"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Partner Type"
+msgstr "Type de partenaire"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Partners"
+msgstr "Partenaires"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Remove 'Underclass Population'"
+msgstr "Retirer 'Minima Sociaux'"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_search
+msgid "Search Partner"
+msgstr "Rechercher un partenaire"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Set 'Underclass Population'"
+msgstr "Mettre 'Minima Sociaux'"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Squadleader"
+msgstr "Squadleader"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Standard Points"
+msgstr "Compteur classique"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "State"
+msgstr "État"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Subscriptions"
+msgstr "Abonnements"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Templates & Shifts"
+msgstr "Créneaux et Services"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Tmpl. Registr."
+msgstr "Créneau"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "Upc. Registr."
+msgstr "Présences"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "View partner Extensions"
+msgstr "Voir les extensions"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "View partner Registrations"
+msgstr "Voir les inscriptions"
+
+#. module: bdm_view
+#: model:ir.ui.view,arch_db:bdm_view.view_bdm_form
+msgid "View partner Template Registrations"
+msgstr "Inscriptions à des créneaux"
