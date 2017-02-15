@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_bdm_form" model="ir.ui.view">
+        <field name="name">res.partner.bdm.form</field>
+        <field name="model">res.partner</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Partners">
+            <header>
+                <field name="cooperative_state" widget="statusbar"/>
+            </header>
+            <sheet>
+                <div class="oe_button_box" name="button_box">
+                    <button name="toggle_active" type="object" groups="base.group_no_one"
+                            class="oe_stat_button" icon="fa-archive">
+                        <field name="active" widget="boolean_button"
+                            options='{"terminology": "archive"}'/>
+                    </button>
+                    <button name="%(coop_shift_state.action_shift_extension_from_partner)d"
+                            type="action"
+                            class="oe_stat_button oe_event_attendee_button"
+                            icon="fa-calendar"
+                            help="View partner Extensions">
+                        <field name="extension_qty" widget="statinfo" string="Ext."/>
+                    </button>
+                    <button name="%(coop_shift.act_shift_registration_from_partner)d"
+                        type="action"
+                        class="oe_stat_button oe_event_attendee_button"
+                        icon="fa-calendar"
+                        help="View partner Registrations"
+                        id="view_partner_registrations"
+                        attrs="{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}">
+                        <field name="upcoming_registration_count" widget="statinfo" string="Upc. Registr."/>
+                    </button>
+                    <button name="%(coop_shift.act_template_registration_line_from_partner)d"
+                        
+                        type="action"
+                        class="oe_stat_button oe_event_attendee_button"
+                        icon="fa-calendar-plus-o"
+                        help="View partner Template Registrations"
+                        id="view_partner_template_registrations"
+                        attrs="{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}">
+                        <field name="active_tmpl_reg_line_count" widget="statinfo" string="Tmpl. Registr."/>
+                    </button>
+                </div>
+                <field name="image" widget='image' class="oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
+                <div class="oe_title">
+                    <h1>
+                        <field name="barcode_base" placeholder="Number" readonly="1"/>
+                        <field name="name" default_focus="1" placeholder="Name" required="1" readonly="1"/>
+                    </h1>
+                </div>
+
+                <group name="main" col="6">
+                    <group name="contact_info" string="Contact Information" colspan="2" readonly="1">
+                        <field name="ref"/>
+                        <field name="phone" widget="phone"/>
+                        <field name="mobile" widget="phone"/>
+                        <field name="email" widget="email"/>
+                    </group>
+                    <group name="standard" string="Standard Points">
+                        <field name="theoritical_standard_point"/>
+                        <field name="manual_standard_correction" readonly="1"/>
+                        <field name="final_standard_point"/>
+                    </group>
+                    <group name="ftop" string="FTOP Points">
+                        <field name="theoritical_ftop_point"/>
+                        <field name="manual_ftop_correction" readonly="1"/>
+                        <field name="final_ftop_point"/>
+                    </group>
+                    <group name="state" string="State" colspan="2" groups="bdm_view.group_bdm_manager">
+                        <field name="shift_type"/>
+                        <field name="is_blocked"/>
+                        <field name="date_alert_stop"/>
+                        <field name="date_delay_stop"/>
+                        <field name="working_state"/>
+                    </group>
+                    <group name="extra" string="Extra Data" colspan="2" groups="bdm_view.group_bdm_manager">
+                        <field name="temp_coop_number"/>
+                        <field name="birthdate" widget="date"/>
+                        <field name="adult_number_home"/>
+                        <field name="old_coop_number"/>
+                        <field name="contact_origin_id"/>
+                        <field name="sex"/>
+                        <field name="is_deceased"/>
+                    </group>
+                    <group name="templates_and_shifts" string="Templates &amp; Shifts" colspan="6" col="2" readonly="1">
+                        <field name="current_tmpl_reg_line_ids">
+                            <tree readonly="1">
+                                <field name="shift_template_id"/>
+                                <field name="state"/>
+                                <field name="date_begin"/>
+                                <field name="date_end"/>
+                            </tree>
+                            <form/>
+                        </field>
+                        <field name="next_registration_id">
+                            <tree readonly="1">
+                                <field name="shift_id"/>
+                                <field name="shift_ticket_id"/>
+                                <field name="state"/>
+                                <field name="date_begin"/>
+                                <field name="user_ids"/>
+                            </tree>
+                            <form/>
+                        </field>
+                    </group>
+                    <group name="membership" string="MemberShip" colspan="2" groups="bdm_view.group_bdm_manager">
+                        <field name="is_louve_member" groups="louve_membership.louve_membership_manager" string="Afficher via menu Membres" readonly="0"/>
+                        <field name="type_A_capital_qty" groups="louve_membership.louve_membership_manager"/>
+                        <field name="type_B_capital_qty" groups="louve_membership.louve_membership_manager"/>
+                        <field name="type_C_capital_qty" groups="louve_membership.louve_membership_manager"/>
+                        <field name="is_type_A_capital_subscriptor" invisible="1"/>
+                        <field name="is_type_B_capital_subscriptor" invisible="1"/>
+                        <field name="is_type_C_capital_subscriptor" invisible="1"/>
+                        <field name="is_associated_people" readonly="1" groups="louve_membership.louve_membership_manager"/>
+                        <field name="is_unpayed"/>
+                        <field name="is_unsubscribed"/>
+                    </group>
+                    <group name="capital" string="Capital" groups="louve_membership.subscriptions_reader">
+                        <button id="new_subscription" name="%(capital_subscription.action_capital_fundraising_wizard)d" type="action"
+                            string="New Capital Subscription" class="oe_highlight" groups="louve_membership.subscriptions_creator"/>
+                        <group name="partner_type" string="Partner Type">
+                            <field name="fundraising_partner_type_ids" widget="many2many_tags" readonly="1"/>
+                            <button name="capital_subscription.set_underclass_population" type="object"
+                                string="Set 'Underclass Population'" colspan="2" class="oe_highlight" attrs="{'invisible': [('is_underclass_population', '=', True)]}"/>
+                            <button name="capital_subscription.remove_underclass_population" type="object"
+                                string="Remove 'Underclass Population'" colspan="2" class="oe_highlight" attrs="{'invisible': [('is_underclass_population', '=', False)]}"/>
+                            <field name="is_underclass_population" invisible="1"/>
+                        </group>
+                        <group name="subscription" string="Subscriptions">
+                            <field name="amount_subscription"/>
+                        </group>
+                    </group>
+                    <group name="squadleader" string="Squadleader" colspan="6" groups="bdm_view.group_bdm_manager">
+                        <field name="is_squadleader"/>
+                        <field name="template_ids" attrs="{'invisible':[('is_squadleader', '=', False)]}"/>
+                    </group>
+
+                    <group name="notes" string="Notes" colspan="6">
+                        <field name="comment" placeholder="Internal note..." nolabel="1"/>
+                    </group>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bdm_form_manager" model="ir.ui.view">
+        <field name="name">res.partner.bdm.manager.form</field>
+        <field name="model">res.partner</field>
+        <field name="priority" eval="1"/>
+        <field name="inherit_id" ref="view_bdm_form"/>
+        <field name="groups_id" eval="[(4, ref('group_bdm_manager'))]"/>
+        <field name="arch" type="xml">
+            <field name="barcode_base" position="attributes">
+                <attribute name="readonly" eval="0"/>
+            </field>
+            <field name="name" position="attributes">
+                <attribute name="readonly" eval="0"/>
+            </field>
+            <group name="contact_info" position="attributes">
+                <attribute name="readonly" eval="0"/>
+            </group>
+            <field name="manual_standard_correction" position="attributes">
+                <attribute name="readonly" eval="0"/>
+            </field>
+            <field name="manual_ftop_correction" position="attributes">
+                <attribute name="readonly" eval="0"/>
+            </field>
+            <group name="templates_and_shifts" position="attributes">
+                <attribute name="readonly" eval="0"/>
+            </group>
+        </field>
+    </record>
+
+   <record id="view_bdm_search" model="ir.ui.view">
+        <field name="name">res.partner.bdm.search</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Search Partner">
+               <field name="name"
+                   filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+               <field name="barcode_base"/>
+               <field name="ref"/>
+           </search>
+        </field>
+    </record>
+    <record id="view_bdm_tree" model="ir.ui.view">
+        <field name="name">res.partner.bdm.tree</field>
+        <field name="model">res.partner</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Members">
+                <field name="barcode_base"/>
+                <field name="display_name"/>
+                <field name="phone"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_bdm_view" model="ir.actions.act_window">
+        <field name="name">Members</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('is_louve_member', '=', True)]</field>
+        <field name="context">{'default_is_louve_member':1}</field>
+        <field name="search_view_id" ref="view_bdm_search"/>
+    </record>
+
+    <record id="bdm_action1" model="ir.actions.act_window.view">
+       <field eval="1" name="sequence"/>
+       <field name="view_mode">tree</field>
+       <field name="view_id" ref="view_bdm_tree"/>
+       <field name="act_window_id" ref="action_bdm_view"/>
+    </record>
+
+    <record id="bdm_action2" model="ir.actions.act_window.view">
+       <field eval="2" name="sequence"/>
+       <field name="view_mode">form</field>
+       <field name="view_id" ref="view_bdm_form"/>
+       <field name="act_window_id" ref="action_bdm_view"/>
+    </record>
+
+    <record model="ir.ui.menu" id="louve_membership.menu_res_partner_members">
+        <field name="action" ref="action_bdm_view"/>
+        <field name="groups_id" eval="[(4, ref('bdm_view.group_bdm_user'))]"/>
+    </record>
+</odoo>
