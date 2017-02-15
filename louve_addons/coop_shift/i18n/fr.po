@@ -504,6 +504,7 @@ msgstr "Courant"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_res_partner_current_template_name
+#: model:ir.model.fields,field_description:coop_shift.field_res_partner_current_tmpl_reg_line_ids
 msgid "Current Template"
 msgstr "Créneau actuel"
 
@@ -2799,3 +2800,8 @@ msgstr "Mettre à jour les services associés"
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
 msgid "Équipe:"
 msgstr "Équipe:"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_res_partner_next_registration_id
+msgid "Next Registration"
+msgstr "Prochain Service"
