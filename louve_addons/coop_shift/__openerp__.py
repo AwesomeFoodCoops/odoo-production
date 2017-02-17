@@ -67,6 +67,6 @@
         'demo/res_groups.xml',
         'demo/res_partner.xml',
         'demo/shift_template.xml',
-        'demo/shift_template_registration.xml',
+        # 'demo/shift_template_registration.xml',
     ],
 }

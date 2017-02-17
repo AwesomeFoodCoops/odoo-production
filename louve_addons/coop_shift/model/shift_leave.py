@@ -64,6 +64,9 @@ class ShiftLeave(models.Model):
     require_stop_date = fields.Boolean(
         string='Required Stop Date', related='type_id.require_stop_date')
 
+    shift_template_registration_line_ids = fields.One2many(
+        'shift.template.registration.line', 'leave_id')
+
     # Compute Section
     @api.depends('start_date', 'stop_date')
     def _compute_duration(self):
@@ -75,7 +78,7 @@ class ShiftLeave(models.Model):
                     leave.start_date, DEFAULT_SERVER_DATE_FORMAT)
                 stop_date = datetime.strptime(
                     leave.stop_date, DEFAULT_SERVER_DATE_FORMAT)
-                leave.duration = (stop_date - start_date).days
+                leave.duration = (stop_date - start_date).days + 1
 
     @api.depends('partner_id', 'type_id')
     def _compute_name(self):
@@ -137,8 +140,10 @@ class ShiftLeave(models.Model):
     def button_cancel(self):
         for leave in self:
             if leave.state == 'done':
-                raise ValidationError(_(
-                    "You can not cancel this leave : Unimplemented Feature"))
+                leave.shift_template_registration_line_ids.write(
+                    {'state': 'open'})
+                leave.state = 'cancel'
+                leave.shift_template_registration_line_ids = False
 
     @api.multi
     def button_draft(self):

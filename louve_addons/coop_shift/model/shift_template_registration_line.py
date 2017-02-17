@@ -44,7 +44,7 @@ class ShiftTemplateRegistrationLine(models.Model):
     registration_id = fields.Many2one(
         'shift.template.registration', string='Registration', required=True,
         ondelete='cascade')
-    date_begin = fields.Date("Begin Date")
+    date_begin = fields.Date("Begin Date", required=True)
     date_end = fields.Date("End Date")
     state = fields.Selection(STATES, string="State", default="open")
     shift_registration_ids = fields.One2many(
@@ -62,6 +62,8 @@ class ShiftTemplateRegistrationLine(models.Model):
         string="Past", compute="_compute_current", multi="current")
     is_future = fields.Boolean(
         string="Future", compute="_compute_current", multi="current")
+
+    leave_id = fields.Many2one('shift.leave', string='Leave')
 
     @api.multi
     @api.model

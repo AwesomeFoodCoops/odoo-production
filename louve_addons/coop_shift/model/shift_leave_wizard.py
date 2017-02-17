@@ -6,7 +6,7 @@
 from openerp import api, fields, models, _
 from openerp.exceptions import ValidationError
 
-from .date_tools import conflict_period
+from .date_tools import conflict_period, add_days
 
 
 class ShiftLeaveWizard(models.TransientModel):
@@ -30,20 +30,6 @@ class ShiftLeaveWizard(models.TransientModel):
                     line_ids.append(line.id)
         return line_ids
 
-    @api.model
-    def _default_shift_registration_ids(self):
-        registration_ids = []
-        leave_id = self.env.context.get('active_id', False)
-        if leave_id:
-            leave = self.env['shift.leave'].browse(leave_id)
-            for registration in leave.partner_id.registration_ids:
-                if conflict_period(
-                        leave.start_date, leave.stop_date,
-                        registration.date_begin,
-                        registration.date_end)['conflict']:
-                    registration_ids.append(registration.id)
-        return registration_ids
-
     # Column Section
     leave_id = fields.Many2one(
         string='Leave', required=True, comodel_name='shift.leave',
@@ -61,26 +47,42 @@ class ShiftLeaveWizard(models.TransientModel):
         string='Begin Date', related='leave_id.start_date', readonly=True)
 
     stop_date = fields.Date(
-        string='Stop Date', related='leave_id.start_date', readonly=True)
+        string='Stop Date', related='leave_id.stop_date', readonly=True)
 
     shift_template_registration_line_ids = fields.Many2many(
         comodel_name='shift.template.registration.line', readonly=True,
         string='Template Attendees',
         default=_default_shift_template_registration_line_ids)
 
-    shift_registration_ids = fields.Many2many(
-        comodel_name='shift.registration', readonly=True,
-        string='Attendees',
-        default=_default_shift_registration_ids)
-
     # View Section
     @api.multi
     def button_confirm(self):
+        line_obj = self.env['shift.template.registration.line']
         self.ensure_one()
         if self.leave_id.state != 'draft':
                 raise ValidationError(_(
                     "You can not confirm a leave in a non draft state."))
-        for registration in self.shift_registration_ids:
-            if registration.state != 'cancel':
-                registration.button_reg_cancel()
+
+        for line in self.shift_template_registration_line_ids:
+            # Reduce current registration line
+            previous_date_end = line.date_end
+            line.date_end = add_days(self.leave_id.start_date, -1)
+            if self.leave_id.stop_date:
+                # Create a new registration line, if leave has stop date
+                line.copy(default={
+                    'date_begin': add_days(self.leave_id.stop_date, 1),
+                    'date_end': previous_date_end,
+                })
+
+        for registration in self.shift_template_registration_line_ids.mapped(
+                'registration_id'):
+            # Create new registration lines (type 'waiting')
+            line_obj.create({
+                'registration_id': registration.id,
+                'date_begin': self.leave_id.start_date,
+                'date_end': self.leave_id.stop_date,
+                'state': 'waiting',
+                'leave_id': self.leave_id.id,
+            })
+
         self.leave_id.state = 'done'

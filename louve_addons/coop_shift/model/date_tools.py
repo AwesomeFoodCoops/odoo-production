@@ -3,6 +3,14 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from datetime import datetime, timedelta
+
+
+def add_days(date_string, days):
+    return (
+        datetime.strptime(date_string, '%Y-%m-%d').date() +
+        timedelta(days=days)).strftime('%Y-%m-%d')
+
 
 def conflict_period(
         obj1_date_start, obj1_date_stop, obj2_date_start, obj2_date_stop,
@@ -29,6 +37,7 @@ def conflict_period(
             'conflict': True,
             'date_start': max(obj1_date_start, obj2_date_start),
             'date_stop': False,
+            'type': 'partial',
         }
 
     if not obj1_date_stop and _conflict(obj1_date_start, obj2_date_stop):
@@ -37,6 +46,7 @@ def conflict_period(
             'conflict': True,
             'date_start': obj2_date_start,
             'date_stop': False,
+            'type': 'partial',
         }
 
     if not obj2_date_stop and _conflict(obj2_date_start, obj1_date_stop):
@@ -45,6 +55,7 @@ def conflict_period(
             'conflict': True,
             'start_date': obj1_date_start,
             'date_stop': False,
+            'type': 'partial',
         }
 
     if (_conflict(obj2_date_start, obj1_date_stop) and
@@ -54,6 +65,7 @@ def conflict_period(
             'conflict': True,
             'date_start': max(obj1_date_start, obj2_date_start),
             'date_stop': min(obj1_date_stop, obj2_date_stop),
+            'type': 'full',
         }
 
     if (_conflict(obj2_date_start, obj1_date_stop) and
@@ -63,6 +75,7 @@ def conflict_period(
             'conflict': True,
             'date_start': obj2_date_start,
             'date_stop': obj1_date_stop,
+            'type': 'partial',
         }
 
     if (_conflict(obj1_date_start, obj2_date_stop) and
@@ -72,7 +85,9 @@ def conflict_period(
             'conflict': True,
             'date_start': obj1_date_start,
             'date_stop': obj2_date_stop,
+            'type': 'partial',
         }
     return {
         'conflict': False,
+        'type': 'none',
     }
