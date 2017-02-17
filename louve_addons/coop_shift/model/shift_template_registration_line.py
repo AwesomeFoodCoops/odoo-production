@@ -21,7 +21,9 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
+from openerp import _, api, fields, models
+
+from openerp.exceptions import ValidationError
 
 STATES = [
     ('cancel', 'Cancelled'),
@@ -64,6 +66,15 @@ class ShiftTemplateRegistrationLine(models.Model):
         string="Future", compute="_compute_current", multi="current")
 
     leave_id = fields.Many2one('shift.leave', string='Leave')
+
+    # constraints Section
+    @api.multi
+    @api.constrains('date_begin', 'date_end')
+    def _check_dates(self):
+        for leave in self:
+            if leave.date_end and leave.date_end < leave.date_begin:
+                raise ValidationError(_(
+                    "Stop Date should be greater than Start Date."))
 
     @api.multi
     @api.model
