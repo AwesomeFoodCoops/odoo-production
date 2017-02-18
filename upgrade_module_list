@@ -26,3 +26,6 @@ export MODULE_LIST_TO_INSTALL="mass_mailing_access,account_payment_term_restrict
 # 12/02/2017
 export MODULE_LIST_TO_UPGRADE="product_history,coop_shift"
 export MODULE_LIST_TO_INSTALL=""
+# 13/02/2017
+export MODULE_LIST_TO_UPGRADE="coop_shift,product_to_print,louve_custom_purchase,purchase_package_qty"
+export MODULE_LIST_TO_INSTALL=""
