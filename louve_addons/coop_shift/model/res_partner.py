@@ -31,6 +31,9 @@ class ResPartner(models.Model):
         'shift.registration', "partner_id", 'Registrations')
     upcoming_registration_count = fields.Integer(
         "Number of registrations", compute="_compute_registration_counts")
+    next_registration_id = fields.One2many(
+        'shift.registration', "partner_id", 'Next Registration',
+        compute="_compute_registration_counts")
 
     tmpl_reg_ids = fields.One2many(
         'shift.template.registration', "partner_id",
@@ -48,6 +51,10 @@ class ResPartner(models.Model):
         "Number of active registration lines",
         compute="_compute_registration_counts")
 
+    current_tmpl_reg_line_ids = fields.One2many(
+        'shift.template.registration.line', "partner_id",
+        'Current Template')
+
     current_template_name = fields.Char(
         string='Current Template', compute='_compute_current_template_name')
 
@@ -62,13 +69,19 @@ class ResPartner(models.Model):
     def _compute_registration_counts(self):
         d = fields.Datetime.now()
         for partner in self:
-            partner.upcoming_registration_count = len(
-                partner.registration_ids.filtered(
-                    lambda r, d=d: r.date_begin >= d))
+            next_registrations = partner.registration_ids.filtered(
+                lambda r, d=d: r.date_begin >= d)
+            partner.upcoming_registration_count = len(next_registrations)
+            next_registrations = next_registrations.sorted(
+                lambda r: r.date_begin)
+            partner.next_registration_id = next_registrations and\
+                next_registrations[0] or False
             partner.tmpl_registration_count = len(partner.tmpl_reg_line_ids)
             partner.active_tmpl_reg_line_count = len(
                 partner.tmpl_reg_line_ids.filtered(
                     lambda l: l.is_current or l.is_future))
+            partner.current_tmpl_reg_line_ids =\
+                partner.tmpl_reg_line_ids.filtered(lambda l: l.is_current)
 
     @api.multi
     def _compute_current_template_name(self):
