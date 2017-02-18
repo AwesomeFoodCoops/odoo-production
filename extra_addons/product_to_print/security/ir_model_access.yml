@@ -41,7 +41,7 @@
 
 - !record {model: ir.model.access, id: ir_model_access_product_category_print_user}:
     model_id: product_to_print.model_product_category_print
-    group_id: product_to_print.group_pricetag_user
+    group_id: base.group_user
     name: Print Category User
     perm_read: true
     perm_create: false
