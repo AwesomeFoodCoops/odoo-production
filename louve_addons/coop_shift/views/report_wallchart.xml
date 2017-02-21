@@ -105,13 +105,13 @@
                         </thead>
                         <tbody>
                             <tr t-foreach="wallchart['times']" t-as="time">
-                                <t t-set="num" t-value="0"/>
+                                <t t-set="num" t-value="1"/>
                                 <td><span t-esc="time['start_time']"/> - <span t-esc="time['end_time']"/></td>
                                 <t t-foreach="time['shift_list']" t-as="shift">
                                     <td>
                                         <t t-foreach="shift['partners']" t-as="partner">
                                             <span t-esc="partner_index + 1"/> - <t t-if="partner.ref">[<span t-esc="partner.ref"/>] </t><span t-esc="partner.name"/><br/>
-                                            <t t-set="num" t-value="partner_size + 1"/>
+                                            <t t-set="num" t-value="partner_size"/>
                                         </t>
                                         <t t-foreach="shift['free_seats']" t-as="free_seat">
                                             <t t-set="number" t-value="free_seat_index + num"/>

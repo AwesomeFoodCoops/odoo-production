@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Purchase - Computed Purchase Order Module for Odoo
@@ -22,9 +22,6 @@
 ##############################################################################
 
 from openerp import models, fields, api
-# from datetime import datetime, timedelta
-# from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-# from openerp.exceptions import UserError
 
 
 class UpdateShiftsWizard(models.TransientModel):
@@ -98,18 +95,14 @@ class UpdateShiftsWizard(models.TransientModel):
                 if "updated_fields" in vals.keys():
                     vals = eval(vals["updated_fields"])
                 shift_ids = [line.shift_id.id for line in wizard.line_ids]
+                special = []
+                if 'shift_ticket_ids' in vals.keys():
+                    special = ['shift_ticket_ids']
+                    del vals['shift_ticket_ids']
                 shift_obj.browse(shift_ids).with_context(
-                    tracking_disable=True).write(vals)
+                    tracking_disable=True).write(vals, special=special)
                 wizard.template_id.updated_fields = ""
         return True
-
-    # @api.multi
-    # def write(self, vals):
-    #     import pdb; pdb.set_trace()
-    #     if vals.get("updated_fields", False) and\
-    #             "updated_fields" in vals["updated_fields"]:
-    #         del vals['updated_fields']
-    #     return super(UpdateShiftsWizard, self).write(vals)
 
 
 class UpdateShiftsWizardLine(models.TransientModel):

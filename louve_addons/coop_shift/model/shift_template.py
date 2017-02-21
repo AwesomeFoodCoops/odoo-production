@@ -335,7 +335,7 @@ class ShiftTemplate(models.Model):
             if template.start_datetime:
                 template.start_date = datetime.strptime(
                     template.start_datetime, '%Y-%m-%d %H:%M:%S').strftime(
-                        '%Y-%m-%d')
+                    '%Y-%m-%d')
 
     @api.depends('start_datetime', 'end_datetime')
     @api.multi
