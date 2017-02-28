@@ -191,15 +191,10 @@ class ProductTemplate(models.Model):
                 seller = product_obj._select_seller(
                     template.product_variant_ids[0], quantity=10000.0)
                 if seller:
-                    if seller.product_uom.id == template.uom_id.id:
-                        base_price =\
-                            seller.price * (100 - seller.discount) / 100
-                    else:
-                        base_price = ((
-                            seller.price /
-                            seller.product_uom.factor_inv) *
-                            template.uom_id.factor_inv *
-                            (100 - seller.discount) / 100)
+                    base_price = seller.price * (100 - seller.discount) / 100
+                    if seller.product_uom.id != template.uom_id.id:
+                        base_price = base_price * template.uom_id.factor_inv /\
+                            seller.product_uom.factor_inv
             template.base_price = base_price
 
     @api.multi
