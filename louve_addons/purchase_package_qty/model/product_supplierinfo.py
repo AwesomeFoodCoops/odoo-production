@@ -91,13 +91,13 @@ class ProductSupplierinfo(models.Model):
         res = super(ProductSupplierinfo, self).create(vals)
         return res
 
-    @api.multi
-    def write(self, vals):
-        if not vals.get('base_price', False):
-            if vals.get('price', False):
-                vals['base_price'] = vals['price']
-                del vals['price']
-        super(ProductSupplierinfo, self).write(vals)
+    # @api.multi
+    # def write(self, vals):
+    #     if not vals.get('base_price', False):
+    #         if vals.get('price', False):
+    #             vals['base_price'] = vals['price']
+    #             del vals['price']
+    #     super(ProductSupplierinfo, self).write(vals)
 
     # Constraints section
     @api.multi
