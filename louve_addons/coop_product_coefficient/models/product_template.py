@@ -76,16 +76,6 @@ class ProductTemplate(models.Model):
         "If The supplier info belong an end date, the base price will be"
         " updated nightly, by a cron task.")
 
-    alternative_base_price_sale = fields.Float(
-        string='Alternative Base Price for Sale Price',
-        help="This alternative base price will be used instead of the Base"
-        " Price, if defined.")
-
-    alternative_base_price_standard = fields.Float(
-        string='Alternative Base Price for Standard Price',
-        help="This alternative base price will be used instead of the Base"
-        " Price, if defined.")
-
     coeff1_inter = fields.Float(
         string='With Coefficient 1',
         compute='_compute_coeff1_inter', store=True, multi="coeff_inter_1")
@@ -147,13 +137,16 @@ class ProductTemplate(models.Model):
         compute='_compute_theoritical_price', store=True,
         digits=dp.get_precision('Product Price'))
 
-    has_theoritical_price_different = fields.Boolean(
-        string='Has Theoritical Price Different', store=True,
-        compute='_compute_has_theoritical_price_different')
+    # has_theoritical_price_different = fields.Boolean(
+    #     string='Has Theoritical Price Different', store=True,
+    #     compute='_compute_has_theoritical_price_different')
 
-    has_theoritical_cost_different = fields.Boolean(
-        string='Has Theoritical Cost Different', store=True,
-        compute='_compute_has_theoritical_cost_different')
+    # has_theoritical_cost_different = fields.Boolean(
+    #     string='Has Theoritical Cost Different', store=True,
+    #     compute='_compute_has_theoritical_cost_different')
+
+    list_price = fields.Float(compute='_compute_theoritical_price')
+    standard_price = fields.Float(compute='_compute_coeff9_inter')
 
     # Custom Section
     @api.multi
@@ -163,7 +156,7 @@ class ProductTemplate(models.Model):
     @api.multi
     def use_theoritical_price(self):
         for template in self:
-            template.list_price = template.theoritical_price
+            template.list_price = "%.2f" % template.theoritical_price
 
     @api.multi
     def use_theoritical_cost(self):
@@ -178,8 +171,7 @@ class ProductTemplate(models.Model):
     # Compute Section
     @api.multi
     @api.depends(
-        'product_variant_ids', 'uom_id', 'uom_po_id', 'seller_ids.price',
-        'seller_ids.product_uom')
+        'uom_id', 'uom_po_id', 'seller_ids.price', 'seller_ids.product_uom',)
     def _compute_base_price(self):
         # TODO IMPME. Compute with discount, depending on
         # product_supplierinfo_discount
@@ -199,27 +191,18 @@ class ProductTemplate(models.Model):
 
     @api.multi
     @api.depends(
-        'alternative_base_price_standard', 'alternative_base_price_sale',
         'base_price', 'coeff1_id.operation_type',
         'coeff1_id.value', 'incl_in_standard_price_1')
     def _compute_coeff1_inter(self):
         coefficient_obj = self.env['product.coefficient']
         for template in self:
-            if template.alternative_base_price_sale:
-                base_price_sale = template.alternative_base_price_sale
-            else:
-                base_price_sale = template.base_price
-            if template.alternative_base_price_standard:
-                base_price_standard = template.alternative_base_price_standard
-            else:
-                base_price_standard = template.base_price
             template.coeff1_inter = coefficient_obj.compute_price(
-                template.coeff1_id, base_price_sale)
+                template.coeff1_id, template.base_price)
             if template.incl_in_standard_price_1:
                 template.coeff1_inter_sp = coefficient_obj.compute_price(
-                    template.coeff1_id, base_price_standard)
+                    template.coeff1_id, template.base_price)
             else:
-                template.coeff1_inter_sp = base_price_standard
+                template.coeff1_inter_sp = template.base_price
 
     @api.multi
     @api.depends(
@@ -340,6 +323,7 @@ class ProductTemplate(models.Model):
                     template.coeff9_id, template.coeff8_inter_sp)
             else:
                 template.coeff9_inter_sp = template.coeff8_inter_sp
+            template.standard_price = template.coeff9_inter_sp
 
     @api.multi
     @api.depends(
@@ -357,29 +341,30 @@ class ProductTemplate(models.Model):
                         tax.name, template.name))
                 multi *= 1 + (tax.amount / 100)
             template.theoritical_price = template.coeff9_inter * multi
+            template.list_price = "%.2f" % template.theoritical_price
 
-    @api.multi
-    @api.depends(
-        'theoritical_price', 'list_price')
-    def _compute_has_theoritical_price_different(self):
-        for template in self:
-            if template.theoritical_price and (
-                    template.base_price or
-                    template.alternative_base_price_sale):
-                template.has_theoritical_price_different =\
-                    template.list_price != template.theoritical_price
-            else:
-                template.has_theoritical_price_different = False
+    # @api.multi
+    # @api.depends(
+    #     'theoritical_price', 'list_price')
+    # def _compute_has_theoritical_price_different(self):
+    #     for template in self:
+    #         if template.theoritical_price and (
+    #                 template.base_price or
+    #                 template.alternative_base_price_sale):
+    #             template.has_theoritical_price_different =\
+    #                 template.list_price != template.theoritical_price
+    #         else:
+    #             template.has_theoritical_price_different = False
 
-    @api.multi
-    @api.depends(
-        'coeff9_inter_sp', 'standard_price')
-    def _compute_has_theoritical_cost_different(self):
-        for template in self:
-            if template.coeff9_inter_sp and (
-                    template.base_price or
-                    template.alternative_base_price_standard):
-                template.has_theoritical_cost_different =\
-                    template.standard_price != template.coeff9_inter_sp
-            else:
-                template.has_theoritical_cost_different = False
+    # @api.multi
+    # @api.depends(
+    #     'coeff9_inter_sp', 'standard_price')
+    # def _compute_has_theoritical_cost_different(self):
+    #     for template in self:
+    #         if template.coeff9_inter_sp and (
+    #                 template.base_price or
+    #                 template.alternative_base_price_standard):
+    #             template.has_theoritical_cost_different =\
+    #                 template.standard_price != template.coeff9_inter_sp
+    #         else:
+    #             template.has_theoritical_cost_different = False

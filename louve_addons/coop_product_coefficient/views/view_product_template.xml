@@ -13,8 +13,6 @@
             <tree editable="bottom">
                 <field name="name" readonly="1"/>
                 <field name="base_price" />
-                <field name="alternative_base_price_sale" />
-                <field name="alternative_base_price_standard" />
                 <field name="coeff1_id" />
                 <field name="incl_in_standard_price_1" />
                 <field name="coeff2_id" />
@@ -35,9 +33,9 @@
                 <field name="incl_in_standard_price_9" />
                 <field name="theoritical_price" />
                 <field name="list_price" />
-                <field name="has_theoritical_price_different" invisible="1" />
+                <!-- <field name="has_theoritical_price_different" invisible="1" />
                 <button name="use_theoritical_price" type="object" string="Use Theoritical Price"
-                    attrs="{'invisible': [('has_theoritical_price_different', '=', False)]}" icon="gtk-convert"/>
+                    attrs="{'invisible': [('has_theoritical_price_different', '=', False)]}" icon="gtk-convert"/> -->
             </tree>
         </field>
     </record>
@@ -52,7 +50,7 @@
         </field>
     </record>
 
-    <record id="view_product_template_search" model="ir.ui.view">
+    <!-- <record id="view_product_template_search" model="ir.ui.view">
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_search_view"/>
         <field name="arch" type="xml">
@@ -60,7 +58,7 @@
                 <filter string="Has Theoritical Price Different" name="filter_has_theoritical_price_different" domain="[('has_theoritical_price_different', '=', True)]"/> 
             </filter>
         </field>
-    </record>
+    </record> -->
 
     <record id="view_product_template_form" model="ir.ui.view">
         <field name="model">product.template</field>
@@ -69,20 +67,16 @@
             <div name="button_box" position="inside">
                 <button name="recompute_base_price" type="object" icon="fa-calculator" class="oe_stat_button" string="Recompute Base price"
                     groups="base.group_sale_manager"/>
-                <button name="use_theoritical_cost" type="object" icon="fa-rotate-left" class="oe_stat_button" string="Use Theoritical Cost"
+                <!-- <button name="use_theoritical_cost" type="object" icon="fa-rotate-left" class="oe_stat_button" string="Use Theoritical Cost"
                     attrs="{'invisible': [('has_theoritical_cost_different', '=', False)]}" groups="base.group_sale_manager"/>
                 <button name="use_theoritical_price" type="object" icon="fa-rotate-left" class="oe_stat_button" string="Use Theoritical Price"
-                    attrs="{'invisible': [('has_theoritical_price_different', '=', False)]}" groups="base.group_sale_manager"/>
+                    attrs="{'invisible': [('has_theoritical_price_different', '=', False)]}" groups="base.group_sale_manager"/> -->
             </div>
             <xpath expr="//notebook" position="inside">
                 <page name="coefficient" string="Coefficients" groups="base.group_sale_manager">
                     <group>
                         <group>
-                            <group>
-                                <field name="base_price" />
-                                <field name="alternative_base_price_sale" />
-                                <field name="alternative_base_price_standard" />
-                            </group>
+                            <field name="base_price" />
                             <group />
                         </group>
                         <group colspan="4" col="6">
@@ -134,8 +128,8 @@
                         <group col="4">
                             <group>
                                 <field name="theoritical_price" style="background-color: #D0EED0"/>
-                                <field name="has_theoritical_price_different"/>
-                                <field name="has_theoritical_cost_different"/>
+                                <!-- <field name="has_theoritical_price_different"/>
+                                <field name="has_theoritical_cost_different"/> -->
                             </group>
                             <group />
                         </group>
