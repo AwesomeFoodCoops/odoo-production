@@ -171,7 +171,8 @@ class ProductTemplate(models.Model):
     # Compute Section
     @api.multi
     @api.depends(
-        'uom_id', 'uom_po_id', 'seller_ids.price', 'seller_ids.product_uom',)
+        'uom_id', 'uom_po_id', 'seller_ids.price', 'seller_ids.product_uom',
+        'seller_ids.discount')
     def _compute_base_price(self):
         # TODO IMPME. Compute with discount, depending on
         # product_supplierinfo_discount
