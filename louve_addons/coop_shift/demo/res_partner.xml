@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="res.partner" id="standard_member_1">
+        <field name="name">Standard Member 1</field>
+        <field name="customer" eval="True" />
+        <field name="supplier" eval="False" />
+        <field name="shift_type">standard</field>
+    </record>
+
+    <record model="res.partner" id="standard_member_2">
+        <field name="name">Standard Member 2</field>
+        <field name="customer" eval="True" />
+        <field name="supplier" eval="False" />
+        <field name="shift_type">standard</field>
+    </record>
+
+    <record model="res.partner" id="standard_member_3">
+        <field name="name">Standard Member 3</field>
+        <field name="customer" eval="True" />
+        <field name="supplier" eval="False" />
+        <field name="shift_type">standard</field>
+    </record>
+
+    <record model="res.partner" id="ftop_member">
+        <field name="name">FTOP Member</field>
+        <field name="customer" eval="True" />
+        <field name="supplier" eval="False" />
+        <field name="shift_type">ftop</field>
+    </record>
+
+    <record model="res.partner" id="squadleader_1">
+        <field name="name">Squadleader 1</field>
+        <field name="customer" eval="True" />
+        <field name="supplier" eval="False" />
+        <field name="is_squadleader" eval="True" />
+    </record>
+
+    <record model="res.partner" id="squadleader_2">
+        <field name="name">Squadleader 2</field>
+        <field name="customer" eval="True" />
+        <field name="supplier" eval="False" />
+        <field name="is_squadleader" eval="True" />
+    </record>
+
+</odoo>

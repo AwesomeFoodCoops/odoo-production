@@ -1,0 +1,56 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+access_shift_leave_user,access_shift_leave_user,coop_shift.model_shift_leave,coop_shift.group_shift_see_leave,1,0,0,0
+access_shift_leave_manager,access_shift_leave_manager,coop_shift.model_shift_leave,coop_shift.group_shift_manage_leave,1,1,1,1
+,,,,,,,
+access_shift_leave_type_user,access_shift_leave_type_user,coop_shift.model_shift_leave_type,coop_shift.group_shift_see_leave,1,0,0,0
+access_shift_leave_type_manager,access_shift_leave_type_manager,coop_shift.model_shift_leave_type,coop_shift.group_shift_manage_leave,1,1,1,1
+,,,,,,,
+access_shift_extension_user,access_shift_extension_user,coop_shift.model_shift_extension,coop_shift.group_shift_user,1,0,0,0
+access_shift_extension_manager,access_shift_extension_type_manager,coop_shift.model_shift_extension,coop_shift.group_shift_manager,1,1,1,0
+,,,,,,,
+access_shift_extension_type_user,access_shift_extension_type_user,coop_shift.model_shift_extension_type,coop_shift.group_shift_user,1,0,0,0
+access_shift_extension_type_manager,access_shift_extension_type_manager,coop_shift.model_shift_extension_type,coop_shift.group_shift_manager,1,1,1,0
+,,,,,,,
+ir_model_access_shift_mail_user,shift_mail user,coop_shift.model_shift_mail,coop_shift.group_shift_user,1,1,1,1
+,,,,,,,
+ir_model_access_shift_mail_registration_user,shift_mail_registration user,coop_shift.model_shift_mail_registration,coop_shift.group_shift_user,1,1,1,1
+,,,,,,,
+ir_model_access_shift_registration_user,shift_registration user,coop_shift.model_shift_registration,coop_shift.group_shift_user,1,1,1,1
+,,,,,,,
+ir_model_access_shift_shift_user,shift_shift user,coop_shift.model_shift_shift,coop_shift.group_shift_user,1,1,0,0
+ir_model_access_shift_shift_manager,shift_shift manager,coop_shift.model_shift_shift,coop_shift.group_shift_manager,1,1,1,1
+,,,,,,,
+ir_model_access_shift_template,shift_template user,coop_shift.model_shift_template,coop_shift.group_shift_manager,1,1,1,1
+,,,,,,,
+ir_model_access_shift_template_mail,shift_template_mail manager,coop_shift.model_shift_template_mail,coop_shift.group_shift_manager,1,1,1,1
+,,,,,,,
+ir_model_access_shift_type,shift_type manager,coop_shift.model_shift_type,coop_shift.group_shift_manager,1,1,1,1
+,,,,,,,
+ir_model_access_shift_ticket_manager,shift_ticket manager,coop_shift.model_shift_ticket,coop_shift.group_shift_manager,1,1,1,1
+,,,,,,,
+ir_model_access_shift_ticket_user,shift_ticket user,coop_shift.model_shift_ticket,coop_shift.group_shift_user,1,0,0,0
+,,,,,,,
+ir_model_access_shift_template_ticket_manager,shift_template_ticket manager,coop_shift.model_shift_template_ticket,coop_shift.group_shift_manager,1,1,1,1
+,,,,,,,
+ir_model_access_shift_template_ticket_user,shift_template_ticket user,coop_shift.model_shift_template_ticket,coop_shift.group_shift_user,1,0,0,0
+,,,,,,,
+ir_model_access_shift_template_registration_manager,shift_template_registration manager,coop_shift.model_shift_template_registration,coop_shift.group_shift_manager,1,1,1,1
+,,,,,,,
+ir_model_access_shift_template_registration_user,shift_template_registration user,coop_shift.model_shift_template_registration,coop_shift.group_shift_user,1,0,0,0
+,,,,,,,
+ir_model_access_shift_template_registration_line_user,shift_template_registration_line user,coop_shift.model_shift_template_registration_line,coop_shift.group_shift_user,1,0,0,0
+,,,,,,,
+ir_model_access_shift_template_registration_line_manager,shift_template_registration_line manager,coop_shift.model_shift_template_registration_line,coop_shift.group_shift_future_changes,1,1,1,1
+,,,,,,,
+ir_model_access_event_type_access,event.type access,event.model_event_type,coop_shift.group_event_without_menu,1,0,0,0
+,,,,,,,
+ir_model_access_event_event_access,event.event access,event.model_event_event,coop_shift.group_event_without_menu,1,1,1,1
+,,,,,,,
+ir_model_access_event_registration_access,event.registration access,event.model_event_registration,coop_shift.group_event_without_menu,1,1,1,1
+,,,,,,,
+ir_model_access_event_mail_access,event.mail access,event.model_event_mail,coop_shift.group_event_without_menu,1,1,1,1
+,,,,,,,
+ir_model_access_event_ticket_access,event.ticket access,event_sale.model_event_event_ticket,coop_shift.group_event_without_menu,1,1,1,1
+,,,,,,,
+ir_model_access_event_mail_registration,event.mail.registration access,event.model_event_mail_registration,coop_shift.group_event_without_menu,1,1,1,1
