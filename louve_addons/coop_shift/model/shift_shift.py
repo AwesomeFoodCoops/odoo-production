@@ -86,8 +86,9 @@ class ShiftShift(models.Model):
         'shift.ticket', 'shift_id', string='Shift Ticket',
         default=lambda rec: rec._default_shift_tickets(), copy=True)
     date_tz = fields.Selection('_tz_get', string='Timezone', default=False)
-    date_begin_tz = fields.Datetime(
-        string='Begin Date Time', compute="_compute_date_begin_tz", store=True)
+    date_begin = fields.Datetime(
+        compute="_compute_date_begin", store=True, required=False)
+    date_begin_tz = fields.Datetime(string='Begin Date Time')
     date_without_time = fields.Date(
         string='Date', compute='_compute_begin_date_fields', store=True,
         multi="begin_date")
@@ -287,28 +288,30 @@ class ShiftShift(models.Model):
                     }))
                 self.registration_ids = vals
 
-    @api.depends('date_begin')
+    @api.depends('date_begin_tz')
     @api.multi
-    def _compute_date_begin_tz(self):
+    def _compute_date_begin(self):
         tz_name = self._context.get('tz') or self.env.user.tz
         if not tz_name:
             raise UserError(_(
                 "You can not create Shift if your timezone is not defined."))
+        context_tz = pytz.timezone(tz_name)
         for shift in self:
-            if shift.date_begin:
-                start_date_object = datetime.strptime(
-                    shift.date_begin, '%Y-%m-%d %H:%M:%S')
+            if shift.date_begin_tz:
+                start_date_object_tz = fields.Datetime.from_string(
+                    shift.date_begin_tz)
                 utc_timestamp = pytz.utc.localize(
-                    start_date_object, is_dst=False)
-                context_tz = pytz.timezone(tz_name)
-                start_date_object_tz = utc_timestamp.astimezone(context_tz)
-                shift.date_begin_tz = "%s-%02d-%02d %02d:%02d:%02d" % (
-                    start_date_object_tz.year,
-                    start_date_object_tz.month,
-                    start_date_object_tz.day,
-                    start_date_object_tz.hour,
-                    start_date_object_tz.minute,
-                    start_date_object_tz.second,
+                    start_date_object_tz, is_dst=False)
+                start_date_object = utc_timestamp.astimezone(context_tz)
+                start_date = start_date_object_tz + timedelta(
+                    hours=start_date_object_tz.hour - start_date_object.hour)
+                shift.date_begin = "%s-%02d-%02d %02d:%02d:%02d" % (
+                    start_date.year,
+                    start_date.month,
+                    start_date.day,
+                    start_date.hour,
+                    start_date.minute,
+                    start_date.second,
                 )
 
     @api.multi
