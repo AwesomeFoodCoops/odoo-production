@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_change_product_qty_form" model="ir.ui.view">
+        <field name="model">stock.change.product.qty</field>
+        <field name="inherit_id" ref="stock.view_change_product_quantity" />
+        <field name="arch" type="xml">
+            <field name="new_quantity" position="before">
+                <field name="current_quantity"/>
+                <field name="product_qty1"/>
+                <field name="product_qty2"/>
+            </field>
+        </field>
+    </record>
+</odoo>

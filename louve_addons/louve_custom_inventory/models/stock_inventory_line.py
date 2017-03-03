@@ -12,16 +12,16 @@ class StockInventoryLine(models.Model):
     _inherit = 'stock.inventory.line'
 
     product_qty1 = fields.Float(
-        'Checked Quantity 1',
+        'Ground Floor Quantity',
         digits_compute=dp.get_precision('Product Unit of Measure'))
     product_qty2 = fields.Float(
-        'Checked Quantity 2',
+        'Underground Quantity',
         digits_compute=dp.get_precision('Product Unit of Measure'))
     product_qty = fields.Float(
-        compute="_compute_product_qty", store=True, readonly="True")
+        compute="_compute_product_qty", store=True, readonly=True)
 
     @api.multi
     @api.depends('product_qty1', 'product_qty2')
     def _compute_product_qty(self):
-        for abst in self:
-            abst.product_qty = abst.product_qty1 + abst.product_qty2
+        for line in self:
+            line.product_qty = line.product_qty1 + line.product_qty2
