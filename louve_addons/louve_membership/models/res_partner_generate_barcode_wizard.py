@@ -46,4 +46,4 @@ class ResPartnerGenerateBarcodeWizard(models.TransientModel):
                     padding, '0')
 
             barcode_class = barcode.get_barcode_class(barcode_rule.encoding)
-            wizard.partner_id.barcode = barcode_class(custom_code)
+            wizard.sudo().partner_id.barcode = barcode_class(custom_code)

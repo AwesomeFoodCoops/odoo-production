@@ -42,7 +42,7 @@
             </button>
             <button name="generate_barcode" position="after">
                 <button id="create_new_barcode" name="%(action_res_partner_generate_barcode_wizard)d" type="action"
-                    string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}"/>
+                    string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode"/>
             </button>
         </field>
     </record>
@@ -65,8 +65,9 @@
 
     <record model="ir.ui.view" id="view_res_partner_form_base">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="view_res_partner_form"/>
         <field name="arch" type="xml">
+            <field name="barcode_base" position="replace" />
             <notebook position="inside">
                 <page string="Louve Custom">
                     <group>
