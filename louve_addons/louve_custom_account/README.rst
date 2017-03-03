@@ -12,6 +12,8 @@ Features
 * On payment form, make 'Communication' field required, if payment type is
   'internal'.
 
+* Add 'communication' field on account.payment tree view.
+
 Credits
 =======
 
