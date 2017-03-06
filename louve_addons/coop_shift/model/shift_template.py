@@ -536,8 +536,7 @@ class ShiftTemplate(models.Model):
                     template.start_datetime, '%Y-%m-%d %H:%M:%S')
                 date_begin = datetime.strftime(
                     rec_date + timedelta(hours=(start_date_object_tz.hour)) +
-                    timedelta(minutes=(start_date_object_tz.minute)) +
-                    (start_date_object - start_date_object_tz),
+                    timedelta(minutes=(start_date_object_tz.minute)),
                     "%Y-%m-%d %H:%M:%S")
                 if date_begin.split(" ")[0] <= template.last_shift_date:
                     continue
@@ -562,7 +561,7 @@ class ShiftTemplate(models.Model):
                     'seats_max': template.seats_max,
                     'seats_availability': template.seats_availability,
                     'seats_min': template.seats_min,
-                    'date_begin': date_begin,
+                    'date_begin_tz': date_begin,
                     'date_end': date_end,
                     'state': 'draft',
                     'reply_to': template.reply_to,
