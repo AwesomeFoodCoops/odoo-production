@@ -992,6 +992,8 @@ class pos_order(osv.osv):
             for line in order.lines:
                 if line.product_id and line.product_id.type not in ['product', 'consu']:
                     continue
+		if line.qty == 0:
+		    continue
 
                 move_list.append(move_obj.create(cr, uid, {
                     'name': line.name,
