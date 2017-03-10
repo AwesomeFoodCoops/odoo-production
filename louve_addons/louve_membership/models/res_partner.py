@@ -31,6 +31,11 @@ class ResPartner(models.Model):
 
     COOPERATIVE_STATE_CUSTOMER = ['up_to_date', 'alert', 'delay', 'exempted']
 
+    SEX_SELECTION = [
+        ('m', 'male'),
+        ('f', 'female'),
+    ]
+
     # New Column Section
     is_louve_member = fields.Boolean('Is Louve Member')
 
@@ -46,7 +51,8 @@ class ResPartner(models.Model):
 
     adult_number_home = fields.Integer('Number of Adult in the Home')
 
-    sex = fields.Char('Sex')
+    sex = fields.Selection(
+        selection=SEX_SELECTION, string='Sex')
 
     old_coop_number = fields.Char('Civi CRM Old Number')
     temp_coop_number = fields.Char('Temporary number')

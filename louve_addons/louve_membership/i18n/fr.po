@@ -441,3 +441,17 @@ msgstr "res.contact.origin"
 msgid "res.partner.generate.barcode.wizard"
 msgstr "res.partner.generate.barcode.wizard"
 
+#. module: louve_membership
+#: selection:res.partner,sex:0
+msgid "female"
+msgstr "Féminin"
+
+#. module: louve_membership
+#: model:ir.model.fields,field_description:louve_membership.field_res_partner_is_underclass_population
+msgid "is Underclass Population"
+msgstr "Minima sociaux"
+
+#. module: louve_membership
+#: selection:res.partner,sex:0
+msgid "male"
+msgstr "Masculin"
