@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 14:21+0000\n"
-"PO-Revision-Date: 2016-12-15 14:21+0000\n"
+"POT-Creation-Date: 2017-03-10 17:42+0000\n"
+"PO-Revision-Date: 2017-03-10 17:42+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,31 +32,35 @@ msgstr "Le champs 'Pour les souscripteurs de parts A' doit être unique."
 msgid "<p>Bonjour ${object.name},</p>\n"
 "<p>Votre souscription à La Louve d’un montant de ${object.amount_subscription}€ a bien été enregistrée. Bienvenue !</p>\n"
 "<p>Vous avez été inscrit(e) sur le créneau ${object.current_template_name}. Vous recevrez un rappel quelques jours avant votre prochain service.</p>\n"
-"<p>Vous pouvez dès maintenant venir découvrir le magasin et faire vos courses. Votre badge sera imprimé prochainement, vous pourrez le récupérer à l’accueil dès qu’il sera prêt. Votre numéro de membre est ${object.barcode}.</p>\n"
+"<p>Vous pouvez dès maintenant venir découvrir le magasin et faire vos courses. Votre badge sera imprimé prochainement, vous pourrez le récupérer à l’accueil dès qu’il sera prêt. Votre numéro de membre est ${object.barcode_base}.</p>\n"
 "<p>L'Espace Membre de La Louve vous est également accessible. Vous pourrez y trouver de nombreuses informations, en particulier vos prochains services, et un forum qui vous permettra de communiquer entre membres.</p>\n"
 "<p>La version actuelle du site sera amenée à évoluer et de nouvelles fonctionnalités seront ajoutées dans les mois à venir. Une équipe de membres bénévoles travaille à enrichir cet Espace pour le rendre utile et convivial.</p>\n"
 "<p>Vous trouverez ci-jointe une procédure vous permettant d'activer votre espace personnel.</p>\n"
 "<p>Cordialement,</p>\n"
-"<p>Tom Boothe</p>"
-msgstr "<p>Bonjour ${object.name},</p>\n"
-"<p>Votre souscription à La Louve d’un montant de ${object.amount_subscription}€ a bien été enregistrée. Bienvenue !</p>\n"
-"<p>Vous avez été inscrit(e) sur le créneau ${object.current_template_name}. Vous recevrez un rappel quelques jours avant votre prochain service.</p>\n"
-"<p>Vous pouvez dès maintenant venir découvrir le magasin et faire vos courses. Votre badge sera imprimé prochainement, vous pourrez le récupérer à l’accueil dès qu’il sera prêt. Votre numéro de membre est ${object.barcode}.</p>\n"
-"<p>L'Espace Membre de La Louve vous est également accessible. Vous pourrez y trouver de nombreuses informations, en particulier vos prochains services, et un forum qui vous permettra de communiquer entre membres.</p>\n"
-"<p>La version actuelle du site sera amenée à évoluer et de nouvelles fonctionnalités seront ajoutées dans les mois à venir. Une équipe de membres bénévoles travaille à enrichir cet Espace pour le rendre utile et convivial.</p>\n"
-"<p>Vous trouverez ci-jointe une procédure vous permettant d'activer votre espace personnel.</p>\n"
-"<p>Cordialement,</p>\n"
-"<p>Tom Boothe</p>"
+"<p>Tom Boothe</p>\n"
+"<p></p>\n"
+"<p>Activation de votre espace membre :</p>\n"
+"<p>Afin d'activer votre accès à l'Espace Membres de La Louve, veuillez suivre la procédure suivante:</p>\n"
+"<p>1. Cliquez sur le lien ci-dessous afin de renseigner votre adresse mail:</p>\n"
+"<p>https://membres.cooplalouve.fr/selfservice/?action=sendtoken</p>\n"
+"<p>Attention : utilisez uniquement le mail transmis à La Louve</p>\n"
+"<p>2. Vous recevrez alors un mail de l'expéditeur : \"Self Service Password\"</p>\n"
+"<p>Cliquez sur le lien contenu dans le mail afin d'initialiser votre mot de passe.</p>\n"
+"<p>3. Vous pouvez désormais vous connecter à votre Espace Membre : https://membres.cooplalouve.fr</p>"
+msgstr "<p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Bonjour ${object.name},</p>\n"
+"<p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Votre souscription à La Louve a bien été enregistrée. Bienvenue !</p>\n"
+"<p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Vous avez été inscrit(e) sur le créneau ${object.current_template_name}. Vous recevrez un rappel quelques jours avant votre prochain service.</p>\n"
+"<p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Vous pouvez dès maintenant venir découvrir le magasin et faire vos courses. Votre badge sera imprimé prochainement, vous pourrez le récupérer à l’accueil dès qu’il sera prêt. Votre numéro de membre est ${object.barcode_base}.</p>\n"
+"<p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">L'Espace Membre de La Louve vous est également accessible. Vous pourrez y trouver de nombreuses informations, en particulier vos prochains services, et un forum qui vous permettra de communiquer entre membres.</p>\n"
+"<p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">La version actuelle du site sera amenée à évoluer et de nouvelles fonctionnalités seront ajoutées dans les mois à venir. Une équipe de membres bénévoles travaille à enrichir cet espace pour le rendre utile et convivial.</p>\n"
+"<p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Vous trouverez ci-jointe une procédure vous permettant d'activer votre espace personnel.</p>\n"
+"<p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Cordialement,</p>\n"
+"<p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Tom Boothe</p>"
 
 #. module: louve_membership
 #: model:ir.ui.view,arch_db:louve_membership.view_res_partner_form_base
 msgid "Afficher via menu Membres"
 msgstr "Afficher via menu Membres"
-
-#. module: louve_membership
-#: selection:res.partner,cooperative_state:0
-msgid "Alert"
-msgstr "En Alerte"
 
 #. module: louve_membership
 #: model:ir.actions.act_window,name:louve_membership.action_res_partner_associated
@@ -86,11 +90,6 @@ msgid "Bienvenue à La Louve"
 msgstr "Bienvenue à La Louve"
 
 #. module: louve_membership
-#: selection:res.partner,cooperative_state:0
-msgid "Blocked"
-msgstr "Bloqué"
-
-#. module: louve_membership
 #: model:res.groups,name:louve_membership.subscriptions_can_change_fundraising_category
 msgid "Can Change Fundraising Category in Wizard"
 msgstr "Peux changer la catégorie de titre dans l'assistant"
@@ -104,11 +103,6 @@ msgstr "Peux changer la catégorie de titre"
 #: model:ir.ui.view,arch_db:louve_membership.view_res_partner_generate_barcode_wizard_form
 msgid "Cancel"
 msgstr "Annuler"
-
-#. module: louve_membership
-#: model:ir.model.fields,help:louve_membership.field_res_partner_is_unpayed
-msgid "Check this box, if the partner has late payments for him capital subscriptions. this will prevent him to buy."
-msgstr "Cocher cette case si le partenaire a des retards de paiements pour sa souscriptions de capital. Cela lui empêchera d'acheter."
 
 #. module: louve_membership
 #: model:ir.model.fields,help:louve_membership.field_res_partner_is_unsubscribed
@@ -131,16 +125,6 @@ msgid "Contracts"
 msgstr "Contrats"
 
 #. module: louve_membership
-#: model:ir.model.fields,field_description:louve_membership.field_res_partner_cooperative_state
-msgid "Cooperative state"
-msgstr "Etat coopératif"
-
-#. module: louve_membership
-#: model:ir.model.fields,field_description:louve_membership.field_res_partner_cooperative_state_display
-msgid "Cooperative state display"
-msgstr "Etat coopératif affiché"
-
-#. module: louve_membership
 #: model:res.groups,name:louve_membership.subscriptions_creator
 msgid "Create Subscriptions"
 msgstr "Créer les souscriptions"
@@ -161,11 +145,6 @@ msgstr "Créé par"
 #: model:ir.model.fields,field_description:louve_membership.field_res_partner_generate_barcode_wizard_create_date
 msgid "Created on"
 msgstr "Créé le"
-
-#. module: louve_membership
-#: selection:res.partner,cooperative_state:0
-msgid "Delay"
-msgstr "Délai"
 
 #. module: louve_membership
 #: model:ir.model.fields,field_description:louve_membership.field_res_contact_origin_display_name
@@ -199,6 +178,16 @@ msgid "Has a type A capital subscription"
 msgstr "A souscrit des parts A"
 
 #. module: louve_membership
+#: model:ir.model.fields,field_description:louve_membership.field_res_partner_is_type_B_capital_subscriptor
+msgid "Has a type B capital subscription"
+msgstr "A souscrit des parts B"
+
+#. module: louve_membership
+#: model:ir.model.fields,field_description:louve_membership.field_res_partner_is_type_C_capital_subscriptor
+msgid "Has a type C capital subscription"
+msgstr "A souscrit des parts C"
+
+#. module: louve_membership
 #: model:ir.model.fields,field_description:louve_membership.field_res_contact_origin_id
 #: model:ir.model.fields,field_description:louve_membership.field_res_partner_generate_barcode_wizard_id
 msgid "ID"
@@ -217,7 +206,17 @@ msgstr "Si cochée, les personnes qui ont souscrit des parts A vont avoir cette 
 #. module: louve_membership
 #: model:ir.model.fields,help:louve_membership.field_capital_fundraising_category_is_part_A
 msgid "If checked, partner that have subscribed such fundraising category will belong to 'Type A subscriptor' category"
-msgstr "Si cochée, les personnes qui ont souscrit ce type de part seront coché 'Possède des parts A'."
+msgstr "Si cochée, les personnes qui ont souscrit ce type de part seront cochés 'Possède des parts A'."
+
+#. module: louve_membership
+#: model:ir.model.fields,help:louve_membership.field_capital_fundraising_category_is_part_B
+msgid "If checked, partner that have subscribed such fundraising category will belong to 'Type B subscriptor' category"
+msgstr "Si cochée, les personnes qui ont souscrit ce type de part seront cochés 'Possède des parts B'."
+
+#. module: louve_membership
+#: model:ir.model.fields,help:louve_membership.field_capital_fundraising_category_is_part_C
+msgid "If checked, partner that have subscribed such fundraising category will belong to 'Type C subscriptor' category"
+msgstr "Si cochée, les personnes qui ont souscrit ce type de part seront cochés 'Possède des parts C'."
 
 #. module: louve_membership
 #: model:ir.model.fields,field_description:louve_membership.field_res_partner_is_associated_people
@@ -238,6 +237,16 @@ msgstr "Est un membre de la louve"
 #: model:ir.model.fields,field_description:louve_membership.field_capital_fundraising_category_is_part_A
 msgid "Is Part A"
 msgstr "Part A"
+
+#. module: louve_membership
+#: model:ir.model.fields,field_description:louve_membership.field_capital_fundraising_category_is_part_B
+msgid "Is Part B"
+msgstr "Part B"
+
+#. module: louve_membership
+#: model:ir.model.fields,field_description:louve_membership.field_capital_fundraising_category_is_part_C
+msgid "Is Part C"
+msgstr "Part C"
 
 #. module: louve_membership
 #: model:ir.model.fields,field_description:louve_membership.field_capital_fundraising_category_is_default
@@ -273,6 +282,11 @@ msgid "Manage Louve Membership"
 msgstr "Gérer l'adhésion à la Louve"
 
 #. module: louve_membership
+#: model:ir.ui.view,arch_db:louve_membership.view_res_partner_search
+msgid "Member Number"
+msgstr "Numéro de membre"
+
+#. module: louve_membership
 #: model:ir.ui.view,arch_db:louve_membership.view_res_partner_form_base
 msgid "MemberShip"
 msgstr "Adhésion"
@@ -296,19 +310,24 @@ msgid "New Barcode (Card Lost)"
 msgstr "Nouveau Code Barre (Carte perdue)"
 
 #. module: louve_membership
-#: selection:res.partner,cooperative_state:0
-msgid "Not Concerned"
-msgstr "Non concerné"
-
-#. module: louve_membership
-#: model:ir.ui.view,arch_db:louve_membership.view_res_partner_form_base
-msgid "Num. membre"
-msgstr "Num. membre"
-
-#. module: louve_membership
 #: model:ir.model.fields,field_description:louve_membership.field_res_partner_adult_number_home
 msgid "Number of Adult in the Home"
 msgstr "Nombre d'adulte dans le foyer"
+
+#. module: louve_membership
+#: model:ir.model.fields,field_description:louve_membership.field_res_partner_type_A_capital_qty
+msgid "Number of type A Subscription"
+msgstr "Nombre de parts A"
+
+#. module: louve_membership
+#: model:ir.model.fields,field_description:louve_membership.field_res_partner_type_B_capital_qty
+msgid "Number of type B Subscription"
+msgstr "Nombre de parts B"
+
+#. module: louve_membership
+#: model:ir.model.fields,field_description:louve_membership.field_res_partner_type_C_capital_qty
+msgid "Number of type C Subscription"
+msgstr "Nombre de parts C"
 
 #. module: louve_membership
 #: model:ir.model,name:louve_membership.model_res_partner
@@ -359,11 +378,6 @@ msgid "Subscriptions"
 msgstr "Souscriptions"
 
 #. module: louve_membership
-#: selection:res.partner,cooperative_state:0
-msgid "Suspended"
-msgstr "Suspendu"
-
-#. module: louve_membership
 #: model:ir.model.fields,field_description:louve_membership.field_res_partner_temp_coop_number
 msgid "Temporary number"
 msgstr "Numéro temporaire"
@@ -375,21 +389,9 @@ msgid "This partner does not have a type A capital subscription!"
 msgstr "Ce partenaire n'a pas souscrit de part A !"
 
 #. module: louve_membership
-#: model:ir.model.fields,field_description:louve_membership.field_res_partner_is_unpayed
-#: selection:res.partner,cooperative_state:0
-msgid "Unpayed"
-msgstr "Impayé"
-
-#. module: louve_membership
 #: model:ir.model.fields,field_description:louve_membership.field_res_partner_is_unsubscribed
-#: selection:res.partner,cooperative_state:0
 msgid "Unsubscribed"
 msgstr "Désinscrit"
-
-#. module: louve_membership
-#: selection:res.partner,cooperative_state:0
-msgid "Up to date"
-msgstr "A jour"
 
 #. module: louve_membership
 #: model:ir.model.fields,field_description:louve_membership.field_res_partner_welcome_email
@@ -404,7 +406,7 @@ msgid "Wizard"
 msgstr "Assistant"
 
 #. module: louve_membership
-#: code:addons/louve_membership/models/shift_registration.py:39
+#: code:addons/louve_membership/models/shift_registration.py:40
 #, python-format
 msgid "You can't register this partner on a shift because he isn't registered on a template"
 msgstr "Vous ne pouvez pas inscrire cette personne, parce qu'elle n'est pas inscrite à un créneau."

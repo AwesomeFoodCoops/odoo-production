@@ -290,3 +290,14 @@ class ResPartner(models.Model):
         xml_id = self.env.ref('louve_membership.underclass_population_type').id
         for partner in self:
             partner.fundraising_partner_type_ids = [(3, xml_id)]
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        if name:
+            partners = self.search([
+                ('barcode_base', '=', name),
+                ('is_louve_member', '=', True)], limit=limit)
+            if partners:
+                return partners.name_get()
+        return super(ResPartner, self).name_search(
+           name=name, args=args, operator=operator, limit=limit)

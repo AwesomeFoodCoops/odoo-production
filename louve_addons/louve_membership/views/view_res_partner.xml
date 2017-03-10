@@ -12,7 +12,9 @@
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
             <field name="parent_id" position="after">
+                <field name="barcode_base" string="Member Number" filter_domain="[('barcode_base', '=', self), ('is_louve_member', '=', True)]"/>
                 <field name="is_louve_member"/>
+                <field name="is_associated_people"/>
                 <field name="type_A_capital_qty"/>
                 <field name="type_B_capital_qty"/>
                 <field name="type_C_capital_qty"/>
@@ -72,7 +74,7 @@
                 <page string="Louve Custom">
                     <group>
                         <group string="MemberShip">
-                            <field name="barcode_base" string="Num. membre" readonly="1"/>
+                            <field name="barcode_base" string="Member Number" readonly="1"/>
                             <field name="is_louve_member" groups="louve_membership.louve_membership_manager" string="Afficher via menu Membres" readonly="0"/>
                             <field name="type_A_capital_qty" groups="louve_membership.louve_membership_manager"/>
                             <field name="type_B_capital_qty" groups="louve_membership.louve_membership_manager"/>
