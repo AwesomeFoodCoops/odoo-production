@@ -623,8 +623,6 @@ class ShiftTemplate(models.Model):
             for rec_date in rec_dates:
                 start_date_object_tz = datetime.strptime(
                     template.start_datetime_tz, '%Y-%m-%d %H:%M:%S')
-                start_date_object = datetime.strptime(
-                    template.start_datetime, '%Y-%m-%d %H:%M:%S')
                 date_begin = datetime.strftime(
                     rec_date + timedelta(hours=(start_date_object_tz.hour)) +
                     timedelta(minutes=(start_date_object_tz.minute)),
