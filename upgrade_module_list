@@ -33,6 +33,6 @@
 #export MODULE_LIST_TO_UPGRADE="coop_shift,product_to_print,louve_custom_purchase,purchase_package_qty,product_history,coop_shift"
 #export MODULE_LIST_TO_INSTALL=""
 # 5/03/2017 - sur l'environnement de dev
-# PR numéro : #100, #123, #124, #126, #127
+# PR numéro : #100, #123, #124, #126, #127, #129, #131, #132, #133
 export MODULE_LIST_TO_UPGRADE="coop_shift,purchase_package_qty,louve_custom_inventory,louve_membership"
 export MODULE_LIST_TO_INSTALL="louve_custom_account,account_tax_balance"
