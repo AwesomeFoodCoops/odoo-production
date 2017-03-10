@@ -3,6 +3,12 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+# Some code from https://www.odoo.com/apps/modules/8.0/birth_date_age/
+# Copyright (C) Sythil
+
+from datetime import datetime, date
+from dateutil.relativedelta import relativedelta
+
 from openerp import models, fields, api
 
 
@@ -54,6 +60,9 @@ class ResPartner(models.Model):
 
     is_deceased = fields.Boolean(string='Is Deceased')
 
+    age = fields.Integer(
+        string="Age", compute='_compute_age')
+
     type_A_capital_qty = fields.Integer(
         'Number of type A Subscription', store=True,
         compute='_compute_subscription', multi='_compute_subscription')
@@ -95,6 +104,15 @@ class ResPartner(models.Model):
         selection=EXTRA_COOPERATIVE_STATE_SELECTION, default='not_concerned')
 
     # Compute Section
+    @api.multi
+    @api.depends('birthdate')
+    def _compute_age(self):
+        for partner in self:
+            if partner.birthdate:
+                d1 = datetime.strptime(partner.birthdate, "%Y-%m-%d").date()
+                d2 = date.today()
+                partner.age = relativedelta(d2, d1).years
+
     @api.multi
     @api.depends(
         'tmpl_reg_line_ids.date_begin', 'tmpl_reg_line_ids.date_end')
