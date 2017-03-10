@@ -14,6 +14,9 @@ Features
 
 * Add 'communication' field on account.payment tree view.
 
+* Add 'partner_ref' field on payment, related to parter_id.ref
+  Display partner_ref on tree view and search view
+
 Credits
 =======
 
@@ -21,6 +24,7 @@ Contributors
 ------------
 
 * Sylvain LE GAL
+* Julien Weste
 
 Funders
 -------
