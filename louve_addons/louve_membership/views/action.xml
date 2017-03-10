@@ -24,6 +24,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('is_associated_people', '=', True)]</field>
+        <field name="context">{'create': False, 'edit': False}</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_account_invoice_customer_subscriptions">
