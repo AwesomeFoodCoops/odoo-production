@@ -8,7 +8,7 @@ from openerp import fields, models
 from openerp.addons.badge_reader.models.res_partner import\
     BADGE_PARTNER_BOOTSTRAP_COOPERATIVE_STATE
 
-from openerp.addons.louve_membership.models.res_partner import\
+from openerp.addons.coop_membership.models.res_partner import\
     EXTRA_COOPERATIVE_STATE_SELECTION
 
 

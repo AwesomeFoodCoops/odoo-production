@@ -21,7 +21,7 @@
 ##############################################################################
 
 {
-    'name': 'BDM view',
+    'name': 'Coop Membership Access Rights',
     'version': '9.0.0.0',
     'category': 'Custom',
     'description': """
@@ -36,8 +36,7 @@
         'barcodes_generate',
         'base',
         'coop_shift',
-        'coop_shift_state',
-        'louve_membership',
+        'coop_membership',
     ],
     'data': [
         'security/res_group.xml',

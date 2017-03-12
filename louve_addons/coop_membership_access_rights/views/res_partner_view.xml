@@ -68,14 +68,14 @@
                         <field name="manual_ftop_correction" readonly="1"/>
                         <field name="final_ftop_point"/>
                     </group>
-                    <group name="state" string="State" colspan="2" groups="bdm_view.group_bdm_manager">
+                    <group name="state" string="State" colspan="2" groups="coop_membership_access_rights.group_bdm_manager">
                         <field name="shift_type"/>
                         <field name="is_blocked"/>
                         <field name="date_alert_stop"/>
                         <field name="date_delay_stop"/>
                         <field name="working_state"/>
                     </group>
-                    <group name="extra" string="Extra Data" colspan="2" groups="bdm_view.group_bdm_manager">
+                    <group name="extra" string="Extra Data" colspan="2" groups="coop_membership_access_rights.group_bdm_manager">
                         <field name="temp_coop_number"/>
                         <field name="birthdate" widget="date"/>
                         <field name="adult_number_home"/>
@@ -105,21 +105,21 @@
                             <form/>
                         </field>
                     </group>
-                    <group name="membership" string="MemberShip" colspan="2" groups="bdm_view.group_bdm_manager">
-                        <field name="is_louve_member" groups="louve_membership.louve_membership_manager" string="Afficher via menu Membres" readonly="0"/>
-                        <field name="type_A_capital_qty" groups="louve_membership.louve_membership_manager"/>
-                        <field name="type_B_capital_qty" groups="louve_membership.louve_membership_manager"/>
-                        <field name="type_C_capital_qty" groups="louve_membership.louve_membership_manager"/>
+                    <group name="membership" string="MemberShip" colspan="2" groups="coop_membership_access_rights.group_bdm_manager">
+                        <field name="is_louve_member" groups="coop_membership.coop_membership_manager" string="Afficher via menu Membres" readonly="0"/>
+                        <field name="type_A_capital_qty" groups="coop_membership.coop_membership_manager"/>
+                        <field name="type_B_capital_qty" groups="coop_membership.coop_membership_manager"/>
+                        <field name="type_C_capital_qty" groups="coop_membership.coop_membership_manager"/>
                         <field name="is_type_A_capital_subscriptor" invisible="1"/>
                         <field name="is_type_B_capital_subscriptor" invisible="1"/>
                         <field name="is_type_C_capital_subscriptor" invisible="1"/>
-                        <field name="is_associated_people" readonly="1" groups="louve_membership.louve_membership_manager"/>
+                        <field name="is_associated_people" readonly="1" groups="coop_membership.coop_membership_manager"/>
                         <field name="is_unpayed"/>
                         <field name="is_unsubscribed"/>
                     </group>
-                    <group name="capital" string="Capital" groups="louve_membership.subscriptions_reader">
+                    <group name="capital" string="Capital" groups="coop_membership.subscriptions_reader">
                         <button id="new_subscription" name="%(capital_subscription.action_capital_fundraising_wizard)d" type="action"
-                            string="New Capital Subscription" class="oe_highlight" groups="louve_membership.subscriptions_creator"/>
+                            string="New Capital Subscription" class="oe_highlight" groups="coop_membership.subscriptions_creator"/>
                         <group name="partner_type" string="Partner Type">
                             <field name="fundraising_partner_type_ids" widget="many2many_tags" readonly="1"/>
                             <button name="capital_subscription.set_underclass_population" type="object"
@@ -132,7 +132,7 @@
                             <field name="amount_subscription"/>
                         </group>
                     </group>
-                    <group name="squadleader" string="Squadleader" colspan="6" groups="bdm_view.group_bdm_manager">
+                    <group name="squadleader" string="Squadleader" colspan="6" groups="coop_membership_access_rights.group_bdm_manager">
                         <field name="is_squadleader"/>
                         <field name="template_ids" attrs="{'invisible':[('is_squadleader', '=', False)]}"/>
                     </group>
@@ -201,7 +201,7 @@
     </record>
 
 
-    <record id="action_bdm_view" model="ir.actions.act_window">
+    <record id="action_coop_membership_access_rights" model="ir.actions.act_window">
         <field name="name">Members</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
@@ -216,18 +216,18 @@
        <field eval="1" name="sequence"/>
        <field name="view_mode">tree</field>
        <field name="view_id" ref="view_bdm_tree"/>
-       <field name="act_window_id" ref="action_bdm_view"/>
+       <field name="act_window_id" ref="action_coop_membership_access_rights"/>
     </record>
 
     <record id="bdm_action2" model="ir.actions.act_window.view">
        <field eval="2" name="sequence"/>
        <field name="view_mode">form</field>
        <field name="view_id" ref="view_bdm_form"/>
-       <field name="act_window_id" ref="action_bdm_view"/>
+       <field name="act_window_id" ref="action_coop_membership_access_rights"/>
     </record>
 
-    <record model="ir.ui.menu" id="louve_membership.menu_res_partner_members">
-        <field name="action" ref="action_bdm_view"/>
-        <field name="groups_id" eval="[(4, ref('bdm_view.group_bdm_user'))]"/>
+    <record model="ir.ui.menu" id="coop_membership.menu_res_partner_members">
+        <field name="action" ref="action_coop_membership_access_rights"/>
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_bdm_user'))]"/>
     </record>
 </odoo>
