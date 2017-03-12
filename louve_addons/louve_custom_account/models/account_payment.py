@@ -4,4 +4,11 @@
 #          Julien Weste
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from . import models
+from openerp import models, fields
+
+
+class account_payment(models.Model):
+    _inherit = "account.payment"
+
+    partner_code = fields.Integer(
+        related='partner_id.barcode_base', store=True)
