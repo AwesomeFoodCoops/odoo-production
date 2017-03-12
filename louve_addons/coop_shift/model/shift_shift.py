@@ -89,6 +89,9 @@ class ShiftShift(models.Model):
     date_begin = fields.Datetime(
         compute="_compute_date_begin", store=True, required=False)
     date_begin_tz = fields.Datetime(string='Begin Date Time')
+    date_end = fields.Datetime(
+        compute="_compute_date_end", store=True, required=False)
+    date_end_tz = fields.Datetime(string='End Date Time')
     date_without_time = fields.Date(
         string='Date', compute='_compute_begin_date_fields', store=True,
         multi="begin_date")
@@ -312,6 +315,32 @@ class ShiftShift(models.Model):
                     start_date.hour,
                     start_date.minute,
                     start_date.second,
+                )
+
+    @api.depends('date_end_tz')
+    @api.multi
+    def _compute_date_end(self):
+        tz_name = self._context.get('tz') or self.env.user.tz
+        if not tz_name:
+            raise UserError(_(
+                "You can not create Shift if your timezone is not defined."))
+        context_tz = pytz.timezone(tz_name)
+        for shift in self:
+            if shift.date_end_tz:
+                end_date_object_tz = fields.Datetime.from_string(
+                    shift.date_end_tz)
+                utc_timestamp = pytz.utc.localize(
+                    end_date_object_tz, is_dst=False)
+                end_date_object = utc_timestamp.astimezone(context_tz)
+                end_date = end_date_object_tz + timedelta(
+                    hours=end_date_object_tz.hour - end_date_object.hour)
+                shift.date_end = "%s-%02d-%02d %02d:%02d:%02d" % (
+                    end_date.year,
+                    end_date.month,
+                    end_date.day,
+                    end_date.hour,
+                    end_date.minute,
+                    end_date.second,
                 )
 
     @api.multi

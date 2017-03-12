@@ -532,22 +532,21 @@ class ShiftTemplate(models.Model):
             for rec_date in rec_dates:
                 start_date_object_tz = datetime.strptime(
                     template.start_datetime_tz, '%Y-%m-%d %H:%M:%S')
-                start_date_object = datetime.strptime(
-                    template.start_datetime, '%Y-%m-%d %H:%M:%S')
                 date_begin = datetime.strftime(
                     rec_date + timedelta(hours=(start_date_object_tz.hour)) +
                     timedelta(minutes=(start_date_object_tz.minute)),
                     "%Y-%m-%d %H:%M:%S")
                 if date_begin.split(" ")[0] <= template.last_shift_date:
                     continue
-                end_date_object = datetime.strptime(
-                    template.end_datetime, '%Y-%m-%d %H:%M:%S')
-                diff_day = end_date_object.day - start_date_object_tz.day
-                diff_month = end_date_object.month - start_date_object_tz.month
-                diff_year = end_date_object.year - start_date_object_tz.year
+                end_date_object_tz = datetime.strptime(
+                    template.end_datetime_tz, '%Y-%m-%d %H:%M:%S')
+                diff_day = end_date_object_tz.day - start_date_object_tz.day
+                diff_month = end_date_object_tz.month -\
+                    start_date_object_tz.month
+                diff_year = end_date_object_tz.year - start_date_object_tz.year
                 date_end = datetime.strftime(
-                    rec_date + timedelta(hours=(end_date_object.hour)) +
-                    timedelta(minutes=(end_date_object.minute)) +
+                    rec_date + timedelta(hours=(end_date_object_tz.hour)) +
+                    timedelta(minutes=(end_date_object_tz.minute)) +
                     relativedelta(days=diff_day) +
                     relativedelta(months=diff_month) +
                     relativedelta(years=diff_year),
@@ -562,7 +561,7 @@ class ShiftTemplate(models.Model):
                     'seats_availability': template.seats_availability,
                     'seats_min': template.seats_min,
                     'date_begin_tz': date_begin,
-                    'date_end': date_end,
+                    'date_end_tz': date_end,
                     'state': 'draft',
                     'reply_to': template.reply_to,
                     'address_id': template.address_id.id,
