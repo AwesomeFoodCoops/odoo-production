@@ -13,7 +13,7 @@
     'website': 'http://www.lalouve.net',
     'depends': [
         'point_of_sale',
-        'louve_membership',
+        'coop_membership',
     ],
     'data': [
         'static/src/xml/templates.xml',

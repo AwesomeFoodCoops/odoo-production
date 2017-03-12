@@ -13,7 +13,7 @@
     'website': 'http://www.lalouve.net',
     'depends': [
         'base',
-        'louve_membership',
+        'coop_membership',
     ],
     'data': [
         'security/ir_module_category.xml',

@@ -10,7 +10,7 @@
 <!--Rename Main menu name-->
     <record model="ir.ui.menu" id="coop_shift.shift_main_menu">
         <field name="name">Members</field>
-        <field name="groups_id" eval="[(4, ref('louve_membership.subscriptions_reader'), (4, ref('coop_shift.group_shift_user')))]"/>
+        <field name="groups_id" eval="[(4, ref('coop_membership.subscriptions_reader'))]"/>
     </record>
 
     <record model="ir.ui.menu" id="menu_louve_member_submain">
@@ -37,7 +37,7 @@
         <field name="name">Subscriptions</field>
         <field name="parent_id" ref="coop_shift.shift_main_menu"/>
         <field name="sequence">2</field>
-        <field name="groups_id" eval="[(4, [ref('louve_membership.subscriptions_reader')])]"/>
+        <field name="groups_id" eval="[(4, [ref('coop_membership.subscriptions_reader')])]"/>
     </record>
 
     <record model="ir.ui.menu" id="menu_account_invoice_subscriptions">
@@ -45,14 +45,14 @@
         <field name="action" ref="action_account_invoice_customer_subscriptions"/>
         <field name="parent_id" ref="menu_louve_subscriptions_submain"/>
         <field name="sequence">1</field>
-        <field name="groups_id" eval="[(4, [ref('louve_membership.subscriptions_reader')])]"/>
+        <field name="groups_id" eval="[(4, [ref('coop_membership.subscriptions_reader')])]"/>
     </record>
 
     <record model="ir.ui.menu" id="menu_capital_fundraising_wizard">
         <field name="name">Wizard</field>
         <field name="action" ref="action_capital_fundraising_wizard"/>
         <field name="parent_id" ref="menu_louve_subscriptions_submain"/>
-        <field name="groups_id" eval="[(4, [ref('louve_membership.subscriptions_creator')])]"/>
+        <field name="groups_id" eval="[(4, [ref('coop_membership.subscriptions_creator')])]"/>
         <field name="sequence">2</field>
     </record>
 
@@ -60,12 +60,12 @@
         <field name="name">Payments</field>
         <field name="action" ref="action_account_payment_subscriptions"/>
         <field name="parent_id" ref="menu_louve_subscriptions_submain"/>
-        <field name="groups_id" eval="[(4, [ref('louve_membership.subscriptions_creator_payment')])]"/>
+        <field name="groups_id" eval="[(4, [ref('coop_membership.subscriptions_creator_payment')])]"/>
         <field name="sequence">3</field>
     </record>
 
     <record model="ir.ui.menu" id="capital_subscription.menu_capital_fundraising_wizard">
-        <field name="groups_id" eval="[(4, ref('louve_membership.subscriptions_creator'))]" />
+        <field name="groups_id" eval="[(4, ref('coop_membership.subscriptions_creator'))]" />
     </record>
 
 </odoo>
