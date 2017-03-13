@@ -34,5 +34,5 @@
 #export MODULE_LIST_TO_INSTALL=""
 # 5/03/2017 - sur l'environnement de dev
 # PR numéro : #100, #123, #124, #126, #127, #129, #131, #132, #133, #121
-export MODULE_LIST_TO_UPGRADE="coop_shift,purchase_package_qty,louve_custom_inventory,louve_membership,badge_reader,louve_custom_pos"
+export MODULE_LIST_TO_UPGRADE="coop_shift,purchase_package_qty,louve_custom_inventory,badge_reader,louve_custom_pos"
 export MODULE_LIST_TO_INSTALL="louve_custom_account,account_tax_balance,coop_membership,coop_membership_access_rights"
