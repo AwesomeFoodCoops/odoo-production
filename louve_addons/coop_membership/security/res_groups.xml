@@ -25,12 +25,12 @@
     </record>
 
     <record model="res.groups" id="subscriptions_can_change_fundraising_category">
-        <field name="name">Can Change Fundraising Category in Wizard</field>
+        <field name="name">Can Change Fundraising Category (in Wizard)</field>
         <field name="category_id" ref="base.module_category_extra" />
     </record>
 
     <record model="res.groups" id="coop_membership_manager">
-        <field name="name">Manage Louve Membership</field>
+        <field name="name">Manage Louve Membership (Full)</field>
         <field name="category_id" ref="base.module_category_extra" />
     </record>
 
