@@ -103,14 +103,14 @@
                     <group>
                         <group string="MemberShip">
                             <field name="barcode_base" string="Member Number" readonly="1"/>
-                            <field name="is_louve_member" groups="coop_membership.coop_membership_manager" string="Afficher via menu Membres" readonly="0"/>
-                            <field name="type_A_capital_qty" groups="coop_membership.coop_membership_manager"/>
-                            <field name="type_B_capital_qty" groups="coop_membership.coop_membership_manager"/>
-                            <field name="type_C_capital_qty" groups="coop_membership.coop_membership_manager"/>
+                            <field name="is_louve_member" groups="louve_membership.louve_membership_manager" string="Afficher via menu Membres" readonly="0"/>
+                            <field name="type_A_capital_qty" groups="louve_membership.louve_membership_manager"/>
+                            <field name="type_B_capital_qty" groups="louve_membership.louve_membership_manager"/>
+                            <field name="type_C_capital_qty" groups="louve_membership.louve_membership_manager"/>
                             <field name="is_type_A_capital_subscriptor" invisible="1"/>
                             <field name="is_type_B_capital_subscriptor" invisible="1"/>
                             <field name="is_type_C_capital_subscriptor" invisible="1"/>
-                            <field name="is_associated_people" readonly="1" groups="coop_membership.coop_membership_manager"/>
+                            <field name="is_associated_people" readonly="1" groups="louve_membership.louve_membership_manager"/>
                             <field name="is_unpayed"/>
                             <field name="is_unsubscribed"/>
                         </group>
@@ -152,10 +152,10 @@
                 <attribute name="readonly">1</attribute>
             </field>
             <page name="page_capital_fundraising" position="attributes">
-                <attribute name="groups" ref="coop_membership.subscriptions_reader" />
+                <attribute name="groups" ref="louve_membership.subscriptions_reader" />
             </page>
             <xpath expr="//button[@id='new_subscription']" position="attributes">
-                <attribute name="groups" ref="coop_membership.subscriptions_creator" />
+                <attribute name="groups" ref="louve_membership.subscriptions_creator" />
             </xpath>
             <field name="fundraising_partner_type_ids" position="after">
                 <button name="set_underclass_population" type="object"
