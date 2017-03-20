@@ -36,7 +36,7 @@
         'barcodes_generate',
         'base',
         'coop_shift',
-        'coop_membership',
+        'louve_membership',
     ],
     'data': [
         'security/res_group.xml',

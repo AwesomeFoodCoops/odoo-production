@@ -11,7 +11,7 @@ class CapitalFundraisingWizard(models.TransientModel):
 
     def default_can_change_fundraising_category(self):
         return self.user_has_groups(
-            'coop_membership.subscriptions_can_change_fundraising_category')
+            'louve_membership.subscriptions_can_change_fundraising_category')
 
     def default_payment_term_id(self):
         return self.env.ref('account.account_payment_term_immediate').id

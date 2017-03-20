@@ -106,20 +106,20 @@
                         </field>
                     </group>
                     <group name="membership" string="MemberShip" colspan="2" groups="coop_membership_access_rights.group_bdm_manager">
-                        <field name="is_louve_member" groups="coop_membership.coop_membership_manager" string="Afficher via menu Membres" readonly="0"/>
-                        <field name="type_A_capital_qty" groups="coop_membership.coop_membership_manager"/>
-                        <field name="type_B_capital_qty" groups="coop_membership.coop_membership_manager"/>
-                        <field name="type_C_capital_qty" groups="coop_membership.coop_membership_manager"/>
+                        <field name="is_louve_member" groups="louve_membership.coop_membership_manager" string="Afficher via menu Membres" readonly="0"/>
+                        <field name="type_A_capital_qty" groups="louve_membership.coop_membership_manager"/>
+                        <field name="type_B_capital_qty" groups="louve_membership.coop_membership_manager"/>
+                        <field name="type_C_capital_qty" groups="louve_membership.coop_membership_manager"/>
                         <field name="is_type_A_capital_subscriptor" invisible="1"/>
                         <field name="is_type_B_capital_subscriptor" invisible="1"/>
                         <field name="is_type_C_capital_subscriptor" invisible="1"/>
-                        <field name="is_associated_people" readonly="1" groups="coop_membership.coop_membership_manager"/>
+                        <field name="is_associated_people" readonly="1" groups="louve_membership.coop_membership_manager"/>
                         <field name="is_unpayed"/>
                         <field name="is_unsubscribed"/>
                     </group>
-                    <group name="capital" string="Capital" groups="coop_membership.subscriptions_reader">
+                    <group name="capital" string="Capital" groups="louve_membership.subscriptions_reader">
                         <button id="new_subscription" name="%(capital_subscription.action_capital_fundraising_wizard)d" type="action"
-                            string="New Capital Subscription" class="oe_highlight" groups="coop_membership.subscriptions_creator"/>
+                            string="New Capital Subscription" class="oe_highlight" groups="louve_membership.subscriptions_creator"/>
                         <group name="partner_type" string="Partner Type">
                             <field name="fundraising_partner_type_ids" widget="many2many_tags" readonly="1"/>
                             <button name="capital_subscription.set_underclass_population" type="object"
@@ -226,7 +226,7 @@
        <field name="act_window_id" ref="action_coop_membership_access_rights"/>
     </record>
 
-    <record model="ir.ui.menu" id="coop_membership.menu_res_partner_members">
+    <record model="ir.ui.menu" id="louve_membership.menu_res_partner_members">
         <field name="action" ref="action_coop_membership_access_rights"/>
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_bdm_user'))]"/>
     </record>

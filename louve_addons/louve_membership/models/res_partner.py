@@ -135,7 +135,7 @@ class ResPartner(models.Model):
     @api.multi
     @api.depends('fundraising_partner_type_ids')
     def _compute_is_underclass_population(self):
-        xml_id = self.env.ref('coop_membership.underclass_population_type').id
+        xml_id = self.env.ref('louve_membership.underclass_population_type').id
         for partner in self:
             partner.is_underclass_population =\
                 xml_id in partner.fundraising_partner_type_ids.ids
@@ -242,7 +242,7 @@ class ResPartner(models.Model):
     def create(self, vals):
         if vals.get('is_louve_member', False):
             # Affect a useless default member type
-            xml_id = self.env.ref('coop_membership.default_member_type').id
+            xml_id = self.env.ref('louve_membership.default_member_type').id
             vals.get('fundraising_partner_type_ids', []).append((4, xml_id))
 
         partner = super(ResPartner, self).create(vals)
@@ -272,7 +272,7 @@ class ResPartner(models.Model):
 
     @api.multi
     def send_welcome_email(self):
-        mail_template = self.env.ref('coop_membership.welcome_email')
+        mail_template = self.env.ref('louve_membership.welcome_email')
         if not mail_template:
             return False
         attachment = self.env['ir.attachment'].search([
@@ -305,13 +305,13 @@ class ResPartner(models.Model):
     # View section
     @api.multi
     def set_underclass_population(self):
-        xml_id = self.env.ref('coop_membership.underclass_population_type').id
+        xml_id = self.env.ref('louve_membership.underclass_population_type').id
         for partner in self:
             partner.fundraising_partner_type_ids = [(4, xml_id)]
 
     @api.multi
     def remove_underclass_population(self):
-        xml_id = self.env.ref('coop_membership.underclass_population_type').id
+        xml_id = self.env.ref('louve_membership.underclass_population_type').id
         for partner in self:
             partner.fundraising_partner_type_ids = [(3, xml_id)]
 
@@ -324,7 +324,7 @@ class ResPartner(models.Model):
             if partners:
                 return partners.name_get()
         return super(ResPartner, self).name_search(
-           name=name, args=args, operator=operator, limit=limit)
+            name=name, args=args, operator=operator, limit=limit)
 
     @api.multi
     def name_get(self):
