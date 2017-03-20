@@ -8,9 +8,11 @@ Module Custom de la Louve pour le Point de Vente
   lieu d'afficher l'image petite. ('res_partner.image_small')
 
 Note:  pour un fonctionnement correct, il faut donc que l'image du client
-soit carré dsans son format d'origine, pour éviter les distorsions.
+soit carré dans son format d'origine, pour éviter les distorsions.
 
 * Améliore l'affichage du détail de la fiche client.
+
+* Stocke le montant total des commandes en bdd pour pouvoir filtrer dessus
 
 .. image:: /louve_custom_pos/static/description/customer_detail.png
 
@@ -25,3 +27,4 @@ Contributors
 ------------
 
 * Sylvain LE GAL <https://twitter.com/legalsylvain>
+* Julien Weste
