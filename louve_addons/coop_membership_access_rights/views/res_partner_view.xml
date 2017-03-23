@@ -16,7 +16,7 @@
                         <field name="active" widget="boolean_button"
                             options='{"terminology": "archive"}'/>
                     </button>
-                    <button name="%(coop_shift_state.action_shift_extension_from_partner)d"
+                    <button name="%(coop_shift.action_shift_extension_from_partner)d"
                             type="action"
                             class="oe_stat_button oe_event_attendee_button"
                             icon="fa-calendar"
