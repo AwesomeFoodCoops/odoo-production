@@ -27,6 +27,14 @@
                             groups="coop_shift.group_shift_manager">
                         <field name="extension_qty" widget="statinfo" string="Ext."/>
                     </button>
+                    <button name="%(coop_shift.action_shift_counter_event_from_partner)d"
+                            type="action"
+                            class="oe_stat_button oe_event_attendee_button"
+                            icon="fa-calendar"
+                            help="View partner Extensions"
+                            groups="coop_shift.group_shift_manager">
+                        <field name="counter_event_qty" widget="statinfo" string="Event"/>
+                    </button>
                 </div>
         </field>
     </record>
@@ -47,12 +55,12 @@
                     <field name="working_state"/>
                     <group string="Standard Part" cols="4">
                         <field name="theoritical_standard_point"/>
-                        <field name="manual_standard_correction" readonly="1"/>
+                        <field name="manual_standard_correction"/>
                         <field name="final_standard_point"/>
                     </group>
                     <group string="FTOP Part" cols="4">
                         <field name="theoritical_ftop_point"/>
-                        <field name="manual_ftop_correction" readonly="1"/>
+                        <field name="manual_ftop_correction"/>
                         <field name="final_ftop_point"/>
                     </group>
                 </group>
@@ -60,17 +68,4 @@
         </field>
     </record>
 
-    <record id="view_res_partner_form_shift_manage_counter" model="ir.ui.view">
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="coop_shift.view_res_partner_form_shift"/>
-        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manage_counter'))]"/>
-        <field name="arch" type="xml">
-            <field name="manual_standard_correction" position="attributes">
-                <attribute name="readonly">0</attribute>
-            </field>
-            <field name="manual_ftop_correction" position="attributes">
-                <attribute name="readonly">0</attribute>
-            </field>
-        </field>
-    </record>
 </odoo>

@@ -118,7 +118,8 @@ class ResPartner(models.Model):
         compute='compute_theoritical_standard_point')
 
     manual_standard_correction = fields.Integer(
-        string='Manual Standard Correction')
+        string='Adjustements of Standard points',
+        compute='_compute_manual_standard_correction')
 
     final_standard_point = fields.Integer(
         string='Final Standard points', compute='compute_final_standard_point',
@@ -129,7 +130,8 @@ class ResPartner(models.Model):
         compute='compute_theoritical_ftop_point')
 
     manual_ftop_correction = fields.Integer(
-        string='Manual FTOP Correction')
+        string='Adjustements of Standard points',
+        compute='_compute_manual_ftop_correction')
 
     final_ftop_point = fields.Integer(
         string='Final FTOP points', compute='compute_final_ftop_point',
@@ -153,7 +155,37 @@ class ResPartner(models.Model):
         string='Extensions Quantity', compute='compute_extension_qty',
         store=True)
 
+    counter_event_ids = fields.One2many(
+        comodel_name='shift.counter.event', inverse_name='partner_id',
+        string='Counter Events')
+
+    counter_event_qty = fields.Integer(
+        string='Counter Events Quantity', compute='compute_counter_event_qty',
+        store=True)
+
     # Compute section
+    @api.multi
+    @api.depends('counter_event_ids.partner_id')
+    def _compute_manual_standard_correction(self):
+        for partner in self:
+            partner.manual_standard_correction = sum(
+                partner.counter_event_ids.filtered(
+                    lambda x: x.type == 'standard').mapped('point_qty'))
+
+    @api.multi
+    @api.depends('counter_event_ids.partner_id')
+    def _compute_manual_ftop_correction(self):
+        for partner in self:
+            partner.manual_ftop_correction = sum(
+                partner.counter_event_ids.filtered(
+                    lambda x: x.type == 'ftop').mapped('point_qty'))
+
+    @api.depends('counter_event_ids.partner_id')
+    @api.multi
+    def compute_counter_event_qty(self):
+        for partner in self:
+            partner.counter_event_qty = len(partner.counter_event_ids)
+
     @api.multi
     def _compute_registration_counts(self):
         d = fields.Datetime.now()

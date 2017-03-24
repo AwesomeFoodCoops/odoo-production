@@ -90,6 +90,33 @@
                         <field name="title" options="{&quot;no_open&quot;: True}" attrs="{'invisible': [('is_company', '=', True)]}"/>
                         <field name="lang" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="category_id" widget="many2many_tags" placeholder="Tags..." groups="coop_membership_access_rights.group_membership_access_manager"/>
+                        <field name="email" widget="email"/>
+                    </group>
+                    <group name="standard" string="Standard Points">
+                        <field name="theoritical_standard_point"/>
+                        <field name="manual_standard_correction"/>
+                        <field name="final_standard_point"/>
+                    </group>
+                    <group name="ftop" string="FTOP Points">
+                        <field name="theoritical_ftop_point"/>
+                        <field name="manual_ftop_correction"/>
+                        <field name="final_ftop_point"/>
+                    </group>
+                    <group name="state" string="State" colspan="2" groups="coop_membership_access_rights.group_bdm_manager">
+                        <field name="shift_type"/>
+                        <field name="is_blocked"/>
+                        <field name="date_alert_stop"/>
+                        <field name="date_delay_stop"/>
+                        <field name="working_state"/>
+                    </group>
+                    <group name="extra" string="Extra Data" colspan="2" groups="coop_membership_access_rights.group_bdm_manager">
+                        <field name="temp_coop_number"/>
+                        <field name="birthdate" widget="date"/>
+                        <field name="adult_number_home"/>
+                        <field name="old_coop_number"/>
+                        <field name="contact_origin_id"/>
+                        <field name="sex"/>
+                        <field name="is_deceased"/>
                     </group>
                 </group>
 
@@ -409,12 +436,12 @@
             <field name="name" position="attributes">
                 <attribute name="readonly" eval="0"/>
             </field>
-            <field name="manual_standard_correction" position="attributes">
+            <group name="contact_info" position="attributes">
                 <attribute name="readonly" eval="0"/>
-            </field>
-            <field name="manual_ftop_correction" position="attributes">
+            </group>
+            <group name="templates_and_shifts" position="attributes">
                 <attribute name="readonly" eval="0"/>
-            </field>
+            </group>
         </field>
     </record>
 
