@@ -60,12 +60,12 @@
                     </group>
                     <group name="standard" string="Standard Points">
                         <field name="theoritical_standard_point"/>
-                        <field name="manual_standard_correction" readonly="1"/>
+                        <field name="manual_standard_correction"/>
                         <field name="final_standard_point"/>
                     </group>
                     <group name="ftop" string="FTOP Points">
                         <field name="theoritical_ftop_point"/>
-                        <field name="manual_ftop_correction" readonly="1"/>
+                        <field name="manual_ftop_correction"/>
                         <field name="final_ftop_point"/>
                     </group>
                     <group name="state" string="State" colspan="2" groups="coop_membership_access_rights.group_bdm_manager">
@@ -162,12 +162,6 @@
             <group name="contact_info" position="attributes">
                 <attribute name="readonly" eval="0"/>
             </group>
-            <field name="manual_standard_correction" position="attributes">
-                <attribute name="readonly" eval="0"/>
-            </field>
-            <field name="manual_ftop_correction" position="attributes">
-                <attribute name="readonly" eval="0"/>
-            </field>
             <group name="templates_and_shifts" position="attributes">
                 <attribute name="readonly" eval="0"/>
             </group>
