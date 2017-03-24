@@ -17,6 +17,8 @@ Features
 * Add 'partner_ref' field on payment, related to parter_id.ref
   Display partner_ref on tree view and search view
 
+* Make supplier invoice date field equired
+
 Credits
 =======
 
