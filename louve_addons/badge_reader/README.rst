@@ -9,6 +9,13 @@ Provide light JS apps that provides badge reader interface.
 Once installed, the apps is available via this url
 http://localhost:8069/badge_reader/static/www/index.html (by default)
 
+You can prefill identification data on the form, using parameters
+http://localhost:8069/badge_reader/static/www/index.html#/login?db=DATABASE&username=USERNAME&password=PASSWORD
+
+If all parameters are provided, auto submit is done, to try identification.
+
+Note : set password in an url can generate security breaches.
+
 Authentication
 --------------
 

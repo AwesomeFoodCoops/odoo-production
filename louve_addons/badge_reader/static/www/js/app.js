@@ -26,7 +26,7 @@ angular.module('starter', ['ionic', 'ui.router', 'odoo'])
 .config(['$stateProvider','$urlRouterProvider' , function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state(
     'login', {
-        url: '/login',
+        url: '/login?db&username&password',
         templateUrl: 'views/v_login.html',
         controller: 'LoginCtrl'
   }).state(
