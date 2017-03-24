@@ -20,7 +20,7 @@ Authentication
 --------------
 
 User must select Database name, login and password. (The user must be
-member of the new group 'Badge Reader - Manager')
+member of the new group 'Badge Reader / Time Clock')
 
 .. image:: /badge_reader/static/description/authentication.png
 
@@ -60,11 +60,14 @@ back-office
 Technical Information - Back office
 -----------------------------------
 
-* Create a new group 'Badge Reader - User' User must be member
+* Create a new group 'Badge Reader / User' User must be member
   of that group to access to the history of the logs;
 
-* Create a new group 'Badge Reader - Manager' User must be member
+* Create a new group 'Badge Reader / Time Clock' User must be member
   of that group to log into the JS apps;
+
+* Create a new group 'Badge Reader / Manager' User must be member
+  of that group to manage (update or delete) logs in backoffice;
 
 
 Technical Information - JS Apps

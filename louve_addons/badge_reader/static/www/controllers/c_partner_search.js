@@ -14,6 +14,7 @@ angular.module('starter').controller('PartnerSearchCtrl', ['$scope', '$state', '
         if ($state.current.name === 'partner_search') {
             // Init Barcode value
             $scope.search_value.barcode = '';
+            angular.element(document.querySelector('#barcode'))[0].focus();
         }
     });
 
