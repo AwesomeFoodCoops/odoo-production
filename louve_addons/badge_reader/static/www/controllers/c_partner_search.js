@@ -13,11 +13,12 @@ angular.module('starter').controller('PartnerSearchCtrl', ['$scope', '$state', '
             function(event, toState, toParams, fromState, fromParams){
         if ($state.current.name === 'partner_search') {
             // Init Barcode value
+            document.querySelector('#barcode').focus();
             $scope.search_value.barcode = '';
-            angular.element(document.querySelector('#barcode'))[0].focus();
+
+
         }
     });
-
 
     $scope.submit_barcode = function () {
         ResPartnerModel.GetByBarcode($scope.search_value.barcode).then(function (partner_res) {
