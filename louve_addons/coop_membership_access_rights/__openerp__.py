@@ -22,21 +22,36 @@
 
 {
     'name': 'Coop Membership Access Rights',
-    'version': '9.0.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Custom',
     'description': """
         For simpler rights management, create a new single partner view
-        including all the views: the Bureau Des Membres view.
+        including all the views: the Membership Management view.
     """,
     'author':
     'Julien WESTE, Sylvain LE GAL (https://twitter.com/legalsylvain),',
     'website': 'http://www.akretion.com',
     'license': 'AGPL-3',
     'depends': [
+        'account',
+        'account_export',
+        'account_partner_journal',
+        'analytic',
+        'badge_reader',
         'barcodes_generate',
         'base',
+        'base_vat',
+        'capital_subscription',
         'coop_shift',
         'louve_membership',
+        'mail',
+        'mass_mailing',
+        'point_of_sale',
+        'product',
+        'project',
+        'purchase_compute_order',
+        'res_partner_account_move_line',
+        'stock',
     ],
     'data': [
         'security/res_group.xml',
