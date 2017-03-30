@@ -1,34 +1,16 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    Purchase - Computed Purchase Order Module for Odoo
-#    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-#    @author Julien WESTE
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# -*- coding: utf-8 -*-
+# Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+# @author Cyril GASPARD
+# @author Julien WESTE
+# @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
     'name': 'Coop Shift',
-    'version': '9.0.5.0.0',
+    'version': '9.0.7.0.0',
     'category': 'Tools',
-    'author':
-    'Julien WESTE, Sylvain LE GAL (https://twitter.com/legalsylvain),'
-    'Odoo Community Association (OCA)',
-    'website': 'http://www.akretion.com/fr',
+    'author': 'Julien WESTE, Sylvain LE GAL, Cyril Gaspard, La Louve',
+    'website': 'http://www.lalouve.net',
     'license': 'AGPL-3',
     'depends': [
         'base',
@@ -38,14 +20,20 @@
         'barcodes_generate',
     ],
     'data': [
+        'security/ir_module_category.xml',
+        'security/res_groups.xml',
+        'security/ir_rule.xml',
+        'security/ir.model.access.csv',
+        'data/ir_sequence.xml',
+        'data/ir_config_parameter.xml',
         'data/function.xml',
         'data/coop_shift_data.xml',
+        'views/action.xml',
         'wizard/create_shifts_wizard_view.xml',
         'wizard/update_shifts_wizard_view.xml',
         'wizard/add_template_registration_view.xml',
         'wizard/replace_registration_view.xml',
         'data/email_template_data.xml',
-        'security/shift_security.xml',
         'views/menu.xml',
         'wizard/report_timesheet_wizard_view.xml',
         'wizard/report_wallchart_wizard_view.xml',
@@ -60,16 +48,26 @@
         'views/shift_type_view.xml',
         'views/shift_ticket_view.xml',
         'views/res_partner_view.xml',
-        'security/ir_model_access_data.yml',
-        'security/ir_rule_data.yml',
+        'views/view_res_partner.xml',
+        'views/view_shift_counter_event.xml',
+        'views/view_shift_extension.xml',
+        'views/view_shift_extension_type.xml',
+        'views/view_shift_leave.xml',
+        'views/view_shift_leave_type.xml',
+        'views/view_shift_leave_wizard.xml',
         'data/module_data.xml',
         'views/shift_report.xml',
         'views/shift_report2.xml',
         'views/report_timesheet.xml',
+        'views/report_timesheet_inherited.xml',
         'views/report_wallchart.xml',
         'data/cron.xml',
+        'data/ir_cron.xml',
     ],
     'demo': [
-        'demo/shift_demo.xml',
+        'demo/res_groups.xml',
+        'demo/res_partner.xml',
+        'demo/shift_template.xml',
+        # 'demo/shift_template_registration.xml',
     ],
 }

@@ -1,0 +1,51 @@
+################################################################################
+#    See __openerp__.py file for Copyright and Licence Informations.
+################################################################################
+
+-
+  Creating a ir.model.access record
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_template_registration_line_access}:
+    group_id: coop_membership_access_rights.group_bdm_user
+    model_id: coop_shift.model_shift_template_registration_line
+    name: shift_template_registration_line user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_registration_access}:
+    group_id: coop_membership_access_rights.group_bdm_user
+    model_id: coop_shift.model_shift_registration
+    name: shift_registration user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_shift_access}:
+    group_id: coop_membership_access_rights.group_bdm_user
+    model_id: coop_shift.model_shift_shift
+    name: shift_shift user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_mail_access}:
+    group_id: coop_membership_access_rights.group_bdm_saisie
+    model_id: coop_shift.model_shift_mail
+    name: shift_mail user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_ticket_access}:
+    group_id: coop_membership_access_rights.group_bdm_saisie
+    model_id: coop_shift.model_shift_ticket
+    name: shift_ticket user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false

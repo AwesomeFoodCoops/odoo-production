@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="view_account_payment_form" model="ir.ui.view">
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <field name="communication" position="attributes">
+                <attribute name="attrs">{
+                    'invisible': [('state', '!=', 'draft'), ('communication', '=', False)],
+                    'readonly': [('state', '!=', 'draft')],
+                    'required': [('payment_type', '=', 'transfer')]}
+                </attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_payment_tree" model="ir.ui.view">
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="communication" />
+            </field>
+            <field name="payment_date" position="before">
+                <field name="partner_code" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_payment_search" model="ir.ui.view">
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="partner_code" />
+            </field>
+        </field>
+    </record>
+
+</odoo>

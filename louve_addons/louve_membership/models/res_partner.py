@@ -3,12 +3,20 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+# Some code from https://www.odoo.com/apps/modules/8.0/birth_date_age/
+# Copyright (C) Sythil
+
+from datetime import datetime, date
+from dateutil.relativedelta import relativedelta
+
 from openerp import models, fields, api
 
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
     ('not_concerned', 'Not Concerned'),
     ('unsubscribed', 'Unsubscribed'),
+    ('exempted', 'Exempted'),
+    ('vacation', 'On Vacation'),
     ('up_to_date', 'Up to date'),
     ('alert', 'Alert'),
     ('suspended', 'Suspended'),
@@ -21,7 +29,12 @@ EXTRA_COOPERATIVE_STATE_SELECTION = [
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    COOPERATIVE_STATE_CUSTOMER = ['up_to_date', 'alert', 'delay']
+    COOPERATIVE_STATE_CUSTOMER = ['up_to_date', 'alert', 'delay', 'exempted']
+
+    SEX_SELECTION = [
+        ('m', 'male'),
+        ('f', 'female'),
+    ]
 
     # New Column Section
     is_louve_member = fields.Boolean('Is Louve Member')
@@ -38,7 +51,8 @@ class ResPartner(models.Model):
 
     adult_number_home = fields.Integer('Number of Adult in the Home')
 
-    sex = fields.Char('Sex')
+    sex = fields.Selection(
+        selection=SEX_SELECTION, string='Sex')
 
     old_coop_number = fields.Char('Civi CRM Old Number')
     temp_coop_number = fields.Char('Temporary number')
@@ -51,6 +65,9 @@ class ResPartner(models.Model):
         comodel_name='res.contact.origin', string='Contact Origin')
 
     is_deceased = fields.Boolean(string='Is Deceased')
+
+    age = fields.Integer(
+        string="Age", compute='_compute_age')
 
     type_A_capital_qty = fields.Integer(
         'Number of type A Subscription', store=True,
@@ -93,6 +110,15 @@ class ResPartner(models.Model):
         selection=EXTRA_COOPERATIVE_STATE_SELECTION, default='not_concerned')
 
     # Compute Section
+    @api.multi
+    @api.depends('birthdate')
+    def _compute_age(self):
+        for partner in self:
+            if partner.birthdate:
+                d1 = datetime.strptime(partner.birthdate, "%Y-%m-%d").date()
+                d2 = date.today()
+                partner.age = relativedelta(d2, d1).years
+
     @api.multi
     @api.depends(
         'tmpl_reg_line_ids.date_begin', 'tmpl_reg_line_ids.date_end')
@@ -288,3 +314,29 @@ class ResPartner(models.Model):
         xml_id = self.env.ref('louve_membership.underclass_population_type').id
         for partner in self:
             partner.fundraising_partner_type_ids = [(3, xml_id)]
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        if name.isdigit():
+            partners = self.search([
+                ('barcode_base', '=', name),
+                ('is_louve_member', '=', True)], limit=limit)
+            if partners:
+                return partners.name_get()
+        return super(ResPartner, self).name_search(
+            name=name, args=args, operator=operator, limit=limit)
+
+    @api.multi
+    def name_get(self):
+        res = []
+        i = 0
+        original_res = super(ResPartner, self).name_get()
+        for partner in self:
+            if partner.is_louve_member:
+                res.append((
+                    partner.id,
+                    '%s - %s' % (partner.barcode_base, original_res[i][1])))
+            else:
+                res.append((partner.id, original_res[i][1]))
+            i += 1
+        return res
