@@ -9,6 +9,8 @@ from openerp import models, fields, api
 EXTRA_COOPERATIVE_STATE_SELECTION = [
     ('not_concerned', 'Not Concerned'),
     ('unsubscribed', 'Unsubscribed'),
+    ('exempted', 'Exempted'),
+    ('vacation', 'On Vacation'),
     ('up_to_date', 'Up to date'),
     ('alert', 'Alert'),
     ('suspended', 'Suspended'),
@@ -21,7 +23,7 @@ EXTRA_COOPERATIVE_STATE_SELECTION = [
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    COOPERATIVE_STATE_CUSTOMER = ['up_to_date', 'alert', 'delay']
+    COOPERATIVE_STATE_CUSTOMER = ['up_to_date', 'alert', 'delay', 'exempted']
 
     # New Column Section
     is_louve_member = fields.Boolean('Is Louve Member')
