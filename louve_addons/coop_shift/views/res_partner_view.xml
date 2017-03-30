@@ -16,7 +16,6 @@
 
         <record id="view_res_partner_shift_form" model="ir.ui.view">
             <field name="model">res.partner</field>
-            <field name="name">res.partner.form.shift</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
             <field name="arch" type="xml">

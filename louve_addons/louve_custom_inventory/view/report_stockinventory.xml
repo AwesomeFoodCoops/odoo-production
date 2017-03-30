@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <template id="report_inventory_louve" inherit_id="stock.report_inventory">
-            <xpath expr="//table[@class='table table-condensed'][2]/thead/tr//th[5]" position="replace">
-                <th class="text-right"><strong>Theorical Qty</strong></th>
-                <th class="text-right"><strong>Qty1</strong></th>
-                <th class="text-right"><strong>Qty2</strong></th>
-                <th class="text-right"><strong>Total Qty</strong></th>
-            </xpath>
+        <template id="report_inventory_louve" inherit_id="purchase_package_qty.report_inventory_package">
+            <!-- Remove Useless field 'package_id' -->
+            <xpath expr="//table[@class='table table-condensed'][2]/thead/tr//th[5]" position="replace"/>
+            <xpath expr="//table[@class='table table-condensed'][2]/tr//td[5]" position="replace"/>
+
+            <!-- Remove Useless field 'prod_lot_id' -->
             <xpath expr="//table[@class='table table-condensed'][2]/thead/tr//th[4]" position="replace"/>
-            <xpath expr="//table[@class='table table-condensed'][2]/thead/tr//th[3]" position="replace"/>
-            <xpath expr="//table[@class='table table-condensed'][2]/thead/tr//th[1]" position="replace"/>
-            <xpath expr="//table[@class='table table-condensed'][2]/tr//td[5]" position="replace">
-                <td class="text-right"><span t-field="line.theoretical_qty"/> <span t-field="line.product_uom_id" groups="product.group_uom"/></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </xpath>
             <xpath expr="//table[@class='table table-condensed'][2]/tr//td[4]" position="replace"/>
-            <xpath expr="//table[@class='table table-condensed'][2]/tr//td[3]" position="replace"/>
+
+            <!-- Remove Useless field 'location_id' -->
+            <xpath expr="//table[@class='table table-condensed'][2]/thead/tr//th[1]" position="replace"/>
             <xpath expr="//table[@class='table table-condensed'][2]/tr//td[1]" position="replace"/>
+
+            <!-- Add product_qty1 and product_qty2 fields -->
+            <xpath expr="//table[@class='table table-condensed'][2]/thead/tr//th[3]" position="before">
+                <th class="text-right"><strong>G.F. Qty</strong></th>
+                <th class="text-right"><strong>UG. Qty</strong></th>
+            </xpath>
+            <xpath expr="//table[@class='table table-condensed'][2]/tr//td[3]" position="before">
+                <td class="text-right"><span t-field="line.product_qty1"/></td>
+                <td class="text-right"><span t-field="line.product_qty2"/></td>
+            </xpath>
+
         </template>
     </data>
 </openerp>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_shift_see_leave" model="res.groups">
+        <field name="name">See Leaves</field>
+        <field name="category_id" ref="coop_shift.module_category_shift_management"/>
+    </record>
+
+    <record id="group_shift_manage_leave" model="res.groups">
+        <field name="name">Manage Leaves</field>
+        <field name="category_id" ref="coop_shift.module_category_shift_management"/>
+        <field name="implied_ids" eval="[(4, ref('group_shift_see_leave'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record id="group_shift_see_counter" model="res.groups">
+        <field name="name">See Counters</field>
+        <field name="category_id" ref="coop_shift.module_category_shift_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record id="group_shift_manage_counter" model="res.groups">
+        <field name="name">Manage Counters</field>
+        <field name="category_id" ref="coop_shift.module_category_shift_management"/>
+        <field name="implied_ids" eval="[(4, ref('group_shift_see_counter'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record id="group_event_without_menu" model="res.groups">
+        <field name="name">Access</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="base.module_category_event_management"/>
+    </record>
+
+    <record id="group_shift_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="implied_ids" eval="[(5,), (4, ref('group_event_without_menu'))]"/>
+        <field name="category_id" ref="module_category_shift_management"/>
+    </record>
+
+    <record id="group_shift_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_shift_management"/>
+        <field name="implied_ids" eval="[(4, ref('group_shift_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record id="group_shift_config" model="res.groups">
+        <field name="name">Shifts Configuration</field>
+        <field name="category_id" ref="module_category_shift_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record id="group_shift_future_changes" model="res.groups">
+        <field name="name">Manage Future Changes</field>
+        <field name="category_id" ref="module_category_shift_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record id="group_recurrency" model="res.groups">
+        <field name="name">Handle Recurrency</field>
+    </record>
+
+</odoo>

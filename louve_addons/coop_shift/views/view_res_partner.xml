@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Cyril Gaspard
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    @author: Julien WESTE
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+ -->
+<odoo>
+
+    <record id="view_res_partner_form_header" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="groups_id" eval="[(4, ref('group_shift_manager'))]"/>
+        <field name="arch" type="xml">
+            <sheet position="before">
+                <header>
+                    <field name="cooperative_state" widget="statusbar"/>
+                </header>
+            </sheet>
+                <div name="button_box" position="inside">
+                    <button name="%(coop_shift.action_shift_extension_from_partner)d"
+                            type="action"
+                            class="oe_stat_button oe_event_attendee_button"
+                            icon="fa-calendar"
+                            help="View partner Extensions"
+                            groups="coop_shift.group_shift_manager">
+                        <field name="extension_qty" widget="statinfo" string="Ext."/>
+                    </button>
+                </div>
+        </field>
+    </record>
+
+    <record id="view_res_partner_form_shift" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
+        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_see_counter'))]"/>
+        <field name="arch" type="xml">
+            <group name="button" position="before">
+                <group name="state">
+                    <field name="shift_type"/>
+                    <field name="is_blocked"/>
+                    <field name="is_exempted"/>
+                    <field name="is_vacation"/>
+                    <field name="date_alert_stop"/>
+                    <field name="date_delay_stop"/>
+                    <field name="working_state"/>
+                    <group string="Standard Part" cols="4">
+                        <field name="theoritical_standard_point"/>
+                        <field name="manual_standard_correction" readonly="1"/>
+                        <field name="final_standard_point"/>
+                    </group>
+                    <group string="FTOP Part" cols="4">
+                        <field name="theoritical_ftop_point"/>
+                        <field name="manual_ftop_correction" readonly="1"/>
+                        <field name="final_ftop_point"/>
+                    </group>
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <record id="view_res_partner_form_shift_manage_counter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_shift.view_res_partner_form_shift"/>
+        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manage_counter'))]"/>
+        <field name="arch" type="xml">
+            <field name="manual_standard_correction" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+            <field name="manual_ftop_correction" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
