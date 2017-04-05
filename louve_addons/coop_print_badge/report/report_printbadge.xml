@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="coop_text">
-                        COOPÉRATEUR
+                        MEMBER
                     </div>
                     <div class="member_name">
                         <span t-field="partner.name"/>

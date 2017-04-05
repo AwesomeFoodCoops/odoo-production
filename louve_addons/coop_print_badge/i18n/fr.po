@@ -44,3 +44,8 @@ msgstr "Imprimer Badge"
 #: model:ir.model,name:coop_print_badge.model_report_coop_print_badge_report_printbadge
 msgid "report.coop_print_badge.report_printbadge"
 msgstr "report.coop_print_badge.report_printbadge"
+
+#. module: coop_print_badge
+#: model:ir.ui.view,arch_db:coop_print_badge.report_printbadge
+msgid "MEMBER"
+msgstr "COOPÉRATEUR"
