@@ -45,6 +45,7 @@
         <field name="action" ref="action_shift_extension"/>
         <field name="parent_id" ref="shift_menu"/>
         <field name="sequence">30</field>
+        <field name="groups_id" eval="[(6, 0, [ref('coop_shift.group_shift_manager')])]"/>
     </record>
 
     <record model="ir.ui.menu" id="menu_shift_extension_type">
