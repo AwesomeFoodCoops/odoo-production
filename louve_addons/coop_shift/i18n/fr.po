@@ -2268,7 +2268,7 @@ msgstr "Type"
 #: model:ir.model.fields,field_description:coop_shift.field_product_product_shift_ticket_ids
 #: model:ir.ui.menu,name:coop_shift.menu_shift_ticket
 msgid "Shift Tickets"
-msgstr "Type"
+msgstr "Places disponibles"
 
 #. module: coop_shift
 #: model:ir.model,name:coop_shift.model_shift_type
