@@ -202,6 +202,7 @@
             id="menu_action_registration"
             parent="coop_shift.shift_menu"
             action="action_registration"
-            sequence="20"/>
+            sequence="20"
+            groups="coop_shift.group_shift_user"/>
     </data>
 </openerp>

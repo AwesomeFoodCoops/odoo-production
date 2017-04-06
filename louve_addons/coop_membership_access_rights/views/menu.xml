@@ -13,7 +13,7 @@
     </record>
 
     <record model="ir.ui.menu" id="coop_shift.menu_action_registration">
-        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_user'))]"/>
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_edit'))]"/>
     </record>
 
     <record model="ir.ui.menu" id="mass_mailing.mass_mailing_menu_root">

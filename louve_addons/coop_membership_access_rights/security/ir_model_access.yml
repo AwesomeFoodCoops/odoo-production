@@ -86,6 +86,15 @@
     perm_write: false
     perm_unlink: false
 -
+  !record {model: ir.model.access, id: ir_model_access_shift_registration_edit}:
+    group_id: coop_membership_access_rights.group_membership_access_edit
+    model_id: coop_shift.model_shift_registration
+    name: shift_registration writer
+    perm_create: false
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
   !record {model: ir.model.access, id: ir_model_access_shift_shift_access}:
     group_id: coop_membership_access_rights.group_membership_access_user
     model_id: coop_shift.model_shift_shift
@@ -93,6 +102,15 @@
     perm_create: false
     perm_read: true
     perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_shift_edit}:
+    group_id: coop_membership_access_rights.group_membership_access_edit
+    model_id: coop_shift.model_shift_shift
+    name: shift_shift edit
+    perm_create: false
+    perm_read: true
+    perm_write: true
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_shift_mail_access}:
@@ -107,8 +125,35 @@
   !record {model: ir.model.access, id: ir_model_access_shift_ticket_access}:
     group_id: coop_membership_access_rights.group_membership_access_edit
     model_id: coop_shift.model_shift_ticket
-    name: shift_ticket user
+    name: shift_ticket edit
     perm_create: false
     perm_read: true
     perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_type_edit}:
+    group_id: coop_membership_access_rights.group_membership_access_edit
+    model_id: coop_shift.model_shift_type
+    name: shift_type access
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_mail_registration_access}:
+    group_id: coop_membership_access_rights.group_membership_access_edit
+    model_id: coop_shift.model_shift_mail_registration
+    name: shift_mail_registration access
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_mail_access}:
+    group_id: coop_membership_access_rights.group_membership_access_edit
+    model_id: coop_shift.model_shift_mail
+    name: shift_mail access
+    perm_create: false
+    perm_read: true
+    perm_write: true
     perm_unlink: false
