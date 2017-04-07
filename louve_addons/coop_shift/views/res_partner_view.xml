@@ -39,6 +39,14 @@
                         groups="coop_shift.group_shift_user" id="view_partner_registrations">
                         <field name="upcoming_registration_count" widget="statinfo" string="Upc. Registr."/>
                     </button>
+                    <button name="%(coop_shift.act_shift_leave_from_partner)d"
+                        type="action"
+                        class="oe_stat_button oe_event_attendee_button"
+                        icon="fa-sign-out"
+                        help="View partner Leaves"
+                        groups="coop_shift.group_shift_see_leave" id="view_shift_leaves">
+                        <field name="leave_qty" widget="statinfo" string="Leaves"/>
+                    </button>
                     <button name="%(coop_shift.act_template_registration_line_from_partner)d"
                         
                         type="action"

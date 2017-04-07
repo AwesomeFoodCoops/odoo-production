@@ -114,7 +114,8 @@ class ShiftLeave(models.Model):
                     lambda r: r.state != 'cancel'):
                 if conflict_period(
                         leave.start_date, leave.stop_date,
-                        other_leave.start_date, other_leave.stop_date):
+                        other_leave.start_date, other_leave.stop_date)[
+                            'conflict']:
                     raise ValidationError(_(
                         "The partner has an incompatible draft of done leave\n"
                         " * start date : %s\n * stop date : %s\n") % (

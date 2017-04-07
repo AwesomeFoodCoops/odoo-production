@@ -28,6 +28,7 @@
         'views/view_capital_fundraising_wizard.xml',
         'views/view_capital_fundraising_category.xml',
         'views/view_res_partner_generate_barcode_wizard.xml',
+        'views/view_shift_leave.xml',
         'views/menu.xml',
 
         # Custom Data
