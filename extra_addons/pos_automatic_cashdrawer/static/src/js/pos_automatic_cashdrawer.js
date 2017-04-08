@@ -304,7 +304,8 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
         start: function(){
             var self = this;
             this.$el.click(function(){
-                self.pos.proxy.automatic_cashdrawer_connection_check();
+                //self.pos.proxy.automatic_cashdrawer_connection_check();
+                self.pos.proxy.automatic_cashdrawer_connection_init();
             });
         },
     });
