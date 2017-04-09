@@ -16,24 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_print_badge
-#: model:ir.ui.view,arch_db:coop_print_badge.report_printbadge
-msgid "COOPÉRATEUR"
-msgstr "COOPÉRATEUR"
-
-#. module: coop_print_badge
-#: model:ir.model.fields,field_description:coop_print_badge.field_res_partner_barcode_image
-msgid "Image of the barcode"
-msgstr "Image du codebarre"
-
-#. module: coop_print_badge
 #: model:ir.model.fields,field_description:coop_print_badge.field_report_coop_print_badge_report_printbadge___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
-
-#. module: coop_print_badge
-#: model:ir.model,name:coop_print_badge.model_res_partner
-msgid "Partner"
-msgstr "Partenaire"
 
 #. module: coop_print_badge
 #: model:ir.actions.report.xml,name:coop_print_badge.action_report_printbadge
@@ -49,3 +34,8 @@ msgstr "report.coop_print_badge.report_printbadge"
 #: model:ir.ui.view,arch_db:coop_print_badge.report_printbadge
 msgid "MEMBER"
 msgstr "COOPÉRATEUR"
+
+#. module: coop_print_badge
+#: model:ir.ui.view,arch_db:coop_print_badge.report_printbadge
+msgid "ASSOCIATED"
+msgstr "ASSOCIÉ"
