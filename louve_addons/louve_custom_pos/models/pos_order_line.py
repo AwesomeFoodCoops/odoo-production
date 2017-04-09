@@ -25,4 +25,5 @@ class PosOrderLine(models.Model):
 
     @api.multi
     def compute_amount_line_all(self):
-        return super(PosOrderLine, self)._compute_amount_line_all()
+        super(PosOrderLine, self)._compute_amount_line_all()
+        return True
