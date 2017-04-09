@@ -12,7 +12,9 @@
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
             <field name="parent_id" position="after">
+                <field name="barcode_base" string="Member Number" filter_domain="[('barcode_base', '=', self), ('is_louve_member', '=', True)]"/>
                 <field name="is_louve_member"/>
+                <field name="is_associated_people"/>
                 <field name="type_A_capital_qty"/>
                 <field name="type_B_capital_qty"/>
                 <field name="type_C_capital_qty"/>
@@ -42,7 +44,7 @@
             </button>
             <button name="generate_barcode" position="after">
                 <button id="create_new_barcode" name="%(action_res_partner_generate_barcode_wizard)d" type="action"
-                    string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}"/>
+                    string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode"/>
             </button>
         </field>
     </record>
@@ -65,13 +67,42 @@
 
     <record model="ir.ui.view" id="view_res_partner_form_base">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="view_res_partner_form"/>
         <field name="arch" type="xml">
+            <!-- Contact Sub form-->
+            <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="after">
+                <field name="is_associated_people" invisible="1"/>
+                <field name="is_louve_member" invisible="1"/>
+                <field name="image" widget="image" class="oe_avatar"
+                    options="{'preview_image': 'image_medium', 'size': [90, 90]}"
+                    attrs="{'invisible': [('is_louve_member', '=', False), ('is_associated_people', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet/hr" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='title']" position="after">
+                <field name="birthdate" widget="date"/>
+                <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='function']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='comment']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+            </xpath>
+
+            <!-- Move barcode_base field -->
+            <field name="barcode_base" position="replace" />
+
+            <!-- New Page for Louve Custom information -->
             <notebook position="inside">
                 <page string="Louve Custom">
                     <group>
                         <group string="MemberShip">
-                            <field name="barcode_base" string="Num. membre" readonly="1"/>
+                            <field name="barcode_base" string="Member Number" readonly="1"/>
                             <field name="is_louve_member" groups="louve_membership.louve_membership_manager" string="Afficher via menu Membres" readonly="0"/>
                             <field name="type_A_capital_qty" groups="louve_membership.louve_membership_manager"/>
                             <field name="type_B_capital_qty" groups="louve_membership.louve_membership_manager"/>
@@ -86,6 +117,7 @@
                         <group string="Extra Data">
                             <field name="temp_coop_number"/>
                             <field name="birthdate" widget="date"/>
+                            <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
                             <field name="adult_number_home"/>
                             <field name="old_coop_number"/>
                             <field name="contact_origin_id"/>

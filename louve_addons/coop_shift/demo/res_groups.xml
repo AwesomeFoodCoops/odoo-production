@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="res.groups" id="base.group_no_one">
+        <field name="users" eval="[(4, [ref('base.user_root')])]" />
+    </record>
+
+    <record model="res.groups" id="group_shift_manage_counter">
+        <field name="users" eval="[(4, [ref('base.user_root')])]" />
+    </record>
+
+    <record id="base.user_demo" model="res.users">
+             <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_user'))]"/>
+     </record>
+
+</odoo>

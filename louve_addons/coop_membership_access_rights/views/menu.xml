@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.menu" id="coop_shift.shift_main_menu">
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_user'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="louve_membership.menu_res_partner_associated">
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_manager'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="coop_shift.shift_menu">
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_edit'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="coop_shift.menu_action_registration">
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_edit'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="mass_mailing.mass_mailing_menu_root">
+        <field name="groups_id" eval="[(4, ref('base.group_configuration'))]"/>
+    </record>
+</odoo>

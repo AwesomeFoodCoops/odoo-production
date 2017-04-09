@@ -1,0 +1,408 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * coop_membership_access_rights
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-27 18:47+0000\n"
+"PO-Revision-Date: 2017-03-27 18:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "(edit)"
+msgstr "(éditer)"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "<span class=\"o_stat_text\">Invoiced</span>"
+msgstr "<span class=\"o_stat_text\">Facturé</span>"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Account Move Lines"
+msgstr "Écritures comptables"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Accounting"
+msgstr "Comptabilité"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Accounting Entries"
+msgstr "Écritures comptables"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Accounting-related settings are managed on"
+msgstr "Les paramètres liés à la comptabilité sont gérés"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Add Template Registration"
+msgstr "Inscription à un créneau"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Address"
+msgstr "Adresse"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Afficher via menu Membres"
+msgstr "Afficher via menu Membres"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Analytic Accounts"
+msgstr "Comptes analytiques"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Bank account(s)"
+msgstr "Comptes de banques"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Capital Subscriptions"
+msgstr "Souscriptions de capital"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "City"
+msgstr "Ville"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Company"
+msgstr "Société"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Contact / Address"
+msgstr "Contact / Adresse"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Contact Name"
+msgstr "Nom du contact"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Contacts & Addresses"
+msgstr "Contacts & Adresses"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Country"
+msgstr "Pays"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Credit card(s)"
+msgstr "Carte de crédit"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Ext."
+msgstr "Ext."
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Extra Data"
+msgstr "Information complémentaire"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "FTOP Part"
+msgstr "Equipe volants"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Fax:"
+msgstr "Fax :"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Fiscal Information"
+msgstr "Information fiscale"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Generate Barcode (Using Barcode Rule)"
+msgstr "Générer un code barre (via règle de codes barre)"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Generate Base (Using Sequence)"
+msgstr "Générer une base (via une séquence)"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Internal Notes"
+msgstr "Notes internes"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Internal note..."
+msgstr "Note interne..."
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Louve Custom"
+msgstr "Personnalisation Louve"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Mailing Opt-Out"
+msgstr "Désabonner des mailings"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Member Number"
+msgstr "Numéro de membre"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "MemberShip"
+msgstr "Adhésion"
+
+#. module: coop_membership_access_rights
+#: model:ir.actions.act_window,name:coop_membership_access_rights.action_coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_bdm_tree
+msgid "Members"
+msgstr "Membres"
+
+#. module: coop_membership_access_rights
+#: model:ir.module.category,description:coop_membership_access_rights.module_membership_access_management
+#: model:ir.module.category,name:coop_membership_access_rights.module_membership_access_management
+msgid "Membership Management"
+msgstr "Management des membres"
+
+#. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.group_membership_access_manager
+msgid "Membership Manager"
+msgstr "Manager des membres"
+
+#. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.group_membership_access_user
+msgid "Membership Viewer"
+msgstr "Voir les membres"
+
+#. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.group_membership_access_edit
+msgid "Membership Writer"
+msgstr "Éditer les membres"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Misc"
+msgstr "Divers"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Mobile:"
+msgstr "Mobile :"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Name"
+msgstr "Nom"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "New Barcode (Card Lost)"
+msgstr "Nouveau Code Barre (Carte perdue)"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "New Capital Subscription"
+msgstr "Nouvelle souscription de capital"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Partner Type"
+msgstr "Type de partenaire"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Partners"
+msgstr "Partenaires"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Payments"
+msgstr "Paiements"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Phone:"
+msgstr "Téléphone :"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Pricelists are managed on"
+msgstr "Les listes de prix sont gérées sur"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Purchase"
+msgstr "Achats"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Purchases"
+msgstr "Achats"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Remove 'Underclass Population'"
+msgstr "Retirer 'Minima Sociaux'"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Sale"
+msgstr "Vente"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Sales"
+msgstr "Ventes"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Sales & Purchases"
+msgstr "Ventes & Achats"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_bdm_search
+msgid "Search Partner"
+msgstr "Rechercher un partenaire"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Set 'Underclass Population'"
+msgstr "Mettre 'Minima Sociaux'"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Shifts"
+msgstr "Services"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Standard Part"
+msgstr "Equipe ABCD"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "State"
+msgstr "État"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Street 2..."
+msgstr "Rue 2..."
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Street..."
+msgstr "Rue..."
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Subscriptions"
+msgstr "Abonnements"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Tags..."
+msgstr "Étiquettes..."
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Tasks"
+msgstr "Tâches"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Tmpl. Registr."
+msgstr "Créneau"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Upc. Registr."
+msgstr "Présences"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Vendor Bills"
+msgstr "Factures fournisseur"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Vendor Bills."
+msgstr "Factures Fournisseur."
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "View partner Extensions"
+msgstr "Voir les extensions"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "View partner Registrations"
+msgstr "Voir les inscriptions"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "View partner Template Registrations"
+msgstr "Inscriptions à des créneaux"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Warehouse"
+msgstr "Entrepôt"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "ZIP"
+msgstr "Code postal"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "e.g. BE0477472701"
+msgstr "e.g. BE0477472701"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "e.g. Mr."
+msgstr "Ex. : M."
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "e.g. Sales Director"
+msgstr "ex : Directeur Commercial"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "e.g. www.odoo.com"
+msgstr "Ex. : www.odoo.com"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "internal note..."
+msgstr "note interne..."
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "the parent company"
+msgstr "la maison mère"

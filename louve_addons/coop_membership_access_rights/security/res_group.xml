@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Julien Weste
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+    <record model="ir.module.category" id="module_membership_access_management">
+        <field name="name">Membership Management</field>
+        <field name="description">Membership Management</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record model="res.groups" id="group_membership_access_user">
+        <field name="name">Membership Viewer</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record model="res.groups" id="group_membership_access_edit">
+        <field name="name">Membership Writer</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="implied_ids" eval="[(4, ref('group_membership_access_user'))]"/>
+    </record>
+    <record model="res.groups" id="group_membership_access_manager">
+        <field name="name">Membership Manager</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="implied_ids" eval="[(4, ref('group_membership_access_edit'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+</odoo>

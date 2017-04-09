@@ -30,27 +30,31 @@ class ShiftTemplateTicket(models.Model):
     _description = 'Shift Template Ticket'
 
     shift_id = fields.Many2one(required=False)
+
     shift_template_id = fields.Many2one(
-        'shift.template', "Template", required=True, ondelete='cascade')
+        'shift.template', 'Template', required=True, ondelete='cascade')
+
     registration_ids = fields.One2many(
         'shift.template.registration', 'shift_ticket_id', 'Registrations')
 
-    seats_availability = fields.Selection(
-        compute='_compute_seats', store=False)
-    seats_reserved = fields.Integer(
-        compute='_compute_seats', store=False)
-    seats_available = fields.Integer(
-        compute='_compute_seats', store=False)
-    seats_unconfirmed = fields.Integer(
-        compute='_compute_seats', store=False)
-    seats_used = fields.Integer(
-        compute='_compute_seats', store=False)
-    seats_future = fields.Integer(
-        string="Future reservations", compute='_compute_seats',)
-    hide_in_member_space = fields.Boolean(
-        "Masquer dans l'Espace Membre", default=False,
-        compute="_compute_hide_in_member_space", store=True)
+    seats_availability = fields.Selection(compute='_compute_seats')
 
+    seats_reserved = fields.Integer(compute='_compute_seats')
+
+    seats_available = fields.Integer(compute='_compute_seats')
+
+    seats_unconfirmed = fields.Integer(compute='_compute_seats')
+
+    seats_used = fields.Integer(compute='_compute_seats')
+
+    seats_future = fields.Integer(
+        string="Future reservations", compute='_compute_seats')
+
+    hide_in_member_space = fields.Boolean(
+        string='Hide in Member Space', store=True,
+        compute='_compute_hide_in_member_space')
+
+    # Compute Section
     @api.multi
     @api.depends('shift_template_id.shift_type_id.is_ftop')
     def _compute_hide_in_member_space(self):
@@ -91,6 +95,7 @@ class ShiftTemplateTicket(models.Model):
                 ticket.seats_available = ticket.seats_max - (
                     ticket.seats_reserved + ticket.seats_used)
 
+    # Overload Section
     @api.multi
     def write(self, vals):
         new_vals = {}

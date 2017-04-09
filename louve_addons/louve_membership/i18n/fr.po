@@ -439,3 +439,8 @@ msgstr "res.contact.origin"
 msgid "res.partner.generate.barcode.wizard"
 msgstr "res.partner.generate.barcode.wizard"
 
+#. module: louve_membership
+#: model:ir.ui.view,arch_db:louve_membership.view_res_partner_search
+msgid "Member Number"
+msgstr "Numéro de membre"
+
