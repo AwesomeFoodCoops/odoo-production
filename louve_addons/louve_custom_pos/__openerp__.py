@@ -18,6 +18,7 @@
     'data': [
         'static/src/xml/templates.xml',
         'views/view_pos_order.xml',
+        'data/function.xml',
     ],
     'qweb': [
         'static/src/xml/point_of_sale.xml',
