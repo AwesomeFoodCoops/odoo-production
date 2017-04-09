@@ -38,6 +38,10 @@
     float: left;
     height:25mm;
     font-size: 25;
+    width:65mm !important;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 .barcode_image{
     float: left;
