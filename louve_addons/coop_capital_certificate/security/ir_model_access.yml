@@ -1,0 +1,24 @@
+################################################################################
+#    See __openerp__.py file for Copyright and Licence Informations.
+################################################################################
+
+-
+  Creating a ir.model.access record
+-
+  !record {model: ir.model.access, id: ir_model_access_capital_certificate}:
+    group_id: account.group_account_manager
+    model_id: coop_capital_certificate.model_capital_certificate
+    name: capital_certificate user
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
+-
+  !record {model: ir.model.access, id: ir_model_access_capital_certificate_line}:
+    group_id: account.group_account_manager
+    model_id: coop_capital_certificate.model_capital_certificate_line
+    name: capital_certificate_line user
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true

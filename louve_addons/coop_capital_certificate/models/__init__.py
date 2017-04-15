@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+from . import res_partner
+from . import account_config_settings
+from . import capital_certificate
+from . import account_account
+from . import res_company

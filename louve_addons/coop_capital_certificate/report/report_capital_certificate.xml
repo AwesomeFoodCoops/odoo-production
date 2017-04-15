@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <template id="capital_certificate_report_template">
+        <t t-call="report.external_layout">
+        <tr t-foreach="docs" t-as="certificate">
+            <div class="page" style="page-break-after:always">
+            <h1 style="text-align:center">Capital Certificate</h1>
+            <br/>
+            <h2><t t-esc="certificate.partner_id.company_id.capital_certificate_header or certificate.partner_id.company_id.name"/></h2>
+            <h2>certifies that</h2>
+            <br/>
+            <span t-field="certificate.partner_id.name"/><br/>
+            living at <span t-field="certificate.partner_id.street"/> <span t-field="certificate.partner_id.zip"/> <span t-field="certificate.partner_id.city"/>
+            <br/>
+            <br/>
+            <h2>subscribed:</h2>
+            <tr t-foreach="certificate.line_ids" t-as="line">
+                <p><span t-esc="line.qty"/> actions of category <span t-esc="line.category"/> at the face value of <span t-esc="line.price"/><span t-esc="partner_id.company_id.currency_id.symbol"/>  on <span t-esc="datetime.datetime.strptime(line.date,'%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                <t t-if="line.reconciled"> totaly paid at </t>
+                <t t-if="not line.reconciled">of which <span t-esc="line.amount"/><span t-esc="partner_id.company_id.currency_id.symbol"/> where paid at</t>
+                <span t-esc="datetime.datetime.strptime(line.payment_date,'%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                </p>
+            </tr>
+
+            </div>
+        </tr>
+        </t>
+    </template>
+</data>
+</odoo>

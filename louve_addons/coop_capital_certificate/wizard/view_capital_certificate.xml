@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="capital_certificate_view" model="ir.ui.view">
+        <field name="name">capital.certificate.wizard.form.view</field>
+        <field name="model">capital.certificate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Capital Fiscal Certificate Generation">
+                <group name="parameters">
+                    <field name="year"/>
+                </group>
+                <group name="message">
+                    <p>Be careful!<br/>
+                    By clicking on the Generate button, an email will be sent to every partner that suscribed capital in the selected year</p>
+                </group>
+                <footer>
+                    <button string="Generate" name="generate_certificates" type="object"
+                        class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"
+                        class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="capital_certificate_action" model="ir.actions.act_window">
+        <field name="name">Capital Certificate</field>
+        <field name="res_model">capital.certificate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="capital_certificate_menu"
+        parent="capital_subscription.menu_capital_main"
+        action="capital_certificate_action"
+        sequence="100" />
+</odoo>
