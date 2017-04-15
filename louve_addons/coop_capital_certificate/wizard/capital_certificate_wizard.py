@@ -21,7 +21,6 @@ class CapitalCertificateWizard(models.TransientModel):
     def generate_certificates(self, data):
         self.ensure_one()
 
-        #TODO: remove the limit!!!
         query = """
             SELECT
                 rp.id
@@ -37,7 +36,6 @@ class CapitalCertificateWizard(models.TransientModel):
                 EXTRACT(YEAR FROM ai.date_invoice) = %s
             GROUP BY
                 rp.id
-            LIMIT 10
         """
 
         year = self.read(['year'])[0]['year']
