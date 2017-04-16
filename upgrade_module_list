@@ -39,5 +39,5 @@
 #export MODULE_LIST_TO_UPGRADE="louve_custom_account"
 #export MODULE_LIST_TO_INSTALL=""
 # 9/04/2017 18h00 - sur l'environnement de DEV
-export MODULE_LIST_TO_UPGRADE="louve_custom_account,louve_custom_pos"
+export MODULE_LIST_TO_UPGRADE="louve_custom_account,louve_custom_pos,point_of_sale"
 export MODULE_LIST_TO_INSTALL=""
