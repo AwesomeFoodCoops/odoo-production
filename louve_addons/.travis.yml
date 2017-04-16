@@ -15,11 +15,11 @@ env:
   global:
   - VERSION="9.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
 
-# Exclude louve_product_coefficient because of invalid check on VAT that
+# Exclude coop_product_coefficient because of invalid check on VAT that
 # make Travis failing with product demo data of others modules
   matrix:
-  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="louve_product_coefficient"
-  - TESTS="1" ODOO_REPO="OCA/OCB" EXCLUDE="louve_product_coefficient"
+  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="coop_product_coefficient"
+  - TESTS="1" ODOO_REPO="OCA/OCB" EXCLUDE="coop_product_coefficient"
   - UNIT_TEST="1"
 
 virtualenv:

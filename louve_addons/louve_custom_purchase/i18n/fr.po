@@ -91,7 +91,7 @@ msgstr "Ligne de commande d'achat"
 #. module: louve_custom_purchase
 #: model:ir.model.fields,field_description:louve_custom_purchase.field_product_supplierinfo_price_taxes_excluded
 msgid "Sale Price Taxes Excluded"
-msgstr "Prix unitaire HT"
+msgstr "Prix de vente HT"
 
 #. module: louve_custom_purchase
 #: model:ir.model.fields,field_description:louve_custom_purchase.field_product_supplierinfo_price_taxes_included
