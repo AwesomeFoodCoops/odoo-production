@@ -24,7 +24,7 @@
                     <button name="458" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar-plus-o" help="View partner Template Registrations" groups="coop_shift.group_shift_manager,coop_membership_access_rights.group_membership_access_user" id="view_partner_template_registrations" attrs="{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}">
                         <field name="active_tmpl_reg_line_count" widget="statinfo" string="Tmpl. Registr."/>
                     </button>
-                    <button type="action" class="oe_stat_button" id="invoice_button" icon="fa-pencil-square-o" name="189" attrs="{'invisible': [('customer', '=', False)]}" context="{'search_default_partner_id': active_id,'default_partner_id': active_id}" groups="account.group_account_invoice">
+                    <button type="action" class="oe_stat_button" id="invoice_button" icon="fa-pencil-square-o" name="189" context="{'search_default_partner_id': active_id,'default_partner_id': active_id}" groups="account.group_account_invoice">
                         <div class="o_form_field o_stat_info">
                             <span class="o_stat_value"><field name="total_invoiced" widget="monetary" options="{'currency_field': 'currency_id'}" groups="account.group_account_invoice"/></span>
                             <span class="o_stat_text">Invoiced</span>
