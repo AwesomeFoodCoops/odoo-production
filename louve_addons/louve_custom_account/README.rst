@@ -25,6 +25,8 @@ Note
 the function compute_move_type can will be removed, after the initialization
 of account_tax_balance.
 
+* Make supplier invoice date field equired
+
 Credits
 =======
 
