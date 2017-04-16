@@ -22,8 +22,3 @@ class PosOrderLine(models.Model):
         if pol.qty == 0:
             pol.unlink()
         return pol
-
-    @api.multi
-    def compute_amount_line_all(self):
-        super(PosOrderLine, self)._compute_amount_line_all()
-        return True
