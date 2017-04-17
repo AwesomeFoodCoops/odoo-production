@@ -29,9 +29,9 @@
     margin-left:45mm;
     margin: 0;
     padding: 0;
-    -webkit-transform-origin: 245 85;
-        -ms-transform-origin: 245 85;
-            transform-origin: 245 85;
+    -webkit-transform-origin: 245 75;
+        -ms-transform-origin: 245 75;
+            transform-origin: 245 75;
     -webkit-transform: rotate(-90deg);
         -ms-transform: rotate(-90deg);
             transform: rotate(-90deg);
