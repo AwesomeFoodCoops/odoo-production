@@ -33,9 +33,9 @@ msgstr "report.coop_print_badge.report_printbadge"
 #. module: coop_print_badge
 #: model:ir.ui.view,arch_db:coop_print_badge.report_printbadge
 msgid "MEMBER"
-msgstr "COOPÉRATEUR"
+msgstr "COOPÉRATEUR/TRICE"
 
 #. module: coop_print_badge
 #: model:ir.ui.view,arch_db:coop_print_badge.report_printbadge
 msgid "ASSOCIATED"
-msgstr "ASSOCIÉ"
+msgstr "RATTACHÉ(E)"
