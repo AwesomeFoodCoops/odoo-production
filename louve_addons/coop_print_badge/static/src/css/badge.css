@@ -38,7 +38,8 @@
 }
 .member_name{
     float: left;
-    height:25mm;
+    height:15mm;
+    margin-top:53mm;
     font-size: 25;
     width:65mm !important;
     overflow: hidden;
@@ -50,6 +51,7 @@
     height:18mm;
     max-height:18mm;
     max-width:40mm;
+    margin-bottom:0.1mm;
 }
 .company_address{
     margin-left:41mm;
