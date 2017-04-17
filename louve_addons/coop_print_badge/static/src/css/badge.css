@@ -5,10 +5,12 @@
     margin-right:0cm;
     margin-top:0cm;
     margin-bottom:0cm;
+    background-color:white;
+    color:#455a6e;
 }
 .member_photo_div{
-    width:45mm;
-    height:66mm;
+    width:3.7mm;
+    height:4.9mm;
     float:left;
     padding:0cm;
 }
@@ -17,7 +19,8 @@
     height:100%;
 }
 .member_number{
-    margin-left:45mm;
+    margin-left:42mm;
+    margin-top:6.4mm;
     font-size: 15;
 }
 .coop_text{
@@ -26,9 +29,9 @@
     margin-left:45mm;
     margin: 0;
     padding: 0;
-    -webkit-transform-origin: 245 65;
-        -ms-transform-origin: 245 65;
-            transform-origin: 245 65;
+    -webkit-transform-origin: 245 85;
+        -ms-transform-origin: 245 85;
+            transform-origin: 245 85;
     -webkit-transform: rotate(-90deg);
         -ms-transform: rotate(-90deg);
             transform: rotate(-90deg);
