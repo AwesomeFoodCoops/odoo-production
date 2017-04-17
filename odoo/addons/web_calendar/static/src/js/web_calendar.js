@@ -21,12 +21,28 @@ var QWeb = core.qweb;
 function get_fc_defaultOptions() {
     var dateFormat = time.strftime_to_moment_format(_t.database.parameters.date_format);
 
+    // moment.js converts '%p' to 'A' for 'AM/PM'
+    // But FullCalendar v1.6.4 supports 'TT' format for 'AM/PM' but not 'A'
+    // NB: should be removed when fullcalendar is updated to 2.0 because it would
+    // be supported. See the following link
+    // http://fullcalendar.io/wiki/Upgrading-to-v2/
+    var timeFormat = time.strftime_to_moment_format(_t.database.parameters.time_format).replace('A', 'TT');
+
     // adapt format for fullcalendar v1.
     // see http://fullcalendar.io/docs1/utilities/formatDate/
     var conversions = [['YYYY', 'yyyy'], ['YY', 'y'], ['DDDD', 'dddd'], ['DD', 'dd']];
     _.each(conversions, function(conv) {
         dateFormat = dateFormat.replace(conv[0], conv[1]);
     });
+
+    // If 'H' is contained in timeFormat display '10:00'
+    // Else display '10 AM'. 
+    // See : http://fullcalendar.io/docs1/utilities/formatDate/
+    var hourFormat = function(timeFormat){
+        if (/H/.test(timeFormat))
+            return 'HH:mm';
+        return 'hh TT';
+    };
 
     return {
         weekNumberTitle: _t("W"),
@@ -39,6 +55,10 @@ function get_fc_defaultOptions() {
         weekNumberCalculation: function(date) {
             return moment(date).week();
         },
+        axisFormat: hourFormat(timeFormat),
+        // Correct timeformat for agendaWeek and agendaDay
+        // http://fullcalendar.io/docs1/text/timeFormat/
+        timeFormat: timeFormat + ' {- ' + timeFormat + '}',
         weekNumbers: true,
         titleFormat: {
             month: 'MMMM yyyy',
@@ -314,7 +334,7 @@ var CalendarView = View.extend({
                 self.proxy('update_record')(event._id, data);
             },
             eventRender: function (event, element, view) {
-                element.find('.fc-event-title').html(event.title);
+                element.find('.fc-event-title').html(event.title + event.attendee_avatars);
             },
             eventAfterRender: function (event, element, view) {
                 if ((view.name !== 'month') && (((event.end-event.start)/60000)<=30)) {
@@ -610,7 +630,6 @@ var CalendarView = View.extend({
                 if (attendee_other.length>2) {
                     the_title_avatar += '<span class="o_attendee_head" title="' + attendee_other.slice(0, -2) + '">+</span>';
                 }
-                the_title = the_title_avatar + the_title;
             }
         }
         
@@ -619,9 +638,10 @@ var CalendarView = View.extend({
             date_stop = m_start.toDate();
         }
         var r = {
-            'start': moment(date_start).format('YYYY-MM-DD HH:mm:ss'),
-            'end': moment(date_stop).format('YYYY-MM-DD HH:mm:ss'),
+            'start': moment(date_start).toString(),
+            'end': moment(date_stop).toString(),
             'title': the_title,
+            'attendee_avatars': the_title_avatar,
             'allDay': (this.fields[this.date_start].type == 'date' || (this.all_day && evt[this.all_day]) || false),
             'id': evt.id,
             'attendees':attendees

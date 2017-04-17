@@ -7,13 +7,14 @@
 # Inigo Zuluaga <inigo_zuluaga@yahoo.es>, 2016
 # Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com.mx>, 2016
 # Martin Trigaux, 2016
+# Olar Alca [Vauxoo] <oszckar@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-29 10:26+0000\n"
-"PO-Revision-Date: 2016-07-30 07:48+0000\n"
-"Last-Translator: Inigo Zuluaga <inigo_zuluaga@yahoo.es>\n"
+"PO-Revision-Date: 2016-12-08 00:46+0000\n"
+"Last-Translator: Olar Alca [Vauxoo] <oszckar@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/odoo/odoo-9/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -285,7 +286,7 @@ msgstr "Todos los productos"
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_variant_easy_edit_view
 msgid "All general settings about this product are managed on"
-msgstr ""
+msgstr "All general settings about this product are managed on"
 
 #. module: product
 #: model:product.product,description:product.product_product_37
@@ -333,7 +334,7 @@ msgstr "Aplicable en"
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist_item_applied_on
 msgid "Apply On"
-msgstr ""
+msgstr "Aplicar Sobre"
 
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_pricelist_view_search
@@ -660,7 +661,7 @@ msgstr "Componentes"
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_pricelist_item_form_view
 msgid "Compute Price"
-msgstr ""
+msgstr "Calcula el Precio"
 
 #. module: product
 #: model:product.product,name:product.product_product_16
@@ -672,7 +673,7 @@ msgstr "Carcasa de ordenador"
 #: model:product.product,name:product.product_product_3
 #: model:product.template,name:product.product_product_3_product_template
 msgid "Computer SC234"
-msgstr ""
+msgstr "Computer SC234"
 
 #. module: product
 #: model:product.public.category,name:product.Computer_all_in_one
@@ -688,7 +689,7 @@ msgstr "Ordenadores"
 #: code:addons/product/product.py:460
 #, python-format
 msgid "Consumable"
-msgstr ""
+msgstr "Consumible"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_uom_category_id
@@ -1066,13 +1067,13 @@ msgstr "Ejemplo de producto a facturar al pedido."
 #: model:product.product,description:product.product_product_1b
 #: model:product.template,description:product.product_product_1b_product_template
 msgid "Example of products to invoice based on cost."
-msgstr ""
+msgstr "Ejemplo de productos a facturar basado en el costo."
 
 #. module: product
 #: model:product.product,description:product.product_product_1
 #: model:product.template,description:product.product_product_1_product_template
 msgid "Example of products to invoice based on delivery."
-msgstr ""
+msgstr "Ejemplo de productos a facturar basado en la entrega."
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_pricelist_item_name
@@ -1136,7 +1137,7 @@ msgstr "Seguidores (Empresas)"
 msgid ""
 "For the rule to apply, bought/sold quantity must be greater than or equal to the minimum quantity specified in this field.\n"
 "Expressed in the default unit of measure of the product."
-msgstr ""
+msgstr "Para que se aplique la regla, la cantidad comprada/vendida debe ser mayor o igual que la cantidad mínima especificada en este campo. \nExpresada en la Unidad de Medida por defecto del producto."
 
 #. module: product
 #: selection:product.pricelist.item,compute_price:0
@@ -2507,7 +2508,7 @@ msgstr "Servidor"
 #: code:addons/product/product.py:460
 #, python-format
 msgid "Service"
-msgstr ""
+msgstr "Servicio"
 
 #. module: product
 #: model:ir.ui.view,arch_db:product.product_template_search_view
