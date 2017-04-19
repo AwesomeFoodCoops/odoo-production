@@ -110,7 +110,7 @@
                                 <t t-foreach="time['shift_list']" t-as="shift">
                                     <td>
                                         <t t-foreach="shift['partners']" t-as="partner">
-                                            <span t-esc="partner_index + 1"/> - <t t-if="partner.ref">[<span t-esc="partner.ref"/>] </t><span t-esc="partner.name"/><br/>
+                                            <span t-esc="partner_index + 1"/> - <t t-if="partner.barcode_base">[<span t-esc="partner.barcode_base"/>] </t><span t-esc="partner.name"/><br/>
                                             <t t-set="num" t-value="partner_size"/>
                                         </t>
                                         <t t-foreach="shift['free_seats']" t-as="free_seat">
