@@ -75,27 +75,29 @@ class product_product(Model):
 
     def write(self, cr, uid, ids, vals, context=None):
         defered = {}
-        for product in self.browse(cr, uid, ids, context=context):
-            ignore = not product.scale_group_id\
-                and 'scale_group_id' not in vals.keys()
-            if not ignore:
-                if not product.scale_group_id:
-                    # (the product is new on this group)
-                    defered[product.id] = 'create'
-                else:
-                    if vals.get('scale_group_id', False) and (
-                            vals.get('scale_group_id', False) !=
-                            product.scale_group_id):
-                        # (the product has moved from a group to another)
-                        # Remove from obsolete group
-                        self._send_to_scale_bizerba(
-                            cr, uid, 'unlink', product, context=context)
-                        # Create in the new group
+        context = context and context or {}
+        if not context.get('bizerba_off', False):
+            for product in self.browse(cr, uid, ids, context=context):
+                ignore = not product.scale_group_id\
+                    and 'scale_group_id' not in vals.keys()
+                if not ignore:
+                    if not product.scale_group_id:
+                        # (the product is new on this group)
                         defered[product.id] = 'create'
-                    elif self._check_vals_scale_bizerba(
-                            cr, uid, vals, product, context=context):
-                        # Data related to the scale
-                        defered[product.id] = 'write'
+                    else:
+                        if vals.get('scale_group_id', False) and (
+                                vals.get('scale_group_id', False) !=
+                                product.scale_group_id):
+                            # (the product has moved from a group to another)
+                            # Remove from obsolete group
+                            self._send_to_scale_bizerba(
+                                cr, uid, 'unlink', product, context=context)
+                            # Create in the new group
+                            defered[product.id] = 'create'
+                        elif self._check_vals_scale_bizerba(
+                                cr, uid, vals, product, context=context):
+                            # Data related to the scale
+                            defered[product.id] = 'write'
 
         res = super(product_product, self).write(
             cr, uid, ids, vals, context=context)
