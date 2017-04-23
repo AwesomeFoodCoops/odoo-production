@@ -121,6 +121,8 @@ class TeliumPaymentTerminalDriver(Thread):
             else:
                 logger.info("        UNEXPECTED byte")
                 #TODO : we should OR wait EITHER resend last sent byte EITHER send EOT and loop again (until 10 seconds ?)
+                buf = self.serial.read(100)
+                logger.info('Last 100 char in the serial buffer before closing : %s' % buf)
                 self.serial.close()
                 self.serial = False
                 logger.info('UNEXPECTED CHAR => CLOSING SERIAL PORT')
