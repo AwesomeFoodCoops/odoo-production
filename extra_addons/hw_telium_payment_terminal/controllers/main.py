@@ -103,14 +103,14 @@ class TeliumPaymentTerminalDriver(Thread):
         assert signal in ascii_names, 'Wrong signal'
         char = ascii_names.index(signal)
         self.serial_write(chr(char))
-        logger.debug('Signal %s sent to terminal' % signal)
+        logger.info('Signal %s sent to terminal' % signal)
 
     def get_one_byte_answer(self, expected_signal):
         ascii_names = curses.ascii.controlnames
         one_byte_read = self.serial.read(1)
         expected_char = ascii_names.index(expected_signal)
         if one_byte_read == chr(expected_char):
-            logger.debug("%s received from terminal" % expected_signal)
+            logger.info("%s received from terminal" % expected_signal)
             return True
         else:
             return False
@@ -168,7 +168,7 @@ class TeliumPaymentTerminalDriver(Thread):
             data['private'] +
             data['delay'] +
             data['auto'])
-        logger.debug('Real message to send = %s' % real_msg)
+        logger.info('Real message to send = %s' % real_msg)
         assert len(real_msg) == 34, 'Wrong length for protocol E+'
         real_msg_with_etx = real_msg + chr(ascii_names.index('ETX'))
         lrc = self.generate_lrc(real_msg_with_etx)
@@ -194,7 +194,7 @@ class TeliumPaymentTerminalDriver(Thread):
             'currency_numeric': real_msg[12:15],
             'private': real_msg[15:26],
         }
-        logger.debug('answer_data = %s' % answer_data)
+        logger.info('answer_data = %s' % answer_data)
         self.compare_data_vs_answer(data, answer_data)
         return answer_data
 
@@ -202,7 +202,7 @@ class TeliumPaymentTerminalDriver(Thread):
         ascii_names = curses.ascii.controlnames
         full_msg_size = 1+2+1+8+1+3+10+1+1
         msg = self.serial.read(size=full_msg_size)
-        logger.debug('%d bytes read from terminal' % full_msg_size)
+        logger.info('%d bytes read from terminal' % full_msg_size)
         assert len(msg) == full_msg_size, 'Answer has a wrong size'
         if msg[0] != chr(ascii_names.index('STX')):
             logger.error(
@@ -217,7 +217,7 @@ class TeliumPaymentTerminalDriver(Thread):
             logger.error(
                 'The LRC of the answer from terminal is wrong')
         real_msg = msg[1:-2]
-        logger.debug('Real answer received = %s' % real_msg)
+        logger.info('Real answer received = %s' % real_msg)
         return self.parse_terminal_answer(real_msg, data)
 
     def transaction_start(self, payment_info):
@@ -228,7 +228,7 @@ class TeliumPaymentTerminalDriver(Thread):
             'payment_info_dict should be a dict'
         answer = {}
         try:
-            logger.debug(
+            logger.info(
                 'Opening serial port %s for payment terminal with baudrate %d'
                 % (self.device_name, self.device_rate))
             # IMPORTANT : don't modify timeout=3 seconds
@@ -237,7 +237,7 @@ class TeliumPaymentTerminalDriver(Thread):
             self.serial = Serial(
                 self.device_name, self.device_rate,
                 timeout=3)
-            logger.debug('serial.is_open = %s' % self.serial.isOpen())
+            logger.info('serial.is_open = %s' % self.serial.isOpen())
             if self.initialize_msg():
                 data = self.prepare_data_to_send(payment_info_dict)
                 if not data:
@@ -250,17 +250,15 @@ class TeliumPaymentTerminalDriver(Thread):
                     wait_terminal_answer = payment_info_dict.\
                         get('wait_terminal_answer', False)
                     if wait_terminal_answer:
-                        i = 0
-                        while i < 60:
+                        catch_result = False 
+                        while (catch_result != True) :
                             if self.get_one_byte_answer('ENQ'):
+                                catch_result = True
                                 self.send_one_byte_signal('ACK')
                                 answer = self.get_answer_from_terminal(data)
                                 self.send_one_byte_signal('ACK')
                                 if self.get_one_byte_answer('EOT'):
                                     logger.info("Answer received from Terminal")
-                                break
-                            time.sleep(1)
-                            i += 1
                     else:
                         if self.get_one_byte_answer('ENQ'):
                             self.send_one_byte_signal('ACK')
@@ -274,7 +272,7 @@ class TeliumPaymentTerminalDriver(Thread):
             logger.error('Exception in serial connection: %s' % str(e))
         finally:
             if self.serial:
-                logger.debug('Closing serial port for payment terminal')
+                logger.info('Closing serial port for payment terminal')
                 self.serial.close()
         return answer
 
@@ -299,7 +297,7 @@ class TeliumPaymentTerminalProxy(hw_proxy.Proxy):
         '/hw_proxy/payment_terminal_transaction_start',
         type='json', auth='none', cors='*')
     def payment_terminal_transaction_start(self, payment_info):
-        logger.debug(
+        logger.info(
             'Telium: Call payment_terminal_transaction_start with '
             'payment_info=%s', payment_info)
         driver.push_task('transaction_start', payment_info)
@@ -308,7 +306,7 @@ class TeliumPaymentTerminalProxy(hw_proxy.Proxy):
         '/hw_proxy/payment_terminal_transaction_start_with_return',
         type='json', auth='none', cors='*')
     def payment_terminal_transaction_start_with_return(self, payment_info):
-        logger.debug(
+        logger.info(
             'Telium: Call payment_terminal_transaction_start with return '
             'payment_info=%s', payment_info)
         answer = driver.transaction_start(payment_info)
