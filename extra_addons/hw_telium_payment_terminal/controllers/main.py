@@ -258,17 +258,17 @@ class TeliumPaymentTerminalDriver(Thread):
                 if not data:
                     return
                 self.send_message(data)
-                self.get_one_byte_answer('ACK'):
+                self.get_one_byte_answer('ACK')
                 self.send_one_byte_signal('EOT')
                 
                 wait_terminal_answer = payment_info_dict.get('wait_terminal_answer', False)
                 if wait_terminal_answer: 
                     logger.info("Now expecting answer from Terminal")
-                    self.get_one_byte_answer('ENQ'):
+                    self.get_one_byte_answer('ENQ')
                     self.send_one_byte_signal('ACK')
                     answer = self.get_answer_from_terminal(data)
                     self.send_one_byte_signal('ACK')
-                    self.get_one_byte_answer('EOT'):
+                    self.get_one_byte_answer('EOT')
                     logger.info("Answer received from Terminal")
                     logger.info(answer)
 
