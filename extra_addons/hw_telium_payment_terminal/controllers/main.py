@@ -82,6 +82,7 @@ class TeliumPaymentTerminalDriver(Thread):
     def serial_write(self, text):
         assert isinstance(text, str), 'text must be a string'
         self.serial.write(text)
+        logger.info('Text %s sent to terminal' % text)
 
     def initialize_msg(self):
         max_attempt = 3
@@ -107,14 +108,24 @@ class TeliumPaymentTerminalDriver(Thread):
 
     def get_one_byte_answer(self, expected_signal):
         ascii_names = curses.ascii.controlnames
-        one_byte_read = self.serial.read(1)
         expected_char = ascii_names.index(expected_signal)
-        if one_byte_read == chr(expected_char):
-            logger.info("%s received from terminal" % expected_signal)
-            return True
-        else:
-            return False
-
+        expected_char = False
+        logger.info('Waiting for the byte %s' % expected_char)
+        while (stop_loop != True) :
+            stop_loop = True
+            logger.info('    Exact byte received = %s' % ord(one_byte_read))
+            if one_byte_read == chr(expected_char):
+                expected_char = self.serial.read(1)
+                logger.info("        Expected byte")
+                return True
+            else:
+                logger.info("        UNEXPECTED byte")
+                #TODO : we should OR wait EITHER resend last sent byte EITHER send EOT and loop again (until 10 seconds ?)
+                self.serial.close()
+                self.serial = False
+                logger.info('UNEXPECTED CHAR => CLOSING SERIAL PORT')
+                return False
+    
     def prepare_data_to_send(self, payment_info_dict):
         amount = payment_info_dict['amount']
         if payment_info_dict['payment_mode'] == 'check':
@@ -136,6 +147,7 @@ class TeliumPaymentTerminalDriver(Thread):
         wait_terminal_answer = payment_info_dict.get('wait_terminal_answer',
                                                      False)
         wait = wait_terminal_answer is True and '0' or '1'
+        #TODO : set anwser_flag to 1 to get REP field in the response (card or cheque number and record it in the pos.order for tracability purpose)
         data = {
             'pos_number': str(1).zfill(2),
             'answer_flag': '0',
@@ -170,16 +182,15 @@ class TeliumPaymentTerminalDriver(Thread):
             data['auto'])
         logger.info('Real message to send = %s' % real_msg)
         assert len(real_msg) == 34, 'Wrong length for protocol E+'
-        real_msg_with_etx = real_msg + chr(ascii_names.index('ETX'))
         lrc = self.generate_lrc(real_msg_with_etx)
-        message = chr(ascii_names.index('STX')) + real_msg_with_etx + chr(lrc)
+        message = chr(ascii_names.index('STX')) + real_msg + chr(ascii_names.index('ETX')) + chr(lrc)
         self.serial_write(message)
         logger.info('Message sent to terminal')
 
     def compare_data_vs_answer(self, data, answer_data):
         for field in [
                 'pos_number', 'amount_msg',
-                'currency_numeric', 'private']:
+                'currency_numeric']:
             if data[field] != answer_data[field]:
                 logger.warning(
                     "Field %s has value '%s' in data and value '%s' in answer"
@@ -194,6 +205,7 @@ class TeliumPaymentTerminalDriver(Thread):
             'currency_numeric': real_msg[12:15],
             'private': real_msg[15:26],
         }
+        #TODO : record private data it in the pos.order for tracability purpose (
         logger.info('answer_data = %s' % answer_data)
         self.compare_data_vs_answer(data, answer_data)
         return answer_data
@@ -203,6 +215,7 @@ class TeliumPaymentTerminalDriver(Thread):
         full_msg_size = 1+2+1+8+1+3+10+1+1
         msg = self.serial.read(size=full_msg_size)
         logger.info('%d bytes read from terminal' % full_msg_size)
+        logger.info('Exact answer received = %s' % msg)
         assert len(msg) == full_msg_size, 'Answer has a wrong size'
         if msg[0] != chr(ascii_names.index('STX')):
             logger.error(
@@ -243,30 +256,19 @@ class TeliumPaymentTerminalDriver(Thread):
                 if not data:
                     return
                 self.send_message(data)
-                if self.get_one_byte_answer('ACK'):
-                    self.send_one_byte_signal('EOT')
-
+                self.get_one_byte_answer('ACK'):
+                self.send_one_byte_signal('EOT')
+                
+                wait_terminal_answer = payment_info_dict.get('wait_terminal_answer', False)
+                if wait_terminal_answer: 
                     logger.info("Now expecting answer from Terminal")
-                    wait_terminal_answer = payment_info_dict.\
-                        get('wait_terminal_answer', False)
-                    if wait_terminal_answer:
-                        catch_result = False 
-                        while (catch_result != True) :
-                            if self.get_one_byte_answer('ENQ'):
-                                catch_result = True
-                                self.send_one_byte_signal('ACK')
-                                answer = self.get_answer_from_terminal(data)
-                                self.send_one_byte_signal('ACK')
-                                if self.get_one_byte_answer('EOT'):
-                                    logger.info("Answer received from Terminal")
-                    else:
-                        if self.get_one_byte_answer('ENQ'):
-                            self.send_one_byte_signal('ACK')
-                            answer = self.get_answer_from_terminal(data)
-                            self.send_one_byte_signal('ACK')
-                            if self.get_one_byte_answer('EOT'):
-                                logger.info("Answer received from Terminal")
-                    logger.warning(answer)
+                    self.get_one_byte_answer('ENQ'):
+                    self.send_one_byte_signal('ACK')
+                    answer = self.get_answer_from_terminal(data)
+                    self.send_one_byte_signal('ACK')
+                    self.get_one_byte_answer('EOT'):
+                    logger.info("Answer received from Terminal")
+                    logger.info(answer)
 
         except Exception, e:
             logger.error('Exception in serial connection: %s' % str(e))
