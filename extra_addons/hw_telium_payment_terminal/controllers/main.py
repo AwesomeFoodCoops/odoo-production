@@ -106,28 +106,30 @@ class TeliumPaymentTerminalDriver(Thread):
         self.serial_write(chr(char))
         logger.info('Signal %s sent to terminal' % signal)
 
-    def get_one_byte_answer(self, expected_signal):
+    def get_one_byte_answer(self, expected_signal, max_attempt=3):
         res = False
         ascii_names = curses.ascii.controlnames
         expected_char = ascii_names.index(expected_signal)
         get_expected_char = False
         logger.info('Waiting for the byte %s' % expected_char)
-        max_attempt = 3
-        attempt_nr = 0
+        attempt_nbr = 0
         while ((get_expected_char != True) and (attempt_nr < max_attempt)):
-            attempt_nr += 1
+            attempt_nbr += 1
             one_byte_read = self.serial.read(1)
-            logger.info('    Exact byte received = %s' % ord(one_byte_read))
-            if one_byte_read == chr(expected_char):
-                get_expected_char = True
-                logger.info("        Expected byte")
-                res = True
-            else:
-                logger.info("        UNEXPECTED byte")
-                buf = self.serial.read(100)
-                logger.info('Last 100 char in the serial buffer before closing : %s' % buf)
-                #TODO : we should OR wait EITHER resend last sent byte EITHER send EOT and loop again (until 10 seconds ?)
-                res = False                
+            if len(one_byte_read) > 0 :
+                logger.info('    Exact byte received = %s' % ord(one_byte_read))
+                if one_byte_read == chr(expected_char):
+                    get_expected_char = True
+                    logger.info("        Expected byte")
+                    res = True
+                else:
+                    logger.info("        UNEXPECTED byte")
+                    buf = self.serial.read(100)
+                    logger.info('Last 100 char in the serial buffer before closing : %s' % buf)
+                    #TODO : we should OR wait EITHER resend last sent byte EITHER send EOT and loop again (until 10 seconds ?)
+                    res = False
+            else :
+                logger.info('No byte in buffer')
         if res != True :
                 self.serial.close()
                 self.serial = False
@@ -273,7 +275,7 @@ class TeliumPaymentTerminalDriver(Thread):
                 wait_terminal_answer = payment_info_dict.get('wait_terminal_answer', False)
                 if wait_terminal_answer: 
                     logger.info("Now expecting answer from Terminal")
-                    self.get_one_byte_answer('ENQ')
+                    self.get_one_byte_answer('ENQ',40)
                     self.send_one_byte_signal('ACK')
                     answer = self.get_answer_from_terminal(data)
                     self.send_one_byte_signal('ACK')
