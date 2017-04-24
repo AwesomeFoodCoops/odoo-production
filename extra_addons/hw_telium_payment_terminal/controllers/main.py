@@ -109,13 +109,14 @@ class TeliumPaymentTerminalDriver(Thread):
     def get_one_byte_answer(self, expected_signal):
         ascii_names = curses.ascii.controlnames
         expected_char = ascii_names.index(expected_signal)
-        expected_char = False
+        get_expected_char = False
         logger.info('Waiting for the byte %s' % expected_char)
-        while (stop_loop != True) :
+        while (get_expected_char != True) :
             stop_loop = True
             logger.info('    Exact byte received = %s' % ord(one_byte_read))
+            expected_char = self.serial.read(1)
             if one_byte_read == chr(expected_char):
-                expected_char = self.serial.read(1)
+                get_expected_char = True
                 logger.info("        Expected byte")
                 return True
             else:
