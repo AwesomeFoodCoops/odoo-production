@@ -273,15 +273,17 @@ class TeliumPaymentTerminalDriver(Thread):
                 self.send_one_byte_signal('EOT')
                 
                 wait_terminal_answer = payment_info_dict.get('wait_terminal_answer', False)
-                if wait_terminal_answer: 
-                    logger.info("Now expecting answer from Terminal")
+                logger.info("Now expecting answer from Terminal")
+                if wait_terminal_answer:
                     self.get_one_byte_answer('ENQ',40)
-                    self.send_one_byte_signal('ACK')
-                    answer = self.get_answer_from_terminal(data)
-                    self.send_one_byte_signal('ACK')
-                    self.get_one_byte_answer('EOT')
-                    logger.info("Answer received from Terminal")
-                    logger.info(answer)
+                else :
+                    self.get_one_byte_answer('ENQ',1)
+                self.send_one_byte_signal('ACK')
+                answer = self.get_answer_from_terminal(data)
+                self.send_one_byte_signal('ACK')
+                self.get_one_byte_answer('EOT')
+                logger.info("Answer received from Terminal")
+                logger.info(answer)
 
         except Exception, e:
             logger.error('Exception in serial connection: %s' % str(e))
