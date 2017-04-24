@@ -185,8 +185,9 @@ class TeliumPaymentTerminalDriver(Thread):
             data['auto'])
         logger.info('Real message to send = %s' % real_msg)
         assert len(real_msg) == 34, 'Wrong length for protocol E+'
+        real_msg_with_etx = real_msg + chr(ascii_names.index('ETX'))
         lrc = self.generate_lrc(real_msg_with_etx)
-        message = chr(ascii_names.index('STX')) + real_msg + chr(ascii_names.index('ETX')) + chr(lrc)
+        message = chr(ascii_names.index('STX')) + real_msg_with_etx + chr(lrc)
         self.serial_write(message)
         logger.info('Message sent to terminal')
 
