@@ -20,26 +20,28 @@ class CapitalCertificateWizard(models.TransientModel):
     @api.multi
     def generate_certificates(self, data):
         self.ensure_one()
-
+        cfc_obj = self.env['capital.fundraising.category']
+        accounts = tuple(c.capital_account_id.id for c in cfc_obj.search([]))
         query = """
             SELECT
                 rp.id
             FROM
-                res_partner as rp, account_invoice as ai,
-            account_invoice_line as ail,
-            product_product as pp, product_template as pt
+                res_partner as rp, account_move_line as aml,
+                product_product as pp, product_template as pt
             WHERE
-                rp.id = ai.partner_id AND
-                ail.invoice_id = ai.id AND ail.product_id = pp.id AND
+                rp.id = aml.partner_id AND aml.product_id = pp.id AND
                 pp.product_tmpl_id = pt.id AND
                 pt.is_capital_fundraising is true AND
-                EXTRACT(YEAR FROM ai.date_invoice) = %s
+                EXTRACT(YEAR FROM aml.date) = %s AND
+                aml.account_id IN %s
             GROUP BY
-                rp.id
+                rp.id;
         """
 
         year = self.read(['year'])[0]['year']
-        params = tuple([str(year)])
+        params = [str(year)]
+        params.append(accounts)
+        params = tuple(params)
         self.env.cr.execute(query, params)
         partner_ids = self.env.cr.fetchall()
         partner_ids = [p[0] for p in partner_ids]

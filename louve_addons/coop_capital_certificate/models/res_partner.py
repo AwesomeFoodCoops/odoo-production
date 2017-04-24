@@ -29,14 +29,9 @@ class ResPartner(models.Model):
         min_date = "%s-01-01" % (year)
         max_date = "%s-01-01" % (year + 1)
 
-        config = self.env['account.config.settings'].search([])[0]
-        account_ids = config.capital_account_ids
-        if not account_ids:
-            raise UserError(_(
-                """Please define the Capital Partner accounts in the """
-                """Accounting / Configuration / Configuration menu."""))
-        account_list = [account.id for account in account_ids]
-
+        cfc_obj = self.env['capital.fundraising.category']
+        account_list = tuple(
+            [c.capital_account_id.id for c in cfc_obj.search([])])
         for partner in self:
             lines = []
             aml_ids = aml_obj.search([
@@ -44,28 +39,17 @@ class ResPartner(models.Model):
                 ('date', '>=', min_date),
                 ('date', '<', max_date),
                 ('account_id', 'in', account_list),
-                ('debit', '>', 0),
+                ('credit', '>', 0),
             ], order='account_id')
             for aml in aml_ids:
-                amount = 0
                 price = aml.product_id.list_price
-                qty = aml.debit / price
-                credit_moves = sorted(
-                    aml.matched_credit_ids,
-                    key=lambda m: m.credit_move_id.date, reverse=True)
-                payment_date = credit_moves and\
-                    credit_moves[0].credit_move_id.date or fields.Date.today()
-                if not aml.reconciled:
-                    amount = credit_moves and\
-                        sum([cm.credit for cm in credit_moves]) or 0
+                qty = aml.credit / price
                 lines.append({
-                    'date': aml.date,
+                    'date': aml.invoice_id.date_invoice,
                     'qty': qty,
-                    'category': aml.account_id.name[-1:],
+                    'product': aml.product_id.name,
                     'price': price,
-                    'payment_date': payment_date,
-                    'reconciled': aml.reconciled,
-                    'amount': amount,
+                    'payment_date': aml.date,
                 })
 
             lines = map(lambda x: (0, 0, x), lines)

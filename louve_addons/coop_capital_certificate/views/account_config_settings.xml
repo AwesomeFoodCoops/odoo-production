@@ -8,7 +8,6 @@
                 <separator name="capital_certificate" string="Capital Certificate Configuration"/>
                 <group name="capital_certificate">
                     <field name="capital_certificate_header"/>
-                    <field name="capital_account_ids" options="{'no_create': True}" widget="many2many_tags" domain="[('user_type_id.name', '=', 'Recevable')]"/>
                 </group>
             </xpath>
         </field>

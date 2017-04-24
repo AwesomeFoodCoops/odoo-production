@@ -7,11 +7,10 @@ Coop Capital Certificate
 
 * Create a Capital Certificate wizard available for group_account_manager
 * Parameter is fiscal year (default = N-1)
-* The wizard generates a single report for each partner that sums all his capital invoices
+* The wizard generates a single report for each partner that has any capital fundraising moves in the selected year. For that, we consider the capital_account_id defined in the fundraising category.
 * The wizard sends an email with attached report to all partner that have bought capital in the selected year
 * Additional parameters are in Accounting/Configuration/Configuration:
     * header of report
-    * partner accounts used for capital subscription. The name of the account should end by the capital category. e.g.: '456250 - Capital Parts A'
 
 Issues / Roadmap
 ================

@@ -12,8 +12,3 @@ class ResCompany(models.Model):
     capital_certificate_header = fields.Char(
         "Capital Certificate Header",
         help="example: 'La S.A.S. Coopérative à Capital Variable LA LOUVE'")
-    capital_account_ids = fields.One2many(
-        string='Capital Partner Accounts', comodel_name='account.account',
-        inverse_name='capital_certificate_config_id',
-        help="""List here all Capital concerned Partner Accounts. They will"""
-        """ be used to know if a partner paid his subscription.""")

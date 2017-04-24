@@ -16,10 +16,8 @@
             <br/>
             <h2>subscribed:</h2>
             <tr t-foreach="certificate.line_ids" t-as="line">
-                <p><span t-esc="line.qty"/> actions of category <span t-esc="line.category"/> at the face value of <span t-esc="line.price"/><span t-esc="partner_id.company_id.currency_id.symbol"/>  on <span t-esc="datetime.datetime.strptime(line.date,'%Y-%m-%d').strftime('%d/%m/%Y')"/>
-                <t t-if="line.reconciled"> totaly paid at </t>
-                <t t-if="not line.reconciled">of which <span t-esc="line.amount"/><span t-esc="partner_id.company_id.currency_id.symbol"/> where paid at</t>
-                <span t-esc="datetime.datetime.strptime(line.payment_date,'%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                <p><span t-esc="line.qty"/> <span t-esc="line.product"/> at the face value of <span t-esc="line.price"/><span t-esc="partner_id.company_id.currency_id.symbol"/>  on <span t-esc="datetime.datetime.strptime(line.date,'%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                paid on <span t-esc="datetime.datetime.strptime(line.payment_date,'%Y-%m-%d').strftime('%d/%m/%Y')"/>
                 </p>
             </tr>
 

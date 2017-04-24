@@ -80,7 +80,5 @@ class CapitalCertificateLine(models.Model):
     date = fields.Date("Invoice Date")
     payment_date = fields.Date("Payment Date")
     qty = fields.Integer("Quantity")
-    category = fields.Char("Category")
+    product = fields.Char("Category")
     price = fields.Float("Unit Price")
-    reconciled = fields.Boolean("Reconciled")
-    amount = fields.Float("Amount")
