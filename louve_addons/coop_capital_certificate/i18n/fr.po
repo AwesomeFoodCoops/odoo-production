@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-15 18:24+0000\n"
-"PO-Revision-Date: 2017-04-15 18:24+0000\n"
+"POT-Creation-Date: 2017-04-24 12:23+0000\n"
+"PO-Revision-Date: 2017-04-24 12:23+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,14 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_capital_certificate
-#: model:mail.template,report_name:coop_capital_certificate.capital_certificate_mail_template
-msgid "${(object.partner_id.name or '').replace('/','_')}_${object.partner_id.state == 'draft' and 'draft' or ''}"
-msgstr "${(object.partner_id.name or '').replace('/','_')}_${object.partner_id.state == 'draft' and 'draft' or ''}"
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid ", dont l’objet social est la vente en commerce de détail, dont le siège social est sis"
+msgstr ", dont l’objet social est la vente en commerce de détail, dont le siège social est sis"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid ", et qui remplit les conditions mentionnées aux c, d et e du 2° du I de l'article 199 terdecies-0 A du CGI"
+msgstr ", et qui remplit les conditions mentionnées aux c, d et e du 2° du I de l'article 199 terdecies-0 A du CGI"
 
 #. module: coop_capital_certificate
 #: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
@@ -46,16 +51,6 @@ msgid "Account"
 msgstr "Compte"
 
 #. module: coop_capital_certificate
-#: model:ir.model.fields,field_description:coop_capital_certificate.field_res_partner_age
-msgid "Age"
-msgstr "Age"
-
-#. module: coop_capital_certificate
-#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_amount
-msgid "Amount"
-msgstr "Montant"
-
-#. module: coop_capital_certificate
 #: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_view
 msgid "Be careful!<br/>\n"
 "                    By clicking on the Generate button, an email will be sent to every partner that suscribed capital in the selected year"
@@ -68,24 +63,19 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #. module: coop_capital_certificate
-#: model:ir.actions.act_window,name:coop_capital_certificate.capital_certificate_action
 #: model:ir.actions.report.xml,name:coop_capital_certificate.action_report_capital_certificate
-#: model:ir.ui.menu,name:coop_capital_certificate.capital_certificate_menu
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
 msgid "Capital Certificate"
 msgstr "Certificats Fiscaux"
 
 #. module: coop_capital_certificate
-#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
-msgid "Capital Certificate"
-msgstr "Certificat d'Actionaire"
-
-#. module: coop_capital_certificate
 #: model:ir.ui.view,arch_db:coop_capital_certificate.view_capital_certificate_config
 msgid "Capital Certificate Configuration"
-msgstr "Capital Certificate Configuration"
+msgstr "Configuration des Certificats de Capital"
 
 #. module: coop_capital_certificate
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_account_config_settings_capital_certificate_header
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_res_company_capital_certificate_header
 msgid "Capital Certificate Header"
 msgstr "Entête de Certificat de Capital"
 
@@ -100,18 +90,12 @@ msgid "Capital Fiscal Certificate Report"
 msgstr "Rapport des Certificats de Capital"
 
 #. module: coop_capital_certificate
-#: model:ir.model.fields,field_description:coop_capital_certificate.field_account_config_settings_capital_account_ids
-#: model:ir.model.fields,field_description:coop_capital_certificate.field_res_company_capital_account_ids
-msgid "Capital Partner Accounts"
-msgstr "Compte de tiers de capital"
-
-#. module: coop_capital_certificate
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_account_account_capital_certificate_config_id
 msgid "Capital certificate config id"
 msgstr "Capital certificate config id"
 
 #. module: coop_capital_certificate
-#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_category
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_product
 msgid "Category"
 msgstr "Catégorie"
 
@@ -119,6 +103,11 @@ msgstr "Catégorie"
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_certificate_id
 msgid "Certificate"
 msgstr "Certificat"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "Cet état individuel est établi en l'application   de l'article 199 terdecies-0 A du CGI par"
+msgstr "Cet état individuel est établi en l'application   de l'article 199 terdecies-0 A du CGI par"
 
 #. module: coop_capital_certificate
 #: model:ir.model,name:coop_capital_certificate.model_res_company
@@ -142,17 +131,23 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: coop_capital_certificate
-#: model:ir.model.fields,field_description:coop_capital_certificate.field_res_partner_current_tmpl_reg_line_ids
-msgid "Current Template"
-msgstr "Créneau actuel"
-
-#. module: coop_capital_certificate
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_display_name
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_display_name
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard_display_name
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_report_coop_capital_certificate_report_capital_certificate_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "Done in"
+msgstr "Fait à"
+
+#. module: coop_capital_certificate
+#: model:ir.actions.act_window,name:coop_capital_certificate.capital_certificate_action
+#: model:ir.ui.menu,name:coop_capital_certificate.capital_certificate_menu
+msgid "Edit Capital Certificate"
+msgstr "Envoyer Certificats de Capital"
 
 #. module: coop_capital_certificate
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_template_id
@@ -202,20 +197,9 @@ msgid "Last Updated on"
 msgstr "Mis à jour le"
 
 #. module: coop_capital_certificate
-#: model:ir.model.fields,field_description:coop_capital_certificate.field_res_partner_leave_ids
-msgid "Leaves"
-msgstr "Congés"
-
-#. module: coop_capital_certificate
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_ids
 msgid "Lines"
 msgstr "Lignes"
-
-#. module: coop_capital_certificate
-#: model:ir.model.fields,help:coop_capital_certificate.field_account_config_settings_capital_account_ids
-#: model:ir.model.fields,help:coop_capital_certificate.field_res_company_capital_account_ids
-msgid "List here all Capital concerned Partner Accounts. They will be used to know if a partner paid his subscription."
-msgstr "Lister tous les comptes de tiers utilisés pour le capital. Ils seront utilisés pour savoir si le partenaire a payé sa souscription."
 
 #. module: coop_capital_certificate
 #: model:ir.model,name:coop_capital_certificate.model_res_partner
@@ -229,20 +213,20 @@ msgid "Payment Date"
 msgstr "Date de règlement"
 
 #. module: coop_capital_certificate
-#: code:addons/coop_capital_certificate/models/res_partner.py:35
-#, python-format
-msgid "Please define the Capital Partner accounts in the Accounting / Configuration / Configuration menu."
-msgstr "Merci de définir les comptes de tiers de capitaux dans le menu Facturation / Configuration / Configuration."
-
-#. module: coop_capital_certificate
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_qty
 msgid "Quantity"
 msgstr "Quantité"
 
 #. module: coop_capital_certificate
-#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_reconciled
-msgid "Reconciled"
-msgstr "Lettré"
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_account_config_settings_signature
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_res_company_signature
+msgid "Signature"
+msgstr "Signature"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "The President"
+msgstr "Le Président"
 
 #. module: coop_capital_certificate
 #: model:ir.model.fields,help:coop_capital_certificate.field_capital_certificate_template_id
@@ -272,11 +256,6 @@ msgstr "account.config.settings"
 
 #. module: coop_capital_certificate
 #: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
-msgid "actions of category"
-msgstr "actions de categorie"
-
-#. module: coop_capital_certificate
-#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
 msgid "at the face value of"
 msgstr "au nominal de"
 
@@ -297,18 +276,19 @@ msgstr "certifie que"
 
 #. module: coop_capital_certificate
 #: model:ir.model.fields,help:coop_capital_certificate.field_account_config_settings_capital_certificate_header
+#: model:ir.model.fields,help:coop_capital_certificate.field_res_company_capital_certificate_header
 msgid "example: 'La S.A.S. Coopérative à Capital Variable LA LOUVE'"
 msgstr "exemple: 'La S.A.S. Coopérative à Capital Variable LA LOUVE'"
 
 #. module: coop_capital_certificate
 #: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
-msgid "of which"
-msgstr "dont"
+msgid "on"
+msgstr "le"
 
 #. module: coop_capital_certificate
 #: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
-msgid "on"
-msgstr "le"
+msgid "paid on"
+msgstr "payées le"
 
 #. module: coop_capital_certificate
 #: model:ir.model,name:coop_capital_certificate.model_report_coop_capital_certificate_report_capital_certificate
@@ -319,13 +299,3 @@ msgstr "report.coop_capital_certificate.report_capital_certificate"
 #: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
 msgid "subscribed:"
 msgstr "a souscrit:"
-
-#. module: coop_capital_certificate
-#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
-msgid "totaly paid at"
-msgstr "totalement payées le"
-
-#. module: coop_capital_certificate
-#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
-msgid "where paid at"
-msgstr "ont été payés au"
