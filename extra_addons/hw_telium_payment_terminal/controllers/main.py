@@ -120,16 +120,16 @@ class TeliumPaymentTerminalDriver(Thread):
                 logger.info('    Exact byte received = %s' % ord(one_byte_read))
                 if one_byte_read == chr(expected_char):
                     get_expected_char = True
-                    logger.info("        Expected byte")
+                    logger.info("        It's the expected byte.")
                     res = True
                 else:
-                    logger.info("        UNEXPECTED byte")
+                    logger.info("        It's NOT the expected byte !")
                     buf = self.serial.read(100)
                     logger.info('Last 100 char in the serial buffer before closing : %s' % buf)
                     #TODO : we should OR wait EITHER resend last sent byte EITHER send EOT and loop again (until 10 seconds ?)
                     res = False
             else :
-                logger.info('No byte in buffer')
+                logger.info('No byte in buffer. Attempt number'+str(attempt_nbr)+' of '+str(max_attempt))
         if res != True :
                 self.serial.close()
                 self.serial = False
