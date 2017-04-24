@@ -38,6 +38,7 @@ class ResPartner(models.Model):
                 price = aml.product_id.list_price
                 qty = aml.credit / price
                 lines.append({
+                    'account_move_line_id': aml.id,
                     'date': aml.invoice_id.date_invoice,
                     'qty': qty,
                     'product': aml.product_id.name,

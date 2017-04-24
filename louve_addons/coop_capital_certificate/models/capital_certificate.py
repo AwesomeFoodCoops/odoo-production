@@ -75,6 +75,8 @@ class CapitalCertificate(models.Model):
 class CapitalCertificateLine(models.Model):
     _name = "capital.certificate.line"
 
+    account_move_line_id = fields.Many2one(
+        string="Account Move Line", comodel_name="account.move.line")
     certificate_id = fields.Many2one(
         string="Certificate", comodel_name="capital.certificate")
     date = fields.Date("Invoice Date")
