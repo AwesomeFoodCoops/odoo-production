@@ -107,27 +107,32 @@ class TeliumPaymentTerminalDriver(Thread):
         logger.info('Signal %s sent to terminal' % signal)
 
     def get_one_byte_answer(self, expected_signal):
+        res = False
         ascii_names = curses.ascii.controlnames
         expected_char = ascii_names.index(expected_signal)
         get_expected_char = False
         logger.info('Waiting for the byte %s' % expected_char)
-        while (get_expected_char != True) :
-            stop_loop = True
+        max_attempt = 3
+        attempt_nr = 0
+        while ((get_expected_char != True) and (attempt_nr < max_attempt)):
+            attempt_nr += 1
             one_byte_read = self.serial.read(1)
             logger.info('    Exact byte received = %s' % ord(one_byte_read))
             if one_byte_read == chr(expected_char):
                 get_expected_char = True
                 logger.info("        Expected byte")
-                return True
+                res = True
             else:
                 logger.info("        UNEXPECTED byte")
-                #TODO : we should OR wait EITHER resend last sent byte EITHER send EOT and loop again (until 10 seconds ?)
                 buf = self.serial.read(100)
                 logger.info('Last 100 char in the serial buffer before closing : %s' % buf)
+                #TODO : we should OR wait EITHER resend last sent byte EITHER send EOT and loop again (until 10 seconds ?)
+                res = False                
+        if res != True :
                 self.serial.close()
                 self.serial = False
                 logger.info('UNEXPECTED CHAR => CLOSING SERIAL PORT')
-                return False
+        return res
     
     def prepare_data_to_send(self, payment_info_dict):
         amount = payment_info_dict['amount']
@@ -255,6 +260,8 @@ class TeliumPaymentTerminalDriver(Thread):
                 self.device_name, self.device_rate,
                 timeout=3)
             logger.info('serial.is_open = %s' % self.serial.isOpen())
+            buf = self.serial.read(100)
+            logger.info('Last 100 char in the serial buffer on connection : %s' % buf)
             if self.initialize_msg():
                 data = self.prepare_data_to_send(payment_info_dict)
                 if not data:
