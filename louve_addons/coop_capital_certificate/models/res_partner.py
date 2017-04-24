@@ -7,13 +7,6 @@ from openerp import api, fields, models, _
 from openerp.exceptions import UserError
 
 
-FUNDRAISING_CATEGORIES = [
-    'is_part_A',
-    'is_part_B',
-    'is_part_C',
-]
-
-
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
