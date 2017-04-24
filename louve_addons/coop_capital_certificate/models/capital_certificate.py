@@ -21,7 +21,7 @@ class CapitalCertificate(models.Model):
         inverse_name="certificate_id")
 
     @api.multi
-    def execute(self):
+    def send_mail(self):
         self.ensure_one()
         res_id = self.id
         template_id = self.template_id.id
@@ -40,9 +40,17 @@ class CapitalCertificate(models.Model):
 
         Mail = self.env['mail.mail']
         Attachment = self.env['ir.attachment']
-        email_to = ",".join([p.email for p in self.env['res.partner'].browse(
-            values['partner_ids'])])
-        vals = {
+        attachment_vals = self._prepare_attachment(values)
+        attachment_ids = Attachment.create(attachment_vals)
+        mail_vals = self._prepare_mail(values, attachment_ids)
+        mail = Mail.create(mail_vals)
+        mail.send()
+        return values
+
+    @api.multi
+    def _prepare_attachment(self, values={}):
+        self.ensure_one()
+        return {
             'name': (self.partner_id.name + ' - ' + str(self.year) +
                      '.pdf').replace(',', ''),
             'datas_fname': (self.partner_id.name + ' - ' + str(self.year) +
@@ -54,8 +62,13 @@ class CapitalCertificate(models.Model):
             'public': False,
             'datas': values['attachments'][0][1],
         }
-        attachment_ids = Attachment.create(vals)
-        mail = Mail.create({
+
+    @api.multi
+    def _prepare_mail(self, values={}, attachment_ids=None):
+        self.ensure_one()
+        email_to = ",".join([p.email for p in self.env['res.partner'].browse(
+            values['partner_ids'])])
+        return {
             'body_html': values['body'],
             'email_to': email_to,
             'recipient_ids': (0, 0, values['partner_ids']),
@@ -67,9 +80,7 @@ class CapitalCertificate(models.Model):
             'reply_to': values['reply_to'],
             'attachment_ids': [(6, 0, [a.id for a in attachment_ids])],
             'mail_server_id': self.env['ir.mail_server'].search([])[0].id
-        })
-        mail.send()
-        return values
+        }
 
 
 class CapitalCertificateLine(models.Model):

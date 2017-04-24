@@ -53,4 +53,4 @@ class ResPartner(models.Model):
                 'template_id': mail_template.id,
                 'line_ids': lines,
             })
-            cc.execute()
+            cc.send_mail()
