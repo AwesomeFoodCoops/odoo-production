@@ -22,15 +22,15 @@
         </field>
     </record>
 
-    <record id="capital_certificate_action" model="ir.actions.act_window">
+    <record id="edit_capital_certificate_action" model="ir.actions.act_window">
         <field name="name">Edit Capital Certificate</field>
         <field name="res_model">capital.certificate.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
 
-    <menuitem id="capital_certificate_menu"
+    <menuitem id="edit_capital_certificate_menu"
         parent="capital_subscription.menu_capital_main"
-        action="capital_certificate_action"
+        action="edit_capital_certificate_action"
         sequence="100" />
 </odoo>
