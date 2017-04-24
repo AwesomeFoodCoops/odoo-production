@@ -24,7 +24,7 @@ class ResPartner(models.Model):
         compute="_compute_capital_certificate_count")
 
     @api.multi
-    def generate_certificate(self, year=False):
+    def generate_certificate(self, year=False, send_mail=False):
         if not year:
             return False
 
@@ -66,4 +66,4 @@ class ResPartner(models.Model):
                 'template_id': mail_template.id,
                 'line_ids': lines,
             })
-            cc.send_mail()
+            cc.create_certificate(send_mail)

@@ -21,7 +21,7 @@ class CapitalCertificate(models.Model):
         inverse_name="certificate_id")
 
     @api.multi
-    def send_mail(self):
+    def create_certificate(self, send_mail=False):
         self.ensure_one()
         res_id = self.id
         template_id = self.template_id.id
@@ -38,14 +38,15 @@ class CapitalCertificate(models.Model):
             if template_values.get(field))
         values['body'] = values.pop('body_html', '')
 
-        Mail = self.env['mail.mail']
         Attachment = self.env['ir.attachment']
         attachment_vals = self._prepare_attachment(values)
         attachment_ids = Attachment.create(attachment_vals)
-        mail_vals = self._prepare_mail(values, attachment_ids)
-        mail = Mail.create(mail_vals)
-        mail.send()
-        return values
+
+        if send_mail:
+            Mail = self.env['mail.mail']
+            mail_vals = self._prepare_mail(values, attachment_ids)
+            mail = Mail.create(mail_vals)
+            mail.send()
 
     @api.multi
     def _prepare_attachment(self, values={}):

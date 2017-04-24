@@ -16,6 +16,11 @@ class CapitalCertificateWizard(models.TransientModel):
         return current_date.year - 1
 
     year = fields.Integer(string="Year", default=_get_default_year)
+    send_mail = fields.Boolean(
+        "Send Mail", default=True, help="""If the box is checked, an email """
+        """ will be automatically sent to partners who subscribed capital."""
+        """If it isn't checked, the pdf files will be created but not sent """
+        """by email.""")
 
     @api.multi
     def generate_certificates(self, data):
@@ -47,4 +52,4 @@ class CapitalCertificateWizard(models.TransientModel):
         partner_ids = [p[0] for p in partner_ids]
 
         partners = self.env['res.partner'].browse(partner_ids)
-        partners.generate_certificate(year)
+        partners.generate_certificate(year, self.send_mail)
