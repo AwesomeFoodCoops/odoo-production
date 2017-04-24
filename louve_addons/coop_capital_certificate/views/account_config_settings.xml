@@ -8,6 +8,7 @@
                 <separator name="capital_certificate" string="Capital Certificate Configuration"/>
                 <group name="capital_certificate">
                     <field name="capital_certificate_header"/>
+                    <field name="signature"/>
                 </group>
             </xpath>
         </field>

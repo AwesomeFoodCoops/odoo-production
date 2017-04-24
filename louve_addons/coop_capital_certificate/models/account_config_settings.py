@@ -13,3 +13,5 @@ class AccountConfigSettings(models.TransientModel):
         "Capital Certificate Header",
         related='company_id.capital_certificate_header',
         help="example: 'La S.A.S. Coopérative à Capital Variable LA LOUVE'")
+    signature = fields.Binary(
+        "Signature", attachment=True, related='company_id.signature')

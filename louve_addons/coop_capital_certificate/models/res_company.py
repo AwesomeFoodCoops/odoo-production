@@ -12,3 +12,4 @@ class ResCompany(models.Model):
     capital_certificate_header = fields.Char(
         "Capital Certificate Header",
         help="example: 'La S.A.S. Coopérative à Capital Variable LA LOUVE'")
+    signature = fields.Binary("Signature", attachment=True)
