@@ -15,12 +15,34 @@ class CapitalCertificateWizard(models.TransientModel):
         current_date = fields.Date.from_string(fields.Date.today())
         return current_date.year - 1
 
+    def _get_partner_selection(self):
+        return [
+            ('list', 'List of partners'),
+            ('all', 'All partners'),
+        ]
+
     year = fields.Integer(string="Year", default=_get_default_year)
     send_mail = fields.Boolean(
         "Send Mail", default=True, help="""If the box is checked, an email """
         """ will be automatically sent to partners who subscribed capital."""
         """If it isn't checked, the pdf files will be created but not sent """
         """by email.""")
+    partner_selection = fields.Selection(
+        _get_partner_selection, string="Partner Selection")
+    partner_ids = fields.Many2many(
+        'res.partner', 'res_partner_capital_certificate_rel',
+        'capital_certificate_id', 'partner_id', string="Partners")
+
+    @api.model
+    def default_get(self, fields):
+        res = super(CapitalCertificateWizard, self).default_get(fields)
+        partner_list = self.env.context.get('active_ids', False)
+        if partner_list:
+            res['partner_ids'] = [(6, 0, partner_list)]
+            res['partner_selection'] = 'list'
+        else:
+            res['partner_selection'] = 'all'
+        return res
 
     @api.multi
     def generate_certificates(self, data):
@@ -39,13 +61,22 @@ class CapitalCertificateWizard(models.TransientModel):
                 pt.is_capital_fundraising is true AND
                 EXTRACT(YEAR FROM aml.date) = %s AND
                 aml.account_id IN %s
-            GROUP BY
-                rp.id;
         """
 
         year = self.read(['year'])[0]['year']
         params = [str(year)]
         params.append(accounts)
+
+        if self.partner_selection == 'list':
+            query += """
+                AND rp.id IN %s
+            """
+            params.append(tuple(p.id for p in self.partner_ids))
+
+        query += """
+            GROUP BY
+                rp.id;
+        """
         params = tuple(params)
         self.env.cr.execute(query, params)
         partner_ids = self.env.cr.fetchall()
