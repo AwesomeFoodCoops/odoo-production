@@ -113,7 +113,7 @@ class TeliumPaymentTerminalDriver(Thread):
         get_expected_char = False
         logger.info('Waiting for the byte %s' % expected_char)
         attempt_nbr = 0
-        while ((get_expected_char != True) and (attempt_nr < max_attempt)):
+        while ((get_expected_char != True) and (attempt_nbr < max_attempt)):
             attempt_nbr += 1
             one_byte_read = self.serial.read(1)
             if len(one_byte_read) > 0 :
