@@ -6,7 +6,7 @@
 from openerp import fields, models
 
 
-class ResPartner(models.Model):
+class AccountAccount(models.Model):
     _inherit = "account.account"
 
     capital_certificate_config_id = fields.Many2one(
