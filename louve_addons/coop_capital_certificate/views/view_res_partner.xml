@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="view_res_partner_form">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="%(coop_capital_certificate.act_capital_certificate_from_partner)d" type="action" groups="account.group_account_manager" class="oe_stat_button" icon="fa-money" help="View Capital Certificates">
+                    <field name="capital_certificate_count" widget="statinfo" string="Capital Certif."/>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

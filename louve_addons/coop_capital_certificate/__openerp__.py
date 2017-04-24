@@ -22,6 +22,7 @@
         'wizard/view_capital_certificate.xml',
         'views/account_config_settings.xml',
         'views/view_capital_certificate.xml',
+        'views/view_res_partner.xml',
     ],
     'demo': [
     ],

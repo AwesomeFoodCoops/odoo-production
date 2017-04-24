@@ -3,12 +3,25 @@
 # @author: Julien Weste (julien.weste@akretion.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models, _
-from openerp.exceptions import UserError
+from openerp import api, fields, models
 
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
+
+    @api.multi
+    @api.depends('capital_certificate_ids')
+    def _compute_capital_certificate_count(self):
+        for partner in self:
+            partner.capital_certificate_count = len(
+                partner.capital_certificate_ids)
+
+    capital_certificate_ids = fields.One2many(
+        string="Capital Certificates", comodel_name="capital.certificate",
+        inverse_name="partner_id")
+    capital_certificate_count = fields.Integer(
+        string="Capital Certificates count",
+        compute="_compute_capital_certificate_count")
 
     @api.multi
     def generate_certificate(self, year=False):

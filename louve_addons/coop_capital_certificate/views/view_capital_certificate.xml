@@ -36,6 +36,15 @@
         </field>
     </record>
 
+    <record id="act_capital_certificate_from_partner" model="ir.actions.act_window">
+        <field name="name">Capital Certificates</field>
+        <field name="res_model">capital.certificate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_capital_certificate_tree"/>
+        <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id}</field>
+    </record>
+
     <record id="capital_certificate_action" model="ir.actions.act_window">
         <field name="name">Capital Certificates</field>
         <field name="res_model">capital.certificate</field>
