@@ -22,7 +22,7 @@
                 </p>
             </tr>
 
-            <p>Done in <span t-field="certificate.partner_id.company_id.city"/> on <span t-usertime="%d/%m/%Y" /></p>
+            <p>Done in <span t-field="certificate.partner_id.company_id.city"/> on <span t-esc="date.strftime(date.today(),'%d/%m/%Y')"/></p>
             <h2 style="text-align:right">The President</h2>
             <p style="text-align:right"><span t-field="certificate.partner_id.company_id.signature" t-field-options="{&quot;widget&quot;: &quot;image&quot;}"/></p>
             <p style="text-align:center">Cet état individuel est établi en l'application   de l'article 199 terdecies-0 A du CGI par <t t-esc="certificate.partner_id.company_id.capital_certificate_header or certificate.partner_id.company_id.name"/>, dont l’objet social est la vente en commerce de détail, dont le siège social est sis <span t-field="certificate.partner_id.company_id.street"/> <span t-field="certificate.partner_id.company_id.zip"/> <span t-field="certificate.partner_id.company_id.city"/>, et qui remplit les conditions mentionnées aux c, d et e du 2° du I de l'article 199 terdecies-0 A du CGI</p>

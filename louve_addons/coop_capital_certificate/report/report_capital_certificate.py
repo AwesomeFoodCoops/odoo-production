@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import api, models
+from datetime import date
 
 
 class CapitalCertificateReport(models.Model):
@@ -18,6 +19,7 @@ class CapitalCertificateReport(models.Model):
             'partner_id': self.env.user.partner_id,
             'doc_model': 'capital.certificate',
             'docs': docs,
+            'date': date,
         }
         return self.env['report'].render(
             'coop_capital_certificate.capital_certificate_report_template',
