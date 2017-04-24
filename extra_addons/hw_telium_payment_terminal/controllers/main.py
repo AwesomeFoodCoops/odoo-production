@@ -113,8 +113,8 @@ class TeliumPaymentTerminalDriver(Thread):
         logger.info('Waiting for the byte %s' % expected_char)
         while (get_expected_char != True) :
             stop_loop = True
+            one_byte_read = self.serial.read(1)
             logger.info('    Exact byte received = %s' % ord(one_byte_read))
-            expected_char = self.serial.read(1)
             if one_byte_read == chr(expected_char):
                 get_expected_char = True
                 logger.info("        Expected byte")
