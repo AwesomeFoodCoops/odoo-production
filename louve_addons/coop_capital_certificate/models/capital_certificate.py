@@ -3,7 +3,8 @@
 # @author: Julien Weste (julien.weste@akretion.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models
+from openerp import api, fields, models, _
+from openerp.exceptions import ValidationError
 
 
 class CapitalCertificate(models.Model):
@@ -19,6 +20,18 @@ class CapitalCertificate(models.Model):
     line_ids = fields.One2many(
         string="Certificate Lines", comodel_name="capital.certificate.line",
         inverse_name="certificate_id")
+
+    @api.multi
+    @api.constrains('partner_id', 'year')
+    def _unique_partner_year(self):
+        for certificate in self:
+            if self.search_count([
+                ('partner_id', '=', self.partner_id.id),
+                ('year', '=', self.year),
+            ]) > 1:
+                raise ValidationError(_(
+                    "Partner %s already has a certificate for year %s!" % (
+                        certificate.partner_id.name, certificate.year)))
 
     @api.multi
     def create_certificate(self, send_mail=False):
