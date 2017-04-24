@@ -8,7 +8,10 @@ logger = logging.getLogger('openerp.capital_subscription')
 
 
 def populate_product_id(cr, registry, model):
-    account_ids = (346, 804, 805)
+    cfc_obj = registry['capital.fundraising.category']
+    cfc_ids = cfc_obj.search(cr, SUPERUSER_ID, [])
+    account_ids = tuple(c.partner_account_id.id for c in cfc_obj.browse(
+        cr, SUPERUSER_ID, cfc_ids))
     aml_obj = registry[model]
     move_lines = aml_obj.search(cr, SUPERUSER_ID, [
         ('account_id', 'in', account_ids)])
