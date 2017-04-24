@@ -17,7 +17,7 @@ class CapitalCertificate(models.Model):
         ondelete='restrict', help="""This field contains the template of the"""
         """ mail that will be automatically sent""")
     line_ids = fields.One2many(
-        string="Lines", comodel_name="capital.certificate.line",
+        string="Certificate Lines", comodel_name="capital.certificate.line",
         inverse_name="certificate_id")
 
     @api.multi
