@@ -21,6 +21,7 @@
         'security/ir_model_access.yml',
         'wizard/view_capital_certificate.xml',
         'views/account_config_settings.xml',
+        'views/view_capital_certificate.xml',
     ],
     'demo': [
     ],
