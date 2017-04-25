@@ -8,16 +8,16 @@
                 <group name="parameters">
                     <field name="year"/>
                 </group>
-                <group name="partners">
-                    <field name="partner_selection"/>
-                    <field name="partner_ids" attrs="{'invisible':[('partner_selection', '!=', 'list')]}"/>
-                </group>
                 <group name="send_mail">
                     <field name="send_mail"/>
                 </group>
                 <group name="message" attrs="{'invisible':[('send_mail', '=', False)]}">
                     <p class='alert alert-warning'>Be careful!<br/>
                     By clicking on the Generate button, an email will be sent to every partner that suscribed capital in the selected year</p>
+                </group>
+                <group name="partners">
+                    <field name="partner_selection"/>
+                    <field name="partner_ids" attrs="{'invisible':[('partner_selection', '!=', 'list')]}"/>
                 </group>
                 <footer>
                     <button string="Generate" name="generate_certificates" type="object"
