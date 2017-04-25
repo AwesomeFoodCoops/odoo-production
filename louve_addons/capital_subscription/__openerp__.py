@@ -6,7 +6,7 @@
 
 {
     'name': 'Capital Subscription',
-    'version': '9.0.0.0.0',
+    'version': '9.0.0.0.2',
     'category': 'Accounting',
     'summary': 'Provide extra accounting features for Capital Subscription',
     'author': 'La Louve',

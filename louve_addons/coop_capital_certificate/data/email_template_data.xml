@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="capital_certificate_mail_template" model="mail.template">
+        <field name="name">Capital Certificate</field>
+        <field name="model_id" ref="coop_capital_certificate.model_capital_certificate"/>
+        <field name="email_from">${(object.partner_id.company_id.partner_id.email or '')|safe}</field>
+        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="report_template" ref="action_report_capital_certificate"/>
+        <field name="report_name">${(object.partner_id.name or '').replace('/','_')}_${object.partner_id.state == 'draft' and 'draft' or ''}</field>
+        <field name="reply_to">${object.partner_id.company_id.partner_id.email or ''|safe}</field>
+        <field name="subject">Your fiscal certificate for year ${object.year}</field>
+        <field name="user_signature" eval="True"/>
+        <field name="body_html"><![CDATA[<p>Hello ${object.partner_id.name},</p>
+            <p>
+            Please find attached tour Fiscal Capital Certificate for year ${object.year}
+            </p>
+            <p>Best regards</p>]]></field>
+    </record>
+</odoo>
