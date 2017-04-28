@@ -40,6 +40,11 @@ angular.module('starter', ['ionic', 'ui.router', 'odoo'])
         templateUrl: 'views/v_partner_search.html',
         controller: 'PartnerSearchCtrl'
   }).state(
+    'partner_list', {
+        url: '/partner_list:partner_ids',
+        templateUrl: 'views/v_partner_list.html',
+        controller: 'PartnerListCtrl'
+  }).state(
     'partner_form', {
         url: '/partner_form/:partner_id',
         templateUrl: 'views/v_partner_form.html',
