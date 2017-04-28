@@ -119,7 +119,7 @@ class ResPartner(models.Model):
 
     manual_standard_correction = fields.Integer(
         string='Adjustements of Standard points',
-        compute='_compute_manual_standard_correction')
+        compute='_compute_multi_event', store=True, multi='event')
 
     final_standard_point = fields.Integer(
         string='Final Standard points', compute='compute_final_standard_point',
@@ -131,7 +131,7 @@ class ResPartner(models.Model):
 
     manual_ftop_correction = fields.Integer(
         string='Adjustements of Standard points',
-        compute='_compute_manual_ftop_correction')
+        compute='_compute_multi_event', store=True, multi='event')
 
     final_ftop_point = fields.Integer(
         string='Final FTOP points', compute='compute_final_ftop_point',
@@ -160,30 +160,20 @@ class ResPartner(models.Model):
         string='Counter Events')
 
     counter_event_qty = fields.Integer(
-        string='Counter Events Quantity', compute='compute_counter_event_qty',
-        store=True)
+        string='Counter Events Quantity',
+        compute='_compute_multi_event', store=True, multi='event')
 
     # Compute section
     @api.multi
     @api.depends('counter_event_ids.partner_id')
-    def _compute_manual_standard_correction(self):
+    def _compute_multi_event(self):
         for partner in self:
             partner.manual_standard_correction = sum(
                 partner.counter_event_ids.filtered(
                     lambda x: x.type == 'standard').mapped('point_qty'))
-
-    @api.multi
-    @api.depends('counter_event_ids.partner_id')
-    def _compute_manual_ftop_correction(self):
-        for partner in self:
             partner.manual_ftop_correction = sum(
                 partner.counter_event_ids.filtered(
                     lambda x: x.type == 'ftop').mapped('point_qty'))
-
-    @api.depends('counter_event_ids.partner_id')
-    @api.multi
-    def compute_counter_event_qty(self):
-        for partner in self:
             partner.counter_event_qty = len(partner.counter_event_ids)
 
     @api.multi
