@@ -29,6 +29,19 @@ class AccountInvoice(models.Model):
         res['fundraising_category_id'] = invoice.fundraising_category_id.id
         return res
 
+    @api.multi
+    def finalize_invoice_move_lines(self, move_lines):
+        invoice_id = move_lines[0][2]['invoice_id']
+        if self.browse(invoice_id).is_capital_fundraising:
+            for i in range(len(move_lines)):
+                product_id = move_lines[i][2]['product_id']
+                if product_id:
+                    break
+            if product_id:
+                for i in range(len(move_lines)):
+                    move_lines[i][2]['product_id'] = product_id
+        return move_lines
+
     # Constraint Section
     @api.one
     @api.constrains(

@@ -45,8 +45,9 @@ class ResPartner(models.Model):
         " to buy.")
 
     is_unsubscribed = fields.Boolean(
-        string='Unsubscribed', help="Check this box, if the partner left the"
-        " the cooperative. this will prevent him to buy.", store=True,
+        string='Unsubscribed', store=True, help="Computed field."
+        " This box is checked if the user is not linked"
+        " to a template registration.",
         compute="_compute_is_unsubscribed")
 
     adult_number_home = fields.Integer('Number of Adult in the Home')

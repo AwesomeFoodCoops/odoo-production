@@ -17,10 +17,15 @@
         <field name="category_id" ref="module_membership_access_management"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
+    <record model="res.groups" id="group_membership_access_photo">
+        <field name="name">Membership Edit Photo</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="implied_ids" eval="[(4, ref('group_membership_access_user'))]"/>
+    </record>
     <record model="res.groups" id="group_membership_access_edit">
         <field name="name">Membership Writer</field>
         <field name="category_id" ref="module_membership_access_management"/>
-        <field name="implied_ids" eval="[(4, ref('group_membership_access_user'))]"/>
+        <field name="implied_ids" eval="[(4, ref('group_membership_access_photo'))]"/>
     </record>
     <record model="res.groups" id="group_membership_access_manager">
         <field name="name">Membership Manager</field>

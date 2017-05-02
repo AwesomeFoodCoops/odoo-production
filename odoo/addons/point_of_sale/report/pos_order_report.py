@@ -47,7 +47,7 @@ class pos_order_report(osv.osv):
                     count(*) as nbr,
                     s.date_order as date,
                     s.id as order_id,
-                    sum(l.qty * u.factor) as product_qty,
+                    sum(l.qty) as product_qty,
                     sum(l.price_subtotal) as price_total_vat_excl,
                     sum(l.qty * l.price_unit) as price_sub_total,
                     sum((l.qty * l.price_unit) * (100 - l.discount) / 100) as price_total,
@@ -76,7 +76,7 @@ class pos_order_report(osv.osv):
                     left join pos_session ps on (s.session_id=ps.id)
                     left join pos_config pc on (ps.config_id=pc.id)
                 group by
-                    s.id, s.date_order, s.partner_id,s.state, pt.categ_id,
-                    s.user_id,s.location_id,s.company_id,s.sale_journal,s.pricelist_id,s.invoice_id,l.product_id,s.create_date,pt.categ_id,pt.pos_categ_id,p.product_tmpl_id,ps.config_id,pc.stock_location_id
+                    s.date_order, s.partner_id,s.state, pt.categ_id,
+                    s.id, s.user_id,s.location_id,s.company_id,s.sale_journal,s.pricelist_id,s.invoice_id,l.product_id,s.create_date,pt.categ_id,pt.pos_categ_id,p.product_tmpl_id,ps.config_id,pc.stock_location_id
                 having
                     sum(l.qty * u.factor) != 0)""")
