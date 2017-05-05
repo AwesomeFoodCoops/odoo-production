@@ -22,13 +22,18 @@ msgstr "Badgeuse"
 
 #. module: badge_reader
 #: model:res.groups,name:badge_reader.group_manager
-msgid "Badge Reader Manager"
-msgstr "Badgeuse - Responsable"
+msgid "Manager"
+msgstr "Responsable"
+
+#. module: badge_reader
+#: model:res.groups,name:badge_reader.group_time_clock
+msgid "Time Clock"
+msgstr "Pointeuse"
 
 #. module: badge_reader
 #: model:res.groups,name:badge_reader.group_user
-msgid "Badge Reader User"
-msgstr "Badgeuse - Utilisateur"
+msgid "User"
+msgstr "Utilisateur"
 
 #. module: badge_reader
 #: model:ir.model.fields,field_description:badge_reader.field_res_partner_bootstrap_state
@@ -144,9 +149,4 @@ msgstr "Statut Avec Problème"
 #: selection:res.users.move,state:0
 msgid "Work Problem"
 msgstr "Problème de Shift"
-
-#. module: badge_reader
-#: model:ir.model,name:badge_reader.model_res_users_move
-msgid "res.users.move"
-msgstr "res.users.move"
 

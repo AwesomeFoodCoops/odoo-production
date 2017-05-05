@@ -42,12 +42,14 @@ class ResPartner(models.Model):
 
     # Custom Section
     @api.multi
-    def log_move(self):
+    def log_move(self, action):
+        self.ensure_one()
         partner_move_obj = self.env['res.partner.move']
         for partner in self:
             partner_move_obj.create({
                 'partner_id': partner.id,
                 'cooperative_state': partner.cooperative_state,
+                'action': action,
                 'bootstrap_cooperative_state':
                 partner.bootstrap_cooperative_state,
             })
