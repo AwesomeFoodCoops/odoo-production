@@ -1,9 +1,9 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-===================
+========================
 Coop Capital Certificate
-===================
+========================
 
 * Create a Capital Certificate wizard available for group_account_manager
 * Parameter are:
@@ -19,6 +19,8 @@ Coop Capital Certificate
 
 Issues / Roadmap
 ================
+* The PDF file is attached 2 times on capital.certificate object. Why?
+* If the "Send Mail" box is unchecked, we could directly show the pdf, or show a wizard to download it.
 
 Credits
 =======
