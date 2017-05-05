@@ -283,12 +283,12 @@
                             <group name="state3" groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user">
                                 <group string="Standard Part" cols="4">
                                     <field name="theoritical_standard_point"/>
-                                    <field name="manual_standard_correction" readonly="1"/>
+                                    <field name="manual_standard_correction"/>
                                     <field name="final_standard_point"/>
                                 </group>
                                 <group string="FTOP Part" cols="4">
                                     <field name="theoritical_ftop_point"/>
-                                    <field name="manual_ftop_correction" readonly="1"/>
+                                    <field name="manual_ftop_correction"/>
                                     <field name="final_ftop_point"/>
                                 </group>
                             </group>
@@ -410,12 +410,6 @@
                 <attribute name="readonly" eval="0"/>
             </field>
             <field name="name" position="attributes">
-                <attribute name="readonly" eval="0"/>
-            </field>
-            <field name="manual_standard_correction" position="attributes">
-                <attribute name="readonly" eval="0"/>
-            </field>
-            <field name="manual_ftop_correction" position="attributes">
                 <attribute name="readonly" eval="0"/>
             </field>
         </field>

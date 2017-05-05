@@ -31,6 +31,14 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="action_shift_counter_event">
+        <field name="name">Counter Events</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shift.counter.event</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <record model="ir.actions.act_window" id="action_shift_leave_type">
         <field name="name">Leaves Types</field>
         <field name="type">ir.actions.act_window</field>
@@ -43,6 +51,14 @@
         <field name="res_model">shift.extension</field>
         <field name="view_type">form</field>
         <field name="name">Extensions</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_shift_counter_event_from_partner">
+        <field name="res_model">shift.counter.event</field>
+        <field name="view_type">form</field>
+        <field name="name">Counter Events</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id}</field>
     </record>
