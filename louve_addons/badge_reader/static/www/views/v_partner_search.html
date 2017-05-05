@@ -2,7 +2,7 @@
     <ion-content class="padding">
         <div ng-show="errorMessage"></div>
 
-        <form ng-submit="submit_barcode()">
+        <form ng-submit="search_partner()">
             <div class="container theme-showcase" role="main">
                 <div class="jumbotron">
                     <div class="row">
@@ -10,9 +10,34 @@
                             <span class="input-label">Code Barre</span>
                         </div>
                         <div class="col-sm-8">
-                            <input ng-model="search_value.barcode" type="text" style="width:100%">
+                            <input id="barcode" name="barcode" ng-model="search_value.barcode" type="text" style="width:100%">
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12">&nbsp;
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <span class="input-label">N° membre</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input id="barcode_base" name="barcode_base" ng-model="search_value.barcode_base" type="text" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">&nbsp;
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <span class="input-label">Nom ou prénom</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input id="partner_name" name="partner_name" ng-model="search_value.partner_name" type="text" style="width:100%">
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-sm-12" style="text-align:center;padding-top:30px">
                             <input type="submit" class="button button-positive" value="Rechercher">

@@ -9,11 +9,18 @@ Provide light JS apps that provides badge reader interface.
 Once installed, the apps is available via this url
 http://localhost:8069/badge_reader/static/www/index.html (by default)
 
+You can prefill identification data on the form, using parameters
+http://localhost:8069/badge_reader/static/www/index.html#/login?db=DATABASE&username=USERNAME&password=PASSWORD
+
+If all parameters are provided, auto submit is done, to try identification.
+
+Note : set password in an url can generate security breaches.
+
 Authentication
 --------------
 
 User must select Database name, login and password. (The user must be
-member of the new group 'Badge Reader - Manager')
+member of the new group 'Badge Reader / Time Clock')
 
 .. image:: /badge_reader/static/description/authentication.png
 
@@ -53,11 +60,14 @@ back-office
 Technical Information - Back office
 -----------------------------------
 
-* Create a new group 'Badge Reader - User' User must be member
+* Create a new group 'Badge Reader / User' User must be member
   of that group to access to the history of the logs;
 
-* Create a new group 'Badge Reader - Manager' User must be member
+* Create a new group 'Badge Reader / Time Clock' User must be member
   of that group to log into the JS apps;
+
+* Create a new group 'Badge Reader / Manager' User must be member
+  of that group to manage (update or delete) logs in backoffice;
 
 
 Technical Information - JS Apps
