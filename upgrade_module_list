@@ -42,5 +42,8 @@
 #export MODULE_LIST_TO_UPGRADE="louve_custom_account,louve_custom_pos,point_of_sale"
 #export MODULE_LIST_TO_INSTALL=""
 # 16/04/2017 - sur l'environnement de DEV
-export MODULE_LIST_TO_UPGRADE="louve_membership,louve_custom_account,coop_membership_access_rights,all"
-export MODULE_LIST_TO_INSTALL="coop_print_badge,louve_change_translation,coop_capital_certificate"
+#export MODULE_LIST_TO_UPGRADE="louve_membership,louve_custom_account,coop_membership_access_rights,all"
+#export MODULE_LIST_TO_INSTALL="coop_print_badge,louve_change_translation,coop_capital_certificate"
+# 03/05/2017 - sur l'environnement de DEV
+export MODULE_LIST_TO_UPGRADE="coop_membership_access_rights,coop_capital_certificate,coop_shift,coop_shift"
+export MODULE_LIST_TO_INSTALL="pos_empty_home"

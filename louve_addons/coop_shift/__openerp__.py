@@ -7,7 +7,7 @@
 
 {
     'name': 'Coop Shift',
-    'version': '9.0.6.0.0',
+    'version': '9.0.7.0.0',
     'category': 'Tools',
     'author': 'Julien WESTE, Sylvain LE GAL, Cyril Gaspard, La Louve',
     'website': 'http://www.lalouve.net',
@@ -49,6 +49,7 @@
         'views/shift_ticket_view.xml',
         'views/res_partner_view.xml',
         'views/view_res_partner.xml',
+        'views/view_shift_counter_event.xml',
         'views/view_shift_extension.xml',
         'views/view_shift_extension_type.xml',
         'views/view_shift_leave.xml',

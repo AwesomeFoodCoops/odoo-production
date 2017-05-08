@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+ -->
+<odoo>
+
+    <record id="view_shift_counter_event_tree" model="ir.ui.view">
+        <field name="model">shift.counter.event</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="type"/>
+                <field name="partner_id"/>
+                <field name="point_qty"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_shift_counter_event_form" model="ir.ui.view">
+        <field name="model">shift.counter.event</field>
+        <field name="arch" type="xml">
+            <form>
+                <header/>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" />
+                    <div class="oe_title">
+                        <h1>
+                            <label for="name" class="oe_edit_only"/>
+                            <field name="name"  placeholder="Name" />
+                        </h1>
+                    </div>
+                    <group name="main_field_group">
+                        <group>
+                            <field name="partner_id" />
+                            <field name="type"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="point_qty"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

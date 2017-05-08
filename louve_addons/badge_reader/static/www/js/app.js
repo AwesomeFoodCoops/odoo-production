@@ -26,7 +26,7 @@ angular.module('starter', ['ionic', 'ui.router', 'odoo'])
 .config(['$stateProvider','$urlRouterProvider' , function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state(
     'login', {
-        url: '/login',
+        url: '/login?db&username&password',
         templateUrl: 'views/v_login.html',
         controller: 'LoginCtrl'
   }).state(
@@ -39,6 +39,11 @@ angular.module('starter', ['ionic', 'ui.router', 'odoo'])
         url: '/partner_search',
         templateUrl: 'views/v_partner_search.html',
         controller: 'PartnerSearchCtrl'
+  }).state(
+    'partner_list', {
+        url: '/partner_list:partner_ids',
+        templateUrl: 'views/v_partner_list.html',
+        controller: 'PartnerListCtrl'
   }).state(
     'partner_form', {
         url: '/partner_form/:partner_id',

@@ -9,12 +9,12 @@
 
     <record model="res.partner" id="base.partner_root">
         <field name="customer" eval="True" />
-        <field name="state">ok</field>
+        <field name="cooperative_state">up_to_date</field>
     </record>
 
     <record model="res.partner" id="base.partner_demo">
         <field name="customer" eval="True" />
-        <field name="state">membership_problem</field>
+        <field name="cooperative_state">vacation</field>
     </record>
 
 </odoo>
