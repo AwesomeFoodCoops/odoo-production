@@ -52,25 +52,14 @@ class AccountInvoiceLine(models.Model):
         'product_qty_package', 'product_id', 'invoice_id.partner_id',
         'invoice_id.currency_id', 'invoice_id.company_id', 'price_policy')
     def _compute_price(self):
-        if self.price_policy == 'uom':
-            super(AccountInvoiceLine, self)._compute_price()
-        else:
-            currency = self.invoice_id and self.invoice_id.currency_id or None
-            price = self.price_unit * (1 - (self.discount or 0.0) / 100.0)
-            taxes = False
-            if self.invoice_line_tax_ids:
-                taxes = self.invoice_line_tax_ids.compute_all(
-                    price, currency, self.product_qty_package,
-                    product=self.product_id,
-                    partner=self.invoice_id.partner_id)
-            self.price_subtotal = price_subtotal_signed =\
-                taxes['total_excluded'] if taxes else\
-                self.product_qty_package * price
-            if self.invoice_id.currency_id and self.invoice_id.currency_id !=\
-                    self.invoice_id.company_id.currency_id:
-                price_subtotal_signed = self.invoice_id.currency_id.compute(
-                    price_subtotal_signed,
-                    self.invoice_id.company_id.currency_id)
-            sign = self.invoice_id.type in ['in_refund', 'out_refund'] and -1\
-                or 1
-            self.price_subtotal_signed = price_subtotal_signed * sign
+        line_qty = self.quantity
+
+        # Use Product Qty Package for computation if price policy is not UOM
+        if self.price_policy != 'uom':
+            self.quantity = self.product_qty_package
+
+        super(AccountInvoiceLine, self)._compute_price()
+
+        # Restore the value of quantity
+        if self.price_policy != 'uom':
+            self.quantity = line_qty
