@@ -10,13 +10,22 @@ import openerp.addons.decimal_precision as dp
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    @api.depends('discount')
+    @api.depends('discount', 'order_id.partner_id')
     def _compute_amount(self):
         prices = {}
         for line in self:
             if line.discount:
                 prices[line.id] = line.price_unit
                 line.price_unit *= (1 - line.discount / 100.0)
+
+                # Rounding the Price Unit based on the Partner's Discount
+                # computation
+                partner_disc_computation = \
+                    line.order_id.partner_id.discount_computation
+                currency = line.order_id.currency_id
+                if partner_disc_computation == 'unit_price':
+                    line.price_unit = currency.round(line.price_unit)
+
         super(PurchaseOrderLine, self)._compute_amount()
         # restore prices
         for line in self:

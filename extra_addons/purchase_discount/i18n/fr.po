@@ -42,3 +42,18 @@ msgstr "Ligne de facuration"
 #: model:ir.model,name:purchase_discount.model_purchase_order_line
 msgid "Purchase Order Line"
 msgstr "Ligne de commande d'achat"
+
+#. module: purchase_discount
+#: model:ir.model.fields,field_description:purchase_discount.field_res_partner_discount_computation
+msgid "Discount Computation"
+msgstr "Application des remises"
+
+#. module: purchase_discount
+#: selection:res.partner,discount_computation:0
+msgid "Total"
+msgstr "Total"
+
+#. module: purchase_discount
+#: selection:res.partner,discount_computation:0
+msgid "Unit Price"
+msgstr "Prix Unitaire"
