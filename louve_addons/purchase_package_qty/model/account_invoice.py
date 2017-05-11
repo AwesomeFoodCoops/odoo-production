@@ -68,6 +68,7 @@ class AccountInvoice(models.Model):
                         'out_invoice', 'in_invoice') and
                     (tax['account_id'] or line.account_id.id) or
                     (tax['refund_account_id'] or line.account_id.id),
+                    'base': tax['base'],
                 }
 
                 # If the taxes generate moves on the same financial account as
@@ -87,5 +88,6 @@ class AccountInvoice(models.Model):
                 if key not in tax_grouped:
                     tax_grouped[key] = val
                 else:
+                    tax_grouped[key]['base'] += val['base']
                     tax_grouped[key]['amount'] += val['amount']
         return tax_grouped
