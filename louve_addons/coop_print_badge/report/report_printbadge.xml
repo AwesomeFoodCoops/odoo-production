@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="minimal_layout_inherit" inherit_id="report.minimal_layout">
+        <xpath expr="//head" position="inside">
+             <link rel='stylesheet' href="/coop_print_badge/static/src/css/badge.css"/>
+        </xpath>
+    </template>
+    <template id="report_printbadge">
+        <div class="page">
+            <t t-foreach="partners" t-as="partner">
+                <div class="badge" t-if="partner.is_louve_member">
+                    <div class="member_photo_div">
+                        <span class="member_photo" t-field="partner.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;}"/>
+                    </div>
+                    <div class="member_number">
+                        <!--N°--> <span t-field="partner.barcode_base"/>
+                    </div>
+
+                    <div class="coop_text">
+                        MEMBER
+                    </div>
+                    <div class="member_name">
+                        <t t-if="partner.name.find(',')&gt;0"><span t-esc="partner.name.split(',')[1]" style="text-align:left;font-size:40;word-wrap:break-word"/><br/></t>
+                        <t t-if="partner.name.find(',')&gt;0"><span t-esc="partner.name.split(',')[0]" style="text-align:left;font-size:25;word-wrap:break-word"/></t>
+                        <t t-if="partner.name.find(',')&lt;0"><span t-esc="partner.name" style="text-align:left;font-size:25;word-wrap:break-word"/></t>
+                    </div>
+                    <img class="barcode_image" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.barcode, 600, 900)" style="width:100%;height:100px"/>
+                    <!--<div class="company_address">
+                        <span t-field="partner_id.company_id.partner_id.name"/><br/>
+                        <span t-field="partner_id.company_id.partner_id.street"/><br/>
+                        <span t-field="partner_id.company_id.partner_id.zip"/> <span t-field="partner_id.company_id.partner_id.city"/>
+                    </div>-->
+                </div>
+                <div class="badge" t-if="not partner.is_louve_member and partner.is_associated_people">
+                    <div class="member_photo_div">
+                        <span class="member_photo" t-field="partner.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;}"/>
+                    </div>
+                    <div class="member_number">
+                        <!--N°--> <span t-field="partner.barcode_base"/>
+                    </div>
+
+                    <div class="coop_text">
+                        ASSOCIATED
+                    </div>
+                    <div class="member_name">
+                        <t t-if="partner.name.find(',')&gt;0"><span t-esc="partner.name.split(',')[1]" style="text-align:left;font-size:40;word-wrap:break-word"/><br/></t>
+                        <t t-if="partner.name.find(',')&gt;0"><span t-esc="partner.name.split(',')[0]" style="text-align:left;font-size:25;word-wrap:break-word"/></t>
+                        <t t-if="partner.name.find(',')&lt;0"><span t-esc="partner.name" style="text-align:left;font-size:25;word-wrap:break-word"/></t>
+                    </div>
+                    <img class="barcode_image" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.barcode, 600, 900)" style="width:100%;height:100px"/>
+                    <!--<div class="company_address">
+                        <span t-field="partner_id.company_id.partner_id.name"/><br/>
+                        <span t-field="partner_id.company_id.partner_id.street"/><br/>
+                        <span t-field="partner_id.company_id.partner_id.zip"/> <span t-field="partner_id.company_id.partner_id.city"/>
+                    </div>-->
+                </div>
+            </t>
+        </div>
+    </template>
+</odoo>

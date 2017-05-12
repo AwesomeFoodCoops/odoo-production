@@ -8,7 +8,7 @@ from openerp import models, fields
 
 
 class account_payment(models.Model):
-    _inherit = "account.payment"
+    _inherit = 'account.payment'
 
     partner_code = fields.Integer(
         related='partner_id.barcode_base', store=True)

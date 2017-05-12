@@ -17,10 +17,12 @@ class pos_order_report(osv.osv):
         'state': fields.selection([('draft', 'New'), ('paid', 'Paid'), ('done', 'Posted'), ('invoiced', 'Invoiced'), ('cancel', 'Cancelled')],
                                   'Status'),
         'user_id':fields.many2one('res.users', 'Salesperson', readonly=True),
+        'price_total_vat_excl':fields.float('Total w/o Taxes', readonly=True),
         'price_total':fields.float('Total Price', readonly=True),
         'price_sub_total':fields.float('Subtotal w/o discount', readonly=True),
         'total_discount':fields.float('Total Discount', readonly=True),
         'average_price': fields.float('Average Price', readonly=True,group_operator="avg"),
+        'order_id':fields.many2one('pos.order', 'Order', readonly=True),
         'location_id':fields.many2one('stock.location', 'Location', readonly=True),
         'company_id':fields.many2one('res.company', 'Company', readonly=True),
         'nbr':fields.integer('# of Lines', readonly=True),  # TDE FIXME master: rename into nbr_lines
@@ -44,7 +46,9 @@ class pos_order_report(osv.osv):
                     min(l.id) as id,
                     count(*) as nbr,
                     s.date_order as date,
-                    sum(l.qty * u.factor) as product_qty,
+                    s.id as order_id,
+                    sum(l.qty) as product_qty,
+                    sum(l.price_subtotal) as price_total_vat_excl,
                     sum(l.qty * l.price_unit) as price_sub_total,
                     sum((l.qty * l.price_unit) * (100 - l.discount) / 100) as price_total,
                     sum((l.qty * l.price_unit) * (l.discount / 100)) as total_discount,
@@ -73,6 +77,6 @@ class pos_order_report(osv.osv):
                     left join pos_config pc on (ps.config_id=pc.id)
                 group by
                     s.date_order, s.partner_id,s.state, pt.categ_id,
-                    s.user_id,s.location_id,s.company_id,s.sale_journal,s.pricelist_id,s.invoice_id,l.product_id,s.create_date,pt.categ_id,pt.pos_categ_id,p.product_tmpl_id,ps.config_id,pc.stock_location_id
+                    s.id, s.user_id,s.location_id,s.company_id,s.sale_journal,s.pricelist_id,s.invoice_id,l.product_id,s.create_date,pt.categ_id,pt.pos_categ_id,p.product_tmpl_id,ps.config_id,pc.stock_location_id
                 having
                     sum(l.qty * u.factor) != 0)""")

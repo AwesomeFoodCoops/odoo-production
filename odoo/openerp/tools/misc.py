@@ -330,13 +330,13 @@ try:
     # add some sanitizations to respect the excel sheet name restrictions
     # as the sheet name is often translatable, can not control the input
     class PatchedWorkbook(xlwt.Workbook):
-        def add_sheet(self, name):
+        def add_sheet(self, name, cell_overwrite_ok=False):
             # invalid Excel character: []:*?/\
             name = re.sub(r'[\[\]:*?/\\]', '', name)
 
             # maximum size is 31 characters
             name = name[:31]
-            return super(PatchedWorkbook, self).add_sheet(name)
+            return super(PatchedWorkbook, self).add_sheet(name, cell_overwrite_ok=cell_overwrite_ok)
 
     xlwt.Workbook = PatchedWorkbook
 
@@ -1173,6 +1173,8 @@ def formatLang(env, value, digits=None, grouping=True, monetary=False, dp=False,
         if dp:
             decimal_precision_obj = env['decimal.precision']
             digits = decimal_precision_obj.precision_get(dp)
+        elif currency_obj:
+            digits = currency_obj.decimal_places
         elif (hasattr(value, '_field') and isinstance(value._field, (float_field, function_field)) and value._field.digits):
                 digits = value._field.digits[1]
                 if not digits and digits is not 0:

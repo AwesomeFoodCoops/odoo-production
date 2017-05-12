@@ -6,7 +6,6 @@
 
 from openerp import api, models
 
-
 class PosOrderLine(models.Model):
     _inherit = 'pos.order.line'
 

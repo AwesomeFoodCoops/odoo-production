@@ -31,7 +31,7 @@ class StockPicking(models.Model):
     def _prepare_pack_ops(self, picking, quants, forced_qties):
         vals = super(StockPicking, self)._prepare_pack_ops(
             picking, quants, forced_qties)
-        if picking.origin[0:2] == 'PO':
+        if picking.origin and picking.origin[0:2] == 'PO':
             order_id = self.env['purchase.order'].search(
                 [('name', '=', picking.origin)])
             if order_id:

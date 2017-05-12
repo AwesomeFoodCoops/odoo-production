@@ -14,8 +14,10 @@
     'depends': [
         'account',
         'barcodes_generate',
+        'account_tax_balance',
     ],
     'data': [
         'views/view_account_payment.xml',
+        'views/view_account_invoice.xml',
     ],
 }

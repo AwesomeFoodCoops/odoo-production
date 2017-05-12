@@ -5,12 +5,7 @@ angular.module('starter').controller('PartnerFormCtrl', ['$scope', '$state', 'Re
 
     $scope.partner = {};
 
-    $scope.go_back = function () {
-        $state.go('partner_search');
-    };
-
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-        // TODO Add test or ask to hpar how to fire this event, only when needed
         if (toState.name == 'partner_form'){
             ResPartnerModel.GetById(toParams['partner_id']).then(function (partner_res) {
                 // Add style and Sound
@@ -20,4 +15,23 @@ angular.module('starter').controller('PartnerFormCtrl', ['$scope', '$state', 'Re
             });
         }
     });
+
+    $scope.partner_in = function () {
+        ResPartnerModel.LogMove($scope.partner.id, 'in').then(function (res) {
+            $state.go('partner_search');
+        });
+    };
+
+    $scope.partner_out = function () {
+        ResPartnerModel.LogMove($scope.partner.id, 'out').then(function (res) {
+            $state.go('partner_search');
+        });
+    };
+
+    $scope.partner_wrong = function () {
+        ResPartnerModel.LogMove($scope.partner.id, 'wrong').then(function (res) {
+            $state.go('partner_search');
+        });
+    };
+
 }]);

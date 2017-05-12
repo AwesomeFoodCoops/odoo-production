@@ -1,8 +1,13 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 ,,,,,,,
+access_shift_counter_event_user,access_shift_counter_event_user,coop_shift.model_shift_counter_event,coop_shift.group_shift_see_counter_event,1,0,0,0
+access_shift_counter_event_manager,access_shift_counter_event_manager,coop_shift.model_shift_counter_event,coop_shift.group_shift_manage_counter_event,1,1,1,1
+,,,,,,,
+access_shift_leave_reader,access_shift_leave_reader,coop_shift.model_shift_leave,base.group_user,1,0,0,0
 access_shift_leave_user,access_shift_leave_user,coop_shift.model_shift_leave,coop_shift.group_shift_see_leave,1,0,0,0
 access_shift_leave_manager,access_shift_leave_manager,coop_shift.model_shift_leave,coop_shift.group_shift_manage_leave,1,1,1,1
 ,,,,,,,
+access_shift_leave_type_reader,access_shift_leave_type_reader,coop_shift.model_shift_leave_type,base.group_user,1,0,0,0
 access_shift_leave_type_user,access_shift_leave_type_user,coop_shift.model_shift_leave_type,coop_shift.group_shift_see_leave,1,0,0,0
 access_shift_leave_type_manager,access_shift_leave_type_manager,coop_shift.model_shift_leave_type,coop_shift.group_shift_manage_leave,1,1,1,1
 ,,,,,,,

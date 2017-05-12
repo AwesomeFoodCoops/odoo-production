@@ -1,0 +1,62 @@
+.badge{
+    height:110mm;
+    width:69mm;
+    margin-left:-0.4cm;
+    margin-right:0cm;
+    margin-top:0cm;
+    margin-bottom:0cm;
+    background-color:white;
+    color:#455a6e;
+}
+.member_photo_div{
+    width:45mm;
+    height:66mm;
+    float:left;
+    padding:0cm;
+    }
+.member_photo{
+    width:100%;
+    height:100%;
+}
+.member_number{
+    margin-left:42mm;
+    margin-top:6.4mm;
+    font-size: 15;
+}
+.coop_text{
+    font-size: 15;
+    text-orientation: sideways-left;
+    margin-left:45mm;
+    margin: 0;
+    padding: 0;
+    -webkit-transform-origin: 255 85;
+        -ms-transform-origin: 255 85;
+            transform-origin: 255 85;
+    -webkit-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+}
+.member_name{
+    float: left;
+    height:25mm;
+    font-size: 25;
+    width:65mm !important;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.barcode_image{
+    float: left;
+    height:18mm;
+    max-height:18mm;
+    max-width:40mm;
+}
+.company_address{
+    margin-left:41mm;
+    margin-top:83mm;
+    max-width:26mm;
+    word-wrap:break-word;
+    white-space: normal;
+    width:26mm;
+    text-align: left;
+}

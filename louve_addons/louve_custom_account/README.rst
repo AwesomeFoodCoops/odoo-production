@@ -14,8 +14,18 @@ Features
 
 * Add 'communication' field on account.payment tree view.
 
-* Add 'partner_ref' field on payment, related to parter_id.ref
-  Display partner_ref on tree view and search view
+* Add 'partner_code' field on payment, related to parter_id.barcode_base
+  Display partner_code on tree view and search view
+
+* [account_tax_balance] Make function '_compute_move_type' on account.move'
+  public.
+
+Note
+----
+the function compute_move_type can will be removed, after the initialization
+of account_tax_balance.
+
+* Make supplier invoice date field equired
 
 Credits
 =======

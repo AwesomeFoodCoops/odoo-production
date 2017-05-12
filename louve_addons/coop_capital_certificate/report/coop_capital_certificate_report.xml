@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- QWeb Reports -->
+    <report
+        id="action_report_capital_certificate"
+        model="capital.certificate"
+        string="Capital Certificate"
+        report_type="qweb-pdf"
+        name="coop_capital_certificate.report_capital_certificate"
+        file="coop_capital_certificate.report_capital_certificate"
+        attachment_use="True"
+        attachment="(object.partner_id.name+' - '+str(object.year)+'.pdf').replace(',','')"
+    />
+</odoo>

@@ -117,7 +117,8 @@ class ResPartner(models.Model):
         compute='compute_theoritical_standard_point')
 
     manual_standard_correction = fields.Integer(
-        string='Manual Standard Correction')
+        string='Adjustements of Standard points',
+        compute='_compute_multi_event', store=True, multi='event')
 
     final_standard_point = fields.Integer(
         string='Final Standard points', compute='compute_final_standard_point',
@@ -128,7 +129,8 @@ class ResPartner(models.Model):
         compute='compute_theoritical_ftop_point')
 
     manual_ftop_correction = fields.Integer(
-        string='Manual FTOP Correction')
+        string='Adjustements of Standard points',
+        compute='_compute_multi_event', store=True, multi='event')
 
     final_ftop_point = fields.Integer(
         string='Final FTOP points', compute='compute_final_ftop_point',
@@ -152,12 +154,31 @@ class ResPartner(models.Model):
         string='Extensions Quantity', compute='compute_extension_qty',
         store=True)
 
+    counter_event_ids = fields.One2many(
+        comodel_name='shift.counter.event', inverse_name='partner_id',
+        string='Counter Events')
+
+    counter_event_qty = fields.Integer(
+        string='Counter Events Quantity',
+        compute='_compute_multi_event', store=True, multi='event')
+
     # Compute section
     @api.multi
     @api.depends('leave_ids')
     def _compute_leave_qty(self):
         for partner in self:
             partner.leave_qty = len(partner.leave_ids)
+
+    @api.depends('counter_event_ids.partner_id')
+    def _compute_multi_event(self):
+        for partner in self:
+            partner.manual_standard_correction = sum(
+                partner.counter_event_ids.filtered(
+                    lambda x: x.type == 'standard').mapped('point_qty'))
+            partner.manual_ftop_correction = sum(
+                partner.counter_event_ids.filtered(
+                    lambda x: x.type == 'ftop').mapped('point_qty'))
+            partner.counter_event_qty = len(partner.counter_event_ids)
 
     @api.multi
     def _compute_registration_counts(self):

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="view_capital_certificate_config">
+        <field name="model">account.config.settings</field>
+        <field name="inherit_id" ref="account.view_account_config_settings"/>
+        <field name="arch" type="xml">
+            <xpath expr="//separator[@name='analytic_account']" position="before">
+                <separator name="capital_certificate" string="Capital Certificate Configuration"/>
+                <group name="capital_certificate">
+                    <field name="capital_certificate_header"/>
+                    <field name="signature"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

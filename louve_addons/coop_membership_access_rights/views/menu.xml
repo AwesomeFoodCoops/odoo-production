@@ -19,4 +19,8 @@
     <record model="ir.ui.menu" id="mass_mailing.mass_mailing_menu_root">
         <field name="groups_id" eval="[(4, ref('base.group_configuration'))]"/>
     </record>
+
+    <record model="ir.ui.menu" id="mass_mailing.mass_mailing_menu_root">
+        <field name="groups_id" eval="[(4, ref('base.group_configuration'))]"/>
+    </record>
 </odoo>

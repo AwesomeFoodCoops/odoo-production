@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <template id="capital_certificate_report_template">
+        <t t-call="report.external_layout">
+        <tr t-foreach="docs" t-as="certificate">
+            <div class="page" style="page-break-after:always">
+            <h1 style="text-align:center">Capital Certificate</h1>
+            <br/>
+            <br/>
+            <h2 style="text-align:center"><t t-esc="certificate.partner_id.company_id.capital_certificate_header or certificate.partner_id.company_id.name"/></h2>
+            <h2 style="text-align:center">certifies that:</h2>
+            <br/>
+            <br/>
+            <span t-field="certificate.partner_id.name"/><br/>
+            living at <span t-field="certificate.partner_id.street"/> <span t-field="certificate.partner_id.zip"/> <span t-field="certificate.partner_id.city"/>
+            <br/>
+            <br/>
+            <h2>subscribed:</h2>
+            <tr t-foreach="certificate.line_ids" t-as="line">
+                <p><span t-esc="line.qty"/> <span t-esc="line.product"/> at the face value of <span t-esc="line.price"/><span t-esc="partner_id.company_id.currency_id.symbol"/>  on <span t-esc="datetime.datetime.strptime(line.date,'%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                paid on <span t-esc="datetime.datetime.strptime(line.payment_date,'%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                </p>
+            </tr>
+            <br/>
+            <br/>
+
+            <p>Done in <span t-field="certificate.partner_id.company_id.city"/> on <span t-esc="date.strftime(date.today(),'%d/%m/%Y')"/></p>
+            <br/>
+            <h2 style="text-align:right">The President</h2>
+            <div style="float:right"><span t-field="certificate.partner_id.company_id.signature" t-field-options="{&quot;widget&quot;: &quot;image&quot;}"/></div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <p style="text-align:center">Cet état individuel est établi en l'application   de l'article 199 terdecies-0 A du CGI par <t t-esc="certificate.partner_id.company_id.capital_certificate_header or certificate.partner_id.company_id.name"/>, dont l’objet social est la vente en commerce de détail, dont le siège social est sis <span t-field="certificate.partner_id.company_id.street"/> <span t-field="certificate.partner_id.company_id.zip"/> <span t-field="certificate.partner_id.company_id.city"/>, et qui remplit les conditions mentionnées aux c, d et e du 2° du I de l'article 199 terdecies-0 A du CGI</p>
+            </div>
+        </tr>
+        </t>
+    </template>
+</data>
+</odoo>
