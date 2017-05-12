@@ -80,10 +80,6 @@ class ResPartner(models.Model):
         "Number of active registration lines",
         compute="_compute_registration_counts")
 
-    current_tmpl_reg_line_ids = fields.One2many(
-        'shift.template.registration.line', "partner_id",
-        'Current Template')
-
     current_template_name = fields.Char(
         string='Current Template', compute='_compute_current_template_name')
 
@@ -178,10 +174,6 @@ class ResPartner(models.Model):
             partner.active_tmpl_reg_line_count = len(
                 partner.tmpl_reg_line_ids.filtered(
                     lambda l: l.is_current or l.is_future))
-            # TODO, understand the both lines.
-            # disabled because they breaks shift.leave features.
-            # partner.current_tmpl_reg_line_ids =\
-            #    partner.tmpl_reg_line_ids.filtered(lambda l: l.is_current)
 
     @api.multi
     def _compute_current_template_name(self):
