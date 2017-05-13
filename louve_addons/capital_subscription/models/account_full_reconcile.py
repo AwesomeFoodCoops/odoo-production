@@ -17,23 +17,29 @@ class AccountFullReconcile(models.Model):
         for reconcile in self:
             category_ids = reconcile.mapped(
                 'reconciled_line_ids.invoice_id.fundraising_category_id')
+            invoices = reconcile.mapped('reconciled_line_ids.invoice_id')
             if len(category_ids) > 1:
                 raise UserError(_(
                     "You can not reconcile Capital Invoices for many"
                     " Categories: %s" % (
                         ', '.join(category_ids.mapped('name')))))
             elif len(category_ids) == 1 and category_ids[0].capital_account_id:
+                print invoices
                 # Create new account move
                 category = category_ids[0]
                 journal = category.fundraising_id.journal_id
-                invoices = reconcile.mapped('reconciled_line_ids.invoice_id')
                 partner = reconcile.reconciled_line_ids[0].partner_id
 
                 move_lines = reconcile.mapped('reconciled_line_ids').filtered(
                     lambda r: r.journal_id.id == journal.id)
-                total = sum(move_lines.mapped('debit'))
-
-                is_payment = not undo if total > 0 else undo
+                if invoices[0].type == 'out_refund':
+                    # Refund
+                    total = sum(move_lines.mapped('credit'))
+                    is_payment = undo if total > 0 else not undo
+                else:
+                    # Sale
+                    total = sum(move_lines.mapped('debit'))
+                    is_payment = not undo if total > 0 else undo
 
                 lines_vals = [(0, 0, {
                     'name': _("Payment of Capital")
