@@ -255,6 +255,11 @@ class ResPartner(models.Model):
         res = super(ResPartner, self).write(vals)
         for partner in self:
             self._generate_associated_barcode(partner)
+        # Recompute display_name if needed
+        if ('barcode_base' in vals or 'is_louve_member' in vals) and (
+                not 'name' in vals):
+            for partner in self:
+                partner.name = partner.name
         return res
 
     # Custom Section
