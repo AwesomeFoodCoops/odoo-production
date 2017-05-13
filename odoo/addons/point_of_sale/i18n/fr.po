@@ -3605,11 +3605,6 @@ msgid "Subtotal w/o Tax"
 msgstr "Sous-total hors taxes"
 
 #. module: point_of_sale
-#: model:ir.model.fields,field_description:point_of_sale.field_report_pos_order_price_total_vat_excl
-msgid "Total w/o Taxes"
-msgstr "Total HT"
-
-#. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_report_pos_order_price_sub_total
 msgid "Subtotal w/o discount"
 msgstr "Sous-total hors réduction"
