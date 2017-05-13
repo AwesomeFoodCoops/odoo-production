@@ -52,6 +52,9 @@ class ResPartner(models.Model):
     leave_ids = fields.One2many(
         comodel_name='shift.leave', inverse_name='partner_id', string='Leaves')
 
+    leave_qty = fields.Integer(
+        string='Number of Shift Leaves', compute='_compute_leave_qty')
+
     registration_ids = fields.One2many(
         'shift.registration', "partner_id", 'Registrations')
 
@@ -76,10 +79,6 @@ class ResPartner(models.Model):
     active_tmpl_reg_line_count = fields.Integer(
         "Number of active registration lines",
         compute="_compute_registration_counts")
-
-    current_tmpl_reg_line_ids = fields.One2many(
-        'shift.template.registration.line', "partner_id",
-        'Current Template')
 
     current_template_name = fields.Char(
         string='Current Template', compute='_compute_current_template_name')
@@ -165,6 +164,11 @@ class ResPartner(models.Model):
 
     # Compute section
     @api.multi
+    @api.depends('leave_ids')
+    def _compute_leave_qty(self):
+        for partner in self:
+            partner.leave_qty = len(partner.leave_ids)
+
     @api.depends('counter_event_ids.partner_id')
     def _compute_multi_event(self):
         for partner in self:
@@ -191,8 +195,6 @@ class ResPartner(models.Model):
             partner.active_tmpl_reg_line_count = len(
                 partner.tmpl_reg_line_ids.filtered(
                     lambda l: l.is_current or l.is_future))
-            partner.current_tmpl_reg_line_ids =\
-                partner.tmpl_reg_line_ids.filtered(lambda l: l.is_current)
 
     @api.multi
     def _compute_current_template_name(self):

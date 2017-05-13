@@ -6,6 +6,33 @@
  -->
 <odoo>
 
+    <record id="view_shift_leave_search" model="ir.ui.view">
+        <field name="model">shift.leave</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="type_id" />
+                <field name="duration" />
+                <field name="state" />
+            </search>
+        </field>
+    </record>
+
+    <record id="view_shift_leave_calendar" model="ir.ui.view">
+        <field name="model">shift.leave</field>
+        <field name="arch" type="xml">
+            <calendar date_start="start_date" date_stop="stop_date" color="type_id">
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="type_id" />
+                <field name="start_date" />
+                <field name="stop_date" />
+                <field name="duration" />
+                <field name="state" />
+            </calendar>
+        </field>
+    </record>
+
     <record id="view_shift_leave_tree" model="ir.ui.view">
         <field name="model">shift.leave</field>
         <field name="arch" type="xml">
