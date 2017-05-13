@@ -60,7 +60,7 @@ Copyright, Author and Licence :
     'depends': [
         'base',
         'product',
-        'purchase',
+        'purchase_discount',
     ],
     'data': [
         'views/product_supplierinfo_view.xml',
