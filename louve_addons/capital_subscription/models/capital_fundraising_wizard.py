@@ -36,7 +36,7 @@ class CapitalFundraisingWizard(models.TransientModel):
 
     payment_journal_id = fields.Many2one(
         comodel_name='account.journal', string='Payment Method',
-        domain="[('is_capital_fundraising', '=', True)]")
+        domain="[('is_payment_capital_fundraising', '=', True)]")
 
     confirm_fundraising_payment = fields.Selection(
         related='payment_journal_id.confirm_fundraising_payment')
@@ -68,7 +68,7 @@ class CapitalFundraisingWizard(models.TransientModel):
     # Action Section
     @api.multi
     def button_confirm(self):
-        assert len(self) == 1, "Incorrect call"
+        self.ensure_one()
 
         imd_obj = self.env['ir.model.data']
         invoice_obj = self.env['account.invoice']

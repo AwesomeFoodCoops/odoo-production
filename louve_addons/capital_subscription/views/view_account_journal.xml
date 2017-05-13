@@ -13,6 +13,7 @@
         <field name="arch" type="xml">
             <field name="type" position="after">
                 <field name="is_capital_fundraising"/>
+                <field name="is_payment_capital_fundraising"/>
                 <field name="confirm_fundraising_payment"/>
             </field>
         </field>
