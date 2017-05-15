@@ -97,7 +97,7 @@ class ProductSupplierinfo(models.Model):
             if vals.get('price', False):
                 vals['base_price'] = vals['price']
                 del vals['price']
-        super(ProductSupplierinfo, self).write(vals)
+        return super(ProductSupplierinfo, self).write(vals)
 
     # Constraints section
     @api.multi
