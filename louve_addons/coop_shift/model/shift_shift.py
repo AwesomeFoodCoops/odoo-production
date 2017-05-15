@@ -406,9 +406,22 @@ class ShiftShift(models.Model):
 
     @api.multi
     def confirm_registrations(self):
+        event_obj = self.env['shift.counter.event']
         for shift in self:
             for ticket in shift.shift_ticket_ids:
                 ticket.registration_ids.confirm_registration()
+            # Manage Penalties for FTOP partners
+            for registration in shift.registration_ids.filtered(
+                    lambda t: t.shift_type == 'ftop'):
+                if registration.partner_id.final_ftop_point < 0:
+                    event_obj.create({
+                        'type': 'ftop',
+                        'partner_id': registration.partner_id.id,
+                        'point_qty': -1,
+                        'date': datetime.today().strftime('%Y/%m/%d'),
+                        'note': _("Automatic penalty: %s") % (
+                            shift.display_name),
+                    })
 
     @api.model
     def run_shift_confirmation(self):

@@ -31,7 +31,7 @@ class CapitalSubscriptionTransferWizard(models.TransientModel):
     # Action Section
     @api.multi
     def button_confirm(self):
-        assert len(self) == 1, "Incorrect call"
+        self.ensure_one()
 
         imd_obj = self.env['ir.model.data']
         wizard = self[0]

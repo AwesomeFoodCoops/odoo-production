@@ -40,6 +40,13 @@
         sequence="100"
         groups="base.group_configuration"/>
 
+    <record model="ir.ui.menu" id="menu_shift_counter_event">
+        <field name="name">Counter Events</field>
+        <field name="action" ref="action_shift_counter_event"/>
+        <field name="parent_id" ref="shift_menu"/>
+        <field name="sequence">28</field>
+    </record>
+
     <record model="ir.ui.menu" id="menu_shift_extension">
         <field name="name">Extensions</field>
         <field name="action" ref="action_shift_extension"/>

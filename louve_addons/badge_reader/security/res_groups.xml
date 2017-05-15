@@ -8,13 +8,20 @@
 <odoo>
 
     <record model="res.groups" id="group_user">
-        <field name="name">Badge Reader User</field>
+        <field name="name">User</field>
         <field name="category_id" ref="category_badge_reader" />
     </record>
 
-    <record model="res.groups" id="group_manager">
-        <field name="name">Badge Reader Manager</field>
+    <record model="res.groups" id="group_time_clock">
+        <field name="name">Time Clock</field>
         <field name="implied_ids" eval="[(6, False, [ref('group_user')])]" />
+        <field name="category_id" ref="category_badge_reader" />
+    </record>
+
+
+    <record model="res.groups" id="group_manager">
+        <field name="name">Manager</field>
+        <field name="implied_ids" eval="[(6, False, [ref('group_time_clock')])]" />
         <field name="category_id" ref="category_badge_reader" />
     </record>
 

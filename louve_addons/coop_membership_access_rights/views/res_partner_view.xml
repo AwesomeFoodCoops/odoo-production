@@ -9,7 +9,7 @@
                 <field name="cooperative_state" widget="statusbar"/>
             </header>
             <sheet>
-                <div class="oe_button_box" name="button_box">
+                <div class="oe_button_box" name="button_box">                   
                     <button name="toggle_active" type="object" groups="base.group_no_one" class="oe_stat_button" icon="fa-archive">
                         <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
                     </button>
@@ -45,6 +45,9 @@
                     </button>
                     <button class="oe_stat_button" type="action" name="386" context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}" icon="fa-tasks" groups="project.group_project_user">
                         <field string="Tasks" name="task_count" widget="statinfo"/>
+                    </button>
+                    <button name="%(coop_capital_certificate.act_capital_certificate_from_partner)d" type="action" groups="account.group_account_manager" class="oe_stat_button" icon="fa-money" help="View Capital Certificates">
+                        <field name="capital_certificate_count" widget="statinfo" string="Capital Certif."/>
                     </button>
                 </div>
                 <field name="image" readonly="1" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
@@ -280,12 +283,12 @@
                             <group name="state3" groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user">
                                 <group string="Standard Part" cols="4">
                                     <field name="theoritical_standard_point"/>
-                                    <field name="manual_standard_correction" readonly="1"/>
+                                    <field name="manual_standard_correction"/>
                                     <field name="final_standard_point"/>
                                 </group>
                                 <group string="FTOP Part" cols="4">
                                     <field name="theoritical_ftop_point"/>
-                                    <field name="manual_ftop_correction" readonly="1"/>
+                                    <field name="manual_ftop_correction"/>
                                     <field name="final_ftop_point"/>
                                 </group>
                             </group>
@@ -407,12 +410,6 @@
                 <attribute name="readonly" eval="0"/>
             </field>
             <field name="name" position="attributes">
-                <attribute name="readonly" eval="0"/>
-            </field>
-            <field name="manual_standard_correction" position="attributes">
-                <attribute name="readonly" eval="0"/>
-            </field>
-            <field name="manual_ftop_correction" position="attributes">
                 <attribute name="readonly" eval="0"/>
             </field>
         </field>

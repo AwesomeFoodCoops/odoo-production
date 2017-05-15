@@ -10,7 +10,6 @@
                     <field name="date" interval="month" type="col"/>
                     <field name="product_qty" type="measure"/>
                     <field name="price_total_vat_excl" type="measure"/>
-                    <field name="price_total" type="measure"/>
                 </pivot>
             </field>
         </record>
@@ -22,7 +21,6 @@
                 <graph string="Point of Sale Analysis">
                     <field name="product_categ_id" type="row"/>
                     <field name="price_total_vat_excl" type="measure"/>
-                    <field name="price_total" type="measure"/>
                 </graph>
             </field>
         </record>

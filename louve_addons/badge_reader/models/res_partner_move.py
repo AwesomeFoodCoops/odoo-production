@@ -12,6 +12,13 @@ from openerp.addons.louve_membership.models.res_partner import\
     EXTRA_COOPERATIVE_STATE_SELECTION
 
 
+ACTION_SELECTION = [
+    ('in', 'In'),
+    ('out', 'Out'),
+    ('wrong', 'Wrong Partner'),
+]
+
+
 class ResPartnerMove(models.Model):
     _name = 'res.partner.move'
     _order = 'create_date desc, partner_id'
@@ -20,6 +27,10 @@ class ResPartnerMove(models.Model):
     partner_id = fields.Many2one(
         comodel_name='res.partner', string='Partner', required=True,
         select=True)
+
+    action = fields.Selection(
+        selection=ACTION_SELECTION, string='Action', required=True,
+        select=True, default='in')
 
     cooperative_state = fields.Selection(
         selection=EXTRA_COOPERATIVE_STATE_SELECTION, state='state',

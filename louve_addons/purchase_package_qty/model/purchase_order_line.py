@@ -33,19 +33,18 @@ class PurchaseOrderLine(models.Model):
 
     @api.depends('product_qty', 'price_unit', 'taxes_id', 'price_policy')
     def _compute_amount(self):
+        line_qty = {}
         for line in self:
             if line.price_policy == 'package':
-                qty = line.product_qty_package
-            else:
-                qty = line.product_qty
-            taxes = line.taxes_id.compute_all(
-                line.price_unit, line.order_id.currency_id, qty,
-                product=line.product_id, partner=line.order_id.partner_id)
-            line.update({
-                'price_tax': taxes['total_included'] - taxes['total_excluded'],
-                'price_total': taxes['total_included'],
-                'price_subtotal': taxes['total_excluded'],
-            })
+                line_qty[line.id] = line.product_qty
+                line.product_qty = line.product_qty_package
+
+        super(PurchaseOrderLine, self)._compute_amount()
+
+        # Restore the Quantity
+        for line in self:
+            if line.price_policy == 'package':
+                line.product_qty = line_qty[line.id]
 
     @api.model
     def _get_supplierinfovals(self, partner=False):

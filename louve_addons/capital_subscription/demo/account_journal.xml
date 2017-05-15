@@ -8,10 +8,17 @@
 <odoo>
 
     <record model="account.journal" id="capital_journal">
-        <field name="name">Demo Capital Fundraising Journal</field>
+        <field name="name">Sale Demo Capital Fundraising Journal</field>
         <field name="type">general</field>
-        <field name="code">CF</field>
+        <field name="code">S-CF</field>
         <field name="is_capital_fundraising" eval="1"/>
+    </record>
+
+    <record model="account.journal" id="capital_journal">
+        <field name="name">Payment Demo Capital Fundraising Journal</field>
+        <field name="type">bank</field>
+        <field name="code">P-CF</field>
+        <field name="is_payment_capital_fundraising" eval="1"/>
     </record>
 
 </odoo>

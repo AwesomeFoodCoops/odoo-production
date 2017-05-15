@@ -22,3 +22,21 @@
     perm_read: true
     perm_write: true
     perm_unlink: true
+-
+  !record {model: ir.model.access, id: ir_model_access_capital_certificate_base_user}:
+    group_id: base.group_user
+    model_id: coop_capital_certificate.model_capital_certificate
+    name: capital_certificate base user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_capital_certificate_line_base_user}:
+    group_id: base.group_user
+    model_id: coop_capital_certificate.model_capital_certificate_line
+    name: capital_certificate_line base user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
