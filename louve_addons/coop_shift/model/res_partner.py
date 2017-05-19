@@ -315,7 +315,8 @@ class ResPartner(models.Model):
                 if extension.date_start <= fields.Datetime.now() and\
                         extension.date_stop > fields.Datetime.now():
                     max_date = max(max_date, extension.date_stop)
-            partner.date_delay_stop = max_date
+            if partner.date_delay_stop or max_date:
+                partner.date_delay_stop = max_date
 
     @api.depends('final_standard_point', 'final_ftop_point')
     @api.multi
