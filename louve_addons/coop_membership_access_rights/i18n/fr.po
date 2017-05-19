@@ -406,3 +406,8 @@ msgstr "note interne..."
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
 msgid "the parent company"
 msgstr "la maison mère"
+
+#. module: barcodes_generate
+#: model:ir.model.fields,field_description:barcodes_generate.field_res_partner_barcode_base
+msgid "Barcode Base"
+msgstr "Numéro"
