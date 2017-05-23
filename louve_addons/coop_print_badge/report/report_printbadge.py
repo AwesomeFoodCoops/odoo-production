@@ -15,9 +15,11 @@ def trim_image(im):
     diff = ImageChops.add(diff, diff, 2.0, -100)
     bbox = diff.getbbox()
     if bbox:
-        im.crop(bbox)
+        im2 = im.crop(bbox)
+    else:
+        im2= null
     buffer = cStringIO.StringIO()
-    im.save(buffer, format="JPEG")
+    im2.save(buffer, format="JPEG")
     return base64.b64encode(buffer.getvalue())
 
 class ReportPrintbadge(models.AbstractModel):
