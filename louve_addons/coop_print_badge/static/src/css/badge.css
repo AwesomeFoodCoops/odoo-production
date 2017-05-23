@@ -11,13 +11,14 @@
 .member_photo_div{
 /*    width:37mm;
     height:47mm;*/
+    width:37mm;
     float:left;
     padding:0cm;
     }
 .member_photo{
     width:37mm;
-    height:47mm;
-/*    height:100%;
+/*    height:47mm;
+    height:100%;
     width:100%;*/
 }
 .member_number{
