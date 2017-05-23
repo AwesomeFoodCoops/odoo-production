@@ -15,10 +15,11 @@
     padding:0cm;
     }
 .member_photo{
-    height:47mm;
+    height:100%;
+    width:100%;
 }
 .member_number{
-    margin-left:40mm;
+    margin-left:50mm;
     margin-top:4mm;
     font-size: 15;
 }
