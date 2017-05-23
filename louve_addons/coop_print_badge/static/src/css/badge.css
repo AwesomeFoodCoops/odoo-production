@@ -16,6 +16,8 @@
     }
 .member_photo{
     width:37mm;
+    max-width:37mm;
+    max-height:47mm;
 /*    height:47mm;
     height:100%;
     width:100%;*/
