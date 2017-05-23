@@ -9,14 +9,14 @@
     color:#455a6e;
 }
 .member_photo_div{
-    width:37mm;
-    height:47mm;
+/*    width:37mm;
+    height:47mm;*/
     float:left;
     padding:0cm;
     }
 .member_photo{
-    height:100%;
-    width:100%;
+/*    height:100%;
+    width:100%;$*/
 }
 .member_number{
     margin-left:50mm;
