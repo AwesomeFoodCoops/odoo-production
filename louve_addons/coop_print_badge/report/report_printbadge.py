@@ -29,6 +29,7 @@ class ReportPrintbadge(models.AbstractModel):
     def render_html(self, data):
         partners = self.env['res.partner'].browse(self.ids)
         for p in partners :
+            print ">>>>>>>>>>>>>>>>>>>>>>>>>>>", p['image']
             im = Image.open(BytesIO(base64.b64decode(p['image'])))
             p['image']=trim_image(im)
 
