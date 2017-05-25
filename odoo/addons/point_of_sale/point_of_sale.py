@@ -1580,8 +1580,8 @@ class pos_order_line(osv.osv):
         'tax_ids_after_fiscal_position': fields.function(_get_tax_ids_after_fiscal_position, type='many2many', relation='account.tax', string='Taxes')
     }
 
-    price_subtotal = Fields.Float(compute='_compute_amount_line_all', digits=0, string='Subtotal w/o Tax', store=True)
-    price_subtotal_incl = Fields.Float(compute='_compute_amount_line_all', digits=0, string='Subtotal', store=True)
+    price_subtotal = Fields.Float(compute='_compute_amount_line_all', digits=0, string='Subtotal w/o Tax')
+    price_subtotal_incl = Fields.Float(compute='_compute_amount_line_all', digits=0, string='Subtotal')
 
     @api.depends('price_unit', 'tax_ids', 'qty', 'discount', 'product_id')
     def _compute_amount_line_all(self):
