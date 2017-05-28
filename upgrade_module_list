@@ -48,5 +48,5 @@
 #export MODULE_LIST_TO_UPGRADE="coop_membership_access_rights,coop_capital_certificate,coop_shift,coop_shift,purchase_discount,purchase_package_qty,account_export,capital_subscription,all"
 #export MODULE_LIST_TO_INSTALL="pos_empty_home,pos_price_to_weight"
 # 19/05/2017 - sur l'environnement de DEV
-export MODULE_LIST_TO_UPGRADE="coop_shift,coop_membership_access_rights,coop_print_badge"
+export MODULE_LIST_TO_UPGRADE="coop_shift,coop_membership_access_rights,coop_print_badge,louve_custom_pos,point_of_sale,louve_custom_inventory,capital_subscription"
 export MODULE_LIST_TO_INSTALL=""
