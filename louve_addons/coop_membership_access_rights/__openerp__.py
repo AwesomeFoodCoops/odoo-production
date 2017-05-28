@@ -58,6 +58,7 @@
         'security/ir_model_access.yml',
         'views/menu.xml',
         'views/res_partner_view.xml',
+        'views/res_users_view.xml',
         'views/shift_view.xml',
     ],
 }
