@@ -43,11 +43,12 @@ class AccountInvoice(models.Model):
         return move_lines
 
     # Constraint Section
-    @api.one
+    @api.multi
     @api.constrains(
         'is_capital_fundraising', 'fundraising_category_id',
-        'partner_id', 'invoice_line_ids')
+        'partner_id', 'invoice_line_ids', 'state')
     def _check_capital_fundraising(self):
+        self.ensure_one()
         invoice = self
         product_ids = invoice.invoice_line_ids.mapped('product_id.id')
 
@@ -70,15 +71,15 @@ class AccountInvoice(models.Model):
                     invoice.fundraising_category_id.name, ', '.join(
                         forbidden_products.mapped('name'))))
 
-            ordered_qty = sum(invoice.invoice_line_ids.mapped('quantity'))
+#            ordered_qty = sum(invoice.invoice_line_ids.mapped('quantity'))
 
-            to_order_qty = invoice.fundraising_category_id.check_minimum_qty(
-                invoice.partner_id)
+#            to_order_qty = invoice.fundraising_category_id.check_minimum_qty(
+#                invoice.partner_id)
 
-            if ordered_qty < to_order_qty:
-                raise exceptions.UserError(_(
-                    "This category and (previous orders) requires at least"
-                    " %d shares.") % (to_order_qty))
+#            if ordered_qty < to_order_qty:
+#                raise exceptions.UserError(_(
+#                    "This category and (previous orders) requires at least"
+#                    " %d shares.") % (to_order_qty))
         else:
             capital_product_ids = self.env['product.product'].search(
                 [('is_capital_fundraising', '=', True)]).ids
@@ -91,6 +92,54 @@ class AccountInvoice(models.Model):
                 raise exceptions.UserError(_(
                     "Non capital invoice do not accept line with capital"
                     " subscription products : %s") % (forbidden_product_names))
+
+        if invoice.state in ['open', 'paid']\
+                and invoice.fundraising_category_id:
+
+            category = invoice.fundraising_category_id
+            # Get default minimum qty
+            minimum_qty = category.minimum_share_qty
+
+            # Compute minimum qty depending of partner state
+            if invoice.partner_id.fundraising_partner_type_ids:
+                for line in category.line_ids:
+                    if line.fundraising_partner_type_id.id in\
+                            invoice.partner_id.fundraising_partner_type_ids.ids:
+                        minimum_qty = min(line.minimum_share_qty, minimum_qty)
+
+            capital_qty = 0
+            category_invoices = self.search([
+                ('partner_id', '=', invoice.partner_id.id),
+                ('state', 'in', ['open', 'paid']),
+                ('fundraising_category_id', '=', category.id)])
+            for category_invoice in category_invoices:
+                if category_invoice.type == 'out_invoice':
+                    capital_qty += sum(
+                        category_invoice.mapped('invoice_line_ids.quantity'))
+                else:
+                    capital_qty -= sum(
+                        category_invoice.mapped('invoice_line_ids.quantity'))
+            if capital_qty < 0:
+                raise exceptions.UserError(_(
+                    "You try to make an operation after which the partner"
+                    " will have %d shares of capital of kind '%s'.\n\n"
+                    " Incorrect Value.") % (capital_qty, category.name))
+            if capital_qty < minimum_qty and capital_qty !=0 and\
+                    not self.env.context.get(
+                        'ignore_type_A_constrains', False):
+                # use this test to ignore type A constrains when
+                # partial transfer capital will be implemented. IE :
+                # Partner bought 10 shares
+                # Partner gives 5 shares to another member (*)
+                # (5 shares left)
+                # Partner ask refund for the other shares (0 shares left)
+                # (*) : this invoice confirmation should be accepted,
+                # even if the partner has 5 shares during this step.
+                raise exceptions.UserError(_(
+                    "You try to make an operation after which the partner"
+                    " will have %d share(s) of capital of kind '%s'.\n\n"
+                    " Minimum quantity : %d.") % (
+                        capital_qty, category.name, minimum_qty))
 
     # OnChange Section
     @api.onchange('fundraising_category_id')

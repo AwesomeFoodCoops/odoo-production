@@ -302,36 +302,38 @@
                         </group>
                     </page>
                     <page string="Louve Custom" groups="coop_membership_access_rights.group_membership_access_manager">
-                        <group string="MemberShip">
-                            <field name="barcode_rule_id" domain="[('generate_model', '=', 'res.partner')]" groups="barcodes_generate.generate_barcode" colspan="2"/>
-                            <field name="generate_type" invisible="1"/>
-                            <button name="generate_base" type="object" string="Generate Base (Using Sequence)" attrs="{'invisible': ['|',('generate_type', '!=', 'sequence'),                     ('barcode_base', '!=', 0)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
-                            <field name="barcode" attrs="{'readonly': [('generate_type', '=', 'sequence')]}"/>
-                            <button name="generate_barcode" type="object" string="Generate Barcode (Using Barcode Rule)" attrs="{'invisible': ['|', '|',
-                            ('generate_type', '!=', 'sequence'),
-                            ('barcode_base', '!=', 0),
-                            ('barcode', '!=', '')]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
-                            <button id="create_new_barcode" name="492" type="action" string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode"/>
-                            <field name="is_louve_member" groups="louve_membership.louve_membership_manager" string="Afficher via menu Membres" readonly="0"/>
-                            <field name="type_A_capital_qty" groups="louve_membership.louve_membership_manager"/>
-                            <field name="type_B_capital_qty" groups="louve_membership.louve_membership_manager"/>
-                            <field name="type_C_capital_qty" groups="louve_membership.louve_membership_manager"/>
-                            <field name="is_type_A_capital_subscriptor" invisible="1"/>
-                            <field name="is_type_B_capital_subscriptor" invisible="1"/>
-                            <field name="is_type_C_capital_subscriptor" invisible="1"/>
-                            <field name="is_associated_people" readonly="1" groups="louve_membership.louve_membership_manager"/>
-                            <field name="is_unpayed"/>
-                            <field name="is_unsubscribed"/>
-                        </group>
-                        <group string="Extra Data">
-                            <field name="temp_coop_number"/>
-                            <field name="birthdate" widget="date"/>
-                            <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
-                            <field name="adult_number_home"/>
-                            <field name="old_coop_number"/>
-                            <field name="contact_origin_id"/>
-                            <field name="sex"/>
-                            <field name="is_deceased"/>
+                        <group>
+                            <group string="MemberShip">
+                                <field name="barcode_rule_id" domain="[('generate_model', '=', 'res.partner')]" groups="barcodes_generate.generate_barcode" colspan="2"/>
+                                <field name="generate_type" invisible="1"/>
+                                <button name="generate_base" type="object" string="Generate Base (Using Sequence)" attrs="{'invisible': ['|',('generate_type', '!=', 'sequence'),                     ('barcode_base', '!=', 0)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
+                                <field name="barcode" attrs="{'readonly': [('generate_type', '=', 'sequence')]}"/>
+                                <button name="generate_barcode" type="object" string="Generate Barcode (Using Barcode Rule)" attrs="{'invisible': ['|', '|',
+                                ('generate_type', '!=', 'sequence'),
+                                ('barcode_base', '!=', 0),
+                                ('barcode', '!=', '')]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
+                                <button id="create_new_barcode" name="492" type="action" string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
+                                <field name="is_louve_member" groups="louve_membership.louve_membership_manager" string="Display in Members Menu" readonly="0"/>
+                                <field name="type_A_capital_qty" groups="coop_membership_access_rights.group_see_all_capital_subscription"/>
+                                <field name="type_B_capital_qty" groups="coop_membership_access_rights.group_see_all_capital_subscription"/>
+                                <field name="type_C_capital_qty" groups="coop_membership_access_rights.group_see_all_capital_subscription"/>
+                                <field name="is_type_A_capital_subscriptor" invisible="1"/>
+                                <field name="is_type_B_capital_subscriptor" invisible="1"/>
+                                <field name="is_type_C_capital_subscriptor" invisible="1"/>
+                                <field name="is_associated_people" readonly="1" groups="louve_membership.louve_membership_manager"/>
+                                <field name="is_unpayed"/>
+                                <field name="is_unsubscribed"/>
+                            </group>
+                            <group string="Extra Data">
+                                <field name="temp_coop_number"/>
+                                <field name="birthdate" widget="date"/>
+                                <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
+                                <field name="adult_number_home"/>
+                                <field name="old_coop_number"/>
+                                <field name="contact_origin_id"/>
+                                <field name="sex"/>
+                                <field name="is_deceased"/>
+                            </group>
                         </group>
                     </page>
                     <page name="page_capital_fundraising" string="Capital Subscriptions" groups="louve_membership.subscriptions_reader">

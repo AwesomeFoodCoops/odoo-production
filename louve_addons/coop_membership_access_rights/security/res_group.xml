@@ -33,4 +33,16 @@
         <field name="implied_ids" eval="[(4, ref('group_membership_access_edit'))]"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
+
+    <record model="res.groups" id="group_see_all_capital_subscription">
+        <field name="name">See All Capital Subscriptions</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record model="res.groups" id="group_refund_capital_subscription">
+        <field name="name">Refund Capital Subscriptions</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
 </odoo>
