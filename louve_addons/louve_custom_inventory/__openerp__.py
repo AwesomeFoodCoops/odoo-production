@@ -17,6 +17,5 @@
     'data': [
         'view/report_stockinventory.xml',
         'view/view_stock_inventory.xml',
-        'view/view_stock_change_product_qty.xml',
     ],
 }

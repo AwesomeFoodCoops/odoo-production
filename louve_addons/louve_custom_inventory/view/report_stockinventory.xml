@@ -20,8 +20,8 @@
                 <th class="text-right"><strong>UG. Qty</strong></th>
             </xpath>
             <xpath expr="//table[@class='table table-condensed'][2]/tr//td[3]" position="before">
-                <td class="text-right"><span t-field="line.product_qty1"/></td>
-                <td class="text-right"><span t-field="line.product_qty2"/></td>
+                <td class="text-right"></td>
+                <td class="text-right"></td>
             </xpath>
 
         </template>

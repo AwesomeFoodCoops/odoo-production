@@ -18,12 +18,12 @@ msgstr ""
 #. module: louve_custom_inventory
 #: model:ir.ui.view,arch_db:louve_custom_inventory.report_inventory_louve
 msgid "<strong>G.F. Qty</strong>"
-msgstr "<strong>Qté Surface</strong>"
+msgstr "<strong>Qté en Vente</strong>"
 
 #. module: louve_custom_inventory
 #: model:ir.ui.view,arch_db:louve_custom_inventory.report_inventory_louve
 msgid "<strong>UG. Qty</strong>"
-msgstr "<strong>Qté Ss-sol</strong>"
+msgstr "<strong>Qté en Stock</strong>"
 
 #. module: louve_custom_inventory
 #: model:ir.model,name:louve_custom_inventory.model_stock_change_product_qty
@@ -36,19 +36,6 @@ msgid "Current Quantity"
 msgstr "Quantité actuelle"
 
 #. module: louve_custom_inventory
-#: model:ir.model.fields,field_description:louve_custom_inventory.field_stock_change_product_qty_product_qty1
-#: model:ir.model.fields,field_description:louve_custom_inventory.field_stock_inventory_line_product_qty1
-msgid "Ground Floor Quantity"
-msgstr "Qté Surface"
-
-#. module: louve_custom_inventory
 #: model:ir.model,name:louve_custom_inventory.model_stock_inventory_line
 msgid "Inventory Line"
 msgstr "Ligne d'inventaire"
-
-#. module: louve_custom_inventory
-#: model:ir.model.fields,field_description:louve_custom_inventory.field_stock_change_product_qty_product_qty2
-#: model:ir.model.fields,field_description:louve_custom_inventory.field_stock_inventory_line_product_qty2
-msgid "Underground Quantity"
-msgstr "Qté Ss-sol"
-
