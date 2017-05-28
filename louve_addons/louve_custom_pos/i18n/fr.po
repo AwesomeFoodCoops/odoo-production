@@ -129,3 +129,10 @@ msgstr "Suspendu"
 msgid "display: none;"
 msgstr "display: none;"
 
+#. module: louve_custom_pos
+#: model:ir.model.fields,field_description:louve_custom_pos.field_report_pos_order_price_total_vat_excl
+msgid "Total w/o Taxes"
+msgstr "Total HT"
+
+
+
