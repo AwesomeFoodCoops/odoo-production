@@ -48,4 +48,15 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="view_shift_extension_search">
+        <field name="name">shift.extension.search</field>
+        <field name="model">shift.extension</field>
+        <field name="arch" type="xml">
+            <search string="Shift Extensions">
+                <field name="partner_id"/>
+            </search>
+        </field>
+    </record>
+
+
 </odoo>

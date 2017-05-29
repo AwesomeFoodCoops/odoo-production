@@ -1,6 +1,6 @@
 .badge{
-    height:110mm;
-    width:69mm;
+    height:85mm;
+    width:54mm;
     margin-left:-0.4cm;
     margin-right:0cm;
     margin-top:0cm;
@@ -9,24 +9,24 @@
     color:#455a6e;
 }
 .member_photo_div{
-    width:45mm;
-    height:66mm;
+    width:37mm;
+    height:47mm;
     float:left;
     padding:0cm;
-    }
+}
 .member_photo{
     width:100%;
     height:100%;
 }
 .member_number{
-    margin-left:42mm;
-    margin-top:6.4mm;
+    margin-left:50mm;
+    margin-top:4mm;
     font-size: 15;
 }
 .coop_text{
     font-size: 15;
     text-orientation: sideways-left;
-    margin-left:45mm;
+    margin-left:40mm;
     margin: 0;
     padding: 0;
     -webkit-transform-origin: 255 85;
@@ -44,12 +44,13 @@
     overflow: hidden;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    text-align: left;
 }
 .barcode_image{
     float: left;
     height:18mm;
     max-height:18mm;
-    max-width:40mm;
+    max-width:43mm;
 }
 .company_address{
     margin-left:41mm;

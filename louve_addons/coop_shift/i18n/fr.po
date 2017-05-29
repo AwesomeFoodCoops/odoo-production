@@ -468,7 +468,7 @@ msgstr "Contact"
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_res_partner_cooperative_state
 msgid "Cooperative State"
-msgstr "Etat coopératif"
+msgstr "Statut"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
