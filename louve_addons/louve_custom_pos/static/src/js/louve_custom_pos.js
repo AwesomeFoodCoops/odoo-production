@@ -24,6 +24,23 @@ Overload screens.ClientListScreenWidget
     });
 
 /* ********************************************************
+Overload screens.ActionpadWidget
+******************************************************** */
+    screens.ActionpadWidget.include({
+        renderElement: function() {
+            var self = this;
+            this._super();
+            this.$('.pay').off('click');
+            this.$('.pay').click(function(){
+                // Reset all payment lines before showing the Payment View
+                var pos_order = self.pos.get_order();
+                pos_order.paymentlines.reset();
+                self.gui.show_screen('payment');
+            });
+        }
+    });
+
+/* ********************************************************
 Overload models.PosModel
 ******************************************************** */
     var _super_posmodel = models.PosModel.prototype;
