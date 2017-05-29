@@ -42,6 +42,7 @@
         'base',
         'base_vat',
         'capital_subscription',
+        'coop_capital_certificate',
         'coop_shift',
         'louve_membership',
         'mail',
@@ -59,6 +60,7 @@
         'views/menu.xml',
         'views/res_partner_view.xml',
         'views/res_users_view.xml',
+        'views/account_invoice_view.xml',
         'views/shift_view.xml',
     ],
 }

@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * coop_membership_access_rights
+#	* coop_membership_access_rights
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-27 18:47+0000\n"
-"PO-Revision-Date: 2017-03-27 18:47+0000\n"
+"POT-Creation-Date: 2017-05-19 13:08+0000\n"
+"PO-Revision-Date: 2017-05-19 13:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,11 +57,6 @@ msgstr "Adresse"
 
 #. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
-msgid "Afficher via menu Membres"
-msgstr "Afficher via menu Membres"
-
-#. module: coop_membership_access_rights
-#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
 msgid "Analytic Accounts"
 msgstr "Comptes analytiques"
 
@@ -69,6 +64,11 @@ msgstr "Comptes analytiques"
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
 msgid "Bank account(s)"
 msgstr "Comptes de banques"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Capital Certif."
+msgstr "Certif. de Capital"
 
 #. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
@@ -109,6 +109,11 @@ msgstr "Pays"
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
 msgid "Credit card(s)"
 msgstr "Carte de crédit"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Display in Members Menu"
+msgstr "Afficher dans le menu membre"
 
 #. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
@@ -182,6 +187,11 @@ msgid "Members"
 msgstr "Membres"
 
 #. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.group_membership_access_photo
+msgid "Membership Edit Photo"
+msgstr "Editer la photo de membre"
+
+#. module: coop_membership_access_rights
 #: model:ir.module.category,description:coop_membership_access_rights.module_membership_access_management
 #: model:ir.module.category,name:coop_membership_access_rights.module_membership_access_management
 msgid "Membership Management"
@@ -245,7 +255,7 @@ msgstr "Paiements"
 #. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
 msgid "Phone:"
-msgstr "Téléphone :"
+msgstr "Téléphone :"
 
 #. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
@@ -261,6 +271,17 @@ msgstr "Achats"
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
 msgid "Purchases"
 msgstr "Achats"
+
+#. module: coop_membership_access_rights
+#: model:ir.actions.act_window,name:coop_membership_access_rights.action_account_invoice_refund_capital_subscription
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_account_invoice_form
+msgid "Refund Capital Subscription"
+msgstr "Rachat de capital"
+
+#. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.group_refund_capital_subscription
+msgid "Refund Capital Subscriptions"
+msgstr "Rachat de capital"
 
 #. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
@@ -286,6 +307,11 @@ msgstr "Ventes & Achats"
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_bdm_search
 msgid "Search Partner"
 msgstr "Rechercher un partenaire"
+
+#. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.group_see_all_capital_subscription
+msgid "See All Capital Subscriptions"
+msgstr "Vour toutes les souscriptions de capital"
 
 #. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
@@ -320,7 +346,7 @@ msgstr "Rue..."
 #. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
 msgid "Subscriptions"
-msgstr "Abonnements"
+msgstr "Souscriptions"
 
 #. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
@@ -351,6 +377,11 @@ msgstr "Factures fournisseur"
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
 msgid "Vendor Bills."
 msgstr "Factures Fournisseur."
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "View Capital Certificates"
+msgstr "Voir les Certificats de Capitaux"
 
 #. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form

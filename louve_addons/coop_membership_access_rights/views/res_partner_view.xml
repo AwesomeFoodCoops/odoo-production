@@ -339,7 +339,6 @@
                             <button name="437" type="action" class="oe_highlight" icon="fa-cogs" string="Add Template Registration" id="add_template_registration" attrs="{'invisible':[('is_type_A_capital_subscriptor','=',False)]}"/>
                         </group>
                     </page>
-
                     <page name="page_capital_fundraising" string="Capital Subscriptions" groups="louve_membership.subscriptions_reader">
                         <group>
                             <group string="Partner Type">

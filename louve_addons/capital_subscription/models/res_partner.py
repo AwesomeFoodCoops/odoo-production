@@ -23,10 +23,16 @@ class ResPartner(models.Model):
     def compute_amount_subscription(self):
         inv_obj = self.env['account.invoice']
         for partner in self:
-            invoices = inv_obj.search([
+            amount_subscription = sum(inv_obj.search([
+                ('type', '=', 'out_invoice'),
                 ('partner_id', '=', partner.id),
                 ('is_capital_fundraising', '=', True),
                 ('state', 'in', ['paid', 'open'])
-            ])
-            partner.amount_subscription = reduce(
-                lambda x, y: x + y.amount_total, invoices, 0)
+            ]).mapped('invoice_line_ids.price_subtotal'))
+            partner.amount_subscription = amount_subscription + sum(
+                inv_obj.search([
+                    ('type', '=', 'out_refund'),
+                    ('partner_id', '=', partner.id),
+                    ('is_capital_fundraising', '=', True),
+                    ('state', 'in', ['paid', 'open'])
+                ]).mapped('invoice_line_ids.price_subtotal'))

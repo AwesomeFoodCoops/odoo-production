@@ -24,7 +24,6 @@ class AccountFullReconcile(models.Model):
                     " Categories: %s" % (
                         ', '.join(category_ids.mapped('name')))))
             elif len(category_ids) == 1 and category_ids[0].capital_account_id:
-                print invoices
                 # Create new account move
                 category = category_ids[0]
                 journal = category.fundraising_id.journal_id
