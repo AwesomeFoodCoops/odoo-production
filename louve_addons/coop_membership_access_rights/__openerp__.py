@@ -61,6 +61,5 @@
         'views/res_partner_view.xml',
         'views/res_users_view.xml',
         'views/account_invoice_view.xml',
-        'views/shift_view.xml',
     ],
 }
