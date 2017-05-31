@@ -87,7 +87,7 @@
     <template id="report_wallchart_ftop">
         <t t-call="report.html_container">
         <tr t-foreach="Wallcharts" t-as="wallchart">
-            <t t-call="report.external_layout">
+            <t t-call="coop_shift.custom_external_layout">
                 <div class="page" style="page-break-after:always">
                     <div class="row mt8 mb8 ">
                         <div class="col-xs-7" style="text-align:center"><h2>Shift Inscriptions: <span t-esc="_(wallchart['day'])"/></h2></div>
