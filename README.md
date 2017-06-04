@@ -9,12 +9,13 @@ Repository organization
 For maintenability purpose, all the coop have to use the same version of commun module. Thos modules are in odoo, extrat_addons and coop_addons folders.
 In addition, each coop has a dedicated folder where she can build custom modules. Those modules don't have to make conflict with the common modules.
 
-Changes process
+Changes proposal on common modules
 ============
 The main collaboration process is quite simple. However, we have to experience it in order to imporve it :
 * If someone want to change common module, make a PR against the dev branch. The repo management team will challenge it and if it's good, merge it. Do not forbid migration scripts.
 * If someone want to build a custom module, make a PR against the dev branch. The repo management team will merge in whintin 2 days. You will get it on the production/9.0 branch on the next dev->9.0  merge (ask if its urgent).
 
+For consistency reason, we prefer to ask to or dev supplier to make the modifications on common modules.
 
 Upgrading process
 ============
