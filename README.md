@@ -21,6 +21,8 @@ Upgrading process
 ============
 Step A : on the DEV environnement
 -------------
+=> Developper for or repo and creates a branch from our 9.0 (production) branch
+=> Developper commit changes on his own repo
 => Developper make a PR to the DEV branch : he adds to the description :
 - a link to the ticket  (and he adds the link of the PR to the ticket)
 - the module name we have to update
