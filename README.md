@@ -14,3 +14,28 @@ Changes process
 The main collaboration process is quite simple. However, we have to experience it in order to imporve it :
 * If someone want to change common module, make a PR against the dev branch. The repo management team will challenge it and if it's good, merge it. Do not forbid migration scripts.
 * If someone want to build a custom module, make a PR against the dev branch. The repo management team will merge in whintin 2 days. You will get it on the production/9.0 branch on the next dev->9.0  merge (ask if its urgent).
+
+
+Upgrading process
+============
+Step A : on the DEV environnement
+-------------
+=> Developper make a PR to the DEV branch : he adds to the description :
+- a link to the ticket  (and he adds the link of the PR to the ticket)
+- the module name we have to update
+- the module name we have to install
+He adds the PR link to the TMS ticket.
+
+=> The repo management team checks the code, merge the PR against DEV branch and adds the modules names to install/update at the end of this file on the DEV branch : https://github.com/shewolfParis/odoo-production/blob/dev/upgrade_module_list
+
+=> The hosting team connects on DEV environment by ssh and execute ./odoo_delivery_lastest.sh DB_NAME
+If there is no DB_NAME parameter, the script creates a new db on the fly from the J-1 database backup.
+The script pull the code, and install / update the modules specified.
+
+The hosting team usualy delete the old DB to keep only one (that's simplier for testers) manually. (this task could be integrated to the delivery script in the future, after asking to the operatror)
+
+=> The hosting team sets the ticket to "on dev" status.
+
+Step B : on the PROD environnement
+-------------
+Once the test are conpleted, the repo management team merge DEV -> 9.0 (production branch). The hosting team connects on PROD environment by ssh and execute ./odoo_delivery_lastest.sh.
