@@ -34,8 +34,9 @@ The script pull the code, and install / update the modules specified.
 
 The hosting team usualy delete the old DB to keep only one (that's simplier for testers) manually. (this task could be integrated to the delivery script in the future, after asking to the operatror)
 
-=> The hosting team sets the ticket to "on dev" status.
+=> The hosting team sets the ticket to "on dev" status and send a message to users to describe the changes (absicly a screenshot of the ticket list that have be solved).
 
 Step B : on the PROD environnement
 -------------
 Once the test are conpleted, the repo management team merge DEV -> 9.0 (production branch). The hosting team connects on PROD environment by ssh and execute ./odoo_delivery_lastest.sh.
+=> The hosting team sets the ticket to "on production" status and send a message to users to describe the changes (absicly a screenshot of the ticket list that have be solved).
