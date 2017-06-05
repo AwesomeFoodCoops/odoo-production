@@ -44,6 +44,7 @@
                     <field name="partner_id" options="{'no_create_edit': True, 'no_create': True}"/>
                     <field name="shift_id" options="{'no_create_edit': True, 'no_create': True}"/>
                     <field name="shift_ticket_id" domain="[('shift_id', '=', shift_id)]" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="replacing_reg_id"/>
                     <field name="state"/>
                     <field name="message_needaction" invisible="1"/>
                     <button name="button_reg_close" string="Attended the Shift" states="open" type="object" icon="fa-thumbs-o-up"/>
