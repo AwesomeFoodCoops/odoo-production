@@ -23,7 +23,7 @@
             <field name="email_from">${(object.shift_id.organizer_id.email or object.shift_id.user_ids[0].email or '')|safe}</field>
             <field name="email_to" >${object.partner_id.email or object.email|safe}</field>
             <field name="lang">${object.partner_id.lang}</field>
-            <field name="reply_to">${object.shift_id.reply_to|safe}</field>
+            <field name="reply_to">${object.shift_id.reply_to or (object.shift_id.shift_type_id and object.shift_id.shift_type_id.default_reply_to) or ''|safe}</field>
             <field name="subject">Reminder of shift ${object.shift_id.name}</field>
             <field name="body_html"><![CDATA[<p>Hello ${object.name},</p>
 <p>This is a reminder for ${object.shift_id.name} that you registered for is confirmed and will be held from ${object.shift_id.date_begin_located} to ${object.shift_id.date_end_located}.
