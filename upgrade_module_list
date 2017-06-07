@@ -52,4 +52,4 @@
 #export MODULE_LIST_TO_INSTALL=""
 # 31/05/2017 - sur l'environnement de DEV
 export MODULE_LIST_TO_UPGRADE="coop_shift"
-export MODULE_LIST_TO_INSTALL=""
+export MODULE_LIST_TO_INSTALL="pos_restrict_product_scan_on_payment"
