@@ -49,6 +49,27 @@
                     <button name="%(coop_capital_certificate.act_capital_certificate_from_partner)d" type="action" groups="account.group_account_manager" class="oe_stat_button" icon="fa-money" help="View Capital Certificates">
                         <field name="capital_certificate_count" widget="statinfo" string="Capital Certif."/>
                     </button>
+
+                    <button name="%(coop_shift.action_res_partner_point_counter_view_standard)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-star-o"
+                        help="View Partner Points Standard Counter"
+                        groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user"
+                        id="view_res_partner_point_counter_standard">
+                        <field name="final_standard_point" widget="statinfo" string="Standard Points"/>
+                    </button>
+
+                    <button name="%(coop_shift.action_res_partner_point_counter_view_ftop)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-star-o"
+                        help="View Partner Points FTOP Counter"
+                        groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user"
+                        id="view_res_partner_point_counter_ftop">
+                        <field name="final_ftop_point" widget="statinfo" string="FTOP Points"/>
+                    </button>
+
                 </div>
                 <field name="image" readonly="1" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
                 <div class="oe_title">
@@ -318,18 +339,6 @@
                             <group name="state2" groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user">
                                 <field name="working_state"/>
                             </group>
-                            <group name="state3" groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user">
-                                <group string="Standard Part" cols="4">
-                                    <field name="theoritical_standard_point"/>
-                                    <field name="manual_standard_correction"/>
-                                    <field name="final_standard_point"/>
-                                </group>
-                                <group string="FTOP Part" cols="4">
-                                    <field name="theoritical_ftop_point"/>
-                                    <field name="manual_ftop_correction"/>
-                                    <field name="final_ftop_point"/>
-                                </group>
-                            </group>
                         </group>
                         <group name="squadleader">
                             <field name="is_squadleader"/>
@@ -368,17 +377,14 @@
         </field>
     </record>
 
+    <!-- Todo: To remove this view: It is currently unremovable due to the view data defined in DB -->
     <record id="view_res_partner_form_shift_manage_counter" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_membership_access_rights.view_partner_form"/>
         <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manage_counter'))]"/>
+        <field name="active" eval="False"/>
         <field name="arch" type="xml">
-            <field name="manual_standard_correction" position="attributes">
-                <attribute name="readonly">0</attribute>
-            </field>
-            <field name="manual_ftop_correction" position="attributes">
-                <attribute name="readonly">0</attribute>
-            </field>
+            <field name="cooperative_state"/>
         </field>
     </record>
 

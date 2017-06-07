@@ -112,25 +112,10 @@ class ResPartner(models.Model):
         store=True, compute='_compute_cooperative_state', help="This state"
         " depends on the 'Working State' and extra custom settings.")
 
-    theoritical_standard_point = fields.Integer(
-        string='theoritical Standard points', store=True,
-        compute='compute_theoritical_standard_point')
-
-    manual_standard_correction = fields.Integer(
-        string='Adjustements of Standard points',
-        compute='_compute_multi_event', store=True, multi='event')
-
+    # Fields for final standard and ftop points
     final_standard_point = fields.Integer(
         string='Final Standard points', compute='compute_final_standard_point',
         store=True)
-
-    theoritical_ftop_point = fields.Integer(
-        string='theoritical FTOP points', store=True,
-        compute='compute_theoritical_ftop_point')
-
-    manual_ftop_correction = fields.Integer(
-        string='Adjustements of Standard points',
-        compute='_compute_multi_event', store=True, multi='event')
 
     final_ftop_point = fields.Integer(
         string='Final FTOP points', compute='compute_final_ftop_point',
@@ -158,27 +143,12 @@ class ResPartner(models.Model):
         comodel_name='shift.counter.event', inverse_name='partner_id',
         string='Counter Events')
 
-    counter_event_qty = fields.Integer(
-        string='Counter Events Quantity',
-        compute='_compute_multi_event', store=True, multi='event')
-
     # Compute section
     @api.multi
     @api.depends('leave_ids')
     def _compute_leave_qty(self):
         for partner in self:
             partner.leave_qty = len(partner.leave_ids)
-
-    @api.depends('counter_event_ids.partner_id')
-    def _compute_multi_event(self):
-        for partner in self:
-            partner.manual_standard_correction = sum(
-                partner.counter_event_ids.filtered(
-                    lambda x: x.type == 'standard').mapped('point_qty'))
-            partner.manual_ftop_correction = sum(
-                partner.counter_event_ids.filtered(
-                    lambda x: x.type == 'ftop').mapped('point_qty'))
-            partner.counter_event_qty = len(partner.counter_event_ids)
 
     @api.multi
     def _compute_registration_counts(self):
@@ -227,58 +197,25 @@ class ResPartner(models.Model):
         for partner in self:
             partner.extension_qty = len(partner.extension_ids)
 
-    @api.depends('theoritical_standard_point', 'manual_standard_correction')
+    @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
+                 'counter_event_ids.type', 'counter_event_ids.partner_id')
     @api.multi
     def compute_final_standard_point(self):
         for partner in self:
-            partner.final_standard_point =\
-                partner.theoritical_standard_point +\
-                partner.manual_standard_correction
+            partner.final_standard_point = sum(
+                [point_counter.point_qty
+                    for point_counter in partner.counter_event_ids
+                    if point_counter.type == 'standard'])
 
-    @api.depends('theoritical_ftop_point', 'manual_ftop_correction')
+    @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
+                 'counter_event_ids.type', 'counter_event_ids.partner_id')
     @api.multi
     def compute_final_ftop_point(self):
         for partner in self:
-            partner.final_ftop_point =\
-                partner.theoritical_ftop_point +\
-                partner.manual_ftop_correction
-
-    @api.depends(
-        'registration_ids.state', 'registration_ids.shift_type')
-    @api.multi
-    def compute_theoritical_standard_point(self):
-        for partner in self:
-            point = 0
-            for registration in partner.registration_ids.filtered(
-                        lambda reg: reg.shift_type == 'standard'):
-                if not registration.template_created:
-                    if registration.state in ['done', 'replaced']:
-                        point += +1
-                # In all cases
-                if registration.state in ['absent']:
-                    point += -2
-                elif registration.state in ['excused']:
-                    point += -1
-                # if 'waiting' state, point is not impacted
-            partner.theoritical_standard_point = point
-
-    @api.depends('registration_ids.state', 'registration_ids.shift_type')
-    @api.multi
-    def compute_theoritical_ftop_point(self):
-        for partner in self:
-            point = 0
-            for registration in partner.registration_ids.filtered(
-                        lambda reg: reg.shift_type == 'ftop'):
-                if registration.template_created:
-                    # The presence was forecasted
-                    if registration.state in ['absent', 'excused', 'waiting']:
-                        point += -1
-                else:
-                    if registration.state in ['absent']:
-                        point += -1
-                    elif registration.state in ['present']:
-                        point += 1
-            partner.theoritical_ftop_point = point
+            partner.final_ftop_point = sum(
+                [point_counter.point_qty
+                    for point_counter in partner.counter_event_ids
+                    if point_counter.type == 'ftop'])
 
     def _compute_is_vacation(self):
         for partner in self:

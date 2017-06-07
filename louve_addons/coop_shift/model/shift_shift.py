@@ -402,26 +402,36 @@ class ShiftShift(models.Model):
     @api.multi
     def button_confirm(self):
         super(ShiftShift, self).button_confirm()
-        self.confirm_registrations()
 
     @api.multi
-    def confirm_registrations(self):
-        event_obj = self.env['shift.counter.event']
+    def button_done(self):
+        '''
+        Modify button done for
+            - Create Point for FTOP shift on cloturing
+                + Deduct 1 if current point > 1
+                + Deduct 2 if current point < 1
+        '''
+        point_counter_env = self.env['shift.counter.event']
+        super(ShiftShift, self).button_done()
         for shift in self:
-            for ticket in shift.shift_ticket_ids:
-                ticket.registration_ids.confirm_registration()
-            # Manage Penalties for FTOP partners
-            for registration in shift.registration_ids.filtered(
-                    lambda t: t.shift_type == 'ftop'):
-                if registration.partner_id.final_ftop_point < 0:
-                    event_obj.create({
-                        'type': 'ftop',
-                        'partner_id': registration.partner_id.id,
-                        'point_qty': -1,
-                        'date': datetime.today().strftime('%Y/%m/%d'),
-                        'note': _("Automatic penalty: %s") % (
-                            shift.display_name),
-                    })
+            if shift.shift_type_id.is_ftop:
+                for registration in shift.registration_ids:
+                    partner = registration.partner_id
+                    current_point = partner.final_ftop_point
+                    point = 0
+                    if current_point >= 1:
+                        point = -1
+                    else:
+                        point = -2
+                    # Create Point Counter
+                    point_counter_env.with_context(
+                        {'automatic': True}).create({
+                            'name': _('Shift Cloture'),
+                            'shift_id': shift.id,
+                            'type': 'ftop',
+                            'partner_id': partner.id,
+                            'point_qty': point
+                        })
 
     @api.model
     def run_shift_confirmation(self):

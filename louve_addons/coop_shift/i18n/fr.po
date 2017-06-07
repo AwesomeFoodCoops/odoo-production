@@ -1438,15 +1438,6 @@ msgstr "Gérer les congés"
 msgid "Manager"
 msgstr "Responsable"
 
-#. module: coop_shift
-#: model:ir.model.fields,field_description:coop_shift.field_res_partner_manual_ftop_correction
-msgid "Manual FTOP Correction"
-msgstr "Correction"
-
-#. module: coop_shift
-#: model:ir.model.fields,field_description:coop_shift.field_res_partner_manual_standard_correction
-msgid "Manual Standard Correction"
-msgstr "Correction"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_hide_in_member_space
