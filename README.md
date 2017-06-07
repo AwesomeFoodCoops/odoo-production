@@ -43,4 +43,4 @@ Step B : on the PROD environnement
 -------------
 Once the test are conpleted, the repo management team merge DEV -> 9.0 (production branch). The hosting team connects on PROD environment by ssh and execute ./odoo_delivery_lastest.sh.
 => The hosting team sets the ticket to "on production" status and send a message to users to describe the changes (absicly a screenshot of the ticket list that have be solved).
-=> Its it's required, the developper create a PR against OCA repo
+=> If the module is generic (inside the OCA repository), the developper create a PR against OCA repo
