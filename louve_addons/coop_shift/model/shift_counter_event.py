@@ -8,35 +8,31 @@ from openerp import api, fields, models
 
 class ShiftCounterEvent(models.Model):
     _name = 'shift.counter.event'
-    _order = 'date desc, partner_id asc'
+    _order = 'create_date desc, partner_id asc'
 
     TYPE_SELECTION = [
         ('standard', 'Standard'),
         ('ftop', 'FTOP'),
     ]
 
-    name = fields.Char(
-        string='Name', compute='_compute_name', store=True, select=True)
-
+    name = fields.Char(string="Description", required=True)
+    shift_id = fields.Many2one(comodel_name='shift.shift', string="Shift")
     type = fields.Selection(
         string='Type', required=True, selection=TYPE_SELECTION)
-
     partner_id = fields.Many2one(
         string='Partner', comodel_name='res.partner', required=True,
         select=True)
-
-    date = fields.Date(string='Date', required=True)
-
+    is_manual = fields.Boolean('Manual', readonly=True, default=True)
     point_qty = fields.Integer(string='Point Quantity', required=True)
 
-    note = fields.Char(
-        string='Note', required=True)
+    @api.model
+    def create(self, vals):
+        '''
+        Overwrite the function to
+            - Update manual update
+        '''
+        context = self._context
+        if context.get('automatic', False):
+            vals['is_manual'] = False
 
-    @api.depends('partner_id', 'date')
-    def _compute_name(self):
-        for event in self:
-            if event.partner_id and event.date:
-                event.name = '%s - %s' % (
-                    event.partner_id.name, event.date)
-            else:
-                event.name = ''
+        return super(ShiftCounterEvent, self).create(vals)
