@@ -80,12 +80,29 @@ class ShiftRegistration(models.Model):
     replaced_reg_id = fields.Many2one(
         'shift.registration', "Replaced Registration", required=False)
     template_created = fields.Boolean("Created by a Template", default=False)
+    is_related_shift_ftop = fields.Boolean(
+        compute='compute_is_related_shift_ftop', store=False)
 
     _sql_constraints = [(
         'shift_registration_uniq',
         'unique (shift_id, partner_id)',
         'This partner is already registered on this Shift !'),
     ]
+
+    @api.multi
+    def compute_is_related_shift_ftop(self):
+        '''
+        @Function to compute the value for field `is_related_shift_ftop`
+            Set value to True if related Shift is in type of FTOP, and False
+            otherwise
+        '''
+        for registration in self:
+            if registration.shift_id and \
+                    registration.shift_id.shift_type_id and \
+                    registration.shift_id.shift_type_id.is_ftop:
+                registration.is_related_shift_ftop = True
+            else:
+                registration.is_related_shift_ftop = False
 
     @api.multi
     def write(self, vals):
