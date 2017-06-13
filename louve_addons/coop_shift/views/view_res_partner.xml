@@ -27,14 +27,6 @@
                             groups="coop_shift.group_shift_manager">
                         <field name="extension_qty" widget="statinfo" string="Ext."/>
                     </button>
-                    <button name="%(coop_shift.action_shift_counter_event_from_partner)d"
-                            type="action"
-                            class="oe_stat_button oe_event_attendee_button"
-                            icon="fa-calendar"
-                            help="View partner Extensions"
-                            groups="coop_shift.group_shift_manager">
-                        <field name="counter_event_qty" widget="statinfo" string="Event"/>
-                    </button>
                 </div>
         </field>
     </record>
@@ -53,16 +45,6 @@
                     <field name="date_alert_stop"/>
                     <field name="date_delay_stop"/>
                     <field name="working_state"/>
-                    <group string="Standard Part" cols="4">
-                        <field name="theoritical_standard_point"/>
-                        <field name="manual_standard_correction"/>
-                        <field name="final_standard_point"/>
-                    </group>
-                    <group string="FTOP Part" cols="4">
-                        <field name="theoritical_ftop_point"/>
-                        <field name="manual_ftop_correction"/>
-                        <field name="final_ftop_point"/>
-                    </group>
                 </group>
             </group>
         </field>

@@ -1,9 +1,0 @@
-web
-l10n-france
-purchase-workflow
-
-pos_01_barcodes_generate https://github.com/legalsylvain/pos.git 9.0_PORT_barcodes_generate
-
-purchase-workflow_01_product_supplierinfo_discount https://github.com/jweste/purchase-workflow.git 9.0_task_153_product_supplierinfo_discount
-
-product-attribute_01_product_to_print https://github.com/legalsylvain/product-attribute.git 9.0_product_to_print

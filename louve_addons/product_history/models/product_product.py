@@ -26,6 +26,9 @@ from datetime import date
 from datetime import datetime as dt
 from datetime import timedelta as td
 from dateutil.relativedelta import relativedelta as rd
+from openerp.addons.connector.session import ConnectorSession
+from openerp.addons.connector.queue.job import job
+
 
 old_date = date(2015, 1, 1)
 
@@ -158,7 +161,21 @@ class ProductProduct(models.Model):
         products = self.env['product.product'].search([
             '|', ('active', '=', True),
             ('active', '=', False)])
-        products._compute_history('weeks')
+
+        product_ids = products.ids
+
+        # Split product list in multiple parts
+        num_prod_per_job = 100
+        splited_prod_list = \
+            [product_ids[i: i + num_prod_per_job]
+             for i in range(0, len(product_ids), num_prod_per_job)]
+        # Prepare session for job
+        session = ConnectorSession(self._cr, self._uid,
+                                   context=self.env.context)
+        # Create jobs
+        for product_list in splited_prod_list:
+            job_compute_history.delay(
+                session, 'product.product', 'weeks', product_list)
 
     @api.model
     def run_product_history_month(self):
@@ -189,8 +206,6 @@ class ProductProduct(models.Model):
         last_dates = {}
         last_qtys = {}
         product_ids = []
-        location_ids = self.env['stock.location'].search([]).read(['usage'])
-        location_ids = dict(map(lambda l: (l['id'], l['usage']), location_ids))
         for product in self:
             product_ids.append(product.id)
             history_ids = self.env['product.history'].search([
@@ -338,3 +353,10 @@ class ProductProduct(models.Model):
                     product.last_history_week = history_id.id
                 else:
                     product.last_history_day = history_id.id
+
+
+@job
+def job_compute_history(session, model_name, history_range, product_ids):
+    ''' Job for Computing Product History '''
+    products = session.env[model_name].browse(product_ids)
+    products._compute_history(history_range)

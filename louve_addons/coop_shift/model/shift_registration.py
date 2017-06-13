@@ -80,12 +80,97 @@ class ShiftRegistration(models.Model):
     replaced_reg_id = fields.Many2one(
         'shift.registration', "Replaced Registration", required=False)
     template_created = fields.Boolean("Created by a Template", default=False)
+    is_related_shift_ftop = fields.Boolean(
+        compute='compute_is_related_shift_ftop', store=False)
 
     _sql_constraints = [(
         'shift_registration_uniq',
         'unique (shift_id, partner_id)',
         'This partner is already registered on this Shift !'),
     ]
+
+    @api.multi
+    def compute_is_related_shift_ftop(self):
+        '''
+        @Function to compute the value for field `is_related_shift_ftop`
+            Set value to True if related Shift is in type of FTOP, and False
+            otherwise
+        '''
+        for registration in self:
+            if registration.shift_id and \
+                    registration.shift_id.shift_type_id and \
+                    registration.shift_id.shift_type_id.is_ftop:
+                registration.is_related_shift_ftop = True
+            else:
+                registration.is_related_shift_ftop = False
+
+    @api.multi
+    def write(self, vals):
+        '''
+        Overide write function to update point counter for member
+            + Standard:
+                Add 1: Status is Attended / Replaced and template not created
+                Deduct 2: Status is Absent
+                Deduct 1: Status is Excused
+            + FTOP
+                Add 1: Status is Attended / Replaced
+                Deduct 1: Status is Excused / Waiting and template created
+                Deduct 1: Status is Absent
+        '''
+        point_counter_env = self.env['shift.counter.event']
+        vals_state = vals.get('state')
+        for shift_reg in self:
+            if vals_state != shift_reg.state:
+                counter_vals = {}
+                if shift_reg.shift_type == 'ftop':
+                    if vals_state in ['done', 'replaced']:
+                        reason = vals_state == 'done' and \
+                            _('Attended') or \
+                            _('Replaced')
+                        counter_vals['point_qty'] = 1
+                        counter_vals['name'] = reason
+
+                    elif vals_state in ['absent']:
+                        counter_vals['point_qty'] = -1
+                        counter_vals['name'] = _('Absent')
+
+                    elif vals_state in ['excused', 'waiting'] and \
+                            shift_reg.template_created:
+                        reason = vals_state == 'excused' and \
+                            _('Excused') or \
+                            _('Waiting')
+                        counter_vals['point_qty'] = -1
+                        counter_vals['name'] = reason
+
+                elif shift_reg.shift_type == 'standard':
+                    if vals_state in ['done', 'replaced']:
+                        reason = vals_state == 'done' and \
+                            _('Attended') or \
+                            _('Replaced')
+                        counter_vals['point_qty'] = 1
+                        counter_vals['name'] = reason
+
+                    elif vals_state in ['absent']:
+                        counter_vals['point_qty'] = -2
+                        counter_vals['name'] = _('Absent')
+
+                    elif vals_state in ['excused'] and \
+                            shift_reg.template_created:
+                        counter_vals['point_qty'] = -1
+                        counter_vals['name'] = _('Excused')
+
+                # Create Point Counter
+                if counter_vals:
+                    counter_vals.update({
+                        'shift_id': shift_reg.shift_id.id,
+                        'type': shift_reg.shift_type,
+                        'partner_id': shift_reg.partner_id.id,
+                    })
+
+                    point_counter_env.with_context(
+                        automatic=True).create(counter_vals)
+
+        return super(ShiftRegistration, self).write(vals)
 
     @api.multi
     def button_reg_absent(self):

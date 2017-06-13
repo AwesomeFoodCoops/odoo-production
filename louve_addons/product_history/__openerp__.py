@@ -48,6 +48,7 @@ Copyright, Author and Licence :
         'product',
         'stock',
         'product_average_consumption',
+        'connector',
     ],
     'data': [
         'views/res_config_view.xml',

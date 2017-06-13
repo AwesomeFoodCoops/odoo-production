@@ -14,7 +14,7 @@
                         <button string="Confirm Shift" name="button_confirm" states="draft" type="object" class="oe_highlight" groups="base.group_user"/>
                         <button string="Finish Shift" name="button_done" states="confirm" type="object" class="oe_highlight" groups="base.group_user"/>
                         <button string="Set To Draft" name="button_draft" states="cancel,done" type="object" groups="base.group_user"/>
-                        <button string="Cancel Shift" name="button_cancel" states="draft,confirm" type="object" groups="base.group_user"/>
+                        <button string="Cancel Shift" name="button_cancel" states="draft,confirm" type="object" groups="coop_shift.group_shift_cancel_shifts"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
                     </header>
                     <sheet>
@@ -197,7 +197,8 @@
                     <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction','=',True)]"/>
                     <separator/>
                     <filter string="Unconfirmed" name="draft" domain="[('state','=','draft')]" help="Shifts in New state"/>
-                    <filter string="Confirmed" domain="[('state','=','confirm')]" help="Confirmed shifts"/>
+                    <filter string="Confirmed" name="confirmed" domain="[('state','=','confirm')]" help="Confirmed shifts"/>
+                    <filter string="Finished" name="finished" domain="[('state','=','done')]" help="Finished shifts"/>
                     <separator/>
                     <filter string="My Shifts" help="My Shifts" domain="[('user_ids','in',uid)]"/>
                     <separator/>
@@ -226,7 +227,7 @@
            <field name="res_model">shift.shift</field>
            <field name="view_type">form</field>
            <field name="view_mode">kanban,tree,form</field>
-           <field name="context">{"search_default_upcoming":1}</field>
+           <field name="context">{"search_default_confirmed":1}</field>
            <field name="search_view_id" ref="view_shift_search"/>
            <field name="help" type="html"><p class="oe_view_nocontent_create">
     Click to add a new shift.

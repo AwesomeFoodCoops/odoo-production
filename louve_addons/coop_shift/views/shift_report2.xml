@@ -12,7 +12,7 @@
     </record>
 
     <record id="coop_shift.wallchart_ftop" model="ir.actions.report.xml">
-        <field name="paperformat_id" ref="report.paperformat_euro"/>
+        <field name="paperformat_id" ref="coop_shift.paperformat_wallchart_ftop"/>
         <field name="attachment_use" eval="0"/>
     </record>
 </odoo>
