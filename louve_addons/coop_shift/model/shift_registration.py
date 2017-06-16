@@ -167,7 +167,7 @@ class ShiftRegistration(models.Model):
                         'partner_id': shift_reg.partner_id.id,
                     })
 
-                    point_counter_env.with_context(
+                    point_counter_env.sudo().with_context(
                         automatic=True).create(counter_vals)
 
         return super(ShiftRegistration, self).write(vals)
