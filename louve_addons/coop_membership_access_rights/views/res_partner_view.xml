@@ -335,6 +335,7 @@
                                 <field name="is_vacation"/>
                                 <field name="date_alert_stop"/>
                                 <field name="date_delay_stop"/>
+                                <field name="next_shift_time"/>
                             </group>
                             <group name="state2" groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user">
                                 <field name="working_state"/>

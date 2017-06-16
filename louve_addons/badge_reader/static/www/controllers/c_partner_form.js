@@ -7,11 +7,13 @@ angular.module('starter').controller('PartnerFormCtrl', ['$scope', '$state', 'Re
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
         if (toState.name == 'partner_form'){
-            ResPartnerModel.GetById(toParams['partner_id']).then(function (partner_res) {
-                // Add style and Sound
-                partner_res.css_class = 'partner-' + partner_res.bootstrap_cooperative_state;
-                $document[0].getElementById('sound_res_partner_' + partner_res.bootstrap_cooperative_state).play();
-                $scope.partner = partner_res;
+            // Adding extensions for partner if current user is suspended (logic defined in Backend)
+            ResPartnerModel.GracePartner(parseInt(toParams['partner_id'])).then(function (grace_result){
+                ResPartnerModel.GetById(toParams['partner_id']).then(function (partner_res){
+                    partner_res.css_class = 'partner-' + partner_res.bootstrap_cooperative_state;
+                    $document[0].getElementById('sound_res_partner_' + partner_res.bootstrap_cooperative_state).play();
+                    $scope.partner = partner_res;
+                });
             });
         }
     });
