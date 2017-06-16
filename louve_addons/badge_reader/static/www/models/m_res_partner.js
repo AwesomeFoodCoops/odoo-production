@@ -63,5 +63,11 @@ angular.module('starter').factory('ResPartnerModel', ['$q', 'jsonRpc', function 
             });
         },
 
+        GracePartner: function(partner_id) {
+            return jsonRpc.call('res.partner', 'action_grace_partner', [partner_id]).then(function (res) {
+                return res;
+            });
+        },
+
     };
 }]);

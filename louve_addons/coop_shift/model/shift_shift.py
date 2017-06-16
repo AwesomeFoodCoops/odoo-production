@@ -424,7 +424,7 @@ class ShiftShift(models.Model):
                     else:
                         point = -2
                     # Create Point Counter
-                    point_counter_env.with_context(
+                    point_counter_env.sudo().with_context(
                         {'automatic': True}).create({
                             'name': _('Shift Cloture'),
                             'shift_id': shift.id,
