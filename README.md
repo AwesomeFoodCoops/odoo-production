@@ -29,18 +29,14 @@ Step A : on the DEV environnement
 - the module name we have to install
 He adds the PR link to the TMS ticket.
 
-=> The repo management team checks the code, merge the PR against DEV branch and adds the modules names to install/update at the end of this file on the DEV branch : https://github.com/shewolfParis/odoo-production/blob/dev/upgrade_module_list
+=> The repo management team checks the code, and merge the PR against DEV branch
 
-=> The hosting team connects on DEV environment by ssh and execute ./odoo_delivery_lastest.sh DB_NAME
-If there is no DB_NAME parameter, the script creates a new db on the fly from the J-1 database backup.
-The script pull the code, and install / update the modules specified.
-
-The hosting team usualy delete the old DB to keep only one (that's simplier for testers) manually. (this task could be integrated to the delivery script in the future, after asking to the operatror)
-
-=> The hosting team sets the ticket to "on dev" status and send a message to users to describe the changes (absicly a screenshot of the ticket list that have be solved).
+=> The hosting team update the code on staging instance, restore the lastest nighly DB copy, install/uninstall/update module dans execute migration scripts. They set the ticket to "on dev" status and send a message to users to describe the changes (basicly a screenshot of the ticket list that have be solved).
 
 Step B : on the PROD environnement
 -------------
-Once the test are conpleted, the repo management team merge DEV -> 9.0 (production branch). The hosting team connects on PROD environment by ssh and execute ./odoo_delivery_lastest.sh.
-=> The hosting team sets the ticket to "on production" status and send a message to users to describe the changes (absicly a screenshot of the ticket list that have be solved).
+Once the test are conpleted, the repo management team merge DEV -> 9.0 (production branch). 
+
+=> The hosting team update the code on staging instance, install/uninstall/update module dans execute migration scripts. They set the ticket to "on prod" status and send a message to users to describe the changes (basicly a screenshot of the ticket list that have be solved).
+
 => If the module is generic (inside the OCA repository), the developper create a PR against OCA repo
