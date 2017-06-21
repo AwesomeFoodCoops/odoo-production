@@ -9,41 +9,41 @@
                 <field name="cooperative_state" widget="statusbar"/>
             </header>
             <sheet>
-                <div class="oe_button_box" name="button_box">                   
+                <div class="oe_button_box" name="button_box">
                     <button name="toggle_active" type="object" groups="base.group_no_one" class="oe_stat_button" icon="fa-archive">
                         <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
                     </button>
-                    <button class="oe_stat_button" type="action" name="539" icon="fa-book" string="Account Move Lines" groups="account.group_account_manager">
+                    <button class="oe_stat_button" type="action" name="%(res_partner_account_move_line.action_open_partner_move_lines)d" icon="fa-book" string="Account Move Lines" groups="account.group_account_manager">
                     </button>
-                    <button name="485" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar" help="View partner Extensions" groups="coop_shift.group_shift_manager,coop_membership_access_rights.group_membership_access_user">
+                    <button name="%(coop_shift.action_shift_extension_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar" help="View partner Extensions" groups="coop_shift.group_shift_manager,coop_membership_access_rights.group_membership_access_user">
                         <field name="extension_qty" widget="statinfo" string="Ext."/>
                     </button>
-                    <button name="425" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar" help="View partner Registrations" groups="coop_shift.group_shift_user,coop_membership_access_rights.group_membership_access_user" id="view_partner_registrations" attrs="{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}">
+                    <button name="%(coop_shift.act_shift_registration_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar" help="View partner Registrations" groups="coop_shift.group_shift_user,coop_membership_access_rights.group_membership_access_user" id="view_partner_registrations" attrs="{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}">
                         <field name="upcoming_registration_count" widget="statinfo" string="Upc. Registr."/>
                     </button>
-                    <button name="458" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar-plus-o" help="View partner Template Registrations" groups="coop_shift.group_shift_manager,coop_membership_access_rights.group_membership_access_user" id="view_partner_template_registrations" attrs="{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}">
+                    <button name="%(coop_shift.act_template_registration_line_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar-plus-o" help="View partner Template Registrations" groups="coop_shift.group_shift_manager,coop_membership_access_rights.group_membership_access_user" id="view_partner_template_registrations" attrs="{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}">
                         <field name="active_tmpl_reg_line_count" widget="statinfo" string="Tmpl. Registr."/>
                     </button>
-                    <button type="action" class="oe_stat_button" id="invoice_button" icon="fa-pencil-square-o" name="189" context="{'search_default_partner_id': active_id,'default_partner_id': active_id}" groups="account.group_account_invoice">
+                    <button type="action" class="oe_stat_button" id="invoice_button" icon="fa-pencil-square-o" name="%(account.action_invoice_refund_out_tree)d" context="{'search_default_partner_id': active_id,'default_partner_id': active_id}" groups="account.group_account_invoice">
                         <div class="o_form_field o_stat_info">
                             <span class="o_stat_value"><field name="total_invoiced" widget="monetary" options="{'currency_field': 'currency_id'}" groups="account.group_account_invoice"/></span>
                             <span class="o_stat_text">Invoiced</span>
                         </div>
                     </button>
-                    <button class="oe_stat_button" type="action" name="242" attrs="{'invisible': [('customer', '=', False)]}" icon="fa-usd" groups="base.group_sale_salesman">
+                    <button class="oe_stat_button" type="action" name="%(sale.act_res_partner_2_sale_order)d" attrs="{'invisible': [('customer', '=', False)]}" icon="fa-usd" groups="base.group_sale_salesman">
                         <field string="Sales" name="sale_order_count" widget="statinfo" groups="base.group_sale_salesman"/>
                     </button>
-                    <button class="oe_stat_button" name="356" type="action" attrs="{'invisible': [('supplier', '=', False)]}" icon="fa-pencil-square-o" help="Vendor Bills" groups="account.group_account_invoice">
+                    <button class="oe_stat_button" name="%(purchase.act_res_partner_2_supplier_invoices)d" type="action" attrs="{'invisible': [('supplier', '=', False)]}" icon="fa-pencil-square-o" help="Vendor Bills" groups="account.group_account_invoice">
                         <field string="Vendor Bills." name="supplier_invoice_count" widget="statinfo"/>
                     </button>
-                    <button class="oe_stat_button" name="355" type="action" attrs="{'invisible': [('supplier', '=', False)]}" icon="fa-shopping-cart" groups="purchase.group_purchase_user">
+                    <button class="oe_stat_button" name="%(purchase.act_res_partner_2_purchase_order)d" type="action" attrs="{'invisible': [('supplier', '=', False)]}" icon="fa-shopping-cart" groups="purchase.group_purchase_user">
                         <field string="Purchases" name="purchase_order_count" widget="statinfo" groups="purchase.group_purchase_user"/>
                     </button>
                     <!-- TODO -->
-                    <button class="oe_stat_button" type="action" name="194" icon="fa-book" groups="accont.group_account_invoice">
+                    <button class="oe_stat_button" type="action" name="%(account.action_open_partner_analytic_accounts)d" icon="fa-book" groups="accont.group_account_invoice">
                         <field string="Analytic Accounts" name="contracts_count" widget="statinfo"/>
                     </button>
-                    <button class="oe_stat_button" type="action" name="386" context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}" icon="fa-tasks" groups="project.group_project_user">
+                    <button class="oe_stat_button" type="action" name="%(project.action_view_task)d" context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}" icon="fa-tasks" groups="project.group_project_user">
                         <field string="Tasks" name="task_count" widget="statinfo"/>
                     </button>
                     <button name="%(coop_capital_certificate.act_capital_certificate_from_partner)d" type="action" groups="account.group_account_manager" class="oe_stat_button" icon="fa-money" help="View Capital Certificates">
@@ -97,7 +97,7 @@
                             <div class="oe_edit_only">
                                 <button name="open_parent" type="object" string="(edit)" class="oe_link" attrs="{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}" groups="coop_membership_access_rights.group_membership_access_manager"/>
                             </div>
-                            
+
                             <field name="street" placeholder="Street..." class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
                             <field name="street2" placeholder="Street 2..." class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
                             <field name="city" placeholder="City" class="o_address_city" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
@@ -130,7 +130,7 @@
                         ('generate_type', '!=', 'sequence'),
                         ('barcode_base', '!=', 0),
                         ('barcode', '!=', '')]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
-                        <button id="create_new_barcode" name="492" type="action" string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
+                        <button id="create_new_barcode" name="%(louve_membership.action_res_partner_generate_barcode_wizard)d" type="action" string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
                         <field name="is_louve_member" groups="coop_membership_access_rights.group_membership_access_manager" string="Afficher via menu Membres" readonly="0"/>
                         <field name="type_A_capital_qty" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="type_B_capital_qty" groups="coop_membership_access_rights.group_membership_access_manager"/>
@@ -283,11 +283,11 @@
                             <group string="Payments" name="banks" groups="account.group_account_invoice">
                                 <field name="currency_id" invisible="1"/>
                                 <div>
-                                    <button type="action" class="btn-link" name="61" context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}">
+                                    <button type="action" class="btn-link" name="%(base.action_res_partner_bank_account_form)d" context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}">
                                         <field string="Bank account(s)" name="bank_account_count" widget="statinfo"/>
                                     </button>
                                 </div>
-                                <button type="action" class="btn-link" name="224" context="{'search_default_partner_id': active_id}">
+                                <button type="action" class="btn-link" name="%(payment.payment_method_action)d" context="{'search_default_partner_id': active_id}">
                                     <field name="payment_method_count" widget="statinfo" string="Credit card(s)"/>
                                 </button>
                             </group>
@@ -346,7 +346,7 @@
                             <field name="template_ids"/>
                         </group>
                         <group name="button" groups="coop_shift.group_shift_manager">
-                            <button name="437" type="action" class="oe_highlight" icon="fa-cogs" string="Add Template Registration" id="add_template_registration" attrs="{'invisible':[('is_type_A_capital_subscriptor','=',False)]}"/>
+                            <button name="%(coop_shift.action_add_template_registration)d" type="action" class="oe_highlight" icon="fa-cogs" string="Add Template Registration" id="add_template_registration" attrs="{'invisible':[('is_type_A_capital_subscriptor','=',False)]}"/>
                         </group>
                     </page>
                     <page name="page_capital_fundraising" string="Capital Subscriptions" groups="louve_membership.subscriptions_reader">
@@ -359,7 +359,7 @@
                             </group>
                             <group string="Subscriptions">
                                 <field name="amount_subscription"/>
-                                <button id="new_subscription" name="468" type="action" string="New Capital Subscription" class="oe_highlight" groups="louve_membership.subscriptions_creator"/>
+                                <button id="new_subscription" name="%(capital_subscription.action_capital_fundraising_wizard)d" type="action" string="New Capital Subscription" class="oe_highlight" groups="louve_membership.subscriptions_creator"/>
                             </group>
                         </group>
                     </page>
