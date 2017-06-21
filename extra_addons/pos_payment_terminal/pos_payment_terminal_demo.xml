@@ -2,13 +2,48 @@
 <openerp>
 <data noupdate="1">
 
-<record id="account.check_journal" model="account.journal">
-    <field name="payment_mode">check</field>
-</record>
+		<!-- <record id="account.check_journal" model="account.journal"> <field
+			name="payment_mode">check</field> </record> -->
 
-<record id="point_of_sale.pos_config_main" model="pos.config">
-    <field name="iface_payment_terminal" eval="True"/>
-</record>
+		<record id="sequence_bank_journal" model="ir.sequence">
+			<field name="name">Account Default Bank Journal - (Used for Demo)</field>
+			<field eval="3" name="padding" />
+			<field name="prefix">BNK/%(year)s/</field>
+		</record>
+		<record id="nca" model="account.account">
+			<field name="code">X101</field>
+			<field name="name">Net Current Assets - (Used for Demo)</field>
+			<field name="type">view</field>
+			<field name="user_type_id" ref="account.data_account_type_current_assets" />
+		</record>
+		<record id="cas" model="account.account">
+			<field name="code">X1100</field>
+			<field name="name">Current Assets - (Used for Demo)</field>
+			<field ref="nca" name="parent_id" />
+			<field name="type">view</field>
+			<field name="user_type_id" ref="account.data_account_type_current_assets" />
+		</record>
+		<record id="bnk" model="account.account">
+			<field name="code">X11004</field>
+			<field name="name">Bank Current Account - (Used for Demo)</field>
+			<field ref="cas" name="parent_id" />
+			<field name="type">liquidity</field>
+			<field name="user_type_id" ref="account.data_account_type_liquidity" />
+		</record>
+		<record id="check_journal_for_demo" model="account.journal">
+			<field name="name">Check Journal - (check journal used for demo)
+			</field>
+			<field name="code">CKJNDEMO</field>
+			<field name="type">bank</field>
+			<field name="sequence_id" ref="sequence_bank_journal" />
+			<field name="default_debit_account_id" ref="bnk" />
+			<field name="default_credit_account_id" ref="bnk" />
+			<field name="user_id" ref="base.user_root" />
+			<field name="payment_mode">check</field>
+		</record>
+		<record id="point_of_sale.pos_config_main" model="pos.config">
+			<field name="iface_payment_terminal" eval="True" />
+		</record>
 
 </data>
 </openerp>
