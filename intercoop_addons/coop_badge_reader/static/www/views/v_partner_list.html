@@ -1,0 +1,53 @@
+<ion-view view-title="Liste des membres">
+    <ion-content class="padding">
+
+        <div class="container theme-showcase" role="main">
+
+            <div class="jumbotron">
+                <ion-list>
+                    <ion-item ng-repeat="partner in partners">
+                        <a class="item" href="#" ng-click="selectPartner({{partner.id}})">
+                            <div class="partner-list-image-part">
+                                <img ng-src="{{partner.image_url}}" class="img-thumbnail img-partner-list"/>
+                            </div>
+                            <div class="partner-list-name-part">
+                            {{partner.display_name}}
+                            </div>
+                            <div class="partner-list-status-part">
+                            Statut :
+                                <span class="label label-success" ng-show="partner.cooperative_state == 'up_to_date'">A jour</span>
+                                <span class="label label-warning" ng-show="partner.cooperative_state == 'alert'">En alerte</span>
+                                <span class="label label-warning" ng-show="partner.cooperative_state == 'delay'">Délai accordé</span>
+                                <span class="label label-danger" ng-show="partner.cooperative_state == 'suspended'">Suspendu(e)</span>
+                                <span class="label label-danger" ng-show="partner.cooperative_state == 'not_concerned'">Non concerné(e)</span>
+                                <span class="label label-danger" ng-show="partner.cooperative_state == 'blocked'">Bloqué(e)</span>
+                                <span class="label label-danger" ng-show="partner.cooperative_state == 'unpayed'">Impayé constaté</span>
+                                <span class="label label-danger" ng-show="partner.cooperative_state == 'unsubscribed'">Désinscrit</span>
+                            </div>
+                        </a>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+
+
+
+<!--    <ion-content class="has-header" data-ng-init="init()">-->
+<!--        <form ng-submit="submit()">-->
+<!--            <div class="list">-->
+<!--                <ion-list>-->
+<!--                    <ion-item ng-repeat="location in data.location_list">-->
+<!--                        <a class="item" href="#" ng-click="selectLocation({{location.id}}, '{{location.name}}')">-->
+<!--                            <h2>{{location.name}}</h2>-->
+<!--                            <p>-->
+<!--                                <span class="secondary-line">({{location.parent_complete_name}})</span>-->
+<!--                            </p>-->
+<!--                        </a>-->
+<!--                    </ion-item>-->
+<!--                </ion-list>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </ion-content>-->
+
