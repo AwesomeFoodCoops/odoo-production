@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.ui.view" id="view_res_partner_search">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="barcode_base" string="Member Number" filter_domain="[('barcode_base', '=', self), ('is_louve_member', '=', True)]"/>
+                <field name="is_louve_member"/>
+                <field name="is_associated_people"/>
+                <field name="type_A_capital_qty"/>
+                <field name="type_B_capital_qty"/>
+                <field name="type_C_capital_qty"/>
+                <field name="is_type_A_capital_subscriptor"/>
+                <field name="is_type_B_capital_subscriptor"/>
+                <field name="is_type_C_capital_subscriptor"/>
+                <field name="is_associated_people"/>
+                <field name="is_unpayed"/>
+                <field name="is_unsubscribed"/>
+                <field name="old_coop_number"/>
+                <field name="temp_coop_number"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_form">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="barcodes_generate.view_res_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Block reinitialisation of Barcode) -->
+            <button name="generate_barcode" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|',
+                    ('generate_type', '!=', 'sequence'),
+                    ('barcode_base', '!=', 0),
+                    ('barcode', '!=', '')]}
+                </attribute>
+            </button>
+            <button name="generate_barcode" position="after">
+                <button id="create_new_barcode" name="%(action_res_partner_generate_barcode_wizard)d" type="action"
+                    string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode"/>
+            </button>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_form_coop_shift">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@id='add_template_registration']" position="attributes">
+                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@id='view_partner_registrations']" position="attributes">
+                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@id='view_partner_template_registrations']" position="attributes">
+                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_form_base">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="view_res_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Contact Sub form-->
+            <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="after">
+                <field name="is_associated_people" invisible="1"/>
+                <field name="is_louve_member" invisible="1"/>
+                <field name="image" widget="image" class="oe_avatar"
+                    options="{'preview_image': 'image_medium', 'size': [90, 90]}"
+                    attrs="{'invisible': [('is_louve_member', '=', False), ('is_associated_people', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet/hr" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='title']" position="after">
+                <field name="birthdate" widget="date"/>
+                <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='function']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='comment']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+            </xpath>
+
+            <!-- Move barcode_base field -->
+            <field name="barcode_base" position="replace" />
+
+            <!-- New Page for Louve Custom information -->
+            <notebook position="inside">
+                <page string="Louve Custom">
+                    <group>
+                        <group string="MemberShip">
+                            <field name="barcode_base" string="Member Number" readonly="1"/>
+                            <field name="is_louve_member" groups="louve_membership.louve_membership_manager" string="Afficher via menu Membres" readonly="0"/>
+                            <field name="type_A_capital_qty" groups="louve_membership.louve_membership_manager"/>
+                            <field name="type_B_capital_qty" groups="louve_membership.louve_membership_manager"/>
+                            <field name="type_C_capital_qty" groups="louve_membership.louve_membership_manager"/>
+                            <field name="is_type_A_capital_subscriptor" invisible="1"/>
+                            <field name="is_type_B_capital_subscriptor" invisible="1"/>
+                            <field name="is_type_C_capital_subscriptor" invisible="1"/>
+                            <field name="is_associated_people" readonly="1" groups="louve_membership.louve_membership_manager"/>
+                            <field name="is_unpayed"/>
+                            <field name="is_unsubscribed"/>
+                        </group>
+                        <group string="Extra Data">
+                            <field name="temp_coop_number"/>
+                            <field name="birthdate" widget="date"/>
+                            <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
+                            <field name="adult_number_home"/>
+                            <field name="old_coop_number"/>
+                            <field name="contact_origin_id"/>
+                            <field name="sex"/>
+                            <field name="is_deceased"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="view_res_partner_shift_form_shift_manager" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="name">res.partner.form.shift</field>
+        <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
+        <field name="arch" type="xml">
+            <button id="add_template_registration" position="attributes">
+                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor','=',False)]}</attribute>
+            </button>
+            <button id="view_partner_template_registrations" position="attributes">
+                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor','=',False)]}</attribute>
+            </button>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_form_subscription">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="capital_subscription.view_res_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="fundraising_partner_type_ids" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <page name="page_capital_fundraising" position="attributes">
+                <attribute name="groups" ref="louve_membership.subscriptions_reader" />
+            </page>
+            <xpath expr="//button[@id='new_subscription']" position="attributes">
+                <attribute name="groups" ref="louve_membership.subscriptions_creator" />
+            </xpath>
+            <field name="fundraising_partner_type_ids" position="after">
+                <button name="set_underclass_population" type="object"
+                    string="Set 'Underclass Population'" colspan="2" class="oe_highlight" attrs="{'invisible': [('is_underclass_population', '=', True)]}"/>
+                <button name="remove_underclass_population" type="object"
+                    string="Remove 'Underclass Population'" colspan="2" class="oe_highlight" attrs="{'invisible': [('is_underclass_population', '=', False)]}"/>
+                <field name="is_underclass_population" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_res_partner_form_subscription_manager">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="view_res_partner_form_subscription" />
+        <field name="groups_id" eval="[(6,0,[ref('account.group_account_manager')])]" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='fundraising_partner_type_ids']" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="res.groups" id="subscriptions_creator_payment">
+        <field name="users" eval="[(4, [ref('base.user_root')])]" />
+    </record>
+
+    <record model="res.groups" id="subscriptions_can_change_fundraising_category">
+        <field name="users" eval="[(4, [ref('base.user_root')])]" />
+    </record>
+
+    <record model="res.groups" id="louve_membership_manager">
+        <field name="users" eval="[(4, [ref('base.user_root')])]" />
+    </record>
+
+    <record model="res.groups" id="subscriptions_creator">
+        <field name="users" eval="[(4, [ref('base.user_demo')])]" />
+    </record>
+
+
+</odoo>
