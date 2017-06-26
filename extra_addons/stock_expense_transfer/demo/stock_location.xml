@@ -12,5 +12,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="usage">inventory</field>
         <field name="location_id" ref="stock.stock_location_locations_virtual" />
     </record>
+    <record id="stock_location_source_internal_use" model="stock.location">
+        <field name="name">Internal Src Use (Expense Transfer Demo Src Location)</field>
+        <field name="usage">internal</field>
+        <field name="location_id" ref="stock.stock_location_locations_virtual" />
+    </record>
 
 </odoo>

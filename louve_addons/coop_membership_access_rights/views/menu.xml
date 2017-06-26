@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <odoo>
     <record model="ir.ui.menu" id="coop_shift.shift_main_menu">
-        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_user'))]"/>
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_user')), (4, ref('coop_membership_access_rights.subscriptions_reader'))]"/>
     </record>
 
-    <record model="ir.ui.menu" id="louve_membership.menu_res_partner_associated">
+    <record model="ir.ui.menu" id="coop_membership.menu_res_partner_associated">
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_manager'))]"/>
     </record>
 
@@ -23,4 +23,25 @@
     <record model="ir.ui.menu" id="mass_mailing.mass_mailing_menu_root">
         <field name="groups_id" eval="[(4, ref('base.group_configuration'))]"/>
     </record>
+
+    <record model="ir.ui.menu" id="coop_membership.menu_coop_subscriptions_submain">
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.subscriptions_reader'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="coop_membership.menu_account_invoice_subscriptions">
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.subscriptions_reader'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="coop_membership.menu_capital_fundraising_wizard">
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.subscriptions_creator'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="coop_membership.menu_account_payment_subscriptions">
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.subscriptions_creator_payment'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="capital_subscription.menu_capital_fundraising_wizard">
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.subscriptions_creator'))]" />
+    </record>
+
 </odoo>

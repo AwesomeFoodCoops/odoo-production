@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="coop_membership.welcome_email" model="mail.template">
+        <field name="name">Welcome Email</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.email|safe}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="reply_to">${object.company_id.email|safe}</field>
+        <field name="subject">Bienvenue à La Louve</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour ${object.name},</p>
+
+<p>Votre souscription à La Louve a bien été enregistrée. Bienvenue !</p>
+
+
+% if object.shift_type == 'standard':
+<p>Votre numéro de membre est ${object.barcode_base} et vous avez été inscrit(e) sur le créneau ${object.current_template_name}.</p>
+% endif
+
+% if object.shift_type == 'ftop':
+<p>Votre numéro de membre est ${object.barcode_base} et vous avez été inscrit(e) dans l’équipe des volants. Vous trouverez ci-joint un document qui explique le fonctionnement de cette équipe ainsi qu’un calendrier qui vous indique les dates de décompte.</p>
+ 
+<p>Vous recevrez un rappel quelques jours avant votre prochain service.<br/>
+Vous pouvez dès maintenant venir découvrir le magasin et faire vos courses, sur présentation d'une pièce d'identité.</p>
+ 
+<p>Nous vous invitons à vous connecter sur <a href="https://membres.cooplalouve.fr/">L'Espace Membres de La Louve</a> (en pièce jointe, la procédure pour l'activer). Vous y trouverez de nombreuses informations, en particulier vos prochains services, et un forum qui vous permettra de communiquer entre membres. La version actuelle du site sera amenée à évoluer et de nouvelles fonctionnalités seront ajoutées dans les mois à venir. Une équipe de membres bénévoles travaille à enrichir cet espace pour le rendre utile et convivial.</p>
+ 
+<p>L'accès au magasin se fait ensuite sur présentation du badge de coopérateur. Pour obtenir votre badge, vous devez en premier lieu venir à une séance photo organisée soit au magasin, soit pendant les assemblées générales de La Louve. Les séances photo sont annoncées sur l'Espace Membres et au magasin. Comme pour l'Espace Membres, la confection des badges est assurée par des bénévoles et nécessite plusieurs étapes qui peuvent prendre plusieurs jours. La procédure complète est décrite dans le forum de l'Espace Membres (rubrique FAQ). Dès que votre badge aura été imprimé, vous pourrez le récupérer à l'accueil du supermarché.</p>
+
+<p>Il vous faut avoir fait au moins un service toutes les 4 semaines, avant le jour de “décompte” ce jour étant chaque jeudi de la semaine A).</p>
+ 
+<p><u>Pour consulter les services disponibles</u> : 1) connectez-vous <a href="http://send.code-and-design.fr/track/click/30830172/gestion-prod.cooplalouve.fr?p=eyJzIjoiRlhVUndsNlY0endyTnpIckp1OTBRelNHcVhjIiwidiI6MSwicCI6IntcInVcIjozMDgzMDE3MixcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvZ2VzdGlvbi1wcm9kLmNvb3BsYWxvdXZlLmZyXFxcL3JcXFwvbmJMXFxcL21cXFwvNjg1NDJcIixcImlkXCI6XCIzNmI5NGVkMmE2ZTI0ZjFhOThkYTZhOGE5NTBiODJlOVwiLFwidXJsX2lkc1wiOltcIjYxZThjMzAyZTZiMzRkODNlMjkxNGNmZWE1MDdlNjg0NjA2ZmI4ZDlcIl19In0">à notre espace membres</a>, puis cherchez sous la rubrique “outils”. 2) passez par le bureau des membres pendant ses horaires d’ouverture. 
+<p><b>Pour programmer un service</b> : prenez contact avec le Bureau des membres pendant ses horaires d’ouverture…soit sur place, soit par téléphone. Le numéro de téléphone est 01.86.95.91.90<br/>
+<i>Les demandes de programmation des services par mail ne seront pas traitées.</i></p>
+ 
+<p><b>Horaires d’ouverture du Bureau des membres :</b><br/>
+Mardi : 13h30 - 16h<br/>
+Mercredi à Vendredi : 13h30 - 20h<br/>
+Samedi : 10h - 16h</p>
+% endif
+
+<p>Vous trouverez ci-jointe une procédure vous permettant d'activer votre espace personnel.</p>
+ 
+<p>Cordialement,<br/>
+Tom Boothe</p>
+<br/>
+<br/>
+
+<hr>
+<p><b>Activation de votre espace membre</b></p>
+ 
+<p>Afin d'activer votre accès à l'Espace Membres de La Louve, veuillez suivre la procédure suivante :</p>
+<ol>
+    <p><li>Cliquez sur le lien ci-dessous afin de renseigner votre adresse mail: https://membres.cooplalouve.fr/selfservice/?action=sendtoken</li>
+    Attention : utilisez uniquement le mail transmis à La Louve</p>
+    <li>Vous recevrez alors un mail de l'expéditeur : "Self Service Password"</li>
+    <li>Cliquez sur le lien contenu dans le mail afin d'initialiser votre mot de passe.</li>
+    <li>Vous pouvez désormais vous connecter à votre Espace Membre : https://membres.cooplalouve.fr</li></p>
+</ol>
+]]></field>
+    </record>
+</odoo>

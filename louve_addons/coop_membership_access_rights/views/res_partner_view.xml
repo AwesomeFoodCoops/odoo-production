@@ -130,7 +130,7 @@
                         ('generate_type', '!=', 'sequence'),
                         ('barcode_base', '!=', 0),
                         ('barcode', '!=', '')]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
-                        <button id="create_new_barcode" name="%(louve_membership.action_res_partner_generate_barcode_wizard)d" type="action" string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
+                        <button id="create_new_barcode" name="%(coop_membership.action_res_partner_generate_barcode_wizard)d" type="action" string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
                         <field name="is_louve_member" groups="coop_membership_access_rights.group_membership_access_manager" string="Afficher via menu Membres" readonly="0"/>
                         <field name="type_A_capital_qty" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="type_B_capital_qty" groups="coop_membership_access_rights.group_membership_access_manager"/>
@@ -349,7 +349,7 @@
                             <button name="%(coop_shift.action_add_template_registration)d" type="action" class="oe_highlight" icon="fa-cogs" string="Add Template Registration" id="add_template_registration" attrs="{'invisible':[('is_type_A_capital_subscriptor','=',False)]}"/>
                         </group>
                     </page>
-                    <page name="page_capital_fundraising" string="Capital Subscriptions" groups="louve_membership.subscriptions_reader">
+                    <page name="page_capital_fundraising" string="Capital Subscriptions" groups="coop_membership_access_rights.subscriptions_reader">
                         <group>
                             <group string="Partner Type">
                                 <field name="fundraising_partner_type_ids" widget="many2many_tags" readonly="1"/>
@@ -359,7 +359,7 @@
                             </group>
                             <group string="Subscriptions">
                                 <field name="amount_subscription"/>
-                                <button id="new_subscription" name="%(capital_subscription.action_capital_fundraising_wizard)d" type="action" string="New Capital Subscription" class="oe_highlight" groups="louve_membership.subscriptions_creator"/>
+                                <button id="new_subscription" name="%(capital_subscription.action_capital_fundraising_wizard)d" type="action" string="New Capital Subscription" class="oe_highlight" groups="coop_membership_access_rights.subscriptions_creator"/>
                             </group>
                         </group>
                     </page>
@@ -456,6 +456,42 @@
     </record>
 
 
+    <record model="ir.ui.view" id="view_res_partner_form_subscription">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="capital_subscription.view_res_partner_form"/>
+        <field name="arch" type="xml">
+            <page name="page_capital_fundraising" position="attributes">
+                <attribute name="groups" ref="coop_membership_access_rights.subscriptions_reader" />
+            </page>
+            <xpath expr="//button[@id='new_subscription']" position="attributes">
+                <attribute name="groups" ref="coop_membership_access_rights.subscriptions_creator" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_form_base_inherit">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership.view_res_partner_form_base"/>
+        <field name="arch" type="xml">
+             <field name="is_louve_member" position="attributes">
+                 <attribute name="groups">coop_membership_access_rights.coop_membership_manager</attribute>
+             </field>
+             <field name="type_A_capital_qty" position="attributes">
+                 <attribute name="groups">coop_membership_access_rights.coop_membership_manager</attribute>
+             </field>
+             <field name="type_B_capital_qty" position="attributes">
+                 <attribute name="groups">coop_membership_access_rights.coop_membership_manager</attribute>
+             </field>
+             <field name="type_C_capital_qty" position="attributes">
+                 <attribute name="groups">coop_membership_access_rights.coop_membership_manager</attribute>
+             </field>
+             <field name="is_associated_people" position="attributes">
+                 <attribute name="groups">coop_membership_access_rights.coop_membership_manager</attribute>
+             </field>
+
+        </field>
+    </record>
+
     <record id="action_coop_membership_access_rights" model="ir.actions.act_window">
         <field name="name">Members</field>
         <field name="type">ir.actions.act_window</field>
@@ -481,8 +517,13 @@
        <field name="act_window_id" ref="action_coop_membership_access_rights"/>
     </record>
 
-    <record model="ir.ui.menu" id="louve_membership.menu_res_partner_members">
+    <record model="ir.ui.menu" id="coop_membership.menu_res_partner_members">
         <field name="action" ref="action_coop_membership_access_rights"/>
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_user'))]"/>
     </record>
+
+    <record model="ir.ui.view" id="coop_membership.view_res_partner_form_subscription_manager">
+        <field name="groups_id" eval="[(6,0,[ref('account.group_account_manager')])]" />
+    </record>
+
 </odoo>
