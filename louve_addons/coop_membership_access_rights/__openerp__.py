@@ -37,7 +37,7 @@
         'account_export',
         'account_partner_journal',
         'analytic',
-        'badge_reader',
+        'coop_badge_reader',
         'barcodes_generate',
         'base',
         'base_vat',
