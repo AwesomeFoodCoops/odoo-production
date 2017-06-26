@@ -1,10 +1,10 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-Louve Membership
+Coop Membership
 ================
 
-Manage custom behaviour for membership in la Louve
+Manage custom behaviour for membership
 
 * Create data for subscription
 * Add default value to 'immediat payment' for the subscription wizard;
