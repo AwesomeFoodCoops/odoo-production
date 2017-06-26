@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="welcome_email" model="mail.template">
+        <field name="name">Welcome Email</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.email|safe}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="reply_to">${object.company_id.email|safe}</field>
+        <field name="subject">Bienvenue à La Louve</field>
+        <field name="body_html"><![CDATA[<p>Bonjour ${object.name},</p>
+<p>Votre souscription à La Louve d’un montant de ${object.amount_subscription}€ a bien été enregistrée. Bienvenue !</p>
+<p>Vous avez été inscrit(e) sur le créneau ${object.current_template_name}. Vous recevrez un rappel quelques jours avant votre prochain service.</p>
+<p>Vous pouvez dès maintenant venir découvrir le magasin et faire vos courses. Votre badge sera imprimé prochainement, vous pourrez le récupérer à l’accueil dès qu’il sera prêt. Votre numéro de membre est ${object.barcode_base}.</p>
+<p>L'Espace Membre de La Louve vous est également accessible. Vous pourrez y trouver de nombreuses informations, en particulier vos prochains services, et un forum qui vous permettra de communiquer entre membres.</p>
+<p>La version actuelle du site sera amenée à évoluer et de nouvelles fonctionnalités seront ajoutées dans les mois à venir. Une équipe de membres bénévoles travaille à enrichir cet Espace pour le rendre utile et convivial.</p>
+<p>Vous trouverez ci-jointe une procédure vous permettant d'activer votre espace personnel.</p>
+<p>Cordialement,</p>
+<p>Tom Boothe</p>
+<p></p>
+<p>Activation de votre espace membre :</p>
+<p>Afin d'activer votre accès à l'Espace Membres de La Louve, veuillez suivre la procédure suivante:</p>
+<p>1. Cliquez sur le lien ci-dessous afin de renseigner votre adresse mail:</p>
+<p>https://membres.cooplalouve.fr/selfservice/?action=sendtoken</p>
+<p>Attention : utilisez uniquement le mail transmis à La Louve</p>
+<p>2. Vous recevrez alors un mail de l'expéditeur : "Self Service Password"</p>
+<p>Cliquez sur le lien contenu dans le mail afin d'initialiser votre mot de passe.</p>
+<p>3. Vous pouvez désormais vous connecter à votre Espace Membre : https://membres.cooplalouve.fr</p>]]></field>
+    </record>
+</odoo>

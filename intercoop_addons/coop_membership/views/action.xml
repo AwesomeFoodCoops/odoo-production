@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_res_partner_subscriptions">
+        <field name="name">Members</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('is_louve_member', '=', True)]</field>
+        <field name="context">{'default_is_louve_member':1}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_res_partner_associated">
+        <field name="name">Associated People</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('is_associated_people', '=', True)]</field>
+        <field name="context">{'create': False, 'edit': False}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_account_invoice_customer_subscriptions">
+        <field name="name">Subscriptions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_capital_fundraising', '=', True), ('type','in', ['out_invoice', 'out_refund'])]</field>
+        <field name="context">{'default_is_capital_fundraising':1, 'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale'}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_account_payment_subscriptions">
+        <field name="name">Payments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_capital_fundraising_wizard">
+        <field name="name">Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">capital.fundraising.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_res_partner_generate_barcode_wizard">
+        <field name="name">Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.generate.barcode.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
