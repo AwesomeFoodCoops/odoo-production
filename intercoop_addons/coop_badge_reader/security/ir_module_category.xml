@@ -7,7 +7,7 @@
 
 <odoo>
     <record model="ir.module.category" id="category_badge_reader">
-        <field name="name">Badge Reader</field>
+        <field name="name">Coop Badge Reader</field>
     </record>
 
 </odoo>
