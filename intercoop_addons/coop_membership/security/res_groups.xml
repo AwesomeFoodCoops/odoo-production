@@ -15,13 +15,13 @@
     <record model="res.groups" id="subscriptions_creator">
         <field name="name">Create Subscriptions</field>
         <field name="category_id" ref="category_subscriptions" />
-        <field name="implied_ids" eval="[(4, ref('louve_membership.subscriptions_reader'))]" />
+        <field name="implied_ids" eval="[(4, ref('coop_membership.subscriptions_reader'))]" />
     </record>
 
     <record model="res.groups" id="subscriptions_creator_payment">
         <field name="name">Create Subscriptions and payment</field>
         <field name="category_id" ref="category_subscriptions" />
-        <field name="implied_ids" eval="[(4, ref('louve_membership.subscriptions_creator'))]" />
+        <field name="implied_ids" eval="[(4, ref('coop_membership.subscriptions_creator'))]" />
     </record>
 
     <record model="res.groups" id="subscriptions_can_change_fundraising_category">
@@ -29,8 +29,8 @@
         <field name="category_id" ref="base.module_category_extra" />
     </record>
 
-    <record model="res.groups" id="louve_membership_manager">
-        <field name="name">Manage Louve Membership (Full)</field>
+    <record model="res.groups" id="coop_membership_manager">
+        <field name="name">Manage Coop Membership (Full)</field>
         <field name="category_id" ref="base.module_category_extra" />
     </record>
 

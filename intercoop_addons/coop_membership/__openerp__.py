@@ -5,10 +5,10 @@
 
 
 {
-    'name': 'Louve - Membership',
+    'name': 'Coop - Membership',
     'version': '9.0.2.0.0',
     'category': 'Custom',
-    'summary': 'Custom settings for membership in La Louve',
+    'summary': 'Custom settings for membership',
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'depends': [
