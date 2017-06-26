@@ -213,6 +213,31 @@ msgid "Membership Writer"
 msgstr "Éditer les membres"
 
 #. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.subscriptions_can_change_fundraising_category
+msgid "Can Change Fundraising Category in Wizard"
+msgstr "Peux changer la catégorie de titre dans l'assistant"
+
+#. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.subscriptions_creator
+msgid "Create Subscriptions"
+msgstr "Créer les souscriptions"
+
+#. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.subscriptions_creator_payment
+msgid "Create Subscriptions and payment"
+msgstr "Créer les souscriptions et les paiements"
+
+#. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.coop_membership_manager
+msgid "Manage Coop Membership"
+msgstr "Gérer l'adhésion à Coop"
+
+#. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.subscriptions_reader
+msgid "See Subscriptions"
+msgstr "Voir les souscriptions"
+
+#. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
 msgid "Misc"
 msgstr "Divers"

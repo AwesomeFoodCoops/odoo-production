@@ -9,10 +9,6 @@ from openerp import models, fields, api
 class CapitalFundraisingWizard(models.TransientModel):
     _inherit = 'capital.fundraising.wizard'
 
-    def default_can_change_fundraising_category(self):
-        return self.user_has_groups(
-            'coop_membership.subscriptions_can_change_fundraising_category')
-
     def default_payment_term_id(self):
         return self.env.ref('account.account_payment_term_immediate').id
 
@@ -30,10 +26,6 @@ class CapitalFundraisingWizard(models.TransientModel):
     category_id = fields.Many2one(
         comodel_name='capital.fundraising.category',
         default=default_category_id)
-
-    can_change_fundraising_category = fields.Boolean(
-        string="Can Change fundraising Category",
-        default=default_can_change_fundraising_category)
 
     # Action Section
     @api.multi

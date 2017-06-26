@@ -69,10 +69,6 @@ msgstr "Bienvenue à La Louve"
 msgid "Blocked"
 msgstr "Bloqué"
 
-#. module: coop_membership
-#: model:res.groups,name:coop_membership.subscriptions_can_change_fundraising_category
-msgid "Can Change Fundraising Category in Wizard"
-msgstr "Peux changer la catégorie de titre dans l'assistant"
 
 #. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_capital_fundraising_wizard_can_change_fundraising_category
@@ -119,15 +115,6 @@ msgstr "Etat coopératif"
 msgid "Cooperative state display"
 msgstr "Etat coopératif affiché"
 
-#. module: coop_membership
-#: model:res.groups,name:coop_membership.subscriptions_creator
-msgid "Create Subscriptions"
-msgstr "Créer les souscriptions"
-
-#. module: coop_membership
-#: model:res.groups,name:coop_membership.subscriptions_creator_payment
-msgid "Create Subscriptions and payment"
-msgstr "Créer les souscriptions et les paiements"
 
 #. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_contact_origin_create_uid
@@ -247,11 +234,6 @@ msgid "Coop Custom"
 msgstr "Personnalisation Coop"
 
 #. module: coop_membership
-#: model:res.groups,name:coop_membership.coop_membership_manager
-msgid "Manage Coop Membership"
-msgstr "Gérer l'adhésion à Coop"
-
-#. module: coop_membership
 #: model:ir.ui.view,name:coop_membership.view_res_partner_form_base
 msgid "MemberShip"
 msgstr "Adhésion"
@@ -309,11 +291,6 @@ msgstr "Paiements"
 #: model:ir.ui.view,name:coop_membership.view_res_partner_form_subscription
 msgid "Remove 'Underclass Population'"
 msgstr "Retirer 'Minima Sociaux'"
-
-#. module: coop_membership
-#: model:res.groups,name:coop_membership.subscriptions_reader
-msgid "See Subscriptions"
-msgstr "Voir les souscriptions"
 
 #. module: coop_membership
 #: model:ir.ui.view,name:coop_membership.view_res_partner_form_subscription
