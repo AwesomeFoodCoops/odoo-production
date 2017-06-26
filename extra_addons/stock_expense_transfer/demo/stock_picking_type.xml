@@ -12,7 +12,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="sequence_id" ref="ir_sequence_internal_use" />
         <field name="code">internal</field>
         <field name="expense_transfer_account_id" ref="account_acount_internal_use"/>
-        <field name="default_location_src_id" ref="stock.picking_type_internal" />
+        <!-- <field name="default_location_src_id" ref="stock.picking_type_internal" /> -->
+        <field name="default_location_src_id" ref="stock_location_source_internal_use" />
         <field name="default_location_dest_id" ref="stock_location_internal_use" />
     </record>
 
