@@ -8,8 +8,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 <odoo>
     <!-- TODO FIX demo data, due to barcodes_generate module refactoring -->
-    <record id="barcode_louve_member" model="barcode.rule">
-        <field name="name">Louve Member</field>
+    <record id="barcode_coop_member" model="barcode.rule">
+        <field name="name">Coop Member</field>
         <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
         <field name="for_type_A_capital_subscriptor" eval="True" />
         <field name="type">client</field>

@@ -44,7 +44,7 @@
         'capital_subscription',
         'coop_capital_certificate',
         'coop_shift',
-        'louve_membership',
+        'coop_membership',
         'mail',
         'mass_mailing',
         'point_of_sale',
