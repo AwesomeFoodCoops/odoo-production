@@ -18,14 +18,10 @@
     ],
     'data': [
         # Classical Data
-        'security/ir_module_category.xml',
-        'security/res_groups.xml',
-        'security/ir.model.access.csv',
         'views/action.xml',
         'views/view_res_partner.xml',
         'views/view_barcode_rule.xml',
         'views/view_account_invoice.xml',
-        'views/view_capital_fundraising_wizard.xml',
         'views/view_capital_fundraising_category.xml',
         'views/view_res_partner_generate_barcode_wizard.xml',
         'views/view_shift_leave.xml',
