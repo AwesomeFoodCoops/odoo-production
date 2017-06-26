@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* badge_reader
+#	* coop_badge_reader
 #
 msgid ""
 msgstr ""
@@ -15,80 +15,80 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: badge_reader
-#: model:res.groups,name:badge_reader.category_badge_reader
+#. module: coop_badge_reader
+#: model:res.groups,name:coop_badge_reader.category_badge_reader
 msgid "Badge Reader"
 msgstr "Badgeuse"
 
-#. module: badge_reader
-#: model:res.groups,name:badge_reader.group_manager
+#. module: coop_badge_reader
+#: model:res.groups,name:coop_badge_reader.group_manager
 msgid "Manager"
 msgstr "Responsable"
 
-#. module: badge_reader
-#: model:res.groups,name:badge_reader.group_time_clock
+#. module: coop_badge_reader
+#: model:res.groups,name:coop_badge_reader.group_time_clock
 msgid "Time Clock"
 msgstr "Pointeuse"
 
-#. module: badge_reader
-#: model:res.groups,name:badge_reader.group_user
+#. module: coop_badge_reader
+#: model:res.groups,name:coop_badge_reader.group_user
 msgid "User"
 msgstr "Utilisateur"
 
-#. module: badge_reader
-#: model:ir.model.fields,field_description:badge_reader.field_res_partner_bootstrap_state
-#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_bootstrap_state
+#. module: coop_badge_reader
+#: model:ir.model.fields,name:coop_badge_reader.field_res_partner_bootstrap_state
+#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_bootstrap_state
 msgid "Bootstrap State"
 msgstr "Etat Bootstrap"
 
-#. module: badge_reader
-#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_create_uid
+#. module: coop_badge_reader
+#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
-#. module: badge_reader
-#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_create_date
+#. module: coop_badge_reader
+#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_create_date
 msgid "Created on"
 msgstr "Créé le"
 
-#. module: badge_reader
+#. module: coop_badge_reader
 #: selection:res.partner,bootstrap_state:0
 #: selection:res.users.move,bootstrap_state:0
 msgid "Danger"
 msgstr "Danger"
 
-#. module: badge_reader
-#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_display_name
+#. module: coop_badge_reader
+#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
-#. module: badge_reader
-#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_id
+#. module: coop_badge_reader
+#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_id
 msgid "ID"
 msgstr "ID"
 
-#. module: badge_reader
-#: model:ir.model.fields,field_description:badge_reader.field_res_users_move___last_update
+#. module: coop_badge_reader
+#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
-#. module: badge_reader
-#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_write_uid
+#. module: coop_badge_reader
+#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_write_uid
 msgid "Last Updated by"
 msgstr "Mis à jour par"
 
-#. module: badge_reader
-#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_write_date
+#. module: coop_badge_reader
+#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_write_date
 msgid "Last Updated on"
 msgstr "Mis à jour le"
 
-#. module: badge_reader
+#. module: coop_badge_reader
 #: selection:res.partner,state:0
 #: selection:res.users.move,state:0
 msgid "Membership Problem"
 msgstr "Problème d'adhésion"
 
-#. module: badge_reader
+#. module: coop_badge_reader
 #: selection:res.partner,bootstrap_state:0
 #: selection:res.partner,state:0
 #: selection:res.users.move,bootstrap_state:0
@@ -96,55 +96,55 @@ msgstr "Problème d'adhésion"
 msgid "OK"
 msgstr "OK"
 
-#. module: badge_reader
-#: model:ir.model,name:badge_reader.model_res_partner
+#. module: coop_badge_reader
+#: model:ir.model,name:coop_badge_reader.model_res_partner
 msgid "Partner"
 msgstr "Partenaire"
 
 
-#. module: badge_reader
-#: model:ir.model.fields,field_description:badge_reader.field_res_partner_state
-#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_state
-#: model:ir.ui.view,arch_db:badge_reader.view_res_partner_search
-#: model:ir.ui.view,arch_db:badge_reader.view_res_users_move_search
+#. module: coop_badge_reader
+#: model:ir.model.fields,name:coop_badge_reader.field_res_partner_state
+#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_state
+#: model:ir.ui.view,name:coop_badge_reader.view_res_partner_search
+#: model:ir.ui.view,name:coop_badge_reader.view_res_users_move_search
 msgid "State"
 msgstr "État"
 
-#. module: badge_reader
-#: model:ir.ui.view,arch_db:badge_reader.view_res_partner_search
-#: model:ir.ui.view,arch_db:badge_reader.view_res_users_move_search
+#. module: coop_badge_reader
+#: model:ir.ui.view,name:coop_badge_reader.view_res_partner_search
+#: model:ir.ui.view,name:coop_badge_reader.view_res_users_move_search
 msgid "Success Status"
 msgstr "Statut OK"
 
-#. module: badge_reader
-#: model:ir.model.fields,field_description:badge_reader.field_res_users_move_user_id
+#. module: coop_badge_reader
+#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_user_id
 msgid "User"
 msgstr "Utilisateur"
 
-#. module: badge_reader
-#: model:ir.actions.act_window,name:badge_reader.action_res_users_move
-#: model:ir.ui.menu,name:badge_reader.menu_res_users_move
+#. module: coop_badge_reader
+#: model:ir.actions.act_window,name:coop_badge_reader.action_res_users_move
+#: model:ir.ui.menu,name:coop_badge_reader.menu_res_users_move
 msgid "User Moves"
 msgstr "Mouvements Utilisateur"
 
-#. module: badge_reader
-#: model:ir.model,name:badge_reader.model_res_users
+#. module: coop_badge_reader
+#: model:ir.model,name:coop_badge_reader.model_res_users
 msgid "Users"
 msgstr "Utilisateurs"
 
-#. module: badge_reader
+#. module: coop_badge_reader
 #: selection:res.partner,bootstrap_state:0
 #: selection:res.users.move,bootstrap_state:0
 msgid "Warning"
 msgstr "Attention"
 
-#. module: badge_reader
-#: model:ir.ui.view,arch_db:badge_reader.view_res_partner_search
-#: model:ir.ui.view,arch_db:badge_reader.view_res_users_move_search
+#. module: coop_badge_reader
+#: model:ir.ui.view,name:coop_badge_reader.view_res_partner_search
+#: model:ir.ui.view,name:coop_badge_reader.view_res_users_move_search
 msgid "Warning Status"
 msgstr "Statut Avec Problème"
 
-#. module: badge_reader
+#. module: coop_badge_reader
 #: selection:res.partner,state:0
 #: selection:res.users.move,state:0
 msgid "Work Problem"

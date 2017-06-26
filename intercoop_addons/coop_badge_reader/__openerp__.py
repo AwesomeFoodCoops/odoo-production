@@ -5,7 +5,7 @@
 
 
 {
-    'name': 'Badge Reader',
+    'name': 'Coop Badge Reader',
     'version': '9.0.0.0.0',
     'category': 'Custom',
     'summary': 'Provide light Ionic Apps to read user Badge',
