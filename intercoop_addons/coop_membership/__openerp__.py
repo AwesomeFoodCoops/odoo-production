@@ -33,7 +33,6 @@
         'data/email_template_data.xml',
     ],
     'demo': [
-        'demo/res_groups.xml',
         'demo/barcode_rule.xml',
         'demo/capital_fundraising_category.xml',
     ],

@@ -65,4 +65,8 @@
         'views/account_invoice_view.xml',
         'wizard/view_capital_fundraising_wizard.xml',
     ],
+
+    'demo': [
+        'demo/res_groups.xml',
+    ]
 }
