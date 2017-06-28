@@ -105,6 +105,7 @@
                             <field name="is_type_B_capital_subscriptor" invisible="1"/>
                             <field name="is_type_C_capital_subscriptor" invisible="1"/>
                             <field name="is_associated_people" readonly="1"/>
+                            <field name="is_interested_people"/>
                             <field name="is_unpayed"/>
                             <field name="is_unsubscribed"/>
                         </group>
