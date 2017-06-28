@@ -160,11 +160,6 @@ msgid "Generate New Barcode"
 msgstr "Générer des nouveaux barcodes"
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_is_type_A_capital_subscriptor
-msgid "Has a type A capital subscription"
-msgstr "A souscrit des parts A"
-
-#. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_contact_origin_id
 #: model:ir.model.fields,name:coop_membership.field_res_partner_generate_barcode_wizard_id
 msgid "ID"
@@ -181,11 +176,6 @@ msgid "If checked, Coop members that subscribe type A capital will have this bar
 msgstr "Si cochée, les personnes qui ont souscrit des parts A vont avoir cette règle de barcode, par défaut."
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_capital_fundraising_category_is_part_A
-msgid "If checked, partner that have subscribed such fundraising category will belong to 'Type A subscriptor' category"
-msgstr "Si cochée, les personnes qui ont souscrit ce type de part seront coché 'Possède des parts A'."
-
-#. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_partner_is_associated_people
 msgid "Is Associated People"
 msgstr "Est une personne rattachée"
@@ -200,10 +190,6 @@ msgstr "Est décédée"
 msgid "Is Member"
 msgstr "Est un membre"
 
-#. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_capital_fundraising_category_is_part_A
-msgid "Is Part A"
-msgstr "Part A"
 
 #. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_capital_fundraising_category_is_default

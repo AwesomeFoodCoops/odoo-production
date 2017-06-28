@@ -8,15 +8,7 @@
 <odoo>
 
     <record model="capital.fundraising.category" id="capital_subscription.capital_fundraising_category_A">
-        <field name="is_part_A">True</field>
-    </record>
-
-    <record model="capital.fundraising.category" id="capital_subscription.capital_fundraising_category_B">
-        <field name="is_part_B">True</field>
-    </record>
-
-    <record model="capital.fundraising.category" id="capital_subscription.capital_fundraising_category_C">
-        <field name="is_part_C">True</field>
+        <field name="worker_capital_category">True</field>
     </record>
 
 </odoo>
