@@ -8,8 +8,8 @@
 
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
-
-from openerp import models, fields, api
+from openerp.exceptions import ValidationError
+from openerp import models, fields, api, _
 
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
@@ -111,6 +111,28 @@ class ResPartner(models.Model):
     cooperative_state = fields.Selection(
         selection=EXTRA_COOPERATIVE_STATE_SELECTION, default='not_concerned')
 
+    # Constraint Section
+    @api.multi
+    @api.constrains(
+        'is_member',
+        'parent_id',
+        'parent_id.is_member',
+        'total_partner_owned_share')
+    def _check_partner_type(self):
+        '''
+        @Function to add a constraint on partner type
+            - If a partner has shares, he cannot be an associated member
+        '''
+        for partner in self:
+            partner_parent = partner.parent_id
+            if partner_parent and partner_parent.is_member and \
+                    partner.total_partner_owned_share > 0:
+                raise ValidationError(
+                    _("You can't be an " +
+                      "associated people if you have shares ! " +
+                      "Empty the parent_id field to be allowed " +
+                      "to write others changes"))
+
     # Compute Section
     @api.multi
     @api.depends('birthdate')
@@ -184,11 +206,12 @@ class ResPartner(models.Model):
             partner.is_member = partner.total_partner_owned_share > 0
 
     @api.multi
-    @api.depends('parent_id.is_member')
+    @api.depends('is_member', 'parent_id.is_member')
     def _compute_is_associated_people(self):
         for partner in self:
             partner.is_associated_people =\
-                partner.parent_id and partner.parent_id.is_member
+                partner.parent_id and \
+                partner.parent_id.is_member and (not partner.is_member)
 
     @api.depends(
         'working_state', 'is_unpayed', 'is_unsubscribed',
