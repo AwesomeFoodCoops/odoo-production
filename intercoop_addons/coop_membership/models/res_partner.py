@@ -42,6 +42,11 @@ class ResPartner(models.Model):
                                store=True,
                                readonly=True)
 
+    is_interested_people = fields.Boolean(
+        "Is Interested People",
+        compute="_compute_is_interested_people",
+        readonly=True, store=True)
+
     is_unpayed = fields.Boolean(
         string='Unpayed', help="Check this box, if the partner has late"
         " payments for him capital subscriptions. this will prevent him"
@@ -204,6 +209,20 @@ class ResPartner(models.Model):
         '''
         for partner in self:
             partner.is_member = partner.total_partner_owned_share > 0
+
+    @api.multi
+    @api.depends('is_member', 'is_associated_people', 'supplier')
+    def _compute_is_interested_people(self):
+        '''
+        @Function to compute data for the field is_interested_people
+            - True if: a partner is not a member AND is not associated people
+            AND is not a supplier
+        '''
+        for partner in self:
+            partner.is_interested_people = \
+                (not partner.is_member) and \
+                (not partner.is_associated_people) and \
+                (not partner.supplier) or False
 
     @api.multi
     @api.depends('is_member', 'parent_id.is_member')
