@@ -70,17 +70,15 @@ class ResPartner(models.Model):
     age = fields.Integer(
         string="Age", compute='_compute_age')
 
-    type_A_capital_qty = fields.Integer(
-        'Number of type A Subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
+    partner_owned_share_ids = fields.One2many(
+        'res.partner.owned.share',
+        'partner_id',
+        string="Partner Owned Shares")
 
-    type_B_capital_qty = fields.Integer(
-        'Number of type B Subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
-
-    type_C_capital_qty = fields.Integer(
-        'Number of type C Subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
+    total_partner_owned_share = fields.Integer(
+        string="Total Owned Shares",
+        compute="_compute_total_partner_owned_share",
+        store=True)
 
     is_type_A_capital_subscriptor = fields.Boolean(
         'Has a type A capital subscription', store=True,
@@ -142,63 +140,32 @@ class ResPartner(models.Model):
                 xml_id in partner.fundraising_partner_type_ids.ids
 
     @api.multi
-    @api.depends(
-        'invoice_ids.fundraising_category_id.is_part_A',
-        'invoice_ids.fundraising_category_id.is_part_B',
-        'invoice_ids.fundraising_category_id.is_part_C',
-        'invoice_ids.fundraising_category_id', 'invoice_ids.state')
-    def _compute_subscription(self):
-        category_obj = self.env['capital.fundraising.category']
-        type_A_categories = category_obj.search([('is_part_A', '=', True)])
-        type_B_categories = category_obj.search([('is_part_B', '=', True)])
-        type_C_categories = category_obj.search([('is_part_C', '=', True)])
+    @api.depends('partner_owned_share_ids',
+                 'partner_owned_share_ids.owned_share')
+    def _compute_total_partner_owned_share(self):
         for partner in self:
-            invoice_obj = self.env['account.invoice']
-            # Compute Type A
+            partner.total_partner_owned_share = \
+                sum(partner_ownedshare.owned_share
+                    for partner_ownedshare in partner.partner_owned_share_ids)
+
+    @api.multi
+    @api.depends('partner_owned_share_ids',
+                 'partner_owned_share_ids.category_id',
+                 'partner_owned_share_ids.owned_share',
+                 'partner_owned_share_ids.related_invoice_ids')
+    def _compute_subscription(self):
+        for partner in self:
             type_A_capital_qty = 0
-            type_A_invoices = invoice_obj.search([
-                ('partner_id', '=', partner.id),
-                ('state', 'in', ['open', 'paid']),
-                ('fundraising_category_id', 'in', type_A_categories.ids)])
-            for invoice in type_A_invoices:
-                if invoice.type == 'out_invoice':
-                    type_A_capital_qty += sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
-                else:
-                    type_A_capital_qty -= sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
-
-            # Compute Type B
             type_B_capital_qty = 0
-            type_B_invoices = invoice_obj.search([
-                ('partner_id', '=', partner.id),
-                ('state', 'in', ['open', 'paid']),
-                ('fundraising_category_id', 'in', type_B_categories.ids)])
-            for invoice in type_B_invoices:
-                if invoice.type == 'out_invoice':
-                    type_B_capital_qty += sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
-                else:
-                    type_B_capital_qty -= sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
-
-            # Compute Type C
             type_C_capital_qty = 0
-            type_C_invoices = invoice_obj.search([
-                ('partner_id', '=', partner.id),
-                ('state', 'in', ['open', 'paid']),
-                ('fundraising_category_id', 'in', type_C_categories.ids)])
-            for invoice in type_C_invoices:
-                if invoice.type == 'out_invoice':
-                    type_C_capital_qty += sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
-                else:
-                    type_C_capital_qty -= sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
+            for partner_share in partner.partner_owned_share_ids:
+                if partner_share.category_id.is_part_A:
+                    type_A_capital_qty += partner_share.owned_share
+                elif partner_share.category_id.is_part_B:
+                    type_B_capital_qty += partner_share.owned_share
+                elif partner_share.category_id.is_part_C:
+                    type_C_capital_qty += partner_share.owned_share
 
-            partner.type_A_capital_qty = type_A_capital_qty
-            partner.type_B_capital_qty = type_B_capital_qty
-            partner.type_C_capital_qty = type_C_capital_qty
             partner.is_type_A_capital_subscriptor = type_A_capital_qty != 0
             partner.is_type_B_capital_subscriptor = type_B_capital_qty != 0
             partner.is_type_C_capital_subscriptor = type_C_capital_qty != 0
