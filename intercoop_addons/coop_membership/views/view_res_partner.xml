@@ -12,8 +12,8 @@
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
             <field name="parent_id" position="after">
-                <field name="barcode_base" string="Member Number" filter_domain="[('barcode_base', '=', self), ('is_louve_member', '=', True)]"/>
-                <field name="is_louve_member"/>
+                <field name="barcode_base" string="Member Number" filter_domain="[('barcode_base', '=', self), ('is_member', '=', True)]"/>
+                <field name="is_member"/>
                 <field name="is_associated_people"/>
                 <field name="is_type_A_capital_subscriptor"/>
                 <field name="is_type_B_capital_subscriptor"/>
@@ -69,26 +69,26 @@
             <!-- Contact Sub form-->
             <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="after">
                 <field name="is_associated_people" invisible="1"/>
-                <field name="is_louve_member" invisible="1"/>
+                <field name="is_member" invisible="1"/>
                 <field name="image" widget="image" class="oe_avatar"
                     options="{'preview_image': 'image_medium', 'size': [90, 90]}"
-                    attrs="{'invisible': [('is_louve_member', '=', False), ('is_associated_people', '=', False)]}"/>
+                    attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}"/>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet/hr" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='title']" position="after">
                 <field name="birthdate" widget="date"/>
                 <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='function']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='comment']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
             </xpath>
 
             <!-- Move barcode_base field -->
@@ -100,7 +100,7 @@
                     <group>
                         <group string="MemberShip">
                             <field name="barcode_base" string="Member Number" readonly="1"/>
-                            <field name="is_louve_member" string="Afficher via menu Membres" readonly="0"/>
+                            <field name="is_member" string="Afficher via menu Membres"/>
                             <field name="is_type_A_capital_subscriptor" invisible="1"/>
                             <field name="is_type_B_capital_subscriptor" invisible="1"/>
                             <field name="is_type_C_capital_subscriptor" invisible="1"/>

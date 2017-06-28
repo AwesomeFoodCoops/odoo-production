@@ -37,7 +37,10 @@ class ResPartner(models.Model):
     ]
 
     # New Column Section
-    is_louve_member = fields.Boolean('Is Louve Member')
+    is_member = fields.Boolean('Is Member',
+                               compute="_compute_is_member",
+                               store=True,
+                               readonly=True)
 
     is_unpayed = fields.Boolean(
         string='Unpayed', help="Check this box, if the partner has late"
@@ -171,11 +174,21 @@ class ResPartner(models.Model):
             partner.is_type_C_capital_subscriptor = type_C_capital_qty != 0
 
     @api.multi
-    @api.depends('parent_id.is_louve_member')
+    @api.depends('total_partner_owned_share')
+    def _compute_is_member(self):
+        '''
+        @Function to identify if a partner is a member:
+            - A partner is a member if he/she has shares of any type
+        '''
+        for partner in self:
+            partner.is_member = partner.total_partner_owned_share > 0
+
+    @api.multi
+    @api.depends('parent_id.is_member')
     def _compute_is_associated_people(self):
         for partner in self:
             partner.is_associated_people =\
-                partner.parent_id and partner.parent_id.is_louve_member
+                partner.parent_id and partner.parent_id.is_member
 
     @api.depends(
         'working_state', 'is_unpayed', 'is_unsubscribed',
@@ -189,12 +202,12 @@ class ResPartner(models.Model):
                 partner.cooperative_state = partner.parent_id.cooperative_state
             elif partner.is_type_A_capital_subscriptor:
                 # Type A Subscriptor
-                    if partner.is_unsubscribed:
-                        partner.cooperative_state = 'unsubscribed'
-                    elif partner.is_unpayed:
-                        partner.cooperative_state = 'unpayed'
-                    else:
-                        partner.cooperative_state = partner.working_state
+                if partner.is_unsubscribed:
+                    partner.cooperative_state = 'unsubscribed'
+                elif partner.is_unpayed:
+                    partner.cooperative_state = 'unpayed'
+                else:
+                    partner.cooperative_state = partner.working_state
             else:
                 partner.cooperative_state = 'not_concerned'
 
@@ -208,7 +221,7 @@ class ResPartner(models.Model):
     # Overload Section
     @api.model
     def create(self, vals):
-        if vals.get('is_louve_member', False):
+        if vals.get('is_member', False):
             # Affect a useless default member type
             xml_id = self.env.ref('coop_membership.default_member_type').id
             vals.get('fundraising_partner_type_ids', []).append((4, xml_id))
@@ -223,7 +236,7 @@ class ResPartner(models.Model):
         for partner in self:
             self._generate_associated_barcode(partner)
         # Recompute display_name if needed
-        if ('barcode_base' in vals or 'is_louve_member' in vals) and (
+        if ('barcode_base' in vals or 'is_member' in vals) and (
                 not 'name' in vals):
             for partner in self:
                 partner.name = partner.name
@@ -293,7 +306,7 @@ class ResPartner(models.Model):
         if name.isdigit():
             partners = self.search([
                 ('barcode_base', '=', name),
-                ('is_louve_member', '=', True)], limit=limit)
+                ('is_member', '=', True)], limit=limit)
             if partners:
                 return partners.name_get()
         return super(ResPartner, self).name_search(
@@ -305,7 +318,7 @@ class ResPartner(models.Model):
         i = 0
         original_res = super(ResPartner, self).name_get()
         for partner in self:
-            if partner.is_louve_member:
+            if partner.is_member:
                 res.append((
                     partner.id,
                     '%s - %s' % (partner.barcode_base, original_res[i][1])))
