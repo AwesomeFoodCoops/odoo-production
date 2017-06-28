@@ -47,6 +47,11 @@ class ResPartner(models.Model):
         compute="_compute_is_interested_people",
         readonly=True, store=True)
 
+    is_worker_member = fields.Boolean(
+        "Is Worker Member",
+        compute="_compute_is_worker_member",
+        readonly=True, store=True)
+
     is_unpayed = fields.Boolean(
         string='Unpayed', help="Check this box, if the partner has late"
         " payments for him capital subscriptions. this will prevent him"
@@ -87,18 +92,6 @@ class ResPartner(models.Model):
         string="Total Owned Shares",
         compute="_compute_total_partner_owned_share",
         store=True)
-
-    is_type_A_capital_subscriptor = fields.Boolean(
-        'Has a type A capital subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
-
-    is_type_B_capital_subscriptor = fields.Boolean(
-        'Has a type B capital subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
-
-    is_type_C_capital_subscriptor = fields.Boolean(
-        'Has a type C capital subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
 
     is_associated_people = fields.Boolean(
         string='Is Associated People', store=True,
@@ -179,28 +172,6 @@ class ResPartner(models.Model):
                     for partner_ownedshare in partner.partner_owned_share_ids)
 
     @api.multi
-    @api.depends('partner_owned_share_ids',
-                 'partner_owned_share_ids.category_id',
-                 'partner_owned_share_ids.owned_share',
-                 'partner_owned_share_ids.related_invoice_ids')
-    def _compute_subscription(self):
-        for partner in self:
-            type_A_capital_qty = 0
-            type_B_capital_qty = 0
-            type_C_capital_qty = 0
-            for partner_share in partner.partner_owned_share_ids:
-                if partner_share.category_id.is_part_A:
-                    type_A_capital_qty += partner_share.owned_share
-                elif partner_share.category_id.is_part_B:
-                    type_B_capital_qty += partner_share.owned_share
-                elif partner_share.category_id.is_part_C:
-                    type_C_capital_qty += partner_share.owned_share
-
-            partner.is_type_A_capital_subscriptor = type_A_capital_qty != 0
-            partner.is_type_B_capital_subscriptor = type_B_capital_qty != 0
-            partner.is_type_C_capital_subscriptor = type_C_capital_qty != 0
-
-    @api.multi
     @api.depends('total_partner_owned_share')
     def _compute_is_member(self):
         '''
@@ -232,9 +203,28 @@ class ResPartner(models.Model):
                 partner.parent_id and \
                 partner.parent_id.is_member and (not partner.is_member)
 
+    @api.multi
+    @api.depends(
+        'partner_owned_share_ids',
+        'partner_owned_share_ids.category_id',
+        'partner_owned_share_ids.category_id.is_worker_capital_category',
+        'partner_owned_share_ids.owned_share')
+    def _compute_is_worker_member(self):
+        '''
+        @Function to compute data for the field is_worker_member:
+            - True if a member has shares in Worker Capital Category
+        '''
+        partner_owned_share_env = self.env['res.partner.owned.share']
+        for partner in self:
+            worker_shares = partner_owned_share_env.search_count(
+                [('partner_id', '=', partner.id),
+                 ('category_id.is_worker_capital_category', '=', True),
+                 ('owned_share', '>', 0)])
+            partner.is_worker_member = worker_shares and True or False
+
     @api.depends(
         'working_state', 'is_unpayed', 'is_unsubscribed',
-        'is_type_A_capital_subscriptor', 'is_associated_people',
+        'is_worker_member', 'is_associated_people',
         'parent_id.cooperative_state')
     @api.multi
     def _compute_cooperative_state(self):
@@ -242,7 +232,7 @@ class ResPartner(models.Model):
             if partner.is_associated_people:
                 # Associated People
                 partner.cooperative_state = partner.parent_id.cooperative_state
-            elif partner.is_type_A_capital_subscriptor:
+            elif partner.is_worker_member:
                 # Type A Subscriptor
                 if partner.is_unsubscribed:
                     partner.cooperative_state = 'unsubscribed'
@@ -325,7 +315,7 @@ class ResPartner(models.Model):
     def send_welcome_emails(self):
         partners = self.search([
             ('welcome_email', '=', False),
-            ('is_type_A_capital_subscriptor', '=', True),
+            ('is_worker_member', '=', True),
             ('is_unsubscribed', '=', False),
         ])
         partners.send_welcome_email()
