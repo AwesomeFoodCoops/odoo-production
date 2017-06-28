@@ -29,7 +29,7 @@ class ShiftRegistration(models.Model):
     _inherit = 'shift.registration'
 
     partner_id = fields.Many2one(
-        domain=[('is_type_A_capital_subscriptor', '=', True)])
+        domain=[('is_worker_member', '=', True)])
 
     @api.model
     def create(self, vals):

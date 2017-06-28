@@ -15,10 +15,7 @@
                 <field name="barcode_base" string="Member Number" filter_domain="[('barcode_base', '=', self), ('is_member', '=', True)]"/>
                 <field name="is_member"/>
                 <field name="is_associated_people"/>
-                <field name="is_type_A_capital_subscriptor"/>
-                <field name="is_type_B_capital_subscriptor"/>
-                <field name="is_type_C_capital_subscriptor"/>
-                <field name="is_associated_people"/>
+                <field name="is_worker_member"/>
                 <field name="is_unpayed"/>
                 <field name="is_unsubscribed"/>
                 <field name="old_coop_number"/>
@@ -51,13 +48,13 @@
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@id='add_template_registration']" position="attributes">
-                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_worker_member', '=', False)]}</attribute>
             </xpath>
             <xpath expr="//button[@id='view_partner_registrations']" position="attributes">
-                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_worker_member', '=', False)]}</attribute>
             </xpath>
             <xpath expr="//button[@id='view_partner_template_registrations']" position="attributes">
-                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_worker_member', '=', False)]}</attribute>
             </xpath>
         </field>
     </record>
@@ -101,9 +98,7 @@
                         <group string="MemberShip">
                             <field name="barcode_base" string="Member Number" readonly="1"/>
                             <field name="is_member" string="Afficher via menu Membres"/>
-                            <field name="is_type_A_capital_subscriptor" invisible="1"/>
-                            <field name="is_type_B_capital_subscriptor" invisible="1"/>
-                            <field name="is_type_C_capital_subscriptor" invisible="1"/>
+                            <field name="is_worker_member"/>
                             <field name="is_associated_people" readonly="1"/>
                             <field name="is_interested_people"/>
                             <field name="is_unpayed"/>
@@ -139,10 +134,10 @@
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
             <button id="add_template_registration" position="attributes">
-                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor','=',False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_worker_member','=',False)]}</attribute>
             </button>
             <button id="view_partner_template_registrations" position="attributes">
-                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor','=',False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_worker_member','=',False)]}</attribute>
             </button>
         </field>
     </record>
