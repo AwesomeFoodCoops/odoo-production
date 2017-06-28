@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_partner_owned_share_tree" model="ir.ui.view">
+        <field name="name">res.partner.owned.share.tree</field>
+        <field name="model">res.partner.owned.share</field>
+        <field name="arch" type="xml">
+            <tree create='false' edit='false' delete='false'>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="category_id"/>
+                <field name="owned_share" sum="Total Owned Shares"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_res_partner_owned_share_form" model="ir.ui.view">
+        <field name="model">res.partner.owned.share</field>
+        <field name="arch" type="xml">
+            <form create='false' edit='false' delete='false'>
+                <sheet>
+                    <group>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" class="oe_edit_only"/>
+                                <field name="name"  placeholder="Name" />
+                            </h1>
+                        </div>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="partner_id" />
+                            <field name="category_id"/>
+                        </group>
+                        <group>
+                            <field name="owned_share"/>
+                        </group>
+                    </group>
+
+                    <group string="Related Invoices">
+                        <field name="related_invoice_ids" context="{'form_view_ref' : 'account.invoice_form', 'tree_view_ref' : 'account.invoice_tree'}" readonly="1" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_owned_share_search">
+        <field name="name">res.partner.owned.share.search</field>
+        <field name="model">res.partner.owned.share</field>
+        <field name="arch" type="xml">
+            <search string="Partner Owned Shares">
+                <field name="partner_id"/>
+                <field name="category_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_res_partner_owned_share">
+       <field name="name">Partner Owned Shares</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">res.partner.owned.share</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">tree,form</field>
+       <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id}</field>
+    </record>
+
+</odoo>
