@@ -13,8 +13,8 @@
         <field name="res_model">res.partner</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
-        <field name="domain">[('is_louve_member', '=', True)]</field>
-        <field name="context">{'default_is_louve_member':1}</field>
+        <field name="domain">[('is_member', '=', True)]</field>
+        <field name="context">{'default_is_member':1}</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_res_partner_associated">
