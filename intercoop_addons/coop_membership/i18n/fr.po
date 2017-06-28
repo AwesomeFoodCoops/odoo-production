@@ -196,9 +196,9 @@ msgid "Is Deceased"
 msgstr "Est décédée"
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_is_louve_member
-msgid "Is Louve Member"
-msgstr "Est un membre de la louve"
+#: model:ir.model.fields,name:coop_membership.field_res_partner_is_member
+msgid "Is Member"
+msgstr "Est un membre"
 
 #. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_capital_fundraising_category_is_part_A

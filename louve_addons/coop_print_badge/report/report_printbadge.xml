@@ -8,7 +8,7 @@
     <template id="report_printbadge">
         <div class="page">
             <t t-foreach="partners" t-as="partner">
-                <div class="badge" t-if="partner.is_louve_member">
+                <div class="badge" t-if="partner.is_member">
                     <div class="member_photo_div">
                         <span class="member_photo" t-field="partner.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;}"/>
                         <!-- <img class="member_photo" t-att-src="'/web/image?model=res.partner&amp;id=%s&amp;field=image' % (partner.id)"/>-->
@@ -32,7 +32,7 @@
                         <span t-field="partner_id.company_id.partner_id.zip"/> <span t-field="partner_id.company_id.partner_id.city"/>
                     </div>-->
                 </div>
-                <div class="badge" t-if="not partner.is_louve_member and partner.is_associated_people">
+                <div class="badge" t-if="not partner.is_member and partner.is_associated_people">
                     <div class="member_photo_div">
                         <span class="member_photo" t-field="partner.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;}"/>
                     </div>

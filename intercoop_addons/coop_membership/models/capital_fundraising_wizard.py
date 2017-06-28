@@ -38,7 +38,6 @@ class CapitalFundraisingWizard(models.TransientModel):
                 wizard.partner_id.is_associated_people):
             # If the partner is currently associated, make him cooperator
             wizard.partner_id.parent_id = False
-            wizard.partner_id.is_louve_member = True
             # Remove number
             wizard.partner_id.barcode_rule_id = False
             wizard.partner_id.barcode_base = False
