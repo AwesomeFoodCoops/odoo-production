@@ -96,7 +96,7 @@
                     <group>
                         <group string="MemberShip">
                             <field name="barcode_base" string="Member Number" readonly="1"/>
-                            <field name="is_member" string="Afficher via menu Membres"/>
+                            <field name="is_member"/>
                             <field name="is_worker_member"/>
                             <field name="is_associated_people" readonly="1"/>
                             <field name="is_interested_people"/>
