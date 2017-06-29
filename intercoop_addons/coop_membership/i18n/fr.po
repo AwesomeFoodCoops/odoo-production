@@ -333,7 +333,11 @@ msgid "Unpayed"
 msgstr "Impayé"
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_is_unsubscribed
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_is_unsubscribed
+msgid "Unsubscribed"
+msgstr "N'est inscrit à aucun créneau"
+
+#. module: coop_membership
 #: selection:res.partner,cooperative_state:0
 msgid "Unsubscribed"
 msgstr "Désinscrit"
