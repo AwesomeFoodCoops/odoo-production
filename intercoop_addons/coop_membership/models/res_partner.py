@@ -253,11 +253,6 @@ class ResPartner(models.Model):
     # Overload Section
     @api.model
     def create(self, vals):
-        if vals.get('is_member', False):
-            # Affect a useless default member type
-            xml_id = self.env.ref('coop_membership.default_member_type').id
-            vals.get('fundraising_partner_type_ids', []).append((4, xml_id))
-
         partner = super(ResPartner, self).create(vals)
         self._generate_associated_barcode(partner)
         return partner
