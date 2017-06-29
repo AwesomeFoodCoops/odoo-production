@@ -28,11 +28,6 @@ msgid "'For Type A Subscriptors' field should be unique."
 msgstr "Le champs 'Pour les souscripteurs de parts A' doit être unique."
 
 #. module: coop_membership
-#: model:ir.ui.view,name:coop_membership.view_res_partner_form_base
-msgid "Afficher via menu Membres"
-msgstr "Afficher via menu Membres"
-
-#. module: coop_membership
 #: selection:res.partner,cooperative_state:0
 msgid "Alert"
 msgstr "En Alerte"
