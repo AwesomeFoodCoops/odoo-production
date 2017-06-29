@@ -91,11 +91,6 @@ msgid "Check this box, if the partner left the the cooperative. this will preven
 msgstr "Cochez cette case si le partenaire quitte la coopérative et rembourse ses parts. Cela lui interdira d'acheter."
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_old_coop_number
-msgid "Civi CRM Old Number"
-msgstr "Ancien numéro Civi CRM"
-
-#. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_partner_contact_origin_id
 msgid "Contact Origin"
 msgstr "Origine du contact"
@@ -294,9 +289,19 @@ msgid "Set 'Underclass Population'"
 msgstr "Mettre 'Minima Sociaux'"
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_sex
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_sex
 msgid "Sex"
 msgstr "Sexe"
+
+#. module: coop_membership
+#: selection:res.partner,sex:0
+msgid "male"
+msgstr "Masculin"
+
+#. module: coop_membership
+#: selection:res.partner,sex:0
+msgid "female"
+msgstr "Féminin"
 
 #. module: coop_membership
 #: model:ir.model,name:coop_membership.model_shift_template
@@ -316,7 +321,7 @@ msgid "Suspended"
 msgstr "Suspendu"
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_temp_coop_number
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_temp_coop_number
 msgid "Temporary number"
 msgstr "Numéro temporaire"
 
@@ -336,6 +341,11 @@ msgstr "Impayé"
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner_is_unsubscribed
 msgid "Unsubscribed"
 msgstr "N'est inscrit à aucun créneau"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_date_of_death
+msgid "Date of Death"
+msgstr "Date de décès"
 
 #. module: coop_membership
 #: selection:res.partner,cooperative_state:0
