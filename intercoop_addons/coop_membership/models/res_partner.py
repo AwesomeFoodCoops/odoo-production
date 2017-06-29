@@ -68,7 +68,6 @@ class ResPartner(models.Model):
     sex = fields.Selection(
         selection=SEX_SELECTION, string='Sex')
 
-    old_coop_number = fields.Char('Civi CRM Old Number')
     temp_coop_number = fields.Char('Temporary number')
 
     is_underclass_population = fields.Boolean(
@@ -79,6 +78,8 @@ class ResPartner(models.Model):
         comodel_name='res.contact.origin', string='Contact Origin')
 
     is_deceased = fields.Boolean(string='Is Deceased')
+
+    date_of_death = fields.Date(string="Date of Death")
 
     age = fields.Integer(
         string="Age", compute='_compute_age')

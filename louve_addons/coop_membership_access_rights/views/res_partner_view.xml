@@ -152,10 +152,10 @@
                         <field name="birthdate" widget="date"/>
                         <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
                         <field name="adult_number_home"/>
-                        <field name="old_coop_number"/>
                         <field name="contact_origin_id"/>
                         <field name="sex"/>
                         <field name="is_deceased"/>
+                        <field name="date_of_death" attrs="{'invisible': [('is_deceased', '=', False)]}"/>
                     </group>
 
                 </group>
