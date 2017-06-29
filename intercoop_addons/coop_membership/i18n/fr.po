@@ -196,6 +196,16 @@ msgstr "Est un membre"
 msgid "Is default"
 msgstr "Par défaut"
 
+#. module: capital_subscription
+#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category_minimum_share_qty
+msgid "Default Minimum qty"
+msgstr "Quantité minimale par défaut"
+
+#. module: capital_subscription
+#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category_line_ids
+msgid "Exception rules for minimum qty"
+msgstr "Règles d'exception pour la quantité minimale"
+
 #. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_contact_origin___last_update
 #: model:ir.model.fields,name:coop_membership.field_res_partner_generate_barcode_wizard___last_update

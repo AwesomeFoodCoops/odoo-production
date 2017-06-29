@@ -12,5 +12,10 @@ class CapitalFundraisingCategory(models.Model):
     # Column Section
     is_default = fields.Boolean(string='Is default')
 
+    minimum_share_qty = fields.Integer(
+        string='Default Minimum qty')
+
+    line_ids = fields.One2many(string='Exception rules for minimum qty')
+
     is_worker_capital_category = fields.Boolean(
         string="Is Worker Capital Category")
