@@ -11,8 +11,4 @@
         <field name="name">Minima Sociaux</field>
     </record>
 
-    <record model="capital.fundraising.partner.type" id="default_member_type">
-        <field name="name">Coopérateur</field>
-    </record>
-
 </odoo>

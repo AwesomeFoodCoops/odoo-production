@@ -12,17 +12,10 @@ class CapitalFundraisingCategory(models.Model):
     # Column Section
     is_default = fields.Boolean(string='Is default')
 
-    is_part_A = fields.Boolean(
-        string='Is Part A', help="If checked, partner that have subscribed"
-        " such fundraising category will belong to 'Type A subscriptor'"
-        " category")
+    minimum_share_qty = fields.Integer(
+        string='Default Minimum qty')
 
-    is_part_B = fields.Boolean(
-        string='Is Part B', help="If checked, partner that have subscribed"
-        " such fundraising category will belong to 'Type B subscriptor'"
-        " category")
+    line_ids = fields.One2many(string='Exception rules for minimum qty')
 
-    is_part_C = fields.Boolean(
-        string='Is Part C', help="If checked, partner that have subscribed"
-        " such fundraising category will belong to 'Type C subscriptor'"
-        " category")
+    is_worker_capital_category = fields.Boolean(
+        string="Is Worker Capital Category")

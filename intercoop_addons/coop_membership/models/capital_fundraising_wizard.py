@@ -34,16 +34,15 @@ class CapitalFundraisingWizard(models.TransientModel):
         barcode_rule_obj = self.env['barcode.rule']
         res = super(CapitalFundraisingWizard, self).button_confirm()
         wizard = self[0]
-        if (wizard.category_id.is_part_A and
+        if (wizard.category_id.is_worker_capital_category and
                 wizard.partner_id.is_associated_people):
             # If the partner is currently associated, make him cooperator
             wizard.partner_id.parent_id = False
-            wizard.partner_id.is_louve_member = True
             # Remove number
             wizard.partner_id.barcode_rule_id = False
             wizard.partner_id.barcode_base = False
 
-        if (wizard.category_id.is_part_A and
+        if (wizard.category_id.is_worker_capital_category and
                 not wizard.partner_id.barcode_rule_id and
                 not wizard.partner_id.barcode_base):
             # Add the barcode rule

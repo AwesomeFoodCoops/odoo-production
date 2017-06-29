@@ -18,10 +18,10 @@
                     <button name="%(coop_shift.action_shift_extension_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar" help="View partner Extensions" groups="coop_shift.group_shift_manager,coop_membership_access_rights.group_membership_access_user">
                         <field name="extension_qty" widget="statinfo" string="Ext."/>
                     </button>
-                    <button name="%(coop_shift.act_shift_registration_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar" help="View partner Registrations" groups="coop_shift.group_shift_user,coop_membership_access_rights.group_membership_access_user" id="view_partner_registrations" attrs="{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}">
+                    <button name="%(coop_shift.act_shift_registration_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar" help="View partner Registrations" groups="coop_shift.group_shift_user,coop_membership_access_rights.group_membership_access_user" id="view_partner_registrations" attrs="{'invisible':[('is_worker_member', '=', False)]}">
                         <field name="upcoming_registration_count" widget="statinfo" string="Upc. Registr."/>
                     </button>
-                    <button name="%(coop_shift.act_template_registration_line_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar-plus-o" help="View partner Template Registrations" groups="coop_shift.group_shift_manager,coop_membership_access_rights.group_membership_access_user" id="view_partner_template_registrations" attrs="{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}">
+                    <button name="%(coop_shift.act_template_registration_line_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar-plus-o" help="View partner Template Registrations" groups="coop_shift.group_shift_manager,coop_membership_access_rights.group_membership_access_user" id="view_partner_template_registrations" attrs="{'invisible':[('is_worker_member', '=', False)]}">
                         <field name="active_tmpl_reg_line_count" widget="statinfo" string="Tmpl. Registr."/>
                     </button>
                     <button type="action" class="oe_stat_button" id="invoice_button" icon="fa-pencil-square-o" name="%(account.action_invoice_refund_out_tree)d" context="{'search_default_partner_id': active_id,'default_partner_id': active_id}" groups="account.group_account_invoice">
@@ -68,6 +68,15 @@
                         groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user"
                         id="view_res_partner_point_counter_ftop">
                         <field name="final_ftop_point" widget="statinfo" string="FTOP Points"/>
+                    </button>
+
+                    <button name="%(coop_membership.action_res_partner_owned_share)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-calendar"
+                        help="View Partner Owned Shares"
+                        groups="coop_membership_access_rights.group_membership_access_manager">
+                        <field name="total_partner_owned_share" widget="statinfo" string="Owned Shares"/>
                     </button>
 
                 </div>
@@ -131,14 +140,10 @@
                         ('barcode_base', '!=', 0),
                         ('barcode', '!=', '')]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
                         <button id="create_new_barcode" name="%(coop_membership.action_res_partner_generate_barcode_wizard)d" type="action" string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
-                        <field name="is_louve_member" groups="coop_membership_access_rights.group_membership_access_manager" string="Afficher via menu Membres" readonly="0"/>
-                        <field name="type_A_capital_qty" groups="coop_membership_access_rights.group_membership_access_manager"/>
-                        <field name="type_B_capital_qty" groups="coop_membership_access_rights.group_membership_access_manager"/>
-                        <field name="type_C_capital_qty" groups="coop_membership_access_rights.group_membership_access_manager"/>
-                        <field name="is_type_A_capital_subscriptor" invisible="1"/>
-                        <field name="is_type_B_capital_subscriptor" invisible="1"/>
-                        <field name="is_type_C_capital_subscriptor" invisible="1"/>
+                        <field name="is_member" groups="coop_membership_access_rights.group_membership_access_manager" string="Afficher via menu Membres"/>
+                        <field name="is_worker_member" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_associated_people" readonly="1" groups="coop_membership_access_rights.group_membership_access_manager"/>
+                        <field name="is_interested_people" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_unpayed" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_unsubscribed" groups="coop_membership_access_rights.group_membership_access_manager"/>
                     </group>
@@ -147,10 +152,10 @@
                         <field name="birthdate" widget="date"/>
                         <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
                         <field name="adult_number_home"/>
-                        <field name="old_coop_number"/>
                         <field name="contact_origin_id"/>
                         <field name="sex"/>
                         <field name="is_deceased"/>
+                        <field name="date_of_death" attrs="{'invisible': [('is_deceased', '=', False)]}"/>
                     </group>
 
                 </group>
@@ -216,11 +221,11 @@
                             </kanban>
                             <form string="Contact / Address">
                                 <sheet>
-                                    <field name="type" required="1" widget="radio" options="{'horizontal': true}" attrs="{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}"/>
+                                    <field name="type" required="1" widget="radio" options="{'horizontal': true}" attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
                                     <field name="is_associated_people" invisible="1"/>
-                                    <field name="is_louve_member" invisible="1"/>
-                                    <field name="image" readonly="1" widget="image" class="oe_avatar" options="{'preview_image': 'image_medium', 'size': [90, 90]}" attrs="{'invisible': [('is_louve_member', '=', False), ('is_associated_people', '=', False)]}"/>
-                                    <hr attrs="{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}"/>
+                                    <field name="is_member" invisible="1"/>
+                                    <field name="image" readonly="1" widget="image" class="oe_avatar" options="{'preview_image': 'image_medium', 'size': [90, 90]}" attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}"/>
+                                    <hr attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
                                     <group>
                                         <group attrs="{'invisible': [('type','=', 'contact')]}">
                                             <label for="street" string="Address"/>
@@ -240,11 +245,11 @@
                                             <field name="title" placeholder="e.g. Mr." attrs="{'invisible': [('type','&lt;&gt;', 'contact')]}"/>
                                             <field name="birthdate" widget="date"/>
                                             <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
-                                            <field name="function" placeholder="e.g. Sales Director" attrs="{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}"/>
+                                            <field name="function" placeholder="e.g. Sales Director" attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
                                             <field name="email"/>
                                             <field name="phone" widget="phone"/>
                                             <field name="mobile" widget="phone"/>
-                                            <field name="comment" placeholder="internal note..." attrs="{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}"/>
+                                            <field name="comment" placeholder="internal note..." attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
                                         </group>
                                     </group>
                                     <field name="supplier" invisible="True"/>
@@ -346,7 +351,7 @@
                             <field name="template_ids"/>
                         </group>
                         <group name="button" groups="coop_shift.group_shift_manager">
-                            <button name="%(coop_shift.action_add_template_registration)d" type="action" class="oe_highlight" icon="fa-cogs" string="Add Template Registration" id="add_template_registration" attrs="{'invisible':[('is_type_A_capital_subscriptor','=',False)]}"/>
+                            <button name="%(coop_shift.action_add_template_registration)d" type="action" class="oe_highlight" icon="fa-cogs" string="Add Template Registration" id="add_template_registration" attrs="{'invisible':[('is_worker_member','=',False)]}"/>
                         </group>
                     </page>
                     <page name="page_capital_fundraising" string="Capital Subscriptions" groups="coop_membership_access_rights.subscriptions_reader">
@@ -473,16 +478,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_membership.view_res_partner_form_base"/>
         <field name="arch" type="xml">
-             <field name="is_louve_member" position="attributes">
-                 <attribute name="groups">coop_membership_access_rights.coop_membership_manager</attribute>
-             </field>
-             <field name="type_A_capital_qty" position="attributes">
-                 <attribute name="groups">coop_membership_access_rights.coop_membership_manager</attribute>
-             </field>
-             <field name="type_B_capital_qty" position="attributes">
-                 <attribute name="groups">coop_membership_access_rights.coop_membership_manager</attribute>
-             </field>
-             <field name="type_C_capital_qty" position="attributes">
+             <field name="is_member" position="attributes">
                  <attribute name="groups">coop_membership_access_rights.coop_membership_manager</attribute>
              </field>
              <field name="is_associated_people" position="attributes">
@@ -498,8 +494,8 @@
         <field name="res_model">res.partner</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
-        <field name="domain">[('is_louve_member', '=', True)]</field>
-        <field name="context">{'default_is_louve_member':1}</field>
+        <field name="domain">[('is_member', '=', True)]</field>
+        <field name="context">{'default_is_member':1}</field>
         <field name="search_view_id" ref="view_bdm_search"/>
     </record>
 

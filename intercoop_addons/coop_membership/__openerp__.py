@@ -19,6 +19,7 @@
     'data': [
         # Classical Data
         'views/action.xml',
+        'views/view_res_partner_owned_share.xml',
         'views/view_res_partner.xml',
         'views/view_barcode_rule.xml',
         'views/view_account_invoice.xml',
@@ -33,7 +34,6 @@
         'data/email_template_data.xml',
     ],
     'demo': [
-        'demo/res_groups.xml',
         'demo/barcode_rule.xml',
         'demo/capital_fundraising_category.xml',
     ],
