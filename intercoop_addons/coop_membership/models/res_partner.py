@@ -8,8 +8,8 @@
 
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
-
-from openerp import models, fields, api
+from openerp.exceptions import ValidationError
+from openerp import models, fields, api, _
 
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
@@ -37,7 +37,20 @@ class ResPartner(models.Model):
     ]
 
     # New Column Section
-    is_louve_member = fields.Boolean('Is Louve Member')
+    is_member = fields.Boolean('Is Member',
+                               compute="_compute_is_member",
+                               store=True,
+                               readonly=True)
+
+    is_interested_people = fields.Boolean(
+        "Is Interested People",
+        compute="_compute_is_interested_people",
+        readonly=True, store=True)
+
+    is_worker_member = fields.Boolean(
+        "Is Worker Member",
+        compute="_compute_is_worker_member",
+        readonly=True, store=True)
 
     is_unpayed = fields.Boolean(
         string='Unpayed', help="Check this box, if the partner has late"
@@ -55,7 +68,6 @@ class ResPartner(models.Model):
     sex = fields.Selection(
         selection=SEX_SELECTION, string='Sex')
 
-    old_coop_number = fields.Char('Civi CRM Old Number')
     temp_coop_number = fields.Char('Temporary number')
 
     is_underclass_population = fields.Boolean(
@@ -67,32 +79,20 @@ class ResPartner(models.Model):
 
     is_deceased = fields.Boolean(string='Is Deceased')
 
+    date_of_death = fields.Date(string="Date of Death")
+
     age = fields.Integer(
         string="Age", compute='_compute_age')
 
-    type_A_capital_qty = fields.Integer(
-        'Number of type A Subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
+    partner_owned_share_ids = fields.One2many(
+        'res.partner.owned.share',
+        'partner_id',
+        string="Partner Owned Shares")
 
-    type_B_capital_qty = fields.Integer(
-        'Number of type B Subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
-
-    type_C_capital_qty = fields.Integer(
-        'Number of type C Subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
-
-    is_type_A_capital_subscriptor = fields.Boolean(
-        'Has a type A capital subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
-
-    is_type_B_capital_subscriptor = fields.Boolean(
-        'Has a type B capital subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
-
-    is_type_C_capital_subscriptor = fields.Boolean(
-        'Has a type C capital subscription', store=True,
-        compute='_compute_subscription', multi='_compute_subscription')
+    total_partner_owned_share = fields.Integer(
+        string="Total Owned Shares",
+        compute="_compute_total_partner_owned_share",
+        store=True)
 
     is_associated_people = fields.Boolean(
         string='Is Associated People', store=True,
@@ -109,6 +109,28 @@ class ResPartner(models.Model):
     # order in the status widget
     cooperative_state = fields.Selection(
         selection=EXTRA_COOPERATIVE_STATE_SELECTION, default='not_concerned')
+
+    # Constraint Section
+    @api.multi
+    @api.constrains(
+        'is_member',
+        'parent_id',
+        'parent_id.is_member',
+        'total_partner_owned_share')
+    def _check_partner_type(self):
+        '''
+        @Function to add a constraint on partner type
+            - If a partner has shares, he cannot be an associated member
+        '''
+        for partner in self:
+            partner_parent = partner.parent_id
+            if partner_parent and partner_parent.is_member and \
+                    partner.total_partner_owned_share > 0:
+                raise ValidationError(
+                    _("You can't be an " +
+                      "associated people if you have shares ! " +
+                      "Empty the parent_id field to be allowed " +
+                      "to write others changes"))
 
     # Compute Section
     @api.multi
@@ -142,77 +164,68 @@ class ResPartner(models.Model):
                 xml_id in partner.fundraising_partner_type_ids.ids
 
     @api.multi
-    @api.depends(
-        'invoice_ids.fundraising_category_id.is_part_A',
-        'invoice_ids.fundraising_category_id.is_part_B',
-        'invoice_ids.fundraising_category_id.is_part_C',
-        'invoice_ids.fundraising_category_id', 'invoice_ids.state')
-    def _compute_subscription(self):
-        category_obj = self.env['capital.fundraising.category']
-        type_A_categories = category_obj.search([('is_part_A', '=', True)])
-        type_B_categories = category_obj.search([('is_part_B', '=', True)])
-        type_C_categories = category_obj.search([('is_part_C', '=', True)])
+    @api.depends('partner_owned_share_ids',
+                 'partner_owned_share_ids.owned_share')
+    def _compute_total_partner_owned_share(self):
         for partner in self:
-            invoice_obj = self.env['account.invoice']
-            # Compute Type A
-            type_A_capital_qty = 0
-            type_A_invoices = invoice_obj.search([
-                ('partner_id', '=', partner.id),
-                ('state', 'in', ['open', 'paid']),
-                ('fundraising_category_id', 'in', type_A_categories.ids)])
-            for invoice in type_A_invoices:
-                if invoice.type == 'out_invoice':
-                    type_A_capital_qty += sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
-                else:
-                    type_A_capital_qty -= sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
-
-            # Compute Type B
-            type_B_capital_qty = 0
-            type_B_invoices = invoice_obj.search([
-                ('partner_id', '=', partner.id),
-                ('state', 'in', ['open', 'paid']),
-                ('fundraising_category_id', 'in', type_B_categories.ids)])
-            for invoice in type_B_invoices:
-                if invoice.type == 'out_invoice':
-                    type_B_capital_qty += sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
-                else:
-                    type_B_capital_qty -= sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
-
-            # Compute Type C
-            type_C_capital_qty = 0
-            type_C_invoices = invoice_obj.search([
-                ('partner_id', '=', partner.id),
-                ('state', 'in', ['open', 'paid']),
-                ('fundraising_category_id', 'in', type_C_categories.ids)])
-            for invoice in type_C_invoices:
-                if invoice.type == 'out_invoice':
-                    type_C_capital_qty += sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
-                else:
-                    type_C_capital_qty -= sum(
-                        invoice.mapped('invoice_line_ids.quantity'))
-
-            partner.type_A_capital_qty = type_A_capital_qty
-            partner.type_B_capital_qty = type_B_capital_qty
-            partner.type_C_capital_qty = type_C_capital_qty
-            partner.is_type_A_capital_subscriptor = type_A_capital_qty != 0
-            partner.is_type_B_capital_subscriptor = type_B_capital_qty != 0
-            partner.is_type_C_capital_subscriptor = type_C_capital_qty != 0
+            partner.total_partner_owned_share = \
+                sum(partner_ownedshare.owned_share
+                    for partner_ownedshare in partner.partner_owned_share_ids)
 
     @api.multi
-    @api.depends('parent_id.is_louve_member')
+    @api.depends('total_partner_owned_share')
+    def _compute_is_member(self):
+        '''
+        @Function to identify if a partner is a member:
+            - A partner is a member if he/she has shares of any type
+        '''
+        for partner in self:
+            partner.is_member = partner.total_partner_owned_share > 0
+
+    @api.multi
+    @api.depends('is_member', 'is_associated_people', 'supplier')
+    def _compute_is_interested_people(self):
+        '''
+        @Function to compute data for the field is_interested_people
+            - True if: a partner is not a member AND is not associated people
+            AND is not a supplier
+        '''
+        for partner in self:
+            partner.is_interested_people = \
+                (not partner.is_member) and \
+                (not partner.is_associated_people) and \
+                (not partner.supplier) or False
+
+    @api.multi
+    @api.depends('is_member', 'parent_id.is_member')
     def _compute_is_associated_people(self):
         for partner in self:
             partner.is_associated_people =\
-                partner.parent_id and partner.parent_id.is_louve_member
+                partner.parent_id and \
+                partner.parent_id.is_member and (not partner.is_member)
+
+    @api.multi
+    @api.depends(
+        'partner_owned_share_ids',
+        'partner_owned_share_ids.category_id',
+        'partner_owned_share_ids.category_id.is_worker_capital_category',
+        'partner_owned_share_ids.owned_share')
+    def _compute_is_worker_member(self):
+        '''
+        @Function to compute data for the field is_worker_member:
+            - True if a member has shares in Worker Capital Category
+        '''
+        partner_owned_share_env = self.env['res.partner.owned.share']
+        for partner in self:
+            worker_shares = partner_owned_share_env.search_count(
+                [('partner_id', '=', partner.id),
+                 ('category_id.is_worker_capital_category', '=', True),
+                 ('owned_share', '>', 0)])
+            partner.is_worker_member = worker_shares and True or False
 
     @api.depends(
         'working_state', 'is_unpayed', 'is_unsubscribed',
-        'is_type_A_capital_subscriptor', 'is_associated_people',
+        'is_worker_member', 'is_associated_people',
         'parent_id.cooperative_state')
     @api.multi
     def _compute_cooperative_state(self):
@@ -220,14 +233,14 @@ class ResPartner(models.Model):
             if partner.is_associated_people:
                 # Associated People
                 partner.cooperative_state = partner.parent_id.cooperative_state
-            elif partner.is_type_A_capital_subscriptor:
+            elif partner.is_worker_member:
                 # Type A Subscriptor
-                    if partner.is_unsubscribed:
-                        partner.cooperative_state = 'unsubscribed'
-                    elif partner.is_unpayed:
-                        partner.cooperative_state = 'unpayed'
-                    else:
-                        partner.cooperative_state = partner.working_state
+                if partner.is_unsubscribed:
+                    partner.cooperative_state = 'unsubscribed'
+                elif partner.is_unpayed:
+                    partner.cooperative_state = 'unpayed'
+                else:
+                    partner.cooperative_state = partner.working_state
             else:
                 partner.cooperative_state = 'not_concerned'
 
@@ -241,11 +254,6 @@ class ResPartner(models.Model):
     # Overload Section
     @api.model
     def create(self, vals):
-        if vals.get('is_louve_member', False):
-            # Affect a useless default member type
-            xml_id = self.env.ref('coop_membership.default_member_type').id
-            vals.get('fundraising_partner_type_ids', []).append((4, xml_id))
-
         partner = super(ResPartner, self).create(vals)
         self._generate_associated_barcode(partner)
         return partner
@@ -256,7 +264,7 @@ class ResPartner(models.Model):
         for partner in self:
             self._generate_associated_barcode(partner)
         # Recompute display_name if needed
-        if ('barcode_base' in vals or 'is_louve_member' in vals) and (
+        if ('barcode_base' in vals or 'is_member' in vals) and (
                 not 'name' in vals):
             for partner in self:
                 partner.name = partner.name
@@ -303,7 +311,7 @@ class ResPartner(models.Model):
     def send_welcome_emails(self):
         partners = self.search([
             ('welcome_email', '=', False),
-            ('is_type_A_capital_subscriptor', '=', True),
+            ('is_worker_member', '=', True),
             ('is_unsubscribed', '=', False),
         ])
         partners.send_welcome_email()
@@ -326,7 +334,7 @@ class ResPartner(models.Model):
         if name.isdigit():
             partners = self.search([
                 ('barcode_base', '=', name),
-                ('is_louve_member', '=', True)], limit=limit)
+                ('is_member', '=', True)], limit=limit)
             if partners:
                 return partners.name_get()
         return super(ResPartner, self).name_search(
@@ -338,7 +346,7 @@ class ResPartner(models.Model):
         i = 0
         original_res = super(ResPartner, self).name_get()
         for partner in self:
-            if partner.is_louve_member:
+            if partner.is_member:
                 res.append((
                     partner.id,
                     '%s - %s' % (partner.barcode_base, original_res[i][1])))

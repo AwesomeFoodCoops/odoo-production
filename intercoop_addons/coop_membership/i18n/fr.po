@@ -91,11 +91,6 @@ msgid "Check this box, if the partner left the the cooperative. this will preven
 msgstr "Cochez cette case si le partenaire quitte la coopérative et rembourse ses parts. Cela lui interdira d'acheter."
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_old_coop_number
-msgid "Civi CRM Old Number"
-msgstr "Ancien numéro Civi CRM"
-
-#. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_partner_contact_origin_id
 msgid "Contact Origin"
 msgstr "Origine du contact"
@@ -160,11 +155,6 @@ msgid "Generate New Barcode"
 msgstr "Générer des nouveaux barcodes"
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_is_type_A_capital_subscriptor
-msgid "Has a type A capital subscription"
-msgstr "A souscrit des parts A"
-
-#. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_contact_origin_id
 #: model:ir.model.fields,name:coop_membership.field_res_partner_generate_barcode_wizard_id
 msgid "ID"
@@ -181,11 +171,6 @@ msgid "If checked, Coop members that subscribe type A capital will have this bar
 msgstr "Si cochée, les personnes qui ont souscrit des parts A vont avoir cette règle de barcode, par défaut."
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_capital_fundraising_category_is_part_A
-msgid "If checked, partner that have subscribed such fundraising category will belong to 'Type A subscriptor' category"
-msgstr "Si cochée, les personnes qui ont souscrit ce type de part seront coché 'Possède des parts A'."
-
-#. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_partner_is_associated_people
 msgid "Is Associated People"
 msgstr "Est une personne rattachée"
@@ -196,19 +181,25 @@ msgid "Is Deceased"
 msgstr "Est décédée"
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_is_louve_member
-msgid "Is Louve Member"
-msgstr "Est un membre de la louve"
+#: model:ir.model.fields,name:coop_membership.field_res_partner_is_member
+msgid "Is Member"
+msgstr "Est un membre"
 
-#. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_capital_fundraising_category_is_part_A
-msgid "Is Part A"
-msgstr "Part A"
 
 #. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_capital_fundraising_category_is_default
 msgid "Is default"
 msgstr "Par défaut"
+
+#. module: capital_subscription
+#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category_minimum_share_qty
+msgid "Default Minimum qty"
+msgstr "Quantité minimale par défaut"
+
+#. module: capital_subscription
+#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category_line_ids
+msgid "Exception rules for minimum qty"
+msgstr "Règles d'exception pour la quantité minimale"
 
 #. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_contact_origin___last_update
@@ -298,9 +289,19 @@ msgid "Set 'Underclass Population'"
 msgstr "Mettre 'Minima Sociaux'"
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_sex
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_sex
 msgid "Sex"
 msgstr "Sexe"
+
+#. module: coop_membership
+#: selection:res.partner,sex:0
+msgid "male"
+msgstr "Masculin"
+
+#. module: coop_membership
+#: selection:res.partner,sex:0
+msgid "female"
+msgstr "Féminin"
 
 #. module: coop_membership
 #: model:ir.model,name:coop_membership.model_shift_template
@@ -320,7 +321,7 @@ msgid "Suspended"
 msgstr "Suspendu"
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_temp_coop_number
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_temp_coop_number
 msgid "Temporary number"
 msgstr "Numéro temporaire"
 
@@ -337,7 +338,16 @@ msgid "Unpayed"
 msgstr "Impayé"
 
 #. module: coop_membership
-#: model:ir.model.fields,name:coop_membership.field_res_partner_is_unsubscribed
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_is_unsubscribed
+msgid "Unsubscribed"
+msgstr "N'est inscrit à aucun créneau"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_date_of_death
+msgid "Date of Death"
+msgstr "Date de décès"
+
+#. module: coop_membership
 #: selection:res.partner,cooperative_state:0
 msgid "Unsubscribed"
 msgstr "Désinscrit"

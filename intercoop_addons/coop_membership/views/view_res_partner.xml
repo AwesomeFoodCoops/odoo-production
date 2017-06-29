@@ -12,19 +12,12 @@
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
             <field name="parent_id" position="after">
-                <field name="barcode_base" string="Member Number" filter_domain="[('barcode_base', '=', self), ('is_louve_member', '=', True)]"/>
-                <field name="is_louve_member"/>
+                <field name="barcode_base" string="Member Number" filter_domain="[('barcode_base', '=', self), ('is_member', '=', True)]"/>
+                <field name="is_member"/>
                 <field name="is_associated_people"/>
-                <field name="type_A_capital_qty"/>
-                <field name="type_B_capital_qty"/>
-                <field name="type_C_capital_qty"/>
-                <field name="is_type_A_capital_subscriptor"/>
-                <field name="is_type_B_capital_subscriptor"/>
-                <field name="is_type_C_capital_subscriptor"/>
-                <field name="is_associated_people"/>
+                <field name="is_worker_member"/>
                 <field name="is_unpayed"/>
                 <field name="is_unsubscribed"/>
-                <field name="old_coop_number"/>
                 <field name="temp_coop_number"/>
             </field>
         </field>
@@ -54,13 +47,13 @@
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@id='add_template_registration']" position="attributes">
-                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_worker_member', '=', False)]}</attribute>
             </xpath>
             <xpath expr="//button[@id='view_partner_registrations']" position="attributes">
-                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_worker_member', '=', False)]}</attribute>
             </xpath>
             <xpath expr="//button[@id='view_partner_template_registrations']" position="attributes">
-                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor', '=', False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_worker_member', '=', False)]}</attribute>
             </xpath>
         </field>
     </record>
@@ -72,26 +65,26 @@
             <!-- Contact Sub form-->
             <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="after">
                 <field name="is_associated_people" invisible="1"/>
-                <field name="is_louve_member" invisible="1"/>
+                <field name="is_member" invisible="1"/>
                 <field name="image" widget="image" class="oe_avatar"
                     options="{'preview_image': 'image_medium', 'size': [90, 90]}"
-                    attrs="{'invisible': [('is_louve_member', '=', False), ('is_associated_people', '=', False)]}"/>
+                    attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}"/>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet/hr" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='title']" position="after">
                 <field name="birthdate" widget="date"/>
                 <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='function']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet//field[@name='comment']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('is_louve_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}</attribute>
             </xpath>
 
             <!-- Move barcode_base field -->
@@ -103,14 +96,10 @@
                     <group>
                         <group string="MemberShip">
                             <field name="barcode_base" string="Member Number" readonly="1"/>
-                            <field name="is_louve_member" string="Afficher via menu Membres" readonly="0"/>
-                            <field name="type_A_capital_qty"/>
-                            <field name="type_B_capital_qty"/>
-                            <field name="type_C_capital_qty"/>
-                            <field name="is_type_A_capital_subscriptor" invisible="1"/>
-                            <field name="is_type_B_capital_subscriptor" invisible="1"/>
-                            <field name="is_type_C_capital_subscriptor" invisible="1"/>
+                            <field name="is_member" string="Afficher via menu Membres"/>
+                            <field name="is_worker_member"/>
                             <field name="is_associated_people" readonly="1"/>
+                            <field name="is_interested_people"/>
                             <field name="is_unpayed"/>
                             <field name="is_unsubscribed"/>
                         </group>
@@ -119,14 +108,22 @@
                             <field name="birthdate" widget="date"/>
                             <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
                             <field name="adult_number_home"/>
-                            <field name="old_coop_number"/>
                             <field name="contact_origin_id"/>
                             <field name="sex"/>
                             <field name="is_deceased"/>
+                            <field name="date_of_death" attrs="{'invisible': [('is_deceased', '=', False)]}"/>
                         </group>
                     </group>
                 </page>
             </notebook>
+
+            <!-- Smart Button for Owned Shares -->
+            <div name="button_box" position="inside">
+                <button name="%(coop_membership.action_res_partner_owned_share)d" type="action" class="oe_stat_button" icon="fa-calendar" help="View Partner Owned Shares">
+                    <field name="total_partner_owned_share" widget="statinfo" string="Owned Shares"/>
+                </button>
+            </div>
+
         </field>
     </record>
 
@@ -136,10 +133,10 @@
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
             <button id="add_template_registration" position="attributes">
-                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor','=',False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_worker_member','=',False)]}</attribute>
             </button>
             <button id="view_partner_template_registrations" position="attributes">
-                <attribute name="attrs">{'invisible':[('is_type_A_capital_subscriptor','=',False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('is_worker_member','=',False)]}</attribute>
             </button>
         </field>
     </record>

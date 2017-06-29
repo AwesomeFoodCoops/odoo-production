@@ -32,6 +32,13 @@
         <field name="sequence">2</field>
     </record>
 
+    <record model="ir.ui.menu" id="menu_res_partner_interested_people">
+        <field name="name">Interested People</field>
+        <field name="action" ref="action_res_partner_interested_people"/>
+        <field name="parent_id" ref="menu_coop_member_submain"/>
+        <field name="sequence">3</field>
+    </record>
+
     <record model="ir.ui.menu" id="menu_coop_subscriptions_submain">
         <field name="name">Subscriptions</field>
         <field name="parent_id" ref="coop_shift.shift_main_menu"/>

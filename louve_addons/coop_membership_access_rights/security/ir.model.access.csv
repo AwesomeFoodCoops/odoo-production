@@ -29,3 +29,4 @@ access_model_account_move_line_creator,access_model_account_move_line_creator,ac
 access_model_account_payment_creator_payment,access_model_account_payment_creator_payment,account.model_account_payment,coop_membership_access_rights.subscriptions_creator_payment,1,1,1,0
 ,,,,,,,
 access_model_res_contact_origin,access_model_res_contact_origin,coop_membership.model_res_contact_origin,,1,1,1,1
+access_model_res_partner_owned_share,access_model_res_partner_owned_share,coop_membership.model_res_partner_owned_share,,1,0,0,0

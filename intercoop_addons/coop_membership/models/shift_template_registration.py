@@ -29,13 +29,13 @@ class ShiftTemplateRegistration(models.Model):
     _inherit = 'shift.template.registration'
 
     partner_id = fields.Many2one(
-        domain=[('is_type_A_capital_subscriptor', '=', True)])
+        domain=[('is_worker_member', '=', True)])
 
     @api.multi
     @api.constrains('partner_id')
     def _check_partner_subscription(self):
         for reg in self:
-            if not reg.partner_id.is_type_A_capital_subscriptor:
+            if not reg.partner_id.is_worker_member:
                 raise ValidationError(_(
                     'This partner does not have a type A capital subscription!'
                 ))

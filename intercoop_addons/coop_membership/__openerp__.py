@@ -19,6 +19,7 @@
     'data': [
         # Classical Data
         'views/action.xml',
+        'views/view_res_partner_owned_share.xml',
         'views/view_res_partner.xml',
         'views/view_barcode_rule.xml',
         'views/view_account_invoice.xml',
