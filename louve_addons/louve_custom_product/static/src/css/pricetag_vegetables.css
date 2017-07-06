@@ -22,17 +22,17 @@
     padding:0.1cm;
     }
 .label_top_vege{
-    width:100%; height:30%; float:left;
+    width:100%; height:20%; float:left;
     margin-bottom:0.5cm;
     }
 .label_left_vege{
     width:60%; height:35%; float:left;
     }
 .label_right_vege{
-    width:40%; height:35%; float:right;
+    width:40%; height:40%; float:right; padding-top: 30px;
 }
 .label_bottom_vege{
-    width:100%; height:30%; float:left;
+    width:100%; height:40%; float:left; padding-top: 10px;
 }
 .product_name_vege{
     height: 100%;
@@ -47,6 +47,26 @@
     width:100%;height:100%;
     font-size:20px;
     }
+
+.product_code{
+    font-size: 55px;
+    font-weight:bold;
+    overflow: hidden;
+    }
+
+.product_origin{
+    font-size: 44px;
+    font-weight:bold;
+    width:100%;
+    height: 37%
+    }
+
+.pricetag_otherinfo{
+    overflow: hidden;
+    width: 100%;
+    height: 63%;
+    }
+
 .product_price_vege{
     width:100%;height:30%;
     line-height: 2.4cm;

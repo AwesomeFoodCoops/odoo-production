@@ -19,7 +19,11 @@
                         </div>
                         <div class="label_left_vege">
                             <div class="product_informations_vege">
-                                <t t-if="product['product'].code">Code: <t t-esc="product['product'].code"/><br/></t>
+                                <div class="product_code">
+                                    <t t-if="product['product'].code">
+                                        <t t-esc="product['product'].code"/><br/>
+                                    </t>
+                                </div>
                                 <t t-if="product['product'].weight_net"><t t-esc="product['product'].weight_net"/> kg --- <t t-esc="product['product'].price_weight_net"/> €/kg<br/></t>
                                 <t t-if="not(product['product'].weight_net) and product['product'].volume"><t t-esc="product['product'].volume"/>L --- <t t-esc="product['product'].price_volume"/> €/L<br/></t>
                             </div>
@@ -34,9 +38,15 @@
                         </div>
                         <div class="label_bottom_vege">
                             <div class="product_informations_vege">
-                                <t name="pricetag_origine" t-if="product['product'].pricetag_origin">Origine: <t t-esc="product['product'].pricetag_origin"/><br/></t>
-                                <t t-if="product['product'].pricetag_rackinfos"><t t-esc="product['product'].pricetag_rackinfos"/><br/></t>
-                                <t t-if="product['product'].pricetag_louveinfos"><t t-esc="product['product'].pricetag_louveinfos"/><br/></t>
+                                <div class="product_origin">
+                                    <t name="pricetag_origine" t-if="product['product'].pricetag_origin">
+                                        <t t-esc="product['product'].pricetag_origin"/><br/>
+                                    </t>
+                                </div>
+                                <div class="pricetag_otherinfo">
+                                    <t t-if="product['product'].pricetag_rackinfos"><t t-esc="product['product'].pricetag_rackinfos"/><br/></t>
+                                    <t t-if="product['product'].pricetag_louveinfos"><t t-esc="product['product'].pricetag_louveinfos"/><br/></t>
+                                </div>
                             </div>
                         </div>
                     </div>
