@@ -32,9 +32,11 @@
         'data/ir_cron.xml',
         'data/capital_fundraising_partner_type.xml',
         'data/email_template_data.xml',
+        'data/ir_sequences.xml',
+        'data/barcode_rule.xml',
     ],
     'demo': [
-        'demo/barcode_rule.xml',
+        'demo/res_groups.xml',
         'demo/capital_fundraising_category.xml',
     ],
     'installable': True,

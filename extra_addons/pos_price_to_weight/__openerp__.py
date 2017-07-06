@@ -15,7 +15,7 @@
         'point_of_sale',
     ],
     'data': [
-#        'data/barcode_rule.xml',
+        'data/barcode_rule.xml',
         'static/src/xml/templates.xml',
     ],
  #   'demo': [

@@ -23,7 +23,8 @@
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-
+from openerp.addons.connector.session import ConnectorSession
+from openerp.addons.connector.queue.job import job
 from openerp import models, fields, api
 
 from .date_tools import conflict_period
@@ -279,6 +280,7 @@ class ResPartner(models.Model):
     @api.multi
     def _compute_working_state(self):
         """This function should be called in a daily CRON"""
+        current_datetime = fields.Datetime.now()
         for partner in self:
             state = 'up_to_date'
             if partner.is_blocked:
@@ -291,10 +293,10 @@ class ResPartner(models.Model):
                     or partner.final_ftop_point
                 if point < 0:
                     if partner.date_alert_stop:
-                        if partner.date_delay_stop > fields.Datetime.now():
+                        if partner.date_delay_stop > current_datetime:
                             # There is Delay
                             state = 'delay'
-                        elif partner.date_alert_stop > fields.Datetime.now():
+                        elif partner.date_alert_stop > current_datetime:
                             # Grace State
                             state = 'alert'
                         else:
@@ -303,7 +305,8 @@ class ResPartner(models.Model):
                         state = 'suspended'
                 elif partner.is_exempted:
                     state = 'exempted'
-            partner.working_state = state
+            if partner.working_state != state:
+                partner.working_state = state
 
     @api.depends('working_state')
     @api.multi
@@ -319,3 +322,25 @@ class ResPartner(models.Model):
         partners = self.search([])
         partners.compute_date_alert_stop()
         partners.compute_date_delay_stop()
+
+        # Creating Jobs for updating the member working status
+        # Split member list in multiple parts
+        partner_ids = partners.ids
+        num_partner_per_job = 200
+        splited_partner_list = \
+            [partner_ids[i: i + num_partner_per_job]
+             for i in range(0, len(partner_ids), num_partner_per_job)]
+        # Prepare session for job
+        session = ConnectorSession(self._cr, self._uid,
+                                   context=self.env.context)
+        # Create jobs
+        for partner_list in splited_partner_list:
+            update_member_working_state.delay(
+                session, 'res.partner', partner_list)
+
+
+@job
+def update_member_working_state(session, model_name, partner_ids):
+    ''' Job for Updating Member Working State '''
+    partners = session.env[model_name].browse(partner_ids)
+    partners._compute_working_state()
