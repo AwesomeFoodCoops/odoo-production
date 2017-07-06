@@ -1,0 +1,20 @@
+<odoo noupdate='1'>
+	<record id="sequence_numeration_coop_member_seq" model="ir.sequence">
+		<field name="name">Sequence - Numeration of Coop Member</field>
+		<field name="code">coop_membership.numeration</field>
+		<field name="implementation">no_gap</field>
+		<field eval="6" name="padding"/>
+		<field eval="1" name="number_next"/>
+		<field eval="False" name="company_id"/>
+        <field eval="1" name="number_increment"/>
+	</record>
+	<record id="sequence_numeration_associated_people_seq" model="ir.sequence">
+		<field name="name">Sequence - Numeration of Associated People</field>
+		<field name="implementation">no_gap</field>
+		<field name="code">coop_membership.numeration</field>
+		<field eval="6" name="padding"/>
+		<field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field eval="False" name="company_id"/>
+	</record>
+</odoo>
