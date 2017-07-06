@@ -18,6 +18,7 @@
         'event_sale',
         'mail',
         'barcodes_generate',
+        'connector'
     ],
     'data': [
         'security/ir_module_category.xml',
