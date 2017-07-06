@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+Copyright (C) 2016-Today: La Louve (<http://www.cooplalouve.fr/>)
+@author: La Louve
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
+-->
+
+<odoo noupdate='1'>
+	<!-- Default Barcode Rules inserted into Default Nomenclature -->
+    <record id="barcode_price_look_up_code" model="barcode.rule">
+        <field name="name">Price Look Up Codes (PLU Codes)</field>
+        <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+        <field name="type">product</field>
+        <field name="encoding">ean13</field>
+        <field name="pattern">20.....{NNNDD}</field>
+        <field name="sequence">50</field>
+        <field name="generate_type">manual</field>
+        <field name="padding">5</field>
+        <field name="generate_model">product.product</field>
+    </record>
+    <record id="barcode_rule_weight_three_dec_29" model="barcode.rule">
+        <field name="name">Weight Barcodes 3 Decimals (29)</field>
+        <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+        <field name="type">weight</field>
+        <field name="encoding">ean13</field>
+        <field name="pattern">29.....{NNDDD}</field>
+        <field name="sequence">60</field>
+        <field name="generate_type">manual</field>
+        <field name="padding">5</field>
+        <field name="generate_model">product.product</field>
+    </record>
+    <record id="barcode_rule_weight_three_dec_24" model="barcode.rule">
+        <field name="name">Weight Barcodes 3 Decimals (24)</field>
+        <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+        <field name="type">weight</field>
+        <field name="encoding">ean13</field>
+        <field name="pattern">24.....{NNDDD}</field>
+        <field name="sequence">70</field>
+        <field name="generate_type">manual</field>
+        <field name="padding">4</field>
+        <field name="generate_model">product.product</field>
+    </record>
+    <record id="barcode_rule_weight_three_dec_22" model="barcode.rule">
+        <field name="name">Weight Barcodes 3 Decimals (22)</field>
+        <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+        <field name="type">weight</field>
+        <field name="encoding">ean13</field>
+        <field name="pattern">22.....{NNDDD}</field>
+        <field name="sequence">80</field>
+        <field name="generate_type">manual</field>
+        <field name="padding">5</field>
+        <field name="generate_model">product.product</field>
+    </record>
+    <record id="barcode_rule_weight_three_dec_23" model="barcode.rule">
+        <field name="name">Weight Barcodes 3 Decimals (23)</field>
+        <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+        <field name="type">weight</field>
+        <field name="encoding">ean13</field>
+        <field name="pattern">23.....{NNDDD}</field>
+        <field name="sequence">90</field>
+        <field name="generate_type">manual</field>
+        <field name="padding">5</field>
+        <field name="generate_model">product.product</field>
+    </record>
+    <record id="barcode_rule_weight_three_dec_25" model="barcode.rule">
+        <field name="name">Weight Barcodes 3 Decimals (25)</field>
+        <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+        <field name="type">weight</field>
+        <field name="encoding">ean13</field>
+        <field name="pattern">25.....{NNDDD}</field>
+        <field name="sequence">100</field>
+        <field name="generate_type">manual</field>
+        <field name="padding">4</field>
+        <field name="generate_model">product.product</field>
+    </record>
+
+    <!-- Other barcodes -->
+    <record id="barcode_rule_23" model="barcode.rule">
+        <field name="name">23</field>
+        <field name="type">product</field>
+        <field name="encoding">any</field>
+        <field name="pattern">.*</field>
+        <field name="sequence">0</field>
+    </record>
+    <record id="barcode_rule_article_without_barcode" model="barcode.rule">
+        <field name="name">Article without barcode</field>
+        <field name="type">price</field>
+        <field name="encoding">ean13</field>
+        <field name="pattern">.*</field>
+        <field name="sequence">100</field>
+        <field name="generate_type">no</field>
+    </record>
+    <record id="barcode_rule_6823" model="barcode.rule">
+        <field name="name">6823</field>
+        <field name="type">product</field>
+        <field name="encoding">any</field>
+        <field name="pattern">.*</field>
+        <field name="sequence">0</field>
+    </record>
+</odoo>
+
