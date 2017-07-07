@@ -9,12 +9,29 @@ class ReportTimesheet(models.AbstractModel):
     _name = 'report.coop_shift.report_timesheet'
 
     @api.model
+    def check_partner_on_leave(self, partner, tocheck_date):
+        '''
+        @Function to check if a partner is on leave on specific date
+        Input:
+            - partner: A partner record
+            - tocheck_date: The date to check, expressed in string type under
+            format 'yyyy-mm-dd'
+        '''
+        found_leave = self.env['shift.leave'].search_count(
+            [('partner_id', '=', partner.id),
+             ('state', '=', 'done'),
+             ('start_date', '<=', tocheck_date),
+             ('stop_date', '>=', tocheck_date)]
+        )
+        return found_leave > 0
+
+    @api.model
     def _get_shifts(self, date_report, shifts):
         if shifts:
             shifts = self.env['shift.shift'].browse(shifts)
         else:
             if not date_report:
-                date_report = date.today()
+                date_report = date.today().strftime("%Y-%m-%d")
             date2 = datetime.datetime.strftime(
                 datetime.datetime.strptime(date_report, "%Y-%m-%d") +
                 timedelta(days=1), "%Y-%m-%d")
@@ -27,13 +44,18 @@ class ReportTimesheet(models.AbstractModel):
             registrations = []
             ftops = []
             for reg in shift.registration_ids:
+                # Check if a partner is on leave on a report date
+                is_on_leave = self.check_partner_on_leave(
+                    reg.partner_id, date_report)
+
                 if reg.shift_ticket_id.product_id == self.env.ref(
                         'coop_shift.product_product_shift_ftop'):
-                    ftops.append(reg)
+                    ftops.append([reg, is_on_leave])
                 else:
                     if reg.state != 'replacing':
                         registrations.append({
                             'registration': reg,
+                            'is_on_leave': is_on_leave,
                             'replacement': reg.replacing_reg_id})
             result.append({
                 'shift': shift,
@@ -48,7 +70,8 @@ class ReportTimesheet(models.AbstractModel):
         self.model = self.env.context.get('active_model')
         docs = self.env[self.model].browse(self.env.context.get('active_id'))
 
-        date_report = data['form'].get('date_report', date.today())
+        date_report = \
+            data['form'].get('date_report', date.today().strftime("%Y-%m-%d"))
         shifts = data['form'].get('shift_ids', [])
 
         shifts_res = self.with_context(
