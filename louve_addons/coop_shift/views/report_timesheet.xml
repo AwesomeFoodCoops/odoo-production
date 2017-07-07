@@ -72,7 +72,9 @@
                         <tr>
                             <td colspan="9" style="text-align:center;font-size:12px"><bold>**---VACATIONS---**</bold></td>
                         </tr>
-                        <tr t-foreach="shift['ftop']" t-as="ftop" style="font-size:13px">
+                        <tr t-foreach="shift['ftop']" t-as="ftop_data" style="font-size:13px">
+                            <t t-value="ftop_data[0]" t-set="ftop"/>
+                            <t t-value="ftop_data[1]" t-set="is_on_leave"/>
                             <td></td>
                             <td></td>
                             <td></td>
