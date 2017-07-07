@@ -36,7 +36,7 @@
         'data/barcode_rule.xml',
     ],
     'demo': [
-        'demo/res_groups.xml',
+
         'demo/capital_fundraising_category.xml',
     ],
     'installable': True,
