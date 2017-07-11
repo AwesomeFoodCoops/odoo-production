@@ -1,0 +1,241 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * hr_timesheet
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-14 10:26+0000\n"
+"PO-Revision-Date: 2017-06-19 11:17+0000\n"
+"Last-Translator: Martin Trigaux\n"
+"Language-Team: Lithuanian (http://www.transifex.com/odoo/odoo-9/language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+msgid "Accounting"
+msgstr "Apskaita"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.act_hr_timesheet_line_evry1_all_form
+#: model:ir.ui.menu,name:hr_timesheet.menu_hr_working_hours
+msgid "Activities"
+msgstr "Veiklos"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_account_analytic_account
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_account_id
+msgid "Analytic Account"
+msgstr "Analitinė sąskaita"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Analitinė eilutė"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Analytic account"
+msgstr "Analitinė sąskaita"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,help:hr_timesheet.field_account_analytic_account_use_timesheets
+msgid "Check this field if this project manages timesheets"
+msgstr ""
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,help:hr_timesheet.act_hr_timesheet_line_evry1_all_form
+msgid "Click to record activities."
+msgstr "Paspauskite, norėdami įrašyti veiklas"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_res_company
+msgid "Companies"
+msgstr "Įmonės"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_company_id
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Company"
+msgstr "Įmonė"
+
+#. module: hr_timesheet
+#: model:ir.ui.menu,name:hr_timesheet.menu_hr_timesheet_config
+msgid "Configuration"
+msgstr "Nustatymai"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_cost
+msgid "Cost"
+msgstr "Kaina"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_date
+msgid "Date"
+msgstr "Data"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.action_define_analytic_structure
+msgid "Define your Analytic Structure"
+msgstr "Apibūdinkite savo analitinę struktūrą"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_display_name
+msgid "Display Name"
+msgstr "Vaizduojamas pavadinimas"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_tree
+msgid "Duration"
+msgstr "Laikotarpis"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Extended Filters..."
+msgstr "Išplėstiniai filtrai..."
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Group By"
+msgstr "Grupuoti pagal"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Group by month of date"
+msgstr ""
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_id
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+msgid "Information"
+msgstr "Informacija"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_account_analytic_line_is_timesheet
+msgid "Is a Timesheet"
+msgstr ""
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report___last_update
+msgid "Last Modified on"
+msgstr "Paskutinį kartą keista"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Month"
+msgstr "Mėnuo"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_product_id
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Product"
+msgstr "Produktas"
+
+#. module: hr_timesheet
+#: model:ir.ui.menu,name:hr_timesheet.menu_timesheets_reports
+msgid "Reports"
+msgstr "Ataskaitos"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "This Month"
+msgstr "Šis mėnuo"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_quantity
+msgid "Time"
+msgstr "Laikas"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_hr_timesheet_report
+#: model:ir.ui.menu,name:hr_timesheet.menu_hr_timesheet_report_all
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_graph
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_pivot
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Timesheet"
+msgstr "Darbo laiko žiniaraštis"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.act_hr_timesheet_accounts_form
+msgid "Timesheet Accounts"
+msgstr ""
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_tree
+msgid "Timesheet Activities"
+msgstr "Darbo laiko žiniaraščio veikla"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.action_hr_timesheet_report_stat_all
+#: model:ir.actions.act_window,name:hr_timesheet.action_hr_timesheet_report_stat_filtered
+msgid "Timesheet Analysis"
+msgstr ""
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Timesheet Month"
+msgstr "Darbo laiko žiniaraščio mėnuo"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Timesheet by Month"
+msgstr "Darbo laiko apskaitos žiniaraštis pagal mėnesį"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_account_analytic_account_use_timesheets
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_department_view_kanban
+msgid "Timesheets"
+msgstr "Darbuotojo darbo laiko apskaitos žiniaraštis"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_tree
+msgid "Total time"
+msgstr "Iš viso laiko"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_user_id
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "User"
+msgstr "Naudotojas"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Users"
+msgstr "Naudotojai"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,help:hr_timesheet.act_hr_timesheet_line_evry1_all_form
+msgid ""
+"You can register and track your workings hours by project every\n"
+"                day. Every time spent on a project will become a cost in the\n"
+"                analytic accounting/contract and can be re-invoiced to\n"
+"                customers if required."
+msgstr ""
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,help:hr_timesheet.action_define_analytic_structure
+msgid ""
+"You should create an analytic account structure depending on your needs to "
+"analyse costs and revenues. In Odoo, analytic accounts are also used to "
+"track customer contracts."
+msgstr ""
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "month"
+msgstr "mėnuo"

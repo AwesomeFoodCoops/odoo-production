@@ -1,0 +1,244 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * hr_timesheet
+# 
+# Translators:
+# Ahmed AL-Haddad <ahmed@utech-sa.com>, 2016
+# Shaima Safar <shaima.safar@open-inside.com>, 2017
+# Swaid El-Mckey <swaid.mckey@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-14 10:26+0000\n"
+"PO-Revision-Date: 2017-01-25 09:59+0000\n"
+"Last-Translator: Shaima Safar <shaima.safar@open-inside.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/odoo/odoo-9/language/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+msgid "Accounting"
+msgstr "الحسابات"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.act_hr_timesheet_line_evry1_all_form
+#: model:ir.ui.menu,name:hr_timesheet.menu_hr_working_hours
+msgid "Activities"
+msgstr "الأنشطة"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_account_analytic_account
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_account_id
+msgid "Analytic Account"
+msgstr "الحساب التحليلي"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "البند التحليلي"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Analytic account"
+msgstr "الحساب التحليلي"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,help:hr_timesheet.field_account_analytic_account_use_timesheets
+msgid "Check this field if this project manages timesheets"
+msgstr "حدد هذا الحقل إذا كان هذا مديري مشاريع الجداول الزمنية"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,help:hr_timesheet.act_hr_timesheet_line_evry1_all_form
+msgid "Click to record activities."
+msgstr "إضغط لتسجيل الأنشطة"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_res_company
+msgid "Companies"
+msgstr "المؤسسات"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_company_id
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Company"
+msgstr "المؤسسة"
+
+#. module: hr_timesheet
+#: model:ir.ui.menu,name:hr_timesheet.menu_hr_timesheet_config
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_cost
+msgid "Cost"
+msgstr "التكلفة"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.action_define_analytic_structure
+msgid "Define your Analytic Structure"
+msgstr "تعريف هيكلك التحليلي"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_tree
+msgid "Duration"
+msgstr "المدة"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Extended Filters..."
+msgstr "الفلاتر التفصيلية..."
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Group By"
+msgstr "تجميع حسب"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Group by month of date"
+msgstr "مجموعة بتاريخ من تاريخ"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+msgid "Information"
+msgstr "المعلومات"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_account_analytic_line_is_timesheet
+msgid "Is a Timesheet"
+msgstr "هل هو جدول وقت"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report___last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Month"
+msgstr "الشهر"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_product_id
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Product"
+msgstr "المنتج"
+
+#. module: hr_timesheet
+#: model:ir.ui.menu,name:hr_timesheet.menu_timesheets_reports
+msgid "Reports"
+msgstr "التقارير"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "This Month"
+msgstr "هذا الشهر"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_quantity
+msgid "Time"
+msgstr "الوقت"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_hr_timesheet_report
+#: model:ir.ui.menu,name:hr_timesheet.menu_hr_timesheet_report_all
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_graph
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_pivot
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Timesheet"
+msgstr "سجل الدوام"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.act_hr_timesheet_accounts_form
+msgid "Timesheet Accounts"
+msgstr "حسابات الجدول الزمنى "
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_tree
+msgid "Timesheet Activities"
+msgstr "أنشطة الجدول الزمني"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.action_hr_timesheet_report_stat_all
+#: model:ir.actions.act_window,name:hr_timesheet.action_hr_timesheet_report_stat_filtered
+msgid "Timesheet Analysis"
+msgstr "تحليل سجل الدوام"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Timesheet Month"
+msgstr "سجل دوام الشهر"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Timesheet by Month"
+msgstr "سجل الدوام بالشهر "
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_account_analytic_account_use_timesheets
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_department_view_kanban
+msgid "Timesheets"
+msgstr "سجلات النشاط"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_tree
+msgid "Total time"
+msgstr "إجمالي الوقت"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_user_id
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "User"
+msgstr "المستخدم"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Users"
+msgstr "المستخدمون"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,help:hr_timesheet.act_hr_timesheet_line_evry1_all_form
+msgid ""
+"You can register and track your workings hours by project every\n"
+"                day. Every time spent on a project will become a cost in the\n"
+"                analytic accounting/contract and can be re-invoiced to\n"
+"                customers if required."
+msgstr "يمكنك تسجيل ومتابعة ساعات عملك كل يوم عن طريق مشروع .\nكل وقت تقضيه في المشروع ستصبح التكلفة في\nتحليل المحاسبة / عقد ويمكن إعادة فواتير ل\nالزبائن إذا لزم الأمر."
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,help:hr_timesheet.action_define_analytic_structure
+msgid ""
+"You should create an analytic account structure depending on your needs to "
+"analyse costs and revenues. In Odoo, analytic accounts are also used to "
+"track customer contracts."
+msgstr "يجب إنشاء هيكل حساب تحليلي حسب احتياجاتك لتحليل التكاليف والإيرادات . في أوبنيرب، تستخدم الحسابات التحليلية أيضا لتتبع عقود العملاء ."
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "month"
+msgstr "شهر"

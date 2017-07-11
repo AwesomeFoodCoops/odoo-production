@@ -1,0 +1,242 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * hr_timesheet
+# 
+# Translators:
+# Max Belyanin <maxbelyanin@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-14 10:26+0000\n"
+"PO-Revision-Date: 2015-10-19 15:03+0000\n"
+"Last-Translator: Max Belyanin <maxbelyanin@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.com/odoo/odoo-9/language/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+msgid "Accounting"
+msgstr "Бухгалтерский учет"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.act_hr_timesheet_line_evry1_all_form
+#: model:ir.ui.menu,name:hr_timesheet.menu_hr_working_hours
+msgid "Activities"
+msgstr "Действия"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_account_analytic_account
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_account_id
+msgid "Analytic Account"
+msgstr "Счёт аналитики"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Позиция аналитики"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Analytic account"
+msgstr "Счет аналитики"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,help:hr_timesheet.field_account_analytic_account_use_timesheets
+msgid "Check this field if this project manages timesheets"
+msgstr "Пролверьте это поле, если проект контролируется табелями"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,help:hr_timesheet.act_hr_timesheet_line_evry1_all_form
+msgid "Click to record activities."
+msgstr "Нажмите, чтобы записать действия"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_res_company
+msgid "Companies"
+msgstr "Компании"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_company_id
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Company"
+msgstr "Компания"
+
+#. module: hr_timesheet
+#: model:ir.ui.menu,name:hr_timesheet.menu_hr_timesheet_config
+msgid "Configuration"
+msgstr "Настройки"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_cost
+msgid "Cost"
+msgstr "Стоимость"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_date
+msgid "Date"
+msgstr "Дата"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.action_define_analytic_structure
+msgid "Define your Analytic Structure"
+msgstr "Определите свою аналитическую структуру"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_display_name
+msgid "Display Name"
+msgstr "Отображаемое Имя"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_tree
+msgid "Duration"
+msgstr "Длительность"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Extended Filters..."
+msgstr "Расширенные фильтры..."
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Group By"
+msgstr "Группировать по"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Group by month of date"
+msgstr "Группировать по месяцу в дате"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_id
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+msgid "Information"
+msgstr "Информация"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_account_analytic_line_is_timesheet
+msgid "Is a Timesheet"
+msgstr "Является табелем"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report___last_update
+msgid "Last Modified on"
+msgstr "Последний раз изменено"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Month"
+msgstr "Месяц"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_product_id
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Product"
+msgstr "Товар"
+
+#. module: hr_timesheet
+#: model:ir.ui.menu,name:hr_timesheet.menu_timesheets_reports
+msgid "Reports"
+msgstr "Отчёты"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "This Month"
+msgstr "Данный месяц"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_quantity
+msgid "Time"
+msgstr "Время"
+
+#. module: hr_timesheet
+#: model:ir.model,name:hr_timesheet.model_hr_timesheet_report
+#: model:ir.ui.menu,name:hr_timesheet.menu_hr_timesheet_report_all
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_graph
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_pivot
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "Timesheet"
+msgstr "Табель"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.act_hr_timesheet_accounts_form
+msgid "Timesheet Accounts"
+msgstr "Табельные счета"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_form
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_tree
+msgid "Timesheet Activities"
+msgstr "Действия в табеле"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,name:hr_timesheet.action_hr_timesheet_report_stat_all
+#: model:ir.actions.act_window,name:hr_timesheet.action_hr_timesheet_report_stat_filtered
+msgid "Timesheet Analysis"
+msgstr "Анализ расписания"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Timesheet Month"
+msgstr "Месяц табеля"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Timesheet by Month"
+msgstr "Табель помесячно"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_account_analytic_account_use_timesheets
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_department_view_kanban
+msgid "Timesheets"
+msgstr "Табели учёта"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_tree
+msgid "Total time"
+msgstr "Суммарное время"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_timesheet_report_user_id
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "User"
+msgstr "Пользователь"
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
+msgid "Users"
+msgstr "Пользователи"
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,help:hr_timesheet.act_hr_timesheet_line_evry1_all_form
+msgid ""
+"You can register and track your workings hours by project every\n"
+"                day. Every time spent on a project will become a cost in the\n"
+"                analytic accounting/contract and can be re-invoiced to\n"
+"                customers if required."
+msgstr "Вы можете зарегистрироваться и отслеживать ваши наработанные часы по проекту каждый\nдень. Каждый час, проведенный в работе над проектом войдет в стоимость в \nаналитическая учете/договоре и может быть повторно выставлен счет \nклиенту при необходимости."
+
+#. module: hr_timesheet
+#: model:ir.actions.act_window,help:hr_timesheet.action_define_analytic_structure
+msgid ""
+"You should create an analytic account structure depending on your needs to "
+"analyse costs and revenues. In Odoo, analytic accounts are also used to "
+"track customer contracts."
+msgstr "Вы должны создать аналитическую структуру счетов в зависимости от ваших потребностей для анализа затрат и доходов. В Odoo, аналитические счета также используются для отслеживания договоров клиентов."
+
+#. module: hr_timesheet
+#: model:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_report_search
+msgid "month"
+msgstr "месяц"
