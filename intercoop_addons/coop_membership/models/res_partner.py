@@ -42,6 +42,10 @@ class ResPartner(models.Model):
                                store=True,
                                readonly=True)
 
+    is_former_member = fields.Boolean("Is Former Member",
+                                      compute="_compute_is_former_member",
+                                      store=True, readonly=True)
+
     is_interested_people = fields.Boolean(
         "Is Interested People",
         compute="_compute_is_interested_people",
@@ -181,6 +185,26 @@ class ResPartner(models.Model):
         '''
         for partner in self:
             partner.is_member = partner.total_partner_owned_share > 0
+
+    @api.multi
+    @api.depends("total_partner_owned_share")
+    def _compute_is_former_member(self):
+        '''
+        @Function to compute the value of is former member
+        '''
+        for partner in self:
+            if partner.total_partner_owned_share == 0:
+                fundraising_count = \
+                    self.env['account.invoice'].search_count(
+                        [('partner_id', '=', partner.id),
+                         ('fundraising_category_id', '!=', False),
+                         ('state', 'in', ('open', 'paid'))])
+                if fundraising_count:
+                    partner.is_former_member = True
+                else:
+                    partner.is_former_member = False
+            else:
+                partner.is_former_member = False
 
     @api.multi
     @api.depends('is_member', 'is_associated_people', 'supplier')

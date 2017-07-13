@@ -144,6 +144,7 @@
                         <field name="is_worker_member" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_associated_people" readonly="1" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_interested_people" groups="coop_membership_access_rights.group_membership_access_manager"/>
+                        <field name="is_former_member" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_unpayed" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_unsubscribed" groups="coop_membership_access_rights.group_membership_access_manager"/>
                     </group>
