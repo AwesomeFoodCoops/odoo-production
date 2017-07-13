@@ -180,6 +180,16 @@ msgstr "Est décédée"
 msgid "Is Member"
 msgstr "Est un membre"
 
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_is_former_member
+msgid "Is Former Member"
+msgstr "Est un ancien membre"
+
+#. module: coop_membership
+#: model:ir.actions.act_window,name:coop_membership.action_res_partner_former_member
+#: model:ir.ui.menu,name:coop_membership.menu_res_partner_former_member
+msgid "Former Members"
+msgstr "Anciens membres"
 
 #. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_capital_fundraising_category_is_default
