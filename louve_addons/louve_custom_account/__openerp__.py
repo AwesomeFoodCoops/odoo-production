@@ -19,5 +19,7 @@
     'data': [
         'views/view_account_payment.xml',
         'views/view_account_invoice.xml',
+        'views/view_account_move_line.xml',
+        'views/view_account_move.xml',
     ],
 }
