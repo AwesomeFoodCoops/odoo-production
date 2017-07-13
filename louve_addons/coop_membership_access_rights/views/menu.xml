@@ -21,11 +21,7 @@
     </record>
 
     <record model="ir.ui.menu" id="mass_mailing.mass_mailing_menu_root">
-        <field name="groups_id" eval="[(4, ref('base.group_configuration'))]"/>
-    </record>
-
-    <record model="ir.ui.menu" id="mass_mailing.mass_mailing_menu_root">
-        <field name="groups_id" eval="[(4, ref('base.group_configuration'))]"/>
+        <field name="groups_id" eval="[(4, ref('base.group_configuration')), (4, ref('mass_mailing.group_mass_mailing_user'))]"/>
     </record>
 
     <record model="ir.ui.menu" id="coop_membership.menu_coop_subscriptions_submain">
