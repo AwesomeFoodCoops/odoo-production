@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-22 13:16+0000\n"
-"PO-Revision-Date: 2016-12-05 09:37+0000\n"
+"PO-Revision-Date: 2017-06-21 12:52+0000\n"
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Lithuanian (http://www.transifex.com/odoo/odoo-9/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -25,17 +25,17 @@ msgstr "# Analitinės taisyklės"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_bom_count
 msgid "# Bill of Material"
-msgstr ""
+msgstr "# Komplektavimo specifikacija"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_purchase_num_invoiced
 msgid "# Invoiced in Purchase"
-msgstr ""
+msgstr "# Išrašyta pirkimo sąskaitų"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_sale_num_invoiced
 msgid "# Invoiced in Sale"
-msgstr ""
+msgstr "# Išrašyta sąskaitų pardavimuose"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_mo_count
@@ -103,7 +103,7 @@ msgstr "Tikslus produkto aprašymas, kurį matys tik šios sistemos naudotojai."
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Reikia atlikti veiksmą"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_active
@@ -130,7 +130,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_asset_category_id
 msgid "Asset Type"
-msgstr ""
+msgstr "Turto tipas"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_attribute_value_ids
@@ -152,12 +152,12 @@ msgstr "Terminas dienomis, per kiek vidutiniškai pagaminamas šis produktas. At
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_sale_avg_price
 msgid "Avg. Price in Customer Invoices."
-msgstr ""
+msgstr "Apytikslė kaina kliento sąskaitose faktūrose."
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_purchase_avg_price
 msgid "Avg. Price in Vendor Bills "
-msgstr ""
+msgstr "Apytikslė kaina tiekėjų sąskaitose."
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_purchase_avg_price
@@ -284,7 +284,7 @@ msgstr "Sąlyga"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_purchase_method
 msgid "Control Purchase Bills"
-msgstr ""
+msgstr "Kontroliuoti pirkimo sąskaitas"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_standard_price
@@ -359,7 +359,7 @@ msgstr "Pirkėjo identifikatorius"
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_membership_date_from
 msgid "Date from which membership becomes active."
-msgstr ""
+msgstr "Data, nuo kurios narystė tampa aktyvia."
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_message_last_post
@@ -369,7 +369,7 @@ msgstr "Paskutinė pranešimo publikavimo data šiame įraše."
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_membership_date_to
 msgid "Date until which membership remains active."
-msgstr ""
+msgstr "Data, iki kurios narystė išlieka aktyvi."
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_uom_id
@@ -386,7 +386,7 @@ msgstr "Numatytasis šio produkto matavimo vienetas naudojamas pirkimų užsakym
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_deferred_revenue_category_id
 msgid "Deferred Revenue Type"
-msgstr ""
+msgstr "Atidėtų pajamų tipas"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_delivery_count
@@ -484,37 +484,37 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_event_ticket_ids
 msgid "Event Tickets"
-msgstr ""
+msgstr "Įvykio bilietai"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_expected_margin
 msgid "Expected Margin"
-msgstr ""
+msgstr "Numatoma marža"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_expected_margin_rate
 msgid "Expected Margin (%)"
-msgstr ""
+msgstr "Numatoma marža (%)"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_sale_expected
 msgid "Expected Sale"
-msgstr ""
+msgstr "Numatomi pardavimai"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_expected_margin
 msgid "Expected Sale - Normal Cost"
-msgstr ""
+msgstr "Numatomi pardavimai - Normali kaina"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_sales_gap
 msgid "Expected Sale - Turn Over"
-msgstr ""
+msgstr "Numatomi pardavimai - apyvarta"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_expected_margin_rate
 msgid "Expected margin * 100 / Expected Sale"
-msgstr ""
+msgstr "Numatoma marža * 100 / Numatomi pardavimai"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_property_account_expense_id
@@ -535,7 +535,7 @@ msgstr ""
 #: selection:delivery.carrier,delivery_type:0
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_fixed_price
 msgid "Fixed Price"
-msgstr ""
+msgstr "Fiksuota kaina"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_message_follower_ids
@@ -555,7 +555,7 @@ msgstr "Prenumeratoriai (partneriai)"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_virtual_available
 msgid "Forecast Quantity"
-msgstr ""
+msgstr "Prognozuojamas kiekis"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_virtual_available
@@ -782,12 +782,12 @@ msgstr "Pagaminimo terminas"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_date_from
 msgid "Margin Date From"
-msgstr ""
+msgstr "Maržos data nuo"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_date_to
 msgid "Margin Date To"
-msgstr ""
+msgstr "Maržos data iki"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_max_value
@@ -802,17 +802,17 @@ msgstr "Vidutinio dydžio nuotrauka"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_membership
 msgid "Membership"
-msgstr ""
+msgstr "Narystė"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_membership_date_to
 msgid "Membership End Date"
-msgstr ""
+msgstr "Narystės laikotarpio pabaiga"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_membership_date_from
 msgid "Membership Start Date"
-msgstr ""
+msgstr "Narystės laikotarpio pradžia"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_message_ids
@@ -846,12 +846,12 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_normal_cost
 msgid "Normal Cost"
-msgstr ""
+msgstr "Įprasta kaina"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_purchase_gap
 msgid "Normal Cost - Total Cost"
-msgstr ""
+msgstr "Įprasta kaina - Visa kaina"
 
 #. module: delivery
 #: model:delivery.carrier,name:delivery.normal_delivery_carrier
@@ -892,7 +892,7 @@ msgstr "Išvykstančios prekės"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_stock_picking_package_ids
 msgid "Packages"
-msgstr ""
+msgstr "Pakuotės"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_res_partner
@@ -937,12 +937,12 @@ msgstr "Kainoraštis"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_item_ids
 msgid "Pricelist Items"
-msgstr ""
+msgstr "Kainoraščio prekės"
 
 #. module: delivery
 #: model:ir.ui.view,arch_db:delivery.view_delivery_carrier_form
 msgid "Pricing"
-msgstr ""
+msgstr "Kainodara"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_price_rule_ids
@@ -957,7 +957,7 @@ msgstr "Planinių užsakymų vieta"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_alert_time
 msgid "Product Alert Time"
-msgstr ""
+msgstr "Produkto galiojimo data"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_attribute_line_ids
@@ -967,7 +967,7 @@ msgstr "Produkto atributai"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_email_template_id
 msgid "Product Email Template"
-msgstr ""
+msgstr "Produkto laiško šablonas"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_life_time
@@ -982,7 +982,7 @@ msgstr "Produkto vadybininkas"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_removal_time
 msgid "Product Removal Time"
-msgstr ""
+msgstr "Produkto pašalinimo laikas"
 
 #. module: delivery
 #: model:ir.model,name:delivery.model_product_template
@@ -1165,7 +1165,7 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_image_small
 msgid "Small-sized image"
-msgstr ""
+msgstr "Mažo dydžio paveiksliukas"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_uos_id
@@ -1361,22 +1361,22 @@ msgstr "Vykdant inventorizaciją, ši vieta naudojama atsargų judėjime kaip pa
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_total_cost
 msgid "Total Cost"
-msgstr ""
+msgstr "Bendros sąnaudos"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_total_margin
 msgid "Total Margin"
-msgstr ""
+msgstr "Visa marža"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_total_margin_rate
 msgid "Total Margin Rate(%)"
-msgstr ""
+msgstr "Visas maržos dydis(%)"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_total_margin_rate
 msgid "Total margin * 100 / Turnover"
-msgstr ""
+msgstr "Visa marža * 100 / Apyvarta"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_track_service
@@ -1402,12 +1402,12 @@ msgstr ""
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_turnover
 msgid "Turnover"
-msgstr ""
+msgstr "Apyvarta"
 
 #. module: delivery
 #: model:ir.model.fields,help:delivery.field_delivery_carrier_total_margin
 msgid "Turnover - Standard price"
-msgstr ""
+msgstr "Apyvarta-Savikaina"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_event_type_id
@@ -1457,7 +1457,7 @@ msgstr "Neskaityti pranešimai"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_message_unread_counter
 msgid "Unread Messages Counter"
-msgstr ""
+msgstr "Neperskaitytų žinučių skaičiuoklis"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_price_rule_variable
@@ -1482,12 +1482,12 @@ msgstr "Varianto paveiksliukas"
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_seller_ids
 msgid "Vendor"
-msgstr ""
+msgstr "Pardavėjas"
 
 #. module: delivery
 #: model:ir.model.fields,field_description:delivery.field_delivery_carrier_supplier_taxes_id
 msgid "Vendor Taxes"
-msgstr ""
+msgstr "Tiekėjo mokesčiai"
 
 #. module: delivery
 #: selection:delivery.price.rule,variable:0

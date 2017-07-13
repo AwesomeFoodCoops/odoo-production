@@ -729,9 +729,11 @@ class crm_lead(format_address, osv.osv):
         return True
 
     def _lead_create_contact(self, cr, uid, lead, name, is_company, parent_id=False, context=None):
+        if context is None:
+            context = {}
         partner = self.pool.get('res.partner')
         vals = {'name': name,
-            'user_id': lead.user_id.id,
+            'user_id': context.get('default_user_id') or lead.user_id.id,
             'comment': lead.description,
             'team_id': lead.team_id.id or False,
             'parent_id': parent_id,
@@ -889,6 +891,9 @@ class crm_lead(format_address, osv.osv):
             context['default_team_id'] = vals.get('team_id')
         if vals.get('user_id') and 'date_open' not in vals:
             vals['date_open'] = fields.datetime.now()
+        if context.get('default_partner_id') and not vals.get('email_from'):
+            partner_id = self.pool['res.partner'].browse(cr, uid, context.get('default_partner_id'))
+            vals['email_from'] = partner_id.email
 
         # context: no_log, because subtype already handle this
         create_context = dict(context, mail_create_nolog=True)

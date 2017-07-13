@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-22 07:25+0000\n"
-"PO-Revision-Date: 2017-04-27 08:41+0000\n"
+"PO-Revision-Date: 2017-06-30 06:51+0000\n"
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Mongolian (http://www.transifex.com/odoo/odoo-9/language/mn/)\n"
 "MIME-Version: 1.0\n"
@@ -4368,7 +4368,7 @@ msgstr "%s (copy)"
 msgid ""
 "%s This might be '%s' in the current model, or a field of the same name in "
 "an o2m."
-msgstr ""
+msgstr "%s Энэ нь '%s' одоогийн модельд эсвэл нэг нь олонтой дотор ижил нэртэй талбарын нэр."
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_lang_form
@@ -4415,7 +4415,7 @@ msgstr "'%s' нь '%%(field)s' талбарын хувьд бүхэл тоо б�
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_partner_form
 msgid "(edit)"
-msgstr ""
+msgstr "(засах)"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_company_form
@@ -4447,12 +4447,12 @@ msgstr ", эсвэл таны зөвлөмжит текст засварлагч
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodulereference
 msgid ", readonly"
-msgstr ""
+msgstr ", зөвхөн унших"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodulereference
 msgid ", required"
-msgstr ""
+msgstr ", шаардлагатай"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_values_key
@@ -4464,7 +4464,7 @@ msgstr "- Үйлдэл: өгсөн моделийн нэг үүрэнд холб
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "- domain ="
-msgstr ""
+msgstr "- domain ="
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
@@ -4584,7 +4584,7 @@ msgstr ""
 #. module: base
 #: model:ir.actions.act_window,help:base.open_module_tree
 msgid "<b>No module found!</b>"
-msgstr ""
+msgstr "<b>Модуль олдсонгүй!</b>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_server_action_form
@@ -4599,45 +4599,45 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.view_model_fields_form
 #: model:ir.ui.view,arch_db:base.view_model_form
 msgid "<code>datetime</code> (Python module)"
-msgstr ""
+msgstr "<code>datetime</code> (Python модуль)"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_model_fields_form
 #: model:ir.ui.view,arch_db:base.view_model_form
 msgid "<code>dateutil</code> (Python module)"
-msgstr ""
+msgstr "<code>dateutil</code> (Python модуль)"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_model_fields_form
 #: model:ir.ui.view,arch_db:base.view_model_form
 msgid "<code>self</code> (the set of records to compute)"
-msgstr ""
+msgstr "<code>self</code> (тооцоолох бичлэгийн олонлог)"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_model_fields_form
 #: model:ir.ui.view,arch_db:base.view_model_form
 msgid "<code>time</code> (Python module)"
-msgstr ""
+msgstr "<code>time</code> (Python модуль)"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "<strong>Apps</strong>"
-msgstr ""
+msgstr "<strong>Аппууд</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "<strong>Attribute</strong>"
-msgstr ""
+msgstr "<strong>Шинж</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodulereference
 msgid "<strong>Dependencies :</strong>"
-msgstr ""
+msgstr "<strong>Хамаарал :</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "<strong>Group</strong>"
-msgstr ""
+msgstr "<strong>Бүлэг</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
@@ -4647,17 +4647,17 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "<strong>Inherited</strong>"
-msgstr ""
+msgstr "<strong>Удамшсан</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "<strong>Label</strong>"
-msgstr ""
+msgstr "<strong>Шошго</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodulereference
 msgid "<strong>Menu :</strong>"
-msgstr ""
+msgstr "<strong>Меню :</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
@@ -4667,7 +4667,7 @@ msgstr "<strong>Нэр</strong>"
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodulereference
 msgid "<strong>Reports :</strong>"
-msgstr ""
+msgstr "<strong>Тайлангууд :</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
@@ -4689,7 +4689,7 @@ msgstr ""
 msgid ""
 "<strong>This operation will permanently erase all data currently stored by "
 "the modules!</strong>"
-msgstr ""
+msgstr "<strong>Энэ үйлдэл нь модулиудын хадгалж байгаа бүх өгөгдлийг буцаж сэргэхгүйгээр нэг мөсөн устгана!</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
@@ -4699,12 +4699,12 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "<strong>Type</strong>"
-msgstr ""
+msgstr "<strong>Төрөл</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodulereference
 msgid "<strong>View :</strong>"
-msgstr ""
+msgstr "<strong>Харагдац :</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
@@ -4714,23 +4714,23 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "<u><strong>Fields</strong></u>"
-msgstr ""
+msgstr "<u><strong>Талбарууд</strong></u>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "<u><strong>Security</strong></u>"
-msgstr ""
+msgstr "<u><strong>Нууцлал</strong></u>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "<u><strong>Views</strong></u>"
-msgstr ""
+msgstr "<u><strong>Харагдац</strong></u>"
 
 #. module: base
 #: code:addons/models.py:3480
 #, python-format
 msgid "A document was modified since you last viewed it (%s:%d)"
-msgstr ""
+msgstr "Хамгийн сүүлд (%s:%d) баримтыг харснаас хойш баримт засагдсан байна"
 
 #. module: base
 #: model:ir.actions.act_window,help:base.action_res_groups
@@ -4762,7 +4762,7 @@ msgstr "Ажлын урсгалтай ажиллах модуль."
 #. module: base
 #: model:ir.module.module,description:base.module_test_impex
 msgid "A module to test import/export."
-msgstr ""
+msgstr "импорт/экспортыг тестлэх модуль."
 
 #. module: base
 #: model:ir.module.module,description:base.module_test_new_api
@@ -4813,7 +4813,7 @@ msgstr "Товчлол"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_partner_bank_acc_type
 msgid "Acc type"
-msgstr ""
+msgstr "Дансны төрөл"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company_user_ids
@@ -4900,7 +4900,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_partner_bank_partner_id
 msgid "Account Holder"
-msgstr ""
+msgstr "Данс Эзэмшигч"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_portal
@@ -5148,7 +5148,7 @@ msgstr "'Илүү' цэсэнд нэмэх"
 #. module: base
 #: model:ir.ui.view,arch_db:base.act_report_xml_view
 msgid "Add in the 'Print' menu"
-msgstr ""
+msgstr "'Хэвлэх' менюд нэмэх"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_act_report_xml_header
@@ -5278,7 +5278,7 @@ msgstr "Улсын засаг захиргааны нэгж. Тухайлбал:
 #: code:addons/base/ir/ir_model.py:1174
 #, python-format
 msgid "Administrator access is required to uninstall a module"
-msgstr ""
+msgstr "Модуль устгахын тулд администратор хандалт шаардлагатай"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_event_track
@@ -5289,7 +5289,7 @@ msgstr "Дэлгэрүүлсэн Арга хэмжээнүүд"
 #: model:ir.ui.view,arch_db:base.view_model_fields_form
 #: model:ir.ui.view,arch_db:base.view_model_form
 msgid "Advanced Properties"
-msgstr ""
+msgstr "Дэвшилтэт Үзүүлэлтүүд"
 
 #. module: base
 #: model:ir.module.module,description:base.module_payment_adyen
@@ -5315,7 +5315,7 @@ msgstr "Дүнгийн ард"
 #. module: base
 #: model:ir.ui.menu,name:base.menu_aftersale
 msgid "After-Sale"
-msgstr ""
+msgstr "Борлуулалтын Дараах"
 
 #. module: base
 #: model:res.country,name:base.al
@@ -5342,7 +5342,7 @@ msgstr "Бүх хүлээгдэж байгаа тохируулах харилц
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_reprint
 msgid "Allow cashier to reprint receipts"
-msgstr ""
+msgstr "Кассчин баримтуудыг дахин хэвлэхийг зөвшөөрөх"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_account_tax_cash_basis
@@ -5462,7 +5462,7 @@ msgstr "Аппликэшн"
 #. module: base
 #: model:ir.module.module,description:base.module_web_planner
 msgid "Application Planner"
-msgstr ""
+msgstr "Аппликэшн Төлөвлөгч"
 
 #. module: base
 #: model:ir.ui.menu,name:base.menu_translation_app
@@ -5522,17 +5522,17 @@ msgstr "Аппууд"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_base_language_export_modules
 msgid "Apps To Export"
-msgstr ""
+msgstr "Экспортлох Аппликэшнүүд"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_base_module_upgrade_module_info
 msgid "Apps to Update"
-msgstr ""
+msgstr "Шинэчлэх Аппууд"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "Apps:"
-msgstr ""
+msgstr "Аппууд:"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -5542,12 +5542,12 @@ msgstr "Араб / الْعَرَبيّة"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_ui_view_arch_db
 msgid "Arch Blob"
-msgstr ""
+msgstr "Blob-г Архивлах"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_ui_view_arch_fs
 msgid "Arch Filename"
-msgstr ""
+msgstr "Архив Файлын нэр"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_view_form
@@ -5651,7 +5651,7 @@ msgstr "Хавсралтууд"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_document
 msgid "Attachments List and Document Indexation"
-msgstr ""
+msgstr "Хавсралтын Жагсаалт ба Баримтын Индекслэлт"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_attendance
@@ -5699,7 +5699,7 @@ msgstr "Зохиогч"
 #. module: base
 #: model:ir.ui.view,arch_db:base.module_form
 msgid "Author Name"
-msgstr ""
+msgstr "Зохиогчийн нэр"
 
 #. module: base
 #: model:ir.module.module,description:base.module_payment_authorize
@@ -5736,7 +5736,7 @@ msgstr "Автомат Суулгалт"
 #: code:addons/base/module/module.py:693
 #, python-format
 msgid "Automatic install of downloaded Apps is currently disabled."
-msgstr ""
+msgstr "Татаж авсан Аппуудыг автомат суулгах боломжийг одоогоор хаасан."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_translation_state
@@ -5812,7 +5812,7 @@ msgstr "Банкны данс"
 #. module: base
 #: model:ir.model.fields,help:base.field_res_partner_bank_acc_type
 msgid "Bank account type, inferred from account number"
-msgstr ""
+msgstr "Банкны дансын төрөл, дансны дугаараас танина"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_res_bank_form
@@ -5843,17 +5843,17 @@ msgstr "Зураасан код"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hw_scanner
 msgid "Barcode Scanner Hardware Driver"
-msgstr ""
+msgstr "Зураасан код уншигч төхөөрөмжийн драйвер"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_barcodes
 msgid "Barcodes"
-msgstr ""
+msgstr "Зураасан кодууд"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_barcodes
 msgid "Barcodes Scanning and Parsing"
-msgstr ""
+msgstr "Зураасан код уншиж таних"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_base
@@ -5899,7 +5899,7 @@ msgstr "Суурь объект"
 #: model:ir.ui.view,arch_db:base.view_model_fields_form
 #: model:ir.ui.view,arch_db:base.view_model_form
 msgid "Base Properties"
-msgstr ""
+msgstr "Суурь Шинжүүд"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_base_import
@@ -5914,7 +5914,7 @@ msgstr "Суурь импортлох модуль"
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_act_server_model_id
 msgid "Base model on which the server action runs."
-msgstr ""
+msgstr "Сервер үйлдэл ажиллах суурь модель."
 
 #. module: base
 #: model:ir.module.module,description:base.module_website_partner
@@ -6207,12 +6207,12 @@ msgstr "Календар"
 #. module: base
 #: model:ir.module.module,summary:base.module_stock_calendar
 msgid "Calendars "
-msgstr ""
+msgstr "Календар"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_stock_calendar
 msgid "Calendars on Orderpoints"
-msgstr ""
+msgstr "Захиалгын цэг дээрх цаглабар"
 
 #. module: base
 #: model:res.country,name:base.kh
@@ -6241,7 +6241,7 @@ msgstr "'%s' модулийг шинэчлэх боломжтой. Учир нь
 #: code:addons/base/ir/ir_model.py:518
 #, python-format
 msgid "Can only rename one field at a time!"
-msgstr ""
+msgstr "Нэг агшинд зөвхөн нэг талбарын нэрийг л сольж болно!"
 
 #. module: base
 #: model:res.country,name:base.ca
@@ -6304,7 +6304,7 @@ msgstr ""
 #: code:addons/base/res/res_lang.py:190
 #, python-format
 msgid "Cannot unactivate a language that is currently used by users."
-msgstr ""
+msgstr "Одоо хэрэглэгчидийн хэрэглэж байгаа хэлийг идэвхгүй болгож болохгүй."
 
 #. module: base
 #: model:res.country,name:base.cv
@@ -6407,7 +6407,7 @@ msgstr "Энэ \"%s\" талбарын хадгалах системийг өө�
 msgid ""
 "Changing the type of a field is not yet supported. Please drop it and create"
 " it again!"
-msgstr ""
+msgstr "Талбарын төрөлийг солих нь одоогоор дэмжигдэдгүй. Иймээс устгаад шинээр үүсгэнэ үү!"
 
 #. module: base
 #: selection:ir.property,type:0
@@ -6452,7 +6452,7 @@ msgstr "Хэрэв холбогч нь захиалагч бол үүнийг т
 msgid ""
 "Check this box if this contact is a vendor. If it's not checked, purchase "
 "people will not see it when encoding a purchase order."
-msgstr ""
+msgstr "Хэрэв холбогч нь нийлүүлэгч бол үүнийг тэмдэглэнэ. Хэрэв тэмдэглээгүй бол худалдан авалтын хүмүүст худалдан авалтын захиалга шивэх үед харагдахгүй."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_partner_employee
@@ -6614,12 +6614,12 @@ msgstr "Гомдлын Менежмент"
 #. module: base
 #: model:ir.actions.act_window,help:base.action_attachment
 msgid "Click here to attach a new document."
-msgstr ""
+msgstr "Шинэ баримт үүсгэхдээ дарна уу."
 
 #. module: base
 #: model:ir.actions.act_window,help:base.action_ui_view_custom
 msgid "Click here to create a customized view"
-msgstr ""
+msgstr "Өөриймшүүлсэн харагдацыг үүсгэхдээ дарна"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_base_module_update
@@ -6636,17 +6636,17 @@ msgstr "Хаягийн дэвтэртээ холбох хаяг нэмэхдээ
 #. module: base
 #: model:ir.actions.act_window,help:base.action_res_partner_bank_account_form
 msgid "Click to create a bank account."
-msgstr ""
+msgstr "Банкны данс үүсгэхдээ дарна уу"
 
 #. module: base
 #: model:ir.actions.act_window,help:base.action_res_bank_form
 msgid "Click to create a new bank."
-msgstr ""
+msgstr "Шинэ банк үүсгэхдээ дарна уу."
 
 #. module: base
 #: model:ir.actions.act_window,help:base.action_partner_category_form
 msgid "Click to create a new partner tag."
-msgstr ""
+msgstr "Харилцагчийн шинэ пайз үүсгэхдээ дарна уу."
 
 #. module: base
 #: selection:ir.logging,type:0
@@ -6699,7 +6699,7 @@ msgid ""
 "        record['size'] = len(record.name)\n"
 "\n"
 "Modules time, datetime, dateutil are available."
-msgstr ""
+msgstr "Талбарын утгыг тооцоолох код.\n'self'-н талбарууд дээр давталт хийж утгыг онооно:\n\n    for record in self:\n        record['size'] = len(record.name)\n\nМодулийн time, datetime, dateutil нь бэлэн байдаг."
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pad
@@ -6737,12 +6737,12 @@ msgstr "Өнгөний Индекс"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields_column1
 msgid "Column 1"
-msgstr ""
+msgstr "Багана 1"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields_column2
 msgid "Column 2"
-msgstr ""
+msgstr "Багана 2"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model_fields_column2
@@ -7047,7 +7047,7 @@ msgstr ""
 #: model:ir.ui.menu,name:base.menu_partner_category_form
 #: model:ir.ui.view,arch_db:base.view_partner_category_list
 msgid "Contact Tags"
-msgstr ""
+msgstr "Холбох Хаягийн Пайзууд"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_partner_title_contact
@@ -7603,7 +7603,7 @@ msgstr "Нэмэлт талбарын нэр нь 'x_' -аар эхэлсэн б
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_rating
 msgid "Customer Rating"
-msgstr ""
+msgstr "Харилцагчийн Үнэлгээ"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_customer
@@ -8385,7 +8385,7 @@ msgstr ""
 #. module: base
 #: model:ir.actions.act_window,name:base.action_partner_employee_form
 msgid "Employees"
-msgstr ""
+msgstr "Ажилтан"
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:339
@@ -8696,7 +8696,7 @@ msgstr ""
 #: model:ir.module.category,name:base.module_category_usability
 #: model:ir.ui.view,arch_db:base.user_groups_view
 msgid "Extra Rights"
-msgstr ""
+msgstr "Нэмэлт Эрхүүд"
 
 #. module: base
 #: model:res.country,name:base.fk
@@ -8733,7 +8733,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:base.action_country_state
 #: model:ir.ui.menu,name:base.menu_country_state_partner
 msgid "Fed. States"
-msgstr ""
+msgstr "Аймаг/Хот"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_delivery_fedex
@@ -8944,7 +8944,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.ir_filters_view_tree
 #: model:ir.ui.view,arch_db:base.view_window_action_form
 msgid "Filters"
-msgstr ""
+msgstr "Шүүлтүүр"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.ir_filters_view_search
@@ -9185,7 +9185,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_sequence_date_range_date_from
 msgid "From"
-msgstr ""
+msgstr "Хаанаас"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.ir_access_view_search
@@ -9363,7 +9363,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.ir_access_view_search
 #: model:ir.ui.view,arch_db:base.view_rule_search
 msgid "Global"
-msgstr ""
+msgstr "Глобал"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_rule_form
@@ -9398,7 +9398,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_google_calendar
 msgid "Google Calendar"
-msgstr ""
+msgstr "Google Цаглабар"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_google_drive
@@ -9419,7 +9419,7 @@ msgstr ""
 #: selection:ir.actions.act_window.view,view_mode:0
 #: selection:ir.ui.view,type:0
 msgid "Graph"
-msgstr ""
+msgstr "Граф"
 
 #. module: base
 #: model:res.country,name:base.gr
@@ -9475,7 +9475,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.view_window_action_search
 #: model:ir.ui.view,arch_db:base.view_workflow_activity_search
 msgid "Group By"
-msgstr ""
+msgstr "Бүлэглэх"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_groups_full_name
@@ -9750,7 +9750,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_attachment_form
 msgid "History"
-msgstr ""
+msgstr "Түүх"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_holidays
@@ -9943,7 +9943,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_wkf_triggers_id
 #: model:ir.model.fields,field_description:base.field_wkf_workitem_id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_act_server_xml_id
@@ -10432,7 +10432,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_res_partner_ref
 #: model:ir.model.fields,field_description:base.field_res_users_ref
 msgid "Internal Reference"
-msgstr ""
+msgstr "Дотоод Сурвалж"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_translation_src
@@ -10557,12 +10557,12 @@ msgstr ""
 #. module: base
 #: model:ir.module.category,name:base.module_category_warehouse_management
 msgid "Inventory"
-msgstr ""
+msgstr "Тооллого"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_generic_modules_inventory_control
 msgid "Inventory Control"
-msgstr ""
+msgstr "Нөөцийн удирдлага"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_inventory_management
@@ -10621,13 +10621,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_res_partner_customer
 #: model:ir.model.fields,field_description:base.field_res_users_customer
 msgid "Is a Customer"
-msgstr ""
+msgstr "Захиалагч эсэх"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_partner_supplier
 #: model:ir.model.fields,field_description:base.field_res_users_supplier
 msgid "Is a Vendor"
-msgstr ""
+msgstr "Нийлүүлэгч эсэх"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_attachment_public
@@ -10718,7 +10718,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_res_partner_function
 #: model:ir.model.fields,field_description:base.field_res_users_function
 msgid "Job Position"
-msgstr ""
+msgstr "Ажлын байр"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_hr
@@ -11246,7 +11246,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_lang_form
 msgid "Legends for supported Date and Time Formats"
-msgstr ""
+msgstr "Дэмжигддэг Огноо болон Цагийн форматуудын тайлар"
 
 #. module: base
 #: model:res.country,name:base.ls
@@ -11354,7 +11354,7 @@ msgstr ""
 #: model:ir.ui.menu,name:base.menu_localisation
 #: model:ir.ui.view,arch_db:base.view_users_form
 msgid "Localization"
-msgstr ""
+msgstr "Нутагшуулах"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.ir_logging_form_view
@@ -11391,7 +11391,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_loyalty
 msgid "Loyalty Program"
-msgstr ""
+msgstr "Урамшууллын Хөтөлбөр"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_loyalty
@@ -11562,7 +11562,7 @@ msgstr ""
 #: model:res.groups,name:base.group_sale_manager
 #: model:res.groups,name:base.group_survey_manager
 msgid "Manager"
-msgstr ""
+msgstr "Менежер"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_managing_vehicles_and_contracts
@@ -11774,12 +11774,12 @@ msgstr "Зурвас"
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_users_form
 msgid "Messaging and Social"
-msgstr ""
+msgstr "Зурвас болон нийгмийн харилцаа"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_cron_function
 msgid "Method"
-msgstr ""
+msgstr "Метод"
 
 #. module: base
 #: model:res.country,name:base.mx
@@ -12446,7 +12446,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.view_groups_form
 #: model:ir.ui.view,arch_db:base.view_model_form
 msgid "Notes"
-msgstr ""
+msgstr "Тэмдэглэгээ"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_module_category_module_nr
@@ -12575,7 +12575,7 @@ msgstr ""
 #. module: base
 #: model:res.groups,name:base.group_hr_user
 msgid "Officer"
-msgstr ""
+msgstr "Мэргэжилтэн"
 
 #. module: base
 #: model:ir.module.module,description:base.module_payment_ogone
@@ -12774,7 +12774,7 @@ msgstr ""
 #: model:ir.module.category,name:base.module_category_extra
 #: model:ir.ui.view,arch_db:base.user_groups_view
 msgid "Other Extra Rights"
-msgstr ""
+msgstr "Бусад Нэмэлт Эрхүүд"
 
 #. module: base
 #: selection:ir.module.module,license:0
@@ -12840,7 +12840,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_ir_attachment_create_uid
 #: model:ir.ui.view,arch_db:base.view_attachment_search
 msgid "Owner"
-msgstr ""
+msgstr "Эзэмшигч"
 
 #. module: base
 #: selection:ir.actions.report.xml,report_type:0
@@ -12913,7 +12913,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.ir_property_view_search
 #: model:ir.ui.view,arch_db:base.ir_property_view_tree
 msgid "Parameters"
-msgstr ""
+msgstr "Параметер"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.ir_property_view_search
@@ -12974,7 +12974,7 @@ msgstr ""
 #: model:res.partner.category,name:base.res_partner_category_0
 #: model:res.request.link,name:base.req_link_partner
 msgid "Partner"
-msgstr ""
+msgstr "Харилцагч"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_crm_partner_assign
@@ -13051,7 +13051,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_payment
 msgid "Payment Acquirer"
-msgstr ""
+msgstr "Төлбөрийг авагч"
 
 #. module: base
 #: model:ir.module.module,description:base.module_payment
@@ -13176,7 +13176,7 @@ msgstr ""
 #: selection:ir.actions.act_window.view,view_mode:0
 #: selection:ir.ui.view,type:0
 msgid "Pivot"
-msgstr ""
+msgstr "Пивот"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_server_copyvalue
@@ -13187,7 +13187,7 @@ msgstr ""
 #: model:ir.module.category,name:base.module_category_planner
 #: model:ir.module.module,shortdesc:base.module_web_planner
 msgid "Planner"
-msgstr ""
+msgstr "Төлөвлөгч"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_pt
@@ -13380,7 +13380,7 @@ msgstr ""
 #: model:ir.actions.report.xml,name:base.preview_rml_report
 #: model:ir.ui.view,arch_db:base.view_company_form
 msgid "Preview RML Report"
-msgstr ""
+msgstr "RML Тайлангийн Урьдчилсан Харагдац"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_currency_form
@@ -13455,7 +13455,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_procurement
 msgid "Procurements"
-msgstr ""
+msgstr "Татан авалт"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_product_email_template
@@ -13465,7 +13465,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.menu,name:base.menu_product
 msgid "Product Variants"
-msgstr ""
+msgstr "Барааны хувилбар"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_product_extended
@@ -13635,7 +13635,7 @@ msgstr ""
 #. module: base
 #: selection:ir.server.object.lines,type:0
 msgid "Python expression"
-msgstr ""
+msgstr "Пайтон илэрхийлэл"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_view_search selection:ir.ui.view,type:0
@@ -13946,7 +13946,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.act_report_xml_search_view
 #: model:ir.ui.view,arch_db:base.act_report_xml_view
 msgid "Report"
-msgstr ""
+msgstr "Тайлан"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_company_form
@@ -14003,7 +14003,7 @@ msgstr "Тайлан"
 #: model:ir.ui.menu,name:base.menu_sale_report
 #: model:ir.ui.menu,name:base.purchase_report
 msgid "Reports"
-msgstr ""
+msgstr "Тайлан"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_request_link-view
@@ -14154,7 +14154,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_res_groups_rule_groups
 #: model:ir.ui.view,arch_db:base.view_groups_form
 msgid "Rules"
-msgstr ""
+msgstr "Дүрэмүүд"
 
 #. module: base
 #: constraint:ir.rule:0
@@ -14170,12 +14170,12 @@ msgstr ""
 #: code:addons/base/ir/ir_actions.py:878
 #, python-format
 msgid "Run %s"
-msgstr ""
+msgstr "Ажиллуулах %s"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.ir_cron_view
 msgid "Run Manually"
-msgstr ""
+msgstr "Гараар ажиллуулах"
 
 #. module: base
 #: model:ir.actions.server,name:base.action_run_ir_action_todo
@@ -14337,7 +14337,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,summary:base.module_sales_team
 msgid "Sales Team"
-msgstr ""
+msgstr "Борлуулалтын баг"
 
 #. module: base
 #: selection:ir.ui.view,type:0
@@ -14348,7 +14348,7 @@ msgstr ""
 #: model:ir.module.module,shortdesc:base.module_sales_team
 #: model:ir.ui.menu,name:base.sales_team_config
 msgid "Sales Teams"
-msgstr ""
+msgstr "Борлуулалтын баг"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_timesheet
@@ -14400,7 +14400,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_users_form_simple_modif
 msgid "Save"
-msgstr ""
+msgstr "Хадгалах"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_report_xml_attachment
@@ -14862,7 +14862,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_slides
 msgid "Slides"
-msgstr ""
+msgstr "Слайд"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -15145,7 +15145,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.menu,name:base.menu_project_config_project
 msgid "Stages"
-msgstr ""
+msgstr "Үе шат"
 
 #. module: base
 #: selection:ir.sequence,implementation:0
@@ -15197,7 +15197,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_wkf_workitem_state
 #: model:ir.ui.view,arch_db:base.view_workflow_workitem_search
 msgid "Status"
-msgstr ""
+msgstr "Төлөв"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_sequence_number_increment
@@ -15249,7 +15249,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.view_partner_form
 #: model:ir.ui.view,arch_db:base.view_res_bank_form
 msgid "Street 2..."
-msgstr ""
+msgstr "Гудамж 2..."
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_company_form
@@ -15288,7 +15288,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_request_link_search_view
 msgid "Subject"
-msgstr ""
+msgstr "Гарчиг"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.edit_menu_access
@@ -15298,7 +15298,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_contract
 msgid "Subscription Management"
-msgstr ""
+msgstr "Бүртгэлийн Менежмент"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_contract
@@ -15620,7 +15620,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_report_xml_report_name
 msgid "Template Name"
-msgstr ""
+msgstr "Үлгэрийн нэр"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_new_api
@@ -16180,7 +16180,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_timesheet_sheet
 msgid "Timesheets"
-msgstr ""
+msgstr "Цагийн хуудас"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_timesheet_sheet
@@ -16214,13 +16214,13 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_sequence_date_range_date_to
 msgid "To"
-msgstr ""
+msgstr "Хүртэл"
 
 #. module: base
 #: selection:ir.actions.todo,state:0
 #: model:ir.ui.view,arch_db:base.config_wizard_step_view_search
 msgid "To Do"
-msgstr ""
+msgstr "Хийх"
 
 #. module: base
 #: selection:ir.translation,state:0
@@ -16879,7 +16879,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.view_users_search
 #: model:res.groups,name:base.group_survey_user
 msgid "User"
-msgstr ""
+msgstr "Хэрэглэгч"
 
 #. module: base
 #: model:ir.ui.menu,name:base.next_id_2
@@ -16930,7 +16930,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.view_users_simple_form
 #: model:ir.ui.view,arch_db:base.view_users_tree
 msgid "Users"
-msgstr ""
+msgstr "Хэрэглэгчид"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_groups_form
@@ -17052,7 +17052,7 @@ msgstr ""
 #: selection:ir.translation,type:0
 #: model:ir.ui.view,arch_db:base.view_view_search
 msgid "View"
-msgstr ""
+msgstr "Харагдац"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_ui_view_arch
@@ -17200,7 +17200,7 @@ msgstr ""
 #: code:addons/base/res/res_config.py:478
 #, python-format
 msgid "Warning!"
-msgstr ""
+msgstr "Анхааруулга!"
 
 #. module: base
 #: code:addons/models.py:5855 code:addons/models.py:5905
@@ -17486,7 +17486,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_change_password_user_wizard_id
 msgid "Wizard"
-msgstr ""
+msgstr "Харилцах Цонх"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.config_wizard_step_view_search
@@ -18018,7 +18018,7 @@ msgstr ""
 #. module: base
 #: model:ir.model,name:base.model_ir_actions_act_window_view
 msgid "ir.actions.act_window.view"
-msgstr ""
+msgstr "ir.actions.act_window.view"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_actions_act_window_close
@@ -18131,82 +18131,82 @@ msgstr ""
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb
 msgid "ir.qweb"
-msgstr ""
+msgstr "ir.qweb"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field
 msgid "ir.qweb.field"
-msgstr ""
+msgstr "ir.qweb.field"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_contact
 msgid "ir.qweb.field.contact"
-msgstr ""
+msgstr "ir.qweb.field.contact"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_date
 msgid "ir.qweb.field.date"
-msgstr ""
+msgstr "ir.qweb.field.date"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_datetime
 msgid "ir.qweb.field.datetime"
-msgstr ""
+msgstr "ir.qweb.field.datetime"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_duration
 msgid "ir.qweb.field.duration"
-msgstr ""
+msgstr "ir.qweb.field.duration"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_float
 msgid "ir.qweb.field.float"
-msgstr ""
+msgstr "ir.qweb.field.float"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_html
 msgid "ir.qweb.field.html"
-msgstr ""
+msgstr "ir.qweb.field.html"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_image
 msgid "ir.qweb.field.image"
-msgstr ""
+msgstr "ir.qweb.field.image"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_integer
 msgid "ir.qweb.field.integer"
-msgstr ""
+msgstr "ir.qweb.field.integer"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_many2one
 msgid "ir.qweb.field.many2one"
-msgstr ""
+msgstr "ir.qweb.field.many2one"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_monetary
 msgid "ir.qweb.field.monetary"
-msgstr ""
+msgstr "ir.qweb.field.monetary"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_qweb
 msgid "ir.qweb.field.qweb"
-msgstr ""
+msgstr "ir.qweb.field.qweb"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_relative
 msgid "ir.qweb.field.relative"
-msgstr ""
+msgstr "ir.qweb.field.relative"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_selection
 msgid "ir.qweb.field.selection"
-msgstr ""
+msgstr "ir.qweb.field.selection"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_field_text
 msgid "ir.qweb.field.text"
-msgstr ""
+msgstr "ir.qweb.field.text"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_qweb_widget
@@ -18241,12 +18241,12 @@ msgstr ""
 #. module: base
 #: model:ir.model,name:base.model_ir_ui_menu
 msgid "ir.ui.menu"
-msgstr ""
+msgstr "ir.ui.menu"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_ui_view
 msgid "ir.ui.view"
-msgstr ""
+msgstr "ir.ui.view"
 
 #. module: base
 #: model:ir.model,name:base.model_ir_ui_view_custom
@@ -18307,7 +18307,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_attachment_form
 msgid "on"
-msgstr ""
+msgstr "дээр"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_server_action_form
@@ -18323,7 +18323,7 @@ msgstr ""
 #: code:addons/mail.py:277
 #, python-format
 msgid "read more"
-msgstr ""
+msgstr "илүү унших"
 
 #. module: base
 #: model:ir.model,name:base.model_report_base_report_irmodulereference
@@ -18432,12 +18432,12 @@ msgstr ""
 msgid ""
 "the user will have access to all records of everyone in the sales "
 "application."
-msgstr ""
+msgstr "хэрэглэгч нь борлуулалтын аппликэшн доторх бүх хүний бүх бичлэг рүү хандах болно."
 
 #. module: base
 #: model:res.groups,comment:base.group_sale_salesman
 msgid "the user will have access to his own data in the sales application."
-msgstr ""
+msgstr "Хэрэглэгч нь борлуулалтын аппликэйшн дахь өөрийн өгөгдөл рүү хандах хандалттай болно."
 
 #. module: base
 #: model:res.groups,comment:base.group_hr_manager
@@ -18451,7 +18451,7 @@ msgstr ""
 msgid ""
 "the user will have an access to the sales configuration as well as statistic"
 " reports."
-msgstr ""
+msgstr "хэрэглэгч нь борлуулалтын тохиргоо болон статистикийн тайлангууд руу хандах хандалттай болох болно."
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_server_action_form

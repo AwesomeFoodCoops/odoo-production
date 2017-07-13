@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-18 08:11+0000\n"
-"PO-Revision-Date: 2017-04-22 03:07+0000\n"
+"PO-Revision-Date: 2017-06-30 08:36+0000\n"
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Mongolian (http://www.transifex.com/odoo/odoo-9/language/mn/)\n"
 "MIME-Version: 1.0\n"
@@ -744,7 +744,7 @@ msgstr "Ажилтан"
 #. module: hr_recruitment
 #: model:ir.model.fields,field_description:hr_recruitment.field_hr_applicant_employee_name
 msgid "Employee Name"
-msgstr ""
+msgstr "Ажилтны нэр"
 
 #. module: hr_recruitment
 #: model:ir.model.fields,help:hr_recruitment.field_hr_applicant_emp_id
@@ -1262,7 +1262,7 @@ msgstr "Үйлдлийн тоо"
 #. module: hr_recruitment
 #: model:ir.model.fields,field_description:hr_recruitment.field_hr_applicant_attachment_number
 msgid "Number of Attachments"
-msgstr ""
+msgstr "Хавсралтын Тоо"
 
 #. module: hr_recruitment
 #: model:ir.model.fields,help:hr_recruitment.field_hr_recruitment_report_delay_close
@@ -1671,7 +1671,7 @@ msgstr "Судалгаа"
 #. module: hr_recruitment
 #: sql_constraint:hr.applicant.category:0
 msgid "Tag name already exists !"
-msgstr ""
+msgstr "Пайзын нэр аль хэдийн үүссэн байна"
 
 #. module: hr_recruitment
 #: model:ir.model.fields,field_description:hr_recruitment.field_hr_applicant_categ_ids
@@ -1786,7 +1786,7 @@ msgstr "Энэ асуултанд хариулт заавал шаардлага
 msgid ""
 "This stage is folded in the kanban view when there are no records in that "
 "stage to display."
-msgstr ""
+msgstr "Энэ үе нь Канбан харагдацад бичлэг байхгүй үедээ эвхэгдэж харагдана."
 
 #. module: hr_recruitment
 #: model:ir.ui.view,arch_db:hr_recruitment.view_crm_case_jobs_filter
@@ -1874,7 +1874,7 @@ msgid ""
 "With just a quick glance on the Odoo employee screen, you\n"
 "                can easily find all the information you need for each person;\n"
 "                contact data, job position, availability, etc."
-msgstr ""
+msgstr "Odoo ажилтаны дэлгэцийг өнгөц харахад л та хүн болгоны \nхолбогдох мэдээлэл, ажлын байр, боломж, г.м. \nбүх мэдээллийг хялбархан олох боломжтой."
 
 #. module: hr_recruitment
 #: code:addons/hr_recruitment/models/hr_recruitment.py:432

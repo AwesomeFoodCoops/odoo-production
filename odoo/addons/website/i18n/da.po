@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-09 09:18+0000\n"
-"PO-Revision-Date: 2017-05-02 10:53+0000\n"
+"PO-Revision-Date: 2017-06-12 08:27+0000\n"
 "Last-Translator: Morten Schou <ms@msteknik.dk>\n"
 "Language-Team: Danish (http://www.transifex.com/odoo/odoo-9/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -1644,7 +1644,7 @@ msgstr "Domæne"
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "Don't hesitate to"
-msgstr ""
+msgstr "Forhast ikke at"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
@@ -1748,7 +1748,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "End"
-msgstr ""
+msgstr "Slut"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.s_comparisons
@@ -1813,7 +1813,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.view_website_config_settings
 msgid "Extra Features"
-msgstr ""
+msgstr "Ekstra funktioner"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.snippet_options
@@ -1996,7 +1996,7 @@ msgstr ""
 #: code:addons/website/static/src/js/website.tour.banner.js:80
 #, python-format
 msgid "Good Job!"
-msgstr ""
+msgstr "Godt arbejde!"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_config_settings_google_analytics_key
@@ -2866,7 +2866,7 @@ msgstr "Partnere"
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "Plan"
-msgstr ""
+msgstr "Plan"
 
 #. module: website
 #: model:web.planner,tooltip_planner:website.planner_website
@@ -3302,7 +3302,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.snippet_options
 msgid "Square"
-msgstr ""
+msgstr "Firkantet"
 
 #. module: website
 #. openerp-web
