@@ -16,6 +16,7 @@
                 <field name="is_member"/>
                 <field name="is_associated_people"/>
                 <field name="is_worker_member"/>
+                <field name="is_former_member"/>
                 <field name="is_unpayed"/>
                 <field name="is_unsubscribed"/>
                 <field name="temp_coop_number"/>
@@ -100,6 +101,7 @@
                             <field name="is_worker_member"/>
                             <field name="is_associated_people" readonly="1"/>
                             <field name="is_interested_people"/>
+                            <field name="is_former_member"/>
                             <field name="is_unpayed"/>
                             <field name="is_unsubscribed"/>
                         </group>
