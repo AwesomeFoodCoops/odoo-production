@@ -72,7 +72,7 @@ class pos_order_report(osv.osv):
                     left join pos_session ps on (s.session_id=ps.id)
                     left join pos_config pc on (ps.config_id=pc.id)
                 group by
-                    s.id, s.date_order, s.partner_id,s.state, pt.categ_id,
+                    s.date_order, s.partner_id,s.state, pt.categ_id,
                     s.user_id,s.location_id,s.company_id,s.sale_journal,s.pricelist_id,s.invoice_id,l.product_id,s.create_date,pt.categ_id,pt.pos_categ_id,p.product_tmpl_id,ps.config_id,pc.stock_location_id
                 having
                     sum(l.qty * u.factor) != 0)""")

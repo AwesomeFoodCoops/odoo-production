@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-22 07:25+0000\n"
-"PO-Revision-Date: 2017-05-02 10:58+0000\n"
+"PO-Revision-Date: 2017-06-19 13:47+0000\n"
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Danish (http://www.transifex.com/odoo/odoo-9/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -4663,7 +4663,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "<strong>Name</strong>"
-msgstr ""
+msgstr "<strong>Navn</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodulereference
@@ -5343,7 +5343,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_reprint
 msgid "Allow cashier to reprint receipts"
-msgstr ""
+msgstr "Tillad ekspedient at genudskrive kvitteringer"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_account_tax_cash_basis
@@ -5849,7 +5849,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_barcodes
 msgid "Barcodes"
-msgstr ""
+msgstr "Stregkoder"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_barcodes
@@ -6781,7 +6781,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_res_bank_form
 msgid "Communication"
-msgstr ""
+msgstr "Kommunikation"
 
 #. module: base
 #: model:res.country,name:base.km
@@ -6821,7 +6821,7 @@ msgstr "Virksomhed"
 #. module: base
 #: model:res.partner.category,name:base.res_partner_category_17
 msgid "Company Contact"
-msgstr ""
+msgstr "Virksomheds kontaktperson"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company_name
@@ -6832,7 +6832,7 @@ msgstr "Virksomhedsnavn"
 #: model:ir.actions.act_window,name:base.ir_property_form
 #: model:ir.ui.menu,name:base.menu_ir_property_form_all
 msgid "Company Properties"
-msgstr ""
+msgstr "Virksomheds ejendomme"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company_company_registry
@@ -6848,18 +6848,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_res_partner_company_type
 #: model:ir.model.fields,field_description:base.field_res_users_company_type
 msgid "Company Type"
-msgstr ""
+msgstr "Virksomheds type"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_partner_contact_address
 #: model:ir.model.fields,field_description:base.field_res_users_contact_address
 msgid "Complete Address"
-msgstr ""
+msgstr "Fulde adresse"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_data_complete_name
 msgid "Complete ID"
-msgstr ""
+msgstr "Fulde ID"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields_complete_name
@@ -7604,7 +7604,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_rating
 msgid "Customer Rating"
-msgstr ""
+msgstr "Kunde vurdering"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_customer
@@ -8652,7 +8652,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_ir_ui_view_xml_id
 #: model:ir.ui.view,arch_db:base.view_window_action_form
 msgid "External ID"
-msgstr ""
+msgstr "Eksternt ID"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_data_name
@@ -9278,7 +9278,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_rule_form
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_company_form
@@ -9294,7 +9294,7 @@ msgstr "Generel opsætning"
 #. module: base
 #: model:ir.ui.view,arch_db:base.ir_property_view_search
 msgid "Generic"
-msgstr ""
+msgstr "Generisk"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_generic_coa
@@ -10167,7 +10167,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.menu,name:base.menu_import_crm
 msgid "Import & Synchronize"
-msgstr ""
+msgstr "Importer og synkroniser"
 
 #. module: base
 #: model:ir.ui.menu,name:base.menu_translation_export
@@ -10595,7 +10595,7 @@ msgstr "Fakturering"
 #. module: base
 #: model:ir.module.category,name:base.module_category_account_voucher
 msgid "Invoicing & Payments"
-msgstr ""
+msgstr "Faktura og betalinger"
 
 #. module: base
 #: model:res.country,name:base.ir
@@ -11207,7 +11207,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.menu,name:base.menu_crm_config_lead
 msgid "Leads & Opportunities"
-msgstr ""
+msgstr "Leads og muligheder"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_crm
@@ -11392,7 +11392,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_loyalty
 msgid "Loyalty Program"
-msgstr ""
+msgstr "Loyalitets program"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_loyalty
@@ -13246,7 +13246,7 @@ msgstr ""
 #: model:ir.module.category,name:base.module_category_point_of_sale
 #: model:ir.module.module,shortdesc:base.module_point_of_sale
 msgid "Point of Sale"
-msgstr ""
+msgstr "Salgssted"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_discount
@@ -13288,7 +13288,7 @@ msgstr ""
 #: model:ir.module.module,shortdesc:base.module_portal
 #: model:res.groups,name:base.group_portal
 msgid "Portal"
-msgstr ""
+msgstr "Portal"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_portal_gamification
@@ -14074,7 +14074,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_restaurant
 msgid "Restaurant"
-msgstr ""
+msgstr "Restaurant"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_restaurant
