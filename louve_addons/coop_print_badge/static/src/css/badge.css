@@ -1,6 +1,6 @@
 .badge{
-    height:85mm;
-    width:54mm;
+    height:106mm;
+    width:68mm;
     margin-left:-0.4cm;
     margin-right:0cm;
     margin-top:0cm;
@@ -9,8 +9,8 @@
     color:#455a6e;
 }
 .member_photo_div{
-    width:37mm;
-    height:47mm;
+    width:46mm;
+    height:59mm;
     float:left;
     padding:0cm;
 }
@@ -48,9 +48,9 @@
 }
 .barcode_image{
     float: left;
-    height:18mm;
-    max-height:18mm;
-    max-width:43mm;
+    height:23mm;
+    max-height:23mm;
+    max-width:54mm;
 }
 .company_address{
     margin-left:41mm;
