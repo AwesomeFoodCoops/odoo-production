@@ -30,10 +30,15 @@
                             </div>
                         </div>
                         <div class="label_bottom">
-                            <div class="product_informations">
+                            <div class="product_shelf_origin">
                                 <t name="pricetag_origine" t-if="product['product'].pricetag_origin">Origine: <t t-esc="product['product'].pricetag_origin"/><br/></t>
-                                <t t-if="product['product'].pricetag_rackinfos"><t t-esc="product['product'].pricetag_rackinfos"/><br/></t>
-                                <t t-if="product['product'].pricetag_louveinfos"><t t-esc="product['product'].pricetag_louveinfos"/><br/></t>
+                            </div>                    
+                            <div class="product_shelf_rackinfo_barcode">
+                                <t t-if="product['product'].pricetag_rackinfos"><t t-esc="product['product'].pricetag_rackinfos"/></t>&#160;&#160;
+                                <t t-if="product['product'].barcode"><t t-esc="product['product'].barcode"/></t>
+                            </div>         
+                            <div class="pricetag_shelf_louveinfos">
+                                <t t-if="product['product'].pricetag_louveinfos"><t t-esc="product['product'].pricetag_louveinfos"/> </t>
                             </div>
                         </div>
                     </div>
