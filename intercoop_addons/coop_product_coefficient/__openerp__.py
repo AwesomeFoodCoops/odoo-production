@@ -5,9 +5,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Louve Product Coefficient',
+    'name': 'Coop Product Coefficient',
     'version': '1.0',
-    'summary': 'Louve Product Coefficients',
+    'summary': 'Coop Product Coefficients',
     'author': 'La Louve,Smile',
     'website': 'http://www.lalouve.net',
     'category': 'Product',
