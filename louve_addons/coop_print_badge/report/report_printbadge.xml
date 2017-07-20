@@ -10,8 +10,7 @@
             <t t-foreach="partners" t-as="partner">
                 <div class="badge" t-if="partner.is_member">
                     <div class="member_photo_div">
-                        <span class="member_photo" t-field="partner.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;}"/>
-                        <!-- <img class="member_photo" t-att-src="'/web/image?model=res.partner&amp;id=%s&amp;field=image' % (partner.id)"/>-->
+                    	<img t-attf-src="data:image/png;base64,{{images[partner.id]}}" class="member_photo"/>
                     </div>
                     <div class="member_number">
                         <!--N°--> <span t-field="partner.barcode_base"/>
