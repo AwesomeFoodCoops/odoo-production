@@ -78,7 +78,14 @@ class ProductHistory(models.Model):
     @api.multi
     def ignore_line(self):
         self.mark_line(True)
+        return True
 
     @api.multi
     def unignore_line(self):
         self.mark_line(False)
+
+    @api.model
+    def create(self, vals):
+        if vals.get('outgoing_qty', False) == 0:
+            vals['ignored'] = True
+        return super(ProductHistory, self).create(vals)
