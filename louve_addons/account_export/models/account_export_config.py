@@ -32,6 +32,7 @@ class AccountExportConfig(models.Model):
         exemple: journal,account,ref,amount""")
     footer = fields.Char("Footer", help="""Footer of the exported file.
         exemple: END""")
+    csv_separator = fields.Char('Separator', required=True)
     dateformat = fields.Char(
         string='Software Date Format',
         help="""
