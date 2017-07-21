@@ -14,6 +14,7 @@
     'depends': [
         'product_supplierinfo_discount',
         'account',
+        'coop_shift'
     ],
     'data': [
         'security/ir.model.access.csv',

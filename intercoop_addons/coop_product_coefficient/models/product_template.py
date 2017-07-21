@@ -69,6 +69,7 @@ class ProductTemplate(models.Model):
 
     base_price = fields.Float(
         string='Base Price', compute='_compute_base_price', store=True,
+        digits=dp.get_precision('Product Price'),
         help="Base Price is the Sale Price of your Supplier.\n"
         "If product is sold by many suppliers, the first one is selected.\n"
         "If a supplier sell the product with different prices, the bigger"
@@ -171,7 +172,6 @@ class ProductTemplate(models.Model):
     def use_theoritical_cost(self):
         for template in self:
             template.standard_price = template.coeff9_inter_sp
-
 
     @api.model
     def cron_recompute_base_price(self):
@@ -383,7 +383,7 @@ class ProductTemplate(models.Model):
             else:
                 template.has_theoritical_price_different = False
             if template.has_theoritical_price_different and \
-                update_from_cron:
+               update_from_cron:
                 template.use_theoritical_price()
 
     @api.multi
@@ -401,5 +401,5 @@ class ProductTemplate(models.Model):
             else:
                 template.has_theoritical_cost_different = False
             if template.has_theoritical_cost_different and \
-                update_from_cron:
+               update_from_cron:
                 template.use_theoritical_cost()
