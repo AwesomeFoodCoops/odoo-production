@@ -374,3 +374,19 @@ msgstr "account.export.config"
 msgid "active"
 msgstr "actif"
 
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_csv_separator
+msgid "Separator"
+msgstr "séparateur"
+
+#. module: account_export
+#: code:addons/account_export/models/account_export.py:129
+#, python-format
+msgid "No export code defined for these accounts: %s"
+msgstr "Aucun compte d'export n'est défini pour ces comptes: %s"
+
+#. module: account_export
+#: code:addons/account_export/models/account_export.py:135
+#, python-format
+msgid "No export code defined for these journals: %s"
+msgstr "Aucun code d'export n'est défini pour ces journaux: %s"
