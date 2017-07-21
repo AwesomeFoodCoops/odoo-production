@@ -91,6 +91,7 @@
 							<field name="dateformat"/>
 							<field name="header"/>
 							<field name="footer"/>
+							<field name="csv_separator"/>
 						</group>
 					</sheet>
 				</form>
@@ -107,6 +108,7 @@
 					<field name="dateformat"/>
 					<field name="header"/>
 					<field name="footer"/>
+					<field name="csv_separator"/>
 				</tree>
 			</field>
 		</record>
