@@ -59,7 +59,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                 this.message('payment_terminal_transaction_start_with_return', {'payment_info' : JSON.stringify(data)}).then(function (answer) {
                     screen.close_waiting_for_tpe_return();
                     if (answer) {
-                        var transaction_result = answer['transaction_result'] || '7';
+                        var transaction_result = answer['transaction_result'];
                         if (transaction_result == '7') {
                             // This means that the operation was not finished
                             // TODO : check what to do here. But I think this should do nothing.
