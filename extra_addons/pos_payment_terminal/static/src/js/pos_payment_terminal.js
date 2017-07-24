@@ -13,6 +13,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
     var screens = require('point_of_sale.screens');
     var models = require('point_of_sale.models');
     var devices = require('point_of_sale.devices');
+    var PopupWidget = require('point_of_sale.popups');
     var gui = require('point_of_sale.gui');
     var core = require('web.core');
     var _t = core._t;
@@ -54,7 +55,9 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             var line = order.selected_paymentline;
             var data = self.get_data_send(order, line, currency_iso);
             if (this.wait_terminal_answer()) {
+                screen.waiting_for_tpe_return();
                 this.message('payment_terminal_transaction_start_with_return', {'payment_info' : JSON.stringify(data)}).then(function (answer) {
+                    screen.close_waiting_for_tpe_return();
                     if (answer) {
                         var transaction_result = answer['transaction_result'];
                         if (transaction_result == '7') {
@@ -102,6 +105,28 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                 });
             return;
         },
+        waiting_for_tpe_return: function() {
+            this.gui.show_popup('waitingfortpereturn',{
+                'title': _t('Transaction in progress'),
+                'body':  _t('Please, wait until TPE return.'),
+                });
+            return;
+        },
+        close_waiting_for_tpe_return: function() {
+            this.gui.close_popup('waitingfortpereturn');
+            return;
+        },
     });
 
+    // Popup to show all transaction state for the payment.
+
+    var WaitingForTPEReturnPopupWidget = PopupWidget.extend({
+        template: 'WaitingForTPEReturnPopupWidget',
+        show: function (options) {
+            var self = this;
+            this._super(options);
+        }
+    });
+
+    gui.define_popup({name:'waitingfortpereturn', widget: WaitingForTPEReturnPopupWidget});
 });
