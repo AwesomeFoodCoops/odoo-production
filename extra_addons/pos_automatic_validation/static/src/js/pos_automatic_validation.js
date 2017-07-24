@@ -8,16 +8,9 @@
 odoo.define('pos_automatic_validation.pos_automatic_validation', function (require) {
     "use strict";
     var screens = require('point_of_sale.screens');
-    var devices = require('point_of_sale.devices');
     var models = require('point_of_sale.models');
-    var core = require('web.core');
-    var chrome = require('point_of_sale.chrome');
-    var gui = require('point_of_sale.gui');
-    var _t = core._t;
-    var QWeb = core.qweb;
 
-    models.load_fields("account.journal", ['payment_mode',
-                                           'iface_automatic_validation']);
+    models.load_fields("account.journal", ['iface_automatic_validation']);
 
     models.Paymentline = models.Paymentline.extend({
         get_automatic_validation: function() {
