@@ -54,6 +54,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             var line = order.selected_paymentline;
             var data = self.get_data_send(order, line, currency_iso);
             if (this.wait_terminal_answer()) {
+                var amount = line.get_amount()
                 this.message('payment_terminal_transaction_start_with_return', {'payment_info' : JSON.stringify(data)}).then(function (answer) {
                     if (answer) {
                         var transaction_result = answer['transaction_result'];
@@ -61,6 +62,11 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                             // This means that the operation was not finished
                             // TODO : check what to do here. But I think this should do nothing.
                             screen.transaction_error();
+                            if (amount == 0) {
+                                order.remove_paymentline(line);
+                                screen.reset_input();
+                                screen.render_paymentlines();
+                            }
                         } else if (transaction_result == '0') {
                             // This means that the operation was a success
                             // We get amount and set the amount in this line
@@ -77,6 +83,11 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                         }
                     } else {
                         screen.transaction_error();
+                        if (amount == 0) {
+                            order.remove_paymentline(line);
+                            screen.reset_input();
+                            screen.render_paymentlines();
+                        }
                     }
                 });
             } else {
