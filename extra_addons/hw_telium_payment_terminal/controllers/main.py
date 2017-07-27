@@ -214,10 +214,8 @@ class TeliumPaymentTerminalDriver(Thread):
             'amount_msg': real_msg[3:11],
             'payment_mode': real_msg[11],
             'currency_numeric': real_msg[12:15],
-            'private': real_msg[15:26],
             'tpe_return_message': real_msg,
         }
-        #TODO : record private data it in the pos.order for tracability purpose (
         logger.info('answer_data = %s' % answer_data)
         self.compare_data_vs_answer(data, answer_data)
         return answer_data
