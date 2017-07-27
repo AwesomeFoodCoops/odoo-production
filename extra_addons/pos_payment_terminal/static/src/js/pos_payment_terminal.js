@@ -20,6 +20,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
 
     models.load_fields("account.journal", ['payment_mode']);
 
+    var _paylineproto = models.Paymentline.prototype;
     models.Paymentline = models.Paymentline.extend({
         get_automatic_payment_terminal: function() {
             if (this.cashregister.journal.payment_mode == 'card' && this.pos.config.iface_payment_terminal) {
@@ -28,6 +29,19 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             else {
                 return false;
             }
+        },
+        set_tpe_return_message: function(value) {
+            this.order.assert_editable();
+            this.tpe_return_message = value;
+            this.trigger('change', this);
+        },
+        get_tpe_return_message: function() {
+            return this.tpe_return_message;
+        },
+        export_as_JSON: function(){
+            return _.extend(_paylineproto.export_as_JSON.apply(this, arguments), {
+                tpe_return_message: this.get_tpe_return_message(),
+            });
         },
     });
 
@@ -58,10 +72,11 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                 this.message('payment_terminal_transaction_start_with_return', {'payment_info' : JSON.stringify(data)}).then(function (answer) {
                     if (answer) {
                         var transaction_result = answer['transaction_result'];
-                        if (transaction_result == '7') {
+                        if (transaction_result == '7') { // not finished transaction (cancelled, error, etc.)
                             // This means that the operation was not finished
                             // TODO : check what to do here. But I think this should do nothing.
                             screen.transaction_error();
+                        } else if (transaction_result == '0') { // transaction accepted
                             if (amount == 0) {
                                 order.remove_paymentline(line);
                                 screen.reset_input();
@@ -73,6 +88,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                             var amount_in = answer['amount_msg'] / 100;
                             if (!amount_in == 0) {
                                 line.set_amount(amount_in);
+                                line.set_tpe_return_message(answer['tpe_return_message']);
                                 screen.order_changes();
                                 screen.render_paymentlines();
                                 var amount_in_formatted = screen.format_currency_no_symbol(amount_in);
