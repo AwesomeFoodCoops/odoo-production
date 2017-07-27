@@ -16,7 +16,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                 </field>
 
                 <field name="reference" position="attributes">
-                    <attribute name="required">True</attribute>
+                    <attribute name="attrs">{'required': [('state','=','draft')]}</attribute>
                 </field>
 
             </field>
