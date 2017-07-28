@@ -75,7 +75,7 @@ angular.module('starter').controller('PartnerSearchCtrl', ['$scope', '$state', '
 
         else {
             // Search by Barcode Base
-            if ($scope.search_value.barcode_base != ''){
+            if ($scope.search_value.barcode_base != '' & !isNaN($scope.search_value.barcode_base)){
                 ResPartnerModel.GetByBarcodeBase($scope.search_value.barcode_base).then(function (partner_ids) {
                     manage_result('barcode_base', partner_ids);
                 });
