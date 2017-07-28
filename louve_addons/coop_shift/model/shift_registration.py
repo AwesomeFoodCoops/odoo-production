@@ -233,6 +233,10 @@ class ShiftRegistration(models.Model):
         reg_id = super(ShiftRegistration, self).create(vals)
         if reg_id.shift_id.state == "confirm":
             reg_id.confirm_registration()
+            # Restore the state
+            if reg_id.tmpl_reg_line_id and \
+                    reg_id.state != reg_id.tmpl_reg_line_id.state:
+                reg_id.state = reg_id.tmpl_reg_line_id.state
         return reg_id
 
     @api.multi
