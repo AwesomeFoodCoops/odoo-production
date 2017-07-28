@@ -25,7 +25,8 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from openerp.addons.connector.session import ConnectorSession
 from openerp.addons.connector.queue.job import job
-from openerp import models, fields, api
+from openerp import models, fields, api, _
+from openerp.exceptions import ValidationError
 
 from .date_tools import conflict_period
 
@@ -144,6 +145,23 @@ class ResPartner(models.Model):
         comodel_name='shift.counter.event', inverse_name='partner_id',
         string='Counter Events')
 
+    # Constrains section
+    @api.multi
+    @api.constrains('final_standard_point')
+    def check_final_standard_point(self):
+        '''
+        @Constrains on field final_standard_point
+            - final_standard_point must be <= 0
+        '''
+        for partner in self:
+            if partner.final_standard_point > 0:
+                partner_name = '%s - %s' % (partner.barcode_base, partner.name)
+                raise ValidationError(_(
+                    "The member %s cannot accumulate more points " +
+                    "on the standard counter. if you " +
+                    "want this attendance to count, you " +
+                    "need to change its type to FTOP.") % partner_name)
+
     # Compute section
     @api.multi
     @api.depends('leave_ids')
@@ -225,9 +243,9 @@ class ResPartner(models.Model):
                     lambda l: l.partner_state == 'vacation' and
                     l.state == 'done'):
                 conflict = conflict or conflict_period(
-                        leave.start_date, leave.stop_date,
-                        fields.Datetime.now(),
-                        fields.Datetime.now())['conflict']
+                    leave.start_date, leave.stop_date,
+                    fields.Datetime.now(),
+                    fields.Datetime.now())['conflict']
             partner.is_vacation = conflict
 
     def _compute_is_exempted(self):
@@ -237,9 +255,9 @@ class ResPartner(models.Model):
                     lambda l: l.partner_state == 'exempted' and
                     l.state == 'done'):
                 conflict = conflict or conflict_period(
-                        leave.start_date, leave.stop_date,
-                        fields.Datetime.now(),
-                        fields.Datetime.now())['conflict']
+                    leave.start_date, leave.stop_date,
+                    fields.Datetime.now(),
+                    fields.Datetime.now())['conflict']
             partner.is_exempted = conflict
 
     @api.depends(
@@ -305,6 +323,10 @@ class ResPartner(models.Model):
                         state = 'suspended'
                 elif partner.is_exempted:
                     state = 'exempted'
+            # Change the status from Up to Date
+            # to Alert if standard_counter < 0
+            if state == 'up_to_date' and partner.final_standard_point < 0:
+                state = 'alert'
             if partner.working_state != state:
                 partner.working_state = state
 

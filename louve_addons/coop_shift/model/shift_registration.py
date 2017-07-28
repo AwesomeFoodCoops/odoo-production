@@ -144,21 +144,20 @@ class ShiftRegistration(models.Model):
                         counter_vals['name'] = reason
 
                 elif shift_reg.shift_type == 'standard':
-                    if vals_state in ['done', 'replaced']:
-                        reason = vals_state == 'done' and \
-                            _('Attended') or \
-                            _('Replaced')
-                        counter_vals['point_qty'] = 1
-                        counter_vals['name'] = reason
+                    # Check if a member is belong to the template
+                    if shift_reg.template_created:
+                        if vals_state in ['absent']:
+                            counter_vals['point_qty'] = -2
+                            counter_vals['name'] = _('Absent')
 
-                    elif vals_state in ['absent']:
-                        counter_vals['point_qty'] = -2
-                        counter_vals['name'] = _('Absent')
-
-                    elif vals_state in ['excused'] and \
-                            shift_reg.template_created:
-                        counter_vals['point_qty'] = -1
-                        counter_vals['name'] = _('Excused')
+                        elif vals_state in ['excused']:
+                            counter_vals['point_qty'] = -1
+                            counter_vals['name'] = _('Excused')
+                    else:
+                        if vals_state in ['done', 'replaced']:
+                            reason = _('Attended')
+                            counter_vals['point_qty'] = 1
+                            counter_vals['name'] = reason
 
                 # Create Point Counter
                 if counter_vals:
