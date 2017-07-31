@@ -23,7 +23,8 @@
 
 from openerp import models, fields, api, _
 from openerp.exceptions import UserError
-from datetime import timedelta
+from datetime import timedelta, datetime
+import pytz
 
 STATES = [
     ('cancel', 'Cancelled'),
@@ -73,7 +74,7 @@ class ShiftRegistration(models.Model):
     state = fields.Selection(STATES)
     tmpl_reg_line_id = fields.Many2one(
         'shift.template.registration.line', "Template Registration Line")
-    date_begin = fields.Datetime(related="shift_id.date_begin")
+    date_begin = fields.Datetime(related="shift_id.date_begin", store=True)
     date_end = fields.Datetime(related="shift_id.date_end")
     replacing_reg_id = fields.Many2one(
         'shift.registration', "Replacing Registration", required=False)
@@ -143,21 +144,20 @@ class ShiftRegistration(models.Model):
                         counter_vals['name'] = reason
 
                 elif shift_reg.shift_type == 'standard':
-                    if vals_state in ['done', 'replaced']:
-                        reason = vals_state == 'done' and \
-                            _('Attended') or \
-                            _('Replaced')
-                        counter_vals['point_qty'] = 1
-                        counter_vals['name'] = reason
+                    # Check if a member is belong to the template
+                    if shift_reg.template_created:
+                        if vals_state in ['absent']:
+                            counter_vals['point_qty'] = -2
+                            counter_vals['name'] = _('Absent')
 
-                    elif vals_state in ['absent']:
-                        counter_vals['point_qty'] = -2
-                        counter_vals['name'] = _('Absent')
-
-                    elif vals_state in ['excused'] and \
-                            shift_reg.template_created:
-                        counter_vals['point_qty'] = -1
-                        counter_vals['name'] = _('Excused')
+                        elif vals_state in ['excused']:
+                            counter_vals['point_qty'] = -1
+                            counter_vals['name'] = _('Excused')
+                    else:
+                        if vals_state in ['done', 'replaced']:
+                            reason = _('Attended')
+                            counter_vals['point_qty'] = 1
+                            counter_vals['name'] = reason
 
                 # Create Point Counter
                 if counter_vals:
@@ -180,6 +180,37 @@ class ShiftRegistration(models.Model):
             else:
                 raise UserError(_("You must wait for the starting day of the\
                     shift to do this action."))
+
+            # Terminate the shift member
+            if reg.template_created and reg.shift_type == 'standard':
+                # Check for his next last shift registration
+                last_shift_reg = self.search(
+                    [('partner_id', '=', reg.partner_id.id),
+                     ('template_created', '=', True),
+                     ('date_begin', '<', reg.date_begin),
+                     ('shift_type', '=', 'standard')],
+                    order='date_begin desc', limit=1)
+                if last_shift_reg and last_shift_reg.state == 'absent':
+                    # Check for any standard shift within
+                    markup_shift_reg_count = self.search_count(
+                        [('partner_id', '=', reg.partner_id.id),
+                         ('date_begin', '<', last_shift_reg.date_begin),
+                         ('date_begin', '>', reg.date_begin),
+                         ('shift_type', '=', 'standard'),
+                         ('state', 'in', ('done', 'replaced'))])
+                    # If no markup reg found, set date end for the reg shift
+                    if not markup_shift_reg_count:
+                        tz_name = self._context.get('tz') or self.env.user.tz
+                        date_end_obj = datetime.strptime(
+                            reg.date_end, '%Y-%m-%d %H:%M:%S') + \
+                            timedelta(days=1)
+                        utc_timestamp = pytz.utc.localize(
+                            date_end_obj, is_dst=False)
+                        context_tz = pytz.timezone(tz_name)
+                        reg_date_end_tz = utc_timestamp.astimezone(context_tz)
+
+                        final_date_end = reg_date_end_tz.strftime('%Y-%m-%d')
+                        reg.tmpl_reg_line_id.date_end = final_date_end
 
     @api.multi
     def button_reg_excused(self):
@@ -233,6 +264,10 @@ class ShiftRegistration(models.Model):
         reg_id = super(ShiftRegistration, self).create(vals)
         if reg_id.shift_id.state == "confirm":
             reg_id.confirm_registration()
+            # Restore the state
+            if reg_id.tmpl_reg_line_id and \
+                    reg_id.state != reg_id.tmpl_reg_line_id.state:
+                reg_id.state = reg_id.tmpl_reg_line_id.state
         return reg_id
 
     @api.multi

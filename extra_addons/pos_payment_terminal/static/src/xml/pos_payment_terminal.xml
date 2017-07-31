@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <t t-extend="PaymentScreen-Paymentlines" >
+    <!--<t t-extend="PaymentScreen-Paymentlines" >
         <t t-jquery=".col-name" t-operation="append">
             <t t-if="line.cashregister.journal.payment_mode and widget.pos.config.iface_payment_terminal">
                    <button class="payment-terminal-transaction-start"  t-att-data-cid='line.cid'>Start transaction</button>
             </t>
         </t>
+    </t>-->
+
+    <t t-name="WaitingForTPEReturnPopupWidget">
+        <div class="modal-dialog">
+            <div class="popup popup-wainting-for-tpe-return">
+                <p class="title"><t t-esc=" widget.options.title || '' " /></p>
+                <p class="body"><t t-esc=" widget.options.body || '' " /></p>
+                <div class="footer">
+                    <div class="button confirm">
+                        Ok 
+                    </div>
+                    <!--<div class="button cancel">
+                        Cancel 
+                    </div>-->
+                </div>
+            </div>
+        </div>
     </t>
+
 </templates>

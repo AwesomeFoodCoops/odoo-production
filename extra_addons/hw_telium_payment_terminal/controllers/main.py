@@ -160,7 +160,7 @@ class TeliumPaymentTerminalDriver(Thread):
         #TODO : set anwser_flag to 1 to get REP field in the response (card or cheque number and record it in the pos.order for tracability purpose)
         data = {
             'pos_number': str(1).zfill(2),
-            'answer_flag': '0',
+            'answer_flag': '1', # '0',
             'transaction_type': '0',
             'payment_mode': payment_mode,
             'currency_numeric': cur_numeric.zfill(3),
@@ -214,9 +214,8 @@ class TeliumPaymentTerminalDriver(Thread):
             'amount_msg': real_msg[3:11],
             'payment_mode': real_msg[11],
             'currency_numeric': real_msg[12:15],
-            'private': real_msg[15:26],
+            'tpe_return_message': real_msg,
         }
-        #TODO : record private data it in the pos.order for tracability purpose (
         logger.info('answer_data = %s' % answer_data)
         self.compare_data_vs_answer(data, answer_data)
         return answer_data
@@ -271,7 +270,7 @@ class TeliumPaymentTerminalDriver(Thread):
                 self.send_message(data)
                 self.get_one_byte_answer('ACK')
                 self.send_one_byte_signal('EOT')
-                
+
                 wait_terminal_answer = payment_info_dict.get('wait_terminal_answer', False)
                 logger.info("Now expecting answer from Terminal")
                 if wait_terminal_answer:

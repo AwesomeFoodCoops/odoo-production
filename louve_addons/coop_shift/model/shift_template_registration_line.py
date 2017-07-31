@@ -163,15 +163,15 @@ class ShiftTemplateRegistrationLine(models.Model):
         self.mapped(lambda s: s.partner_id)._compute_registration_counts()
         for line in self:
             sr_obj = self.env['shift.registration']
-            st_reg = self.registration_id
+            st_reg = line.registration_id
             partner = st_reg.partner_id
 
-            state = vals.get('state', self.state)
-            begin = vals.get('date_begin', self.date_begin)
-            end = vals.get('date_end', self.date_end)
+            state = vals.get('state', line.state)
+            begin = vals.get('date_begin', line.date_begin)
+            end = vals.get('date_end', line.date_end)
 
             # for linked registrations
-            for sr in self.shift_registration_ids:
+            for sr in line.shift_registration_ids:
                 shift = sr.shift_id
                 # if shift is done, pass
                 if shift.state == "done":
@@ -194,12 +194,12 @@ class ShiftTemplateRegistrationLine(models.Model):
                 for registration in shift.registration_ids:
                     if registration.partner_id == partner:
                         partner_found = registration
-                    if registration.tmpl_reg_line_id == self:
+                    if registration.tmpl_reg_line_id == line:
                         found = True
                         break
                 if not found:
                     if partner_found:
-                        partner_found.tmpl_reg_line_id = self
+                        partner_found.tmpl_reg_line_id = line
                         partner_found.state = state
                     else:
                         ticket_id = shift.shift_ticket_ids.filtered(
@@ -210,7 +210,7 @@ class ShiftTemplateRegistrationLine(models.Model):
                             'state': state,
                             'shift_id': shift.id,
                             'shift_ticket_id': ticket_id.id,
-                            'tmpl_reg_line_id': self.id,
+                            'tmpl_reg_line_id': line.id,
                             'template_created': True,
                         }
                         sr_obj.create(values)

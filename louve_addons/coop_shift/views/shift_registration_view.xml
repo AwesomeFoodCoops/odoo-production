@@ -167,6 +167,7 @@
             <field name="name">Attendees</field>
             <field name="view_mode">tree,form,calendar,graph</field>
             <field name="view_id" ref="view_shift_registration_tree_confirm"/>
+            <field name="domain">[('state', '!=', 'replacing')]</field>
             <field name="context">{'search_default_shift_id': active_id, 'default_shift_id': active_id}</field>
         </record>
 

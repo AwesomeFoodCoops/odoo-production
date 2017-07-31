@@ -336,7 +336,7 @@ msgstr "Rechercher un partenaire"
 #. module: coop_membership_access_rights
 #: model:res.groups,name:coop_membership_access_rights.group_see_all_capital_subscription
 msgid "See All Capital Subscriptions"
-msgstr "Vour toutes les souscriptions de capital"
+msgstr "Voir les souscriptions"
 
 #. module: coop_membership_access_rights
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form

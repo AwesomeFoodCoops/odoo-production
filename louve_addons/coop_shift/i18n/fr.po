@@ -3239,3 +3239,9 @@ msgstr "Équipe:"
 #: model:ir.model.fields,field_description:coop_shift.field_res_partner_next_registration_id
 msgid "Next Registration"
 msgstr "Prochain Service"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/res_partner.py:159
+#, python-format
+msgid "The member %s cannot accumulate more points on the standard counter. if you want this attendance to count, you need to change its type to FTOP."
+msgstr "Le membre %s ne peut accumuler davantage de points sur son compteur standard. Pour saisir sa présence, merci de changer son type en FTOP."

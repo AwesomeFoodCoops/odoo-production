@@ -86,6 +86,7 @@ class ProductHistory(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('outgoing_qty', False) == 0:
+        if vals.get('history_range') == 'weeks' and\
+                vals.get('sale_qty', 0) == 0:
             vals['ignored'] = True
         return super(ProductHistory, self).create(vals)
