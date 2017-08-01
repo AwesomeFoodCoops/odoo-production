@@ -284,11 +284,11 @@ class AccountExport(models.Model):
                 (
                     CASE
                         WHEN (aml.partner_id IS NOT NULL)
-                            AND (RIGHT(aa.code, 3) = '401')
+                            AND (LEFT(aa.code, 3) = '401')
                         THEN rp.property_account_payable_software
 
                         WHEN (aml.partner_id IS NOT NULL)
-                            AND (RIGHT(aa.code, 3) = '411')
+                            AND (LEFT(aa.code, 3) = '411')
                         THEN rp.property_account_receivable_software
 
                     ELSE COALESCE (aa.code, '')
