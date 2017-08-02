@@ -34,6 +34,6 @@
         'static/src/xml/templates.xml',
         ],
     'demo': ['pos_payment_terminal_demo.xml'],
-    'qweb': ['static/src/xml/pos_payment_terminal.xml'],
+#     'qweb': ['static/src/xml/pos_payment_terminal.xml'],
     'installable': True,
 }
