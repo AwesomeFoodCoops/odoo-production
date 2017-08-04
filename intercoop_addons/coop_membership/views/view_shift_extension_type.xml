@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Views -->
+        <record id="shift_extension_type_form" model="ir.ui.view">
+            <field name="name">shift.extension.type.form</field>
+            <field name="model">shift.extension.type</field>
+            <field name="inherit_id" ref="coop_shift.view_shift_extension_type_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='duration']" position="before">
+                    <field name="extension_method"/>
+                </xpath>
+                <field name="duration" position="attributes">
+                    <attribute name="attrs">{'invisible': [('extension_method', '!=', 'fixed_duration')], 'required': [('extension_method', '==', 'fixed_duration')]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="shift_extension_type_tree" model="ir.ui.view">
+            <field name="name">shift.extension.type.tree</field>
+            <field name="model">shift.extension.type</field>
+            <field name="inherit_id" ref="coop_shift.view_shift_extension_type_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="extension_method"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
