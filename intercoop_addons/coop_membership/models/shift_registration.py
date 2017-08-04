@@ -23,6 +23,8 @@
 
 from openerp import api, models, fields, _
 from openerp.exceptions import UserError
+from datetime import datetime
+import pytz
 
 
 class ShiftRegistration(models.Model):
@@ -30,6 +32,9 @@ class ShiftRegistration(models.Model):
 
     partner_id = fields.Many2one(
         domain=[('is_worker_member', '=', True)])
+
+    related_extension_id = fields.Many2one('shift.extension',
+                                           string="Related Shift Extensions")
 
     @api.model
     def create(self, vals):
@@ -41,3 +46,39 @@ class ShiftRegistration(models.Model):
                 """You can't register this partner on a shift because """
                 """he isn't registered on a template"""))
         return super(ShiftRegistration, self).create(vals)
+
+    @api.multi
+    def action_create_extension(self):
+        '''
+        @Function triggered by a button on Attendance tree view
+        to create extension automatically for a member:
+            - Extension Type: Extension
+            - Start Date: registration start date
+            - End Date: Next Shift Date
+        '''
+        shift_extension_env = self.env['shift.extension']
+        for registration in self:
+            partner = registration.partner_id
+            extension_type = self.env.ref(
+                'coop_membership.shift_extension_type_extension')
+
+            date_begin_obj = datetime.strptime(
+                fields.Datetime.now(), '%Y-%m-%d %H:%M:%S')
+            tz_name = self._context.get('tz') or self.env.user.tz
+            utc_timestamp = pytz.utc.localize(
+                date_begin_obj, is_dst=False)
+            context_tz = pytz.timezone(tz_name)
+            date_begin_object_tz = utc_timestamp.astimezone(context_tz)
+            date_begin_date = date_begin_object_tz.strftime('%Y-%m-%d')
+
+            ext_vals = {
+                'partner_id': partner.id,
+                'type_id': extension_type.id,
+                'date_start': date_begin_date,
+                'date_stop': shift_extension_env.suggest_extension_date_stop(
+                    extension_type=extension_type,
+                    partner=partner,
+                    date_start=date_begin_date)
+            }
+            res_extension = shift_extension_env.create(ext_vals)
+            registration.related_extension_id = res_extension.id

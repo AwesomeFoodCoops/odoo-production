@@ -456,6 +456,11 @@ msgid "Used for Capital Fundraising"
 msgstr "Utilisé pour les levées de fonds"
 
 #. module: capital_subscription
+#: model:ir.model.fields,field_description:capital_subscription.field_account_journal_is_payment_capital_fundraising
+msgid "Used for Payments of Capital Fundraisings"
+msgstr "Utilisé pour le règlement des levées de fonds"
+
+#. module: capital_subscription
 #: model:ir.actions.act_window,name:capital_subscription.action_capital_fundraising_wizard
 #: model:ir.ui.menu,name:capital_subscription.menu_capital_fundraising_wizard
 msgid "Wizard"

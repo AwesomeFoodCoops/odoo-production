@@ -101,31 +101,10 @@ class AccountExport(models.Model):
         @Function to generate the report
         '''
         self.ensure_one()
-        self.UNASSIGNED_JOURNAL_CODES = []
-        self.UNASSIGNED_ACCOUNT_CODES = []
         self.HEADER = self.build_header()
 
         # Prepare data to export to file
         datas = self.get_account_move_line_data()
-
-        # Prepare warning about unassigned accounts and
-        # journal codes
-        message = ''
-        if self.UNASSIGNED_ACCOUNT_CODES:
-            unassigned_acc_msg = \
-                _("No export code defined for these accounts: %s") % \
-                ', '.join(set(self.UNASSIGNED_ACCOUNT_CODES))
-            message += unassigned_acc_msg
-
-        if self.UNASSIGNED_JOURNAL_CODES:
-            unassigned_jour_msg = \
-                _("No export code defined for these journals: %s") % \
-                ', '.join(set(self.UNASSIGNED_JOURNAL_CODES))
-            message = message and message + "\n\n" + unassigned_jour_msg or \
-                message + unassigned_jour_msg
-
-        if message:
-            raise exceptions.Warning(message)
 
         # Generate the file based
         moves_file = False
@@ -198,7 +177,7 @@ class AccountExport(models.Model):
             self.get_account_move_line_group_by_journal()
 
         # Get header
-        output = [self.HEADER]
+        output = self.HEADER and [self.HEADER] or []
 
         for line in aml_groupedby_journal:
             journal_id = line['journal_id']
@@ -284,11 +263,15 @@ class AccountExport(models.Model):
                 (
                     CASE
                         WHEN (aml.partner_id IS NOT NULL)
-                            AND (RIGHT(aa.code, 3) = '401')
+                            AND (LEFT(aa.code, 3) = '401')
+                            AND rp.property_account_payable_software
+                                IS NOT NULL
                         THEN rp.property_account_payable_software
 
                         WHEN (aml.partner_id IS NOT NULL)
-                            AND (RIGHT(aa.code, 3) = '411')
+                            AND (LEFT(aa.code, 3) = '411')
+                            AND rp.property_account_receivable_software
+                                IS NOT NULL
                         THEN rp.property_account_receivable_software
 
                     ELSE COALESCE (aa.code, '')
@@ -333,13 +316,6 @@ class AccountExport(models.Model):
         move_number = first_line['move_number']
         export_account_code = first_line['export_account_code']
         journal_code = first_line['journal_code']
-        if not export_account_code:
-            export_account_code = first_line['account_code']
-            if first_line['partner_id']:
-                self.UNASSIGNED_ACCOUNT_CODES.append(
-                    "(%s, %s, %s)" % (first_line['partner_name'] or '',
-                                      export_account_code or '',
-                                      first_line['account_name'] or ''))
 
         aux = first_line['aux']
         account_move_name = first_line['account_move_name']
@@ -380,7 +356,7 @@ class AccountExport(models.Model):
             credit = first_line['credit']
 
         if not export_code and journal_code:
-            self.UNASSIGNED_JOURNAL_CODES.append(journal_code)
+            export_code = journal_code
 
         # Refreshing the data before export
         export_code = export_code != 'NO-JOURNAL-CODE' and export_code or ""
@@ -431,29 +407,6 @@ class AccountExport(models.Model):
         '''
         header = self.config_id and self.config_id.header and \
             self.config_id.header.split(",") or []
-
-        # Build the header if the header is not set
-        if not header:
-            header = []
-            field_env = self.env['ir.model.fields']
-            HEADER_FIELDS = (
-                ('account.journal', 'export_code'),
-                ('account.move.line', 'date'),
-                ('account.move', 'name'),
-                ('account.journal', 'code'),
-                ('res.partner', 'barcode_base'),
-                ('account.move.line', 'ref'),
-                (False, 'D/C'),
-                (False, 'Total'))
-            for model_name, field_name in HEADER_FIELDS:
-                if not model_name:
-                    header.append(field_name)
-                else:
-                    found_field = field_env.search(
-                        [('model_id.model', '=', model_name),
-                         ('name', '=', field_name)], limit=1)
-                    header.append(
-                        found_field and found_field.field_description or '')
         # Strip the leading and trailling spaces
         header = [item.strip() for item in header]
         return header

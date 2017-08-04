@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_attachment_custom_ftop" model="mail.attachment.custom">
+            <field name="name">Fichiers joints pour les membres FTOP</field>
+            <field name="mail_template_id" ref="coop_membership.welcome_email"/>
+            <field name="condition">${object.shift_type == 'ftop'}</field>
+        </record>
+
+        <record id="mail_attachment_custom_standard" model="mail.attachment.custom">
+            <field name="name">Fichiers joints pour les membres Standard</field>
+            <field name="mail_template_id" ref="coop_membership.welcome_email"/>
+            <field name="condition">${object.shift_type == 'standard'}</field>
+        </record>
+    </data>
+</odoo>

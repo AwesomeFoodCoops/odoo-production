@@ -8,6 +8,7 @@
 
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
+import pytz
 from openerp.exceptions import ValidationError
 from openerp import models, fields, api, _
 
@@ -313,15 +314,9 @@ class ResPartner(models.Model):
         mail_template = self.env.ref('coop_membership.welcome_email')
         if not mail_template:
             return False
-        attachment = self.env['ir.attachment'].search([
-            ('name', '=',
-                'La Louve - Procédure initialisation Espace Membres.pdf')])[0]
 
         for partner in self:
-            mail_id = mail_template.send_mail(partner.id)
-            mail = self.env['mail.mail'].browse(mail_id)
-            if attachment:
-                mail.attachment_ids = [(6, 0, [attachment.id])]
+            mail_template.send_mail(partner.id)
             partner.welcome_email = True
         return True
 
@@ -378,3 +373,38 @@ class ResPartner(models.Model):
                 res.append((partner.id, original_res[i][1]))
             i += 1
         return res
+
+    @api.multi
+    def get_next_shift_date(self):
+        '''
+        @Function to get Next Shift Date of a member
+        '''
+        self.ensure_one()
+        shift_registration_env = self.env['shift.registration']
+
+        # Search for next shifts
+        shift_regs = shift_registration_env.search([
+            ('partner_id', '=', self.id),
+            ('template_created', '=', True),
+            ('date_begin', '>=', fields.Datetime.now())
+        ])
+
+        next_shift_time = False
+        next_shift_date = False
+        if shift_regs:
+            # Sorting found shift
+            shift_regs.sorted(key=lambda shift: shift.date_begin)
+            next_shift_time = shift_regs[0].date_begin
+
+        # Convert Next Shift Time into Local Time
+        if next_shift_time:
+            next_shift_time_obj = datetime.strptime(
+                next_shift_time, '%Y-%m-%d %H:%M:%S')
+            tz_name = self._context.get('tz') or self.env.user.tz
+            utc_timestamp = pytz.utc.localize(
+                next_shift_time_obj, is_dst=False)
+            context_tz = pytz.timezone(tz_name)
+            start_date_object_tz = utc_timestamp.astimezone(context_tz)
+            next_shift_date = start_date_object_tz.strftime('%Y-%m-%d')
+
+        return next_shift_time, next_shift_date

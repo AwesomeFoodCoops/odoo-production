@@ -31,6 +31,7 @@ class AccountInvoiceLine(models.Model):
         # Rounding the price based on the partner discount computation
         # for supplier invoice or supplier refund
         if self.invoice_id.type in ['in_invoice', 'in_refund'] and \
+            self.discount and \
                 self.invoice_id.partner_id.discount_computation == \
                 'unit_price':
             price = currency.round(price)

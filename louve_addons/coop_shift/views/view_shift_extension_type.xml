@@ -28,10 +28,9 @@
                             <label for="name" class="oe_edit_only"/>
                             <field name="name" default_focus="1" placeholder="Name" />
                         </h1>
-                        <div class="o_row">
-                            <label for="duration"/>
+                        <group>
                             <field name="duration" placeholder="Duration"/>
-                        </div>
+                        </group>
                     </div>
                     <notebook colspan="4"/>
                 </sheet>
