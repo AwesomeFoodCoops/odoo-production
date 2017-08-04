@@ -11,7 +11,7 @@
                     <field name="related_extension_id" invisible="1"/>
                 </field>
                 <button name="%(coop_shift.action_replace_registration)d" position="after">
-                    <button name="action_create_extension" string="Create Extension" type="object" icon="fa-expand" attrs="{'invisible': [('related_extension_id', '!=', False)]}"/>
+                    <button name="action_create_extension" string="Create Extension until next regular shift" type="object" icon="fa-expand" attrs="{'invisible': [('related_extension_id', '!=', False)]}"/>
                 </button>
             </field>
         </record>
