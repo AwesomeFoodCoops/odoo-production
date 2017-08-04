@@ -429,3 +429,8 @@ msgstr "Étendre jusqu'au prochain créneau planifié"
 #: model:ir.model.fields,field_description:coop_membership.field_shift_extension_type_extension_method
 msgid "Extension Method"
 msgstr "Méthode d'extension"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_registration_tree_inherit
+msgid "Create Extension until next regular shift"
+msgstr "Créer une extension jusqu'au prochain créneau"
