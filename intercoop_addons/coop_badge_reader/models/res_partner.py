@@ -4,7 +4,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import fields, models, api
-import pytz
 from datetime import datetime
 from datetime import timedelta
 
@@ -114,38 +113,3 @@ class ResPartner(models.Model):
             'type_id': grace_ext_type.id
         })
         return True
-
-    @api.multi
-    def get_next_shift_date(self):
-        '''
-        @Function to get Next Shift Date of a member
-        '''
-        self.ensure_one()
-        shift_registration_env = self.env['shift.registration']
-
-        # Search for next shifts
-        shift_regs = shift_registration_env.search([
-            ('partner_id', '=', self.id),
-            ('template_created', '=', True),
-            ('date_begin', '>=', fields.Datetime.now())
-        ])
-
-        next_shift_time = False
-        next_shift_date = False
-        if shift_regs:
-            # Sorting found shift
-            shift_regs.sorted(key=lambda shift: shift.date_begin)
-            next_shift_time = shift_regs[0].date_begin
-
-        # Convert Next Shift Time into Local Time
-        if next_shift_time:
-            next_shift_time_obj = datetime.strptime(
-                next_shift_time, '%Y-%m-%d %H:%M:%S')
-            tz_name = self._context.get('tz') or self.env.user.tz
-            utc_timestamp = pytz.utc.localize(
-                next_shift_time_obj, is_dst=False)
-            context_tz = pytz.timezone(tz_name)
-            start_date_object_tz = utc_timestamp.astimezone(context_tz)
-            next_shift_date = start_date_object_tz.strftime('%Y-%m-%d')
-
-        return next_shift_time, next_shift_date
