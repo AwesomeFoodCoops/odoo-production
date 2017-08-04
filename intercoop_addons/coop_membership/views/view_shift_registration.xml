@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Views -->
+        <record id="view_shift_registration_tree_inherit" model="ir.ui.view">
+            <field name="name">shift.registration.tree.inherit</field>
+            <field name="model">shift.registration</field>
+            <field name="inherit_id" ref="coop_shift.view_shift_registration_tree_confirm"/>
+            <field name="arch" type="xml">
+                <field name="is_related_shift_ftop" position="after">
+                    <field name="related_extension_id" invisible="1"/>
+                </field>
+                <button name="%(coop_shift.action_replace_registration)d" position="after">
+                    <button name="action_create_extension" string="Create Extension" type="object" icon="fa-expand" attrs="{'invisible': [('related_extension_id', '!=', False)]}"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>

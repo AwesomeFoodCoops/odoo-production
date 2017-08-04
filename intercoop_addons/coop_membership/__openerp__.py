@@ -26,6 +26,8 @@
         'views/view_capital_fundraising_category.xml',
         'views/view_res_partner_generate_barcode_wizard.xml',
         'views/view_shift_leave.xml',
+        'views/view_shift_extension_type.xml',
+        'views/view_shift_registration.xml',
         'views/menu.xml',
 
         # Custom Data
@@ -34,6 +36,7 @@
         'data/email_template_data.xml',
         'data/ir_sequences.xml',
         'data/barcode_rule.xml',
+        'data/shift_extension_type_data.xml',
     ],
     'demo': [
 

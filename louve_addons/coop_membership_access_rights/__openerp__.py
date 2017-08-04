@@ -63,6 +63,7 @@
         'views/res_partner_view.xml',
         'views/res_users_view.xml',
         'views/account_invoice_view.xml',
+        'views/shift_registration_view.xml',
         'wizard/view_capital_fundraising_wizard.xml',
     ],
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Views -->
+        <record id="view_shift_registration_tree_access_rights_inherit" model="ir.ui.view">
+            <field name="name">shift.registration.tree.inherit</field>
+            <field name="model">shift.registration</field>
+            <field name="inherit_id" ref="coop_membership.view_shift_registration_tree_inherit"/>
+            <field name="arch" type="xml">
+                <button name="action_create_extension" position="attributes">
+                    <attribute name="groups">coop_membership_access_rights.group_shift_create_extension_from_attendance</attribute>
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>
