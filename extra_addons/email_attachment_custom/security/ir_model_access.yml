@@ -1,0 +1,11 @@
+-
+  Creating a ir.model.access record
+-
+  !record {model: ir.model.access, id: ir_model_access_mail_attachment_custom}:
+    group_id: base.group_user
+    model_id: email_attachment_custom.model_mail_attachment_custom
+    name: mail_attachment_custom_user
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
