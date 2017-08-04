@@ -415,3 +415,17 @@ msgstr "res.partner.generate.barcode.wizard"
 msgid "Member Number"
 msgstr "Numéro de membre"
 
+#. module: coop_membership
+#: selection:shift.extension.type,extension_method:0
+msgid "Fixed Duration"
+msgstr "Durée fixe"
+
+#. module: coop_membership
+#: selection:shift.extension.type,extension_method:0
+msgid "Extend to next regular shift"
+msgstr "Étendre jusqu'au prochain créneau planifié"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_extension_type_extension_method
+msgid "Extension Method"
+msgstr "Méthode d'extension"
