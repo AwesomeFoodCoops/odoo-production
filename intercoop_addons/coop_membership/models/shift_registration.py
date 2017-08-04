@@ -63,7 +63,7 @@ class ShiftRegistration(models.Model):
                 'coop_membership.shift_extension_type_extension')
 
             date_begin_obj = datetime.strptime(
-                registration.date_begin, '%Y-%m-%d %H:%M:%S')
+                fields.Datetime.now(), '%Y-%m-%d %H:%M:%S')
             tz_name = self._context.get('tz') or self.env.user.tz
             utc_timestamp = pytz.utc.localize(
                 date_begin_obj, is_dst=False)
