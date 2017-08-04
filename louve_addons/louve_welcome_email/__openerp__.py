@@ -11,10 +11,11 @@
     'website': 'http://www.lalouve.net',
     'license': 'AGPL-3',
     'depends': [
-        'coop_membership'
+        'coop_membership',
+        'email_attachment_custom'
     ],
     'data': [
         'data/email_template_data.xml',
-        'data/ir_config_parameter_data.xml'
+        'data/mail_attachtment_custom_data.xml'
     ],
 }

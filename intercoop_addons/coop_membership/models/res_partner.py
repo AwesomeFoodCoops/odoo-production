@@ -314,15 +314,9 @@ class ResPartner(models.Model):
         mail_template = self.env.ref('coop_membership.welcome_email')
         if not mail_template:
             return False
-        attachment = self.env['ir.attachment'].search([
-            ('name', '=',
-                'La Louve - Procédure initialisation Espace Membres.pdf')])[0]
 
         for partner in self:
-            mail_id = mail_template.send_mail(partner.id)
-            mail = self.env['mail.mail'].browse(mail_id)
-            if attachment:
-                mail.attachment_ids = [(6, 0, [attachment.id])]
+            mail_template.send_mail(partner.id)
             partner.welcome_email = True
         return True
 

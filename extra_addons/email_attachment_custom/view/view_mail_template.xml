@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_mail_template_form_inherit" model="ir.ui.view">
+            <field name="name">mail.template.inherit</field>
+            <field name="model">mail.template</field>
+            <field name="inherit_id" ref="mail.email_template_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Custom Attachments">
+                        <group>
+                            <field name="mail_attachment_custom_ids" nolabel="1"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
