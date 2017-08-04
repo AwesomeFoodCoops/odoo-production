@@ -74,4 +74,10 @@
         <field name="category_id" ref="base.module_category_extra" />
     </record>
 
+    <record model="res.groups" id="group_shift_create_extension_from_attendance">
+        <field name="name">Create Extension from Attendance</field>
+        <field name="category_id" ref="coop_shift.module_category_shift_management" />
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
 </odoo>

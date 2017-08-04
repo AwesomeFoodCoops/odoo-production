@@ -27,6 +27,7 @@
         'views/view_res_partner_generate_barcode_wizard.xml',
         'views/view_shift_leave.xml',
         'views/view_shift_extension_type.xml',
+        'views/view_shift_registration.xml',
         'views/menu.xml',
 
         # Custom Data
