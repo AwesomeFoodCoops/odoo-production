@@ -160,7 +160,7 @@ class TeliumPaymentTerminalDriver(Thread):
         #TODO : set anwser_flag to 1 to get REP field in the response (card or cheque number and record it in the pos.order for tracability purpose)
         data = {
             'pos_number': str(1).zfill(2),
-            'answer_flag': '1', # '0',
+            'answer_flag': '1',
             'transaction_type': '0',
             'payment_mode': payment_mode,
             'currency_numeric': cur_numeric.zfill(3),
@@ -213,7 +213,6 @@ class TeliumPaymentTerminalDriver(Thread):
             'transaction_result': real_msg[2],
             'amount_msg': real_msg[3:11],
             'payment_mode': real_msg[11],
-            'currency_numeric': real_msg[12:15],
             'tpe_return_message': real_msg,
         }
         logger.info('answer_data = %s' % answer_data)
