@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="res.groups" id="tpe_return">
+            <field name="name">TPE Return</field>
+        </record>
+
+    </data>
+</openerp>

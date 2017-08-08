@@ -58,3 +58,6 @@ class AccountBankStatementLine(models.Model):
     _inherit = 'account.bank.statement.line'
 
     tpe_return_message = fields.Char('TPE return message')
+    remittance_number = fields.Char('Remittance number')
+    transaction_number = fields.Char('Transaction number')
+    card_number = fields.Char('Card number')
