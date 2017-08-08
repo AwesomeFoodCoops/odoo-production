@@ -20,6 +20,4 @@
 #
 ##############################################################################
 
-
-from . import controllers
-import models
+import account_bank_statement_line
