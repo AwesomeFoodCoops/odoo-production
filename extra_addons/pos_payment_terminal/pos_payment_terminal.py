@@ -37,3 +37,24 @@ class PosConfig(models.Model):
     iface_payment_terminal = fields.Boolean(
         'Payment Terminal',
         help="A payment terminal is available on the Proxy")
+
+class PosOrder(models.Model):
+    _inherit = 'pos.order'
+
+    def _payment_fields(self, cr, uid, ui_paymentline, context=None):
+        print ui_paymentline
+        result = super(PosOrder, self).\
+            _payment_fields(cr, uid, ui_paymentline, context=context)
+        result['tpe_return_message'] = ui_paymentline.get('tpe_return_message')
+        return result
+
+    def add_payment(self, cr, uid, order_id, data, context=None):
+        new_context = context.copy()
+        new_context['default_tpe_return_message'] = data.get('tpe_return_message')
+        return super(PosOrder, self).add_payment(cr, uid, order_id, data, new_context)
+
+
+class AccountBankStatementLine(models.Model):
+    _inherit = 'account.bank.statement.line'
+
+    tpe_return_message = fields.Char('TPE return message')
