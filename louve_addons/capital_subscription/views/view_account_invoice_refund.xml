@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_account_invoice_refund_capital_subscription_form">
+        <field name="model">account.invoice.refund</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                     <group>
+                         <field name="refund_only" invisible="1"/>
+                         <field name="filter_refund" invisible="1" widget="radio"/>
+                         <field name="date_invoice"/>
+                         <field name="date" groups="base.group_no_one"/>
+                         <field name="description"/>
+                     </group>
+                </group>
+                <footer>
+                    <button string='Create Refund' name="invoice_refund" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+           </form>
+
+        </field>
+    </record>
+
+</odoo>

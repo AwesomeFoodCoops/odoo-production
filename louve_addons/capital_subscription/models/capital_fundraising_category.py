@@ -4,6 +4,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api
+from datetime import datetime
+import pytz
 
 
 class CapitalFundraisingCategory(models.Model):
@@ -41,6 +43,22 @@ class CapitalFundraisingCategory(models.Model):
         " to write a move between default product account and capital account"
         " when the payment is done.")
 
+    refund_account_id = fields.Many2one(
+        comodel_name='account.account',
+        string='Refund Account')
+
+    deficit_product_id = fields.Many2one(
+        'product.product',
+        string='Deficit Share Product',
+        domain=[('is_deficit_product', '=', True)])
+
+    deficit_share_rate_ids = fields.Many2many(
+        'capital.fundraising.deficit.rate',
+        'fund_cate_id_deficit_rate_rel',
+        'fundraising_category_id',
+        'deficit_rate_id',
+        string='Deficit Share')
+
     minimum_share_qty = fields.Integer(
         string='Minimum Share Quantity', required=True, default=1)
 
@@ -74,3 +92,29 @@ class CapitalFundraisingCategory(models.Model):
             previous_invoices.mapped('invoice_line_ids.quantity'))
 
         return minimum_qty - previous_qty
+
+    @api.multi
+    def get_deficit_share_percentage(self):
+        '''
+        @Function to get the deficit share percentage at the current time
+        '''
+        self.ensure_one()
+        current_date_utc = fields.Datetime.now()
+        current_date_utc_obj = datetime.strptime(
+            current_date_utc, '%Y-%m-%d %H:%M:%S')
+        tz_name = self._context.get('tz') or self.env.user.tz
+        utc_timestamp = pytz.utc.localize(
+            current_date_utc_obj, is_dst=False)
+        context_tz = pytz.timezone(tz_name)
+        current_date_local_obj = utc_timestamp.astimezone(context_tz)
+        current_date = current_date_local_obj.strftime('%Y-%m-%d')
+
+        for deficit_rate in self.deficit_share_rate_ids:
+            if (not deficit_rate.start_date or
+                    deficit_rate.start_date <= current_date) and \
+                    (not deficit_rate.end_date or
+                     deficit_rate.end_date >= current_date):
+                return deficit_rate.percentage
+
+        # Return zero in case no matched deficit rate found
+        return 0
