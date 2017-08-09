@@ -48,7 +48,7 @@
                         <field name="leave_qty" widget="statinfo" string="Leaves"/>
                     </button>
                     <button name="%(coop_shift.act_template_registration_line_from_partner)d"
-                        
+
                         type="action"
                         class="oe_stat_button oe_event_attendee_button"
                         icon="fa-calendar-plus-o"
@@ -76,6 +76,19 @@
                     </button>
 
                 </div>
+                <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="after">
+                	<label for="default_addess_for_shifts"
+                		attrs="{'invisible':[('type','!=','other')]}"
+                		groups="coop_shift.group_shift_see_default_setting_address">Use as default for Shifts</label>
+                	<field name="default_addess_for_shifts"
+                		attrs="{'invisible':[('type','!=','other')]}"
+                		groups="coop_shift.group_shift_see_default_setting_address"/>
+                </xpath>
+                <field name="type" position="before">
+                	<field name="default_addess_for_shifts"
+                		attrs="{'invisible':['|',('parent_id','==',False),('type','!=','other')]}"
+                		groups="coop_shift.group_shift_see_default_setting_address"/>
+                </field>
             </field>
         </record>
 

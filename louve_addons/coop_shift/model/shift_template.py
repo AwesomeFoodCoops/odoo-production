@@ -28,6 +28,7 @@ from datetime import datetime, timedelta
 from dateutil import rrule
 from dateutil.relativedelta import relativedelta
 from openerp.exceptions import UserError
+import unicodedata as udd
 
 
 WEEK_NUMBERS = [
@@ -118,7 +119,7 @@ class ShiftTemplate(models.Model):
         address of your mail gateway if you use one.""")
     address_id = fields.Many2one(
         'res.partner', string='Location',
-        default=lambda self: self.env.user.company_id.partner_id,)
+        default=lambda self: self._default_location_for_shift())
     country_id = fields.Many2one(
         'res.country', 'Country', related='address_id.country_id', store=True)
     description = fields.Html(
@@ -211,6 +212,14 @@ class ShiftTemplate(models.Model):
         except ValueError:
             return self.env['shift.template.ticket']
 
+    @api.model
+    def _default_location_for_shift(self):
+        comp_id = self.env['res.company']._company_default_get('shift.shift')
+        if comp_id:
+            for child in comp_id.partner_id.child_ids:
+                if child.type == 'other' and child.default_addess_for_shifts:
+                    return child
+            return comp_id.partner_id
     # Compute Section
     @api.multi
     @api.depends('shift_ids')
@@ -256,7 +265,7 @@ class ShiftTemplate(models.Model):
     @api.multi
     @api.depends(
         'shift_type_id', 'week_number', 'mo', 'tu', 'we', 'th', 'fr', 'sa',
-        'su', 'start_time')
+        'su', 'start_time', 'address_id', 'address_id.name')
     def _compute_template_name(self):
         for template in self:
             if template.shift_type_id == template.env.ref(
@@ -278,6 +287,17 @@ class ShiftTemplate(models.Model):
                 int(template.start_time),
                 int(round((template.start_time - int(template.start_time)) *
                     60)))
+            # add 4 letters from the beginning as a shortcode for place.
+            if template.company_id and template.address_id:
+                if template.address_id.name and \
+                    template.address_id.name != template.company_id.name:
+                    addr_name = template.address_id.name
+                    isa_characters = \
+                        "".join([c for c in addr_name if c.isalnum()])
+                    str_place = udd.normalize("NFKD",
+                        isa_characters[0:5]).encode("ascii", "ignore")
+                    if str_place:
+                        name += " - %s" % (str_place)
             template.name = name
 
     @api.multi
