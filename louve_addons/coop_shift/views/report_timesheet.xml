@@ -9,14 +9,14 @@
                     <div class="col-xs-1" style="font-size:60px"><bold>1</bold></div>
                     <div class="col-xs-11">
                         <div class="row mt0 mb0">
-                            <div class="col-xs-3" style="text-align:right;font-size:30px">Date: </div>
-                            <div class="col-xs-3" style="font-size:30px"><span t-esc="shift['shift'].begin_date_without_time_string"/></div>
+                            <div class="col-xs-3" style="text-align:right;font-size:20px">Date: du </div>
+                            <div class="col-xs-3" style="font-size:20px"><span t-esc="shift['shift'].begin_date_without_time_string"/></div>
                             <div class="col-xs-2" style="text-align:right;font-size:20px">au</div>
                             <div class="col-xs-3 col-xs-push-1" style="font-size:20px"><span t-esc="date.today().strftime('%d/%m/%Y')"/></div>
                         </div>
                         <div class="row mt0 mb0">
-                            <div class="col-xs-3" style="text-align:right;font-size:30px">Équipe: </div>
-                            <div class="col-xs-5" style="font-size:30px"><span t-esc="shift['shift'].name"/></div>
+                            <div class="col-xs-3" style="text-align:right;font-size:20px">Équipe: </div>
+                            <div class="col-xs-5" style="font-size:20px"><span t-esc="shift['shift'].name"/></div>
                         </div>
                     </div>
                 </div>

@@ -150,11 +150,11 @@
                     </group>
                     <group string="Extra Data">
                         <field name="temp_coop_number"/>
-                        <field name="birthdate" widget="date"/>
+                        <field name="birthdate" widget="date" attrs="{'required': True}"/>
                         <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
                         <field name="adult_number_home"/>
                         <field name="contact_origin_id"/>
-                        <field name="sex"/>
+                        <field name="sex" attrs="{'required': True}"/>
                         <field name="is_deceased"/>
                         <field name="date_of_death" attrs="{'invisible': [('is_deceased', '=', False)]}"/>
                     </group>
@@ -162,7 +162,7 @@
                 </group>
 
                 <notebook colspan="4">
-                    <page string="Contacts &amp; Addresses" autofocus="autofocus">
+                    <page string="Contacts &amp; Addresses" autofocus="autofocus" attrs="{'invisible': [('is_member', '=', False)]}">
                         <field name="child_ids" mode="kanban" context="{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_supplier': supplier, 'default_customer': customer, 'default_lang': lang,}">
                             <kanban>
                                 <field name="color"/>
@@ -332,7 +332,7 @@
                             </group>
                         </group>
                     </page>
-                    <page name="shifts" string="Shifts">
+                    <page name="shifts" string="Shifts" attrs="{'invisible': [('is_member', '=', False)]}">
                         <group name="state">
                             <group name="state1" groups="coop_shift.group_shift_see_counter">
                                 <field name="shift_type"/>
@@ -496,7 +496,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('is_member', '=', True)]</field>
-        <field name="context">{'default_is_member':1}</field>
+        <field name="context">{'default_is_member':1, 'create': False, 'edit': True}</field>
         <field name="search_view_id" ref="view_bdm_search"/>
     </record>
 
@@ -522,5 +522,20 @@
     <record model="ir.ui.view" id="coop_membership.view_res_partner_form_subscription_manager">
         <field name="groups_id" eval="[(6,0,[ref('account.group_account_manager')])]" />
     </record>
+
+    <record model="ir.ui.view" id="view_partner_coop_membership_manager_form_inherit">
+	    <field name="model">res.partner</field>
+	    <field name="inherit_id" ref="base.view_partner_form" />
+	    <field name="priority" eval="20"/>
+	    <field name="arch" type="xml">
+	        <field name='parent_id' position="attributes">
+	        	<attribute name="groups">coop_membership_access_rights.group_membership_access_manager</attribute>
+       	  	</field>
+       	  	<xpath expr="//page[@name='shifts']" position="attributes">
+				<attribute name='attrs'>{'invisible': [('is_member','=',False)]}</attribute>
+			</xpath>
+	    </field>
+    </record>
+
 
 </odoo>

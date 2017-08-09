@@ -59,11 +59,12 @@
         'security/res_group.xml',
         'security/ir_model_access.yml',
         'security/ir.model.access.csv',
-        'views/menu.xml',
         'views/res_partner_view.xml',
         'views/res_users_view.xml',
         'views/account_invoice_view.xml',
         'views/shift_registration_view.xml',
+        'views/action.xml',
+        'views/menu.xml',
         'wizard/view_capital_fundraising_wizard.xml',
     ],
 

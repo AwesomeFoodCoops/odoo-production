@@ -145,6 +145,9 @@ class ResPartner(models.Model):
         comodel_name='shift.counter.event', inverse_name='partner_id',
         string='Counter Events')
 
+    default_addess_for_shifts = fields.Boolean(
+        string="Use as default for Shifts")
+
     # Constrains section
     @api.multi
     @api.constrains('final_standard_point')
@@ -360,6 +363,17 @@ class ResPartner(models.Model):
             update_member_working_state.delay(
                 session, 'res.partner', partner_list)
 
+    @api.multi
+    def write(self,vals):
+        if 'default_addess_for_shifts' in vals:
+            for record in self:
+                if record.parent_id:
+                    if vals.get('default_addess_for_shifts'):
+                        for child in record.parent_id.child_ids:
+                            if child.id != record.id:
+                                child.write({'default_addess_for_shifts': False})
+
+        return super(ResPartner, self).write(vals)
 
 @job
 def update_member_working_state(session, model_name, partner_ids):

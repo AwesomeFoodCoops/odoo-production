@@ -66,10 +66,13 @@ class AccountInvoice(models.Model):
             if forbidden_product_ids:
                 forbidden_products = self.env['product.product'].browse(
                     forbidden_product_ids)
-                raise exceptions.UserError(_(
-                    "%s category do not allow %s products") % (
-                    invoice.fundraising_category_id.name, ', '.join(
-                        forbidden_products.mapped('name'))))
+                if not all(
+                    [each_prod.is_deficit_product
+                     for each_prod in forbidden_products]):
+                    raise exceptions.UserError(_(
+                        "%s category do not allow %s products") % (
+                        invoice.fundraising_category_id.name, ', '.join(
+                            forbidden_products.mapped('name'))))
 
 #            ordered_qty = sum(invoice.invoice_line_ids.mapped('quantity'))
 
@@ -115,16 +118,22 @@ class AccountInvoice(models.Model):
             for category_invoice in category_invoices:
                 if category_invoice.type == 'out_invoice':
                     capital_qty += sum(
-                        category_invoice.mapped('invoice_line_ids.quantity'))
+                        [inv_line.quantity
+                         for inv_line in category_invoice.invoice_line_ids
+                         if inv_line.product_id and
+                         inv_line.product_id.is_capital_fundraising])
                 else:
                     capital_qty -= sum(
-                        category_invoice.mapped('invoice_line_ids.quantity'))
+                        [inv_line.quantity
+                         for inv_line in category_invoice.invoice_line_ids
+                         if inv_line.product_id and
+                         inv_line.product_id.is_capital_fundraising])
             if capital_qty < 0:
                 raise exceptions.UserError(_(
                     "You try to make an operation after which the partner"
                     " will have %d shares of capital of kind '%s'.\n\n"
                     " Incorrect Value.") % (capital_qty, category.name))
-            if capital_qty < minimum_qty and capital_qty !=0 and\
+            if capital_qty < minimum_qty and capital_qty != 0 and\
                     not self.env.context.get(
                         'ignore_type_A_constrains', False):
                 # use this test to ignore type A constrains when
@@ -150,3 +159,72 @@ class AccountInvoice(models.Model):
             if self.fundraising_category_id.partner_account_id:
                 self.account_id =\
                     self.fundraising_category_id.partner_account_id
+
+    @api.multi
+    def apply_refund_deficit_share(self):
+        '''
+        @Function to apply the deficit share on customer refund
+        '''
+
+        for invoice in self:
+            fundraising_categ = invoice.fundraising_category_id
+            if invoice.type == 'out_refund' and fundraising_categ:
+                # Change the customer account of the refund
+                if fundraising_categ.refund_account_id:
+                    invoice.account_id = fundraising_categ.refund_account_id.id
+
+                deficit_share_percentage = \
+                    fundraising_categ.get_deficit_share_percentage()
+                if not deficit_share_percentage:
+                    continue
+
+                for inv_line in invoice.invoice_line_ids:
+                    source_product = inv_line.product_id
+                    if source_product and \
+                            source_product.is_capital_fundraising:
+
+                        # Adjust the Unit Price of the line
+                        deficit_price_unit = (inv_line.price_subtotal *
+                                              deficit_share_percentage) / 100
+                        deficit_price_unit_signed = -1 * deficit_price_unit
+
+                        if fundraising_categ.capital_account_id:
+                            inv_line.account_id = \
+                                fundraising_categ.capital_account_id.id
+
+                        # Create a new line
+                        deficit_share_prod = \
+                            fundraising_categ.deficit_product_id
+                        deficit_line_val = {
+                            'product_id':
+                                deficit_share_prod and
+                                deficit_share_prod.id or
+                                False,
+                            'name': deficit_share_prod and
+                                deficit_share_prod.display_name or
+                                _('Deficit Share'),
+                            'account_id':
+                                source_product.deficit_share_account_id.id,
+                            'quantity': 1,
+                            'price_unit': deficit_price_unit_signed,
+                            'uom_id':
+                                inv_line.uom_id and inv_line.uom_id.id or
+                                False,
+                            'invoice_id': invoice.id
+                        }
+
+                        self.env['account.invoice.line'].create(
+                            deficit_line_val)
+
+    @api.multi
+    @api.returns('self')
+    def refund(self, date_invoice=None, date=None,
+               description=None, journal_id=None):
+        '''
+        @Overide function to trigger the computation of the refund
+        '''
+        new_invoice = super(AccountInvoice, self).refund(
+            date_invoice=date_invoice, date=date,
+            description=description, journal_id=journal_id)
+        new_invoice.apply_refund_deficit_share()
+        return new_invoice

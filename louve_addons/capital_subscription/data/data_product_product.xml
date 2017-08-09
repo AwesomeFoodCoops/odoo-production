@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+        <record id="product_deficit_share" model="product.product">
+            <field name="name">Deficit Share</field>
+            <field name="type">service</field>
+            <field eval="True" name="is_deficit_product"/>
+            <field eval="False" name="sale_ok"/>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="taxes_id">[[6, False, []]]</field>
+            <field name="supplier_taxes_id">[[6, False, []]]</field>
+        </record>
+    </data>
+</odoo>

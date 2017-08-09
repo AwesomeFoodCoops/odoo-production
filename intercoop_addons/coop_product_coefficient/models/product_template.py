@@ -69,6 +69,7 @@ class ProductTemplate(models.Model):
 
     base_price = fields.Float(
         string='Base Price', compute='_compute_base_price', store=True,
+        digits=dp.get_precision('Product Price'),
         help="Base Price is the Sale Price of your Supplier.\n"
         "If product is sold by many suppliers, the first one is selected.\n"
         "If a supplier sell the product with different prices, the bigger"
@@ -112,7 +113,8 @@ class ProductTemplate(models.Model):
         store=True, multi="coeff_inter_8")
     coeff9_inter = fields.Float(
         string='With Coefficient 9', compute='_compute_coeff9_inter',
-        store=True, multi="coeff_inter_9")
+        store=True, multi="coeff_inter_9",
+        digits=dp.get_precision('Product Price'))
 
     coeff1_inter_sp = fields.Float(
         string='With Supplier Discount Coefficient',
@@ -140,7 +142,8 @@ class ProductTemplate(models.Model):
         store=True, multi="coeff_inter_8")
     coeff9_inter_sp = fields.Float(
         string='With Margin Coefficient', compute='_compute_coeff9_inter',
-        store=True, multi="coeff_inter_9")
+        store=True, multi="coeff_inter_9",
+        digits=dp.get_precision('Product Price'))
 
     theoritical_price = fields.Float(
         string='Theoritical Price VAT Incl.',
@@ -173,13 +176,15 @@ class ProductTemplate(models.Model):
     @api.model
     def cron_recompute_base_price(self):
         templates = self.search([])
-        templates.recompute_base_price()
+        new_context = dict(
+            self.env.context, **{'update_with_cron': True})
+        templates.with_context(new_context).recompute_base_price()
 
     # Compute Section
     @api.multi
     @api.depends(
         'product_variant_ids', 'uom_id', 'uom_po_id', 'seller_ids.price',
-        'seller_ids.product_uom')
+        'seller_ids.product_uom', 'seller_ids.discount')
     def _compute_base_price(self):
         # TODO IMPME. Compute with discount, depending on
         # product_supplierinfo_discount
@@ -367,6 +372,8 @@ class ProductTemplate(models.Model):
     @api.depends(
         'theoritical_price', 'list_price')
     def _compute_has_theoritical_price_different(self):
+        context = self._context
+        update_from_cron = context.get('update_with_cron', False)
         for template in self:
             if template.theoritical_price and (
                     template.base_price or
@@ -375,11 +382,16 @@ class ProductTemplate(models.Model):
                     template.list_price != template.theoritical_price
             else:
                 template.has_theoritical_price_different = False
+            if template.has_theoritical_price_different and \
+               update_from_cron:
+                template.use_theoritical_price()
 
     @api.multi
     @api.depends(
         'coeff9_inter_sp', 'standard_price')
     def _compute_has_theoritical_cost_different(self):
+        context = self._context
+        update_from_cron = context.get('update_with_cron', False)
         for template in self:
             if template.coeff9_inter_sp and (
                     template.base_price or
@@ -388,3 +400,6 @@ class ProductTemplate(models.Model):
                     template.standard_price != template.coeff9_inter_sp
             else:
                 template.has_theoritical_cost_different = False
+            if template.has_theoritical_cost_different and \
+               update_from_cron:
+                template.use_theoritical_cost()
