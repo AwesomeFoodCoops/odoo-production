@@ -119,7 +119,7 @@ class ShiftTemplate(models.Model):
         address of your mail gateway if you use one.""")
     address_id = fields.Many2one(
         'res.partner', string='Location',
-        default=lambda self: self.env.user.company_id.partner_id,)
+        default=lambda self: self._default_location_for_shift())
     country_id = fields.Many2one(
         'res.country', 'Country', related='address_id.country_id', store=True)
     description = fields.Html(
@@ -212,6 +212,14 @@ class ShiftTemplate(models.Model):
         except ValueError:
             return self.env['shift.template.ticket']
 
+    @api.model
+    def _default_location_for_shift(self):
+        comp_id = self.env['res.company']._company_default_get('shift.shift')
+        if comp_id:
+            for child in comp_id.partner_id.child_ids:
+                if child.type == 'other' and child.default_addess_for_shifts:
+                    return child
+            return comp_id.partner_id
     # Compute Section
     @api.multi
     @api.depends('shift_ids')
