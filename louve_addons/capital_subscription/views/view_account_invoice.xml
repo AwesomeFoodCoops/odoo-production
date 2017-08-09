@@ -15,12 +15,6 @@
                 <field name="is_capital_fundraising"/>
                 <field name="fundraising_category_id" attrs="{'invisible': [('is_capital_fundraising', '=', False)]}"/>
             </field>
-            <button name="invoice_cancel" position="after">
-                <button id="transfer_capital" name="%(action_subscription_transfer_wizard)d" type="action" groups="base.group_user"
-                    string="Transfer Capital" attrs="{'invisible': ['|',
-                        ('is_capital_fundraising', '=', False),
-                        ('state', 'not in', ['open', 'paid'])]}"/>
-            </button>
         </field>
     </record>
 

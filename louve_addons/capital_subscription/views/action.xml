@@ -41,13 +41,4 @@
         <field name="target">new</field>
     </record>
 
-    <record model="ir.actions.act_window" id="action_subscription_transfer_wizard">
-        <field name="name">Transfer Wizard</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">capital.subscription.transfer.wizard</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-    </record>
-
 </odoo>

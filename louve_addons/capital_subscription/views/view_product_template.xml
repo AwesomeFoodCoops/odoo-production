@@ -16,8 +16,24 @@
                     <field name="is_capital_fundraising"/>
                     <label for="is_capital_fundraising"/>
                 </div>
+                <div groups="account.group_account_user">
+                    <field name="is_deficit_product"/>
+                    <label for="is_deficit_product"/>
+                </div>
             </div>
         </field>
     </record>
+
+
+    <record model="ir.ui.view" id="product_template_form_account_view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="account.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="property_account_expense_id" position="after">
+                <field name="deficit_share_account_id" attrs="{'required': [('is_capital_fundraising', '=', True)], 'invisible': [('is_capital_fundraising', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+
 
 </odoo>

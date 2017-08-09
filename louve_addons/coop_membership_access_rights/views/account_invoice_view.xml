@@ -10,7 +10,7 @@
         <field name="res_model">account.invoice.refund</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-       <field name="view_id" ref="account.view_account_invoice_refund"/>
+       <field name="view_id" ref="capital_subscription.view_account_invoice_refund_capital_subscription_form"/>
        <field name="target">new</field>
     </record>
 
@@ -25,7 +25,7 @@
             <xpath expr="//button[@name='%(account.action_account_invoice_refund)d']" position="after">
                 <button name="%(action_account_invoice_refund_capital_subscription)d" type='action'
                     string='Refund Capital Subscription' groups="coop_membership_access_rights.group_refund_capital_subscription"
-                    attrs="{'invisible': ['|', '|', ('type', '=', 'out_refund'), ('state', 'not in', ('open','proforma2','paid')), ('is_capital_fundraising', '=', False)]}"/>
+                    attrs="{'invisible': ['|', '|', ('type', '=', 'out_refund'), ('state', 'not in', ('paid')), ('is_capital_fundraising', '=', False)]}"/>
             </xpath>
         </field>
     </record>
