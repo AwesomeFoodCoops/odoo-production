@@ -41,10 +41,16 @@ class ResPartnerOwnedShare(models.Model):
                 if invoice.state in ['open', 'paid']:
                     if invoice.type == 'out_invoice':
                         owned_share += sum(
-                            invoice.mapped('invoice_line_ids.quantity'))
+                            [inv_line.quantity
+                             for inv_line in invoice.invoice_line_ids
+                             if inv_line.product_id and
+                             inv_line.product_id.is_capital_fundraising])
                     else:
                         owned_share -= sum(
-                            invoice.mapped('invoice_line_ids.quantity'))
+                            [inv_line.quantity
+                             for inv_line in invoice.invoice_line_ids
+                             if inv_line.product_id and
+                             inv_line.product_id.is_capital_fundraising])
             partner_share.owned_share = owned_share
 
     @api.multi
