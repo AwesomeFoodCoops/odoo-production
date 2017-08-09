@@ -115,8 +115,8 @@
                         <group name="main_field_group">
                             <group name="header">
                                 <field name="updated_fields" invisible="1"/>
-                                <field name="address_id" context="{'show_address': 1}" options='{"always_reload": True}' invisible="1"/>
                                 <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="address_id" context="{'show_address': 1}" options='{"always_reload": True}' invisible="0"  domain="['|',('id','=',company_id),'&amp;',('type','=','other'),('id','child_of',[company_id])]"/>
                                 <field name="user_ids" options="{'no_create': True}" widget="many2many_tags"/>
                                 <field name="week_number"/>
                                 <field name="shift_type_id" options="{'no_create': True}" groups="coop_shift.group_shift_config"/>
@@ -136,7 +136,7 @@
                                         <div>
                                             <field name="seats_availability" widget='radio'/>
                                             <span  attrs="{'invisible': [('seats_availability', '=', 'unlimited')]}" class="oe_read_only">
-                                                to 
+                                                to
                                             </span>
                                             <field name="seats_max" attrs="{'invisible': [('seats_availability', '=', 'unlimited')], 'required': [('seats_availability', '=', 'limited')]}"/>
                                         </div>

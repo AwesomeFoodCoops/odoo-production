@@ -171,13 +171,13 @@ class ShiftTemplate(models.Model):
     interval = fields.Integer(
         'Repeat Every', help="Repeat every (Days/Week/Month/Year)", default=4)
     count = fields.Integer('Repeat', help="Repeat x times")
-    mo = fields.Boolean('Mon')
-    tu = fields.Boolean('Tue')
-    we = fields.Boolean('Wed')
-    th = fields.Boolean('Thu')
-    fr = fields.Boolean('Fri')
-    sa = fields.Boolean('Sat')
-    su = fields.Boolean('Sun')
+    mo = fields.Boolean('Mon', compute="_compute_week_day", store=True)
+    tu = fields.Boolean('Tue', compute="_compute_week_day", store=True)
+    we = fields.Boolean('Wed', compute="_compute_week_day", store=True)
+    th = fields.Boolean('Thu', compute="_compute_week_day", store=True)
+    fr = fields.Boolean('Fri', compute="_compute_week_day", store=True)
+    sa = fields.Boolean('Sat', compute="_compute_week_day", store=True)
+    su = fields.Boolean('Sun', compute="_compute_week_day", store=True)
     month_by = fields.Selection([
         ('date', 'Date of month'), ('day', 'Day of month')], 'Option',)
     day = fields.Integer('Date of month')
@@ -306,12 +306,12 @@ class ShiftTemplate(models.Model):
                 templ.rrule = ''
 
     @api.multi
-    @api.depends('start_datetime')
+    @api.depends('start_datetime_tz')
     def _compute_start_date(self):
         for template in self:
-            if template.start_datetime:
+            if template.start_datetime_tz:
                 template.start_date = datetime.strptime(
-                    template.start_datetime, '%Y-%m-%d %H:%M:%S').strftime(
+                    template.start_datetime_tz, '%Y-%m-%d %H:%M:%S').strftime(
                     '%Y-%m-%d')
 
     @api.multi
@@ -452,9 +452,9 @@ class ShiftTemplate(models.Model):
         return self.env.ref('coop_shift.shift_type')
 
     # On change Section
-    @api.onchange('start_datetime')
+    @api.depends('start_datetime')
     @api.multi
-    def _onchange_start_date(self):
+    def _compute_week_day(self):
         for template in self:
             if template.start_datetime_tz:
                 start_date_object_tz = datetime.strptime(
