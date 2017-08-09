@@ -91,9 +91,9 @@
             <!-- Move barcode_base field -->
             <field name="barcode_base" position="replace" />
 
-            <!-- New Page for Louve Custom information -->
+            <!-- New Page for Coop Data information -->
             <notebook position="inside">
-                <page string="Louve Custom">
+                <page string="Coop Data">
                     <group>
                         <group string="MemberShip">
                             <field name="barcode_base" string="Member Number" readonly="1"/>
