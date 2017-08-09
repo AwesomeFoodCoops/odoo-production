@@ -1,9 +1,9 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-==============================
-La Louve - Product Coefficient
-==============================
+================================
+Food Coop - Product Coefficient
+================================
 
 This module was written to extend the functionality of Odoo Product module.
 
@@ -25,7 +25,7 @@ Two operation are allowed:
 * 'Multiplier' : A multiplication will be done
 * 'Fixed Amount' : A fixed amount will be added
 
-.. image:: /louve_product_coefficient/static/description/product_coefficient.png
+.. image:: /coop_product_coefficient/static/description/product_coefficient.png
 
 Products
 --------
@@ -38,22 +38,22 @@ category coefficients previously defined.
 The base price is based on the supplier sale price. (see technical information
 below).
 
-.. image:: /louve_product_coefficient/static/description/product_template.png
+.. image:: /coop_product_coefficient/static/description/product_template.png
 
 This module provides a theoritical sale price, based on the sale price and
 the coefficients. If the theoritical sale price is different of the real
 sale price, a button is available to apply the change on the product form.
 
-.. image:: /louve_product_coefficient/static/description/use_theoritical_price_one.png
+.. image:: /coop_product_coefficient/static/description/use_theoritical_price_one.png
 
 User can select all the products that have a sale price differents and can
 change prices massively, using a wizard :
 
-.. image:: /louve_product_coefficient/static/description/use_theoritical_price_multi.png
+.. image:: /coop_product_coefficient/static/description/use_theoritical_price_multi.png
 
 You can mass edit coefficient on many products, via a new tree editable view
 
-.. image:: /louve_product_coefficient/static/description/product_template_tree.png
+.. image:: /coop_product_coefficient/static/description/product_template_tree.png
 
 Technical Information
 ---------------------
