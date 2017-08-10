@@ -26,11 +26,27 @@ class AccountFullReconcile(models.Model):
             elif len(category_ids) == 1 and category_ids[0].capital_account_id:
                 # Create new account move
                 category = category_ids[0]
-                journal = category.fundraising_id.journal_id
+                capital_entries_journal = \
+                    category.fundraising_id.journal_ids and \
+                    category.fundraising_id.journal_ids or \
+                    category.fundraising_id.journal_id
                 partner = reconcile.reconciled_line_ids[0].partner_id
 
                 move_lines = reconcile.mapped('reconciled_line_ids').filtered(
-                    lambda r: r.journal_id.id == journal.id)
+                    lambda r: r.journal_id.id in capital_entries_journal.ids)
+
+                if not move_lines:
+                    continue
+                journal = move_lines[0].journal_id
+                payment_move_lines = invoices[0].payment_move_line_ids
+
+                payment_m_line = \
+                    reconcile.mapped('reconciled_line_ids').filtered(
+                        lambda ml: ml.id in payment_move_lines.ids
+                    )
+                payment_date = payment_m_line and payment_m_line[0].date or \
+                    fields.Date.context_today(self)
+
                 if invoices[0].type == 'out_refund':
                     # Refund
                     total = sum(move_lines.mapped('credit'))
@@ -67,7 +83,7 @@ class AccountFullReconcile(models.Model):
                     'ref': ', '.join(invoices.mapped('number')),
                     'line_ids': lines_vals,
                     'journal_id': journal.id,
-                    'date': fields.Date.context_today(self),
+                    'date': payment_date,
                     'narration': _("Paid Capital")
                     if is_payment else _("Unpaid Capital"),
                 }
@@ -79,6 +95,7 @@ class AccountFullReconcile(models.Model):
     def create(self, vals):
         res = super(AccountFullReconcile, self).create(vals)
         res.generate_capital_entrie()
+        return res
 
     @api.multi
     def unlink(self):
