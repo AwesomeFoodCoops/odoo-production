@@ -24,3 +24,10 @@ class CapitalFundraising(models.Model):
     journal_id = fields.Many2one(
         comodel_name='account.journal', string='Journal', required=True,
         domain="[('type', '=', 'sale')]")
+
+    journal_ids = fields.Many2many(
+        comodel_name="account.journal", string="Journals for Capital Entries",
+        domain="[('type', '=', 'sale')]",
+        help="""Specify the journals used for transfer
+        capital between paid and unpaid accounts"""
+    )

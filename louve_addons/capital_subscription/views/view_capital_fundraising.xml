@@ -17,6 +17,7 @@
                         <field name="company_id" groups="base.group_multi_company"/>
                         <field name="share_value"/>
                         <field name="journal_id"/>
+                        <field name="journal_ids"/>
                         <field name="category_ids"/>
                     </group>
                 </sheet>
