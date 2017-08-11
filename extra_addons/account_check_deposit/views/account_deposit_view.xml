@@ -35,6 +35,7 @@
                                 <field name="deposit_date" />
                                 <field name="journal_id"
                                     widget="selection"/>
+                                <field name="destination_journal_id" widget="selection"/>
                                 <field name="journal_default_account_id"
                                     invisible="1"/>
                                 <field name="currency_id"

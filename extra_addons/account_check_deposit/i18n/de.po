@@ -82,13 +82,13 @@ msgstr "Scheckeinreichung"
 #: code:addons/account_check_deposit/models/account_deposit.py:180
 #: code:addons/account_check_deposit/models/account_deposit.py:202
 #, python-format
-msgid "Check Deposit %s"
+msgid "%s Check Deposit %s"
 msgstr "Scheck-Konto %s"
 
 #. module: account_check_deposit
 #: code:addons/account_check_deposit/models/account_deposit.py:189
 #, python-format
-msgid "Check Deposit - Ref. Check %s"
+msgid "%s Check Deposit - Ref. Check %s"
 msgstr "Scheck-Konto - Scheckref. %s"
 
 #. module: account_check_deposit
@@ -246,10 +246,10 @@ msgid "List of checks:"
 msgstr "Scheckliste:"
 
 #. module: account_check_deposit
-#: code:addons/account_check_deposit/models/account_deposit.py:232
+#: code:addons/account_check_deposit/models/account_deposit.py:225
 #, python-format
-msgid "Missing Account for Check Deposits on the company '%s'."
-msgstr "Fehlendes Scheck-Konto im Unternehmen '%s'"
+msgid "Default Debit Account is not set on journal '%s'"
+msgstr "Default Debit Account is not set on journal '%s'"
 
 #. module: account_check_deposit
 #: field:account.check.deposit,name:0

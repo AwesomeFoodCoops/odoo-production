@@ -63,6 +63,10 @@ class AccountCheckDeposit(models.Model):
     journal_id = fields.Many2one(
         'account.journal', string='Journal', domain=[('type', '=', 'bank')],
         required=True, states={'done': [('readonly', '=', True)]})
+    destination_journal_id = fields.Many2one(
+        'account.journal',
+        string="Destination Journal",
+        required=True)
     journal_default_account_id = fields.Many2one(
         'account.account', related='journal_id.default_debit_account_id',
         string='Default Debit Account of the Journal', readonly=True)
@@ -80,9 +84,8 @@ class AccountCheckDeposit(models.Model):
     move_id = fields.Many2one(
         'account.move', string='Journal Entry', readonly=True)
     partner_bank_id = fields.Many2one(
-        'res.partner.bank', string='Bank Account', required=True,
-        domain="[('company_id', '=', company_id)]",
-        states={'done': [('readonly', '=', True)]})
+        'res.partner.bank', string='Bank Account',
+        related="destination_journal_id.bank_acc_id", readonly=True)
     line_ids = fields.One2many(
         'account.move.line', related='move_id.line_ids',
         string='Lines', readonly=True)
@@ -162,7 +165,7 @@ class AccountCheckDeposit(models.Model):
     def _prepare_account_move_vals(self, deposit):
         date = deposit.deposit_date
         move_vals = {
-            'journal_id': deposit.journal_id.id,
+            'journal_id': deposit.destination_journal_id.id,
             'date': date,
             'name': _('Check Deposit %s') % deposit.name,
             'ref': deposit.name,
@@ -173,7 +176,8 @@ class AccountCheckDeposit(models.Model):
     def _prepare_move_line_vals(self, line):
         assert (line.debit > 0), 'Debit must have a value'
         return {
-            'name': _('Check Deposit - Ref. Check %s') % line.ref,
+            'name': _('%s Check Deposit - Ref. Check %s') % (
+                line.account_id.code, line.ref),
             'credit': line.debit,
             'debit': 0.0,
             'account_id': line.account_id.id,
@@ -185,11 +189,12 @@ class AccountCheckDeposit(models.Model):
     @api.model
     def _prepare_counterpart_move_lines_vals(
             self, deposit, total_debit, total_amount_currency):
+        account = deposit.destination_journal_id.default_debit_account_id
         return {
-            'name': _('Check Deposit %s') % deposit.name,
+            'name': _('%s Check Deposit %s') % (account.code, deposit.name),
             'debit': total_debit,
             'credit': 0.0,
-            'account_id': deposit.company_id.check_deposit_account_id.id,
+            'account_id': account.id,
             'partner_id': False,
             'currency_id': deposit.currency_none_same_company_id.id or False,
             'amount_currency': total_amount_currency,
@@ -215,10 +220,10 @@ class AccountCheckDeposit(models.Model):
                 to_reconcile_lines.append(line + move_line)
 
             # Create counter-part
-            if not deposit.company_id.check_deposit_account_id:
+            if not deposit.destination_journal_id.default_debit_account_id:
                 raise UserError(
-                    _("Missing Account for Check Deposits on the "
-                        "company '%s'.") % deposit.company_id.name)
+                    _("Default Debit Account is not set on journal '%s'") %
+                    deposit.destination_journal_id.name)
 
             counter_vals = self._prepare_counterpart_move_lines_vals(
                 deposit, total_debit, total_amount_currency)
@@ -256,11 +261,3 @@ class AccountMoveLine(models.Model):
 
     check_deposit_id = fields.Many2one(
         'account.check.deposit', string='Check Deposit', copy=False)
-
-
-class ResCompany(models.Model):
-    _inherit = 'res.company'
-
-    check_deposit_account_id = fields.Many2one(
-        'account.account', string='Account for Check Deposits', copy=False,
-        domain=[('reconcile', '=', True)])
