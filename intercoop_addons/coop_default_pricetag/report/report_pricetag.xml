@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <template id="minimal_layout_inherit" inherit_id="report.minimal_layout">
+          <xpath expr="//head" position="inside">
+                 <link rel='stylesheet' href="/coop_default_pricetag/static/src/css/pricetag.css"/>
+          </xpath>
+    </template>
+    <template id="report_pricetag">
+        <t t-call="report.html_container">
+        <div class="page">
+            <t t-foreach="Products" t-as="product">
+            <t t-foreach="product['line'].quantity" t-as="q">
+                <div class="label_container">
+                    <div class="pricetag">
+                        <div class="label_top">
+                            <div class="product_name">
+                                <t t-esc="product['product'].name"/>
+                            </div>
+                        </div>
+                        <div class="label_left">
+                            <div class="product_informations">
+                                <t t-if="product['product'].code">Code: <t t-esc="product['product'].code"/><br/></t>
+                                <t t-if="product['product'].weight_net"><t t-esc="product['product'].weight_net"/> kg --- <t t-esc="product['product'].price_weight_net"/> €/kg<br/></t>
+                                <t t-if="not(product['product'].weight_net) and product['product'].volume"><t t-esc="product['product'].volume"/>L --- <t t-esc="product['product'].price_volume"/> €/L<br/></t>
+                            </div>
+                        </div>
+                        <div class="label_right">
+                            <div class="product_price">
+                                <t t-esc="'%0.2f' % (product['product'].list_price)"/>€
+                            </div>
+                        </div>
+                        <div class="label_bottom">
+                            <div class="product_shelf_origin">
+                                <t name="pricetag_origine" t-if="product['product'].pricetag_origin">Origine: <t t-esc="product['product'].pricetag_origin"/><br/></t>
+                            </div>
+                            <div class="product_shelf_rackinfo_barcode">
+                                <t t-if="product['product'].pricetag_rackinfos"><t t-esc="product['product'].pricetag_rackinfos"/></t>&#160;&#160;
+                                <t t-if="product['product'].barcode"><t t-esc="product['product'].barcode"/></t>
+                            </div>
+                            <div class="pricetag_shelf_coopinfos">
+                                <t t-if="product['product'].pricetag_coopinfos"><t t-esc="product['product'].pricetag_coopinfos"/> </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            </t>
+        </div>
+        </t>
+    </template>
+</odoo>
