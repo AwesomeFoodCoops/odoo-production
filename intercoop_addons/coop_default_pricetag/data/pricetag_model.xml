@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_to_print.pricetag_model_default" model="pricetag.model">
+        <field name="pricetag_paperformat_id" ref="coop_default_pricetag.paperformat_pricetag"/>
+        <field name="report_model">coop_default_pricetag.report_pricetag</field>
+    </record>
+</odoo>
