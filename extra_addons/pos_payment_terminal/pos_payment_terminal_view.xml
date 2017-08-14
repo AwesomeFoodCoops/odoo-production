@@ -31,10 +31,10 @@
             <field name="priority">8</field>
             <field name="arch" type="xml">
                 <field name="amount" position="after">
-                    <field name="remittance_number" groups="pos_payment_terminal.tpe_return" attrs="{'readonly':[('tpe_return_message','!=', False)]}"/>
-                    <field name="transaction_number" groups="pos_payment_terminal.tpe_return" attrs="{'readonly':[('tpe_return_message','!=',False)]}"/>
-                    <field name="card_number" groups="pos_payment_terminal.tpe_return" attrs="{'readonly':[('tpe_return_message','!=', False)]}"/>
-                    <field name="tpe_return_message" invisible="1"/>
+                    <field name="remittance_number" groups="pos_payment_terminal.payment_terminal_return" attrs="{'readonly':[('payment_terminal_return_message','!=', False)]}"/>
+                    <field name="transaction_number" groups="pos_payment_terminal.payment_terminal_return" attrs="{'readonly':[('payment_terminal_return_message','!=',False)]}"/>
+                    <field name="card_number" groups="pos_payment_terminal.payment_terminal_return" attrs="{'readonly':[('payment_terminal_return_message','!=', False)]}"/>
+                    <field name="payment_terminal_return_message" invisible="1"/>
                 </field>
             </field>
         </record>
@@ -47,10 +47,10 @@
             <field name="priority">1</field>
             <field name="arch" type="xml">
                 <xpath expr="/form/sheet/notebook/page/field[@name='line_ids']/tree/field[@name='partner_id']" position="after">
-                    <field name="remittance_number" groups="pos_payment_terminal.tpe_return" attrs="{'readonly':[('tpe_return_message','!=', False)]}"/>
-                    <field name="transaction_number" groups="pos_payment_terminal.tpe_return" attrs="{'readonly':[('tpe_return_message','!=',False)]}"/>
-                    <field name="card_number" groups="pos_payment_terminal.tpe_return" attrs="{'readonly':[('tpe_return_message','!=', False)]}"/>
-                    <field name="tpe_return_message" invisible="1"/>
+                    <field name="remittance_number" groups="pos_payment_terminal.payment_terminal_return" attrs="{'readonly':[('payment_terminal_return_message','!=', False)]}"/>
+                    <field name="transaction_number" groups="pos_payment_terminal.payment_terminal_return" attrs="{'readonly':[('payment_terminal_return_message','!=',False)]}"/>
+                    <field name="card_number" groups="pos_payment_terminal.payment_terminal_return" attrs="{'readonly':[('payment_terminal_return_message','!=', False)]}"/>
+                    <field name="payment_terminal_return_message" invisible="1"/>
                 </xpath>
             </field>
         </record>

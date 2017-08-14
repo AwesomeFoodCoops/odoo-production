@@ -45,19 +45,19 @@ class PosOrder(models.Model):
         print ui_paymentline
         result = super(PosOrder, self).\
             _payment_fields(cr, uid, ui_paymentline, context=context)
-        result['tpe_return_message'] = ui_paymentline.get('tpe_return_message')
+        result['payment_terminal_return_message'] = ui_paymentline.get('payment_terminal_return_message')
         return result
 
     def add_payment(self, cr, uid, order_id, data, context=None):
         new_context = context.copy()
-        new_context['default_tpe_return_message'] = data.get('tpe_return_message')
+        new_context['default_payment_terminal_return_message'] = data.get('payment_terminal_return_message')
         return super(PosOrder, self).add_payment(cr, uid, order_id, data, new_context)
 
 
 class AccountBankStatementLine(models.Model):
     _inherit = 'account.bank.statement.line'
 
-    tpe_return_message = fields.Char('TPE return message')
+    payment_terminal_return_message = fields.Char('payment terminal return message')
     remittance_number = fields.Char('Remittance number')
     transaction_number = fields.Char('Transaction number')
     card_number = fields.Char('Card number')

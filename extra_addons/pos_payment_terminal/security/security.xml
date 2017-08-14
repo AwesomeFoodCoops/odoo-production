@@ -2,8 +2,8 @@
 <openerp>
     <data>
 
-        <record model="res.groups" id="tpe_return">
-            <field name="name">TPE Return</field>
+        <record model="res.groups" id="payment_terminal_return">
+            <field name="name">Payment Terminal Return</field>
         </record>
 
     </data>

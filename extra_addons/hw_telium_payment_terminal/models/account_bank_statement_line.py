@@ -27,18 +27,21 @@ class AccountBankStatementLine(models.Model):
 
     @api.model
     def create(self, vals=None):
-        if not vals.get('tpe_return_message') and self._context.get('default_tpe_return_message'):
-            vals['tpe_return_message'] = self._context['default_tpe_return_message']
-        if vals.get('tpe_return_message'):
+        if not vals.get('payment_terminal_return_message') and self._context.get('default_payment_terminal_return_message'):
+            vals['payment_terminal_return_message'] = self._context['default_payment_terminal_return_message']
+        if vals.get('payment_terminal_return_message'):
             if vals.get('remittance_number') or vals.get('transaction_number') or vals.get('card_number'):
                 raise ValidationError(_('The value of remittance,transaction and card number must be null'))
             else:
-                if len(vals['tpe_return_message']) == 80:
-                    vals['card_number'] = vals['tpe_return_message'][12:67]
-                    priv = vals['tpe_return_message'][70:80]
-                else:
-                    priv = vals['tpe_return_message'][15:25]
-                if priv[0] == '2':
-                    vals['transaction_number'] = priv[1:4]
-                    vals['remittance_number'] = priv[4:7]
+                try:
+                    if len(vals['payment_terminal_return_message']) == 80:
+                        vals['card_number'] = vals['payment_terminal_return_message'][12:67]
+                        priv = vals['payment_terminal_return_message'][70:80]
+                    else:
+                        priv = vals['payment_terminal_return_message'][15:25]
+                    if priv[0] == '2':
+                        vals['transaction_number'] = priv[1:4]
+                        vals['remittance_number'] = priv[4:7]
+                except Exception:
+                    pass
         return super(AccountBankStatementLine, self).create(vals)
