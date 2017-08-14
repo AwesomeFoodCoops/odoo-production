@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="pricetag_otherinfo">
                                     <t t-if="product['product'].pricetag_rackinfos"><t t-esc="product['product'].pricetag_rackinfos"/><br/></t>
-                                    <t t-if="product['product'].pricetag_louveinfos"><t t-esc="product['product'].pricetag_louveinfos"/><br/></t>
+                                    <t t-if="product['product'].pricetag_coopinfos"><t t-esc="product['product'].pricetag_coopinfos"/><br/></t>
                                 </div>
                             </div>
                         </div>

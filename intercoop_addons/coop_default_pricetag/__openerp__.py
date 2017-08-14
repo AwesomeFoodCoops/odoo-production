@@ -21,13 +21,13 @@
 #
 ##############################################################################
 {
-    'name': 'Coop Custom - Extra Information for Products',
-    'version': '9.0.0.0.0',
+    'name': 'Coop Default Price Tag',
+    'version': '9.0.1.0.11',
     'category': 'Custom',
     'description': """
 Functionnalities
-
-* Add various information about origin, makers, etc...
+  - Showing a new tab `Food Informations` on product form view.
+  - Default price tag for products with its management by user's right.
     """,
     'author': 'GRAP,'
               'Akretion - Julien WESTE',
