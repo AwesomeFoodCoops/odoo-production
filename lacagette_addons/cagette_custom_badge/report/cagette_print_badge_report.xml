@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+Copyright (C) 2016-Today GRAP (http://www.lacagette.net)
+@author La Cagette
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+    <!-- QWeb Reports -->
+    <report
+        id="coop_print_badge.action_report_printbadge"
+        model="res.partner"
+        string="Print Badge"
+        report_type="qweb-pdf"
+        name="cagette_custom_badge.report_printbadge"
+        file="cagette_custom_badge.report_printbadge"
+        attachment_use="False"
+    />
+
+    <record id="coop_print_badge.action_report_printbadge" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="coop_print_badge.paperformat_CEI_7810"/>
+        <field name="attachment_use" eval="0"/>
+    </record>
+</odoo>

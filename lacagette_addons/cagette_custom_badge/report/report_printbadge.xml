@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+Copyright (C) 2016-Today GRAP (http://www.lacagette.net)
+@author La Cagette
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+    <template id="minimal_layout_inherit" inherit_id="report.minimal_layout">
+        <xpath expr="//head" position="inside">
+             <link rel='stylesheet' href="/cagette_custom_badge/static/src/css/badge.css"/>
+        </xpath>
+    </template>
+    <template id="report_printbadge" inherit_id="coop_print_badge.report_printbadge">
+    	<xpath expr="//div[@class='page']" position="replace">
+	        <div class="page">
+	            <t t-foreach="partners" t-as="partner">
+	                <div class="cagette_badge" t-if="partner.is_member">
+	                    <div class="cagette_member_photo_div">
+	                    	<img t-attf-src="data:image/png;base64,{{images[partner.id]}}" style="height=100%;width=100%;"/>
+	                    </div>
+	                    <div class="cagette_member_name">
+	                      <t t-if="partner.name.find(',')&gt;0">
+	                        <span t-esc="partner.name.split(',')[1]"/><br/>
+	                        <span t-esc="partner.name.split(',')[0]"/>
+	                      </t>
+	                      <t t-if="partner.name.find(',')&lt;0">
+	                        <span t-esc="partner.name.rsplit(' ',1)[0]"/><br/>
+	                        <span t-esc="partner.name.rsplit(' ',1)[1]"/>
+	                      </t>
+	                    </div>
+	                    <div class="cagette_text">
+	                      <t t-if="partner.sex=='m'">Coopérateur</t>
+	                      <t t-if="partner.sex=='f'">Coopératrice</t>
+	                      N°<span t-field="partner.barcode_base"/>
+	                    </div>
+	                    <t t-if="max(len(x) for x in partner.name.rsplit(' ',1))&lt;11">
+	                      <img class="cagette_logo" src="https://docs.google.com/uc?id=0B2ayDl5KKAa1RndCa0V0UVBRVFU" />
+	                      <!-- <img class="cagette_logo" src="/cagette_custom_badge/static/src/img/logo_cagette_badge.png" /> -->
+	                    </t>
+	                    <img class="cagette_barcode_image" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.barcode, 600, 900)"/>
+	                    <!--<div class="cagette_company_address">
+	                        <span t-field="partner_id.company_id.partner_id.name"/><br/>
+	                        <span t-field="partner_id.company_id.partner_id.street"/><br/>
+	                        <span t-field="partner_id.company_id.partner_id.zip"/> <span t-field="partner_id.company_id.partner_id.city"/>
+	                    </div>-->
+	                </div>
+	                <div class="cagette_badge" t-if="not partner.is_member and partner.is_associated_people">
+	                    <div class="cagette_member_photo_div">
+	                      <!-- <span class="member_photo" t-field="partner.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;}"/> -->
+	                      <img t-attf-src="data:image/png;base64,{{images[partner.id]}}" style="height=100%;width=100%;"/>
+	                    </div>
+	                    <div class="cagette_member_name">
+	                      <t t-if="partner.name.find(',')&gt;0">
+	                        <span t-esc="partner.name.split(',')[1]"/><br/>
+	                        <span t-esc="partner.name.split(',')[0]"/>
+	                      </t>
+	                      <t t-if="partner.name.find(',')&lt;0">
+	                        <span t-esc="partner.name.rsplit(' ',1)[0]"/><br/>
+	                        <span t-esc="partner.name.rsplit(' ',1)[1]"/>
+	                      </t>
+	                    </div>
+	                    <div class="cagette_text">
+	                      <t t-if="partner.sex=='m'">Coopérateur</t>
+	                      <t t-if="partner.sex=='f'">Coopératrice</t>
+	                      N°<span t-field="partner.barcode_base"/>
+	                    </div>
+	                    <t t-if="max(len(x) for x in partner.name.rsplit(' ',1))&lt;11">
+	                      <img class="cagette_logo" src="https://docs.google.com/uc?id=0B2ayDl5KKAa1RndCa0V0UVBRVFU" />
+	                      <!-- <img class="cagette_logo" src="/cagette_custom_badge/static/src/img/logo_cagette_badge.png" /> -->
+	                    </t>
+	                    <img class="cagette_barcode_image" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.barcode, 600, 900)" />
+	                    <!--<div class="cagette_company_address">
+	                        <span t-field="partner_id.company_id.partner_id.name"/><br/>
+	                        <span t-field="partner_id.company_id.partner_id.street"/><br/>
+	                        <span t-field="partner_id.company_id.partner_id.zip"/> <span t-field="partner_id.company_id.partner_id.city"/>
+	                    </div>-->
+	                </div>
+	            </t>
+	        </div>
+        </xpath>
+    </template>
+</odoo>
