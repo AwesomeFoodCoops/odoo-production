@@ -29,7 +29,7 @@ class ComputedPurchaseOrderLine(models.Model):
 
     # Columns section
     displayed_product_history_ids = fields.Many2many(
-        'displayed.product.history', related='product_id.product_history_ids',
+        'product.history', related='product_id.product_history_ids',
         string='Product History')
 
     # Private section
