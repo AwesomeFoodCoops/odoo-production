@@ -1,0 +1,76 @@
+.cagette_badge{
+/*    height:85.6mm;
+    width:53.98mm;
+*/
+    height: 84mm;
+    width: 133mm;
+    margin-left: -4mm;
+    margin-top: 1mm;
+    background-color:white;
+    color: #000000;
+/*  Louve blue */
+/*    color:#455a6e; */
+    position: relative;
+/*    to test actual positions, because Odoo insists on scaling something between this CSS and the actual badge */
+/*    border: solid;   */
+}
+.cagette_member_photo_div{
+	position: absolute;
+  width:35mm;
+  height:45mm;
+  top: 2mm;
+  right:5mm;
+}
+.cagette_text{
+	position: absolute;
+    top: 35mm;
+    left: 8mm;
+    width: 85mm;
+    font-size: 20;
+    font-weight: bold;
+    line-height: 1;
+  	text-align: left;
+}
+.cagette_member_name{
+  position: absolute;
+  bottom: 3mm;
+  left:8mm;
+  font-size: 40;
+  font-weight: bold;
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: left;
+  line-height: 1;
+}
+.cagette_barcode_image{
+	position: absolute;
+    top: 2mm;
+/* unfortunately, this doesn't work with Odoo
+ * left: 50%;
+ * transform: translateX(-50%);
+*/
+    height: 30mm;
+/* la louve uses 68mm barcodes, so maybe we should too? */
+    width: 68mm;
+/* remember to center this on the sheet of 84mm */
+    left: 3mm;
+}
+.cagette_logo{
+	position: absolute;
+    bottom: 3mm;
+    right: 2mm;
+    height:30mm;
+    width:45mm;
+}
+.cagette_company_address{
+    margin-left:41mm;
+    margin-top:83mm;
+    max-width:26mm;
+    word-wrap:break-word;
+    white-space: normal;
+    width:26mm;
+    text-align: left;
+}
+
+
