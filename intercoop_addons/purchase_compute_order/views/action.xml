@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- *********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- *********************************************************************** -->
+<odoo>
+    <record id="action_view_computed_purchase_order_tree" model="ir.actions.act_window">
+        <field name="name">Computed Purchase Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">computed.purchase.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to begin a computed purchase order.
+          </p><p>
+            This tool will allow you to calculate your needs according to the stock and average consumption of your products and the purchase objective defined against the supplier.
+          </p>
+        </field>
+    </record>
+
+    <record id="action_view_update_products" model="ir.actions.act_window">
+        <field name="name">Update Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">update.products.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_update_products_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>
