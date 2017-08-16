@@ -472,3 +472,8 @@ msgstr "Numéro"
 #: model:res.groups,name:coop_membership_access_rights.group_shift_create_extension_from_attendance
 msgid "Create Extension from Attendance"
 msgstr "Créer une extension à partir d'une présence"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Leaves"
+msgstr "Congés"

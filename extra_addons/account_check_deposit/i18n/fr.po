@@ -87,14 +87,14 @@ msgstr "Remise de chèque"
 #: code:addons/account_check_deposit/models/account_deposit.py:180
 #: code:addons/account_check_deposit/models/account_deposit.py:202
 #, python-format
-msgid "Check Deposit %s"
-msgstr "Remise de chèque %s"
+msgid "%s Check Deposit %s"
+msgstr "%s Remise de chèque %s"
 
 #. module: account_check_deposit
 #: code:addons/account_check_deposit/models/account_deposit.py:189
 #, python-format
-msgid "Check Deposit - Ref. Check %s"
-msgstr ""
+msgid "%s Check Deposit - Ref. Check %s"
+msgstr "%s Remise de chèque REM004 - Ref. Check %s"
 
 #. module: account_check_deposit
 #: view:website:account_check_deposit.report_checkdeposit
@@ -251,10 +251,10 @@ msgid "List of checks:"
 msgstr "Liste des chèques :"
 
 #. module: account_check_deposit
-#: code:addons/account_check_deposit/models/account_deposit.py:232
+#: code:addons/account_check_deposit/models/account_deposit.py:225
 #, python-format
-msgid "Missing Account for Check Deposits on the company '%s'."
-msgstr "Compte manquant pour les remises de chèques de la société \"%s\"."
+msgid "Default Debit Account is not set on journal '%s'"
+msgstr "Le compte de débit par défaut n'est pas défini sur le journal '%s'"
 
 #. module: account_check_deposit
 #: field:account.check.deposit,name:0

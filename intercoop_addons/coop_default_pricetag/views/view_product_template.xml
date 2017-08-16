@@ -25,7 +25,7 @@
         <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
             <notebook position="inside">
-                <page string="Food Informations" groups="louve_custom_product.group_food_manager">
+                <page string="Food Informations" groups="coop_default_pricetag.group_food_manager">
                     <group colspan="4">
                         <group>
                             <separator string="Origin" colspan="2"/>

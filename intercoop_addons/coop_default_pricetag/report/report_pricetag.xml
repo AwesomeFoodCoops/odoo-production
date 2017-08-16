@@ -2,7 +2,7 @@
 <odoo>
      <template id="minimal_layout_inherit" inherit_id="report.minimal_layout">
           <xpath expr="//head" position="inside">
-                 <link rel='stylesheet' href="/louve_custom_product/static/src/css/pricetag.css"/>
+                 <link rel='stylesheet' href="/coop_default_pricetag/static/src/css/pricetag.css"/>
           </xpath>
     </template>
     <template id="report_pricetag">
@@ -32,13 +32,13 @@
                         <div class="label_bottom">
                             <div class="product_shelf_origin">
                                 <t name="pricetag_origine" t-if="product['product'].pricetag_origin">Origine: <t t-esc="product['product'].pricetag_origin"/><br/></t>
-                            </div>                    
+                            </div>
                             <div class="product_shelf_rackinfo_barcode">
                                 <t t-if="product['product'].pricetag_rackinfos"><t t-esc="product['product'].pricetag_rackinfos"/></t>&#160;&#160;
                                 <t t-if="product['product'].barcode"><t t-esc="product['product'].barcode"/></t>
-                            </div>         
-                            <div class="pricetag_shelf_louveinfos">
-                                <t t-if="product['product'].pricetag_louveinfos"><t t-esc="product['product'].pricetag_louveinfos"/> </t>
+                            </div>
+                            <div class="pricetag_shelf_coopinfos">
+                                <t t-if="product['product'].pricetag_coopinfos"><t t-esc="product['product'].pricetag_coopinfos"/> </t>
                             </div>
                         </div>
                     </div>

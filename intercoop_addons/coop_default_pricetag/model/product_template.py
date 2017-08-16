@@ -47,7 +47,7 @@ class ProductTemplate(models.Model):
 
     @api.depends('farming_method', 'other_information')
     @api.multi
-    def _compute_pricetag_louveinfos(self):
+    def _compute_pricetag_coopinfos(self):
         for pt in self:
             tmp = ''
             if pt.other_information:
@@ -55,7 +55,7 @@ class ProductTemplate(models.Model):
             if pt.farming_method:
                 tmp = pt.farming_method + \
                     (' - ' + tmp if tmp else '')
-            pt.pricetag_louveinfos = tmp
+            pt.pricetag_coopinfos = tmp
 
     @api.depends(
         'rack_instruction', 'rack_location', 'rack_number_of_packages',
@@ -149,9 +149,9 @@ class ProductTemplate(models.Model):
         "Farming Method", help="""Organic Label""")
     other_information = fields.Char("Other Information")
     pricetag_rackinfos = fields.Char(
-        compute=_compute_pricetag_rackinfos, string='La Louve rack fields')
-    pricetag_louveinfos = fields.Char(
-        compute=_compute_pricetag_louveinfos, string='La Louve custom fields')
+        compute=_compute_pricetag_rackinfos, string='Coop rack fields')
+    pricetag_coopinfos = fields.Char(
+        compute=_compute_pricetag_coopinfos, string='Coop custom fields')
     category_print_id = fields.Many2one(
         comodel_name='product.category.print', string='Print Category')
 

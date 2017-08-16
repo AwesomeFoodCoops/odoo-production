@@ -24,6 +24,9 @@
                     <button name="%(coop_shift.act_template_registration_line_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar-plus-o" help="View partner Template Registrations" groups="coop_shift.group_shift_manager,coop_membership_access_rights.group_membership_access_user" id="view_partner_template_registrations" attrs="{'invisible':[('is_worker_member', '=', False)]}">
                         <field name="active_tmpl_reg_line_count" widget="statinfo" string="Tmpl. Registr."/>
                     </button>
+                    <button name="%(coop_shift.act_shift_leave_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-sign-out" help="View partner Leaves" groups="coop_shift.group_shift_see_leave" id="view_shift_leaves">
+                        <field name="leave_qty" widget="statinfo" string="Leaves"/>
+                    </button>
                     <button type="action" class="oe_stat_button" id="invoice_button" icon="fa-pencil-square-o" name="%(account.action_invoice_refund_out_tree)d" context="{'search_default_partner_id': active_id,'default_partner_id': active_id}" groups="account.group_account_invoice">
                         <div class="o_form_field o_stat_info">
                             <span class="o_stat_value"><field name="total_invoiced" widget="monetary" options="{'currency_field': 'currency_id'}" groups="account.group_account_invoice"/></span>
@@ -433,16 +436,15 @@
         </field>
     </record>
 
-   <record id="view_bdm_search" model="ir.ui.view">
+    <record id="view_bdm_search" model="ir.ui.view">
         <field name="name">res.partner.membership.access.search</field>
         <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
-            <search string="Search Partner">
-               <field name="name"
-                   filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
-               <field name="barcode_base"/>
-               <field name="ref"/>
-           </search>
+        	<field name="name" position="after">
+        		<field name="barcode_base"/>
+        		<field name="ref"/>
+        	</field>
         </field>
     </record>
 

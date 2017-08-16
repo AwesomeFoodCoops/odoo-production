@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- QWeb Reports -->
+    <report
+        id="pricetag"
+        model="report.pricetag"
+        string="Pricetags"
+        report_type="qweb-pdf"
+        name="coop_default_pricetag.report_pricetag"
+        file="coop_default_pricetag.report_pricetag"
+        attachment_use="False"
+    />
+    <record id="coop_default_pricetag.pricetag" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="coop_default_pricetag.paperformat_pricetag"/>
+        <field name="attachment_use" eval="0"/>
+    </record>
+</odoo>
