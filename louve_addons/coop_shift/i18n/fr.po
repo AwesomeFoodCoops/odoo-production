@@ -1419,11 +1419,6 @@ msgid "Mail registration ids"
 msgstr "ids d'enregistrement Mail"
 
 #. module: coop_shift
-#: model:res.groups,name:coop_shift.group_shift_manage_counter
-msgid "Manage Counters"
-msgstr "Gérer les compteurs"
-
-#. module: coop_shift
 #: model:res.groups,name:coop_shift.group_shift_future_changes
 msgid "Manage Future Changes"
 msgstr "Gérer les inscriptions aux créneaux"
