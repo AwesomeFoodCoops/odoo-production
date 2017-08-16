@@ -436,16 +436,15 @@
         </field>
     </record>
 
-   <record id="view_bdm_search" model="ir.ui.view">
+    <record id="view_bdm_search" model="ir.ui.view">
         <field name="name">res.partner.membership.access.search</field>
         <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
-            <search string="Search Partner">
-               <field name="name"
-                   filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
-               <field name="barcode_base"/>
-               <field name="ref"/>
-           </search>
+        	<field name="name" position="after">
+        		<field name="barcode_base"/>
+        		<field name="ref"/>
+        	</field>
         </field>
     </record>
 
