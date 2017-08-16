@@ -4,7 +4,7 @@ from openerp import api, models
 
 
 class ReportPricetag(models.AbstractModel):
-    _name = 'report.louve_custom_product.report_pricetag'
+    _name = 'report.coop_default_pricetag.report_pricetag'
 
     @api.model
     def _get_products(self, lines, fields):

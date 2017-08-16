@@ -21,33 +21,46 @@
 #
 ##############################################################################
 {
-    'name': 'Louve Custom - Extra Information for Products',
-    'version': '9.0.0.0.0',
+    'name': 'Coop Default Price Tag',
+    'version': '9.0.1.0.11',
     'category': 'Custom',
     'description': """
 Functionnalities
-
-* Add various information about origin, makers, etc...
+  - Showing a new tab `Food Informations` on product form view.
+  - Default price tag for products with its management by user's right.
     """,
     'author': 'GRAP,'
               'Akretion - Julien WESTE',
     'website': 'http://www.grap.coop',
     'license': 'AGPL-3',
     'depends': [
-        'coop_default_pricetag',
+        'product',
+        'product_to_print',
         'report',
+        'l10n_fr_department',
+        'purchase_package_qty',
     ],
     'data': [
+        'security/res_groups.yml',
+        'security/ir.model.access.csv',
         'data/ir_actions_report_xml.xml',
         'data/report_paperformat.xml',
         'data/pricetag_model.xml',
         'data/product_category_print.xml',
-        'report/louve_custom_product_report.xml',
-        'report/report_pricetag_vegetables.xml',
+        'report/coop_custom_product_report.xml',
+        'report/report_pricetag.xml',
+        'views/view_product_label.xml',
+        'views/view_product_product.xml',
+        'views/view_product_template.xml',
+        'views/view_product_uom_categ.xml',
+        'views/view_ir_actions_report_xml.xml',
+        'views/action.xml',
+        'views/menu.xml',
     ],
     'demo': [
+        'demo/res_groups.yml',
     ],
     'css': [
-        'static/src/css/pricetag_vegetables.css',
+        'static/src/css/pricetag.css',
     ],
 }
