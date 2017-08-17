@@ -39,3 +39,8 @@ msgstr "Quantité actuelle"
 #: model:ir.model,name:louve_custom_inventory.model_stock_inventory_line
 msgid "Inventory Line"
 msgstr "Ligne d'inventaire"
+
+#. module: louve_custom_inventory'
+#: model:ir.model.fields,field_description:louve_custom_inventory.field_stock_picking_partner_ref
+msgid "Partner Ref"
+msgstr "Référence Fournisseur"
