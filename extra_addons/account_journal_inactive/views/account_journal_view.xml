@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_account_journal_search" model="ir.ui.view">
+		<field name="name">account.journal.search</field>
+		<field name="model">account.journal</field>
+		<field name="inherit_id" ref="account.view_account_journal_search" />
+		<field name="arch" type="xml">
+			<field name="name" position="after">
+				<filter name="open_true" string="Active" domain="[('active', '=', True)]"/>
+				<filter name="open_false" string="Archived" domain="[('active', '=', False)]"/>
+			</field>
+		</field>
+	</record>
+	<record id="view_account_journal_form" model="ir.ui.view">
+		<field name="name">account.journal.form</field>
+		<field name="model">account.journal</field>
+		<field name="inherit_id" ref="account.view_account_journal_form" />
+		<field name="arch" type="xml">
+			<field name="sequence_id" position="after">
+				<field name="active" />
+			</field>
+		</field>
+	</record>
+</odoo>
