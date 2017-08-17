@@ -5,11 +5,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Louve bank auto reconcille',
+    'name': 'Bank auto reconcille',
     'version': '9.0.1',
     'category': 'Custom',
-    'author': 'Smile',
-    'website': 'http://www.smile.fr',
+    'author': 'La Louve',
     'license': 'AGPL-3',
     'depends': [
         'account',

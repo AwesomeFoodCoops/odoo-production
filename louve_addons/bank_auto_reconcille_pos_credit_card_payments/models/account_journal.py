@@ -27,7 +27,7 @@ class AccountJournal(models.Model):
 
     name_pattern_bank_return = fields.Char('Name pattern', default='.*')
     remittance_pattern_bank_return = fields.Char('Remittance pattern', default='.*')
-    memo_pattern_bank_return = fields.Char('Memo pattern', default='.*')
+    ref_pattern_bank_return = fields.Char('Ref pattern', default='.*')
     note_pattern_bank_return = fields.Char('Note pattern', default='.*')
     date_pattern_bank_return = fields.Char('Date pattern', default='%Y-%m-%d')
     bank_charge_account_id = fields.Many2one('account.account', 'Bank charge account')

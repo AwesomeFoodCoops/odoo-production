@@ -16,7 +16,7 @@
                         <group>
                             <field name="name_pattern_bank_return"/>
                             <field name="remittance_pattern_bank_return"/>
-                            <field name="memo_pattern_bank_return"/>
+                            <field name="ref_pattern_bank_return"/>
                         </group>
                         <group>
                             <field name="note_pattern_bank_return"/>
