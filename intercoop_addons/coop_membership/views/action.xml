@@ -15,7 +15,6 @@
         <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('is_member', '=', True)]</field>
         <field name="context">{'default_is_member':1}</field>
-        <field name="context">{'create': False, 'edit': True}</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_res_partner_associated">
@@ -25,7 +24,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('is_associated_people', '=', True)]</field>
-        <field name="context">{'create': False, 'edit': False}</field>
+        <field name="context">{}</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_res_partner_interested_people">
@@ -35,6 +34,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('is_interested_people', '=', True)]</field>
+        <field name="context">{}</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_res_partner_former_member">
@@ -44,7 +44,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('is_former_member', '=', True)]</field>
-        <field name="context">{'create': False, 'edit': True}</field>
+        <field name="context">{}</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_account_invoice_customer_subscriptions">
