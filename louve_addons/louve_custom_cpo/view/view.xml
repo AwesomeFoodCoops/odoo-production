@@ -4,11 +4,12 @@
 <!-- ********************************************************************** -->
 <openerp>
     <data>
-<!-- View : computed.purchase.order -->
+        <!-- View : computed.purchase.order -->
         <record id="louve_computed_purchase_order_form" model="ir.ui.view">
             <field name="name">computed.purchase.order.form.louve</field>
             <field name="model">computed.purchase.order</field>
             <field name="inherit_id" ref="purchase_compute_order.view_computed_purchase_order_form"/>
+            <field eval="False" name="active"/>
             <field name="arch" type="xml">
                 <page name="stockdetails" position="replace"/>
                 <field name="computed_qty" position="replace">
