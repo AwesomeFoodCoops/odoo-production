@@ -155,7 +155,7 @@ msgid "Deficit Product"
 msgstr "Deficit Product"
 
 #. module: capital_subscription
-#: code:addons/capital_subscription/models/account_invoice.py:205
+#: code:addons/capital_subscription/models/account_invoice.py:211
 #: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category_deficit_share_ids
 #: model:product.product,name:capital_subscription.product_deficit_share
 #: model:product.template,name:capital_subscription.product_deficit_share_product_template
@@ -580,3 +580,14 @@ msgstr "capital.fundraising.partner.type"
 #: model:ir.model,name:capital_subscription.model_capital_fundraising_wizard
 msgid "capital.fundraising.wizard"
 msgstr "capital.fundraising.wizard"
+
+#. module: capital_subscription
+#: model:ir.model.fields,field_description:capital_subscription.field_account_invoice_refund_refund_quantity
+msgid "Quantity Of Shares To Refund"
+msgstr "Nombre d'actions à rembourser"
+
+#. module: capital_subscription
+#: code:addons/capital_subscription/models/account_invoice.py:185
+#, python-format
+msgid "Deficit Share Account has not been configured for %s."
+msgstr "La Compte quote-part de déficit n'a pas été configurée pour la %s."

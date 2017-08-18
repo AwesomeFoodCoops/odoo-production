@@ -30,7 +30,7 @@
         <field name="inherit_id" ref="account.product_template_form_view"/>
         <field name="arch" type="xml">
             <field name="property_account_expense_id" position="after">
-                <field name="deficit_share_account_id" attrs="{'required': [('is_capital_fundraising', '=', True)], 'invisible': [('is_capital_fundraising', '=', False)]}"/>
+                <field name="deficit_share_account_id" attrs="{'invisible': [('is_capital_fundraising', '=', False)]}"/>
             </field>
         </field>
     </record>
