@@ -9,7 +9,7 @@
             <field name="inherit_id" ref="purchase_compute_order.view_computed_purchase_order_form"/>
             <field name="model">computed.purchase.order</field>
             <field name="arch" type="xml">
-                <field name="product_id" position="before">
+                <field name="product_code_inv" position="before">
                     <button name="view_history" string="View Product History" type="object" icon="STOCK_FIND"/>
                 </field>
             </field>
