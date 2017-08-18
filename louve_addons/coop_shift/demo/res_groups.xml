@@ -11,10 +11,6 @@
         <field name="users" eval="[(4, [ref('base.user_root')])]" />
     </record>
 
-    <record model="res.groups" id="group_shift_manage_counter">
-        <field name="users" eval="[(4, [ref('base.user_root')])]" />
-    </record>
-
     <record id="base.user_demo" model="res.users">
              <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_user'))]"/>
      </record>
