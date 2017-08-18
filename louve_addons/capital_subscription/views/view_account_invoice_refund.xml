@@ -11,6 +11,7 @@
                          <field name="filter_refund" invisible="1" widget="radio"/>
                          <field name="date_invoice"/>
                          <field name="date" groups="base.group_no_one"/>
+                         <field name="refund_quantity"/>
                          <field name="description"/>
                      </group>
                 </group>

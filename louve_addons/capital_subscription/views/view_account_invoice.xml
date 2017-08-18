@@ -15,6 +15,9 @@
                 <field name="is_capital_fundraising"/>
                 <field name="fundraising_category_id" attrs="{'invisible': [('is_capital_fundraising', '=', False)]}"/>
             </field>
+            <field name="invoice_line_ids" position="attributes">
+     	    	<attribute name="readonly" eval="[('type', '=', 'out_refund'), ('is_capital_fundraising', '=', True)]"/>
+            </field>
         </field>
     </record>
 

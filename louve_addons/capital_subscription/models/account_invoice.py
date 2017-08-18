@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api, exceptions, _
+from openerp.exceptions import Warning
 
 
 class AccountInvoice(models.Model):
@@ -161,14 +162,15 @@ class AccountInvoice(models.Model):
                     self.fundraising_category_id.partner_account_id
 
     @api.multi
-    def apply_refund_deficit_share(self):
+    def apply_refund_deficit_share(self, quantity=0):
         '''
         @Function to apply the deficit share on customer refund
         '''
 
         for invoice in self:
             fundraising_categ = invoice.fundraising_category_id
-            if invoice.type == 'out_refund' and fundraising_categ:
+            if invoice.type == 'out_refund' and fundraising_categ \
+               and quantity >= 0:
                 # Change the customer account of the refund
                 if fundraising_categ.refund_account_id:
                     invoice.account_id = fundraising_categ.refund_account_id.id
@@ -182,11 +184,18 @@ class AccountInvoice(models.Model):
                     source_product = inv_line.product_id
                     if source_product and \
                             source_product.is_capital_fundraising:
+                        if not source_product.deficit_share_account_id:
+                            raise Warning(_("Deficit Share Account has not "
+                                            "been configured for %s.") %
+                                          source_product.display_name)
+                        # Update quantity of source product line
+                        inv_line.write({'quantity': quantity})
 
                         # Adjust the Unit Price of the line
-                        deficit_price_unit = (inv_line.price_subtotal *
+                        deficit_price_unit = inv_line.price_unit * quantity
+                        deficit_price_unit = (deficit_price_unit *
                                               deficit_share_percentage) / 100
-                        deficit_price_unit_signed = -1 * deficit_price_unit
+                        deficit_price_unit_signed = -1.0 * deficit_price_unit
 
                         if fundraising_categ.capital_account_id:
                             inv_line.account_id = \
@@ -195,6 +204,7 @@ class AccountInvoice(models.Model):
                         # Create a new line
                         deficit_share_prod = \
                             fundraising_categ.deficit_product_id
+
                         deficit_line_val = {
                             'product_id':
                                 deficit_share_prod and
@@ -216,15 +226,9 @@ class AccountInvoice(models.Model):
                         self.env['account.invoice.line'].create(
                             deficit_line_val)
 
-    @api.multi
-    @api.returns('self')
-    def refund(self, date_invoice=None, date=None,
-               description=None, journal_id=None):
-        '''
-        @Overide function to trigger the computation of the refund
-        '''
-        new_invoice = super(AccountInvoice, self).refund(
-            date_invoice=date_invoice, date=date,
-            description=description, journal_id=journal_id)
-        new_invoice.apply_refund_deficit_share()
-        return new_invoice
+                        # break because the quantity is total shares
+                        # and we don't have different capital fundraising
+                        # products in one invoice, therefore break when
+                        # we get the first one satisfy and update with total
+                        # quantity.
+                        break
