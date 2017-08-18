@@ -167,7 +167,7 @@
                 <notebook colspan="4">
                     <page string="Contacts &amp; Addresses" autofocus="autofocus" attrs="{'invisible': [('is_member', '=', False)]}">
                         <field name="child_ids" mode="kanban" context="{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_supplier': supplier, 'default_customer': customer, 'default_lang': lang,}">
-                            <kanban>
+                            <kanban create="false">
                                 <field name="color"/>
                                 <field name="name"/>
                                 <field name="title"/>
@@ -223,7 +223,7 @@
                                     </t>
                                 </templates>
                             </kanban>
-                            <form string="Contact / Address">
+                            <form string="Contact / Address" create="false">
                                 <sheet>
                                     <field name="type" required="1" widget="radio" options="{'horizontal': true}" attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
                                     <field name="is_associated_people" invisible="1"/>
@@ -391,7 +391,6 @@
     <record id="view_res_partner_form_shift_manage_counter" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_membership_access_rights.view_partner_form"/>
-        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manage_counter'))]"/>
         <field name="active" eval="False"/>
         <field name="arch" type="xml">
             <field name="cooperative_state"/>
@@ -463,6 +462,31 @@
         </field>
     </record>
 
+    <!-- No-create views for object res partner -->
+    <record id="view_bdm_tree_no_create" model="ir.ui.view">
+        <field name="name">res.partner.membership.access.no.create.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership_access_rights.view_bdm_tree"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_form_no_create" model="ir.ui.view">
+        <field name="name">res.partner.membership.access.no.create.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership_access_rights.view_partner_form"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
 
     <record model="ir.ui.view" id="view_res_partner_form_subscription">
         <field name="model">res.partner</field>
@@ -498,22 +522,8 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('is_member', '=', True)]</field>
-        <field name="context">{'default_is_member':1, 'create': False, 'edit': True}</field>
+        <field name="context">{'default_is_member':1}</field>
         <field name="search_view_id" ref="view_bdm_search"/>
-    </record>
-
-    <record id="bdm_action1" model="ir.actions.act_window.view">
-       <field eval="1" name="sequence"/>
-       <field name="view_mode">tree</field>
-       <field name="view_id" ref="view_bdm_tree"/>
-       <field name="act_window_id" ref="action_coop_membership_access_rights"/>
-    </record>
-
-    <record id="bdm_action2" model="ir.actions.act_window.view">
-       <field eval="2" name="sequence"/>
-       <field name="view_mode">form</field>
-       <field name="view_id" ref="coop_membership_access_rights.view_partner_form"/>
-       <field name="act_window_id" ref="action_coop_membership_access_rights"/>
     </record>
 
     <record model="ir.ui.menu" id="coop_membership.menu_res_partner_members">

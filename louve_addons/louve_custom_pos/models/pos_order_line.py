@@ -4,15 +4,11 @@
 #          Julien Weste (julien.weste@akretion.com.br)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models
+from openerp import api, models
+
 
 class PosOrderLine(models.Model):
     _inherit = 'pos.order.line'
-
-
-    price_subtotal = fields.Float(store=True)
-    price_subtotal_incl = fields.Float(store=True)
-
 
     @api.multi
     def write(self, vals):
