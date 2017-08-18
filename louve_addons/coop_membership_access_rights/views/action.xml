@@ -4,17 +4,31 @@
 	License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 
 <odoo>
+	<!-- Member -->
+    <record id="bdm_action1" model="ir.actions.act_window.view">
+       <field eval="1" name="sequence"/>
+       <field name="view_mode">tree</field>
+       <field name="view_id" ref="coop_membership_access_rights.view_bdm_tree_no_create"/>
+       <field name="act_window_id" ref="action_coop_membership_access_rights"/>
+    </record>
+    <record id="bdm_action2" model="ir.actions.act_window.view">
+       <field eval="2" name="sequence"/>
+       <field name="view_mode">form</field>
+       <field name="view_id" ref="coop_membership_access_rights.view_partner_form_no_create"/>
+       <field name="act_window_id" ref="action_coop_membership_access_rights"/>
+    </record>
+
 	<!-- Associated People : New form and tree view for new group 'group_membership_access_user' -->
 	<record id="bdm_action1_associated_people" model="ir.actions.act_window.view">
 		<field eval="1" name="sequence" />
 		<field name="view_mode">tree</field>
-		<field name="view_id" ref="view_bdm_tree" />
+		<field name="view_id" ref="coop_membership_access_rights.view_bdm_tree_no_create" />
 		<field name="act_window_id" ref="coop_membership.action_res_partner_associated" />
 	</record>
 	<record id="bdm_action2_associated_people" model="ir.actions.act_window.view">
 		<field eval="2" name="sequence" />
 		<field name="view_mode">form</field>
-		<field name="view_id" ref="coop_membership_access_rights.view_partner_form" />
+		<field name="view_id" ref="coop_membership_access_rights.view_partner_form_no_create" />
 		<field name="act_window_id" ref="coop_membership.action_res_partner_associated" />
 	</record>
 
@@ -38,13 +52,13 @@
 	<record id="bdm_action1_former_members" model="ir.actions.act_window.view">
 		<field eval="1" name="sequence" />
 		<field name="view_mode">tree</field>
-		<field name="view_id" ref="view_bdm_tree" />
+		<field name="view_id" ref="coop_membership_access_rights.view_bdm_tree_no_create" />
 		<field name="act_window_id" ref="coop_membership.action_res_partner_former_member" />
 	</record>
 	<record id="bdm_action2_former_members" model="ir.actions.act_window.view">
 		<field eval="2" name="sequence" />
 		<field name="view_mode">form</field>
-		<field name="view_id" ref="coop_membership_access_rights.view_partner_form" />
+		<field name="view_id" ref="coop_membership_access_rights.view_partner_form_no_create" />
 		<field name="act_window_id" ref="coop_membership.action_res_partner_former_member" />
 	</record>
 </odoo>
