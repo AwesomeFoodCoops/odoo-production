@@ -213,7 +213,7 @@ class TeliumPaymentTerminalDriver(Thread):
             'transaction_result': real_msg[2],
             'amount_msg': real_msg[3:11],
             'payment_mode': real_msg[11],
-            'tpe_return_message': real_msg,
+            'payment_terminal_return_message': real_msg,
         }
         logger.info('answer_data = %s' % answer_data)
         self.compare_data_vs_answer(data, answer_data)
