@@ -112,7 +112,6 @@ class ComputedPurchaseOrderLine(models.Model):
         """ the purchase.""")
     purchase_qty_package = fields.Float(
         'Number of packages',
-        required=True,
         help="""The number of packages you'll buy.""")
     purchase_qty = fields.Float(
         'Quantity to purchase',
@@ -148,15 +147,6 @@ class ComputedPurchaseOrderLine(models.Model):
         'product_id_uniq', 'unique(computed_purchase_order_id,product_id)',
         'Product must be unique by computed purchase order!'),
     ]
-
-    # Columns section
-    @api.multi
-    @api.onchange('purchase_qty')
-    def onchange_purchase_qty(self):
-        for cpol in self:
-            if cpol.package_qty_inv:
-                cpol.purchase_qty_package = cpol.purchase_qty /\
-                    cpol.package_qty_inv
 
     @api.multi
     @api.depends('purchase_qty_package', 'package_qty_inv')
