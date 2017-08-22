@@ -15,12 +15,20 @@
                     <group string="Automatic Payment Terminal Reconciliation" name="auto_reconciliation">
                         <group>
                             <field name="name_pattern_bank_return"/>
-                            <field name="remittance_pattern_bank_return"/>
                             <field name="ref_pattern_bank_return"/>
                         </group>
                         <group>
                             <field name="note_pattern_bank_return"/>
                             <field name="date_pattern_bank_return"/>
+                        </group>
+                    </group>
+                    <group string="Automatic Charges Reconciliation" name="auto_reconciliation">
+                        <group>
+                            <field name="name_charges_pattern_bank_return"/>
+                            <field name="ref_charges_pattern_bank_return"/>
+                        </group>
+                        <group>
+                            <field name="note_charges_pattern_bank_return"/>
                             <field name="bank_charge_account_id"/>
                         </group>
                     </group>
