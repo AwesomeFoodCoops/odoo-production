@@ -76,11 +76,6 @@ msgid "Name pattern"
 msgstr "Pattern du champ du relevé de banque “Nom” "
 
 #. module: bank_auto_reconcille_pos_credit_card_payments
-#: model:ir.model.fields,field_description:account_journal.field_remittance_pattern_bank_return
-msgid "Remittance pattern"
-msgstr "Pattern du champ du relevé de banque “Numéro de remise” "
-
-#. module: bank_auto_reconcille_pos_credit_card_payments
 #: model:ir.model.fields,field_description:account_journal.field_ref_pattern_bank_return
 msgid "Ref pattern"
 msgstr "Pattern du champ du relevé de banque “Référence” "
@@ -99,3 +94,18 @@ msgstr "Format de date du relevé de banque "
 #: model:ir.model.fields,field_description:account_journal.field_bank_charge_account_id
 msgid "Bank charge account"
 msgstr "Compte comptable de frais bancaires TPE"
+
+#. module: bank_auto_reconcille_pos_credit_card_payments
+#: model:ir.model.fields,field_description:bank_auto_reconcille_pos_credit_card_payments.field_account_journal_name_charges_pattern_bank_return
+msgid "Name charges pattern"
+msgstr "Pattern des frais du champ du relevé de banque “Nom” "
+
+#. module: bank_auto_reconcille_pos_credit_card_payments
+#: model:ir.model.fields,field_description:bank_auto_reconcille_pos_credit_card_payments.field_account_journal_note_charges_pattern_bank_return
+msgid "Note charges pattern"
+msgstr "Pattern des frais du champ du relevé de banque “Note” "
+
+#. module: bank_auto_reconcille_pos_credit_card_payments
+#: model:ir.model.fields,field_description:bank_auto_reconcille_pos_credit_card_payments.field_account_journal_ref_charges_pattern_bank_return
+msgid "Ref charges pattern"
+msgstr "Pattern des frais du champ du relevé de banque “Référence” "
