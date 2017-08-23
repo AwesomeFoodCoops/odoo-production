@@ -24,6 +24,9 @@
 from openerp import _, api, fields, models
 
 from openerp.exceptions import ValidationError
+from datetime import datetime
+import pytz
+
 
 STATES = [
     ('cancel', 'Cancelled'),
@@ -173,13 +176,18 @@ class ShiftTemplateRegistrationLine(models.Model):
             # for linked registrations
             for sr in line.shift_registration_ids:
                 shift = sr.shift_id
+
+                # Convert the datetime in shift to local date
+                shift_date_begin = self.convert_local_date(shift.date_begin)
+                shift_date_end = self.convert_local_date(shift.date_end)
+
                 # if shift is done, pass
                 if shift.state == "done":
                     continue
                 # if dates ok, just update state
                 if sr.state in ['draft', 'open', 'waiting']:
-                    if (shift.date_begin > begin or not begin) and\
-                            (shift.date_end < end or not end):
+                    if (shift_date_begin >= begin or not begin) and\
+                            (shift_date_end <= end or not end):
                         sr.state = state
                     # if dates not ok, unlink the shift_registration
                     else:
@@ -188,8 +196,11 @@ class ShiftTemplateRegistrationLine(models.Model):
             # for shifts within dates: if partner has no registration, create
             # it
             shifts = st_reg.shift_template_id.shift_ids.filtered(
-                lambda s, b=begin, e=end: (s.date_begin > b or not b) and
-                (s.date_end < e or not e) and (s.state != 'done'))
+                lambda s, b=begin, e=end: (
+                    self.convert_local_date(s.date_begin) >= b or not b) and (
+                    self.convert_local_date(s.date_end) <= e or not e) and (
+                    s.state != 'done'))
+
             for shift in shifts:
                 found = partner_found = False
                 for registration in shift.registration_ids:
@@ -224,3 +235,19 @@ class ShiftTemplateRegistrationLine(models.Model):
             for reg in strl.shift_registration_ids:
                 reg.unlink()
         return super(ShiftTemplateRegistrationLine, self).unlink()
+
+    @api.model
+    def convert_local_date(self, timeutc):
+        '''
+        @Function to convert UTC time to Local Time and return the local date
+        '''
+        if not timeutc:
+            return False
+        tz_name = self._context.get('tz') or self.env.user.tz
+        dateutc_obj = datetime.strptime(timeutc, '%Y-%m-%d %H:%M:%S')
+        utc_timestamp = pytz.utc.localize(
+            dateutc_obj, is_dst=False)
+        context_tz = pytz.timezone(tz_name)
+        datelocal_obj = utc_timestamp.astimezone(context_tz)
+
+        return datelocal_obj.strftime('%Y-%m-%d')

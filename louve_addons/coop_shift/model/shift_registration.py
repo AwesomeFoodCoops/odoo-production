@@ -202,8 +202,7 @@ class ShiftRegistration(models.Model):
                     if not markup_shift_reg_count:
                         tz_name = self._context.get('tz') or self.env.user.tz
                         date_end_obj = datetime.strptime(
-                            reg.date_end, '%Y-%m-%d %H:%M:%S') + \
-                            timedelta(days=1)
+                            reg.date_end, '%Y-%m-%d %H:%M:%S')
                         utc_timestamp = pytz.utc.localize(
                             date_end_obj, is_dst=False)
                         context_tz = pytz.timezone(tz_name)
