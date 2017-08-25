@@ -47,6 +47,11 @@ class ResPartner(models.Model):
                                       compute="_compute_is_former_member",
                                       store=True, readonly=True)
 
+    is_former_associated_people = fields.Boolean(
+                                "Is Former Associated People",
+                                compute="_compute_is_former_associated_people",
+                                store=True, readonly=True)
+
     is_interested_people = fields.Boolean(
         "Is Interested People",
         compute="_compute_is_interested_people",
@@ -208,7 +213,8 @@ class ResPartner(models.Model):
                 partner.is_former_member = False
 
     @api.multi
-    @api.depends('is_member', 'is_associated_people', 'supplier')
+    @api.depends('is_member', 'is_associated_people',
+                 'is_former_member', 'is_former_associated_people', 'supplier')
     def _compute_is_interested_people(self):
         '''
         @Function to compute data for the field is_interested_people
@@ -219,6 +225,8 @@ class ResPartner(models.Model):
             partner.is_interested_people = \
                 (not partner.is_member) and \
                 (not partner.is_associated_people) and \
+                (not partner.is_former_associated_people) and \
+                (not partner.is_former_member) and \
                 (not partner.supplier) or False
 
     @api.multi
@@ -228,6 +236,13 @@ class ResPartner(models.Model):
             partner.is_associated_people =\
                 partner.parent_id and \
                 partner.parent_id.is_member and (not partner.is_member)
+
+    @api.multi
+    @api.depends('parent_id', 'parent_id.is_former_member')
+    def _compute_is_former_associated_people(self):
+        for partner in self:
+            partner.is_former_associated_people = \
+                partner.parent_id and partner.parent_id.is_former_member
 
     @api.multi
     @api.depends(

@@ -39,6 +39,18 @@ msgid "Associated People"
 msgstr "Rattachés"
 
 #. module: coop_membership
+#: model:ir.actions.act_window,name:coop_membership.action_res_partner_interested_people
+#: model:ir.ui.menu,name:coop_membership.menu_res_partner_interested_people
+msgid "Interested People"
+msgstr "Personnes intéressées"
+
+#. module: coop_membership
+#: model:ir.actions.act_window,name:coop_membership.action_res_partner_former_associated_people
+#: model:ir.ui.menu,name:coop_membership.menu_res_partner_former_associated_people
+msgid "Former Associated People"
+msgstr "Anciennes personnes rattachées"
+
+#. module: coop_membership
 #: model:ir.model,name:coop_membership.model_shift_registration
 #: model:ir.model,name:coop_membership.model_shift_template_registration
 msgid "Attendee"
@@ -184,6 +196,11 @@ msgstr "Est un membre"
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner_is_former_member
 msgid "Is Former Member"
 msgstr "Est un ancien membre"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_is_former_associated_people
+msgid "Is Former Associated People"
+msgstr "Est une ancienne personne rattachée"
 
 #. module: coop_membership
 #: model:ir.actions.act_window,name:coop_membership.action_res_partner_former_member
