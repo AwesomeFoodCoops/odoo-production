@@ -16,6 +16,20 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_membership
+#: model:mail.template,body_html:coop_membership.unsubscribe_email
+msgid "\n"
+"            <p>Dear ${object.name},</p>\n"
+"            <p>You missed 2 consecutive programmed shifts and did not come to a make-up in-between. You have been unsubscribed from your team. The &quot;Unsubscribed&quot; status will show when you swipe your badge at the shop. This does not allow you to shop at your favorite co-op. \n"
+"If you think there was a mistake or wish to subscribe to another team please contact us as soon as possible.</p>\n"
+"            "
+msgstr "\n"
+"            <p>Cher ${object.name},</p>\n"
+"            <p>Vous avez manqué 2 services programmés consécutifs sans avoir fait de rattrapage entre-temps. Nous vous avons donc désinscrit de votre équipe. Le statut “désinscrit” sera donc affiché à l'entrée du magasin, il ne permet pas de faire ses courses au magasin.
+Si vous pensez qu’il s’agit d’une erreur ou si vous souhaitez réintégrer une équipe, merci de contacter le bureau des membres au plus vite.</p>\n"
+"            "
+
+
+#. module: coop_membership
 #: code:addons/coop_membership/models/barcode_rule.py:37
 #, python-format
 msgid "'For Associated People' field should be unique."
@@ -379,6 +393,11 @@ msgstr "Assistant"
 #, python-format
 msgid "You can't register this partner on a shift because he isn't registered on a template"
 msgstr "Vous ne pouvez pas inscrire cette personne, parce qu'elle n'est pas inscrite à un créneau."
+
+#. module: coop_membership
+#: model:mail.template,subject:coop_membership.unsubscribe_email
+msgid "You have been unsubscribed from your team"
+msgstr "Vous avez été désinscrit de votre équipe"
 
 #. module: coop_membership
 #: model:ir.model,name:coop_membership.model_barcode_rule
