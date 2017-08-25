@@ -47,6 +47,16 @@
         <field name="context">{}</field>
     </record>
 
+    <record model="ir.actions.act_window" id="action_res_partner_former_associated_people">
+        <field name="name">Former Associated People</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('is_former_associated_people', '=', True)]</field>
+        <field name="context">{}</field>
+    </record>
+
     <record model="ir.actions.act_window" id="action_account_invoice_customer_subscriptions">
         <field name="name">Subscriptions</field>
         <field name="type">ir.actions.act_window</field>
