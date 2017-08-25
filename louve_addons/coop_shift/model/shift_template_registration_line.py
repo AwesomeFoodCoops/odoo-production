@@ -177,12 +177,13 @@ class ShiftTemplateRegistrationLine(models.Model):
                 if shift.state == "done":
                     continue
                 # if dates ok, just update state
-                if (shift.date_begin > begin or not begin) and\
-                        (shift.date_end < end or not end):
-                    sr.state = state
-                # if dates not ok, unlink the shift_registration
-                else:
-                    sr.unlink()
+                if sr.state in ['draft', 'open', 'waiting']:
+                    if (shift.date_begin > begin or not begin) and\
+                            (shift.date_end < end or not end):
+                        sr.state = state
+                    # if dates not ok, unlink the shift_registration
+                    else:
+                        sr.unlink()
 
             # for shifts within dates: if partner has no registration, create
             # it
@@ -197,6 +198,7 @@ class ShiftTemplateRegistrationLine(models.Model):
                     if registration.tmpl_reg_line_id == line:
                         found = True
                         break
+
                 if not found:
                     if partner_found:
                         partner_found.tmpl_reg_line_id = line
