@@ -60,58 +60,42 @@
                     string="Computed purchase order lines"
                     colors="brown:state == 'updated';blue:state == 'new'"
                     editable="bottom">
-                                    <field name="product_code_inv" readonly="1"/>
-                                    <field name="product_id" readonly="1"/>
-                                    <field name="qty_available" readonly="1"/>
-				                    <field name="incoming_qty" readonly="1"/>
-                                    <field name="displayed_average_consumption" readonly="1"/>
-                                    <field name="uom_id" readonly="1"/>
-                                    <field name="stock_duration" readonly="1"/>
+                                    <field name="product_id"/>
+                                    <field name="product_code_inv"/>
+                                    <field name="product_name_inv"/>
+                                    <field name="computed_qty"/>
+                                    <field name="manual_input_output_qty"/>
+                                    <field name="consumption_range"/>
+                                    <field name="displayed_average_consumption"/>
+                                    <field name="uom_id"/>
+                                    <field name="stock_duration"/>
                                     <field name="purchase_qty_package"/>
-                                    <field name="package_qty_inv" readonly="1"/>
-                                    <field name="purchase_qty" readonly="1"/>
-                                    <field name="product_price_inv" readonly="1"/>
-                                    <field name="discount_inv" readonly="1"/>
-                                    <field name="price_policy" readonly="1"/>
-                                    <field name="virtual_duration" readonly="1"/>
-                                    <field name="subtotal" readonly="1"/>
-                                    <field name="state" readonly="1"/>
+                                    <field name="package_qty_inv"/>
+                                    <field name="purchase_qty"/>
+                                    <field name="uom_po_id"/>
+                                    <field name="product_price_inv"/>
+                                    <field name="discount_inv"/>
+                                    <field name="price_policy"/>
+                                    <field name="virtual_duration"/>
+                                    <field name="subtotal"/>
+                                    <field name="state" />
                                     <button name="unlink_psi" states="up_to_date,updated" type="object" icon="gtk-stop"
         help="If you click this button, it means you don't want to buy this product to this supplier anymore. The supplier will thus be removed from the product form."/>
                                     <button name="create_psi" states="new" type="object" icon="terp-personal+"
         help="If you click this button, it means you want to buy this product to this supplier regularly. The supplier will thus be added to the product form."/>
                                 </tree>
-                                <form string="Computed purchase order lines">
-	                                <group>
-	                                	<group>
-		                                    <field name="product_code_inv"/>
-		                                    <field name="product_id"/>
-		                                    <field name="qty_available"/>
-						                    <field name="incoming_qty"/>
-						                    <label for="displayed_average_consumption"/>
-	                                        <div class="oe_inline">
-			                                    <field name="displayed_average_consumption"/>
-			                                    <field name="uom_id"/>
-	                                        </div>
-	                                   </group>
-	                                   <group>
-		                                    <field name="stock_duration"/>
-		                                    <field name="purchase_qty_package"/>
-		                                    <field name="package_qty_inv"/>
-		                                    <label for="purchase_qty"/>
-	                                        <div class="oe_inline">
-			                                    <field name="purchase_qty"/>
-			                                    <field name="uom_po_id"/>
-	                                        </div>
-		                                    <field name="product_price_inv"/>
-		                                    <field name="discount_inv"/>
-		                                    <field name="price_policy"/>
-		                                    <field name="virtual_duration"/>
-		                                    <field name="subtotal"/>
-		                                    <field name="state" />
-	                                	</group>
-	                                </group>
-                                </form>
+                            </field>
+                        </page>
+                        <page name="stockdetails" string="Stock details">
+                            <field name="stock_line_ids">
+                                <tree editable="True">
+                                    <field name="product_id"/>
+                                    <field name="qty_available"/>
+                                    <field name="incoming_qty"/>
+                                    <field name="outgoing_qty"/>
+                                    <field name="manual_input_output_qty"/>
+                                    <field name="computed_qty"/>
+                                </tree>
                             </field>
                         </page>
                     </notebook>
