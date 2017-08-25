@@ -48,20 +48,24 @@
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.subscriptions_creator'))]" />
     </record>
 
-   	<!-- Associated People : Add group 'group_membership_access_user' -->
+    <!-- Associated People : Add group 'group_membership_access_user' -->
     <record model="ir.ui.menu" id="coop_membership.menu_res_partner_associated">
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_user'))]"/>
     </record>
 
-	<!-- Interested People : Add group 'group_membership_access_user' -->
+    <!-- Interested People : Add group 'group_membership_access_user' -->
     <record model="ir.ui.menu" id="coop_membership.menu_res_partner_interested_people">
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_user'))]"/>
     </record>
 
-	<!-- Former Members : Add group 'group_membership_access_user' -->
+    <!-- Former Members : Add group 'group_membership_access_user' -->
     <record model="ir.ui.menu" id="coop_membership.menu_res_partner_former_member">
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_user'))]"/>
     </record>
 
+    <record id="coop_shift.menu_shift_shift" model="ir.ui.menu">
+        <field eval="8" name="sequence"/>
+    </record>
 
+    <menuitem action="action_shift_attendance_entry_view" id="menu_shift_attendance_entry" name="Attendance Entry" parent="coop_shift.shift_menu" sequence="9"/>
 </odoo>

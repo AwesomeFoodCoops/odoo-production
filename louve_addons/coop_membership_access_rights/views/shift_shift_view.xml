@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Partner form view -->
+    <record id="view_shift_form_inherit" model="ir.ui.view">
+        <field name="name">view.shift.shift.form.inherit</field>
+        <field name="model">shift.shift</field>
+        <field name="inherit_id" ref="coop_shift.view_shift_form"/>
+        <field name="arch" type="xml">
+            <field name="state" position="attributes">
+                <attribute name="statusbar_visible">draft,confirm,entry,done</attribute>
+            </field>
+
+            <button name="button_done" position="attributes">
+                <attribute name="states">entry</attribute>
+            </button>
+
+            <button name="button_done" position="after">
+                <button name="button_makeupok" type="object" states="confirm" class="oe_highlight" string="Make-ups OK"/>
+            </button>
+
+            <!-- Hiding header fields -->
+            <field name="shift_template_id" position="attributes">
+                <attribute name="invisible">1</attribute></field>
+            <field name="shift_type_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <group name="datetime" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </group>
+
+            <!-- Hiding Smart Button Attendees-->
+            <button name="%(coop_shift.act_shift_registration_from_shift)d" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+
+            <!-- Hiding Shift Tabs -->
+            <page name="registrations" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </page>
+
+            <!-- Adding new Tabs for Standard and FTOP -->
+            <page name="registrations" position="before">
+                <page name="standard_attendance" string="Standard">
+                    <field name="standard_registration_ids" context="{'default_shift_id': active_id, 'is_standard_ticket': True}" />
+                </page>
+                <page name="ftop_attendance" string="FTOP">
+                    <field name="ftop_registration_ids" context="{'default_shift_id': active_id}"/>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_shift_search_inherit">
+        <field name="name">shift.shift.search.inherit</field>
+        <field name="model">shift.shift</field>
+        <field name="inherit_id" ref="coop_shift.view_shift_search"/>
+        <field name="arch" type="xml">
+            <filter name="confirmed" position="after">
+                <filter string="Entry" name="entry" domain="[('state','=','entry')]" help="Entry shift"/>
+            </filter>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_shift_attendance_entry_view">
+       <field name="name">Attendance Entry</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">shift.shift</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">tree,form</field>
+       <field name="context">{"search_default_confirmed": 1, "search_default_entry": 1}</field>
+       <field name="search_view_id" ref="coop_shift.view_shift_search"/>
+    </record>
+
+
+</odoo>
