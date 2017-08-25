@@ -94,7 +94,7 @@
 
             <!-- New Page for Coop Data information -->
             <notebook position="inside">
-                <page string="Coop Data">
+                <page string="Coop Data" name="coop_data">
                     <group>
                         <group string="MemberShip">
                             <field name="barcode_base" string="Member Number" readonly="1"/>
