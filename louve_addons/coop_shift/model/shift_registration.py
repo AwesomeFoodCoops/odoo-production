@@ -181,36 +181,6 @@ class ShiftRegistration(models.Model):
                 raise UserError(_("You must wait for the starting day of the\
                     shift to do this action."))
 
-            # Terminate the shift member
-            if reg.template_created and reg.shift_type == 'standard':
-                # Check for his next last shift registration
-                last_shift_reg = self.search(
-                    [('partner_id', '=', reg.partner_id.id),
-                     ('template_created', '=', True),
-                     ('date_begin', '<', reg.date_begin),
-                     ('shift_type', '=', 'standard')],
-                    order='date_begin desc', limit=1)
-                if last_shift_reg and last_shift_reg.state == 'absent':
-                    # Check for any standard shift within
-                    markup_shift_reg_count = self.search_count(
-                        [('partner_id', '=', reg.partner_id.id),
-                         ('date_begin', '<', last_shift_reg.date_begin),
-                         ('date_begin', '>', reg.date_begin),
-                         ('shift_type', '=', 'standard'),
-                         ('state', 'in', ('done', 'replaced'))])
-                    # If no markup reg found, set date end for the reg shift
-                    if not markup_shift_reg_count:
-                        tz_name = self._context.get('tz') or self.env.user.tz
-                        date_end_obj = datetime.strptime(
-                            reg.date_end, '%Y-%m-%d %H:%M:%S')
-                        utc_timestamp = pytz.utc.localize(
-                            date_end_obj, is_dst=False)
-                        context_tz = pytz.timezone(tz_name)
-                        reg_date_end_tz = utc_timestamp.astimezone(context_tz)
-
-                        final_date_end = reg_date_end_tz.strftime('%Y-%m-%d')
-                        reg.tmpl_reg_line_id.date_end = final_date_end
-
     @api.multi
     def button_reg_excused(self):
         for reg in self:
