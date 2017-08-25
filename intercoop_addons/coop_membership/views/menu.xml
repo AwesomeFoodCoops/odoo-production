@@ -46,6 +46,13 @@
         <field name="sequence">4</field>
     </record>
 
+    <record model="ir.ui.menu" id="menu_res_partner_former_associated_people">
+        <field name="name">Former Associated People</field>
+        <field name="action" ref="action_res_partner_former_associated_people"/>
+        <field name="parent_id" ref="menu_coop_member_submain"/>
+        <field name="sequence">5</field>
+    </record>
+
     <record model="ir.ui.menu" id="menu_coop_subscriptions_submain">
         <field name="name">Subscriptions</field>
         <field name="parent_id" ref="coop_shift.shift_main_menu"/>
