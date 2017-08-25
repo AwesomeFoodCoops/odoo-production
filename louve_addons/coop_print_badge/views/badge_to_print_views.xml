@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>) @author:
+	La Louve License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<openerp>
+	<data>
+		<record id="view_res_partner_badge_to_print_tree" model="ir.ui.view">
+			<field name="name">res.partner.badge.to.print.tree</field>
+			<field name="model">res.partner</field>
+			<field eval="8" name="priority" />
+			<field name="arch" type="xml">
+				<tree string="Cooporators" editable="top" create="false">
+					<field name="barcode_base" readonly="1" />
+					<field name="display_name" readonly="1" />
+					<field name="is_member" readonly="1" />
+					<field name="is_associated_people" readonly="1" />
+					<field name="badge_to_print" />
+				</tree>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_res_partner_form_base">
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="coop_membership.view_res_partner_form_base" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@name='coop_data']/group/group[1]/field[@name='is_member']" position="before">
+					<field name="badge_to_print"
+						attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}" />
+				</xpath>
+				<xpath expr="//page[@name='coop_data']/group[1]" position="before">
+					<field name="updated_badges_info" invisible="1" />
+					<group attrs="{'invisible': [('updated_badges_info','=',False)]}">
+						<p class='alert alert-warning'> Des données du badge ont changé, il est nécessaire de réimprimer ce badge. Vous pouvez retrouver tous les badges à réimprimer en utilisant le filtre "Badges à imprimer" sur la vue list. Une fois le badge imprimé, décocher le champ "Badges à imprimer"
+						</p>
+					</group>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

@@ -66,6 +66,9 @@
     <record id="coop_shift.menu_shift_shift" model="ir.ui.menu">
         <field eval="8" name="sequence"/>
     </record>
+    <record model="ir.ui.menu" id="coop_print_badge.menu_badge_to_print">
+      <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_photo'))]"/>
+    </record>
 
     <menuitem action="action_shift_attendance_entry_view" id="menu_shift_attendance_entry" name="Attendance Entry" parent="coop_shift.shift_menu" sequence="9"/>
 </odoo>
