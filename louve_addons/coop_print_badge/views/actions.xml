@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>) @author:
+	La Louve License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+
+<odoo>
+	<record id="action_badge_to_print" model="ir.actions.act_window">
+		<field name="name">Badges</field>
+		<field name="res_model">res.partner</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree</field>
+		<field name="domain">['|',('is_member','=',True),('is_associated_people','=',True)]
+		</field>
+		<field name="context">{}</field>
+	</record>
+	<record id="action_badge_to_print_view" model="ir.actions.act_window.view">
+		<field eval="1" name="sequence" />
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="view_res_partner_badge_to_print_tree" />
+		<field name="act_window_id" ref="action_badge_to_print" />
+	</record>
+	<record id="res_partner_untick_badge_to_print" model="ir.actions.server">
+		<field name="name">Remove Badges To Print</field>
+		<field name="model_id" ref="coop_print_badge.model_res_partner" />
+		<field name="state">code</field>
+		<field name="code">action = self.untick_badges_to_print(cr, uid,
+			context.get('active_ids', []), context=context)</field>
+	</record>
+	<record id="action_remove_badges_to_print" model="ir.values">
+		<field name="model_id" ref="base.model_res_partner" />
+		<field name="name">Remove Badges To Print</field>
+		<field name="key2">client_action_multi</field>
+		<field name="value"
+			eval="'ir.actions.server,%d'%res_partner_untick_badge_to_print" />
+		<field name="key">action</field>
+		<field name="model">res.partner</field>
+	</record>
+</odoo>

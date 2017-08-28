@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="louve_unsubscribe_email" model="mail.template">
+        <field name="name">Unbsubscribed Email</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.email|safe}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="reply_to">${object.company_id.email|safe}</field>
+        <field name="subject">You have been unsubscribed from your team</field>
+        <field name="body_html"><![CDATA[
+<p>Dear ${object.name},</p>
+
+<p>You missed 2 consecutive programmed shifts and did not come to a make-up in-between. You have been unsubscribed from your team. The "Unsubscribed" status will show when you swipe your badge at the shop. This does not allow you to shop at your favorite co-op.</p>
+<p>If you think there was a mistake or wish to subscribe to another team please contact us as soon as possible.</p>
+
+<p><b>Member Office Opening Times:</b></p>
+<ol>
+
+</ol>
+<li>Tuesday : 13h30 - 16h</li>
+<li>From Wednesday to Friday : 13h30 - 20h</li>
+<li>Saturday: 10h - 16h</li>
+</ol>
+
+<p><b>Phone</b> : 01 86 95 91 90</p>
+]]></field>
+    </record>
+</odoo>

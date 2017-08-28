@@ -82,8 +82,7 @@ class UpdateProductsWizard(models.TransientModel):
                     'product_code': line.product_code,
                     'product_uom': line.product_uom.id,
                     'package_qty': line.package_qty,
-                    'product_id': line.product_id.id,
-                    'product_tmpl_id': line.product_id.product_tmpl_id.id,
+                    'product_id': line.product_id.product_tmpl_id.id,
                     'price': line.price,
                     'discount': line.discount,
                 }

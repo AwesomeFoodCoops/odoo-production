@@ -111,13 +111,9 @@ class ComputedPurchaseOrderLine(models.Model):
         readonly='True', help="""Number of days the stock should last after"""
         """ the purchase.""")
     purchase_qty_package = fields.Float(
-        'Number of packages',
-        required=True,
-        help="""The number of packages you'll buy.""")
+        'Number of packages', help="""The number of packages you'll buy.""")
     purchase_qty = fields.Float(
-        'Quantity to purchase',
-        compute='_compute_purchase_qty',
-        store=True,
+        'Quantity to purchase', required=True, default=0,
         help="The quantity you should purchase.")
     manual_input_output_qty = fields.Float(
         string='Manual variation', default=0,
@@ -159,8 +155,8 @@ class ComputedPurchaseOrderLine(models.Model):
                     cpol.package_qty_inv
 
     @api.multi
-    @api.depends('purchase_qty_package', 'package_qty_inv')
-    def _compute_purchase_qty(self):
+    @api.onchange('purchase_qty_package', 'package_qty_inv')
+    def onchange_purchase_qty_package(self):
         for cpol in self:
             if cpol.purchase_qty_package == int(cpol.purchase_qty_package):
                 cpol.purchase_qty = cpol.package_qty_inv *\

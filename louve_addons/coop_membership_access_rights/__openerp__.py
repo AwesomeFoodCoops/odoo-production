@@ -53,6 +53,7 @@
         'purchase_compute_order',
         'res_partner_account_move_line',
         'stock',
+        'coop_print_badge',
     ],
     'data': [
         'security/ir_module_category.xml',
@@ -63,6 +64,7 @@
         'views/res_users_view.xml',
         'views/account_invoice_view.xml',
         'views/shift_registration_view.xml',
+        'views/shift_shift_view.xml',
         'views/action.xml',
         'views/menu.xml',
         'wizard/view_capital_fundraising_wizard.xml',
