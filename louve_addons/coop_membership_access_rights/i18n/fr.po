@@ -488,17 +488,6 @@ msgstr "FTOP"
 msgid "Make-ups OK"
 msgstr "Rattrapages OK"
 
-
-#. module: coop_membership_access_rights
-#: code:addons/coop_membership_access_rights/models/shift_registration.py:58
-#, python-format
-msgid "Warning! You cannot enter make-ups of the following members as they are up-to-date: \n"
-"\n"
-"%s"
-msgstr "Attention ! Vous ne pouvez saisir les rattrapages de ces membres car ils sont à jour: \n"
-"\n"
-"%s"
-
 #. module: coop_membership_access_rights
 #: code:addons/coop_membership_access_rights/models/shift_shift.py:51
 #, python-format
