@@ -26,9 +26,8 @@ class PurchaseOrderLine(models.Model):
                 if partner_disc_computation == 'unit_price':
                     line.price_unit = currency.round(line.price_unit)
 
-        super(PurchaseOrderLine, self)._compute_amount()
-        # restore prices
-        for line in self:
+            super(PurchaseOrderLine, line)._compute_amount()
+            # restore prices
             if line.discount:
                 line.price_unit = prices[line.id]
 
