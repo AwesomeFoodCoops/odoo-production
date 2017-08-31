@@ -75,4 +75,20 @@
         <field name="view_id" ref="coop_membership_access_rights.view_partner_form_no_create" />
         <field name="act_window_id" ref="coop_membership.action_res_partner_former_associated_people" />
     </record>
+
+    <!-- View actions for shift attendance -->
+    <record id="view_action_tree_shift_attendance_entry" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="coop_shift.view_shift_tree" />
+        <field name="act_window_id" ref="coop_membership_access_rights.action_shift_attendance_entry_view" />
+    </record>
+
+    <record id="view_action_form_shift_attendance_entry" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="coop_membership_access_rights.view_shift_form_attendance_entry" />
+        <field name="act_window_id" ref="coop_membership_access_rights.action_shift_attendance_entry_view" />
+    </record>
+
 </odoo>
