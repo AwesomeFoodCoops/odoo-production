@@ -39,10 +39,9 @@ class PurchaseOrderLine(models.Model):
                 line_qty[line.id] = line.product_qty
                 line.product_qty = line.product_qty_package
 
-        super(PurchaseOrderLine, self)._compute_amount()
+            super(PurchaseOrderLine, line)._compute_amount()
 
-        # Restore the Quantity
-        for line in self:
+            # Restore the Quantity
             if line.price_policy == 'package':
                 line.product_qty = line_qty[line.id]
 
