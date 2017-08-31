@@ -511,12 +511,12 @@ msgid "Attendance Entry"
 msgstr "Saisie des présences"
 
 #. module: coop_membership_access_rights
-#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_shift_form_inherit
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_shift_form_attendance_entry
 msgid "FTOP"
 msgstr "Volants"
 
 #. module: coop_membership_access_rights
-#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_shift_form_inherit
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_shift_form_attendance_entry
 msgid "Standard"
 msgstr "Classique"
 
