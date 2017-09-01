@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_product_label_inherit_form" model="ir.ui.view">
+        <field name="model">product.label</field>
+        <field name="name">product.label.inherit</field>
+        <field name="inherit_id" ref="coop_default_pricetag.view_product_label_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_title']" position="inside">
+                <label for="scale_logo_code" class="oe_edit_only"/>
+                <h2><field name="scale_logo_code"/></h2>
+            </xpath>
+        </field>
+    </record>
+</odoo>

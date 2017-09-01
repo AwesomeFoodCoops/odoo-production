@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="product_label_eurofeuille" model="product.label">
+            <field name="name">Eurofeuille</field>
+            <field name="code">EUROFEUILLE</field>
+            <field name="scale_logo_code">14</field>
+        </record>
+    </data>
+</odoo>
