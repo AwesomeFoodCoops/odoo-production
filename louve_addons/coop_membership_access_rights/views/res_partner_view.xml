@@ -541,17 +541,26 @@
     </record>
 
     <record model="ir.ui.view" id="view_partner_coop_membership_manager_form_inherit">
-	    <field name="model">res.partner</field>
-	    <field name="inherit_id" ref="base.view_partner_form" />
-	    <field name="priority" eval="20"/>
-	    <field name="arch" type="xml">
-	        <field name='parent_id' position="attributes">
-	        	<attribute name="groups">coop_membership_access_rights.group_membership_access_manager</attribute>
-       	  	</field>
-       	  	<xpath expr="//page[@name='shifts']" position="attributes">
-				<attribute name='attrs'>{'invisible': [('is_member','=',False)]}</attribute>
-			</xpath>
-	    </field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <field name='parent_id' position="attributes">
+                <attribute name="groups">coop_membership_access_rights.group_membership_access_manager</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_shift_manager_form_inherit">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="20"/>
+        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='shifts']" position="attributes">
+                <attribute name='attrs'>{'invisible': [('is_member','=',False)]}</attribute>
+            </xpath>
+        </field>
     </record>
 
 	<record model="ir.ui.view" id="view_res_partner_form_base">

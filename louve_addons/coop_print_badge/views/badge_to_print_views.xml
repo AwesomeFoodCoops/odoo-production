@@ -6,7 +6,7 @@
 		<record id="view_res_partner_badge_to_print_tree" model="ir.ui.view">
 			<field name="name">res.partner.badge.to.print.tree</field>
 			<field name="model">res.partner</field>
-			<field eval="8" name="priority" />
+			<field eval="32" name="priority" />
 			<field name="arch" type="xml">
 				<tree string="Cooporators" editable="top" create="false">
 					<field name="barcode_base" readonly="1" />
