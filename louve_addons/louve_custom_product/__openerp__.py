@@ -34,10 +34,14 @@ Functionnalities
     'website': 'http://www.grap.coop',
     'license': 'AGPL-3',
     'depends': [
+        'product',
         'coop_default_pricetag',
+        'product_to_scale_bizerba',
         'report',
     ],
     'data': [
+        'views/product_label_view.xml',
+        'data/product_label.xml',
         'data/ir_actions_report_xml.xml',
         'data/report_paperformat.xml',
         'data/pricetag_model.xml',
