@@ -81,7 +81,7 @@ class AccountBankStatementImport(models.TransientModel):
                     #'ref': transaction.group('unique_import_id'),
                     'amount': transaction_amount,
                     'note': transaction.group('note'),
-                    'unique_import_id': transaction.group('date')+transaction.group('name')+transaction.group('date')+str(transaction_amount)+transaction.group('note'),
+                    'unique_import_id': transaction.group('date')+transaction.group('name')+str(transaction_amount)+transaction.group('note'),
                     'account_number': bank_account_number,
                     #'bank_account_id': bank_account_id,
                 }
