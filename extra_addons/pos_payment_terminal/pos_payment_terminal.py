@@ -49,7 +49,10 @@ class PosOrder(models.Model):
         return result
 
     def add_payment(self, cr, uid, order_id, data, context=None):
-        new_context = context.copy()
+        if contexte != None:
+            new_context = context.copy()
+        else :
+            new_context = {} 
         new_context['default_payment_terminal_return_message'] = data.get('payment_terminal_return_message')
         return super(PosOrder, self).add_payment(cr, uid, order_id, data, new_context)
 
