@@ -60,3 +60,28 @@ msgstr "Démarrer la transaction"
 #, python-format
 msgid "Transaction error"
 msgstr "Erreur de transaction"
+
+#. module: pos_payment_terminal
+#: model:ir.model.fields,field_description:pos_payment_terminal.field_account_bank_statement_line_transaction_number
+msgid "Transaction number"
+msgstr "Numéro de transaction"
+
+#. module: pos_payment_terminal
+#: model:ir.model.fields,field_description:pos_payment_terminal.field_account_bank_statement_line_payment_terminal_return_message
+msgid "Payment Terminal return message"
+msgstr "Message de retour TPE"
+
+#. module: pos_payment_terminal
+#: model:res.groups,name:pos_payment_terminal.payment_terminal_return
+msgid "Payment Terminal Return"
+msgstr "Retour TPE"
+
+#. module: pos_payment_terminal
+#: model:ir.model.fields,field_description:pos_payment_terminal.field_account_bank_statement_line_remittance_number
+msgid "Remittance number"
+msgstr "Numéro de remise"
+
+#. module: pos_payment_terminal
+#: model:ir.model.fields,field_description:pos_payment_terminal.field_account_bank_statement_line_card_number
+msgid "Card number"
+msgstr "Numéro de carte/chèque"
