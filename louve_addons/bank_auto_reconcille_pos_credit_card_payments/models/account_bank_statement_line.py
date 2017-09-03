@@ -195,12 +195,8 @@ class AccountBankStatementLine(models.Model):
         charges_line_id.process_reconciliation([], [], [move_line_data_credit])
         return
 
-
-class AccountBankStatementLine(models.Model):
-    _inherit = 'account.bank.statement'
-
     @api.multi
     def payment_terminal_bank_launch(self, ):
         for line in self:
-            line.line_ids.payment_terminal_bank_reconciliation()
+            line.payment_terminal_bank_reconciliation()
         return
