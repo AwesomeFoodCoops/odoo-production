@@ -50,7 +50,6 @@ class AccountBankStatementImport(models.TransientModel):
         total_amt = 0.00
         try:
             for line in data_file[5:len(data_file)-1]:
-#                _logger.debug(line)
                 transaction = re.compile(u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<unique_import_id>.*);(?P<name>.*);(?P<debit>-\d+(,\d{1,2})?);;(?P<note>.*)$").search(line)
                 if (transaction != None):
                     transaction_amount = float(transaction.group('debit').replace(',','.'))
@@ -82,7 +81,7 @@ class AccountBankStatementImport(models.TransientModel):
             if (abs(opening_balance+total_amt-closing_balance) > 0.00001):
                 raise ValueError(_("Sum of opening balance and transaction lines is not equel to closing balance."))
 
-        except Exception,e:
+        except Exception as e:
             raise Warning(_("The following problem occurred during import. The file might not be valid.\n\n %s" % e.message))
 
         vals_bank_statement = {
