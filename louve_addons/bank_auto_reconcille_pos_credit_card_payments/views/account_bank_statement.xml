@@ -11,17 +11,17 @@
 
         <record id="action_payment_terminal_reconcil" model="ir.actions.server">
             <field name="name">Payment Terminal auto reconcil</field>
-            <field name="model_id" ref="model_account_bank_statement"/>
+            <field name="model_id" ref="model_account_bank_statement_line"/>
             <field name="state">code</field>
             <field name="code">
-                if context.get('active_model') == 'account.bank.statement' and context.get('active_ids'):
+                if context.get('active_model') == 'account.bank.statement.line' and context.get('active_ids'):
                     self.payment_terminal_bank_launch(cr, uid, ids=context['active_ids'], context=context)
             </field>
         </record>
 
     <record id="ir_payment_terminal_reconcil" model="ir.values">
         <field eval="'client_action_multi'" name="key2"/>
-        <field eval="'account.bank.statement'" name="model"/>
+        <field eval="'account.bank.statement.line'" name="model"/>
         <field name="name">Payment Terminal auto reconcil</field>
         <field eval="'ir.actions.server,%d'%action_payment_terminal_reconcil" name="value"/>
     </record>
