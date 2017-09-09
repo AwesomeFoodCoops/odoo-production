@@ -15,33 +15,50 @@ _logger = logging.getLogger(__name__)
 class AccountBankStatementImport(models.TransientModel):
     _inherit = 'account.bank.statement.import'
 
+    regexp_version = {
+        'version_A' : {
+            'line_1' : u"^Code de la banque : (?P<bank_group_code>\d{5});Code de l'agence : (?P<bank_local_code>\d{5});Date de début de téléchargement : (?P<opening_date>\d{2}/\d{2}/\d{4});Date de fin de téléchargement : (?P<closing_date>\d{2}/\d{2}/\d{4});;$",
+            'line_2' : u"^Numéro de compte : (?P<bank_account_number>\d{11});Nom du compte : (?P<bank_account_name>.*);Devise : (?P<currency>.{3});;;$",
+            'line_closing_balance' : u"^Solde en fin de période;;;;(?P<balance>\d+(,\d{1,2})?);$",
+            'line_opening_balance' : u"^Solde en début de période;;;;(?P<balance>\d+(,\d{1,2})?);$",
+            'line_credit' : u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<unique_import_id>.*);(?P<name>.*);;(?P<credit>\d+(,\d{1,2})?);(?P<note>.*)$",
+            'line_debit' : u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<unique_import_id>.*);(?P<name>.*);(?P<debit>-\d+(,\d{1,2})?);;(?P<note>.*)$",
+        },
+        'version_B' : {
+            'line_1' : u"^Code de la banque : (?P<bank_group_code>\d{5});Date de début de téléchargement : (?P<opening_date>\d{2}/\d{2}/\d{4});Date de fin de téléchargement : (?P<closing_date>\d{2}/\d{2}/\d{4});;$",
+            'line_2' : u"^Numéro de compte : (?P<bank_account_number>\d{11});Devise : (?P<currency>.{3});;;$",
+            'line_closing_balance' : u"^Solde en fin de période;;;(?P<balance>\d+(,\d{1,2})?);$",
+            'line_opening_balance' : u"^Solde en début de période;;;(?P<balance>\d+(,\d{1,2})?);$",
+            'line_credit' : u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<name>.*);;(?P<credit>\d+(,\d{1,2})?);(?P<note>.*)$",
+            'line_debit' : u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<name>.*);(?P<debit>-\d+(,\d{1,2})?);;(?P<note>.*)$",
+            }
+    }
     @api.model
     def _check_file(self, data_file):
         try:
+            file_version = "version_A"
             #for files generated before june 2017
-            #parse_line_1 = re.compile(u"^Code de la banque : (?P<bank_group_code>\d{5});Code de l'agence : (?P<bank_local_code>\d{5});Date de début de téléchargement : (?P<opening_date>\d{2}/\d{2}/\d{4});Date de fin de téléchargement : (?P<closing_date>\d{2}/\d{2}/\d{4});;$").search(data_file[0])
-            parse_line_1 = re.compile(u"^Code de la banque : (?P<bank_group_code>\d{5});Date de début de téléchargement : (?P<opening_date>\d{2}/\d{2}/\d{4});Date de fin de téléchargement : (?P<closing_date>\d{2}/\d{2}/\d{4});;$").search(data_file[0])
+            test_version = re.compile(u"^Code de la banque : (?P<bank_group_code>\d{5});Code de l'agence : (?P<bank_local_code>\d{5});Date de début de téléchargement : (?P<opening_date>\d{2}/\d{2}/\d{4});Date de fin de téléchargement : (?P<closing_date>\d{2}/\d{2}/\d{4});;$").search(data_file[0])
+            if (test_version == None):
+                #for files generated after june 2017
+                file_version = "version_B"
+
+            parse_line_1 = re.compile(self.regexp_version[file_version]['line_1']).search(data_file[0])
             bank_group_code = parse_line_1.group('bank_group_code')
             openning_date = parse_line_1.group('opening_date')
             closing_date = parse_line_1.group('closing_date')
 
-            #for files generated before june 2017
-            #parse_line_2 = re.compile(u"^Numéro de compte : (?P<bank_account_number>\d{11});Nom du compte : (?P<bank_account_name>.*);Devise : (?P<currency>.{3});;;$").search(data_file[1])
-            parse_line_2 = re.compile(u"^Numéro de compte : (?P<bank_account_number>\d{11});Devise : (?P<currency>.{3});;;$").search(data_file[1])
+            parse_line_2 = re.compile(self.regexp_version[file_version]['line_2']).search(data_file[1])
             bank_account_number = parse_line_2.group('bank_account_number')
             currency = parse_line_2.group('currency')
 
-            #for files generated before june 2017
-            #closing_balance = float(re.compile(u"^Solde en fin de période;;;;(?P<balance>\d+(,\d{1,2})?);$").search(data_file[3]).group('balance').replace(',','.'))
-            closing_balance = float(re.compile(u"^Solde en fin de période;;;(?P<balance>\d+(,\d{1,2})?);$").search(data_file[3]).group('balance').replace(',','.'))
-            #for files generated before june 2017
-            #opening_balance = float(re.compile(u"^Solde en début de période;;;;(?P<balance>\d+(,\d{1,2})?);$").search(data_file[len(data_file)-1]).group('balance').replace(',','.'))
-            opening_balance = float(re.compile(u"^Solde en début de période;;;(?P<balance>\d+(,\d{1,2})?);$").search(data_file[len(data_file)-1]).group('balance').replace(',','.'))
+            closing_balance = float(re.compile(self.regexp_version[file_version]['line_closing_balance']).search(data_file[3]).group('balance').replace(',','.'))
+            opening_balance = float(re.compile(self.regexp_version[file_version]['line_opening_balance']).search(data_file[len(data_file)-1]).group('balance').replace(',','.'))
 
         except Exception as e:
             _logger.debug(e)
             return False
-        return (bank_group_code,openning_date,closing_date,bank_account_number,opening_balance,closing_balance,currency)
+        return (file_version,bank_group_code,openning_date,closing_date,bank_account_number,opening_balance,closing_balance,currency)
 
     @api.model
     def _parse_file(self, data_file):
@@ -51,29 +68,18 @@ class AccountBankStatementImport(models.TransientModel):
             return super(AccountBankStatementImport, self)._parse_file(
                 data_file)
 
-        bank_group_code,openning_date,closing_date,bank_account_number,opening_balance,closing_balance,currency = result
+        file_version,bank_group_code,openning_date,closing_date,bank_account_number,opening_balance,closing_balance,currency = result
         transactions = []
         total_amt = 0.00
         try:
+            index = 0
             for line in data_file[5:len(data_file)-1]:
-                #for files generated before june 2017
-                #transaction = re.compile(u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<unique_import_id>.*);(?P<name>.*);(?P<debit>-\d+(,\d{1,2})?);;(?P<note>.*)$").search(line)
-                transaction = re.compile(u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<name>.*);(?P<debit>-\d+(,\d{1,2})?);;(?P<note>.*)$").search(line)
+                transaction = re.compile(self.regexp_version[file_version]['line_debit']).search(line)
                 if (transaction != None):
                     transaction_amount = float(transaction.group('debit').replace(',','.'))
                 else :
-                    #for files generated before june 2017
-                    #transaction = re.compile(u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<unique_import_id>.*);(?P<name>.*);;(?P<credit>\d+(,\d{1,2})?);(?P<note>.*)$").search(line)
-                    transaction = re.compile(u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<name>.*);;(?P<credit>\d+(,\d{1,2})?);(?P<note>.*)$").search(line)
+                    transaction = re.compile(self.regexp_version[file_version]['line_credit']).search(line)
                     transaction_amount = float(transaction.group('credit').replace(',','.'))
-
-                #bank_account_id = partner_id = False
-                #banks = self.env['res.partner.bank'].search(
-                #    [('bank_name', '=', transaction.payee)], limit=1)
-                #if banks:
-                #    bank_account = banks[0]
-                #    bank_account_id = bank_account.id
-                #    partner_id = bank_account.partner_id.id
 
                 vals_line = {
                     'date': datetime.datetime.strptime(transaction.group('date'), '%d/%m/%Y').strftime('%Y-%m-%d'),
@@ -81,12 +87,12 @@ class AccountBankStatementImport(models.TransientModel):
                     #'ref': transaction.group('unique_import_id'),
                     'amount': transaction_amount,
                     'note': transaction.group('note'),
-                    'unique_import_id': transaction.group('date')+transaction.group('name')+str(transaction_amount)+transaction.group('note'),
+                    'unique_import_id': str(index)+transaction.group('date')+transaction.group('name')+str(transaction_amount)+transaction.group('note'),
                     'account_number': bank_account_number,
-                    #'bank_account_id': bank_account_id,
                 }
                 total_amt += transaction_amount
                 transactions.append(vals_line)
+                index = index + 1
 
             if (abs(opening_balance+total_amt-closing_balance) > 0.00001):
                 raise ValueError(_("Sum of opening balance and transaction lines is not equel to closing balance."))
