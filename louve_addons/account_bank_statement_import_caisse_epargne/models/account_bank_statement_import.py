@@ -55,6 +55,7 @@ class AccountBankStatementImport(models.TransientModel):
         transactions = []
         total_amt = 0.00
         try:
+            index = 0
             for line in data_file[5:len(data_file)-1]:
                 #for files generated before june 2017
                 #transaction = re.compile(u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<unique_import_id>.*);(?P<name>.*);(?P<debit>-\d+(,\d{1,2})?);;(?P<note>.*)$").search(line)
@@ -81,12 +82,13 @@ class AccountBankStatementImport(models.TransientModel):
                     #'ref': transaction.group('unique_import_id'),
                     'amount': transaction_amount,
                     'note': transaction.group('note'),
-                    'unique_import_id': transaction.group('date')+transaction.group('name')+str(transaction_amount)+transaction.group('note'),
+                    'unique_import_id': str(index)+transaction.group('date')+transaction.group('name')+str(transaction_amount)+transaction.group('note'),
                     'account_number': bank_account_number,
                     #'bank_account_id': bank_account_id,
                 }
                 total_amt += transaction_amount
                 transactions.append(vals_line)
+                index = index + 1
 
             if (abs(opening_balance+total_amt-closing_balance) > 0.00001):
                 raise ValueError(_("Sum of opening balance and transaction lines is not equel to closing balance."))
