@@ -44,24 +44,16 @@ class AccountBankStatementImport(models.TransientModel):
                 file_version = "version_B"
 
             parse_line_1 = re.compile(self.regexp_version[file_version]['line_1']).search(data_file[0])
-            _logger.error("========================================="+file_version)
             bank_group_code = parse_line_1.group('bank_group_code')
-            _logger.error("========================================= A")
             openning_date = parse_line_1.group('opening_date')
-            _logger.error("========================================= B")
             closing_date = parse_line_1.group('closing_date')
-            _logger.error("========================================= C")
 
             parse_line_2 = re.compile(self.regexp_version[file_version]['line_2']).search(data_file[1])
             bank_account_number = parse_line_2.group('bank_account_number')
-            _logger.error("========================================= D")
             currency = parse_line_2.group('currency')
-            _logger.error("========================================= E")
 
             closing_balance = float(re.compile(self.regexp_version[file_version]['line_closing_balance']).search(data_file[3]).group('balance').replace(',','.'))
-            _logger.error("========================================= F")
             opening_balance = float(re.compile(self.regexp_version[file_version]['line_opening_balance']).search(data_file[len(data_file)-1]).group('balance').replace(',','.'))
-            _logger.error("========================================= G")
 
         except Exception as e:
             _logger.debug(e)
