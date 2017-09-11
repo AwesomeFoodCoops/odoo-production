@@ -49,7 +49,7 @@ class PosOrder(models.Model):
         return result
 
     def add_payment(self, cr, uid, order_id, data, context=None):
-        if contexte != None:
+        if context != None:
             new_context = context.copy()
         else :
             new_context = {} 
