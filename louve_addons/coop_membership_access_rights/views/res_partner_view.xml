@@ -92,7 +92,7 @@
                         <field name="name" default_focus="1" placeholder="Name" attrs="{'required' : [('type', '=', 'contact')]}"/>
                     </h1>
                     <div class="o_row">
-                        <field name="parent_id" placeholder="Company" domain="[('is_company', '=', True)]" context="{'default_is_company': True, 'default_supplier': supplier, 'default_customer': customer}" attrs="{'invisible': [('is_company','=', True),('parent_id', '=', False)]}" on_change="onchange_parent_id(parent_id)" groups="coop_membership_access_rights.group_membership_access_manager"/>
+                        <field name="parent_id" placeholder="Company" domain="[('is_company', '=', True)]" context="{'default_is_company': True, 'default_supplier': supplier, 'default_customer': customer}" attrs="{'invisible': [('is_company','=', True),('parent_id', '=', False)]}" on_change="onchange_parent_id(parent_id)" groups="coop_membership_access_rights.group_membership_see_associated_people"/>
                     </div>
                 </div>
                 <field name="updated_badges_info" invisible="1" />
@@ -546,7 +546,7 @@
         <field name="priority" eval="20"/>
         <field name="arch" type="xml">
             <field name='parent_id' position="attributes">
-                <attribute name="groups">coop_membership_access_rights.group_membership_access_manager</attribute>
+                <attribute name="groups">coop_membership_access_rights.group_membership_see_associated_people</attribute>
             </field>
         </field>
     </record>
