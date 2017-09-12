@@ -563,4 +563,32 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="view_res_partner_form_base">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_print_badge.view_res_partner_form_base"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//page[@name='coop_data']/group/group[1]/field[@name='badge_to_print']" position="attributes">
+        		<attribute name="groups">coop_membership_access_rights.group_membership_access_photo</attribute>
+        	</xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_all_members_tree" model="ir.ui.view">
+        <field name="name">res.partner.all.members.tree</field>
+        <field name="model">res.partner</field>
+        <field eval="16" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Members">
+                <field name="barcode_base" string="Coop Number"/>
+                <field name="display_name"/>
+                <field name="is_member"/>
+                <field name="is_worker_member"/>
+                <field name="is_former_member"/>
+                <field name="is_associated_people"/>
+                <field name="is_former_associated_people"/>
+                <field name="is_interested_people"/>
+            </tree>
+        </field>
+    </record>
+
 </odoo>

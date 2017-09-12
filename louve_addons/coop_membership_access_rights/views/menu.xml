@@ -71,4 +71,28 @@
     </record>
 
     <menuitem action="action_shift_attendance_entry_view" id="menu_shift_attendance_entry" name="Attendance Entry" parent="coop_shift.shift_menu" sequence="9"/>
+
+	<!--  Add new menu `All` that it shows the list of all partner who links to coop -->
+	<record model="ir.ui.menu" id="menu_res_partner_all_partners">
+        <field name="name">All</field>
+        <field name="action" ref="action_coop_all_partner_view"/>
+        <field name="parent_id" ref="coop_membership.menu_coop_member_submain"/>
+        <field name="sequence">1</field>
+    </record>
+    <record id="coop_membership.menu_res_partner_members" model="ir.ui.menu">
+        <field eval="2" name="sequence"/>
+    </record>
+    <record id="coop_membership.menu_res_partner_associated" model="ir.ui.menu">
+        <field eval="3" name="sequence"/>
+    </record>
+    <record id="coop_membership.menu_res_partner_former_member" model="ir.ui.menu">
+        <field eval="4" name="sequence"/>
+    </record>
+    <record id="coop_membership.menu_res_partner_interested_people" model="ir.ui.menu">
+        <field eval="5" name="sequence"/>
+    </record>
+    <record id="coop_membership.menu_res_partner_former_associated_people" model="ir.ui.menu">
+        <field eval="6" name="sequence"/>
+    </record>
+
 </odoo>
