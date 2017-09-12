@@ -41,6 +41,9 @@
                 <button id="create_new_barcode" name="%(action_res_partner_generate_barcode_wizard)d" type="action"
                     string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode"/>
             </button>
+            <xpath expr="//notebook/page[1]/field/form/sheet/group//field[@name='title']" position="after">
+                <field name="sex" attrs="{'required': True}"/>
+            </xpath>
         </field>
     </record>
 
