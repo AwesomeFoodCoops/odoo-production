@@ -35,6 +35,7 @@ class ResPartner(models.Model):
     SEX_SELECTION = [
         ('m', 'male'),
         ('f', 'female'),
+        ('o', 'other'),
     ]
 
     # New Column Section
