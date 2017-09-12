@@ -332,12 +332,17 @@ msgstr "Sexe"
 #. module: coop_membership
 #: selection:res.partner,sex:0
 msgid "male"
-msgstr "Masculin"
+msgstr "Homme"
 
 #. module: coop_membership
 #: selection:res.partner,sex:0
 msgid "female"
-msgstr "Féminin"
+msgstr "Femme"
+
+#. module: coop_membership
+#: selection:res.partner,sex:0
+msgid "other"
+msgstr "Autre"
 
 #. module: coop_membership
 #: model:ir.model,name:coop_membership.model_shift_template
