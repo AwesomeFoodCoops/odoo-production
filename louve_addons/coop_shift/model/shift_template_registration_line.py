@@ -80,7 +80,6 @@ class ShiftTemplateRegistrationLine(models.Model):
                     "Stop Date should be greater than Start Date."))
 
     @api.multi
-    @api.model
     def _compute_current(self):
         for line in self:
             now = fields.Datetime.now()
@@ -165,6 +164,15 @@ class ShiftTemplateRegistrationLine(models.Model):
         res = super(ShiftTemplateRegistrationLine, self).write(vals)
         self.mapped(lambda s: s.partner_id)._compute_registration_counts()
         for line in self:
+            bypass_leave_change_check = self._context.get(
+                'bypass_leave_change_check', False)
+            if not bypass_leave_change_check and line.leave_id:
+                raise ValidationError(_(
+                    "You cannot make changes on this template registration. "
+                    "Please make your changes directly on the leave recorded "
+                    "for this period. You will need to cancel it then set to "
+                    "draft before you can make required changes."))
+
             sr_obj = self.env['shift.registration']
             st_reg = line.registration_id
             partner = st_reg.partner_id
