@@ -52,7 +52,8 @@ class AccountCheckDeposit(models.Model):
                 currency_none_same_company_id
             deposit.check_count = count
 
-    name = fields.Char(string='Name', size=64, readonly=True, default='/')
+    name = fields.Char(string='Name', required=True,
+                       states={'done': [('readonly', '=', True)]},)
     check_payment_ids = fields.One2many(
         'account.move.line', 'check_deposit_id', string='Check Payments',
         states={'done': [('readonly', '=', True)]})
@@ -66,7 +67,7 @@ class AccountCheckDeposit(models.Model):
     destination_journal_id = fields.Many2one(
         'account.journal',
         string="Destination Journal",
-        required=True)
+        required=True, states={'done': [('readonly', '=', True)]},)
     journal_default_account_id = fields.Many2one(
         'account.account', related='journal_id.default_debit_account_id',
         string='Default Debit Account of the Journal', readonly=True)
@@ -155,35 +156,28 @@ class AccountCheckDeposit(models.Model):
         return True
 
     @api.model
-    def create(self, vals):
-        if vals.get('name', '/') == '/':
-            vals['name'] = self.env['ir.sequence'].\
-                next_by_code('account.check.deposit')
-        return super(AccountCheckDeposit, self).create(vals)
-
-    @api.model
     def _prepare_account_move_vals(self, deposit):
         date = deposit.deposit_date
         move_vals = {
             'journal_id': deposit.destination_journal_id.id,
             'date': date,
-            'name': _('Check Deposit %s') % deposit.name,
+            'name': deposit.name,
             'ref': deposit.name,
         }
         return move_vals
 
     @api.model
-    def _prepare_move_line_vals(self, line):
+    def _prepare_move_line_vals(self, line, deposit):
         assert (line.debit > 0), 'Debit must have a value'
         return {
-            'name': _('%s Check Deposit - Ref. Check %s') % (
-                line.account_id.code, line.ref),
+            'name': _('%s - Ref. Check %s') % (deposit.name,
+                                               line.ref or line.name or ''),
             'credit': line.debit,
             'debit': 0.0,
             'account_id': line.account_id.id,
             'partner_id': line.partner_id.id,
             'currency_id': line.currency_id.id or False,
-            'amount_currency': line.amount_currency * -1,
+            'amount_currency': line.amount_currency * -1.0,
         }
 
     @api.model
@@ -191,7 +185,7 @@ class AccountCheckDeposit(models.Model):
             self, deposit, total_debit, total_amount_currency):
         account = deposit.destination_journal_id.default_debit_account_id
         return {
-            'name': _('%s Check Deposit %s') % (account.code, deposit.name),
+            'name': deposit.name,
             'debit': total_debit,
             'credit': 0.0,
             'account_id': account.id,
@@ -213,7 +207,7 @@ class AccountCheckDeposit(models.Model):
             for line in deposit.check_payment_ids:
                 total_debit += line.debit
                 total_amount_currency += line.amount_currency
-                line_vals = self._prepare_move_line_vals(line)
+                line_vals = self._prepare_move_line_vals(line, deposit)
                 line_vals['move_id'] = move.id
                 move_line = move_line_obj.with_context(
                     check_move_validity=False).create(line_vals)
