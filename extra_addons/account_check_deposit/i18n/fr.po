@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_check_deposit
-# 
+#
 # Translators:
 # Ahmet Altınışık <aaltinisik@altinkaya.com.tr>, 2016
 # Antonio Trueba, 2016
@@ -36,7 +36,7 @@ msgid "Account Check Deposit"
 msgstr "Compte Remise de Chèque"
 
 #. module: account_check_deposit
-#: field:res.company,check_deposit_account_id:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_check_deposit_account_id
 msgid "Account for Check Deposits"
 msgstr "Compte pour les remises de chèques"
 
@@ -52,7 +52,7 @@ msgstr "Remettre en brouillon"
 
 #. module: account_check_deposit
 #: view:account.check.deposit:account_check_deposit.view_check_deposit_search
-#: field:account.check.deposit,partner_bank_id:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_partner_bank_id
 msgid "Bank Account"
 msgstr "Compte bancaire"
 
@@ -78,23 +78,16 @@ msgstr "Devise du chèque :"
 
 #. module: account_check_deposit
 #: view:account.check.deposit:account_check_deposit.account_check_deposit_view_form
-#: field:account.move.line,check_deposit_id:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_check_deposit_id
 #: model:ir.actions.report.xml,name:account_check_deposit.report_account_check_deposit
 msgid "Check Deposit"
 msgstr "Remise de chèque"
 
 #. module: account_check_deposit
-#: code:addons/account_check_deposit/models/account_deposit.py:180
-#: code:addons/account_check_deposit/models/account_deposit.py:202
+#: code:addons/account_check_deposit/models/account_deposit.py:173
 #, python-format
-msgid "%s Check Deposit %s"
-msgstr "%s Remise de chèque %s"
-
-#. module: account_check_deposit
-#: code:addons/account_check_deposit/models/account_deposit.py:189
-#, python-format
-msgid "%s Check Deposit - Ref. Check %s"
-msgstr "%s Remise de chèque REM004 - Ref. Check %s"
+msgid "%s - Ref. Check %s"
+msgstr "%s - réf. chq %s"
 
 #. module: account_check_deposit
 #: view:website:account_check_deposit.report_checkdeposit
@@ -103,7 +96,7 @@ msgstr "Remise de chèque n°"
 
 #. module: account_check_deposit
 #: view:account.check.deposit:account_check_deposit.account_check_deposit_view_form
-#: field:account.check.deposit,check_payment_ids:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_check_payment_ids
 msgid "Check Payments"
 msgstr "Paiements par Chèque"
 
@@ -131,7 +124,7 @@ msgid "Companies"
 msgstr "Sociétés"
 
 #. module: account_check_deposit
-#: field:account.check.deposit,company_id:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_company_id
 msgid "Company"
 msgstr "Société"
 
@@ -147,7 +140,7 @@ msgstr "Créé le"
 
 #. module: account_check_deposit
 #: view:account.check.deposit:account_check_deposit.view_check_deposit_search
-#: field:account.check.deposit,currency_id:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_currency_id
 msgid "Currency"
 msgstr "Devise"
 
@@ -168,14 +161,15 @@ msgstr "Débiteur"
 
 #. module: account_check_deposit
 #: field:account.check.deposit,journal_default_account_id:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_journal_default_account_id
 msgid "Default Debit Account of the Journal"
 msgstr "Compte de débit par défaut du journal"
 
 #. module: account_check_deposit
 #: view:account.check.deposit:account_check_deposit.view_check_deposit_search
-#: field:account.check.deposit,deposit_date:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_deposit_date
 msgid "Deposit Date"
-msgstr "Date du Versement"
+msgstr "Date de remise"
 
 #. module: account_check_deposit
 #: field:account.check.deposit,display_name:0
@@ -216,7 +210,7 @@ msgid "Journal"
 msgstr "Journal"
 
 #. module: account_check_deposit
-#: field:account.check.deposit,move_id:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_move_id
 msgid "Journal Entry"
 msgstr "Pièce comptable"
 
@@ -257,22 +251,22 @@ msgid "Default Debit Account is not set on journal '%s'"
 msgstr "Le compte de débit par défaut n'est pas défini sur le journal '%s'"
 
 #. module: account_check_deposit
-#: field:account.check.deposit,name:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_name
 msgid "Name"
 msgstr "Nom"
 
 #. module: account_check_deposit
-#: field:account.check.deposit,check_count:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_check_count
 msgid "Number of Checks"
-msgstr "Nombre de chèques :"
+msgstr "Nb. chèques"
 
 #. module: account_check_deposit
 #: view:website:account_check_deposit.report_checkdeposit
 msgid "Number of checks:"
-msgstr "Nombre de chèques :"
+msgstr "Nb. chèques:"
 
 #. module: account_check_deposit
-#: field:account.check.deposit,is_reconcile:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_is_reconcile
 msgid "Reconcile"
 msgstr "Lettrer"
 
@@ -282,7 +276,7 @@ msgid "Reference"
 msgstr "Référence"
 
 #. module: account_check_deposit
-#: field:account.check.deposit,state:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_state
 msgid "Status"
 msgstr "État"
 
@@ -304,9 +298,9 @@ msgid ""
 msgstr "La remise \"%s\" est validée, donc vous devez l'annuler avant de la supprimer."
 
 #. module: account_check_deposit
-#: field:account.check.deposit,total_amount:0
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_total_amount
 msgid "Total Amount"
-msgstr "Montant total"
+msgstr "Total"
 
 #. module: account_check_deposit
 #: view:website:account_check_deposit.report_checkdeposit
@@ -315,6 +309,7 @@ msgstr "Total:"
 
 #. module: account_check_deposit
 #: view:website:account_check_deposit.report_checkdeposit
+#: model:ir.ui.view,arch_db:account_check_deposit.report_checkdeposit
 msgid "Transfer Date:"
 msgstr ""
 
@@ -322,3 +317,15 @@ msgstr ""
 #: view:account.check.deposit:account_check_deposit.account_check_deposit_view_form
 msgid "Validate"
 msgstr "Valider"
+
+#. module: account_check_deposit
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_destination_journal_id
+msgid "Destination Journal"
+msgstr "Journal de destination"
+
+#. module: account_check_deposit
+#: model:ir.model,name:account_check_deposit.model_account_journal
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_check_deposit_journal_id
+#: model:ir.ui.view,arch_db:account_check_deposit.view_check_deposit_search
+msgid "Journal"
+msgstr "Journal"
