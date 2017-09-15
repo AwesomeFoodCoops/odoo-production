@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: La Louve
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="action_invoice_refund" model="ir.actions.act_window">
+        <field name="name">Vendor Refunds</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,calendar,pivot,graph</field>
+        <field eval="False" name="view_id"/>
+        <field name="domain">[('type','=','in_refund')]</field>
+        <field name="context">{'default_type': 'in_refund', 'type': 'in_refund', 'journal_type': 'purchase'}</field>
+        <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+    </record>
+</odoo>

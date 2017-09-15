@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: La Louve
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <menuitem id="menu_invoice_refund"
+        name="Vendor Refunds"
+        parent="purchase.menu_purchase_control"
+        sequence="15"
+        action="action_invoice_refund"/>
+</odoo>
