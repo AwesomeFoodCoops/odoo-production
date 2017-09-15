@@ -8,12 +8,12 @@
 			<field name="model">res.partner</field>
 			<field eval="32" name="priority" />
 			<field name="arch" type="xml">
-				<tree string="Cooporators" editable="top" create="false">
+				<tree string="Badges" create="false">
 					<field name="barcode_base" readonly="1" />
 					<field name="display_name" readonly="1" />
 					<field name="is_member" readonly="1" />
 					<field name="is_associated_people" readonly="1" />
-					<field name="badge_to_print" />
+					<field name="badge_to_print" invisible="1"/>
 				</tree>
 			</field>
 		</record>
@@ -22,8 +22,7 @@
 			<field name="inherit_id" ref="coop_membership.view_res_partner_form_base" />
 			<field name="arch" type="xml">
 				<xpath expr="//page[@name='coop_data']/group/group[1]/field[@name='is_member']" position="before">
-					<field name="badge_to_print"
-						attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}" />
+					<field name="badge_to_print" invisible="1"/>
 				</xpath>
 				<xpath expr="//page[@name='coop_data']/group[1]" position="before">
 					<field name="updated_badges_info" invisible="1" />
