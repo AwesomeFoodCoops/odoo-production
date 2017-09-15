@@ -8,13 +8,12 @@
 		<field name="res_model">res.partner</field>
 		<field name="type">ir.actions.act_window</field>
 		<field name="view_type">form</field>
-		<field name="view_mode">tree</field>
-		<field name="domain">['|',('is_member','=',True),('is_associated_people','=',True)]
-		</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('badge_to_print','=', True)]</field>
 		<field name="context">{}</field>
 	</record>
 	<record id="action_badge_to_print_view" model="ir.actions.act_window.view">
-		<field eval="1" name="sequence" />
+		<field eval="32" name="sequence" />
 		<field name="view_mode">tree</field>
 		<field name="view_id" ref="view_res_partner_badge_to_print_tree" />
 		<field name="act_window_id" ref="action_badge_to_print" />
