@@ -15,16 +15,17 @@
                     <div class="member_number">
                         <!--N°--> <span t-field="partner.barcode_base"/>
                     </div>
-
                     <div class="coop_text">
-                        MEMBER
+	                      <t t-if="partner.sex=='m'">Coopérateur</t>
+	                      <t t-if="partner.sex=='f'">Coopératrice</t>
+	                      <t t-if="partner.sex=='o'">Coopérateur/trice</t>
                     </div>
                     <div class="member_name">
-                        <t t-if="partner.name.find(',')&gt;0"><span t-esc="partner.name.split(',')[1]" style="text-align:left;font-size:40;word-wrap:break-word"/><br/></t>
-                        <t t-if="partner.name.find(',')&gt;0"><span t-esc="partner.name.split(',')[0]" style="text-align:left;font-size:25;word-wrap:break-word"/></t>
-                        <t t-if="partner.name.find(',')&lt;0"><span t-esc="partner.name" style="text-align:left;font-size:25;word-wrap:break-word"/></t>
+                        <t t-if="partner.name.find(',')&gt;0"><span t-esc="partner.name.split(',')[1]" class="break_2_lines"/></t><br/>
+                        <t t-if="partner.name.find(',')&gt;0"><span t-esc="partner.name.split(',')[0]" class="break_1_line"/></t>
+                        <t t-if="partner.name.find(',')&lt;0"><span t-esc="partner.name" class="break_3_lines"/></t>
                     </div>
-                    <img class="barcode_image" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.barcode, 600, 900)" style="width:100%;height:100px"/>
+                    <img class="barcode_image" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('EAN13', partner.barcode, 600, 900)" style="width:100%;height:100px;"/>
                     <!--<div class="company_address">
                         <span t-field="partner_id.company_id.partner_id.name"/><br/>
                         <span t-field="partner_id.company_id.partner_id.street"/><br/>

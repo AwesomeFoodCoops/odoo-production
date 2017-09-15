@@ -13,6 +13,8 @@
     height:59mm;
     float:left;
     padding:0cm;
+    -ms-transform: translate(-2mm, -1mm);
+    -webkit-transform: translate(-2mm, -1mm);
 }
 .member_photo{
     width:100%;
@@ -24,7 +26,7 @@
     font-size: 15;
 }
 .coop_text{
-    font-size: 15;
+    font-size: 1.5em;
     text-orientation: sideways-left;
     margin-left:40mm;
     margin: 0;
@@ -39,18 +41,73 @@
 .member_name{
     float: left;
     height:25mm;
-    font-size: 25;
+    font-size: 1.5em;
+    width:65mm !important;
+    overflow: hidden;
+    word-wrap: break-all;
+    overflow-wrap: break-all;
+    text-align: left;
+   	max-width: 65mm !important;
+}
+
+.member_name .break_2_lines{
+	float: left;
+    font-size: 1.5em;
     width:65mm !important;
     overflow: hidden;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    white-space: normal !important;
     text-align: left;
+    -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   line-height: 1.1em;        /* fallback */
+   max-height: 2.2em;       /* fallback */
+   max-width: 65mm !important;
 }
+.member_name .break_1_line{
+	float: left;
+    font-size: 1.5em;
+    width:65mm !important;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal !important;
+    text-align: left;
+    -webkit-box-orient: vertical;
+   -webkit-line-clamp: 1; /* number of lines to show */
+   line-height: 1.1em;        /* fallback */
+   max-height: 1.1em;       /* fallback */
+   max-width: 65mm !important;
+}
+.member_name .break_3_lines{
+	float: left;
+    font-size: 1.5em;
+    width:65mm !important;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal !important;
+    text-align: left;
+    -webkit-box-orient: vertical;
+   -webkit-line-clamp: 3; /* number of lines to show */
+   line-height: 1.1em;        /* fallback */
+   max-height: 3.3em;       /* fallback */
+   max-width: 65mm !important;
+   -ms-transform: translate(-1mm, -4mm);
+   -webkit-transform: translate(-1mm, -4mm);
+}
+
 .barcode_image{
     float: left;
     height:23mm;
     max-height:23mm;
     max-width:54mm;
+    padding:1mm;
+    margin:1mm;
+    background-color:white;
+    -ms-transform: translate(0mm, -2mm);
+    -webkit-transform: translate(0mm, -2mm);
 }
 .company_address{
     margin-left:41mm;
