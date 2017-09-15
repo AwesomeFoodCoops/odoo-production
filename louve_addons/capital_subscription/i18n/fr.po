@@ -388,9 +388,21 @@ msgid "Payment of Capital"
 msgstr "Paiement du capital"
 
 #. module: capital_subscription
-#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_deficit_share_percentage
-msgid "Percentage"
-msgstr "Percentage"
+#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_deficit_amount_by_share
+msgid "Amount By Share"
+msgstr "Montant par action"
+
+#. module: capital_subscription
+#: code:addons/capital_subscription/models/capital_fundraising_deficit.py:41
+#, python-format
+msgid "Stop Date should be greater than Start Date."
+msgstr "La date de fin doit être supérieur à la date de début"
+
+#. module: capital_subscription
+#: code:addons/capital_subscription/models/capital_fundraising_deficit.py:66
+#, python-format
+msgid "You cannot have two Capital Fundraising Deficit configuration lines that overlap"
+msgstr "Deux lignes de configuration ne peuvent se chevaucher"
 
 #. module: capital_subscription
 #: model:ir.model,name:capital_subscription.model_product_template

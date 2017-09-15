@@ -39,22 +39,23 @@
             <field name="name">shift.registration.tree.confirm</field>
             <field name="model">shift.registration</field>
             <field name="arch" type="xml">
-                <tree string="Registration" decoration-bf="message_needaction==True" editable="top">
+                <tree string="Registration" name="registration_list" decoration-bf="message_needaction==True" editable="top"
+                	decoration-warning="state=='excused'" decoration-danger="state=='absent'">
                     <field name="date_begin"/>
                     <field name="partner_id" options="{'no_create_edit': True, 'no_create': True}"/>
                     <field name="shift_id" options="{'no_create_edit': True, 'no_create': True}"/>
                     <field name="shift_ticket_id" domain="[('shift_id', '=', shift_id)]" options="{'no_create_edit': True, 'no_create': True}"/>
-                    <field name="replacing_reg_id"/>
+                    <field name="replacing_reg_id" readonly="1"/>
                     <field name="state"/>
                     <field name="message_needaction" invisible="1"/>
                     <field name="is_related_shift_ftop" invisible="1"/>
-                    <button name="button_reg_close" string="Attended the Shift" type="object" icon="fa-thumbs-o-up" attrs="{'invisible': ['|', ('state', '!=', 'open'),('is_related_shift_ftop', '=', True)]}"/>
-                    <button name="confirm_registration" string="Confirm Registration" type="object" icon="gtk-apply" groups="coop_shift.group_shift_manager" attrs="{'invisible': ['|', ('state', '!=', 'draft'),('is_related_shift_ftop', '=', True)]}"/>
-                    <button name="button_reg_absent" string="Absent" type="object" icon="fa-user-secret" attrs="{'invisible': ['|', ('state', '!=', 'open'),('is_related_shift_ftop', '=', True)]}"/>
-                    <button name="button_reg_cancel" string="Cancel Registration" type="object" icon="gtk-cancel" groups="coop_shift.group_shift_manager" attrs="{'invisible': ['|', ('state', '!=', 'draft'),('is_related_shift_ftop', '=', True)]}"/>
-                    <button name="button_reg_excused" string="Excused" type="object" icon="fa-hand-o-right" attrs="{'invisible': ['|', ('state', '!=', 'open'),('is_related_shift_ftop', '=', True)]}"/>
-                    <button name="do_draft" string="Set To Unconfirmed" type="object" icon="fa-backward" groups="coop_shift.group_shift_manager" attrs="{'invisible': ['|', ('state', 'not in', ['cancel', 'done', 'absent', 'excused', 'replaced', 'replacing', 'open']),('is_related_shift_ftop', '=', True)]}"/>
-                    <button name="%(coop_shift.action_replace_registration)d" type="action" icon="fa-users" string="Replace Member" attrs="{'invisible': ['|', ('state', '!=', 'open'),('is_related_shift_ftop', '=', True)]}"/>
+                    <button name="button_reg_close" string="Attended the Shift" type="object" icon="fa-thumbs-o-up fa-lg" attrs="{'invisible': ['|', ('state', '!=', 'open'),('is_related_shift_ftop', '=', True)]}"/>
+                    <button name="confirm_registration" string="Confirm Registration" type="object" style="font-size:1.33em" icon="gtk-apply" groups="coop_shift.group_shift_manager" attrs="{'invisible': ['|', ('state', '!=', 'draft'),('is_related_shift_ftop', '=', True)]}"/>
+                    <button name="button_reg_absent" string="Absent" type="object" icon="fa-user-secret fa-lg" attrs="{'invisible': ['|', ('state', '!=', 'open'),('is_related_shift_ftop', '=', True)]}"/>
+                    <button name="button_reg_cancel" string="Cancel Registration" type="object" style="font-size:1.33em" icon="gtk-cancel" groups="coop_shift.group_shift_manager" attrs="{'invisible': ['|', ('state', '!=', 'draft'),('is_related_shift_ftop', '=', True)]}"/>
+                    <button name="button_reg_excused" string="Excused" type="object" icon="fa-hand-o-right fa-lg" attrs="{'invisible': ['|', ('state', '!=', 'open'),('is_related_shift_ftop', '=', True)]}"/>
+                    <button name="do_draft" string="Set To Unconfirmed" type="object" icon="fa-backward fa-lg" groups="coop_shift.group_shift_manager" attrs="{'invisible': ['|', ('state', 'not in', ['cancel', 'done', 'absent', 'excused', 'replaced', 'replacing', 'open']),('is_related_shift_ftop', '=', True)]}"/>
+                    <button name="%(coop_shift.action_replace_registration)d" type="action" icon="fa-users fa-lg" string="Replace Member" attrs="{'invisible': ['|', ('state', '!=', 'open'),('is_related_shift_ftop', '=', True)]}"/>
                 </tree>
             </field>
         </record>

@@ -30,6 +30,21 @@ class ShiftShift(models.Model):
         '''
         for shift in self:
             shift.state = 'entry'
+            # When members are added to the list of attendees via the make-up
+            # "rattrapages" page, they should be automatically marked present
+            # when we come to the page for marking the attendance.
+            # Members entered for doing make-up are always present.
+            # These members are determined by:
+            # - They don't replace for anyone.
+            # - They are not registered for this shift's template before
+            for reg in shift.standard_registration_ids:
+                if reg.state == 'replacing' or reg.tmpl_reg_line_id:
+                    continue
+                reg.button_reg_close()
+            for reg in shift.ftop_registration_ids:
+                if reg.state == 'replacing' or reg.tmpl_reg_line_id:
+                    continue
+                reg.button_reg_close()
 
     @api.multi
     def button_done(self):
@@ -53,3 +68,18 @@ class ShiftShift(models.Model):
                         "for: \n\n%s") % '\n'.join(shift_ticket_partners))
 
         return super(ShiftShift, self).button_done()
+
+    @api.multi
+    def write(self, vals):
+        res = super(ShiftShift, self).write(vals)
+        # change to unconfirmed registrations to confirmed if this shift state
+        # is `entry`
+        for shift in self:
+            if shift.state == 'entry':
+                for reg in shift.standard_registration_ids:
+                    if reg.state == 'draft':
+                        reg.confirm_registration()
+                for reg in shift.ftop_registration_ids:
+                    if reg.state == 'draft':
+                        reg.confirm_registration()
+        return res

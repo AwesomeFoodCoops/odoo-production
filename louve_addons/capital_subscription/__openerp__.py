@@ -28,7 +28,7 @@
         'views/view_account_invoice.xml',
         'views/view_account_invoice_refund.xml',
         'views/view_account_journal.xml',
-        'views/view_capital_fundraising_deficit_rate.xml',
+        'views/view_capital_fundraising_deficit.xml',
         'views/view_capital_fundraising_partner_type.xml',
         'views/view_capital_fundraising_category.xml',
         'views/view_capital_fundraising.xml',

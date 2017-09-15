@@ -247,8 +247,8 @@ class ResPartner(models.Model):
                     l.state == 'done'):
                 conflict = conflict or conflict_period(
                     leave.start_date, leave.stop_date,
-                    fields.Datetime.now(),
-                    fields.Datetime.now())['conflict']
+                    fields.Date.context_today(self),
+                    fields.Date.context_today(self), False)['conflict']
             partner.is_vacation = conflict
 
     def _compute_is_exempted(self):
@@ -259,8 +259,8 @@ class ResPartner(models.Model):
                     l.state == 'done'):
                 conflict = conflict or conflict_period(
                     leave.start_date, leave.stop_date,
-                    fields.Datetime.now(),
-                    fields.Datetime.now())['conflict']
+                    fields.Date.context_today(self),
+                    fields.Date.context_today(self), False)['conflict']
             partner.is_exempted = conflict
 
     @api.depends(

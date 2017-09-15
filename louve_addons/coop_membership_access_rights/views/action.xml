@@ -91,4 +91,10 @@
         <field name="act_window_id" ref="coop_membership_access_rights.action_shift_attendance_entry_view" />
     </record>
 
+	<record id="action_badge_to_print_form" model="ir.actions.act_window.view">
+       <field eval="32" name="sequence"/>
+       <field name="view_mode">form</field>
+       <field name="view_id" ref="coop_membership_access_rights.view_partner_form_no_create"/>
+       <field name="act_window_id" ref="coop_print_badge.action_badge_to_print"/>
+    </record>
 </odoo>

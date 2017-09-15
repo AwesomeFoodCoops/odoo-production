@@ -27,15 +27,13 @@
                     </header>
                     <sheet>
                         <h1>
-                            <label string="Check Deposit" />
-                            <field name="name" class="oe_inline" />
+                            <field name="name" class="oe_inline" nolabel="1" />
                         </h1>
                         <group name="main">
                             <group name="left">
                                 <field name="deposit_date" />
-                                <field name="journal_id"
-                                    widget="selection"/>
-                                <field name="destination_journal_id" widget="selection"/>
+                                <field name="journal_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                                <field name="destination_journal_id" options="{'no_create_edit': True, 'no_create': True}"/>
                                 <field name="journal_default_account_id"
                                     invisible="1"/>
                                 <field name="currency_id"

@@ -2112,7 +2112,7 @@ msgstr "Remplaçant"
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_registration_replacing_reg_id
 msgid "Replacing Registration"
-msgstr "Enregistrement du remplacement"
+msgstr "Remplacement"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_type_default_reply_to
@@ -2579,6 +2579,12 @@ msgstr "Date de fin"
 #, python-format
 msgid "Stop Date should be greater than Start Date."
 msgstr "La date de fin doit être supérieur à la date de début"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template_registration_line.py:170
+#, python-format
+msgid "You cannot make changes on this template registration. Please make your changes directly on the leave recorded for this period. You will need to cancel it then set to draft before you can make required changes."
+msgstr "Vous ne pouvez pas modifier directement cette inscription. Veuillez modifier directement le congé enregistré pour cette période. Il vous faudra l'annuler avant de la remettre en brouillon pour y apporter des modifications."
 
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_template.py:276

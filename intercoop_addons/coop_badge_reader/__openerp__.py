@@ -13,6 +13,7 @@
     'website': 'http://www.lalouve.net',
     'depends': [
         'base',
+        'coop_shift',
         'coop_membership',
     ],
     'data': [

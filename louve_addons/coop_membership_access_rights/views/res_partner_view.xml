@@ -147,7 +147,7 @@
                         ('barcode_base', '!=', 0),
                         ('barcode', '!=', '')]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
                         <button id="create_new_barcode" name="%(coop_membership.action_res_partner_generate_barcode_wizard)d" type="action" string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
-                        <field name="badge_to_print" attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}" groups="coop_membership_access_rights.group_membership_access_photo"/>
+                        <field name="badge_to_print" groups="coop_membership_access_rights.group_membership_access_photo"/>
                         <field name="is_member" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_worker_member" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_associated_people" readonly="1" groups="coop_membership_access_rights.group_membership_access_manager"/>
@@ -560,16 +560,6 @@
             <xpath expr="//page[@name='shifts']" position="attributes">
                 <attribute name='attrs'>{'invisible': [('is_member','=',False)]}</attribute>
             </xpath>
-        </field>
-    </record>
-
-	<record model="ir.ui.view" id="view_res_partner_form_base">
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="coop_print_badge.view_res_partner_form_base"/>
-        <field name="arch" type="xml">
-        	<xpath expr="//page[@name='coop_data']/group/group[1]/field[@name='badge_to_print']" position="attributes">
-        		<attribute name="groups">coop_membership_access_rights.group_membership_access_photo</attribute>
-        	</xpath>
         </field>
     </record>
 

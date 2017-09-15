@@ -51,10 +51,10 @@
             <!-- Adding new Tabs for Standard and FTOP -->
             <page name="registrations" position="before">
                 <page name="standard_attendance" string="Standard">
-                    <field name="standard_registration_ids" context="{'default_shift_id': active_id, 'is_standard_ticket': True}" />
+                    <field name="standard_registration_ids" context="{'default_shift_id': active_id, 'is_standard_ticket': True, 'tree_view_ref' : 'coop_membership_access_rights.view_shift_registration_tree_confirm_one2many'}"/>
                 </page>
                 <page name="ftop_attendance" string="FTOP">
-                    <field name="ftop_registration_ids" context="{'default_shift_id': active_id}"/>
+                    <field name="ftop_registration_ids" context="{'default_shift_id': active_id, 'tree_view_ref' : 'coop_membership_access_rights.view_shift_registration_tree_confirm_one2many'}}"/>
                 </page>
             </page>
         </field>
