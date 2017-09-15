@@ -2112,7 +2112,7 @@ msgstr "Remplaçant"
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_registration_replacing_reg_id
 msgid "Replacing Registration"
-msgstr "Enregistrement du remplacement"
+msgstr "Remplacement"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_type_default_reply_to

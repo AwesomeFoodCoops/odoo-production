@@ -26,3 +26,4 @@ class ShiftRegistration(models.Model):
         for reg in self:
             reg.shift_ticket_id = reg.shift_id.shift_ticket_ids.filtered(
                 lambda t: t.product_id == ticket_type_product)
+
