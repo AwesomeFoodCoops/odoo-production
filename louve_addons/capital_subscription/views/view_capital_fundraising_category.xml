@@ -28,7 +28,7 @@
                             </tree>
                         </field>
                         <field name="deficit_product_id"/>
-                        <field name="deficit_share_rate_ids"/>
+                        <field name="deficit_share_amount_ids"/>
                     </group>
                 </sheet>
             </form>

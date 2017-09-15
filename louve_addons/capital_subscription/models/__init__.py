@@ -9,7 +9,7 @@ from . import res_partner
 
 
 from . import capital_fundraising
-from . import capital_fundraising_deficit_rate
+from . import capital_fundraising_deficit
 from . import capital_fundraising_category
 from . import capital_fundraising_category_line
 from . import capital_fundraising_partner_type

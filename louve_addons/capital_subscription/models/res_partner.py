@@ -28,11 +28,11 @@ class ResPartner(models.Model):
                 ('partner_id', '=', partner.id),
                 ('is_capital_fundraising', '=', True),
                 ('state', 'in', ['paid', 'open'])
-            ]).mapped('invoice_line_ids.price_subtotal'))
+            ]).mapped('amount_total_signed'))
             partner.amount_subscription = amount_subscription + sum(
                 inv_obj.search([
                     ('type', '=', 'out_refund'),
                     ('partner_id', '=', partner.id),
                     ('is_capital_fundraising', '=', True),
                     ('state', 'in', ['paid', 'open'])
-                ]).mapped('invoice_line_ids.price_subtotal'))
+                ]).mapped('amount_total_signed'))
