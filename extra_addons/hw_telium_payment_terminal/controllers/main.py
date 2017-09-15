@@ -45,6 +45,10 @@ class TeliumPaymentTerminalDriver(Thread):
         self.lock = Lock()
         self.status = {'status': 'connecting', 'messages': []}
 
+    def get_status(self):
+        self.push_task('status')
+        return self.status
+    
     def set_status(self, status, message=None):
         if status == self.status['status']:
             if message is not None and message != self.status['messages'][-1]:
