@@ -109,7 +109,7 @@
                         </group>
                         <group string="Extra Data">
                             <field name="temp_coop_number"/>
-                            <field name="birthdate" widget="date"/>
+                            <field name="birthdate" widget="date" attrs="{'required': [('is_member', '=', True)]}"/>
                             <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
                             <field name="adult_number_home"/>
                             <field name="contact_origin_id"/>
