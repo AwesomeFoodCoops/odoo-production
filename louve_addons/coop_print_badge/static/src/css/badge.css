@@ -94,8 +94,8 @@
    line-height: 1.1em;        /* fallback */
    max-height: 3.3em;       /* fallback */
    max-width: 65mm !important;
-   -ms-transform: translate(-1mm, -4mm);
-   -webkit-transform: translate(-1mm, -4mm);
+   -ms-transform: translate(0mm, -4mm);
+   -webkit-transform: translate(0mm, -4mm);
 }
 
 .barcode_image{
