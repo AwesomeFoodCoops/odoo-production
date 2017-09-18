@@ -217,8 +217,8 @@ class TerminalBankReconciliationReport(models.TransientModel):
                     error = e.message
                 error = '%s %s \n' % (line.name, error)
                 error_list.append(error)
-        self.name = ' %s reconciliation to do \n %s reconciliation ok \n %s reconciliation ko \n' % (
-            len(self._context['active_ids']), res_ok, res_nok,)
+        self.name = _(' %s reconciliation to do \n %s reconciliation ok \n %s reconciliation ko \n' % (
+            len(self._context['active_ids']), res_ok, res_nok,))
         for error in error_list:
             self.name += error
         return {
