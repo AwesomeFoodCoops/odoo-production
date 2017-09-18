@@ -195,8 +195,39 @@ class AccountBankStatementLine(models.Model):
         charges_line_id.process_reconciliation([], [], [move_line_data_credit])
         return
 
+class TerminalBankReconciliationReport(models.TransientModel):
+    _name = 'terminal.reconciliation.report'
+
+    name = fields.Text('Report', default=_("Waiting launch..."))
+
     @api.multi
-    def payment_terminal_bank_launch(self, ):
-        for line in self:
-            line.payment_terminal_bank_reconciliation()
-        return
+    def payment_terminal_bank_launch(self):
+        res_ok = 0
+        res_nok = 0
+        error_list = []
+        for line in self.env['account.bank.statement.line'].browse(self._context['active_ids']):
+            try:
+                line.payment_terminal_bank_reconciliation()
+                res_ok += 1
+            except Exception, e:
+                res_nok += 1
+                if hasattr(e, 'value'):
+                    error = e.value
+                else:
+                    error = e.message
+                error = '%s %s \n' % (line.name, error)
+                error_list.append(error)
+        self.name = ' %s reconciliation to do \n %s reconciliation ok \n %s reconciliation ko \n' % (
+            len(self._context['active_ids']), res_ok, res_nok,)
+        for error in error_list:
+            self.name += error
+        return {
+            'name': _('Payment Terminal auto reconcil'),
+            'context': self._context,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'terminal.reconciliation.report',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'res_id': self.ids[0],
+        }

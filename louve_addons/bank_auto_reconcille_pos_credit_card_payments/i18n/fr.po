@@ -109,3 +109,28 @@ msgstr "Pattern des frais du champ du relevé de banque “Note” "
 #: model:ir.model.fields,field_description:bank_auto_reconcille_pos_credit_card_payments.field_account_journal_ref_charges_pattern_bank_return
 msgid "Ref charges pattern"
 msgstr "Pattern des frais du champ du relevé de banque “Référence” "
+
+#. module: bank_auto_reconcille_pos_credit_card_payments
+#: code:addons/bank_auto_reconcille_pos_credit_card_payments/models/account_bank_statement_line.py:225
+#: model:ir.actions.act_window,name:bank_auto_reconcille_pos_credit_card_payments.action_view_payment_terminal_reconcil
+#: model:ir.ui.view,arch_db:bank_auto_reconcille_pos_credit_card_payments.view_terminal_reconciliation_report
+#, python-format
+msgid "Payment Terminal auto reconcil"
+msgstr "Réconciliation du TPE automatique"
+
+#. module: bank_auto_reconcille_pos_credit_card_payments
+#: code:addons/bank_auto_reconcille_pos_credit_card_payments/models/account_bank_statement_line.py:201
+msgid "Waiting launch..."
+msgstr "Attente de lancement"
+
+
+#. module: bank_auto_reconcille_pos_credit_card_payments
+#: code:addons/bank_auto_reconcille_pos_credit_card_payments/models/account_bank_statement_line.py:220
+#, python-format
+msgid " %s reconciliation to do \n %s reconciliation ok \n %s reconciliation ko \n"
+msgstr " %s Réconciliation à exécuter \n %s Réconciliation ok \n %s Réconciliation ko \n"
+
+#. module: bank_auto_reconcille_pos_credit_card_payments
+#: model:ir.model.fields,field_description:bank_auto_reconcille_pos_credit_card_payments.field_terminal_reconciliation_report_name
+msgid "Report"
+msgstr "Rapport"

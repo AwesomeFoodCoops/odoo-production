@@ -5,26 +5,39 @@
 <openerp>
     <data>
 
-  />
-
-
-
-        <record id="action_payment_terminal_reconcil" model="ir.actions.server">
-            <field name="name">Payment Terminal auto reconcil</field>
-            <field name="model_id" ref="model_account_bank_statement_line"/>
-            <field name="state">code</field>
-            <field name="code">
-                if context.get('active_model') == 'account.bank.statement.line' and context.get('active_ids'):
-                    self.payment_terminal_bank_launch(cr, uid, ids=context['active_ids'], context=context)
+        <record id="view_terminal_reconciliation_report" model="ir.ui.view">
+            <field name="name">terminal.reconciliation.report.form</field>
+            <field name="model">terminal.reconciliation.report</field>
+            <field name="arch" type="xml">
+                <form string="Reconciliation">
+                    <group >
+                        <field name="name" readonly="1"/>
+                    </group>
+                    <footer>
+                        <button string="Payment Terminal auto reconcil" name="payment_terminal_bank_launch" type="object"/>
+                        <button string="Close" class="btn-default" special="cancel"/>
+                    </footer>
+               </form>
             </field>
         </record>
 
-    <record id="ir_payment_terminal_reconcil" model="ir.values">
-        <field eval="'client_action_multi'" name="key2"/>
-        <field eval="'account.bank.statement.line'" name="model"/>
-        <field name="name">Payment Terminal auto reconcil</field>
-        <field eval="'ir.actions.server,%d'%action_payment_terminal_reconcil" name="value"/>
-    </record>
+        <record id="action_view_payment_terminal_reconcil" model="ir.actions.act_window">
+            <field name="name">Payment Terminal auto reconcil</field>
+            <field name="res_model">terminal.reconciliation.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_terminal_reconciliation_report"/>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="action_payment_terminal_reconcil">
+            <field name="model_id" ref="model_account_bank_statement_line" />
+            <field name="name">Payment Terminal auto reconcil</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' +str(ref('action_view_payment_terminal_reconcil'))" />
+            <field name="key">action</field>
+            <field name="model">account.bank.statement.line</field>
+        </record>
 
     </data>
 </openerp>
