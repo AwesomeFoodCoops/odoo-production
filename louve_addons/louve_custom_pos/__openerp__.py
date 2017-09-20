@@ -13,14 +13,11 @@
     'website': 'http://www.lalouve.net',
     'depends': [
         'point_of_sale',
-        'pos_report_total_vat_excluded'
+        'pos_report_total_vat_excluded',
+        'coop_point_of_sale',
     ],
     'data': [
         'static/src/xml/templates.xml',
-        'views/view_pos_order.xml',
-    ],
-    'qweb': [
-        'static/src/xml/point_of_sale.xml',
     ],
     'installable': True,
 }
