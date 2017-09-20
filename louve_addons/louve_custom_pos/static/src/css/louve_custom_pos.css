@@ -4,35 +4,9 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 */
 
-.pos .clientlist-screen .client-picture {
-    height: 384px;
-    width: 384px;
-}
-
-.pos .clientlist-screen .client-picture > img {
-    max-height: 384px;
-    height: 384px;
-}
-
-.pos .clientlist-screen .client-details-left {
-    float: right;
-}
-
-.edit-buttons{
-    display: none;
-}
-
-section.top-content .new-customer{
-    display: none;
-}
-
-.client-detail .label{
-    width: 100px !important;
-}
-
 /* webkit text-security has not firefox-side any more : password shouldn't be clearly display on screen so this set the font-size to 0*/
 .pos .popup-password .popup-input {
     width: 70%;
     -webkit-text-security: disc;
     font-size: 0em;
- }
+}
