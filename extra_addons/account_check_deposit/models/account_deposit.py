@@ -86,7 +86,7 @@ class AccountCheckDeposit(models.Model):
         'account.move', string='Journal Entry', readonly=True)
     partner_bank_id = fields.Many2one(
         'res.partner.bank', string='Bank Account',
-        related="destination_journal_id.bank_acc_id", readonly=True)
+        related="destination_journal_id.bank_account_id", readonly=True)
     line_ids = fields.One2many(
         'account.move.line', related='move_id.line_ids',
         string='Lines', readonly=True)

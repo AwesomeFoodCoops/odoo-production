@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="account.view_account_journal_form"/>
             <field name="arch" type="xml">
                 <field name="bank_acc_number" position="before">
-                    <field name="bank_acc_id" domain="[('company_id', '=', company_id)]"/>
+                    <field name="bank_account_id" domain="[('company_id', '=', company_id)]"/>
                 </field>
                 <field name="bank_acc_number" position="attributes">
                     <attribute name="invisible">1</attribute>
