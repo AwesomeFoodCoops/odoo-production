@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, fields
-
+from openerp import api, models, fields, tools
+from datetime import datetime
 
 class ShiftMailRegistration(models.Model):
     _inherit = 'event.mail.registration'
@@ -32,3 +32,20 @@ class ShiftMailRegistration(models.Model):
         'shift.mail', 'Mail Scheduler', required=True, ondelete='cascade')
     registration_id = fields.Many2one(
         'shift.registration', 'Attendee', required=True, ondelete='cascade')
+    mail_ignored = fields.Boolean('Ignored', default=False)
+
+    @api.one
+    def execute(self):
+        today = datetime.strftime(fields.datetime.now(),
+                                  tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        # send email for user if shift hasn't started
+        if self.registration_id.shift_id.date_begin >= today:
+            # when users is in vacation, no email is sent to them.
+            if self.registration_id.partner_id.working_state in ['exempted',
+                                                                 'vacation']:
+                return
+            return super(ShiftMailRegistration, self).execute()
+        else:
+            # other case which not sending mail, marked ignore=True
+            # they won't be sent ever.
+            return self.write({'mail_ignored': True})

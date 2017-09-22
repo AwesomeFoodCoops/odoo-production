@@ -28,6 +28,7 @@
                                     <field name="registration_id"/>
                                     <field name="scheduled_date"/>
                                     <field name="mail_sent"/>
+                                    <field name="mail_ignored"/>
                                 </tree>
                             </field>
                         </page>
