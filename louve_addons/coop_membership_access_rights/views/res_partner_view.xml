@@ -133,7 +133,7 @@
                         <field name="notify_email" widget="radio" groups="base.group_no_one"/>
                         <field name="opt_out" string="Mailing Opt-Out" groups="base.group_no_one"/>
                         <field name="email" widget="email" attrs="{'required': [('user_ids','!=', [])]}"/>
-                        <field name="title" options="{&quot;no_open&quot;: True}" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                        <field name="title" options="{&quot;no_open&quot;: True}" attrs="{'invisible': True}"/>
                         <field name="lang" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="category_id" widget="many2many_tags" placeholder="Tags..." groups="coop_membership_access_rights.group_membership_access_manager"/>
                     </group>
@@ -176,7 +176,7 @@
                             <kanban create="false">
                                 <field name="color"/>
                                 <field name="name"/>
-                                <field name="title"/>
+                                <field name="title" attrs="{'invisible': True}"/>
                                 <field name="type"/>
                                 <field name="email"/>
                                 <field name="parent_id"/>
