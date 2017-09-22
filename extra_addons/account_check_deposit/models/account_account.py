@@ -19,6 +19,4 @@ from openerp import models, fields
 class AccountJournal(models.Model):
     _inherit = 'account.journal'
 
-    bank_acc_id = fields.Many2one('res.partner.bank', string="Bank Account")
-    bank_acc_number = fields.Char(related="bank_acc_id.acc_number",
-                                  readonly=True)
+    bank_acc_number = fields.Char(readonly=True, store=True)
