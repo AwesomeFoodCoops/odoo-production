@@ -21,6 +21,7 @@
 ##############################################################################
 from openerp.exceptions import ValidationError
 from openerp import models, fields, api, _
+import simplejson
 
 class AccountBankStatementLine(models.Model):
     _inherit = 'account.bank.statement.line'
@@ -34,11 +35,9 @@ class AccountBankStatementLine(models.Model):
                 raise ValidationError(_('The value of remittance,transaction and card number must be null'))
             else:
                 try:
-                    if len(vals['payment_terminal_return_message']) == 80:
-                        vals['card_number'] = vals['payment_terminal_return_message'][12:67]
-                        priv = vals['payment_terminal_return_message'][70:80]
-                    else:
-                        priv = vals['payment_terminal_return_message'][15:25]
+                    payment_term_return = simplejson.loads(vals.get('payment_terminal_return_message'))
+                    vals['card_number'] = payment_term_return['_card_type'][_numbers]
+                    priv = payment_term_return['_private']
                     if priv[0] == '2':
                         vals['transaction_number'] = priv[1:4]
                         vals['remittance_number'] = priv[4:7]
