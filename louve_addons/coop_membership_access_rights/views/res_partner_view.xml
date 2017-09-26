@@ -43,7 +43,7 @@
                         <field string="Purchases" name="purchase_order_count" widget="statinfo" groups="purchase.group_purchase_user"/>
                     </button>
                     <!-- TODO -->
-                    <button class="oe_stat_button" type="action" name="%(account.action_open_partner_analytic_accounts)d" icon="fa-book" groups="accont.group_account_invoice">
+                    <button class="oe_stat_button" type="action" name="%(account.action_open_partner_analytic_accounts)d" icon="fa-book" groups="account.group_account_invoice">
                         <field string="Analytic Accounts" name="contracts_count" widget="statinfo"/>
                     </button>
                     <button class="oe_stat_button" type="action" name="%(project.action_view_task)d" context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}" icon="fa-tasks" groups="project.group_project_user">
@@ -600,6 +600,9 @@
         		<attribute name="groups">coop_membership_access_rights.group_membership_see_associated_people</attribute>
         	</field>
         </field>
+    </record>
+    <record id="account.partner_view_button_contracts_count" model="ir.ui.view">
+        <field name="groups_id" eval="[(6, 0, [ref('account.group_account_invoice')])]"/>
     </record>
 
 </odoo>
