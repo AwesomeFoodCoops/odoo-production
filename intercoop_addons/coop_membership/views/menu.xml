@@ -80,4 +80,12 @@
         <field name="sequence">3</field>
     </record>
 
+    <!-- Add new menu Settings -->
+    <record model="ir.ui.menu" id="menu_membership_global_settings">
+        <field name="name">Settings</field>
+        <field name="action" ref="action_membership_configuration"/>
+        <field name="parent_id" ref="coop_shift.menu_shift_configuration"/>
+        <field name="sequence">1</field>
+    </record>
+
 </odoo>
