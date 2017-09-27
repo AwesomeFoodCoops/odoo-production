@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_members_config_settings_form" model="ir.ui.view">
+            <field name="name">members.config.settings.form</field>
+            <field name="model">members.config.settings</field>
+            <field name="arch" type="xml">
+                <form class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <group string="Membership Configuration">
+                    	<label for="max_number_settings" class="oe_inline" string="Maximum Associated People"/>
+                    	<div name="max_number_settings">
+							<field name="associated_people_available" widget="radio"/>
+							<field name="max_nb_associated_people" nolabel="1" attrs="{'invisible':[('associated_people_available','=','unlimited')], 'required':[('associated_people_available', '=', 'limited')]}"/>
+                    	</div>
+                    </group>
+
+                </form>
+            </field>
+        </record>
+	</data>
+</openerp>

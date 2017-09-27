@@ -100,6 +100,7 @@
                 <page string="Coop Data" name="coop_data">
                     <group>
                         <group string="MemberShip">
+                        	<field name="nb_associated_people" string="Number of Associated People" attrs="{'readonly': True, 'invisible': [('is_member','=',False),('is_former_member','=',False)]}"/>
                             <field name="barcode_base" string="Member Number" readonly="1"/>
                             <field name="is_member"/>
                             <field name="is_worker_member"/>
