@@ -138,6 +138,7 @@
                         <field name="category_id" widget="many2many_tags" placeholder="Tags..." groups="coop_membership_access_rights.group_membership_access_manager"/>
                     </group>
                     <group string="MemberShip">
+                       	<field name="nb_associated_people" string="Number of Associated People" attrs="{'readonly': True, 'invisible': [('is_member','=',False),('is_former_member','=',False)]}" groups="coop_membership_access_rights.group_membership_see_associated_people"/>
                         <field name="barcode_rule_id" domain="[('generate_model', '=', 'res.partner')]" groups="barcodes_generate.generate_barcode" colspan="2"/>
                         <field name="generate_type" invisible="1"/>
                         <button name="generate_base" type="object" string="Generate Base (Using Sequence)" attrs="{'invisible': ['|',('generate_type', '!=', 'sequence'),                     ('barcode_base', '!=', 0)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
@@ -588,6 +589,16 @@
                 <field name="is_former_associated_people"/>
                 <field name="is_interested_people"/>
             </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_form_base_see_associated_people_inherit">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership.view_res_partner_form_base"/>
+        <field name="arch" type="xml">
+        	<field name="nb_associated_people" position="attributes">
+        		<attribute name="groups">coop_membership_access_rights.group_membership_see_associated_people</attribute>
+        	</field>
         </field>
     </record>
 

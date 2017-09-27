@@ -539,3 +539,13 @@ msgstr "Voir les rattachés"
 #: model:ir.ui.view,arch_db:coop_membership_access_rights.view_res_partner_all_members_tree
 msgid "Coop Number"
 msgstr "Numéro de coop"
+
+#. modules: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Number of Associated People"
+msgstr "Nombre de rattachés"
+
+#. modules: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Number of Former Associated People"
+msgstr "Nombre de anciennes personnes rattachés"

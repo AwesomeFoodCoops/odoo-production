@@ -475,3 +475,47 @@ msgstr "Méthode d'extension"
 #: model:ir.ui.view,arch_db:coop_membership.view_shift_registration_tree_inherit
 msgid "Create Extension until next regular shift"
 msgstr "Créer une extension jusqu'au prochain créneau"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_nb_associated_people
+#: model:ir.ui.view,arch_db:coop_membership.view_res_partner_form_base
+msgid "Number of Associated People"
+msgstr "Nombre de rattachés"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_members_config_settings_max_nb_associated_people
+#: model:ir.ui.view,arch_db:coop_membership.view_members_config_settings_form
+msgid "Maximum Associated People"
+msgstr "Maximum rattachés"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/res_config.py:36
+#, python-format
+msgid "The maximum number of associated people must be a positive number !"
+msgstr "Le nombre maximal de personnes rattachées doit être un entier positif !"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/res_partner.py:163
+#, python-format
+msgid "The maximum number of associated people has been exceeded."
+msgstr "Le nombre maximal de personnes rattachées a été dépassé."
+
+#. module: coop_membership
+#: selection:members.config.settings,associated_people_available:0
+msgid "Limited"
+msgstr "Limité"
+
+#. module: coop_membership
+#: selection:members.config.settings,associated_people_available:0
+msgid "Unlimited"
+msgstr "Illimité"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_shift.field_members_config_settings_associated_people_available
+msgid "Available Associated People"
+msgstr "Rattachés disponibles"
+
+#. modules: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_res_partner_form_base
+msgid "Number of Former Associated People"
+msgstr "Nombre de anciennes personnes rattachés"
