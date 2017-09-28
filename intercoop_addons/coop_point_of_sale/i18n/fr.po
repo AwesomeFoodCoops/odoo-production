@@ -123,3 +123,14 @@ msgstr "Suspendu"
 #, python-format
 msgid "display: none;"
 msgstr "display: none;"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_config_settings_diacritics_insensitive_search
+msgid "Make products searchs insensitive to diacritics (ignore accents)"
+msgstr "Rendre la recherche de produits insensible aux diacritiques (ignorer les accents)"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_config_diacritics_insensitive_search
+#: model:ir.ui.view,arch_db:coop_point_of_sale.view_sale_config_settings_form_pos_inherit
+msgid "Diacritics insensitive search"
+msgstr "Recherche insensible aux diacritiques"
