@@ -1,0 +1,27 @@
+{
+  "name": "jdu",
+  "version": "1.0.0",
+  "homepage": "https://github.com/mk7upurz87/jdu",
+  "authors": [
+    "https://github.com/mk7upurz87"
+  ],
+  "description": "Javascript Diacritics Utility to test for and remove accents/diacritics in strings.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mk7upurz87/jdu.git"
+  },
+  "main": "jdu.js",
+  "keywords": [
+    "vanilla",
+    "javascript",
+    "diacritics",
+    "service"
+  ],
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test"
+  ],
+  "dependencies": {}
+}
