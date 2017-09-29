@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_sales_config_inherit" model="ir.ui.view">
+        <field name="name">view.sales.config.inherit</field>
+        <field name="model">sale.config.settings</field>
+        <field name="inherit_id" ref="sale.view_sales_config"/>
+        <field name="arch" type="xml">
+            <field name="deposit_product_id_setting" position="before">
+                <label for="id" string="Coefficients"/>
+                <div>
+                    <div>
+                        <field name="auto_update_base_price" class="oe_inline"/>
+                        <label for="auto_update_base_price"/>
+                    </div>
+                    <div>
+                        <field name="auto_update_theorical_cost" class="oe_inline"/>
+                        <label for="auto_update_theorical_cost"/>
+                    </div>
+                    <div>
+                        <field name="auto_update_theorical_price" class="oe_inline"/>
+                        <label for="auto_update_theorical_price"/>
+                    </div>
+                </div>
+            </field>
+        </field>
+    </record>
+
+</odoo>

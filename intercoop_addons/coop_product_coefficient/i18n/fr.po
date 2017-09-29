@@ -485,3 +485,18 @@ msgstr "product.coefficient"
 #: model:ir.model,name:coop_product_coefficient.model_wizard_use_theoritical_price
 msgid "wizard.use.theoritical.price"
 msgstr "wizard.use.theoritical.price"
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_sale_config_settings_auto_update_base_price
+msgid "An update of Vendor Price updates Base Price automatically"
+msgstr "Une modification du prix d'achat fournisseur met automatiquement à jour le prix de base"
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_sale_config_settings_auto_update_theorical_cost
+msgid "An update of Theorical Cost updates Cost automatically"
+msgstr "Une modification du Coût Théorique met automatiquement à jour le Coût"
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_sale_config_settings_auto_update_theorical_price
+msgid "An update of Theorical Price updates Price automatically"
+msgstr "Une modification du Prix Théorique met automatiquement à jour le Prix"
