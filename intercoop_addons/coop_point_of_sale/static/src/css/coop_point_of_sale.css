@@ -29,10 +29,3 @@ section.top-content .new-customer{
 .client-detail .label{
     width: 100px !important;
 }
-
-/* webkit text-security has not firefox-side any more : password shouldn't be clearly display on screen so this set the font-size to 0*/
-.pos .popup-password .popup-input {
-    width: 70%;
-    -webkit-text-security: disc;
-    font-size: 0em;
- }

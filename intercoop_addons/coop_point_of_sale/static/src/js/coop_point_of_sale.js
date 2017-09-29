@@ -5,7 +5,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 */
 
 
-odoo.define('louve_custom_pos.louve_custom_pos', function (require) {
+odoo.define('coop_point_of_sale.coop_point_of_sale', function (require) {
     "use strict";
 
     var models = require('point_of_sale.models');
@@ -15,11 +15,15 @@ odoo.define('louve_custom_pos.louve_custom_pos', function (require) {
     var _t = core._t;
 
 /* ********************************************************
-Overload screens.ClientListScreenWidget
+Overload models.PosModel
 ******************************************************** */
-    screens.ClientListScreenWidget.include({
-        partner_icon_url: function(id){
-            return '/web/image?model=res.partner&id='+id+'&field=image';
+    var _super_posmodel = models.PosModel.prototype;
+    models.PosModel = models.PosModel.extend({
+        initialize: function (session, attributes) {
+            var partner_model = _.find(this.models, function(model){ return model.model === 'res.partner'; });
+            partner_model.fields.push('barcode_base');
+            partner_model.fields.push('cooperative_state');
+            return _super_posmodel.initialize.apply(this, arguments);
         },
     });
 
