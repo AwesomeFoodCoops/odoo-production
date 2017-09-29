@@ -5,6 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api, exceptions, _
+from openerp.tools.safe_eval import safe_eval
 import openerp.addons.decimal_precision as dp
 
 
@@ -167,18 +168,20 @@ class ProductTemplate(models.Model):
     def use_theoritical_price(self):
         for template in self:
             template.list_price = template.theoritical_price
+        return True
 
     @api.multi
     def use_theoritical_cost(self):
         for template in self:
             template.standard_price = template.coeff9_inter_sp
+        return True
 
     @api.model
     def cron_recompute_base_price(self):
-        templates = self.search([])
-        new_context = dict(
-            self.env.context, **{'update_with_cron': True})
-        templates.with_context(new_context).recompute_base_price()
+        auto_update_base_price = self.get_auto_update_base_price()
+        if auto_update_base_price:
+            templates = self.search([])
+            templates.recompute_base_price()
 
     # Compute Section
     @api.multi
@@ -369,11 +372,9 @@ class ProductTemplate(models.Model):
             template.theoritical_price = template.coeff9_inter * multi
 
     @api.multi
-    @api.depends(
-        'theoritical_price', 'list_price')
+    @api.depends('theoritical_price', 'list_price')
     def _compute_has_theoritical_price_different(self):
-        context = self._context
-        update_from_cron = context.get('update_with_cron', False)
+        auto_update_theorical_price = self.get_auto_update_theorical_price()
         for template in self:
             if template.theoritical_price and (
                     template.base_price or
@@ -382,16 +383,11 @@ class ProductTemplate(models.Model):
                     template.list_price != template.theoritical_price
             else:
                 template.has_theoritical_price_different = False
-            if template.has_theoritical_price_different and \
-               update_from_cron:
-                template.use_theoritical_price()
 
     @api.multi
-    @api.depends(
-        'coeff9_inter_sp', 'standard_price')
+    @api.depends('coeff9_inter_sp', 'standard_price')
     def _compute_has_theoritical_cost_different(self):
-        context = self._context
-        update_from_cron = context.get('update_with_cron', False)
+        auto_update_theorical_cost = self.get_auto_update_theorical_cost()
         for template in self:
             if template.coeff9_inter_sp and (
                     template.base_price or
@@ -400,6 +396,50 @@ class ProductTemplate(models.Model):
                     template.standard_price != template.coeff9_inter_sp
             else:
                 template.has_theoritical_cost_different = False
-            if template.has_theoritical_cost_different and \
-               update_from_cron:
-                template.use_theoritical_cost()
+
+    @api.model
+    def get_auto_update_base_price(self):
+        # Get Purchase Configuration: Updates Base Price automatically
+        param_env = self.env['ir.config_parameter']
+        val = safe_eval(param_env.get_param('auto_update_base_price'))
+        return val
+
+    @api.model
+    def get_auto_update_theorical_cost(self):
+        # Get Purchase Configuration: Updates Theorical Cost automatically
+        param_env = self.env['ir.config_parameter']
+        val = safe_eval(param_env.get_param('auto_update_theorical_cost'))
+        return val
+
+    @api.model
+    def get_auto_update_theorical_price(self):
+        # Get Purchase Configuration: Updates Theorical Price automatically
+        param_env = self.env['ir.config_parameter']
+        val = safe_eval(param_env.get_param('auto_update_theorical_price'))
+        return val
+
+    @api.multi
+    def auto_update_theoritical_cost_price(self):
+        for obj in self:
+            if obj.has_theoritical_cost_different and \
+                    obj.get_auto_update_theorical_cost():
+                obj.use_theoritical_cost()
+
+            if obj.has_theoritical_price_different and \
+                    obj.get_auto_update_theorical_price():
+                obj.use_theoritical_price()
+
+    @api.multi
+    def write(self, vals):
+        ret = super(ProductTemplate, self).write(vals)
+        self.auto_update_theoritical_cost_price()
+        return ret
+
+    @api.model
+    def create(self, vals):
+        new_obj = super(ProductTemplate, self).create(vals)
+        new_obj.auto_update_theoritical_cost_price()
+        return new_obj
+
+
+

@@ -22,9 +22,11 @@
         'views/view_product_product.xml',
         'views/view_product_coefficient.xml',
         'views/view_wizard_use_theoritical_price.xml',
+        'views/view_sale_config_settings.xml',
         'views/action.xml',
         'views/menu.xml',
         'data/ir_cron.xml',
+        'data/sale_config_settings.xml',
     ],
     'demo': [
         'demo/res_groups.xml',
