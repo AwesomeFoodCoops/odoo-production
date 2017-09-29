@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_base_config_settings_validate_mail" model="ir.ui.view">
+		<field name="name">base.config.settings.validate.mail</field>
+		<field name="model">base.config.settings</field>
+		<field name="inherit_id" ref="mail.view_general_configuration_mail_alias_domain" />
+		<field name="arch" type="xml">
+			<xpath expr="//group[@name='authentication']" position='after'>
+				<group name="validate_email">
+					<label for="id" string="Validate email address" name="validate_email_label" />
+					<div name="validate_email">
+						<field name="validate_email" widget="checkbox"/>
+                        <label for="validate_email"/>
+					</div>
+				</group>
+			</xpath>
+		</field>
+	</record>
+</odoo>
