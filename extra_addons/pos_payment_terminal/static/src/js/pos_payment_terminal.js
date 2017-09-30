@@ -94,6 +94,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             if (auto) {
                 this.pos.proxy.payment_terminal_transaction_start(self, self.pos.currency.name);
             }
+            //TODO : hide "back" button
         },
         transaction_error: function() {
             this.gui.show_popup('error',{
