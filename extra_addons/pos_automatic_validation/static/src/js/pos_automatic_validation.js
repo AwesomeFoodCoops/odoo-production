@@ -18,17 +18,21 @@ odoo.define('pos_automatic_validation.pos_automatic_validation', function (requi
         },
     });
 
+    //TODO : by default hide the Validate button
+    
     screens.PaymentScreenWidget.include({
         render_paymentlines: function() {
             this._super();
             var self = this;
             var order = this.pos.get_order();
-            if (order.is_paid()) {
+            if (order.get_total_with_tax() - order.get_total_paid() == 0) {
                 var selected_line = order.selected_paymentline;
                 if (selected_line) {
                     var auto_validation = selected_line.get_automatic_validation();
                     if (auto_validation == true) {
                         self.validate_order();
+                    //} else {
+                         //TODO : display back the Validate button
                     }
                 }
             }
