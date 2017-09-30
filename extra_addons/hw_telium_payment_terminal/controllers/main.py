@@ -75,6 +75,7 @@ class TeliumPaymentTerminalDriver(Thread):
         self.lockedstart()
         self.queue.put((time.time(), task, data))
 
+
     def transaction_start(self,payment_info):
         #logger = Logger_p()
         '''This function sends the data to the serial/usb port.

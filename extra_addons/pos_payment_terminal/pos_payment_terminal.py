@@ -37,3 +37,30 @@ class PosConfig(models.Model):
     iface_payment_terminal = fields.Boolean(
         'Payment Terminal',
         help="A payment terminal is available on the Proxy")
+
+class PosOrder(models.Model):
+    _inherit = 'pos.order'
+
+    def _payment_fields(self, cr, uid, ui_paymentline, context=None):
+        print ui_paymentline
+        result = super(PosOrder, self).\
+            _payment_fields(cr, uid, ui_paymentline, context=context)
+        result['payment_terminal_return_message'] = ui_paymentline.get('payment_terminal_return_message')
+        return result
+
+    def add_payment(self, cr, uid, order_id, data, context=None):
+        if context != None:
+            new_context = context.copy()
+        else :
+            new_context = {} 
+        new_context['default_payment_terminal_return_message'] = data.get('payment_terminal_return_message')
+        return super(PosOrder, self).add_payment(cr, uid, order_id, data, new_context)
+
+
+class AccountBankStatementLine(models.Model):
+    _inherit = 'account.bank.statement.line'
+
+    payment_terminal_return_message = fields.Char('payment terminal return message')
+    remittance_number = fields.Char('Remittance number')
+    transaction_number = fields.Char('Transaction number')
+    card_number = fields.Char('Card number')
