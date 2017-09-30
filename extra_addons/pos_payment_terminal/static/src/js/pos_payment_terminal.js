@@ -54,7 +54,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             var line = order.selected_paymentline;
             var data = self.get_data_send(order, line, currency_iso);
             if (this.wait_terminal_answer()) {
-                this.message('payment_terminal_transaction_start_with_return', {'payment_info' : JSON.stringify(data)}).then(function (answer) {
+                this.message('payment_terminal_transaction_start_with_return', {'payment_info' : JSON.stringify(data)}, { timeout: 240000 }).then(function (answer) {
                     if (answer) {
                         var transaction_result = answer['transaction_result'];
                         if (transaction_result == '7') {
