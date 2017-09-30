@@ -91,10 +91,10 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             this._super.apply(this, arguments);
             var line = this.pos.get_order().selected_paymentline;
             var auto = line.get_automatic_payment_terminal();
+            $('.back').hide();
             if (auto) {
                 this.pos.proxy.payment_terminal_transaction_start(self, self.pos.currency.name);
             }
-            //TODO : hide "back" button
         },
         transaction_error: function() {
             this.gui.show_popup('error',{
