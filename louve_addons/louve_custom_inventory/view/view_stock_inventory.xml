@@ -13,4 +13,15 @@
             </xpath>
         </field>
     </record>
+    
+    <record id="view_stock_picking_tree_inherit" model="ir.ui.view">
+	    <field name="model">stock.picking</field>
+	    <field name="inherit_id" ref="stock.vpicktree"/>
+	    <field name="arch" type="xml">
+	        <xpath expr="//field[@name='partner_id']" position="after">
+	            <field name="partner_ref" attrs="{'invisible': [('purchase_id', '=', False)]}"/>
+	            <field name="purchase_id" invisible="1"/>
+	        </xpath>
+	    </field>
+	</record>
 </odoo>

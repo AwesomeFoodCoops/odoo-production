@@ -24,6 +24,9 @@
                     <button name="%(coop_shift.act_template_registration_line_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-calendar-plus-o" help="View partner Template Registrations" groups="coop_shift.group_shift_manager,coop_membership_access_rights.group_membership_access_user" id="view_partner_template_registrations" attrs="{'invisible':[('is_worker_member', '=', False)]}">
                         <field name="active_tmpl_reg_line_count" widget="statinfo" string="Tmpl. Registr."/>
                     </button>
+                    <button name="%(coop_shift.act_shift_leave_from_partner)d" type="action" class="oe_stat_button oe_event_attendee_button" icon="fa-sign-out" help="View partner Leaves" groups="coop_shift.group_shift_see_leave" id="view_shift_leaves">
+                        <field name="leave_qty" widget="statinfo" string="Leaves"/>
+                    </button>
                     <button type="action" class="oe_stat_button" id="invoice_button" icon="fa-pencil-square-o" name="%(account.action_invoice_refund_out_tree)d" context="{'search_default_partner_id': active_id,'default_partner_id': active_id}" groups="account.group_account_invoice">
                         <div class="o_form_field o_stat_info">
                             <span class="o_stat_value"><field name="total_invoiced" widget="monetary" options="{'currency_field': 'currency_id'}" groups="account.group_account_invoice"/></span>
@@ -40,7 +43,7 @@
                         <field string="Purchases" name="purchase_order_count" widget="statinfo" groups="purchase.group_purchase_user"/>
                     </button>
                     <!-- TODO -->
-                    <button class="oe_stat_button" type="action" name="%(account.action_open_partner_analytic_accounts)d" icon="fa-book" groups="accont.group_account_invoice">
+                    <button class="oe_stat_button" type="action" name="%(account.action_open_partner_analytic_accounts)d" icon="fa-book" groups="account.group_account_invoice">
                         <field string="Analytic Accounts" name="contracts_count" widget="statinfo"/>
                     </button>
                     <button class="oe_stat_button" type="action" name="%(project.action_view_task)d" context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}" icon="fa-tasks" groups="project.group_project_user">
@@ -89,9 +92,14 @@
                         <field name="name" default_focus="1" placeholder="Name" attrs="{'required' : [('type', '=', 'contact')]}"/>
                     </h1>
                     <div class="o_row">
-                        <field name="parent_id" placeholder="Company" domain="[('is_company', '=', True)]" context="{'default_is_company': True, 'default_supplier': supplier, 'default_customer': customer}" attrs="{'invisible': [('is_company','=', True),('parent_id', '=', False)]}" on_change="onchange_parent_id(parent_id)" groups="coop_membership_access_rights.group_membership_access_manager"/>
+                        <field name="parent_id" placeholder="Company" domain="[('is_company', '=', True)]" context="{'default_is_company': True, 'default_supplier': supplier, 'default_customer': customer}" attrs="{'invisible': [('is_company','=', True),('parent_id', '=', False)]}" on_change="onchange_parent_id(parent_id)" groups="coop_membership_access_rights.group_membership_see_associated_people"/>
                     </div>
                 </div>
+                <field name="updated_badges_info" invisible="1" />
+				<group attrs="{'invisible': [('updated_badges_info','=',False)]}">
+					<p class='alert alert-warning'> Des données du badge ont changé, il est nécessaire de réimprimer ce badge. Vous pouvez retrouver tous les badges à réimprimer en utilisant le filtre "Badges à imprimer" sur la vue list. Une fois le badge imprimé, décocher le champ "Badges à imprimer"
+					</p>
+				</group>
 
                 <group>
                     <group>
@@ -125,12 +133,12 @@
                         <field name="notify_email" widget="radio" groups="base.group_no_one"/>
                         <field name="opt_out" string="Mailing Opt-Out" groups="base.group_no_one"/>
                         <field name="email" widget="email" attrs="{'required': [('user_ids','!=', [])]}"/>
-                        <field name="title" options="{&quot;no_open&quot;: True}" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                        <field name="title" options="{&quot;no_open&quot;: True}" attrs="{'invisible': True}"/>
                         <field name="lang" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="category_id" widget="many2many_tags" placeholder="Tags..." groups="coop_membership_access_rights.group_membership_access_manager"/>
                     </group>
-
                     <group string="MemberShip">
+                       	<field name="nb_associated_people" string="Number of Associated People" attrs="{'readonly': True, 'invisible': [('is_member','=',False),('is_former_member','=',False)]}" groups="coop_membership_access_rights.group_membership_see_associated_people"/>
                         <field name="barcode_rule_id" domain="[('generate_model', '=', 'res.partner')]" groups="barcodes_generate.generate_barcode" colspan="2"/>
                         <field name="generate_type" invisible="1"/>
                         <button name="generate_base" type="object" string="Generate Base (Using Sequence)" attrs="{'invisible': ['|',('generate_type', '!=', 'sequence'),                     ('barcode_base', '!=', 0)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
@@ -140,21 +148,23 @@
                         ('barcode_base', '!=', 0),
                         ('barcode', '!=', '')]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
                         <button id="create_new_barcode" name="%(coop_membership.action_res_partner_generate_barcode_wizard)d" type="action" string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
+                        <field name="badge_to_print" groups="coop_membership_access_rights.group_membership_access_photo"/>
                         <field name="is_member" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_worker_member" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_associated_people" readonly="1" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_interested_people" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_former_member" groups="coop_membership_access_rights.group_membership_access_manager"/>
+                        <field name="is_former_associated_people" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_unpayed" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_unsubscribed" groups="coop_membership_access_rights.group_membership_access_manager"/>
                     </group>
                     <group string="Extra Data">
                         <field name="temp_coop_number"/>
-                        <field name="birthdate" widget="date"/>
+                        <field name="birthdate" widget="date" attrs="{'required': [('is_member', '=', True)]}"/>
                         <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
                         <field name="adult_number_home"/>
                         <field name="contact_origin_id"/>
-                        <field name="sex"/>
+                        <field name="sex" attrs="{'required': True}"/>
                         <field name="is_deceased"/>
                         <field name="date_of_death" attrs="{'invisible': [('is_deceased', '=', False)]}"/>
                     </group>
@@ -162,12 +172,12 @@
                 </group>
 
                 <notebook colspan="4">
-                    <page string="Contacts &amp; Addresses" autofocus="autofocus">
+                    <page string="Contacts &amp; Addresses" autofocus="autofocus" attrs="{'invisible': [('is_member', '=', False)]}">
                         <field name="child_ids" mode="kanban" context="{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_supplier': supplier, 'default_customer': customer, 'default_lang': lang,}">
-                            <kanban>
+                            <kanban create="false">
                                 <field name="color"/>
                                 <field name="name"/>
-                                <field name="title"/>
+                                <field name="title" attrs="{'invisible': True}"/>
                                 <field name="type"/>
                                 <field name="email"/>
                                 <field name="parent_id"/>
@@ -220,7 +230,7 @@
                                     </t>
                                 </templates>
                             </kanban>
-                            <form string="Contact / Address">
+                            <form string="Contact / Address" create="false">
                                 <sheet>
                                     <field name="type" required="1" widget="radio" options="{'horizontal': true}" attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
                                     <field name="is_associated_people" invisible="1"/>
@@ -332,7 +342,7 @@
                             </group>
                         </group>
                     </page>
-                    <page name="shifts" string="Shifts">
+                    <page name="shifts" string="Shifts" attrs="{'invisible': [('is_member', '=', False)]}">
                         <group name="state">
                             <group name="state1" groups="coop_shift.group_shift_see_counter">
                                 <field name="shift_type"/>
@@ -388,7 +398,6 @@
     <record id="view_res_partner_form_shift_manage_counter" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_membership_access_rights.view_partner_form"/>
-        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manage_counter'))]"/>
         <field name="active" eval="False"/>
         <field name="arch" type="xml">
             <field name="cooperative_state"/>
@@ -433,16 +442,15 @@
         </field>
     </record>
 
-   <record id="view_bdm_search" model="ir.ui.view">
+    <record id="view_bdm_search" model="ir.ui.view">
         <field name="name">res.partner.membership.access.search</field>
         <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
-            <search string="Search Partner">
-               <field name="name"
-                   filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
-               <field name="barcode_base"/>
-               <field name="ref"/>
-           </search>
+        	<field name="name" position="after">
+        		<field name="barcode_base"/>
+        		<field name="ref"/>
+        	</field>
         </field>
     </record>
 
@@ -458,6 +466,31 @@
                 <field name="email"/>
                 <field name="cooperative_state"/>
             </tree>
+        </field>
+    </record>
+
+    <!-- No-create views for object res partner -->
+    <record id="view_bdm_tree_no_create" model="ir.ui.view">
+        <field name="name">res.partner.membership.access.no.create.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership_access_rights.view_bdm_tree"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_form_no_create" model="ir.ui.view">
+        <field name="name">res.partner.membership.access.no.create.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership_access_rights.view_partner_form"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -485,7 +518,6 @@
              <field name="is_associated_people" position="attributes">
                  <attribute name="groups">coop_membership_access_rights.coop_membership_manager</attribute>
              </field>
-
         </field>
     </record>
 
@@ -500,20 +532,6 @@
         <field name="search_view_id" ref="view_bdm_search"/>
     </record>
 
-    <record id="bdm_action1" model="ir.actions.act_window.view">
-       <field eval="1" name="sequence"/>
-       <field name="view_mode">tree</field>
-       <field name="view_id" ref="view_bdm_tree"/>
-       <field name="act_window_id" ref="action_coop_membership_access_rights"/>
-    </record>
-
-    <record id="bdm_action2" model="ir.actions.act_window.view">
-       <field eval="2" name="sequence"/>
-       <field name="view_mode">form</field>
-       <field name="view_id" ref="coop_membership_access_rights.view_partner_form"/>
-       <field name="act_window_id" ref="action_coop_membership_access_rights"/>
-    </record>
-
     <record model="ir.ui.menu" id="coop_membership.menu_res_partner_members">
         <field name="action" ref="action_coop_membership_access_rights"/>
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_user'))]"/>
@@ -521,6 +539,70 @@
 
     <record model="ir.ui.view" id="coop_membership.view_res_partner_form_subscription_manager">
         <field name="groups_id" eval="[(6,0,[ref('account.group_account_manager')])]" />
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_coop_membership_manager_form_inherit">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <field name='parent_id' position="attributes">
+                <attribute name="groups">coop_membership_access_rights.group_membership_see_associated_people</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_shift_manager_form_inherit">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="20"/>
+        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='shifts']" position="attributes">
+                <attribute name='attrs'>{'invisible': [('is_member','=',False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_form_base">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_print_badge.view_res_partner_form_base"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//page[@name='coop_data']/group/group[1]/field[@name='badge_to_print']" position="attributes">
+        		<attribute name="groups">coop_membership_access_rights.group_membership_access_photo</attribute>
+        	</xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_all_members_tree" model="ir.ui.view">
+        <field name="name">res.partner.all.members.tree</field>
+        <field name="model">res.partner</field>
+        <field eval="16" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Members">
+                <field name="barcode_base" string="Coop Number"/>
+                <field name="display_name"/>
+                <field name="is_member"/>
+                <field name="is_worker_member"/>
+                <field name="is_former_member"/>
+                <field name="is_associated_people"/>
+                <field name="is_former_associated_people"/>
+                <field name="is_interested_people"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_form_base_see_associated_people_inherit">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership.view_res_partner_form_base"/>
+        <field name="arch" type="xml">
+        	<field name="nb_associated_people" position="attributes">
+        		<attribute name="groups">coop_membership_access_rights.group_membership_see_associated_people</attribute>
+        	</field>
+        </field>
+    </record>
+    <record id="account.partner_view_button_contracts_count" model="ir.ui.view">
+        <field name="groups_id" eval="[(6, 0, [ref('account.group_account_invoice')])]"/>
     </record>
 
 </odoo>

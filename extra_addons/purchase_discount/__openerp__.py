@@ -15,6 +15,7 @@
     "depends": [
         "stock",
         "purchase",
+        "account",
     ],
     "data": [
         "views/purchase_discount_view.xml",

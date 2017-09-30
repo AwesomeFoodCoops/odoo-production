@@ -7,6 +7,7 @@ from openerp import api, models
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
+    @api.model
     def new(self, values=None):
         """
         Apply the linked to a purchase.order.line.discount to the

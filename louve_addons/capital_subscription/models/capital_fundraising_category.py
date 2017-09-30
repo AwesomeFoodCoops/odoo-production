@@ -4,6 +4,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api
+from datetime import datetime
+import pytz
 
 
 class CapitalFundraisingCategory(models.Model):
@@ -41,6 +43,20 @@ class CapitalFundraisingCategory(models.Model):
         " to write a move between default product account and capital account"
         " when the payment is done.")
 
+    refund_account_id = fields.Many2one(
+        comodel_name='account.account',
+        string='Refund Account')
+
+    deficit_product_id = fields.Many2one(
+        'product.product',
+        string='Deficit Share Product',
+        domain=[('is_deficit_product', '=', True)])
+
+    deficit_share_amount_ids = fields.One2many(
+        comodel_name='capital.fundraising.deficit',
+        inverse_name='fund_cate_id',
+        string='Deficit Share')
+
     minimum_share_qty = fields.Integer(
         string='Minimum Share Quantity', required=True, default=1)
 
@@ -74,3 +90,19 @@ class CapitalFundraisingCategory(models.Model):
             previous_invoices.mapped('invoice_line_ids.quantity'))
 
         return minimum_qty - previous_qty
+
+    @api.multi
+    def get_deficit_share_amount(self, date_invoice):
+        '''
+        @Function to get the deficit share amount at the current time
+        '''
+        self.ensure_one()
+        for deficit_amount in self.deficit_share_amount_ids:
+            if (not deficit_amount.start_date or
+                    deficit_amount.start_date <= date_invoice) and \
+                    (not deficit_amount.end_date or
+                     deficit_amount.end_date >= date_invoice):
+                return deficit_amount.amount_by_share
+
+        # Return zero in case no matched deficit amount found
+        return 0

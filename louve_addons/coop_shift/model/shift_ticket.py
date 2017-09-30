@@ -95,7 +95,7 @@ class ShiftTicket(models.Model):
             return False
 
     seats_availability = fields.Selection(
-        compute='_compute_seats', store=False)
+        compute='_compute_seats', store=False, required=False)
     seats_reserved = fields.Integer(
         compute='_compute_seats', store=False)
     seats_available = fields.Integer(

@@ -35,6 +35,7 @@ class ResPartner(models.Model):
     SEX_SELECTION = [
         ('m', 'male'),
         ('f', 'female'),
+        ('o', 'other'),
     ]
 
     # New Column Section
@@ -46,6 +47,11 @@ class ResPartner(models.Model):
     is_former_member = fields.Boolean("Is Former Member",
                                       compute="_compute_is_former_member",
                                       store=True, readonly=True)
+
+    is_former_associated_people = fields.Boolean(
+                                "Is Former Associated People",
+                                compute="_compute_is_former_associated_people",
+                                store=True, readonly=True)
 
     is_interested_people = fields.Boolean(
         "Is Interested People",
@@ -115,13 +121,16 @@ class ResPartner(models.Model):
     cooperative_state = fields.Selection(
         selection=EXTRA_COOPERATIVE_STATE_SELECTION, default='not_concerned')
 
+    nb_associated_people = fields.Integer('Number of Associated People',
+        compute="_compute_number_of_associated_people",
+        store=True)
+
     # Constraint Section
     @api.multi
-    @api.constrains(
-        'is_member',
-        'parent_id',
-        'parent_id.is_member',
-        'total_partner_owned_share')
+    @api.constrains('is_member',
+                    'parent_id',
+                    'is_associated_people',
+                    'total_partner_owned_share')
     def _check_partner_type(self):
         '''
         @Function to add a constraint on partner type
@@ -136,6 +145,24 @@ class ResPartner(models.Model):
                       "associated people if you have shares ! " +
                       "Empty the parent_id field to be allowed " +
                       "to write others changes"))
+
+    @api.multi
+    @api.constrains('nb_associated_people')
+    def _check_number_of_associated_people(self):
+        '''
+        @Function to add a constraint on member
+            - A member cannot have number_of_associated_people higher than max.
+        '''
+        config_param_env = self.env['ir.config_parameter']
+        key_max_nb = 'coop_membership.max_nb_associated_people'
+        max_nb = eval(config_param_env.get_param(key_max_nb, '0'))
+        key_avail_check = 'coop_membership.associated_people_available'
+        avail_check = config_param_env.get_param(key_avail_check, 'unlimited')
+        for rec in self:
+            if avail_check == 'limited' and rec.is_member and \
+                rec.nb_associated_people > max_nb:
+                raise ValidationError(_("The maximum number of " +
+                    "associated people has been exceeded."))
 
     # Compute Section
     @api.multi
@@ -196,7 +223,7 @@ class ResPartner(models.Model):
         for partner in self:
             if partner.total_partner_owned_share == 0:
                 fundraising_count = \
-                    self.env['account.invoice'].search_count(
+                    self.env['account.invoice'].sudo().search_count(
                         [('partner_id', '=', partner.id),
                          ('fundraising_category_id', '!=', False),
                          ('state', 'in', ('open', 'paid'))])
@@ -208,7 +235,8 @@ class ResPartner(models.Model):
                 partner.is_former_member = False
 
     @api.multi
-    @api.depends('is_member', 'is_associated_people', 'supplier')
+    @api.depends('is_member', 'is_associated_people',
+                 'is_former_member', 'is_former_associated_people', 'supplier')
     def _compute_is_interested_people(self):
         '''
         @Function to compute data for the field is_interested_people
@@ -219,6 +247,8 @@ class ResPartner(models.Model):
             partner.is_interested_people = \
                 (not partner.is_member) and \
                 (not partner.is_associated_people) and \
+                (not partner.is_former_associated_people) and \
+                (not partner.is_former_member) and \
                 (not partner.supplier) or False
 
     @api.multi
@@ -228,6 +258,13 @@ class ResPartner(models.Model):
             partner.is_associated_people =\
                 partner.parent_id and \
                 partner.parent_id.is_member and (not partner.is_member)
+
+    @api.multi
+    @api.depends('parent_id', 'parent_id.is_former_member')
+    def _compute_is_former_associated_people(self):
+        for partner in self:
+            partner.is_former_associated_people = \
+                partner.parent_id and partner.parent_id.is_former_member
 
     @api.multi
     @api.depends(
@@ -242,7 +279,7 @@ class ResPartner(models.Model):
         '''
         partner_owned_share_env = self.env['res.partner.owned.share']
         for partner in self:
-            worker_shares = partner_owned_share_env.search_count(
+            worker_shares = partner_owned_share_env.sudo().search_count(
                 [('partner_id', '=', partner.id),
                  ('category_id.is_worker_capital_category', '=', True),
                  ('owned_share', '>', 0)])
@@ -275,6 +312,19 @@ class ResPartner(models.Model):
         for partner in self:
             partner.customer =\
                 partner.cooperative_state in self.COOPERATIVE_STATE_CUSTOMER
+
+    @api.depends('child_ids')
+    @api.multi
+    def _compute_number_of_associated_people(self):
+        for partner in self:
+            if (partner.is_member or partner.is_former_member) and \
+                partner.child_ids:
+                partner.nb_associated_people = \
+                    sum([(p.is_associated_people or \
+                         p.is_former_associated_people) and 1 or 0 \
+                         for p in partner.child_ids])
+            else:
+                partner.nb_associated_people = 0
 
     # Overload Section
     @api.model

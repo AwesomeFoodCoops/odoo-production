@@ -106,6 +106,10 @@ class CapitalFundraisingWizard(models.TransientModel):
             inbound_payment_method_ids
 
         if wizard.payment_journal_id:
+            # Force confirm_payment is True in case
+            # Confirm Fundraising Payments is always
+            if wizard.confirm_fundraising_payment in ['allways']:
+                wizard.confirm_payment = True
             # create one payment per line in the account move just created,
             # to have correct date
             for move_line in invoice.move_id.line_ids.filtered(

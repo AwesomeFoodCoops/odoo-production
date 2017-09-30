@@ -21,18 +21,18 @@ class ResPartner(models.Model):
     # Compute section
     @api.multi
     def compute_amount_subscription(self):
-        inv_obj = self.env['account.invoice']
+        inv_obj = self.env['account.invoice'].sudo()
         for partner in self:
             amount_subscription = sum(inv_obj.search([
                 ('type', '=', 'out_invoice'),
                 ('partner_id', '=', partner.id),
                 ('is_capital_fundraising', '=', True),
                 ('state', 'in', ['paid', 'open'])
-            ]).mapped('invoice_line_ids.price_subtotal'))
+            ]).mapped('amount_total_signed'))
             partner.amount_subscription = amount_subscription + sum(
                 inv_obj.search([
                     ('type', '=', 'out_refund'),
                     ('partner_id', '=', partner.id),
                     ('is_capital_fundraising', '=', True),
                     ('state', 'in', ['paid', 'open'])
-                ]).mapped('invoice_line_ids.price_subtotal'))
+                ]).mapped('amount_total_signed'))

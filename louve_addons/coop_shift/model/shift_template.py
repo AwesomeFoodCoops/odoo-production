@@ -28,6 +28,7 @@ from datetime import datetime, timedelta
 from dateutil import rrule
 from dateutil.relativedelta import relativedelta
 from openerp.exceptions import UserError
+import unicodedata as udd
 
 
 WEEK_NUMBERS = [
@@ -118,7 +119,7 @@ class ShiftTemplate(models.Model):
         address of your mail gateway if you use one.""")
     address_id = fields.Many2one(
         'res.partner', string='Location',
-        default=lambda self: self.env.user.company_id.partner_id,)
+        default=lambda self: self._default_location_for_shift())
     country_id = fields.Many2one(
         'res.country', 'Country', related='address_id.country_id', store=True)
     description = fields.Html(
@@ -171,13 +172,13 @@ class ShiftTemplate(models.Model):
     interval = fields.Integer(
         'Repeat Every', help="Repeat every (Days/Week/Month/Year)", default=4)
     count = fields.Integer('Repeat', help="Repeat x times")
-    mo = fields.Boolean('Mon')
-    tu = fields.Boolean('Tue')
-    we = fields.Boolean('Wed')
-    th = fields.Boolean('Thu')
-    fr = fields.Boolean('Fri')
-    sa = fields.Boolean('Sat')
-    su = fields.Boolean('Sun')
+    mo = fields.Boolean('Mon', compute="_compute_week_day", store=True)
+    tu = fields.Boolean('Tue', compute="_compute_week_day", store=True)
+    we = fields.Boolean('Wed', compute="_compute_week_day", store=True)
+    th = fields.Boolean('Thu', compute="_compute_week_day", store=True)
+    fr = fields.Boolean('Fri', compute="_compute_week_day", store=True)
+    sa = fields.Boolean('Sat', compute="_compute_week_day", store=True)
+    su = fields.Boolean('Sun', compute="_compute_week_day", store=True)
     month_by = fields.Selection([
         ('date', 'Date of month'), ('day', 'Day of month')], 'Option',)
     day = fields.Integer('Date of month')
@@ -211,6 +212,14 @@ class ShiftTemplate(models.Model):
         except ValueError:
             return self.env['shift.template.ticket']
 
+    @api.model
+    def _default_location_for_shift(self):
+        comp_id = self.env['res.company']._company_default_get('shift.shift')
+        if comp_id:
+            for child in comp_id.partner_id.child_ids:
+                if child.type == 'other' and child.default_addess_for_shifts:
+                    return child
+            return comp_id.partner_id
     # Compute Section
     @api.multi
     @api.depends('shift_ids')
@@ -256,7 +265,7 @@ class ShiftTemplate(models.Model):
     @api.multi
     @api.depends(
         'shift_type_id', 'week_number', 'mo', 'tu', 'we', 'th', 'fr', 'sa',
-        'su', 'start_time')
+        'su', 'start_time', 'address_id', 'address_id.name')
     def _compute_template_name(self):
         for template in self:
             if template.shift_type_id == template.env.ref(
@@ -278,6 +287,17 @@ class ShiftTemplate(models.Model):
                 int(template.start_time),
                 int(round((template.start_time - int(template.start_time)) *
                     60)))
+            # add 4 letters from the beginning as a shortcode for place.
+            if template.company_id and template.address_id:
+                if template.address_id.name and \
+                    template.address_id.name != template.company_id.name:
+                    addr_name = template.address_id.name
+                    isa_characters = \
+                        "".join([c for c in addr_name if c.isalnum()])
+                    str_place = udd.normalize("NFKD",
+                        isa_characters[0:5]).encode("ascii", "ignore")
+                    if str_place:
+                        name += " - %s" % (str_place)
             template.name = name
 
     @api.multi
@@ -306,12 +326,12 @@ class ShiftTemplate(models.Model):
                 templ.rrule = ''
 
     @api.multi
-    @api.depends('start_datetime')
+    @api.depends('start_datetime_tz')
     def _compute_start_date(self):
         for template in self:
-            if template.start_datetime:
+            if template.start_datetime_tz:
                 template.start_date = datetime.strptime(
-                    template.start_datetime, '%Y-%m-%d %H:%M:%S').strftime(
+                    template.start_datetime_tz, '%Y-%m-%d %H:%M:%S').strftime(
                     '%Y-%m-%d')
 
     @api.multi
@@ -452,9 +472,9 @@ class ShiftTemplate(models.Model):
         return self.env.ref('coop_shift.shift_type')
 
     # On change Section
-    @api.onchange('start_datetime')
+    @api.depends('start_datetime')
     @api.multi
-    def _onchange_start_date(self):
+    def _compute_week_day(self):
         for template in self:
             if template.start_datetime_tz:
                 start_date_object_tz = datetime.strptime(

@@ -3,11 +3,11 @@
     <record id="res_partner_form_inherit" model="ir.ui.view">
         <field name="name">res.partner.form.inherit</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
         <field name="arch" type="xml">
-            <field name="debit" position="after">
+            <xpath expr="//group[@name='acc_purchase']" position="inside">
                 <field name="discount_computation" attrs="{'required': [('supplier', '=', True)]}"/>
-            </field>
+            </xpath>
         </field>
     </record>
 </odoo>

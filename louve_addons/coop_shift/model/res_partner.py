@@ -145,6 +145,9 @@ class ResPartner(models.Model):
         comodel_name='shift.counter.event', inverse_name='partner_id',
         string='Counter Events')
 
+    default_addess_for_shifts = fields.Boolean(
+        string="Use as default for Shifts")
+
     # Constrains section
     @api.multi
     @api.constrains('final_standard_point')
@@ -173,16 +176,17 @@ class ResPartner(models.Model):
     def _compute_registration_counts(self):
         d = fields.Datetime.now()
         for partner in self:
-            next_registrations = partner.registration_ids.filtered(
+            next_registrations = partner.sudo().registration_ids.filtered(
                 lambda r, d=d: r.date_begin >= d)
             partner.upcoming_registration_count = len(next_registrations)
             next_registrations = next_registrations.sorted(
                 lambda r: r.date_begin)
             partner.next_registration_id = next_registrations and\
                 next_registrations[0] or False
-            partner.tmpl_registration_count = len(partner.tmpl_reg_line_ids)
+            partner.tmpl_registration_count = \
+                len(partner.sudo().tmpl_reg_line_ids)
             partner.active_tmpl_reg_line_count = len(
-                partner.tmpl_reg_line_ids.filtered(
+                partner.sudo().tmpl_reg_line_ids.filtered(
                     lambda l: l.is_current or l.is_future))
 
     @api.multi
@@ -214,7 +218,7 @@ class ResPartner(models.Model):
     @api.multi
     def compute_extension_qty(self):
         for partner in self:
-            partner.extension_qty = len(partner.extension_ids)
+            partner.extension_qty = len(partner.sudo().extension_ids)
 
     @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
                  'counter_event_ids.type', 'counter_event_ids.partner_id')
@@ -244,8 +248,8 @@ class ResPartner(models.Model):
                     l.state == 'done'):
                 conflict = conflict or conflict_period(
                     leave.start_date, leave.stop_date,
-                    fields.Datetime.now(),
-                    fields.Datetime.now())['conflict']
+                    fields.Date.context_today(self),
+                    fields.Date.context_today(self), False)['conflict']
             partner.is_vacation = conflict
 
     def _compute_is_exempted(self):
@@ -256,8 +260,8 @@ class ResPartner(models.Model):
                     l.state == 'done'):
                 conflict = conflict or conflict_period(
                     leave.start_date, leave.stop_date,
-                    fields.Datetime.now(),
-                    fields.Datetime.now())['conflict']
+                    fields.Date.context_today(self),
+                    fields.Date.context_today(self), False)['conflict']
             partner.is_exempted = conflict
 
     @api.depends(
@@ -267,7 +271,7 @@ class ResPartner(models.Model):
         """This function should be called in a daily CRON"""
         for partner in self:
             max_date = False
-            for extension in partner.extension_ids:
+            for extension in partner.sudo().extension_ids:
                 if extension.date_start <= fields.Datetime.now() and\
                         extension.date_stop > fields.Datetime.now():
                     max_date = max(max_date, extension.date_stop)
@@ -280,14 +284,22 @@ class ResPartner(models.Model):
         """This function should be called in a daily CRON"""
         alert_duration = int(self.env['ir.config_parameter'].sudo().get_param(
             'coop.shift.state.delay.duration'))
+
+        # Read the current value of Date alert stop using read method as
+        # partner.date_alert_stop will not work in a compute function
+        current_partner_alert_date = {
+            d['id']: d['date_alert_stop']
+            for d in self.search_read([('id', 'in', self.ids)],
+                                      ['date_alert_stop'])}
+
         for partner in self:
             # If all is OK, the date is deleted
             point = partner.shift_type == 'standard'\
                 and partner.final_standard_point\
                 or partner.final_ftop_point
-            if point > 0:
+            if point >= 0:
                 partner.date_alert_stop = False
-            elif not partner.date_alert_stop:
+            elif not current_partner_alert_date.get(partner.id):
                 partner.date_alert_stop =\
                     datetime.today() + relativedelta(days=alert_duration)
                 partner.date_alert_stop = partner.date_alert_stop
@@ -342,8 +354,6 @@ class ResPartner(models.Model):
     def update_working_state(self):
         # Function Called by the CRON
         partners = self.search([])
-        partners.compute_date_alert_stop()
-        partners.compute_date_delay_stop()
 
         # Creating Jobs for updating the member working status
         # Split member list in multiple parts
@@ -360,9 +370,25 @@ class ResPartner(models.Model):
             update_member_working_state.delay(
                 session, 'res.partner', partner_list)
 
+    @api.multi
+    def write(self, vals):
+        if 'default_addess_for_shifts' in vals:
+            for record in self:
+                if record.parent_id:
+                    if vals.get('default_addess_for_shifts'):
+                        for child in record.parent_id.child_ids:
+                            if child.id != record.id:
+                                child.write({
+                                    'default_addess_for_shifts': False
+                                })
+
+        return super(ResPartner, self).write(vals)
+
 
 @job
 def update_member_working_state(session, model_name, partner_ids):
     ''' Job for Updating Member Working State '''
     partners = session.env[model_name].browse(partner_ids)
+    partners.compute_date_alert_stop()
+    partners.compute_date_delay_stop()
     partners._compute_working_state()

@@ -59,17 +59,8 @@ class ReplaceRegistration(models.TransientModel):
                 'partner_id': wizard.new_partner_id.id,
                 'replaced_reg_id': wizard.registration_id.id,
                 'tmpl_reg_line_id': False,
-                'template_created': False})
-            new_reg_id.state = 'replacing'
+                'template_created': False,
+                'state': 'replacing'})
             wizard.registration_id.state = "replaced"
             wizard.registration_id.replacing_reg_id = new_reg_id.id
-            shift_id = wizard.registration_id.shift_id
-        return {
-            'view_type': 'form',
-            'view_mode': 'tree,form',
-            'res_model': 'shift.registration',
-            'domain': [('state', '!=', 'replacing')],
-            'context': {'search_default_shift_id': shift_id.id},
-            'type': 'ir.actions.act_window',
-            'target': 'current',
-        }
+        return True

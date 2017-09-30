@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- QWeb Reports -->
-    <report
-        id="pricetag"
-        model="report.pricetag"
-        string="Pricetags"
-        report_type="qweb-pdf"
-        name="louve_custom_product.report_pricetag"
-        file="louve_custom_product.report_pricetag"
-        attachment_use="False"
-    />
-
-    <record id="louve_custom_product.pricetag" model="ir.actions.report.xml">
-        <field name="paperformat_id" ref="louve_custom_product.paperformat_pricetag"/>
-        <field name="attachment_use" eval="0"/>
-    </record>
-
     <report
         id="pricetag_vegetables"
         model="report.pricetag_vegetables"

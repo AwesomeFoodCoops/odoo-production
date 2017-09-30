@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api, exceptions, _
+from openerp.exceptions import Warning
 
 
 class AccountInvoice(models.Model):
@@ -66,10 +67,13 @@ class AccountInvoice(models.Model):
             if forbidden_product_ids:
                 forbidden_products = self.env['product.product'].browse(
                     forbidden_product_ids)
-                raise exceptions.UserError(_(
-                    "%s category do not allow %s products") % (
-                    invoice.fundraising_category_id.name, ', '.join(
-                        forbidden_products.mapped('name'))))
+                if not all(
+                    [each_prod.is_deficit_product
+                     for each_prod in forbidden_products]):
+                    raise exceptions.UserError(_(
+                        "%s category do not allow %s products") % (
+                        invoice.fundraising_category_id.name, ', '.join(
+                            forbidden_products.mapped('name'))))
 
 #            ordered_qty = sum(invoice.invoice_line_ids.mapped('quantity'))
 
@@ -115,16 +119,22 @@ class AccountInvoice(models.Model):
             for category_invoice in category_invoices:
                 if category_invoice.type == 'out_invoice':
                     capital_qty += sum(
-                        category_invoice.mapped('invoice_line_ids.quantity'))
+                        [inv_line.quantity
+                         for inv_line in category_invoice.invoice_line_ids
+                         if inv_line.product_id and
+                         inv_line.product_id.is_capital_fundraising])
                 else:
                     capital_qty -= sum(
-                        category_invoice.mapped('invoice_line_ids.quantity'))
+                        [inv_line.quantity
+                         for inv_line in category_invoice.invoice_line_ids
+                         if inv_line.product_id and
+                         inv_line.product_id.is_capital_fundraising])
             if capital_qty < 0:
                 raise exceptions.UserError(_(
                     "You try to make an operation after which the partner"
                     " will have %d shares of capital of kind '%s'.\n\n"
                     " Incorrect Value.") % (capital_qty, category.name))
-            if capital_qty < minimum_qty and capital_qty !=0 and\
+            if capital_qty < minimum_qty and capital_qty != 0 and\
                     not self.env.context.get(
                         'ignore_type_A_constrains', False):
                 # use this test to ignore type A constrains when
@@ -150,3 +160,73 @@ class AccountInvoice(models.Model):
             if self.fundraising_category_id.partner_account_id:
                 self.account_id =\
                     self.fundraising_category_id.partner_account_id
+
+    @api.multi
+    def apply_refund_deficit_share(self, quantity=0):
+        '''
+        @Function to apply the deficit share on customer refund
+        '''
+
+        for invoice in self:
+            fundraising_categ = invoice.fundraising_category_id
+            if invoice.type == 'out_refund' and fundraising_categ \
+               and quantity >= 0:
+                # Change the customer account of the refund
+                if fundraising_categ.refund_account_id:
+                    invoice.account_id = fundraising_categ.refund_account_id.id
+                deficit_share_amount = \
+                    fundraising_categ.get_deficit_share_amount(
+                        invoice.date_invoice)
+
+                for inv_line in invoice.invoice_line_ids:
+                    source_product = inv_line.product_id
+                    if source_product and \
+                            source_product.is_capital_fundraising:
+                        if not source_product.deficit_share_account_id and \
+                                deficit_share_amount:
+                            raise Warning(_("Deficit Share Account has not "
+                                            "been configured for %s.") %
+                                          source_product.display_name)
+                        # Update quantity of source product line
+                        inv_line.write({'quantity': quantity})
+
+                        if deficit_share_amount:
+                            # Adjust the Unit Price of the line
+                            deficit_price_unit_signed = \
+                                -1.0 * deficit_share_amount
+
+                            if fundraising_categ.capital_account_id:
+                                inv_line.account_id = \
+                                    fundraising_categ.capital_account_id.id
+
+                            # Create a new line
+                            deficit_share_prod = \
+                                fundraising_categ.deficit_product_id
+
+                            deficit_line_val = {
+                                'product_id':
+                                    deficit_share_prod and
+                                    deficit_share_prod.id or
+                                    False,
+                                'name': deficit_share_prod and
+                                    deficit_share_prod.display_name or
+                                    _('Deficit Share'),
+                                'account_id':
+                                    source_product.deficit_share_account_id.id,
+                                'quantity': quantity,
+                                'price_unit': deficit_price_unit_signed,
+                                'uom_id':
+                                    inv_line.uom_id and inv_line.uom_id.id or
+                                    False,
+                                'invoice_id': invoice.id
+                            }
+
+                            self.env['account.invoice.line'].create(
+                                deficit_line_val)
+
+                            # break because the quantity is total shares
+                            # and we don't have different capital fundraising
+                            # products in one invoice, therefore break when
+                            # we get the first one satisfy and update with
+                            # total quantity.
+                            break

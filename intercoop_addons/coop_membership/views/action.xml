@@ -24,7 +24,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('is_associated_people', '=', True)]</field>
-        <field name="context">{'create': False, 'edit': False}</field>
+        <field name="context">{}</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_res_partner_interested_people">
@@ -34,6 +34,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('is_interested_people', '=', True)]</field>
+        <field name="context">{}</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_res_partner_former_member">
@@ -43,6 +44,17 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('is_former_member', '=', True)]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_res_partner_former_associated_people">
+        <field name="name">Former Associated People</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('is_former_associated_people', '=', True)]</field>
+        <field name="context">{}</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_account_invoice_customer_subscriptions">
@@ -81,4 +93,26 @@
         <field name="target">new</field>
     </record>
 
+
+    <!-- Define views for the actions Capital Subscription -->
+    <record id="action_view_capital_subscription_tree" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="account.invoice_tree" />
+        <field name="act_window_id" ref="coop_membership.action_account_invoice_customer_subscriptions" />
+    </record>
+    <record id="action_view_capital_subscription_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_form" />
+        <field name="act_window_id" ref="coop_membership.action_account_invoice_customer_subscriptions" />
+    </record>
+
+	<!-- Define views for the actions Members > Configuration > Settings -->
+	<record id="action_membership_configuration" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">members.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
 </odoo>

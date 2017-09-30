@@ -141,8 +141,8 @@ class ShiftLeave(models.Model):
     def button_cancel(self):
         for leave in self:
             if leave.state == 'done':
-                leave.shift_template_registration_line_ids.write(
-                    {'state': 'open'})
+                leave.shift_template_registration_line_ids.with_context(
+                    bypass_leave_change_check=True).write({'state': 'open'})
                 leave.state = 'cancel'
                 leave.shift_template_registration_line_ids = False
 
