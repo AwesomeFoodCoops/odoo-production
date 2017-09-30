@@ -17,10 +17,25 @@ odoo.define('pos_automatic_validation.pos_automatic_validation', function (requi
             return this.cashregister.journal.iface_automatic_validation;
         },
     });
-
-    //TODO : by default hide the Validate button
     
     screens.PaymentScreenWidget.include({
+        show: function(){
+            this._super();
+            $('.next').hide();
+         },
+
+        click_paymentmethods: function(id) {
+            var self = this;
+            this._super.apply(this, arguments);
+            var selected_line = this.pos.get_order().selected_paymentline;
+            var auto_validation = selected_line.get_automatic_validation();
+            if (auto_validation == false) {
+                $('.next').show();
+            } else {
+                $('.next').hide();
+            }
+        },
+
         render_paymentlines: function() {
             this._super();
             var self = this;
@@ -31,8 +46,6 @@ odoo.define('pos_automatic_validation.pos_automatic_validation', function (requi
                     var auto_validation = selected_line.get_automatic_validation();
                     if (auto_validation == true) {
                         self.validate_order();
-                    //} else {
-                         //TODO : display back the Validate button
                     }
                 }
             }
