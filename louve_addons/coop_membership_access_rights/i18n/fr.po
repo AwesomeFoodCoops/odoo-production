@@ -520,3 +520,32 @@ msgstr "Volants"
 msgid "Standard"
 msgstr "Classique"
 
+#. module: coop_membership_access_rights
+#: code:addons/coop_membership_access_rights/models/shift_registration.py:72
+#, python-format
+msgid "Warning! You cannot enter make-ups of the following members as they are up-to-date: \n"
+"\n"
+"%s"
+msgstr "Attention ! Vous ne pouvez saisir les rattrapages de ces membres car ils sont à jour: \n"
+"\n"
+"%s"
+
+#. module: coop_membership_access_rights
+#: model:res.groups,name:coop_membership_access_rights.group_membership_see_associated_people
+msgid "See Associated People"
+msgstr "Voir les rattachés"
+
+#. module: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_res_partner_all_members_tree
+msgid "Coop Number"
+msgstr "Numéro de coop"
+
+#. modules: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Number of Associated People"
+msgstr "Nombre de rattachés"
+
+#. modules: coop_membership_access_rights
+#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_partner_form
+msgid "Number of Former Associated People"
+msgstr "Nombre de anciennes personnes rattachés"

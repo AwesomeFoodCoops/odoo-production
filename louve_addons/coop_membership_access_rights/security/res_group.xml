@@ -80,4 +80,14 @@
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
+	<!-- This group is used for limited sight to menu Associated People -->
+    <record model="res.groups" id="group_membership_see_associated_people">
+        <field name="name">See Associated People</field>
+        <field name="category_id" ref="coop_shift.module_category_shift_management" />
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+    <record id="base.group_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_membership_see_associated_people'))]"></field>
+	</record>
+
 </odoo>

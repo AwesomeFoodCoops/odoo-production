@@ -21,7 +21,7 @@ class ResPartner(models.Model):
     # Compute section
     @api.multi
     def compute_amount_subscription(self):
-        inv_obj = self.env['account.invoice']
+        inv_obj = self.env['account.invoice'].sudo()
         for partner in self:
             amount_subscription = sum(inv_obj.search([
                 ('type', '=', 'out_invoice'),

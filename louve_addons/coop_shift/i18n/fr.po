@@ -2281,7 +2281,7 @@ msgid "Shift"
 msgstr "Service"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_shift.py:429
+#: code:addons/coop_shift/model/shift_shift.py:434
 #, python-format
 msgid "Shift Cloture"
 msgstr "Clôlturer le service"

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+
+    <record id="config_auto_update_base_price" model="ir.config_parameter">
+        <field name="key">auto_update_base_price</field>
+        <field name="value">True</field>
+    </record>
+    <record id="config_auto_update_theorical_cost" model="ir.config_parameter">
+        <field name="key">auto_update_theorical_cost</field>
+        <field name="value">True</field>
+    </record>
+    <record id="config_auto_update_theorical_price" model="ir.config_parameter">
+        <field name="key">auto_update_theorical_price</field>
+        <field name="value">True</field>
+    </record>
+
+</odoo>

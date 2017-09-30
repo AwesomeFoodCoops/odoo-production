@@ -176,16 +176,17 @@ class ResPartner(models.Model):
     def _compute_registration_counts(self):
         d = fields.Datetime.now()
         for partner in self:
-            next_registrations = partner.registration_ids.filtered(
+            next_registrations = partner.sudo().registration_ids.filtered(
                 lambda r, d=d: r.date_begin >= d)
             partner.upcoming_registration_count = len(next_registrations)
             next_registrations = next_registrations.sorted(
                 lambda r: r.date_begin)
             partner.next_registration_id = next_registrations and\
                 next_registrations[0] or False
-            partner.tmpl_registration_count = len(partner.tmpl_reg_line_ids)
+            partner.tmpl_registration_count = \
+                len(partner.sudo().tmpl_reg_line_ids)
             partner.active_tmpl_reg_line_count = len(
-                partner.tmpl_reg_line_ids.filtered(
+                partner.sudo().tmpl_reg_line_ids.filtered(
                     lambda l: l.is_current or l.is_future))
 
     @api.multi
@@ -217,7 +218,7 @@ class ResPartner(models.Model):
     @api.multi
     def compute_extension_qty(self):
         for partner in self:
-            partner.extension_qty = len(partner.extension_ids)
+            partner.extension_qty = len(partner.sudo().extension_ids)
 
     @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
                  'counter_event_ids.type', 'counter_event_ids.partner_id')
@@ -270,7 +271,7 @@ class ResPartner(models.Model):
         """This function should be called in a daily CRON"""
         for partner in self:
             max_date = False
-            for extension in partner.extension_ids:
+            for extension in partner.sudo().extension_ids:
                 if extension.date_start <= fields.Datetime.now() and\
                         extension.date_stop > fields.Datetime.now():
                     max_date = max(max_date, extension.date_stop)

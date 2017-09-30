@@ -91,7 +91,7 @@ class ShiftMailScheduler(models.Model):
                 continue
             if sm.shift_id.state != 'confirm':
                 continue
-            if self.interval_type == 'after_sub':
+            if self.interval_type in ['after_sub', 'before_event']:
                 # update registration lines
                 lines = []
                 for registration in filter(lambda item: item not in [
@@ -102,11 +102,15 @@ class ShiftMailScheduler(models.Model):
                 if lines:
                     sm.write({'mail_registration_ids': lines})
                 # execute scheduler on registrations
+                today = datetime.strftime(fields.datetime.now(),
+                                          tools.DEFAULT_SERVER_DATETIME_FORMAT)
+
+                # filter mails with ignoring conditions.
                 sm.mail_registration_ids.filtered(
-                    lambda reg: reg.scheduled_date and reg.scheduled_date <=
-                    datetime.strftime(
-                        fields.datetime.now(),
-                        tools.DEFAULT_SERVER_DATETIME_FORMAT)).execute()
+                    lambda reg: reg.scheduled_date and \
+                        reg.scheduled_date <= today and \
+                        not reg.mail_ignored
+                    ).execute()
             else:
                 if not sm.mail_sent:
                     sm.shift_id.mail_attendees(sm.template_id.id)
@@ -115,11 +119,11 @@ class ShiftMailScheduler(models.Model):
 
     @api.model
     def run(self, autocommit=False):
-        schedulers = self.search([
-            ('done', '=', False), (
-                'scheduled_date', '<=', datetime.strftime(
-                    fields.datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT
-                ))])
+        today = datetime.strftime(fields.datetime.now(),
+                                  tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        schedulers = self.search([('done', '=', False),
+                                  ('scheduled_date', '<=', today)])
+
         for scheduler in schedulers:
             scheduler.execute()
             if autocommit:

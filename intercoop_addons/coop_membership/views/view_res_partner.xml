@@ -41,6 +41,9 @@
                 <button id="create_new_barcode" name="%(action_res_partner_generate_barcode_wizard)d" type="action"
                     string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode"/>
             </button>
+            <xpath expr="//notebook/page[1]/field/form/sheet/group//field[@name='title']" position="after">
+                <field name="sex" attrs="{'required': True}"/>
+            </xpath>
         </field>
     </record>
 
@@ -97,6 +100,7 @@
                 <page string="Coop Data" name="coop_data">
                     <group>
                         <group string="MemberShip">
+                        	<field name="nb_associated_people" string="Number of Associated People" attrs="{'readonly': True, 'invisible': [('is_member','=',False),('is_former_member','=',False)]}"/>
                             <field name="barcode_base" string="Member Number" readonly="1"/>
                             <field name="is_member"/>
                             <field name="is_worker_member"/>
@@ -109,7 +113,7 @@
                         </group>
                         <group string="Extra Data">
                             <field name="temp_coop_number"/>
-                            <field name="birthdate" widget="date"/>
+                            <field name="birthdate" widget="date" attrs="{'required': [('is_member', '=', True)]}"/>
                             <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
                             <field name="adult_number_home"/>
                             <field name="contact_origin_id"/>

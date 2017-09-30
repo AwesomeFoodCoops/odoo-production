@@ -4,10 +4,6 @@
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_user')), (4, ref('coop_membership_access_rights.subscriptions_reader'))]"/>
     </record>
 
-    <record model="ir.ui.menu" id="coop_membership.menu_res_partner_associated">
-        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_manager'))]"/>
-    </record>
-
     <record model="ir.ui.menu" id="coop_membership.menu_res_partner_interested_people">
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_manager'))]"/>
     </record>
@@ -48,11 +44,6 @@
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.subscriptions_creator'))]" />
     </record>
 
-    <!-- Associated People : Add group 'group_membership_access_user' -->
-    <record model="ir.ui.menu" id="coop_membership.menu_res_partner_associated">
-        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_user'))]"/>
-    </record>
-
     <!-- Interested People : Add group 'group_membership_access_user' -->
     <record model="ir.ui.menu" id="coop_membership.menu_res_partner_interested_people">
         <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_user'))]"/>
@@ -71,4 +62,30 @@
     </record>
 
     <menuitem action="action_shift_attendance_entry_view" id="menu_shift_attendance_entry" name="Attendance Entry" parent="coop_shift.shift_menu" sequence="9"/>
+
+	<!--  Add new menu `All` that it shows the list of all partner who links to coop -->
+	<record model="ir.ui.menu" id="menu_res_partner_all_partners">
+        <field name="name">All</field>
+        <field name="action" ref="action_coop_all_partner_view"/>
+        <field name="parent_id" ref="coop_membership.menu_coop_member_submain"/>
+        <field name="sequence">1</field>
+    </record>
+    <record id="coop_membership.menu_res_partner_members" model="ir.ui.menu">
+        <field eval="2" name="sequence"/>
+    </record>
+    <record id="coop_membership.menu_res_partner_associated" model="ir.ui.menu">
+        <field eval="3" name="sequence"/>
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_see_associated_people'))]"/>
+    </record>
+    <record id="coop_membership.menu_res_partner_former_member" model="ir.ui.menu">
+        <field eval="4" name="sequence"/>
+    </record>
+    <record id="coop_membership.menu_res_partner_interested_people" model="ir.ui.menu">
+        <field eval="5" name="sequence"/>
+    </record>
+    <record id="coop_membership.menu_res_partner_former_associated_people" model="ir.ui.menu">
+        <field eval="6" name="sequence"/>
+        <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_see_associated_people'))]"/>
+    </record>
+
 </odoo>
