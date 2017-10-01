@@ -123,7 +123,30 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
         message = "#G#1#1#1#1#1#1#1#1#1#1#1#1#1#"
         answer = self.send_to_cashdrawer(message)
         return answer
-
+    
+    def content_inventory(self):
+        '''This function return the content of the cashdrawer (coins and notes).
+        '''
+        message = "#Y#"
+        answer = self.send_to_cashdrawer(message)
+        s = answer.split('#')
+        res = {}
+        if (s[1]=='0'):
+            for location in [s[2], s[3]]:
+                coins_notes = location.split(';')
+                for type_money in coins_notes:
+                    detail_money = type_money.split(',')
+                    for d in detail_money:
+                        val = d.split(':')
+                        print val
+                        value = str(int(val[0])/100.0)
+                        number = int(val[1])
+                        if not(value in res.keys()):
+                            res[value] = number
+                        else :
+                            res[value] += number
+        return res
+    
     def transaction_start(self, payment_info):
         '''This function sends the data to the serial/usb port.
         '''
@@ -201,4 +224,14 @@ class CashlogyAutomaticCashdrawerProxy(hw_proxy.Proxy):
         logger.debug(
             'Cashlogy: Call display_backoffice without info')
         answer = driver.display_backoffice()
+        return {'info': str(answer)}
+
+    @http.route(
+        '/hw_proxy/automatic_cashdrawer_content_inventory',
+        type='json', auth='none', cors='*')
+    def automatic_cashdrawer_content_inventory(self, inventory_info=None):
+        logger.debug(
+            'Cashlogy: Call automatic_cashdrawer_content_inventory with '
+            'inventory_info=%s', payment_info)
+        answer = driver.content_inventory()
         return {'info': str(answer)}
