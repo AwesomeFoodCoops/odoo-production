@@ -5,6 +5,7 @@ openerp.local_RESTcall_from_backend = function (instance) {
                 $.ajax({
                     url: request['url'],
                     type: 'POST',
+                    timeout: 240000,
                     data: JSON.stringify(request['params']),
                     contentType: 'application/json',
                 }).done(function (result) {
