@@ -10,10 +10,10 @@ class ProxyActionHelper(models.AbstractModel):
     _name = "proxy.action.helper"
     _description = "Forward HTTP call to front-end proxy"
     
-    def send_proxy(self, url):
-            """ @param url: local url to call
+    def send_proxy(self, request_list):
+            """ @param request_list: list of requests to execute => [{'url':'example.com','params':{'p1':'param1','p2':'param2'}}]
             """
             return {
                 'type': 'ir.actions.act_proxy',
-                'url': url,
-    }
+                'request_list': request_list,
+            }
