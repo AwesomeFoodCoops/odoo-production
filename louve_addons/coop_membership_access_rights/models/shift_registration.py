@@ -38,7 +38,7 @@ class ShiftRegistration(models.Model):
         res.checking_shift_attendance()
         return res
 
-    @api.model
+    @api.multi
     def write(self, vals):
         res = super(ShiftRegistration, self).write(vals)
         if 'template_created' in vals or 'shift_ticket_id' in vals:
