@@ -7,6 +7,16 @@
 
 <odoo>
 
+    <!-- View actions for new Menu : ALL -->
+    <record id="action_coop_all_partner_view" model="ir.actions.act_window">
+        <field name="name">All</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">['|','|','|','|',('is_member', '=', True),('is_associated_people', '=', True),('is_former_member', '=', True),('is_former_associated_people', '=', True),('is_interested_people', '=', True)]</field>
+    </record>
+
     <record model="ir.actions.act_window" id="action_res_partner_subscriptions">
         <field name="name">Members</field>
         <field name="type">ir.actions.act_window</field>
