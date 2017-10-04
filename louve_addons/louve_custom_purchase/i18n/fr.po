@@ -122,3 +122,8 @@ msgstr "Taxes fournisseur"
 #: model:ir.ui.view,arch_db:louve_custom_purchase.view_qupplierinfo_search
 msgid "not Indicative Package"
 msgstr "Colisage exact"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.stock_picking_form_view_louve
+msgid "Copy expected qtys"
+msgstr "Quantités prévues"
