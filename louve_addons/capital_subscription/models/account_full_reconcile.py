@@ -18,6 +18,11 @@ class AccountFullReconcile(models.Model):
             category_ids = reconcile.mapped(
                 'reconciled_line_ids.invoice_id.fundraising_category_id')
             invoices = reconcile.mapped('reconciled_line_ids.invoice_id')
+
+            # Do not create any extra entry for capital refund
+            if invoices[0].type == 'out_refund':
+                continue
+
             if len(category_ids) > 1:
                 raise UserError(_(
                     "You can not reconcile Capital Invoices for many"
@@ -47,18 +52,12 @@ class AccountFullReconcile(models.Model):
                 payment_date = payment_m_line and payment_m_line[0].date or \
                     fields.Date.context_today(self)
 
-                if invoices[0].type == 'out_refund':
-                    # Refund
-                    total = sum(move_lines.mapped('credit'))
-                    is_payment = undo if total > 0 else not undo
-                else:
-                    # Sale
-                    total = sum(move_lines.mapped('debit'))
-                    is_payment = not undo if total > 0 else undo
+                # Sale
+                total = sum(move_lines.mapped('debit'))
+                is_payment = not undo if total > 0 else undo
 
                 lines_vals = [(0, 0, {
-                    'name': _("Payment of Capital")
-                    if is_payment else _("Return of Capital"),
+                    'name': _("Payment of Capital"),
                     'partner_id': partner.id,
                     'account_id':
                     category.product_id.property_account_income_id.id,
@@ -67,8 +66,7 @@ class AccountFullReconcile(models.Model):
                     'debit': total if is_payment else 0,
                     'credit': 0 if is_payment else total,
                 }), (0, 0, {
-                    'name': _("Payment of Capital")
-                    if is_payment else _("Return of Capital"),
+                    'name': _("Payment of Capital"),
                     'partner_id': partner.id,
                     'account_id': category.capital_account_id.id,
                     'product_id': category.product_id.id,
