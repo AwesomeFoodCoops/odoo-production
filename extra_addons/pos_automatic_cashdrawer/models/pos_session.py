@@ -22,7 +22,7 @@ class PosSession(models.Model):
         url = posbox_ip+'/hw_proxy/automatic_cashdrawer_connection_check'
         cashlogy_cnnector_ip_adress = self.config_id.iface_automatic_cashdrawer_ip_address
         cashlogy_connector_tcp_port = self.config_id.iface_automatic_cashdrawer_tcp_port
-        request = {'url': url,'params':{connection_info:{'ip_address':cashlogy_cnnector_ip_adress,'tcp_port',cashlogy_connector_tcp_port}}}
+        request = {'url': url,'params':{connection_info:{'ip_address':cashlogy_cnnector_ip_adress,'tcp_port':cashlogy_connector_tcp_port}}}
         init_cashlogy = prox.send_proxy([request])
         # get cashlogy content inventory
         url = posbox_ip+'/hw_proxy/automatic_cashdrawer_content_inventory'
