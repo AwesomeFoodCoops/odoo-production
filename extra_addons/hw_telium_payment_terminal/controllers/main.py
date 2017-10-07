@@ -130,9 +130,6 @@ class TeliumPaymentTerminalDriver(Thread):
             if my_answer is not None:
                 # Print answered data from terminal
                 logger.error(my_answer.__dict__)
-            if my_answer.has_succeeded:
-                logger.error("Your payment has been processed using a {0} card. Id: {1}".format(my_answer.card_type.name, my_answer.card_type.numbers))
-
                 answer = {
                     'pos_number': my_answer.__dict__['_pos_number'],
                     'transaction_result': my_answer.__dict__['_transaction_result'],
@@ -141,9 +138,6 @@ class TeliumPaymentTerminalDriver(Thread):
                     'payment_terminal_return_message': my_answer.__dict__,
                 }
                 logger.error('answer = %s' % answer)
-            else:
-                logger.error("Your payment was rejected. Try again if you wish to.")
-
         except Exception, e:
             logger.error('Error : %s' % str(e))
         return answer
