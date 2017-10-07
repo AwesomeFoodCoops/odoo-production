@@ -9,11 +9,8 @@ from openerp import fields, models, api
 
 class PosSession(models.Model):
     _inherit = 'pos.session'
-
-    #TODO : override "launch or resume session" function : if there is an automatic cashdrawer 
-    # configured on this pos_config, do not launch front-end UI if there is no coin/notes record on this session
     
-    def _get_automatic_cashdraer_content_inventory_button(self):
+    def _get_automatic_cashdrawer_content_inventory(self):
         proxy = self.pool['proxy.action.helper'].create()
         posbox_address = self.config_id.proxy_ip
         if posbox_address[:4] != 'http': #if https, it's also OK
@@ -28,5 +25,37 @@ class PosSession(models.Model):
         url = posbox_ip+'/hw_proxy/automatic_cashdrawer_content_inventory'
         request = {'url': url,'params':''}
         inventory = prox.send_proxy([request])
-        # TODO : call "add money" wizzard with inventory as context
-        # OR create notes/coin lines use this function to override the "launch/resume function (UI launcher)
+        #inventory = {'value_of_coin_bill':number_coin_bill,...}
+        #inventory = {'2.00':4,'50.0':3} => 2€x4 + 50€x3 => 158€
+        return inventory
+"""
+    def wkf_action_opening_control(self, cr, uid, ids, context=None):
+        result = dict()
+        for session in self.browse(cr, uid, ids, context=context):
+            if self.config.id.automatic_cashdrawer == True :
+                cash_inventory = self._get_automatic_cashdrawer_content_inventory()
+                if cash_inventory==None :
+                      result[session.id]=erromessage
+                for i in cash_inventory:
+                     #add to opening balance
+                if openning_balance = 0
+                      result[session.id]=erromessage
+        result[session.id]=True
+        return super(pos_session, self).wkf_action_opening_control()
+
+    def wkf_action_closing_control(self, cr, uid, ids, context=None):
+        result = dict()
+        if self.config.id.automatic_cashdrawer == True :
+            cash_inventory = self._get_automatic_cashdrawer_content_inventory()
+            if cash_inventory==None :
+                  result[session.id]=erromessage
+            for i in cash_inventory:
+                 #add to closing balance
+        result[session.id]=True
+        return super(pos_session, self).wkf_action_closing_control()
+"""
+    #TODO : add a object bank.statement.cash.balance.detail that have "value/number_opening/total_openning/number_closing/total_closing"
+    #TODO : add field on bank.statement.cash_balance_detail_ids that trigger computation of balance_start and balance_end_real
+    #TODO : add button to call the backend on session form.
+    #TODO : add a pos user right to hide "Close" button from the front end
+    #TODO : in the pos.session resume, add lines bellow cash summary with detail of coins/bills number @oenning and @closing
