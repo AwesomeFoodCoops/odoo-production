@@ -32,7 +32,8 @@ odoo.define('pos_automatic_validation.pos_automatic_validation', function (requi
             if (auto_validation == false) {
                 $('.next').show();
             } else {
-                $('.next').hide();
+                $('.next').show();
+                //$('.next').hide();
             }
         },
 
