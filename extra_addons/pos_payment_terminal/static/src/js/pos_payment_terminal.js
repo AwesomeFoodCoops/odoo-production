@@ -15,9 +15,13 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
     var devices = require('point_of_sale.devices');
     var gui = require('point_of_sale.gui');
     var core = require('web.core');
+    var utils = require('web.utils');
     var _t = core._t;
     var QWeb = core.qweb;
 
+    var round_di = utils.round_decimals;
+    var round_pr = utils.round_precision;
+    
     models.load_fields("account.journal", ['payment_mode']);
 
     models.Paymentline = models.Paymentline.extend({
@@ -64,7 +68,9 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                         } else if (transaction_result == '0') {
                             // This means that the operation was a success
                             // We get amount and set the amount in this line
-                            var amount_in = answer['amount_msg'] / 100;
+                            var rounding = self.pos.currency.rounding;
+                            var amount_in = round_pr(answer['amount_msg'] / 100, rounding);
+                            //var amount_in = answer['amount_msg'] / 100;
                             if (!amount_in == 0) {
                                 line.set_amount(amount_in);
                                 screen.order_changes();
