@@ -41,14 +41,18 @@ odoo.define('pos_automatic_validation.pos_automatic_validation', function (requi
             this._super();
             var self = this;
             var order = this.pos.get_order();
-            if (order.get_total_with_tax() - order.get_total_paid() == 0) {
-            //if (Math.abs(order.get_total_with_tax() - order.get_total_paid()) < 0.0001) {
-                var selected_line = order.selected_paymentline;
-                if (selected_line) {
-                    var auto_validation = selected_line.get_automatic_validation();
-                    if (auto_validation == true) {
+            var selected_line = order.selected_paymentline;
+            if (selected_line) {
+                var auto_validation = selected_line.get_automatic_validation();
+                if (auto_validation == true) {
+                    if (order.get_total_with_tax() - order.get_total_paid() == 0) {
+                    //if (Math.abs(order.get_total_with_tax() - order.get_total_paid()) < 0.0001) {
                         self.validate_order();
-                    }
+                     }
+                     else
+                     {
+                        alert("Montant remonté différent du montant à payer. Merci de noter sur la cahier de caisse : \n - l'heure \n - le montant du ticket TPE \n - le montant retourné suivant : "+order.get_total_paid().toString()+" \n\n Puis s'assurer que le montant offert est bon et valier manuellement la vente.");
+                     }
                 }
             }
         },
