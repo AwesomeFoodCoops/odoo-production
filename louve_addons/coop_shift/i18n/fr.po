@@ -129,8 +129,6 @@ msgstr "Service ABCD"
 
 #. module: coop_shift
 #: selection:add.template.registration.wizard,state:0
-#: code:addons/coop_shift/model/shift_registration.py:136
-#: code:addons/coop_shift/model/shift_registration.py:151
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree_confirm
 #: selection:shift.registration,state:0
@@ -201,8 +199,6 @@ msgstr "Archivé"
 
 #. module: coop_shift
 #: selection:add.template.registration.wizard,state:0
-#: code:addons/coop_shift/model/shift_registration.py:129
-#: code:addons/coop_shift/model/shift_registration.py:158
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
 #: selection:shift.registration,state:0
 #: selection:shift.template.registration,state:0
@@ -894,8 +890,6 @@ msgstr "L'intervale ne peut être négatif."
 
 #. module: coop_shift
 #: selection:add.template.registration.wizard,state:0
-#: code:addons/coop_shift/model/shift_registration.py:141
-#: code:addons/coop_shift/model/shift_registration.py:155
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree_confirm
 #: selection:shift.registration,state:0
@@ -2079,7 +2073,6 @@ msgstr "Enregistrer un remplacement"
 
 #. module: coop_shift
 #: selection:add.template.registration.wizard,state:0
-#: code:addons/coop_shift/model/shift_registration.py:130
 #: selection:shift.registration,state:0
 #: selection:shift.template.registration.line,state:0
 #, python-format
