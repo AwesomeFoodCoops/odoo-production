@@ -148,6 +148,11 @@ class ResPartner(models.Model):
     default_addess_for_shifts = fields.Boolean(
         string="Use as default for Shifts")
 
+    in_ftop_team = fields.Boolean(
+        string="In FTOP Team",
+        compute="_compute_in_ftop_team",
+        store=False)
+
     # Constrains section
     @api.multi
     @api.constrains('final_standard_point')
@@ -294,9 +299,12 @@ class ResPartner(models.Model):
 
         for partner in self:
             # If all is OK, the date is deleted
-            point = partner.shift_type == 'standard'\
-                and partner.final_standard_point\
-                or partner.final_ftop_point
+            point = 0
+            if partner.in_ftop_team:
+                point = partner.final_ftop_point
+            else:
+                point = partner.final_standard_point
+
             if point >= 0:
                 partner.date_alert_stop = False
             elif not current_partner_alert_date.get(partner.id):
@@ -318,9 +326,12 @@ class ResPartner(models.Model):
             elif partner.is_vacation:
                 state = 'vacation'
             else:
-                point = partner.shift_type == 'standard'\
-                    and partner.final_standard_point\
-                    or partner.final_ftop_point
+                point = 0
+                if partner.in_ftop_team:
+                    point = partner.final_ftop_point
+                else:
+                    point = partner.final_standard_point
+
                 if point < 0:
                     if partner.date_alert_stop:
                         if partner.date_delay_stop > current_datetime:
@@ -341,6 +352,19 @@ class ResPartner(models.Model):
                 state = 'alert'
             if partner.working_state != state:
                 partner.working_state = state
+
+    @api.multi
+    def _compute_in_ftop_team(self):
+        shift_reg_templ_env = self.env['shift.template.registration'].sudo()
+        ftop_type_ids = self.env['shift.type'].sudo().search(
+            [('is_ftop', '=', True)]).ids
+        for partner in self:
+            templ_reg = shift_reg_templ_env.search_count(
+                [('shift_ticket_id.shift_type', '=', 'ftop'),
+                 ('shift_template_id.shift_type_id', 'in', ftop_type_ids),
+                 ('partner_id', '=', partner.id)]
+            )
+            partner.in_ftop_team = templ_reg and True or False
 
     @api.depends('working_state')
     @api.multi
