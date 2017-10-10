@@ -162,6 +162,12 @@ class ShiftRegistration(models.Model):
                         counter_vals['point_qty'] = -1
                         counter_vals['name'] = _('Absent')
 
+                        # Mark the point as ignored if the member is in
+                        # ftop team and not belong to this team
+                        if not shift_reg.tmpl_reg_line_id and \
+                                shift_reg.partner_id.in_ftop_team:
+                            counter_vals['ignored'] = True
+
                     elif vals_state in ['excused', 'waiting'] and \
                             shift_reg.template_created:
                         reason = vals_state == 'excused' and \
