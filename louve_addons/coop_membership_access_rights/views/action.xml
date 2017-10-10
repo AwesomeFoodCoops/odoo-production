@@ -81,14 +81,14 @@
         <field eval="1" name="sequence" />
         <field name="view_mode">tree</field>
         <field name="view_id" ref="coop_shift.view_shift_tree" />
-        <field name="act_window_id" ref="coop_membership_access_rights.action_shift_attendance_entry_view" />
+        <field name="act_window_id" ref="coop_membership.action_shift_attendance_entry_view" />
     </record>
 
     <record id="view_action_form_shift_attendance_entry" model="ir.actions.act_window.view">
         <field eval="2" name="sequence" />
         <field name="view_mode">form</field>
-        <field name="view_id" ref="coop_membership_access_rights.view_shift_form_attendance_entry" />
-        <field name="act_window_id" ref="coop_membership_access_rights.action_shift_attendance_entry_view" />
+        <field name="view_id" ref="coop_membership.view_shift_form_attendance_entry" />
+        <field name="act_window_id" ref="coop_membership.action_shift_attendance_entry_view" />
     </record>
 
   <record id="action_badge_to_print_form" model="ir.actions.act_window.view">

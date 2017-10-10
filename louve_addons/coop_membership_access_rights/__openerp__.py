@@ -64,7 +64,6 @@
         'views/res_users_view.xml',
         'views/account_invoice_view.xml',
         'views/shift_registration_view.xml',
-        'views/shift_shift_view.xml',
         'views/action.xml',
         'views/menu.xml',
         'wizard/view_capital_fundraising_wizard.xml',

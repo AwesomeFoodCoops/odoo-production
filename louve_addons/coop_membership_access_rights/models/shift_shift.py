@@ -11,18 +11,6 @@ class ShiftShift(models.Model):
         ('draft', 'Unconfirmed'), ('cancel', 'Cancelled'),
         ('confirm', 'Confirmed'), ('entry', 'Entry'), ('done', 'Done')])
 
-    standard_registration_ids = fields.One2many(
-        "shift.registration",
-        "shift_id",
-        string="Standard Attendances",
-        domain=[('shift_type', '=', 'standard')])
-
-    ftop_registration_ids = fields.One2many(
-        "shift.registration",
-        "shift_id",
-        string="FTOP Attendances",
-        domain=[('shift_type', '=', 'ftop')])
-
     @api.multi
     def button_makeupok(self):
         '''

@@ -558,3 +558,35 @@ msgstr "Remplacé"
 #, python-format
 msgid "Shift Cloture"
 msgstr "Clôlturer le service"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_form_inherit
+msgid "FTOP"
+msgstr "FTOP"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_form_inherit
+msgid "Make-ups OK"
+msgstr "Rattrapages OK"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_form_attendance_entry
+msgid "FTOP"
+msgstr "Volants"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_form_attendance_entry
+msgid "Standard"
+msgstr "Classique"
+
+#. module: coop_membership
+#: selection:shift.shift,state:0
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_search_inherit
+msgid "Entry"
+msgstr "Saisie"
+
+#. module: coop_membership
+#: model:ir.actions.act_window,name:coop_membership.action_shift_attendance_entry_view
+#: model:ir.ui.menu,name:coop_membership.menu_shift_attendance_entry
+msgid "Attendance Entry"
+msgstr "Saisie des présences"
