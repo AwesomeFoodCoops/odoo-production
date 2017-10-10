@@ -123,6 +123,18 @@ class ResPartner(models.Model):
         string='Final FTOP points', compute='compute_final_ftop_point',
         store=True)
 
+    display_std_points = fields.Integer(
+        string="Actual Current Standard Points",
+        compute="compute_display_counter_point",
+        store=True
+    )
+
+    display_ftop_points = fields.Integer(
+        string="Actual Current FTOP Points",
+        compute="compute_display_counter_point",
+        store=True
+    )
+
     date_alert_stop = fields.Date(
         string='End Alert Date', compute='compute_date_alert_stop',
         store=True, help="This date mention the date when"
@@ -155,14 +167,14 @@ class ResPartner(models.Model):
 
     # Constrains section
     @api.multi
-    @api.constrains('final_standard_point')
-    def check_final_standard_point(self):
+    @api.constrains('display_std_points')
+    def check_display_standard_point(self):
         '''
-        @Constrains on field final_standard_point
-            - final_standard_point must be <= 0
+        @Constrains on field display_std_points
+            - display_std_points must be <= 0
         '''
         for partner in self:
-            if partner.final_standard_point > 0:
+            if partner.display_std_points > 0:
                 partner_name = '%s - %s' % (partner.barcode_base, partner.name)
                 raise ValidationError(_(
                     "The member %s cannot accumulate more points " +
@@ -226,24 +238,46 @@ class ResPartner(models.Model):
             partner.extension_qty = len(partner.sudo().extension_ids)
 
     @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
-                 'counter_event_ids.type', 'counter_event_ids.partner_id')
+                 'counter_event_ids.type', 'counter_event_ids.partner_id',
+                 'counter_event_ids.ignored')
     @api.multi
     def compute_final_standard_point(self):
         for partner in self:
             partner.final_standard_point = sum(
                 [point_counter.point_qty
                     for point_counter in partner.counter_event_ids
-                    if point_counter.type == 'standard'])
+                    if point_counter.type == 'standard' and
+                 not point_counter.ignored])
 
     @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
-                 'counter_event_ids.type', 'counter_event_ids.partner_id')
+                 'counter_event_ids.type', 'counter_event_ids.partner_id',
+                 'counter_event_ids.ignored')
     @api.multi
     def compute_final_ftop_point(self):
         for partner in self:
             partner.final_ftop_point = sum(
                 [point_counter.point_qty
                     for point_counter in partner.counter_event_ids
-                    if point_counter.type == 'ftop'])
+                    if point_counter.type == 'ftop' and
+                 not point_counter.ignored])
+
+    @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
+                 'counter_event_ids.type', 'counter_event_ids.partner_id')
+    def compute_display_counter_point(self):
+        '''
+        @Function to compute the actual current point for the member's status
+        computation
+        '''
+        for partner in self:
+            partner.display_std_points = \
+                sum([point_counter.point_qty
+                     for point_counter in partner.counter_event_ids
+                     if point_counter.type == 'standard'])
+
+            partner.display_ftop_points = \
+                sum([point_counter.point_qty
+                     for point_counter in partner.counter_event_ids
+                     if point_counter.type == 'ftop'])
 
     def _compute_is_vacation(self):
         for partner in self:
@@ -284,7 +318,6 @@ class ResPartner(models.Model):
                 partner.date_delay_stop = max_date
 
     @api.depends('final_standard_point', 'final_ftop_point')
-    @api.multi
     def compute_date_alert_stop(self):
         """This function should be called in a daily CRON"""
         alert_duration = int(self.env['ir.config_parameter'].sudo().get_param(
@@ -313,8 +346,9 @@ class ResPartner(models.Model):
                 partner.date_alert_stop = partner.date_alert_stop
 
     @api.depends(
-        'is_blocked', 'final_standard_point', 'final_ftop_point',
-        'shift_type', 'date_alert_stop', 'date_delay_stop', 'leave_ids.state')
+        'is_blocked', 'final_standard_point',
+        'final_ftop_point', 'shift_type', 'date_alert_stop',
+        'date_delay_stop', 'leave_ids.state')
     @api.multi
     def _compute_working_state(self):
         """This function should be called in a daily CRON"""

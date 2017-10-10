@@ -60,7 +60,7 @@
                         help="View Partner Points Standard Counter"
                         groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user"
                         id="view_res_partner_point_counter_standard">
-                        <field name="final_standard_point" widget="statinfo" string="Standard Points"/>
+                        <field name="display_std_points" widget="statinfo" string="Standard Points"/>
                     </button>
 
                     <button name="%(coop_shift.action_res_partner_point_counter_view_ftop)d"
@@ -70,7 +70,7 @@
                         help="View Partner Points FTOP Counter"
                         groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user"
                         id="view_res_partner_point_counter_ftop">
-                        <field name="final_ftop_point" widget="statinfo" string="FTOP Points"/>
+                        <field name="display_ftop_points" widget="statinfo" string="FTOP Points"/>
                     </button>
 
                     <button name="%(coop_membership.action_res_partner_owned_share)d"

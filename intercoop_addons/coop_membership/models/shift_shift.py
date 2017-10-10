@@ -28,6 +28,12 @@ class ShiftShift(models.Model):
                     # deduct member's points
                     if registration.state == 'waiting':
                         continue
+
+                    # Unignored all ignored counter
+                    for counter in partner.counter_event_ids:
+                        if counter.ignored:
+                            counter.ignored = False
+
                     current_point = partner.final_ftop_point
                     point = 0
                     if current_point >= 1:

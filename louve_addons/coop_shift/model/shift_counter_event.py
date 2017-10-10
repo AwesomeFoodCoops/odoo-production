@@ -24,6 +24,10 @@ class ShiftCounterEvent(models.Model):
         select=True)
     is_manual = fields.Boolean('Manual', readonly=True, default=True)
     point_qty = fields.Integer(string='Point Quantity', required=True)
+    ignored = fields.Boolean(
+        string="Ignored",
+        readonly=True,
+        help="Don't take into account when evaluating the member's status")
 
     @api.model
     def create(self, vals):
