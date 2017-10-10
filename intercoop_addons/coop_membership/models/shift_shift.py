@@ -3,11 +3,23 @@
 # @author: La Louve
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-from openerp import api, models, _
+from openerp import api, fields, models, _
 
 
 class ShiftShift(models.Model):
     _inherit = "shift.shift"
+
+    standard_registration_ids = fields.One2many(
+        "shift.registration",
+        "shift_id",
+        string="Standard Attendances",
+        domain=[('shift_type', '=', 'standard')])
+
+    ftop_registration_ids = fields.One2many(
+        "shift.registration",
+        "shift_id",
+        string="FTOP Attendances",
+        domain=[('shift_type', '=', 'ftop')])
 
     @api.multi
     def button_done(self):
