@@ -71,6 +71,11 @@ msgid "Attendee"
 msgstr "Participant"
 
 #. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_form_attendance_entry
+msgid "Attendees"
+msgstr "Participants"
+
+#. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_partner_generate_barcode_wizard_current_barcode
 msgid "BarCode"
 msgstr "Code-barres"
