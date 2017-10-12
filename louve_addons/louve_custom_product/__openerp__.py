@@ -46,6 +46,7 @@ Functionnalities
         'data/report_paperformat.xml',
         'data/pricetag_model.xml',
         'data/product_category_print.xml',
+        'data/decimal_precision_data.xml',
         'report/louve_custom_product_report.xml',
         'report/report_pricetag_vegetables.xml',
     ],

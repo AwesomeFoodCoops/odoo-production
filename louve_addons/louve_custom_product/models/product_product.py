@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 from openerp import fields, models
+import openerp.addons.decimal_precision as dp
 
 
 class ProductProduct(models.Model):
@@ -14,3 +15,4 @@ class ProductProduct(models.Model):
         string="Scale Logo Code",
         readonly=True,
         store=True)
+    volume = fields.Float(digits=dp.get_precision('Volume'))

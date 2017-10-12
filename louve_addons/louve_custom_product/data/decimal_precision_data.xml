@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="decimal_product_attribute_volume" model="decimal.precision">
+        <field name="name">Volume</field>
+        <field name="digits">3</field>
+    </record>
+
+    <!-- <record id="decimal_product_attribute_net_weight" model="decimal.precision">
+        <field name="name">Net Weight</field>
+        <field name="digits">3</field>
+    </record> -->
+
+</odoo>
