@@ -444,7 +444,7 @@ class ResPartner(models.Model):
         next_shift_date = False
         if shift_regs:
             # Sorting found shift
-            shift_regs.sorted(key=lambda shift: shift.date_begin)
+            shift_regs = shift_regs.sorted(key=lambda shift: shift.date_begin)
             next_shift_time = shift_regs[0].date_begin
 
         # Convert Next Shift Time into Local Time
