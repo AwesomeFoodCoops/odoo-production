@@ -127,3 +127,13 @@ msgstr "Colisage exact"
 #: model:ir.ui.view,arch_db:louve_custom_purchase.stock_picking_form_view_louve
 msgid "Copy expected qtys"
 msgstr "Quantités prévues"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.report_purchaseorder_louve
+msgid "<strong>Creator:</strong>"
+msgstr "<strong>Créateur:</strong>"
+
+#. module: louve_custom_purchase
+#: model:ir.ui.view,arch_db:louve_custom_purchase.report_purchaseorder_louve
+msgid "<strong>Scheduled Date:</strong>"
+msgstr "<strong>Date prévue:</strong>"
