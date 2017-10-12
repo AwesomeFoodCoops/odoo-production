@@ -11,18 +11,6 @@ class ShiftShift(models.Model):
         ('draft', 'Unconfirmed'), ('cancel', 'Cancelled'),
         ('confirm', 'Confirmed'), ('entry', 'Entry'), ('done', 'Done')])
 
-    standard_registration_ids = fields.One2many(
-        "shift.registration",
-        "shift_id",
-        string="Standard Attendances",
-        domain=[('shift_type', '=', 'standard')])
-
-    ftop_registration_ids = fields.One2many(
-        "shift.registration",
-        "shift_id",
-        string="FTOP Attendances",
-        domain=[('shift_type', '=', 'ftop')])
-
     @api.multi
     def button_makeupok(self):
         '''
@@ -30,21 +18,14 @@ class ShiftShift(models.Model):
         '''
         for shift in self:
             shift.state = 'entry'
-            # When members are added to the list of attendees via the make-up
-            # "rattrapages" page, they should be automatically marked present
-            # when we come to the page for marking the attendance.
-            # Members entered for doing make-up are always present.
-            # These members are determined by:
-            # - They don't replace for anyone.
-            # - They are not registered for this shift's template before
-            for reg in shift.standard_registration_ids:
-                if reg.state == 'replacing' or reg.tmpl_reg_line_id:
-                    continue
-                reg.button_reg_close()
-            for reg in shift.ftop_registration_ids:
-                if reg.state == 'replacing' or reg.tmpl_reg_line_id:
-                    continue
-                reg.button_reg_close()
+
+            # Automatically mark attendance as "Attended" for
+            # makeup (ABCD Member)
+            for reg in shift.registration_ids:
+                if not reg.partner_id.in_ftop_team and \
+                    not reg.tmpl_reg_line_id and \
+                        reg.state != 'replacing':
+                    reg.button_reg_close()
 
     @api.multi
     def button_done(self):

@@ -63,7 +63,7 @@
                         icon="fa-star-o"
                         help="View Partner Points Standard Counter"
                         groups="coop_shift.group_shift_manager" id="view_res_partner_point_counter_standard">
-                        <field name="final_standard_point" widget="statinfo" string="Standard Points"/>
+                        <field name="display_std_points" widget="statinfo" string="Standard Points"/>
                     </button>
 
                     <button name="%(coop_shift.action_res_partner_point_counter_view_ftop)d"
@@ -72,7 +72,7 @@
                         icon="fa-star-o"
                         help="View Partner Points FTOP Counter"
                         groups="coop_shift.group_shift_manager" id="view_res_partner_point_counter_ftop">
-                        <field name="final_ftop_point" widget="statinfo" string="FTOP Points"/>
+                        <field name="display_ftop_points" widget="statinfo" string="FTOP Points"/>
                     </button>
 
                 </div>

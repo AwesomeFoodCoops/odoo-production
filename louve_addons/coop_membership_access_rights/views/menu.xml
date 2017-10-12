@@ -61,7 +61,7 @@
       <field name="groups_id" eval="[(4, ref('coop_membership_access_rights.group_membership_access_photo'))]"/>
     </record>
 
-    <menuitem action="action_shift_attendance_entry_view" id="menu_shift_attendance_entry" name="Attendance Entry" parent="coop_shift.shift_menu" sequence="9"/>
+    <menuitem action="coop_membership.action_shift_attendance_entry_view" id="menu_shift_attendance_entry" name="Attendance Entry" parent="coop_shift.shift_menu" sequence="9"/>
 
     <record id="coop_membership.menu_res_partner_members" model="ir.ui.menu">
         <field eval="2" name="sequence"/>

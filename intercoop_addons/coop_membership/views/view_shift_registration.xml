@@ -15,5 +15,44 @@
                 </button>
             </field>
         </record>
+
+        <record id="view_shift_registration_tree_confirm_one2many" model="ir.ui.view">
+            <field name="name">shift.registration.tree.confirm.one2many</field>
+            <field name="model">shift.registration</field>
+            <field name="inherit_id" ref="coop_membership.view_shift_registration_tree_inherit"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[@name='registration_list']" position="attributes">
+                    <attribute name="editable">bottom</attribute>
+                    <attribute name="decoration-bf" eval="False"/>
+                </xpath>
+                <field name="message_needaction" position="replace"/>
+
+                <field name="date_begin" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="shift_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="shift_ticket_id" position="after">
+                    <field name="partner_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                </field>
+                <field name="replacing_reg_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <xpath expr="//button[@name='action_create_extension']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name=%(coop_shift.action_replace_registration)d]" position="after">
+                    <button name="action_create_extension" string="Create Extension until next regular shift" type="object" icon="fa-expand fa-lg"
+                        attrs="{'invisible': ['|',('related_extension_id', '!=', False),('related_shift_state', '!=', 'entry')]}"/>
+                    <field name="replacing_reg_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>

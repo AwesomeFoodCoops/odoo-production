@@ -71,6 +71,11 @@ msgid "Attendee"
 msgstr "Participant"
 
 #. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_form_attendance_entry
+msgid "Attendees"
+msgstr "Participants"
+
+#. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_partner_generate_barcode_wizard_current_barcode
 msgid "BarCode"
 msgstr "Code-barres"
@@ -525,3 +530,68 @@ msgstr "Nombre de anciennes personnes rattachés"
 #: model:ir.actions.act_window,name:coop_membership.action_coop_all_partner_view
 msgid "All"
 msgstr "Contacts"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_registration.py:163
+#: code:addons/coop_membership/models/shift_registration.py:178
+#, python-format
+msgid "Absent"
+msgstr "Absent"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_registration.py:156
+#: code:addons/coop_membership/models/shift_registration.py:185
+#, python-format
+msgid "Attended"
+msgstr "Présent"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_registration.py:168
+#: code:addons/coop_membership/models/shift_registration.py:182
+#, python-format
+msgid "Excused"
+msgstr "Rattrapage"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_registration.py:157
+#, python-format
+msgid "Replaced"
+msgstr "Remplacé"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_shift.py:40
+#, python-format
+msgid "Shift Cloture"
+msgstr "Clôlturer le service"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_form_inherit
+msgid "FTOP"
+msgstr "FTOP"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_form_inherit
+msgid "Make-ups OK"
+msgstr "Rattrapages OK"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_form_attendance_entry
+msgid "FTOP"
+msgstr "Volants"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_form_attendance_entry
+msgid "Standard"
+msgstr "Classique"
+
+#. module: coop_membership
+#: selection:shift.shift,state:0
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_search_inherit
+msgid "Entry"
+msgstr "Saisie"
+
+#. module: coop_membership
+#: model:ir.actions.act_window,name:coop_membership.action_shift_attendance_entry_view
+#: model:ir.ui.menu,name:coop_membership.menu_shift_attendance_entry
+msgid "Attendance Entry"
+msgstr "Saisie des présences"

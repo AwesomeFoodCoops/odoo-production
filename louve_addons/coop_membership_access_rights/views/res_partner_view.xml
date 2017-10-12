@@ -60,7 +60,7 @@
                         help="View Partner Points Standard Counter"
                         groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user"
                         id="view_res_partner_point_counter_standard">
-                        <field name="final_standard_point" widget="statinfo" string="Standard Points"/>
+                        <field name="display_std_points" widget="statinfo" string="Standard Points"/>
                     </button>
 
                     <button name="%(coop_shift.action_res_partner_point_counter_view_ftop)d"
@@ -70,7 +70,7 @@
                         help="View Partner Points FTOP Counter"
                         groups="coop_shift.group_shift_see_counter,coop_membership_access_rights.group_membership_access_user"
                         id="view_res_partner_point_counter_ftop">
-                        <field name="final_ftop_point" widget="statinfo" string="FTOP Points"/>
+                        <field name="display_ftop_points" widget="statinfo" string="FTOP Points"/>
                     </button>
 
                     <button name="%(coop_membership.action_res_partner_owned_share)d"
@@ -238,7 +238,7 @@
                                     <field name="image" readonly="1" widget="image" class="oe_avatar" options="{'preview_image': 'image_medium', 'size': [90, 90]}" attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}"/>
                                     <hr attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
                                     <group>
-                                        <group attrs="{'invisible': [('type','=', 'contact')]}">
+                                        <group>
                                             <label for="street" string="Address"/>
                                             <div>
                                                 <div class="o_address_format" name="div_address">
@@ -253,13 +253,13 @@
                                         </group>
                                         <group>
                                             <field name="name" string="Contact Name" attrs="{'required' : [('type', '=', 'contact')]}"/>
-                                            <field name="title" placeholder="e.g. Mr." attrs="{'invisible': [('type','&lt;&gt;', 'contact')]}"/>
                                             <field name="birthdate" widget="date"/>
                                             <field name="age" attrs="{'invisible': [('age', '=', 0)]}"/>
                                             <field name="function" placeholder="e.g. Sales Director" attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
                                             <field name="email"/>
                                             <field name="phone" widget="phone"/>
                                             <field name="mobile" widget="phone"/>
+                                            <field name="sex"/>
                                             <field name="comment" placeholder="internal note..." attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
                                         </group>
                                     </group>
@@ -488,8 +488,11 @@
         <field name="inherit_id" ref="coop_membership_access_rights.view_partner_form"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <xpath expr="//form" position="attributes">
-                <attribute name="create">false</attribute>
+            <xpath expr="/form/sheet/notebook/page/field[@name='child_ids']/kanban" position="attributes">
+                <attribute name="create">true</attribute>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page/field[@name='child_ids']/form" position="attributes">
+                <attribute name="create">true</attribute>
             </xpath>
         </field>
     </record>
