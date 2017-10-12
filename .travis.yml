@@ -33,7 +33,7 @@ install:
   - bin/buildout -c buildout.cfg
   - createdb lalouve_test
   - psql lalouve_test -c " CREATE EXTENSION IF NOT EXISTS unaccent WITH SCHEMA public;"
-  - bin/upgrade_odoo -d lalouve_test --init-load-demo-data
+  - bin/upgrade_lalouve -d lalouve_test --init-load-demo-data
 
 script:
   - bin/nosetests -d lalouve_test -- -v -s intercoop_addons/ louve_addons/ --with-coverage
