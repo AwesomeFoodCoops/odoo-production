@@ -36,5 +36,16 @@
                 <span t-field="line.product_qty"/>
             </td>
         </xpath>
+        <xpath expr="//div[@class='row mt32 mb32']" position="inside">
+            <div t-if="o.date_planned" class="col-xs-3">
+                <strong>Scheduled Date:</strong>
+                <p t-field="o.date_planned"/>
+            </div>
+            <div t-if="o.create_uid" class="col-xs-3">
+                <strong>Creator:</strong>
+                <div t-field="o.create_uid.partner_id"
+                    t-field-options='{"widget": "contact", "fields": ["name", "phone"], "phone_icons": true}'/>
+            </div>
+        </xpath>
     </template>
 </odoo>
