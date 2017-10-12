@@ -4,12 +4,15 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 from openerp import api, fields, models
+import openerp.addons.decimal_precision as dp
 
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     scale_logo_code = fields.Char(string="Scale Logo Code", readonly=True)
+    weight_net = fields.Float(digits=dp.get_precision('Net Weight'))
+    volume = fields.Float(digits=dp.get_precision('Volume'))
 
     @api.model
     def create(self, vals):
