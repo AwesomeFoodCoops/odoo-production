@@ -18,6 +18,7 @@ def run(session, logger):
             'louve_custom_translation',
             'louve_date_search_extended',
             'louve_wellcome_email',
+            'coop_product_coefficient',
         ]
         session.install_modules(modules)
         logger.info(
