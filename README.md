@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/AwesomeFoodCoops/odoo-production.svg?branch=9.0)](
+https://travis-ci.org/AwesomeFoodCoops/odoo-production)
+
 Odoo mutualization
 ============
 

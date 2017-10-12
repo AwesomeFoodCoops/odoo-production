@@ -1,0 +1,43 @@
+language: python
+sudo: false
+cache:
+  apt: true
+  directories:
+    - $HOME/.cache/pip
+
+python:
+  - "2.7"
+
+virtualenv:
+  system_site_packages: true
+
+services:
+  - postgresql
+
+addons:
+  apt:
+    packages:
+      - expect-dev  # provides unbuffer utility
+      - python-lxml  # because pip installation is slow
+      - python-simplejson
+      - python-serial
+      - python-yaml
+      - python-pychart
+      - wkhtmltopdf
+      - ttf-dejavu
+
+install:
+  - pip install coveralls
+  - pip install flake8
+  - python bootstrap.py
+  - bin/buildout -c buildout.cfg
+  - createdb lalouve_test
+  - psql lalouve_test -c " CREATE EXTENSION IF NOT EXISTS unaccent WITH SCHEMA public;"
+  - bin/upgrade_odoo -d lalouve_test --init-load-demo-data
+
+script:
+  - bin/nosetests -d lalouve_test -- -v -s intercoop_addons/ louve_addons/ --with-coverage
+  - flake8 louve_addons/
+
+after_success:
+  - coveralls
