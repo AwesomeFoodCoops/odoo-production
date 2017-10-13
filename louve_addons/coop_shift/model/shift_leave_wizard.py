@@ -26,7 +26,7 @@ class ShiftLeaveWizard(models.TransientModel):
             for line in leave.partner_id.tmpl_reg_line_ids:
                 if conflict_period(
                         leave.start_date, leave.stop_date,
-                        line.date_begin, line.date_end)['conflict']:
+                        line.date_begin, line.date_end, True)['conflict']:
                     line_ids.append(line.id)
         return line_ids
 
@@ -60,7 +60,8 @@ class ShiftLeaveWizard(models.TransientModel):
         self.ensure_one()
 
         leave = self.leave_id
-        if leave.state != 'draft':
+        if not self._context.get('bypass_non_draft_confirm', False) and \
+                leave.state != 'draft':
             raise ValidationError(_(
                 "You can not confirm a leave in a non draft state."))
 
@@ -88,16 +89,14 @@ class ShiftLeaveWizard(models.TransientModel):
                 if leave_e_date and (not previous_date_end or
                                      previous_date_end > leave_e_date):
                     # Create a new registration line, if leave has stop date
-                    new_id = line.copy(default={
+                    line.copy(default={
                         'date_begin': add_days(leave_e_date, 1),
                         'date_end': previous_date_end,
                     })
+            elif leave_e_date and work_e_date and work_e_date <= leave_e_date:
+                line.unlink()
             else:
-                if leave_e_date:
-                    # Augment current registration line start date
-                    line.date_begin = add_days(leave_e_date, -1)
-                else:
-                    line.unlink()
+                line.date_begin = add_days(leave_e_date, 1)
 
         line_obj = self.env['shift.template.registration.line']
         for registration_id in registration_ids:
@@ -106,7 +105,7 @@ class ShiftLeaveWizard(models.TransientModel):
                 ('registration_id', '=', registration_id),
                 ('date_begin', '=', leave_s_date),
                 ('state', '!=', 'waiting'),
-                ])
+            ])
             if existed_line:
                 existed_line.with_context(bypass_leave_change_check=True)\
                     .write({'state': 'waiting', 'leave_id': leave.id})
