@@ -488,6 +488,9 @@
         <field name="inherit_id" ref="coop_membership_access_rights.view_partner_form"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
             <xpath expr="/form/sheet/notebook/page/field[@name='child_ids']/kanban" position="attributes">
                 <attribute name="create">true</attribute>
             </xpath>
