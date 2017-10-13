@@ -13,6 +13,8 @@ class product_scale_system(Model):
     # Constant section
     _ENCODING_SELECTION = [
         ('iso-8859-1', 'Latin 1 (iso-8859-1)'),
+        ('cp1252', 'Latin 1 (cp1252)'),
+        ('utf-8', 'UTF-8'),
     ]
 
     # Compute Section
@@ -63,6 +65,8 @@ class product_scale_system(Model):
         'field_ids': fields.function(
             _get_field_ids, type='one2many', string='Fields',
             relation='ir.model.fields'),
+        'send_images': fields.boolean(string='Send Image To Scale',
+                                             default=False),
     }
 
     _defaults = {

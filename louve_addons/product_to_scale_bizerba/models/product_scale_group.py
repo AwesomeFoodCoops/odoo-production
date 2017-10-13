@@ -41,3 +41,13 @@ class product_scale_group(Model):
         'company_id': lambda s, cr, uid, c: s.pool.get('res.company').
         _company_default_get(cr, uid, 'product.product', context=c),
     }
+
+    def send_all_to_scale_create(self, cr, uid, ids, context=None):
+        myself = self.browse(cr, uid, ids, context=context)
+        for scale_group in myself:
+            scale_group.product_ids.send_scale_create()
+
+    def send_all_to_scale_write(self, cr, uid, ids, context=None):
+        myself = self.browse(cr, uid, ids, context=context)
+        for scale_group in myself:
+            scale_group.product_ids.send_scale_write()

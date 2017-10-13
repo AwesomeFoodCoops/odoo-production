@@ -5,11 +5,13 @@
 
 import os
 import logging
+import base64
 from datetime import datetime
 
 from openerp import tools
 from openerp.osv import fields
 from openerp.osv.orm import Model
+from openerp.tools import image_resize_image
 
 _logger = logging.getLogger(__name__)
 
@@ -44,7 +46,14 @@ class product_scale_log(Model):
 
     _ENCODING_MAPPING = {
         'iso-8859-1': '\r\n',
+        'cp1252': '\n',
+        'utf-8': '\n',
     }
+
+    _TRANSLATED_TERM = {0x2018:0x27,
+                        0x2019:0x27,
+                        0x201C:0x22,
+                        0x201D:0x22}
 
     _EXTERNAL_TEXT_ACTION_CODE = 'C'
 
@@ -150,8 +159,10 @@ class product_scale_log(Model):
                             item_value, product_line)
 
                 elif product_line.type == 'product_image':
-                    product_text += str(log.product_id.id) +\
-                        product_line.suffix
+                    product_text += self._generate_image_file_name(
+                        cr, uid, log.product_id, product_line.field_id,
+                        product_line.suffix or '.PNG',
+                        context=context)
 
                 if product_line.delimiter:
                     product_text += product_line.delimiter
@@ -234,15 +245,48 @@ class product_scale_log(Model):
             distant_path = os.path.join(distant_folder_path, f_name)
             f = open(local_path, 'w')
             for line in lines:
-                f.write(line.encode(encoding))
+                raw_text = line
+                if encoding != 'utf-8':
+                    raw_text = raw_text.translate(self._TRANSLATED_TERM)
+                f.write(raw_text.encode(encoding, errors='ignore'))
             f.close()
 
             # Send File by FTP
             f = open(local_path, 'r')
             ftp.storbinary('STOR ' + distant_path, f)
-
+            f.close()
             # Delete temporary file
             os.remove(local_path)
+
+    def ftp_connection_push_image_file(self, cr, uid, ftp,
+                                       distant_folder_path, local_folder_path,
+                                       obj, field, extension, context=None):
+
+        # Generate temporary image file
+        f_name = self._generate_image_file_name(
+            cr, uid, obj, field, extension, context=context)
+        if not f_name:
+            # No image define
+            return False
+        local_path = os.path.join(local_folder_path, f_name)
+        distant_path = os.path.join(distant_folder_path, f_name)
+        image_base64 = getattr(obj, field.name)
+        # Resize and save image
+        ext = extension.replace('.', '')
+        image_resize_image(
+            base64_source=image_base64, size=(120, 120), encoding='base64',
+            filetype=ext)
+        image_data = base64.b64decode(image_base64)
+        f = open(local_path, 'wb')
+        f.write(image_data)
+        f.close()
+
+        # Send File by FTP
+        f = open(local_path, 'r')
+        ftp.storbinary('STOR ' + distant_path, f)
+        f.close()
+        # Delete temporary file
+        os.remove(local_path)
 
     def send_log(self, cr, uid, ids, context=None):
         config_obj = self.pool['ir.config_parameter']
@@ -274,6 +318,22 @@ class product_scale_log(Model):
                     product_text_lst.append(log.product_text)
                 if log.external_text:
                     external_text_lst.append(log.external_text)
+
+            # Push First Image for constrains reason
+            # Image extension will get on the line field suffix
+            # for default will be `png` if suffix empty.
+            for product_line in scale_system.product_line_ids:
+                if product_line.type == 'product_image' and \
+                    scale_system.send_images:
+                    # send product image
+                    self.ftp_connection_push_image_file(
+                        cr, uid, ftp,
+                        scale_system.product_image_relative_path,
+                        folder_path, log.product_id,
+                        product_line.field_id,
+                        product_line.suffix or '.PNG',
+                        context=context)
+
             self.ftp_connection_push_text_file(
                 cr, uid, ftp, scale_system.csv_relative_path,
                 folder_path, scale_system.external_text_file_pattern,
@@ -299,3 +359,11 @@ class product_scale_log(Model):
         log_ids = self.search(
             cr, uid, [('sent', '=', False)], order='log_date', context=context)
         self.send_log(cr, uid, log_ids, context=context)
+
+    def _generate_image_file_name(self, cr, uid, obj, field, extension,
+                                  context=None):
+        if getattr(obj, field.name):
+            return "%d%s" % (obj.id, extension)
+        else:
+            return ''
+

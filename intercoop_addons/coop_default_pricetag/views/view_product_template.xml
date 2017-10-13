@@ -44,6 +44,7 @@
                         <group>
                             <separator string="Price Tag" colspan="4"/>
                             <field name="expiration_date_days"/>
+                            <field name="expiration_comsumption_days"/>
                             <field name="extra_note_bizerba_pricetag_1"/>
                             <field name="extra_note_bizerba_pricetag_2"/>
                             <field name="ingredients" widget="hmtl"/>

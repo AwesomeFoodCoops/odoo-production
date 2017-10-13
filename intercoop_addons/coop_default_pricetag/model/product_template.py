@@ -86,6 +86,8 @@ class ProductTemplate(models.Model):
     expiration_date_days = fields.Integer(
         string='Expiration Date (Days)', help="Field used to compute the"
         " expiration date. (Number of days after packaging the product)")
+    expiration_comsumption_days = fields.Integer(
+        string='Expiration Consumption (Days)')
 
     ingredients = fields.Text(string='Ingredients')
 
