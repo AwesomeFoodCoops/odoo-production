@@ -27,6 +27,7 @@ Roadmap / Know Issues
     'license': 'AGPL-3',
     'depends': [
         'product',
+        'point_of_sale',
     ],
     'data': [
         'security/ir_module_category.xml',

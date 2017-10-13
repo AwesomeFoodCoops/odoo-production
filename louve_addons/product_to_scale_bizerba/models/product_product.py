@@ -76,6 +76,7 @@ class product_product(Model):
     def write(self, cr, uid, ids, vals, context=None):
         defered = {}
         context = context and context or {}
+        ctx = context.copy()
         if not context.get('bizerba_off', False):
             for product in self.browse(cr, uid, ids, context=context):
                 ignore = not product.scale_group_id\
@@ -99,8 +100,9 @@ class product_product(Model):
                             # Data related to the scale
                             defered[product.id] = 'write'
 
+        ctx['bizerba_off'] = True
         res = super(product_product, self).write(
-            cr, uid, ids, vals, context=context)
+            cr, uid, ids, vals, context=ctx)
 
         for product_id, action in defered.iteritems():
             product = self.browse(cr, uid, product_id, context=context)
