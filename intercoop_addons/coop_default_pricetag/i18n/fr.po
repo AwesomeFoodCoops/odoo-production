@@ -140,6 +140,12 @@ msgid "Expiration Date (Days)"
 msgstr "DLC (En jour)"
 
 #. module: coop_default_pricetag
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_expiration_date_days
+msgid "Expiration Consumption (Days)"
+msgstr "Days before Consumption End (En jour)"
+
+
+#. module: coop_default_pricetag
 #: selection:product.template,fresh_category:0
 msgid "Extra"
 msgstr "Extra"
