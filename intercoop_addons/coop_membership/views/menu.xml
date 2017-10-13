@@ -23,7 +23,7 @@
         <field name="name">All</field>
         <field name="action" ref="action_coop_all_partner_view"/>
         <field name="parent_id" ref="menu_coop_member_submain"/>
-        <field name="sequence">1</field>
+        <field name="sequence">7</field>
     </record>
 
     <record model="ir.ui.menu" id="menu_res_partner_members">
