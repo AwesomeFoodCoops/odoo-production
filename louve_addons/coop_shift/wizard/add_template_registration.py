@@ -23,6 +23,7 @@
 
 from openerp import models, fields, api
 from datetime import datetime
+from ..model.date_tools import conflict_period
 
 STATES = [
     ('cancel', 'Cancelled'),
@@ -74,7 +75,30 @@ class AddTemplateRegistration(models.TransientModel):
                     'partner_id': partner.id,
                     'shift_ticket_id': wizard.shift_ticket_id.id,
                 })
-                self.env['shift.template.registration'].create(values)
+                registration = \
+                    self.env['shift.template.registration'].create(values)
+
+        # Reupdate the leave on the registration updated or created.
+        # Search for approved leaves within the period
+        reg_line_ids = []
+        for reg in registration:
+            reg_line_ids += reg.line_ids.ids
+
+        approved_leaves = self.env['shift.leave'].search(
+            [('partner_id', '=', partner.id),
+             ('state', '=', 'done')])
+        for leave in approved_leaves:
+            if conflict_period(leave.start_date, leave.stop_date,
+                               wizard.date_begin, wizard.date_end,
+                               True)['conflict']:
+                # Apply the leave to the registrations
+                leave_wizard = self.env['shift.leave.wizard'].create({
+                    'leave_id': leave.id,
+                    'shift_template_registration_line_ids':
+                    [(4, reg_id) for reg_id in reg_line_ids]
+                    })
+                leave_wizard.with_context(
+                    bypass_non_draft_confirm=True).button_confirm()
 
     @api.onchange('template_id')
     def onchange_template_id(self):

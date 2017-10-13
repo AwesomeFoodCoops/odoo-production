@@ -14,7 +14,7 @@ def add_days(date_string, days):
 
 def conflict_period(
         obj1_date_start, obj1_date_stop, obj2_date_start, obj2_date_stop,
-        limit_allowed=True):
+        limit_allowed=False):
     """Seen 2 periods ; 2 objects with start dates, and optional stop dates,
     indicate if period are conflicted or not.
     The result is a dict, with the following keys:
@@ -26,7 +26,7 @@ def conflict_period(
     allowed or not.
     """
     def _conflict(date_start, date_stop):
-        if limit_allowed:
+        if not limit_allowed:
             return date_start < date_stop
         else:
             return date_start <= date_stop
