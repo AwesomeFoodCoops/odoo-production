@@ -58,6 +58,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             var line = order.selected_paymentline;
             var data = self.get_data_send(order, line, currency_iso);
             if (this.wait_terminal_answer()) {
+                screen.$('.delete-button').css('display', 'none');
                 this.message('payment_terminal_transaction_start_with_return', {'payment_info' : JSON.stringify(data)}, { timeout: 240000 }).then(function (answer) {
                     if (answer) {
                         var transaction_result = answer['transaction_result'];
@@ -77,8 +78,8 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                                 screen.render_paymentlines();
                                 var amount_in_formatted = screen.format_currency_no_symbol(amount_in);
                                 screen.$('.paymentline.selected .edit').text(amount_in_formatted);
-                                screen.$('.delete-button').css('display', 'none');
-                                screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
+                                //screen.$('.delete-button').css('display', 'none');
+                                //screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
                             }
                         }
                     } else {
