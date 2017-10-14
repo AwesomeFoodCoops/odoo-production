@@ -66,6 +66,8 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                             // This means that the operation was not finished
                             // TODO : check what to do here. But I think this should do nothing.
                             screen.transaction_error();
+                            screen.$('.delete-button').css('display', 'block');
+                            $('.back').show();
                         } else if (transaction_result == '0') {
                             // This means that the operation was a success
                             // We get amount and set the amount in this line
