@@ -22,3 +22,4 @@
 
 
 from . import controllers
+import models

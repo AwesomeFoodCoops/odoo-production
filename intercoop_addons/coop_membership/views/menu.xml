@@ -7,7 +7,7 @@
 
 <odoo>
 
-<!--Rename Main menu name-->
+    <!--Rename Main menu name-->
     <record model="ir.ui.menu" id="coop_shift.shift_main_menu">
         <field name="name">Members</field>
     </record>
@@ -15,6 +15,14 @@
     <record model="ir.ui.menu" id="menu_coop_member_submain">
         <field name="name">Members</field>
         <field name="parent_id" ref="coop_shift.shift_main_menu"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <!--  Add new menu `All` that it shows the list of all partner who links to coop -->
+    <record model="ir.ui.menu" id="menu_res_partner_all_partners">
+        <field name="name">All</field>
+        <field name="action" ref="action_coop_all_partner_view"/>
+        <field name="parent_id" ref="menu_coop_member_submain"/>
         <field name="sequence">1</field>
     </record>
 

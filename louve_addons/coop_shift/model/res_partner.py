@@ -123,6 +123,18 @@ class ResPartner(models.Model):
         string='Final FTOP points', compute='compute_final_ftop_point',
         store=True)
 
+    display_std_points = fields.Integer(
+        string="Actual Current Standard Points",
+        compute="compute_display_counter_point",
+        store=True
+    )
+
+    display_ftop_points = fields.Integer(
+        string="Actual Current FTOP Points",
+        compute="compute_display_counter_point",
+        store=True
+    )
+
     date_alert_stop = fields.Date(
         string='End Alert Date', compute='compute_date_alert_stop',
         store=True, help="This date mention the date when"
@@ -148,16 +160,21 @@ class ResPartner(models.Model):
     default_addess_for_shifts = fields.Boolean(
         string="Use as default for Shifts")
 
+    in_ftop_team = fields.Boolean(
+        string="In FTOP Team",
+        compute="_compute_in_ftop_team",
+        store=False)
+
     # Constrains section
     @api.multi
-    @api.constrains('final_standard_point')
-    def check_final_standard_point(self):
+    @api.constrains('display_std_points')
+    def check_display_standard_point(self):
         '''
-        @Constrains on field final_standard_point
-            - final_standard_point must be <= 0
+        @Constrains on field display_std_points
+            - display_std_points must be <= 0
         '''
         for partner in self:
-            if partner.final_standard_point > 0:
+            if partner.display_std_points > 0:
                 partner_name = '%s - %s' % (partner.barcode_base, partner.name)
                 raise ValidationError(_(
                     "The member %s cannot accumulate more points " +
@@ -221,24 +238,46 @@ class ResPartner(models.Model):
             partner.extension_qty = len(partner.sudo().extension_ids)
 
     @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
-                 'counter_event_ids.type', 'counter_event_ids.partner_id')
+                 'counter_event_ids.type', 'counter_event_ids.partner_id',
+                 'counter_event_ids.ignored')
     @api.multi
     def compute_final_standard_point(self):
         for partner in self:
             partner.final_standard_point = sum(
                 [point_counter.point_qty
                     for point_counter in partner.counter_event_ids
-                    if point_counter.type == 'standard'])
+                    if point_counter.type == 'standard' and
+                 not point_counter.ignored])
 
     @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
-                 'counter_event_ids.type', 'counter_event_ids.partner_id')
+                 'counter_event_ids.type', 'counter_event_ids.partner_id',
+                 'counter_event_ids.ignored')
     @api.multi
     def compute_final_ftop_point(self):
         for partner in self:
             partner.final_ftop_point = sum(
                 [point_counter.point_qty
                     for point_counter in partner.counter_event_ids
-                    if point_counter.type == 'ftop'])
+                    if point_counter.type == 'ftop' and
+                 not point_counter.ignored])
+
+    @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
+                 'counter_event_ids.type', 'counter_event_ids.partner_id')
+    def compute_display_counter_point(self):
+        '''
+        @Function to compute the actual current point for the member's status
+        computation
+        '''
+        for partner in self:
+            partner.display_std_points = \
+                sum([point_counter.point_qty
+                     for point_counter in partner.counter_event_ids
+                     if point_counter.type == 'standard'])
+
+            partner.display_ftop_points = \
+                sum([point_counter.point_qty
+                     for point_counter in partner.counter_event_ids
+                     if point_counter.type == 'ftop'])
 
     def _compute_is_vacation(self):
         for partner in self:
@@ -249,7 +288,7 @@ class ResPartner(models.Model):
                 conflict = conflict or conflict_period(
                     leave.start_date, leave.stop_date,
                     fields.Date.context_today(self),
-                    fields.Date.context_today(self), False)['conflict']
+                    fields.Date.context_today(self), True)['conflict']
             partner.is_vacation = conflict
 
     def _compute_is_exempted(self):
@@ -261,7 +300,7 @@ class ResPartner(models.Model):
                 conflict = conflict or conflict_period(
                     leave.start_date, leave.stop_date,
                     fields.Date.context_today(self),
-                    fields.Date.context_today(self), False)['conflict']
+                    fields.Date.context_today(self), True)['conflict']
             partner.is_exempted = conflict
 
     @api.depends(
@@ -279,7 +318,6 @@ class ResPartner(models.Model):
                 partner.date_delay_stop = max_date
 
     @api.depends('final_standard_point', 'final_ftop_point')
-    @api.multi
     def compute_date_alert_stop(self):
         """This function should be called in a daily CRON"""
         alert_duration = int(self.env['ir.config_parameter'].sudo().get_param(
@@ -294,9 +332,12 @@ class ResPartner(models.Model):
 
         for partner in self:
             # If all is OK, the date is deleted
-            point = partner.shift_type == 'standard'\
-                and partner.final_standard_point\
-                or partner.final_ftop_point
+            point = 0
+            if partner.in_ftop_team:
+                point = partner.final_ftop_point
+            else:
+                point = partner.final_standard_point
+
             if point >= 0:
                 partner.date_alert_stop = False
             elif not current_partner_alert_date.get(partner.id):
@@ -305,8 +346,9 @@ class ResPartner(models.Model):
                 partner.date_alert_stop = partner.date_alert_stop
 
     @api.depends(
-        'is_blocked', 'final_standard_point', 'final_ftop_point',
-        'shift_type', 'date_alert_stop', 'date_delay_stop', 'leave_ids.state')
+        'is_blocked', 'final_standard_point',
+        'final_ftop_point', 'shift_type', 'date_alert_stop',
+        'date_delay_stop', 'leave_ids.state')
     @api.multi
     def _compute_working_state(self):
         """This function should be called in a daily CRON"""
@@ -318,9 +360,12 @@ class ResPartner(models.Model):
             elif partner.is_vacation:
                 state = 'vacation'
             else:
-                point = partner.shift_type == 'standard'\
-                    and partner.final_standard_point\
-                    or partner.final_ftop_point
+                point = 0
+                if partner.in_ftop_team:
+                    point = partner.final_ftop_point
+                else:
+                    point = partner.final_standard_point
+
                 if point < 0:
                     if partner.date_alert_stop:
                         if partner.date_delay_stop > current_datetime:
@@ -341,6 +386,19 @@ class ResPartner(models.Model):
                 state = 'alert'
             if partner.working_state != state:
                 partner.working_state = state
+
+    @api.multi
+    def _compute_in_ftop_team(self):
+        shift_reg_templ_env = self.env['shift.template.registration'].sudo()
+        ftop_type_ids = self.env['shift.type'].sudo().search(
+            [('is_ftop', '=', True)]).ids
+        for partner in self:
+            templ_reg = shift_reg_templ_env.search_count(
+                [('shift_ticket_id.shift_type', '=', 'ftop'),
+                 ('shift_template_id.shift_type_id', 'in', ftop_type_ids),
+                 ('partner_id', '=', partner.id)]
+            )
+            partner.in_ftop_team = templ_reg and True or False
 
     @api.depends('working_state')
     @api.multi

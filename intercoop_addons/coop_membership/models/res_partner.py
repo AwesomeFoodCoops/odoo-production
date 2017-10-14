@@ -121,7 +121,8 @@ class ResPartner(models.Model):
     cooperative_state = fields.Selection(
         selection=EXTRA_COOPERATIVE_STATE_SELECTION, default='not_concerned')
 
-    nb_associated_people = fields.Integer('Number of Associated People',
+    nb_associated_people = fields.Integer(
+        'Number of Associated People',
         compute="_compute_number_of_associated_people",
         store=True)
 
@@ -443,7 +444,7 @@ class ResPartner(models.Model):
         next_shift_date = False
         if shift_regs:
             # Sorting found shift
-            shift_regs.sorted(key=lambda shift: shift.date_begin)
+            shift_regs = shift_regs.sorted(key=lambda shift: shift.date_begin)
             next_shift_time = shift_regs[0].date_begin
 
         # Convert Next Shift Time into Local Time

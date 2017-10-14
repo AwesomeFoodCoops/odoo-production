@@ -28,6 +28,7 @@
         'views/view_shift_leave.xml',
         'views/view_shift_extension_type.xml',
         'views/view_shift_registration.xml',
+        'views/view_shift_shift.xml',
         'views/res_config_view.xml',
         'views/menu.xml',
 

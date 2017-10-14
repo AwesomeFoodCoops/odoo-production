@@ -6,6 +6,7 @@
 from openerp import fields, models, api
 from datetime import datetime
 from datetime import timedelta
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 BADGE_PARTNER_BOOTSTRAP_COOPERATIVE_STATE = [
     ('success', 'OK'),
@@ -92,9 +93,9 @@ class ResPartner(models.Model):
             return False
 
         # Create new extension
-        date_stop = datetime.strptime(date_start_str, '%Y-%m-%d') + \
+        date_stop = datetime.strptime(date_start_str, DF) + \
             timedelta(days=grace_ext_type.duration)
-        date_stop_str = date_stop.strftime('%Y-%m-%d')
+        date_stop_str = date_stop.strftime(DF)
 
         # Check The Date Stop with the Shift Limitation
         _next_shift_time, next_shift_date = self.get_next_shift_date()
@@ -102,6 +103,9 @@ class ResPartner(models.Model):
         if next_shift_date:
             # Set the next shift date as the end date if the end date exceed
             # the next shift date
+            next_shift_date = datetime.strptime(next_shift_date, DF)
+            next_shift_date += timedelta(days=1)
+            next_shift_date = next_shift_date.strftime(DF)
             date_stop_str = date_stop_str > next_shift_date and \
                 next_shift_date or date_stop_str
 

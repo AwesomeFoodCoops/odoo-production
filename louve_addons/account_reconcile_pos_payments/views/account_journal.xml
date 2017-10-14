@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<openerp>
+    <data>
+
+
+        <record id="view_account_journal_form" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <page name="bank_account" position="inside">
+                    <group string="Automatic Payment Terminal Reconciliation" name="auto_reconciliation">
+                        <group>
+                            <field name="name_pattern_bank_return"/>
+                            <field name="ref_pattern_bank_return"/>
+                        </group>
+                        <group>
+                            <field name="note_pattern_bank_return"/>
+                            <field name="date_pattern_bank_return"/>
+                        </group>
+                    </group>
+                    <group string="Automatic Charges Reconciliation" name="auto_reconciliation">
+                        <group>
+                            <field name="name_charges_pattern_bank_return"/>
+                            <field name="ref_charges_pattern_bank_return"/>
+                        </group>
+                        <group>
+                            <field name="note_charges_pattern_bank_return"/>
+                            <field name="bank_charge_account_id"/>
+                        </group>
+                    </group>
+                </page>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

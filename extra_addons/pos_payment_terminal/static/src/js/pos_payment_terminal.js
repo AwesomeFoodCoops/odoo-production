@@ -15,9 +15,13 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
     var devices = require('point_of_sale.devices');
     var gui = require('point_of_sale.gui');
     var core = require('web.core');
+    var utils = require('web.utils');
     var _t = core._t;
     var QWeb = core.qweb;
 
+    var round_di = utils.round_decimals;
+    var round_pr = utils.round_precision;
+    
     models.load_fields("account.journal", ['payment_mode']);
 
     models.Paymentline = models.Paymentline.extend({
@@ -54,17 +58,22 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             var line = order.selected_paymentline;
             var data = self.get_data_send(order, line, currency_iso);
             if (this.wait_terminal_answer()) {
-                this.message('payment_terminal_transaction_start_with_return', {'payment_info' : JSON.stringify(data)}).then(function (answer) {
+                screen.$('.delete-button').css('display', 'none');
+                this.message('payment_terminal_transaction_start_with_return', {'payment_info' : JSON.stringify(data)}, { timeout: 240000 }).then(function (answer) {
                     if (answer) {
                         var transaction_result = answer['transaction_result'];
                         if (transaction_result == '7') {
                             // This means that the operation was not finished
                             // TODO : check what to do here. But I think this should do nothing.
                             screen.transaction_error();
+                            screen.$('.delete-button').css('display', 'block');
+                            //$('.back').show();
                         } else if (transaction_result == '0') {
                             // This means that the operation was a success
                             // We get amount and set the amount in this line
-                            var amount_in = answer['amount_msg'] / 100;
+                            var rounding = self.pos.currency.rounding;
+                            var amount_in = round_pr(answer['amount_msg'] / 100, rounding);
+                            //var amount_in = answer['amount_msg'] / 100;
                             if (!amount_in == 0) {
                                 line.set_amount(amount_in);
                                 screen.order_changes();
@@ -72,7 +81,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                                 var amount_in_formatted = screen.format_currency_no_symbol(amount_in);
                                 screen.$('.paymentline.selected .edit').text(amount_in_formatted);
                                 screen.$('.delete-button').css('display', 'none');
-                                screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
+                                //screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
                             }
                         }
                     } else {
@@ -91,6 +100,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             this._super.apply(this, arguments);
             var line = this.pos.get_order().selected_paymentline;
             var auto = line.get_automatic_payment_terminal();
+            $('.back').hide();
             if (auto) {
                 this.pos.proxy.payment_terminal_transaction_start(self, self.pos.currency.name);
             }

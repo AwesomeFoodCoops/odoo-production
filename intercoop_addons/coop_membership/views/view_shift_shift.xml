@@ -50,13 +50,24 @@
 
             <!-- Adding new Tabs for Standard and FTOP -->
             <page name="registrations" position="before">
-                <page name="standard_attendance" string="Standard">
-                    <field name="standard_registration_ids" context="{'default_shift_id': active_id, 'is_standard_ticket': True, 'tree_view_ref' : 'coop_membership_access_rights.view_shift_registration_tree_confirm_one2many'}"/>
-                </page>
-                <page name="ftop_attendance" string="FTOP">
-                    <field name="ftop_registration_ids" context="{'default_shift_id': active_id, 'tree_view_ref' : 'coop_membership_access_rights.view_shift_registration_tree_confirm_one2many'}}"/>
+                <page name="participants_list" string="Attendees">
+                    <field name="registration_ids" context="{'default_shift_id': active_id, 'tree_view_ref' : 'coop_membership.view_shift_registration_tree_confirm_one2many'}"/>
                 </page>
             </page>
+
+            <!-- Set Readonly for Shift Name, Shift Leaders and Location for status <> Unconfirmed -->
+            <field name="name" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+            </field>
+
+            <field name="user_ids" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+            </field>
+
+            <field name="address_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+            </field>
+
         </field>
     </record>
 

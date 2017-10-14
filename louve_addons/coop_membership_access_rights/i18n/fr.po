@@ -479,16 +479,6 @@ msgid "Leaves"
 msgstr "Congés"
 
 #. module: coop_membership_access_rights
-#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_shift_form_inherit
-msgid "FTOP"
-msgstr "FTOP"
-
-#. module: coop_membership_access_rights
-#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_shift_form_inherit
-msgid "Make-ups OK"
-msgstr "Rattrapages OK"
-
-#. module: coop_membership_access_rights
 #: code:addons/coop_membership_access_rights/models/shift_shift.py:51
 #, python-format
 msgid "Warning! You have not recorded the attendance for: \n"
@@ -497,28 +487,6 @@ msgid "Warning! You have not recorded the attendance for: \n"
 msgstr "Attention ! Vous n'avez pas renseigné la présence pour le: \n"
 "\n"
 "%s"
-
-#. module: coop_membership_access_rights
-#: selection:shift.shift,state:0
-#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_shift_search_inherit
-msgid "Entry"
-msgstr "Saisie"
-
-#. module: coop_membership_access_rights
-#: model:ir.actions.act_window,name:coop_membership_access_rights.action_shift_attendance_entry_view
-#: model:ir.ui.menu,name:coop_membership_access_rights.menu_shift_attendance_entry
-msgid "Attendance Entry"
-msgstr "Saisie des présences"
-
-#. module: coop_membership_access_rights
-#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_shift_form_attendance_entry
-msgid "FTOP"
-msgstr "Volants"
-
-#. module: coop_membership_access_rights
-#: model:ir.ui.view,arch_db:coop_membership_access_rights.view_shift_form_attendance_entry
-msgid "Standard"
-msgstr "Classique"
 
 #. module: coop_membership_access_rights
 #: code:addons/coop_membership_access_rights/models/shift_registration.py:72
