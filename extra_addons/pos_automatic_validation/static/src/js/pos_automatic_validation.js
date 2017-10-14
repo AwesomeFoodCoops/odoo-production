@@ -28,12 +28,14 @@ odoo.define('pos_automatic_validation.pos_automatic_validation', function (requi
             var self = this;
             this._super.apply(this, arguments);
             var selected_line = this.pos.get_order().selected_paymentline;
-            var auto_validation = selected_line.get_automatic_validation();
-            if (auto_validation == false) {
-                $('.next').show();
-            } else {
-                $('.next').show();
-                //$('.next').hide();
+            if (selected_line) {
+                var auto_validation = selected_line.get_automatic_validation();
+                if (auto_validation == false) {
+                    $('.next').show();
+                } else {
+                    $('.next').show();
+                    //$('.next').hide();
+                }
             }
         },
 
