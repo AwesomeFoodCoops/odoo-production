@@ -67,7 +67,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                             // TODO : check what to do here. But I think this should do nothing.
                             screen.transaction_error();
                             screen.$('.delete-button').css('display', 'block');
-                            $('.back').show();
+                            //$('.back').show();
                         } else if (transaction_result == '0') {
                             // This means that the operation was a success
                             // We get amount and set the amount in this line
@@ -80,7 +80,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                                 screen.render_paymentlines();
                                 var amount_in_formatted = screen.format_currency_no_symbol(amount_in);
                                 screen.$('.paymentline.selected .edit').text(amount_in_formatted);
-                                //screen.$('.delete-button').css('display', 'none');
+                                screen.$('.delete-button').css('display', 'none');
                                 //screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
                             }
                         }
