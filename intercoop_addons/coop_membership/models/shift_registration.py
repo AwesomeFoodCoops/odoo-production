@@ -100,8 +100,8 @@ class ShiftRegistration(models.Model):
                     # Check for any standard shift within
                     markup_shift_reg_count = self.search_count(
                         [('partner_id', '=', reg.partner_id.id),
-                         ('date_begin', '<', last_shift_reg.date_begin),
-                         ('date_begin', '>', reg.date_begin),
+                         ('date_begin', '>', last_shift_reg.date_begin),
+                         ('date_begin', '<', reg.date_begin),
                          ('shift_type', '=', 'standard'),
                          ('state', 'in', ('done', 'replaced'))])
                     # If no markup reg found, set date end for the reg shift
