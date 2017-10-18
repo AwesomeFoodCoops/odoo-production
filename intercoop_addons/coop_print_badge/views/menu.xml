@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+	@author: La Louve
+	License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<openerp>
+	<data>
+		<record model="ir.ui.menu" id="menu_badge_to_print">
+			<field name="name">Badges</field>
+			<field name="action" ref="action_badge_to_print" />
+			<field name="parent_id" ref="coop_shift.menu_reporting_shifts" />
+			<field name="sequence">20</field>
+		</record>
+	</data>
+</openerp>
