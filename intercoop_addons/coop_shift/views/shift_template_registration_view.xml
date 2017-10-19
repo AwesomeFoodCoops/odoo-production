@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<openerp>
+    <data>
+
+        <!-- SHIFT.TEMPLATE.REGISTRATION VIEWS -->
+        <record model="ir.ui.view" id="view_shift_template_registration_tree">
+            <field name="name">shift.template.registration.tree</field>
+            <field name="model">shift.template.registration</field>
+            <field name="arch" type="xml">
+                <tree string="Registration" colors="blue:is_current;grey:is_past;orange:is_future" editable="top">
+                    <field name="shift_template_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="shift_ticket_id" domain="[('shift_template_id', '=', shift_template_id)]" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="template_start_date"/>
+                    <field name="template_start_time" widget="float_time"/>
+                    <field name="partner_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="message_needaction" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="is_current" invisible="1"/>
+                    <field name="is_future" invisible="1"/>
+                    <field name="is_past" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_shift_template_registration_form">
+            <field name="name">shift.template.registration.form</field>
+            <field name="model">shift.template.registration</field>
+            <field name="arch" type="xml">
+                <form string="Template Registration">
+                    <header>
+                        <field name="state" nolabel="1" colspan="2" widget="statusbar" statusbar_visible="draft,open,done"/>
+                    </header>
+                    <sheet string="Registration">
+                        <group>
+                            <group string="Attendee" name="attendee">
+                                <field name="partner_id" groups="coop_shift.group_shift_manager"/>
+                                <field name="name"/>
+                                <field name="phone"/>
+                                <field name="email"/>
+                            </group>
+                            <group string="Template Information" name="shift">
+                                <field name="shift_template_id" />
+                                <field name="shift_ticket_id" domain="[('shift_template_id', '=', shift_template_id)]"/>
+                                <field name="date_open" groups="base.group_no_one"/>
+                            </group>
+                        </group>
+                        <group name="lines" string="Registration dates">
+                            <field name="line_ids" nolabel="1" readonly="1">
+                                <tree editable="bottom">
+                                    <field name="date_begin"/>
+                                    <field name="date_end"/>
+                                    <field name="state"/>
+                                    <field name="shift_registration_ids" groups="base.group_no_one"/>
+                                    <field name="is_current" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_shift_template_registration_form_futurechanges">
+            <field name="name">shift.template.registration.form.futurechanges</field>
+            <field name="model">shift.template.registration</field>
+            <field name="priority">10</field>
+            <field name="inherit_id" ref="coop_shift.view_shift_template_registration_form"/>
+            <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_future_changes'))]"/>
+            <field name="arch" type="xml">
+                <field name="line_ids" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_shift_template_registration_calendar" model="ir.ui.view">
+            <field name="name">shift.template.registration.calendar</field>
+            <field name="model">shift.template.registration</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="shift_template_id" date_start="event_begin_date" date_stop="event_end_date" string="Template Registration">
+                    <field name="shift_template_id"/>
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_shift_template_registration_pivot">
+            <field name="name">shift.template.registration.pivot</field>
+            <field name="model">shift.template.registration</field>
+            <field name="arch" type="xml">
+                <pivot string="Registration" display_quantity="True">
+                    <field name="shift_template_id" type="row"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_shift_template_registration_graph">
+            <field name="name">shift.template.registration.graph</field>
+            <field name="model">shift.template.registration</field>
+            <field name="arch" type="xml">
+                <graph string="Registration">
+                    <field name="shift_template_id"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_template_registration_search">
+            <field name="name">shift.template.registration.search</field>
+            <field name="model">shift.template.registration</field>
+            <field name="arch" type="xml">
+                <search string="Template Registration">
+                    <field name="id" string="Registration ID"/>
+                    <field name="name" string="Participant" filter_domain="['|', '|', ('name', 'ilike', self), ('email', 'ilike', self), ('origin', 'ilike', self)]"/>
+                    <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction','=',True)]"/>
+                    <separator/>
+                    <field name="shift_template_id"/>
+                    <field name="partner_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Template" name="group_template" domain="[]" context="{'group_by':'shift_template_id'}"/>
+                        <filter string="Registration Day" domain="[]" context="{'group_by': 'create_date:day'}"/>
+                        <filter string="Registration Month" domain="[]" context="{'group_by': 'create_date:month'}"/>
+                        <filter string="Ticket Type" domain="[]" context="{'group_by':'shift_ticket_product_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- SHIFT.TEMPLATE.REGISTRATION ACTIONS -->
+        <record id="act_template_registration_from_template" model="ir.actions.act_window">
+            <field name="res_model">shift.template.registration</field>
+            <field name="view_type">form</field>
+            <field name="name">Attendees</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_shift_template_id': active_id, 'default_shift_template_id': active_id}</field>
+        </record>
+
+        <act_window
+            id="act_register_template_partner"
+            name="Subscribe"
+            res_model="shift.template.registration"
+            src_model="res.partner"
+            view_mode="tree,form,calendar,graph"
+            context="{'search_default_partner_id': [active_id], 'default_partner_id': active_id}"
+            view_type="form"/>
+
+        <record model="ir.actions.act_window" id="action_template_registration">
+          <field name="name">Attendees</field>
+          <field name="res_model">shift.template.registration</field>
+          <field name="view_type">form</field>
+          <field name="domain"></field>
+          <field name="view_mode">tree,form,calendar,pivot,graph</field>
+          <field name="context">{}</field>
+          <field name="search_view_id" ref="view_template_registration_search"/>
+        </record>
+
+        <menuitem
+            name="Template Attendees"
+            id="menu_action_template_registration"
+            parent="coop_shift.template_menu"
+            action="action_template_registration"
+            sequence="20"/>
+    </data>
+</openerp>

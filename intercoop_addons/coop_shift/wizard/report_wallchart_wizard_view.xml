@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="shift_report_wallchart_view" model="ir.ui.view">
+            <field name="name">WallChart Report</field>
+            <field name="model">report.wallchart</field>
+            <field name="arch" type="xml">
+            <form string="Report Options">
+                <group>
+                    <field name="mo"/>
+                    <field name="tu"/>
+                    <field name="we"/>
+                    <field name="th"/>
+                    <field name="fr"/>
+                    <field name="sa"/>
+                    <field name="su"/>
+                    <field name="all_days"/>
+                </group>
+                <footer>
+                    <button name="check_report_template" string="Template Wallchart" type="object" default_focus="1" class="oe_highlight"/>
+                    <button name="check_report_ftop" string="FTOP Wallchart" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_wallchart_wizard" model="ir.actions.act_window">
+            <field name="name">WallChart</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.wallchart</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="domain">[]</field>
+            <field name="view_id" ref="shift_report_wallchart_view"/>
+        </record>
+
+        <menuitem
+            id="menu_wallchart_template"
+            action="action_wallchart_wizard"
+            name="WallChart"
+            parent="coop_shift.menu_reporting_shifts"
+            groups="group_shift_manager"
+            sequence="14"/>
+    </data>
+</openerp>

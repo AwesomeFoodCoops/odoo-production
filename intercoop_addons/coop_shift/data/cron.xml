@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+     <record forcecreate="True" id="ir_cron_shift_creation" model="ir.cron">
+      <field name="name">Creation of Shifts from Templates</field>
+      <field name="active" eval="False"/>
+      <field name="user_id" ref="base.user_root" />
+      <field name="interval_number">1</field>
+      <field name="interval_type">weeks</field>
+      <field name="nextcall" eval="DateTime(2016,9,11,0,0,1)"/>
+      <field name="numbercall">-1</field>
+      <field name="doall" eval="False"/>
+      <field name="model" eval="'shift.template'"/>
+      <field name="function" eval="'run_shift_creation'"/>
+    </record>
+
+     <record forcecreate="True" id="ir_cron_shift_confirmation" model="ir.cron">
+      <field name="name">Shifts Confirmation</field>
+      <field name="active" eval="False"/>
+      <field name="user_id" ref="base.user_root" />
+      <field name="interval_number">1</field>
+      <field name="interval_type">days</field>
+      <field name="nextcall" eval="DateTime(2016,9,11,16,0,1)"/>
+      <field name="numbercall">-1</field>
+      <field name="doall" eval="False"/>
+      <field name="model" eval="'shift.shift'"/>
+      <field name="function" eval="'run_shift_confirmation'"/>
+    </record>
+
+    <record model="ir.cron" forcecreate="True" id="shift_mail_scheduler">
+        <field name="name">[shift] mail scheduler</field>
+        <field name="active">False</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="nextcall" eval="DateTime(2016,9,11,2,30,1)"/>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field eval="'(True,)'" name="args"/>
+        <field name="model">shift.mail</field>
+        <field name="function">run</field>
+    </record>
+</odoo>
