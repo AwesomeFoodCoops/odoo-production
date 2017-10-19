@@ -13,7 +13,9 @@
     'website': 'http://www.lalouve.net',
     'depends': [
         'base',
-        'barcodes'
+        'barcodes', 
+        'stock',
+        'point_of_sale'
     ],
     'data': [
         # Classical Data
