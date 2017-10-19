@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<openerp>
+    <data>
+        <!-- EVENT.TYPE VIEWS -->
+        <record model="ir.ui.view" id="view_shift_type_form">
+            <field name="name">shift.type.form</field>
+            <field name="model">shift.type</field>
+            <field name="arch" type="xml">
+                <form string="Shift Type">
+                    <group>
+                        <field name="name"/>
+                        <field name="default_reply_to"/>
+                        <field name="default_registration_min"/>
+                        <field name="default_registration_max"/>
+                        <field name="is_ftop"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_shift_type_tree">
+            <field name="name">shift.type.tree</field>
+            <field name="model">shift.type</field>
+            <field name="arch" type="xml">
+                <tree string="Shift Type">
+                    <field name="name"/>
+                    <field name="is_ftop"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_shift_type">
+            <field name="name">Shift Types</field>
+            <field name="res_model">shift.type</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem
+            name="Shifts Types"
+            id="menu_shift_type"
+            action="action_shift_type"
+            parent="menu_shift_configuration"/>
+    </data>
+</openerp>
