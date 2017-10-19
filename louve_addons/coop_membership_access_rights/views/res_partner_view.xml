@@ -148,7 +148,7 @@
                         ('barcode_base', '!=', 0),
                         ('barcode', '!=', '')]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
                         <button id="create_new_barcode" name="%(coop_membership.action_res_partner_generate_barcode_wizard)d" type="action" string="New Barcode (Card Lost)" class="oe_highlight" attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" groups="barcodes_generate.generate_barcode" colspan="2"/>
-                        <field name="badge_to_print" groups="coop_membership_access_rights.group_membership_access_photo"/>
+                        <field name="badge_to_print" attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}" groups="coop_membership_access_rights.group_membership_access_photo"/>
                         <field name="is_member" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_worker_member" groups="coop_membership_access_rights.group_membership_access_manager"/>
                         <field name="is_associated_people" readonly="1" groups="coop_membership_access_rights.group_membership_access_manager"/>
