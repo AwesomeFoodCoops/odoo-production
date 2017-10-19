@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="shift.template.ticket" id="template_ticket_1_standard">
+        <field name="shift_type_id" eval="ref('coop_shift.shift_type')"/>
+        <field name="start_datetime" eval="'%s-%s-%s 09:00:00' %(datetime.now().year, datetime.now().month, datetime.now().day)"/>
+        <field name="end_datetime" eval="'%s-%s-%s 12:00:00' %(datetime.now().year, datetime.now().month, datetime.now().day)"/>
+    </record>
+
+    <record model="shift.template" id="standard_template_2">
+        <field name="user_ids" eval="[(4, [ref('squadleader_2')])]" />
+        <field name="shift_type_id" eval="ref('coop_shift.shift_type')"/>
+        <field name="start_datetime" eval="'%s-%s-%s 12:00:00' %(datetime.now().year, datetime.now().month, datetime.now().day)"/>
+        <field name="end_datetime" eval="'%s-%s-%s 15:00:00' %(datetime.now().year, datetime.now().month, datetime.now().day)"/>
+    </record>
+
+</odoo>

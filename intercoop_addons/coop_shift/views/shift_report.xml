@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- QWeb Reports -->
+        <report
+            id="timesheet"
+            model="report.timesheet"
+            string="Timesheet"
+            report_type="qweb-pdf"
+            name="coop_shift.report_timesheet"
+            file="coop_shift.report_timesheet"
+            attachment_use="False"
+        />
+
+        <report
+            id="wallchart_template"
+            model="report.wallchart_template"
+            string="Wall Chart - Template"
+            report_type="qweb-pdf"
+            name="coop_shift.report_wallchart_template"
+            file="coop_shift.report_wallchart_template"
+            attachment_use="False"
+        />
+
+        <report
+            id="wallchart_ftop"
+            model="report.wallchart_ftop"
+            string="Wall Chart - FTOP"
+            report_type="qweb-pdf"
+            name="coop_shift.report_wallchart_ftop"
+            file="coop_shift.report_wallchart_ftop"
+            attachment_use="False"
+        />
+    </data>
+</openerp>
