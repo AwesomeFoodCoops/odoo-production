@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+ -->
+<odoo>
+
+    <record id="view_shift_leave_wizard_form" model="ir.ui.view">
+        <field name="model">shift.leave.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="type_id"/>
+                        <field name="start_date"/>
+                    </group>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="stop_date"/>
+                    </group>
+                </group>
+                <field name="shift_template_registration_line_ids">
+                    <tree>
+                        <field name="date_begin" />
+                        <field name="date_end" />
+                        <field name="state" />
+                        <field name="shift_ticket_id" />
+                    </tree>
+                </field>
+                <field name="leave_id" invisible="1" />
+                <footer>
+                    <button name="button_confirm" string="Confirm Leave" type="object" class="oe_highlight"/>
+                    <label string="or" />
+                    <button string="Cancel" class="btn btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

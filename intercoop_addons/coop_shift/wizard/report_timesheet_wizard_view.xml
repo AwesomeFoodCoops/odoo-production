@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="shift_report_timesheet_view" model="ir.ui.view">
+            <field name="name">Timesheet Report</field>
+            <field name="model">report.timesheet</field>
+            <field name="arch" type="xml">
+            <form string="Report Options">
+                <field name="date_report"/>
+                <field name="shift_ids" label="Shifts" options="{'no_create': True}"/>
+                <footer>
+                    <button name="check_report" string="Print" type="object" default_focus="1" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_timesheet_wizard" model="ir.actions.act_window">
+            <field name="name">Timesheet</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.timesheet</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="domain">[]</field>
+            <field name="view_id" ref="shift_report_timesheet_view"/>
+        </record>
+
+        <menuitem
+            id="menu_timesheet"
+            action="action_timesheet_wizard"
+            name="Timesheet"
+            parent="coop_shift.menu_reporting_shifts"
+            groups="group_shift_manager"
+            sequence="14"/>
+    </data>
+
+    <record id="action_timesheet_multi" model="ir.values">
+        <field name="model_id" ref="coop_shift.model_shift_shift" />
+        <field name="name">Timesheet</field>
+        <field name="key2">client_print_multi</field>
+        <field name="value" eval="'ir.actions.act_window,' +str(ref('action_timesheet_wizard'))" />
+        <field name="key">action</field>
+        <field name="model">shift.shift</field>
+    </record>
+</openerp>

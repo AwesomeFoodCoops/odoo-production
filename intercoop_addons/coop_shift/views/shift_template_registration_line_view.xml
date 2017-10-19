@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<openerp>
+    <data>
+
+        <!-- SHIFT.TEMPLATE.REGISTRATION.LINE VIEWS -->
+
+        <record model="ir.ui.view" id="view_shift_template_registration_line_search">
+            <field name="name">shift.template.registration.line.search</field>
+            <field name="model">shift.template.registration.line</field>
+            <field name="arch" type="xml">
+                <search string="Template Registration Line">
+                    <field name="shift_template_id"/>
+                    <field name="shift_ticket_id"/>
+                    <field name="partner_id"/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Ticket Type" domain="[]" context="{'group_by':'shift_ticket_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_shift_template_registration_line_tree">
+            <field name="name">shift.template.registration.line.tree</field>
+            <field name="model">shift.template.registration.line</field>
+            <field name="arch" type="xml">
+                <tree name="lines" string="Registration Lines" colors="blue:is_current;grey:is_past;orange:is_future" create="false">
+                    <field name="shift_template_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="shift_ticket_id" domain="[('shift_template_id', '=', shift_template_id)]" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="partner_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="date_begin"/>
+                    <field name="date_end"/>
+                    <field name="state"/>
+                    <field name="is_current" invisible="1"/>
+                    <field name="is_past" invisible="1"/>
+                    <field name="is_future" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_shift_template_registration_line_tree_futurechanges">
+            <field name="name">shift.template.registration.line.tree.futurechanges</field>
+            <field name="model">shift.template.registration.line</field>
+            <field name="inherit_id" ref="coop_shift.view_shift_template_registration_line_tree"/>
+            <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_future_changes'))]"/>
+            <field name="arch" type="xml">
+                <tree name="lines" position="attributes">
+                    <attribute name="editable">top</attribute>
+                    <attribute name="create" eval="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="act_template_registration_line_from_partner" model="ir.actions.act_window">
+            <field name="res_model">shift.template.registration.line</field>
+            <field name="view_type">form</field>
+            <field name="name">Attendees</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_upcoming': True}</field>
+        </record>
+    </data>
+</openerp>
