@@ -52,3 +52,13 @@ msgstr "Badges à imprimer"
 msgid "Badges"
 msgstr "Badges à imprimer"
 
+#. module: coop_print_badge
+#: model:ir.model.fields,field_description:coop_print_badge.field_members_config_settings_reprint_change_field_ids
+msgid "Fields trigger badge reprinting"
+msgstr "Champs dont la modification provoque la ré-impression du badge"
+
+#. module: coop_print_badge
+#: model:ir.ui.view,arch_db:coop_print_badge.view_members_config_settings_form
+msgid "Badge Printing"
+msgstr "Impression du badge"
+
