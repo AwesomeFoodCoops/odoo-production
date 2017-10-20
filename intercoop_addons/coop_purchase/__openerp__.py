@@ -13,6 +13,7 @@
         'base',
         'account',
         'purchase',
+        'purchase_package_qty',
     ],
     'data': [
         'views/purchase_view.xml',

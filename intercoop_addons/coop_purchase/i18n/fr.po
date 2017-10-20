@@ -21,3 +21,9 @@ msgstr ""
 msgid "Vendor Refunds"
 msgstr "Avoirs fournisseur"
 
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_account_invoice_line_base_price
+msgid "Base Price"
+msgstr "Prix de base"
+
+
