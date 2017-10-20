@@ -15,4 +15,18 @@
         <field name="context">{'default_type': 'in_refund', 'type': 'in_refund', 'journal_type': 'purchase'}</field>
         <field name="search_view_id" ref="account.view_account_invoice_filter"/>
     </record>
+
+    <record id="invoice_supplier_form_inherit" model="ir.ui.view">
+        <field name="name">invoice.supplier.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="attributes">
+                <attribute name="groups">account.group_account_invoice,sale.group_discount_per_so_line</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
+                <field name="base_price"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>
