@@ -92,7 +92,7 @@ class ShiftTemplate(models.Model):
         string='Reserved Seats',
         store=True, readonly=True, compute='_compute_seats_template')
     seats_available = fields.Integer(
-        string='Maximum Attendees',
+        string='Available Seats',
         store=True, readonly=True, compute='_compute_seats_template')
     seats_unconfirmed = fields.Integer(
         string='Unconfirmed Seat Reservations',
