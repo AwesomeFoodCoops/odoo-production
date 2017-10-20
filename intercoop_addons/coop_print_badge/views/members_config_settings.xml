@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_members_config_settings_form" model="ir.ui.view">
+            <field name="name">members.config.settings.form.print.badge</field>
+            <field name="model">members.config.settings</field>
+            <field name="inherit_id" ref="coop_membership.view_members_config_settings_form"/>
+            <field name="arch" type="xml">
+                <group name="config_member_section" position="after">
+                    <group name="config_badge_print_section" string="Badge Printing">
+                        <field name="reprint_change_field_ids" widget="many2many_tags" class="oe_inline"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</openerp>

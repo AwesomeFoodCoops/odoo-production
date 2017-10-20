@@ -19,7 +19,9 @@
     ],
     'data': [
         'data/report_paperformat.xml',
+        'data/ir_config_parameter_data.xml',
         'views/badge_to_print_views.xml',
+        'views/members_config_settings.xml',
         'views/actions.xml',
         'views/menu.xml',
         'report/coop_print_badge_report.xml',

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="config_reprint_change_field_ids" model="ir.config_parameter">
+        <field name="key">reprint_change_field_ids</field>
+        <field name="value" eval="[ref('base.field_res_partner_image'), ref('base.field_res_partner_name'), ref('base.field_res_partner_barcode')]" />
+    </record>
+</odoo>
