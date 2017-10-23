@@ -6,7 +6,7 @@
   Creating a ir.model.access record
 -
   !record {model: ir.model.access, id: ir_model_access_shift_template_registration_line_access}:
-    group_id: coop_membership_access_rights.group_membership_access_user
+    group_id: coop_membership.group_membership_access_user
     model_id: coop_shift.model_shift_template_registration_line
     name: shift_template_registration_line user
     perm_create: false
@@ -15,7 +15,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_sale_order_access}:
-    group_id: coop_membership_access_rights.group_membership_access_user
+    group_id: coop_membership.group_membership_access_user
     model_id: sale.model_sale_order
     name: cmar sale user
     perm_create: false
@@ -24,7 +24,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_purchase_order_access}:
-    group_id: coop_membership_access_rights.group_membership_access_user
+    group_id: coop_membership.group_membership_access_user
     model_id: purchase.model_purchase_order
     name: cmar purchase user
     perm_create: false
@@ -33,7 +33,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_account_invoice_access}:
-    group_id: coop_membership_access_rights.group_membership_access_user
+    group_id: coop_membership.group_membership_access_user
     model_id: account.model_account_invoice
     name: cmar invoice user
     perm_create: false
@@ -42,7 +42,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_account_move_line_access}:
-    group_id: coop_membership_access_rights.group_membership_access_user
+    group_id: coop_membership.group_membership_access_user
     model_id: account.model_account_move_line
     name: cmar move_line user
     perm_create: false
@@ -51,7 +51,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_leave_access}:
-    group_id: coop_membership_access_rights.group_membership_access_user
+    group_id: coop_membership.group_membership_access_user
     model_id: coop_shift.model_shift_leave
     name: cmar leave user
     perm_create: false
@@ -60,7 +60,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_capital_access}:
-    group_id: coop_membership_access_rights.group_membership_access_user
+    group_id: coop_membership.group_membership_access_user
     model_id: capital_subscription.model_capital_fundraising_partner_type
     name: cmar capital user
     perm_create: false
@@ -69,7 +69,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_extension_access}:
-    group_id: coop_membership_access_rights.group_membership_access_user
+    group_id: coop_membership.group_membership_access_user
     model_id: coop_shift.model_shift_extension
     name: cmar extension user
     perm_create: false
@@ -78,7 +78,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_shift_registration_access}:
-    group_id: coop_membership_access_rights.group_membership_access_user
+    group_id: coop_membership.group_membership_access_user
     model_id: coop_shift.model_shift_registration
     name: shift_registration user
     perm_create: false
@@ -87,7 +87,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_shift_registration_edit}:
-    group_id: coop_membership_access_rights.group_membership_access_edit
+    group_id: coop_membership.group_membership_access_edit
     model_id: coop_shift.model_shift_registration
     name: shift_registration writer
     perm_create: false
@@ -96,7 +96,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_shift_shift_access}:
-    group_id: coop_membership_access_rights.group_membership_access_user
+    group_id: coop_membership.group_membership_access_user
     model_id: coop_shift.model_shift_shift
     name: shift_shift user
     perm_create: false
@@ -105,7 +105,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_shift_shift_edit}:
-    group_id: coop_membership_access_rights.group_membership_access_edit
+    group_id: coop_membership.group_membership_access_edit
     model_id: coop_shift.model_shift_shift
     name: shift_shift edit
     perm_create: false
@@ -114,7 +114,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_shift_mail_access}:
-    group_id: coop_membership_access_rights.group_membership_access_edit
+    group_id: coop_membership.group_membership_access_edit
     model_id: coop_shift.model_shift_mail
     name: shift_mail user
     perm_create: false
@@ -123,7 +123,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_shift_ticket_access}:
-    group_id: coop_membership_access_rights.group_membership_access_edit
+    group_id: coop_membership.group_membership_access_edit
     model_id: coop_shift.model_shift_ticket
     name: shift_ticket edit
     perm_create: false
@@ -132,7 +132,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_shift_type_edit}:
-    group_id: coop_membership_access_rights.group_membership_access_edit
+    group_id: coop_membership.group_membership_access_edit
     model_id: coop_shift.model_shift_type
     name: shift_type access
     perm_create: false
@@ -141,7 +141,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_shift_mail_registration_access}:
-    group_id: coop_membership_access_rights.group_membership_access_edit
+    group_id: coop_membership.group_membership_access_edit
     model_id: coop_shift.model_shift_mail_registration
     name: shift_mail_registration access
     perm_create: true
@@ -150,7 +150,7 @@
     perm_unlink: false
 -
   !record {model: ir.model.access, id: ir_model_access_shift_mail_access}:
-    group_id: coop_membership_access_rights.group_membership_access_edit
+    group_id: coop_membership.group_membership_access_edit
     model_id: coop_shift.model_shift_mail
     name: shift_mail access
     perm_create: false

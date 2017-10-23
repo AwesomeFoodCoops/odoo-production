@@ -12,15 +12,25 @@
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'depends': [
-        'capital_subscription',
-        'coop_shift',
         'barcodes_generate',
+        'capital_subscription',
+        'coop_capital_certificate',
+        'coop_shift',
+        'purchase_compute_order',
+        'res_partner_account_move_line',
+        'stock',
     ],
     'data': [
+        # Security
+        'security/ir_module_category.xml',
+        'security/res_group.xml',
+        'security/ir_model_access.yml',
+        'security/ir.model.access.csv',
+
         # Classical Data
-        'views/action.xml',
         'views/view_res_partner_owned_share.xml',
         'views/view_res_partner.xml',
+        'views/res_users_view.xml',
         'views/view_barcode_rule.xml',
         'views/view_account_invoice.xml',
         'views/view_capital_fundraising_category.xml',
@@ -30,6 +40,7 @@
         'views/view_shift_registration.xml',
         'views/view_shift_shift.xml',
         'views/res_config_view.xml',
+        'views/action.xml',
         'views/menu.xml',
 
         # Custom Data
@@ -39,10 +50,13 @@
         'data/ir_sequences.xml',
         'data/barcode_rule.xml',
         'data/shift_extension_type_data.xml',
+
+        # Wizard
+        'wizard/view_capital_fundraising_wizard.xml',
     ],
     'demo': [
-
         'demo/capital_fundraising_category.xml',
+        'demo/res_groups.xml',
     ],
     'installable': True,
 }
