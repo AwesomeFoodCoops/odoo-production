@@ -49,8 +49,9 @@
                     <field name="start_datetime"/>
                     <field name="end_datetime"/>
                     <field name="seats_min"/>
-                    <field name="seats_availability"/>
+                    <field name="seats_availability" string="Seats Availability"/>
                     <field name="seats_max" attrs="{'invisible': [('seats_availability','=','unlimited')]}"/>
+                    <field name="seats_available" />
                     <field name="last_shift_date"/>
                 </tree>
             </field>

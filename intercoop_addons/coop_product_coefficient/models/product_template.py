@@ -192,12 +192,15 @@ class ProductTemplate(models.Model):
         # TODO IMPME. Compute with discount, depending on
         # product_supplierinfo_discount
         product_obj = self.env['product.product']
+        selected_vendor = self._context.get('selected_vendor', False)
         for template in self:
             base_price = 0.0
             if template.product_variant_ids:
                 # We set a high quantity to avoid to skip
                 seller = product_obj._select_seller(
-                    template.product_variant_ids[0], quantity=10000.0)
+                    template.product_variant_ids[0],
+                    partner_id=selected_vendor,
+                    quantity=10000.0)
                 if seller:
                     if seller.product_uom.id == template.uom_id.id:
                         base_price =\

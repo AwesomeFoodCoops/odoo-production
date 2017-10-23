@@ -260,6 +260,7 @@ msgid "Available Seat"
 msgstr "Places disponibles"
 
 #. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_shift_template_seats_available
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket_seats_available
 #: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_seats_available
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_kanban
@@ -1524,7 +1525,6 @@ msgstr "Masquer dans l'Espace Membre"
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_seats_availability
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift_seats_available
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_seats_availability
-#: model:ir.model.fields,field_description:coop_shift.field_shift_template_seats_available
 msgid "Maximum Attendees"
 msgstr "Maximum de participants"
 
@@ -3432,3 +3432,8 @@ msgstr "Ignoré"
 msgid "Don't take into account when evaluating the member's status"
 msgstr "Ne pas prendre en compte pour l'évaluation du statut du membre"
 
+
+#. module: coop_shift
+#: model:ir.ui.view,arch_db:coop_shift.view_shift_template_tree
+msgid "Seats Availability"
+msgstr "Disponibilité des places"

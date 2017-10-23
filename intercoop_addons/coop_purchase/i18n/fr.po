@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-11 11:03+0000\n"
-"PO-Revision-Date: 2016-10-11 11:03+0000\n"
+"POT-Creation-Date: 2017-10-20 03:45+0000\n"
+"PO-Revision-Date: 2017-10-20 03:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,44 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_account_invoice_line_base_price
+msgid "Base Price"
+msgstr "Prix de base"
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_account_invoice
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Ligne de facturation"
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Ligne de commande d'achat"
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_purchase_config_settings_update_main_vendor_on_update_vendor_price
+msgid "The action \"Update Vendors Prices\" defines Vendor as Main Vendor of selected products"
+msgstr "L'action \"Mettre à jour les prix d'achats\" définit le fournisseur comme principal fournisseur des produits sélectionnés"
+
+#. module: coop_purchase
+#: model:ir.actions.server,name:coop_purchase.purchase_order_line_action_update_vendor_price
+#: model:ir.ui.view,arch_db:coop_purchase.view_purchase_config_settings_inherit
+msgid "Update Vendors Prices"
+msgstr "Mettre à jour les prix d'achats"
+
+#. module: coop_purchase
 #: model:ir.actions.act_window,name:coop_purchase.action_invoice_refund
 #: model:ir.ui.menu,name:coop_purchase.menu_invoice_refund
 msgid "Vendor Refunds"
 msgstr "Avoirs fournisseur"
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_purchase_config_settings
+msgid "purchase.config.settings"
+msgstr "purchase.config.settings"
 

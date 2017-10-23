@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>) @author:
+    La Louve License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+
+<odoo>
+    <record id="purchase_order_line_action_update_vendor_price" model="ir.actions.server">
+        <field name="name">Update Vendors Prices</field>
+        <field name="model_id" ref="purchase.model_purchase_order_line" />
+        <field name="state">code</field>
+        <field name="code">action = self.update_po_price_to_vendor_price(cr, uid,
+            context.get('active_ids', []), context=context)</field>
+    </record>
+
+    <record id="action_update_vendor_price" model="ir.values">
+        <field name="model_id" ref="purchase.model_purchase_order_line" />
+        <field name="name">Update Vendors Prices</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value"
+            eval="'ir.actions.server,%d'%purchase_order_line_action_update_vendor_price" />
+        <field name="key">action</field>
+        <field name="model">purchase.order.line</field>
+    </record>
+
+</odoo>

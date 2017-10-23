@@ -10,7 +10,7 @@
                         <button string="Apply" type="object" name="execute" class="oe_highlight"/>
                         <button string="Cancel" type="object" name="cancel" class="oe_link"/>
                     </header>
-                    <group string="Membership Configuration">
+                    <group string="Membership Configuration" name="config_member_section">
                     	<label for="max_number_settings" class="oe_inline" string="Maximum Associated People"/>
                     	<div name="max_number_settings">
 							<field name="associated_people_available" widget="radio"/>
