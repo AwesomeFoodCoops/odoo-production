@@ -26,52 +26,74 @@
         <field name="sequence">7</field>
     </record>
 
+    <!-- Members -->
     <record model="ir.ui.menu" id="menu_res_partner_members">
         <field name="name">Members</field>
-        <field name="action" ref="action_res_partner_subscriptions"/>
         <field name="parent_id" ref="menu_coop_member_submain"/>
-        <field name="sequence">1</field>
+        <field name="sequence">2</field>
+        <field name="action" ref="action_coop_membership_access_rights"/>
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.group_membership_access_user'))]"/>
     </record>
 
+    <!-- Associated People -->
     <record model="ir.ui.menu" id="menu_res_partner_associated">
         <field name="name">Associated People</field>
         <field name="action" ref="action_res_partner_associated"/>
         <field name="parent_id" ref="menu_coop_member_submain"/>
-        <field name="sequence">2</field>
-    </record>
-
-    <record model="ir.ui.menu" id="menu_res_partner_interested_people">
-        <field name="name">Interested People</field>
-        <field name="action" ref="action_res_partner_interested_people"/>
-        <field name="parent_id" ref="menu_coop_member_submain"/>
         <field name="sequence">3</field>
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.group_membership_see_associated_people'))]"/>
     </record>
 
+    <!-- Former Members -->
     <record model="ir.ui.menu" id="menu_res_partner_former_member">
         <field name="name">Former Members</field>
         <field name="action" ref="action_res_partner_former_member"/>
         <field name="parent_id" ref="menu_coop_member_submain"/>
         <field name="sequence">4</field>
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.group_membership_access_manager')),
+               (4, ref('coop_membership.group_membership_access_user'))]"/>
     </record>
 
-    <record model="ir.ui.menu" id="menu_res_partner_former_associated_people">
-        <field name="name">Former Associated People</field>
-        <field name="action" ref="action_res_partner_former_associated_people"/>
+    <!-- Interested People -->
+    <record model="ir.ui.menu" id="menu_res_partner_interested_people">
+        <field name="name">Interested People</field>
+        <field name="action" ref="action_res_partner_interested_people"/>
         <field name="parent_id" ref="menu_coop_member_submain"/>
         <field name="sequence">5</field>
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.group_membership_access_manager'))]"/>
+    </record>
+
+    <!-- Former Associated People -->
+    <record model="ir.ui.menu" id="menu_res_partner_former_associated_people">
+        <field name="name">Former Associated People</field>
+        <field name="action"
+               ref="action_res_partner_former_associated_people"/>
+        <field name="parent_id" ref="menu_coop_member_submain"/>
+        <field name="sequence">6</field>
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.group_membership_see_associated_people'))]"/>
     </record>
 
     <record model="ir.ui.menu" id="menu_coop_subscriptions_submain">
         <field name="name">Subscriptions</field>
         <field name="parent_id" ref="coop_shift.shift_main_menu"/>
         <field name="sequence">2</field>
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.subscriptions_reader'))]"/>
     </record>
 
     <record model="ir.ui.menu" id="menu_account_invoice_subscriptions">
         <field name="name">Contracts</field>
-        <field name="action" ref="action_account_invoice_customer_subscriptions"/>
+        <field name="action"
+               ref="action_account_invoice_customer_subscriptions"/>
         <field name="parent_id" ref="menu_coop_subscriptions_submain"/>
         <field name="sequence">1</field>
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.subscriptions_reader'))]"/>
     </record>
 
     <record model="ir.ui.menu" id="menu_capital_fundraising_wizard">
@@ -79,6 +101,8 @@
         <field name="action" ref="action_capital_fundraising_wizard"/>
         <field name="parent_id" ref="menu_coop_subscriptions_submain"/>
         <field name="sequence">2</field>
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.subscriptions_creator'))]"/>
     </record>
 
     <record model="ir.ui.menu" id="menu_account_payment_subscriptions">
@@ -86,6 +110,8 @@
         <field name="action" ref="action_account_payment_subscriptions"/>
         <field name="parent_id" ref="menu_coop_subscriptions_submain"/>
         <field name="sequence">3</field>
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.subscriptions_creator_payment'))]"/>
     </record>
 
     <!-- Add new menu Settings -->
@@ -95,5 +121,35 @@
         <field name="parent_id" ref="coop_shift.menu_shift_configuration"/>
         <field name="sequence">1</field>
     </record>
+
+    <record model="ir.ui.menu" id="coop_shift.shift_main_menu">
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.group_membership_access_user')),
+               (4, ref('coop_membership.subscriptions_reader'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="coop_shift.shift_menu">
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.group_membership_access_edit'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="coop_shift.menu_action_registration">
+        <field name="groups_id"
+               eval="[(4, ref('coop_membership.group_membership_access_edit'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="mass_mailing.mass_mailing_menu_root">
+        <field name="groups_id"
+               eval="[(4, ref('base.group_configuration')),
+               (4, ref('mass_mailing.group_mass_mailing_user'))]"/>
+    </record>
+
+    <record id="coop_shift.menu_shift_shift" model="ir.ui.menu">
+        <field eval="8" name="sequence"/>
+    </record>
+
+    <menuitem action="coop_membership.action_shift_attendance_entry_view"
+              id="menu_shift_attendance_entry" name="Attendance Entry"
+              parent="coop_shift.shift_menu" sequence="9"/>
 
 </odoo>

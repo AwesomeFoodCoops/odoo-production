@@ -73,8 +73,10 @@
         <field name="res_model">account.invoice</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_capital_fundraising', '=', True), ('type','in', ['out_invoice', 'out_refund'])]</field>
-        <field name="context">{'default_is_capital_fundraising':1, 'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale'}</field>
+        <field name="domain">[('is_capital_fundraising', '=', True),
+            ('type','in', ['out_invoice', 'out_refund'])]</field>
+        <field name="context">{'default_is_capital_fundraising':1,
+            'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale'}</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_account_payment_subscriptions">
@@ -106,23 +108,152 @@
 
     <!-- Define views for the actions Capital Subscription -->
     <record id="action_view_capital_subscription_tree" model="ir.actions.act_window.view">
-        <field eval="1" name="sequence" />
+        <field eval="1" name="sequence"/>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="account.invoice_tree" />
-        <field name="act_window_id" ref="coop_membership.action_account_invoice_customer_subscriptions" />
-    </record>
-    <record id="action_view_capital_subscription_form" model="ir.actions.act_window.view">
-        <field eval="2" name="sequence" />
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="account.invoice_form" />
-        <field name="act_window_id" ref="coop_membership.action_account_invoice_customer_subscriptions" />
+        <field name="view_id" ref="account.invoice_tree"/>
+        <field name="act_window_id"
+               ref="coop_membership.action_account_invoice_customer_subscriptions"/>
     </record>
 
-	<!-- Define views for the actions Members > Configuration > Settings -->
-	<record id="action_membership_configuration" model="ir.actions.act_window">
+    <record id="action_view_capital_subscription_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_form"/>
+        <field name="act_window_id"
+               ref="coop_membership.action_account_invoice_customer_subscriptions"/>
+    </record>
+
+    <!-- Define views for the actions Members > Configuration > Settings -->
+    <record id="action_membership_configuration" model="ir.actions.act_window">
         <field name="name">Settings</field>
         <field name="res_model">members.config.settings</field>
         <field name="view_mode">form</field>
         <field name="target">inline</field>
     </record>
+
+    <!-- Member -->
+    <record id="bdm_action1" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="coop_membership.view_bdm_tree_no_create"/>
+        <field name="act_window_id"
+               ref="action_coop_membership_access_rights"/>
+    </record>
+
+    <record id="bdm_action2" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id"
+               ref="coop_membership.view_partner_form_no_create"/>
+        <field name="act_window_id"
+               ref="action_coop_membership_access_rights"/>
+    </record>
+
+    <!-- Associated People : New form and tree view for new group 'group_membership_access_user' -->
+    <record id="bdm_action1_associated_people" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="coop_membership.view_bdm_tree_no_create"/>
+        <field name="act_window_id"
+               ref="coop_membership.action_res_partner_associated"/>
+    </record>
+    <record id="bdm_action2_associated_people" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id"
+               ref="coop_membership.view_partner_form_no_create"/>
+        <field name="act_window_id"
+               ref="coop_membership.action_res_partner_associated"/>
+    </record>
+
+    <!-- Interested People : New form and tree view for new group 'group_membership_access_user' -->
+    <record id="bdm_action1_interested_people" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="coop_membership.view_bdm_tree_no_create"/>
+        <field name="act_window_id"
+               ref="coop_membership.action_res_partner_interested_people"/>
+    </record>
+    <record id="bdm_action2_interested_people"
+            model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id"
+               ref="coop_membership.view_partner_form_no_create"/>
+        <field name="act_window_id"
+               ref="coop_membership.action_res_partner_interested_people"/>
+    </record>
+
+    <!-- Former Members : New form and tree view for new group 'group_membership_access_user' -->
+    <record id="bdm_action1_former_members" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="coop_membership.view_bdm_tree_no_create"/>
+        <field name="act_window_id"
+               ref="coop_membership.action_res_partner_former_member"/>
+    </record>
+    <record id="bdm_action2_former_members" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id"
+               ref="coop_membership.view_partner_form_no_create"/>
+        <field name="act_window_id"
+               ref="coop_membership.action_res_partner_former_member"/>
+    </record>
+
+    <!-- Former Associated People : New form and tree view for new group 'group_membership_access_user' -->
+    <record id="bdm_action1_former_associated_people"
+            model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="coop_membership.view_bdm_tree_no_create"/>
+        <field name="act_window_id"
+               ref="coop_membership.action_res_partner_former_associated_people"/>
+    </record>
+    <record id="bdm_action2_former_associated_people"
+            model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id"
+               ref="coop_membership.view_partner_form_no_create"/>
+        <field name="act_window_id"
+               ref="coop_membership.action_res_partner_former_associated_people"/>
+    </record>
+
+    <!-- View actions for shift attendance -->
+    <record id="view_action_tree_shift_attendance_entry" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="coop_shift.view_shift_tree"/>
+        <field name="act_window_id"
+               ref="coop_membership.action_shift_attendance_entry_view"/>
+    </record>
+
+    <record id="view_action_form_shift_attendance_entry" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="coop_membership.view_shift_form_attendance_entry"/>
+        <field name="act_window_id" ref="coop_membership.action_shift_attendance_entry_view"/>
+    </record>
+
+    <record id="coop_membership.action_coop_all_partner_view" model="ir.actions.act_window">
+        <field name="search_view_id" ref="view_bdm_search"/>
+    </record>
+
+    <record id="view_all_partner_tree_action" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="coop_membership.view_res_partner_all_members_tree"/>
+        <field name="act_window_id" ref="coop_membership.action_coop_all_partner_view"/>
+    </record>
+
+    <record id="view_all_member_tree_action" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="coop_membership.view_partner_form"/>
+        <field name="act_window_id" ref="coop_membership.action_coop_all_partner_view"/>
+    </record>
+
+
+
 </odoo>
