@@ -15,6 +15,7 @@
         'account',
         'barcodes_generate',
         'account_tax_balance',
+        'coop_account',
     ],
     'data': [
         'views/view_account_payment.xml',
