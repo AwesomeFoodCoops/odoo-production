@@ -15,7 +15,7 @@
         'base',
         'barcodes', 
         'stock',
-        'point_of_sale'
+        'point_of_sale',
     ],
     'data': [
         # Classical Data

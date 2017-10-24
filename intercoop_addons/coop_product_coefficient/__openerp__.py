@@ -34,4 +34,5 @@
         'demo/product_template.xml',
     ],
     'installable': True,
+   # 'pre_init_hook': '_migration_script',
 }
