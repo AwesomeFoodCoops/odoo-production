@@ -182,7 +182,7 @@ class SmileExportSage(models.Model):
         vals = {
             'name': "%s.%s" % (self.name, self.extension),
             'type': 'binary',
-            'datas': base64.encodestring(ustr(datas)),
+            'datas': base64.encodestring(ustr(datas).encode('utf-8')),
             'datas_fname': "%s.%s" % (self.name, self.extension),
             'res_model': 'smile.export.sage',
             'res_id': self.id,
@@ -197,16 +197,16 @@ class SmileExportSage(models.Model):
         message = ''
         unbalanced_moves = self._get_unbalanced_moves()
         if unbalanced_moves:
-            message += "Les pièces suivantes ne sont pas équilibrées: {}."\
-                .format(', '.join(set(unbalanced_moves)))
+            message += u"Les pièces suivantes ne sont pas équilibrées: {}."\
+                .format(u', '.join(set(unbalanced_moves)))
         if self.UNASSIGNED_JOURNAL_SAGE_CODES:
             message += \
-                "\n\nAucun journal Sage n'a été défini pour ces journaux: {}."\
-                .format(', '.join(set(self.UNASSIGNED_JOURNAL_SAGE_CODES)))
+                u"\n\nAucun journal Sage n'a été défini pour ces journaux: {}."\
+                .format(u', '.join(set(self.UNASSIGNED_JOURNAL_SAGE_CODES)))
         if self.UNASSIGNED_ACCOUNT_SAGE_CODES:
             message += \
-                "\n\nAucun compte Sage n'a été défini pour ces comptes: {}."\
-                .format(', '.join(set(self.UNASSIGNED_ACCOUNT_SAGE_CODES)))
+                u"\n\nAucun compte Sage n'a été défini pour ces comptes: {}."\
+                .format(u', '.join(set(self.UNASSIGNED_ACCOUNT_SAGE_CODES)))
         if message != '':
             raise exceptions.UserError(_(message))
         return True
