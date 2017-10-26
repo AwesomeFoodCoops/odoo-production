@@ -1113,3 +1113,8 @@ msgstr "Bdm Présences"
 #: model:res.groups,name:coop_membership.group_membership_bdm_saisie
 msgid "Membership Data Enty"
 msgstr "Bdm Saisie"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_parent_member_num
+msgid "Parent Number"
+msgstr "Numéro parent"
