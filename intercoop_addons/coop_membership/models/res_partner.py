@@ -129,6 +129,9 @@ class ResPartner(models.Model):
     related_user_id = fields.Many2one('res.users',
                                       compute="_compute_related_user",
                                       string="Related User")
+    parent_member_num = fields.Integer(string="Parent Number",
+                                       related='parent_id.barcode_base',
+                                       store=True)
 
     # Constraint Section
     @api.multi
