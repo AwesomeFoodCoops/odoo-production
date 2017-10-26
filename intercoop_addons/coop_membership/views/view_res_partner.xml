@@ -35,7 +35,10 @@
                                 class="oe_stat_button oe_event_attendee_button"
                                 icon="fa-calendar"
                                 help="View partner Extensions"
-                                groups="coop_shift.group_shift_manager,coop_membership.group_membership_access_user">
+                                groups="coop_shift.group_shift_manager,
+                                coop_membership.group_membership_access_user,
+                                coop_membership.group_membership_bdm_lecture,
+                                coop_membership.group_membership_bdm_saisie">
                             <field name="extension_qty" widget="statinfo"
                                    string="Ext."/>
                         </button>
@@ -44,7 +47,10 @@
                                 class="oe_stat_button oe_event_attendee_button"
                                 icon="fa-calendar"
                                 help="View partner Registrations"
-                                groups="coop_shift.group_shift_user,coop_membership.group_membership_access_user"
+                                groups="coop_shift.group_shift_user,
+                                coop_membership.group_membership_access_user,
+                                coop_membership.group_membership_bdm_lecture,
+                                coop_membership.group_membership_bdm_saisie"
                                 id="view_partner_registrations"
                                 attrs="{'invisible':[('is_worker_member', '=', False)]}">
                             <field name="upcoming_registration_count"
@@ -55,7 +61,10 @@
                                 class="oe_stat_button oe_event_attendee_button"
                                 icon="fa-calendar-plus-o"
                                 help="View partner Template Registrations"
-                                groups="coop_shift.group_shift_manager,coop_membership.group_membership_access_user"
+                                groups="coop_shift.group_shift_manager,
+                                coop_membership.group_membership_access_user,
+                                coop_membership.group_membership_bdm_lecture,
+                                coop_membership.group_membership_bdm_saisie"
                                 id="view_partner_template_registrations"
                                 attrs="{'invisible':[('is_worker_member', '=', False)]}">
                             <field name="active_tmpl_reg_line_count"
@@ -65,7 +74,9 @@
                                 type="action"
                                 class="oe_stat_button oe_event_attendee_button"
                                 icon="fa-sign-out" help="View partner Leaves"
-                                groups="coop_shift.group_shift_see_leave"
+                                groups="coop_shift.group_shift_see_leave,
+                                coop_membership.group_membership_bdm_lecture,
+                                coop_membership.group_membership_bdm_saisie"
                                 id="view_shift_leaves">
                             <field name="leave_qty" widget="statinfo"
                                    string="Leaves"/>
@@ -145,7 +156,10 @@
                                 class="oe_stat_button"
                                 icon="fa-star-o"
                                 help="View Partner Points Standard Counter"
-                                groups="coop_shift.group_shift_see_counter,coop_membership.group_membership_access_user"
+                                groups="coop_shift.group_shift_see_counter,
+                                coop_membership.group_membership_access_user,
+                                coop_membership.group_membership_bdm_lecture,
+                                coop_membership.group_membership_bdm_saisie"
                                 id="view_res_partner_point_counter_standard">
                             <field name="display_std_points" widget="statinfo"
                                    string="Standard Points"/>
@@ -156,7 +170,10 @@
                                 class="oe_stat_button"
                                 icon="fa-star-o"
                                 help="View Partner Points FTOP Counter"
-                                groups="coop_shift.group_shift_see_counter,coop_membership.group_membership_access_user"
+                                groups="coop_shift.group_shift_see_counter,
+                                coop_membership.group_membership_access_user,
+                                coop_membership.group_membership_bdm_lecture,
+                                coop_membership.group_membership_bdm_saisie"
                                 id="view_res_partner_point_counter_ftop">
                             <field name="display_ftop_points" widget="statinfo"
                                    string="FTOP Points"/>
@@ -210,6 +227,8 @@
                                 <button name="action_create_new_user"
                                         type="object" class="oe_highlight"
                                         string="Create New User"
+                                        groups="coop_membership.group_membership_see_associated_people,
+                                        coop_membership.group_membership_access_user"
                                         attrs="{'invisible': [('related_user_id', '!=', False)]}"/>
                             </group>
 
@@ -227,54 +246,96 @@
 
                                 <field name="street" placeholder="Street..."
                                        class="o_address_street"
-                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                       groups="coop_membership.group_membership_see_associated_people,
+                                       coop_membership.group_membership_access_user"
+                                />
                                 <field name="street2" placeholder="Street 2..."
                                        class="o_address_street"
-                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                       groups="coop_membership.group_membership_see_associated_people,
+                                       coop_membership.group_membership_access_user"
+                                />
                                 <field name="city" placeholder="City"
                                        class="o_address_city"
-                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                       groups="coop_membership.group_membership_see_associated_people,
+                                       coop_membership.group_membership_access_user"
+                                />
                                 <field name="state_id" class="o_address_state"
                                        placeholder="State"
                                        options="{&quot;no_open&quot;: True}"
                                        on_change="onchange_state(state_id)"
                                        attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                       groups="coop_membership.group_membership_see_associated_people,
+                                       coop_membership.group_membership_access_user"
                                        context="{'country_id': country_id, 'zip': zip}"/>
                                 <field name="zip" placeholder="ZIP"
                                        class="o_address_zip"
-                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                       groups="coop_membership.group_membership_see_associated_people,
+                                       coop_membership.group_membership_access_user,
+                                       coop_membership.group_membership_bdm_lecture,
+                                       coop_membership.group_membership_bdm_saisie"
+                                />
                                 <field name="country_id" placeholder="Country"
                                        class="o_address_country"
                                        options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
-                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                       groups="coop_membership.group_membership_see_associated_people,
+                                       coop_membership.group_membership_access_user"
+                                />
                             </div>
-                            <field name="website" widget="url"
-                                   placeholder="e.g. www.odoo.com"/>
+                            <field name="website" widget="url" placeholder="e.g. www.odoo.com"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user"
+                            />
                         </group>
                         <group>
                             <field name="function"
                                    placeholder="e.g. Sales Director"
-                                   attrs="{'invisible': [('is_company','=', True)]}"/>
-                            <field name="phone" widget="phone"/>
-                            <field name="mobile" widget="phone"/>
-                            <field name="fax"/>
+                                   attrs="{'invisible': [('is_company','=', True)]}"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user"
+                            />
+                            <field name="phone" widget="phone"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user"
+                            />
+                            <field name="mobile" widget="phone"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user"
+                            />
+                            <field name="fax"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user"
+                            />
                             <field name="user_ids" invisible="1"/>
                             <field name="notify_email" widget="radio"
-                                   groups="base.group_no_one"/>
+                                   groups="base.group_no_one,coop_membership.group_membership_bdm_lecture,
+                                   coop_membership.group_membership_bdm_saisie"/>
                             <field name="opt_out" string="Mailing Opt-Out"
-                                   groups="base.group_no_one"/>
+                                   groups="base.group_no_one,coop_membership.group_membership_bdm_lecture,
+                                   coop_membership.group_membership_bdm_saisie"/>
                             <field name="email" widget="email"
-                                   attrs="{'required': [('user_ids','!=', [])]}"/>
+                                   attrs="{'required': [('user_ids','!=', [])]}"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user"/>
                             <field name="title"
                                    options="{&quot;no_open&quot;: True}"
-                                   attrs="{'invisible': True}"/>
+                                   groups="coop_membership.group_membership_bdm_lecture"/>
                             <field name="lang"
-                                   groups="coop_membership.group_membership_access_manager"/>
+                                   groups="coop_membership.group_membership_access_manager,
+                                   coop_membership.group_membership_bdm_lecture,
+                                   coop_membership.group_membership_bdm_saisie"/>
                             <field name="category_id" widget="many2many_tags"
                                    placeholder="Tags..."
-                                   groups="coop_membership.group_membership_access_manager"/>
+                                   groups="coop_membership.group_membership_access_manager,
+                                   coop_membership.group_membership_bdm_saisie"/>
                         </group>
-                        <group string="MemberShip">
+                        <group string="MemberShip"
+                               groups="coop_membership.group_membership_see_associated_people,
+                               coop_membership.group_membership_access_user">
                             <field name="nb_associated_people"
                                    string="Number of Associated People"
                                    attrs="{'readonly': True, 'invisible': [('is_member','=',False),('is_former_member','=',False)]}"
@@ -286,17 +347,16 @@
                             <field name="generate_type" invisible="1"/>
                             <button name="generate_base" type="object"
                                     string="Generate Base (Using Sequence)"
-                                    attrs="{'invisible': ['|',('generate_type', '!=', 'sequence'),                     ('barcode_base', '!=', 0)]}"
+                                    attrs="{'invisible': ['|',('generate_type', '!=', 'sequence'),('barcode_base', '!=', 0)]}"
                                     groups="barcodes_generate.generate_barcode"
                                     colspan="2"/>
                             <field name="barcode"
                                    attrs="{'readonly': [('generate_type', '=', 'sequence')]}"/>
                             <button name="generate_barcode" type="object"
                                     string="Generate Barcode (Using Barcode Rule)"
-                                    attrs="{'invisible': ['|', '|',
-                            ('generate_type', '!=', 'sequence'),
-                            ('barcode_base', '!=', 0),
-                            ('barcode', '!=', '')]}"
+                                    attrs="{'invisible': ['|', '|', ('generate_type', '!=', 'sequence'),
+                                    ('barcode_base', '!=', 0),
+                                    ('barcode', '!=', '')]}"
                                     groups="barcodes_generate.generate_barcode"
                                     colspan="2"/>
                             <button id="create_new_barcode"
@@ -325,15 +385,36 @@
                                    groups="coop_membership.group_membership_access_manager"/>
                         </group>
                         <group string="Extra Data">
-                            <field name="temp_coop_number"/>
+                            <field name="temp_coop_number"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user"
+                            />
                             <field name="birthdate" widget="date"
-                                   attrs="{'required': [('is_member', '=', True)]}"/>
-                            <field name="age"
-                                   attrs="{'invisible': [('age', '=', 0)]}"/>
-                            <field name="adult_number_home"/>
-                            <field name="contact_origin_id"/>
+                                   attrs="{'required': [('is_member', '=', True)]}"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_saisie"
+                            />
+                            <field name="age" attrs="{'invisible': [('age', '=', 0)]}"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_saisie"
+                            />
+                            <field name="adult_number_home"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_saisie"
+                            />
+                            <field name="contact_origin_id"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_saisie"
+                            />
                             <field name="sex" attrs="{'required': True}"/>
-                            <field name="is_deceased"/>
+                            <field name="is_deceased"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_lecture"/>
                             <field name="date_of_death"
                                    attrs="{'invisible': [('is_deceased', '=', False)]}"/>
                         </group>
@@ -344,12 +425,15 @@
                               autofocus="autofocus"
                               attrs="{'invisible': [('is_member', '=', False)]}">
                             <field name="child_ids" mode="kanban"
-                                   context="{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_supplier': supplier, 'default_customer': customer, 'default_lang': lang,}">
+                                   context="{'default_parent_id': active_id, 'default_street': street,
+                                   'default_street2': street2, 'default_city': city,
+                                   'default_state_id': state_id, 'default_zip': zip,
+                                   'default_country_id': country_id, 'default_supplier': supplier,
+                                   'default_customer': customer, 'default_lang': lang,}">
                                 <kanban create="false">
                                     <field name="color"/>
                                     <field name="name"/>
-                                    <field name="title"
-                                           attrs="{'invisible': True}"/>
+                                    <field name="title" attrs="{'invisible': True}"/>
                                     <field name="type"/>
                                     <field name="email"/>
                                     <field name="parent_id"/>
@@ -424,8 +508,7 @@
                                         </t>
                                     </templates>
                                 </kanban>
-                                <form string="Contact / Address"
-                                      create="false">
+                                <form string="Contact / Address" create="false">
                                     <sheet>
                                         <field name="type" required="1"
                                                widget="radio"
@@ -440,9 +523,10 @@
                                                attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}"/>
                                         <hr attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
                                         <group>
-                                            <group>
-                                                <label for="street"
-                                                       string="Address"/>
+                                            <group groups="coop_membership.group_membership_see_associated_people,
+                                                    coop_membership.group_membership_access_user,
+                                                    coop_membership.group_membership_bdm_saisie">
+                                                <label for="street" string="Address"/>
                                                 <div>
                                                     <div class="o_address_format"
                                                          name="div_address">
@@ -476,39 +560,53 @@
                                                        string="Contact Name"
                                                        attrs="{'required' : [('type', '=', 'contact')]}"/>
                                                 <field name="birthdate"
-                                                       widget="date"/>
+                                                       widget="date"
+                                                       groups="coop_membership.group_membership_see_associated_people,
+                                                       coop_membership.group_membership_access_user,
+                                                       coop_membership.group_membership_bdm_saisie"/>
                                                 <field name="age"
-                                                       attrs="{'invisible': [('age', '=', 0)]}"/>
+                                                       attrs="{'invisible': [('age', '=', 0)]}"
+                                                       groups="coop_membership.group_membership_see_associated_people,
+                                                       coop_membership.group_membership_access_user,
+                                                       coop_membership.group_membership_bdm_saisie"/>
                                                 <field name="function"
                                                        placeholder="e.g. Sales Director"
-                                                       attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
+                                                       attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"
+                                                       groups="coop_membership.group_membership_see_associated_people,
+                                                       coop_membership.group_membership_access_user,
+                                                       coop_membership.group_membership_bdm_saisie"/>
                                                 <field name="email"/>
-                                                <field name="phone"
-                                                       widget="phone"/>
-                                                <field name="mobile"
-                                                       widget="phone"/>
-                                                <field name="sex"/>
+                                                <field name="phone" widget="phone"/>
+                                                <field name="mobile" widget="phone"/>
+                                                <field name="sex"
+                                                       groups="coop_membership.group_membership_see_associated_people,
+                                                       coop_membership.group_membership_access_user,
+                                                       coop_membership.group_membership_bdm_saisie"/>
                                                 <field name="comment"
                                                        placeholder="internal note..."
-                                                       attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"/>
+                                                       attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"
+                                                       groups="coop_membership.group_membership_see_associated_people,
+                                                       coop_membership.group_membership_access_user,
+                                                       coop_membership.group_membership_bdm_saisie"/>
                                             </group>
                                         </group>
-                                        <field name="supplier"
-                                               invisible="True"/>
-                                        <field name="customer"
-                                               invisible="True"/>
+                                        <field name="supplier" invisible="True"/>
+                                        <field name="customer" invisible="True"/>
                                         <field name="lang" invisible="True"/>
                                     </sheet>
                                 </form>
                             </field>
                         </page>
-                        <page name="internal_notes" string="Internal Notes">
-                            <field name="comment"
-                                   placeholder="Internal note..."/>
+                        <page name="internal_notes" string="Internal Notes"
+                              groups="coop_membership.group_membership_see_associated_people,
+                              coop_membership.group_membership_access_user">
+                            <field name="comment" placeholder="Internal note..."/>
                         </page>
                         <page name="sales_purchases"
                               string="Sales &amp; Purchases"
-                              groups="coop_membership.group_membership_access_manager,base.group_sale_salesman,purchase.group_purchase_user">
+                              groups="coop_membership.group_membership_access_manager,
+                              base.group_sale_salesman,
+                              purchase.group_purchase_user">
                             <group name="container_row_2">
                                 <group string="Sale" name="sale">
                                     <field name="customer"/>
@@ -598,8 +696,7 @@
                                            widget="selection"/>
                                     <label for="vat"/>
                                     <div name="vat_info" class="o_row">
-                                        <field name="vat"
-                                               placeholder="e.g. BE0477472701"/>
+                                        <field name="vat" placeholder="e.g. BE0477472701"/>
                                     </div>
                                 </group>
                                 <group string="Accounting Entries"
@@ -616,7 +713,9 @@
                             </group>
                         </page>
                         <page name="shifts" string="Shifts"
-                              attrs="{'invisible': [('is_member', '=', False)]}">
+                              attrs="{'invisible': [('is_member', '=', False)]}"
+                              groups="coop_membership.group_membership_access_user,
+                              coop_membership.group_membership_bdm_lecture">
                             <group name="state">
                                 <group name="state1"
                                        groups="coop_shift.group_shift_see_counter">
@@ -693,6 +792,7 @@
                         </page>
                     </notebook>
                 </sheet>
+                <!--TODO: bdm lecture should readonly mail message-->
                 <div class="oe_chatter">
                     <field name="message_follower_ids"
                            widget="mail_followers"/>
@@ -866,8 +966,10 @@
             <tree string="Members">
                 <field name="barcode_base"/>
                 <field name="display_name"/>
-                <field name="phone"/>
-                <field name="email"/>
+                <field name="phone" groups="coop_membership.group_membership_see_associated_people,
+coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_saisie"/>
+                <field name="email" groups="coop_membership.group_membership_see_associated_people,
+coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_saisie"/>
                 <field name="cooperative_state"/>
             </tree>
         </field>
@@ -905,7 +1007,6 @@
             </xpath>
         </field>
     </record>
-
 
     <!-- Todo: To remove this view: It is currently unremovable due to the view data defined in DB -->
     <record model="ir.ui.view" id="view_res_partner_form_base">
@@ -959,7 +1060,7 @@
             <notebook position="inside">
                 <page string="Coop Data" name="coop_data">
                     <group>
-                        <group string="MemberShip">
+                        <group string="MemberShip" >
                             <field name="nb_associated_people"
                                    string="Number of Associated People"
                                    attrs="{'readonly': True, 'invisible': [('is_member','=',False),('is_former_member','=',False)]}"/>
@@ -1021,7 +1122,6 @@
             </tree>
         </field>
     </record>
-
 
     <record id="account.partner_view_button_contracts_count"
             model="ir.ui.view">

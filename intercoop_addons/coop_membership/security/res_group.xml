@@ -6,31 +6,104 @@
 -->
 
 <odoo>
+    <!-- Refactor Employe group -->
+    <!-- Move all current Employee's menus to the new group -->
+    <record model="res.groups" id="group_employee_native_menu">
+        <field name="name">Employee Limit</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="menu_access" eval="[
+            (4, ref('mail.mail_channel_menu_root_chat')),
+            (4, ref('hr_equipment.menu_hr_equipment_form')),
+            (4, ref('hr_equipment.menu_m_request_form')),
+            (4, ref('mail.menu_contacts')),
+            (4, ref('hr.menu_hr_root')),
+            (4, ref('base.menu_board_root'))
+        ]"/>
+    </record>
+
+    <!-- All current groups which are inherited from Employee should be
+    added to Native Employee Menus -->
+    <record model="res.groups" id="coop_shift.group_event_without_menu">
+        <field name="implied_ids"
+               eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="account.group_account_invoice">
+        <field name="implied_ids"
+               eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="base.group_equipment_manager">
+        <field name="implied_ids"
+               eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="base.group_hr_user">
+        <field name="implied_ids"
+               eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="base.group_sale_salesman">
+        <field name="implied_ids"
+               eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="stock.group_stock_user">
+        <field name="implied_ids"
+               eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="purchase.group_purchase_user">
+        <field name="implied_ids"
+               eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="project.group_project_user">
+        <field name="implied_ids"
+               eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="event.group_event_user">
+        <field name="implied_ids"
+               eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <!-- End of refactoring Employe group -->
+
     <record model="ir.module.category" id="module_membership_access_management">
         <field name="name">Membership Management</field>
         <field name="description">Membership Management</field>
         <field name="sequence">10</field>
     </record>
 
+    <!-- This group is just to show the field 'Is Deceased'
+    because it can be viewed by Bdm lecture, but Bdm saisie
+    -->
+    <record model="res.groups" id="group_membership_view_partner_deceased">
+        <field name="name">Group View Partner Deceased</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
     <record model="res.groups" id="group_membership_access_user">
         <field name="name">Membership Viewer</field>
         <field name="category_id" ref="module_membership_access_management"/>
-        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')),
+            (4, ref('coop_membership.group_employee_native_menu')),
+            (4, ref('coop_membership.group_membership_view_partner_deceased'))
+            ]"/>
     </record>
+
     <record model="res.groups" id="group_membership_access_photo">
         <field name="name">Membership Edit Photo</field>
         <field name="category_id" ref="module_membership_access_management"/>
-        <field name="implied_ids" eval="[(4, ref('group_membership_access_user'))]"/>
+        <field name="implied_ids"
+               eval="[(4, ref('group_membership_access_user'))]"/>
     </record>
+
     <record model="res.groups" id="group_membership_access_edit">
         <field name="name">Membership Writer</field>
         <field name="category_id" ref="module_membership_access_management"/>
-        <field name="implied_ids" eval="[(4, ref('group_membership_access_photo'))]"/>
+        <field name="implied_ids"
+               eval="[(4, ref('group_membership_access_photo'))]"/>
     </record>
+
     <record model="res.groups" id="group_membership_access_manager">
         <field name="name">Membership Manager</field>
         <field name="category_id" ref="module_membership_access_management"/>
-        <field name="implied_ids" eval="[(4, ref('group_membership_access_edit'))]"/>
+        <field name="implied_ids"
+               eval="[(4, ref('group_membership_access_edit'))]"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
@@ -46,49 +119,92 @@
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
-
     <record model="res.groups" id="subscriptions_reader">
         <field name="name">See Subscriptions</field>
-        <field name="category_id" ref="category_subscriptions" />
+        <field name="category_id" ref="category_subscriptions"/>
     </record>
 
     <record model="res.groups" id="subscriptions_creator">
         <field name="name">Create Subscriptions</field>
-        <field name="category_id" ref="category_subscriptions" />
-        <field name="implied_ids" eval="[(4, ref('coop_membership.subscriptions_reader'))]" />
+        <field name="category_id" ref="category_subscriptions"/>
+        <field name="implied_ids" eval="[(4, ref('subscriptions_reader'))]"/>
     </record>
 
     <record model="res.groups" id="subscriptions_creator_payment">
         <field name="name">Create Subscriptions and payment</field>
-        <field name="category_id" ref="category_subscriptions" />
-        <field name="implied_ids" eval="[(4, ref('coop_membership.subscriptions_creator'))]" />
+        <field name="category_id" ref="category_subscriptions"/>
+        <field name="implied_ids" eval="[(4, ref('subscriptions_creator'))]"/>
     </record>
 
-    <record model="res.groups" id="subscriptions_can_change_fundraising_category">
+    <record model="res.groups"
+            id="subscriptions_can_change_fundraising_category">
         <field name="name">Can Change Fundraising Category (in Wizard)</field>
-        <field name="category_id" ref="base.module_category_extra" />
+        <field name="category_id" ref="base.module_category_extra"/>
     </record>
 
     <record model="res.groups" id="coop_membership_manager">
         <field name="name">Manage Coop Membership (Full)</field>
-        <field name="category_id" ref="base.module_category_extra" />
+        <field name="category_id" ref="base.module_category_extra"/>
     </record>
 
-    <record model="res.groups" id="group_shift_create_extension_from_attendance">
+    <record model="res.groups"
+            id="group_shift_create_extension_from_attendance">
         <field name="name">Create Extension from Attendance</field>
-        <field name="category_id" ref="coop_shift.module_category_shift_management" />
+        <field name="category_id"
+               ref="coop_shift.module_category_shift_management"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
-	<!-- This group is used for limited sight to menu Associated People -->
+    <!-- This group is used for limited sight to menu Associated People -->
     <record model="res.groups" id="group_membership_see_associated_people">
         <field name="name">See Associated People</field>
-        <field name="category_id" ref="coop_shift.module_category_shift_management" />
+        <field name="category_id"
+               ref="coop_shift.module_category_shift_management"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
-    <record id="base.group_user" model="res.groups">
-        <field name="implied_ids" eval="[(4, ref('group_membership_see_associated_people'))]"/>
-	</record>
+    <!-- Remove See Associated People group from Employee Group -->
+    <record model="res.groups" id="base.group_user">
+        <field name="implied_ids"
+               eval="[(3, ref('group_membership_see_associated_people'))]"/>
+    </record>
+    <!-- Add See Associated People to Employee Native Menu  -->
+    <record id="coop_membership.group_employee_native_menu" model="res.groups">
+        <field name="implied_ids"
+               eval="[(4, ref('group_membership_see_associated_people'))]"/>
+    </record>
 
+    <!-- See all members -->
+    <record model="res.groups" id="group_membership_see_all_members">
+        <field name="name">See All Members</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <!-- Bdm lecture - Read-only profile -->
+    <record model="res.groups" id="group_membership_bdm_lecture">
+        <field name="name">Membership Read</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Bdm presence - Attendance-only data entry profile -->
+    <record model="res.groups" id="group_membership_bdm_presence">
+        <field name="name">Membership Attendances</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="implied_ids"
+               eval="[(4, ref('group_membership_bdm_lecture')), (4, ref('coop_membership.group_shift_create_extension_from_attendance'))]"/>
+    </record>
+
+    <record model="res.groups"
+            id="coop_membership.group_membership_view_partner_deceased">
+        <field name="implied_ids" eval="[(4, ref('group_membership_bdm_lecture')), (4, ref('coop_membership.group_shift_create_extension_from_attendance'))]"/>
+    </record>
+
+    <!-- Bdm saisie - Comprehensive data entry profile -->
+    <record model="res.groups" id="group_membership_bdm_saisie">
+        <field name="name">Membership Data Entry</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
 </odoo>

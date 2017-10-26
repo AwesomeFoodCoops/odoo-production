@@ -26,6 +26,8 @@ class ShiftShift(models.Model):
         ('draft', 'Unconfirmed'), ('cancel', 'Cancelled'),
         ('confirm', 'Confirmed'), ('entry', 'Entry'), ('done', 'Done')])
 
+    shift_name_read = fields.Char(related='name')
+
     @api.multi
     def button_done(self):
         """

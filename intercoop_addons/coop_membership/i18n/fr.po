@@ -559,7 +559,7 @@ msgid "Replaced"
 msgstr "Remplacé"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_shift.py:46
+#: code:addons/coop_membership/models/shift_shift.py:81
 #, python-format
 msgid "Shift Cloture"
 msgstr "Clôlturer le service"
@@ -1060,7 +1060,7 @@ msgid "Leaves"
 msgstr "Congés"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_shift.py:46
+#: code:addons/coop_membership/models/shift_shift.py:49
 #, python-format
 msgid "Warning! You have not recorded the attendance for: \n"
 "\n"
@@ -1070,7 +1070,7 @@ msgstr "Attention ! Vous n'avez pas renseigné la présence pour le: \n"
 "%s"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:260
+#: code:addons/coop_membership/models/shift_registration.py:259
 #, python-format
 msgid "Warning! You cannot enter make-ups of the following members as they are up-to-date: \n"
 "\n"
@@ -1098,3 +1098,18 @@ msgstr "Nombre de rattachés"
 #: model:ir.ui.view,arch_db:coop_membership.view_partner_form
 msgid "Number of Former Associated People"
 msgstr "Nombre de anciennes personnes rattachés"
+
+#. module: coop_membership
+#: model:res.groups,name:coop_membership.group_membership_bdm_lecture
+msgid "Membership Read"
+msgstr "Bdm Lecture"
+
+#. module: coop_membership
+#: model:res.groups,name:coop_membership.group_membership_bdm_presence
+msgid "Membership Attendances"
+msgstr "Bdm Présences"
+
+#. module: coop_membership
+#: model:res.groups,name:coop_membership.group_membership_bdm_saisie
+msgid "Membership Data Enty"
+msgstr "Bdm Saisie"
