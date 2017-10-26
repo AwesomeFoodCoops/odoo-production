@@ -1,12 +1,6 @@
 <?xml version="1.0"?>
-<!--
-    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
-
 <odoo>
-
+    <!-- Views -->
     <record model="ir.ui.view" id="view_res_partner_generate_barcode_wizard_form">
         <field name="model">res.partner.generate.barcode.wizard</field>
         <field name="arch" type="xml">
@@ -23,4 +17,13 @@
         </field>
     </record>
 
+    <!-- Actions -->
+    <record model="ir.actions.act_window" id="action_res_partner_generate_barcode_wizard">
+        <field name="name">Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.generate.barcode.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 </odoo>

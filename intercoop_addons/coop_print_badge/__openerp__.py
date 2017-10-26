@@ -18,6 +18,7 @@
         'report',
     ],
     'data': [
+        'views/view_res_partner.xml',
         'data/report_paperformat.xml',
         'data/ir_config_parameter_data.xml',
         'views/badge_to_print_views.xml',

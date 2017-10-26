@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.actions.act_window"
+            id="coop_capital_certificate.create_capital_certificate_action">
+        <field name="groups_id" eval="[(6, 0, [
+            ref('base.group_partner_manager'),
+            ref('coop_membership.group_membership_access_user'),
+            ref('coop_shift.group_shift_user')
+            ])]"/>
+    </record>
+</odoo>

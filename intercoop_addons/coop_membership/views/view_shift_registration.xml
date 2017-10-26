@@ -49,6 +49,43 @@
                 <xpath expr="//button[@name='action_create_extension']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
+
+                <button name="button_reg_close" position="attributes">
+                    <attribute name="groups">coop_shift.group_shift_user,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
+                </button>
+                <button name="confirm_registration" position="attributes">
+                    <attribute name="groups">coop_shift.group_shift_manager,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
+                </button>
+                <button name="button_reg_absent" position="attributes">
+                    <attribute name="groups">coop_shift.group_shift_user,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
+                </button>
+                <button name="button_reg_cancel" position="attributes">
+                    <attribute name="groups">coop_shift.group_shift_manager,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
+                </button>
+                <button name="button_reg_excused" position="attributes">
+                    <attribute name="groups">coop_shift.group_shift_user,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
+                </button>
+                <button name="do_draft" position="attributes">
+                    <attribute name="groups">coop_shift.group_shift_manager,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
+                </button>
+                <xpath expr="//button[@name=%(coop_shift.action_replace_registration)d]" position="attributes">
+                    <attribute name="groups">coop_shift.group_shift_user,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
+                </xpath>
+
                 <xpath expr="//button[@name=%(coop_shift.action_replace_registration)d]" position="after">
                     <button name="action_create_extension"
                             string="Create Extension until next regular shift" type="object" icon="fa-expand fa-lg"
@@ -123,29 +160,13 @@
             </field>
         </record>
 
-        <!-- Views -->
-        <!--<record id="view_shift_registration_tree_access_rights_inherit" model="ir.ui.view">-->
-            <!--<field name="name">shift.registration.tree.inherit</field>-->
-            <!--<field name="model">shift.registration</field>-->
-            <!--<field name="inherit_id" ref="coop_membership.view_shift_registration_tree_inherit"/>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<button name="action_create_extension" position="attributes">-->
-                    <!--<attribute name="groups">coop_membership.group_shift_create_extension_from_attendance</attribute>-->
-                    <!--<attribute name="attrs">{'invisible': ['|', ('related_shift_state', '!=', 'entry'), ('related_extension_id', '!=', False)]}</attribute>-->
-                <!--</button>-->
-            <!--</field>-->
-        <!--</record>-->
-
-        <!--<record id="view_shift_registration_tree_confirm_one2many_inherit" model="ir.ui.view">-->
-            <!--<field name="name">shift.registration.tree.confirm.one2many.inherit</field>-->
-            <!--<field name="model">shift.registration</field>-->
-            <!--<field name="inherit_id" ref="coop_membership.view_shift_registration_tree_confirm_one2many"/>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<button name="action_create_extension" position="attributes">-->
-                    <!--<attribute name="groups">coop_membership.group_shift_create_extension_from_attendance</attribute>-->
-                <!--</button>-->
-            <!--</field>-->
-        <!--</record>-->
+        <record model="ir.ui.view"
+                id="coop_shift.view_shift_template_registration_line_tree_futurechanges">
+            <field name="groups_id" eval="[
+                (4, ref('coop_shift.group_shift_future_changes')),
+                (4, ref('coop_membership.group_membership_bdm_saisie'))
+            ]"/>
+        </record>
 
     </data>
 </openerp>
