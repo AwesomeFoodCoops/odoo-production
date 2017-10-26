@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="coop_membership.view_shift_extension_form_create" model="ir.ui.view">
+        <field name="groups_id" eval="[(4, ref('coop_badge_reader.group_manager'))]"/>
+    </record>
+
+    <record id="coop_membership.view_shift_extension_tree_create" model="ir.ui.view">
+        <field name="groups_id" eval="[(4, ref('coop_badge_reader.group_manager'))]"/>
+    </record>
+
+</odoo>

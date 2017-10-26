@@ -23,6 +23,7 @@
         'views/view_res_partner.xml',
         'views/view_res_partner_move.xml',
         'views/view_shift_extension_type.xml',
+        'views/view_shift_extension.xml',
         'views/action.xml',
         'views/menu.xml',
     ],
