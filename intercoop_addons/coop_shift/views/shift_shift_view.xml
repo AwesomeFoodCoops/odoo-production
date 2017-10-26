@@ -49,7 +49,6 @@
                                 <field name="date_end" string="End"/>
                             </group>
                             <group groups="base.group_no_one">
-                                <field name="address_id" context="{'show_address': 1}" options='{"always_reload": True}'/>
                                 <!-- <field name="organizer_id"/> -->
                                 <field name="company_id" groups="base.group_multi_company"/>
                             </group>
