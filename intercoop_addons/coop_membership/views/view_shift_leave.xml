@@ -13,6 +13,15 @@
             <field name="partner_id" position="attributes">
                 <attribute name="domain">[('is_worker_member', '=', True)]</attribute>
             </field>
+            <xpath expr="//sheet/notebook" position="before">
+                <field name="show_alert_proposed_date" invisible="1"/>
+                <p class="alert alert-warning" attrs="{'invisible':['|', ('show_alert_proposed_date','=',False), ('state', '!=', 'draft')]}">
+                    <field name='alert_message' nolabel='1'/>
+                    <button string="Accept" name="btn_confirm_propose" type="object" default_focus="1" class="btn-primary"/>
+                    or
+                    <button string="Cancel" name="btn_cancel_propose" class="btn-default" type="object"/>
+                </p>
+            </xpath>
         </field>
     </record>
 

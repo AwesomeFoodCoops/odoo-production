@@ -433,26 +433,17 @@ class ResPartner(models.Model):
         return res
 
     @api.multi
-    def get_next_shift_date(self):
+    def get_next_shift_date(self, start_date=None):
         '''
         @Function to get Next Shift Date of a member
         '''
         self.ensure_one()
-        shift_registration_env = self.env['shift.registration']
+        shift_reg = self.get_next_shift(start_date)
+        if not shift_reg:
+            return False, False
 
-        # Search for next shifts
-        shift_regs = shift_registration_env.search([
-            ('partner_id', '=', self.id),
-            ('template_created', '=', True),
-            ('date_begin', '>=', fields.Datetime.now())
-        ])
-
-        next_shift_time = False
+        next_shift_time = shift_reg.date_begin
         next_shift_date = False
-        if shift_regs:
-            # Sorting found shift
-            shift_regs = shift_regs.sorted(key=lambda shift: shift.date_begin)
-            next_shift_time = shift_regs[0].date_begin
 
         # Convert Next Shift Time into Local Time
         if next_shift_time:
@@ -466,6 +457,27 @@ class ResPartner(models.Model):
             next_shift_date = start_date_object_tz.strftime('%Y-%m-%d')
 
         return next_shift_time, next_shift_date
+
+    @api.multi
+    def get_next_shift(self, start_date=None):
+        shift_registration_env = self.env['shift.registration']
+        for partner in self:
+            start_date = start_date or fields.Datetime.now()
+
+            # Search for next shifts
+            shift_regs = shift_registration_env.search([
+                ('partner_id', '=', partner.id),
+                ('template_created', '=', True),
+                ('date_begin', '>=', start_date)
+            ])
+
+            if shift_regs:
+                # Sorting found shift
+                shift_regs = shift_regs.sorted(
+                    key=lambda shift: shift.date_begin)
+                return shift_regs[0]
+
+        return False
 
     @api.multi
     def _compute_related_user(self):
@@ -504,4 +516,5 @@ class ResPartner(models.Model):
             'views': [(self.env.ref("base.view_users_form").id, 'form')],
             'type': 'ir.actions.act_window',
         }
+
 
