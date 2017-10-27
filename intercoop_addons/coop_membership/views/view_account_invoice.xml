@@ -17,4 +17,42 @@
         </field>
     </record>
 
+    <!-- Create new action to refund Capital Subscription
+    For the time being, point on account.invoice.refund model, waiting
+    for louve specifications -->
+    <record id="action_account_invoice_refund_capital_subscription" model="ir.actions.act_window">
+        <field name="name">Refund Capital Subscription</field>
+        <field name="res_model">account.invoice.refund</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id"
+               ref="capital_subscription.view_account_invoice_refund_capital_subscription_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_account_invoice_form">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <!-- Hide classical refund button for capital subscription-->
+            <xpath expr="//button[@name='%(account.action_account_invoice_refund)d']"
+                   position="attributes">
+                <attribute name="attrs">{'invisible':
+                    ['|', '|', ('type', '=', 'out_refund'),
+                    ('state', 'not in', ('open','proforma2','paid')),
+                    ('is_capital_fundraising', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='%(account.action_account_invoice_refund)d']"
+                   position="after">
+                <button name="%(action_account_invoice_refund_capital_subscription)d"
+                        type='action'
+                        string='Refund Capital Subscription'
+                        groups="coop_membership.group_refund_capital_subscription"
+                        attrs="{'invisible': ['|', '|', ('type', '=', 'out_refund'),
+                        ('state', 'not in', ('paid')),
+                        ('is_capital_fundraising', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>

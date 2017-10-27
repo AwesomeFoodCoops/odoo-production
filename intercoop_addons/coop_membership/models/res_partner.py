@@ -126,6 +126,13 @@ class ResPartner(models.Model):
         compute="_compute_number_of_associated_people",
         store=True)
 
+    related_user_id = fields.Many2one('res.users',
+                                      compute="_compute_related_user",
+                                      string="Related User")
+    parent_member_num = fields.Integer(string="Parent Number",
+                                       related='parent_id.barcode_base',
+                                       store=True)
+
     # Constraint Section
     @api.multi
     @api.constrains('is_member',
@@ -426,26 +433,17 @@ class ResPartner(models.Model):
         return res
 
     @api.multi
-    def get_next_shift_date(self):
+    def get_next_shift_date(self, start_date=None):
         '''
         @Function to get Next Shift Date of a member
         '''
         self.ensure_one()
-        shift_registration_env = self.env['shift.registration']
+        shift_reg = self.get_next_shift(start_date)
+        if not shift_reg:
+            return False, False
 
-        # Search for next shifts
-        shift_regs = shift_registration_env.search([
-            ('partner_id', '=', self.id),
-            ('template_created', '=', True),
-            ('date_begin', '>=', fields.Datetime.now())
-        ])
-
-        next_shift_time = False
+        next_shift_time = shift_reg.date_begin
         next_shift_date = False
-        if shift_regs:
-            # Sorting found shift
-            shift_regs = shift_regs.sorted(key=lambda shift: shift.date_begin)
-            next_shift_time = shift_regs[0].date_begin
 
         # Convert Next Shift Time into Local Time
         if next_shift_time:
@@ -459,3 +457,64 @@ class ResPartner(models.Model):
             next_shift_date = start_date_object_tz.strftime('%Y-%m-%d')
 
         return next_shift_time, next_shift_date
+
+    @api.multi
+    def get_next_shift(self, start_date=None):
+        shift_registration_env = self.env['shift.registration']
+        for partner in self:
+            start_date = start_date or fields.Datetime.now()
+
+            # Search for next shifts
+            shift_regs = shift_registration_env.search([
+                ('partner_id', '=', partner.id),
+                ('template_created', '=', True),
+                ('date_begin', '>=', start_date)
+            ])
+
+            if shift_regs:
+                # Sorting found shift
+                shift_regs = shift_regs.sorted(
+                    key=lambda shift: shift.date_begin)
+                return shift_regs[0]
+
+        return False
+
+    @api.multi
+    def _compute_related_user(self):
+        """
+        Function to compute the related user of the partner
+        """
+        res_user_env = self.env["res.users"]
+        for partner in self:
+            related_users = res_user_env.search(
+                [('partner_id', '=', partner.id)])
+            partner.related_user_id = \
+                related_users and related_users[0] or False
+
+    @api.multi
+    def action_create_new_user(self):
+        """
+        Function to activate the User Creation Form
+        """
+        self.ensure_one()
+
+        # Prepare context for default value
+        context = self.env.context.copy()
+        context.update({
+            'default_partner_id': self.id,
+            'default_name': self.name,
+            'default_login': self.email,
+            'default_email': self.email
+        })
+
+        return {
+            'name': _('Create New User'),
+            'context': context,
+            'view_type': 'form',
+            'view_mode': 'tree',
+            'res_model': 'res.users',
+            'views': [(self.env.ref("base.view_users_form").id, 'form')],
+            'type': 'ir.actions.act_window',
+        }
+
+
