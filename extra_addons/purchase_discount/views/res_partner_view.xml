@@ -6,7 +6,8 @@
         <field name="inherit_id" ref="account.view_partner_property_form"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='acc_purchase']" position="inside">
-                <field name="discount_computation" attrs="{'required': [('supplier', '=', True)]}"/>
+                <field name="discount_computation"
+                       attrs="{'required': [('supplier', '=', True), ('company_type', '=', 'company')]}"/>
             </xpath>
         </field>
     </record>
