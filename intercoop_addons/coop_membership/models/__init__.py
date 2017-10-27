@@ -15,3 +15,5 @@ from . import shift_extension
 from . import shift_extension_type
 from . import res_config
 from . import res_users
+from . import shift_leave_type
+from . import shift_leave
