@@ -26,4 +26,49 @@
 <p><b>Phone</b> : 01 86 95 91 90</p>
 ]]></field>
     </record>
+
+    <record id="louve_abcd_leave_email" model="mail.template">
+        <field name="name">Letter for Classique/ABCD members</field>
+        <field name="model_id" ref="coop_membership.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">${object.partner_id.company_id.email|safe}</field>
+        <field name="subject">Confirmation de votre demande de congé</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour ${object.partner_id.name}</p>
+<br/>
+<p>Nous avons enregistré votre congé temporaire du ${object.start_date} au ${object.stop_date}. Pendant cette période vous n’avez pas besoin de venir faire vos services à La Louve, et vous ne pourrez y faire vos courses.</p>
+<p>Nous avons peut être prolongé la durée de votre congé par rapport à votre demande. La reprise des achats suite à un congé temporaire est possible lorsque vous reprenez votre participation, c'est-à-dire lorsque vous vous présentez à votre service à La Louve. La date de votre 1er service après le congé est donc le ${object.return_date}.</p>
+<br/>
+<p>Bonne journée,</p>
+<br/>
+<p>L a  L o u v e, </p>
+<p>Bureau des membres</p>
+]]>
+        </field>
+    </record>
+
+    <record id="louve_ftop_leave_email" model="mail.template">
+        <field name="name">Letter for Volant/FTOP members</field>
+        <field name="model_id" ref="coop_membership.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">${object.partner_id.company_id.email|safe}</field>
+        <field name="subject">Confirmation de votre demande de congé</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour ${object.partner_id.name}</p>
+<br/>
+<p>Nous avons enregistré votre congé temporaire du ${object.start_date} au ${object.stop_date}. Pendant cette période vous n’avez pas besoin de venir faire vos services à La Louve, et vous ne pourrez y faire vos courses.</p>
+<p>Nous avons peut être prolongé la durée de votre congé par rapport à votre demande car votre date de retour proposée était trop proche du jour de décompte de l’équipe volante. N’oubliez pas que vous devez avoir fait un service avant le jeudi de semaine A qui suit votre retour à La Louve${object.shift_date_after_return and (', le ' + str(object.shift_date_after_return)) or ''}.</p>
+<br/>
+<p>Bonne journée,</p>
+<br/>
+<p>L a  L o u v e, </p>
+<p>Bureau des membres</p>
+]]>
+        </field>
+    </record>
+
 </odoo>

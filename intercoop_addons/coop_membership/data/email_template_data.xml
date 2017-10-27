@@ -20,8 +20,46 @@
         <field name="subject">You have been unsubscribed from your team</field>
         <field name="body_html"><![CDATA[
             <p>Dear ${object.name},</p>
-            <p>You missed 2 consecutive programmed shifts and did not come to a make-up in-between. You have been unsubscribed from your team. The &quot;Unsubscribed&quot; status will show when you swipe your badge at the shop. This does not allow you to shop at your favorite co-op. 
+            <p>You missed 2 consecutive programmed shifts and did not come to a make-up in-between. You have been unsubscribed from your team. The &quot;Unsubscribed&quot; status will show when you swipe your badge at the shop. This does not allow you to shop at your favorite co-op.
 If you think there was a mistake or wish to subscribe to another team please contact us as soon as possible.</p>
             ]]></field>
+    </record>
+
+    <record id="coop_abcd_leave_email" model="mail.template">
+        <field name="name">Letter for Classique/ABCD members</field>
+        <field name="model_id" ref="coop_membership.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">${object.partner_id.company_id.email|safe}</field>
+        <field name="subject">Confirmation of your leave request</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.partner_id.name}</p>
+<br/>
+<p>We have registered your temporary leave from ${object.start_date} to ${object.stop_date}. During this period, you do not need to come and you will not be able to go shopping.</p>
+<p>We may have extended the duration of your requested leave. You will be able to continue shopping when you come for a shift. The date of your first shift after leave is ${object.return_date}.</p>
+<br/>
+<p>Have a good day,</p>
+]]>
+        </field>
+    </record>
+
+    <record id="coop_ftop_leave_email" model="mail.template">
+        <field name="name">Letter for Volant/FTOP members</field>
+        <field name="model_id" ref="coop_membership.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">${object.partner_id.company_id.email|safe}</field>
+        <field name="subject">Confirmation de votre demande de congé</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.partner_id.name}</p>
+<br/>
+<p>We have registered your temporary leave from ${object.start_date} to ${object.stop_date}. During this period, you do not need to come and you will not be able to go shopping.</p>
+<p>We may have extended the duration of your requested leave because your proposed return date is too closed to the shift of FTOP team. Remember that you have to be on the shift that follows your return${object.shift_date_after_return and (' on ' + str(object.shift_date_after_return)) or ''}.</p>
+<br/>
+<p>Have a good day,</p>
+]]>
+        </field>
     </record>
 </odoo>

@@ -20,7 +20,7 @@ class AccountFullReconcile(models.Model):
             invoices = reconcile.mapped('reconciled_line_ids.invoice_id')
 
             # Do not create any extra entry for capital refund
-            if invoices[0].type == 'out_refund':
+            if not invoices or invoices[0].type == 'out_refund':
                 continue
 
             if len(category_ids) > 1:

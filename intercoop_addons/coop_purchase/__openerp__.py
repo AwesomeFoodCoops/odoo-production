@@ -13,9 +13,14 @@
         'base',
         'account',
         'purchase',
+        'purchase_package_qty',
+        'purchase_compute_order',
+        'coop_product_coefficient',
     ],
     'data': [
         'views/purchase_view.xml',
+        'views/purchase_config_settings_view.xml',
+        'views/actions.xml',
         'views/menu.xml'
     ],
     'installable': True,

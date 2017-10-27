@@ -17,6 +17,16 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="view_coop_membership_res_partner_form">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="date_delay_stop" position="after">
+                <field name="next_shift_time"/>
+            </field>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="view_res_partner_tree">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree"/>

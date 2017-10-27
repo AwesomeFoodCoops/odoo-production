@@ -1,0 +1,569 @@
+################################################################################
+#    See __openerp__.py file for Copyright and Licence Informations.
+################################################################################
+
+-
+  Creating a ir.model.access record
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_template_registration_line_access}:
+    group_id: coop_membership.group_membership_access_user
+    model_id: coop_shift.model_shift_template_registration_line
+    name: shift_template_registration_line user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_sale_order_access}:
+    group_id: coop_membership.group_membership_access_user
+    model_id: sale.model_sale_order
+    name: cmar sale user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_purchase_order_access}:
+    group_id: coop_membership.group_membership_access_user
+    model_id: purchase.model_purchase_order
+    name: cmar purchase user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_account_invoice_access}:
+    group_id: coop_membership.group_membership_access_user
+    model_id: account.model_account_invoice
+    name: cmar invoice user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_account_move_line_access}:
+    group_id: coop_membership.group_membership_access_user
+    model_id: account.model_account_move_line
+    name: cmar move_line user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_leave_access}:
+    group_id: coop_membership.group_membership_access_user
+    model_id: coop_shift.model_shift_leave
+    name: cmar leave user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_capital_access}:
+    group_id: coop_membership.group_membership_access_user
+    model_id: capital_subscription.model_capital_fundraising_partner_type
+    name: cmar capital user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_extension_access}:
+    group_id: coop_membership.group_membership_access_user
+    model_id: coop_shift.model_shift_extension
+    name: cmar extension user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_registration_access}:
+    group_id: coop_membership.group_membership_access_user
+    model_id: coop_shift.model_shift_registration
+    name: shift_registration user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_shift_access}:
+    group_id: coop_membership.group_membership_access_user
+    model_id: coop_shift.model_shift_shift
+    name: shift_shift user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_registration_edit}:
+    group_id: coop_membership.group_membership_access_edit
+    model_id: coop_shift.model_shift_registration
+    name: shift_registration writer
+    perm_create: false
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_shift_edit}:
+    group_id: coop_membership.group_membership_access_edit
+    model_id: coop_shift.model_shift_shift
+    name: shift_shift edit
+    perm_create: false
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_mail_access}:
+    group_id: coop_membership.group_membership_access_edit
+    model_id: coop_shift.model_shift_mail
+    name: shift_mail user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_ticket_access}:
+    group_id: coop_membership.group_membership_access_edit
+    model_id: coop_shift.model_shift_ticket
+    name: shift_ticket edit
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_type_edit}:
+    group_id: coop_membership.group_membership_access_edit
+    model_id: coop_shift.model_shift_type
+    name: shift_type access
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_mail_registration_access}:
+    group_id: coop_membership.group_membership_access_edit
+    model_id: coop_shift.model_shift_mail_registration
+    name: shift_mail_registration access
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: ir_model_access_shift_mail_access}:
+    group_id: coop_membership.group_membership_access_edit
+    model_id: coop_shift.model_shift_mail
+    name: shift_mail access
+    perm_create: false
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+# Groups of BDM lecture
+-
+  !record {model: ir.model.access, id: bdm_lecture_shift_tmpl_line_readonly}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: coop_shift.model_shift_template_registration_line
+    name: bdm.lecture.shift.tmpl.line.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_lecture_sale_order_readonly}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: sale.model_sale_order
+    name: bdm.lecture.sale.order.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_lecture_purchase_order_readonly}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: purchase.model_purchase_order
+    name: bdm.lecture.purchase.order.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_lecture_invoice_readonly}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: account.model_account_invoice
+    name: bdm.lecture.invoice.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_lecture_journal_item_readonly}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: account.model_account_move_line
+    name: bdm.lecture.journal.item.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_lecture_shift_leave_readonly}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: coop_shift.model_shift_leave
+    name: bdm.lecture.shift.leave.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_lecture_capital_fund_readonly}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: capital_subscription.model_capital_fundraising_partner_type
+    name: bdm.lecture.capital.fund.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_lecture_ext_readonly}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: coop_shift.model_shift_extension
+    name: bdm.lecture.ext.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_lecture_reg_readonly}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: coop_shift.model_shift_registration
+    name: bdm.lecture.shift.registration.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_lecture_shift_readonly}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: coop_shift.model_shift_shift
+    name: bdm.lecture.shift.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_lecture_shift_template}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: coop_shift.model_shift_template
+    name: bdm.lecture.shift.template
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+# Groups of BDM presence
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_reg_edit}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_shift.model_shift_registration
+    name: bdm.presence.shift.reg.edit
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_edit}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_shift.model_shift_shift
+    name: bdm.presence.shift.edit
+    perm_create: false
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_mail_edit}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_shift.model_shift_mail
+    name: bdm.presence.shift.mail.edit
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_ticket_access}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_shift.model_shift_ticket
+    name: bdm.presence.shift.ticket.access
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_type_access}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_shift.model_shift_type
+    name: bdm.presence.shift.type.access
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_mail_reg_access}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_shift.model_shift_mail_registration
+    name: bdm.presence.shift.mail.reg.access
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_template_ticket_user}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_shift.model_shift_template_ticket
+    name: bdm.presence.shift.template.ticket.user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_template_registration_line_user}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_shift.model_shift_template_registration_line
+    name: bdm.presence.shift.template.registration.line.user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_template_registration_user}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_shift.model_shift_template_registration
+    name: bdm.presence.shift.template.registration.user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_extension_user}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_shift.model_shift_extension
+    name: bdm.presence.shift.extension.user
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_extension_type_user}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_shift.model_shift_extension_type
+    name: bdm.presence.shift.extension.type.user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_presence_mail_message}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: mail.model_mail_message
+    name: bdm.presence.mail.message
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
+# Groups of BDM saisie
+-
+  !record {model: ir.model.access, id: bdm_saisie_res_partner_group_partner_manager}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: base.model_res_partner
+    name: bdm.saisie.res.partner.group.partner.manager
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_template_registration_line_user}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_template_registration_line
+    name: bdm.saisie.shift.template.registration.line.user
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_leave_manager}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_leave
+    name: bdm.saisie.shift.leave.manager
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_leave_type_manager}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_leave_type
+    name: bdm.saisie.shift.leave.type.manager
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_template}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_template
+    name: bdm.saisie.shift.template
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_template_registration}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_template_registration
+    name: bdm.saisie.shift.template.registration
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+#Similar with BDM lecture
+-
+  !record {model: ir.model.access, id: bdm_saisie_sale_order_readonly}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: sale.model_sale_order
+    name: bdm.saisie.sale.order.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_purchase_order_readonly}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: purchase.model_purchase_order
+    name: bdm.saisie.purchase.order.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_invoice_readonly}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: account.model_account_invoice
+    name: bdm.saisie.invoice.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_journal_item_readonly}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: account.model_account_move_line
+    name: bdm.saisie.journal.item.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_capital_fund_readonly}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: capital_subscription.model_capital_fundraising_partner_type
+    name: bdm.saisie.capital.fund.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+#Similar with Bdm presence
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_reg_edit}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_registration
+    name: bdm.saisie.shift.reg.edit
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_edit}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_shift
+    name: bdm.saisie.shift.edit
+    perm_create: false
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_mail_edit}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_mail
+    name: bdm.saisie.shift.mail.edit
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_ticket_access}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_ticket
+    name: bdm.saisie.shift.ticket.access
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_type_access}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_type
+    name: bdm.saisie.shift.type.access
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_mail_reg_access}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_mail_registration
+    name: bdm.saisie.shift.mail.reg.access
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_template_ticket_user}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_template_ticket
+    name: bdm.saisie.shift.template.ticket.user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_template_registration_user}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_template_registration
+    name: bdm.saisie.shift.template.registration.user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_extension_user}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_extension
+    name: bdm.saisie.shift.extension.user
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_extension_type_user}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_shift.model_shift_extension_type
+    name: bdm.saisie.shift.extension.type.user
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_mail_message}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: mail.model_mail_message
+    name: bdm.saisie.mail.message
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
