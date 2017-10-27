@@ -103,6 +103,7 @@ msgstr "Peux changer la catégorie de titre"
 
 #. module: coop_membership
 #: model:ir.ui.view,name:coop_membership.view_res_partner_generate_barcode_wizard_form
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_leave_form
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -1118,3 +1119,70 @@ msgstr "Bdm Saisie"
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner_parent_member_num
 msgid "Parent Number"
 msgstr "Numéro parent"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_leave_form
+msgid "Accept"
+msgstr "Accepter"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_leave_type_is_temp_leave
+msgid "Temporary Leave"
+msgstr "Congé Temporaire"
+
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_leave.py:62
+#, python-format
+msgid "You have inputted <b><i>{end_date}</i></b> as the end date of the temporary leave for <b><i>{partner}</i></b>. But a better date would be <b><i>{proposed_date}</i></b> which is one day before the shift <b><i>{shift}</i></b>. Do you accept the proposed date?"
+msgstr "Vous avez saisi le <b><i>{end_date}</i></b> comme date de fin du congé temporaire pour <b><i>{partner}</i></b>. Mais une date plus appropriée serait le <b><i>{proposed_date}</i></b>, soit un jour avant le service <b><i>{shift}</i></b>. Ok?"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_leave.py:73
+#, python-format
+msgid "You have inputted <b><i>{end_date}</i></b> as the end date of the temporary leave for <b><i>{partner}</i></b>. But a better date would be <b><i>{proposed_date}</i></b> which is one day after the shift <b><i>{shift}</i></b>. Do you accept the proposed date?"
+msgstr "Vous avez saisi le <b><i>{end_date}</i></b> comme date de fin du congé temporaire pour <b><i>{partner}</i></b>. Mais une date plus appropriée serait le <b><i>{proposed_date}</i></b>, soit un jour après le service <b><i>{shift}</i></b>. Ok?"
+
+#. module: coop_membership
+#: model:mail.template,subject:coop_membership.coop_abcd_leave_email
+msgid "Confirmation of your leave request"
+msgstr "Confirmation de votre demande de congé"
+
+#. module: coop_membership
+#: model:mail.template,body_html:coop_membership.coop_abcd_leave_email
+msgid "\n"
+"<p>Hello ${object.partner_id.name}</p>\n"
+"\n"
+"<p>We have registered your temporary leave from ${object.start_date} to ${object.stop_date}. During this period, you do not need to come and you will not be able to go shopping.</p>\n"
+"<p>We may have extended the duration of your requested leave. You will be able to continue shopping when you come for a shift. The date of your first shift after leave is ${object.return_date}.</p>\n"
+"\n"
+"<p>Have a good day,</p>"
+msgstr "\n"
+"<p>Bonjour ${object.partner_id.name}</p>\n"
+"\n"
+"<p>Nous avons enregistré votre congé temporaire du ${object.start_date} au ${object.stop_date}. Pendant cette période vous n’avez pas besoin de venir faire vos services, et vous ne pourrez y faire vos courses.</p>\n"
+"<p>Nous avons peut être prolongé la durée de votre congé par rapport à votre demande. La reprise des achats suite à un congé temporaire est possible lorsque vous reprenez votre participation, c'est-à-dire lorsque vous vous présentez à votre service à La Louve. La date de votre 1er service après le congé est donc le ${object.return_date}.</p>\n"
+"\n"
+"<p>Bonne journée,</p>"
+
+#. module: coop_membership
+#: model:mail.template,subject:coop_membership.coop_ftop_leave_email
+msgid "Confirmation of your leave request"
+msgstr "Confirmation de votre demande de congé"
+
+#. module: coop_membership
+#: model:mail.template,body_html:coop_membership.coop_ftop_leave_email
+msgid "\n"
+"<p>Hello ${object.partner_id.name}</p>\n"
+"\n"
+"<p>We have registered your temporary leave from ${object.start_date} to ${object.stop_date}. During this period, you do not need to come and you will not be able to go shopping.</p>\n"
+"<p>We may have extended the duration of your requested leave because your proposed return date is too closed to the shift of FTOP team. Remember that you have to be on the shift that follows your return${object.shift_date_after_return and (' on ' + str(object.shift_date_after_return)) or ''}.</p>\n"
+"\n"
+"<p>Have a good day,</p>"
+msgstr "\n"
+"<p>Bonjour ${object.partner_id.name}</p>\n"
+"\n"
+"<p>Nous avons enregistré votre congé temporaire du ${object.start_date} au ${object.stop_date}. Pendant cette période vous n’avez pas besoin de venir faire vos services, et vous ne pourrez y faire vos courses.</p>\n"
+"<p>Nous avons peut être prolongé la durée de votre congé par rapport à votre demande car votre date de retour proposée était trop proche du jour de décompte de l’équipe volante. N’oubliez pas que vous devez avoir fait un service qui suit votre retour${object.shift_date_after_return and (', le ' + str(object.shift_date_after_return)) or ''}.</p>\n"
+"\n"
+"<p>Bonne journée,</p>"

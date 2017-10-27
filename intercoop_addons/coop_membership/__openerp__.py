@@ -48,7 +48,7 @@
         'views/view_shift_registration.xml',
         'views/view_shift_shift.xml',
         'views/res_config_view.xml',
-
+	'views/view_shift_leave_type.xml',
         'views/account_view.xml',
         'views/capital_subscription_view.xml',
         'views/event_view.xml',
