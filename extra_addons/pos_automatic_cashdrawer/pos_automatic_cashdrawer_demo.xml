@@ -4,8 +4,8 @@
 
 <record id="point_of_sale.pos_config_main" model="pos.config">
     <field name="iface_automatic_cashdrawer" eval="True"/>
-    <field name="iface_automatic_cashdrawer_ip_address" eval="127.0.0.1"/>
-    <field name="iface_automatic_cashdrawer_tcp_port" eval="8094"/>
+    <field name="iface_automatic_cashdrawer_ip_address" >127.0.0.1</field>
+    <field name="iface_automatic_cashdrawer_tcp_port" >8094</field>
 </record>
 
 </data>
