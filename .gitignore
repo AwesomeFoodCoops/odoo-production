@@ -85,3 +85,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+anybox.recipe.odoo/
+bin/
+etc/
