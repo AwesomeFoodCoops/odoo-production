@@ -377,7 +377,6 @@ class ProductTemplate(models.Model):
     @api.multi
     @api.depends('theoritical_price', 'list_price')
     def _compute_has_theoritical_price_different(self):
-        auto_update_theorical_price = self.get_auto_update_theorical_price()
         for template in self:
             if template.theoritical_price and (
                     template.base_price or
@@ -390,7 +389,6 @@ class ProductTemplate(models.Model):
     @api.multi
     @api.depends('coeff9_inter_sp', 'standard_price')
     def _compute_has_theoritical_cost_different(self):
-        auto_update_theorical_cost = self.get_auto_update_theorical_cost()
         for template in self:
             if template.coeff9_inter_sp and (
                     template.base_price or
