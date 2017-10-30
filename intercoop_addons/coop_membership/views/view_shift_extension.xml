@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_shift_extension_tree_no_create" model="ir.ui.view">
+        <field name="name">view_shift_extension_tree_no_create</field>
+        <field name="model">shift.extension</field>
+        <field name="inherit_id" ref="coop_shift.view_shift_extension_tree"/>
+        <field name="priority">16</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_shift_extension_tree_create" model="ir.ui.view">
+        <field name="name">view_shift_extension_tree_create</field>
+        <field name="model">shift.extension</field>
+        <field name="inherit_id" ref="coop_membership.view_shift_extension_tree_no_create"/>
+        <field name="priority">15</field>
+        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">true</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_shift_extension_form_no_create" model="ir.ui.view">
+        <field name="name">view_shift_extension_form_no_create</field>
+        <field name="model">shift.extension</field>
+        <field name="inherit_id" ref="coop_shift.view_shift_extension_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="edit">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_shift_extension_form_create" model="ir.ui.view">
+        <field name="name">view_shift_extension_form_create</field>
+        <field name="model">shift.extension</field>
+        <field name="inherit_id" ref="coop_membership.view_shift_extension_form_no_create"/>
+        <field name="priority">15</field>
+        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">true</attribute>
+                <attribute name="edit">true</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

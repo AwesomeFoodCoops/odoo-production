@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.membership.access.form</field>
+        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <field name="is_member" position="before">
+                <field name="badge_to_print" attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}" groups="coop_membership.group_membership_access_photo"/>
+            </field>
+
+            <xpath expr="//sheet/div[@class='oe_title']" position="after">
+                <field name="updated_badges_info" invisible="1" />
+                <group attrs="{'invisible': [('updated_badges_info','=',False)]}">
+                    <p class='alert alert-warning'> Des données du badge ont changé, il est nécessaire de réimprimer ce badge. Vous pouvez retrouver tous les badges à réimprimer en utilisant le filtre "Badges à imprimer" sur la vue list. Une fois le badge imprimé, décocher le champ "Badges à imprimer"
+                    </p>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
