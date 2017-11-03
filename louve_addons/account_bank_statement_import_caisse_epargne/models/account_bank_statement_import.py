@@ -92,6 +92,8 @@ class AccountBankStatementImport(models.TransientModel):
                     #'note': transaction.group('note'),
                     'unique_import_id': str(index)+transaction.group('date')+transaction.group('name')+str(transaction_amount)+transaction.group('note'),
                     'account_number': bank_account_number,
+                    'partner_id':False,
+                    'bank_account_id':False,
                 }
                 total_amt += transaction_amount
                 transactions.append(vals_line)
