@@ -81,12 +81,15 @@ class AccountBankStatementImport(models.TransientModel):
                     transaction = re.compile(self.regexp_version[file_version]['line_credit']).search(line)
                     transaction_amount = float(transaction.group('credit').replace(',','.'))
 
+                libelle = transaction.group('name')
+                if transaction.group('note') != "":
+                    libelle += " */* "+transaction.group('note')
                 vals_line = {
                     'date': datetime.datetime.strptime(transaction.group('date'), '%d/%m/%Y').strftime('%Y-%m-%d'),
-                    'name': transaction.group('name'),
+                    'name': libelle,
                     #'ref': transaction.group('unique_import_id'),
                     'amount': transaction_amount,
-                    'note': transaction.group('note'),
+                    #'note': transaction.group('note'),
                     'unique_import_id': str(index)+transaction.group('date')+transaction.group('name')+str(transaction_amount)+transaction.group('note'),
                     'account_number': bank_account_number,
                 }
