@@ -20,6 +20,34 @@ The main collaboration process is quite simple. However, we have to experience i
 
 For consistency reason, we prefer to ask to or dev supplier to make the modifications on common modules.
 
+
+Create your development platform
+============
+
+You want to hack a bit on your laptop! Here some tips to create a development
+platform and reproduce production platform. To reproduce that environement
+we are using [anybox.recipe.odoo][aro] (a [buildout][buildout] recipe),
+
+Quick start using buildout on debian laptop assuming you already get
+[dependencies][aro_dependencies]:
+
+    # Cloning this repo
+    git clone git@github.com:AwesomeFoodcoops/odoo-production.git
+    cd odoo-production
+    # work on a new branch based on 9.0 branch
+    git clone origin/9.0 -b my_new_feature
+    # bootstrap buildout (to install buildout itself)
+    ~/path-to-venv-py2.7/bin/python bootstrap.py -c buildout.cfg
+    # running buildout to get all requirments needs by your odoo instance
+    bin/buildout -c buildout_<coop_name>.cfg
+    # creating a test db with demo data to run unitest
+    createdb mydbtest
+    bin/upgrade_<coop name> --init-load-demo-data
+    # running tests
+    bin/nosetests -d mydbtest -- -s -v louve_addons/ extra_addons/
+    # run odoo to test the UI and open your browser on http://localhost:8069
+    bin/start_odoo -d mydbtest
+
 Upgrading process
 ============
 Step A : on the DEV environnement
@@ -43,3 +71,7 @@ Once the test are conpleted, the repo management team merge DEV -> 9.0 (producti
 => The hosting team update the code on staging instance, install/uninstall/update module dans execute migration scripts. They set the ticket to "on prod" status and send a message to users to describe the changes (basicly a screenshot of the ticket list that have be solved).
 
 => If the module is generic (inside the OCA repository), the developper create a PR against OCA repo
+
+[aro]: http://docs.anybox.fr/anybox.recipe.odoo/current
+[buildout]: http://www.buildout.org/en/latest
+[aro_dependencies]: http://docs.anybox.fr/anybox.recipe.odoo/current/first_steps.html#installing-build-dependencies
