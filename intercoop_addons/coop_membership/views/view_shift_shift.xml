@@ -46,7 +46,7 @@
             <page name="registrations" position="attributes">
                 <attribute name="invisible">1</attribute>
             </page>
-
+ 
             <!-- Adding new Tabs for Standard and FTOP -->
             <page name="registrations" position="before">
                 <page name="participants_list" string="Attendees">

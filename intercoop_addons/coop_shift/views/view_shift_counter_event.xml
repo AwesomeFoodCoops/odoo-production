@@ -9,16 +9,25 @@
     <record id="view_shift_counter_event_tree" model="ir.ui.view">
         <field name="model">shift.counter.event</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree editable="top">
                 <field name="create_date" readonly="1"/>
                 <field name="create_uid" readonly="1"/>
-                <field name="shift_id"/>
-                <field name="name"/>
-                <field name="partner_id"/>
-                <field name="type"/>
-                <field name="is_manual"/>
-                <field name="ignored"/>
-                <field name="point_qty" sum="Total Points"/>
+                <field name="shift_id"
+                    attrs="{'readonly': [('is_manual','=', False)]}"/>
+                <field name="name"
+                    placeholder="Name"
+                    attrs="{'readonly': [('is_manual','=', False)]}"/>
+                <field name="partner_id"
+                    attrs="{'readonly': [('is_manual','=', False)]}"/>
+                <field name="type" 
+                    attrs="{'readonly': [('is_manual','=', False)]}"/>
+                <field name="is_manual"
+                    attrs="{'readonly': [('is_manual','=', False)]}"/>
+                <field name="ignored"
+                    attrs="{'readonly': [('is_manual','=', False)]}"/>
+                <field name="point_qty" 
+                    attrs="{'readonly': [('is_manual','=', False)]}" 
+                    sum="Total Points"/>
             </tree>
         </field>
     </record>
@@ -74,7 +83,7 @@
        <field name="type">ir.actions.act_window</field>
        <field name="res_model">shift.counter.event</field>
        <field name="view_type">form</field>
-       <field name="view_mode">tree,form</field>
+       <field name="view_mode">tree</field>
        <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_type': 'standard', 'default_type': 'standard'}</field>
     </record>
 
@@ -83,7 +92,7 @@
        <field name="type">ir.actions.act_window</field>
        <field name="res_model">shift.counter.event</field>
        <field name="view_type">form</field>
-       <field name="view_mode">tree,form</field>
+       <field name="view_mode">tree</field>
        <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_type': 'ftop', 'default_type': 'ftop'}</field>
     </record>
 

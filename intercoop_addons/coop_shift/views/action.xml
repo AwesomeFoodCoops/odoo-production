@@ -36,7 +36,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">shift.counter.event</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_shift_leave_type">
