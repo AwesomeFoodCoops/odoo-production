@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from openerp.tools import config
+from foodcoops_upgrade import (
+    update_attachment
+)
 
 
 def run(session, logger):
@@ -29,6 +32,8 @@ def run(session, logger):
     for version, module in ins_modules_version.items():
         if session.db_version <= version:
             ins_modules.extend(module)
+
+    update_attachment(session, logger, ins_modules, up_modules)
 
     if ins_modules:
         session.update_modules_list()

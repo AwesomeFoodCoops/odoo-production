@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from openerp.tools import config
+from foodcoops_upgrade import (
+    update_attachment
+)
 
 
 def run(session, logger):
@@ -11,7 +14,7 @@ def run(session, logger):
         'smile_base',
         'louve_custom_product',
         'louve_custom_purchase',
-         
+
         'account_payment_transfer_account',
         'account_asset',
         'coop_purchase',
@@ -27,7 +30,7 @@ def run(session, logger):
         'partner_validate_email',
         'portal_stock',
         'pos_payment_terminal_return',
-         
+
         'product_history_for_cpo',
         'stock_expense_transfer',
         'account_bank_statement_import_caisse_epargne',
@@ -77,7 +80,7 @@ def run(session, logger):
         'pos_automatic_cashdrawer',
         #'coop_product_coefficient',
 
-          
+
         ]
         session.install_modules(modules)
         logger.info(
@@ -99,6 +102,8 @@ def run(session, logger):
     for version, module in ins_modules_version.items():
         if session.db_version <= version:
             ins_modules.extend(module)
+
+    update_attachment(session, logger, ins_modules, up_modules)
 
     if ins_modules:
         session.update_modules_list()

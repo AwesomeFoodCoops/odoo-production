@@ -88,3 +88,7 @@ ENV/
 anybox.recipe.odoo/
 bin/
 etc/
+
+
+advanced.attachment.scripts/
+anybox-addons/
