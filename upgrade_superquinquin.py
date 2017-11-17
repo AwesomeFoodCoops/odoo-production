@@ -26,6 +26,9 @@ def run(session, logger):
     up_modules = ['all']
     ins_modules = []
 
+    if session.db_version <= '1.0' or not session.db_version:
+        cleanup_ir_model_data_product_category_9815(session)
+
     for version, module in ins_modules_version.items():
         if session.db_version <= version:
             ins_modules.extend(module)
@@ -55,3 +58,27 @@ def update_attachment(session, logger, ins_modules, up_modules):
             session.cr, session.uid, 'ir_attachment.location',
             'postgresql:lobject')
         session.cr.commit()
+
+
+def cleanup_ir_model_data_product_category_9815(session):
+    '''#9815: product module do not have product_category_Souscriptions
+    definition and some product template are using this category.
+
+    While updating product module, as there is no more
+    product_category_Souscription definition in source code Odoo tries to
+    remove this category, but it used somehow in product template where
+    categ_id is require field. So we needs to remove this ir_model_data entry
+    to define this data as manage by user instead code source to avoid to
+    remove it in the database.
+    '''
+    session.env.cr.execute(
+        """
+        DELETE FROM ir_model_data
+        WHERE name = 'product_category_Souscriptions' AND
+              module = 'product' AND
+              model = 'product.category'
+        """
+    )
+    # I wonder why, updating module open new transactions, needs to commit
+    # before
+    session.cr.commit()
