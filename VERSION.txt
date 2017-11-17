@@ -1,1 +1,1 @@
-1.1-superquinquin
+1.2-dev
