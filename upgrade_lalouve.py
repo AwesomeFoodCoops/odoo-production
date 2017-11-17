@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp.tools import config
-from foodcoops_upgrade import (
-    update_attachment
-)
 
 
 def run(session, logger):
@@ -116,3 +113,15 @@ def run(session, logger):
 
     # I don't remember if this is necessary, anyway we commit!
     session.cr.commit()
+
+
+def update_attachment(session, logger, ins_modules, up_modules):
+    """Install large object in the db"""
+    if session.db_version < '1.1' or not session.db_version:
+        ins_modules.append('attachment_large_object')
+        parameter = session.registry('ir.config_parameter')
+        logger.info('Setup paramter to use advanced attachment')
+        parameter.set_param(
+            session.cr, session.uid, 'ir_attachment.location',
+            'postgresql:lobject')
+        session.cr.commit()
