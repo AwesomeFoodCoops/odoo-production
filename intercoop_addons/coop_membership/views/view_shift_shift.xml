@@ -50,7 +50,7 @@
             <!-- Adding new Tabs for Standard and FTOP -->
             <page name="registrations" position="before">
                 <page name="participants_list" string="Attendees">
-                    <field name="registration_ids" context="{'default_shift_id': active_id, 'tree_view_ref' : 'coop_membership.view_shift_registration_tree_confirm_one2many'}"/>
+                    <field name="registration_ids" context="{'is_standard_ticket': True, 'default_shift_id': active_id, 'tree_view_ref' : 'coop_membership.view_shift_registration_tree_confirm_one2many'}"/>
                 </page>
             </page>
 
