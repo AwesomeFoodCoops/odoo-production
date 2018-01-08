@@ -28,7 +28,8 @@
                                 type="action"
                                 class="oe_stat_button oe_event_attendee_button"
                                 icon="fa-users"
-                                help="Register with this shift">
+                                help="Register with this shift"
+                                context="{'is_standard_ticket': True}">
                                 <field name="seats_expected" widget="statinfo" string="Attendees"/>
                             </button>
                         </div>
