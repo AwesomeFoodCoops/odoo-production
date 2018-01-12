@@ -58,6 +58,7 @@ Copyright, Author and Licence :
     'website': 'http://www.grap.coop',
     'license': 'AGPL-3',
     'depends': [
+        'account',
         'base',
         'product',
         'purchase_discount',
