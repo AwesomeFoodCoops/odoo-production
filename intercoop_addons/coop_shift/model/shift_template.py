@@ -221,6 +221,7 @@ class ShiftTemplate(models.Model):
                     return child
             return comp_id.partner_id
     # Compute Section
+
     @api.multi
     @api.depends('shift_ids')
     def _compute_shift_qty(self):
@@ -286,16 +287,16 @@ class ShiftTemplate(models.Model):
             name += " - %02d:%02d" % (
                 int(template.start_time),
                 int(round((template.start_time - int(template.start_time)) *
-                    60)))
+                          60)))
             # add 4 letters from the beginning as a shortcode for place.
             if template.company_id and template.address_id:
                 if template.address_id.name and \
-                    template.address_id.name != template.company_id.name:
+                        template.address_id.name != template.company_id.name:
                     addr_name = template.address_id.name
                     isa_characters = \
                         "".join([c for c in addr_name if c.isalnum()])
                     str_place = udd.normalize("NFKD",
-                        isa_characters[0:5]).encode("ascii", "ignore")
+                                              isa_characters[0:5]).encode("ascii", "ignore")
                     if str_place:
                         name += " - %s" % (str_place)
             template.name = name
@@ -517,12 +518,42 @@ class ShiftTemplate(models.Model):
     def write(self, vals):
         if 'updated_fields' not in vals.keys() and len(self.shift_ids):
             vals['updated_fields'] = str(vals)
+
+        if 'user_ids' in vals and 'updated_fields' in vals \
+                and len(vals.keys()) <= 2:
+            self.update_shift(vals)
+
         return super(ShiftTemplate, self).write(vals)
 
     # Custom Public Section
     @api.multi
     def discard_changes(self):
         return self.write({'updated_fields': ''})
+
+    @api.multi
+    def update_shift(self, vals):
+        """
+        Update shift directly for changing only shift 
+        leader on shift template
+        """
+        user_ids = vals.get('user_ids', False)
+        if user_ids:
+            for record in self:
+                if len(record.shift_ids):
+                    shifts = record.shift_ids.filtered(
+                        lambda s: s.date_end >=
+                        fields.Date.context_today(self))
+
+                    # update directly to shifts
+                    shifts.with_context(
+                        tracking_disable=True).write(vals)
+                    
+                    # remove user_ids from update_fields, 
+                    # keep remain values of other fields
+                    vals.update({
+                        'updated_fields': ''
+                    })
+        return True
 
     @api.multi
     def act_template_shift_from_template(self):
