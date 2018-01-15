@@ -33,6 +33,18 @@ class AccountBankStatementImport(models.TransientModel):
             'line_debit' : u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<name>.*);(?P<debit>-\d+(,\d{1,2})?);;(?P<note>.*)$",
             }
     }
+    
+    @api.model
+    def _find_bank_account_id(self, account_number):
+        """ Get res.partner.bank ID """
+        bank_account_id = None
+        if account_number and len(account_number) > 4:
+            bank_account_ids = self.env['res.partner.bank'].search(
+                [('acc_number', '=', account_number)], limit=1)
+            if bank_account_ids:
+                bank_account_id = bank_account_ids[0].id
+        return bank_account_id
+    
     @api.model
     def _check_file(self, data_file):
         try:
@@ -67,7 +79,7 @@ class AccountBankStatementImport(models.TransientModel):
         if not result:
             return super(AccountBankStatementImport, self)._parse_file(
                 data_file)
-
+        
         file_version,bank_group_code,openning_date,closing_date,bank_account_number,opening_balance,closing_balance,currency = result
         transactions = []
         total_amt = 0.00
@@ -81,14 +93,19 @@ class AccountBankStatementImport(models.TransientModel):
                     transaction = re.compile(self.regexp_version[file_version]['line_credit']).search(line)
                     transaction_amount = float(transaction.group('credit').replace(',','.'))
 
+                libelle = transaction.group('name')
+                if transaction.group('note') != "":
+                    libelle += " */* "+transaction.group('note')
                 vals_line = {
                     'date': datetime.datetime.strptime(transaction.group('date'), '%d/%m/%Y').strftime('%Y-%m-%d'),
-                    'name': transaction.group('name'),
+                    'name': libelle,
                     #'ref': transaction.group('unique_import_id'),
                     'amount': transaction_amount,
-                    'note': transaction.group('note'),
+                    #'note': transaction.group('note'),
                     'unique_import_id': str(index)+transaction.group('date')+transaction.group('name')+str(transaction_amount)+transaction.group('note'),
                     'account_number': bank_account_number,
+                    'partner_id': False,
+                    'bank_account_id': self._find_bank_account_id(bank_account_number),
                 }
                 total_amt += transaction_amount
                 transactions.append(vals_line)
