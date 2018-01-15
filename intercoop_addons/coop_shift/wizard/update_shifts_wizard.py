@@ -100,7 +100,7 @@ class UpdateShiftsWizard(models.TransientModel):
                     special = ['shift_ticket_ids']
                     del vals['shift_ticket_ids']
                 shift_obj.browse(shift_ids).with_context(
-                    tracking_disable=True).write(vals, special=special)
+                    tracking_disable=True, special=special).write(vals)
                 wizard.template_id.updated_fields = ""
         return True
 

@@ -93,6 +93,10 @@ class PurchaseOrderLine(models.Model):
         default=lambda self: self._get_indicative_package())
     product_qty_package = fields.Float(
         'Number of packages', help="""The number of packages you'll buy.""")
+    product_qty = fields.Float(
+        string='Quantity',
+        digits=dp.get_precision('Product Unit of Measure'),
+        required=True, _prefetch=False)       
     price_policy = fields.Selection(
         [('uom', 'per UOM'), ('package', 'per Package')], "Price Policy",
         default='uom', required=True)

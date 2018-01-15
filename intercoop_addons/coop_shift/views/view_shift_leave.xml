@@ -70,12 +70,12 @@
                     </div>
                     <group>
                         <group>
-                            <field name="partner_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                            <field name="partner_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True }"/>
                             <field name="start_date"/>
                             <field name="duration" />
                         </group>
                         <group>
-                            <field name="type_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                            <field name="type_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
                             <field name="stop_date" attrs="{'required': [('require_stop_date', '=', True)]}"/>
                             <field name="partner_state" />
                         </group>
