@@ -322,6 +322,13 @@
                                    groups="coop_membership.group_membership_see_associated_people,
                                    coop_membership.group_membership_access_user"/>
                             <field name="title"
+                                   attrs="{'invisible':[ '|', '|', '|', '|',
+                                        ('is_member','=', True),
+                                        ('is_former_member', '=', True),
+                                        ('is_associated_people', '=', True),
+                                        ('is_former_associated_people', '=', True),
+                                        ('is_interested_people', '=', True)
+                                        ]}"
                                    options="{&quot;no_open&quot;: True}"
                                    groups="coop_membership.group_membership_bdm_lecture"/>
                             <field name="lang"
@@ -581,7 +588,8 @@
                                                 <field name="sex"
                                                        groups="coop_membership.group_membership_see_associated_people,
                                                        coop_membership.group_membership_access_user,
-                                                       coop_membership.group_membership_bdm_saisie"/>
+                                                       coop_membership.group_membership_bdm_saisie"
+                                                       attrs="{'required': True}"/>
                                                 <field name="comment"
                                                        placeholder="internal note..."
                                                        attrs="{'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}"
