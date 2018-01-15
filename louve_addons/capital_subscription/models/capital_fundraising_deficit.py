@@ -12,7 +12,8 @@ class CapitalFundraisingDeficit(models.Model):
 
     start_date = fields.Date("Start Date", required=True)
     end_date = fields.Date("End Date")
-    amount_by_share = fields.Float("Amount By Share", required=True)
+    amount_by_share = fields.Float(
+        "Amount By Share", required=True, digits=(6, 6))
     fund_cate_id = fields.Many2one(
         comodel_name="capital.fundraising.category",
         string="Fundraising Category")
