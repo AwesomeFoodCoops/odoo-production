@@ -269,6 +269,16 @@ msgid "Journal"
 msgstr "Journal"
 
 #. module: capital_subscription
+#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_journal_ids
+msgid "Journals for Capital Entries"
+msgstr "Journaux de souscription de capital"
+
+#. module: capital_subscription
+#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category_journal_ids
+msgid "Journals for Capital Refund"
+msgstr "Journaux de rachat de capital"
+
+#. module: capital_subscription
 #: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising___last_update
 #: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category___last_update
 #: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category_line___last_update
