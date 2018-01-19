@@ -248,19 +248,22 @@
                                        class="o_address_street"
                                        attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
                                        groups="coop_membership.group_membership_see_associated_people,
-                                       coop_membership.group_membership_access_user"
+                                       coop_membership.group_membership_access_user,
+                                       coop_membership.group_membership_bdm_saisie"
                                 />
                                 <field name="street2" placeholder="Street 2..."
                                        class="o_address_street"
                                        attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
                                        groups="coop_membership.group_membership_see_associated_people,
-                                       coop_membership.group_membership_access_user"
+                                       coop_membership.group_membership_access_user,
+                                       coop_membership.group_membership_bdm_saisie"
                                 />
                                 <field name="city" placeholder="City"
                                        class="o_address_city"
                                        attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
                                        groups="coop_membership.group_membership_see_associated_people,
-                                       coop_membership.group_membership_access_user"
+                                       coop_membership.group_membership_access_user,
+                                       coop_membership.group_membership_bdm_saisie"
                                 />
                                 <field name="state_id" class="o_address_state"
                                        placeholder="State"
@@ -283,7 +286,8 @@
                                        options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
                                        attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
                                        groups="coop_membership.group_membership_see_associated_people,
-                                       coop_membership.group_membership_access_user"
+                                       coop_membership.group_membership_access_user,
+                                       coop_membership.group_membership_bdm_saisie"
                                 />
                             </div>
                             <field name="website" widget="url" placeholder="e.g. www.odoo.com"
@@ -300,11 +304,13 @@
                             />
                             <field name="phone" widget="phone"
                                    groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user"
+                                   coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_saisie"
                             />
                             <field name="mobile" widget="phone"
                                    groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user"
+                                   coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_saisie"
                             />
                             <field name="fax"
                                    groups="coop_membership.group_membership_see_associated_people,
@@ -312,15 +318,15 @@
                             />
                             <field name="user_ids" invisible="1"/>
                             <field name="notify_email" widget="radio"
-                                   groups="base.group_no_one,coop_membership.group_membership_bdm_lecture,
-                                   coop_membership.group_membership_bdm_saisie"/>
+                                   groups="base.group_no_one,coop_membership.group_membership_bdm_lecture"/>
                             <field name="opt_out" string="Mailing Opt-Out"
                                    groups="base.group_no_one,coop_membership.group_membership_bdm_lecture,
                                    coop_membership.group_membership_bdm_saisie"/>
                             <field name="email" widget="email"
                                    attrs="{'required': [('user_ids','!=', [])]}"
                                    groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user"/>
+                                   coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_saisie"/>
                             <field name="title"
                                    attrs="{'invisible':[ '|', '|', '|', '|',
                                         ('is_member','=', True),
@@ -333,12 +339,10 @@
                                    groups="coop_membership.group_membership_bdm_lecture"/>
                             <field name="lang"
                                    groups="coop_membership.group_membership_access_manager,
-                                   coop_membership.group_membership_bdm_lecture,
-                                   coop_membership.group_membership_bdm_saisie"/>
+                                   coop_membership.group_membership_bdm_lecture"/>
                             <field name="category_id" widget="many2many_tags"
                                    placeholder="Tags..."
-                                   groups="coop_membership.group_membership_access_manager,
-                                   coop_membership.group_membership_bdm_saisie"/>
+                                   groups="coop_membership.group_membership_access_manager"/>
                         </group>
                         <group string="MemberShip"
                                groups="coop_membership.group_membership_see_associated_people,
@@ -414,8 +418,7 @@
                             />
                             <field name="contact_origin_id"
                                    groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user,
-                                   coop_membership.group_membership_bdm_saisie"
+                                   coop_membership.group_membership_access_user"
                             />
                             <field name="sex" attrs="{'required': True}"/>
                             <field name="is_deceased"
@@ -811,6 +814,15 @@
         </field>
     </record>
 
+    <!-- Default: Contacts menu will use native form view of res.partner
+    We should override form view action of Contacts menu in "mail" module as well to make Odoo open same res_partner form  -->
+    <record id="mail.action_contacts_view_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="coop_membership.view_partner_form"/>
+        <field name="act_window_id" ref="mail.action_contacts"/>
+    </record>
+
     <!-- Search View -->
     <record model="ir.ui.view" id="view_res_partner_search">
         <field name="model">res.partner</field>
@@ -919,6 +931,36 @@
             <xpath expr="//field[@name='fundraising_partner_type_ids']"
                    position="attributes">
                 <attribute name="readonly">0</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_form_membership">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
+        <field name="groups_id"
+               eval="[(6,0,[ref('coop_membership.group_membership_bdm_lecture'),
+                            ref('coop_membership.group_membership_access_edit'),
+                            ref('coop_membership.group_membership_bdm_saisie')
+               ])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sex']"
+                   position="attributes">
+                <attribute name="readonly">True</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_form_membership_entry">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
+        <field name="groups_id"
+               eval="[(6,0,[ref('coop_membership.group_membership_bdm_saisie')
+               ])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']"
+                   position="attributes">
+                <attribute name="readonly">True</attribute>
             </xpath>
         </field>
     </record>
