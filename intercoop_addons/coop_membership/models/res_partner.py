@@ -49,9 +49,9 @@ class ResPartner(models.Model):
                                       store=True, readonly=True)
 
     is_former_associated_people = fields.Boolean(
-                                "Is Former Associated People",
-                                compute="_compute_is_former_associated_people",
-                                store=True, readonly=True)
+        "Is Former Associated People",
+        compute="_compute_is_former_associated_people",
+        store=True, readonly=True)
 
     is_interested_people = fields.Boolean(
         "Is Interested People",
@@ -221,6 +221,8 @@ class ResPartner(models.Model):
         '''
         for partner in self:
             partner.is_member = partner.total_partner_owned_share > 0
+            # Update when number of shares reaches "0"
+            partner._update_when_number_of_shares_reaches_0()
 
     @api.multi
     @api.depends("total_partner_owned_share")
@@ -326,10 +328,10 @@ class ResPartner(models.Model):
     def _compute_number_of_associated_people(self):
         for partner in self:
             if (partner.is_member or partner.is_former_member) and \
-                partner.child_ids:
+                    partner.child_ids:
                 partner.nb_associated_people = \
-                    sum([(p.is_associated_people or \
-                         p.is_former_associated_people) and 1 or 0 \
+                    sum([(p.is_associated_people or
+                          p.is_former_associated_people) and 1 or 0
                          for p in partner.child_ids])
             else:
                 partner.nb_associated_people = 0
@@ -517,4 +519,35 @@ class ResPartner(models.Model):
             'type': 'ir.actions.act_window',
         }
 
+    @api.multi
+    def _update_when_number_of_shares_reaches_0(self):
+        self.ensure_one()
+        if self.total_partner_owned_share == 0:
 
+            # Update worker member
+            self.is_worker_member = False
+
+            # Set date and for shift template
+            for tmpl_reg in self.tmpl_reg_line_ids:
+                if not tmpl_reg.date_end or tmpl_reg.date_end >\
+                        fields.Datetime.now():
+                    tmpl_reg.write({
+                        'date_end': fields.Datetime.now()
+                    })
+
+            # Set date begin for shift ticket
+            for reg in self.registration_ids:
+                if reg.date_begin > fields.Datetime.now():
+                    reg.write({
+                        'date_begin': fields.Datetime.now()
+                    })
+                    
+            # Update customer
+            self.customer = False
+
+            # Update Mailling opt out
+            if not self.is_member:
+                self.write({
+                    'opt_out': True  
+                })
+        return True
