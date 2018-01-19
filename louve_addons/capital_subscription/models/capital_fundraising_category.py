@@ -63,6 +63,10 @@ class CapitalFundraisingCategory(models.Model):
     line_ids = fields.One2many(
         comodel_name='capital.fundraising.category.line', string='Lines',
         inverse_name='fundraising_category_id')
+    journal_refund_ids = fields.Many2many(
+        comodel_name="account.journal", string="Journals for Capital Refund",
+        domain=[('is_capital_refund_fundraising', '=', True)]
+    )
 
     # Custom Section
     @api.multi

@@ -18,7 +18,7 @@ class AccountJournal(models.Model):
 
     # Column Section
     is_capital_fundraising = fields.Boolean(
-        string='Used for Sales and Refunds of Capital Fundraisings',
+        string='Used for Sales of Capital Fundraisings',
         default=False)
 
     is_payment_capital_fundraising = fields.Boolean(
@@ -32,3 +32,7 @@ class AccountJournal(models.Model):
         " * Yes : Payment confirmed by default\n"
         " * No : Payment not confirmed by default\n"
         " * Never : Payment is never confirmed")
+    is_capital_refund_fundraising = fields.Boolean(
+        string='Used for Refunds of Capital Fundraising',
+        default=False
+        )
