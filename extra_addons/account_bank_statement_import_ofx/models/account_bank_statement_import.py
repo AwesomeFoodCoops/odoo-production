@@ -2,6 +2,7 @@
 
 import logging
 import StringIO
+import datetime
 
 from openerp import api, models
 from openerp.tools.translate import _
@@ -60,16 +61,16 @@ class AccountBankStatementImport(models.TransientModel):
                 }
                 total_amt += float(transaction.amount)
                 transactions.append(vals_line)
+            openning_date = transactions[0][date]
         except Exception, e:
             raise Warning(_("The following problem occurred during import. "
                             "The file might not be valid.\n\n %s" % e.message))
 
         vals_bank_statement = {
-            'name': ofx.account.routing_number,
+            'name': ofx.account.number+"/"+datetime.datetime.strptime(openning_date,'%Y-%m-%d').strftime('%d/%m/%Y'),
+            'date': openning_date,
             'transactions': transactions,
             'balance_start': ofx.account.statement.balance,
-            'balance_end_real':
-            float(ofx.account.statement.balance) + total_amt,
+            'balance_end_real': float(ofx.account.statement.balance) + total_amt,
         }
-        return ofx.account.statement.currency, ofx.account.number, [
-            vals_bank_statement]
+        return ofx.account.statement.currency, ofx.account.number, [vals_bank_statement]
