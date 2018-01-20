@@ -33,6 +33,10 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                 return false;
             }
         },
+        set_payment_terminal_return_message: function(message) {
+            this.payment_terminal_return_message = message;
+            this.trigger('change',this);
+        }
     });
 
     devices.ProxyDevice.include({
@@ -76,6 +80,9 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
                             //var amount_in = answer['amount_msg'] / 100;
                             if (!amount_in == 0) {
                                 line.set_amount(amount_in);
+                                if ('payment_terminal_return_message' in answer) {
+                                    line.set_payment_terminal_return_message(answer.payment_terminal_return_message);
+                                }
                                 screen.order_changes();
                                 screen.render_paymentlines();
                                 var amount_in_formatted = screen.format_currency_no_symbol(amount_in);
