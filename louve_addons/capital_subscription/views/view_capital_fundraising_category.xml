@@ -27,6 +27,7 @@
                                 <field name="minimum_share_qty"/>
                             </tree>
                         </field>
+                        <field name="journal_refund_ids"/>
                         <field name="deficit_product_id"/>
                         <field name="deficit_share_amount_ids"/>
                     </group>

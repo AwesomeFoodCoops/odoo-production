@@ -18,8 +18,26 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                 <field name="reference" position="attributes">
                     <attribute name="attrs">{'required': [('state','=','draft')]}</attribute>
                 </field>
-
+                
             </field>
         </record>
+
+        <record model="ir.actions.server" id="action_server_merge_lines">
+          <field name="name">Merge Invoice Lines</field>
+          <field name="model_id" ref="louve_custom_account.model_account_invoice"/>
+          <field name="code">
+            self.merge_lines(cr, uid, context.get('active_ids', []), context=context)
+          </field>
+        </record>
+
+        <record model="ir.values" id="action_value_merge_lines">
+          <field name="model_id" ref="louve_custom_account.model_account_invoice" />
+          <field name="name">Merge Invoice Lines</field>
+          <field name="key2">client_action_multi</field>
+          <field name="value" eval="'ir.actions.server,' +str(ref('action_server_merge_lines'))" />
+          <field name="key">action</field>
+          <field name="model">account.invoice</field>
+        </record>
+
     </data>
 </odoo>
