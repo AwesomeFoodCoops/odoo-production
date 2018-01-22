@@ -23,6 +23,13 @@ class AccountInvoice(models.Model):
     def _prepare_refund(
             self, invoice, date_invoice=None, date=None, description=None,
             journal_id=None):
+        journal = self.env['account.journal'].browse(journal_id)
+        # Get journal refund from category fundraising
+        journal_refund_ids =\
+            invoice.fundraising_category_id.journal_refund_ids.ids
+        if not journal.is_capital_refund_fundraising and journal_refund_ids:
+            # Get first journal refund
+            journal_id = journal_refund_ids[0]
         res = super(AccountInvoice, self)._prepare_refund(
             invoice, date_invoice=date_invoice, date=date,
             description=description, journal_id=journal_id)
