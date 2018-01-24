@@ -53,7 +53,7 @@ class ShiftTicket(models.Model):
     registration_ids = fields.One2many(
         'shift.registration', 'shift_ticket_id', 'Registrations')
 
-    date_begin = fields.Datetime(related="shift_id.date_begin")
+    date_begin = fields.Datetime(related="shift_id.date_begin", store=True)
 
     begin_date_string = fields.Char(
         string='Begin Date', compute='_compute_begin_date_fields', store=True,)
@@ -67,6 +67,11 @@ class ShiftTicket(models.Model):
     hide_in_member_space = fields.Boolean(
         "Masquer dans l'Espace Membre", default=False,
         compute="_compute_hide_in_member_space", store=True)
+    state = fields.Selection([
+        ('draft', 'Unconfirmed'), ('cancel', 'Cancelled'),
+        ('confirm', 'Confirmed'), ('done', 'Done')], related="shift_id.state",
+        store=True)
+    active = fields.Boolean(related="shift_id.active", store=True)
 
     @api.multi
     @api.depends('shift_id.shift_type_id.is_ftop')
