@@ -522,10 +522,9 @@ class ResPartner(models.Model):
     @api.multi
     def _update_when_number_of_shares_reaches_0(self):
         self.ensure_one()
-        if self.total_partner_owned_share == 0:
-
-            # Update worker member
-            self.is_worker_member = False
+        # only take into count member that already
+        # has partner_owned_share before
+        if self.partner_owned_share_ids and self.total_partner_owned_share == 0:
 
             # Set date and for shift template
             for tmpl_reg in self.tmpl_reg_line_ids:
@@ -542,10 +541,18 @@ class ResPartner(models.Model):
                         'date_begin': fields.Datetime.now()
                     })
                     
-            # Update customer
-            self.customer = False
-
             # Update Mailling opt out
+            """
+            # issue: dissapear property_account_payable/recievable_id
+            # when creating a child partner (open wizard to add child contact)
+            when creating a associate people from contact tabs,
+            the total_partner_owned_share of new partner is zero,
+            so if we don't check partner_owned_share_ids,
+            this opt_out is set for new partner also
+            and somehow, property_account are disappeared on parent partner.
+            => add a check partner_owned_shared_ids to only apply for partner
+            which already has partner_owned_share
+            """
             if not self.is_member:
                 self.write({
                     'opt_out': True  
