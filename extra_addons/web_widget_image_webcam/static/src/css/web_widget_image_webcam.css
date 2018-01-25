@@ -11,15 +11,26 @@
     padding-left: 20px;
 }
 
-#webcam_result img {
-    max-width: 320px;
-    max-height: 240px;
+.direction_icon{
+	width: 15%;
+    padding-top: 85px;
+    margin-left: 87px;
 }
 
-#live_webcam {
-    width: 320px;
-    height: 240px;
+#webcam_result img {
+    width: 315px;
+    height: 417px;
 }
+
+/*#live_webcam {
+    width: 320px;
+    height: 425px;
+}
+
+#live_webcam img {
+    width: 320px;
+    height: 425px;
+}*/
 
 .direction_icon {
     text-align: center;
