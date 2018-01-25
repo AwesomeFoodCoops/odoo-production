@@ -950,6 +950,20 @@
             </xpath>
         </field>
     </record>
+    
+    <record model="ir.ui.view" id="view_res_partner_form_membership_manager">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership.view_res_partner_form_membership"/>
+        <field name="groups_id"
+            eval="[(6,0,[ref('coop_membership.group_membership_access_manager')
+        ])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sex']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+        </field>
+    </record>
+    
 
     <record model="ir.ui.view" id="view_res_partner_form_membership_entry">
         <field name="model">res.partner</field>
