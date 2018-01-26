@@ -42,6 +42,11 @@ msgid "Bootstrap State"
 msgstr "Etat Bootstrap"
 
 #. module: coop_badge_reader
+#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_form
+msgid "Badge Distributed"
+msgstr "Badge distribué"
+
+#. module: coop_badge_reader
 #: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_create_uid
 msgid "Created by"
 msgstr "Créé par"
