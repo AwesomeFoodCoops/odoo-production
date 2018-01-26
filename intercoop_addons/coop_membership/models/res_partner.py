@@ -132,6 +132,11 @@ class ResPartner(models.Model):
     parent_member_num = fields.Integer(string="Parent Number",
                                        related='parent_id.barcode_base',
                                        store=True)
+    badge_distribution_date = fields.Date(string="Badge Distribution")
+    badge_to_distribute = fields.Boolean(string="Badge to distribute",
+                                         store=True,
+                                         compute="compute_badge_to_distribute")
+    badge_print_date = fields.Date(string="Badge Print Date")
 
     # Constraint Section
     @api.multi
@@ -168,9 +173,23 @@ class ResPartner(models.Model):
         avail_check = config_param_env.get_param(key_avail_check, 'unlimited')
         for rec in self:
             if avail_check == 'limited' and rec.is_member and \
-                rec.nb_associated_people > max_nb:
+                    rec.nb_associated_people > max_nb:
                 raise ValidationError(_("The maximum number of " +
-                    "associated people has been exceeded."))
+                                    "associated people has been exceeded."))
+
+    @api.multi
+    @api.depends('badge_distribution_date', 'badge_print_date')
+    def compute_badge_to_distribute(self):
+        for record in self:
+            if record.badge_print_date:
+                if not record.badge_distribution_date or\
+                    record.badge_distribution_date < record.badge_print_date:
+                    record.badge_to_distribute = True
+
+    @api.multi
+    def update_badge_print_date(self):
+        for record in self:
+            record.badge_print_date = fields.Date.context_today(self)
 
     # Compute Section
     @api.multi
