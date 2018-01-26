@@ -117,3 +117,9 @@ class ResPartner(models.Model):
             'type_id': grace_ext_type.id
         })
         return True
+
+    @api.multi
+    def set_badge_distributed(self):
+        for partner in self:
+            partner.badge_distribution_date = fields.Date.context_today(self)
+        return True
