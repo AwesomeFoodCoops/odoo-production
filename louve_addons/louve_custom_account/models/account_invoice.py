@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, api
+from openerp import models, api, _
+from openerp.exceptions import Warning
 
 
 class AccountInvoice(models.Model):
@@ -9,6 +10,10 @@ class AccountInvoice(models.Model):
     @api.multi
     def merge_lines(self):
         for invoice in self:
+            if invoice.state != 'draft':
+                # Not merge invoice line when invoice != draft
+                raise Warning(_('You can only merge draft invoice!'))
+            # Only merge invoice line when invoice at state draft
             to_delete_ids = []
             itered_ids = []
             for line in invoice.invoice_line_ids:
@@ -26,6 +31,9 @@ class AccountInvoice(models.Model):
                     line_to_merge.write({
                         'quantity': line_to_merge.quantity + line.quantity,
                         'origin': (line_to_merge.origin or
-                        '') + (line.origin or '')})
-            invoice.write({'invoice_line_ids':
-                           [(2, id_delete) for id_delete in to_delete_ids]})
+                                   '') + (line.origin or '')})
+            invoice.write({
+                'invoice_line_ids': [
+                    (2, id_delete) for id_delete in to_delete_ids
+                ]
+            })
