@@ -24,24 +24,32 @@
                             <span class="label label-success" ng-show="partner.customer">OUI</span>
                             <span class="label label-danger" ng-hide="partner.customer">NON</span>
                         </h3>
+                        <h3>
+                            <span class="label label-danger" ng-show="partner.badge_to_distribute">Badge à distribuer</span>
+                        </h3>
                     </div>
                 </div>
                 <br />
                 <br />
                 <div class="row">
-                    <div class="col-sm-4" style="text-align: center;">
+                    <div class="col-sm-3" style="text-align: center;">
                         <form ng-submit="partner_in()">
                             <input type="submit" class="button button-positive" value="Entre" style="width:150px;">
                         </form>
                     </div>
-                    <div class="col-sm-4" style="text-align: center;">
+                    <div class="col-sm-3" style="text-align: center;">
                         <form ng-submit="partner_out()">
                             <input type="submit" class="button button-positive" value="N'entre pas" style="width:150px;">
                         </form>
                     </div>
-                    <div class="col-sm-4" style="text-align: center;">
+                    <div class="col-sm-3" style="text-align: center;">
                             <form ng-submit="partner_wrong()">
                             <input type="submit" class="button button-positive" value="Erreur" style="width:150px;">
+                        </form>
+                    </div>
+                    <div class="col-sm-3" style="text-align: center;">
+                            <form ng-submit="set_badge_distributed()">
+                            <input type="submit" class="button button-positive" value="Badge distribué" style="width:150px;">
                         </form>
                     </div>
                 </div>
