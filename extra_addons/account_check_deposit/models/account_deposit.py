@@ -255,3 +255,23 @@ class AccountMoveLine(models.Model):
 
     check_deposit_id = fields.Many2one(
         'account.check.deposit', string='Check Deposit', copy=False)
+    state_deposit = fields.Selection(
+        [('draft', 'Draft'),
+         ('done', 'Done')], string='State Deposit',
+        compute='compute_state_deposit',
+        help="Technical fields use invisible button 'DELETE'"
+        "if state is draft button visible else button invisible")
+
+    @api.multi
+    def compute_state_deposit(self):
+        for record in self:
+            if not record.check_deposit_id:
+                record.state_deposit = 'draft'
+            else:
+                record.state_deposit = record.check_deposit_id.state
+
+    @api.multi
+    def delete_check_payment(self):
+        self.ensure_one()
+        self.write({'check_deposit_id': False})
+        return True

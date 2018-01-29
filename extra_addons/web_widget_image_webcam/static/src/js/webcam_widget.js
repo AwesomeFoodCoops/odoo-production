@@ -24,15 +24,19 @@ odoo.define('web_widget_image_webcam.webcam_widget', function(require) {
             // ::webcamjs:: < https://github.com/jhuckaby/webcamjs >
             // Webcam: Set Custom Parameters
             Webcam.set({
-                width: 320,
-                height: 240,
-                dest_width: 320,
-                dest_height: 240,
+                width: 315,
+                height: 417,
+                dest_width: 315,
+                dest_height: 417,
                 image_format: 'jpeg',
                 jpeg_quality: 90,
                 force_flash: false,
                 fps: 45,
                 swfURL: '/web_widget_image_webcam/static/src/js/webcam.swf',
+                constraints: {
+                    width: 315,
+                    height: 417,
+                }
             });
 
             self.$el.find('.oe_form_binary_file_clear').removeClass('col-md-offset-5');
