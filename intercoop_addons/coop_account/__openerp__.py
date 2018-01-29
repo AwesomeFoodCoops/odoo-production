@@ -10,11 +10,12 @@
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'depends': [
-        'account',
+        'account', 'account_asset'
     ],
     'data': [
         "security/res_group.xml",
         "view/view_account_config_setting.xml",
+        "view/view_account_asset_asset.xml",
     ],
     'installable': True,
 }
