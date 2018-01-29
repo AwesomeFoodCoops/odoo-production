@@ -71,7 +71,7 @@ class ShiftTicket(models.Model):
         ('draft', 'Unconfirmed'), ('cancel', 'Cancelled'),
         ('confirm', 'Confirmed'), ('done', 'Done')], related="shift_id.state",
         store=True)
-    active = fields.Boolean(related="shift_id.active", store=True)
+    # active = fields.Boolean(related="shift_id.active", store=True)
 
     @api.multi
     @api.depends('shift_id.shift_type_id.is_ftop')
