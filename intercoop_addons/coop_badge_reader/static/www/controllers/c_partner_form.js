@@ -36,4 +36,10 @@ angular.module('starter').controller('PartnerFormCtrl', ['$scope', '$state', 'Re
         });
     };
 
+    $scope.set_badge_distributed = function(){        
+        ResPartnerModel.SetBadgeDistributed($scope.partner.id).then(function(res){
+           $state.reload();
+        })
+    }
+
 }]);
