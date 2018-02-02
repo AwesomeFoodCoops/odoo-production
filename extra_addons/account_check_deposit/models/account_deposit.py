@@ -158,17 +158,28 @@ class AccountCheckDeposit(models.Model):
     @api.model
     def _prepare_account_move_vals(self, deposit):
         date = deposit.deposit_date
+        if deposit.destination_journal_id.sequence_id:
+            move_name =\
+                deposit.destination_journal_id.sequence_id.with_context(
+                    ir_sequence_date=date).next_by_id()
+        else:
+            raise UserError(_(
+                'Please define a sequence on the destination journal.'))
         move_vals = {
             'journal_id': deposit.destination_journal_id.id,
             'date': date,
-            'name': deposit.name,
+            'name': move_name,
             'ref': deposit.name,
         }
         return move_vals
 
     @api.model
     def _prepare_move_line_vals(self, line, deposit):
-        assert (line.debit > 0), 'Debit must have a value'
+        # replace assert is raise
+        if line.debit <= 0:
+            raise UserError(_(
+                'Debit must have a value'))
+        # assert (line.debit > 0), 'Debit must have a value'
         return {
             'name': _('%s - Ref. Check %s') % (deposit.name,
                                                line.ref or line.name or ''),
