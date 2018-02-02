@@ -15,6 +15,10 @@
     'data': [
         "security/res_group.xml",
         "view/view_account_config_setting.xml",
+        "view/view_account_bank_statement.xml",
+        "view/view_account_move.xml",
+        "view/view_account_move_line.xml",
+        "view/view_account_payment.xml",
     ],
     'installable': True,
 }
