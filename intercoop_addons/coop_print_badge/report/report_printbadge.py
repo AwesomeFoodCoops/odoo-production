@@ -32,6 +32,7 @@ class ReportPrintbadge(models.AbstractModel):
             im = Image.open(BytesIO(base64.b64decode(rec.image or default_im)))
             images.update({rec.id: self.trim_image(im, self.img_size)})
             rec.untick_badges_to_print()
+            rec.update_badge_print_date()
 
         docargs = {
             'doc_ids': self.ids,

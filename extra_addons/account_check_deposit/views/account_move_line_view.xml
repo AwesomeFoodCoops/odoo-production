@@ -18,6 +18,9 @@
         <field name="statement_id" position="after">
             <field name="check_deposit_id" />
         </field>
+        <field name="partner_id" position="after">
+            <field name="check_holder_name" />
+        </field>
     </field>
 </record>
 
