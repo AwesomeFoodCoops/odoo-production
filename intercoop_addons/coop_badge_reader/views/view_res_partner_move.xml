@@ -10,13 +10,41 @@
     <record model="ir.ui.view" id="view_res_partner_move_tree">
         <field name="model">res.partner.move</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-danger="is_danger == True">
                 <field name="create_date"/>
                 <field name="partner_id"/>
                 <field name="action"/>
                 <field name="cooperative_state"/>
+                <field name="is_danger" invisible="1"/>
                 <field name="bootstrap_cooperative_state"/>
             </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_move_form">
+        <field name="model">res.partner.move</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="set_badge_distributed" type="object" string="Badge Distributed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="action"/>
+                            <field name="cooperative_state"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="is_danger" invisible="1" />
+                        <field name="bootstrap_cooperative_state"/>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 

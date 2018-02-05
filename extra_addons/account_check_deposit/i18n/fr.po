@@ -27,8 +27,38 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: \n"
+
+#. module: account_check_deposit
+#: code:addons/account_check_deposit/models/account_deposit.py:173
+#, python-format
+msgid "%s - Ref. Check %s"
+msgstr "%s - réf. chq %s"
+
+#. module: account_check_deposit
+#: model:ir.ui.view,arch_db:account_check_deposit.report_checkdeposit
+msgid "<b>Bank Account Number to Credit:</b>"
+msgstr "<b>Bank Account Number to Credit:</b>"
+
+#. module: account_check_deposit
+#: model:ir.ui.view,arch_db:account_check_deposit.report_checkdeposit
+msgid "<b>Check Currency:</b>"
+msgstr "<b>Devise:</b>"
+
+#. module: account_check_deposit
+#: model:ir.ui.view,arch_db:account_check_deposit.report_checkdeposit
+msgid "<b>Number of checks:</b>"
+msgstr "<b>Nombre de chèques:</b>"
+
+#. module: account_check_deposit
+#: model:ir.ui.view,arch_db:account_check_deposit.report_checkdeposit
+msgid "<b>Total:</b>"
+msgstr "<b>Montant remise:</b>"
+
+#. module: account_check_deposit
+#: model:ir.ui.view,arch_db:account_check_deposit.report_checkdeposit
+msgid "<b>Transfer Date:</b>"
+msgstr "<b>Date:</b>"
 
 #. module: account_check_deposit
 #: model:ir.model,name:account_check_deposit.model_account_check_deposit
@@ -117,6 +147,11 @@ msgstr "Rechercher une Remise de Chèques"
 #: model:ir.ui.menu,name:account_check_deposit.menu_check_deposit_tree
 msgid "Checks Deposits"
 msgstr "Remises de chèques"
+
+#. module: account_check_deposit
+#: model:ir.model.fields,field_description:account_check_deposit.field_account_move_line_check_holder_name
+msgid "Cheque Holder"
+msgstr "Titulaire"
 
 #. module: account_check_deposit
 #: model:ir.model,name:account_check_deposit.model_res_company

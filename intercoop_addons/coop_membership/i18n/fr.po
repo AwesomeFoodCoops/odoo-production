@@ -162,6 +162,12 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_badge_distribution_date
+#: model:ir.model.fields,field_description:coop_membership.field_res_users_badge_distribution_date
+msgid "Badge Distribution"
+msgstr "Badge distribué"
+
+#. module: coop_membership
 #: model:ir.ui.view,name:coop_membership.view_res_partner_form_base
 msgid "Extra Data"
 msgstr "Information complémentaire"
@@ -175,6 +181,12 @@ msgstr "Pour les personnes rattachées"
 #: model:ir.model.fields,name:coop_membership.field_barcode_rule_for_type_A_capital_subscriptor
 msgid "For Type A Subscriptors"
 msgstr "Pour les souscripteurs de Parts A"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_badge_to_distribute
+#: model:ir.model.fields,field_description:coop_membership.field_res_users_badge_to_distribute
+msgid "Badge to distribute"
+msgstr "Badge à distribuer"
 
 #. module: coop_membership
 #: model:ir.ui.view,name:coop_membership.view_res_partner_generate_barcode_wizard_form

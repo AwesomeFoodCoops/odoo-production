@@ -61,7 +61,7 @@ class StockInventory(models.Model):
                FROM product_product pp
                JOIN product_template pt
                ON pp.product_tmpl_id = pt.id
-               WHERE pt.categ_id in %s AND pp.id NOT IN %s
+               WHERE pt.categ_id in %s AND pp.id NOT IN %s AND pp.active = True
                GROUP BY product_id, location_id, prod_lot_id, package_id,
                partner_id
             ''' % (inventory.location_id.id, product_categ_ids,

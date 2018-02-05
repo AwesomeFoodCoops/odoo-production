@@ -54,7 +54,7 @@
         <tr>
             <td><span t-field="move_line.date"/></td>
             <td><span t-field="move_line.ref"/></td>
-            <td><span t-field="move_line.partner_id.name"/></td>
+            <td><span t-field="move_line.check_holder_name"/></td>
             <td>
                 <t t-if="o.currency_id == o.company_id.currency_id">
                     <span t-field="move_line.debit"
