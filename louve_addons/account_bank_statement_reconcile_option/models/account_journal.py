@@ -22,3 +22,10 @@ class AccountJournal(models.Model):
         " 'Journal Accounts', reconciliation wizard will propose only account"
         " move lines with accounts defined in debit / credit accounting"
         " setting of the current journal.")
+    bank_reconcile_account_allowed_ids = fields.Many2many(
+        'account.account',
+        'account_acount_journal_rel',
+        'journal_id',
+        'account_id',
+        string='Bank Reconcile Account Allowed'
+    )
