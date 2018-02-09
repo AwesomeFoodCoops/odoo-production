@@ -33,7 +33,7 @@ msgstr "Account Journal Debit"
 #. module: coop_account
 #: model:res.groups,name:coop_account.group_account_chief
 msgid "Chief Accountant"
-msgstr "Chief Accountant"
+msgstr "Chef Comptable"
 
 #. module: coop_account
 #: model:ir.ui.view,arch_db:coop_account.view_account_config_setting_inherit
