@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_account_move_line_filter_inherit" model="ir.ui.view">
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='posted']" position="after">
+                <filter name="statement_line_id" string="Unmatched" domain="[('statement_line_id','=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

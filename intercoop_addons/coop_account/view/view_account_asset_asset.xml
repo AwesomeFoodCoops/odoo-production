@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_asset_asset_inherit" model="ir.ui.view">
+            <field name="name">view.account.asset.asset.inherit</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='salvage_value']"
+                       position="replace">
+                    <field name="salvage_value" string="Salvage Value" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible': [('type','=','sale')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

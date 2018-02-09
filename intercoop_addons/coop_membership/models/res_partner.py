@@ -230,6 +230,8 @@ class ResPartner(models.Model):
             partner.total_partner_owned_share = \
                 sum(partner_ownedshare.owned_share
                     for partner_ownedshare in partner.partner_owned_share_ids)
+            # Update when number of shares reaches "0"
+            partner._update_when_number_of_shares_reaches_0()
 
     @api.multi
     @api.depends('total_partner_owned_share')
@@ -240,8 +242,6 @@ class ResPartner(models.Model):
         '''
         for partner in self:
             partner.is_member = partner.total_partner_owned_share > 0
-            # Update when number of shares reaches "0"
-            partner._update_when_number_of_shares_reaches_0()
 
     @api.multi
     @api.depends("total_partner_owned_share")
@@ -543,7 +543,17 @@ class ResPartner(models.Model):
         self.ensure_one()
         # only take into count member that already
         # has partner_owned_share before
-        if self.partner_owned_share_ids and self.total_partner_owned_share == 0:
+        invoice_states = []
+        for partner_share in self.partner_owned_share_ids:
+            invoice_states += [
+                invoice.state in ['open', 'paid', 'cancel' ] for
+                invoice in partner_share.related_invoice_ids
+        ]
+        ## all invoice states != 'draft'
+        invoice_states = all(invoice_states)
+        if self.partner_owned_share_ids \
+            and self.partner_owned_share_ids[0].related_invoice_ids \
+                and invoice_states and self.total_partner_owned_share == 0:
 
             # Set date and for shift template
             for tmpl_reg in self.tmpl_reg_line_ids:
@@ -559,12 +569,13 @@ class ResPartner(models.Model):
                     reg.write({
                         'date_begin': fields.Datetime.now()
                     })
-                    
+
             # Update Mailling opt out
             """
-            # issue: dissapear property_account_payable/recievable_id
-            # when creating a child partner (open wizard to add child contact)
-            when creating a associate people from contact tabs,
+            # issue: disappear property_account_payable/recievable_id
+            # when creating a child partner 
+            # (open wizard to add child contact)
+            when creating a associate people from contact tab,
             the total_partner_owned_share of new partner is zero,
             so if we don't check partner_owned_share_ids,
             this opt_out is set for new partner also
@@ -572,8 +583,13 @@ class ResPartner(models.Model):
             => add a check partner_owned_shared_ids to only apply for partner
             which already has partner_owned_share
             """
-            if not self.is_member:
-                self.write({
-                    'opt_out': True  
-                })
+            self.write({
+                'opt_out': True
+            })
+        elif self.partner_owned_share_ids \
+            and self.partner_owned_share_ids[0].related_invoice_ids \
+                and invoice_states and self.total_partner_owned_share > 0:
+            self.write({
+                'opt_out': False
+            })   
         return True
