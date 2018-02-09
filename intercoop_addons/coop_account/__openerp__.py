@@ -10,7 +10,7 @@
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'depends': [
-        'account',
+        'account', 'account_asset'
     ],
     'data': [
         "security/res_group.xml",
@@ -19,6 +19,7 @@
         "view/view_account_move.xml",
         "view/view_account_move_line.xml",
         "view/view_account_payment.xml",
+        "view/view_account_asset_asset.xml",
     ],
     'installable': True,
 }

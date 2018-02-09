@@ -59,7 +59,7 @@
                                             ('check_deposit_id', '=', False),
                                             ('currency_id', '=', currency_none_same_company_id),
                                             ('account_id', '=', journal_default_account_id)]"
-                                    context="{'currency': currency_id, 'journal_id': journal_id}"
+                                    context="{'currency': currency_id, 'journal_id': journal_id, 'change_check_holder_name': True}"
                                     options="{'reload_on_button': true}">
                                 <tree string="Check Payments" editable="top" delete="false">
                                     <field name="date"/>

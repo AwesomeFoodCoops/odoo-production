@@ -8,6 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-31 09:19+0000\n"
 "PO-Revision-Date: 2018-01-31 09:19+0000\n"
+
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -60,4 +61,10 @@ msgstr "Écriture comptable"
 #, python-format
 msgid "Only one journal item on an account requiring bank reconciliation can be booked in this account move. It is impossible to add another one. Please create a distinct account move to registrer this account.move.line and its counterpart."
 msgstr "Une seule écriture sur un compte faisant l'objet de rapprochement bancaire peut être saisie sur une pièce comptable, vous ne pouvez pas en ajouter de nouvelle. Veuillez créer un nouvelle pièce comptable pour cette écriture et sa contre-partie."
+
+#. module: coop_account
+#: model:ir.ui.view,arch_db:coop_account.view_account_asset_asset_inherit
+msgid "Salvage Value"
+msgstr "Valeur non amortissable"
+
 
