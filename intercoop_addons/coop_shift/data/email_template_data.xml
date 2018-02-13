@@ -13,6 +13,16 @@
     We remind you that your next shift is scheduled for <bold>${object.shift_id.begin_date_without_time_string}</bold> and will begin at ${object.shift_id.begin_time_string}
 </p>
 <p>For more information, please contact the Member Bureau or your shift leader.</p>
+<p>
+    If you have any questions or need information, please contact the Member's Office during its opening hours.
+</p>
+<p>
+    Opening hours of the Members Bureau:
+    <br/>- Tuesday: 13h30 - 16h
+    <br/>- Wednesday to Friday: 13h30 - 20h
+    <br/>- Saturday: 10h - 16h
+</p>
+<p>Phone number: 01 86 95 91 90</p>
 <p>Thank you for your participation!</p>
 <p>Best regards</p>]]></field>
         </record>
