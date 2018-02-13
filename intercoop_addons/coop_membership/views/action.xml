@@ -85,6 +85,7 @@
         <field name="res_model">account.payment</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('partner_type', '!=', 'supplier')]</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_capital_fundraising_wizard">
