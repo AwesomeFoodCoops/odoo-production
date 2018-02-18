@@ -23,6 +23,7 @@ class AccountBankStatementImport(models.TransientModel):
             'line_opening_balance' : u"^Solde en début de période;;;;(?P<balance>\d+(,\d{1,2})?);$",
             'line_credit' : u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<unique_import_id>.*);(?P<name>.*);;(?P<credit>\d+(,\d{1,2})?);(?P<note>.*)$",
             'line_debit' : u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<unique_import_id>.*);(?P<name>.*);(?P<debit>-\d+(,\d{1,2})?);;(?P<note>.*)$",
+            'line_date_format' : '%d/%m/%Y',
         },
         'version_B' : {
             'line_1' : u"^Code de la banque : (?P<bank_group_code>\d{5});Date de début de téléchargement : (?P<opening_date>\d{2}/\d{2}/\d{4});Date de fin de téléchargement : (?P<closing_date>\d{2}/\d{2}/\d{4});;$",
@@ -31,14 +32,16 @@ class AccountBankStatementImport(models.TransientModel):
             'line_opening_balance' : u"^Solde en début de période;;;(?P<balance>\d+(,\d{1,2})?);$",
             'line_credit' : u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<name>.*);;(?P<credit>\d+(,\d{1,2})?);(?P<note>.*)$",
             'line_debit' : u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<name>.*);(?P<debit>-\d+(,\d{1,2})?);;(?P<note>.*)$",
+            'line_date_format' : '%d/%m/%Y',
             },
         'version_C' : {
-            'line_1' : u"^Code de la banque : (?P<bank_group_code>\d{5});Date de début de téléchargement : (?P<opening_date>\d{2}/\d{2}/\d{4});Date de fin de téléchargement : (?P<closing_date>\d{2}/\d{2}/\d{4});$",
-            'line_2' : u"^Numéro de compte : (?P<bank_account_number>\d{11});Devise : (?P<currency>.{3});$",
-            'line_closing_balance' : u"^Solde en fin de période;;;(?P<balance>\d+(,\d{1,2})?)$",
-            'line_opening_balance' : u"^Solde en début de période;;;(?P<balance>\d+(,\d{1,2})?)$",
-            'line_credit' : u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<name>.*);;+(?P<credit>\d+(,\d{1,2})?);(?P<note>.*);$",
-            'line_debit' : u"^(?P<date>\d{2}/\d{2}/\d{4});(?P<name>.*);(?P<debit>-\d+(,\d{1,2})?);;(?P<note>.*);$",
+            'line_1' : u"^Code de la banque : (?P<bank_group_code>\d{5});Code de l'agence : (?P<bank_local_code>\d{5});Date de début de téléchargement : (?P<opening_date>\d{2}/\d{2}/\d{4});Date de fin de téléchargement : (?P<closing_date>\d{2}/\d{2}/\d{4});$",
+            'line_2' : u"^Numéro de compte : (?P<bank_account_number>\d{11});Nom du compte : (?P<nom_compte>.*);Devise : (?P<currency>.{3});$",
+            'line_closing_balance' : u"^Solde en fin de période;;;;(?P<balance>(\+|-)?\d+(,\d{1,2})?)$",
+            'line_opening_balance' : u"^Solde en début de période;;;;(?P<balance>(\+|-)?\d+(,\d{1,2})?)$",
+            'line_credit' : u"^(?P<date>\d{2}/\d{2}/\d{2});(?P<ref>.*);(?P<name>.*);;\+(?P<credit>\d+(,\d{1,2})?);(?P<note>.*);$",
+            'line_debit' : u"^(?P<date>\d{2}/\d{2}/\d{2});(?P<ref>.*);(?P<name>.*);(?P<debit>-\d+(,\d{1,2})?);;(?P<note>.*);$",
+            'line_date_format' : '%d/%m/%y',
             }
     }
 
@@ -78,6 +81,7 @@ class AccountBankStatementImport(models.TransientModel):
 
             closing_balance = float(re.compile(self.regexp_version[file_version]['line_closing_balance']).search(data_file[3]).group('balance').replace(',','.'))
             opening_balance = float(re.compile(self.regexp_version[file_version]['line_opening_balance']).search(data_file[len(data_file)-1]).group('balance').replace(',','.'))
+            
 
         except Exception as e:
             _logger.debug(e)
@@ -109,7 +113,7 @@ class AccountBankStatementImport(models.TransientModel):
                 if transaction.group('note') != "":
                     libelle += " */* "+transaction.group('note')
                 vals_line = {
-                    'date': datetime.datetime.strptime(transaction.group('date'), '%d/%m/%Y').strftime('%Y-%m-%d'),
+                    'date': datetime.datetime.strptime(transaction.group('date'), self.regexp_version[file_version]['line_date_format']).strftime('%Y-%m-%d'),
                     'name': libelle,
                     #'ref': transaction.group('unique_import_id'),
                     'amount': transaction_amount,
