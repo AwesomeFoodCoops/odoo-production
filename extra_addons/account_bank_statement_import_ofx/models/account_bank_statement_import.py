@@ -33,7 +33,6 @@ class AccountBankStatementImport(models.TransientModel):
         if not ofx:
             return super(AccountBankStatementImport, self)._parse_file(
                 data_file)
-
         transactions = []
         total_amt = 0.00
         try:
@@ -61,13 +60,13 @@ class AccountBankStatementImport(models.TransientModel):
                 }
                 total_amt += float(transaction.amount)
                 transactions.append(vals_line)
-            openning_date = transactions[0][date]
+            openning_date = transactions[0]["date"]
         except Exception, e:
             raise Warning(_("The following problem occurred during import. "
                             "The file might not be valid.\n\n %s" % e.message))
 
         vals_bank_statement = {
-            'name': ofx.account.number+"/"+datetime.datetime.strptime(openning_date,'%Y-%m-%d').strftime('%d/%m/%Y'),
+            'name': ofx.account.number+"/"+openning_date.strftime('%d/%m/%Y'),
             'date': openning_date,
             'transactions': transactions,
             'balance_start': ofx.account.statement.balance,

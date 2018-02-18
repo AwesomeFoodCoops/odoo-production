@@ -18,9 +18,13 @@ class AccountBankStatementLine(models.Model):
                 self.journal_id.default_credit_account_id.id,
                 self.journal_id.default_debit_account_id.id,
             ]
+            bank_reconcile_account_allowed_ids =\
+                self.journal_id.bank_reconcile_account_allowed_ids.ids or []
+            reconciliation_account_all = reconciliation_aml_accounts + \
+                bank_reconcile_account_allowed_ids
             domain = [
                 '&', ('statement_id', '=', False),
-                ('account_id', 'in', reconciliation_aml_accounts)]
+                ('account_id', 'in', reconciliation_account_all)]
             return self.env['account.move.line'].search(
                 domain, offset=offset, limit=limit,
                 order="date_maturity asc, id asc")

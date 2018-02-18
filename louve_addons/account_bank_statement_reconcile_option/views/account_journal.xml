@@ -12,6 +12,13 @@
             <field name="type" position="after">
                 <field name="reconcile_mode" />
             </field>
+            <xpath expr="//page[@name='bank_account']" position="after">
+                <page name="bank_reconcile" string="Bank Reconcile Account Allowed" attrs="{'invisible': [('reconcile_mode', '!=', 'journal_account')]}">
+                    <group>
+                        <field name="bank_reconcile_account_allowed_ids" nolabel="1" />
+                    </group>
+                </page>
+            </xpath>
         </field>
     </record>
 </odoo>
