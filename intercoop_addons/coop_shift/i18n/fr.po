@@ -39,7 +39,7 @@ msgstr "Attention ! Veuillez vérifier les dates renseignées."
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
 msgid "**---VACATIONS---**"
-msgstr "**---VACANCES---**"
+msgstr "**---VACATIONS---**"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_kanban
