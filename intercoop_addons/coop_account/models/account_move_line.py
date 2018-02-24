@@ -27,3 +27,13 @@ class AccountMoveLine(models.Model):
                         'one. Please create a distinct account move to ' +
                         'registrer this account.move.line and its ' +
                         'counterpart.'))
+
+    def _create_writeoff(self, vals):
+        res = super(AccountMoveLine, self)._create_writeoff(vals)
+        partner = self.mapped('partner_id')
+        lines = res.mapped('move_id.line_ids')
+        for line in lines:
+            line.partner_id = partner.id if len(partner) == 1 and\
+                not any(not line.partner_id for line in self)\
+                else False
+        return res
