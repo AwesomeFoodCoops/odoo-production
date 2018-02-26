@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_account_payment_tree_inherit" model="ir.ui.view">
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="invoice_ids" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_supplier_payment_tree_inherit" model="ir.ui.view">
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_supplier_payment_tree"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="invoice_ids" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_payment_tree_extend_inherit" model="ir.ui.view">
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account_payment_transfer_account.view_account_payment_tree_extend"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="invoice_ids" />
+            </field>
+        </field>
+    </record>
+
+
+</odoo>
