@@ -141,6 +141,13 @@ class ComputedPurchaseOrderLine(models.Model):
         compute='_get_computed_qty', string='Stock',
         help="The sum of all quantities selected.",
         digits_compute=dp.get_precision('Product UoM'),)
+    cpo_state = fields.Selection([
+        ('draft', 'Draft'),
+        ('done', 'Done'),
+        ('canceled', 'Canceled'),
+    ],
+        related='computed_purchase_order_id.state',
+        string='State')
 
     # Constraints section
     _sql_constraints = [(
