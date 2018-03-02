@@ -67,7 +67,9 @@
                                     <field name="displayed_average_consumption" readonly="1"/>
                                     <field name="uom_id" readonly="1"/>
                                     <field name="stock_duration" readonly="1"/>
-                                    <field name="purchase_qty_package"/>
+                                    <field name="cpo_state" invisible="1"/>
+                                    <field name="purchase_qty_package" 
+                                    attrs="{'readonly': [('cpo_state', '!=', 'draft')]}"/>
                                     <field name="package_qty_inv" readonly="1"/>
                                     <field name="purchase_qty" readonly="1"/>
                                     <field name="product_price_inv" readonly="1"/>
