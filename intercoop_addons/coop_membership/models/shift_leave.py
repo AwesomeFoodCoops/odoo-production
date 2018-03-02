@@ -26,6 +26,12 @@ class ShiftLeave(models.Model):
     shift_date_after_return = fields.Date(
         string="Shift Time after return",
         compute="_compute_shift_time_after_return")
+    show_proceed_message = fields.Boolean(
+        string='Show Message Proceed', default=False,
+        compute='_compute_proceed_message', store=True)
+    proceed_message = fields.Html(string='Message Proceed',
+                                  compute='_compute_proceed_message',
+                                  store=True)
 
     @api.multi
     @api.depends('partner_id', 'type_id', 'stop_date')
@@ -156,3 +162,17 @@ class ShiftLeave(models.Model):
         local_dt = context_tz.localize(input_date, is_dst=None)
         return_datetime = local_dt.astimezone(pytz.utc)
         return return_datetime.strftime(DTF)
+
+    @api.multi
+    @api.depends('type_id', 'stop_date', 'start_date')
+    def _compute_proceed_message(self):
+        for leave in self:
+            if leave.stop_date:
+                days_leave =\
+                    (datetime.strptime(leave.stop_date, "%Y-%m-%d") -
+                     datetime.strptime(leave.start_date, "%Y-%m-%d")).days + 1
+                if leave.type_id.is_temp_leave and days_leave < 56:
+                    leave.show_proceed_message = True
+                    leave.proceed_message = (_(
+                        "Leave duration is under 8 weeks, do you want to proceed?"
+                    ))
