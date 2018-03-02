@@ -53,6 +53,9 @@ class ShiftRegistration(models.Model):
         # Do not allow member with Up to date status register make up
         # in a ABCD shift on a ABCD tickets
         res.checking_shift_attendance()
+
+        # Don't allow member register in leaving time
+        res.check_leave_time()
         return res
 
     @api.multi
@@ -214,6 +217,9 @@ class ShiftRegistration(models.Model):
         res = super(ShiftRegistration, self).write(vals)
         if 'template_created' in vals or 'shift_ticket_id' in vals:
             self.checking_shift_attendance()
+
+        if 'template_created' in vals or 'shift_ticket_id' in vals or 'shift_id' in vals:
+            self.check_leave_time()
         return res
 
     @api.multi
@@ -260,3 +266,21 @@ class ShiftRegistration(models.Model):
                               "the following members " +
                               "as they are up-to-date: \n\n%s") %
                             '\n'.join(uptodate_list))
+
+    @api.multi
+    def check_leave_time(self):
+        """
+        Check leaving time when register the shift
+        Odoo should prevent them from scheduling shift that falls within the period of the leave
+        """
+        for reg in self:
+            leaves = reg.partner_id.leave_ids.filtered(
+                lambda l: (l.type_id.is_temp_leave or l.type_id.is_incapacity)
+                          and l.stop_date and l.state == 'done')
+            for leave in leaves:
+                if reg.date_end >= leave.start_date and\
+                        reg.date_begin <= leave.stop_date:
+                    raise UserError(_(
+                        "You can't register the shift (%s - %s) "
+                        "that falls within the period of the leave (%s - %s)" %
+                        (reg.date_begin, reg.date_end, leave.start_date, leave.stop_date)))
