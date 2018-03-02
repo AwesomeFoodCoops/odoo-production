@@ -16,7 +16,7 @@ class AccountMoveLine(models.Model):
     @api.constrains('move_id', 'account_id')
     def check_account_type_bank(self):
         for line in self:
-            if line.move_id and line.statement_line_id:
+            if line.move_id:
                 line_account_bank = line.move_id.line_ids.filtered(
                         lambda a: a.account_id.reconciled_account)
                 if len(line_account_bank) > 1:
