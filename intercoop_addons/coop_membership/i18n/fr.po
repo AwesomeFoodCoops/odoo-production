@@ -735,6 +735,12 @@ msgid "Fiscal Information"
 msgstr "Information fiscale"
 
 #. module: coop_membership
+#: code:addons/coop_membership/models/shift_leave.py:175
+#, python-format
+msgid "Leave duration is under 8 weeks, do you want to proceed?"
+msgstr "La durée du congé proposé est de moins de 8 semaines. Est-ce que vous souhaitez continuer?"
+
+#. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_partner_form
 msgid "Generate Barcode (Using Barcode Rule)"
 msgstr "Générer un code barre (via règle de codes barre)"
