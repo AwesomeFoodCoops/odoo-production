@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from openerp import models
 from openerp.tools import float_round
+from openerp.osv import expression
 
 
 class AccountBankStatementLine(models.Model):
@@ -14,17 +15,8 @@ class AccountBankStatementLine(models.Model):
             self, excluded_ids=None, str=False, offset=0, limit=None,
             additional_domain=None, overlook_partner=False):
         if self.journal_id.reconcile_mode == 'journal_account':
-            reconciliation_aml_accounts = [
-                self.journal_id.default_credit_account_id.id,
-                self.journal_id.default_debit_account_id.id,
-            ]
-            bank_reconcile_account_allowed_ids =\
-                self.journal_id.bank_reconcile_account_allowed_ids.ids or []
-            reconciliation_account_all = reconciliation_aml_accounts + \
-                bank_reconcile_account_allowed_ids
-            domain = [
-                '&', ('statement_id', '=', False),
-                ('account_id', 'in', reconciliation_account_all)]
+            domain = self._get_domain_reconciliation(
+                excluded_ids, str, overlook_partner, additional_domain)
             return self.env['account.move.line'].search(
                 domain, offset=offset, limit=limit,
                 order="date_maturity asc, id asc")
@@ -109,3 +101,40 @@ class AccountBankStatementLine(models.Model):
         else:
             return super(AccountBankStatementLine, self).\
                 get_reconciliation_proposition(excluded_ids=excluded_ids)
+
+    def _get_domain_reconciliation(
+            self, excluded_ids, str, overlook_partner, additional_domain):
+
+        reconciliation_aml_accounts = [
+            self.journal_id.default_credit_account_id.id,
+            self.journal_id.default_debit_account_id.id,
+        ]
+        bank_reconcile_account_allowed_ids =\
+            self.journal_id.bank_reconcile_account_allowed_ids.ids or []
+        reconciliation_account_all = reconciliation_aml_accounts + \
+            bank_reconcile_account_allowed_ids
+
+        domain = [
+            '&', ('statement_id', '=', False), ('account_id', 'in',
+                                                reconciliation_account_all)]
+
+        if self.partner_id.id and not overlook_partner:
+            domain = expression.AND(
+                [domain, [('partner_id', '=', self.partner_id.id)]])
+
+        # Domain factorized for all reconciliation use cases
+        ctx = dict(self._context or {})
+        ctx['bank_statement_line'] = self
+        generic_domain = self.env['account.move.line'].with_context(
+            ctx).domain_move_lines_for_reconciliation(
+            excluded_ids=excluded_ids, str=str)
+        domain = expression.AND([domain, generic_domain])
+
+        # Domain from caller
+        if additional_domain is None:
+            additional_domain = []
+        else:
+            additional_domain = expression.normalize_domain(additional_domain)
+        domain = expression.AND([domain, additional_domain])
+
+        return domain

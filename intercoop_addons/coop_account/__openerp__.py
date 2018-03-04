@@ -20,6 +20,7 @@
         "view/view_account_move_line.xml",
         "view/view_account_payment.xml",
         "view/view_account_asset_asset.xml",
+        "view/view_account_account.xml",
     ],
     'installable': True,
 }

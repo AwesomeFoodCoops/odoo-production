@@ -716,7 +716,7 @@ msgstr "En validant, vous créerez un commande d'achat."
 #. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_incoming_date
 msgid "Wished Incoming Date"
-msgstr "Date de commande"
+msgstr "Date de livraison"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,help:purchase_compute_order.field_computed_purchase_order_incoming_date

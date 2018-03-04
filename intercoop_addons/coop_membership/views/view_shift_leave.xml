@@ -22,6 +22,12 @@
                     <button string="Cancel" name="btn_cancel_propose" class="btn-default" type="object"/>
                 </p>
             </xpath>
+            <xpath expr="//sheet/notebook" position="before">
+                <field name="show_proceed_message" invisible="1"/>
+                <p class="alert alert-warning" attrs="{'invisible':['|', ('show_proceed_message','=',False), ('state', '!=', 'draft')]}">
+                    <field name="proceed_message"/>
+                </p>
+            </xpath>
         </field>
     </record>
 

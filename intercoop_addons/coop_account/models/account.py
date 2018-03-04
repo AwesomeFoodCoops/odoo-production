@@ -9,7 +9,10 @@ class AccountAccount(models.Model):
     reconciled_account = fields.Boolean(
         compute='_compute_field_reconciled_account',
         string='Bank Reconciliation',
-        store=True
+        store=True,
+        help="If true, account moves will be able to have at most only one " +
+        "account move line linked to this account (or to another account " +
+        "with 'Bank reconciliation' is true)"
     )
     journal_credit_ids = fields.One2many(
         'account.journal',
@@ -23,12 +26,13 @@ class AccountAccount(models.Model):
     )
 
     @api.multi
-    @api.depends('journal_credit_ids', 'journal_debit_ids')
+    @api.depends('journal_credit_ids', 'journal_debit_ids',
+                 'journal_credit_ids.type', 'journal_debit_ids.type')
     def _compute_field_reconciled_account(self):
         for account in self:
             account_journal = account.journal_credit_ids |\
                 account.journal_debit_ids
-            if account_journal:
+            if account_journal.filtered(lambda j: j.bank_account_id):
                 if any(journal.type == 'bank' for journal in account_journal):
                     account.reconciled_account = True
                 else:

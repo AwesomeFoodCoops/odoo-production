@@ -586,10 +586,5 @@ class ResPartner(models.Model):
             self.write({
                 'opt_out': True
             })
-        elif self.partner_owned_share_ids \
-            and self.partner_owned_share_ids[0].related_invoice_ids \
-                and invoice_states and self.total_partner_owned_share > 0:
-            self.write({
-                'opt_out': False
-            })   
         return True
+        
