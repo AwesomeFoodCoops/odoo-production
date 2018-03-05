@@ -28,6 +28,9 @@ class ShiftCounterEvent(models.Model):
         string="Ignored",
         readonly=True,
         help="Don't take into account when evaluating the member's status")
+    notes = fields.Text(string="Notes")
+    is_changed = fields.Boolean("Changed",
+                                compute="_compute_is_changed")
 
     @api.model
     def create(self, vals):
@@ -40,3 +43,10 @@ class ShiftCounterEvent(models.Model):
             vals['is_manual'] = False
 
         return super(ShiftCounterEvent, self).create(vals)
+
+    @api.multi
+    @api.depends('create_date', 'write_date')
+    def _compute_is_changed(self):
+        for record in self:
+            if record.create_date != record.write_date:
+                record.is_changed = True
