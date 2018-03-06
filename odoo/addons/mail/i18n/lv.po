@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-22 13:16+0000\n"
-"PO-Revision-Date: 2017-06-16 13:58+0000\n"
+"PO-Revision-Date: 2018-01-10 18:56+0000\n"
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Latvian (http://www.transifex.com/odoo/odoo-9/language/lv/)\n"
 "MIME-Version: 1.0\n"
@@ -733,7 +733,7 @@ msgstr "Click here to add new %s"
 #. module: mail
 #: model:ir.actions.act_window,help:mail.action_contacts
 msgid "Click to add a contact in your address book."
-msgstr ""
+msgstr "Click to add a contact in your address book."
 
 #. module: mail
 #: model:ir.actions.act_window,help:mail.mail_shortcode_action
@@ -853,7 +853,7 @@ msgstr "Create %s"
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_channel_create_date
 msgid "Create Date"
-msgstr ""
+msgstr "Izveidošanas datums"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_email_template_preview_create_uid
@@ -1704,7 +1704,7 @@ msgstr ""
 #: code:addons/mail/static/src/js/chatter.js:443
 #, python-format
 msgid "Log"
-msgstr ""
+msgstr "Ierakstīt"
 
 #. module: mail
 #. openerp-web
@@ -3075,7 +3075,7 @@ msgstr ""
 #. module: mail
 #: model:ir.ui.view,arch_db:mail.view_message_form
 msgid "Tracking"
-msgstr ""
+msgstr "Izsekošana"
 
 #. module: mail
 #: model:ir.ui.view,arch_db:mail.view_mail_tracking_value_form

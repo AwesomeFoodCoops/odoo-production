@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-09 09:18+0000\n"
-"PO-Revision-Date: 2017-03-24 07:51+0000\n"
+"PO-Revision-Date: 2017-12-29 01:55+0000\n"
 "Last-Translator: Hoa Thi <giaphoa196@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/odoo/odoo-9/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.layout
 msgid "&lt;!DOCTYPE html&gt;"
-msgstr ""
+msgstr "&lt;!DOCTYPE html&gt;"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.sitemap_index_xml
@@ -1025,7 +1025,7 @@ msgstr ""
 #. module: website
 #: model:ir.model.fields,field_description:website.field_ir_attachment_website_url
 msgid "Attachment URL"
-msgstr ""
+msgstr "Đường dẫn tệp đính kèm"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
@@ -1812,7 +1812,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.view_website_config_settings
 msgid "Extra Features"
-msgstr ""
+msgstr "Tính năng bổ sung"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.snippet_options
@@ -2629,7 +2629,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.layout_footer_copyright
 msgid "Odoo"
-msgstr ""
+msgstr "Odoo"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.s_three_columns
@@ -2719,7 +2719,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "Off"
-msgstr ""
+msgstr "Tắt"
 
 #. module: website
 #. openerp-web
@@ -2907,7 +2907,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.layout_footer_copyright
 msgid "Powered by"
-msgstr ""
+msgstr "Được hỗ trợ bởi"
 
 #. module: website
 #. openerp-web
@@ -3990,7 +3990,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "Welcome"
-msgstr ""
+msgstr "Xin chào"
 
 #. module: website
 #. openerp-web
@@ -4468,7 +4468,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.view,arch_db:website.website_planner
 msgid "send us an email"
-msgstr ""
+msgstr "gửi email cho chúng tôi"
 
 #. module: website
 #: model:ir.ui.view,arch_db:website.sitemap_index_xml

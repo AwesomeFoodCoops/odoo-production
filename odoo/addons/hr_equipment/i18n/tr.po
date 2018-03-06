@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-22 13:18+0000\n"
-"PO-Revision-Date: 2017-06-18 11:47+0000\n"
+"PO-Revision-Date: 2017-12-29 09:14+0000\n"
 "Last-Translator: Ahmet Altinisik <aaltinisik@altinkaya.com.tr>\n"
 "Language-Team: Turkish (http://www.transifex.com/odoo/odoo-9/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -155,7 +155,7 @@ msgstr ""
 #. module: hr_equipment
 #: model:ir.model.fields,field_description:hr_equipment.field_hr_equipment_employee_id
 msgid "Assigned to Employee"
-msgstr ""
+msgstr "Personele Zimmetlendi"
 
 #. module: hr_equipment
 #: model:ir.ui.view,arch_db:hr_equipment.hr_equipment_view_search
@@ -381,7 +381,7 @@ msgstr ""
 #. module: hr_equipment
 #: model:ir.ui.view,arch_db:hr_equipment.hr_equipment_view_form
 msgid "Equipment Name"
-msgstr ""
+msgstr "Ekipman Adı"
 
 #. module: hr_equipment
 #: model:ir.actions.act_window,name:hr_equipment.hr_equipment_action
@@ -647,7 +647,7 @@ msgstr "Ad"
 #. module: hr_equipment
 #: model:hr.equipment.stage,name:hr_equipment.stage_0
 msgid "New Request"
-msgstr ""
+msgstr "Yeni Talep"
 
 #. module: hr_equipment
 #: selection:hr.equipment.request,priority:0
@@ -816,7 +816,7 @@ msgstr "Fire"
 #. module: hr_equipment
 #: model:ir.model.fields,field_description:hr_equipment.field_hr_equipment_scrap_date
 msgid "Scrap Date"
-msgstr ""
+msgstr "Hurda Tarihi"
 
 #. module: hr_equipment
 #: model:ir.ui.view,arch_db:hr_equipment.hr_equipment_category_view_search
@@ -890,7 +890,7 @@ msgstr ""
 #. module: hr_equipment
 #: model:ir.model.fields,field_description:hr_equipment.field_hr_equipment_user_id
 msgid "Technician"
-msgstr ""
+msgstr "Teknisyen"
 
 #. module: hr_equipment
 #: model:ir.model.fields,help:hr_equipment.field_hr_equipment_category_alias_model_id
@@ -973,7 +973,7 @@ msgstr ""
 #. module: hr_equipment
 #: model:ir.model.fields,field_description:hr_equipment.field_hr_equipment_equipment_assign_to
 msgid "Used By"
-msgstr ""
+msgstr "Kullanan"
 
 #. module: hr_equipment
 #: model:ir.ui.view,arch_db:hr_equipment.hr_equipment_request_view_search
