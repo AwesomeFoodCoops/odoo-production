@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-09 09:17+0000\n"
-"PO-Revision-Date: 2016-12-10 11:04+0000\n"
+"PO-Revision-Date: 2018-02-13 20:23+0000\n"
 "Last-Translator: Kaloyan Naumov <kaloyan@lumnus.net>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/odoo/odoo-9/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -693,7 +693,7 @@ msgstr "Активен"
 #. module: project
 #: model:ir.ui.view,arch_db:project.task_type_edit
 msgid "Add a description..."
-msgstr ""
+msgstr "Добави описание ..."
 
 #. module: project
 #. openerp-web
@@ -710,7 +710,7 @@ msgstr "Разширени"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_alias_id
 msgid "Alias"
-msgstr ""
+msgstr "Синоним"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_alias_contact
@@ -725,17 +725,17 @@ msgstr ""
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_alias_name
 msgid "Alias Name"
-msgstr ""
+msgstr "Псевдоним"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_alias_domain
 msgid "Alias domain"
-msgstr ""
+msgstr "Псевдоним - домейн"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_alias_model_id
 msgid "Aliased Model"
-msgstr ""
+msgstr "Псевдонимен модел"
 
 #. module: project
 #: code:addons/project/project.py:121
@@ -993,7 +993,7 @@ msgstr ""
 #. module: project
 #: model:ir.actions.act_window,help:project.project_tags_action
 msgid "Click to add a new tag."
-msgstr ""
+msgstr "Натиснете за добавяне на нов етикет."
 
 #. module: project
 #: model:ir.actions.act_window,help:project.open_task_type_form
@@ -1484,7 +1484,7 @@ msgstr ""
 #. module: project
 #: model:ir.ui.view,arch_db:project.edit_project
 msgid "Email Alias"
-msgstr ""
+msgstr "Псевдоним за имейл"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.edit_project
@@ -1757,7 +1757,7 @@ msgstr ""
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "Here are some of the <strong>available customizations</strong>"
-msgstr ""
+msgstr "Някои от <strong>наличните персонализации</strong>:"
 
 #. module: project
 #: model:ir.actions.act_window,help:project.act_project_project_2_project_task_all
@@ -1811,7 +1811,7 @@ msgstr "ID"
 msgid ""
 "ID of the parent record holding the alias (example: project holding the task"
 " creation alias)"
-msgstr ""
+msgstr "Идентификатор на родителския запис, съдържащ псевдонима (пример: проект, който държи псевдонима за създаване на задачи)"
 
 #. module: project
 #. openerp-web
@@ -2976,7 +2976,7 @@ msgstr "Начална дата"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_account_type
 msgid "State"
-msgstr ""
+msgstr "Щат/Провинция"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_state

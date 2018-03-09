@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-22 13:16+0000\n"
-"PO-Revision-Date: 2017-03-29 08:40+0000\n"
+"PO-Revision-Date: 2018-01-31 17:17+0000\n"
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Basque (http://www.transifex.com/odoo/odoo-9/language/eu/)\n"
 "MIME-Version: 1.0\n"
@@ -145,7 +145,7 @@ msgstr "&amp;bull;"
 #. module: account
 #: model:ir.ui.view,arch_db:account.account_planner
 msgid ", if accounting or purchase is installed"
-msgstr ""
+msgstr ", kontabilitatea edo erosketak instalatua badago"
 
 #. module: account
 #: model:ir.ui.view,arch_db:account.view_account_form
@@ -531,7 +531,7 @@ msgstr ""
 #. module: account
 #: model:ir.ui.view,arch_db:account.report_invoice_document
 msgid "<strong>Fiscal Position Remark:</strong>"
-msgstr ""
+msgstr "<strong>Posizio fiskalaren iruzkina:</strong>"
 
 #. module: account
 #: model:ir.ui.view,arch_db:account.report_invoice_document
@@ -2479,7 +2479,7 @@ msgstr "Iruzkin"
 #: model:ir.model.fields,field_description:account.field_account_invoice_commercial_partner_id
 #: model:ir.model.fields,help:account.field_account_invoice_report_commercial_partner_id
 msgid "Commercial Entity"
-msgstr ""
+msgstr "Erakunde komertziala"
 
 #. module: account
 #: model:ir.actions.act_window,name:account.action_account_common_menu
@@ -4492,7 +4492,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account.field_product_template_property_account_income_id
 #: model:ir.ui.view,arch_db:account.view_account_chart_template_seacrh
 msgid "Income Account"
-msgstr ""
+msgstr "Diru-sarreren kontua"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_chart_template_property_account_income_id
@@ -5084,7 +5084,7 @@ msgstr "Last Message Date"
 #: model:ir.model.fields,field_description:account.field_validate_account_move___last_update
 #: model:ir.model.fields,field_description:account.field_wizard_multi_charts_accounts___last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Azken aldaketa"
 
 #. module: account
 #. openerp-web
@@ -5810,7 +5810,7 @@ msgstr ""
 #: code:addons/account/static/src/xml/account_reconciliation.xml:192
 #, python-format
 msgid "OK"
-msgstr ""
+msgstr "Ados"
 
 #. module: account
 #: selection:res.company,fiscalyear_last_month:0
@@ -6012,7 +6012,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account.field_account_payment_term_line_option
 #: model:ir.ui.view,arch_db:account.view_account_config_settings
 msgid "Options"
-msgstr ""
+msgstr "Aukerak"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line_payment_id
@@ -6311,7 +6311,7 @@ msgstr ""
 #: model:ir.ui.menu,name:account.menu_action_payment_term_form
 #: model:ir.ui.view,arch_db:account.account_planner
 msgid "Payment Terms"
-msgstr ""
+msgstr "Ordainketa baldintzak"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_abstract_payment_payment_method_id
@@ -6633,7 +6633,7 @@ msgstr "Price"
 #: model:ir.ui.view,arch_db:account.account_common_report_view
 #: model:ir.ui.view,arch_db:account.invoice_form
 msgid "Print"
-msgstr ""
+msgstr "Inprimatu"
 
 #. module: account
 #: model:ir.ui.view,arch_db:account.invoice_form
@@ -6786,7 +6786,7 @@ msgstr "Python Kodea"
 #: model:ir.model.fields,field_description:account.field_account_move_line_quantity
 #: model:ir.ui.view,arch_db:account.report_invoice_document
 msgid "Quantity"
-msgstr ""
+msgstr "Kopurua"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_config_settings_currency_exchange_journal_id
@@ -7106,7 +7106,7 @@ msgstr ""
 #. module: account
 #: model:ir.ui.menu,name:account.menu_finance_reports
 msgid "Reporting"
-msgstr ""
+msgstr "Txostenak"
 
 #. module: account
 #: model:ir.ui.menu,name:account.account_report_folder
@@ -7351,7 +7351,7 @@ msgstr ""
 #. module: account
 #: model:ir.ui.view,arch_db:account.invoice_form
 msgid "Send by Email"
-msgstr ""
+msgstr "Bidali posta gisa"
 
 #. module: account
 #: model:ir.ui.view,arch_db:account.account_planner
@@ -7385,7 +7385,7 @@ msgstr "Iraila"
 #: model:ir.model.fields,field_description:account.field_account_tax_sequence
 #: model:ir.model.fields,field_description:account.field_account_tax_template_sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Sekuentzia"
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_tax_active
@@ -7562,12 +7562,12 @@ msgstr "Egoera"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_cashbox_line_subtotal
 msgid "Subtotal"
-msgstr ""
+msgstr "Batura partziala"
 
 #. module: account
 #: model:ir.ui.view,arch_db:account.report_invoice_document
 msgid "TIN:"
-msgstr ""
+msgstr "IFK:"
 
 #. module: account
 #: model:ir.ui.view,arch_db:account.view_account_form
@@ -7755,7 +7755,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account.view_account_config_settings
 #: model:ir.ui.view,arch_db:account.view_move_line_form
 msgid "Taxes"
-msgstr ""
+msgstr "Zergak"
 
 #. module: account
 #: model:ir.model,name:account.model_account_fiscal_position_tax
@@ -8714,7 +8714,7 @@ msgstr "Unitateko prezioa"
 #: model:ir.model.fields,field_description:account.field_account_invoice_line_uom_id
 #: model:ir.model.fields,field_description:account.field_account_move_line_product_uom_id
 msgid "Unit of Measure"
-msgstr ""
+msgstr "Neurketa unitatea"
 
 #. module: account
 #: code:addons/account/report/account_aged_partner_balance.py:264
@@ -8755,7 +8755,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account.field_account_bank_statement_message_unread
 #: model:ir.model.fields,field_description:account.field_account_invoice_message_unread
 msgid "Unread Messages"
-msgstr ""
+msgstr "Irakurri gabeko mezuak"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_bank_statement_message_unread_counter
@@ -8800,7 +8800,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account.field_account_invoice_amount_untaxed
 #: model:ir.model.fields,field_description:account.field_account_invoice_amount_untaxed_signed
 msgid "Untaxed Amount"
-msgstr ""
+msgstr "Zergarik gabea"
 
 #. module: account
 #: model:ir.ui.view,arch_db:account.account_planner
@@ -9070,7 +9070,7 @@ msgstr ""
 #. module: account
 #: model:ir.ui.view,arch_db:account.account_planner
 msgid "Welcome"
-msgstr ""
+msgstr "Ongi etorri"
 
 #. module: account
 #: model:ir.ui.view,arch_db:account.account_planner
@@ -9490,7 +9490,7 @@ msgstr ""
 #. module: account
 #: model:ir.model,name:account.model_account_config_settings
 msgid "account.config.settings"
-msgstr ""
+msgstr "account.config.settings"
 
 #. module: account
 #: model:ir.model,name:account.model_account_tax_group
@@ -9661,7 +9661,7 @@ msgstr ""
 #. module: account
 #: model:ir.ui.view,arch_db:account.account_planner
 msgid "send us an email"
-msgstr ""
+msgstr "bidaliguzu e-posta mezu bat"
 
 #. module: account
 #: model:ir.ui.view,arch_db:account.account_planner

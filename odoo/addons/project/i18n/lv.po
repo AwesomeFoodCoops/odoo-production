@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-09 09:17+0000\n"
-"PO-Revision-Date: 2017-06-21 09:07+0000\n"
+"PO-Revision-Date: 2018-01-10 18:58+0000\n"
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Latvian (http://www.transifex.com/odoo/odoo-9/language/lv/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. module: project
 #: model:ir.model.fields,field_description:project.field_res_partner_task_count
 msgid "# Tasks"
-msgstr ""
+msgstr "# Uzdevumi"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_report_project_task_user_no_of_days
@@ -137,7 +137,7 @@ msgid ""
 "                                            <span class=\"fa fa-laptop\"/>\n"
 "                                            <strong> Screen Customization</strong>\n"
 "                                        </span>"
-msgstr ""
+msgstr "<span class=\"panel-title\">\n                                            <span class=\"fa fa-laptop\"/>\n                                            <strong> Screen Customization</strong>\n                                        </span>"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -155,7 +155,7 @@ msgid ""
 "                                            <span class=\"fa fa-pencil-square-o\"/>\n"
 "                                            <strong> Create Custom Reports</strong>\n"
 "                                        </span>"
-msgstr ""
+msgstr "<span class=\"panel-title\">\n                                            <span class=\"fa fa-pencil-square-o\"/>\n                                            <strong> Create Custom Reports</strong>\n                                        </span>"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -173,7 +173,7 @@ msgid ""
 "                                            <span class=\"fa fa-sitemap\"/>\n"
 "                                            <strong> Workflow Customization</strong>\n"
 "                                        </span>"
-msgstr ""
+msgstr "<span class=\"panel-title\">\n                                            <span class=\"fa fa-sitemap\"/>\n                                            <strong> Workflow Customization</strong>\n                                        </span>"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -211,7 +211,7 @@ msgid ""
 "                                        <span class=\"fa fa-check-square-o\"/>\n"
 "                                        <strong> Tasks</strong>\n"
 "                                    </span>"
-msgstr ""
+msgstr "<span class=\"panel-title\">\n                                        <span class=\"fa fa-check-square-o\"/>\n                                        <strong> Uzdevumi</strong>\n                                    </span>"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -229,7 +229,7 @@ msgid ""
 "                                        <span class=\"fa fa-exclamation-circle\"/>\n"
 "                                        <strong> Issues</strong>\n"
 "                                    </span>"
-msgstr ""
+msgstr "<span class=\"panel-title\">\n                                        <span class=\"fa fa-exclamation-circle\"/>\n                                        <strong> Pieteikumi</strong>\n                                    </span>"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -436,7 +436,7 @@ msgstr ""
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "<strong>For issues:</strong>"
-msgstr ""
+msgstr "<strong>Pieteikumiem:</strong>"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -525,7 +525,7 @@ msgstr ""
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "<strong>Recommended actions:</strong>"
-msgstr ""
+msgstr "<strong>Ieteicamās aktivitātes:</strong>"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -651,7 +651,7 @@ msgstr ""
 #. module: project
 #: model:ir.ui.view,arch_db:project.edit_project
 msgid "Accept Emails From"
-msgstr ""
+msgstr "Pieņemt e-pastus no"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -836,7 +836,7 @@ msgstr "Piešķirts"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_date_assign
 msgid "Assigning Date"
-msgstr ""
+msgstr "Uzticēšanas datums"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.task_type_edit
@@ -1275,7 +1275,7 @@ msgstr "Pēdējā ierakstam piesaistītā ziņojuma datums."
 #. module: project
 #: model:ir.model.fields,field_description:project.field_report_project_task_user_opening_days
 msgid "Days to Assign"
-msgstr ""
+msgstr "Dienas līdz uzticēšanai"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_report_project_task_user_closing_days
@@ -1335,7 +1335,7 @@ msgstr ""
 #: code:addons/project/static/src/js/web_planner_project.js:19
 #, python-format
 msgid "Deployment"
-msgstr ""
+msgstr "Deployment"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_description
@@ -1361,7 +1361,7 @@ msgstr ""
 #: code:addons/project/static/src/js/project.js:50
 #, python-format
 msgid "Discard"
-msgstr ""
+msgstr "Discard"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_config_settings_display_name
@@ -1378,7 +1378,7 @@ msgstr "Display Name"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_displayed_image_id
 msgid "Displayed Image"
-msgstr ""
+msgstr "Attēlotais attēls"
 
 #. module: project
 #. openerp-web
@@ -1419,7 +1419,7 @@ msgstr ""
 #: code:addons/project/static/src/js/web_planner_project.js:50
 #, python-format
 msgid "Documentation"
-msgstr ""
+msgstr "Documentation"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.edit_project
@@ -1443,7 +1443,7 @@ msgstr ""
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "Don't hesitate to"
-msgstr ""
+msgstr "Don't hesitate to"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -1572,7 +1572,7 @@ msgstr ""
 msgid ""
 "Explanation text to help users using the star and priority mechanism on "
 "stages or issues that are in this stage."
-msgstr ""
+msgstr "Explanation text to help users using the star and priority mechanism on stages or issues that are in this stage."
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.view_task_project_user_search
@@ -1791,7 +1791,7 @@ msgstr ""
 #: code:addons/project/project.py:760
 #, python-format
 msgid "I take it"
-msgstr ""
+msgstr "Ņemu!"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_config_settings_id
@@ -1930,7 +1930,7 @@ msgstr ""
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_planned_hours
 msgid "Initially Planned Hours"
-msgstr ""
+msgstr "Sākotnēji plānotās stundas"
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_project_alias_id
@@ -1975,7 +1975,7 @@ msgstr ""
 #: code:addons/project/static/src/js/web_planner_project.js:75
 #, python-format
 msgid "Issue is resolved"
-msgstr ""
+msgstr "Pieteikums ir atrisināts"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -1985,7 +1985,7 @@ msgstr "Incidenti"
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "Issues analysis"
-msgstr ""
+msgstr "Pieteikumu analīze"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -2052,7 +2052,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project.field_project_task_history_kanban_state
 #: model:ir.model.fields,field_description:project.field_project_task_kanban_state
 msgid "Kanban State"
-msgstr ""
+msgstr "Kanban statuss"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_legend_done
@@ -2084,7 +2084,7 @@ msgstr "Pēdēja ziņojuma datums"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_write_date
 msgid "Last Modification Date"
-msgstr ""
+msgstr "Last Modification Date"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_config_settings___last_update
@@ -2526,7 +2526,7 @@ msgstr "Prioritāte"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_type_legend_priority
 msgid "Priority Management Explanation"
-msgstr ""
+msgstr "Priority Management Explanation"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_privacy_visibility
@@ -2772,7 +2772,7 @@ msgstr ""
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "Reporting"
-msgstr ""
+msgstr "Atskaites"
 
 #. module: project
 #. openerp-web
@@ -2975,7 +2975,7 @@ msgstr "Sākuma Datums"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_account_type
 msgid "State"
-msgstr ""
+msgstr "Statuss"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_state
@@ -3006,7 +3006,7 @@ msgstr "Birkas"
 #. module: project
 #: model:ir.model,name:project.model_project_tags
 msgid "Tags of project's tasks, issues..."
-msgstr ""
+msgstr "Projektu uzdevumu un pieteikumu birkas..."
 
 #. module: project
 #: model:ir.model,name:project.model_project_task
@@ -3144,7 +3144,7 @@ msgstr "Uzdevumi"
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "Tasks &amp; Issues"
-msgstr ""
+msgstr "Uzdevumi &amp; Pieteikumi"
 
 #. module: project
 #: model:ir.actions.act_window,name:project.action_project_task_user_tree
@@ -3164,7 +3164,7 @@ msgstr "Uzdevumu posmi"
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "Tasks analysis"
-msgstr ""
+msgstr "Uzdevumu analīze"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -3352,7 +3352,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project.field_project_project_use_timesheets
 #: model:ir.ui.view,arch_db:project.view_config_settings
 msgid "Timesheets"
-msgstr ""
+msgstr "Darba uzkaites Tabeles"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_config_settings_module_project_issue_sheet
@@ -3453,12 +3453,12 @@ msgstr "Unread Messages Counter"
 #. module: project
 #: model:ir.ui.view,arch_db:project.edit_project
 msgid "Use Tasks"
-msgstr ""
+msgstr "Izmanto uzdevumus"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project_label_tasks
 msgid "Use Tasks as"
-msgstr ""
+msgstr "Izmanto uzdevumus kā"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -3537,7 +3537,7 @@ msgstr ""
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "We can automate steps in your workflow, for example:"
-msgstr ""
+msgstr "We can automate steps in your workflow, for example:"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
@@ -3734,13 +3734,13 @@ msgstr ""
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner
 msgid "send us an email"
-msgstr ""
+msgstr "send us an email"
 
 #. module: project
 #: code:addons/project/project.py:569
 #, python-format
 msgid "tasks"
-msgstr ""
+msgstr "Uzdevumi"
 
 #. module: project
 #: model:ir.ui.view,arch_db:project.project_planner

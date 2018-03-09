@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-18 12:33+0000\n"
-"PO-Revision-Date: 2017-04-24 16:34+0000\n"
+"PO-Revision-Date: 2017-12-29 08:58+0000\n"
 "Last-Translator: Ahmet Altinisik <aaltinisik@altinkaya.com.tr>\n"
 "Language-Team: Turkish (http://www.transifex.com/odoo/odoo-9/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -177,20 +177,20 @@ msgstr "<i class=\"fa fa-times\"/> Reddet"
 #: model:sale.quote.line,website_description:website_quote.website_sale_order_line_2
 msgid ""
 "<i>You will be able to create dynamic page interacting with the ORM.</i>"
-msgstr ""
+msgstr "ORM ile etkileşimli dinamik sayfa oluşturabilirsiniz."
 
 #. module: website_quote
 #: model:sale.quote.line,website_description:website_quote.website_sale_order_line_2
 msgid ""
 "<i>You will be able to develop a full application with backend and user "
 "interface.</i>"
-msgstr ""
+msgstr "Arka plan ve kullanıcı arabirimi ile tam bir uygulama geliştirebilirsiniz."
 
 #. module: website_quote
 #: model:sale.quote.line,website_description:website_quote.website_sale_order_line_2
 msgid ""
 "<i>You will be able to develop simple dynamic compenents in HTML pages.</i>"
-msgstr ""
+msgstr "HTML sayfalarında basit dinamik bileşenler geliştirebilirsiniz."
 
 #. module: website_quote
 #: model:ir.ui.view,arch_db:website_quote.quotations
@@ -220,7 +220,7 @@ msgstr ""
 msgid ""
 "<span style=\"text-align: -webkit-center; \">Upon completion of the "
 "training, the participant will be able to:</span>"
-msgstr ""
+msgstr "Eğitimin tamamlanmasının ardından, katılımcı şunları yapabilecektir:"
 
 #. module: website_quote
 #: model:ir.ui.view,arch_db:website_quote.so_quotation
@@ -280,17 +280,17 @@ msgstr ""
 msgid ""
 "<strong>Having attended this course, participants should be able "
 "to:</strong>"
-msgstr ""
+msgstr "Bu kursa katılan,  katılımcılar şunları yapmalıdır:"
 
 #. module: website_quote
 #: model:sale.quote.line,website_description:website_quote.website_sale_order_line_2
 msgid "<strong>Objectives:</strong>"
-msgstr ""
+msgstr "<strong>Hedefler:</strong>"
 
 #. module: website_quote
 #: model:sale.quote.line,website_description:website_quote.website_sale_order_line_2
 msgid "<strong>Our prices include:</strong>"
-msgstr ""
+msgstr "Fiyatlarımız şunları içerir:"
 
 #. module: website_quote
 #: model:sale.quote.line,website_description:website_quote.website_sale_order_line_2
@@ -320,7 +320,7 @@ msgstr ""
 msgid ""
 "<strong>This offer expired!</strong><br/>\n"
 "                                  Contact us for new quote."
-msgstr ""
+msgstr "<strong>Bu teklifin süresi doldu! </strong><br/>\nYeni fiyat teklifi için bizimle iletişime geçin."
 
 #. module: website_quote
 #: model:ir.ui.view,arch_db:website_quote.so_quotation
@@ -347,12 +347,12 @@ msgstr "Özel Hesap Yöneticisi"
 #. module: website_quote
 #: model:sale.quote.template,website_description:website_quote.website_quote_template_1
 msgid "A Strong Demand"
-msgstr ""
+msgstr "Güçlü Bir Talep"
 
 #. module: website_quote
 #: model:sale.quote.template,website_description:website_quote.website_quote_template_1
 msgid "A Valuable Product"
-msgstr ""
+msgstr "Değerli Bir Ürün"
 
 #. module: website_quote
 #: model:sale.quote.template,website_description:website_quote.website_quote_template_1
@@ -748,7 +748,7 @@ msgstr "ID"
 msgid ""
 "If we store your payment information on our server, subscription payments "
 "will be made automatically."
-msgstr ""
+msgstr "Ödeme bilgilerinizi sunucumuzda saklarsak, abonelik ödemeleri otomatik olarak yapılacaktır."
 
 #. module: website_quote
 #: selection:sale.order,require_payment:0
@@ -931,7 +931,7 @@ msgstr ""
 #. module: website_quote
 #: model:ir.model.fields,help:website_quote.field_sale_quote_template_number_of_days
 msgid "Number of days for the validity date computation of the quotation"
-msgstr ""
+msgstr "Teklif geçerlilik tarihinin hesaplanması için gün sayısı"
 
 #. module: website_quote
 #: model:sale.quote.option,website_description:website_quote.website_sale_option_line_1
@@ -1233,7 +1233,7 @@ msgstr "Teklif Şablonları"
 #. module: website_quote
 #: model:ir.model.fields,field_description:website_quote.field_sale_order_quote_viewed
 msgid "Quotation Viewed"
-msgstr ""
+msgstr "Teklif Görüldü"
 
 #. module: website_quote
 #: code:addons/website_quote/controllers/main.py:32
@@ -1579,7 +1579,7 @@ msgstr "İş Akışları"
 #: code:addons/website_quote/controllers/main.py:137
 #, python-format
 msgid "You cannot add options to a confirmed order."
-msgstr ""
+msgstr "Onaylanmış bir siparişe opsiyon ekleyemezsiniz."
 
 #. module: website_quote
 #: model:ir.ui.view,arch_db:website_quote.so_quotation_content

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-09 09:18+0000\n"
-"PO-Revision-Date: 2017-06-19 08:44+0000\n"
+"PO-Revision-Date: 2018-01-10 18:56+0000\n"
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Latvian (http://www.transifex.com/odoo/odoo-9/language/lv/)\n"
 "MIME-Version: 1.0\n"
@@ -422,7 +422,7 @@ msgstr ""
 #. module: website_sale
 #: model:ir.ui.view,arch_db:website_sale.website_planner
 msgid "<strong>Recommended actions:</strong>"
-msgstr ""
+msgstr "<strong>Ieteicamās aktivitātes:</strong>"
 
 #. module: website_sale
 #: model:ir.ui.view,arch_db:website_sale.website_planner
@@ -741,12 +741,12 @@ msgstr "Valsts"
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_res_country_group
 msgid "Country Group"
-msgstr ""
+msgstr "Valstu grupa"
 
 #. module: website_sale
 #: model:ir.model.fields,field_description:website_sale.field_website_pricelist_country_group_ids
 msgid "Country Groups"
-msgstr ""
+msgstr "Country Groups"
 
 #. module: website_sale
 #: model:ir.ui.view,arch_db:website_sale.checkout
@@ -1141,7 +1141,7 @@ msgstr ""
 #. module: website_sale
 #: model:ir.model.fields,field_description:website_sale.field_product_product_landed_cost_ok
 msgid "Landed Costs"
-msgstr ""
+msgstr "Landed Costs"
 
 #. module: website_sale
 #: model:ir.model.fields,field_description:website_sale.field_product_public_category___last_update
@@ -2211,7 +2211,7 @@ msgstr ""
 #. module: website_sale
 #: model:ir.ui.view,arch_db:website_sale.website_config_settings_view_form
 msgid "eCommerce"
-msgstr ""
+msgstr "eCommerce"
 
 #. module: website_sale
 #: model:ir.ui.view,arch_db:website_sale.cart_popover

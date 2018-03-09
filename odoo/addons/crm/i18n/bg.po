@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-22 13:15+0000\n"
-"PO-Revision-Date: 2016-12-10 11:14+0000\n"
+"PO-Revision-Date: 2017-12-03 20:37+0000\n"
 "Last-Translator: Vladimir Dachev <v.dachev@dalkomotors.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/odoo/odoo-9/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -559,7 +559,7 @@ msgid ""
 "A product in Odoo is something you sell or buy. It could\n"
 "                    be a goods, consumable or services. Choose how you want to\n"
 "                    create your products:"
-msgstr ""
+msgstr "Продукт в Odoo е нещо, което продавате или купувате, \nнезависимо дали става въпрос за стоки, консумативи или услуги. \nИзберете как искате да създадете продуктите си:"
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
@@ -640,7 +640,7 @@ msgstr "Дейност"
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "Add Features"
-msgstr ""
+msgstr "Добавяне на функции"
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_case_form_view_leads
@@ -651,7 +651,7 @@ msgstr "Адрес"
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_team_alias_id
 msgid "Alias"
-msgstr ""
+msgstr "Синоним"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_team_alias_contact
@@ -666,17 +666,17 @@ msgstr ""
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_team_alias_name
 msgid "Alias Name"
-msgstr ""
+msgstr "Псевдоним"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_team_alias_domain
 msgid "Alias domain"
-msgstr ""
+msgstr "Псевдоним - домейн"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_team_alias_model_id
 msgid "Aliased Model"
-msgstr ""
+msgstr "Псевдонимен модел"
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
@@ -762,7 +762,7 @@ msgstr "Дата на Назначаване"
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_lead_date_open
 msgid "Assigned"
-msgstr ""
+msgstr "Присвоено"
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
@@ -1469,7 +1469,7 @@ msgstr "Имейл"
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.sales_team_form_view_in_crm
 msgid "Email Alias"
-msgstr ""
+msgstr "Псевдоним за имейл"
 
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_lead_email_from
@@ -1773,7 +1773,7 @@ msgstr ""
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "Here are some of the <strong>customizations available</strong>:"
-msgstr ""
+msgstr "Някои от <strong>наличните персонализации</strong>\""
 
 #. module: crm
 #: model:ir.actions.act_window,help:crm.crm_lead_action_activities
@@ -1820,7 +1820,7 @@ msgstr "ID"
 msgid ""
 "ID of the parent record holding the alias (example: project holding the task"
 " creation alias)"
-msgstr ""
+msgstr "Идентификатор на родителския запис, съдържащ псевдонима (пример: проект, който държи псевдонима за създаване на задачи)"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_base_partner_merge_line_aggr_ids
@@ -3123,7 +3123,7 @@ msgstr "Търговски отдел"
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "Sales Tools"
-msgstr ""
+msgstr "Инструменти за продажби"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_lead2opportunity_partner_mass_user_ids
@@ -3285,7 +3285,7 @@ msgstr ""
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "Slides"
-msgstr ""
+msgstr "Слайдове"
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
@@ -3447,7 +3447,7 @@ msgstr ""
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_stage_team_ids
 msgid "Teams"
-msgstr ""
+msgstr "Екипи"
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
@@ -3883,7 +3883,7 @@ msgstr "История на комуникацията в уебсайта"
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "Weekly Meetings"
-msgstr ""
+msgstr "Седмични срещи"
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
@@ -3908,7 +3908,7 @@ msgid ""
 "What are your sales objectives? What challenges are you\n"
 "                        dealing with? Being clear on your expectations is the first step\n"
 "                        of a successful implementation."
-msgstr ""
+msgstr "Какви са вашите търговски цели? С какви предизвикателства се занимавате? Определянето на вашите очаквания е първата стъпка от успешното внедряване."
 
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_lead_team_id
@@ -4034,7 +4034,7 @@ msgstr ""
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
 msgid "Your Expectations"
-msgstr ""
+msgstr "Вашите очаквания"
 
 #. module: crm
 #: model:ir.ui.view,arch_db:crm.crm_planner
