@@ -29,4 +29,40 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_supplierinfo_search" model="ir.ui.view">
+        <field name="name">product.supplierinfo.search</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="arch" type="xml">
+            <search string="Supplierinfo">
+                <field name="name" string="Supplier"/>
+                <field name="product_tmpl_id" string="Product" filter_domain="['|', '|', '|', ('product_tmpl_id.name', 'ilike', self), ('default_code', 'ilike', self), ('product_name', 'ilike', self), ('product_code', 'ilike', self)]"/>
+                <field name="categ_id" string="Category"/>
+                <filter string="Indicative Package" domain="[('indicative_package','=', True)]"/>
+                <filter string="not Indicative Package" name="not_indicative_package" domain="[('indicative_package','=', False)]"/>
+                <filter string="Product Active" name="is_product_active" domain="[('is_product_active','=',1)]"/>
+                <separator orientation="vertical"/>
+                <filter string="Product can be purchase" name="product_purchase_ok" domain="[('product_purchase_ok','=',1)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Product" domain="" context="{'group_by':'product_tmpl_id'}"/>
+                    <filter string="Supplier" domain="" context="{'group_by': 'name'}"/>
+                    <filter string="Category" domain="" context="{'group_by':'categ_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="product.product_supplierinfo_type_action" model="ir.actions.act_window">
+        <field name="name">Supplier Pricelist</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.supplierinfo</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{
+            'visible_product_tmpl_id': False,
+            'search_default_is_product_active': 1,
+            'search_default_product_purchase_ok': 1
+            }</field>
+    </record>
+
 </odoo>
