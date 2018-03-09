@@ -25,5 +25,24 @@
             </xpath>
          </field>
     </record>
+    
+    <record id="view_supplierinfo_search" model="ir.ui.view">
+        <field name="name">product.supplierinfo.search</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="coop_purchase.view_supplierinfo_search" />
+        <field name="arch" type="xml">
+            <search string="Supplierinfo">
+                
+                <field name="categ_id" string="Category"/>
+                
+                <filter string="Indicative Package" domain="[('indicative_package','=', True)]"/>
+                <filter string="not Indicative Package" name="not_indicative_package" domain="[('indicative_package','=', False)]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Category" domain="" context="{'group_by':'categ_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
 
 </odoo>
