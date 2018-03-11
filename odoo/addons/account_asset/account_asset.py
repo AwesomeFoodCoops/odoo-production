@@ -260,10 +260,9 @@ def reprise_immo_2016():
             print "         ==> Erreur total depreciation : ", abs(check_amount - immo_2016['amount_total'])
         else :
             print "TOTAL OK"
-        exit()
 
-#suppression_immo_2016()
-#reprise_immo_2016()
+suppression_immo_2016()
+reprise_immo_2016()
 
 print "\n>>>>>>> DONE >>>>>>>>>>"
 print datetime.now().strftime("%Y-%m-%d %H_%M_%s")
