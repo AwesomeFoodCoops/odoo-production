@@ -1,5 +1,74 @@
 <?xml version="1.0"?>
 <odoo>
+    <record id="view_account_payment_tree_extend" model="ir.ui.view">
+            <field name="name">account.payment.tree</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state=='draft'" decoration-muted="state=='reconciled'" edit="false">
+                    <field name="payment_date"/>
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="payment_method_id"/>
+                    <field name="partner_id" string="Customer"/>
+                    <field name="amount" sum="Amount"/>
+                    <field name="state"/>
+                    <field name="invoice_ids" />
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="partner_type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_account_payment_form_extend">
+        <field name="model">account.payment</field>
+        <field name="arch" type="xml">
+            <form string="Register Payment" version="7">
+                    <header>
+                        <button name="post" class="oe_highlight" states="draft" string="Confirm" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="posted,reconciled"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="button_journal_entries"
+                                    string="Journal Items" type="object"
+                                    groups="account.group_account_manager"
+                                    attrs="{'invisible':[('move_line_ids','=',[])]}" icon="fa-bars"/>
+                            <field name="move_line_ids" invisible="1"/>
+                            <button class="oe_stat_button" name="button_invoices"
+                                    string="Invoices" type="object"
+                                    attrs="{'invisible':[('has_invoices','=',False)]}" icon="fa-bars"/>
+                            <field name="has_invoices" invisible="1"/>
+                        </div>
+                        <field name="id" invisible="1"/>
+                        <div class="oe_title" attrs="{'invisible': [('state', '=', 'draft')]}">
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="payment_type" widget="radio" readonly="1"/>
+                                <field name="partner_type" nolabel="1" widget="selection" string="" attrs="{'required': [('payment_type', 'in', ('inbound', 'outbound'))], 'invisible': [('payment_type', 'not in', ('inbound', 'outbound'))], 'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="partner_id" nolabel="1" attrs="{'required': [('payment_type', 'in', ('inbound', 'outbound'))], 'invisible': [('payment_type', 'not in', ('inbound', 'outbound'))], 'readonly': [('state', '!=', 'draft')]}" context="{'default_is_company': True, 'default_supplier': payment_type == 'outbound', 'default_customer': payment_type == 'inbound'}"/>
+                                <field name="journal_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open': True, 'no_create': True}" string="Account Journal" />
+                                <field name="destination_journal_id" options="{'no_open': True, 'no_create': True}" attrs="{'required': [('payment_type', '=', 'transfer')], 'invisible': [('payment_type', '!=', 'transfer')], 'readonly': [('state', '!=', 'draft')]}" />
+                                <field name="hide_payment_method" invisible="1"/>
+                                <field name="payment_method_id" string="Payment Method" readonly="1"/>
+                                <field name="payment_method_code" invisible="1"/>
+                                <label for="amount"/>
+                                <div name="amount_div" class="o_row">
+                                    <field name="amount" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="payment_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="communication" attrs="{'invisible': [('state', '!=', 'draft'), ('communication', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+        </field>
+    </record>
 
     <record id="view_account_payment_tree_inherit" model="ir.ui.view">
         <field name="model">account.payment</field>
@@ -21,15 +90,21 @@
         </field>
     </record>
 
-    <record id="view_account_payment_tree_extend_inherit" model="ir.ui.view">
-        <field name="model">account.payment</field>
-        <field name="inherit_id" ref="account_payment_transfer_account.view_account_payment_tree_extend"/>
-        <field name="arch" type="xml">
-            <field name="company_id" position="before">
-                <field name="invoice_ids" />
-            </field>
-        </field>
+    <record id="inter_tranfer_payment_action" model="ir.actions.act_window">
+        <field name="name">Inter Account Transfer</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="view_account_payment_tree_extend" />
+        <field name="search_view_id" ref="account.view_account_payment_search"/>
+        <field name="domain">[('payment_type', '=', 'transfer')]</field>
+        <field name="context">{'default_payment_type': 'transfer', 'readonly_by_pass': True}</field>
     </record>
 
+    <menuitem action="inter_tranfer_payment_action"
+              name="Inter Account Transfer"
+              id="menu_inter_tranfer_payment"
+              parent="account.menu_finance_entries"
+              sequence="25"/>
 
 </odoo>

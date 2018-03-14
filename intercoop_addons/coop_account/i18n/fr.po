@@ -75,3 +75,9 @@ msgstr "Si vrai, une pièce comptable ne pourra tout au plus avoir qu'une seule 
 #: model:ir.model.fields,field_description:coop_account.field_account_account_reconciled_account
 msgid "Bank Reconciliation"
 msgstr "Rapprochement bancaire"
+
+#. module: coop_account
+#: model:ir.actions.act_window,name:coop_account.inter_tranfer_payment_action
+#: model:ir.ui.menu,name:coop_account.menu_inter_tranfer_payment
+msgid "Inter Account Transfer"
+msgstr "Tranfert interne"

@@ -24,6 +24,7 @@
         'purchase_compute_order',
         'res_partner_account_move_line',
         'stock',
+        'coop_base',
     ],
     'data': [
         # Security
