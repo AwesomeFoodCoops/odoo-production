@@ -385,12 +385,12 @@ class ShiftShift(models.Model):
             raise UserError(_(
                 "You can not create Shift if your timezone is not defined."))
         for shift in self:
-            shift.end_date_for_mail = datetime.strftime(
-                fields.Datetime.from_string(shift.date_end), "%d/%m/%Y %H:%M")
-            shift.end_time_for_mail = datetime.strftime(
-                fields.Datetime.from_string(shift.date_end), "%H:%M")
-
             if shift.date_end:
+                shift.end_date_for_mail = datetime.strftime(
+                    fields.Datetime.from_string(shift.date_end),
+                    "%d/%m/%Y %H:%M")
+                shift.end_time_for_mail = datetime.strftime(
+                    fields.Datetime.from_string(shift.date_end), "%H:%M")
                 start_date_object = datetime.strptime(
                     shift.date_end, '%Y-%m-%d %H:%M:%S')
                 utc_timestamp = pytz.utc.localize(
