@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_capital_certificate_form">
+        <field name="model">capital.certificate</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="year"/>
+                        <field name="line_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_capital_certificate_tree">
+        <field name="model">capital.certificate</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="year"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_capital_certificate_search">
+        <field name="model">capital.certificate</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="year"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="act_capital_certificate_from_partner" model="ir.actions.act_window">
+        <field name="name">Capital Certificates</field>
+        <field name="res_model">capital.certificate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_capital_certificate_tree"/>
+        <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id}</field>
+    </record>
+
+    <record id="capital_certificate_action" model="ir.actions.act_window">
+        <field name="name">Capital Certificates</field>
+        <field name="res_model">capital.certificate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="menu_capital_certificate"
+        parent="capital_subscription.menu_capital_main"
+        action="capital_certificate_action"
+        sequence="110" />
+</odoo>

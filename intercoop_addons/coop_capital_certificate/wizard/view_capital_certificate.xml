@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="capital_certificate_view" model="ir.ui.view">
+        <field name="name">capital.certificate.wizard.form.view</field>
+        <field name="model">capital.certificate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Capital Fiscal Certificate Generation">
+                <group name="parameters">
+                    <field name="year"/>
+                </group>
+                <group name="send_mail">
+                    <field name="send_mail"/>
+                </group>
+                <group name="message" attrs="{'invisible':[('send_mail', '=', False)]}">
+                    <p class='alert alert-warning'>Be careful!<br/>
+                    By clicking on the Generate button, an email will be sent to every partner that suscribed capital in the selected year</p>
+                </group>
+                <group name="partners">
+                    <field name="partner_selection"/>
+                    <field name="partner_ids" attrs="{'invisible':[('partner_selection', '!=', 'list')]}"/>
+                </group>
+                <footer>
+                    <button string="Generate" name="generate_certificates" type="object"
+                        class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"
+                        class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="create_capital_certificate_action" model="ir.actions.act_window">
+        <field name="name">Create Capital Certificates</field>
+        <field name="res_model">capital.certificate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="create_capital_certificate_menu"
+        parent="capital_subscription.menu_capital_main"
+        action="create_capital_certificate_action"
+        sequence="100" />
+
+   <record id="action_certificate_multi" model="ir.values">
+       <field name="model_id" ref="base.model_res_partner"/>
+       <field name="name">Create Capital Certificate</field>
+       <field name="key2">client_action_multi</field>
+       <field name="value" eval="'ir.actions.act_window,' +str(ref('coop_capital_certificate.create_capital_certificate_action'))" />
+       <field name="key">action</field>
+       <field name="model">res.partner</field>
+    </record>
+</odoo>

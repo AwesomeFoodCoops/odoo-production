@@ -1,0 +1,355 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * coop_capital_certificate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-24 16:34+0000\n"
+"PO-Revision-Date: 2017-04-24 16:34+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_capital_certificate
+#: model:mail.template,report_name:coop_capital_certificate.capital_certificate_mail_template
+msgid "${(object.partner_id.name or '').replace('/','_')}_${object.partner_id.state == 'draft' and 'draft' or ''}"
+msgstr "${(object.partner_id.name or '').replace('/','_')}_${object.partner_id.state == 'draft' and 'draft' or ''}"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid ", dont l’objet social est la vente en commerce de détail, dont le siège social est sis"
+msgstr ", dont l’objet social est la vente en commerce de détail, dont le siège social est sis"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid ", et qui remplit les conditions mentionnées aux c, d et e du 2° du I de l'article 199 terdecies-0 A du CGI"
+msgstr ", et qui remplit les conditions mentionnées aux c, d et e du 2° du I de l'article 199 terdecies-0 A du CGI"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "<br/>\n"
+"            living at"
+msgstr "<br/>\n"
+"            domicilié(e)"
+
+#. module: coop_capital_certificate
+#: model:mail.template,body_html:coop_capital_certificate.capital_certificate_mail_template
+msgid "<p>Hello ${object.partner_id.name},</p>\n"
+"            <p>\n"
+"            Please find attached tour Fiscal Capital Certificate for year ${object.year}\n"
+"            </p>\n"
+"            <p>Best regards</p>"
+msgstr "<p>Bonjour ${object.partner_id.name},</p>\n"
+"            <p>\n"
+"            Vous trouverez en pièce jointe votre Certificat Fiscal de Capital pour l'année ${object.year}\n"
+"            </p>\n"
+"            <p>Cordialement,</p>"
+
+#. module: coop_capital_certificate
+#: model:ir.model,name:coop_capital_certificate.model_account_account
+msgid "Account"
+msgstr "Compte"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_account_move_line_id
+msgid "Account Move Line"
+msgstr "Account Move Line"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_view
+msgid "Be careful!<br/>\n"
+"                    By clicking on the Generate button, an email will be sent to every partner that suscribed capital in the selected year"
+msgstr "Attention!<br/>\n"
+"                    Si vous cliquez sur le bouton Générer, un courriel sera envoyé à tous les partenaires ayan souscrit du capital sur l'année sélectionnée."
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_view
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.view_res_partner_form
+msgid "Capital Certif."
+msgstr "Capital Certif."
+
+#. module: coop_capital_certificate
+#: model:ir.actions.report.xml,name:coop_capital_certificate.action_report_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "Capital Certificate"
+msgstr "Certificats d'Actionnaire"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.view_capital_certificate_config
+msgid "Capital Certificate Configuration"
+msgstr "Configuration des Certificats de Capital"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_account_config_settings_capital_certificate_header
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_res_company_capital_certificate_header
+msgid "Capital Certificate Header"
+msgstr "Entête de Certificat de Capital"
+
+#. module: coop_capital_certificate
+#: model:ir.actions.act_window,name:coop_capital_certificate.act_capital_certificate_from_partner
+#: model:ir.actions.act_window,name:coop_capital_certificate.capital_certificate_action
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_res_partner_capital_certificate_ids
+#: model:ir.ui.menu,name:coop_capital_certificate.menu_capital_certificate
+msgid "Capital Certificates"
+msgstr "Certificats de Capital"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_res_partner_capital_certificate_count
+msgid "Capital Certificates count"
+msgstr "Nombre de Certificats de Capital"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_view
+msgid "Capital Fiscal Certificate Generation"
+msgstr "Génération des Certificats de Capital"
+
+#. module: coop_capital_certificate
+#: model:ir.model,name:coop_capital_certificate.model_capital_certificate_wizard
+msgid "Capital Fiscal Certificate Report"
+msgstr "Rapport des Certificats de Capital"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_account_account_capital_certificate_config_id
+msgid "Capital certificate config id"
+msgstr "Capital certificate config id"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_product
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_certificate_id
+msgid "Certificate"
+msgstr "Certificat"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_ids
+msgid "Certificate Lines"
+msgstr "Lignes du certificat"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "Cet état individuel est établi en l'application   de l'article 199 terdecies-0 A du CGI par"
+msgstr "Cet état individuel est établi en l'application   de l'article 199 terdecies-0 A du CGI par"
+
+#. module: coop_capital_certificate
+#: model:ir.model,name:coop_capital_certificate.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: coop_capital_certificate
+#: model:ir.actions.act_window,name:coop_capital_certificate.create_capital_certificate_action
+#: model:ir.ui.menu,name:coop_capital_certificate.create_capital_certificate_menu
+msgid "Create Capital Certificates"
+msgstr "Create Capital Certificates"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_create_uid
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard_create_uid
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_report_coop_capital_certificate_report_capital_certificate_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_create_date
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard_create_date
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_report_coop_capital_certificate_report_capital_certificate_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_display_name
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_display_name
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard_display_name
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_report_coop_capital_certificate_report_capital_certificate_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "Done in"
+msgstr "Fait à"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_template_id
+msgid "Email to Send"
+msgstr "Courriel à envoyer"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_view
+msgid "Generate"
+msgstr "Générer"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_id
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard_id
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_report_coop_capital_certificate_report_capital_certificate_id
+msgid "ID"
+msgstr "ID"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,help:coop_capital_certificate.field_capital_certificate_wizard_send_mail
+msgid "If the box is checked, an email  will be automatically sent to partners who subscribed capital.If it isn't checked, the pdf files will be created but not sent by email."
+msgstr "Si la case est cochée, un mail sera envoyé automatiquement aux partenaires qui ont souscrit du capital. Si elle n'est pas cochée, le fichier pdf sera créé mais ne sera pas envoyé par mail."
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_date
+msgid "Invoice Date"
+msgstr "Date de facturation"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate___last_update
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line___last_update
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard___last_update
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_report_coop_capital_certificate_report_capital_certificate___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard_write_uid
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_write_uid
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_report_coop_capital_certificate_report_capital_certificate_write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard_write_date
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_write_date
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_report_coop_capital_certificate_report_capital_certificate_write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: coop_capital_certificate
+#: model:ir.model,name:coop_capital_certificate.model_res_partner
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_partner_id
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: coop_capital_certificate
+#: code:addons/coop_capital_certificate/models/capital_certificate.py:33
+#, python-format
+msgid "Partner %s already has a certificate for year %s!"
+msgstr "Le partenaire %s a déjà un certificat pour l'année %s!"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard_partner_selection
+msgid "Partner Selection"
+msgstr "Sélection des partenaires"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard_partner_ids
+msgid "Partners"
+msgstr "Partenaires"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_payment_date
+msgid "Payment Date"
+msgstr "Date de règlement"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_qty
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard_send_mail
+msgid "Send Mail"
+msgstr "Envoi par mail"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_account_config_settings_signature
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_res_company_signature
+msgid "Signature"
+msgstr "Signature"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "The President"
+msgstr "Le Président"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,help:coop_capital_certificate.field_capital_certificate_template_id
+msgid "This field contains the template of the mail that will be automatically sent"
+msgstr "Ce champs contient le modèle du mail qui sera envoyé automatiquement"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line_price
+msgid "Unit Price"
+msgstr "Prix unitaire"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.view_res_partner_form
+msgid "View Capital Certificates"
+msgstr "Voir les Certificats de Capitaux"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard_year
+#: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_year
+msgid "Year"
+msgstr "Année"
+
+#. module: coop_capital_certificate
+#: model:mail.template,subject:coop_capital_certificate.capital_certificate_mail_template
+msgid "Your fiscal certificate for year ${object.year}"
+msgstr "Votre certificat de capital pour l'année ${object.year}"
+
+#. module: coop_capital_certificate
+#: model:ir.model,name:coop_capital_certificate.model_account_config_settings
+msgid "account.config.settings"
+msgstr "account.config.settings"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "at the face value of"
+msgstr "au nominal de"
+
+#. module: coop_capital_certificate
+#: model:ir.model,name:coop_capital_certificate.model_capital_certificate
+msgid "capital.certificate"
+msgstr "capital.certificate"
+
+#. module: coop_capital_certificate
+#: model:ir.model,name:coop_capital_certificate.model_capital_certificate_line
+msgid "capital.certificate.line"
+msgstr "capital.certificate.line"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "certifies that:"
+msgstr "certifie que:"
+
+#. module: coop_capital_certificate
+#: model:ir.model.fields,help:coop_capital_certificate.field_account_config_settings_capital_certificate_header
+#: model:ir.model.fields,help:coop_capital_certificate.field_res_company_capital_certificate_header
+msgid "example: 'La S.A.S. Coopérative à Capital Variable LA LOUVE'"
+msgstr "exemple: 'La S.A.S. Coopérative à Capital Variable LA LOUVE'"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "on"
+msgstr "le"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "paid on"
+msgstr "payées le"
+
+#. module: coop_capital_certificate
+#: model:ir.model,name:coop_capital_certificate.model_report_coop_capital_certificate_report_capital_certificate
+msgid "report.coop_capital_certificate.report_capital_certificate"
+msgstr "report.coop_capital_certificate.report_capital_certificate"
+
+#. module: coop_capital_certificate
+#: model:ir.ui.view,arch_db:coop_capital_certificate.capital_certificate_report_template
+msgid "subscribed:"
+msgstr "a souscrit:"
