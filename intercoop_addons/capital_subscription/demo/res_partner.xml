@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="res.partner" id="middle_class_partner">
+        <field name="name">Middle Class Partner Subscriptor</field>
+    </record>
+
+    <record model="res.partner" id="underclass_class_partner">
+        <field name="name">Underclass Partner Subscriptor</field>
+        <field name="fundraising_partner_type_ids" eval="[(4, ref('underclass_population_fundraising_partner_type'))]" />
+    </record>
+
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.ui.view" id="view_res_partner_form">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="page_capital_fundraising" string="Capital Subscriptions">
+                    <group >
+                        <group string="Partner Type">
+                            <field name="fundraising_partner_type_ids" widget="many2many_tags"/>
+                        </group>
+                        <group string="Subscriptions">
+                            <field name="amount_subscription"/>
+                            <button id="new_subscription" name="%(action_capital_fundraising_wizard)d" type="action"
+                                string="New Capital Subscription" class="oe_highlight"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>
