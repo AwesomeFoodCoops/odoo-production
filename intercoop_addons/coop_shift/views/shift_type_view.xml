@@ -13,6 +13,7 @@
                     <group>
                         <field name="name"/>
                         <field name="default_reply_to"/>
+                        <field name="prefix_name"/>
                         <field name="default_registration_min"/>
                         <field name="default_registration_max"/>
                         <field name="is_ftop"/>
