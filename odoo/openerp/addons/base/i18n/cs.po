@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-22 07:25+0000\n"
-"PO-Revision-Date: 2017-03-21 08:53+0000\n"
+"PO-Revision-Date: 2018-02-09 11:12+0000\n"
 "Last-Translator: Martin Trigaux\n"
 "Language-Team: Czech (http://www.transifex.com/odoo/odoo-9/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgid ""
 "\n"
 "Allow cashier to reprint receipts\n"
 "\n"
-msgstr ""
+msgstr "\n\n=======================\n\nUmožněte pokladníkovi znovu vytisknout doklady\n\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_pos_restaurant
@@ -7926,7 +7926,7 @@ msgstr "Závislost"
 #: model:ir.model.fields,field_description:base.field_ir_module_module_description
 #: model:ir.ui.view,arch_db:base.view_attachment_form
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_module_module_description_html
@@ -8162,7 +8162,7 @@ msgid ""
 "Display and manage the list of all countries that can be assigned to your "
 "partner records. You can create or delete countries to make sure the ones "
 "you are working on will be maintained."
-msgstr ""
+msgstr "Zobrazit nebo spravovat seznam všech zemí, které mohou být přiřazeny k záznamům vašich partnerů. Můžete vytvořit nebo odstranit země, abyste se ujistili, že ty, se kterými pracujete budou udržovány."
 
 #. module: base
 #: model:res.partner.category,name:base.res_partner_category_13
@@ -9476,7 +9476,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.view_window_action_search
 #: model:ir.ui.view,arch_db:base.view_workflow_activity_search
 msgid "Group By"
-msgstr ""
+msgstr "Seskupit podle"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_groups_full_name
@@ -9944,7 +9944,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_wkf_triggers_id
 #: model:ir.model.fields,field_description:base.field_wkf_workitem_id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_act_server_xml_id
@@ -10542,7 +10542,7 @@ msgstr ""
 #: code:addons/base/ir/ir_sequence.py:218
 #, python-format
 msgid "Invalid prefix or suffix for sequence '%s'"
-msgstr ""
+msgstr "Neplatná předpona nebo přípona pro sekvenci '%s'"
 
 #. module: base
 #: code:addons/base/res/ir_property.py:82
@@ -10590,7 +10590,7 @@ msgstr ""
 #: model:ir.module.module,shortdesc:base.module_account
 #: model:ir.ui.menu,name:base.menu_invoiced
 msgid "Invoicing"
-msgstr ""
+msgstr "Fakturace"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_account_voucher
@@ -11063,7 +11063,7 @@ msgstr "Naposled upraveno"
 #: model:ir.model.fields,field_description:base.field_wkf_transition_write_uid
 #: model:ir.model.fields,field_description:base.field_wkf_write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Naposled upraveno"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_base_language_export_write_date
@@ -11135,7 +11135,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_wkf_transition_write_date
 #: model:ir.model.fields,field_description:base.field_wkf_write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Naposled upraveno"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_module_module_installed_version
@@ -11232,7 +11232,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_partner_category_parent_left
 msgid "Left parent"
-msgstr ""
+msgstr "Levý rodič"
 
 #. module: base
 #: selection:res.lang,direction:0
@@ -11371,7 +11371,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_users_login
 msgid "Login"
-msgstr ""
+msgstr "Přihlašovací jméno"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company_logo
@@ -11407,7 +11407,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,summary:base.module_lunch
 msgid "Lunch Order, Meal, Food"
-msgstr ""
+msgstr "Objednávka obědů, stravování, jídel"
 
 #. module: base
 #: model:res.country,name:base.lu
@@ -11496,7 +11496,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_module_module_maintainer
 msgid "Maintainer"
-msgstr ""
+msgstr "Údržbář"
 
 #. module: base
 #: model:res.country,name:base.mw
@@ -11714,7 +11714,7 @@ msgid ""
 "Medium-sized image of this contact. It is automatically resized as a "
 "128x128px image, with aspect ratio preserved. Use this field in form views "
 "or some kanban views."
-msgstr ""
+msgstr "Střední velikost obrázku tohoto kontaktu. Je automaticky přepočítán na 128x128 bodů se zachováním poměru stran. Použijte toto pole v zobrazeních 'formulář' nebo 'kanban'."
 
 #. module: base
 #: model:ir.ui.menu,name:base.menu_association
@@ -11867,7 +11867,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_partner_form
 msgid "Mobile:"
-msgstr ""
+msgstr "Mobil:"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_font_mode
@@ -12058,7 +12058,7 @@ msgstr ""
 #. module: base
 #: model:res.country,name:base.md
 msgid "Moldavia"
-msgstr ""
+msgstr "Moldavsko"
 
 #. module: base
 #: model:res.country,name:base.mc
@@ -12088,7 +12088,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.sequence_view
 msgid "Month: %(month)s"
-msgstr ""
+msgstr "Měsíc: %(month)s"
 
 #. module: base
 #: selection:ir.cron,interval_type:0
@@ -12753,7 +12753,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_mail_server_smtp_user
 msgid "Optional username for SMTP authentication"
-msgstr ""
+msgstr "Nepovinné uživatelské jméno pro ověření SMTP"
 
 #. module: base
 #: selection:workflow.activity,split_mode:0
@@ -12975,7 +12975,7 @@ msgstr ""
 #: model:res.partner.category,name:base.res_partner_category_0
 #: model:res.request.link,name:base.req_link_partner
 msgid "Partner"
-msgstr ""
+msgstr "Kontakt"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_crm_partner_assign
@@ -13620,7 +13620,7 @@ msgstr ""
 #: model:ir.module.category,name:base.module_category_purchase_management
 #: model:ir.ui.menu,name:base.menu_purchase_root
 msgid "Purchases"
-msgstr ""
+msgstr "Nákupy"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_wkf_activity_action
@@ -13811,7 +13811,7 @@ msgstr ""
 #: code:addons/base/module/module.py:370
 #, python-format
 msgid "Recursion error in modules dependencies !"
-msgstr ""
+msgstr "Rekurzní chyba v závislostech modulů !"
 
 #. module: base
 #: constraint:ir.actions.server:0
@@ -13994,7 +13994,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.category,name:base.module_category_reporting
 msgid "Reporting"
-msgstr ""
+msgstr "Sestavy"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.ir_action_report_xml
@@ -14318,7 +14318,7 @@ msgstr ""
 #: model:ir.ui.menu,name:base.menu_sales
 #: model:ir.ui.menu,name:base.menu_sales_config
 msgid "Sales"
-msgstr ""
+msgstr "Prodej"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_partner_form
@@ -14349,7 +14349,7 @@ msgstr ""
 #: model:ir.module.module,shortdesc:base.module_sales_team
 #: model:ir.ui.menu,name:base.sales_team_config
 msgid "Sales Teams"
-msgstr ""
+msgstr "Obchodní týmy"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_timesheet
@@ -14371,7 +14371,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_res_users_user_id
 #: model:ir.ui.view,arch_db:base.view_res_partner_filter
 msgid "Salesperson"
-msgstr ""
+msgstr "Obchodník"
 
 #. module: base
 #: model:res.country,name:base.ws
@@ -14461,7 +14461,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.sequence_view
 msgid "Second: %(sec)s"
-msgstr ""
+msgstr "Sekund: %(sec)s"
 
 #. module: base
 #: model:ir.ui.menu,name:base.menu_security
@@ -14618,7 +14618,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.view_sequence_search
 #: model:ir.ui.view,arch_db:base.view_view_tree
 msgid "Sequence"
-msgstr ""
+msgstr "Číselná řada"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_sequence_code
@@ -14908,7 +14908,7 @@ msgid ""
 "Small-sized image of this contact. It is automatically resized as a 64x64px "
 "image, with aspect ratio preserved. Use this field anywhere a small image is"
 " required."
-msgstr ""
+msgstr "Malý rozměr obrázku tohoto kontaktu. Je automaticky zmenšen na rozměr 64x64 bodů se zachováním poměru stran. Použijte toto pole kdekoli je požadován malý obrázek."
 
 #. module: base
 #: model:res.country,name:base.sb
@@ -14937,19 +14937,19 @@ msgstr ""
 #: code:addons/base/ir/ir_model.py:820
 #, python-format
 msgid "Sorry, you are not allowed to create this kind of document."
-msgstr ""
+msgstr "Omlouváme se, ale nemáte právo vytvořit tento druh dokumentu."
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:821
 #, python-format
 msgid "Sorry, you are not allowed to delete this document."
-msgstr ""
+msgstr "Omlouváme se, ale nemáte právo smazat tento dokument."
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:819
 #, python-format
 msgid "Sorry, you are not allowed to modify this document."
-msgstr ""
+msgstr "Omlouváme se, ale nemáte právo měnit tento dokument."
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_filters_sort
@@ -14987,7 +14987,7 @@ msgstr ""
 msgid ""
 "Source activity. When this activity is over, the condition is tested to "
 "determine if we can start the ACT_TO activity."
-msgstr ""
+msgstr "Zdrojové činnosti. Když tato činnost skončí, je testována podmínka k určení jestli máme zahájit činnosti ACT_TO."
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_translation_source
@@ -15107,7 +15107,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.category,name:base.module_category_specific_industry_applications
 msgid "Specific Industry Applications"
-msgstr ""
+msgstr "Specifické aplikace průmyslu"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_users_new_password
@@ -15185,7 +15185,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_country_state_ids
 msgid "States"
-msgstr ""
+msgstr "Státy"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_base_language_install_state
@@ -15198,7 +15198,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_wkf_workitem_state
 #: model:ir.ui.view,arch_db:base.view_workflow_workitem_search
 msgid "Status"
-msgstr ""
+msgstr "Stav"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_sequence_number_increment
@@ -15437,13 +15437,13 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_base_module_configuration_form
 msgid "System Configuration Done"
-msgstr ""
+msgstr "Nastavení systému dokončeno"
 
 #. module: base
 #: code:addons/base/module/wizard/base_module_configuration.py:20
 #, python-format
 msgid "System Configuration done"
-msgstr ""
+msgstr "Nastavení systému dokončeno"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.ir_config_list_action
@@ -15491,7 +15491,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_res_partner_filter
 msgid "Tag"
-msgstr ""
+msgstr "Štítek"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_partner_category_id_972
@@ -17774,7 +17774,7 @@ msgid ""
 "Your OpenERP Server does not support SMTP-over-SSL. You could use STARTTLS "
 "instead.If SSL is needed, an upgrade to Python 2.6 on the server-side should"
 " do the trick."
-msgstr ""
+msgstr "Váš OpenERP server nepodporuje metodu SMTP-over-SSL. Místo toho zkuste použít STARTTLS. Pokud potřebujete SSL, aktualizujte na Python 2.6 na serveru, to by mohlo pomoct."
 
 #. module: base
 #: code:addons/base/ir/ir_mail_server.py:491

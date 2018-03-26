@@ -2,7 +2,7 @@
     :alt: License: AGPL-3
 
 ==================================================
-Custom Louve - Disable translation for some fields
+Custom Coop - Disable translation for some fields
 ==================================================
 
 This module disable translation mechanism for some fields. for the time being :

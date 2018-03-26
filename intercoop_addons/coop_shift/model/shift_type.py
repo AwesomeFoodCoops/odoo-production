@@ -41,3 +41,7 @@ class ShiftType(models.Model):
         help="""It will select this default maximum value when you choose
         this shift""")
     is_ftop = fields.Boolean("FTOP Shift", default=False)
+    prefix_name = fields.Char(
+        "Prefix Name",
+        help="""this is configuration field, it uses to add prefix to
+        the name of shift template or shift shift.""")

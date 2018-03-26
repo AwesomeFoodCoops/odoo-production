@@ -15,6 +15,7 @@
         'point_of_sale',
         'pos_report_total_vat_excluded',
         'coop_point_of_sale',
+        'louve_custom_product'
     ],
     'data': [
         'static/src/xml/templates.xml',

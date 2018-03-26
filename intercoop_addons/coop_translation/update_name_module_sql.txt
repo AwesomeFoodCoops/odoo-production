@@ -1,0 +1,3 @@
+UPDATE ir_module_module SET name = 'coop_translation' WHERE name = 'louve_custom_translation';
+UPDATE ir_model_data SET module = 'coop_translation' WHERE module = 'louve_custom_translation';
+UPDATE ir_model_data SET name = 'module_coop_translation' WHERE name = 'module_louve_custom_translation' AND module = 'base' AND model = 'ir.module.module';

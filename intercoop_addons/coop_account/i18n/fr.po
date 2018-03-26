@@ -67,6 +67,11 @@ msgid "Salvage Value"
 msgstr "Valeur non amortissable"
 
 #. module: coop_account
+#: model:ir.actions.server,name:coop_account.action_server_unmatch_bankstatement
+msgid "Unmatch Bank Statement"
+msgstr "Dé-rapprocher"
+
+#. module: coop_account
 #: model:ir.model.fields,help:coop_account.field_account_account_reconciled_account
 msgid "If true, account moves will be able to have at most only one account move line linked to this account (or to another account with 'Bank reconciliation' is true)"
 msgstr "Si vrai, une pièce comptable ne pourra tout au plus avoir qu'une seule écriture comptable liée à ce compte comptable (ou à un autre compte comptable où "Rapprochement bancaire" est vrai)"

@@ -9,7 +9,7 @@
             <field name="name">shift.shift.form</field>
             <field name="model">shift.shift</field>
             <field name="arch" type="xml">
-                <form string="Shifts">
+                <form string="Shifts" create="false">
                     <header>
                         <button string="Confirm Shift" name="button_confirm" states="draft" type="object" class="oe_highlight" groups="base.group_user"/>
                         <button string="Finish Shift" name="button_done" states="confirm" type="object" class="oe_highlight" groups="base.group_user"/>
@@ -103,7 +103,7 @@
             <field name="name">shift.shift.tree</field>
             <field name="model">shift.shift</field>
             <field name="arch" type="xml">
-                <tree string="Shifts" decoration-bf="message_needaction==True" decoration-danger="(seats_min and seats_min&gt;seats_reserved) or (seats_max and seats_max&lt;seats_reserved)" decoration-muted="state=='cancel'">
+                <tree string="Shifts" decoration-bf="message_needaction==True" decoration-danger="(seats_min and seats_min&gt;seats_reserved) or (seats_max and seats_max&lt;seats_reserved)" decoration-muted="state=='cancel'" create="false">
                     <field name="name"/>
                     <field name="week_number"/>
                     <field name="shift_type_id"/>
@@ -123,7 +123,7 @@
             <field name="name">shift.shift.kanban</field>
             <field name="model">shift.shift</field>
             <field name="arch" type="xml">
-                <kanban class="o_event_kanban_view">
+                <kanban class="o_event_kanban_view" create="false">
                     <field name="user_ids"/>
                     <field name="date_begin"/>
                     <field name="date_end"/>
