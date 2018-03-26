@@ -19,4 +19,5 @@ class AccountInvoiceLine(models.Model):
                 self.package_qty = suppliers[0].package_qty
                 self.discount = suppliers[0].discount
                 self.base_price = suppliers[0].base_price
+                self.price_unit = suppliers[0].price
         return ret

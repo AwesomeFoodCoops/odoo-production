@@ -5,7 +5,7 @@
 
 
 {
-    'name': 'Louve Custom - Disable Translation',
+    'name': 'Coop Translation',
     'version': '9.0.6.0.0',
     'category': 'Custom',
     'author': 'La Louve',
