@@ -21,6 +21,7 @@
         "view/view_account_payment.xml",
         "view/view_account_asset_asset.xml",
         "view/view_account_account.xml",
+        "wizard/view_bank_statement_line_reconcile_wizard.xml",
     ],
     'installable': True,
 }

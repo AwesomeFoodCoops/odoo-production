@@ -41,9 +41,19 @@ msgid "Fiscal Year"
 msgstr "Exercice fiscal"
 
 #. module: coop_account
+#: model:ir.actions.server,name:coop_account.action_server_statement_line_reconcile
+msgid "Generate Account Moves"
+msgstr "Générer les écritures"
+
+#. module: coop_account
 #: model:ir.ui.view,arch_db:coop_account.view_account_config_setting_inherit
 msgid "Fiscal Year Last Day"
 msgstr "Dernier jour de l'exercice fiscal"
+
+#. module: coop_account
+#: model:ir.ui.view,arch_db:coop_account.view_bank_statement_line_reconcile_wizard_form
+msgid "Generate and reconcille"
+msgstr "Générer et rappocher"
 
 #. module: coop_account
 #: model:ir.ui.view,arch_db:coop_account.view_account_move_line_filter_inherit
@@ -70,6 +80,12 @@ msgstr "Valeur non amortissable"
 #: model:ir.actions.server,name:coop_account.action_server_unmatch_bankstatement
 msgid "Unmatch Bank Statement"
 msgstr "Dé-rapprocher"
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_bank_statement_line.py:13
+#, python-format
+msgid "This wizzard is only available on non reconcilled bank statement lines. Please unselect already reconcilled lines."
+msgstr "Cet assistant n'est disponible que pour les lignes non encore rapprochées. Merci de dé-selectionner les lignes déjà rapprochées."
 
 #. module: coop_account
 #: model:ir.model.fields,help:coop_account.field_account_account_reconciled_account
