@@ -167,7 +167,7 @@ class ShiftLeave(models.Model):
     @api.depends('type_id', 'stop_date', 'start_date')
     def _compute_proceed_message(self):
         for leave in self:
-            if leave.stop_date:
+            if leave.stop_date and leave.start_date:
                 days_leave =\
                     (datetime.strptime(leave.stop_date, "%Y-%m-%d") -
                      datetime.strptime(leave.start_date, "%Y-%m-%d")).days + 1
