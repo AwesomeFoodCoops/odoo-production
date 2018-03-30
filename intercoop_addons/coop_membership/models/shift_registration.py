@@ -273,14 +273,50 @@ class ShiftRegistration(models.Model):
         Check leaving time when register the shift
         Odoo should prevent them from scheduling shift that falls within the period of the leave
         """
+        is_from_template = self._context.get('from_shift_template', False)
         for reg in self:
+            # Get leave 
             leaves = reg.partner_id.leave_ids.filtered(
                 lambda l: (l.type_id.is_temp_leave or l.type_id.is_incapacity)
-                          and l.stop_date and l.state == 'done')
+                and l.stop_date and l.state == 'done')
+
             for leave in leaves:
                 if reg.date_end >= leave.start_date and\
                         reg.date_begin <= leave.stop_date:
-                    raise UserError(_(
-                        "You can't register the shift (%s - %s) "
-                        "that falls within the period of the leave (%s - %s)" %
-                        (reg.date_begin, reg.date_end, leave.start_date, leave.stop_date)))
+                    if reg.shift_id.shift_type_id.is_ftop:
+
+                        # Check attendee be crated from template
+                        if is_from_template:
+                            reg.state = 'waiting'
+                        else:
+                            # Get list attendee
+                            partner_tmp_ids = reg.shift_id.shift_template_id.\
+                                registration_ids.mapped('partner_id').ids
+                            # Check attendde already be in template
+                            if reg.partner_id.id in partner_tmp_ids:
+                                reg.state = 'waiting'
+                            else:
+                                raise UserError(_(
+                                    "You can't register the shift (%s - %s) "
+                                    "that falls within the period of the leave (%s - %s)" %
+                                    (reg.date_begin, reg.date_end, leave.start_date,
+                                     leave.stop_date)))
+                    elif not reg.shift_id.shift_type_id.is_ftop and\
+                            leave.type_id.is_temp_leave:
+
+                        # Check attendee be crated from template
+                        if is_from_template:
+                            reg.state = 'waiting'
+                        else:
+                            # Get list attendee
+                            partner_tmp_ids = reg.shift_id.shift_template_id.\
+                                registration_ids.mapped('partner_id').ids
+                            # Check attendde already be in template
+                            if reg.partner_id.id in partner_tmp_ids:
+                                reg.state = 'waiting'
+                            else:
+                                raise UserError(_(
+                                    "You can't register the shift (%s - %s) "
+                                    "that falls within the period of the leave (%s - %s)" %
+                                    (reg.date_begin, reg.date_end, leave.start_date,
+                                     leave.stop_date)))
