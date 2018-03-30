@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+access_validate_invoice,access_validate_invoice,account.model_account_invoice,louve_custom_account.group_validate_invoice,1,1,1,1
