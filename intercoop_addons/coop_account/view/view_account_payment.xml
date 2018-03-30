@@ -31,5 +31,12 @@
         </field>
     </record>
 
+    <record id="account.action_account_payments_payable" model="ir.actions.act_window">
+        <field name="context">{'default_payment_type': 'outbound', 'readonly_by_pass': True}</field>
+    </record>
+
+    <record id="account.action_account_payments" model="ir.actions.act_window">
+        <field name="context">{'default_payment_type': 'inbound', 'readonly_by_pass': True}</field>
+    </record>
 
 </odoo>
