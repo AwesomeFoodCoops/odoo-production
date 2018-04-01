@@ -33,4 +33,21 @@
         </field>
     </record>
 
+    <record model="ir.actions.server" id="action_server_statement_line_reconcile">
+      <field name="name">Generate Account Moves</field>
+      <field name="model_id" ref="account.model_account_bank_statement_line"/>
+      <field name="code">
+        action = self.get_statement_line_reconcile(cr, uid, context.get('active_ids', []), context=context)
+      </field>
+    </record>
+
+    <record model="ir.values" id="action_value_statement_line_reconcile">
+      <field name="model_id" ref="account.model_account_bank_statement_line" />
+      <field name="name">Generate Account Moves</field>
+      <field name="key2">client_action_multi</field>
+      <field name="value" eval="'ir.actions.server,' +str(ref('action_server_statement_line_reconcile'))" />
+      <field name="key">action</field>
+      <field name="model">account.bank.statement.line</field>
+    </record>
+
 </odoo>

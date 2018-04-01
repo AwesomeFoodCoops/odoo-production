@@ -115,8 +115,9 @@ class AccountBankStatementLine(models.Model):
             bank_reconcile_account_allowed_ids
 
         domain = [
-            '&', ('statement_id', '=', False), ('account_id', 'in',
-                                                reconciliation_account_all)]
+            '&', '&', ('statement_id', '=', False),
+            ('reconciled', '=', False),
+            ('account_id', 'in', reconciliation_account_all)]
 
         if self.partner_id.id and not overlook_partner:
             domain = expression.AND(

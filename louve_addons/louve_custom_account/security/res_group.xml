@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<record id="group_validate_invoice" model="res.groups">
+	        <field name="name">Validate Invoices</field>
+	    </record>
+
+    </data>
+</openerp>

@@ -11,6 +11,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
+                <button name="invoice_open" position="attributes">
+                    <attribute name="groups">louve_custom_account.group_validate_invoice</attribute>
+                </button>
                 <field name="date_invoice" position="attributes">
                     <attribute name="required">True</attribute>
                 </field>
@@ -21,6 +24,21 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                 
             </field>
         </record>
+
+        <record id="account_invoice_inherit_view_form" model="ir.ui.view">
+            <field name="name">account.invoice.inherit.view.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <button name="invoice_open" states="draft" position="attributes">
+                   <attribute name="groups">louve_custom_account.group_validate_invoice</attribute>
+                </button>
+                <button name="invoice_open" states="proforma2" position="attributes">
+                   <attribute name="groups">louve_custom_account.group_validate_invoice</attribute>
+                </button>
+            </field>
+        </record>
+
 
         <record model="ir.actions.server" id="action_server_merge_lines">
           <field name="name">Merge Invoice Lines</field>
