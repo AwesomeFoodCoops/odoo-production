@@ -12,16 +12,9 @@ class AccountBankStatementLine(models.Model):
                      self)._prepare_reconciliation_move(move_name)
         # reset name as '/' to allow Post function in account.move
         # use sequence of journal when posting account.move entry
-
-        statement_line_name = self._context.get('statement_line_name', False)
-        if statement_line_name:
-            vals.update({
-                'name': statement_line_name
-            })
-        else:
-            vals.update({
-                'name': '/'
-            })
+        vals.update({
+            'name': '/'
+        })
         return vals
 
     @api.multi
