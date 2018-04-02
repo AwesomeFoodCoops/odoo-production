@@ -7,7 +7,21 @@
             <field name="arch" type="xml">
             <form string="Report Options">
                 <field name="date_report"/>
-                <field name="shift_ids" label="Shifts" options="{'no_create': True}"/>
+                <field name="shift_ids" label="Shifts" options="{'no_create': True}">
+                    <tree>
+                        <field name="name"/>
+                        <field name="week_number"/>
+                        <field name="shift_type_id"/>
+                        <field name="date_begin"/>
+                        <field name="date_end"/>
+                        <field name="seats_reserved"/>
+                        <field name="seats_min"/>
+                        <field name="seats_max" invisible="1"/>
+                        <field name="user_ids"/>
+                        <field name="state"/>
+                        <field name="message_needaction" invisible="1"/>
+                    </tree>
+                </field>
                 <footer>
                     <button name="check_report" string="Print" type="object" default_focus="1" class="oe_highlight"/>
                     or
