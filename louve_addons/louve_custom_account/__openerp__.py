@@ -18,6 +18,8 @@
         'account_deprecated',
     ],
     'data': [
+        'security/res_group.xml',
+        'security/ir.model.access.csv',
         'views/view_account_payment.xml',
         'views/view_account_invoice.xml',
         'views/view_account_move_line.xml',
