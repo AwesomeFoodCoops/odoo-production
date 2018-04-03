@@ -35,9 +35,6 @@ class AccountInvoice(models.Model):
             description=description, journal_id=journal_id)
         res['is_capital_fundraising'] = invoice.is_capital_fundraising
         res['fundraising_category_id'] = invoice.fundraising_category_id.id
-        # Set Due date and Invoice date is today
-        res['date_due'] = fields.Date.context_today(invoice)
-        res['date_invoice'] = fields.Date.context_today(invoice)
         # Set saleman is curent user
         res['user_id'] = invoice.env.user.id
         return res
