@@ -134,3 +134,17 @@ msgstr "Rendre la recherche de produits insensible aux diacritiques (ignorer les
 #: model:ir.ui.view,arch_db:coop_point_of_sale.view_sale_config_settings_form_pos_inherit
 msgid "Diacritics insensitive search"
 msgstr "Recherche insensible aux diacritiques"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/product_product.py:13
+#: code:addons/coop_point_of_sale/models/product_template.py:13
+#, python-format
+msgid "You should not delete product, please archive it by clicking button on the right"
+msgstr "Vous ne pouvez pas supprimer un produit. Archivez-le en cliquant sur le bouton à droite."
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/product_product.py:29
+#: code:addons/coop_point_of_sale/models/product_template.py:29
+#, python-format
+msgid "You cannot unticking Available in the Point of Sale When POS Session are running with ids %s"
+msgstr "Vous ne pouvez pas décocher "Disponible dans le point de vente" car les sessions de caisse suivantes sont toujours ouvertes %s"
