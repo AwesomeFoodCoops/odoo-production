@@ -19,6 +19,10 @@ class AccountFullReconcile(models.Model):
                 'reconciled_line_ids.invoice_id.fundraising_category_id')
             invoices = reconcile.mapped('reconciled_line_ids.invoice_id')
 
+            # get line to reconcile
+            move_line = invoices.mapped('move_id.line_ids')
+            line_to_reconcile = move_line.filtered(lambda l: l.credit != 0)
+
             # Do not create any extra entry for capital refund
             if not invoices or invoices[0].type == 'out_refund':
                 continue
@@ -88,14 +92,32 @@ class AccountFullReconcile(models.Model):
                 move = move_obj.create(move_vals)
                 move.post()
 
+                # auto reconcile
+                if line_to_reconcile and not line_to_reconcile[0].reconciled:
+                    reconcile.auto_reconcile_payment(move, line_to_reconcile[0])
+
     # Overload Section
     @api.model
     def create(self, vals):
+        is_not_generate = self._context.get('not_generate_capital', False)
         res = super(AccountFullReconcile, self).create(vals)
-        res.generate_capital_entrie()
+        if not is_not_generate:
+            res.generate_capital_entrie()
         return res
 
     @api.multi
     def unlink(self):
         self.generate_capital_entrie(undo=True)
         return super(AccountFullReconcile, self).unlink()
+
+    # Auto reconcile when confirm payment
+    @api.multi
+    def auto_reconcile_payment(self, move, line_to_reconcile):
+        self.ensure_one()
+        line_reconcile = move.line_ids.filtered(
+            lambda l: l.account_id.id == line_to_reconcile[0].account_id.id
+            and not l.reconciled)
+        line_to_reconcile |= line_reconcile
+        # Note generate capital when reconcile full  
+        line_to_reconcile.with_context(not_generate_capital=True).reconcile()
+        return True
