@@ -22,5 +22,5 @@ class BankStatementLineReconcileWizard(models.TransientModel):
                     'debit': line.amount < 0 and -line.amount or 0.0,
                     'credit': line.amount > 0 and line.amount or 0.0,
                     'account_id': self.account_id.id}
-                line.with_context(statement_line_name=line.name).process_reconciliation(new_aml_dicts=[vals])
+                line.process_reconciliation(new_aml_dicts=[vals])
         return True
