@@ -94,30 +94,18 @@ class AccountFullReconcile(models.Model):
 
                 # auto reconcile
                 if line_to_reconcile and not line_to_reconcile[0].reconciled:
-                    reconcile.auto_reconcile_payment(move, line_to_reconcile[0])
+                    reconcile.auto_reconcile_payment(
+                        move, line_to_reconcile[0])
 
-    # Overload Section
-    @api.model
-    def create(self, vals):
-        is_not_generate = self._context.get('not_generate_capital', False)
-        res = super(AccountFullReconcile, self).create(vals)
-        if not is_not_generate:
-            res.generate_capital_entrie()
-        return res
-
-    @api.multi
-    def unlink(self):
-        self.generate_capital_entrie(undo=True)
-        return super(AccountFullReconcile, self).unlink()
-
-    # Auto reconcile when confirm payment
     @api.multi
     def auto_reconcile_payment(self, move, line_to_reconcile):
+        # Auto reconcile when confirm payment
+
         self.ensure_one()
         line_reconcile = move.line_ids.filtered(
             lambda l: l.account_id.id == line_to_reconcile[0].account_id.id
             and not l.reconciled)
         line_to_reconcile |= line_reconcile
-        # Note generate capital when reconcile full  
-        line_to_reconcile.with_context(not_generate_capital=True).reconcile()
+
+        line_to_reconcile.reconcile()
         return True

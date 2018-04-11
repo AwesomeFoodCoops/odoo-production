@@ -239,3 +239,15 @@ class AccountInvoice(models.Model):
                             # we get the first one satisfy and update with
                             # total quantity.
                             break
+
+    @api.multi
+    def register_payment(self, payment_line, writeoff_acc_id=False,
+                         writeoff_journal_id=False):
+        res = super(AccountInvoice, self).register_payment(
+            payment_line,
+            writeoff_acc_id,
+            writeoff_journal_id)
+        if payment_line.full_reconcile_id:
+            # Generate capital
+            payment_line.full_reconcile_id.generate_capital_entrie(undo=False)
+        return res
