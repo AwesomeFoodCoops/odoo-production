@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo noupdate="1">
+
+    <record model="ir.cron" id="cron_run_reconcile_411_pos">
+        <field name="name">Run JOB reconcile account 411100</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model" eval="'account.move.line'"/>
+        <field name="function" eval="'run_reconcile_411_pos'"/>
+        <field name="args" eval="'()'"/>
+        <field name="active" eval="False"/>
+    </record>
+
+
+</odoo>
