@@ -54,6 +54,7 @@
         'views/event_view.xml',
         'views/shift_view.xml',
         'views/view_shift_extension.xml',
+        'views/view_web_access_buttons.xml',
 
         'views/action.xml',
         'views/menu.xml',

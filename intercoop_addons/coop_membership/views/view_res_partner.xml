@@ -271,7 +271,8 @@
                                        on_change="onchange_state(state_id)"
                                        attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
                                        groups="coop_membership.group_membership_see_associated_people,
-                                       coop_membership.group_membership_access_user"
+                                       coop_membership.group_membership_access_user,
+                                       coop_membership.group_membership_bdm_saisie"
                                        context="{'country_id': country_id, 'zip': zip}"/>
                                 <field name="zip" placeholder="ZIP"
                                        class="o_address_zip"
@@ -300,7 +301,8 @@
                                    placeholder="e.g. Sales Director"
                                    attrs="{'invisible': [('is_company','=', True)]}"
                                    groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user"
+                                   coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_saisie"
                             />
                             <field name="phone" widget="phone"
                                    groups="coop_membership.group_membership_see_associated_people,
@@ -318,9 +320,10 @@
                             />
                             <field name="user_ids" invisible="1"/>
                             <field name="notify_email" widget="radio"
-                                   groups="base.group_no_one,coop_membership.group_membership_bdm_lecture"/>
+                                   groups="coop_membership.group_membership_bdm_lecture,
+                                   coop_membership.group_membership_bdm_saisie"/>
                             <field name="opt_out" string="Mailing Opt-Out"
-                                   groups="base.group_no_one,coop_membership.group_membership_bdm_lecture,
+                                   groups="coop_membership.group_membership_bdm_lecture,
                                    coop_membership.group_membership_bdm_saisie"/>
                             <field name="email" widget="email"
                                    attrs="{'required': [('user_ids','!=', [])]}"
@@ -336,13 +339,16 @@
                                         ('is_interested_people', '=', True)
                                         ]}"
                                    options="{&quot;no_open&quot;: True}"
-                                   groups="coop_membership.group_membership_bdm_lecture"/>
+                                   groups="coop_membership.group_membership_bdm_lecture,
+                                   coop_membership.group_membership_bdm_saisie"/>
                             <field name="lang"
                                    groups="coop_membership.group_membership_access_manager,
-                                   coop_membership.group_membership_bdm_lecture"/>
+                                   coop_membership.group_membership_bdm_lecture,
+                                   coop_membership.group_membership_bdm_saisie"/>
                             <field name="category_id" widget="many2many_tags"
                                    placeholder="Tags..."
-                                   groups="coop_membership.group_membership_access_manager"/>
+                                   groups="coop_membership.group_membership_access_manager,
+                                   coop_membership.group_membership_bdm_saisie"/>
                         </group>
                         <group string="MemberShip"
                                groups="coop_membership.group_membership_see_associated_people,
@@ -612,7 +618,7 @@
                         </page>
                         <page name="internal_notes" string="Internal Notes"
                               groups="coop_membership.group_membership_see_associated_people,
-                              coop_membership.group_membership_access_user">
+                              coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_saisie">
                             <field name="comment" placeholder="Internal note..."/>
                         </page>
                         <page name="sales_purchases"
@@ -728,10 +734,10 @@
                         <page name="shifts" string="Shifts"
                               attrs="{'invisible': [('is_member', '=', False)]}"
                               groups="coop_membership.group_membership_access_user,
-                              coop_membership.group_membership_bdm_lecture">
+                              coop_membership.group_membership_bdm_lecture,coop_membership.group_membership_bdm_saisie">
                             <group name="state">
                                 <group name="state1"
-                                       groups="coop_shift.group_shift_see_counter">
+                                       groups="coop_shift.group_shift_see_counter,coop_membership.group_membership_bdm_lecture,coop_membership.group_membership_bdm_saisie">
                                     <field name="shift_type"/>
                                     <field name="is_blocked"/>
                                     <field name="is_exempted"/>
@@ -741,7 +747,7 @@
 
                                 </group>
                                 <group name="state2"
-                                       groups="coop_shift.group_shift_see_counter,coop_membership.group_membership_access_user">
+                                       groups="coop_shift.group_shift_see_counter,coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_saisie,coop_membership.group_membership_bdm_lecture">
                                     <field name="working_state"/>
                                 </group>
                             </group>
@@ -750,7 +756,7 @@
                                 <field name="template_ids"/>
                             </group>
                             <group name="button"
-                                   groups="coop_shift.group_shift_manager">
+                                   groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie">
                                 <button name="%(coop_shift.action_add_template_registration)d"
                                         type="action" class="oe_highlight"
                                         icon="fa-cogs"
@@ -964,6 +970,22 @@
                    position="attributes">
                 <attribute name="readonly">True</attribute>
             </xpath>
+            <xpath expr="//field[@name='opt_out']"
+                   position="attributes">
+                <attribute name="readonly">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='notify_email']"
+                   position="attributes">
+                <attribute name="readonly">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='lang']"
+                   position="attributes">
+                <attribute name="readonly">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']"
+                   position="attributes">
+                <attribute name="readonly">True</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -1042,6 +1064,7 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
                 <field name="email" groups="coop_membership.group_membership_see_associated_people,
 coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_saisie"/>
                 <field name="cooperative_state"/>
+                <field name="zip" groups="coop_membership.group_membership_bdm_lecture,coop_membership.group_membership_bdm_presence"/>
             </tree>
         </field>
     </record>

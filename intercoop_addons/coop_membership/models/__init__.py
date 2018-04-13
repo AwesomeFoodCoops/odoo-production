@@ -17,3 +17,4 @@ from . import res_config
 from . import res_users
 from . import shift_leave_type
 from . import shift_leave
+from . import web_access_buttons
