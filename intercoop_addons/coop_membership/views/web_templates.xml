@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <template id="register_form" name="Register Form">
+            <html>
+                <head id="website_register_header" name="website_register_header">
+                    <title>Inscription - Réunions d'accueil</title>
+                    <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
+                    <link rel="stylesheet" href="/web/static/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css"/>
+                </head>
+                <body>
+                    <div class="container-contact100">
+                        <div class="wrap-contact100">
+                            <form action="/web/membership/register/submit" method="POST" class="contact100-form validate-form" >
+                                <span class="contact100-form-title">
+                                    Inscription - Réunions d'accueil
+                                </span>
+                                <span class="first-text-block">
+                                    Rejoindre la coopérative passe exclusivement par votre présence à une réunion d’accueil. Ces réunions étant importantes, et le nombre de places limité pour chacune d'entre elles, merci de ne vous inscrire que dans le cas où vous êtes sûr d'être disponible, et ce sur toute la durée de la réunion. SI VOUS N'ETES PAS ENCORE COOPÉRATEUR ET QUE VOUS SOUHAITEZ SOUSCRIRE LE JOUR DE LA RÉUNION, IL FAUDRA VOUS MUNIR DE :</span>
+                                    <span class="first-text-block">
+                                        <ul>
+                                            <li>- votre carnet de chèque ou votre carte bancaire</li>
+                                            <li>- une pièce d’identité</li>
+                                            <li>- un justificatif pour une souscription réduite : minimas sociaux (document de moins de 3 mois attestant du versement du RSA, de l'ASS, l'AER-R, l'ATS, l'ATA, l'ADA, l'AAH, l'ASI, l'AV, l'ASV ou l’ASPA) ou étudiants boursiers 6 ou 7 (attestation de bourse).</li>
+                                        </ul>
+                                    </span>
+
+                                    <span class="first-text-block final-text-block">D'autres dates sont ajoutées régulièrement.</span>
+                                <div class="wrap-input100 validate-input bg1" data-validate = "Veuillez renseigner votre adresse électronique (e@a.x)">
+                                    <span class="label-input100">Courriel *</span>
+                                    <input class="input100" type="text" name="email" placeholder="Veuillez renseigner votre adresse électronique "></input>
+                                </div>
+                                <div class="wrap-input100 validate-input bg1" data-validate="Veuillez renseigner votre nom">
+                                    <span class="label-input100">Nom * </span>
+                                    <input class="input100" type="text" name="name" placeholder="Veuillez renseigner votre nom"></input>
+                                </div>
+                                <div class="wrap-input100 validate-input bg1" data-validate="Veuillez renseigner votre prénom">
+                                    <span class="label-input100">Prénom *</span>
+                                    <input class="input100" type="text" name="first_name" placeholder="Veuillez renseigner votre prénom"></input>
+                                </div>
+                                <div class="wrap-input100 validate-input bg1 input_radio" data-validate = "Enter Your Sex" >
+                                    <span class="label-input100">Sexe *</span><br />
+                                    <input  type="radio" name="sex" value="m"> Homme </input><br />
+                                    <input  type="radio" name="sex" value="f"> Femme </input><br />
+                                    <input  type="radio" name="sex" value="o"> Autre </input><br />
+                                </div>
+                                <div class="wrap-input100 validate-input bg1" data-validate="l'anniversaire doit avoir le bon format et l'âge doit être supérieur à 18">
+                                    <span class="label-input100">Date de naissance</span>
+                                    <input class="dob input100" type="text" name="dob" placeholder="Veuillez renseigner votre date de naissance"></input>
+                                </div>                                
+                                <div class="wrap-input100 bg1" >
+                                    <span class="label-input100">Mobile </span>
+                                    <input class="input100" type="text" name="mobile" placeholder="Veuillez renseigner votre numéro mobile"></input>
+                                </div>
+                                <div class="wrap-input100 bg1" >
+                                    <span class="label-input100">Téléphone </span>
+                                    <input class="input100" type="text" name="phone" placeholder="Veuillez renseigner votre numéro téléphone"></input>
+                                </div>
+                                <div class="wrap-input100 bg1" >
+                                    <span class="label-input100">Rue 1 </span>
+                                    <input class="input100" type="text" name="street1" placeholder="Veuillez renseigner votre adresse 1"></input>
+                                </div>
+                                <div class="wrap-input100 bg1" >
+                                    <span class="label-input100">Rue 2 </span>
+                                    <input class="input100" type="text" name="street2" placeholder="Veuillez renseigner votre adresse 2"></input>
+                                </div>
+                                <div class="wrap-input100 bg1" >
+                                    <span class="label-input100">Ville </span>
+                                    <input class="input100" type="text" name="city" placeholder="Veuillez renseigner votre ville"></input>
+                                </div>
+                                <div class="wrap-input100 bg1" >
+                                    <span class="label-input100">Code postal </span>
+                                    <input class="input100" type="text" name="zipcode" placeholder="Veuillez renseigner votre code postal"></input>
+                                </div>
+                                <div class="wrap-input100 bg1 input_radio" >
+                                    <span class="label-input100">N° Sécurité sociale</span>
+                                    <br />
+                                    <input  type="radio" name="social_registration" value="yes">  Oui </input><br />
+                                    <input  type="radio" checked="checked" name="social_registration" value="no">  Non </input><br />
+                                </div>
+                                <div class="wrap-input100 bg1 rs1-alert-validate input_radio cooperator_checkbox" data-validate = "Vous êtes déjà membre de Foodcoop, vous ne pouvez vous inscrire à nouveau mais pour une souscription de parts additionnelles vous pouvez vous adresser au bureau des membres.">
+                                    <span class="label-input100">Déjà coopérateur ? (Si vous avez déjà payé une soucription, même en ligne, la réponse est "Oui") *</span> <br />
+                                    <input  type="radio" name="cooperator" value="1">  Oui </input><br />
+                                    <input  type="radio" name="cooperator" value="0" checked="checked">  Non </input><br />
+                                </div>
+
+                                <div class="wrap-input100 input_radio validate-input bg1 dropDownSelect2" >
+                                    <span class="label-input100">Je m'inscris à la réunion d'accueil du :</span><br />
+                                    <span style="color: #f04a4f" class="validate-option-event">Veuillez renseigner votre réunion</span>
+                                    <div>
+                                        <t t-foreach="events" t-as="event">
+                                            <input  type="radio" name="select_event" class="validate-input-option validate-input" t-att-value="event.id"> <t t-esc="event.name_get()[0][1]"/> </input><br />
+                                            <!-- <option name="event_id" class="option"><t t-esc="event.id"/> <t t-esc="event.name_get()[0][1]"/> </option> -->
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="container-contact100-form-btn">
+                                    <button class="contact100-form-btn" >
+                                        <span>
+                                            Envoyer
+                                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript" src="/coop_membership/static/lib/jquery/jquery-3.2.1.min.js"></script>
+                    <script type="text/javascript" src="/web/static/lib/moment/moment.js"></script>
+                    <script type="text/javascript" src="/web/static/lib/bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"/>
+                    <script type="text/javascript" src="/coop_membership/static/lib/js/main.js"></script>
+
+                </body>
+            </html>
+		</template>
+
+        <template id="register_submit_form_success" name="Register Submit Form">
+            <html>
+                <head id="website_register_header" name="website_register_header">
+                    <title>Inscription - Réunions d'accueil</title>
+                    <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
+                </head>
+                <body>
+                   <div class="container-contact100" >
+                        <div class="wrap-contact100">
+                            <form action="/discovery" class="contact100-form validate-form" >
+                                <span class="contact100-form-title">
+                                   Inscription enregistrée. Vous allez recevoir un email de confirmation.
+                                </span>
+                                <div class="container-contact100-form-btn" style="margin: auto; width: 12%;">
+                                    <button class="contact100-form-btn">
+                                        <span>
+                                            Confirmer
+                                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </template>
+
+        <template id="register_submit_form_err_event" name="Register Submit Form">
+            <html>
+                <head id="website_register_header" name="website_register_header">
+                    <title>Inscription - Réunions d'accueil</title>
+                    <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
+                </head>
+                <body>
+                    <div class="container-contact100">
+                        <div class="wrap-contact100">
+                            <span class="contact100-form-title">
+                                La date de la réunion que vous avez choisie est invalide ou bien cette réunion a atteint sa capacité maximale. Merci de choisir une autre date dans la liste..
+                            </span>
+                            <div class="container-contact100-form-btn">
+                                <a href="javascript:history.back()">
+                                    <button class="contact100-form-btn">
+                                        <span>
+                                            Retour
+                                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </template>
+
+        <template id="register_submit_form_err_email" name="Register Submit Form">
+            <html>
+                <head id="website_register_header" name="website_register_header">
+                    <title>Inscription - Réunions d'accueil</title>
+                    <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
+                </head>
+                <body>
+                    <div class="container-contact100">
+                        <div class="wrap-contact100">
+                            <span class="contact100-form-title">
+                                L'email est déjà dans notre base de donnée, vous ne pouvez pas vous enregistrer en ligne.
+                            </span>
+                            <div class="container-contact100-form-btn">
+                                <a href="javascript:history.back()">
+                                    <button class="contact100-form-btn">
+                                        <span>
+                                            Retour
+                                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </template>
+
+    </data>
+</openerp>
