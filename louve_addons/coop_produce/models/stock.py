@@ -21,8 +21,7 @@
 #
 ##############################################################################
 
-
-from datetime import date, datetime
+import datetime
 from dateutil import relativedelta
 import json
 import time
@@ -53,16 +52,17 @@ class StockInventory(osv.osv):
 
 	def _get_number_week(self, cr, uid, ids, date, args, context=None):
 		_logger.info('------------------  _get_number_week   -------------------')
+		res = {}
 		week_number = 1
         	for data in self.browse(cr, uid, ids, context=context):
-			if date :
-				week_number = data.date.isocalendar()
-        	return week_number
+			date = datetime.datetime.strptime(data.date, "%Y-%m-%d %H:%M:%S")
+			week_number = date.isocalendar()[1]
+			res[data.id] = week_number
+        	return res
 
 	_columns = {
 
-		#'week_number': fields.function(_get_number_week, type="integer",string= "N° Semaine", help="Number of Inventory Week"),
-		'week_number': fields.integer(string= "N° Semaine", help="Number of Inventory Week"),
+		'week_number': fields.function(_get_number_week, type="integer",string= "N° Semaine", help="Number of Inventory Week"),
 		'hide_initialisation': fields.boolean(string="Cacher Intialisation",help="Cacher Initialisation"),
         	'categ_ids': fields.many2many('product.category', 'stock_inventory_product_categ', 'inventory_id', 'categ_id', 'Product Categories'),
 		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', help="Specify Product Category to focus in your inventory."),
