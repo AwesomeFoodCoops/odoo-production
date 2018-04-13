@@ -8,5 +8,6 @@
     'depends': [
         'stock',
     ],
+    'data': ['views/action.xml'],
     'installable': True,
 }
