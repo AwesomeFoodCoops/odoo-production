@@ -62,4 +62,28 @@ If you think there was a mistake or wish to subscribe to another team please con
 ]]>
         </field>
     </record>
+
+    <record id="register_confirm_email" model="mail.template">
+        <field name="name">Register Confirm Email</field>
+        <field name="model_id" ref="event.model_event_registration"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${object.company_id.email|safe}</field>
+        <field name="subject">Register Confirmation Email</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.name}</p>
+<br/>
+<p>We confirm your registration for the La Louve meeting scheduled on ${object.event_id.date_begin}. IF YOU ARE NOT A CO-OPERATOR AND WISH TO SUBSCRIBE ON THE DAY OF THE MEETING, YOU SHOULD HAVE:<br/>
+- Your check book or bank card<br/>
+- An ID</p>
+<p>Proof of reduced subscription: social minimums (document of less than 3 months attesting the payment of the RSA, the ASS, the AER-R, the ATS, the ATA, the ADA, the AAH, the 'ASI, AV, ASV or ASPA) or scholarship students 6 or 7 (scholarship certificate).</p>
+<br/>
+<p>You will find attached the contract which you will have to sign at the end of the meeting if you accept the conditions of operation which will be presented to you. If possible, please print and bring this form to the welcome meeting. In case of forgetfulness, you will be forced to fill a blank copy on the spot. If an error is present on this form, thank you to correct it with the pen in a visible way visible.</p>
+<br />
+<p>Cordially.</p>
+]]>
+        </field>
+    </record>
+
 </odoo>

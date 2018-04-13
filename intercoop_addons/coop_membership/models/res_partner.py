@@ -11,6 +11,10 @@ from dateutil.relativedelta import relativedelta
 import pytz
 from openerp.exceptions import ValidationError
 from openerp import models, fields, api, _
+import base64
+from openerp import SUPERUSER_ID
+from lxml import etree
+from openerp.osv.orm import setup_modifiers 
 
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
@@ -74,8 +78,6 @@ class ResPartner(models.Model):
         " to a template registration.",
         compute="_compute_is_unsubscribed")
 
-    adult_number_home = fields.Integer('Number of Adult in the Home')
-
     sex = fields.Selection(
         selection=SEX_SELECTION, string='Sex')
 
@@ -85,8 +87,8 @@ class ResPartner(models.Model):
         'is Underclass Population',
         compute='_compute_is_underclass_population')
 
-    contact_origin_id = fields.Many2one(
-        comodel_name='res.contact.origin', string='Contact Origin')
+    contact_origin_id = fields.One2many(
+        'event.registration', 'partner_id', string='Contact Origin')
 
     is_deceased = fields.Boolean(string='Is Deceased')
 
@@ -175,7 +177,7 @@ class ResPartner(models.Model):
             if avail_check == 'limited' and rec.is_member and \
                     rec.nb_associated_people > max_nb:
                 raise ValidationError(_("The maximum number of " +
-                                    "associated people has been exceeded."))
+                                        "associated people has been exceeded."))
 
     @api.multi
     @api.depends('badge_distribution_date', 'badge_print_date')
@@ -183,7 +185,7 @@ class ResPartner(models.Model):
         for record in self:
             if record.badge_print_date:
                 if not record.badge_distribution_date or\
-                    record.badge_distribution_date < record.badge_print_date:
+                        record.badge_distribution_date < record.badge_print_date:
                     record.badge_to_distribute = True
 
     @api.multi
@@ -546,10 +548,10 @@ class ResPartner(models.Model):
         invoice_states = []
         for partner_share in self.partner_owned_share_ids:
             invoice_states += [
-                invoice.state in ['open', 'paid', 'cancel' ] for
+                invoice.state in ['open', 'paid', 'cancel'] for
                 invoice in partner_share.related_invoice_ids
-        ]
-        ## all invoice states != 'draft'
+            ]
+        # all invoice states != 'draft'
         invoice_states = all(invoice_states)
         if self.partner_owned_share_ids \
             and self.partner_owned_share_ids[0].related_invoice_ids \
@@ -587,4 +589,62 @@ class ResPartner(models.Model):
                 'opt_out': True
             })
         return True
+
+
+    @api.multi
+    def generate_pdf(self, report_name):
+        context = dict(self._context or {})
+        active_ids = self.ids
+        context.update({
+            'active_model': self._name,
+            'active_ids': active_ids,
+        })
+        return self.env['report'].with_context(context).\
+            get_pdf(self, report_name)
+
+    @api.multi
+    def attach_report_in_mail(self):
+        self.ensure_one()
+        report_name = 'coop_membership.member_contract_template'
+        report = self.generate_pdf(report_name)
+        encoded_report = base64.encodestring(report)
+        filename = 'Member Contract'
+
+        # create the new ir_attachment
+        attachment_value = {
+            'name': filename,
+            'res_name': filename,
+            'res_model': 'res.partner',
+            'datas': encoded_report,
+            'datas_fname': filename + '.pdf',
+        }
+        new_attachment = self.env['ir.attachment'].create(attachment_value)
+        return new_attachment
+
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form',
+                        context=None, toolbar=False, submenu=False):
+        if context is None:
+            context = {}
+
+        res = super(ResPartner, self).fields_view_get(cr, uid,
+                                                    view_id=view_id,
+                                                    view_type=view_type,
+                                                    context=context,
+                                                    toolbar=toolbar,
+                                                    submenu=submenu)
         
+        # Read only field contact base specific groups
+        if self.pool['res.users'].browse(cr, uid, uid).id != SUPERUSER_ID:
+            presence_group = self.pool['res.users'].browse(cr, uid, uid).has_group(
+                'coop_membership.group_membership_bdm_presence')
+            doc = etree.fromstring(res['arch'])
+            if presence_group:
+                if view_type == 'form':
+                    for node in doc.xpath("//field"):
+                        if node.get('name') == 'child_ids':
+                            node.set('readonly', '1')
+                        setup_modifiers(node)
+                res['arch'] = etree.tostring(doc)
+
+        return res
+

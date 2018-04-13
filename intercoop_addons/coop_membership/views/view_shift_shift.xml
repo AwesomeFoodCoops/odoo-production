@@ -61,8 +61,7 @@
 
             <field name="user_ids" position="attributes">
                 <attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
-                <attribute name="groups">coop_shift.group_shift_user,
-                    coop_membership.group_membership_access_user</attribute>
+                <attribute name="groups">coop_shift.group_shift_user,coop_membership.group_membership_access_user</attribute>
             </field>
 
             <button name="button_confirm" position="attributes">
@@ -74,7 +73,9 @@
 
             <xpath expr="//div[@class='oe_title']" position="attributes">
                 <attribute name="groups">coop_shift.group_shift_user,
-                    coop_membership.group_membership_access_user</attribute>
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
             </xpath>
             <xpath expr="//div[@name='button_box']" position="after">
                 <div class="oe_title" groups="coop_membership.group_membership_bdm_presence">
@@ -105,7 +106,7 @@
        <field name="res_model">shift.shift</field>
        <field name="view_type">form</field>
        <field name="view_mode">tree,form</field>
-       <field name="context">{"search_default_confirmed": 1, "search_default_entry": 1}</field>
+       <field name="context">{"search_default_confirmed": 1}</field>
        <field name="search_view_id" ref="coop_shift.view_shift_search"/>
     </record>
 

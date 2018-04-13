@@ -26,6 +26,10 @@
         'stock',
     ],
     'data': [
+        'data/report_paperformat_data.xml',
+
+
+
         # Security
         'security/ir_module_category.xml',
         'security/res_group.xml',
@@ -48,15 +52,20 @@
         'views/view_shift_registration.xml',
         'views/view_shift_shift.xml',
         'views/res_config_view.xml',
-	'views/view_shift_leave_type.xml',
+        'views/view_shift_leave_type.xml',
         'views/account_view.xml',
         'views/capital_subscription_view.xml',
         'views/event_view.xml',
         'views/shift_view.xml',
         'views/view_shift_extension.xml',
+        'views/event_registration_view.xml',
+        'views/web_templates.xml',
+        'views/view_web_access_buttons.xml',
 
         'views/action.xml',
         'views/menu.xml',
+
+        'report/member_contract_template.xml',
 
         # Custom Data
         'data/ir_cron.xml',
@@ -65,6 +74,7 @@
         'data/ir_sequences.xml',
         'data/barcode_rule.xml',
         'data/shift_extension_type_data.xml',
+        'data/ir_config_paramater.xml',
 
         # Report
         'views/account_report.xml',
