@@ -419,15 +419,17 @@
                                    coop_membership.group_membership_access_user,
                                    coop_membership.group_membership_bdm_saisie"
                             />
-                            <field name="adult_number_home"
-                                   groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user,
-                                   coop_membership.group_membership_bdm_saisie"
-                            />
                             <field name="contact_origin_id"
                                    groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user"
-                            />
+                                   coop_membership.group_membership_access_user">
+                                <tree>
+                                    <field name="event_id"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="date_open"/>
+                                    <field name="date_closed"/>                                
+                                </tree>
+                            </field>
+
                             <field name="sex" attrs="{'required': True}"/>
                             <field name="is_deceased"
                                    groups="coop_membership.group_membership_see_associated_people,
@@ -1175,8 +1177,6 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
                                    attrs="{'required': [('is_member', '=', True)]}"/>
                             <field name="age"
                                    attrs="{'invisible': [('age', '=', 0)]}"/>
-                            <field name="adult_number_home"/>
-                            <field name="contact_origin_id"/>
                             <field name="sex"/>
                             <field name="is_deceased"/>
                             <field name="date_of_death"

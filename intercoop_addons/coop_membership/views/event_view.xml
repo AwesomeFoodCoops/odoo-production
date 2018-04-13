@@ -7,4 +7,20 @@
             ref('coop_shift.group_shift_user')
             ])]"/>
     </record>
+
+    <record id="view_event_event_form_inherit" model="ir.ui.view">
+        <field name="name">view.event.event.form.inherit</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+            	<field name="is_discovery_meeting" />
+                <field name="room_preparation_member_ids" widget="many2many_tags"/>
+                <field name="leader_member_ids" widget="many2many_tags"/>
+                <field name="subscription_help_member_ids" widget="many2many_tags"/>
+                <field name="subscription_member_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>
