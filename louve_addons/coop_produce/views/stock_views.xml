@@ -36,6 +36,7 @@
 		                            <field name="theoretical_qty_ref"/>
 		                            <field name="qty_stock"/>
 		                            <field name="qty_loss"/>
+		                            <field name="product_qty" invisible= "True"/>
 		                        </tree>
 				</field>
                 	</sheet>
@@ -49,15 +50,36 @@
             <field name="arch" type="xml">
                 <tree string="Lot Inventory">
                 	<field name="date"/>
-                    <field name="week_number"/>
+                    	<field name="week_number"/>
                 </tree>
             </field>
         </record>
+
+        <record id="view_coop_produce_stock_inventory_filter" model="ir.ui.view">
+            <field name="name">coop_produce.stock.inventory..filter</field>
+            <field name="model">stock.inventory</field>
+            <field name="arch" type="xml">
+                <search string="Search Inventory">
+                    <field name="name" string="Inventory Reference"/>
+                    <field name="date"/>
+                    <field name="week_number"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Inventories Week Number" domain="[]" context="{'group_by':'week_number'}" help="Physical Inventories by Week Number"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
+
 
         <record id="action_view_coop_produce_stock_inventories" model="ir.actions.act_window">
             	<field name="name">Inventaire Des F&amp;L</field>
 		 <field name="type">ir.actions.act_window</field>
             	<field name="res_model">stock.inventory</field>
+            	<field name="search_view_id" ref="view_coop_produce_stock_inventory_filter"/>
             	<field name="view_type">form</field>
        		<field name="view_mode">tree,form</field>
         </record>

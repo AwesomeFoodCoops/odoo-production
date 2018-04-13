@@ -89,16 +89,9 @@ class StockInventoryLine(osv.osv):
 				res[product.id] = product.theoretical_qty / product.product_id.product_tmpl_id.colissage_ref
         	return res
 
-	def _get_qty_stock(self, cr, uid, ids,name, args, context=None):
-		_logger.info('------------------  _get_qty_loss   -------------------')
-		res = {}
-        	for product in self.browse(cr, uid, ids, context=context):
-			if product.product_id.product_tmpl_id.colissage_ref != 0 :
-				res[product.id] = product.product_qty / product.product_id.product_tmpl_id.colissage_ref
-        	return res
 
 	def _get_qty_loss(self, cr, uid, ids,name, args, context=None):
-		_logger.info('------------------  _get_qty_stock   -------------------')
+		_logger.info('------------------  _get_qty_loss   -------------------')
 		res = {}
 		theoretical_qty_ref = 0
 		qty_stock = 0
@@ -112,7 +105,7 @@ class StockInventoryLine(osv.osv):
 		'colisage_ref': fields.related('product_id', 'colissage_ref', type='float', relation='product.template', string='Colisage Ref', store=True, select=True, readonly=True),
 		'theoretical_qty_ref': fields.function(_get_theoretical_qty_ref, type="float",digits_compute=dp.get_precision('Product Unit of Measure'),string='Theoretical Quantity',help="Quantity Theoric Of Reference"),
 		'qty_loss': fields.function(_get_qty_loss, type="float",string='Quantity Lost', digits_compute=dp.get_precision('Product Unit of Measure'),help='Quantity Theoric Of Reference - Stock Quantity'),
-		'qty_stock': fields.function(_get_qty_stock, type="float",string='Stock Quantity', digits_compute=dp.get_precision('Product Unit of Measure'),help="Stock Quantity"),
+		'qty_stock': fields.float(string='Stock Quantity', digits_compute=dp.get_precision('Product Unit of Measure'),help="Stock Quantity"),
 	}
 
 	def _default_stock_location(self, cr, uid, context=None):
@@ -121,6 +114,20 @@ class StockInventoryLine(osv.osv):
 		    return warehouse.lot_stock_id.id
 		except:
 		    return False
+
+
 	_defaults = {
         	'location_id': _default_stock_location,
 	}
+
+
+	@api.onchange('qty_stock')
+	def onchange_qty_stock(self):
+		_logger.info('----------------- onchange_qty_stock  -----------------')
+		product_qty = 0
+		for record in self : 
+			if record.qty_stock:
+				product_qty = record.qty_stock / record.product_id.product_tmpl_id.colissage_ref
+				record.product_qty = product_qty
+
+
