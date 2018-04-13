@@ -60,6 +60,7 @@
         'views/view_shift_extension.xml',
         'views/event_registration_view.xml',
         'views/web_templates.xml',
+        'views/view_web_access_buttons.xml',
 
         'views/action.xml',
         'views/menu.xml',
