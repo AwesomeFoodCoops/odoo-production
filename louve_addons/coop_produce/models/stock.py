@@ -85,25 +85,30 @@ class StockInventoryLine(osv.osv):
 		_logger.info('------------------  _get_qty_details   -------------------')
 		res = {}
         	for product in self.browse(cr, uid, ids, context=context):
-			res[product.id] = product.theoretical_qty / product.product_id.product_tmpl_id.colissage_ref
+			if product.product_id.product_tmpl_id.colissage_ref != 0 :
+				res[product.id] = product.theoretical_qty / product.product_id.product_tmpl_id.colissage_ref
         	return res
 
 	def _get_qty_stock(self, cr, uid, ids,name, args, context=None):
 		_logger.info('------------------  _get_qty_loss   -------------------')
 		res = {}
         	for product in self.browse(cr, uid, ids, context=context):
-			res[product.id] = product.product_qty / product.product_id.product_tmpl_id.colissage_ref
+			if product.product_id.product_tmpl_id.colissage_ref != 0 :
+				res[product.id] = product.product_qty / product.product_id.product_tmpl_id.colissage_ref
         	return res
 
 	def _get_qty_loss(self, cr, uid, ids,name, args, context=None):
 		_logger.info('------------------  _get_qty_stock   -------------------')
 		res = {}
+		theoretical_qty_ref = 0
+		qty_stock = 0
         	for product in self.browse(cr, uid, ids, context=context):
-			res[product.id] = product.theoretical_qty_ref - product.qty_stock
+			theoretical_qty_ref = product.theoretical_qty_ref
+			qty_stock = product.qty_stock
+			res[product.id] = theoretical_qty_ref - qty_stock
         	return res
 
 	_columns = {
-
 		'colisage_ref': fields.related('product_id', 'colissage_ref', type='float', relation='product.template', string='Colisage Ref', store=True, select=True, readonly=True),
 		'theoretical_qty_ref': fields.function(_get_theoretical_qty_ref, type="float",digits_compute=dp.get_precision('Product Unit of Measure'),string='Theoretical Quantity',help="Quantity Theoric Of Reference"),
 		'qty_loss': fields.function(_get_qty_loss, type="float",string='Quantity Lost', digits_compute=dp.get_precision('Product Unit of Measure'),help='Quantity Theoric Of Reference - Stock Quantity'),
