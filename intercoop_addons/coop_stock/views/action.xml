@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<record model="ir.actions.act_window" id="stock_account.action_wizard_stock_valuation_history">
+        <field name="context">{'show_export_button': True}</field> 
+    </record>
+
+</odoo>
