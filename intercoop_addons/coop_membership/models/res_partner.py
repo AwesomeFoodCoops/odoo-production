@@ -11,7 +11,9 @@ from dateutil.relativedelta import relativedelta
 import pytz
 from openerp.exceptions import ValidationError
 from openerp import models, fields, api, _
-import base64
+from openerp import SUPERUSER_ID
+from lxml import etree
+from openerp.osv.orm import setup_modifiers 
 
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
@@ -587,32 +589,29 @@ class ResPartner(models.Model):
             })
         return True
 
-    @api.multi
-    def generate_pdf(self, report_name):
-        context = dict(self._context or {})
-        active_ids = self.ids
-        context.update({
-            'active_model': self._name,
-            'active_ids': active_ids,
-        })
-        return self.env['report'].with_context(context).\
-            get_pdf(self, report_name)
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form',
+                        context=None, toolbar=False, submenu=False):
+        if context is None:
+            context = {}
 
-    @api.multi
-    def attach_report_in_mail(self):
-        self.ensure_one()
-        report_name = 'coop_membership.member_contract_template'
-        report = self.generate_pdf(report_name)
-        encoded_report = base64.encodestring(report)
-        filename = 'Member Contract'
+        res = super(ResPartner, self).fields_view_get(cr, uid,
+                                                    view_id=view_id,
+                                                    view_type=view_type,
+                                                    context=context,
+                                                    toolbar=toolbar,
+                                                    submenu=submenu)
+        
+        # Read only field contact base specific groups
+        if self.pool['res.users'].browse(cr, uid, uid).id != SUPERUSER_ID:
+            presence_group = self.pool['res.users'].browse(cr, uid, uid).has_group(
+                'coop_membership.group_membership_bdm_presence')
+            doc = etree.fromstring(res['arch'])
+            if presence_group:
+                if view_type == 'form':
+                    for node in doc.xpath("//field"):
+                        if node.get('name') == 'child_ids':
+                            node.set('readonly', '1')
+                        setup_modifiers(node)
+                res['arch'] = etree.tostring(doc)
 
-        # create the new ir_attachment
-        attachment_value = {
-            'name': filename,
-            'res_name': filename,
-            'res_model': 'res.partner',
-            'datas': encoded_report,
-            'datas_fname': filename + '.pdf',
-        }
-        new_attachment = self.env['ir.attachment'].create(attachment_value)
-        return new_attachment
+        return res
