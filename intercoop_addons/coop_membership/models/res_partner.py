@@ -11,6 +11,9 @@ from dateutil.relativedelta import relativedelta
 import pytz
 from openerp.exceptions import ValidationError
 from openerp import models, fields, api, _
+from openerp import SUPERUSER_ID
+from lxml import etree
+from openerp.osv.orm import setup_modifiers 
 
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
@@ -587,4 +590,32 @@ class ResPartner(models.Model):
                 'opt_out': True
             })
         return True
+
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form',
+                        context=None, toolbar=False, submenu=False):
+        if context is None:
+            context = {}
+
+        res = super(ResPartner, self).fields_view_get(cr, uid,
+                                                    view_id=view_id,
+                                                    view_type=view_type,
+                                                    context=context,
+                                                    toolbar=toolbar,
+                                                    submenu=submenu)
+        
+        # Read only field contact base specific groups
+        if self.pool['res.users'].browse(cr, uid, uid).id != SUPERUSER_ID:
+            presence_group = self.pool['res.users'].browse(cr, uid, uid).has_group(
+                'coop_membership.group_membership_bdm_presence')
+            doc = etree.fromstring(res['arch'])
+            if presence_group:
+                if view_type == 'form':
+                    for node in doc.xpath("//field"):
+                        if node.get('name') == 'child_ids':
+                            node.set('readonly', '1')
+                        setup_modifiers(node)
+                res['arch'] = etree.tostring(doc)
+
+        return res
+
         
