@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="member_contract_template">
+    	<t t-call="report.html_container">
+    		<t t-foreach="docs" t-as="o">
+            	<div class="header">
+                </div>
+               	<div class="page">
+                    <div class="title-box"  style="padding-top: 2%;padding-bottom: 10%;">
+                    	<div class="top-box">
+	                    	<div class="date-time-contract" style="width: 50%;
+					    		float: left;">
+	                    		<span>Date, réunion d'accueil: <span t-esc="get_date_meeting(o.id)"></span></span>
+	                    	</div>
+	                    	<div class="temp" style="width: 53%;
+					    		float: right; margin-top: 5px;">
+					    		<div class="left-box " style="margin-left: 40px; width: 70px; height: 50px; border: 2px solid black; padding: 0px 20px 40px 20px; display: inline;">
+	                    			<span >N° temporaire</span>
+	                    		</div>
+	                    		<div class="right-box " style="width: 100px; height: 50px; border: 2px solid black; padding: 0px 20px 40px 20px; display: inline; margin-left: 5px;">
+	                    			<span>N° coopérateuJ définitif</span>
+	                    		</div>
+	                    	</div>
+	                    </div>
+	                    <div class="bottom-box" style="margin-top: 10px;">
+	                    	<div style="width: 50%; float: left;">
+	                    		<h1 style="font-size: 50px; position: absolute; margin-top: -25px;" >Contrat <br /> de souscription</h1>
+	                    	</div>
+	                    	<div style="width: 50%; float: right;  margin-top: 5%;">
+	                    		<img t-if="o.company_id.logo_web" t-att-src="'data:image/png;base64,%s' % o.company_id.logo_web" style="max-height: 80px; border: 0; float: right; margin-right: 30px;"/>
+	                    	</div>
+	                    </div>
+                    </div>
+                    <div class="content-box" style="padding-top: 10px; margin-top: 30px;">
+	               		<div class="left-column" style="width: 45%;
+				    		float: left !important;  height: 500px; padding-top: 55px; padding-left: 5px;">
+				    		<t t-if="o.sex == 'm'">
+		                    	<input type="checkbox" checked="True">Male&#032;&#032;&#032;</input><input type="checkbox">Female</input><br />
+	                    	</t>
+	                    	<t t-if="o.sex == 'f'">
+		                    	<input type="checkbox">Male&#032;&#032;&#032;</input><input type="checkbox" checked="True">Female</input><br />
+	                    	</t>     		
+		                    <span>Nom <span t-esc="o.name"></span></span><br />
+		                    <span>Prénom....................................................................................</span><br />
+		                    <span>Date de naissance <span t-esc="o.birthdate"></span></span><br /><br />
+		                    <input type="checkbox">J'ai moins de 18 ans (16 ans minimum)</input><br />
+		                    <input type="checkbox">Attestation des parents jointe</input><br />
+		                    <input type="checkbox">Signature du parent, accompagné de la mention</input><br />
+		                    <span>Bon pour accord, le parent (ou gardien légal)</span><br /><br />
+		                    Adresse <span t-esc="o.street"></span> <span t-esc="street2"></span><br />
+		                    CP <span t-esc="o.zip"></span> Ville <span t-esc="o.city"></span><br />
+		                    Téléphone <span t-esc="o.mobile"></span><br /><br />
+		                    Mail (écrire en MAJUSCULES svp)
+		                    <div style="width: 90%; height: 30px; border: 2px solid black; padding: 20px;">
+		                    <span t-esc="o.email"></span> 
+		                    </div><br />
+		                    Je déclare vouloir devenir sociétaire de la Coopérative La Louve et souscrire des actions pour un montant:<br />
+		                    <div style="padding-top: 5px;">
+			                    <input type="checkbox">de 100€, soit 10 parts à 10€</input><br />
+			                    <input type="checkbox">de 10€, soit 1 part à 10€ (ustificatif - 6mols)</input><br />
+			                    <input type="checkbox">un montant de.............€, soit......part à 10€</input><br />
+			                    <span style="font: italic 12px/15px Georgia, serif;">(moins de 10 parts, uniquement sur justificatif)</span><br /><br />
+		                    </div>
+		                    <div style="padding-top: 5px; text-align: justify;">
+		                      Je déclare avoir pris connaissance et accepter les statuts de la Louve, le Manuel des membres de La Louve,les FAQ de la souscription*. Je déclare ne
+		                      violer aucune norme ou règlementation en souscri-
+		                      vant les actions de la coopérative
+		                    </div>
+		                    <br />
+		                    <div style="padding-top: 5px;text-align: justify; font-size: 12px;">
+		                    Les informations communiquées seront enregistrées par La Louve uniquement
+							pour le traitement de votre demande. Ces informations sont obligatoires. Vous
+							disposez d'un droit d'accès, de rectification, d'opposition et de suppression dans
+							les conditions prévues par la loi n° 78-17 du 6 janvier 1978 modifiée, relative à
+							l'irformatique, au" fichiers et aux libertés. Ces droits peuvent s'exercer aupres de
+							La Louve par courrier électronique à "adresse info@coopla/ouve.fr QU par courrier:
+							Coopérative La Louve - 116 rue des Poissonniers 75018 Paris
+		                    </div>
+		                    <div style="padding-top: 5px; text-align: justify; font-size: 12px;">
+		                    * Ces documents vous ont été transmis fors de votre inscription à une réunion
+							d'accueil. If sont également disponibles sur votre site internet et au Bureau des
+							membres de La Louve.
+		                    </div>
+		                    <div style="margin-top: 20px;width: 95%; height: 50px; border: 2px solid black; padding: 10px 10px 60px 20px;; border-radius: 15px 0px 0px 0px;">
+		                      <span>Fait à Paris, le</span><br />
+		                      <span>SIGNATURE</span>
+		                    </div>
+                    	</div>
+	                    <div class="right-column" style="width: 50%;
+					    		float: right; height: 80%; border: 2px solid black; padding-top: 10px; border-radius: 15px 15px 0px 0px;">
+		                    <div class="top-right-column" style="padding-left: 5px;">
+			               			<h4>RÉSERVÉ LA LOUVE</h4>
+			               			<span style="font-weight: bold;">Vérifié &gt;</span> <span>par Nom - Wmembre :..................................................</span>
+		                    </div>
+		                    <div class="content-right-column">
+		               			<ul>
+		               				<li>
+		               					<h5>PIÈCE D'IDENTITÉ PRÉSENTÉE (obligatoire)</h5>
+		               					<input type="checkbox">carte nationale d'identité</input>   <input type="checkbox">passeport </input><br />
+		               					<input type="checkbox">permis de conduire français</input>  <input type="checkbox">titre de séjour</input><br />
+	                          <input type="checkbox">attestation de demandeur d'asile </input><br />
+	                          <span style="font-weight: bold; font: italic bold 12px/15px Georgia, serif;">Recopiez le nom inscrit sur le justificatif présenté</span>
+	                          Nom.....................................................................................
+		               				</li>
+		               				<li>
+		               					<h5>JUSTIFICATIF SOUSCRIPTION RÉDUITE</h5>
+	                          <span style="font-weight: bold; font: italic bold 12px/15px Georgia, serif;">(obligatoire à présenter justificatif - de 6 mois)</span><br />
+	                          <input type="checkbox">minima sociaux</input> <input type="checkbox">bourse étudiant 6/7</input><br />
+	                          <span  style="font-weight: bold; font: italic bold 12px/15px Georgia, serif;">Recopiez le nom et prénom figurant sur l'attestation présentée</span><br />
+	                          Nom Prénom.......................................................................<br />
+	                          Vérifié &gt; par Nom - Wmembre :.........................................<br />
+		               				</li>
+		               				<li>
+		               					<h5>PAIEMENT</h5>
+	                          <div class="payment" style="font-weight: bold;">
+	                            <input type="checkbox">Paiement comptant par CB</input><br />
+	                            <input type="checkbox">Paiement comptant par chèque</input><br />
+	                            <input type="checkbox">Paiement échelonné par chèque en 2 fois</input><br />
+	                          </div>
+	                          échéance 1/2: immédiat..............................<br />
+	                          échéance 212: au 15.................................<br />
+	                          <div class="payment" style="font-weight: bold;">
+	                            <input type="checkbox">Paiement échelonné par chèque en 5 fois</input>
+	                          </div>
+	                          échéance 1/5: immédiat............................<br />
+	                          échéance 2/5 : au 15/................................<br />
+	                          échéance 3/5 : au 15/................................<br />
+	                          échéance 4/5 : au 15/................................<br />
+	                          échéance 5/5 : au 15.................................<br />
+	                          <span style="font-weight: bold; font: italic bold 12px/15px Georgia, serif;">Recopiez le numéro de coopérateur définitif (ou temporaire) au dos du(des) chèque(s)</span>
+		               				</li>
+		               				<li>
+		               					<h5>ÉQUIPE</h5>
+				                          <span>Affectation&gt;<input type="checkbox">Semaine ASCD ou</input> <input type="checkbox">équipe VOLANTE</input></span><br />
+				                         Semaine <span style="padding-left: 10px;">A B C D</span><br />
+				                         Lundi - Mardi - Mercred - Jeudi - Vendredi - Samedi - Dimanche de ...............heures à ...........heures<br />
+				                         Liste d'attente <span style="padding-left: 10px;">A B C D</span><br />
+				                         Lundi - Mardi - Mercred - Jeudi - Vendredi - Samedi - Dimanche de ...............heures à ...........heures<br />
+				                     </li>
+				                 </ul>
+			                </div>
+            			<span style="float: right; position: absolute; margin-left: 390px; margin-top: 30px;">v5.1</span>
+	             		</div>
+            		</div>
+             	</div>
+		    </t>
+        </t>
+    </template>
+
+    <report id="member_contract_report"
+            string="Member Contract"
+            model="res.partner" 
+            name="coop_membership.member_contract_template"
+            report_type="qweb-pdf" />
+
+    <record id="coop_membership.member_contract_report" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="coop_membership.paperformat_member_contract"/>
+    </record>
+
+</odoo>
