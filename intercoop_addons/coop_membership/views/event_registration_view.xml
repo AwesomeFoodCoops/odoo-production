@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_event_registration_form_inherit" model="ir.ui.view">
+        <field name="name">view.event.registration.form.inherit</field>
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_event_registration_form"/>
+        <field name="arch" type="xml">
+            <field name="event_id" position="after">
+                <field name="is_discovery_meeting_event" invisible="1" />
+            </field>
+            <field name="name" position="attributes">
+            	<attribute name="attrs">{'invisible': [('is_discovery_meeting_event', '=', True)]}</attribute>
+            </field>
+            <field name="phone" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_discovery_meeting_event', '=', True)]}</attribute>
+            </field>
+            <field name="email" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_discovery_meeting_event', '=', True)]}</attribute>
+            </field>
+            <field name="event_ticket_id" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_discovery_meeting_event', '=', True)]}</attribute>
+            </field>
+            <field name="sale_order_id" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_discovery_meeting_event', '=', True)]}</attribute>
+            </field>
+            <field name="origin" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_discovery_meeting_event', '=', True)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>
+
