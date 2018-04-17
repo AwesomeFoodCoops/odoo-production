@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<odoo>
+	<record id="invoice_supplier_tree_no_create" model="ir.ui.view">
+        <field name="name">invoice.supplier.tree.no.create</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
