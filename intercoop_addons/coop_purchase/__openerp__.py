@@ -20,6 +20,7 @@
     'data': [
         'views/purchase_view.xml',
         'views/purchase_config_settings_view.xml',
+        'views/account_invoice_view.xml',
         'views/actions.xml',
         'views/menu.xml'
     ],
