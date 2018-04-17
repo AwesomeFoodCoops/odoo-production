@@ -14,6 +14,7 @@
 			</header>
                     	<field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" invisible="True"/>
 			<h2>Planification Des Commandes</h2>
+		        <field name="button_clicked" on_change="onchange_button_clicked(button_clicked)"/>
                 	<sheet>
 		                <group col="6">
 		                    <field name="date" readonly="False"/>
@@ -23,7 +24,7 @@
 				<group string="Initialisation" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}" col="6">
 					<field name="categ_ids" widget="many2many_tags"/>
 					<button name="action_add" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-					<button name="action_reinitialiser" string="Reinitialiser" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_reinitialise" string="Reinitialiser" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 		               	</group>       
 				<group col="6" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}">                     	
 					<field name="supplier_ids" widget="many2many_tags"/>
@@ -67,7 +68,7 @@
                     <field name="company_id" groups="base.group_multi_company"/>
                     <group expand="0" string="Group By">
                         <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
-                        <filter string="Inventories Week Number" domain="[]" context="{'group_by':'week_number'}" help="Physical Inventories by Week Number"/>
+                        <filter string="N° Semaine" domain="[]" context="{'group_by':'week_number'}" help="Physical Inventories by Week Number"/>
                     </group>
                 </search>
 
