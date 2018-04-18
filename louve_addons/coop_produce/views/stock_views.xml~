@@ -7,38 +7,36 @@
             <field name="model">stock.inventory</field>
 	    <field name="sequence" eval="18"/>
             <field name="arch" type="xml">
-                <form string="Planification Des Commandes">
+                <form string="Inventaire F&amp;L">
 			<header>
 		                <button name="action_done" string="Validate" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-		                <button name="action_generate_planification" states="done" string="Generate Planification" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+		                <button name="action_generate_planification" states="done" string="Générer la planification de la semaine" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 			</header>
                     	<field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" invisible="True"/>
-			<h2>Planification Des Commandes</h2>
-		        <field name="button_clicked" on_change="onchange_button_clicked(button_clicked)"/>
+			<h2>Inventaire F&amp;L</h2>
                 	<sheet>
 		                <group col="6">
-		                    <field name="date" readonly="False"/>
+		                    <field name="date" readonly="False" string="Semaine"/>
 		                    <field name="week_number"/>
 		                    <field name="hide_initialisation"/>
 		                </group>
 				<group string="Initialisation" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}" col="6">
-					<field name="categ_ids" widget="many2many_tags"/>
-					<button name="action_add" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-					<button name="action_reinitialise" string="Reinitialiser" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<field name="categ_ids" widget="many2many_tags" string="Catégorie de produit"/>
+					<button name="action_add" string="Ajouter" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_reinitialise" string="Réinitialiser" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 		               	</group>       
 				<group col="6" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}">                     	
-					<field name="supplier_ids" widget="many2many_tags"/>
-					<button name="action_add" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<field name="supplier_ids" widget="many2many_tags" string="Fournisseur"/>
+					<button name="action_add" string="Ajouter" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 				</group>
 		                <field name="line_ids" string="Inventory Details">
 		                        <tree string="Inventory Details" editable="bottom">
-		                            <field name="product_id"/>
-		                            <field name="colisage_ref"/>
-		                            <field name="theoretical_qty_ref"/>
-		                            <field name="qty_stock"/>
-		                            <field name="qty_loss"/>
+		                            <field name="product_id" string="Produit"/>
+		                            <field name="colisage_ref" string="Colissage Ref"/>
+		                            <field name="theoretical_qty_ref" string="Qté théorique"/>
+		                            <field name="qty_stock" string="Qté en stock"/>
+		                            <field name="qty_loss" string="Perte"/>
 		                            <field name="product_qty" invisible= "True"/>
-		                            <field name="categ_id"/>
 		                        </tree>
 				</field>
                 	</sheet>

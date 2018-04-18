@@ -49,34 +49,24 @@ class StockInventory(osv.osv):
 	_inherit = "stock.inventory"
 
 
-	def onchange_button_clicked(self, cr, uid, ids, button_clicked, context=None):
-		_logger.info('------------------  onchange_button_clicked   -------------------')
-		res = {}
-		if button_clicked == True:
-        		for categ in self.browse(cr, uid, ids, context=context):
-				_logger.info('------------------  categ   -------------------')
-				if categ.categ_ids : 
-					res.update({'line_ids' : [('id', '=', 1)]})
-    		return {'domain' : {'line_ids' : [('product_id', '=' , 1)]}}
-
-
 	def action_add(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_add   -------------------')
 		res = {}
         	for categ in self.browse(cr, uid, ids, context=context):
-			categ.button_clicked = True
+			if categ.categ_ids : 
+				res.update({'line_ids' : [('id', '=', 1)]})
 		return True
 
 
 	def action_reinitialise(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_reinitialise   -------------------')
         	for line in self.browse(cr, uid, ids, context=context):
-			line.button_clicked = False
 			if line.categ_ids : 
 				for categ in line.categ_ids :
 					line.write({'categ_ids': [( 3, categ.id)]}) 
 			if line.supplier_ids : 
-				line.supplier_ids.unlink() 
+				for supplier in line.supplier_ids :
+					line.write({'supplier_ids': [( 3, supplier.id)]}) 
 			if line.line_ids : 
 				line.line_ids.unlink() 
 
@@ -96,9 +86,8 @@ class StockInventory(osv.osv):
 		'week_number': fields.function(_get_number_week, type="integer",string= "N° Semaine", help="Number of Inventory Week", store=True),
 		'hide_initialisation': fields.boolean(string="Cacher Intialisation",help="Cacher Initialisation"),
         	'categ_ids': fields.many2many('product.category', 'stock_inventory_product_categ', 'inventory_id', 'categ_id', 'Product Categories'),
-		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', help="Specify Product Category to focus in your inventory."),
+		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', domain=[('supplier', '=', True)],help="Specify Product Category to focus in your inventory."),
 		'weekly_inventory': fields.boolean(string="Inventaire Hebdomadaire",help="Inventaire Hebdomadaire"),
-		'button_clicked': fields.boolean(string="button clicked",help="button clicked", default= False),
 	}
 
 	_defaults = {
@@ -185,7 +174,6 @@ class StockInventoryLine(osv.osv):
 		'theoretical_qty_ref': fields.function(_get_theoretical_qty_ref, type="float",digits_compute=dp.get_precision('Product Unit of Measure'),string='Theoretical Quantity',help="Quantity Theoric Of Reference"),
 		'qty_loss': fields.function(_get_qty_loss, type="float",string='Quantity Lost', digits_compute=dp.get_precision('Product Unit of Measure'),help='Quantity Theoric Of Reference - Stock Quantity'),
 		'qty_stock': fields.float(string='Stock Quantity', digits_compute=dp.get_precision('Product Unit of Measure'),help="Stock Quantity"),
-		'categ_id': fields.many2one('product.category', string='Category Product', help="Category Product"),
 	}
 
 	def _default_stock_location(self, cr, uid, context=None):
