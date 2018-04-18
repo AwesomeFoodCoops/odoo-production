@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- Views -->
+    <record model="ir.ui.view" id="view_bank_reconciliation_summary_wizard">
+        <field name="name">view.bank.reconciliation.summary.wizard</field>
+        <field name="model">bank.reconciliation.summary.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Bank Reconciliation Summary Wizard">
+                <group>
+                    <field name="journal_id"/>
+                    <field name="analysis_date"/>
+                </group>
+                <footer>
+                    <button string="Generate Report" name="print_report" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bank_reconciliation_summary" model="ir.actions.act_window">
+        <field name="name">Bank Reconciliation Summary Wizard</field>
+        <field name="res_model">bank.reconciliation.summary.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_bank_reconciliation_summary_wizard"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="report_bank_reconciliation_summary" name="Bank Reconciliation Summary Wizard" parent="account.menu_finance_reports" 
+        action="action_bank_reconciliation_summary" sequence="11"/>
+    
+</odoo>
