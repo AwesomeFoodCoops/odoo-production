@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+ -->
+<odoo noupdate="1">
+
+    <record id="to_reconcile_pos_account" model="ir.config_parameter">
+        <field name="key">to.reconcile.pos.account</field>
+        <field name="value">411100</field>
+    </record>
+
+</odoo>
