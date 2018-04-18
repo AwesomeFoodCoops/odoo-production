@@ -48,14 +48,66 @@ _logger = logging.getLogger(__name__)
 class StockInventory(osv.osv):
 	_inherit = "stock.inventory"
 
-
-	def action_add(self, cr, uid, ids, context=None):
-		_logger.info('------------------  action_add   -------------------')
-		res = {}
+	def action_add_category(self, cr, uid, ids, context=None):
+		_logger.info('------------------  action_add_category   -------------------')
+		value = {}
+    		line_ids = []
+		product_ids_list = []
         	for categ in self.browse(cr, uid, ids, context=context):
+			if categ.line_ids : 
+				categ.line_ids.unlink() 
 			if categ.categ_ids : 
-				res.update({'line_ids' : [('id', '=', 1)]})
-		return True
+				if categ.supplier_ids : 
+					product_supplier_ids = self.pool.get('product.supplierinfo').search(cr, uid,[('name','in',categ.supplier_ids.ids)])
+					if product_supplier_ids :		
+						for sup in product_supplier_ids :
+							product_suppliers_ids = self.pool.get('product.supplierinfo').browse(cr, uid, sup, context=context).product_tmpl_id
+							if categ.categ_ids :
+								product_tmpl_ids = self.pool.get('product.template').search(cr, uid,[('id','in',product_suppliers_ids.ids),('categ_id','in',categ.categ_ids.ids)])
+								if product_tmpl_ids :
+									product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_tmpl_ids)])
+									if product_ids : 
+										for product in product_ids :
+											line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
+										categ.write({'line_ids': line_ids})
+
+				else :
+					product_tmpl_ids = self.pool.get('product.template').search(cr, uid,[('categ_id','in',categ.categ_ids.ids)])
+					if product_tmpl_ids :
+						product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_tmpl_ids)])
+						if product_ids : 
+							for product in product_ids :
+								line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
+							categ.write({'line_ids': line_ids})
+
+
+	def action_add_supplier(self, cr, uid, ids, context=None):
+		_logger.info('------------------  action_add_supplier   -------------------')
+    		line_ids = []
+		product_ids_list = []
+        	for supplier in self.browse(cr, uid, ids, context=context):
+			if supplier.line_ids : 
+				supplier.line_ids.unlink() 
+			if supplier.supplier_ids : 
+				product_supplier_ids = self.pool.get('product.supplierinfo').search(cr, uid,[('name','in',supplier.supplier_ids.ids)])
+				if product_supplier_ids :		
+					for sup in product_supplier_ids :
+						product_suppliers_ids = self.pool.get('product.supplierinfo').browse(cr, uid, sup, context=context).product_tmpl_id
+						if supplier.categ_ids :
+							product_tmpl_ids = self.pool.get('product.template').search(cr, uid,[('id','in',product_suppliers_ids.ids),('categ_id','in',supplier.categ_ids.ids)])
+							if product_tmpl_ids :
+								product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_tmpl_ids)])
+								if product_ids : 
+									for product in product_ids :
+										line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
+									supplier.write({'line_ids': line_ids})
+
+						else :
+							product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_suppliers_ids.ids)])
+							if product_ids : 
+								for product in product_ids :
+									line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
+								supplier.write({'line_ids': line_ids})
 
 
 	def action_reinitialise(self, cr, uid, ids, context=None):
@@ -106,13 +158,15 @@ class StockInventory(osv.osv):
                         week_number = order.week_number
 			_logger.info('------------------  Produits En cours   -------------------')
 			for product in order.line_ids:
-				product_ids_list.append(product.id)
+				product_ids_list.append(product.product_id.id)
+			_logger.info('------------------  product_ids_list   -------------------')
+			_logger.info(product_ids_list)
 			planification_ids = self.pool('stock.inventory').search(cr, uid, [('week_number','=',week_number)], context=context)
 			if planification_ids :
 				for planif in planification_ids :
 					line_ids =  self.pool('stock.inventory').browse(cr, uid, planif, context=context).line_ids
 					for product in line_ids:
-						if product.id in product_ids_list :
+						if product.product_id.id in product_ids_list :
 							product_name = product.product_id.name_template
 							raise osv.except_osv(('Error'), ("Une planification est déjà en cours pour le : " + product_name))
 		        				return False
@@ -168,12 +222,25 @@ class StockInventoryLine(osv.osv):
 			res[product.id] = theoretical_qty_ref - qty_stock
         	return res
 
+	def _get_product_category(self, cr, uid, ids,name, args, context=None):
+		_logger.info('------------------  _get_product_category   -------------------')
+		res = {}
+		product_category = False
+        	for product in self.browse(cr, uid, ids, context=context):
+			_logger.info(product)
+			product_category = product.product_id.product_tmpl_id.categ_id.id
+			res[product.id] = product_category
+        	return res
+
 
 	_columns = {
+
 		'colisage_ref': fields.related('product_id', 'colissage_ref', type='float', relation='product.template', string='Colisage Ref', store=True, select=True, readonly=True),
 		'theoretical_qty_ref': fields.function(_get_theoretical_qty_ref, type="float",digits_compute=dp.get_precision('Product Unit of Measure'),string='Theoretical Quantity',help="Quantity Theoric Of Reference"),
 		'qty_loss': fields.function(_get_qty_loss, type="float",string='Quantity Lost', digits_compute=dp.get_precision('Product Unit of Measure'),help='Quantity Theoric Of Reference - Stock Quantity'),
 		'qty_stock': fields.float(string='Stock Quantity', digits_compute=dp.get_precision('Product Unit of Measure'),help="Stock Quantity"),
+		'categ_id': fields.function(_get_product_category, type="integer", string='Category Product', store=True, help="Category Product"),
+
 	}
 
 	def _default_stock_location(self, cr, uid, context=None):
