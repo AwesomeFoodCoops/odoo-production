@@ -16,18 +16,18 @@
 			<h2>Inventaire F&amp;L</h2>
                 	<sheet>
 		                <group col="6">
-		                    <field name="date" readonly="False" string="Semaine"/>
+		                    <field name="date" string="Semaine" attrs="{'readonly': [('state', '=', 'done')]}"/>
 		                    <field name="week_number"/>
 		                    <field name="hide_initialisation"/>
 		                </group>
 				<group string="Initialisation" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}" col="6">
 					<field name="categ_ids" widget="many2many_tags" string="Catégorie de produit"/>
-					<button name="action_add" string="Ajouter" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_add_category" string="Ajouter" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 					<button name="action_reinitialise" string="Réinitialiser" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 		               	</group>       
 				<group col="6" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}">                     	
 					<field name="supplier_ids" widget="many2many_tags" string="Fournisseur"/>
-					<button name="action_add" string="Ajouter" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_add_supplier" string="Ajouter" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 				</group>
 		                <field name="line_ids" string="Inventory Details">
 		                        <tree string="Inventory Details" editable="bottom">
