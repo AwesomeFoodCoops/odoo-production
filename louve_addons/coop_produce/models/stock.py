@@ -35,6 +35,12 @@ from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FO
 from openerp import SUPERUSER_ID, api, models
 import openerp.addons.decimal_precision as dp
 from openerp.addons.procurement import procurement
+
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -43,25 +49,27 @@ class StockInventory(osv.osv):
 	_inherit = "stock.inventory"
 
 
-
 	def action_add(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_add   -------------------')
 		res = {}
         	for categ in self.browse(cr, uid, ids, context=context):
 			if categ.categ_ids : 
-				_logger.info('------------------  categ.categ_ids   -------------------')
-				_logger.info(categ.categ_ids.ids)
-        			res['domain'] = {'categ_id': [('id', 'in', categ.categ_ids.ids)]}
-    		return res
+				res.update({'line_ids' : [('id', '=', 1)]})
+		return True
 
 
-	def action_reinitialiser(self, cr, uid, ids, context=None):
-		_logger.info('------------------  action_reinitialiser   -------------------')
+	def action_reinitialise(self, cr, uid, ids, context=None):
+		_logger.info('------------------  action_reinitialise   -------------------')
         	for line in self.browse(cr, uid, ids, context=context):
+			if line.categ_ids : 
+				for categ in line.categ_ids :
+					line.write({'categ_ids': [( 3, categ.id)]}) 
+			if line.supplier_ids : 
+				for supplier in line.supplier_ids :
+					line.write({'supplier_ids': [( 3, supplier.id)]}) 
 			if line.line_ids : 
-				_logger.info('------------------  line.line_ids   -------------------')
-				_logger.info(line.line_ids)
-				return {'value':{'line_ids' : [(3,line.id)]}}
+				line.line_ids.unlink() 
+
 
 	def _get_number_week(self, cr, uid, ids, date, args, context=None):
 		_logger.info('------------------  _get_number_week   -------------------')
@@ -75,11 +83,11 @@ class StockInventory(osv.osv):
 
 	_columns = {
 
-		'week_number': fields.function(_get_number_week, type="integer",string= "N° Semaine", help="Number of Inventory Week"),
+		'week_number': fields.function(_get_number_week, type="integer",string= "N° Semaine", help="Number of Inventory Week", store=True),
 		'hide_initialisation': fields.boolean(string="Cacher Intialisation",help="Cacher Initialisation"),
         	'categ_ids': fields.many2many('product.category', 'stock_inventory_product_categ', 'inventory_id', 'categ_id', 'Product Categories'),
-		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', help="Specify Product Category to focus in your inventory."),
-
+		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', domain=[('supplier', '=', True)],help="Specify Product Category to focus in your inventory."),
+		'weekly_inventory': fields.boolean(string="Inventaire Hebdomadaire",help="Inventaire Hebdomadaire"),
 	}
 
 	_defaults = {
@@ -92,22 +100,50 @@ class StockInventory(osv.osv):
 
                 week_date = False
                 week_number = False
+		product_ids_list = []
                 for order in self.browse(cr, uid, ids, context=context) :
                         week_date = order.date
                         week_number = order.week_number
-			view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','order.week.planning'),('name','=','order.week.planning.form')], context=context)
-                        return {
-                                    'name': "Planfication Des Commandes",
-                                    'view_type': 'form',
-                                    'res_model': 'order.week.planning',
-                                    'view_id': view_id[0],
-                                    'view_mode': 'form',
-                                    'nodestroy': True,
-                                    'target': 'current',
-                                    'context': {'default_date': week_date,'default_week_number': week_number},
-                                    'flags': {'form': {'action_buttons': False}},
-                                    'type': 'ir.actions.act_window',
-                        }
+			_logger.info('------------------  Produits En cours   -------------------')
+			for product in order.line_ids:
+				product_ids_list.append(product.id)
+			planification_ids = self.pool('stock.inventory').search(cr, uid, [('week_number','=',week_number)], context=context)
+			if planification_ids :
+				for planif in planification_ids :
+					line_ids =  self.pool('stock.inventory').browse(cr, uid, planif, context=context).line_ids
+					for product in line_ids:
+						if product.id in product_ids_list :
+							product_name = product.product_id.name_template
+							raise osv.except_osv(('Error'), ("Une planification est déjà en cours pour le : " + product_name))
+		        				return False
+						else : 
+							view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','order.week.planning'),('name','=','order.week.planning.form')], context=context)
+							return {
+									    'name': "Planfication Des Commandes",
+									    'view_type': 'form',
+									    'res_model': 'order.week.planning',
+									    'view_id': view_id[0],
+									    'view_mode': 'form',
+									    'nodestroy': True,
+									    'target': 'current',
+									    'context': {'default_date': week_date,'default_week_number': week_number},
+									    'flags': {'form': {'action_buttons': False}},
+									    'type': 'ir.actions.act_window',
+							}
+			else :
+				view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','order.week.planning'),('name','=','order.week.planning.form')], context=context)
+		                return {
+		                            'name': "Planfication Des Commandes",
+		                            'view_type': 'form',
+		                            'res_model': 'order.week.planning',
+		                            'view_id': view_id[0],
+		                            'view_mode': 'form',
+		                            'nodestroy': True,
+		                            'target': 'current',
+		                            'context': {'default_date': week_date,'default_week_number': week_number},
+		                            'flags': {'form': {'action_buttons': False}},
+		                            'type': 'ir.actions.act_window',
+		                }
 
 class StockInventoryLine(osv.osv):
 	_inherit = "stock.inventory.line"
@@ -133,13 +169,11 @@ class StockInventoryLine(osv.osv):
         	return res
 
 
-
 	_columns = {
 		'colisage_ref': fields.related('product_id', 'colissage_ref', type='float', relation='product.template', string='Colisage Ref', store=True, select=True, readonly=True),
 		'theoretical_qty_ref': fields.function(_get_theoretical_qty_ref, type="float",digits_compute=dp.get_precision('Product Unit of Measure'),string='Theoretical Quantity',help="Quantity Theoric Of Reference"),
 		'qty_loss': fields.function(_get_qty_loss, type="float",string='Quantity Lost', digits_compute=dp.get_precision('Product Unit of Measure'),help='Quantity Theoric Of Reference - Stock Quantity'),
 		'qty_stock': fields.float(string='Stock Quantity', digits_compute=dp.get_precision('Product Unit of Measure'),help="Stock Quantity"),
-		'categ_id': fields.many2one('product.category', digits_compute=dp.get_precision('Product Unit of Measure'),string='Category Product', help="Category Product"),
 	}
 
 	def _default_stock_location(self, cr, uid, context=None):
@@ -179,11 +213,45 @@ class OrderWeekPlanning(osv.osv):
 
 	def action_commande_week(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_commande_week   -------------------')
-		return True
+                week_number = False
+                for order in self.browse(cr, uid, ids, context=context) :
+                        week_date = order.date
+			order_ids = self.pool['sale.order'].search(cr, uid, [], context=context)
+			view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','sale.order'),('name','=','sale.order.form')], context=context)
+			view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','sale.order'),('name','=','sale.order.tree')], context=context)
+			return {
+				                    'name': "Liste Des Commandes",
+						    'view_type': 'form',
+						    'view_mode': 'tree,form',
+				                    'res_model': 'sale.order',
+						    'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
+				                    'nodestroy': True,
+				                    'target': 'current',
+				   		    'domain': [],
+				                    'flags': {'form': {'action_buttons': False}},
+				                    'type': 'ir.actions.act_window',
+			}
+
 
 	def action_other_weeks(self, cr, uid, ids, context=None):
 		_logger.info('------------------ action_other_weeks   -------------------')
-		return True
+                week_id = False
+                for order in self.browse(cr, uid, ids, context=context) :
+                        week_id = order.id
+			view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.inventory'),('name','=','stock.inventory.form')], context=context)
+			view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.inventory'),('name','=','stock.inventory.tree')], context=context)
+			return {
+				                    'name': "Voir Les Autres Semaines",
+						    'view_type': 'form',
+						    'view_mode': 'tree,form',
+				                    'res_model': 'stock.inventory',
+						    'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
+				                    'nodestroy': True,
+				                    'target': 'current',
+				   		    'domain': [('id', '!=', week_id)],
+				                    'flags': {'form': {'action_buttons': False}},
+				                    'type': 'ir.actions.act_window',
+			}
 
 
 	def action_add(self, cr, uid, ids, context=None):
