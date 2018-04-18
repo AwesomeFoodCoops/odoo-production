@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-
-    <!-- Disable default bad reporting -->
-    <record id="product.report_product_label" model="ir.actions.report.xml">
-        <field name="active" eval="False" />
-    </record>
-
-</odoo>
