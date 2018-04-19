@@ -16,6 +16,9 @@
                 <button name="button_makeupok" type="object" states="confirm"
                         class="oe_highlight" string="Make-ups OK"/>
             </button>
+            <field name="date_end" position="after">
+                <field name="is_send_reminder" group="base.group_no_one" readonly="1" />
+            </field>
         </field>
     </record>
 
