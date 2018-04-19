@@ -187,7 +187,7 @@
 
         <record id="view_coop_produce_historique_product_form" model="ir.ui.view">
             <field name="name">coop.product.product.history.form</field>
-            <field name="model">product.history</field>
+            <field name="model">planification.product.history</field>
 	    <field name="sequence" eval="18"/>
             <field name="arch" type="xml">
                 <form string="Historique Produit">

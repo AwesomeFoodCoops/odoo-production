@@ -25,7 +25,8 @@ from openerp import api, fields, models
 from openerp.addons import decimal_precision as dp
 
 class ProductTemplate(models.Model):
-    _inherit = "product.template"
+    	_inherit = "product.template"
+
+    	colissage_ref = fields.Float('Colissage de Ref',digits=dp.get_precision('Product Price'))
 
 
-    colissage_ref = fields.Float('Colissage de Ref',digits=dp.get_precision('Product Price'))

@@ -21,8 +21,6 @@ Il offre à cet effet les fonctionnalités suivantes :
         'base',
         'stock',
         'purchase',
-	'product',
-	'product_history',
     ],
     'data': [
         'views/product_views.xml',

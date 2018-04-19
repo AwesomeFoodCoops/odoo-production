@@ -206,8 +206,10 @@ class StockInventoryLine(osv.osv):
 		_logger.info('------------------  _get_qty_details   -------------------')
 		res = {}
         	for product in self.browse(cr, uid, ids, context=context):
+			theoretical_qty = 0.0
 			if product.product_id.product_tmpl_id.colissage_ref != 0 :
-				res[product.id] = product.theoretical_qty / product.product_id.product_tmpl_id.colissage_ref
+				theoretical_qty = product.theoretical_qty / product.product_id.product_tmpl_id.colissage_ref
+			res[product.id] = theoretical_qty
         	return res
 
 
@@ -407,11 +409,11 @@ class OrderWeekPlanningLine(osv.osv):
                 for product in self.browse(cr, uid, ids, context=context) :
                         product_id= product.product_id.id
                         colissage_ref = product.colisage_ref
-			view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','product.history'),('name','=','coop.product.product.history.form')], context=context)
+			view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','planification.product.history'),('name','=','coop.product.product.history.form')], context=context)
                         return {
                                     'name': "Historique Du Produit",
                                     'view_type': 'form',
-                                    'res_model': 'product.history',
+                                    'res_model': 'planification.product.history',
                                     'view_id': view_id[0],
                                     'view_mode': 'form',
                                     'nodestroy': True,
@@ -421,8 +423,8 @@ class OrderWeekPlanningLine(osv.osv):
                                     'type': 'ir.actions.act_window',
                         }
 
-class HistoriqueProduit(osv.osv):
-	_name = "product.history"
+class PlanificationHistoriqueProduit(osv.osv):
+	_name = "planification.product.history"
 	_description = "Product History"
 
 
@@ -430,18 +432,18 @@ class HistoriqueProduit(osv.osv):
 
 		'product_id': fields.many2one('product.product', 'Product', required=True, select=True),
 		'colissage_ref': fields.float('Total Commands Monday', digits_compute=dp.get_precision('Product Unit of Measure')),
-        	'line_ids': fields.one2many('product.history.line', 'history_id', 'Historique', help="Historique Lines."),
+        	'line_ids': fields.one2many('planification.product.history.line', 'history_id', 'Historique', help="Historique Lines."),
 	}
 
 
 
-class HistoriqueProduitLine(osv.osv):
-	_name = "product.history.line"
+class PlanificationHistoriqueProduitLine(osv.osv):
+	_name = "planification.product.history.line"
 	_description = "Product History Line"
 
 
 	_columns = {
-		'history_id': fields.many2one('product.history', 'Product History', ondelete='cascade', select=True),
+		'history_id': fields.many2one('planification.product.history', 'Product History', ondelete='cascade', select=True),
 		'semaine_nbre': fields.integer('N° Semaine', required=True, select=True),
 		'prix_unitaire': fields.float('Prix Unitaire', digits_compute=dp.get_precision('Product Unit of Measure')),
 		's_inv': fields.float('S Inv', digits_compute=dp.get_precision('Product Unit of Measure')),
