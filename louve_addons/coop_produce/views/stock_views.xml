@@ -120,14 +120,14 @@
 		                </group>
 				<group string="Initialisation" attrs="{'invisible': [('hide_initialisation', '=', True)]}" col="6">
 					<field name="categ_ids" widget="many2many_tags" string="Catégorie de Produit"/>
-					<button name="action_add" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-					<button name="action_reinitialiser" string="Reinitialiser" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_add_category" string="Ajouter" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_reinitialise" string="Réinitialiser" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 					<button name="action_update" string="MAJ S Inv" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 		               	</group>       
 				<group col="6" attrs="{'invisible': [('hide_initialisation', '=', True)]}">                     	
 					<field name="supplier_ids" widget="many2many_tags" string="Fournisseur"/>
-					<button name="action_add" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-					<button name="action_reinitialiser" string="Reinitialiser" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_add_supplier" string="Ajouter" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_reinitialise" string="Réinitialiser" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 		                    	<field name="week_date"/>
 				</group>
 				<group string="Pré-génération Des Commandes Par Jour"  col="8">
@@ -157,15 +157,16 @@
 		                    	<field name="total_received_saturday" nolabel="1"/>
 		               	</group>  
 		                <field name="line_ids" string="Order Planning Details">
-		                        <tree string="Order Planning Details" attrs="{'editable': [('state', '!=', 'done')]}">
+		                        <tree string="Order Planning Details" attrs="{'editable': [('state', '!=', 'done')]}" editable="bottom">
 						    <button name="action_view_history" icon="STOCK_JUSTIFY_FILL" type="object" groups="stock.group_stock_manager"/>
-				                    <field name="product_id"/>
-				                    <field name="colisage_ref"/>
-				                    <field name="partner_id"/>
-				                    <field name="list_price"/>
+				                    <field name="product_id" string="Produit"/>
+				                    <field name="colisage_ref" string="Colissage"/>
+				                    <field name="partner_id" string="Fournisseur"/>
+				                    <field name="list_price" string="Prix U" attrs="{'readonly': [('edit_price', '=', False)]}"/>
+						    <button name="action_edit_price" icon="gtk-apply" type="object" groups="stock.group_stock_manager"/>
 				                    <field name="vendu-s-2"/>
 				                    <field name="vendu-s-1"/>
-				                    <field name="vendu-s-inv"/>
+				                    <field name="vendu-s-inv" string="S Inv"/>
 				                    <field name="monday_line"/>
 				                    <field name="tuesday_line"/>
 				                    <field name="wednesday_line"/>
@@ -177,6 +178,7 @@
 				                    <field name="e_in"/>
 				                    <field name="loss"/>
 				                    <field name="sold"/>
+				                    <field name="edit_price" invisible="1"/>
 		                        </tree>
 				</field>
                 	</sheet>
