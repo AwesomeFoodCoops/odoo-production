@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_coop_produce_stock_inventory_form" model="ir.ui.view">
+            <field name="name">stock.inventory.form</field>
+            <field name="model">stock.inventory</field>
+	    <field name="sequence" eval="18"/>
+            <field name="arch" type="xml">
+                <form string="F&amp;V Inventory">
+			<header>
+		                <button name="action_done" string="Validate" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+		                <button name="action_generate_planification" states="done" string="Generate Week Planification" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+			</header>
+                    	<field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" invisible="True"/>
+                	<sheet>
+		                <group col="6" string="F&amp;V Inventory">
+		                    <field name="date" string="Date" attrs="{'readonly': [('state', '=', 'done')]}"/>
+		                    <field name="week_number" string="Week Number"/>
+		                    <field name="hide_initialisation" string="Hide initialisation"/>
+		                </group>
+				<group string="Initialisation" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}" col="6">
+					<field name="categ_ids" widget="many2many_tags" string="Product Category"/>
+					<button name="action_add_category" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+		               	</group>       
+				<group col="6" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}">                     	
+					<field name="supplier_ids" widget="many2many_tags" string="Supplliers"/>
+					<button name="action_add_supplier" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+				</group>
+		                <field name="line_ids" string="Inventory Details">
+		                        <tree string="Inventory Details" editable="bottom">
+		                            <field name="product_id" string="Product"/>
+		                            <field name="colisage_ref" string="Colissage Ref"/>
+		                            <field name="theoretical_qty_ref" string="Theoritical Qty"/>
+		                            <field name="qty_stock" string="Stock Qty"/>
+		                            <field name="qty_loss" string="Loss"/>
+		                            <field name="product_qty" invisible= "True"/>
+		                        </tree>
+				</field>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_coop_produce_stock_inventory_tree" model="ir.ui.view">
+            <field name="name">coop_produce.stock.inventory.tree</field>
+            <field name="model">stock.inventory</field>
+            <field name="arch" type="xml">
+                <tree string="Lot Inventory">
+                	<field name="date" string="Date"/>
+                    	<field name="week_number" string="Week Number"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_coop_produce_stock_inventory_filter" model="ir.ui.view">
+            <field name="name">coop_produce.stock.inventory.filter</field>
+            <field name="model">stock.inventory</field>
+            <field name="arch" type="xml">
+                <search string="Search Inventory">
+                    <field name="name" string="Inventory Reference"/>
+                    <field name="date" string="date"/>
+                    <field name="week_number" string="Week Number"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Week Number" domain="[]" context="{'group_by':'week_number'}" help="Physical Inventories by Week Number"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
+
+        <record id="action_view_coop_produce_stock_inventories" model="ir.actions.act_window">
+            	<field name="name">F&amp;V Inventory</field>
+		 <field name="type">ir.actions.act_window</field>
+            	<field name="res_model">stock.inventory</field>
+            	<field name="search_view_id" ref="view_coop_produce_stock_inventory_filter"/>
+            	<field name="view_type">form</field>
+       		<field name="view_mode">tree,form</field>
+        </record>
+
+	<record id="action_coop_produce_stock_inventories_tree" model="ir.actions.act_window.view">
+    		<field name="view_mode">tree</field>
+    		<field name="view_id" ref="view_coop_produce_stock_inventory_tree"/>
+    		<field name="act_window_id" ref="action_view_coop_produce_stock_inventories"/>
+	</record>
+
+	<record id="action_coop_produce_stock_inventories_form" model="ir.actions.act_window.view">
+	    	<field name="view_mode">form</field>
+    		<field name="view_id" ref="view_coop_produce_stock_inventory_form"/>
+    		<field name="act_window_id" ref="action_view_coop_produce_stock_inventories"/>
+	</record>
+
+
+        <record id="view_coop_produce_order_week_planning_form" model="ir.ui.view">
+            <field name="name">order.week.planning.form</field>
+            <field name="model">order.week.planning</field>
+	    <field name="sequence" eval="18"/>
+            <field name="arch" type="xml">
+                <form string="Planification Order">
+			<header>
+		                <button name="action_close_week" string="Close Week" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+		    		<div class="oe_right" name="buttons">   
+		                	<button name="action_reception_week" string="Reception Week" type="object" groups="stock.group_stock_manager"/>
+		                	<button name="action_commande_week" string="Week Order" type="object" groups="stock.group_stock_manager"/>
+		                	<button name="action_other_weeks" string="Other" type="object" groups="stock.group_stock_manager"/>
+			        </div>
+			</header>
+                	<sheet>
+		                <group col="6" string="Planification Order">
+		                    <field name="date" readonly="True"/>
+		                    <field name="week_number" readonly="True"/>
+		                    <field name="hide_initialisation" string="Hide initialisation"/>
+		                </group>
+				<group string="Initialisation" attrs="{'invisible': [('hide_initialisation', '=', True)]}" col="6">
+					<field name="categ_ids" widget="many2many_tags" string="Product Category"/>
+					<button name="action_add_category" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_update" string="MAJ S Inv" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+		               	</group>       
+				<group col="6" attrs="{'invisible': [('hide_initialisation', '=', True)]}">                     	
+					<field name="supplier_ids" widget="many2many_tags" string="Supplier"/>
+					<button name="action_add_supplier" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+		                    	<field name="week_date" string="Week Date"/>
+				</group>
+				<group string="Pré-génération Des Commandes Par Jour"  col="8">
+					<button name="action_add" string="Mond" type="object" style="margin-left:160px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_add" string="Tues" type="object" style="margin-left:60px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_add" string="Wed" type="object" style="margin-left:50px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_add" string="Thurs" type="object" style="margin-left:40px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_add" string="Fri" type="object" style="margin-left:45px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
+					<button name="action_add" string="Sat" type="object" style="margin-left:25px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
+		               	</group>  
+				<group col="7">
+					<h4>Total Commandé / À Commander</h4>
+		                    	<field name="total_command_monday" nolabel="1"/>
+		                    	<field name="total_command_tuesday" nolabel="1"/>
+		                    	<field name="total_command_wednesday" nolabel="1"/>
+		                    	<field name="total_command_thirsday" nolabel="1"/>
+		                    	<field name="total_command_friday" nolabel="1"/>
+		                    	<field name="total_command_saturday" nolabel="1"/>
+		               	</group>  
+				<group col="8">
+					<h4>Total Reçu</h4>
+		                    	<field name="total_received_monday" nolabel="1"/>
+		                    	<field name="total_received_tuesday" nolabel="1"/>
+		                    	<field name="total_received_wednesday" nolabel="1"/>
+		                    	<field name="total_received_thirsday" nolabel="1"/>
+		                    	<field name="total_received_friday" nolabel="1"/>
+		                    	<field name="total_received_saturday" nolabel="1"/>
+		               	</group>  
+		                <field name="line_ids" string="Order Planning Details">
+		                        <tree string="Order Planning Details" attrs="{'editable': [('state', '!=', 'done')]}" editable="bottom">
+						    <button name="action_view_history" icon="STOCK_JUSTIFY_FILL" type="object" groups="stock.group_stock_manager"/>
+				                    <field name="product_id" string="Product"/>
+				                    <field name="colisage_ref" string="Colissage"/>
+				                    <field name="partner_id" string="Supplier"/>
+				                    <field name="list_price" string="Price U" attrs="{'readonly': [('edit_price', '=', False)]}"/>
+						    <button name="action_edit_price" icon="gtk-apply" type="object" groups="stock.group_stock_manager"/>
+				                    <field name="vendu-s-2"/>
+				                    <field name="vendu-s-1"/>
+				                    <field name="vendu-s-inv" string="S Inv"/>
+				                    <field name="monday_line"/>
+				                    <field name="tuesday_line"/>
+				                    <field name="wednesday_line"/>
+				                    <field name="inv_int"/>
+				                    <field name="thirsday_line"/>
+				                    <field name="friday_line"/>
+				                    <field name="saturday_line"/>
+				                    <field name="total_in"/>
+				                    <field name="e_in"/>
+				                    <field name="loss"/>
+				                    <field name="sold"/>
+				                    <field name="week_number" invisible="1"/>
+				                    <field name="edit_price" invisible="1"/>
+		                        </tree>
+				</field>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_coop_produce_historique_product_form" model="ir.ui.view">
+            <field name="name">coop.product.product.history.form</field>
+            <field name="model">planification.product.history</field>
+	    <field name="sequence" eval="18"/>
+            <field name="arch" type="xml">
+                <form string="Historique Produit">
+                	<sheet>
+		                <group col="4">
+		                    <field name="product_id" readonly="False"/>
+		                    <field name="colissage_ref"/>
+		                </group>  
+		                <field name="line_ids" string="Détails Historique Produit">
+		                        <tree string="Détails Historique Produit" editable="bottom">
+		                            <field name="semaine_nbre"/>
+		                            <field name="prix_unitaire"/>
+		                            <field name="s_inv"/>
+		                            <field name="monday_line"/>
+		                            <field name="tuesday_line"/>
+		                            <field name="wednesday_line"/>
+		                            <field name="inv_int"/>
+		                            <field name="thirsday_line"/>
+		                            <field name="friday_line"/>
+		                            <field name="saturday_line"/>
+		                            <field name="total_inv"/>
+		                            <field name="e_inv"/>
+		                            <field name="loss"/>
+		                            <field name="sold"/>
+		                        </tree>
+				</field>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+
+
+    	<menuitem id="menu_inventory_fruits_vegetables" name="Inventaire Des F&amp;L" parent="stock.menu_stock_inventory_control" groups="stock.group_stock_manager" sequence="60" action="action_view_coop_produce_stock_inventories"/>
+
+    </data>
+</openerp>
