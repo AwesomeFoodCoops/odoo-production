@@ -23,7 +23,7 @@
 
 from openerp import api, models, fields, _
 from openerp.exceptions import UserError
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 

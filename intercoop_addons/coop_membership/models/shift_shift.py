@@ -5,6 +5,7 @@
 
 from openerp import api, fields, models, _
 from openerp.exceptions import UserError
+from datetime import datetime, timedelta
 
 
 class ShiftShift(models.Model):
@@ -27,6 +28,8 @@ class ShiftShift(models.Model):
         ('confirm', 'Confirmed'), ('entry', 'Entry'), ('done', 'Done')])
 
     shift_name_read = fields.Char(related='name')
+
+    is_send_reminder = fields.Boolean("Send Reminder", default=False)
 
     @api.multi
     def button_done(self):
@@ -115,3 +118,61 @@ class ShiftShift(models.Model):
                     if reg.state == 'draft':
                         reg.confirm_registration()
         return res
+
+    @api.model
+    def send_mail_reminder_ftop_members(self):
+        shift_env = self.env['shift.shift']
+
+        # get shifts 7 days later
+        shifts = shift_env.search([
+            ('is_send_reminder', '=', False),
+            ('shift_type_id.is_ftop', '=', True),
+            ('state', 'not in', ('cancel', 'done')),
+            ('date_begin', '>=', fields.Date.context_today(self)),
+            ('date_begin', '<=',
+            (datetime.now() + timedelta(days=12)).strftime('%Y-%m-%d'))
+        ])
+
+        # Get attendent
+        attendances = shifts.mapped("ftop_registration_ids")
+
+        # Get attendences not former member
+        partners = attendances.mapped("partner_id").filtered(
+            lambda p: not p.is_former_member and p.active)
+
+        # get all attendences's leaves
+        leaves = partners.mapped('leave_ids')
+
+        # get leaves on shift
+        leave_on_shift_ids = []
+        for shift in shifts:
+            leave_on_shift_id = leaves.filtered(
+                lambda l: l.state == 'done' and
+                l.stop_date >= shift.date_begin and
+                l.start_date <= shift.date_end).ids
+            leave_on_shift_ids += leave_on_shift_id
+
+        leave_on_shifts = self.env['shift.leave'].browse(leave_on_shift_ids)
+
+        # get partner on leaves
+        partner_on_leaves = leave_on_shifts.mapped("partner_id")
+
+        # remove partner on leaves
+        partner_can_join = partners - partner_on_leaves
+
+        attendences_to_send = attendances.filtered(
+            lambda a: a.partner_id.id in partner_can_join.ids)
+
+        # get mail template and send
+        mail_template = self.env.ref(
+            'coop_membership.coop_ftop_members_reminder_email')
+        if mail_template:
+            for attendence_to_send in attendences_to_send:
+                mail_template.send_mail(attendence_to_send.id)
+
+            # update sent reminder
+            shifts.write({
+                'is_send_reminder': True
+            })
+
+        return True
