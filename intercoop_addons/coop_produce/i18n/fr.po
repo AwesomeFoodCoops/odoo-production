@@ -1,0 +1,248 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules : coop_produce
+#	
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"POT-Creation-Date: 2018-04-19 10:26+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: fr\n"
+
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Validate"
+msgstr "Valider"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Generate Week Planification"
+msgstr "Générer la planification de la semaine"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "F&amp;V Inventory"
+msgstr "Inventaire F&amp;L"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Date"
+msgstr "Semaine"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Week Number"
+msgstr "N° Semaine"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Product Category"
+msgstr "Catégorie de produit"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Add"
+msgstr "Ajouter"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Reinitialise"
+msgstr "Réinitialiser"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Hide initialisation"
+msgstr "Cacher initialisation"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Supplliers"
+msgstr "Fournisseur"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Product"
+msgstr "Produit"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Theoritical Qty"
+msgstr "Qté Théorique"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Stock Qty"
+msgstr "Qté en stock"
+
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Loss"
+msgstr "Perte"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_filter
+msgid "Inventory Reference"
+msgstr "Référence Inventaire"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Planification Order"
+msgstr "Planification Des Commandes"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Close Week"
+msgstr "Terminer la Semaine"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Reception Week"
+msgstr "Réception De La Semaine"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Week Order"
+msgstr "Commandes de La Semaine"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Other"
+msgstr "Voir les autres semaines"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Hide initialisation"
+msgstr "Cacher initialisation"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Product Category"
+msgstr "Catégorie de produit"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Add"
+msgstr "Ajouter"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Reinitialise"
+msgstr "Réinitialiser"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Supplier"
+msgstr "Fournisseur"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Week Date"
+msgstr "Date"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Mond"
+msgstr "L"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Tues"
+msgstr "M"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Wed"
+msgstr "M"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Thurs"
+msgstr "J"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Fri"
+msgstr "V"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Sat"
+msgstr "S"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Sold S-2"
+msgstr "Vendu S-2"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Sold S-1"
+msgstr "Vendu S-1"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Sold S INV"
+msgstr "Vendu S INV"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Loss"
+msgstr "Perte"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Sold"
+msgstr "Vendu"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_form
+msgid "Edit Price"
+msgstr "Éditer Prix"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
+msgid "Week Number"
+msgstr "N° Semaine"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
+msgid "Unit Price"
+msgstr "Prix U"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
+msgid "Mond"
+msgstr "L"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
+msgid "Tues"
+msgstr "M"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
+msgid "Wed"
+msgstr "M"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
+msgid "Thurs"
+msgstr "J"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
+msgid "Fri"
+msgstr "V"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
+msgid "Sat"
+msgstr "S"
+
+
+
