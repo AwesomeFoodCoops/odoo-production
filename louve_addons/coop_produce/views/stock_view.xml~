@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
-
-
-        <menuitem id="menu_inventory_fruits_vegetables" name="Inventory Of F&V" parent="menu_warehouse_config" groups="group_stock_manager" sequence="1" action="stock.action_inventory_form"/>
-
-    </data>
-</openerp>

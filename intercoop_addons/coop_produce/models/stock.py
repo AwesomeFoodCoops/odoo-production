@@ -162,7 +162,12 @@ class StockInventory(osv.osv):
 			for product in order.line_ids :
 				product_ids_list.append(product.product_id.id)
 			for data in order.line_ids :
-		        	line_list_ids.append((0,0, {'product_id':data.product_id.id,'colisage_ref': data.product_id.colissage_ref,'list_price':data.product_id.list_price,'edit_price':False,'partner_id' : data.product_id.product_tmpl_id.seller_ids.ids}))
+				seller_id = False
+				if data.product_id.product_tmpl_id.seller_ids :
+					seller_id = data.product_id.product_tmpl_id.seller_ids.ids[0]
+				else :
+					seller_id = False
+		        	line_list_ids.append((0,0, {'product_id':data.product_id.id,'colisage_ref': data.product_id.colissage_ref,'list_price':data.product_id.list_price,'edit_price':False,'partner_id' : seller_id}))
 			planification_ids = self.pool('stock.inventory').search(cr, uid, [('week_number','=',week_number),('id','!=',order_id)], context=context)
 			if planification_ids :
 				for planif in planification_ids :
@@ -195,7 +200,12 @@ class StockInventory(osv.osv):
 					for planif in planification_ids :
 						line_ids =  self.pool('stock.inventory').browse(cr, uid, planif, context=context).line_ids
 						for line in line_ids :
-							product_line.append((0,0, {'product_id':line.product_id.id,'colisage_ref': line.product_id.colissage_ref,'list_price':line.product_id.list_price,'edit_price':False,'partner_id' : line.product_id.product_tmpl_id.seller_ids.ids}))
+							seller_id = False
+							if line.product_id.product_tmpl_id.seller_ids :
+								seller_id = line.product_id.product_tmpl_id.seller_ids.ids[0]
+							else : 
+								seller_id = False
+							product_line.append((0,0, {'product_id':line.product_id.id,'colisage_ref': line.product_id.colissage_ref,'list_price':line.product_id.list_price,'edit_price':False,'partner_id' : seller_id}))
 					view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','order.week.planning'),('name','=','order.week.planning.form')], context=context)
 				        return {
 				                    'name': "Planfication Des Commandes",
@@ -452,7 +462,7 @@ class OrderWeekPlanning(osv.osv):
         	'week_date': fields.datetime(string= "Date", required=True, help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),		
 		'hide_initialisation': fields.boolean(string="Cacher Intialisation",help="Cacher Initialisation"),
         	'categ_ids': fields.many2many('product.category', 'stock_inventory_product_categ', 'inventory_id', 'categ_id', 'Product Categories'),
-		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', help="Specify Product Category to focus in your inventory."),
+		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', domain=[('supplier', '=', True)],help="Specify Product Category to focus in your inventory."),
 		
         	'line_ids': fields.one2many('order.week.planning.line', 'order_id', 'Orders', help="Order Lines."),
 
@@ -610,8 +620,4 @@ class PlanificationHistoriqueProduitLine(osv.osv):
 		'loss': fields.float('Loss', digits_compute=dp.get_precision('Product Unit of Measure')),
 		'sold': fields.float('Sold', digits_compute=dp.get_precision('Product Unit of Measure')),
 	}
-
-
-
-
 

@@ -1,9 +1,0 @@
-# Translation of Odoo Server.
-# This file contains the translation of the following modules:
-#   * coop_produce
-#
-
-msgid "Inventory Of F&amp;V"
-msgstr "Inventaire Des F&amp;L"
-
-
