@@ -149,7 +149,6 @@ class StockInventory(osv.osv):
 	def action_generate_planification(self, cr, uid, ids, context=None):
 		""" Generate the Planification
 		"""
-
                 week_date = False
                 week_number = False
 		order_id = False
@@ -167,7 +166,7 @@ class StockInventory(osv.osv):
 				for planif in planification_ids :
 					line_ids =  self.pool('stock.inventory').browse(cr, uid, planif, context=context).line_ids
 					for product in line_ids :
-						if product.product_id.id in product_ids_list :
+						if False :
 							product_name = product.product_id.name_template
 							raise osv.except_osv(('Error'), ("Une planification est déjà en cours pour le : " + product_name))
 		        				return False
@@ -217,10 +216,12 @@ class StockInventoryLine(osv.osv):
 		_logger.info('------------------  _get_qty_details   -------------------')
 		res = {}
         	for product in self.browse(cr, uid, ids, context=context):
-			theoretical_qty_ref = 0.0
+			_logger.info('------------------  am i here  2 -------------------')
+			theoretical_qty_ref = 0
 			if product.product_id.product_tmpl_id.colissage_ref != 0 :
 				theoretical_qty_ref = product.theoretical_qty / product.product_id.product_tmpl_id.colissage_ref
-			res[product.id] = {'theoretical_qty_ref' : theoretical_qty_ref}
+			res[product.id] =  theoretical_qty_ref
+			_logger.info(res)
         	return res
 
 
@@ -230,8 +231,11 @@ class StockInventoryLine(osv.osv):
 		theoretical_qty_ref = 0
 		qty_stock = 0
         	for product in self.browse(cr, uid, ids, context=context):
+			_logger.info(theoretical_qty_ref)
 			theoretical_qty_ref = product.theoretical_qty_ref
+			_logger.info('------------------  am i here   -------------------')
 			qty_stock = product.qty_stock
+			_logger.info(qty_stock)
 			res[product.id] = theoretical_qty_ref - qty_stock
         	return res
 
