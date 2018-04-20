@@ -42,13 +42,13 @@ odoo.define('coop_membership.AccessButtons', function (require) {
           self.$('.oe-cp-sidebar').hide();
           self.$('.o_chatter_topbar').hide();
           self.$('.oe-cp-buttons').hide();
-          self.$('.oe_stat_button').prop('disabled', true);
+        //   self.$('.oe_stat_button').prop('disabled', true);
       }
       else if (result == 'presence_group_partner') {
           self.$('.oe-cp-sidebar').hide();
           self.$('.o_chatter_topbar').hide();
           self.$('.oe-cp-buttons').hide();
-          self.$('.oe_stat_button').prop('disabled', true);
+        //   self.$('.oe_stat_button').prop('disabled', true);
       }
       else if (result == 'saisie_group_partner') {
           self.$('.oe-cp-sidebar').hide();
@@ -58,7 +58,7 @@ odoo.define('coop_membership.AccessButtons', function (require) {
           self.$('.oe-cp-sidebar').hide();
           self.$('.o_chatter_topbar').hide();
           self.$('.oe-cp-buttons').show();
-          self.$('.oe_stat_button').prop('enable', true);
+        //   self.$('.oe_stat_button').prop('enable', true);
       }
       else if (result == 'saisie_group_shift') {
           self.$('.oe-cp-sidebar').hide();
@@ -67,13 +67,13 @@ odoo.define('coop_membership.AccessButtons', function (require) {
       else if (result == 'saisie_group_leave') {
           self.$('.oe-cp-sidebar').hide();
           self.$('.o_chatter_topbar').hide();
-          self.$('.oe_stat_button').prop('disabled', true);
+        //   self.$('.oe_stat_button').prop('disabled', true);
       }
       else{
           self.$('.oe-cp-sidebar').show();
           self.$('.o_chatter_topbar').show();
           self.$('.oe-cp-buttons').show();
-          self.$('.oe_stat_button').prop('enable', true);
+        //   self.$('.oe_stat_button').prop('enable', true);
       }
     }
 
