@@ -1,0 +1,9 @@
+-
+  I remove report_product_label on button "Print"
+-
+  !python {model: ir.actions.report.xml}: |
+    report_product_label_id = self.search(cr, uid, [('report_name', '=', 'product.report_productlabel')])
+    report_product_label = self.browse(cr, uid, report_product_label_id[0])
+
+    if report_product_label and report_product_label.ir_values_id:
+      report_product_label.unlink_action()

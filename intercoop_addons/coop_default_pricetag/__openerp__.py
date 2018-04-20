@@ -43,7 +43,7 @@ Functionnalities
     'data': [
         'security/res_groups.yml',
         'security/ir.model.access.csv',
-        'data/ir_actions_report_xml.xml',
+        'data/ir_actions_report_xml.yml',
         'data/report_paperformat.xml',
         'data/pricetag_model.xml',
         'data/product_category_print.xml',
@@ -53,7 +53,6 @@ Functionnalities
         'views/view_product_product.xml',
         'views/view_product_template.xml',
         'views/view_product_uom_categ.xml',
-        'views/view_ir_actions_report_xml.xml',
         'views/action.xml',
         'views/menu.xml',
     ],
