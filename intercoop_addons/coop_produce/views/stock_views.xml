@@ -119,18 +119,22 @@
 		                    <field name="week_number" readonly="True"/>
 		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager"/>
 		                </group>
-				<group string="Initialisation" attrs="{'invisible': [('hide_initialisation', '=', True)]}" col="6">
-					<field name="categ_ids" widget="many2many_tags" string="Product Category"  groups="stock.group_stock_manager"/>
-					<button name="action_add_category" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-					<button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-					<button name="action_update" string="MAJ S Inv" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-		               	</group>       
-				<group col="6" attrs="{'invisible': [('hide_initialisation', '=', True)]}">                     	
-					<field name="supplier_ids" widget="many2many_tags" string="Supplier"  groups="stock.group_stock_manager"/>
-					<button name="action_add_supplier" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-					<button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-		                    	<field name="week_date" string="Week Date"/>
-				</group>
+                                <group  attrs="{'invisible': [('hide_initialisation', '=', True)]}">
+					<group col="4">
+						<field name="categ_ids" widget="many2many_tags" string="Product Category"  groups="stock.group_stock_manager"/>
+	                                        <button name="action_add_category" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+	                                        <button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+	                                        <field name="supplier_ids" widget="many2many_tags" string="Supplier"  groups="stock.group_stock_manager"/>
+        	                                <button name="action_add_supplier" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+                	                        <button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+					</group>
+                                        <group col="1">
+	                                        <button name="action_update" string="MAJ S Inv" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+						<group col="2">
+	                        	                <field name="week_date" string="Week Date"/>
+						</group>
+					</group>
+                                </group>
 				<group string="Pré-génération Des Commandes Par Jour"  col="8">
 					<button name="action_add" string="Mond" type="object" style="margin-left:160px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
 					<button name="action_add" string="Tues" type="object" style="margin-left:60px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
@@ -171,7 +175,7 @@
 				                    <field name="monday_line"/>
 				                    <field name="tuesday_line"/>
 				                    <field name="wednesday_line"/>
-				                    <field name="inv_int"/>
+       				                    <field name="inv_int"/>
 				                    <field name="thirsday_line"/>
 				                    <field name="friday_line"/>
 				                    <field name="saturday_line"/>
@@ -188,6 +192,46 @@
             </field>
         </record>
 
+        <record id="view_coop_produce_order_week_planning_tree" model="ir.ui.view">
+            <field name="name">order.week.planning.tree</field>
+            <field name="model">order.week.planning</field>
+            <field name="sequence" eval="18"/>
+            <field name="arch" type="xml">
+                <tree string="Planification Order">
+	                <field name="date" string="Date"/>
+                        <field name="hide_initialisation" string="Hide initialisation"/>
+	                <field name="week_number" string="Week Number"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+
+        <record id="view_coop_produce_order_week_planning_filter" model="ir.ui.view">
+            <field name="name">order.week.planning.filter</field>
+            <field name="model">order.week.planning</field>
+            <field name="arch" type="xml">
+                <search string="Search Inventory">
+                    <field name="date" string="date"/>
+                    <field name="week_number" string="Week Number"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Week Number" domain="[]" context="{'group_by':'week_number'}" help="Physical Inventories by Week Number"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
+
+   	<record model="ir.actions.act_window" id="view_coop_produce_order_week_planning_action">
+        	<field name="name">Planification F&amp;L</field>
+	        <field name="type">ir.actions.act_window</field>
+        	<field name="res_model">order.week.planning</field>
+	        <field name="view_type">form</field>
+        	<field name="view_mode">tree,form</field>
+	</record>
 
         <record id="view_coop_produce_historique_product_form" model="ir.ui.view">
             <field name="name">coop.product.product.history.form</field>
@@ -216,7 +260,7 @@
 		                            <field name="e_inv"/>
 		                            <field name="loss"/>
 		                            <field name="sold"/>
-		                        </tree>
+		                        </tree>i
 				</field>
                 	</sheet>
                 </form>
@@ -226,5 +270,7 @@
 
     	<menuitem id="menu_inventory_fruits_vegetables" name="Inventaire Des F&amp;L" parent="stock.menu_stock_inventory_control" groups="stock.group_stock_manager" sequence="60" action="action_view_coop_produce_stock_inventories"/>
 
+        <menuitem id="menu_planification_fruits_vegetables" name="Planification Des F&amp;L" parent="stock.menu_stock_inventory_control" groups="stock.group_stock_manager" sequence="61" action="view_coop_produce_order_week_planning_action"/>
+	
     </data>
 </openerp>
