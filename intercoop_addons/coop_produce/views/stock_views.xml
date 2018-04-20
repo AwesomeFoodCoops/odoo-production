@@ -119,7 +119,7 @@
 		                    <field name="week_number" readonly="True"/>
 		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager"/>
 		                </group>
-                                <group  attrs="{'invisible': [('hide_initialisation', '=', True)]}">
+                                <group string="Initialisation" attrs="{'invisible': [('hide_initialisation', '=', True)]}">
 					<group col="4">
 						<field name="categ_ids" widget="many2many_tags" string="Product Category"  groups="stock.group_stock_manager"/>
 	                                        <button name="action_add_category" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
