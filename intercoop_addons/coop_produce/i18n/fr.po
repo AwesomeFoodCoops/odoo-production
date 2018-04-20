@@ -25,8 +25,14 @@ msgstr "Générer la planification de la semaine"
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
-msgid "F&amp;V Inventory"
-msgstr "Inventaire F&amp;L"
+msgid "Inventory F/V"
+msgstr "Inventaire F/L"
+
+#. module: coop_produce 
+#: model:ir.actions.act_window,name:coop_produce.action_view_coop_produce_stock_inventories
+msgid "F/V Inventory"
+msgstr "Inventaire F/L"
+
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
@@ -243,6 +249,37 @@ msgstr "V"
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
 msgid "Sat"
 msgstr "S"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
+msgid "Mond"
+msgstr "L"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
+msgid "Tues"
+msgstr "M"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
+msgid "Wed"
+msgstr "M"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
+msgid "Thurs"
+msgstr "J"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
+msgid "Fri"
+msgstr "V"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
+msgid "Sat"
+msgstr "S"
+
 
 
 
