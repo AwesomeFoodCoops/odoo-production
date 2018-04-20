@@ -25,5 +25,6 @@ Il offre à cet effet les fonctionnalités suivantes :
     'data': [
         'views/product_views.xml',
         'views/stock_views.xml',
+        'security/ir.model.access.csv',
     ],
 }
