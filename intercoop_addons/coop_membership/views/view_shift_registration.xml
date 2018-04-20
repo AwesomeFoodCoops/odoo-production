@@ -137,24 +137,61 @@
                 <field name="shift_type" position="after">
                     <field name="related_shift_state" invisible="1"/>
                 </field>
+                
+                <button name="action_send_badge_email" position="attributes">
+                    <attribute name="groups">coop_shift.group_shift_manager,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
+                </button>    
+
                 <button name="button_reg_close" position="attributes">
                     <attribute name="states"/>
                     <attribute name="attrs">{'invisible': ['|', ('related_shift_state', '!=', 'entry'), ('state', '!=', 'open')]}</attribute>
+                    <attribute name="groups">coop_shift.group_shift_manager,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
                 </button>
 
                 <button name="button_reg_absent" position="attributes">
                     <attribute name="states"/>
                     <attribute name="attrs">{'invisible': ['|', ('related_shift_state', '!=', 'entry'), ('state', '!=', 'open')]}</attribute>
+                    <attribute name="groups">coop_shift.group_shift_manager,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
+                </button>
+                
+                <button name="confirm_registration" position="attributes">
+                    <attribute name="groups">coop_shift.group_shift_manager,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
+                </button>
+
+                <button name="button_reg_cancel" position="attributes">
+                    <attribute name="groups">coop_shift.group_shift_manager,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
                 </button>
 
                 <button name="button_reg_excused" position="attributes">
                     <attribute name="states"/>
                     <attribute name="attrs">{'invisible': ['|', ('related_shift_state', '!=', 'entry'), ('state', '!=', 'open')]}</attribute>
+                    <attribute name="groups">coop_shift.group_shift_manager,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>                    
+                </button>
+
+                <button name="do_draft" position="attributes">
+                    <attribute name="groups">coop_shift.group_shift_manager,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
                 </button>
 
                 <button name="%(coop_shift.action_replace_registration)d" position="attributes">
                     <attribute name="states"/>
                     <attribute name="attrs">{'invisible': ['|', ('related_shift_state', '!=', 'entry'), ('state', '!=', 'open')]}</attribute>
+                    <attribute name="groups">coop_shift.group_shift_manager,
+                        coop_membership.group_membership_bdm_presence,
+                        coop_membership.group_membership_bdm_saisie</attribute>
                 </button>
 
             </field>
