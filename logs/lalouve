@@ -1,0 +1,12 @@
+2018-04-19 14:26:46,599 23078 DEBUG ? openerp.netsvc: logger level set: "openerp.workflow.workitem:WARNING"
+2018-04-19 14:26:46,599 23078 DEBUG ? openerp.netsvc: logger level set: "openerp.http.rpc.request:INFO"
+2018-04-19 14:26:46,599 23078 DEBUG ? openerp.netsvc: logger level set: "openerp.http.rpc.response:INFO"
+2018-04-19 14:26:46,599 23078 DEBUG ? openerp.netsvc: logger level set: "openerp.addons.web.http:INFO"
+2018-04-19 14:26:46,599 23078 DEBUG ? openerp.netsvc: logger level set: "openerp.sql_db:INFO"
+2018-04-19 14:26:46,599 23078 DEBUG ? openerp.netsvc: logger level set: ":INFO"
+2018-04-19 14:26:46,599 23078 DEBUG ? openerp.netsvc: logger level set: "openerp:DEBUG"
+2018-04-19 14:26:46,599 23078 DEBUG ? openerp.netsvc: logger level set: ":INFO"
+2018-04-19 14:26:46,632 23078 INFO ? openerp: OpenERP version 9.0c
+2018-04-19 14:26:46,632 23078 INFO ? openerp: addons paths: ['/root/.local/share/Odoo/addons/9.0', u'/opt/odoo-production/odoo/addons', u'/opt/odoo-production/chouettecoop_addons', u'/opt/odoo-production/extra_addons', u'/opt/odoo-production/intercoop_addons', u'/opt/odoo-production/lacagette_addons', u'/opt/odoo-production/louve_addons', u'/opt/odoo-production/OCA_addons', u'/opt/odoo-production/smile_addons', u'/opt/odoo-production/superquinquin_addons', '/opt/odoo-production/odoo/openerp/addons']
+2018-04-19 14:26:46,632 23078 INFO ? openerp: database: jribi96@default:default
+2018-04-19 14:26:47,523 23078 INFO ? openerp.service.server: HTTP service (werkzeug) running on 0.0.0.0:8060

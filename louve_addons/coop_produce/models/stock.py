@@ -149,65 +149,52 @@ class StockInventory(osv.osv):
 	def action_generate_planification(self, cr, uid, ids, context=None):
 		""" Generate the Planification
 		"""
+
                 week_date = False
                 week_number = False
-		order_id = False
 		product_ids_list = []
-		line_list_ids = []
                 for order in self.browse(cr, uid, ids, context=context) :
-			order_id = order.id
                         week_date = order.date
                         week_number = order.week_number
-			for product in order.line_ids :
+			for product in order.line_ids:
 				product_ids_list.append(product.product_id.id)
-			for data in order.line_ids :
-		        	line_list_ids.append((0,0, {'product_id':data.product_id.id,'colisage_ref': data.product_id.colissage_ref,'list_price':data.product_id.list_price,'edit_price':False,'partner_id' : data.product_id.product_tmpl_id.seller_ids.ids}))
-			planification_ids = self.pool('stock.inventory').search(cr, uid, [('week_number','=',week_number),('id','!=',order_id)], context=context)
+			planification_ids = self.pool('stock.inventory').search(cr, uid, [('week_number','=',week_number)], context=context)
 			if planification_ids :
 				for planif in planification_ids :
-					_logger.info(planif)
 					line_ids =  self.pool('stock.inventory').browse(cr, uid, planif, context=context).line_ids
-								
-					for product in line_ids :
-						if False :
+					for product in line_ids:
+						if product.product_id.id in product_ids_list :
 							product_name = product.product_id.name_template
 							raise osv.except_osv(('Error'), ("Une planification est déjà en cours pour le : " + product_name))
 		        				return False
-						else :											                                            
+						else : 
 							view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','order.week.planning'),('name','=','order.week.planning.form')], context=context)
 							return {
-				   				 'name': "Planfication Des Commandes",
-				   				 'view_type': 'form',
-				   				 'res_model': 'order.week.planning',
-				    				 'view_id': view_id[0],
-				    				 'view_mode': 'form',
-				    				 'nodestroy': True,
-				    				 'target': 'current',
-				    				 'context': {'default_date': week_date,'default_week_number': week_number,'default_line_ids':line_list_ids},
-				    				 'flags': {'form': {'action_buttons': True}},
-				    				 'type': 'ir.actions.act_window',
+									    'name': "Planfication Des Commandes",
+									    'view_type': 'form',
+									    'res_model': 'order.week.planning',
+									    'view_id': view_id[0],
+									    'view_mode': 'form',
+									    'nodestroy': True,
+									    'target': 'current',
+									    'context': {'default_date': week_date,'default_week_number': week_number},
+									    'flags': {'form': {'action_buttons': False}},
+									    'type': 'ir.actions.act_window',
 							}
 			else :
-				planification_ids = self.pool('stock.inventory').search(cr, uid, [('week_number','=',week_number)], context=context)
-				product_line = []
-				if planification_ids :
-					for planif in planification_ids :
-						line_ids =  self.pool('stock.inventory').browse(cr, uid, planif, context=context).line_ids
-						for line in line_ids :
-							product_line.append((0,0, {'product_id':line.product_id.id,'colisage_ref': line.product_id.colissage_ref,'list_price':line.product_id.list_price,'edit_price':False,'partner_id' : line.product_id.product_tmpl_id.seller_ids.ids}))
-					view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','order.week.planning'),('name','=','order.week.planning.form')], context=context)
-				        return {
-				                    'name': "Planfication Des Commandes",
-				                    'view_type': 'form',
-				                    'res_model': 'order.week.planning',
-				                    'view_id': view_id[0],
-				                    'view_mode': 'form',
-				                    'nodestroy': True,
-				                    'target': 'current',
-				                    'context': {'default_date': week_date,'default_week_number': week_number,'default_line_ids':product_line},
-				                    'flags': {'form': {'action_buttons': True}},
-				                    'type': 'ir.actions.act_window',
-				        }
+				view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','order.week.planning'),('name','=','order.week.planning.form')], context=context)
+		                return {
+		                            'name': "Planfication Des Commandes",
+		                            'view_type': 'form',
+		                            'res_model': 'order.week.planning',
+		                            'view_id': view_id[0],
+		                            'view_mode': 'form',
+		                            'nodestroy': True,
+		                            'target': 'current',
+		                            'context': {'default_date': week_date,'default_week_number': week_number},
+		                            'flags': {'form': {'action_buttons': False}},
+		                            'type': 'ir.actions.act_window',
+		                }
 
 class StockInventoryLine(osv.osv):
 	_inherit = "stock.inventory.line"
@@ -216,22 +203,21 @@ class StockInventoryLine(osv.osv):
 		_logger.info('------------------  _get_qty_details   -------------------')
 		res = {}
         	for product in self.browse(cr, uid, ids, context=context):
-			theoretical_qty_ref = 0
+			theoretical_qty = 0.0
 			if product.product_id.product_tmpl_id.colissage_ref != 0 :
-				theoretical_qty_ref = product.theoretical_qty / product.product_id.product_tmpl_id.colissage_ref
-			res[product.id] =theoretical_qty_ref
+				theoretical_qty = product.theoretical_qty / product.product_id.product_tmpl_id.colissage_ref
+			res[product.id] = theoretical_qty
         	return res
 
 
 	def _get_qty_loss(self, cr, uid, ids,name, args, context=None):
 		_logger.info('------------------  _get_qty_loss   -------------------')
 		res = {}
+		theoretical_qty_ref = 0
+		qty_stock = 0
         	for product in self.browse(cr, uid, ids, context=context):
-			_logger.info(theoretical_qty_ref)
 			theoretical_qty_ref = product.theoretical_qty_ref
-			_logger.info('------------------  am i here   -------------------')
 			qty_stock = product.qty_stock
-			_logger.info(qty_stock)
 			res[product.id] = theoretical_qty_ref - qty_stock
         	return res
 
@@ -251,7 +237,6 @@ class StockInventoryLine(osv.osv):
 		'colisage_ref': fields.related('product_id', 'colissage_ref', type='float', relation='product.template', string='Colisage Ref', store=True, select=True, readonly=True),
 		'theoretical_qty_ref': fields.function(_get_theoretical_qty_ref, type="float",digits_compute=dp.get_precision('Product Unit of Measure'),string='Theoretical Quantity',help="Quantity Theoric Of Reference"),
 		'qty_loss': fields.function(_get_qty_loss, type="float",string='Quantity Lost', digits_compute=dp.get_precision('Product Unit of Measure'),help='Quantity Theoric Of Reference - Stock Quantity'),
-
 		'qty_stock': fields.float(string='Stock Quantity', digits_compute=dp.get_precision('Product Unit of Measure'),help="Stock Quantity"),
 		'categ_id': fields.function(_get_product_category, type="integer", string='Category Product', store=True, help="Category Product"),
 
@@ -264,6 +249,7 @@ class StockInventoryLine(osv.osv):
 		except:
 		    return False
 
+
 	_defaults = {
         	'location_id': _default_stock_location,
 	}
@@ -275,13 +261,8 @@ class StockInventoryLine(osv.osv):
 		product_qty = 0
 		for record in self : 
 			if record.qty_stock:
-				if record.product_id.product_tmpl_id.colissage_ref != 0 :
-					product_qty = record.qty_stock / record.product_id.product_tmpl_id.colissage_ref
-					record.product_qty = product_qty
-				else :
-					raise osv.except_osv(('Error'), ("La valeur du Colissage est non renseignée"))
-					record.product_qty = 0
-
+				product_qty = record.qty_stock / record.product_id.product_tmpl_id.colissage_ref
+				record.product_qty = product_qty
 
 
 class OrderWeekPlanning(osv.osv):
@@ -294,6 +275,7 @@ class OrderWeekPlanning(osv.osv):
 
 	def action_reception_week(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_reception_week   -------------------')
+                week_number = False
                 for order in self.browse(cr, uid, ids, context=context) :
 			_logger.info('------------------  order   -------------------')
 			_logger.info(order)
@@ -325,6 +307,7 @@ class OrderWeekPlanning(osv.osv):
 
 	def action_commande_week(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_commande_week   -------------------')
+                week_number = False
                 for order in self.browse(cr, uid, ids, context=context) :
                         week_date = order.date
 			order_ids = self.pool['sale.order'].search(cr, uid, [], context=context)
@@ -446,7 +429,7 @@ class OrderWeekPlanning(osv.osv):
 
 
 	_columns = {
-        	'week_number': fields.integer(string= "Week Number", help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),
+        	'week_number': fields.integer(string= "N° Semaine", required=True, help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),
         	'date': fields.datetime('Semaine', required=True, help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),
         	'week_date': fields.datetime(string= "Date", required=True, help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),		
 		'hide_initialisation': fields.boolean(string="Cacher Intialisation",help="Cacher Initialisation"),
@@ -485,79 +468,45 @@ class OrderWeekPlanningLine(osv.osv):
 			price.write({'edit_price':True})
 
 
-
-	def _get_supplier_product(self, cr, uid, ids,name, args, context=None):
-		_logger.info('------------------  _get_supplier_product   -------------------')
-		res = {}
-		product_supplier = False
-        	for product in self.browse(cr, uid, ids, context=context):
-			_logger.info(product)
-			product_supplier = product.product_id.product_tmpl_id.seller_ids.ids
-			res[product.id] = product_supplier
-        	return res
-
-
 	_columns = {
-
-        	'week_number': fields.related('order_id', 'week_number', type='integer', string= "Week number", help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),
 		'order_id': fields.many2one('order.week.planning', 'Order Week', ondelete='cascade', select=True),
 		'product_id': fields.many2one('product.product', 'Product', required=True, select=True),
 		'colisage_ref': fields.related('product_id', 'colissage_ref', type='float', relation='product.template', string='Colisage Ref', store=True, select=True, readonly=True),
-
-
-		'partner_id': fields.many2one('res.partner', 'Supplier'),		
+		'partner_id': fields.many2one('res.partner', 'Suupplier'),		
 		'list_price': fields.related('product_id', 'list_price', type='float', relation='product.template', string='List Price', store=True, select=True),
 
-		'vendu-s-2': fields.float('Sold S-2', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'vendu-s-1': fields.float('Sold S-1', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'vendu-s-inv': fields.float('Sold S INV', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'vendu-s-2': fields.float('Vendu S-2', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'vendu-s-1': fields.float('Vendu S-1', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'vendu-s-inv': fields.float('Vendu S INV', digits_compute=dp.get_precision('Product Unit of Measure')),
 
-		'monday_line': fields.float('Mond', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'tuesday_line': fields.float('Tues', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'wednesday_line': fields.float('Wed', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'monday_line': fields.float('L', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'tuesday_line': fields.float('M', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'wednesday_line': fields.float('M', digits_compute=dp.get_precision('Product Unit of Measure')),
 
 		'inv_int': fields.float('Inv Int', digits_compute=dp.get_precision('Product Unit of Measure')),
 
-		'thirsday_line': fields.float('Thurs', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'friday_line': fields.float('Fri', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'saturday_line': fields.float('Sat', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'thirsday_line': fields.float('J', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'friday_line': fields.float('V', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'saturday_line': fields.float('S', digits_compute=dp.get_precision('Product Unit of Measure')),
 
 		'total_in': fields.float('Total + S Inv', digits_compute=dp.get_precision('Product Unit of Measure')),
 		'e_in': fields.float('E Inv', digits_compute=dp.get_precision('Product Unit of Measure')),
 
-		'loss': fields.float('Loss', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'sold': fields.float('Sold', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'edit_price': fields.boolean(string="Edit Price",help="Editer Prix", default=False),
+		'loss': fields.float('Perte', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'sold': fields.float('Vendu', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'edit_price': fields.boolean(string="Editer Prix",help="Editer Prix", default=False),
 	}
 
 
 	def action_view_history(self, cr, uid, ids, context=None):
 		""" View History Product
 		"""
-		_logger.info('--------------  action_view_history -------------------')
+
                 product_id = False
                 colissage_ref = False
-		line_ids = []
                 for product in self.browse(cr, uid, ids, context=context) :
                         product_id= product.product_id.id
                         colissage_ref = product.colisage_ref
-                        week_number = product.week_number
-			order_ids = self.pool.get('order.week.planning.line').search(cr, uid,[('product_id','=',product_id),('week_number','<',week_number)])
-			if order_ids : 
-				for order in order_ids :
-					_logger.info('-------------------------------------')
-					_logger.info(order)
-					order_line = self.pool('order.week.planning.line').browse(cr, uid, order, context=context)
-					line_ids.append((0,0, {'semaine_nbre':week_number,'prix_unitaire':order_line.list_price,
-							       'monday_line': order_line.monday_line,'tuesday_line':order_line.tuesday_line,
-							       'wednesday_line': order_line.wednesday_line,'thirsday_line':order_line.thirsday_line,
-							       'friday_line': order_line.friday_line,'saturday_line':order_line.saturday_line,
-							       'total_inv': order_line.total_in,'e_inv':order_line.e_in,
-							       'loss': order_line.loss,'sold':order_line.sold,
-							       'inv_int': order_line.inv_int,'e_inv':order_line.e_in,
-
-					}))
-
 			view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','planification.product.history'),('name','=','coop.product.product.history.form')], context=context)
                         return {
                                     'name': "Historique Du Produit",
@@ -567,21 +516,22 @@ class OrderWeekPlanningLine(osv.osv):
                                     'view_mode': 'form',
                                     'nodestroy': True,
                                     'target': 'current',
-                                    'context': {'default_product_id': product_id,'default_colissage_ref': colissage_ref,'default_line_ids' : line_ids},
+                                    'context': {'default_product_id': product_id,'default_colissage_ref': colissage_ref},
                                     'flags': {'form': {'action_buttons': False}},
                                     'type': 'ir.actions.act_window',
                         }
 
-
 class PlanificationHistoriqueProduit(osv.osv):
 	_name = "planification.product.history"
+
+
 	_description = "Product History"
 
 
 	_columns = {
 
 		'product_id': fields.many2one('product.product', 'Product', required=True, select=True),
-		'colissage_ref': fields.float('Colissage Ref', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'colissage_ref': fields.float('Total Commands Monday', digits_compute=dp.get_precision('Product Unit of Measure')),
         	'line_ids': fields.one2many('planification.product.history.line', 'history_id', 'Historique', help="Historique Lines."),
 	}
 
@@ -594,20 +544,20 @@ class PlanificationHistoriqueProduitLine(osv.osv):
 
 	_columns = {
 		'history_id': fields.many2one('planification.product.history', 'Product History', ondelete='cascade', select=True),
-		'semaine_nbre': fields.integer('Week Number'),
-		'prix_unitaire': fields.float('Unit Price', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'semaine_nbre': fields.integer('N° Semaine', required=True, select=True),
+		'prix_unitaire': fields.float('Prix Unitaire', digits_compute=dp.get_precision('Product Unit of Measure')),
 		's_inv': fields.float('S Inv', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'monday_line': fields.float('Mond', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'tuesday_line': fields.float('Tues', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'wednesday_line': fields.float('Wed', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'monday_line': fields.float('L', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'tuesday_line': fields.float('M', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'wednesday_line': fields.float('M', digits_compute=dp.get_precision('Product Unit of Measure')),
 		'inv_int': fields.float('Inv Int', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'thirsday_line': fields.float('Thurs', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'friday_line': fields.float('Fri', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'saturday_line': fields.float('Sat', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'thirsday_line': fields.float('J', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'friday_line': fields.float('V', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'saturday_line': fields.float('S', digits_compute=dp.get_precision('Product Unit of Measure')),
 		'total_inv': fields.float('Total + S Inv', digits_compute=dp.get_precision('Product Unit of Measure')),
 		'e_inv': fields.float('E Inv', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'loss': fields.float('Loss', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'sold': fields.float('Sold', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'loss': fields.float('Perte', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'sold': fields.float('Vendu', digits_compute=dp.get_precision('Product Unit of Measure')),
 	}
 
 
