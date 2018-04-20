@@ -138,7 +138,7 @@ class StockInventory(osv.osv):
 		'week_number': fields.function(_get_number_week, type="integer",string= "N° Semaine", help="Number of Inventory Week", store=True),
 		'hide_initialisation': fields.boolean(string="Cacher Intialisation",help="Cacher Initialisation"),
         	'categ_ids': fields.many2many('product.category', 'stock_inventory_product_categ', 'inventory_id', 'categ_id', 'Product Categories'),
-		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', domain=[('supplier', '=', True)],help="Specify Product Category to focus in your inventory."),
+		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', domain=['|',('supplier', '=', True),('is_company', '=', True)],help="Specify Product Category to focus in your inventory."),
 		'weekly_inventory': fields.boolean(string="Inventaire Hebdomadaire",help="Inventaire Hebdomadaire"),
 	}
 
@@ -167,7 +167,7 @@ class StockInventory(osv.osv):
 					seller_id = data.product_id.product_tmpl_id.seller_ids.ids[0]
 				else :
 					seller_id = False
-		        	line_list_ids.append((0,0, {'product_id':data.product_id.id,'colisage_ref': data.product_id.colissage_ref,'list_price':data.product_id.list_price,'edit_price':False,'partner_id' : seller_id}))
+		        	line_list_ids.append((0,0, {'product_id':data.product_id.id,'colisage_ref': data.product_id.colissage_ref,'list_price':data.product_id.list_price,'edit_price':False}))
 			planification_ids = self.pool('stock.inventory').search(cr, uid, [('week_number','=',week_number),('id','!=',order_id)], context=context)
 			if planification_ids :
 				for planif in planification_ids :
@@ -205,7 +205,7 @@ class StockInventory(osv.osv):
 								seller_id = line.product_id.product_tmpl_id.seller_ids.ids[0]
 							else : 
 								seller_id = False
-							product_line.append((0,0, {'product_id':line.product_id.id,'colisage_ref': line.product_id.colissage_ref,'list_price':line.product_id.list_price,'edit_price':False,'partner_id' : seller_id}))
+							product_line.append((0,0, {'product_id':line.product_id.id,'colisage_ref': line.product_id.colissage_ref,'list_price':line.product_id.list_price,'edit_price':False}))
 					view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','order.week.planning'),('name','=','order.week.planning.form')], context=context)
 				        return {
 				                    'name': "Planfication Des Commandes",
