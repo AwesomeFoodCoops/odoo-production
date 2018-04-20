@@ -434,7 +434,8 @@
                             <field name="is_deceased"
                                    groups="coop_membership.group_membership_see_associated_people,
                                    coop_membership.group_membership_access_user,
-                                   coop_membership.group_membership_bdm_lecture"/>
+                                   coop_membership.group_membership_bdm_lecture,
+                                   coop_membership.group_membership_bdm_saisie"/>
                             <field name="date_of_death"
                                    attrs="{'invisible': [('is_deceased', '=', False)]}"/>
                         </group>
@@ -500,7 +501,9 @@
                                                         <field name="function"/>
                                                     </div>
                                                     <div t-if="record.email.raw_value">
-                                                        <field name="email"/>
+                                                        <field name="email" groups="coop_membership.group_membership_see_associated_people,
+                                                       coop_membership.group_membership_access_user,
+                                                       coop_membership.group_membership_bdm_saisie"/>
                                                     </div>
                                                     <div t-if="record.type.raw_value != 'contact'">
                                                         <div>
@@ -511,11 +514,15 @@
                                                                name="state_id"/>
                                                         <field name="country_id"/>
                                                     </div>
-                                                    <div t-if="record.phone.raw_value">
+                                                    <div t-if="record.phone.raw_value" groups="coop_membership.group_membership_see_associated_people,
+                                                       coop_membership.group_membership_access_user,
+                                                       coop_membership.group_membership_bdm_saisie">
                                                         Phone:
                                                         <field name="phone"/>
                                                     </div>
-                                                    <div t-if="record.mobile.raw_value">
+                                                    <div t-if="record.mobile.raw_value" groups="coop_membership.group_membership_see_associated_people,
+                                                       coop_membership.group_membership_access_user,
+                                                       coop_membership.group_membership_bdm_saisie">
                                                         Mobile:
                                                         <field name="mobile"/>
                                                     </div>
@@ -595,9 +602,15 @@
                                                        groups="coop_membership.group_membership_see_associated_people,
                                                        coop_membership.group_membership_access_user,
                                                        coop_membership.group_membership_bdm_saisie"/>
-                                                <field name="email"/>
-                                                <field name="phone" widget="phone"/>
-                                                <field name="mobile" widget="phone"/>
+                                                <field name="email" groups="coop_membership.group_membership_see_associated_people,
+                                                       coop_membership.group_membership_access_user,
+                                                       coop_membership.group_membership_bdm_saisie"/>
+                                                <field name="phone" widget="phone" groups="coop_membership.group_membership_see_associated_people,
+                                                       coop_membership.group_membership_access_user,
+                                                       coop_membership.group_membership_bdm_saisie"/>
+                                                <field name="mobile" widget="phone" groups="coop_membership.group_membership_see_associated_people,
+                                                       coop_membership.group_membership_access_user,
+                                                       coop_membership.group_membership_bdm_saisie"/>
                                                 <field name="sex"
                                                        groups="coop_membership.group_membership_see_associated_people,
                                                        coop_membership.group_membership_access_user,
