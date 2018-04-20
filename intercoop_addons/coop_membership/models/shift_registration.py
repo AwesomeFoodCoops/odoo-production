@@ -23,7 +23,7 @@
 
 from openerp import api, models, fields, _
 from openerp.exceptions import UserError
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 
@@ -275,7 +275,7 @@ class ShiftRegistration(models.Model):
         """
         is_from_template = self._context.get('from_shift_template', False)
         for reg in self:
-            # Get leave 
+            # Get leave
             leaves = reg.partner_id.leave_ids.filtered(
                 lambda l: (l.type_id.is_temp_leave or l.type_id.is_incapacity)
                 and l.stop_date and l.state == 'done')
