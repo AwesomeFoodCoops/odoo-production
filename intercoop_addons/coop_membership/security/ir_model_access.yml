@@ -240,6 +240,15 @@
     perm_write: false
     perm_unlink: false
 -
+  !record {model: ir.model.access, id: bdm_lecture_shift_type_readonly}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: coop_shift.model_shift_type
+    name: bdm.lecture.shift.type.readonly
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
   !record {model: ir.model.access, id: bdm_lecture_shift_readonly}:
     group_id: coop_membership.group_membership_bdm_lecture
     model_id: coop_shift.model_shift_shift

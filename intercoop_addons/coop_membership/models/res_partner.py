@@ -632,19 +632,6 @@ class ResPartner(models.Model):
                                                     context=context,
                                                     toolbar=toolbar,
                                                     submenu=submenu)
-        
-        # Read only field contact base specific groups
-        if self.pool['res.users'].browse(cr, uid, uid).id != SUPERUSER_ID:
-            presence_group = self.pool['res.users'].browse(cr, uid, uid).has_group(
-                'coop_membership.group_membership_bdm_presence')
-            doc = etree.fromstring(res['arch'])
-            if presence_group:
-                if view_type == 'form':
-                    for node in doc.xpath("//field"):
-                        if node.get('name') == 'child_ids':
-                            node.set('readonly', '1')
-                        setup_modifiers(node)
-                res['arch'] = etree.tostring(doc)
 
         return res
 

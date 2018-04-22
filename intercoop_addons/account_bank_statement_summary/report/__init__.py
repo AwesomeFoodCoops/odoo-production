@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Sale - Food Module for Odoo
-#    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
-#    @author Julien WESTE
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+#    Copyright 2009-2018 Trobz (<http://trobz.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,10 +14,8 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-from . import product_label
-from . import product_template
-from . import product_uom_categ
+import report_bank_reconciliation_summary
