@@ -33,7 +33,6 @@ msgstr "Inventaire F/L"
 msgid "F/V Inventory"
 msgstr "Inventaire F/L"
 
-
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
 msgid "Date"
@@ -74,10 +73,16 @@ msgstr "Fournisseur"
 msgid "Product"
 msgstr "Produit"
 
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
+msgid "Qty/Def. pack"
+msgstr "Qté Théorique"
+
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
 msgid "Theoritical Qty"
-msgstr "Qté Théorique"
+msgstr "Quantité/Col. Ref"
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
