@@ -356,8 +356,6 @@ class OrderWeekPlanning(osv.osv):
 	def action_reception_week(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_reception_week   -------------------')
                 for order in self.browse(cr, uid, ids, context=context) :
-			_logger.info('------------------  order   -------------------')
-			_logger.info(order)
 			if order.line_ids:
 				for supplier in order.line_ids :
 					order_ids = self.pool['stock.picking'].search(cr, uid, [('partner_id','in',supplier.partner_id.ids)], context=context)
