@@ -158,7 +158,7 @@ class StockInventory(osv.osv):
 				date_inventory = vals.get('date')
 				date = datetime.datetime.strptime(date_inventory , "%Y-%m-%d %H:%M:%S")
 				week_number = date.isocalendar()[1]
-				name = 'Inventaire des F&ampL de la Semaine' + ' ' + str(week_number)
+				name = 'Inventaire des F&L de la Semaine' + ' ' + str(week_number)
 			else :
 				name = inventory.name
 		self.pool.get('stock.inventory').write(cr, uid, {'name': name}, context)
