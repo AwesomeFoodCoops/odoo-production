@@ -23,7 +23,7 @@
 
 from openerp import api, models, fields, _
 from openerp.exceptions import UserError
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 
@@ -214,6 +214,21 @@ class ShiftRegistration(models.Model):
                     point_counter_env.sudo().with_context(
                         automatic=True).create(counter_vals)
 
+                # Update point quantity of counter events when SET TO UNCONFIRMED
+                if vals_state == 'draft':
+                    if shift_reg.partner_id:
+                        counter_events = shift_reg.partner_id.counter_event_ids.filtered(
+                            lambda c: c.shift_id.id == shift_reg.shift_id.id)
+                        for event in counter_events:
+                            last_qty = event.point_qty
+                            event.write({
+                                'point_qty': 0,
+                                'notes': 'reset to 0 when clicking SET TO' +
+                                ' UNCONFIRMED button for error correction' +
+                                ' (original point quantity: %s)' % (last_qty)
+                            })
+                    shift_reg.related_extension_id.unlink()
+
         res = super(ShiftRegistration, self).write(vals)
         if 'template_created' in vals or 'shift_ticket_id' in vals:
             self.checking_shift_attendance()
@@ -275,7 +290,7 @@ class ShiftRegistration(models.Model):
         """
         is_from_template = self._context.get('from_shift_template', False)
         for reg in self:
-            # Get leave 
+            # Get leave
             leaves = reg.partner_id.leave_ids.filtered(
                 lambda l: (l.type_id.is_temp_leave or l.type_id.is_incapacity)
                 and l.stop_date and l.state == 'done')
