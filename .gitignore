@@ -89,4 +89,4 @@ ENV/
 *.pyc
 *~
 *.old
-
+*.swp
