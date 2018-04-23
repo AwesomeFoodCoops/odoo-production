@@ -155,6 +155,7 @@ class StockInventory(osv.osv):
 
 	def create(self, cr, uid, vals, context=None):
 		_logger.info('-------------- create -------------------')
+		name = ''
         	if vals.get('weekly_inventory') :
 			if vals.get('weekly_inventory') == True :
 				date_inventory = vals.get('date')
