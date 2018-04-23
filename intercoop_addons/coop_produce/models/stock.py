@@ -48,6 +48,16 @@ _logger = logging.getLogger(__name__)
 class StockInventory(osv.osv):
 	_inherit = "stock.inventory"
 
+	def _get_name_planification(self, cr, uid, ids, context=None):
+		""" Get Name Planification
+		"""
+		_logger.info('---------------- _get_name_planification  -------------------')
+                order_name = ''
+                for order in self.browse(cr, uid, ids, context=context) :
+			order_name = 'Inventaire des F/L de la Semaine' + str(order.date)
+		return order_name
+			
+
 	def action_add_category(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_add_category   -------------------')
 		value = {}
@@ -138,13 +148,39 @@ class StockInventory(osv.osv):
 		'week_number': fields.function(_get_number_week, type="integer",string= "N° Semaine", help="Number of Inventory Week", store=True),
 		'hide_initialisation': fields.boolean(string="Cacher Intialisation",help="Cacher Initialisation"),
         	'categ_ids': fields.many2many('product.category', 'stock_inventory_product_categ', 'inventory_id', 'categ_id', 'Product Categories'),
-		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', domain=['|',('supplier', '=', True),('is_company', '=', True)],help="Specify Product Category to focus in your inventory."),
+		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', domain=[('supplier', '=', True)],help="Specify Product Category to focus in your inventory."),
 		'weekly_inventory': fields.boolean(string="Inventaire Hebdomadaire",help="Inventaire Hebdomadaire"),
 	}
 
-	_defaults = {
-        	'name': 'Inventaire des F&L de la Semaine',
-	}
+
+	def create(self, cr, uid, vals, context=None):
+		_logger.info('-------------- create -------------------')
+        	if vals.get('weekly_inventory') :
+			if vals.get('weekly_inventory') == True :
+				date_inventory = vals.get('date')
+				date = datetime.datetime.strptime(date_inventory , "%Y-%m-%d %H:%M:%S")
+				week_number = date.isocalendar()[1]
+				name = 'Inventaire des F&ampL de la Semaine' + ' ' + str(week_number)
+			else :
+				name = inventory.name
+		self.pool.get('stock.inventory').write(cr, uid, {'name': name}, context)
+		vals['name'] = name
+		stock_inventory = super(StockInventory, self).create(cr, uid, vals, context=context)
+		inventory = self.browse(cr, uid, stock_inventory, context=context)
+		return stock_inventory 
+
+	def write(self, cr, uid, ids, vals, context=None):
+		_logger.info('-------------- write -------------------')
+        	res = True
+		if vals.get('date') :
+			date_value = vals.get('date')
+			date = datetime.datetime.strptime(date_value, "%Y-%m-%d %H:%M:%S")
+			week_number = date.isocalendar()[1]
+			name = 'Inventaire des F&ampL de la Semaine' + ' ' + str(week_number)
+            		for inventory in self.browse(cr, uid, ids, context=None):
+				vals['name'] = name
+		        	res = super(StockInventory, self).write(cr, uid, [inventory.id], vals, context=context)
+        	return res
 
 	def action_generate_planification(self, cr, uid, ids, context=None):
 		""" Generate the Planification
@@ -251,18 +287,34 @@ class StockInventoryLine(osv.osv):
 		res = {}
 		product_category = False
         	for product in self.browse(cr, uid, ids, context=context):
-			_logger.info(product)
 			product_category = product.product_id.product_tmpl_id.categ_id.id
 			res[product.id] = product_category
         	return res
 
 
+	def on_change_product_id(self,cr,uid,ids,product_id,context=None):
+		_logger.info('-------------- on_change_product_id  -------------')
+		res = {}
+		if product_id:
+			theoretical_qty_ref = 0
+		    	product = self.pool.get('product.product').browse(cr, uid, product_id, context=context)
+			if product.product_tmpl_id.colissage_ref != 0 :
+		    		product_line = self.pool.get('stock.inventory.line').search(cr, uid,[('product_id', '=',product_id)])
+		    		product_details = self.pool.get('stock.inventory.line').browse(cr, uid, product_line, context=context)
+				if len(product_details)  > 1 :
+					theoretical_qty_ref = product_details[-1].theoretical_qty / product_details[-1].product_id.product_tmpl_id.colissage_ref
+				else : 
+					theoretical_qty_ref = product_details.theoretical_qty / product_details.product_id.product_tmpl_id.colissage_ref
+			colisage_ref = product.product_tmpl_id.colissage_ref
+		    	return {'value': {'colisage_ref': colisage_ref, 'theoretical_qty_ref': theoretical_qty_ref}}
+		return {'value': {}}
+
+
 	_columns = {
 
 		'colisage_ref': fields.related('product_id', 'colissage_ref', type='float', relation='product.template', string='Colisage Ref', store=True, select=True, readonly=True),
-		'theoretical_qty_ref': fields.function(_get_theoretical_qty_ref, type="float",digits_compute=dp.get_precision('Product Unit of Measure'),string='Theoretical Quantity',help="Quantity Theoric Of Reference"),
+		'theoretical_qty_ref': fields.function(_get_theoretical_qty_ref, type="float",digits_compute=dp.get_precision('Product Unit of Measure'), store=True, select=True,string='Qty/Def. pack',help="Quantity Theoric Of Reference"),
 		'qty_loss': fields.function(_get_qty_loss, type="float",string='Quantity Lost', digits_compute=dp.get_precision('Product Unit of Measure'),help='Quantity Theoric Of Reference - Stock Quantity'),
-
 		'qty_stock': fields.float(string='Stock Quantity', digits_compute=dp.get_precision('Product Unit of Measure'),help="Stock Quantity"),
 		'categ_id': fields.function(_get_product_category, type="integer", string='Category Product', store=True, help="Category Product"),
 

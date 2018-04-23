@@ -9,16 +9,16 @@
             <field name="arch" type="xml">
                 <form string="Inventory F/V">
 			<header>
-		                <button name="action_done" string="Validate" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+		                <button name="action_done" string="Validate" type="object" attrs="{'invisible': [('state', '=', 'done')]}" class="oe_highlight" groups="stock.group_stock_manager"/>
 		                <button name="action_generate_planification" states="done" string="Generate Week Planification" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+                    		<field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" attrs="{'invisible': [('state', 'in', ['draft','confirm','cancel'])]}"/>
 			</header>
-                    	<field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" invisible="True"/>
                     	<field name="weekly_inventory" invisible="True"/>
                 	<sheet>
 		                <group col="6" string="Inventory F/V">
 		                    <field name="date" string="Date" attrs="{'readonly': [('state', '=', 'done')]}"/>
 		                    <field name="week_number" string="Week Number"/>
-		                    <field name="hide_initialisation" string="Hide initialisation"/>
+		                    <field name="hide_initialisation" string="Hide initialisation" attrs="{'invisible': [('state', '=', 'done')]}"/>
 		                </group>
 				
 				<group string="Initialisation" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}" col="2">
@@ -33,11 +33,11 @@
 						<button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 					</group>
 				</group>
-		                <field name="line_ids" string="Inventory Details">
+		                <field name="line_ids" string="Inventory Details" attrs="{'readonly': [('state', '=', 'done')]}">
 		                        <tree string="Inventory Details" editable="bottom">
-		                            <field name="product_id" string="Product"/>
+		                            <field name="product_id" string="Product" on_change="on_change_product_id(product_id)"/>
 		                            <field name="colisage_ref" string="Colissage Ref"/>
-		                            <field name="theoretical_qty_ref" string="Theoritical Qty"/>
+		                            <field name="theoretical_qty_ref" string="Qty/Def. pack"/>
 		                            <field name="qty_stock" string="Stock Qty"/>
 		                            <field name="qty_loss" string="Loss"/>
 		                            <field name="product_qty" invisible= "True"/>
@@ -241,7 +241,7 @@
 		                <group col="6" string="Planification Order">
 		                    <field name="date"/>
 		                    <field name="week_number"/>
-		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager"/>
+		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager" attrs="{'invisible': [('state', '=', 'done')]}"/>
 		                </group>
                                 <group  attrs="{'invisible': [('hide_initialisation', '=', True)]}">
 					<group col="4">
@@ -317,7 +317,7 @@
         </record>
 
         <record id="view_coop_produce_order_week_planning_action" model="ir.actions.act_window">
-        	<field name="name">Coop Produce Planification F&amp;L</field>
+        	<field name="name">Coop Produce Planification F/L</field>
 		 <field name="type">ir.actions.act_window</field>
         	<field name="res_model">order.week.planning</field>
             	<field name="view_type">form</field>
