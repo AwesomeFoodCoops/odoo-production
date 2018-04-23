@@ -72,15 +72,13 @@ class StockInventory(osv.osv):
 					if product_supplier_ids :		
 						for sup in product_supplier_ids :
 							product_suppliers_ids = self.pool.get('product.supplierinfo').browse(cr, uid, sup, context=context).product_tmpl_id
-							if categ.categ_ids :
-								product_tmpl_ids = self.pool.get('product.template').search(cr, uid,[('id','in',product_suppliers_ids.ids),('categ_id','in',categ.categ_ids.ids)])
-								if product_tmpl_ids :
-									product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_tmpl_ids)])
-									if product_ids : 
-										for product in product_ids :
-											line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
-										categ.write({'line_ids': line_ids})
-
+							product_tmpl_ids = self.pool.get('product.template').search(cr, uid,[('id','in',product_suppliers_ids.ids),('categ_id','in',categ.categ_ids.ids)])
+							if product_tmpl_ids :
+								product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_tmpl_ids)])
+								if product_ids : 
+									for product in product_ids :
+										line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
+									categ.write({'line_ids': line_ids})
 				else :
 					product_tmpl_ids = self.pool.get('product.template').search(cr, uid,[('categ_id','in',categ.categ_ids.ids)])
 					if product_tmpl_ids :
@@ -111,7 +109,6 @@ class StockInventory(osv.osv):
 									for product in product_ids :
 										line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
 									supplier.write({'line_ids': line_ids})
-
 						else :
 							product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_suppliers_ids.ids)])
 							if product_ids : 
@@ -172,7 +169,7 @@ class StockInventory(osv.osv):
 
 	def write(self, cr, uid, ids, vals, context=None):
 		_logger.info('-------------- write -------------------')
-        	res = True
+        	res = super(StockInventory, self).write(cr, uid, ids, vals, context=context)
 		if vals.get('date') :
 			date_value = vals.get('date')
 			date = datetime.datetime.strptime(date_value, "%Y-%m-%d %H:%M:%S")

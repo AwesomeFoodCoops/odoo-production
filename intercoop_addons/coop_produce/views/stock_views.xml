@@ -241,7 +241,7 @@
 		                <group col="6" string="Planification Order">
 		                    <field name="date"/>
 		                    <field name="week_number"/>
-		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager" attrs="{'invisible': [('state', '=', 'done')]}"/>
+		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager"/>
 		                </group>
                                 <group  attrs="{'invisible': [('hide_initialisation', '=', True)]}">
 					<group col="4">
