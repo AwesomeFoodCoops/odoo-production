@@ -285,6 +285,21 @@ msgstr "V"
 msgid "Sat"
 msgstr "S"
 
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_tree
+msgid "State"
+msgstr "État"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_tree
+msgid "Date"
+msgstr "Date"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_tree
+msgid "Week Number"
+msgstr "N° Semaine"
+
 
 
 

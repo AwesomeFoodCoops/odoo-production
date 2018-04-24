@@ -11,7 +11,7 @@
 			<header>
 		                <button name="action_done" string="Validate" type="object" attrs="{'invisible': [('state', '=', 'done')]}" class="oe_highlight" groups="stock.group_stock_manager"/>
 		                <button name="action_generate_planification" states="done" string="Generate Week Planification" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-                    		<field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" attrs="{'invisible': [('state', 'in', ['draft','confirm','cancel'])]}"/>
+                    		<field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
 			</header>
                     	<field name="weekly_inventory" invisible="True"/>
                 	<sheet>
@@ -20,7 +20,6 @@
 		                    <field name="week_number" string="Week Number"/>
 		                    <field name="hide_initialisation" string="Hide initialisation" attrs="{'invisible': [('state', '=', 'done')]}"/>
 		                </group>
-				
 				<group string="Initialisation" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}" col="2">
 					<group col="3">
 						<field name="categ_ids" widget="many2many_tags" string="Product Category"/>
@@ -29,16 +28,15 @@
 						<button name="action_add_supplier" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 					</group>
 					<group col="1">
-
 						<button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 					</group>
 				</group>
-		                <field name="line_ids" string="Inventory Details" attrs="{'readonly': [('state', '=', 'done')]}">
+		                <field name="line_ids" string="Inventory Details" attrs="{'readonly': [('state', '=', 'done')]}" mode="tree">
 		                        <tree string="Inventory Details" editable="bottom">
 		                            <field name="product_id" string="Product" on_change="on_change_product_id(product_id)"/>
 		                            <field name="colisage_ref" string="Colissage Ref"/>
 		                            <field name="theoretical_qty_ref" string="Qty/Def. pack"/>
-		                            <field name="qty_stock" string="Stock Qty"/>
+		                            <field name="qty_stock" string="Stock Qty" on_change="on_change_qty_stock(qty_stock,theoretical_qty_ref)"/>
 		                            <field name="qty_loss" string="Loss"/>
 		                            <field name="product_qty" invisible= "True"/>
 		                        </tree>
@@ -55,6 +53,7 @@
                 <tree string="Lot Inventory">
                 	<field name="date" string="Date"/>
                     	<field name="week_number" string="Week Number"/>
+                	<field name="state" string="State"/>
                 </tree>
             </field>
         </record>
@@ -76,7 +75,6 @@
 
             </field>
         </record>
-
 
         <record id="action_view_coop_produce_stock_inventories" model="ir.actions.act_window">
             	<field name="name">F/V Inventory</field>
@@ -100,7 +98,6 @@
     		<field name="view_id" ref="view_coop_produce_stock_inventory_form"/>
     		<field name="act_window_id" ref="action_view_coop_produce_stock_inventories"/>
 	</record>
-
 
         <record id="view_coop_produce_order_week_planning_form" model="ir.ui.view">
             <field name="name">order.week.planning.form</field>
@@ -222,7 +219,6 @@
             </field>
         </record>
 
-
         <record id="view_coop_produce_order_week_planning_interface_form" model="ir.ui.view">
             <field name="name">order.week.planning.form</field>
             <field name="model">order.week.planning</field>
@@ -336,7 +332,6 @@
     		<field name="act_window_id" ref="view_coop_produce_order_week_planning_action"/>
 	</record>
 
-
         <record id="view_coop_produce_historique_product_form" model="ir.ui.view">
             <field name="name">coop.product.product.history.form</field>
             <field name="model">planification.product.history</field>
@@ -364,7 +359,7 @@
 		                            <field name="e_inv"/>
 		                            <field name="loss"/>
 		                            <field name="sold"/>
-		                        </tree>i
+		                        </tree>
 				</field>
                 	</sheet>
                 </form>
