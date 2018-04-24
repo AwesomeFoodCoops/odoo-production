@@ -68,7 +68,7 @@
                     <field name="week_number" string="Week Number"/>
                     <field name="company_id" groups="base.group_multi_company"/>
                     <group expand="0" string="Group By">
-                        <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Week" domain="[]" context="{'group_by':'date'}"/>
                         <filter string="Week Number" domain="[]" context="{'group_by':'week_number'}" help="Physical Inventories by Week Number"/>
                     </group>
                 </search>
@@ -104,20 +104,21 @@
             <field name="model">order.week.planning</field>
 	    <field name="sequence" eval="18"/>
             <field name="arch" type="xml">
-                <form string="Planification Order">
+                <form string="Order Scheduling">
 			<header>
 		                <button name="action_close_week" string="Close Week" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 		    		<div class="oe_right" name="buttons">   
 		                	<button name="action_reception_week" string="Reception Week" type="object" groups="stock.group_stock_manager"/>
 		                	<button name="action_commande_week" string="Week Order" type="object" groups="stock.group_stock_manager"/>
 		                	<button name="action_other_weeks" string="Other" type="object" groups="stock.group_stock_manager"/>
+		                    	<field name="state" readonly="True"/>
 			        </div>
 			</header>
                 	<sheet>
-		                <group col="6" string="Planification Order">
-		                    <field name="date" readonly="True"/>
-		                    <field name="week_number" readonly="True"/>
-		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager"/>
+		                <group col="6" string="Order Scheduling">
+		                    <field name="date" readonly="True" string="Week"/>
+		                    <field name="week_number" readonly="True" string="Week Number"/>
+		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager"  attrs="{'invisible': [('state', '=', 'done')]}"/>
 		                </group>
                                 <group string="Initialisation" attrs="{'invisible': [('hide_initialisation', '=', True)]}">
 					<group col="4">
@@ -135,7 +136,7 @@
 						</group>
 					</group>
                                 </group>
-				<group string="Pré-génération Des Commandes Par Jour"  col="8">
+				<group string="Pre-generation Orders Per Day"  col="8">
 					<button name="action_add" string="Mond" type="object" style="margin-left:160px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
 					<button name="action_add" string="Tues" type="object" style="margin-left:60px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
 					<button name="action_add" string="Wed" type="object" style="margin-left:50px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
@@ -166,23 +167,24 @@
 						    <button name="action_view_history" icon="STOCK_JUSTIFY_FILL" type="object" groups="stock.group_stock_manager"/>
 				                    <field name="product_id" string="Product"/>
 				                    <field name="colisage_ref" string="Colissage"/>
-				                    <field name="partner_id" string="Supplier"/>
+				                    <field name="partner_id" string="Supplier" required="True"/>
 				                    <field name="list_price" string="Price U" attrs="{'readonly': [('edit_price', '=', False)]}"/>
 						    <button name="action_edit_price" icon="gtk-apply" type="object" groups="stock.group_stock_manager"/>
-				                    <field name="vendu-s-2"/>
-				                    <field name="vendu-s-1"/>
-				                    <field name="vendu-s-inv" string="S Inv"/>
-				                    <field name="monday_line"/>
-				                    <field name="tuesday_line"/>
-				                    <field name="wednesday_line"/>
-       				                    <field name="inv_int"/>
-				                    <field name="thirsday_line"/>
-				                    <field name="friday_line"/>
-				                    <field name="saturday_line"/>
-				                    <field name="total_in"/>
-				                    <field name="e_in"/>
-				                    <field name="loss"/>
-				                    <field name="sold"/>
+
+				                    <field name="vendu-s-2" string="Sold S-2"/>
+				                    <field name="vendu-s-1" string="Sold S-1"/>
+				                    <field name="vendu_s_inv" string="S Inv"/>
+				                    <field name="monday_line" string="Mond"/>
+				                    <field name="tuesday_line" string="Tues"/>
+				                    <field name="wednesday_line" string="Wed"/>
+       				                    <field name="inv_int" string="Inv Int"/>
+				                    <field name="thirsday_line" string="Thurs"/>
+				                    <field name="friday_line" string="Fri"/>
+				                    <field name="saturday_line" string="Sat"/>
+				                    <field name="total_in" string="Total + W Inv"/>
+				                    <field name="e_in" string="E Inv"/>
+				                    <field name="loss" string="Loss"/>
+				                    <field name="sold" string="Sold"/>
 				                    <field name="week_number" invisible="1"/>
 				                    <field name="edit_price" invisible="1"/>
 		                        </tree>
@@ -197,8 +199,9 @@
             <field name="model">order.week.planning</field>
             <field name="sequence" eval="18"/>
             <field name="arch" type="xml">
-                <tree string="Planification Order">
+                <tree string="Order Scheduling">
 	                <field name="date" string="Date"/>
+	                <field name="state" string="State"/>
 	                <field name="week_number" string="Week Number"/>
                 </tree>
             </field>
@@ -212,7 +215,7 @@
                     <field name="date" string="date"/>
                     <field name="week_number" string="Week Number"/>
                     <group expand="0" string="Group By">
-                        <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Week" domain="[]" context="{'group_by':'date'}"/>
                         <filter string="Week Number" domain="[]" context="{'group_by':'week_number'}" help="Physical Inventories by Week Number"/>
                     </group>
                 </search>
@@ -224,7 +227,7 @@
             <field name="model">order.week.planning</field>
 	    <field name="sequence" eval="18"/>
             <field name="arch" type="xml">
-                <form string="Planification Order">
+                <form string="Order Scheduling">
 			<header>
 		                <button name="action_close_week" string="Close Week" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 		    		<div class="oe_right" name="buttons">   
@@ -234,9 +237,9 @@
 			        </div>
 			</header>
                 	<sheet>
-		                <group col="6" string="Planification Order">
-		                    <field name="date"/>
-		                    <field name="week_number"/>
+		                <group col="6" string="Order Scheduling">
+		                    <field name="date" string="Week"/>
+		                    <field name="week_number" string="N° Week"/>
 		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager"/>
 		                </group>
                                 <group  attrs="{'invisible': [('hide_initialisation', '=', True)]}">
@@ -255,7 +258,7 @@
 						</group>
 					</group>
                                 </group>
-				<group string="Pré-génération Des Commandes Par Jour"  col="8">
+				<group string="Order Scheduling"  col="8">
 					<button name="action_add" string="Mond" type="object" style="margin-left:160px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
 					<button name="action_add" string="Tues" type="object" style="margin-left:60px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
 					<button name="action_add" string="Wed" type="object" style="margin-left:50px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
@@ -286,23 +289,23 @@
 						    <button name="action_view_history" icon="STOCK_JUSTIFY_FILL" type="object" groups="stock.group_stock_manager"/>
 				                    <field name="product_id" string="Product"/>
 				                    <field name="colisage_ref" string="Colissage"/>
-				                    <field name="partner_id" string="Supplier"/>
+				                    <field name="partner_id" string="Supplier" required="True"/>
 				                    <field name="list_price" string="Price U" attrs="{'readonly': [('edit_price', '=', False)]}"/>
 						    <button name="action_edit_price" icon="gtk-apply" type="object" groups="stock.group_stock_manager"/>
-				                    <field name="vendu-s-2"/>
-				                    <field name="vendu-s-1"/>
-				                    <field name="vendu-s-inv" string="S Inv"/>
-				                    <field name="monday_line"/>
-				                    <field name="tuesday_line"/>
-				                    <field name="wednesday_line"/>
-       				                    <field name="inv_int"/>
-				                    <field name="thirsday_line"/>
-				                    <field name="friday_line"/>
-				                    <field name="saturday_line"/>
-				                    <field name="total_in"/>
-				                    <field name="e_in"/>
-				                    <field name="loss"/>
-				                    <field name="sold"/>
+				                    <field name="vendu-s-2" string="Sold S-2"/>
+				                    <field name="vendu-s-1" string="Sold S-1"/>
+				                    <field name="vendu_s_inv" string="S Inv"/>
+				                    <field name="monday_line" string="Mond"/>
+				                    <field name="tuesday_line" string="Tues"/>
+				                    <field name="wednesday_line" string="Wed"/>
+       				                    <field name="inv_int" string="Inv Int"/>
+				                    <field name="thirsday_line" string="Thurs"/>
+				                    <field name="friday_line" string="Fri"/>
+				                    <field name="saturday_line" string="Sat"/>
+				                    <field name="total_in" string="Total + W Inv"/>
+				                    <field name="e_in" string="E Inv"/>
+				                    <field name="loss" string="Loss"/>
+				                    <field name="sold" string="Sold"/>
 				                    <field name="week_number" invisible="1"/>
 				                    <field name="edit_price" invisible="1"/>
 		                        </tree>
@@ -313,7 +316,7 @@
         </record>
 
         <record id="view_coop_produce_order_week_planning_action" model="ir.actions.act_window">
-        	<field name="name">Coop Produce Planification F/L</field>
+        	<field name="name">Planification F/V</field>
 		 <field name="type">ir.actions.act_window</field>
         	<field name="res_model">order.week.planning</field>
             	<field name="view_type">form</field>
@@ -337,28 +340,28 @@
             <field name="model">planification.product.history</field>
 	    <field name="sequence" eval="18"/>
             <field name="arch" type="xml">
-                <form string="Historique Produit">
+                <form string="Historic Produit">
                 	<sheet>
 		                <group col="4">
-		                    <field name="product_id" readonly="True"/>
-		                    <field name="colissage_ref" readonly="True"/>
+		                    <field name="product_id" readonly="True" string="Product"/>
+		                    <field name="colissage_ref" readonly="True" string="PCB rE"/>
 		                </group>  
-		                <field name="line_ids" string="Détails Historique Produit"  groups="stock.group_stock_manager">
-		                        <tree string="Détails Historique Produit" editable="bottom">
-		                            <field name="semaine_nbre"/>
-		                            <field name="prix_unitaire"/>
-		                            <field name="s_inv"/>
-		                            <field name="monday_line"/>
-		                            <field name="tuesday_line"/>
-		                            <field name="wednesday_line"/>
-		                            <field name="inv_int"/>
-		                            <field name="thirsday_line"/>
-		                            <field name="friday_line"/>
-		                            <field name="saturday_line"/>
-		                            <field name="total_inv"/>
-		                            <field name="e_inv"/>
-		                            <field name="loss"/>
-		                            <field name="sold"/>
+		                <field name="line_ids" string="Details Product"  groups="stock.group_stock_manager">
+		                        <tree string="Détails Historique Produit" editable="bottom" create="false">
+		                            <field name="semaine_nbre" string="N° Week"/>
+		                            <field name="prix_unitaire" string="Price U"/>
+		                            <field name="s_inv" string="S Inv"/>
+		                            <field name="monday_line" string="Mond"/>
+		                            <field name="tuesday_line" string="Tues"/>
+		                            <field name="wednesday_line" string="Wed"/>
+		                            <field name="inv_int" string="Inv Int"/>
+		                            <field name="thirsday_line" string="Thurs"/>
+		                            <field name="friday_line" string="Fri"/>
+		                            <field name="saturday_line" string="Sat"/>
+		                            <field name="total_inv" string="Total + W Inv"/>
+		                            <field name="e_inv" string="E Inv"/>
+		                            <field name="loss" string="Loss"/>
+		                            <field name="sold" string="Sold"/>
 		                        </tree>
 				</field>
                 	</sheet>
