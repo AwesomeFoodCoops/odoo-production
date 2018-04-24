@@ -57,7 +57,6 @@ class StockInventory(osv.osv):
 			order_name = 'Inventaire des F/L de la Semaine' + str(order.date)
 		return order_name
 			
-
 	def action_add_category(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_add_category   -------------------')
 		value = {}
@@ -116,7 +115,6 @@ class StockInventory(osv.osv):
 									line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
 								supplier.write({'line_ids': line_ids})
 
-
 	def action_reinitialise(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_reinitialise   -------------------')
         	for line in self.browse(cr, uid, ids, context=context):
@@ -141,11 +139,10 @@ class StockInventory(osv.osv):
         	return res
 
 	_columns = {
-
 		'week_number': fields.function(_get_number_week, type="integer",string= "N° Semaine", help="Number of Inventory Week", store=True),
 		'hide_initialisation': fields.boolean(string="Cacher Intialisation",help="Cacher Initialisation"),
         	'categ_ids': fields.many2many('product.category', 'stock_inventory_product_categ', 'inventory_id', 'categ_id', 'Product Categories'),
-		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', domain=[('supplier', '=', True)],help="Specify Product Category to focus in your inventory."),
+		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', domain=[('supplier', '=', True),('is_company', '=', True)],help="Specify Product Category to focus in your inventory."),
 		'weekly_inventory': fields.boolean(string="Inventaire Hebdomadaire",help="Inventaire Hebdomadaire"),
 	}
 
@@ -275,7 +272,6 @@ class StockInventoryLine(osv.osv):
 			theoretical_qty_ref = 0
 			if product.product_id.product_tmpl_id.colissage_ref != 0 :
                                 theoretical_qty_ref = product.theoretical_qty / product.product_id.product_tmpl_id.colissage_ref
-			_logger.info(product.qty_stock)
 			qty_stock = product.qty_stock
 			res[product.id] =  theoretical_qty_ref - qty_stock
         	return res
@@ -307,6 +303,12 @@ class StockInventoryLine(osv.osv):
 		    	return {'value': {'colisage_ref': colisage_ref, 'theoretical_qty_ref': theoretical_qty_ref}}
 		return {'value': {}}
 
+	def on_change_qty_stock(self, cr, uid, ids, qty_stock, theoretical_qty_ref, context=None):
+		_logger.info('-------------- qty_stock  -------------')
+		if qty_stock :
+                        qty_loss = theoretical_qty_ref - qty_stock
+		    	return {'value': {'qty_loss': qty_loss}}
+		return {'value': {}}
 
 	_columns = {
 
