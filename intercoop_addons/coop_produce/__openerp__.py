@@ -26,5 +26,6 @@ Il offre à cet effet les fonctionnalités suivantes :
         'views/product_views.xml',
         'views/stock_views.xml',
         'security/ir.model.access.csv',
+		'data/decimal_precision.xml',
     ],
 }
