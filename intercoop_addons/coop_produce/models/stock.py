@@ -251,15 +251,17 @@ class StockInventory(osv.osv):
 
 
 class StockPickingCoopProduce(osv.osv):
-	_inherit = "stock.picking"
+	_inherit = "purchase.order"
 
 	def _get_number_week(self, cr, uid, ids, date, args, context=None):
 		_logger.info('------------------  _get_number_week   -------------------')
 		res = {}
 		week_number = 1
         	for data in self.browse(cr, uid, ids, context=context):
-			date = datetime.datetime.strptime(data.min_date, "%Y-%m-%d %H:%M:%S")
-			week_number = date.isocalendar()[1]
+		        _logger.info('------------------  _get_number_week   -------------------')
+                        if data.date_order : 
+			        date = datetime.datetime.strptime(data.date_order, "%Y-%m-%d %H:%M:%S")
+			        week_number = date.isocalendar()[1]
 			res[data.id] = week_number
         	return res
 
@@ -403,7 +405,7 @@ class OrderWeekPlanning(osv.osv):
 					move_ids = self.pool['stock.move'].search(cr, uid, [('product_id','in',supplier.product_id.ids)], context=context)
                                         if move_ids :
                                                 for move in move_ids :
-                                                        stock_picking_ids = self.pool['stock.picking'].search(cr, uid, [('id','=',move),('partner_id','=',supplier.partner_id.id),('week_number','=',week_number)], context=context)
+                                                        stock_picking_ids = self.pool['stock.picking'].search(cr, uid, [('id','=',move),('partner_id','=',supplier.partner_id.id)], context=context)
                                                         if stock_picking_ids : 
 						                view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.form')], context=context)
 						                view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.tree')], context=context)
@@ -421,13 +423,10 @@ class OrderWeekPlanning(osv.osv):
 						                }
 					                else : 
 						                raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
-						                return False
                                         else : 
 					        raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
-						return False
 			else :
 				raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
-				return False
 
 
 	def action_commande_week(self, cr, uid, ids, context=None):
@@ -438,7 +437,7 @@ class OrderWeekPlanning(osv.osv):
 					purchase_ids = self.pool['purchase.order.line'].search(cr, uid, [('product_id','in',supplier.product_id.ids)], context=context)
                                         if purchase_ids :
                                                 for purchase in purchase_ids :
-                                                        purchase_order_ids = self.pool['purchase.order'].search(cr, uid, [('id','=',purchase),('partner_id','=',supplier.partner_id.id)], context=context)
+                                                        purchase_order_ids = self.pool['purchase.order'].search(cr, uid, [('id','=',purchase),,('week_number','=',week_number),('partner_id','=',supplier.partner_id.id)], context=context)
                                                         if purchase_order_ids : 
 						                view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.form')], context=context)
 						                view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.tree')], context=context)
@@ -456,13 +455,10 @@ class OrderWeekPlanning(osv.osv):
 						                }
 					                else : 
 						                raise osv.except_osv(('Error'), ("Aucun Bon De Commande Enregistré"))
-						                return False
                                         else : 
 					        raise osv.except_osv(('Error'), ("Aucun Bon De Commande Enregistré"))
-						return False
 			else :
 				raise osv.except_osv(('Error'), ("Aucun Bon De Commande Enregistré"))
-				return False
 
 
 	def action_other_weeks(self, cr, uid, ids, context=None):
@@ -566,8 +562,8 @@ class OrderWeekPlanning(osv.osv):
 					                                seller_id = False
                                                                         qty_stock = 0
 				                                        if product_detail_ids.product_tmpl_id.seller_ids :
-					                                        seller_id = product_detail_ids.product_tmpl_id.seller_ids.name.id
-                                                                                colisage_ref = product_detail_ids.product_tmpl_id.seller_ids.package_qty 
+					                                        seller_id = product_detail_ids.product_tmpl_id.seller_ids[0].name.id
+                                                                                colisage_ref = product_detail_ids.product_tmpl_id.seller_ids[0].package_qty 
 				                                        else :
 					                                        seller_id = False
 								        line_ids.append((0,0, {'product_id':product,'colisage_ref': colisage_ref,'partner_id':seller_id}))
