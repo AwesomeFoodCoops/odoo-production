@@ -122,7 +122,11 @@
 		                    <field name="week_number" readonly="True" string="Week Number"/>
 		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager"  attrs="{'invisible': [('state', '=', 'done')]}"/>
 		                </group>
-                                <group string="Initialisation" attrs="{'invisible': [('hide_initialisation', '=', True)]}">
+
+
+
+                                <group  attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}">
+
 					<group col="4">
 						<field name="categ_ids" widget="many2many_tags" string="Product Category"  groups="stock.group_stock_manager"/>
 	                                        <button name="action_add_category" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
@@ -140,15 +144,13 @@
                                 </group>
 					
 				<group col="7" string="Pre-generation Orders Per Day">
-						<button name="action_add" string="Mond" type="object" style="margin-left:160px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Tues" type="object" style="margin-left:60px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Wed" type="object" style="margin-left:50px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Thurs" type="object" style="margin-left:40px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Fri" type="object" style="margin-left:45px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Sat" type="object" style="margin-left:25px !important" class="oe_highlight" groups="stock.group_stock_manager"/>
-				</group>
-				<group>
-					<group col="7">
+						<div></div>
+						<button name="action_add" string="Mond" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+						<button name="action_add" string="Tues" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+						<button name="action_add" string="Wed" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+						<button name="action_add" string="Thurs" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+						<button name="action_add" string="Fri" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+						<button name="action_add" string="Sat" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 						<h4>Total Commandé / À Commander</h4>
 				            	<field name="total_command_monday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
 				            	<field name="total_command_tuesday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
@@ -163,7 +165,6 @@
 				            	<field name="total_received_thirsday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
 				            	<field name="total_received_friday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
 				            	<field name="total_received_saturday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
-				       	</group>  
 		               	</group>  
 
 
@@ -250,7 +251,7 @@
 		                    <field name="week_number" string="N° Week"/>
 		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager"/>
 		                </group>
-                                <group  attrs="{'invisible': [('hide_initialisation', '=', True)]}">
+                                <group  attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}">
 					<group col="4">
 						<field name="categ_ids" widget="many2many_tags" string="Product Category"  groups="stock.group_stock_manager"/>
 	                                        <button name="action_add_category" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
