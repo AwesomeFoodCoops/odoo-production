@@ -284,6 +284,7 @@ msgstr "N° Semaine"
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_tree
 msgid "State"
 msgstr "État"
+
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_tree
 msgid "Date"
@@ -486,8 +487,8 @@ msgstr "S"
 
 #. module: coop_produce 
 #: model:ir.actions.act_window,name:coop_produce.view_coop_produce_order_week_planning_action
-msgid "Planification F/V"
-msgstr "Planification F/L"
+msgid "Planification Of F/V"
+msgstr "Planification Des F/L"
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
@@ -575,8 +576,8 @@ msgstr "N° Semaine"
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_filter
-msgid "Week"
-msgstr "Semaine"
+msgid "Date"
+msgstr "Date"
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_filter
@@ -652,4 +653,15 @@ msgstr "Vendu"
 msgid "Loss"
 msgstr "Perte"
 
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_tree
+#: selection:order.week.planning,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_tree
+#: selection:order.week.planning,state:0
+msgid "Done"
+msgstr "Validé"
 
