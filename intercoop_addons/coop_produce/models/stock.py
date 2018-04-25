@@ -437,7 +437,7 @@ class OrderWeekPlanning(osv.osv):
 					purchase_ids = self.pool['purchase.order.line'].search(cr, uid, [('product_id','in',supplier.product_id.ids)], context=context)
                                         if purchase_ids :
                                                 for purchase in purchase_ids :
-                                                        purchase_order_ids = self.pool['purchase.order'].search(cr, uid, [('id','=',purchase),,('week_number','=',week_number),('partner_id','=',supplier.partner_id.id)], context=context)
+                                                        purchase_order_ids = self.pool['purchase.order'].search(cr, uid, [('id','=',purchase),('week_number','=',week_number),('partner_id','=',supplier.partner_id.id)], context=context)
                                                         if purchase_order_ids : 
 						                view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.form')], context=context)
 						                view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.tree')], context=context)
