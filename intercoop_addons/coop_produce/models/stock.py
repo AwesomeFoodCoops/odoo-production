@@ -347,6 +347,8 @@ class StockInventoryLine(osv.osv):
 class OrderWeekPlanning(osv.osv):
 	_name = "order.week.planning"
 	_description = "Order Week Planning"
+        default_order ="year desc,week_number desc"
+
 
 	def action_close_week(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_close_week   -------------------')
@@ -531,9 +533,20 @@ class OrderWeekPlanning(osv.osv):
         	return res
 
 
+	def _get_year_date(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_year_date   -------------------')
+		res = {}
+		year = 2018
+        	for data in self.browse(cr, uid, ids, context=context):
+		        year = int(data.date[0:4])
+			res[data.id] = year
+        	return res
+
+
 	_columns = {
 
         	'name': fields.char(string="Name", help="The name Of Order Schedulling"),
+        	'year': fields.function(_get_year_date, type="integer",string="Year", help="The year Of Order Schedulling"),
 		'week_number': fields.function(_get_number_week, type="integer",string= "Week Number", help="Number of Inventory Week", store=True),
         	'date': fields.datetime('Week', required=True, help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),
         	'week_date': fields.datetime(string= "Date", help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),		
