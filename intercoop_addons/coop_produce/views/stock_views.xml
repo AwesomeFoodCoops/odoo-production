@@ -52,8 +52,8 @@
             <field name="arch" type="xml">
                 <tree string="Lot Inventory">
                 	<field name="date" string="Date"/>
-                    	<field name="week_number" string="Week Number"/>
                 	<field name="state" string="State"/>
+                    	<field name="week_number" string="Week Number"/>
                 </tree>
             </field>
         </record>
@@ -113,6 +113,7 @@
 		                	<button name="action_other_weeks" string="Other" type="object" groups="stock.group_stock_manager"/>
 		                    	<field name="state" readonly="True"/>
 			        </div>
+		                <field name="name" invisible="True"/>
 			</header>
                 	<sheet>
 		                <group col="6" string="Order Scheduling">
@@ -215,7 +216,7 @@
                     <field name="date" string="date"/>
                     <field name="week_number" string="Week Number"/>
                     <group expand="0" string="Group By">
-                        <filter string="Week" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
                         <filter string="Week Number" domain="[]" context="{'group_by':'week_number'}" help="Physical Inventories by Week Number"/>
                     </group>
                 </search>
@@ -235,6 +236,7 @@
 		                	<button name="action_commande_week" string="Week Order" type="object" groups="stock.group_stock_manager"/>
 		                	<button name="action_other_weeks" string="Other" type="object" groups="stock.group_stock_manager"/>
 			        </div>
+		                <field name="name" invisible="True"/>
 			</header>
                 	<sheet>
 		                <group col="6" string="Order Scheduling">
@@ -316,7 +318,7 @@
         </record>
 
         <record id="view_coop_produce_order_week_planning_action" model="ir.actions.act_window">
-        	<field name="name">Planification F/V</field>
+        	<field name="name">Planification Of F/V</field>
 		 <field name="type">ir.actions.act_window</field>
         	<field name="res_model">order.week.planning</field>
             	<field name="view_type">form</field>

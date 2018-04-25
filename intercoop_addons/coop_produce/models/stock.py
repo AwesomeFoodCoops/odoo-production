@@ -533,6 +533,7 @@ class OrderWeekPlanning(osv.osv):
 
 	_columns = {
 
+        	'name': fields.char(string="Name", help="The name Of Order Schedulling"),
 		'week_number': fields.function(_get_number_week, type="integer",string= "Week Number", help="Number of Inventory Week", store=True),
         	'date': fields.datetime('Week', required=True, help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),
         	'week_date': fields.datetime(string= "Date", help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),		
@@ -557,7 +558,12 @@ class OrderWeekPlanning(osv.osv):
 		'total_received_friday': fields.float('Total Recu Friday', digits_compute=dp.get_precision('Product Unit of Measure')),		
 		'total_received_saturday': fields.float('Total Recu Saturday', digits_compute=dp.get_precision('Product Unit of Measure')),	
 		'total_received_sunday': fields.float('Total Recu Saturday', digits_compute=dp.get_precision('Product Unit of Measure')),	
-                'state': fields.selection([('draft', 'New'),('done', 'Done'),], 'Stae', readonly=True, select=True, copy=False, default='draft'),						
+                'state': fields.selection([('draft', 'Draft'),('done', 'Done'),], 'State', readonly=True, select=True, copy=False, default='draft'),						
+	}
+
+
+	_defaults = {
+        	'name': 'Planification F/L',
 	}
 
 class OrderWeekPlanningLine(osv.osv):
