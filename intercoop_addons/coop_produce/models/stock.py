@@ -127,7 +127,6 @@ class StockInventory(osv.osv):
 			if line.line_ids : 
 				line.line_ids.unlink() 
 
-
 	def _get_number_week(self, cr, uid, ids, date, args, context=None):
 		_logger.info('------------------  _get_number_week   -------------------')
 		res = {}
@@ -145,7 +144,6 @@ class StockInventory(osv.osv):
 		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', domain=[('supplier', '=', True),('is_company', '=', True)],help="Specify Product Category to focus in your inventory."),
 		'weekly_inventory': fields.boolean(string="Inventaire Hebdomadaire",help="Inventaire Hebdomadaire"),
 	}
-
 
 	def create(self, cr, uid, vals, context=None):
 		_logger.info('-------------- create -------------------')
@@ -251,6 +249,24 @@ class StockInventory(osv.osv):
 				                    'type': 'ir.actions.act_window',
 				        }
 
+
+class StockPickingCoopProduce(osv.osv):
+	_inherit = "stock.picking"
+
+	def _get_number_week(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_number_week   -------------------')
+		res = {}
+		week_number = 1
+        	for data in self.browse(cr, uid, ids, context=context):
+			date = datetime.datetime.strptime(data.min_date, "%Y-%m-%d %H:%M:%S")
+			week_number = date.isocalendar()[1]
+			res[data.id] = week_number
+        	return res
+
+	_columns = {
+		'week_number': fields.function(_get_number_week, type="integer",string= "N° Semaine", help="Number of Stock Picking", store=True),
+	}
+
 class StockInventoryLine(osv.osv):
 	_inherit = "stock.inventory.line"
 
@@ -317,7 +333,6 @@ class StockInventoryLine(osv.osv):
 		'qty_loss': fields.function(_get_qty_loss, type="float",string='Quantity Lost', digits_compute=dp.get_precision('Product Unit of Measure'),help='Quantity Theoric Of Reference - Stock Quantity'),
 		'qty_stock': fields.float(string='Stock Quantity', digits_compute=dp.get_precision('Product Unit of Measure'),help="Stock Quantity"),
 		'categ_id': fields.function(_get_product_category, type="integer", string='Category Product', store=True, help="Category Product"),
-
 	}
 
 	def _default_stock_location(self, cr, uid, context=None):
@@ -359,55 +374,96 @@ class OrderWeekPlanning(osv.osv):
                     self.write(cr, uid, [inv.id], {'state': 'done'}, context=context)
                 return True
 
+	def action_add(self, cr, uid, ids, context=None):
+		_logger.info('------------------  action_add  -------------------')
+                """ Generate Purchase
+                @return: True
+                """
+		view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.form')], context=context)
+		return {
+		        'name': "Gestion Bons de Commandes",
+			'view_type': 'form',
+			'res_model': 'purchase.order',
+			'view_id': view_id[0],
+			'view_mode': 'form',
+			'nodestroy': True,
+			'target': 'current',
+			'context': {},
+			'flags': {'form': {'action_buttons': True}},
+			'type': 'ir.actions.act_window',
+		}
+
 
 	def action_reception_week(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_reception_week   -------------------')
                 for order in self.browse(cr, uid, ids, context=context) :
+                        week_number = order.week_number
 			if order.line_ids:
 				for supplier in order.line_ids :
-					order_ids = self.pool['stock.picking'].search(cr, uid, [('partner_id','in',supplier.partner_id.ids)], context=context)
-					if order_ids :
-						view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.form')], context=context)
-						view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.tree')], context=context)
-						view_kanban_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.kanban')], context=context)
-						return {
-									    'name': "Réceptions De La Semaine",
-									    'view_type': 'form',
-									    'view_mode': 'kanban,tree,form',
-									    'res_model': 'stock.picking',
-									    'views': [(view_kanban_id[0], 'kanban'),(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
-									    'nodestroy': True,
-									    'target': 'current',
-							   		    'domain': [],
-									    'flags': {'form': {'action_buttons': False}},
-									    'type': 'ir.actions.act_window',
-						}
-					else : 
-						raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
+					move_ids = self.pool['stock.move'].search(cr, uid, [('product_id','in',supplier.product_id.ids)], context=context)
+                                        if move_ids :
+                                                for move in move_ids :
+                                                        stock_picking_ids = self.pool['stock.picking'].search(cr, uid, [('id','=',move),('partner_id','=',supplier.partner_id.id),('week_number','=',week_number)], context=context)
+                                                        if stock_picking_ids : 
+						                view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.form')], context=context)
+						                view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.tree')], context=context)
+						                return {
+									                    'name': "Réceptions De La Semaine",
+									                    'view_type': 'form',
+									                    'view_mode': 'tree,form',
+									                    'res_model': 'stock.picking',
+									                    'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
+									                    'nodestroy': True,
+									                    'target': 'current',
+				                                                            'context': {'default_line_ids': stock_picking_ids},
+									                    'flags': {'form': {'action_buttons': False}},
+									                    'type': 'ir.actions.act_window',
+						                }
+					                else : 
+						                raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
+						                return False
+                                        else : 
+					        raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
 						return False
 			else :
-				raise osv.except_osv(('Error'), ("Aucun Produit Enregistré"))
+				raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
 				return False
+
 
 	def action_commande_week(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_commande_week   -------------------')
                 for order in self.browse(cr, uid, ids, context=context) :
-                        week_date = order.date
-			order_ids = self.pool['sale.order'].search(cr, uid, [], context=context)
-			view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','sale.order'),('name','=','sale.order.form')], context=context)
-			view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','sale.order'),('name','=','sale.order.tree')], context=context)
-			return {
-				                    'name': "Liste Des Commandes",
-						    'view_type': 'form',
-						    'view_mode': 'tree,form',
-				                    'res_model': 'sale.order',
-						    'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
-				                    'nodestroy': True,
-				                    'target': 'current',
-				   		    'domain': [],
-				                    'flags': {'form': {'action_buttons': False}},
-				                    'type': 'ir.actions.act_window',
-			}
+			if order.line_ids:
+				for supplier in order.line_ids :
+					purchase_ids = self.pool['purchase.order.line'].search(cr, uid, [('product_id','in',supplier.product_id.ids)], context=context)
+                                        if purchase_ids :
+                                                for purchase in purchase_ids :
+                                                        purchase_order_ids = self.pool['purchase.order'].search(cr, uid, [('id','=',purchase),('partner_id','=',supplier.partner_id.id)], context=context)
+                                                        if purchase_order_ids : 
+						                view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.form')], context=context)
+						                view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.tree')], context=context)
+						                return {
+									                    'name': "Liste Des Commandes",
+									                    'view_type': 'form',
+									                    'view_mode': 'tree,form',
+									                    'res_model': 'purchase.order',
+									                    'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
+									                    'nodestroy': True,
+									                    'target': 'current',
+				                                                            'context': {'default_line_ids': purchase_order_ids},
+									                    'flags': {'form': {'action_buttons': False}},
+									                    'type': 'ir.actions.act_window',
+						                }
+					                else : 
+						                raise osv.except_osv(('Error'), ("Aucun Bon De Commande Enregistré"))
+						                return False
+                                        else : 
+					        raise osv.except_osv(('Error'), ("Aucun Bon De Commande Enregistré"))
+						return False
+			else :
+				raise osv.except_osv(('Error'), ("Aucun Bon De Commande Enregistré"))
+				return False
+
 
 	def action_other_weeks(self, cr, uid, ids, context=None):
 		_logger.info('------------------ action_other_weeks   -------------------')
@@ -443,23 +499,37 @@ class OrderWeekPlanning(osv.osv):
 					if product_supplier_ids :		
 						for sup in product_supplier_ids :
 							product_suppliers_ids = self.pool.get('product.supplierinfo').browse(cr, uid, sup, context=context).product_tmpl_id
-							if categ.categ_ids :
-								product_tmpl_ids = self.pool.get('product.template').search(cr, uid,[('id','in',product_suppliers_ids.ids),('categ_id','in',categ.categ_ids.ids)])
-								if product_tmpl_ids :
-									product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_tmpl_ids)])
-									if product_ids : 
-										for product in product_ids :
-											line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
-										categ.write({'line_ids': line_ids})
-
+							product_tmpl_ids = self.pool.get('product.template').search(cr, uid,[('id','in',product_suppliers_ids.ids),('categ_id','in',categ.categ_ids.ids)])
+							if product_tmpl_ids :
+								product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_tmpl_ids)])
+								if product_ids : 
+									for product in product_ids :
+					                                        seller_id = False
+                                                                                qty_stock = 0
+				                                                if product_suppliers_ids.seller_ids :
+					                                                seller_id = product_suppliers_ids.seller_ids.name.id
+                                                                                        colisage_ref = product_suppliers_ids.seller_ids.package_qty 
+				                                                else :
+					                                                seller_id = False
+										line_ids.append((0,0, {'product_id':product,'colisage_ref': colisage_ref,'partner_id':seller_id}))
 				else :
 					product_tmpl_ids = self.pool.get('product.template').search(cr, uid,[('categ_id','in',categ.categ_ids.ids)])
 					if product_tmpl_ids :
 						product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_tmpl_ids)])
 						if product_ids : 
 							for product in product_ids :
-								line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
-							categ.write({'line_ids': line_ids})
+							        product_detail_ids = self.pool.get('product.product').browse(cr, uid, product, context=context)
+					                        seller_id = False
+                                                                qty_stock = 0
+				                                if product_detail_ids.product_tmpl_id.seller_ids :
+					                                seller_id = product_detail_ids.product_tmpl_id.seller_ids.name.id
+                                                                        colisage_ref = product_detail_ids.product_tmpl_id.seller_ids.package_qty 
+				                                else :
+					                                seller_id = False
+								line_ids.append((0,0, {'product_id':product,'colisage_ref': colisage_ref,'partner_id':seller_id}))
+        	        categ.write({'line_ids': line_ids})
+
+
 
 	def action_add_supplier(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_add_supplier   -------------------')
@@ -479,15 +549,29 @@ class OrderWeekPlanning(osv.osv):
 								product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_tmpl_ids)])
 								if product_ids : 
 									for product in product_ids :
-										line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
-									supplier.write({'line_ids': line_ids})
-
+					                                        seller_id = False
+                                                                                qty_stock = 0
+				                                                if product_suppliers_ids.seller_ids :
+					                                                seller_id = product_suppliers_ids.seller_ids.name.id
+                                                                                        colisage_ref = product_suppliers_ids.seller_ids.package_qty 
+				                                                else :
+					                                                seller_id = False
+										line_ids.append((0,0, {'product_id':product,'colisage_ref': colisage_ref,'partner_id':seller_id}))
 						else :
 							product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_suppliers_ids.ids)])
 							if product_ids : 
 								for product in product_ids :
-									line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
-								supplier.write({'line_ids': line_ids})
+							                product_detail_ids = self.pool.get('product.product').browse(cr, uid, product, context=context)
+					                                seller_id = False
+                                                                        qty_stock = 0
+				                                        if product_detail_ids.product_tmpl_id.seller_ids :
+					                                        seller_id = product_detail_ids.product_tmpl_id.seller_ids.name.id
+                                                                                colisage_ref = product_detail_ids.product_tmpl_id.seller_ids.package_qty 
+				                                        else :
+					                                        seller_id = False
+								        line_ids.append((0,0, {'product_id':product,'colisage_ref': colisage_ref,'partner_id':seller_id}))
+			supplier.write({'line_ids': line_ids})
+
 
 
 	def action_reinitialise(self, cr, uid, ids, context=None):
@@ -521,7 +605,6 @@ class OrderWeekPlanning(osv.osv):
                                         data.write({'vendu_s_inv' : vendu_s_inv})
 
 
-
 	def _get_number_week(self, cr, uid, ids, date, args, context=None):
 		_logger.info('------------------  _get_number_week   -------------------')
 		res = {}
@@ -532,7 +615,6 @@ class OrderWeekPlanning(osv.osv):
 			res[data.id] = week_number
         	return res
 
-
 	def _get_year_date(self, cr, uid, ids, date, args, context=None):
 		_logger.info('------------------  _get_year_date   -------------------')
 		res = {}
@@ -542,7 +624,6 @@ class OrderWeekPlanning(osv.osv):
 			res[data.id] = year
         	return res
 
-
 	_columns = {
 
         	'name': fields.char(string="Name", help="The name Of Order Schedulling"),
@@ -551,8 +632,8 @@ class OrderWeekPlanning(osv.osv):
         	'date': fields.datetime('Week', required=True, help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),
         	'week_date': fields.datetime(string= "Date", help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),		
 		'hide_initialisation': fields.boolean(string="Cacher Intialisation",help="Cacher Initialisation"),
-        	'categ_ids': fields.many2many('product.category', 'stock_inventory_product_categ', 'inventory_id', 'categ_id', 'Product Categories'),
-		'supplier_ids': fields.many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id', 'Supplier', domain=[('supplier', '=', True),('is_company', '=', True)],help="Specify Product Category to focus in your inventory."),
+        	'categ_ids': fields.many2many('product.category', 'order_week_planning_product_categ', 'order_id', 'categ_id', 'Product Categories'),
+		'supplier_ids': fields.many2many('res.partner', 'order_week_planning_res_partner', 'order_id', 'supplier_id', 'Supplier', domain=[('supplier', '=', True),('is_company', '=', True)],help="Specify Product Category to focus in your inventory."),
 		
         	'line_ids': fields.one2many('order.week.planning.line', 'order_id', 'Orders', help="Order Lines."),
 
@@ -640,12 +721,34 @@ class OrderWeekPlanningLine(osv.osv):
 	def _get_sold(self, cr, uid, ids,name, args, context=None):
 		_logger.info('------------------  _get_sold  -------------------')
 		res = {}
-                sold = 0
-                total_in = 0
         	for product in self.browse(cr, uid, ids, context=context):
 			total_in = product.vendu_s_inv + product.monday_line + product.tuesday_line + product.wednesday_line + product.thirsday_line + product.friday_line + product.saturday_line
                         sold = total_in - product.e_in - product.loss 
 			res[product.id] = sold
+        	return res
+
+	def _get_vendu_s_inv(self, cr, uid, ids,name, args, context=None):
+		_logger.info('------------------  _get_vendu_s_inv  -------------------')
+		res = {}
+                vendu_s_inv = 0
+                product_qty = 0
+                supplier = False
+        	for product in self.browse(cr, uid, ids, context=context) :
+                        product_tmpl_id = product.product_id.product_tmpl_id.id
+                        product_id = product.product_id.id
+                        supplier = product.partner_id.id
+			product_supplierinfo_ids = self.pool.get('product.supplierinfo').search(cr, uid,[('product_tmpl_id','=', product_tmpl_id),('name','=', supplier)])
+                        if product_supplierinfo_ids :
+                                _logger.info('-------------------product_supplierinfo_ids-------------------')
+                                _logger.info(product_supplierinfo_ids)
+                                quant_obj = self.pool('stock.quant').search(cr, uid,[('product_id','=', product_id)])
+                                if quant_obj :
+                                        for quant in quant_obj : 
+                                                qty_product = self.pool.get('stock.quant').browse(cr, uid, quant, context=context).qty
+					        product_qty+= qty_product
+                                package_qty = self.pool.get('product.supplierinfo').browse(cr, uid, product_supplierinfo_ids[0], context=context).package_qty
+                                vendu_s_inv = product.product_id.product_tmpl_id.qty_available / package_qty
+			res[product.id] = vendu_s_inv
         	return res
 
 	_columns = {
@@ -653,14 +756,18 @@ class OrderWeekPlanningLine(osv.osv):
         	'week_number': fields.related('order_id', 'week_number', type='integer', store=True, string= "Week number", help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),
 		'order_id': fields.many2one('order.week.planning', 'Order Week', ondelete='cascade', select=True),
 		'product_id': fields.many2one('product.product', 'Product', required=True, select=True),
-		'colisage_ref': fields.related('product_id', 'colissage_ref', type='float', relation='product.template', string='Colisage Ref', store=True, select=True, readonly=True),
+		'colisage_ref': fields.float(string='Colisage Ref', store=True, select=True, readonly=True),
 		'vendu-s-2': fields.function(_get_sold_s_2, type="float", store=True,string="Sold S-2", digits_compute=dp.get_precision('Order Week Planning Precision')),
 		'vendu-s-1': fields.function(_get_sold_s_1, type="float", store=True,string="Sold S-1", digits_compute=dp.get_precision('Order Week Planning Precision')),
 		'total_in': fields.function(_get_total_s_inv, type="float", store=True, string="Total + W Inv", digits_compute=dp.get_precision('Order Week Planning Precision')),
 		'sold': fields.function(_get_sold, type="float", store=True, string="Sold", digits_compute=dp.get_precision('Order Week Planning Precision')),
 		'partner_id': fields.many2one('res.partner', 'Supplier' , domain=[('supplier', '=', True),('is_company', '=', True)]),		
 		'list_price': fields.related('product_id', 'list_price', type='float', relation='product.template', string='List Price', store=True, select=True),
-		'vendu_s_inv': fields.float('S INV', digits_compute=dp.get_precision('Order Week Planning Precision')),
+
+
+		'vendu_s_inv': fields.function(_get_vendu_s_inv,string="S INV", type="float", store=True,digits_compute=dp.get_precision('Order Week Planning Precision')),
+
+
 		'monday_line': fields.float('Mond', digits_compute=dp.get_precision('Order Week Planning Precision')),
 		'tuesday_line': fields.float('Tues', digits_compute=dp.get_precision('Order Week Planning Precision')),
 		'wednesday_line': fields.float('Wed', digits_compute=dp.get_precision('Order Week Planning Precision')),
@@ -673,6 +780,72 @@ class OrderWeekPlanningLine(osv.osv):
 		'edit_price': fields.boolean(string="Edit Price",help="Editer Prix", default=False),
 	}
 
+	def on_change_product_id(self,cr,uid,ids,product_id,monday_line,tuesday_line,wednesday_line,inv_int,thirsday_line,friday_line,saturday_line,e_in,loss,context=None):
+		res = {}
+                if product_id : 
+                        if not monday_line or not tuesday_line or not wednesday_line or not inv_int or not thirsday_line or not friday_line or not saturday_line :
+                                raise osv.except_osv(('Error'), ("Ajouter Une nouvelle Ligne"))
+		                return False
+                        else : 
+			        product_detail_ids = self.pool.get('product.product').browse(cr, uid, product_id, context=context)
+				seller_id = False
+                                qty_stock = 0
+                                vendu_s_inv = 0
+			        if product_detail_ids.product_tmpl_id.seller_ids :
+				        partner_id = product_detail_ids.product_tmpl_id.seller_ids.name.id
+                                        colisage_ref = product_detail_ids.product_tmpl_id.seller_ids.package_qty 
+                                        list_price = product_detail_ids.product_tmpl_id.list_price
+                                        product_tmpl_id = product_detail_ids.product_tmpl_id.id
+			                product_supplierinfo_ids = self.pool.get('product.supplierinfo').search(cr, uid,[('product_tmpl_id','=', product_tmpl_id),('name','=', partner_id)])
+                                        if product_supplierinfo_ids :
+                                                quant_obj = self.pool('stock.quant').search(cr, uid,[('product_id','=', product_id)])
+                                                if quant_obj :
+                                                        product_qty = 0
+                                                        for quant in quant_obj : 
+                                                                qty_product = self.pool.get('stock.quant').browse(cr, uid, quant, context=context).qty
+					                        product_qty+= qty_product
+                                                package_qty = self.pool.get('product.supplierinfo').browse(cr, uid, product_supplierinfo_ids[0], context=context).package_qty
+                                                vendu_s_inv = product_detail_ids.product_tmpl_id.qty_available / package_qty
+                                                vendu_s_inv = vendu_s_inv
+			                        total_in = vendu_s_inv + monday_line + tuesday_line + wednesday_line + thirsday_line + friday_line + saturday_line
+                                                sold = total_in - e_in - loss 
+		            	                return {'value': {'colisage_ref' : colisage_ref, 'partner_id': partner_id, 'list_price': list_price , 'vendu_s_inv':vendu_s_inv,'total_in': total_in, 'sold': sold}}
+		
+                return {'value': {}}
+
+
+	def on_change_partner_id(self,cr,uid,ids,partner_id,product_id,monday_line,tuesday_line,wednesday_line,inv_int,thirsday_line,friday_line,saturday_line,e_in,loss,context=None):
+		res = {}
+                if product_id : 
+                        if not monday_line or not tuesday_line or not wednesday_line or not inv_int or not thirsday_line or not friday_line or not saturday_line :
+                                raise osv.except_osv(('Error'), ("Ajouter Une nouvelle Ligne"))
+		                return False
+                        else : 
+			        product_detail_ids = self.pool.get('product.product').browse(cr, uid, product_id, context=context)
+				seller_id = False
+                                qty_stock = 0
+                                vendu_s_inv = 0
+			        if product_detail_ids.product_tmpl_id.seller_ids :
+				        partner_id = product_detail_ids.product_tmpl_id.seller_ids.name.id
+                                        colisage_ref = product_detail_ids.product_tmpl_id.seller_ids.package_qty 
+                                        list_price = product_detail_ids.product_tmpl_id.list_price
+                                        product_tmpl_id = product_detail_ids.product_tmpl_id.id
+			                product_supplierinfo_ids = self.pool.get('product.supplierinfo').search(cr, uid,[('product_tmpl_id','=', product_tmpl_id),('name','=', partner_id)])
+                                        if product_supplierinfo_ids :
+                                                quant_obj = self.pool('stock.quant').search(cr, uid,[('product_id','=', product_id)])
+                                                if quant_obj :
+                                                        product_qty = 0
+                                                        for quant in quant_obj : 
+                                                                qty_product = self.pool.get('stock.quant').browse(cr, uid, quant, context=context).qty
+					                        product_qty+= qty_product
+                                                package_qty = self.pool.get('product.supplierinfo').browse(cr, uid, product_supplierinfo_ids[0], context=context).package_qty
+                                                vendu_s_inv = product_detail_ids.product_tmpl_id.qty_available / package_qty
+                                                vendu_s_inv = vendu_s_inv
+			                        total_in = vendu_s_inv + monday_line + tuesday_line + wednesday_line + thirsday_line + friday_line + saturday_line
+                                                sold = total_in - e_in - loss 
+		            	                return {'value': {'colisage_ref' : colisage_ref, 'partner_id': partner_id, 'list_price': list_price , 'vendu_s_inv':vendu_s_inv,'total_in': total_in, 'sold': sold}}
+		
+                return {'value': {}}
 
 	def action_view_history(self, cr, uid, ids, context=None):
 		""" View History Product
