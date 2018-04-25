@@ -546,17 +546,18 @@ class OrderWeekPlanning(osv.osv):
 						if supplier.categ_ids :
 							product_tmpl_ids = self.pool.get('product.template').search(cr, uid,[('id','in',product_suppliers_ids.ids),('categ_id','in',supplier.categ_ids.ids)])
 							if product_tmpl_ids :
-								product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_tmpl_ids)])
-								if product_ids : 
-									for product in product_ids :
-					                                        seller_id = False
-                                                                                qty_stock = 0
-				                                                if product_suppliers_ids.seller_ids :
-					                                                seller_id = product_suppliers_ids.seller_ids.name.id
-                                                                                        colisage_ref = product_suppliers_ids.seller_ids.package_qty 
-				                                                else :
+                                                                for pdt in product_tmpl_ids :
+								        product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','=',pdt)])
+								        if product_ids : 
+									        for product in product_ids :
 					                                                seller_id = False
-										line_ids.append((0,0, {'product_id':product,'colisage_ref': colisage_ref,'partner_id':seller_id}))
+                                                                                        qty_stock = 0
+				                                                        if product_suppliers_ids.seller_ids :
+					                                                        seller_id = product_suppliers_ids.seller_ids.name.id
+                                                                                                colisage_ref = product_suppliers_ids.seller_ids.package_qty 
+				                                                        else :
+					                                                        seller_id = False
+										        line_ids.append((0,0, {'product_id':product,'colisage_ref': colisage_ref,'partner_id':seller_id}))
 						else :
 							product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_suppliers_ids.ids)])
 							if product_ids : 
