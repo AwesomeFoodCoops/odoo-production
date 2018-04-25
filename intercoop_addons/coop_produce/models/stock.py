@@ -405,24 +405,29 @@ class OrderWeekPlanning(osv.osv):
 					move_ids = self.pool['stock.move'].search(cr, uid, [('product_id','in',supplier.product_id.ids)], context=context)
                                         if move_ids :
                                                 for move in move_ids :
-                                                        stock_picking_ids = self.pool['stock.picking'].search(cr, uid, [('id','=',move),('partner_id','=',supplier.partner_id.id)], context=context)
-                                                        if stock_picking_ids : 
-						                view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.form')], context=context)
-						                view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.tree')], context=context)
-						                return {
-									                    'name': "Réceptions De La Semaine",
-									                    'view_type': 'form',
-									                    'view_mode': 'tree,form',
-									                    'res_model': 'stock.picking',
-									                    'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
-									                    'nodestroy': True,
-									                    'target': 'current',
-				                                                            'context': {'default_line_ids': stock_picking_ids},
-									                    'flags': {'form': {'action_buttons': False}},
-									                    'type': 'ir.actions.act_window',
-						                }
-					                else : 
-						                raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
+                                                        _logger.info('------------------------  move  -------------------')
+                                                        _logger.info(move)
+							product_picking_id = self.pool.get('stock.move').browse(cr, uid, move, context=context).picking_id
+                                                        if product_picking_id : 
+                                                                stock_picking_ids = self.pool['stock.picking'].search(cr, uid, [('id','=',product_picking_id.id),('partner_id','=',supplier.partner_id.id)], context=context)
+                                                                if stock_picking_ids : 
+						                        view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.form')], context=context)
+						                        view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.tree')], context=context)
+						                        return {
+									                            'name': "Réceptions De La Semaine",
+									                            'view_type': 'form',
+									                            'view_mode': 'tree,form',
+									                            'res_model': 'stock.picking',
+									                            'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
+									                            'nodestroy': True,
+									                            'target': 'current',
+				                                                                    'context': {'default_line_ids': stock_picking_ids},
+									                            'flags': {'form': {'action_buttons': False}},
+									                            'type': 'ir.actions.act_window',
+						                        }
+					                        else : 
+						                        raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
+
                                         else : 
 					        raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
 			else :
