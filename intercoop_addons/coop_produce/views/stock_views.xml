@@ -110,7 +110,7 @@
 		    		<div class="oe_right" name="buttons">   
 		                	<button name="action_reception_week" string="Reception Week" type="object" groups="stock.group_stock_manager"/>
 		                	<button name="action_commande_week" string="Week Order" type="object" groups="stock.group_stock_manager"/>
-		                	<button name="action_other_weeks" string="Other" type="object" groups="stock.group_stock_manager"/>
+		                	<button name="action_other_weeks" string="Other" type="object" groups="stock.group_stock_manager" invisible="True"/>
 		                    	<field name="state" readonly="True"/>
 			        </div>
 		                <field name="name" invisible="True"/>
@@ -235,7 +235,7 @@
 		    		<div class="oe_right" name="buttons">   
 		                	<button name="action_reception_week" string="Reception Week" type="object" groups="stock.group_stock_manager"/>
 		                	<button name="action_commande_week" string="Week Order" type="object" groups="stock.group_stock_manager"/>
-		                	<button name="action_other_weeks" string="Other" type="object" groups="stock.group_stock_manager"/>
+		                	<button name="action_other_weeks" string="Other" type="object" groups="stock.group_stock_manager" invisible="True"/>
 			        </div>
 		                <field name="name" invisible="True"/>
 		                <field name="year" invisible="True"/>
