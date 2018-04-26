@@ -398,6 +398,7 @@ class OrderWeekPlanning(osv.osv):
 
 	def action_reception_week(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_reception_week   -------------------')
+                result = []
                 for order in self.browse(cr, uid, ids, context=context) :
                         week_number = order.week_number
 			if order.line_ids:
@@ -409,22 +410,26 @@ class OrderWeekPlanning(osv.osv):
                                                         if product_picking_id : 
                                                                 stock_picking_ids = self.pool['stock.picking'].search(cr, uid, [('id','=',product_picking_id.id),('partner_id','=',supplier.partner_id.id)], context=context)
                                                                 if stock_picking_ids : 
-						                        view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.form')], context=context)
-						                        view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.tree')], context=context)
-						                        return {
-									                            'name': "Réceptions De La Semaine",
-									                            'view_type': 'form',
-									                            'view_mode': 'tree,form',
-									                            'res_model': 'stock.picking',
-									                            'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
-									                            'nodestroy': True,
-									                            'target': 'current',
-                                                                                                    'domain': [('id', 'in', stock_picking_ids)],
-									                            'flags': {'form': {'action_buttons': False}},
-									                            'type': 'ir.actions.act_window',
-						                        }
-					                        else : 
-						                        raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
+                                                                        for stock in stock_picking_ids :
+                                                                                result.append(stock)
+                                                if len (result) > 0:
+                                                        view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.form')], context=context)
+						        view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','stock.picking'),('name','=','stock.picking.tree')], context=context)
+					                return {
+						                'name': "Réceptions De La Semaine",
+						                'view_type': 'form',
+						                'view_mode': 'tree,form',
+						                'res_model': 'stock.picking',
+						                'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
+						                'nodestroy': True,
+							        'target': 'current',
+                                                                'domain': [('id', 'in', result)],
+				                                'context': {},
+							        'flags': {'form': {'action_buttons': False}},
+							        'type': 'ir.actions.act_window',
+					                }
+                                                else : 
+					                raise osv.except_osv(('Error'), ("Aucun Bon De Commande Enregistré"))
 
                                         else : 
 					        raise osv.except_osv(('Error'), ("Aucune Réception Enregistrée"))
@@ -434,6 +439,7 @@ class OrderWeekPlanning(osv.osv):
 
 	def action_commande_week(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_commande_week   -------------------')
+                result = []
                 for order in self.browse(cr, uid, ids, context=context) :
                         week_number = order.week_number
 			if order.line_ids:
@@ -441,25 +447,29 @@ class OrderWeekPlanning(osv.osv):
 					purchase_ids = self.pool['purchase.order.line'].search(cr, uid, [('product_id','in',supplier.product_id.ids)], context=context)
                                         if purchase_ids :
                                                 for purchase in purchase_ids :
-                                                        purchase_order_ids = self.pool['purchase.order'].search(cr, uid, [('id','=',purchase),('week_number','=',week_number),('partner_id','=',supplier.partner_id.id)], context=context)
+							product_picking_id = self.pool.get('purchase.order.line').browse(cr, uid, purchase, context=context).order_id
+                                                        purchase_order_ids = self.pool['purchase.order'].search(cr, uid, [('id','=',product_picking_id.id),('week_number','=',week_number),('partner_id','=',supplier.partner_id.id)], context=context)
                                                         if purchase_order_ids : 
-						                view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.form')], context=context)
-						                view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.tree')], context=context)
-                                                                return {
-									                    'name': "Liste Des Commandes",
-									                    'view_type': 'form',
-									                    'view_mode': 'tree,form',
-									                    'res_model': 'purchase.order',
-									                    'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
-									                    'nodestroy': True,
-									                    'target': 'current',
-                                                                                            'domain': [('id', 'in', purchase_ids)],
-				                                                            'context': {},
-									                    'flags': {'form': {'action_buttons': False}},
-									                    'type': 'ir.actions.act_window',
-						                }
-					                else : 
-						                raise osv.except_osv(('Error'), ("Aucun Bon De Commande Enregistré"))
+                                                                for purchase in purchase_order_ids :
+                                                                        result.append(purchase)
+                                                if len (result) > 0:
+					                view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.form')], context=context)
+					                view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.tree')], context=context)
+					                return {
+						                'name': "Liste Des Commandes",
+						                'view_type': 'form',
+						                'view_mode': 'tree,form',
+						                'res_model': 'purchase.order',
+						                'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
+						                'nodestroy': True,
+							        'target': 'current',
+                                                                'domain': [('id', 'in', result)],
+				                                'context': {},
+							        'flags': {'form': {'action_buttons': False}},
+							        'type': 'ir.actions.act_window',
+					                }
+                                                else : 
+					                raise osv.except_osv(('Error'), ("Aucun Bon De Commande Enregistré"))
                                         else : 
 					        raise osv.except_osv(('Error'), ("Aucun Bon De Commande Enregistré"))
 			else :
