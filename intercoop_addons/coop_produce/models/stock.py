@@ -21,12 +21,13 @@
 #
 ##############################################################################
 
-import datetime
 from dateutil import relativedelta
 import json
 import time
 import sets
 
+from datetime import datetime
+import datetime
 import openerp
 from openerp.osv import fields, osv
 from openerp.tools.float_utils import float_compare, float_round
@@ -35,7 +36,7 @@ from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FO
 from openerp import SUPERUSER_ID, api, models
 import openerp.addons.decimal_precision as dp
 from openerp.addons.procurement import procurement
-
+import calendar
 
 import sys
 reload(sys)
@@ -251,6 +252,43 @@ class StockInventory(osv.osv):
 
 
 class StockPickingCoopProduce(osv.osv):
+	_inherit = "stock.picking"
+
+	def _get_year_date(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_year_date   -------------------')
+		res = {}
+		year = 2018
+        	for data in self.browse(cr, uid, ids, context=context):
+		        year = int(data.min_date[0:4])
+			res[data.id] = year
+        	return res
+
+	def _get_month_date(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_month_date   -------------------')
+		res = {}
+		month = 1
+        	for data in self.browse(cr, uid, ids, context=context):
+		        month = int(data.min_date[5:7])
+			res[data.id] = month
+        	return res
+
+	def _get_day_date(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_day_date   -------------------')
+		res = {}
+		day = 1
+        	for data in self.browse(cr, uid, ids, context=context):
+		        day = int(data.min_date[8:10])
+			res[data.id] = day
+        	return res
+
+	_columns = {
+        	'year': fields.function(_get_year_date, store=True,type="integer",string="Year", help="The year Of Order Schedulling"),
+                'month' : fields.function(_get_month_date, store=True,type="integer",string="Year", help="The year Of Order Schedulling"),
+        	'day': fields.function(_get_day_date, store=True, type="integer",string="Year", help="The year Of Order Schedulling"),
+	}
+
+
+class PurchaseOrderCoopProduce(osv.osv):
 	_inherit = "purchase.order"
 
 	def _get_number_week(self, cr, uid, ids, date, args, context=None):
@@ -265,8 +303,38 @@ class StockPickingCoopProduce(osv.osv):
 			res[data.id] = week_number
         	return res
 
+	def _get_year_date(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_year_date   -------------------')
+		res = {}
+		year = 2018
+        	for data in self.browse(cr, uid, ids, context=context):
+		        year = int(data.date_order[0:4])
+			res[data.id] = year
+        	return res
+
+	def _get_month_date(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_month_date   -------------------')
+		res = {}
+		month = 1
+        	for data in self.browse(cr, uid, ids, context=context):
+		        month = int(data.date_order[5:7])
+			res[data.id] = month
+        	return res
+
+	def _get_day_date(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_day_date   -------------------')
+		res = {}
+		day = 1
+        	for data in self.browse(cr, uid, ids, context=context):
+		        day = int(data.date_order[8:10])
+			res[data.id] = day
+        	return res
+
 	_columns = {
 		'week_number': fields.function(_get_number_week, type="integer",string= "N° Semaine", help="Number of Stock Picking", store=True),
+        	'year': fields.function(_get_year_date, type="integer",string="Year", help="The year Of Order Schedulling", store=True),
+                'month' : fields.function(_get_month_date, type="integer",string="Year", help="The year Of Order Schedulling", store=True),
+        	'day': fields.function(_get_day_date, type="integer",string="Year", help="The year Of Order Schedulling", store=True),
 	}
 
 class StockInventoryLine(osv.osv):
@@ -376,25 +444,263 @@ class OrderWeekPlanning(osv.osv):
                     self.write(cr, uid, [inv.id], {'state': 'done'}, context=context)
                 return True
 
-	def action_add(self, cr, uid, ids, context=None):
-		_logger.info('------------------  action_add  -------------------')
+
+
+	def action_add_monday(self, cr, uid, ids, context=None):
+		_logger.info('------------------  action_add_monday  -------------------')
                 """ Generate Purchase
                 @return: True
                 """
-		view_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.form')], context=context)
-		return {
-		        'name': "Gestion Bons de Commandes",
-			'view_type': 'form',
-			'res_model': 'purchase.order',
-			'view_id': view_id[0],
-			'view_mode': 'form',
-			'nodestroy': True,
-			'target': 'current',
-			'context': {},
-			'flags': {'form': {'action_buttons': True}},
-			'type': 'ir.actions.act_window',
-		}
+                for order in self.browse(cr, uid, ids, context=context) :
+                        day_order = order.date
+                        line_ids = []
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+		        _logger.info(x)
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 4, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 5, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 6, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+				for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+		    		        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+		                                raise osv.except_osv(('Erreur'),("Bon Commande Déjà Créé !"))
+                                        else : 
+                                                for pdt in order.line_ids :
+                                                        if pdt.partner_id.id == partner_id :
+					                        line_ids.append((0,0, {'product_id':pdt.product_id.id,'product_qty_package':  pdt.monday_line,'product_qty': pdt.monday_line * pdt.colisage_ref,'package_qty': pdt.colisage_ref,'date_planned':day_order,'name':pdt.product_id.name,'product_uom':pdt.product_id.product_tmpl_id.uom_po_id.id,'price_unit':pdt.list_price,'price_policy':'package'}))
+                                                self.pool('purchase.order').create(cr, uid, vals={
+                                                    'partner_id': partner_id,
+                                                    'date_order': day_order,
+                                                    'state': 'done',
+                                                    'date_planned': day_order,
+                                                    'order_line': line_ids,
+                                                   }, context=context)
 
+
+	def action_add_tuesday(self, cr, uid, ids, context=None):
+		_logger.info('------------------  action_add_tuesday  -------------------')
+                """ Generate Purchase
+                @return: True
+                """
+                for order in self.browse(cr, uid, ids, context=context) :
+                        day_order = order.date
+                        line_ids = []
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+		        _logger.info(x)
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 4, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 5, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+				for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+		    		        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+		                                raise osv.except_osv(('Erreur'),("Bon Commande Déjà Créé !"))
+                                        else : 
+                                                for pdt in order.line_ids :
+                                                        if pdt.partner_id.id == partner_id :
+					                        line_ids.append((0,0, {'product_id':pdt.product_id.id,'product_qty_package':  pdt.tuesday_line,'product_qty': pdt.tuesday_line * pdt.colisage_ref,'package_qty': pdt.colisage_ref,'date_planned':day_order,'name':pdt.product_id.name,'product_uom':pdt.product_id.product_tmpl_id.uom_po_id.id,'price_unit':pdt.list_price,'price_policy':'package'}))
+                                                self.pool('purchase.order').create(cr, uid, vals={
+                                                    'partner_id': partner_id,
+                                                    'date_order': day_order,
+                                                    'date_planned': day_order,
+                                                    'state': 'done',
+                                                    'order_line': line_ids,
+                                                   }, context=context)
+
+	def action_add_wednesday(self, cr, uid, ids, context=None):
+		_logger.info('------------------  action_add_wednesday  -------------------')
+                """ Generate Purchase
+                @return: True
+                """
+                for order in self.browse(cr, uid, ids, context=context) :
+                        day_order = order.date
+                        line_ids = []
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+		        _logger.info(x)
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 4, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+				for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+		    		        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+		                                raise osv.except_osv(('Erreur'),("Bon Commande Déjà Créé !"))
+                                        else : 
+                                                for pdt in order.line_ids :
+                                                        if pdt.partner_id.id == partner_id :
+					                        line_ids.append((0,0, {'product_id':pdt.product_id.id,'product_qty_package':  pdt.wednesday_line,'product_qty': pdt.wednesday_line * pdt.colisage_ref,'package_qty': pdt.colisage_ref,'date_planned':day_order,'name':pdt.product_id.name,'product_uom':pdt.product_id.product_tmpl_id.uom_po_id.id,'price_unit':pdt.list_price,'price_policy':'package'}))
+                                                self.pool('purchase.order').create(cr, uid, vals={
+                                                    'partner_id': partner_id,
+                                                    'date_order': day_order,
+                                                    'date_planned': day_order,
+                                                    'state': 'done',
+                                                    'order_line': line_ids,
+                                                   }, context=context)
+
+	def action_add_thirsday(self, cr, uid, ids, context=None):
+		_logger.info('------------------  action_add_thirsday  -------------------')
+                """ Generate Purchase
+                @return: True
+                """
+                for order in self.browse(cr, uid, ids, context=context) :
+                        day_order = order.date
+                        line_ids = []
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 3, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+				for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+		    		        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+		                                raise osv.except_osv(('Erreur'),("Bon Commande Déjà Créé !"))
+                                        else : 
+                                                for pdt in order.line_ids :
+                                                        if pdt.partner_id.id == partner_id :
+					                        line_ids.append((0,0, {'product_id':pdt.product_id.id,'product_qty_package':  pdt.thirsday_line,'product_qty': pdt.thirsday_line * pdt.colisage_ref,'package_qty': pdt.colisage_ref,'date_planned':day_order,'name':pdt.product_id.name,'product_uom':pdt.product_id.product_tmpl_id.uom_po_id.id,'price_unit':pdt.list_price,'price_policy':'package'}))
+                                                self.pool('purchase.order').create(cr, uid, vals={
+                                                    'partner_id': partner_id,
+                                                    'date_order': day_order,
+                                                    'state': 'done',
+                                                    'date_planned': day_order,
+                                                    'order_line': line_ids,
+                                                   }, context=context)
+
+	def action_add_friday(self, cr, uid, ids, context=None):
+		_logger.info('------------------  action_add_friday  -------------------')
+                """ Generate Purchase
+                @return: True
+                """
+                for order in self.browse(cr, uid, ids, context=context) :
+                        day_order = order.date
+                        line_ids = []
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 4, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 3, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+				for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+		    		        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+		                                raise osv.except_osv(('Erreur'),("Bon Commande Déjà Créé !"))
+                                        else : 
+                                                for pdt in order.line_ids :
+                                                        if pdt.partner_id.id == partner_id :
+					                        line_ids.append((0,0, {'product_id':pdt.product_id.id,'product_qty_package':  pdt.friday_line,'product_qty': pdt.friday_line * pdt.colisage_ref,'package_qty': pdt.colisage_ref,'date_planned':day_order,'name':pdt.product_id.name,'product_uom':pdt.product_id.product_tmpl_id.uom_po_id.id,'price_unit':pdt.list_price,'price_policy':'package'}))
+                                                self.pool('purchase.order').create(cr, uid, vals={
+                                                    'partner_id': partner_id,
+                                                    'date_order': day_order,
+                                                    'date_planned': day_order,
+                                                    'state': 'done',
+                                                    'order_line': line_ids,
+                                                   }, context=context)
+
+	def action_add_saturday(self, cr, uid, ids, context=None):
+		_logger.info('------------------  action_add_saturday  -------------------')
+                """ Generate Purchase
+                @return: True
+                """
+                for order in self.browse(cr, uid, ids, context=context) :
+                        day_order = order.date
+                        line_ids = []
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 5, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 4, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 3, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+				for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+		    		        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+		                                raise osv.except_osv(('Erreur'),("Bon Commande Déjà Créé !"))
+                                        else : 
+                                                for pdt in order.line_ids :
+                                                        if pdt.partner_id.id == partner_id :
+					                        line_ids.append((0,0, {'product_id':pdt.product_id.id,'product_qty_package':  pdt.saturday_line,'product_qty': pdt.saturday_line * pdt.colisage_ref,'package_qty': pdt.colisage_ref,'date_planned':day_order,'name':pdt.product_id.name,'product_uom':pdt.product_id.product_tmpl_id.uom_po_id.id,'price_unit':pdt.list_price,'price_policy':'package'}))
+                                                self.pool('purchase.order').create(cr, uid, vals={
+                                                    'partner_id': partner_id,
+                                                    'date_order': day_order,
+                                                    'date_planned': day_order,
+                                                    'state': 'done',
+                                                    'order_line': line_ids,
+                                                   }, context=context)
 
 	def action_reception_week(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_reception_week   -------------------')
@@ -636,10 +942,433 @@ class OrderWeekPlanning(osv.osv):
 			res[data.id] = year
         	return res
 
+	def _get_month_date(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_month_date   -------------------')
+		res = {}
+		month = 1
+        	for data in self.browse(cr, uid, ids, context=context):
+		        month = int(data.date[5:7])
+			res[data.id] = month
+        	return res
+
+	def _get_day_date(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_day_date   -------------------')
+		res = {}
+		day = 1
+        	for data in self.browse(cr, uid, ids, context=context):
+		        day = int(data.date[8:10])
+			res[data.id] = day
+        	return res
+
+	def _get_total_command_monday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_command_monday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 4, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 5, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 6, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+						        amount_total = self.pool.get('purchase.order').browse(cr, uid, purchase, context=context).amount_total
+                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+	def _get_total_command_tuesday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_command_tuesday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 4, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 5, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+						        amount_total = self.pool.get('purchase.order').browse(cr, uid, purchase, context=context).amount_total
+                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+	def _get_total_command_wednesday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_command_wednesday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 4, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+						        amount_total = self.pool.get('purchase.order').browse(cr, uid, purchase, context=context).amount_total
+                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+	def _get_total_command_thirsday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_command_thirsday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 3, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+						        amount_total = self.pool.get('purchase.order').browse(cr, uid, purchase, context=context).amount_total
+                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+	def _get_total_command_friday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_command_friday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 4, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 3, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+						        amount_total = self.pool.get('purchase.order').browse(cr, uid, purchase, context=context).amount_total
+                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+	def _get_total_command_saturday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_command_saturday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 5, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 4, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 3, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('purchase.order').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+						        amount_total = self.pool.get('purchase.order').browse(cr, uid, purchase, context=context).amount_total
+                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+	def _get_total_received_monday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_received_monday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 4, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 5, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 6, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('stock.picking').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+                                                        stock_picking_line = self.pool.get('stock.pack.operation').search(cr, uid,[('picking_id', '=',purchase)])
+                                                        if stock_picking_line :
+                                                                for stock in stock_picking_line :
+						                        amount_total = self.pool.get('stock.pack.operation').browse(cr, uid, stock, context=context).qty_done
+                                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+	def _get_total_received_tuesday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_received_tuesday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 4, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 5, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('stock.picking').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+                                                        stock_picking_line = self.pool.get('stock.pack.operation').search(cr, uid,[('picking_id', '=',purchase)])
+                                                        if stock_picking_line :
+                                                                for stock in stock_picking_line :
+						                        amount_total = self.pool.get('stock.pack.operation').browse(cr, uid, stock, context=context).qty_done
+                                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+	def _get_total_received_wednesday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_received_wednesday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 4, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('stock.picking').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+                                                        stock_picking_line = self.pool.get('stock.pack.operation').search(cr, uid,[('picking_id', '=',purchase)])
+                                                        if stock_picking_line :
+                                                                for stock in stock_picking_line :
+						                        amount_total = self.pool.get('stock.pack.operation').browse(cr, uid, stock, context=context).qty_done
+                                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+	def _get_total_received_thirsday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_received_thirsday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 3, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 3, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('stock.picking').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+                                                        stock_picking_line = self.pool.get('stock.pack.operation').search(cr, uid,[('picking_id', '=',purchase)])
+                                                        if stock_picking_line :
+                                                                for stock in stock_picking_line :
+						                        amount_total = self.pool.get('stock.pack.operation').browse(cr, uid, stock, context=context).qty_done
+                                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+	def _get_total_received_friday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_received_friday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 4, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 3, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 2, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('stock.picking').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+                                                        stock_picking_line = self.pool.get('stock.pack.operation').search(cr, uid,[('picking_id', '=',purchase)])
+                                                        if stock_picking_line :
+                                                                for stock in stock_picking_line :
+						                        amount_total = self.pool.get('stock.pack.operation').browse(cr, uid, stock, context=context).qty_done
+                                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+	def _get_total_received_saturday(self, cr, uid, ids, date, args, context=None):
+		_logger.info('------------------  _get_total_received_saturday   -------------------')
+		res = {}
+                total = 0
+        	for order in self.browse(cr, uid, ids, context=context):
+                        x = datetime.datetime.strptime(order.date, "%Y-%m-%d %H:%M:%S").strftime('%A')
+                        if x == 'lundi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 5, 0, 0)
+                        if x == 'mardi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 4, 0, 0)
+                        if x == 'mercredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 3, 0, 0)
+                        if x == 'jeudi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 2, 0, 0)
+                        if x == 'vendredi':
+                                day_order = datetime.datetime(order.year, order.month, order.day + 1, 0, 0)
+                        if x == 'samedi':
+                                day_order = datetime.datetime(order.year, order.month, order.day, 0, 0)
+                        if x == 'dimanche':
+                                day_order = datetime.datetime(order.year, order.month, order.day - 1, 0, 0)
+			if order.line_ids:
+                                day = day_order.day
+                                for partner in order.line_ids :
+                                        partner_id = partner.partner_id.id
+                                        purchase_order = self.pool.get('stock.picking').search(cr, uid,[('partner_id', '=',partner_id),('year', '=',order.year),('month', '=',order.month),('day', '=',day),('state', '=','done')])
+                                        if purchase_order : 
+                                                for purchase in purchase_order :
+                                                        stock_picking_line = self.pool.get('stock.pack.operation').search(cr, uid,[('picking_id', '=',purchase)])
+                                                        if stock_picking_line :
+                                                                for stock in stock_picking_line :
+						                        amount_total = self.pool.get('stock.pack.operation').browse(cr, uid, stock, context=context).qty_done
+                                                                        total+= amount_total
+			res[order.id] = total
+        	return res
+
+
 	_columns = {
 
         	'name': fields.char(string="Name", help="The name Of Order Schedulling"),
         	'year': fields.function(_get_year_date, type="integer",string="Year", help="The year Of Order Schedulling"),
+                'month' : fields.function(_get_month_date, type="integer",string="Year", help="The year Of Order Schedulling"),
+        	'day': fields.function(_get_day_date, type="integer",string="Year", help="The year Of Order Schedulling"),
 		'week_number': fields.function(_get_number_week, type="integer",string= "Week Number", help="Number of Inventory Week", store=True),
         	'date': fields.datetime('Week', required=True, help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),
         	'week_date': fields.datetime(string= "Date", help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),		
@@ -649,21 +1378,20 @@ class OrderWeekPlanning(osv.osv):
 		
         	'line_ids': fields.one2many('order.week.planning.line', 'order_id', 'Orders', help="Order Lines."),
 
-		'total_command_monday': fields.float('Total Commands Monday', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'total_command_tuesday': fields.float('Total Commands Tuesday', digits_compute=dp.get_precision('Product Unit of Measure')),		
-		'total_command_wednesday': fields.float('Total Commands Wednesday', digits_compute=dp.get_precision('Product Unit of Measure')),		
-		'total_command_thirsday': fields.float('Total Commands Thirsday', digits_compute=dp.get_precision('Product Unit of Measure')),		
-		'total_command_friday': fields.float('Total Commands Friday', digits_compute=dp.get_precision('Product Unit of Measure')),		
-		'total_command_saturday': fields.float('Total Commands Saturday', digits_compute=dp.get_precision('Product Unit of Measure')),	
-		'total_command_sunday': fields.float('Total Commands Saturday', digits_compute=dp.get_precision('Product Unit of Measure')),
+		'total_command_monday': fields.function(_get_total_command_monday,type="float",string="Total Commands Monday", store=True, digits_compute=dp.get_precision('Product Unit of Measure')),
+		'total_command_tuesday': fields.function(_get_total_command_tuesday,type="float",string="Total Commands Tuesday", store=True,digits_compute=dp.get_precision('Product Unit of Measure')),		
+		'total_command_wednesday': fields.function(_get_total_command_wednesday, type="float", string="Total Commands Wednesday", store=True,digits_compute=dp.get_precision('Product Unit of Measure')),		
+		'total_command_thirsday': fields.function(_get_total_command_thirsday,type="float", string="Total Commands Thirsday", store=True,digits_compute=dp.get_precision('Product Unit of Measure')),		
+		'total_command_friday': fields.function(_get_total_command_friday,type="float", string="Total Commands Friday", store=True,digits_compute=dp.get_precision('Product Unit of Measure')),		
+		'total_command_saturday': fields.function(_get_total_command_saturday,type="float", string="Total Commands Saturday", store=True,digits_compute=dp.get_precision('Product Unit of Measure')),	
 
-		'total_received_monday': fields.float('Total Recu Monday', digits_compute=dp.get_precision('Product Unit of Measure')),
-		'total_received_tuesday': fields.float('Total Recu Tuesday', digits_compute=dp.get_precision('Product Unit of Measure')),		
-		'total_received_wednesday': fields.float('Total Recu Wednesday', digits_compute=dp.get_precision('Product Unit of Measure')),		
-		'total_received_thirsday': fields.float('Total Recu Thirsday', digits_compute=dp.get_precision('Product Unit of Measure')),		
-		'total_received_friday': fields.float('Total Recu Friday', digits_compute=dp.get_precision('Product Unit of Measure')),		
-		'total_received_saturday': fields.float('Total Recu Saturday', digits_compute=dp.get_precision('Product Unit of Measure')),	
-		'total_received_sunday': fields.float('Total Recu Saturday', digits_compute=dp.get_precision('Product Unit of Measure')),	
+		'total_received_monday': fields.function(_get_total_received_monday,string="Total Recu Monday",type="float", store=True,digits_compute=dp.get_precision('Product Unit of Measure')),
+		'total_received_tuesday': fields.function(_get_total_received_tuesday,string="Total Recu Tuesday", type="float",store=True, digits_compute=dp.get_precision('Product Unit of Measure')),		
+		'total_received_wednesday': fields.function(_get_total_received_wednesday,string="Total Recu Wednesday",type="float",store=True, digits_compute=dp.get_precision('Product Unit of Measure')),		
+		'total_received_thirsday': fields.function(_get_total_received_thirsday,string="Total Recu Thirsday",type="float",store=True, digits_compute=dp.get_precision('Product Unit of Measure')),		
+		'total_received_friday': fields.function(_get_total_received_friday,string="Total Recu Friday",type="float",store=True, digits_compute=dp.get_precision('Product Unit of Measure')),		
+		'total_received_saturday': fields.function(_get_total_received_saturday,string="Total Recu Saturday",type="float",store=True, digits_compute=dp.get_precision('Product Unit of Measure')),	
+
                 'state': fields.selection([('draft', 'Draft'),('done', 'Done'),], 'State', readonly=True, select=True, copy=False, default='draft'),						
 	}
 
@@ -763,18 +1491,53 @@ class OrderWeekPlanningLine(osv.osv):
 			res[product.id] = vendu_s_inv
         	return res
 
+	def _get_colisage_ref(self, cr, uid, ids,name, args, context=None):
+		_logger.info('------------------  _get_colisage_ref  -------------------')
+		res = {}
+                colisage_ref = 0
+                supplier = False
+        	for product in self.browse(cr, uid, ids, context=context) :
+                        product_tmpl_id = product.product_id.product_tmpl_id.id
+                        product_id = product.product_id.id
+                        supplier = product.partner_id.id
+			product_supplierinfo_ids = self.pool.get('product.supplierinfo').search(cr, uid,[('product_tmpl_id','=', product_tmpl_id),('name','=', supplier)])
+                        if product_supplierinfo_ids :
+                                supplier_detail = self.pool.get('product.supplierinfo').browse(cr, uid, product_supplierinfo_ids, context=context).package_qty
+                                if supplier_detail :
+				        colisage_ref = supplier_detail
+			res[product.id] = colisage_ref
+        	return res
+
+	def _get_list_price(self, cr, uid, ids,name, args, context=None):
+		_logger.info('------------------ _get_list_price  -------------------')
+		res = {}
+                list_price = 0
+                supplier = False
+        	for product in self.browse(cr, uid, ids, context=context) :
+                        product_tmpl_id = product.product_id.product_tmpl_id.id
+                        product_id = product.product_id.id
+                        supplier = product.partner_id.id
+			product_supplierinfo_ids = self.pool.get('product.supplierinfo').search(cr, uid,[('product_tmpl_id','=', product_tmpl_id),('name','=', supplier)])
+                        if product_supplierinfo_ids :
+                                supplier_detail = self.pool.get('product.supplierinfo').browse(cr, uid, product_supplierinfo_ids, context=context).base_price
+                                if supplier_detail :
+				        list_price = supplier_detail
+			res[product.id] = list_price
+        	return res
+
+
 	_columns = {
 
         	'week_number': fields.related('order_id', 'week_number', type='integer', store=True, string= "Week number", help="The date that will be used for the stock level check of the products and the validation of the stock move related to this inventory."),
 		'order_id': fields.many2one('order.week.planning', 'Order Week', ondelete='cascade', select=True),
 		'product_id': fields.many2one('product.product', 'Product', required=True, select=True),
-		'colisage_ref': fields.float(string='Colisage Ref', store=True, select=True, readonly=True),
+		'colisage_ref': fields.function(_get_colisage_ref, string='Colisage Ref', store=True, select=True, readonly=True),
 		'vendu-s-2': fields.function(_get_sold_s_2, type="float", store=True,string="Sold S-2", digits_compute=dp.get_precision('Order Week Planning Precision')),
 		'vendu-s-1': fields.function(_get_sold_s_1, type="float", store=True,string="Sold S-1", digits_compute=dp.get_precision('Order Week Planning Precision')),
 		'total_in': fields.function(_get_total_s_inv, type="float", store=True, string="Total + W Inv", digits_compute=dp.get_precision('Order Week Planning Precision')),
 		'sold': fields.function(_get_sold, type="float", store=True, string="Sold", digits_compute=dp.get_precision('Order Week Planning Precision')),
 		'partner_id': fields.many2one('res.partner', 'Supplier' , domain=[('supplier', '=', True),('is_company', '=', True)]),		
-		'list_price': fields.related('product_id', 'list_price', type='float', relation='product.template', string='List Price', store=True, select=True),
+		'list_price': fields.function(_get_list_price, type='float',string='List Price', store=True, select=True),
 
 
 		'vendu_s_inv': fields.function(_get_vendu_s_inv,string="S INV", type="float", store=True,digits_compute=dp.get_precision('Order Week Planning Precision')),
@@ -806,7 +1569,7 @@ class OrderWeekPlanningLine(osv.osv):
 			        if product_detail_ids.product_tmpl_id.seller_ids :
 				        partner_id = product_detail_ids.product_tmpl_id.seller_ids.name.id
                                         colisage_ref = product_detail_ids.product_tmpl_id.seller_ids.package_qty 
-                                        list_price = product_detail_ids.product_tmpl_id.list_price
+                                        list_price = product_detail_ids.product_tmpl_id.seller_ids.base_price
                                         product_tmpl_id = product_detail_ids.product_tmpl_id.id
 			                product_supplierinfo_ids = self.pool.get('product.supplierinfo').search(cr, uid,[('product_tmpl_id','=', product_tmpl_id),('name','=', partner_id)])
                                         if product_supplierinfo_ids :
@@ -840,7 +1603,7 @@ class OrderWeekPlanningLine(osv.osv):
 			        if product_detail_ids.product_tmpl_id.seller_ids :
 				        partner_id = product_detail_ids.product_tmpl_id.seller_ids.name.id
                                         colisage_ref = product_detail_ids.product_tmpl_id.seller_ids.package_qty 
-                                        list_price = product_detail_ids.product_tmpl_id.list_price
+                                        list_price = product_detail_ids.product_tmpl_id.seller_ids.base_price
                                         product_tmpl_id = product_detail_ids.product_tmpl_id.id
 			                product_supplierinfo_ids = self.pool.get('product.supplierinfo').search(cr, uid,[('product_tmpl_id','=', product_tmpl_id),('name','=', partner_id)])
                                         if product_supplierinfo_ids :

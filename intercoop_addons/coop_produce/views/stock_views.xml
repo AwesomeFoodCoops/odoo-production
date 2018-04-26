@@ -265,12 +265,12 @@
                                 </group>
 				<group col="7" string="Pre-generation Orders Per Day">
 						<div></div>
-						<button name="action_add" string="Mond" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
-						<button name="action_add" string="Tues" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
-						<button name="action_add" string="Wed" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
-						<button name="action_add" string="Thurs" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
-						<button name="action_add" string="Fri" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
-						<button name="action_add" string="Sat" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add_monday" string="Mond" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add_tuesday" string="Tues" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add_wednesday" string="Wed" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add_thirsday" string="Thurs" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add_friday" string="Fri" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add_saturday" string="Sat" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
 						<h4>Total Commandé / À Commander</h4>
 				            	<field name="total_command_monday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
 				            	<field name="total_command_tuesday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
