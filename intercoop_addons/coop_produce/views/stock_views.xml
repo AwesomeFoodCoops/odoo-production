@@ -106,15 +106,15 @@
             <field name="arch" type="xml">
                 <form string="Order Scheduling">
 			<header>
-		                <button name="action_close_week" string="Close Week" attrs="{'invisible': [('state', '=', 'done')]}" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+		                <button name="action_close_week" string="Close Week" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 		    		<div class="oe_right" name="buttons">   
 		                	<button name="action_reception_week" string="Reception Week" type="object" groups="stock.group_stock_manager"/>
 		                	<button name="action_commande_week" string="Week Order" type="object" groups="stock.group_stock_manager"/>
 		                	<button name="action_other_weeks" string="Other" type="object" groups="stock.group_stock_manager" invisible="True"/>
-		                    	<field name="state" readonly="True"/>
 			        </div>
 		                <field name="name" invisible="True"/>
 		        	<field name="year" invisible="True"/>
+		                <field name="state" invisible="True"/>
 			</header>
                 	<sheet>
 		                <group col="6" string="Order Scheduling">
@@ -124,15 +124,15 @@
 		                </group>
                                 <group  string="Initialisation" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}">
 					<group col="4">
-						<field name="categ_ids" widget="many2many_tags" string="Product Category"  groups="stock.group_stock_manager"/>
-	                                        <button name="action_add_category" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-	                                        <button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-	                                        <field name="supplier_ids" widget="many2many_tags" string="Supplier"  groups="stock.group_stock_manager"/>
-        	                                <button name="action_add_supplier" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+						<field name="categ_ids" widget="many2many_tags" string="Product Category"  groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+	                                        <button name="action_add_category" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+	                                        <button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+	                                        <field name="supplier_ids" widget="many2many_tags" string="Supplier"  groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+        	                                <button name="action_add_supplier" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
                 	                        <button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager" invisible="True"/>
 					</group>
                                         <group col="1">
-	                                        <button name="action_update" string="MAJ S Inv" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+	                                        <button name="action_update" string="MAJ S Inv" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
 						<group col="2">
 	                        	                <field name="week_date" string="Week Date" invisible="True"/>
 						</group>
@@ -140,12 +140,12 @@
                                 </group>
 				<group col="7" string="Pre-generation Orders Per Day">
 						<div></div>
-						<button name="action_add" string="Mond" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Tues" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Wed" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Thurs" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Fri" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Sat" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+						<button name="action_add" string="Mond" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add" string="Tues" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add" string="Wed" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add" string="Thurs" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add" string="Fri" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add" string="Sat" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
 						<h4>Total Commandé / À Commander</h4>
 				            	<field name="total_command_monday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
 				            	<field name="total_command_tuesday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
@@ -164,7 +164,7 @@
 
 
 		                <field name="line_ids" string="Order Planning Details"  groups="stock.group_stock_manager">
-		                        <tree string="Order Planning Details" editable="bottom">
+		                        <tree string="Order Planning Details" editable="bottom" attrs="{'readonly': [('state', '=', 'done')]}">
 						    <button name="action_view_history" icon="STOCK_JUSTIFY_FILL" type="object" groups="stock.group_stock_manager"/>
 				                    <field name="product_id" string="Product" on_change="on_change_product_id(product_id,monday_line,tuesday_line,wednesday_line,inv_int,thirsday_line,friday_line,saturday_line,e_in,loss)"/>
 				                    <field name="colisage_ref" string="Colissage"/>
@@ -231,7 +231,7 @@
             <field name="arch" type="xml">
                 <form string="Order Scheduling">
 			<header>
-		                <button name="action_close_week" string="Close Week" attrs="{'invisible': [('state', '=', 'done')]}" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+		                <button name="action_close_week" string="Close Week" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
 		    		<div class="oe_right" name="buttons">   
 		                	<button name="action_reception_week" string="Reception Week" type="object" groups="stock.group_stock_manager"/>
 		                	<button name="action_commande_week" string="Week Order" type="object" groups="stock.group_stock_manager"/>
@@ -243,21 +243,21 @@
 			</header>
                 	<sheet>
 		                <group col="6" string="Order Scheduling">
-		                    <field name="date" string="Week"/>
-		                    <field name="week_number" string="N° Week"/>
+		                    <field name="date" string="Week" attrs="{'readonly': [('state', '=', 'done')]}"/>
+		                    <field name="week_number" string="N° Week" />
 		                    <field name="hide_initialisation" string="Hide initialisation" groups="stock.group_stock_manager" attrs="{'invisible': [('state', '=', 'done')]}"/>
 		                </group>
                                 <group  string="Initialisation" attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}">
 					<group col="4">
-						<field name="categ_ids" widget="many2many_tags" string="Product Category"  groups="stock.group_stock_manager"/>
-	                                        <button name="action_add_category" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-	                                        <button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-	                                        <field name="supplier_ids" widget="many2many_tags" string="Supplier"  groups="stock.group_stock_manager"/>
-        	                                <button name="action_add_supplier" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+						<field name="categ_ids" widget="many2many_tags" string="Product Category"  groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+	                                        <button name="action_add_category" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+	                                        <button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+	                                        <field name="supplier_ids" widget="many2many_tags" string="Supplier"  groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+        	                                <button name="action_add_supplier" string="Add" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
                 	                        <button name="action_reinitialise" string="Reinitialise" type="object" class="oe_highlight" groups="stock.group_stock_manager" invisible="True"/>
 					</group>
                                         <group col="1">
-	                                        <button name="action_update" string="MAJ S Inv" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+	                                        <button name="action_update" string="MAJ S Inv" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
 						<group col="2">
 	                        	                <field name="week_date" string="Week Date" invisible="True"/>
 						</group>
@@ -265,12 +265,12 @@
                                 </group>
 				<group col="7" string="Pre-generation Orders Per Day">
 						<div></div>
-						<button name="action_add" string="Mond" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Tues" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Wed" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Thurs" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Fri" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
-						<button name="action_add" string="Sat" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+						<button name="action_add" string="Mond" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add" string="Tues" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add" string="Wed" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add" string="Thurs" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add" string="Fri" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
+						<button name="action_add" string="Sat" type="object" class="oe_highlight" groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}"/>
 						<h4>Total Commandé / À Commander</h4>
 				            	<field name="total_command_monday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
 				            	<field name="total_command_tuesday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
@@ -286,8 +286,8 @@
 				            	<field name="total_received_friday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
 				            	<field name="total_received_saturday" nolabel="1"  groups="stock.group_stock_manager" readonly="True"/>
 		               	</group>  
-		                <field name="line_ids" string="Order Planning Details"  groups="stock.group_stock_manager">
-		                        <tree string="Order Planning Details" editable="bottom">
+		                <field name="line_ids" string="Order Planning Details"  groups="stock.group_stock_manager" attrs="{'readonly': [('state', '=', 'done')]}">
+		                        <tree string="Order Planning Details" editable="bottom" attrs="{'readonly': [('state', '=', 'done')]}">
 						    <button name="action_view_history" icon="STOCK_JUSTIFY_FILL" type="object" groups="stock.group_stock_manager"/>
 				                    <field name="product_id" string="Product" on_change="on_change_product_id(product_id,monday_line,tuesday_line,wednesday_line,inv_int,thirsday_line,friday_line,saturday_line,e_in,loss)"/>
 				                    <field name="colisage_ref" string="Colissage"/>

@@ -405,8 +405,6 @@ class OrderWeekPlanning(osv.osv):
 					move_ids = self.pool['stock.move'].search(cr, uid, [('product_id','in',supplier.product_id.ids)], context=context)
                                         if move_ids :
                                                 for move in move_ids :
-                                                        _logger.info('------------------------  move  -------------------')
-                                                        _logger.info(move)
 							product_picking_id = self.pool.get('stock.move').browse(cr, uid, move, context=context).picking_id
                                                         if product_picking_id : 
                                                                 stock_picking_ids = self.pool['stock.picking'].search(cr, uid, [('id','=',product_picking_id.id),('partner_id','=',supplier.partner_id.id)], context=context)
@@ -421,7 +419,7 @@ class OrderWeekPlanning(osv.osv):
 									                            'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
 									                            'nodestroy': True,
 									                            'target': 'current',
-				                                                                    'context': {'default_line_ids': stock_picking_ids},
+                                                                                                    'domain': [('id', 'in', stock_picking_ids)],
 									                            'flags': {'form': {'action_buttons': False}},
 									                            'type': 'ir.actions.act_window',
 						                        }
@@ -447,7 +445,7 @@ class OrderWeekPlanning(osv.osv):
                                                         if purchase_order_ids : 
 						                view_form_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.form')], context=context)
 						                view_tree_id = self.pool['ir.ui.view'].search(cr, uid, [('model','=','purchase.order'),('name','=','purchase.order.tree')], context=context)
-						                return {
+                                                                return {
 									                    'name': "Liste Des Commandes",
 									                    'view_type': 'form',
 									                    'view_mode': 'tree,form',
@@ -455,7 +453,8 @@ class OrderWeekPlanning(osv.osv):
 									                    'views': [(view_tree_id[0], 'tree'),(view_form_id[0], 'form')],    
 									                    'nodestroy': True,
 									                    'target': 'current',
-				                                                            'context': {'default_line_ids': purchase_order_ids},
+                                                                                            'domain': [('id', 'in', purchase_ids)],
+				                                                            'context': {},
 									                    'flags': {'form': {'action_buttons': False}},
 									                    'type': 'ir.actions.act_window',
 						                }
