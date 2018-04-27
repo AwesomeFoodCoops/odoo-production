@@ -78,7 +78,6 @@ class StockInventory(osv.osv):
 								if product_ids : 
 									for product in product_ids :
 										line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
-									categ.write({'line_ids': line_ids})
 				else :
 					product_tmpl_ids = self.pool.get('product.template').search(cr, uid,[('categ_id','in',categ.categ_ids.ids)])
 					if product_tmpl_ids :
@@ -86,7 +85,7 @@ class StockInventory(osv.osv):
 						if product_ids : 
 							for product in product_ids :
 								line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
-							categ.write({'line_ids': line_ids})
+			categ.write({'line_ids': line_ids})
 
 
 	def action_add_supplier(self, cr, uid, ids, context=None):
@@ -108,13 +107,12 @@ class StockInventory(osv.osv):
 								if product_ids : 
 									for product in product_ids :
 										line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
-									supplier.write({'line_ids': line_ids})
 						else :
 							product_ids = self.pool.get('product.product').search(cr, uid,[('product_tmpl_id','in',product_suppliers_ids.ids)])
 							if product_ids : 
 								for product in product_ids :
 									line_ids.append((0,0, {'product_id':product,'qty_stock':0}))
-								supplier.write({'line_ids': line_ids})
+			supplier.write({'line_ids': line_ids})
 
 	def action_reinitialise(self, cr, uid, ids, context=None):
 		_logger.info('------------------  action_reinitialise   -------------------')
