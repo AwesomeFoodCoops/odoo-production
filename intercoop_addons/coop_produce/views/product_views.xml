@@ -8,7 +8,7 @@
  	    	<field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
             <xpath expr="//field[@name='uom_po_id']" position="after">
-				<field name="colissage_ref"/>
+				<field name="default_packaging"/>
 			</xpath>
             </field>
        </record>

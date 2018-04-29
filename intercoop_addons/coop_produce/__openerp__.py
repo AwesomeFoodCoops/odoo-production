@@ -8,13 +8,9 @@
     'sequence': 38,
     'description': """
 
-Le module permet d’effectuer des inventaires des fruits & légumes dans le colisage de référence des produits.  
-Il offre à cet effet les fonctionnalités suivantes :
-
-	* Initialiser un inventaire rapidement des fruits&légumes depuis des filtres prédéfinies sur l’écran d’inventaire
-	* De générer une planification hebdomadaire depuis la liste de produits inventoriés
-    * De planifier les quantités à commande par jour de la semaine, par produit et par fournisseur
-    * De générer les commandes par fournissseur et par jour.
+    The module belongs the following features : 
+        - Offer a simple form view to do stock inventory for vegetable and fruits. Quantities are based on default packaging of the product. 
+        - An advanced form view to plan orders of the week  to send the supplier per day.
 
     """,
     'depends': [
@@ -23,9 +19,15 @@ Il offre à cet effet les fonctionnalités suivantes :
         'purchase',
     ],
     'data': [
-        'views/product_views.xml',
-        'views/stock_views.xml',
+        # DATA
         'security/ir.model.access.csv',
 		'data/decimal_precision.xml',
+
+        #VIEWS
+        'views/product_views.xml',
+        'views/stock_views.xml',
+        'views/week_order_planning_view.xml',
+        'wizard/show_product_history_view.xml',
+
     ],
 }
