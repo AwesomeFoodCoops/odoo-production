@@ -59,6 +59,7 @@ class StockInventory(osv.osv):
 
     _columns = {
         'week_number': fields.integer(string="Week num.", readonly=True, help="Number of the week in the current year"),
+        'week_date': fields.date(string="Began order schuduling on.", help="Week planning start date"),
 
         'hide_initialisation': fields.boolean(string="Hide initialisation area", help="Hide Init. area",
                                               states={'done': [('readonly', True)], 'cancel': [('readonly', True)]}),
@@ -73,6 +74,7 @@ class StockInventory(osv.osv):
                                            help="Technical field to distinct odoo inventory with weekkly inventory ",
                                            states={'done': [('readonly', True)], 'cancel': [('readonly', True)]}),
     }
+
 
     def onchange_date(self, cr, uid, ids, date, context=None):
         res = {}
@@ -98,18 +100,15 @@ class StockInventory(osv.osv):
             domain += ' and sq.company_id = %s'
             args += (inventory.company_id.id,)
 
+        # Look for already existing product
+        already_added_product_ids = [line.product_id.id for line in inventory.line_ids]
+
         if inventory.categ_ids:
             domain += ' and product_id in %s'
             categ_ids = [x.id for x in inventory.categ_ids]
 
-            # Look for already existing product
-            already_added_product_ids = [line.product_id.id for line in inventory.line_ids]
-
             # Look for products belong to selectec categories
             product_ids = product_obj.search(cr, uid, [('categ_id', 'in', categ_ids)], context=context)
-
-            # treate only new poducts to add and no modification to existing products
-            product_ids = set(product_ids) ^ set(already_added_product_ids)
 
         if inventory.supplier_ids:
             domain += ' and product_id in %s'
@@ -125,9 +124,8 @@ class StockInventory(osv.osv):
 
             product_ids += product_obj.search(cr, uid, [('product_tmpl_id', 'in', product_tmpl_ids)], context=context)
 
-            # treate only new poducts to add and no modification to existing products
-            product_ids += set(product_ids) ^ set(already_added_product_ids)
-
+        # treate only new poducts to add and no modification to existing products
+        product_ids = set(product_ids) ^ set(already_added_product_ids)
         if not product_ids:
             return vals
         else:
@@ -197,95 +195,6 @@ class StockInventory(osv.osv):
             for line in inv.line_ids:
                 line.write({'product_qty':line.packaging_qty*line.default_packaging,
                             'stock_qty':line.packaging_qty})
-
-
-    def action_generate_planification(self, cr, uid, ids, context=None):
-        """ Generate the Planification
-        """
-
-        week_date = False
-        week_number = False
-        order_id = False
-        product_ids_list = []
-        line_list_ids = []
-        for order in self.browse(cr, uid, ids, context=context):
-            order_id = order.id
-            week_date = order.date
-            week_number = order.week_number
-            for product in order.line_ids:
-                product_ids_list.append(product.product_id.id)
-            for data in order.line_ids:
-                seller_id = False
-                if data.product_id.product_tmpl_id.seller_ids:
-                    seller_id = data.product_id.product_tmpl_id.seller_ids.name.id
-                else:
-                    seller_id = False
-                line_list_ids.append((0, 0,
-                                      {'product_id': data.product_id.id, 'default_packaging': data.product_id.default_packaging,
-                                       'list_price': data.product_id.list_price, 'edit_price': False,
-                                       'partner_id': seller_id}))
-            planification_ids = self.pool('stock.inventory').search(cr, uid, [('week_number', '=', week_number),
-                                                                              ('id', '!=', order_id)], context=context)
-            if planification_ids:
-                for planif in planification_ids:
-                    _logger.info(planif)
-                    line_ids = self.pool('stock.inventory').browse(cr, uid, planif, context=context).line_ids
-
-                    for product in line_ids:
-                        if product.product_id.id in product_ids_list:
-                            product_name = product.product_id.name_template
-                            raise osv.except_osv(('Error'),
-                                                 ("Une planification est déjà en cours pour le : " + product_name))
-                            return False
-                        else:
-                            view_id = self.pool['ir.ui.view'].search(cr, uid, [('model', '=', 'order.week.planning'), (
-                                'name', '=', 'order.week.planning.form')], context=context)
-                            return {
-                                'name': "Planfication Des Commandes",
-                                'view_type': 'form',
-                                'res_model': 'order.week.planning',
-                                'view_id': view_id[0],
-                                'view_mode': 'form',
-                                'nodestroy': True,
-                                'target': 'current',
-                                'context': {'default_date': week_date, 'default_week_number': week_number,
-                                            'default_line_ids': line_list_ids},
-                                'flags': {'form': {'action_buttons': True}},
-                                'type': 'ir.actions.act_window',
-                            }
-            else:
-                planification_ids = self.pool('stock.inventory').search(cr, uid, [('week_number', '=', week_number)],
-                                                                        context=context)
-                product_line = []
-                if planification_ids:
-                    for planif in planification_ids:
-                        line_ids = self.pool('stock.inventory').browse(cr, uid, planif, context=context).line_ids
-                        for line in line_ids:
-                            seller_id = False
-                            if line.product_id.product_tmpl_id.seller_ids:
-                                seller_id = line.product_id.product_tmpl_id.seller_ids.name.id
-                            else:
-                                seller_id = False
-                            product_line.append((0, 0, {'product_id': line.product_id.id,
-                                                        'default_packaging': line.product_id.default_packaging,
-                                                        'list_price': line.product_id.list_price, 'edit_price': False,
-                                                        'partner_id': seller_id}))
-                    view_id = self.pool['ir.ui.view'].search(cr, uid, [('model', '=', 'order.week.planning'),
-                                                                       ('name', '=', 'order.week.planning.form')],
-                                                             context=context)
-                    return {
-                        'name': "Planfication Des Commandes",
-                        'view_type': 'form',
-                        'res_model': 'order.week.planning',
-                        'view_id': view_id[0],
-                        'view_mode': 'form',
-                        'nodestroy': True,
-                        'target': 'current',
-                        'context': {'default_date': week_date, 'default_week_number': week_number,
-                                    'default_line_ids': product_line},
-                        'flags': {'form': {'action_buttons': True}},
-                        'type': 'ir.actions.act_window',
-                    }
 
 
 class StockInventoryLine(osv.osv):

@@ -19,13 +19,19 @@
                     <field name="weekly_inventory" invisible="True"/>
                     <sheet>
                         <field name="location_id" invisible="1"/>
-                        <group col="6" string="Inventory F&amp;V">
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group col="6" name="date_info">
                             <field name="date" string="Date" attrs="{'readonly': [('state', '=', 'done')]}"
-                                   on_change="onchange_date(date)"/>
+                                   readonly="True"/>
                             <field name="week_number" string="Week Number"/>
 
                             <field name="hide_initialisation" string="Hide initialisation"
                                    attrs="{'invisible': [('state', '=', 'done')]}"/>
+                            <field name="week_date" attrs="{'invisible': [('state', '!=', 'done')],'required': [('state', '=', 'done')]}"/>
                         </group>
                         <group string="Initialisation"
                                attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}"
@@ -131,7 +137,7 @@
             <field name="res_model">stock.inventory</field>
             <field name="search_view_id" ref="view_coop_produce_stock_inventory_filter"/>
             <field name="view_type">form</field>
-            <field name="context">{'default_weekly_inventory': True,'default_name':'Inventory of F&amp;V'}</field>
+            <field name="context">{'default_weekly_inventory': True, 'default_name':'Inventory of V&amp;F'}</field>
             <field name="domain">[('weekly_inventory', '=', True)]</field>
             <field name="view_mode">tree,form</field>
         </record>
