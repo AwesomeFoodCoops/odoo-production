@@ -21,61 +21,26 @@
 #
 ##############################################################################
 
-import datetime
-from dateutil import relativedelta
-import json
-import time
-import sets
 
-import openerp
-from openerp.osv import fields, osv
-from openerp.tools.float_utils import float_compare, float_round
-from openerp.tools.translate import _
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
-from openerp import SUPERUSER_ID, api, models
+
+from openerp import api, models, fields, _
 import openerp.addons.decimal_precision as dp
-from openerp.addons.procurement import procurement
+from openerp.exceptions import UserError
 
-import sys
-
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 import logging
 
 _logger = logging.getLogger(__name__)
 
-class PlanificationHistoriqueProduit(osv.osv):
-    _name = "planification.product.history"
-    _description = "Product History"
+class PlanificationHistoriqueProduit(models.TransientModel):
+    _name = "product.history.planning"
+    _description = "Product history planning"
 
-    _columns = {
+    product_id = fields.Many2one('product.product', 'Product', required=True)
+    default_packaging = fields.Float('Default packaging', digits_compute=dp.get_precision('Product Unit of Measure'))
+    line_ids = fields.Many2many('order.week.planning.line')
 
-        'product_id': fields.many2one('product.product', 'Product', required=True, select=True),
-        'default_packaging': fields.float('Default packaging', digits_compute=dp.get_precision('Product Unit of Measure')),
-        'line_ids': fields.one2many('planification.product.history.line', 'history_id', 'Historique',
-                                    help="Historique Lines."),
-    }
+    @api.multi
+    def init_display_from_date(self,date):
+        raise UserError(_("Not yet implemented"))
 
-class PlanificationHistoriqueProduitLine(osv.osv):
-    _name = "planification.product.history.line"
-    _description = "Product History Line"
-
-    _columns = {
-        'history_id': fields.many2one('planification.product.history', 'Product History', ondelete='cascade',
-                                      select=True),
-        'semaine_nbre': fields.integer('Week Number'),
-        'prix_unitaire': fields.float('Unit Price', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        's_inv': fields.float('S Inv', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        'monday_line': fields.float('Mond', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        'tuesday_line': fields.float('Tues', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        'wednesday_line': fields.float('Wed', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        'inv_int': fields.float('Inv Int', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        'thirsday_line': fields.float('Thurs', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        'friday_line': fields.float('Fri', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        'saturday_line': fields.float('Sat', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        'total_inv': fields.float('Total + S Inv', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        'e_inv': fields.float('E Inv', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        'loss': fields.float('Loss', digits_compute=dp.get_precision('Order Week Planning Precision')),
-        'sold': fields.float('Sold', digits_compute=dp.get_precision('Order Week Planning Precision')),
-    }
