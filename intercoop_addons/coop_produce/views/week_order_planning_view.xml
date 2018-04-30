@@ -76,7 +76,7 @@
                             <group col="3">
 
                                 <field name="date_stock" invisible="1"/>
-                                <button name="action_update_start_init" string="MAJ S Inv" type="object" class="oe_highlight"/>
+                                <button name="action_update_start_inventory" string="MAJ S Inv" type="object" class="oe_highlight"/>
                             </group>
                         </group>
                         <group name="total_per_day">
@@ -88,32 +88,32 @@
                                     <h4>Total received / to receive</h4>
                                 </group>
                                 <group col="1">
-                                    <button name="action_add" string="Mond" type="object" class="oe_highlight"/>
+                                    <button name="create_purchase_orders" string="Mond" type="object" class="oe_highlight"  context="{'day_number':0}"/>
                                     <field name="monday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="monday_received_qty" nolabel="1" readonly="True"/>
                                 </group>
                                 <group col="1">
-                                    <button name="action_add" string="Tues" type="object" class="oe_highlight"/>
+                                    <button name="create_purchase_orders" string="Tues" type="object" class="oe_highlight"  context="{'day_number':1}"/>
                                     <field name="tuesday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="tuesday_received_qty" nolabel="1" readonly="True"/>
                                 </group>
                                 <group col="1">
-                                    <button name="action_add" string="Wed" type="object" class="oe_highlight"/>
+                                    <button name="create_purchase_orders" string="Wed" type="object" class="oe_highlight"  context="{'day_number':2}"/>
                                     <field name="wednesday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="wednesday_received_qty" nolabel="1" readonly="True"/>
                                 </group>
                                 <group col="1">
-                                    <button name="action_add" string="Thurs" type="object" class="oe_highlight"/>
+                                    <button name="create_purchase_orders" string="Thurs" type="object" class="oe_highlight"  context="{'day_number':3}"/>
                                     <field name="thirsday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="thirsday_received_qty" nolabel="1" readonly="True"/>
                                 </group>
                                 <group col="1">
-                                    <button name="action_add" string="Fri" type="object" class="oe_highlight"/>
+                                    <button name="create_purchase_orders" string="Fri" type="object" class="oe_highlight"  context="{'day_number':4}"/>
                                     <field name="friday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="friday_received_qty" nolabel="1" readonly="True"/>
                                 </group>
                                 <group col="1">
-                                    <button name="action_add" string="Sat" type="object" class="oe_highlight"/>
+                                    <button name="create_purchase_orders" string="Sat" type="object" class="oe_highlight" context="{'day_number':5}"/>
                                     <field name="saturday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="saturday_received_qty" nolabel="1" readonly="True"/>
                                 </group>
@@ -122,13 +122,13 @@
                         </group>
                         <field name="line_ids" string="Order Planning Details" context="{'default_order_week_planning_id':active_id}">
                             <tree string="Order Planning Details" editable="bottom">
-                                <button name="action_view_history" icon="STOCK_JUSTIFY_FILL" type="object"/>
+                                <button name="action_get_product_history" icon="STOCK_JUSTIFY_FILL" type="object"/>
                                 <field name="product_name" invisible="1"/>
                                 <field name="product_id" string="Product"/>
                                 <field name="default_packaging" string="Default packaging"/>
                                 <field name="supplier_id" string="Supplier" required="True"/>
                                 <field name="price_unit" string="Price U"/>
-                                <button name="action_update_price" icon="gtk-apply" type="object"/>
+                                <button name="action_update_unit_price" icon="gtk-apply" type="object"/>
                                 <field name="sold_w_2_qty"/>
                                 <field name="sold_w_1_qty"/>
                                 <field name="start_inv" readonly="1"/>
