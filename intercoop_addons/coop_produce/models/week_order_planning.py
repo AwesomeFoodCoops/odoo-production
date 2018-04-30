@@ -22,7 +22,7 @@
 ##############################################################################
 
 import datetime
-from openerp import SUPERUSER_ID, api, models, fields, _
+from openerp import api, models, fields, _
 import openerp.addons.decimal_precision as dp
 
 from openerp.exceptions import UserError
@@ -188,12 +188,28 @@ class OrderWeekPlanning(models.Model):
         self.line_ids.unlink()
 
     @api.multi
-    def action_week_receptions(self):
+    def action_update_start_inventory(self):
         raise UserError(_("Not yet implemented"))
 
     @api.multi
     def action_week_receptions(self):
         raise UserError(_("Not yet implemented"))
+
+    @api.multi
+    def action_week_orders(self):
+        raise UserError(_("Not yet implemented"))
+
+    @api.multi
+    def action_other_weeks(self):
+        raise UserError(_("Not yet implemented"))
+
+    @api.multi
+    def create_purchase_orders(self):
+        raise UserError(_("Not yet implemented"))
+
+
+
+
 
 
 class OrderWeekPlanningLine(models.Model):
@@ -324,44 +340,10 @@ class OrderWeekPlanningLine(models.Model):
                     self.start_inv = supplier_info.package_qty and self.product_id.qty_available / supplier_info.package_qty or 0.0
                     self.default_packaging = supplier_info.package_qty
 
-    def action_view_product_history(self):
-        """ View History Product
-        """
-        line_ids = []
-        for product in self:
-            product_id = product.product_id.id
-            default_packaging = product.default_packaging
-            week_number = product.week_number
-            order_ids = self.search([('product_id', '=', product_id),
-                                     ('week_number', '<', week_number)])
-            if order_ids:
-                for order in order_ids:
-                    _logger.info('-------------------------------------')
-                    _logger.info(order)
-                    order_line = self.browse(order)
-                    line_ids.append(
-                        (0, 0, {'semaine_nbre': order_line.order_id.week_number, 'prix_unitaire': order_line.list_price,
-                                'monday_line': order_line.monday_line, 'tuesday_line': order_line.tuesday_line,
-                                'wednesday_line': order_line.wednesday_line, 'thirsday_line': order_line.thirsday_line,
-                                'friday_line': order_line.friday_line, 'saturday_line': order_line.saturday_line,
-                                'total_inv': order_line.total_in, 'e_inv': order_line.e_in,
-                                'loss': order_line.loss, 'sold': order_line.sold,
-                                'inv_int': order_line.inv_int, 'e_inv': order_line.e_in,
+    @api.multi
+    def action_update_unit_price(self):
+        raise UserError(_("Not yet implemented"))
 
-                                }))
-
-            view_id = self.env['ir.ui.view'].search([('model', '=', 'planification.product.history'),
-                                                     ('name', '=', 'coop.product.product.history.form')])
-            return {
-                'name': "Historique Du Produit",
-                'view_type': 'form',
-                'res_model': 'planification.product.history',
-                'view_id': view_id[0],
-                'view_mode': 'form',
-                'nodestroy': True,
-                'target': 'current',
-                'context': {'default_product_id': product_id, 'default_default_packaging': default_packaging,
-                            'default_line_ids': line_ids},
-                'flags': {'form': {'action_buttons': False}},
-                'type': 'ir.actions.act_window',
-            }
+    @api.multi
+    def action_get_product_history(self):
+        raise UserError(_("Not yet implemented"))
