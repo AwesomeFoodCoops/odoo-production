@@ -24,6 +24,11 @@ class AccountAccount(models.Model):
         'default_debit_account_id',
         string='Account Journal Debit'
     )
+    # field for checking to reconciled and create new move by manual
+    reconcile_liquidity_type = fields.Boolean(
+        string="Reconciliation for Cash & Bank account type",
+        help="If true, account move will be create when reconcile manual" +\
+            " even type of this account is cash and bank")
 
     @api.multi
     @api.depends('journal_credit_ids', 'journal_debit_ids',
