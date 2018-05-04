@@ -56,6 +56,16 @@ msgid "Generate and reconcille"
 msgstr "Générer et rappocher"
 
 #. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_move_line_other_balance
+msgid "Other Balance"
+msgstr "Solde"
+
+#. module: coop_account
+#: model:ir.ui.view,arch_db:coop_account.view_move_line_tree_inherit
+msgid "Total Balance"
+msgstr "Total Solde"
+
+#. module: coop_account
 #: model:ir.ui.view,arch_db:coop_account.view_account_move_line_filter_inherit
 msgid "Unmatched"
 msgstr "Non-rapprochées"
