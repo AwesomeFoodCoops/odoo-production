@@ -15,9 +15,11 @@
         </record>
 
         <!-- SHIFT.REGISTRATION VIEWS -->
+
         <record model="ir.ui.view" id="view_shift_registration_tree_program">
             <field name="name">shift.registration.tree.program</field>
             <field name="model">shift.registration</field>
+            <field name="priority" eval="16"/>
             <field name="arch" type="xml">
                 <tree string="Registration" decoration-bf="message_needaction==True" editable="top">
                     <field name="date_begin"/>
@@ -34,6 +36,30 @@
                 </tree>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="view_shift_registration_tree_program_readonly">
+            <field name="name">shift.registration.tree.program</field>
+            <field name="model">shift.registration</field>
+            <field name="priority" eval="10"/>
+            <field name="arch" type="xml">
+                <tree string="Registration" decoration-bf="message_needaction==True" create='false' delete='false'>
+                    <field name="date_begin"/>
+                    <field name="partner_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="name"/>
+                    <field name="email" 
+                           groups="coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_saisie,
+                                   coop_membership.group_membership_see_associated_people"/>
+                    <field name="shift_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="shift_ticket_id" domain="[('shift_id', '=', shift_id)]" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="state"/>
+                    <field name="message_needaction" invisible="1"/>
+                    <button name="confirm_registration" string="Confirm Registration" states="draft" type="object" icon="gtk-apply"/>
+                    <button name="button_reg_cancel" string="Cancel Registration" states="draft" type="object" icon="gtk-cancel"/>
+                    <button name="do_draft" string="Set To Unconfirmed" states="cancel,done,absent,excused,replaced,replacing,open" type="object" icon="fa-backward" groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie"/>
+                </tree>
+            </field>
+        </record>        
 
         <record model="ir.ui.view" id="view_shift_registration_tree_confirm">
             <field name="name">shift.registration.tree.confirm</field>
@@ -180,6 +206,15 @@
             <field name="view_id" ref="view_shift_registration_tree_program"/>
             <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_upcoming': True}</field>
         </record>
+
+        <record id="act_shift_registration_from_partner_tree_mode" model="ir.actions.act_window">
+            <field name="res_model">shift.registration</field>
+            <field name="view_type">form</field>
+            <field name="name">Attendees</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_shift_registration_tree_program_readonly"/>
+            <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_upcoming': True}</field>
+        </record>        
 
         <record model="ir.actions.act_window" id="action_registration">
             <field name="name">Attendees</field>
