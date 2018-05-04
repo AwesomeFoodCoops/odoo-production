@@ -18,17 +18,22 @@ def check_access_buttons(self):
         'coop_membership.group_membership_bdm_saisie')
     deceased_group = self.env.user.has_group(
         'coop_membership.group_membership_view_partner_deceased')
+    manager_group = self.env.user.has_group(
+        'coop_membership.group_membership_access_manager')
+    writer_group = self.env.user.has_group(
+        'coop_membership.group_membership_access_edit')                
+           
     if self.env.user.id == SUPERUSER_ID:
         return False
     elif self._name == 'res.partner':
-        if presence_group:
+        if presence_group and not (manager_group and writer_group):
             return 'presence_group_partner'
         if lecture_group and not deceased_group:
             return 'lecture_group_partner'
         if saisie_group:
             return 'saisie_group_partner'
     elif self._name == 'shift.shift':
-        if presence_group:
+        if presence_group and not (manager_group and writer_group):
             return 'presence_group_shift'
         if lecture_group and not deceased_group:
             return 'lecture_group_shift'
