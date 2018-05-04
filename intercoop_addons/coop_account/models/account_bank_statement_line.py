@@ -2,6 +2,8 @@
 
 from openerp import api, models, fields, _
 from openerp.exceptions import UserError
+from datetime import timedelta
+from openerp.osv import expression
 
 
 class AccountBankStatementLine(models.Model):
@@ -38,3 +40,29 @@ class AccountBankStatementLine(models.Model):
             'target': 'new',
             'context': {'line_ids': line_ids}
         }
+
+    # Overload Section
+    def get_move_lines_for_reconciliation(
+            self, excluded_ids=None, str=False, offset=0, limit=None,
+            additional_domain=None, overlook_partner=False):
+        additional_domain = self.get_date_additional_domain(additional_domain)
+        return super(
+            AccountBankStatementLine, self).get_move_lines_for_reconciliation(
+                excluded_ids=excluded_ids, str=str, offset=offset, limit=limit,
+                additional_domain=additional_domain,
+                overlook_partner=overlook_partner)
+
+    def get_date_additional_domain(self, additional_domain):
+        date_string = fields.Date.from_string(self.date)
+        search_limit_days = self.statement_id and \
+            self.statement_id.journal_id and \
+            self.statement_id.journal_id.search_limit_days or 0.0
+        if date_string and search_limit_days:
+            limit_days_after = date_string + timedelta(
+                days=search_limit_days)
+            limit_days_before = date_string - timedelta(
+                days=search_limit_days)
+            domain = [('date', '<', limit_days_after),
+                      ('date', '>', limit_days_before)]
+            additional_domain = expression.AND([additional_domain, domain])
+        return additional_domain
