@@ -6,7 +6,9 @@
 -->
 
 <odoo>
-
+    <record id="base.view_partner_form" model="ir.ui.view">
+        <field name="priority" eval="2"/>
+    </record>    
     <!-- Redefine partner's form view -->
     <record id="view_partner_form" model="ir.ui.view">
         <field name="name">res.partner.membership.access.form</field>
