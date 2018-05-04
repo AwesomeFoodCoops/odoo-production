@@ -7,13 +7,14 @@ from openerp.addons.website.models.website import slug
 from openerp.addons.web.controllers import main
 import logging
 import werkzeug
+import requests
 from datetime import datetime
 
 _logger = logging.getLogger(__name__)
 
 
 class WebsiteRegisterMeeting(http.Controller):
-
+    
     @http.route(['/discovery'], type='http',
                 auth="none", website=True)
     def get_discover_meeting(self):
@@ -23,6 +24,8 @@ class WebsiteRegisterMeeting(http.Controller):
         REGISTER_USER_ID =\
             int(request.env['ir.config_parameter'].sudo(
             ).get_param('register_user_id'))
+        captcha_site_key = request.env['ir.config_parameter'].sudo().get_param(
+            'captcha_site_key')
 
         # Get event available
         event_obj = request.registry['event.event']
@@ -34,18 +37,31 @@ class WebsiteRegisterMeeting(http.Controller):
                                   context=request.context)
         value = {
             'events': events,
+            'captcha_site_key': captcha_site_key,
         }
         return request.render("coop_membership.register_form", value)
 
     @http.route(['/web/membership/register/submit'], type='http',
                 auth="public", methods=['POST'], csrf=False, website=True)
     def subscribe_discovery_meeting(self, **post):
-        value = {}
+
+        captcha_secret_key = request.env[
+            'ir.config_parameter'].sudo().get_param('captcha_secret_key')
+        capcha_response = post.get('g-recaptcha-response')
+        verify_url = 'https://www.google.com/recaptcha/api/siteverify'
+        payload = {
+            'secret': captcha_secret_key,
+            'response': capcha_response
+        }
+        capcha_res = requests.post(verify_url, data=payload).json()
+
+        if not capcha_res['success']:
+            return request.render(
+                "coop_membership.discovery_back")
 
         REGISTER_USER_ID =\
             int(request.env['ir.config_parameter'].sudo(
             ).get_param('register_user_id'))
-
 
         # Get data from form
         name = post.get('name', False)
@@ -61,7 +77,6 @@ class WebsiteRegisterMeeting(http.Controller):
         social_registration = post.get('social_registration', False)
         event_id = post.get('select_event', False)
         dob = post.get('dob', False)
-        already_cooperator = post.get('cooperator')
 
         # conver dob to correct format in database
         try:
@@ -94,10 +109,10 @@ class WebsiteRegisterMeeting(http.Controller):
 
         if partner_id:
             return request.render(
-                "coop_membership.register_submit_form_err_email", value)
+                "coop_membership.register_submit_form_err_email")
         elif not is_event_valid:
             return request.render(
-                "coop_membership.register_submit_form_err_event", value)
+                "coop_membership.register_submit_form_err_event")
         else:
 
             # create event registration
@@ -105,7 +120,6 @@ class WebsiteRegisterMeeting(http.Controller):
                 'event_id': event.id,
                 'name': first_name + ', ' + name,
                 'email': email,
-                'already_cooperator': already_cooperator,
             }
             attendee_id = self.create_event_registration(val, REGISTER_USER_ID)
 
@@ -151,7 +165,7 @@ class WebsiteRegisterMeeting(http.Controller):
                     template_email.sudo().send_mail(attendee_id)
 
             return request.render(
-                "coop_membership.register_submit_form_success", value)
+                "coop_membership.register_submit_form_success")
 
     def create_event_registration(self, val, REGISTER_USER_ID):
         event_reg_obj = request.registry['event.registration']

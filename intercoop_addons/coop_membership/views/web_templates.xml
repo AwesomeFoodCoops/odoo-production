@@ -75,15 +75,10 @@
                                     <input class="input100" type="text" name="zipcode" placeholder="Veuillez renseigner votre code postal"></input>
                                 </div>
                                 <div class="wrap-input100 bg1 input_radio" >
-                                    <span class="label-input100">N° Sécurité sociale</span>
+                                    <span class="label-input100">Titulaire d'un justificatif minima social</span>
                                     <br />
                                     <input  type="radio" name="social_registration" value="yes">  Oui </input><br />
                                     <input  type="radio" checked="checked" name="social_registration" value="no">  Non </input><br />
-                                </div>
-                                <div class="wrap-input100 bg1 rs1-alert-validate input_radio cooperator_checkbox" data-validate = "Vous êtes déjà membre de Foodcoop, vous ne pouvez vous inscrire à nouveau mais pour une souscription de parts additionnelles vous pouvez vous adresser au bureau des membres.">
-                                    <span class="label-input100">Déjà coopérateur ? (Si vous avez déjà payé une soucription, même en ligne, la réponse est "Oui") *</span> <br />
-                                    <input  type="radio" name="cooperator" value="1">  Oui </input><br />
-                                    <input  type="radio" name="cooperator" value="0" checked="checked">  Non </input><br />
                                 </div>
 
                                 <div class="wrap-input100 input_radio validate-input bg1 dropDownSelect2" >
@@ -92,10 +87,12 @@
                                     <div>
                                         <t t-foreach="events" t-as="event">
                                             <input  type="radio" name="select_event" class="validate-input-option validate-input" t-att-value="event.id"> <t t-esc="event.name_get()[0][1]"/> </input><br />
-                                            <!-- <option name="event_id" class="option"><t t-esc="event.id"/> <t t-esc="event.name_get()[0][1]"/> </option> -->
                                         </t>
                                     </div>
                                 </div>
+
+                                <div class="g-recaptcha" t-att-data-sitekey="captcha_site_key" data-validate="Veuillez cliquer sur la case reCAPTCHA"/>
+                                <div style="color: #f04a4f" class="validate-option-event">Veuillez cliquer sur la case reCAPTCHA</div>
 
                                 <div class="container-contact100-form-btn">
                                     <button class="contact100-form-btn" >
@@ -112,7 +109,8 @@
                     <script type="text/javascript" src="/coop_membership/static/lib/jquery/jquery-3.2.1.min.js"></script>
                     <script type="text/javascript" src="/web/static/lib/moment/moment.js"></script>
                     <script type="text/javascript" src="/web/static/lib/bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"/>
-                    <script type="text/javascript" src="/coop_membership/static/lib/js/main.js"></script>
+                    <script type="text/javascript" src="/coop_membership/static/src/js/discovery_meeting.js"></script>
+                    <script src='https://www.google.com/recaptcha/api.js?hl=fr'></script>
 
                 </body>
             </html>
@@ -173,7 +171,7 @@
                 </body>
             </html>
         </template>
-
+      
         <template id="register_submit_form_err_email" name="Register Submit Form">
             <html>
                 <head id="website_register_header" name="website_register_header">
@@ -202,5 +200,32 @@
             </html>
         </template>
 
+        <template id="discovery_back" name="Discovery back">
+            <html>
+                <head id="website_register_header" name="website_register_header">
+                    <title>Inscription - Discovery back</title>
+                    <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
+                </head>
+                <body>
+                    <div class="container-contact100">
+                        <div class="wrap-contact100">
+                            <span class="contact100-form-title">
+                                RecaptCha n'est pas correct !
+                            </span>
+                            <div class="container-contact100-form-btn">
+                                <a href="javascript:history.back()">
+                                    <button class="contact100-form-btn">
+                                        <span>
+                                            Retour
+                                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </template>  
     </data>
 </openerp>
