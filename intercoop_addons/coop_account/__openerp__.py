@@ -13,6 +13,7 @@
         'account', 'account_asset'
     ],
     'data': [
+        "data/update_other_balance_move_line.yml",
         "data/ir_cron.xml",
         "data/ir_config_paramerter.xml",
         "security/res_group.xml",
