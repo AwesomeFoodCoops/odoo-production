@@ -12,9 +12,6 @@
             }
         })    
     })
-
-    $('.validate-input .bob')
-  
   
     /*==================================================================
     [ Validate ]*/
@@ -27,15 +24,6 @@
         });
     });
 
-    $('input:radio[name=cooperator]').change(function() {
-        if (this.value == 0) {
-            $(this).parent().removeClass('alert-validate-cooperator');
-        }
-        else if (this.value == 1) {
-            $(this).parent().addClass('alert-validate-cooperator');
-        }
-    });
-
     function validate (input) {
         if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
             if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
@@ -44,7 +32,7 @@
         }
         else if($(input).attr('name') == 'dob') {
             var value = $(input).val();
-            var dob = moment(value, 'DD/MM/YYYY', true);
+            var dob = moment(value, 'MM/DD/YYYY', true);
             if (!dob.isValid()){
                 return false
             }
@@ -58,6 +46,13 @@
             }
         }
     }
+
+    function validate_recaptcha() {
+        if (grecaptcha.getResponse().length == 0) {
+            return false;
+        }
+        return true;
+    }    
 
     function showValidate(input) {
         var thisAlert = $(input).parent();
@@ -75,7 +70,6 @@
     /** Event validate when submiting form **/
     $('.validate-form').on('submit',function(){
         var check = true;
-        $('input:radio[name=cooperator]:checked')
         var length_radio = $('.validate-input-option:checked').length;
         var event = $('.validate-input-option:checked').val();
         for(var i=0; i<input.length; i++) {
@@ -89,10 +83,8 @@
             }
 
         }
-        // check if member is not already a cooperator
-        if ($('input:radio[name=cooperator][value=1]:checked').length > 0){
-            check = false
-        }
+        // validate recaptcha
+        check = check && validate_recaptcha();
 
         return check;
     });
