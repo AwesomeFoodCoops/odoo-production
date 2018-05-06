@@ -71,24 +71,6 @@ class AccountMoveLine(models.Model):
                 else False
         return res
 
-    @api.v8
-    def prepare_move_lines_for_reconciliation_widget(
-            self, target_currency=False, target_date=False):
-
-        # Update 'already_paid' to reoncile and create new move for cash and
-        # bank account move line as other type account
-        res = super(AccountMoveLine, self).prepare_move_lines_for_reconciliation_widget(
-            target_currency, target_date)
-        line_to_reconcile = []
-        for line in self:
-            if line.account_id.reconcile_liquidity_type:
-                line_to_reconcile.append(line.id)
-        for line_data in res:
-            if line_data['id'] in line_to_reconcile:
-                line_data.update({
-                    'already_paid': False})
-        return res
-
     @api.model
     def run_reconcile_411_pos(self, nb_lines_per_job=100):
         # Prepare session for job
