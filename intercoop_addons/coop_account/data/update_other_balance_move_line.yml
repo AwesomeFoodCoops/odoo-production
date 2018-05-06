@@ -1,0 +1,10 @@
+-
+  Update field other balance for account move line
+  [S#17266] [F#27927] account.move.line balance
+-
+  !python {model: account.move.line}: |
+    sql = '''
+      update account_move_line set other_balance = -balance where other_balance <> -balance
+    '''
+    cr.execute(sql)
+

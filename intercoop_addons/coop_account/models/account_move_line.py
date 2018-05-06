@@ -16,6 +16,34 @@ class AccountMoveLine(models.Model):
         'account.bank.statement.line',
         related='move_id.statement_line_id',
         string='Bank Statement Line')
+    other_balance = fields.Monetary(
+        string='Other Balance',
+        default=0.0)
+
+    @api.model
+    def create(self, vals):
+        debit = vals.get('debit', 0)
+        credit = vals.get('credit', 0)
+        vals.update({
+            'other_balance': credit - debit
+        })
+        return super(AccountMoveLine, self).create(vals)
+
+    @api.multi
+    def write(self, vals):
+        self.calculate_orther_balance(vals)
+        return super(AccountMoveLine, self).write(vals)
+
+    @api.multi
+    def calculate_orther_balance(self, vals):
+        for record in self:
+            if 'debit' in vals or 'credit' in vals:
+                debit = vals.get('debit', record.debit)
+                credit = vals.get('credit', record.credit)
+                vals.update({
+                    'other_balance': credit - debit,
+                })
+        return True
 
     @api.multi
     @api.constrains('move_id', 'account_id')
@@ -67,7 +95,8 @@ class AccountMoveLine(models.Model):
                 reconcile_pos_account.id or False),
             ('partner_id', '!=', None),
             ('debit', '>', 0),
-            ('credit', '=', 0)]
+            ('credit', '=', 0)
+        ]
         # Create jobs
         lines = self.search(debit_moves_domain, order='id')
         line_ids = lines.mapped('id')
@@ -140,8 +169,8 @@ def job_reconcile_411_pos(
             ('reconciled', '=', False),
             ('account_id', '=', reconcile_pos_account_id),
             ('debit', '=', 0),
-            # ('credit', '>', round(debit_to_reconcile.debit - 0.01, 2)),
-            # ('credit', '<', round(debit_to_reconcile.debit + 0.01, 2)),
+            ('credit', '>', round(debit_to_reconcile.debit - 0.01, 2)),
+            ('credit', '<', round(debit_to_reconcile.debit + 0.01, 2)),
             ('date', '=', debit_to_reconcile.date),
             ('partner_id', '=', debit_to_reconcile.partner_id.id)]
         _logger.info(
@@ -196,8 +225,7 @@ def job_reconcile_411_pos(
             _logger.info(
                 u"         -> total %s to be reconcile with ids:  %s",
                 len(line_to_reconcil), line_to_reconcil)
-            reconcil_obj = session.env[
-                'account.move.line.reconcile'].with_context(
-                    active_ids=line_to_reconcil)
+            reconcil_obj = session.env['account.move.line.reconcile'].with_context(
+                active_ids=line_to_reconcil)
             reconcil_obj.trans_rec_reconcile_full()
             _logger.info(">>>> reconciled object: %s", reconcil_obj)

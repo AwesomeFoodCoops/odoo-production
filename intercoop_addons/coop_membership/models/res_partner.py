@@ -626,12 +626,56 @@ class ResPartner(models.Model):
         if context is None:
             context = {}
 
-        res = super(ResPartner, self).fields_view_get(cr, uid,
-                                                    view_id=view_id,
-                                                    view_type=view_type,
-                                                    context=context,
-                                                    toolbar=toolbar,
-                                                    submenu=submenu)
+        res = super(ResPartner, self).fields_view_get(
+            cr, uid,
+            view_id=view_id,
+            view_type=view_type,
+            context=context,
+            toolbar=toolbar,
+            submenu=submenu)
+        # Read only field contact base specific groups
+        if uid != SUPERUSER_ID:
+            lecture_group = self.user_has_groups(
+                cr, uid,
+                'coop_membership.group_membership_bdm_lecture')
+            writer_group = self.user_has_groups(
+                cr, uid,
+                'coop_membership.group_membership_access_edit')              
+            if lecture_group and not writer_group:
+                if view_type == 'form':
+                    doc = etree.fromstring(res['arch'])
+                    model_data_obj = self.pool['ir.model.data']
+                    shift_ext_from_partner_id = model_data_obj.\
+                        get_object_reference(
+                            cr, uid,
+                            'coop_shift',
+                            'act_shift_registration_from_partner')[1]
+                    shift_ext_from_partner_tree_id = model_data_obj.\
+                        get_object_reference(
+                            cr, uid,
+                            'coop_shift',
+                            'act_shift_registration_from_partner_tree_mode')[1]
 
+                    tpl_reg_line_fr_partner_id = model_data_obj.\
+                        get_object_reference(
+                            cr, uid,
+                            'coop_shift',
+                            'act_template_registration_line_from_partner')[1]
+                    tpl_reg_line_fr_partner_tree_id = model_data_obj.\
+                        get_object_reference(
+                            cr, uid,
+                            'coop_shift',
+                            'act_template_registration_line_from_partner_tree_mode')[1]
+                                           
+                    for node in doc.xpath("//button"):
+                        if node.get('name') == str(shift_ext_from_partner_id):
+                            node.set(
+                                'name',
+                                str(shift_ext_from_partner_tree_id))
+                        if node.get('name') == str(tpl_reg_line_fr_partner_id):
+                            node.set(
+                                'name',
+                                str(tpl_reg_line_fr_partner_tree_id))
+                    res['arch'] = etree.tostring(doc)
         return res
 
