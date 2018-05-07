@@ -29,7 +29,7 @@ class ProductTemplate(models.Model):
 
     @api.multi
     def write(self, vals):
-        res = super(ProductTemplate, self).write(vals)
+        new_price = vals.get('list_price', False)
         template_ids = []
         for template in self:
             if template.category_print_id:
@@ -37,7 +37,16 @@ class ProductTemplate(models.Model):
                         set(vals.keys()) &
                         set(template.category_print_id.field_ids.
                             mapped('name')))):
-                    template_ids.append(template.id)
+                    if 'list_price' in list(
+                        set(vals.keys()) &
+                        set(template.category_print_id.field_ids.
+                            mapped('name'))):
+                        price_change = abs(template.list_price - new_price)
+                        if round(price_change, 3) >= 0.01:
+                            template_ids.append(template.id)
+                    else:
+                        template_ids.append(template.id)
+        res = super(ProductTemplate, self).write(vals)
         templates = self.browse(template_ids)
         super(ProductTemplate, templates).write({'to_print': True})
         products = self.env['product.product'].search(

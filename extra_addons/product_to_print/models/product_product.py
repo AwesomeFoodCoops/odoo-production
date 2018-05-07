@@ -22,7 +22,7 @@ class ProductProduct(models.Model):
 
     @api.multi
     def write(self, vals):
-        res = super(ProductProduct, self).write(vals)
+        new_price = vals.get('list_price', False)
         product_ids = []
         for product in self:
             if product.category_print_id:
@@ -30,7 +30,16 @@ class ProductProduct(models.Model):
                         set(vals.keys()) &
                         set(product.category_print_id.field_ids.
                             mapped('name')))):
-                    product_ids.append(product.id)
+                    if 'list_price' in list(
+                        set(vals.keys()) &
+                        set(product.category_print_id.field_ids.
+                            mapped('name'))):
+                        price_change = abs(product.list_price - new_price)
+                        if round(price_change, 3) >= 0.01:
+                            product_ids.append(product.id)
+                    else:
+                        product_ids.append(product.id)
+        res = super(ProductProduct, self).write(vals)
         products = self.browse(product_ids)
         super(ProductProduct, products).write({'to_print': True})
         return res
