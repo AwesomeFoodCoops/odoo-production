@@ -15,8 +15,6 @@ class AccountBankStatementLine(models.Model):
             self, excluded_ids=None, str=False, offset=0, limit=None,
             additional_domain=None, overlook_partner=False):
         if self.journal_id.reconcile_mode == 'journal_account':
-            additional_domain = self.get_date_additional_domain(
-                additional_domain)
             domain = self._get_domain_reconciliation(
                 excluded_ids, str, overlook_partner, additional_domain)
             return self.env['account.move.line'].search(
