@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo >
-    <record id="register_user_id" model="ir.config_parameter">
-        <field name="key">register_user_id</field>
-        <field name="value">1</field>
-    </record>
+<odoo>
+    <data noupdate="1">
+        <record id="register_user_id" model="ir.config_parameter">
+            <field name="key">register_user_id</field>
+            <field name="value">1</field>
+        </record>
+
+        <record id="captcha_site_key" model="ir.config_parameter">
+            <field name="key">captcha_site_key</field>
+            <field name="value">6Lcr8VQUAAAAAKEnMmtpMg1yp9skp9o9W2EPfBc-</field>
+        </record>
+
+        <record id="captcha_secret_key" model="ir.config_parameter">
+            <field name="key">captcha_secret_key</field>
+            <field name="value">6Lcr8VQUAAAAAD7nrhLq7Uf7ZiBOquJKcSqybpBA</field>
+        </record>
+    </data>
 </odoo>

@@ -62,5 +62,13 @@
             <field name="view_mode">tree</field>
             <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_upcoming': True}</field>
         </record>
+
+        <record id="act_template_registration_line_from_partner_tree_mode" model="ir.actions.act_window">
+            <field name="res_model">shift.template.registration.line</field>
+            <field name="view_type">form</field>
+            <field name="name">Attendees</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_upcoming': True}</field>
+        </record>        
     </data>
 </openerp>

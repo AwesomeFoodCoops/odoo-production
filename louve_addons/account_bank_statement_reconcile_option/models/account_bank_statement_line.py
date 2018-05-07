@@ -104,7 +104,6 @@ class AccountBankStatementLine(models.Model):
 
     def _get_domain_reconciliation(
             self, excluded_ids, str, overlook_partner, additional_domain):
-
         reconciliation_aml_accounts = [
             self.journal_id.default_credit_account_id.id,
             self.journal_id.default_debit_account_id.id,
