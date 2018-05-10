@@ -106,3 +106,9 @@ msgstr "Si vrai, une pièce comptable ne pourra tout au plus avoir qu'une seule 
 #: model:ir.model.fields,field_description:coop_account.field_account_account_reconciled_account
 msgid "Bank Reconciliation"
 msgstr "Rapprochement bancaire"
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_move.py:32
+#, python-format
+msgid "You cannot reconcile that account move with a bank statement line that is not related to bank journal."
+msgstr "Vous ne pouvez pas rapprocher cette pièce comptable avec une ligne d'un relevé qui n'est pas lié à un journal de banque."
