@@ -118,3 +118,10 @@ class product_product(Model):
                     cr, uid, 'unlink', product, context=context)
         return super(product_product, self).unlink(
             cr, uid, ids, context=context)
+
+    def send_all_scale_write(self, cr, uid, ids, context=None):
+        product_to_send_ids = self.search(cr, uid, [
+            ('scale_group_id', '!=', False)])
+        if product_to_send_ids:
+            self.browse(cr, uid, product_to_send_ids, context=context).send_scale_write()
+        return True
