@@ -147,6 +147,12 @@ msgid "Account Balance"
 msgstr "Solde comptable"
 
 #. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:263
+#, python-format
+msgid "Account "
+msgstr "Compte"
+
+#. module: account_bank_statement_summary
 #: model:ir.model.fields,field_description:account_bank_statement_summary.field_bank_reconciliation_summary_wizard_journal_id
 msgid "Journal"
 msgstr "Journal"
@@ -166,8 +172,8 @@ msgstr "État de rapprochement"
 
 #. module: account_bank_statement_summary
 #: model:ir.actions.report.xml,name:account_bank_statement_summary.bank_reconciliation_summary_xlsx
-msgid "Bank Reconciliation Summary Report"
-msgstr "État de rapprochement Rapport"
+msgid "Bank Reconciliation Summary"
+msgstr "État de rapprochement"
 
 #. module: account_bank_statement_summary
 #: model:ir.ui.view,arch_db:account_bank_statement_summary.view_bank_reconciliation_summary_wizard
@@ -179,8 +185,3 @@ msgstr "Générer rapport"
 #: model:ir.ui.view,arch_db:account_bank_statement_summary.view_bank_statement_line_reconcile_wizard_form
 msgid "Cancel"
 msgstr "Annuler"
-
-#. module: account_bank_statement_summary
-#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:246
-msgid "Account"
-msgstr "Compte"
