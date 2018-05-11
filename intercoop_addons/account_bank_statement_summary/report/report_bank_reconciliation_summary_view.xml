@@ -7,6 +7,6 @@
             model="bank.reconciliation.summary.wizard"
             name="bank_reconciliation_summary_xlsx"
             report_type="xlsx"
-            string="Bank Reconciliation Summary Report"/>
+            string="Bank Reconciliation Summary"/>
     </data>
 </odoo>
