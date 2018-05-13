@@ -8,12 +8,12 @@
 
         <record id="captcha_site_key" model="ir.config_parameter">
             <field name="key">captcha_site_key</field>
-            <field name="value">6Lcr8VQUAAAAAKEnMmtpMg1yp9skp9o9W2EPfBc-</field>
+            <field name="value"></field>
         </record>
 
         <record id="captcha_secret_key" model="ir.config_parameter">
             <field name="key">captcha_secret_key</field>
-            <field name="value">6Lcr8VQUAAAAAD7nrhLq7Uf7ZiBOquJKcSqybpBA</field>
+            <field name="value"></field>
         </record>
     </data>
 </odoo>
