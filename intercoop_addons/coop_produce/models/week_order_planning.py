@@ -32,7 +32,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-def get_date_from_week_nuber(year, week_num, offset):
+def get_date_from_week_number(year, week_num, offset):
     # offset = 0 : sunday, monday : 1, .... saturday = 6
     d = "%s-%s-%s" % (year, week_num, offset)
     r = datetime.datetime.strptime(d, "%Y-%W-%w")
@@ -58,6 +58,40 @@ class OrderWeekPlanning(models.Model):
             year = datetime.datetime.strptime(self.date, "%Y-%m-%d %H:%M:%S").year
             self.name = _('Week order planning number %s/%s' % (year, week_number))
             self.year = year
+
+    @api.multi
+    def _compute_picking(self):
+        for week_planning in self:
+            date1 = get_date_from_week_number(week_planning.year, week_planning.week_number, 1)
+            date2 = get_date_from_week_number(week_planning.year, week_planning.week_number, 6)
+            product_ids = [l.product_id.id for l in week_planning.line_ids]
+
+            pls = self.env['purchase.order.line'].search([('product_id', 'in', product_ids),
+                                                          ('date_planned', '<=', date2.strftime("%Y-%m-%d")),
+                                                          ('date_planned', '>=', date1.strftime("%Y-%m-%d")),
+                                                          ])
+
+            orders = list(set([l.order_id for l in pls]))
+            pick_ids = []
+            for order in orders:
+                pick_ids += order.picking_ids.ids
+
+            week_planning.week_total_receptions = len(list(set(pick_ids)))
+
+    @api.multi
+    def _compute_orders(self):
+        for week_planning in self:
+            date1 = get_date_from_week_number(week_planning.year, week_planning.week_number, 1)
+            date2 = get_date_from_week_number(week_planning.year, week_planning.week_number, 6)
+            product_ids = [l.product_id.id for l in week_planning.line_ids]
+
+            pls = self.env['purchase.order.line'].search([('product_id', 'in', product_ids),
+                                                           ('date_planned', '<=', date2.strftime("%Y-%m-%d")),
+                                                           ('date_planned', '>=', date1.strftime("%Y-%m-%d")),
+                                                           ])
+
+            orders = list(set([l.order_id.id for l in pls]))
+            week_planning.week_total_orders = len(orders)
 
     name = fields.Char(string="Name",
                        compute="_get_planning_info",
@@ -127,12 +161,12 @@ class OrderWeekPlanning(models.Model):
                              copy=False,
                              default='draft')
 
-    week_total_receptions_qty = fields.Float("Total received qty",
-                                             default=0.0,
-                                             digits=dp.get_precision('Product Unit of Measure'))
-    week_total_orders_qty = fields.Float("Total ordered qty",
-                                         default=0.0,
-                                         digits=dp.get_precision('Product Unit of Measure'))
+    week_total_receptions = fields.Integer("Total receptions",
+                                           default=0,
+                                           compute='_compute_picking')
+    week_total_orders = fields.Integer("Total orders",
+                                          default=0,
+                                          compute='_compute_orders')
 
     @api.multi
     def action_close_week(self):
@@ -199,12 +233,72 @@ class OrderWeekPlanning(models.Model):
         raise UserError(_("Not yet implemented"))
 
     @api.multi
-    def action_week_receptions(self):
-        raise UserError(_("Not yet implemented"))
+    def action_view_orders(self):
+        self.ensure_one()
+
+        date1 = get_date_from_week_number(self.year, self.week_number, 1)
+        date2 = get_date_from_week_number(self.year, self.week_number, 6)
+        product_ids = [l.product_id.id for l in self.line_ids]
+
+        pls = self.env['purchase.order.line'].search([('product_id', 'in', product_ids),
+                                                       ('date_planned', '<=', date2.strftime("%Y-%m-%d")),
+                                                       ('date_planned', '>=', date1.strftime("%Y-%m-%d")),
+                                                       ])
+
+        order_ids = list(set([l.order_id.id for l in pls]))
+        action = self.env.ref('purchase.purchase_form_action')
+        result = action.read()[0]
+
+        # override the context to get rid of the default filtering on picking type
+        result.pop('id', None)
+        result['context'] = {}
+        # choose the view_mode accordingly
+        if len(order_ids) > 1:
+            result['domain'] = "[('id','in',[" + ','.join(map(str, order_ids)) + "])]"
+        elif len(order_ids) == 1:
+            res = self.env.ref('purchase.purchase_order_form', False)
+            result['views'] = [(res and res.id or False, 'form')]
+            result['res_id'] = order_ids and order_ids[0] or False
+        return result
+
 
     @api.multi
-    def action_week_orders(self):
-        raise UserError(_("Not yet implemented"))
+    def action_view_picking(self):
+        '''
+        This function returns an action that display existing picking orders of given week planning
+        When only one found, show the picking immediately.
+        '''
+        self.ensure_one()
+
+        date1 = get_date_from_week_number(self.year, self.week_number, 1)
+        date2 = get_date_from_week_number(self.year, self.week_number, 6)
+        product_ids = [l.product_id.id for l in self.line_ids]
+
+        pls = self.env['purchase.order.line'].search([('product_id', 'in', product_ids),
+                                                      ('date_planned', '<=', date2.strftime("%Y-%m-%d")),
+                                                      ('date_planned', '>=', date1.strftime("%Y-%m-%d")),
+                                                      ])
+
+        orders = list(set([l.order_id for l in pls]))
+        pick_ids = []
+        for order in orders :
+            pick_ids += order.picking_ids.ids
+
+        action = self.env.ref('stock.action_picking_tree')
+        result = action.read()[0]
+
+        # override the context to get rid of the default filtering on picking type
+        result.pop('id', None)
+        result['context'] = {}
+        # choose the view_mode accordingly
+        if len(pick_ids) > 1:
+            result['domain'] = "[('id','in',[" + ','.join(map(str, pick_ids)) + "])]"
+        elif len(pick_ids) == 1:
+            res = self.env.ref('stock.view_picking_form', False)
+            result['views'] = [(res and res.id or False, 'form')]
+            result['res_id'] = pick_ids and pick_ids[0] or False
+        return result
+
 
     @api.multi
     def action_other_weeks(self):
@@ -225,7 +319,7 @@ class OrderWeekPlanning(models.Model):
     def create_purchase_orders(self):
         self.ensure_one()
         day_num = self._context.get('day_number', 0)
-        order_date = get_date_from_week_nuber(self.year, self.week_number, day_num)
+        order_date = get_date_from_week_number(self.year, self.week_number, day_num)
         supplier_lines = self._get_lines_grouped_per_supplier()
         supplier_ids = [p.id for p in supplier_lines.keys()]
         str_date_order = order_date.strftime("%Y-%m-%d")
@@ -254,7 +348,7 @@ class OrderWeekPlanning(models.Model):
             }
             new_purchase = self.env['purchase.order'].create(po_vals)
 
-            lines = supplier_lines[supplier].convert2order_line_vals(day_num, order_date,fpos)
+            lines = supplier_lines[supplier].convert2order_line_vals(day_num, order_date, fpos)
 
             for line in lines:
                 line['order_id'] = new_purchase.id

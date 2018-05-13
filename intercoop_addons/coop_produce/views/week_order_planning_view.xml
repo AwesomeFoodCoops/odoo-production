@@ -45,12 +45,12 @@
 
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button name="action_week_receptions" type="object" class="oe_stat_button" icon="fa-truck">
-                                <field string="Week receptions" name="week_total_receptions_qty" widget="statinfo"/>
-                            </button>
-                            <button name="action_week_orders" type="object" class="oe_stat_button"
+                            <button name="action_view_orders" type="object" class="oe_stat_button"
                                     icon="fa-shopping-cart">
-                                <field string="Week orders" name="week_total_orders_qty" widget="statinfo"/>
+                                <field string="Week orders" name="week_total_orders" widget="statinfo"/>
+                            </button>
+                            <button name="action_view_picking" type="object" class="oe_stat_button" icon="fa-truck">
+                                <field string="Week receptions" name="week_total_receptions" widget="statinfo"/>
                             </button>
                             <button name="action_other_weeks" type="object" class="oe_stat_button" icon="fa-list"
                                     string="Previous weeks"/>
