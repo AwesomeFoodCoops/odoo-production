@@ -33,7 +33,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 class PlanificationHistoriqueProduit(models.TransientModel):
-    _name = "product.history.planning"
+    _name = "planification.product.history"
     _description = "Product history planning"
 
     product_id = fields.Many2one('product.product', 'Product', required=True)

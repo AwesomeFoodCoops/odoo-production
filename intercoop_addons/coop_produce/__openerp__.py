@@ -17,6 +17,7 @@
         'base',
         'stock',
         'purchase',
+        'purchase_package_qty',
     ],
     'data': [
         # DATA

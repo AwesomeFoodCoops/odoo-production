@@ -22,24 +22,9 @@
 ##############################################################################
 
 import datetime
-from dateutil import relativedelta
-import json
-import time
-import sets
-
-import openerp
 from openerp.osv import fields, osv
-from openerp.tools.float_utils import float_compare, float_round
 from openerp.tools.translate import _
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
-from openerp import SUPERUSER_ID, api, models
 import openerp.addons.decimal_precision as dp
-from openerp.addons.procurement import procurement
-
-import sys
-
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 import logging
 

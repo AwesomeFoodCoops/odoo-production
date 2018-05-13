@@ -41,8 +41,9 @@ class StockInventory(models.Model):
                 'product_id':line.product_id.id,
                 'supplier_id':supplier_info and supplier_info.name.id or False,
                 'price_unit':supplier_info and supplier_info.price_taxes_excluded or 0.0, # set to this value because this value is used on purchase order
-                'default_packaging':supplier_info and supplier_info.package_qty or 0,
-                'start_inv':line.packaging_qty,
+                'default_packaging':line.product_id.default_packaging,
+                'supplier_packaging':supplier_info and supplier_info.package_qty or 0,
+                'start_inv':line.packaging_qty # it should be this. To be vaildated by coop : line.packaging_qty * line.product_id.default_packaging/(supplier_info.package_qty or 1),
             }
             line_vals.append(val)
         return line_vals

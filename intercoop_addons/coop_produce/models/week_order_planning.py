@@ -32,6 +32,13 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
+def get_date_from_week_nuber(year, week_num, offset):
+    # offset = 0 : sunday, monday : 1, .... saturday = 6
+    d = "%s-%s-%s" % (year, week_num, offset)
+    r = datetime.datetime.strptime(d, "%Y-%W-%w")
+    return r
+
+
 class OrderWeekPlanning(models.Model):
     _name = "order.week.planning"
     _description = "Order Week Planning"
@@ -204,12 +211,55 @@ class OrderWeekPlanning(models.Model):
         raise UserError(_("Not yet implemented"))
 
     @api.multi
+    def _get_lines_grouped_per_supplier(self):
+        self.ensure_one()
+        line_grouped_by_supplier = {}
+        for line in self.line_ids:
+            if line.supplier_id in line_grouped_by_supplier:
+                line_grouped_by_supplier[line.supplier_id] += line
+            else:
+                line_grouped_by_supplier[line.supplier_id] = line
+        return line_grouped_by_supplier
+
+    @api.multi
     def create_purchase_orders(self):
-        raise UserError(_("Not yet implemented"))
+        self.ensure_one()
+        day_num = self._context.get('day_number', 0)
+        order_date = get_date_from_week_nuber(self.year, self.week_number, day_num)
+        supplier_lines = self._get_lines_grouped_per_supplier()
+        supplier_ids = [p.id for p in supplier_lines.keys()]
+        str_date_order = order_date.strftime("%Y-%m-%d")
+        str_origin = _("Order Plan Week %s/%s" % (self.year, self.week_number))
+        orders = self.env['purchase.order'].search([('partner_id', 'in', supplier_ids),
+                                                    ('date_order', '=', str_date_order),
+                                                    ('state', '=', 'draft'),
+                                                    ('origin', 'like', str_origin)])
 
+        # unlink all draft orders generated automatically for the same day
+        orders.button_cancel()
+        orders.unlink()
+        po_line_obj = self.env['purchase.order.line']
+        for supplier in supplier_lines:
+            fpos = self.env['account.fiscal.position'].with_context(
+                company_id=self.env.user.company_id.id).get_fiscal_position(
+                supplier.id)
 
+            po_vals = {
+                'partner_id': supplier.id,
+                'date_order': str_date_order,
+                'date_planned': str_date_order,
+                'origin': str_origin,
+                'fiscal_position_id': fpos,
+                # 'order_line': [(0, 0, line) for line in lines]
+            }
+            new_purchase = self.env['purchase.order'].create(po_vals)
 
+            lines = supplier_lines[supplier].convert2order_line_vals(day_num, order_date,fpos)
 
+            for line in lines:
+                line['order_id'] = new_purchase.id
+                new_line = po_line_obj.create(line)
+                new_line._compute_amount()
 
 
 class OrderWeekPlanningLine(models.Model):
@@ -221,6 +271,7 @@ class OrderWeekPlanningLine(models.Model):
     @api.depends('start_inv', 'monday_qty', 'tuesday_qty', 'wednesday_qty', 'thirsday_qty', 'friday_qty',
                  'saturday_qty')
     def _get_kpi(self):
+        # Compute   ,  ninvivgi_gvgi_v_çèonbj
         return True
 
     week_year = fields.Integer(string="Week year",  # This field is used to order lines
@@ -242,6 +293,8 @@ class OrderWeekPlanningLine(models.Model):
 
     default_packaging = fields.Float(string='Default packaging',
                                      required=True)
+    supplier_packaging = fields.Float(string='Supplier packaging',
+                                      required=True)
     sold_w_2_qty = fields.Float(string="Sold W-2",
                                 compute="_get_kpi",
                                 digits=dp.get_precision('Order Week Planning Precision'))
@@ -308,7 +361,7 @@ class OrderWeekPlanningLine(models.Model):
                                                                     limit=1)
             if supplier_info:
                 self.price_unit = supplier_info[0].price_taxes_excluded
-                self.default_packaging = supplier_info[0].package_qty
+                self.supplier_packaging = supplier_info[0].package_qty
                 self.start_inv = supplier_info[0].package_qty and self.product_id.qty_available / supplier_info[
                     0].package_qty or 0.0
 
@@ -338,10 +391,48 @@ class OrderWeekPlanningLine(models.Model):
                     self.supplier_id = supplier_info.name
                     self.price_unit = supplier_info.price_taxes_excluded
                     self.start_inv = supplier_info.package_qty and self.product_id.qty_available / supplier_info.package_qty or 0.0
-                    self.default_packaging = supplier_info.package_qty
+                    self.supplier_packaging = supplier_info.package_qty
+                    self.default_packaging = self.product_id.default_packaging
+
+    def convert2order_line_vals(self, day, date_planned, fpos):
+        ret = []
+        DAYS_NUMM = {
+            1: 'monday_qty',
+            2: 'tuesday_qty',
+            3: 'wednesday_qty',
+            4: 'thirsday_qty',
+            5: 'friday_qty',
+            6: 'saturday_qty',
+        }
+        for line in self:
+            if line[DAYS_NUMM[day]] <= 0.0:
+                continue
+            taxes = line.product_id.supplier_taxes_id
+            taxes_id = fpos.map_tax(taxes) if fpos else taxes
+            if taxes_id:
+                taxes_id = taxes_id.filtered(lambda x: x.company_id.id == self.env.user.company_id.id)
+            line_val = {
+                'product_id': line.product_id.id,
+                'name': line.product_id.description_purchase or line.product_id.name,
+                'product_qty': line.supplier_packaging * line[DAYS_NUMM[day]],
+                'product_qty_package': line[DAYS_NUMM[day]],
+                'package_qty': line.supplier_packaging,
+                'product_uom': line.product_id.uom_po_id.id,
+                'price_unit': line.price_unit,
+                'price_policy': 'uom',  # set by default. #TODO : get this value from suppinfo.
+                'date_planned': date_planned.strftime("%Y-%m-%d"),
+                'taxes_id': [(6, 0, taxes_id.ids)],
+            }
+
+            ret.append(line_val)
+        return ret
 
     @api.multi
     def action_update_unit_price(self):
+        raise UserError(_("Not yet implemented"))
+
+    @api.multi
+    def action_update_supplier_packaging(self):
         raise UserError(_("Not yet implemented"))
 
     @api.multi
