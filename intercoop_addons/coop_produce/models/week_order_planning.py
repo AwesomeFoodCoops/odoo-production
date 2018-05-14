@@ -86,12 +86,75 @@ class OrderWeekPlanning(models.Model):
             product_ids = [l.product_id.id for l in week_planning.line_ids]
 
             pls = self.env['purchase.order.line'].search([('product_id', 'in', product_ids),
-                                                           ('date_planned', '<=', date2.strftime("%Y-%m-%d")),
-                                                           ('date_planned', '>=', date1.strftime("%Y-%m-%d")),
-                                                           ])
+                                                          ('date_planned', '<=', date2.strftime("%Y-%m-%d")),
+                                                          ('date_planned', '>=', date1.strftime("%Y-%m-%d")),
+                                                          ])
 
             orders = list(set([l.order_id.id for l in pls]))
             week_planning.week_total_orders = len(orders)
+
+    @api.multi
+    def _get_kpi(self):
+        # Compute   ,  ninvivgi_gvgi_v_çèonbj
+        order_fields2sum = {
+                          1:'monday_ordered_qty',
+                          2:'tuesday_ordered_qty',
+                          3:'wednesday_ordered_qty',
+                          4:'thirsday_ordered_qty',
+                          5:'friday_ordered_qty',
+                          6:'saturday_ordered_qty'
+                      }
+
+        received_fields2sum = {
+            1: 'monday_received_qty',
+            2: 'tuesday_received_qty',
+            3: 'wednesday_received_qty',
+            4: 'thirsday_received_qty',
+            5: 'friday_received_qty',
+            6: 'saturday_received_qty'
+        }
+
+        line_field2sum = {
+                          1: 'monday_qty',
+                          2: 'tuesday_qty',
+                          3: 'wednesday_qty',
+                          4: 'thirsday_qty',
+                          5: 'friday_qty',
+                          6: 'saturday_qty'
+                          }
+
+        for week_planning in self:
+            for day2sum in order_fields2sum:
+                date = get_date_from_week_number(week_planning.year,week_planning.week_number,day2sum)
+                line_date = date.strftime("%Y-%m-%d")
+                now_str = datetime.datetime.now().strftime("%Y-%m-%d")
+                if line_date > now_str:
+                    week_planning[order_fields2sum[day2sum]] = sum([x[line_field2sum[day2sum]] for x in week_planning.line_ids])
+                    week_planning[received_fields2sum[day2sum]] = sum([x[line_field2sum[day2sum]] for x in week_planning.line_ids])
+                else:
+                    product_ids = [l.product_id.id for l in week_planning.line_ids]
+
+                    pls = self.env['purchase.order.line'].search([('product_id', 'in', product_ids),
+                                                                  ('date_planned', '=', line_date),
+                                                                  ('state','not in',['draft','cancel'])
+                                                                  ])
+                    week_planning[order_fields2sum[day2sum]] = sum([x.product_qty_package for x in pls],0.0)
+
+                    orders = list(set([x.order_id for x in pls]))
+                    picking_ids  = []
+                    for o in orders:
+                        picking_ids += o.picking_ids.ids
+
+                    if not picking_ids:
+                        week_planning[order_fields2sum[day2sum]] = 0.0
+                    else:
+                        sps = self.env['stock.picking'].search([('id', 'in', picking_ids),
+                                                                  ('min_date', 'like', '%s%%'%line_date),
+                                                                  ])
+                        total = 0.0
+                        for sp in sps:
+                            total += sum([x.qty_done_package for x in sp.pack_operation_product_ids],0.0)
+                        week_planning[received_fields2sum[day2sum]] = total
 
     name = fields.Char(string="Name",
                        compute="_get_planning_info",
@@ -119,40 +182,52 @@ class OrderWeekPlanning(models.Model):
 
     monday_ordered_qty = fields.Float("Monday's ordered qty",
                                       default=0.0,
+                                      compute="_get_kpi",
                                       digits=dp.get_precision('Product Unit of Measure'))
     tuesday_ordered_qty = fields.Float("Tuesday's ordered qty",
                                        default=0.0,
+                                       compute="_get_kpi",
                                        digits=dp.get_precision('Product Unit of Measure'))
     wednesday_ordered_qty = fields.Float("Wednesday's ordered qty",
                                          default=0.0,
+                                         compute="_get_kpi",
                                          digits=dp.get_precision('Product Unit of Measure'))
     thirsday_ordered_qty = fields.Float("Thirsday's ordered qty",
                                         default=0.0,
+                                        compute="_get_kpi",
                                         digits=dp.get_precision('Product Unit of Measure'))
     friday_ordered_qty = fields.Float("Friday's ordered qty",
                                       default=0.0,
+                                      compute="_get_kpi",
                                       digits=dp.get_precision('Product Unit of Measure'))
     saturday_ordered_qty = fields.Float("Saturday's ordered qty",
                                         default=0.0,
+                                        compute="_get_kpi",
                                         digits=dp.get_precision('Product Unit of Measure'))
 
     monday_received_qty = fields.Float("Monday's received qty",
                                        default=0.0,
+                                       compute="_get_kpi",
                                        digits=dp.get_precision('Product Unit of Measure'))
     tuesday_received_qty = fields.Float("Tuesday's received qty",
                                         default=0.0,
+                                        compute="_get_kpi",
                                         digits=dp.get_precision('Product Unit of Measure'))
     wednesday_received_qty = fields.Float("Wednesday's received qty",
                                           default=0.0,
+                                          compute="_get_kpi",
                                           digits=dp.get_precision('Product Unit of Measure'))
     thirsday_received_qty = fields.Float("Thirsday's received qty",
                                          default=0.0,
+                                         compute="_get_kpi",
                                          digits=dp.get_precision('Product Unit of Measure'))
     friday_received_qty = fields.Float("Friday's received qty",
                                        default=0.0,
+                                       compute="_get_kpi",
                                        digits=dp.get_precision('Product Unit of Measure'))
     saturday_received_qty = fields.Float("Saturday's received qty",
                                          default=0.0,
+                                         compute="_get_kpi",
                                          digits=dp.get_precision('Product Unit of Measure'))
 
     state = fields.Selection([('draft', 'Draft'), ('done', 'Done')],
@@ -165,8 +240,8 @@ class OrderWeekPlanning(models.Model):
                                            default=0,
                                            compute='_compute_picking')
     week_total_orders = fields.Integer("Total orders",
-                                          default=0,
-                                          compute='_compute_orders')
+                                       default=0,
+                                       compute='_compute_orders')
 
     @api.multi
     def action_close_week(self):
@@ -205,7 +280,8 @@ class OrderWeekPlanning(models.Model):
                 'supplier_id': supplier_info and supplier_info.name.id or False,
                 'price_unit': supplier_info and supplier_info.price_taxes_excluded or 0.0,
                 # set to this value because this value is used on purchase order
-                'default_packaging': supplier_info.package_qty or 0,
+                'default_packaging': product.default_packaging or 0,
+                'supplier_packaging': supplier_info.package_qty or 0,
                 'start_inv': supplier_info.package_qty and product.qty_available / supplier_info.package_qty or 0.0,
                 'order_week_planning_id': self.id,
             }
@@ -241,9 +317,9 @@ class OrderWeekPlanning(models.Model):
         product_ids = [l.product_id.id for l in self.line_ids]
 
         pls = self.env['purchase.order.line'].search([('product_id', 'in', product_ids),
-                                                       ('date_planned', '<=', date2.strftime("%Y-%m-%d")),
-                                                       ('date_planned', '>=', date1.strftime("%Y-%m-%d")),
-                                                       ])
+                                                      ('date_planned', '<=', date2.strftime("%Y-%m-%d")),
+                                                      ('date_planned', '>=', date1.strftime("%Y-%m-%d")),
+                                                      ])
 
         order_ids = list(set([l.order_id.id for l in pls]))
         action = self.env.ref('purchase.purchase_form_action')
@@ -260,7 +336,6 @@ class OrderWeekPlanning(models.Model):
             result['views'] = [(res and res.id or False, 'form')]
             result['res_id'] = order_ids and order_ids[0] or False
         return result
-
 
     @api.multi
     def action_view_picking(self):
@@ -281,7 +356,7 @@ class OrderWeekPlanning(models.Model):
 
         orders = list(set([l.order_id for l in pls]))
         pick_ids = []
-        for order in orders :
+        for order in orders:
             pick_ids += order.picking_ids.ids
 
         action = self.env.ref('stock.action_picking_tree')
@@ -298,7 +373,6 @@ class OrderWeekPlanning(models.Model):
             result['views'] = [(res and res.id or False, 'form')]
             result['res_id'] = pick_ids and pick_ids[0] or False
         return result
-
 
     @api.multi
     def action_other_weeks(self):
@@ -363,10 +437,14 @@ class OrderWeekPlanningLine(models.Model):
     _order = 'week_year desc, week_number desc, product_name asc'
 
     @api.depends('start_inv', 'monday_qty', 'tuesday_qty', 'wednesday_qty', 'thirsday_qty', 'friday_qty',
-                 'saturday_qty')
+                 'saturday_qty', 'end_inv_qty', 'loss_qty')
     def _get_kpi(self):
         # Compute   ,  ninvivgi_gvgi_v_çèonbj
-        return True
+        fields2sum = ['monday_qty', 'tuesday_qty', 'wednesday_qty', 'thirsday_qty', 'friday_qty',
+                      'saturday_qty']
+        for line in self:
+            line.total_qty = sum([line[x] for x in fields2sum]) + line.start_inv
+            line.sold_qty = line.total_qty - line.end_inv_qty - line.loss_qty
 
     week_year = fields.Integer(string="Week year",  # This field is used to order lines
                                related='order_week_planning_id.year',
