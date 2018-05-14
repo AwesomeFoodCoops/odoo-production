@@ -97,13 +97,13 @@ class OrderWeekPlanning(models.Model):
     def _get_kpi(self):
         # Compute   ,  ninvivgi_gvgi_v_çèonbj
         order_fields2sum = {
-                          1:'monday_ordered_qty',
-                          2:'tuesday_ordered_qty',
-                          3:'wednesday_ordered_qty',
-                          4:'thirsday_ordered_qty',
-                          5:'friday_ordered_qty',
-                          6:'saturday_ordered_qty'
-                      }
+            1: 'monday_ordered_qty',
+            2: 'tuesday_ordered_qty',
+            3: 'wednesday_ordered_qty',
+            4: 'thirsday_ordered_qty',
+            5: 'friday_ordered_qty',
+            6: 'saturday_ordered_qty'
+        }
 
         received_fields2sum = {
             1: 'monday_received_qty',
@@ -115,33 +115,35 @@ class OrderWeekPlanning(models.Model):
         }
 
         line_field2sum = {
-                          1: 'monday_qty',
-                          2: 'tuesday_qty',
-                          3: 'wednesday_qty',
-                          4: 'thirsday_qty',
-                          5: 'friday_qty',
-                          6: 'saturday_qty'
-                          }
+            1: 'monday_qty',
+            2: 'tuesday_qty',
+            3: 'wednesday_qty',
+            4: 'thirsday_qty',
+            5: 'friday_qty',
+            6: 'saturday_qty'
+        }
 
         for week_planning in self:
             for day2sum in order_fields2sum:
-                date = get_date_from_week_number(week_planning.year,week_planning.week_number,day2sum)
+                date = get_date_from_week_number(week_planning.year, week_planning.week_number, day2sum)
                 line_date = date.strftime("%Y-%m-%d")
                 now_str = datetime.datetime.now().strftime("%Y-%m-%d")
                 if line_date > now_str:
-                    week_planning[order_fields2sum[day2sum]] = sum([x[line_field2sum[day2sum]] for x in week_planning.line_ids])
-                    week_planning[received_fields2sum[day2sum]] = sum([x[line_field2sum[day2sum]] for x in week_planning.line_ids])
+                    week_planning[order_fields2sum[day2sum]] = sum(
+                        [x[line_field2sum[day2sum]] for x in week_planning.line_ids])
+                    week_planning[received_fields2sum[day2sum]] = sum(
+                        [x[line_field2sum[day2sum]] for x in week_planning.line_ids])
                 else:
                     product_ids = [l.product_id.id for l in week_planning.line_ids]
 
                     pls = self.env['purchase.order.line'].search([('product_id', 'in', product_ids),
                                                                   ('date_planned', '=', line_date),
-                                                                  ('state','not in',['draft','cancel'])
+                                                                  ('state', 'not in', ['draft', 'cancel'])
                                                                   ])
-                    week_planning[order_fields2sum[day2sum]] = sum([x.product_qty_package for x in pls],0.0)
+                    week_planning[order_fields2sum[day2sum]] = sum([x.product_qty_package for x in pls], 0.0)
 
                     orders = list(set([x.order_id for x in pls]))
-                    picking_ids  = []
+                    picking_ids = []
                     for o in orders:
                         picking_ids += o.picking_ids.ids
 
@@ -149,11 +151,11 @@ class OrderWeekPlanning(models.Model):
                         week_planning[order_fields2sum[day2sum]] = 0.0
                     else:
                         sps = self.env['stock.picking'].search([('id', 'in', picking_ids),
-                                                                  ('min_date', 'like', '%s%%'%line_date),
-                                                                  ])
+                                                                ('min_date', 'like', '%s%%' % line_date),
+                                                                ])
                         total = 0.0
                         for sp in sps:
-                            total += sum([x.qty_done_package for x in sp.pack_operation_product_ids],0.0)
+                            total += sum([x.qty_done_package for x in sp.pack_operation_product_ids], 0.0)
                         week_planning[received_fields2sum[day2sum]] = total
 
     name = fields.Char(string="Name",
@@ -376,7 +378,29 @@ class OrderWeekPlanning(models.Model):
 
     @api.multi
     def action_other_weeks(self):
-        raise UserError(_("Not yet implemented"))
+        self.ensure_one()
+
+        lines = self.env['order.week.planning.line'].search(['|', ('week_year', '<', self.year), '&', ('week_year', '=', self.year),
+                             ('week_number', '<=', self.week_number),
+                             ])
+
+        tree_view = self.env.ref('coop_produce.view_order_week_planning_line_tree')
+        search_view = self.env.ref('coop_produce.view_order_week_planning_line_search')
+
+        result = {
+            'name': _("Product history"),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'tree',
+            'view_id': tree_view.id,
+            'search_view_id': search_view.id,
+            'context':{'search_default_group_by_year':1},
+            'domain': [('id', 'in', lines.ids)],
+            'target': 'current',
+            'res_model': 'order.week.planning.line',
+        }
+
+        return result
 
     @api.multi
     def _get_lines_grouped_per_supplier(self):
@@ -608,5 +632,27 @@ class OrderWeekPlanningLine(models.Model):
         raise UserError(_("Not yet implemented"))
 
     @api.multi
-    def action_get_product_history(self):
-        raise UserError(_("Not yet implemented"))
+    def action_product_history_view(self):
+        self.ensure_one()
+
+        lines = self.search([('product_id', '=', self.product_id.id),
+                             '|',('week_year', '<', self.week_year),'&',('week_year', '=', self.week_year),('week_number', '<=', self.week_number),
+                           ])
+
+        tree_view = self.env.ref('coop_produce.view_order_week_planning_line_tree')
+        search_view = self.env.ref('coop_produce.view_order_week_planning_line_search')
+
+        result = {
+            'name': _("Product history"),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'tree',
+            'view_id': tree_view.id,
+            'search_view_id': search_view.id,
+            'domain': [('id', 'in', lines.ids)],
+            'target': 'new',
+            'res_model': 'order.week.planning.line',
+        }
+
+
+        return result
