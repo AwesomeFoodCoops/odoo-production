@@ -38,6 +38,7 @@
                 <form string="Order Scheduling">
                     <header>
                         <button name="action_close_week" string="Close Week" type="object" class="oe_highlight"/>
+                        <button name="action_generate_next_week" string="Next week" type="object" class="oe_highlight"/>
                         <button name="action_reset" string="Reset" type="object"
                                 class="btn btn-danger"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,done"/>

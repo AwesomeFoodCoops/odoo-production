@@ -170,7 +170,7 @@ class OrderWeekPlanning(models.Model):
                                  compute="_get_planning_info",
                                  store=True,
                                  help="Number of Inventory Week")
-    date = fields.Datetime('Date', required=True)
+    date = fields.Datetime('Date', required=True, copy=False)
     hide_initialisation = fields.Boolean(string="Hide initialisation area", help="Hide initialisation area")
     categ_ids = fields.Many2many('product.category')
     supplier_ids = fields.Many2many('res.partner', 'stock_inventory_res_partner', 'inventory_id', 'supplier_id',
@@ -180,7 +180,7 @@ class OrderWeekPlanning(models.Model):
     date_stock = fields.Datetime('Date stock')
 
     line_ids = fields.One2many('order.week.planning.line', 'order_week_planning_id', 'Planning lines',
-                               help="Planning lines per day")
+                               help="Planning lines per day", ondelete='cascade', copy=True)
 
     monday_ordered_qty = fields.Float("Monday's ordered qty",
                                       default=0.0,
@@ -245,6 +245,24 @@ class OrderWeekPlanning(models.Model):
                                        default=0,
                                        compute='_compute_orders')
 
+
+    @api.multi
+    def action_generate_next_week(self):
+        self.ensure_one()
+
+        new_date = get_date_from_week_number(self.year, self.week_number,0)
+        new_date = new_date + datetime.timedelta(days=7)
+        new_date_str = new_date.strftime("%Y-%m-%d")
+        new_id = self.copy({'date':new_date_str})
+        new_id.action_update_start_inventory()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'order.week.planning',
+            'res_id': new_id.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
+
     @api.multi
     def action_close_week(self):
         self.write({'state': 'done'})
@@ -307,8 +325,16 @@ class OrderWeekPlanning(models.Model):
         self.line_ids.unlink()
 
     @api.multi
+    def unlink(self):
+        for p in self:
+            if p.state != 'draft':
+                UserError(_("It's not allowed to delete a vaalidated order planining"))
+
+    @api.multi
     def action_update_start_inventory(self):
-        raise UserError(_("Not yet implemented"))
+        self.ensure_one()
+        for line in self.line_ids:
+            self.start_inv = line.product_id.qty_available / line.product_id.default_packaging
 
     @api.multi
     def action_view_orders(self):
@@ -380,9 +406,10 @@ class OrderWeekPlanning(models.Model):
     def action_other_weeks(self):
         self.ensure_one()
 
-        lines = self.env['order.week.planning.line'].search(['|', ('week_year', '<', self.year), '&', ('week_year', '=', self.year),
-                             ('week_number', '<=', self.week_number),
-                             ])
+        lines = self.env['order.week.planning.line'].search(
+            ['|', ('week_year', '<', self.year), '&', ('week_year', '=', self.year),
+             ('week_number', '<=', self.week_number),
+             ])
 
         tree_view = self.env.ref('coop_produce.view_order_week_planning_line_tree')
         search_view = self.env.ref('coop_produce.view_order_week_planning_line_search')
@@ -394,7 +421,7 @@ class OrderWeekPlanning(models.Model):
             'view_mode': 'tree',
             'view_id': tree_view.id,
             'search_view_id': search_view.id,
-            'context':{'search_default_group_by_year':1},
+            'context': {'search_default_group_by_year': 1},
             'domain': [('id', 'in', lines.ids)],
             'target': 'current',
             'res_model': 'order.week.planning.line',
@@ -467,8 +494,12 @@ class OrderWeekPlanningLine(models.Model):
         fields2sum = ['monday_qty', 'tuesday_qty', 'wednesday_qty', 'thirsday_qty', 'friday_qty',
                       'saturday_qty']
         for line in self:
+            w_1_qty = line.get_previous_solde_qty(-1)
+            w_2_qty = line.get_previous_solde_qty(-2)
             line.total_qty = sum([line[x] for x in fields2sum]) + line.start_inv
             line.sold_qty = line.total_qty - line.end_inv_qty - line.loss_qty
+            line.sold_w_1_qty = w_1_qty
+            line.sold_w_2_qty = w_2_qty
 
     week_year = fields.Integer(string="Week year",  # This field is used to order lines
                                related='order_week_planning_id.year',
@@ -514,34 +545,43 @@ class OrderWeekPlanningLine(models.Model):
                              digits=dp.get_precision('Order Week Planning Precision'))
     monday_qty = fields.Float('Mond',
                               default=0.0,
-                              digits=dp.get_precision('Order Week Planning Precision'))
+                              digits=dp.get_precision('Order Week Planning Precision'),
+                              copy=False)
     tuesday_qty = fields.Float('Tues',
                                default=0.0,
-                               digits=dp.get_precision('Order Week Planning Precision'))
+                               digits=dp.get_precision('Order Week Planning Precision'),
+                              copy=False)
     wednesday_qty = fields.Float('Wed',
                                  default=0.0,
-                                 digits=dp.get_precision('Order Week Planning Precision'))
+                                 digits=dp.get_precision('Order Week Planning Precision'),
+                              copy=False)
     thirsday_qty = fields.Float('Thurs',
                                 default=0.0,
-                                digits=dp.get_precision('Order Week Planning Precision'))
+                                digits=dp.get_precision('Order Week Planning Precision'),
+                              copy=False)
     friday_qty = fields.Float('Fri',
                               default=0.0,
-                              digits=dp.get_precision('Order Week Planning Precision'))
+                              digits=dp.get_precision('Order Week Planning Precision'),
+                              copy=False)
     saturday_qty = fields.Float('Sat',
                                 default=0.0,
-                                digits=dp.get_precision('Order Week Planning Precision'))
+                                digits=dp.get_precision('Order Week Planning Precision'),
+                              copy=False)
     end_inv_qty = fields.Float('E. Inv',
                                default=0.0,
-                               digits=dp.get_precision('Order Week Planning Precision'))
+                               digits=dp.get_precision('Order Week Planning Precision'),
+                              copy=False)
     loss_qty = fields.Float('Loss',
                             default=0.0,
-                            digits=dp.get_precision('Order Week Planning Precision'))
+                            digits=dp.get_precision('Order Week Planning Precision'),
+                              copy=False)
     medium_inventory_qty = fields.Float('Medium Qty',
                                         default=0.0,
-                                        digits=dp.get_precision('Order Week Planning Precision'))
+                                        digits=dp.get_precision('Order Week Planning Precision'),
+                              copy=False)
 
     _sql_constraints = [
-        ('number_uniq', 'unique(week_number, product_id, default_packaging, supplier_id)',
+        ('number_uniq', 'unique(week_year, week_number, product_id, supplier_id)',
          "You can't have two lines for the same, week, product, suppier and packaging!"),
     ]
 
@@ -642,8 +682,9 @@ class OrderWeekPlanningLine(models.Model):
         self.ensure_one()
 
         lines = self.search([('product_id', '=', self.product_id.id),
-                             '|',('week_year', '<', self.week_year),'&',('week_year', '=', self.week_year),('week_number', '<=', self.week_number),
-                           ])
+                             '|', ('week_year', '<', self.week_year), '&', ('week_year', '=', self.week_year),
+                             ('week_number', '<=', self.week_number),
+                             ])
 
         tree_view = self.env.ref('coop_produce.view_order_week_planning_line_tree')
         search_view = self.env.ref('coop_produce.view_order_week_planning_line_search')
@@ -660,5 +701,21 @@ class OrderWeekPlanningLine(models.Model):
             'res_model': 'order.week.planning.line',
         }
 
-
         return result
+
+    @api.multi
+    def get_previous_solde_qty(self, week_gap):
+        self.ensure_one()
+        current_date = get_date_from_week_number(self.week_year, self.week_number, 0)
+        day_delta = 7 * week_gap
+        new_date = current_date + datetime.timedelta(days=day_delta)
+        new_year = new_date.year
+        new_week_num = int(new_date.strftime("%W"))
+        lines = self.search([('product_id', '=', self.product_id.id),
+                             ('week_number', '=', new_week_num),
+                             ('week_year', '=', new_year),
+                             ])
+        if lines:
+            return sum(x.sold_qty for x in lines)
+        else:
+            return 0.0
