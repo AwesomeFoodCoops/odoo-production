@@ -491,6 +491,9 @@ class OrderWeekPlanningLine(models.Model):
                                      required=True)
     supplier_packaging = fields.Float(string='Supplier packaging',
                                       required=True)
+    price_policy = fields.Selection(
+        [('uom', 'per UOM'), ('package', 'per Package')], "Price Policy",
+        default='uom', required=True, readonly=True)
     sold_w_2_qty = fields.Float(string="Sold W-2",
                                 compute="_get_kpi",
                                 digits=dp.get_precision('Order Week Planning Precision'))
@@ -556,7 +559,8 @@ class OrderWeekPlanningLine(models.Model):
                                                                       self.product_id.product_tmpl_id.id)],
                                                                     limit=1)
             if supplier_info:
-                self.price_unit = supplier_info[0].price_taxes_excluded
+                self.price_unit = supplier_info[0].base_price
+                self.price_policy = supplier_info[0].base_price
                 self.supplier_packaging = supplier_info[0].package_qty
                 self.start_inv = supplier_info[0].package_qty and self.product_id.qty_available / supplier_info[
                     0].package_qty or 0.0
@@ -585,7 +589,8 @@ class OrderWeekPlanningLine(models.Model):
                 supplier_info = self.product_id.seller_ids and self.product_id.seller_ids[0] or False
                 if supplier_info:
                     self.supplier_id = supplier_info.name
-                    self.price_unit = supplier_info.price_taxes_excluded
+                    self.price_unit = supplier_info.base_price
+                    self.price_policy = supplier_info.price_policy
                     self.start_inv = supplier_info.package_qty and self.product_id.qty_available / supplier_info.package_qty or 0.0
                     self.supplier_packaging = supplier_info.package_qty
                     self.default_packaging = self.product_id.default_packaging
@@ -607,6 +612,7 @@ class OrderWeekPlanningLine(models.Model):
             taxes_id = fpos.map_tax(taxes) if fpos else taxes
             if taxes_id:
                 taxes_id = taxes_id.filtered(lambda x: x.company_id.id == self.env.user.company_id.id)
+
             line_val = {
                 'product_id': line.product_id.id,
                 'name': line.product_id.description_purchase or line.product_id.name,
@@ -615,7 +621,7 @@ class OrderWeekPlanningLine(models.Model):
                 'package_qty': line.supplier_packaging,
                 'product_uom': line.product_id.uom_po_id.id,
                 'price_unit': line.price_unit,
-                'price_policy': 'uom',  # set by default. #TODO : get this value from suppinfo.
+                'price_policy': line.price_policy,
                 'date_planned': date_planned.strftime("%Y-%m-%d"),
                 'taxes_id': [(6, 0, taxes_id.ids)],
             }
