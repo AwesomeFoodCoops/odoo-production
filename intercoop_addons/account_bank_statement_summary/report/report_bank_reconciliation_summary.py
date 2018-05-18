@@ -9,6 +9,7 @@ from openerp.addons.report_xlsx.report.report_xlsx import ReportXlsx
 from openerp.api import Environment
 from openerp import SUPERUSER_ID
 from openerp import _
+import pytz
 FORMAT_BOLD = '00'
 FORMAT_NORMAL = '01'
 FORMAT_RIGHT = '02'
@@ -298,7 +299,8 @@ class ReportBankReconciliationSummary(ReportXlsx):
 
         self.sheet.write(
             "B10",
-            u"%s" % datetime.now().strftime("%d/%m/%Y %H:%M:%S") or '',
+            u"%s" % pytz.utc.localize(datetime.now(), is_dst=False).astimezone(
+                pytz.timezone(self.object.create_uid.tz)).strftime("%d/%m/%Y %H:%M:%S") or '',
             self.format_table_date_default
         )
 
