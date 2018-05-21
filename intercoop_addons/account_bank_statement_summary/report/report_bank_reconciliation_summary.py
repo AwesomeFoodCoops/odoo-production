@@ -9,6 +9,7 @@ from openerp.addons.report_xlsx.report.report_xlsx import ReportXlsx
 from openerp.api import Environment
 from openerp import SUPERUSER_ID
 from openerp import _
+import pytz
 FORMAT_BOLD = '00'
 FORMAT_NORMAL = '01'
 FORMAT_RIGHT = '02'
@@ -30,12 +31,12 @@ class ReportBankReconciliationSummary(ReportXlsx):
         # generate main content
         self.generate_report_title()
         # generate data table
-        move_lines, bank_statement_lines = self.get_data(self.object)
+        move_lines, bank_statement_lines, bank_balance, account_balance = self.get_data(self.object)
         self.generate_title_bank_reconciliation()
         total_move_line, total_debit_bank_statement_line = \
             self.generate_data_bank_reconciliation(
                 move_lines, bank_statement_lines)
-        self.load_data_blance(total_move_line, total_debit_bank_statement_line)
+        self.load_data_blance(account_balance, bank_balance)
 
     def get_data(self, obj):
         journal_id = obj.journal_id and obj.journal_id.id or False
@@ -45,19 +46,44 @@ class ReportBankReconciliationSummary(ReportXlsx):
         bank_statement_lines = self.env['account.bank.statement.line'].search([
             ('date', '<=', obj.analysis_date),
             ('journal_id', '=', journal_id),
+            ('journal_entry_ids', '=', False),
             ('statement_id.account_id', '=', default_account_credit)],
             order='date')
+
+        # Get total debit bank statement line unmatch
+        total_debit_sql = """SELECT sum(amount)
+            FROM account_bank_statement_line
+            WHERE date <= '%s' AND journal_id = %s
+        """  % (obj.analysis_date, journal_id)
+        self.env.cr.execute(total_debit_sql)
+        bank_balance = self.env.cr.fetchone()
+        bank_balance = bank_balance and bank_balance[0] or 0
+
+
         sql_move_lines = """SELECT ml.date, am.name, rp.name, ml.ref,
         ml.name, ml.debit, ml.credit
             FROM account_move_line ml
                 LEFT JOIN account_move am ON ml.move_id = am.id
                 LEFT JOIN res_partner rp ON ml.partner_id = rp.id
-            WHERE ml.date <= '%s' AND
+            WHERE ml.date <= '%s' AND ml.reconciled = false AND
+            ml.statement_id is null AND
             ml.account_id = %s
             ORDER BY ml.date""" % (obj.analysis_date, default_account_credit)
         self.env.cr.execute(sql_move_lines)
         move_lines = self.env.cr.fetchall()
-        return move_lines, bank_statement_lines
+
+        # Get total move line unreconciled, unmatched
+        sql_move_lines_extend = """SELECT sum(ml.credit - ml.debit)
+            FROM account_move_line ml
+            WHERE ml.date <= '%s' AND
+            ml.account_id = %s
+            """ % (obj.analysis_date, default_account_credit)
+        self.env.cr.execute(sql_move_lines_extend)
+        account_balance = self.env.cr.fetchone()
+        account_balance = account_balance and account_balance[0] or 0
+
+
+        return move_lines, bank_statement_lines, bank_balance, account_balance
 
     def _define_formats(self, workbook):
         # ---------------------------------------------------------------------
@@ -298,7 +324,8 @@ class ReportBankReconciliationSummary(ReportXlsx):
 
         self.sheet.write(
             "B10",
-            u"%s" % datetime.now().strftime("%d/%m/%Y %H:%M:%S") or '',
+            u"%s" % pytz.utc.localize(datetime.now(), is_dst=False).astimezone(
+                pytz.timezone(self.object.create_uid.tz)).strftime("%d/%m/%Y %H:%M:%S") or '',
             self.format_table_date_default
         )
 
@@ -448,10 +475,16 @@ class ReportBankReconciliationSummary(ReportXlsx):
             'A%s:E%s' % (row, row),
             _(u'Total Journal Items'),
             self.format_table_bold_total)
-        self.sheet.write_number(
-            "G%s" % row,
-            float(total_move_line),
-            self.format_table_bold_total_number)
+        if total_credit_move_line >= total_debit_move_line:
+            self.sheet.write_number(
+                "G%s" % row,
+                float(total_move_line),
+                self.format_table_bold_total_number)
+        else:
+            self.sheet.write_number(
+                "F%s" % row,
+                float(total_move_line),
+                self.format_table_bold_total_number)
         row += 5
         self.generate_outstanding_bank(row)
         row += 2
@@ -502,10 +535,16 @@ class ReportBankReconciliationSummary(ReportXlsx):
             'A%s:E%s' % (row, row),
             _(u'Total Bank Transactions'),
             self.format_table_bold_total)
-        self.sheet.write_number(
-            "F%s" % row,
-            float(total_debit_bank_statement_line),
-            self.format_table_bold_total_number)
+        if total_debit_bank_statement_line >= 0:
+            self.sheet.write_number(
+                "G%s" % row,
+                float(total_debit_bank_statement_line),
+                self.format_table_bold_total_number)
+        else:
+            self.sheet.write_number(
+                "F%s" % row,
+                float(total_debit_bank_statement_line),
+                self.format_table_bold_total_number)
         return total_move_line, total_debit_bank_statement_line
 
     def load_data_blance(
