@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_coop_produce_order_week_planning_tree" model="ir.ui.view">
+            <field name="name">order.week.planning.tree</field>
+            <field name="model">order.week.planning</field>
+            <field name="sequence" eval="18"/>
+            <field name="arch" type="xml">
+                <tree string="Order Scheduling" default_order='year desc,week_number desc'>
+                    <field name="date" string="Date"/>
+                    <field name="state" string="State"/>
+                    <field name="week_number" string="Week Number"/>
+                    <field name="year" invisible="True"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_coop_produce_order_week_planning_filter" model="ir.ui.view">
+            <field name="name">order.week.planning.filter</field>
+            <field name="model">order.week.planning</field>
+            <field name="arch" type="xml">
+                <search string="Search Inventory">
+                    <field name="date" string="date"/>
+                    <field name="week_number" string="Week Number"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Week Number" domain="[]" context="{'group_by':'week_number'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_coop_produce_order_week_planning_interface_form" model="ir.ui.view">
+            <field name="name">order.week.planning.form</field>
+            <field name="model">order.week.planning</field>
+            <field name="sequence" eval="18"/>
+            <field name="arch" type="xml">
+                <form string="Order Scheduling">
+                    <header>
+                        <button name="action_close_week" string="Close Week" type="object" class="oe_highlight"/>
+                        <button name="action_generate_next_week" string="Next week" type="object" class="oe_highlight"/>
+                        <button name="action_reset" string="Reset" type="object"
+                                class="btn btn-danger"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_orders" type="object" class="oe_stat_button"
+                                    icon="fa-shopping-cart">
+                                <field string="Week orders" name="week_total_orders" widget="statinfo"/>
+                            </button>
+                            <button name="action_view_picking" type="object" class="oe_stat_button" icon="fa-truck">
+                                <field string="Week receptions" name="week_total_receptions" widget="statinfo"/>
+                            </button>
+                            <button name="action_other_weeks" type="object" class="oe_stat_button" icon="fa-list"
+                                    string="Previous weeks"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group col="6" name="date_info">
+                            <field name="date" string="Week"/>
+                            <field name="week_number" string="N° Week"/>
+                            <field name="hide_initialisation" string="Hide initialisation"/>
+                        </group>
+                        <group attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}"
+                               col="10">
+                            <group col="2">
+                                <field name="categ_ids" widget="many2many_tags" string="Product Category"/>
+                                <field name="supplier_ids" widget="many2many_tags" string="Supplier"/>
+                            </group>
+                            <group col="1">
+                                <button name="action_add_products" string="Add" type="object" class="oe_highlight"/>
+                            </group>
+                            <group col="3">
+
+                                <field name="date_stock" invisible="1"/>
+                                <button name="action_update_start_inventory" string="MAJ S Inv" type="object"
+                                        class="oe_highlight"/>
+                            </group>
+                        </group>
+                        <group name="total_per_day">
+                            <group col="7">
+                                <group col="1">
+                                    <h4>==></h4>
+                                    <h4>' to order</h4>
+                                    <h4>Total ordered / to order</h4>
+                                    <h4>Total received / to receive</h4>
+                                </group>
+                                <group col="1">
+                                    <button name="create_purchase_orders" string="Mond" type="object"
+                                            class="oe_highlight" context="{'day_number':1}"/>
+                                    <field name="monday_ordered_qty" nolabel="1" readonly="True"/>
+                                    <field name="monday_received_qty" nolabel="1" readonly="True"/>
+                                </group>
+                                <group col="1">
+                                    <button name="create_purchase_orders" string="Tues" type="object"
+                                            class="oe_highlight" context="{'day_number':2}"/>
+                                    <field name="tuesday_ordered_qty" nolabel="1" readonly="True"/>
+                                    <field name="tuesday_received_qty" nolabel="1" readonly="True"/>
+                                </group>
+                                <group col="1">
+                                    <button name="create_purchase_orders" string="Wed" type="object"
+                                            class="oe_highlight" context="{'day_number':3}"/>
+                                    <field name="wednesday_ordered_qty" nolabel="1" readonly="True"/>
+                                    <field name="wednesday_received_qty" nolabel="1" readonly="True"/>
+                                </group>
+                                <group col="1">
+                                    <button name="create_purchase_orders" string="Thurs" type="object"
+                                            class="oe_highlight" context="{'day_number':4}"/>
+                                    <field name="thirsday_ordered_qty" nolabel="1" readonly="True"/>
+                                    <field name="thirsday_received_qty" nolabel="1" readonly="True"/>
+                                </group>
+                                <group col="1">
+                                    <button name="create_purchase_orders" string="Fri" type="object"
+                                            class="oe_highlight" context="{'day_number':5}"/>
+                                    <field name="friday_ordered_qty" nolabel="1" readonly="True"/>
+                                    <field name="friday_received_qty" nolabel="1" readonly="True"/>
+                                </group>
+                                <group col="1">
+                                    <button name="create_purchase_orders" string="Sat" type="object"
+                                            class="oe_highlight" context="{'day_number':6}"/>
+                                    <field name="saturday_ordered_qty" nolabel="1" readonly="True"/>
+                                    <field name="saturday_received_qty" nolabel="1" readonly="True"/>
+                                </group>
+
+                            </group>
+                        </group>
+                        <field name="line_ids" string="Order Planning Details"
+                               context="{'default_order_week_planning_id':active_id}">
+                            <tree string="Order Planning Details" editable="bottom">
+                                <button name="action_product_history_view" icon="STOCK_JUSTIFY_FILL" type="object"/>
+                                <field name="product_name" invisible="1"/>
+                                <field name="product_id" string="Product"/>
+                                <field name="default_packaging" string="Default packaging"/>
+                                <field name="supplier_packaging" string="Supplier packaging"/>
+                                <button name="action_update_supplier_packaging" icon="gtk-apply" type="object"/>
+                                <field name="supplier_id" string="Supplier" required="True"/>
+                                <field name="price_unit" string="Price U"/>
+                                <button name="action_update_unit_price" icon="gtk-apply" type="object"/>
+                                <field name="price_policy" string="P. Policy"/>
+                                <field name="sold_w_2_qty"/>
+                                <field name="sold_w_1_qty"/>
+                                <field name="start_inv" readonly="1"/>
+                                <field name="monday_qty" string="M"/>
+                                <field name="tuesday_qty" string="T"/>
+                                <field name="wednesday_qty" string="W"/>
+                                <field name="medium_inventory_qty" string="Med."/>
+                                <field name="thirsday_qty" string="T"/>
+                                <field name="friday_qty" string="F"/>
+                                <field name="saturday_qty" string="S"/>
+                                <field name="total_qty"/>
+                                <field name="end_inv_qty"/>
+                                <field name="loss_qty"/>
+                                <field name="sold_qty"/>
+                                <field name="week_number" invisible="1"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_coop_produce_order_week_planning_action" model="ir.actions.act_window">
+            <field name="name">Planification Of F/V</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">order.week.planning</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_coop_produce_order_week_planning_tree" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_coop_produce_order_week_planning_tree"/>
+            <field name="act_window_id" ref="view_coop_produce_order_week_planning_action"/>
+        </record>
+
+        <record id="action_coop_produce_order_week_planning_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_coop_produce_order_week_planning_interface_form"/>
+            <field name="act_window_id" ref="view_coop_produce_order_week_planning_action"/>
+        </record>
+
+        <menuitem id="menu_planification_fruits_vegetables" name="Planification Des F&amp;L"
+                  parent="stock.menu_stock_inventory_control" groups="stock.group_stock_manager" sequence="61"
+                  action="view_coop_produce_order_week_planning_action"/>
+
+        <record id="view_order_week_planning_line_tree" model="ir.ui.view">
+            <field name="name">order.week.planning.line.tree</field>
+            <field name="model">order.week.planning.line</field>
+            <field name="sequence" eval="18"/>
+            <field name="arch" type="xml">
+                <tree string="Product history" default_order='week_year desc,week_number desc, product_name'>
+                    <field name="week_year"/>
+                    <field name="week_number"/>
+                    <field name="product_name" invisible="1"/>
+                    <field name="product_id"/>
+                    <field name="default_packaging"/>
+                    <field name="supplier_packaging"/>
+                    <field name="supplier_id" string="Supplier"/>
+                    <field name="price_unit" string="Price U"/>
+                    <field name="start_inv" readonly="1"/>
+                    <field name="monday_qty" string="M"/>
+                    <field name="tuesday_qty" string="T"/>
+                    <field name="wednesday_qty" string="W"/>
+                    <field name="medium_inventory_qty" string="Med."/>
+                    <field name="thirsday_qty" string="T"/>
+                    <field name="friday_qty" string="F"/>
+                    <field name="saturday_qty" string="S"/>
+                    <field name="total_qty"/>
+                    <field name="end_inv_qty"/>
+                    <field name="loss_qty"/>
+                    <field name="sold_qty"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_order_week_planning_line_search" model="ir.ui.view">
+            <field name="name">order.week.planning.line.search</field>
+            <field name="model">order.week.planning.line</field>
+            <field name="sequence" eval="18"/>
+            <field name="arch" type="xml">
+                <search string="Product history">
+                    <field name="week_year"/>
+                    <field name="week_number"/>
+                    <field name="product_id"/>
+                    <field name="supplier_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_year" string="Year" domain="[]" context="{'group_by':'week_year'}"/>
+                        <filter name="group_by_week_number" string="Week" domain="[]" context="{'group_by':'week_number'}"/>
+                        <filter name="group_by_product_id" string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter name="group_by_supplier_id" string="Supplier" domain="[]" context="{'group_by':'supplier_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</openerp>
