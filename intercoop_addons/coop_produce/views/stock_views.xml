@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_coop_produce_stock_inventory_form" model="ir.ui.view">
+            <field name="name">stock.inventory.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="sequence" eval="18"/>
+            <field name="arch" type="xml">
+                <form string="Inventory F&amp;V">
+                    <header>
+                        <button name="action_done" string="Validate" type="object"
+                                attrs="{'invisible': [('state', '=', 'done')]}" class="oe_highlight"
+                                groups="stock.group_stock_manager"/>
+                        <button name="action_generate_planification" states="done" string="Generate Week Planification"
+                                type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+                    </header>
+                    <field name="weekly_inventory" invisible="True"/>
+                    <sheet>
+                        <field name="location_id" invisible="1"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group col="6" name="date_info">
+                            <field name="date" string="Date" attrs="{'readonly': [('state', '=', 'done')]}"
+                                   readonly="True"/>
+                            <field name="week_number" string="Week Number"/>
+
+                            <field name="hide_initialisation" string="Hide initialisation"
+                                   attrs="{'invisible': [('state', '=', 'done')]}"/>
+                            <field name="week_date" attrs="{'invisible': [('state', '!=', 'done')],'required': [('state', '=', 'done')]}"/>
+                        </group>
+                        <group string="Initialisation"
+                               attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}"
+                               col="2">
+                            <group col="3">
+                                <field name="categ_ids" widget="many2many_tags" string="Product Category"/>
+                                <button name="action_add_category_supplier" string="Add" type="object"
+                                        class="oe_highlight" groups="stock.group_stock_manager"/>
+                                <field name="supplier_ids" widget="many2many_tags" string="Supplliers"
+                                       style="width:9% !important"/>
+                                <button name="action_add_category_supplier" string="Add" type="object"
+                                        class="oe_highlight" groups="stock.group_stock_manager"/>
+                            </group>
+                            <group col="1">
+                                <button name="action_reset" string="Reset" type="object" class="oe_highlight"
+                                        groups="stock.group_stock_manager"/>
+                                <button name="init_with_theorical_qty" string="Init Qties" type="object"
+                                        class="oe_highlight"
+                                        groups="stock.group_stock_manager"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Product inventory">
+                                <field name="line_ids" string="Inventory Details"
+                                       attrs="{'readonly': [('state', '=', 'done')]}" mode="tree">
+                                    <tree string="Inventory Details" editable="bottom">
+                                        <field name="product_id" string="Product"
+                                               on_change="on_change_product_id(product_id)"/>
+                                        <field name="default_packaging" string="Default packaging"/>
+                                        <field name="packaging_qty" string="Qty/Def. pack"/>
+                                        <field name="qty_stock" string="Stock Qty"
+                                               on_change="on_change_qty_stock(product_id,packaging_qty,qty_stock,default_packaging)"/>
+                                        <field name="qty_loss" string="Loss"/>
+                                        <field name="product_qty" string="Product Qty" invisible="1"
+                                               groups="base.group_no_one"/>
+                                        <field name="product_uom_id" string="UoM" invisible="1"
+                                               groups="base.group_no_one"/>
+                                    </tree>
+
+                                </field>
+                            </page>
+                            <page string="Inventory Adjustments" attrs="{'invisible': [('state', '!=', 'done')]}">
+                                <field name="move_ids">
+                                    <tree decoration-muted="scrapped == True" string="Stock Moves">
+                                        <field name="product_id"/>
+                                        <field name="product_uom_qty"
+                                               on_change="onchange_quantity(product_id, product_uom_qty, product_uom)"/>
+                                        <field name="product_uom" options="{'no_open': True, 'no_create': True}"
+                                               string="Unit of Measure" groups="product.group_uom"/>
+                                        <field name="picking_id" invisible="1"/>
+                                        <field name="create_date" invisible="1"/>
+                                        <field name="date_expected" invisible="1"/>
+                                        <button name="245" string="Scrap Products" type="action"
+                                                icon="terp-gtk-jump-to-ltr" context="{'scrap': True}"
+                                                states="draft,waiting,confirmed,assigned" groups="base.group_user"/>
+                                        <field name="scrapped" invisible="1"/>
+                                        <field name="location_id"/>
+                                        <field name="location_dest_id"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_coop_produce_stock_inventory_tree" model="ir.ui.view">
+            <field name="name">coop_produce.stock.inventory.tree</field>
+            <field name="model">stock.inventory</field>
+            <field name="arch" type="xml">
+                <tree string="Lot Inventory">
+                    <field name="week_number" string="Week Number"/>
+                    <field name="date" string="Date"/>
+                    <field name="state" string="State"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_coop_produce_stock_inventory_filter" model="ir.ui.view">
+            <field name="name">coop_produce.stock.inventory.filter</field>
+            <field name="model">stock.inventory</field>
+            <field name="arch" type="xml">
+                <search string="Search Inventory">
+                    <field name="name" string="Inventory Reference"/>
+                    <field name="date" string="date"/>
+                    <field name="week_number" string="Week Number"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Week" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Week Number" domain="[]" context="{'group_by':'week_number'}"
+                                help="Physical Inventories by Week Number"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
+        <record id="action_view_coop_produce_stock_inventories" model="ir.actions.act_window">
+            <field name="name">F&amp;V Inventory</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.inventory</field>
+            <field name="search_view_id" ref="view_coop_produce_stock_inventory_filter"/>
+            <field name="view_type">form</field>
+            <field name="context">{'default_weekly_inventory': True, 'default_name':'Inventory of V&amp;F'}</field>
+            <field name="domain">[('weekly_inventory', '=', True)]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_coop_produce_stock_inventories_tree" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_coop_produce_stock_inventory_tree"/>
+            <field name="act_window_id" ref="action_view_coop_produce_stock_inventories"/>
+        </record>
+
+        <record id="action_coop_produce_stock_inventories_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_coop_produce_stock_inventory_form"/>
+            <field name="act_window_id" ref="action_view_coop_produce_stock_inventories"/>
+        </record>
+
+        <menuitem id="menu_inventory_fruits_vegetables" name="V&amp;F inventory"
+                  parent="stock.menu_stock_inventory_control" groups="stock.group_stock_manager" sequence="60"
+                  action="action_view_coop_produce_stock_inventories"/>
+
+    </data>
+</openerp>
