@@ -19,6 +19,9 @@ class AccountFullReconcile(models.Model):
                 'reconciled_line_ids.invoice_id.fundraising_category_id')
             invoices = reconcile.mapped('reconciled_line_ids.invoice_id')
 
+            # get payment entry
+            payment_id = reconcile.mapped('reconciled_line_ids.payment_id')
+
             # get line to reconcile
             move_line = invoices.mapped('move_id.line_ids')
             line_to_reconcile = move_line.filtered(lambda l: l.credit != 0)
@@ -69,6 +72,7 @@ class AccountFullReconcile(models.Model):
                     'invoice_id': invoices[0].id,
                     'debit': total if is_payment else 0,
                     'credit': 0 if is_payment else total,
+                    'payment_id': payment_id and payment_id[0].id or False
                 }), (0, 0, {
                     'name': _("Payment of Capital"),
                     'partner_id': partner.id,
@@ -77,6 +81,7 @@ class AccountFullReconcile(models.Model):
                     'invoice_id': invoices[0].id,
                     'debit': 0 if is_payment else total,
                     'credit': total if is_payment else 0,
+                    'payment_id': payment_id and payment_id[0].id or False
                 })]
 
                 move_vals = {
@@ -86,7 +91,8 @@ class AccountFullReconcile(models.Model):
                     'line_ids': lines_vals,
                     'journal_id': journal.id,
                     'date': payment_date,
-                    'narration': _("Paid Capital")
+                    'narration': _("Paid Capital"),
+                    'payment_id': payment_id and payment_id[0].id or False
                     if is_payment else _("Unpaid Capital"),
                 }
                 move = move_obj.create(move_vals)
