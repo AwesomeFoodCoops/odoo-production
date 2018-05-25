@@ -26,6 +26,16 @@
     height: 100%
 }
 
+.coop_text_small {
+    margin-left: 48mm;
+    margin-top: 1mm;
+    color: #425570;
+    font-family: "Intro Pro";
+    font-size: 0.7em;
+    text-transform: uppercase;
+}
+
+
 .member_number {
     margin-left: 52mm;
     margin-top: 4mm;
@@ -35,14 +45,25 @@
     text-transform: uppercase;
 }
 
+.member_number_asociate {
+    margin-left: 52mm;
+    margin-top: 1mm;
+    color: #425570;
+    font-family: "Intro Pro";
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+
 .coop_text {
     font-family: "Intro Pro";
     color: #425570;
-    font-size: 1.2em;
+    font-size: 15pt;
     text-transform: uppercase;
     text-orientation: sideways-left;
-    margin-left: 42mm;
-    margin: 0;
+    margin-left: 1mm;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
     padding: 0;
     -webkit-transform-origin: 260 85;
     -ms-transform-origin: 255 85;
@@ -122,15 +143,15 @@
     width: 40mm;
     height: 23mm;
     float: left;
-    padding-bottom: 0;
+    padding-bottom: 5px;
     background-color: white;
     -ms-transform: translate(0mm, -2mm);
-    -webkit-transform: translate(0mm, -3px)
+    -webkit-transform: translate(0mm, -4px)
 }
 
 .barcode_image {
-    max-width: 80%;
-    max-height: 78%;
+    width: 100%;
+    height: 100%;
     display: block;
     margin: auto;
     padding-top: 6mm;
