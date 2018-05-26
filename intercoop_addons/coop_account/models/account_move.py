@@ -7,6 +7,8 @@ from openerp.exceptions import UserError
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+    payment_id = fields.Many2one('account.payment', 'Payment Entry')
+
     @api.multi
     def unmatch_bankstatement(self):
         for record in self:

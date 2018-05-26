@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+        <record id="decimal_precision_1" model="decimal.precision">
+                <field name="name">Order Week Planning Precision</field>
+                <field name="digits" eval="1"></field>
+        </record>
+
+</data>
+</openerp>
+
+
+

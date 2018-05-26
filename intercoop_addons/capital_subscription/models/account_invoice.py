@@ -37,6 +37,8 @@ class AccountInvoice(models.Model):
         res['fundraising_category_id'] = invoice.fundraising_category_id.id
         # Set saleman is curent user
         res['user_id'] = invoice.env.user.id
+        if res['date_due'] and res['date_due'] < date_invoice:
+            res['date_due'] = date_invoice
         return res
 
     @api.multi

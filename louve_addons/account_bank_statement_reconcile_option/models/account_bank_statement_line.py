@@ -69,6 +69,7 @@ class AccountBankStatementLine(models.Model):
                     from_clause + add_to_from + where_clause
                 sql_query += " AND (aml.ref= %(ref)s or m.name = %(ref)s) \
                         AND aml.account_id IN %(account_payable_receivable)s \
+                        AND aml.reconciled = False \
                         AND aml.statement_id IS NULL \
                         ORDER BY temp_field_order, date_maturity asc, \
                         aml.id asc"
@@ -88,6 +89,7 @@ class AccountBankStatementLine(models.Model):
                 self._get_common_sql_query(excluded_ids=excluded_ids) + \
                 "AND aml.account_id IN %(account_payable_receivable)s" \
                 " AND aml.statement_id IS NULL" \
+                " AND aml.reconciled = False " \
                 " AND (" + field + " = %(amount)s OR " + \
                 "(acc.internal_type = 'liquidity' AND " + \
                 liquidity_field + " = " + liquidity_amt_clause + ")) \
