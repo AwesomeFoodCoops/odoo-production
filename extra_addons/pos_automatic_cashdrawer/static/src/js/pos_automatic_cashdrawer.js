@@ -42,12 +42,6 @@ odoo.define('pos_automatic_cashdrawer.pos_automatic_cashdrawer', function (requi
             if (this.config.iface_automatic_cashdrawer) {
                 this.config.use_proxy = true;
             }
-            // work-around because of issue in odoo code https://github.com/odoo/odoo/commit/e14ab697727d87773dbefba11453b9edca79fc68
-            // this.cashier = self.get_cashier(); appears too early in loading models steps raise some data of cashier/user is missing
-            // reset cashier again here to make sure it has sufficient data
-            this.cashier = null;
-            this.cashier = this.get_cashier();
-
             return after_load_server_data_original.call(this);
         },
     });

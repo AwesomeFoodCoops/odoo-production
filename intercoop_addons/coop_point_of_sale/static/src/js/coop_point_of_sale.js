@@ -25,6 +25,15 @@ Overload models.PosModel
             partner_model.fields.push('cooperative_state');
             return _super_posmodel.initialize.apply(this, arguments);
         },
+        after_load_server_data: function(session, attributes) {
+            // work-around because of issue in odoo code https://github.com/odoo/odoo/commit/e14ab697727d87773dbefba11453b9edca79fc68
+            // this.cashier = self.get_cashier(); appears too early in loading models steps raise some data of cashier/user is missing
+            // reset cashier again here to make sure it has sufficient data
+            this.cashier = null;
+            this.cashier = this.get_cashier();
+
+            return _super_posmodel.after_load_server_data.call(this);
+        },
     });
 
 });
