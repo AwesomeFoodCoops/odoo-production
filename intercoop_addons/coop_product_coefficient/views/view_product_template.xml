@@ -57,8 +57,11 @@
         <field name="inherit_id" ref="product.product_template_search_view"/>
         <field name="arch" type="xml">
             <filter name="inactive" position="after">
-                <filter string="Has Theoritical Price Different" name="filter_has_theoritical_price_different" domain="[('has_theoritical_price_different', '=', True)]"/> 
+                <filter string="Has Theoritical Price Different" name="filter_has_theoritical_price_different" domain="[('has_theoritical_price_different', '=', True)]"/>
             </filter>
+            <field name="attribute_line_ids" position="after">
+                <field name="categ_id"/> 
+            </field>
         </field>
     </record>
 
