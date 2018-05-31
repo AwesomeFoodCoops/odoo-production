@@ -3457,3 +3457,10 @@ msgstr "Ne pas prendre en compte pour l'évaluation du statut du membre"
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_template_tree
 msgid "Seats Availability"
 msgstr "Disponibilité des places"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/shift_template_registration_line.py:90
+#: code:addons/coop_shift/model/shift_template_registration_line.py:95
+#, python-format
+msgid "You can't register this line because it would create an overlap with another line for this member"
+msgstr "La période de cette inscription est en recouvrement avec une autre inscription pour ce membre. Enregistrement impossible"
