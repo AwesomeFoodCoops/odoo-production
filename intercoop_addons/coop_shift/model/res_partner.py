@@ -101,7 +101,8 @@ class ResPartner(models.Model):
         string='Blocked', help="Check this box to manually block this user.")
 
     shift_type = fields.Selection(
-        selection=SHIFT_TYPE_SELECTION, string='Shift type', required=True,
+        readonly=1, required=1,
+        selection=SHIFT_TYPE_SELECTION, string='Shift type',
         default='standard')
 
     working_state = fields.Selection(
@@ -441,7 +442,6 @@ class ResPartner(models.Model):
                                 })
 
         return super(ResPartner, self).write(vals)
-
 
 @job
 def update_member_working_state(session, model_name, partner_ids):
