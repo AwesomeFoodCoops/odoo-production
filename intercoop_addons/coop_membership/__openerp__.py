@@ -26,6 +26,7 @@
         'stock',
     ],
     'data': [
+        'data/update_template_name_ftop.yml',
         'data/report_paperformat_data.xml',
 
 
