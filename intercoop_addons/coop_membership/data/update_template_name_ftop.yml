@@ -1,0 +1,11 @@
+-
+  Update template name type FTOP
+  [S#15876] [F#26730] FTOP Shift - AJeu. - 22:00
+-
+  !python {model: shift.template}: |
+    template_ids = self.search(cr, uid, [('shift_type_id.is_ftop', '=', True)],limit=None, order=None)
+    if template_ids:
+      templates = self.browse(cr, uid, template_ids, {'lang': 'fr_FR'})
+      for template in templates:
+        if "FTOP Shift" in template.name:
+          templates._compute_template_name()
