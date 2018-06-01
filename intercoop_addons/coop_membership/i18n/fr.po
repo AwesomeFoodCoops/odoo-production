@@ -237,6 +237,11 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_leave_non_defined_leave
+msgid "Undefined Leave"
+msgstr "Congé non-défini"
+
+#. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner_badge_distribution_date
 #: model:ir.model.fields,field_description:coop_membership.field_res_users_badge_distribution_date
 msgid "Badge Distribution"

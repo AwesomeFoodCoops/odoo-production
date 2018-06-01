@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from . import shift_leave_wizard
 from . import barcode_rule
 from . import res_partner
 from . import res_partner_owned_share

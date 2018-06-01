@@ -25,4 +25,3 @@ class ShiftLeaveWizard(models.TransientModel):
                 mail_tmpl.send_mail(leave.id)
 
         return res
-
