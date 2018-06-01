@@ -78,6 +78,19 @@ class ShiftTemplateRegistrationLine(models.Model):
             if leave.date_end and leave.date_end < leave.date_begin:
                 raise ValidationError(_(
                     "Stop Date should be greater than Start Date."))
+            leave._check_over_lap()
+
+    @api.multi
+    def _check_over_lap(self):
+        self.ensure_one()
+        lines = self.partner_id.tmpl_reg_line_ids
+        for line in lines:
+            if (line.date_begin <= self.date_end or not self.date_end) and\
+                (line.date_end >= self.date_begin or not line.date_end) and\
+                    line.id != self.id:
+                raise ValidationError(_(
+                    "You can't register this line because it would " +
+                    "create an overlap with another line for this member"))
 
     @api.multi
     def _compute_current(self):

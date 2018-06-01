@@ -32,9 +32,14 @@ class ShiftLeave(models.Model):
     proceed_message = fields.Html(string='Message Proceed',
                                   compute='_compute_proceed_message',
                                   store=True)
+    non_defined_type = fields.Boolean(related="type_id.is_non_defined",
+                                      string="Has Non Defined",
+                                      store=True)
+    non_defined_leave = fields.Boolean(string="Undefined Leave")
+    is_send_reminder = fields.Boolean("Send Reminder", default=False)
 
     @api.multi
-    @api.depends('partner_id', 'type_id', 'stop_date')
+    @api.depends('partner_id', 'type_id', 'stop_date', 'non_defined_leave')
     def _compute_proposed_date(self):
         """
         ABCD Member: Proposed Date = Date of the ABCD shift after End Date
@@ -46,6 +51,10 @@ class ShiftLeave(models.Model):
             Case 2: Otherwise, do not propose anything
         """
         for leave in self:
+            if leave.type_id.is_temp_leave and leave.non_defined_leave:
+                leave.reset_propose_info()
+                continue
+
             if not (leave.partner_id and leave.type_id and leave.stop_date) \
                     or not leave.type_id.is_temp_leave:
                 leave.reset_propose_info()
@@ -59,7 +68,8 @@ class ShiftLeave(models.Model):
                 self.convert_date_to_utc_datetime(
                     leave.stop_date, start_of_day=False)
 
-            next_shift = partner.get_next_shift(start_date=leave_stop_time_utc)
+            next_shift = partner.get_next_shift(
+                start_date=leave_stop_time_utc)
             _next_shift_time, next_shift_date = \
                 partner.get_next_shift_date(start_date=leave_stop_time_utc)
 
@@ -176,3 +186,53 @@ class ShiftLeave(models.Model):
                     leave.proceed_message = (_(
                         "Leave duration is under 8 weeks, do you want to proceed?"
                     ))
+
+    @api.multi
+    def update_registration_template_based_non_define_leave(self):
+        '''
+        This method is remove such members from their teams 
+        immediately by putting the end day for the templates closest the leave
+        of current partner. Apply for non-define leave
+        '''
+        for leave in self:
+            if leave.non_defined_type and leave.non_defined_leave:
+                # get all template on partner
+                template_registration = leave.partner_id.tmpl_reg_line_ids
+
+                # get templates before the stop date leave
+                last_templates =\
+                    template_registration.filtered(
+                        lambda l: l.is_current).sorted(
+                        key=lambda l: l.date_begin, reverse=True)
+
+                # put end date to template which has closest begin day and
+                # update state leave
+                if last_templates:
+                    last_templates[0].date_end = fields.Date.from_string(
+                        leave.start_date) - timedelta(days=1)
+                leave.state = 'done'
+
+        return True
+
+    @api.model
+    def send_mail_reminder_non_defined_leaves(self):
+        leave_env = self.env['shift.leave']
+
+        leave_to_send = leave_env.search([
+            ('is_send_reminder', '=', False),
+            ('non_defined_leave', '=', True),
+            ('stop_date', '<=',
+             (datetime.now() + timedelta(days=10)).strftime('%Y-%m-%d'))
+        ])
+
+        # get mail template and send
+        mail_template = self.env.ref(
+            'coop_membership.reminder_end_leave_email')
+        if mail_template:
+            for leave in leave_to_send:
+                mail_template.send_mail(leave.id)
+
+            # update sent reminder
+            leave_to_send.write({
+                'is_send_reminder': True
+            })

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from . import shift_leave_wizard
 from . import barcode_rule
 from . import res_partner
 from . import res_partner_owned_share
@@ -20,3 +21,4 @@ from . import event
 from . import event_registration
 from . import event_event_ticket
 from . import web_access_buttons
+from . import shift_template_registration_line
