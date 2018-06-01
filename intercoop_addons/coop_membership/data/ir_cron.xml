@@ -43,5 +43,17 @@
         <field name="active" eval="False"/>
     </record>
 
+    <record model="ir.cron" id="cron_reminder_non_define_leave_email">
+        <field name="name">Reminder Non Define Leave Email</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model" eval="'shift.leave'"/>
+        <field name="function" eval="'send_mail_reminder_non_defined_leaves'"/>
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 02:00:00')" />
+        <field name="args" eval="'()'"/>
+        <field name="active" eval="False"/>
+    </record>
 
 </odoo>

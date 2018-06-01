@@ -28,6 +28,11 @@
                     <field name="proceed_message"/>
                 </p>
             </xpath>
+            <field name="type_id" position="after">
+                <field name="non_defined_type" invisible="1"/>
+                <field name="non_defined_leave" attrs="{'invisible': [('non_defined_type', '=', False)], 'readonly': [('state', '!=', 'draft')]}" />
+                <field name="is_send_reminder" group="base.group_no_one" readonly="1" />
+            </field>
         </field>
     </record>
 
