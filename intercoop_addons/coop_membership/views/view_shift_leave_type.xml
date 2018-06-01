@@ -8,6 +8,7 @@
             <field name='require_stop_date' position="after">
                 <field name="is_temp_leave"/>
                 <field name="is_incapacity"/>
+                <field name="is_non_defined"/>
             </field>
         </field>
     </record>

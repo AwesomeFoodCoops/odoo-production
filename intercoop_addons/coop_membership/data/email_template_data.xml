@@ -117,4 +117,24 @@ If you think there was a mistake or wish to subscribe to another team please con
         </field>
     </record>
 
+    <record id="reminder_end_leave_email" model="mail.template">
+        <field name="name">Reminder End Leave Email</field>
+        <field name="model_id" ref="coop_shift.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">Reminder End Leave Email</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour ${object.partner_id.name.split(',')[0]}</p>
+<p>La fin de votre congé à La Louve approche. Pour vous assurer de pouvoir faire vos courses dès votre retour, il est fortement conseillé que vous contactiez le Bureau des membres pour réintégrer une nouvelle équipe.</p>
+<p>Date de fin de votre congé : ${object.stop_date}</p>
+<p>Horaires d’ouverture du Bureau Des Membres : Mardi : 13h30 - 16h Mercredi à Vendredi : 13h30 - 20h Samedi : 10h - 16h.</p>
+<p>Tél : 01 86 95 91 90</p>
+<p>Bonne journée,</p>
+<p>Le Bureau des membres de La Louve</p>
+]]>
+        </field>
+    </record>
+
 </odoo>

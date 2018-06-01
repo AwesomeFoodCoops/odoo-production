@@ -13,7 +13,7 @@ from openerp.exceptions import ValidationError
 from openerp import models, fields, api, _
 from openerp import SUPERUSER_ID
 from lxml import etree
-from openerp.osv.orm import setup_modifiers 
+from openerp.osv.orm import setup_modifiers
 
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
@@ -210,10 +210,15 @@ class ResPartner(models.Model):
             # Optimization. As this function will be call by cron
             # every night, we do not realize a write, that would raise
             # useless triger for state
-            if (partner.is_unsubscribed !=
-                    (partner.active_tmpl_reg_line_count == 0)):
-                partner.is_unsubscribed =\
-                    partner.active_tmpl_reg_line_count == 0
+            today = fields.Date.context_today(self)
+            leave_none_defined = partner.leave_ids.filtered(
+                lambda l: l.start_date <= today and l.stop_date >=
+                today and l.non_defined_leave and l.state == 'done')
+            reg_count_line = partner.active_tmpl_reg_line_count == 0
+            if leave_none_defined:
+                continue
+            if partner.is_unsubscribed != reg_count_line:
+                partner.is_unsubscribed = reg_count_line
 
     @api.multi
     @api.depends('fundraising_partner_type_ids')
@@ -589,6 +594,36 @@ class ResPartner(models.Model):
             })
         return True
 
+    @api.multi
+    def generate_pdf(self, report_name):
+        context = dict(self._context or {})
+        active_ids = self.ids
+        context.update({
+            'active_model': self._name,
+            'active_ids': active_ids,
+        })
+        return self.env['report'].with_context(context).\
+            get_pdf(self, report_name)
+
+    @api.multi
+    def attach_report_in_mail(self):
+        self.ensure_one()
+        report_name = 'coop_membership.member_contract_template'
+        report = self.generate_pdf(report_name)
+        encoded_report = base64.encodestring(report)
+        filename = 'Member Contract'
+
+        # create the new ir_attachment
+        attachment_value = {
+            'name': filename,
+            'res_name': filename,
+            'res_model': 'res.partner',
+            'datas': encoded_report,
+            'datas_fname': filename + '.pdf',
+        }
+        new_attachment = self.env['ir.attachment'].create(attachment_value)
+        return new_attachment
+
     def fields_view_get(self, cr, uid, view_id=None, view_type='form',
                         context=None, toolbar=False, submenu=False):
         if context is None:
@@ -608,7 +643,7 @@ class ResPartner(models.Model):
                 'coop_membership.group_membership_bdm_lecture')
             writer_group = self.user_has_groups(
                 cr, uid,
-                'coop_membership.group_membership_access_edit')              
+                'coop_membership.group_membership_access_edit')
             if lecture_group and not writer_group:
                 if view_type == 'form':
                     doc = etree.fromstring(res['arch'])
@@ -634,7 +669,7 @@ class ResPartner(models.Model):
                             cr, uid,
                             'coop_shift',
                             'act_template_registration_line_from_partner_tree_mode')[1]
-                                           
+
                     for node in doc.xpath("//button"):
                         if node.get('name') == str(shift_ext_from_partner_id):
                             node.set(
