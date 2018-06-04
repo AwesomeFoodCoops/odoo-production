@@ -47,3 +47,43 @@ class AccountInvoice(models.Model):
             res['arch'] = etree.tostring(doc)
 
         return res
+
+    @api.onchange('state', 'partner_id', 'invoice_line_ids')
+    def _onchange_allowed_purchase_ids(self):
+        '''
+        The purpose of the method is to define a domain for the available
+        purchase orders.
+        '''
+        result = super(AccountInvoice, self)._onchange_allowed_purchase_ids()
+        if self.type == 'in_refund':
+            if result['domain']['purchase_id']:
+                result['domain']['purchase_id'][0] =\
+                    ('invoice_status', 'in', ('to invoice', 'invoiced'))
+        return result
+
+    def _prepare_invoice_line_from_po_line(self, line):
+        data = super(AccountInvoice, self).\
+            _prepare_invoice_line_from_po_line(line)
+        if self.type == 'in_refund':
+            qty_invoiced = 0.0
+            for inv_line in line.invoice_lines:
+                if inv_line.invoice_id.state not in ['cancel']:
+                    if inv_line.invoice_id.type == 'in_invoice' \
+                            and inv_line.invoice_id.state == 'paid':
+                        qty_invoiced += inv_line.uom_id._compute_qty_obj(
+                            inv_line.uom_id,
+                            inv_line.quantity,
+                            line.product_uom
+                        )
+                    elif inv_line.invoice_id.type == 'in_refund' \
+                            and inv_line.invoice_id.state == 'paid':
+                        qty_invoiced -= inv_line.uom_id._compute_qty_obj(
+                            inv_line.uom_id,
+                            inv_line.quantity,
+                            line.product_uom
+                        )
+            # get invoiced qty
+            data.update({
+                'quantity': qty_invoiced
+            })
+        return data

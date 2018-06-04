@@ -14,7 +14,7 @@ from openerp import models, fields, api, _
 import base64
 from openerp import SUPERUSER_ID
 from lxml import etree
-from openerp.osv.orm import setup_modifiers 
+from openerp.osv.orm import setup_modifiers
 
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
@@ -211,10 +211,15 @@ class ResPartner(models.Model):
             # Optimization. As this function will be call by cron
             # every night, we do not realize a write, that would raise
             # useless triger for state
-            if (partner.is_unsubscribed !=
-                    (partner.active_tmpl_reg_line_count == 0)):
-                partner.is_unsubscribed =\
-                    partner.active_tmpl_reg_line_count == 0
+            today = fields.Date.context_today(self)
+            leave_none_defined = partner.leave_ids.filtered(
+                lambda l: l.start_date <= today and l.stop_date >=
+                today and l.non_defined_leave and l.state == 'done')
+            reg_count_line = partner.active_tmpl_reg_line_count == 0
+            if leave_none_defined:
+                continue
+            if partner.is_unsubscribed != reg_count_line:
+                partner.is_unsubscribed = reg_count_line
 
     @api.multi
     @api.depends('fundraising_partner_type_ids')
@@ -590,7 +595,6 @@ class ResPartner(models.Model):
             })
         return True
 
-
     @api.multi
     def generate_pdf(self, report_name):
         context = dict(self._context or {})
@@ -640,7 +644,7 @@ class ResPartner(models.Model):
                 'coop_membership.group_membership_bdm_lecture')
             writer_group = self.user_has_groups(
                 cr, uid,
-                'coop_membership.group_membership_access_edit')              
+                'coop_membership.group_membership_access_edit')
             if lecture_group and not writer_group:
                 if view_type == 'form':
                     doc = etree.fromstring(res['arch'])
@@ -666,7 +670,7 @@ class ResPartner(models.Model):
                             cr, uid,
                             'coop_shift',
                             'act_template_registration_line_from_partner_tree_mode')[1]
-                                           
+
                     for node in doc.xpath("//button"):
                         if node.get('name') == str(shift_ext_from_partner_id):
                             node.set(
@@ -678,4 +682,3 @@ class ResPartner(models.Model):
                                 str(tpl_reg_line_fr_partner_tree_id))
                     res['arch'] = etree.tostring(doc)
         return res
-
