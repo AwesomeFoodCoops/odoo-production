@@ -35,6 +35,7 @@ Roadmap / Know Issues
         'security/ir.model.access.csv',
         'data/ir_config_parameter.xml',
         'data/ir_cron.xml',
+        'wizard/confirm_update_wizard_view.xml',
         'views/view_product_product.xml',
         'views/view_product_uom.xml',
         'views/view_product_scale_system.xml',
