@@ -1,0 +1,184 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_finance_report_xlsx
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-08 05:33+0000\n"
+"PO-Revision-Date: 2018-06-08 05:33+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_finance_report_xlsx
+#: model:ir.actions.report.xml,name:account_finance_report_xlsx.report_account_financial_xlsx
+msgid "Account Finance Report"
+msgstr "Account Finance Report"
+
+#. module: account_finance_report_xlsx
+#: model:ir.ui.menu,name:account_finance_report_xlsx.menu_financial_reports_format
+msgid "Account Reports Format"
+msgstr "Account Reports Format"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model,name:account_finance_report_xlsx.model_accounting_report
+msgid "Accounting Report"
+msgstr "Rapport comptable"
+
+#. module: account_finance_report_xlsx
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:60
+#, python-format
+msgid "All Entries"
+msgstr "Toutes les écritures"
+
+#. module: account_finance_report_xlsx
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:66
+#, python-format
+msgid "All Posted Entries"
+msgstr "Toutes les écritures comptabilisées"
+
+#. module: account_finance_report_xlsx
+#: model:ir.ui.view,arch_db:account_finance_report_xlsx.view_report_finance_format_form
+msgid "Apply"
+msgstr "Appliquer"
+
+#. module: account_finance_report_xlsx
+#: model:ir.ui.view,arch_db:account_finance_report_xlsx.view_report_finance_format_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model,name:account_finance_report_xlsx.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model.fields,field_description:account_finance_report_xlsx.field_report_finance_format_company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model.fields,field_description:account_finance_report_xlsx.field_report_finance_format_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model.fields,field_description:account_finance_report_xlsx.field_report_finance_format_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: account_finance_report_xlsx
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:72
+#, python-format
+msgid "Date from:"
+msgstr "Date de:"
+
+#. module: account_finance_report_xlsx
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:83
+#, python-format
+msgid "Date to:"
+msgstr "Date au:"
+
+#. module: account_finance_report_xlsx
+#: model:ir.ui.view,arch_db:account_finance_report_xlsx.view_report_finance_format_form
+msgid "Default Refort Finance Format"
+msgstr "Default Refort Finance Format"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model.fields,field_description:account_finance_report_xlsx.field_report_finance_format_format_report_finance
+#: model:ir.model.fields,field_description:account_finance_report_xlsx.field_res_company_format_report_finance
+msgid "Default format report finance"
+msgstr "Default format report finance"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model.fields,field_description:account_finance_report_xlsx.field_report_finance_format_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: account_finance_report_xlsx
+#: model:ir.actions.act_window,name:account_finance_report_xlsx.action_account_financial_report_format
+msgid "Financial Report Format"
+msgstr "Financial Report Format"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model.fields,field_description:account_finance_report_xlsx.field_report_finance_format_id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model.fields,field_description:account_finance_report_xlsx.field_report_finance_format___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model.fields,field_description:account_finance_report_xlsx.field_report_finance_format_write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model.fields,field_description:account_finance_report_xlsx.field_report_finance_format_write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: account_finance_report_xlsx
+#: selection:res.company,format_report_finance:0
+msgid "PDF"
+msgstr "PDF"
+
+#. module: account_finance_report_xlsx
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:93
+#, python-format
+msgid "Print Date:"
+msgstr "Date d'impression:"
+
+#. module: account_finance_report_xlsx
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:506
+#, python-format
+msgid "Profit and Loss"
+msgstr "Compte de résultat"
+
+#. module: account_finance_report_xlsx
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:210
+#, python-format
+msgid "Credit"
+msgstr "Crédit"
+
+#. module: account_finance_report_xlsx
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:132
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:200
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:277
+#, python-format
+msgid "Name"
+msgstr "Nom"
+
+#. module: account_finance_report_xlsx
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:205
+#, python-format
+msgid "Debit"
+msgstr "Débit"
+
+#. module: account_finance_report_xlsx
+#: model:ir.ui.view,arch_db:account_finance_report_xlsx.view_report_finance_format_form
+msgid "Report Finance Format"
+msgstr "Report Finance Format"
+
+#. module: account_finance_report_xlsx
+#: code:addons/account_finance_report_xlsx/report/report_account_finance_xlsx.py:54
+#, python-format
+msgid "Target Moves:"
+msgstr "Pièces cibles:"
+
+#. module: account_finance_report_xlsx
+#: selection:res.company,format_report_finance:0
+msgid "XLSX"
+msgstr "XLSX"
+
+#. module: account_finance_report_xlsx
+#: model:ir.model,name:account_finance_report_xlsx.model_report_finance_format
+msgid "report.finance.format"
+msgstr "report.finance.format"
