@@ -216,10 +216,10 @@ class ResPartner(models.Model):
                 lambda l: l.start_date <= today and l.stop_date >=
                 today and l.non_defined_leave and l.state == 'done')
             reg_count_line = partner.active_tmpl_reg_line_count == 0
-            if leave_none_defined:
-                continue
-            if partner.is_unsubscribed != reg_count_line:
-                partner.is_unsubscribed = reg_count_line
+
+            is_unsucribed = (reg_count_line and not leave_none_defined)
+            if partner.is_unsubscribed != is_unsucribed:
+                partner.is_unsubscribed = is_unsucribed
 
     @api.multi
     @api.depends('fundraising_partner_type_ids')
@@ -407,6 +407,16 @@ class ResPartner(models.Model):
         return True
 
     # CRON section
+    @api.model
+    def update_is_unsubscribed_manually(self, partner_ids):
+        """
+        This is util function which call by Cron with passing partner_ids
+        as arguments.
+        It helps to test _compute_is_unsubscribed function easily 
+        """
+        partners = self.browse(partner_ids)
+        partners._compute_is_unsubscribed()
+    
     @api.model
     def update_is_unsubscribed(self):
         partners = self.search([])
