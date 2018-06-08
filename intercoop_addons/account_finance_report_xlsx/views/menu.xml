@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<record id="action_account_financial_report_format" model="ir.actions.act_window">
+            <field name="name">Financial Report Format</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.finance.format</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+		<menuitem id="menu_financial_reports_format" name="Account Reports Format" parent="account.menu_account_reports" action="action_account_financial_report_format"/>
+	</data>
+</openerp>
