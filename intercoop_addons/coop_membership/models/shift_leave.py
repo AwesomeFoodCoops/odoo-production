@@ -204,14 +204,20 @@ class ShiftLeave(models.Model):
                     template_registration.filtered(
                         lambda l: l.is_current).sorted(
                         key=lambda l: l.date_begin, reverse=True)
+                
+                # Must mark leave as done before setting end_date
+                # for tmpl_reg_line to make _compute_is_unsubscribed
+                # work as expected
+                # => (Dont set unsubscribed for this partner in
+                # period of non-defined leave)
+                leave.state = 'done'
 
                 # put end date to template which has closest begin day and
                 # update state leave
                 if last_templates:
                     last_templates[0].date_end = fields.Date.from_string(
                         leave.start_date) - timedelta(days=1)
-                leave.state = 'done'
-
+                
         return True
 
     @api.model

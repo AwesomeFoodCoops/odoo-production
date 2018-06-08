@@ -346,6 +346,15 @@ class ResPartner(models.Model):
                     datetime.today() + relativedelta(days=alert_duration)
                 partner.date_alert_stop = partner.date_alert_stop
 
+    @api.model
+    def compute_working_state_manually(self, member_ids):
+        """
+        This is util function which call by Cron with passing member_ids
+        as arguments.
+        It helps to test _compute_working_state function easily
+        """
+        self.browse(member_ids)._compute_working_state()
+
     @api.depends(
         'is_blocked', 'final_standard_point',
         'final_ftop_point', 'shift_type', 'date_alert_stop',
