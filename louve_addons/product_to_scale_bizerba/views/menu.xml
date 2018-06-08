@@ -23,4 +23,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         parent="menu_scale_root" sequence="3"
         action="action_product_scale_log"/>
 
+    <menuitem id="menu_product_scale_update"
+        parent="menu_scale_root" sequence="20"
+        action="action_product_scale_force_update"/>
+
 </data></openerp>
