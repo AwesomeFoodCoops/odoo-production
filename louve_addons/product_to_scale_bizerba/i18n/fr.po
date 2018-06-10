@@ -542,3 +542,18 @@ msgstr "product.scale.system.product.line"
 msgid "range of the x2Many Fields"
 msgstr "Index des champs x2Many"
 
+#. module: product_to_scale_bizerba
+#: model:ir.actions.act_window,name:product_to_scale_bizerba.action_product_scale_force_update
+#: model:ir.ui.menu,name:product_to_scale_bizerba.menu_product_scale_update
+msgid "Force Update"
+msgstr "Renvoyer tous les produits aux balances"
+
+#. module: product_to_scale_bizerba
+#: model:ir.ui.view,arch_db:product_to_scale_bizerba.view_confirm_update_wizard_form
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: product_to_scale_bizerba
+#: model:ir.ui.view,arch_db:product_to_scale_bizerba.view_confirm_update_wizard_form
+msgid "Cancel"
+msgstr "Annuler"

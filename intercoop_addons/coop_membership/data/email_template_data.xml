@@ -137,4 +137,26 @@ If you think there was a mistake or wish to subscribe to another team please con
         </field>
     </record>
 
+    <record id="confirm_leave_non_define_email" model="mail.template">
+        <field name="name">Confirmation of your undefined leave request</field>
+        <field name="model_id" ref="coop_shift.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">Confirmation de votre demande de congé non définie</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour ${object.partner_id.name}</p>
+<p>Nous avons enregistré votre congé "non défini" à partir du ${object.start_date}. Pendant cette période vous n’avez pas besoin de venir faire vos services.</p>
+<p>S'il s’agit d'un congé temporaire, vous ne pouvez pas faire vos courses.</p>
+<p>S'il s'agit d'un congé parental, vous pouvez faire vos courses à la Louve.</p>
+<p>10 jours avant la date de fin de congé estimée que vous nous avez donnée, vous recevrez un message vous rappelant de contacter le Bureau des membres pour de nouveau intégrer une équipe.</p><br/>
+<p>Bonne journée,</p>
+<p>Bureau de membres 01 86 95 91 90</p>
+<p>Pour toute question ou demande, merci d'appeler ou de passer au Bureau des membres pendant ses horaires d'ouverture.</p>
+<p>Mardi : 13h30 - 16h Mercredi à Vendredi : 13h30 - 20h Samedi : 10h - 16h</p>
+]]>
+        </field>
+    </record>
+
 </odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>        
+        <report
+            file="report_account_financial_xlsx"
+            id="report_account_financial_xlsx"
+            model="account.financial.report"
+            name="report_account_financial_xlsx"
+            report_type="xlsx"
+            string="Account Finance Report"/>
+    </data>
+</odoo>
