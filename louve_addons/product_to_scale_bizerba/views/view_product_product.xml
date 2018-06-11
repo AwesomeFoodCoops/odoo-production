@@ -26,8 +26,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                                 colspan="2"/>
                             <button name="send_scale_unlink" type="object" string="Manual Deletion in the Scale System"
                                 colspan="2"/>
-                            <button name="send_all_scale_write" type="object" string="Force Update"
-                                colspan="2"/>
                         </group>
                     </group>
                 </page>

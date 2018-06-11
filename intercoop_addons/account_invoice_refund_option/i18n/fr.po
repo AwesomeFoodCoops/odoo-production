@@ -42,6 +42,11 @@ msgid "Refund Select Product"
 msgstr "Rembourser Sélectionner un produit"
 
 #. module: account_invoice_refund_option
+#: selection:account.invoice.refund,filter_refund:3
+msgid "Select product(s) for refunding"
+msgstr "Sélection de produit(s) depuis la facture"
+
+#. module: account_invoice_refund_option
 #: model:ir.ui.view,arch_db:account_invoice_refund_option.view_account_invoice_refund_form_inherit
 msgid "Use this option if you want to create a draft refund for some products only."
 msgstr "Utilisez cette option si vous souhaitez créer un remboursement de brouillon pour certains produits uniquement."
