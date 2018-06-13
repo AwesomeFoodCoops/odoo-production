@@ -46,7 +46,7 @@
                                     <input  type="radio" name="sex" value="f"> Femme </input><br />
                                     <input  type="radio" name="sex" value="o"> Autre </input><br />
                                 </div>
-                                <div class="wrap-input100 validate-input bg1" data-validate="l'anniversaire doit avoir le bon format et l'âge doit être supérieur à 18">
+                                <div class="wrap-input100 validate-input bg1" data-validate="Le format de la date doit être JJ/MM/AAAA et l'âge supérieur à 18 ans.">
                                     <span class="label-input100">Date de naissance</span>
                                     <input class="dob input100" type="text" name="dob" placeholder="Veuillez renseigner votre date de naissance"></input>
                                 </div>                                
@@ -85,8 +85,8 @@
                                     <span class="label-input100">Je m'inscris à la réunion d'accueil du :</span><br />
                                     <span style="color: #f04a4f" class="validate-option-event">Veuillez renseigner votre réunion</span>
                                     <div>
-                                        <t t-foreach="events" t-as="event">
-                                            <input  type="radio" name="select_event" class="validate-input-option validate-input" t-att-value="event.id"> <t t-esc="event.name_get()[0][1]"/> </input><br />
+                                        <t t-foreach="datas" t-as="data">
+                                            <input  type="radio" name="select_event" class="validate-input-option validate-input" t-att-value="data[0]"> <t t-esc="data[2][0:10]"/> à <t t-esc="data[2][11:16] or False"/><t t-if="data[1]"> - <t t-esc="data[1]"/></t></input><br />
                                         </t>
                                     </div>
                                 </div>
@@ -125,19 +125,19 @@
                 <body>
                    <div class="container-contact100" >
                         <div class="wrap-contact100">
-                            <form action="/discovery" class="contact100-form validate-form" >
-                                <span class="contact100-form-title">
-                                   Inscription enregistrée. Vous allez recevoir un email de confirmation.
-                                </span>
-                                <div class="container-contact100-form-btn" style="margin: auto; width: 12%;">
+                            <span class="contact100-form-title">
+                               Inscription enregistrée. Vous allez recevoir un email de confirmation.
+                            </span>
+                            <div class="container-contact100-form-btn" style="margin: auto; width: 12%;">
+                                <a t-att-href="website">
                                     <button class="contact100-form-btn">
                                         <span>
-                                            Confirmer
+                                            OK
                                             <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
                                         </span>
                                     </button>
-                                </div>
-                            </form>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </body>
