@@ -5,6 +5,7 @@ import pytz
 from openerp import api, fields, models, _
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+from openerp.exceptions import ValidationError
 
 
 class ShiftLeave(models.Model):
@@ -37,6 +38,7 @@ class ShiftLeave(models.Model):
                                       store=True)
     non_defined_leave = fields.Boolean(string="Undefined Leave")
     is_send_reminder = fields.Boolean("Send Reminder", default=False)
+    event_id = fields.Many2one('shift.counter.event', string="Event Counter")
 
     @api.multi
     @api.depends('partner_id', 'type_id', 'stop_date', 'non_defined_leave')
@@ -186,6 +188,107 @@ class ShiftLeave(models.Model):
                     leave.proceed_message = (_(
                         "Leave duration is under 8 weeks, do you want to proceed?"
                     ))
+
+    @api.multi
+    @api.constrains('type_id', 'partner_id', 'start_date', 'stop_date')
+    def _check_leave_for_ABCD_member(self):
+        for record in self:
+            today = fields.Date.context_today(self)
+            abcd_lines_in_leave = record.partner_id.registration_ids.filtered(
+                lambda l: l.date_begin >= record.start_date and
+                l.date_end <= record.stop_date and l.date_begin >=
+                today and l.state != 'cancel' and
+                l.shift_ticket_id.shift_type == 'standard')
+            if record.type_id.is_anticipated:
+                if record.partner_id.in_ftop_team:
+                    raise ValidationError(
+                        _("This member is not part of an ABCD team."))
+                elif record.partner_id.final_standard_point != 0:
+                    raise ValidationError(_(
+                        "Normally, this member is not eligible for early" +
+                        " leave because he has to catch up"))
+                elif len(abcd_lines_in_leave) < 2:
+                    raise ValidationError(_(
+                        "The period of leave must include TWO" +
+                        " minimum missed services."))
+                elif record.partner_id.final_ftop_point <\
+                        len(abcd_lines_in_leave):
+                    raise ValidationError(_(
+                        "The member does not have enough" +
+                        " credits to cover the proposed period."))
+
+    @api.multi
+    def update_info_anticipated_leave(self):
+        self.ensure_one()
+        today = fields.Date.context_today(self)
+        lines = self.partner_id.registration_ids
+        abcd_lines_in_leave = lines.filtered(
+            lambda l: l.date_begin >= self.start_date and
+            l.date_end <= self.stop_date and l.date_begin >=
+            today and l.state != 'cancel' and
+            l.shift_ticket_id.shift_type == 'standard')
+
+        # Update FTOP points
+        count_point_remove = len(abcd_lines_in_leave)
+
+        point_counter_env = self.env['shift.counter.event']
+        event = point_counter_env.sudo().with_context(
+            {'automatic': True}).create({
+                'name': _('Anticipated Leave'),
+                'type': 'ftop',
+                'partner_id': self.partner_id.id,
+                'point_qty': -count_point_remove,
+                'notes': _('This event was created to remove point base' +
+                           ' on anticipated leave.')
+            })
+        self.event_id = event.id
+
+    @api.multi
+    def button_cancel(self):
+        '''
+            Add point counter event base on cancelling leave anticipated
+        '''
+        super(ShiftLeave, self).button_cancel()
+        for leave in self:
+            if leave.type_id.is_anticipated and leave.event_id:
+                last_notes = leave.event_id.notes
+                last_points = leave.event_id.point_qty
+                leave.event_id.point_qty = 0
+                leave.event_id.notes =\
+                    last_notes + '\nLast point quantity: %s' % last_points
+
+    @api.multi
+    def update_date_end_anticipated_leave(self, vals):
+        partner_id = vals.get('partner_id', self.partner_id.id)
+        stop_date = vals.get('stop_date', False)
+        partner = self.env['res.partner'].browse(partner_id)
+        future_lines = partner.registration_ids.filtered(
+            lambda l: l.date_begin >= stop_date)
+
+        # Suggest date end of leave before the registration after leave a day
+        if future_lines:
+            date_suggest = fields.Date.from_string(
+                future_lines[0].date_begin) - timedelta(days=1)
+            if stop_date != date_suggest:
+                vals.update({
+                    'stop_date': date_suggest
+                })
+
+    @api.model
+    def create(self, vals):
+        type_id = vals.get('type_id', False)
+        type_leave = self.env['shift.leave.type'].browse(type_id)
+        if type_leave.is_anticipated:
+            self.update_date_end_anticipated_leave(vals)
+        return super(ShiftLeave, self).create(vals)
+
+    @api.multi
+    def write(self, vals):
+        type_id = vals.get('type_id', self.type_id.id)
+        type_leave = self.env['shift.leave.type'].browse(type_id)
+        if type_leave.is_anticipated and 'stop_date' in vals:
+            self.update_date_end_anticipated_leave(vals)
+        return super(ShiftLeave, self).write(vals)
 
     @api.multi
     def update_registration_template_based_non_define_leave(self):
