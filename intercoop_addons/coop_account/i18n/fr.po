@@ -108,6 +108,16 @@ msgid "Bank Reconciliation"
 msgstr "Rapprochement bancaire"
 
 #. module: coop_account
+#: model:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend_inherit
+msgid "Re-Generate"
+msgstr "Régénérer"
+
+#. module: coop_account
+#: model:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend_inherit
+msgid "Reverse Payment"
+msgstr "Extourner le paiement"
+
+#. module: coop_account
 #: code:addons/coop_account/models/account_move.py:32
 #, python-format
 msgid "You cannot reconcile that account move with a bank statement line that is not related to bank journal."
