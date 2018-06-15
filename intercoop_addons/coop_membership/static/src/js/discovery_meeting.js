@@ -32,7 +32,7 @@
         }
         else if($(input).attr('name') == 'dob') {
             var value = $(input).val();
-            var dob = moment(value, 'MM/DD/YYYY', true);
+            var dob = moment(value, 'DD/MM/YYYY', true);
             if (!dob.isValid()){
                 return false
             }
@@ -91,6 +91,7 @@
     
     ///**** Decorate Datetime picker for Date Of Birth */
     $('.dob').datetimepicker({
+            format: "DD/MM/YYYY",
             pickTime: false,
             useSeconds: false,
             startDate: moment({ y: 1900 }),

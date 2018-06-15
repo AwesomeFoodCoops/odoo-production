@@ -5,6 +5,7 @@ from openerp import http
 from openerp.http import request
 from openerp.addons.website.models.website import slug
 from openerp.addons.web.controllers import main
+from openerp import fields
 import logging
 import werkzeug
 import requests
@@ -14,7 +15,35 @@ _logger = logging.getLogger(__name__)
 
 
 class WebsiteRegisterMeeting(http.Controller):
-    
+
+    def prepare_data_events(self, events):
+        data = []
+        REGISTER_USER_ID =\
+            int(request.env['ir.config_parameter'].sudo(
+            ).get_param('register_user_id'))
+        user = request.registry['res.users'].browse(
+            request.cr, REGISTER_USER_ID, REGISTER_USER_ID,
+            context=request.context)
+
+        for event in events:
+
+            # Build address info event
+            street = event.address_id and event.address_id.street or False
+            zip_code = event.address_id and event.address_id.zip or False
+            city = event.address_id and event.address_id.city or False
+            address = '%s %s %s' % (str(street), str(zip_code), str(city))
+
+            # Get correct time
+            date_tz = user.tz
+            self_in_tz = event.with_context(tz=(date_tz or 'UTC'))
+            date_begin = fields.Datetime.from_string(event.date_begin)
+            date_begin = fields.Datetime.context_timestamp(
+                self_in_tz, date_begin)
+            date_begin = date_begin.strftime('%d/%m/%Y %H:%M:%S')
+
+            data.append([event.id, address, date_begin])
+        return data
+
     @http.route(['/discovery'], type='http',
                 auth="none", website=True)
     def get_discover_meeting(self):
@@ -35,8 +64,10 @@ class WebsiteRegisterMeeting(http.Controller):
         ])
         events = event_obj.browse(request.cr, REGISTER_USER_ID, event_ids,
                                   context=request.context)
+        datas = self.prepare_data_events(events)
+
         value = {
-            'events': events,
+            'datas': datas,
             'captcha_site_key': captcha_site_key,
         }
         return request.render("coop_membership.register_form", value)
@@ -81,7 +112,7 @@ class WebsiteRegisterMeeting(http.Controller):
         # conver dob to correct format in database
         try:
             dob = datetime.strptime(
-                dob, "%m/%d/%Y").date().strftime('%Y-%m-%d')
+                dob, "%d/%m/%Y").date().strftime('%Y-%m-%d')
         except:
             _logger.warn(
                 'Convert birthdate from %s on discovery meeting form failed', dob)
@@ -118,13 +149,13 @@ class WebsiteRegisterMeeting(http.Controller):
             # create event registration
             val = {
                 'event_id': event.id,
-                'name': first_name + ', ' + name,
+                'name': name + ', ' + first_name,
                 'email': email,
             }
             attendee_id = self.create_event_registration(val, REGISTER_USER_ID)
 
             partner_val = {
-                'name': first_name + ', ' + name,
+                'name': name + ', ' + first_name,
                 'sex': sex,
                 'email': email,
                 'street': street1,
@@ -139,6 +170,8 @@ class WebsiteRegisterMeeting(http.Controller):
             new_partner_id = self.create_contact_partner(
                 partner_val, REGISTER_USER_ID)
 
+            website = '/discovery'
+
             if new_partner_id:
 
                 partner = partner_obj.browse(request.cr, REGISTER_USER_ID,
@@ -149,6 +182,9 @@ class WebsiteRegisterMeeting(http.Controller):
                     request.cr, REGISTER_USER_ID, attendee_id,
                     {'partner_id': new_partner_id},
                     context=request.context)
+
+                website = partner.company_id and\
+                    partner.company_id.website
 
                 if social_registration == 'yes':
                     partner.set_underclass_population()
@@ -164,8 +200,12 @@ class WebsiteRegisterMeeting(http.Controller):
                     #     (6, 0, (contract.ids))]
                     template_email.sudo().send_mail(attendee_id)
 
+            value = {
+                'website': website
+            }
+
             return request.render(
-                "coop_membership.register_submit_form_success")
+                "coop_membership.register_submit_form_success", value)
 
     def create_event_registration(self, val, REGISTER_USER_ID):
         event_reg_obj = request.registry['event.registration']
