@@ -1309,3 +1309,27 @@ msgstr "\n"
 "<p>Nous avons peut être prolongé la durée de votre congé par rapport à votre demande car votre date de retour proposée était trop proche du jour de décompte de l’équipe volante. N’oubliez pas que vous devez avoir fait un service qui suit votre retour${object.shift_date_after_return and (', le ' + str(object.shift_date_after_return)) or ''}.</p>\n"
 "\n"
 "<p>Bonne journée,</p>"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_leave.py:204
+#, python-format
+msgid "This member is not part of an ABCD team."
+msgstr "Ce membre ne fait pas parti d’une équipe ABCD."
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_leave.py:206
+#, python-format
+msgid "Normally, this member is not eligible for early leave because he has to catch up"
+msgstr "Normalement, ce membre n’est pas éligible pour un congé anticipé car il doit des rattrapages"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_leave.py:210
+#, python-format
+msgid "The period of leave must include TWO minimum missed services."
+msgstr "La période du congé doit inclure DEUX services manqués minimum."
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_leave.py:215
+#, python-format
+msgid "The member does not have enough credits to cover the proposed period."
+msgstr "Le membre n’a pas assez de crédits pour couvrir la période proposée."
