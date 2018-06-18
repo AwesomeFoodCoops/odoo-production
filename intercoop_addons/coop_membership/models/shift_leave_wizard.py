@@ -24,3 +24,4 @@ class ShiftLeaveWizard(models.TransientModel):
             leave.update_registration_template_based_non_define_leave()
         else:
             super(ShiftLeaveWizard, self).button_confirm()
+            leave.update_info_anticipated_leave()

@@ -9,6 +9,7 @@
                 <field name="is_temp_leave"/>
                 <field name="is_incapacity"/>
                 <field name="is_non_defined"/>
+                <field name="is_anticipated"/>
             </field>
         </field>
     </record>

@@ -37,3 +37,22 @@ class ShiftExtension(models.Model):
                 date_start = fields.Date.from_string(extension.date_start)
                 extension.date_stop = date_start +\
                     relativedelta(days=extension.type_id.duration)
+
+    @api.model
+    def default_get(self, field_list):
+        '''
+            Get default type for case that's from smart button partner (Ext)
+        '''
+        default_type = self._context.get('default_type', False)
+        res = super(ShiftExtension, self).default_get(field_list)
+        if default_type == 'extension':
+            extension_type = self.env['shift.extension.type'].search([
+                ('extension_method', '=', 'to_next_regular_shift')
+            ])
+            if extension_type:
+                res.update({
+                    'type_id': extension_type[0].id,
+                    'date_start': fields.Date.context_today(self)
+                })
+        self.onchange_type_id()
+        return res

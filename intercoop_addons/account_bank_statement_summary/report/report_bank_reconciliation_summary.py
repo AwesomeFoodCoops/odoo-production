@@ -67,7 +67,8 @@ class ReportBankReconciliationSummary(ReportXlsx):
                 LEFT JOIN res_partner rp ON ml.partner_id = rp.id
             WHERE ml.date <= '%s' AND ml.reconciled = false AND
             ml.statement_id is null AND
-            ml.account_id = %s
+            ml.account_id = %s AND
+            am.state = 'posted'
             ORDER BY ml.date""" % (obj.analysis_date, default_account_credit)
         self.env.cr.execute(sql_move_lines)
         move_lines = self.env.cr.fetchall()
@@ -75,8 +76,10 @@ class ReportBankReconciliationSummary(ReportXlsx):
         # Get total move line unreconciled, unmatched
         sql_move_lines_extend = """SELECT sum(ml.credit - ml.debit)
             FROM account_move_line ml
+                LEFT JOIN account_move am ON ml.move_id = am.id
             WHERE ml.date <= '%s' AND
-            ml.account_id = %s
+            ml.account_id = %s AND
+            am.state = 'posted'
             """ % (obj.analysis_date, default_account_credit)
         self.env.cr.execute(sql_move_lines_extend)
         account_balance = self.env.cr.fetchone()

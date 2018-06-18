@@ -31,6 +31,21 @@
         </field>
     </record>
 
+    <record id="view_account_payment_form_extend_inherit" model="ir.ui.view">
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account_payment_transfer_account.view_account_payment_form_extend"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='post']" position="after">
+                <button type="object" class="oe_highlight" string="Reverse Payment"
+                        name="reverse_payments" attrs="{'invisible':[('state','in',['draft', 'cancelled'])]}">
+                </button>
+                <button type="object" class="oe_highlight" string="Re-Generate"
+                        name="re_generate" attrs="{'invisible':[('state','!=','cancelled')]}">
+                </button>
+            </xpath>
+        </field>
+    </record>
+
     <record id="account.action_account_payments_payable" model="ir.actions.act_window">
         <field name="context">{'default_payment_type': 'outbound', 'readonly_by_pass': True}</field>
     </record>
