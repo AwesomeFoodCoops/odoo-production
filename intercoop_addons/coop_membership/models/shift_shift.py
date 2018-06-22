@@ -130,7 +130,7 @@ class ShiftShift(models.Model):
             ('state', 'not in', ('cancel', 'done')),
             ('date_begin', '>=', fields.Date.context_today(self)),
             ('date_begin', '<=',
-            (datetime.now() + timedelta(days=12)).strftime('%Y-%m-%d'))
+             (datetime.now() + timedelta(days=12)).strftime('%Y-%m-%d'))
         ])
 
         # Get attendent
