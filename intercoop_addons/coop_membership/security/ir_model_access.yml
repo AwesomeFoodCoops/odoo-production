@@ -258,6 +258,15 @@
     perm_write: false
     perm_unlink: false
 -
+  !record {model: ir.model.access, id: bdm_lecture_shift_ticket_access}:
+    group_id: coop_membership.group_membership_bdm_lecture
+    model_id: coop_shift.model_shift_ticket
+    name: bdm.lecture.shift.ticket.access
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+-
   !record {model: ir.model.access, id: bdm_lecture_shift_template}:
     group_id: coop_membership.group_membership_bdm_lecture
     model_id: coop_shift.model_shift_template
