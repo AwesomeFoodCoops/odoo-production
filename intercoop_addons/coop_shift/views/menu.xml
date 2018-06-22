@@ -20,7 +20,7 @@
         parent="shift_main_menu"
         id="shift_menu"
         sequence="11"
-        groups="coop_shift.group_shift_user"/>
+        groups="coop_shift.group_shift_user,coop_membership.group_membership_bdm_lecture"/>
     <menuitem
         name="Templates"
         parent="shift_main_menu"
