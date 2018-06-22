@@ -59,6 +59,7 @@
         'views/event_view.xml',
         'views/shift_view.xml',
         'views/view_shift_extension.xml',
+        'views/view_shift_ticket.xml',
         'views/event_registration_view.xml',
         'views/web_templates.xml',
         'views/view_web_access_buttons.xml',
