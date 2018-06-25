@@ -1333,3 +1333,24 @@ msgstr "La période du congé doit inclure DEUX services manqués minimum."
 #, python-format
 msgid "The member does not have enough credits to cover the proposed period."
 msgstr "Le membre n’a pas assez de crédits pour couvrir la période proposée."
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_ticket_max_available_seat_standard
+msgid "Max Available Seats Standard"
+msgstr "Nombre de places classique maximum"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_ticket_seats_tree
+msgid "Max Available Seats FTOP"
+msgstr "Nombre de places volants maximum"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_ticket_available_seat_standard
+msgid "Available Seats Standard"
+msgstr "Places classique disponibles"
+
+#. module: coop_membership
+#: model:ir.actions.act_window,name:coop_membership.action_shift_seats_available_tree_view
+#: model:ir.ui.menu,name:coop_membership.menu_shift_seats_available
+msgid "FTOP Seats"
+msgstr "Places volants"
