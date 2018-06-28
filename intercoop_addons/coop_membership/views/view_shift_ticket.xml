@@ -8,9 +8,9 @@
             <tree string="FTOP Seats" editable="top">
                 <field name="shift_id" readonly="1"/>
                 <field name="state" invisible="1"/>
-                <field name="max_available_seat_standard"/>
-                <field name="available_seat_standard"/>
-                <field name="seats_max" readonly="1" string="Max Available Seats FTOP"/>
+                <field name="max_available_seat_standard" type="char"/>
+                <field name="available_seat_standard" type="char"/>
+                <field name="seats_max" readonly="1" type="char" string="Max Available Seats FTOP"/>
             </tree>
         </field>
     </record>
@@ -47,5 +47,17 @@
             </field>
 		</field>
 	</record>
+
+    <record model="ir.ui.view" id="view_shift_ticket_search_inherit">
+        <field name="name">shift.ticket.search.inherit</field>
+        <field name="model">shift.ticket</field>
+        <field name="inherit_id" ref="coop_shift.view_shift_ticket_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="shift_id"/>
+                <separator/>
+            </field>
+        </field>
+    </record>
 
 </odoo>
