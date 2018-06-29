@@ -148,3 +148,64 @@ msgstr "Vous ne pouvez pas supprimer un produit. Archivez-le en cliquant sur le 
 #, python-format
 msgid "You cannot unticking Available in the Point of Sale When POS Session are running with ids %s"
 msgstr "Vous ne pouvez pas décocher "Disponible dans le point de vente" car les sessions de caisse suivantes sont toujours ouvertes %s"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:49
+#: code:addons/coop_point_of_sale/models/pos_session.py:49
+#, python-format
+msgid "Mon"
+msgstr "Lun"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:51
+#: code:addons/coop_point_of_sale/models/pos_session.py:51
+#, python-format
+msgid "Tue"
+msgstr "Mar"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:53
+#: code:addons/coop_point_of_sale/models/pos_session.py:53
+#, python-format
+msgid "Wes"
+msgstr "Mer"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:55
+#: code:addons/coop_point_of_sale/models/pos_session.py:55
+#, python-format
+msgid "Thu"
+msgstr "Jeu"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:57
+#: code:addons/coop_point_of_sale/models/pos_session.py:57
+#, python-format
+msgid "Fri"
+msgstr "Ven"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:59
+#: code:addons/coop_point_of_sale/models/pos_session.py:59
+#, python-format
+msgid "Sat"
+msgstr "Sam"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:61
+#: code:addons/coop_point_of_sale/models/pos_session.py:61
+#, python-format
+msgid "Sun"
+msgstr "Dim"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order_week_day
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session_week_day
+msgid "Day"
+msgstr "Jour"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order_week_number
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session_week_number
+msgid "Week"
+msgstr "Semaine"

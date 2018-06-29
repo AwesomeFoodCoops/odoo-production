@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <record id="view_pos_session_search_inherit" model="ir.ui.view">
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_search"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="cycle"/>
+                <field name="week_day"/>
+                <field name="week_number"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_pos_session_tree_inherit" model="ir.ui.view">
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_tree"/>
+        <field name="arch" type="xml">
+            <field name="start_at" position="before">
+                <field name="cycle"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
