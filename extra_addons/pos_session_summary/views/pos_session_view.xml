@@ -13,6 +13,7 @@
         <field name="arch" type="xml">
             <field name="stop_at" position="after">
                 <field name="order_qty" />
+                <field name="amount_subtotal"/>
                 <field name="total_amount" />
             </field>
         </field>
@@ -24,6 +25,7 @@
         <field name="arch" type="xml">
             <field name="config_id" position="after">
                 <field name="order_qty" />
+                <field name="amount_subtotal"/>
                 <field name="total_amount" />
             </field>
             <field name="total_entry_encoding" position="replace">
