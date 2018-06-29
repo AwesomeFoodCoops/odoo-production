@@ -200,6 +200,8 @@ class ShiftLeave(models.Model):
                 today and l.state != 'cancel' and
                 l.shift_ticket_id.shift_type == 'standard')
             if record.type_id.is_anticipated:
+                num_line_guess = record.calculate_number_shift_future_in_leave()
+                total_line = len(abcd_lines_in_leave) + num_line_guess
                 if record.partner_id.in_ftop_team:
                     raise ValidationError(
                         _("This member is not part of an ABCD team."))
@@ -211,8 +213,7 @@ class ShiftLeave(models.Model):
                     raise ValidationError(_(
                         "The period of leave must include TWO" +
                         " minimum missed services."))
-                elif record.partner_id.final_ftop_point <\
-                        len(abcd_lines_in_leave):
+                elif record.partner_id.final_ftop_point < total_line:
                     raise ValidationError(_(
                         "The member does not have enough" +
                         " credits to cover the proposed period."))
@@ -228,8 +229,10 @@ class ShiftLeave(models.Model):
             today and l.state != 'cancel' and
             l.shift_ticket_id.shift_type == 'standard')
 
+        num_shift_guess = self.calculate_number_shift_future_in_leave()
+
         # Update FTOP points
-        count_point_remove = len(abcd_lines_in_leave)
+        count_point_remove = len(abcd_lines_in_leave) + num_shift_guess
 
         point_counter_env = self.env['shift.counter.event']
         event = point_counter_env.sudo().with_context(
@@ -242,6 +245,30 @@ class ShiftLeave(models.Model):
                            ' on anticipated leave.')
             })
         self.event_id = event.id
+
+    @api.multi
+    def calculate_number_shift_future_in_leave(self):
+        self.ensure_one()
+        # Find shift template include current partner
+        templates = self.partner_id.tmpl_reg_line_ids.filtered(
+            lambda l: (l.is_current or l.is_future) and l.date_begin >=
+            self.start_date and l.shift_ticket_id.shift_type ==
+            'standard').mapped('shift_template_id')
+
+        # Get number of shifts in period that is from end date of past ABCD line to
+        # the end of leave to guess line partner might register
+
+        num_shift_guess = 0
+
+        for template in templates:
+            last_shift_date = (fields.Datetime.from_string(
+                template.last_shift_date) + timedelta(days=1)).strftime('%Y-%m-%d')
+            rec_dates = template.get_recurrent_dates(
+                last_shift_date, self.stop_date)
+            for rec in rec_dates:
+                if fields.Datetime.to_string(rec) < self.stop_date:
+                    num_shift_guess += 1
+        return num_shift_guess
 
     @api.multi
     def button_cancel(self):
@@ -258,28 +285,77 @@ class ShiftLeave(models.Model):
                     last_notes + '\nLast point quantity: %s' % last_points
 
     @api.multi
-    def update_date_end_anticipated_leave(self, vals):
-        partner_id = vals.get('partner_id', self.partner_id.id)
-        stop_date = vals.get('stop_date', False)
-        partner = self.env['res.partner'].browse(partner_id)
-        future_lines = partner.registration_ids.filtered(
-            lambda l: l.date_begin >= stop_date)
+    def guess_future_date_shift(self, stop_date):
+        for leave in self:
+            templates = leave.partner_id.tmpl_reg_line_ids.filtered(
+                lambda l: (l.is_current or l.is_future) and
+                l.shift_ticket_id.shift_type ==
+                'standard').mapped('shift_template_id')
+            shift_after_leave = []
+            for template in templates:
+                # Get the day after end leave 30 days to guess shift after leave
+                next_shift_mounth = (fields.Datetime.from_string(
+                    stop_date) + timedelta(days=30)).strftime('%Y-%m-%d')
+                rec_dates = template.get_recurrent_dates(
+                    template.last_shift_date, next_shift_mounth)
 
-        # Suggest date end of leave before the registration after leave a day
-        if future_lines:
-            date_suggest = fields.Date.from_string(
-                future_lines[0].date_begin) - timedelta(days=1)
-            if stop_date != date_suggest:
+                for rec in rec_dates:
+                    if fields.Datetime.to_string(rec) > stop_date:
+                        shift_after_leave.append(rec)
+            if shift_after_leave:
+                shift_after_leave = sorted(shift_after_leave)
+            return shift_after_leave
+
+    @api.multi
+    def update_date_end_anticipated_leave(self, vals):
+        for leave in self:
+            partner_id = vals.get('partner_id', leave.partner_id.id)
+            stop_date = vals.get('stop_date', False)
+            partner = self.env['res.partner'].browse(partner_id)
+            future_lines = partner.registration_ids.filtered(
+                lambda l: l.date_begin >= stop_date)
+
+            # Suggest date end of leave before the registration after leave a day
+            date_shift_guess = leave.guess_future_date_shift(stop_date)
+            if date_shift_guess:
                 vals.update({
-                    'stop_date': date_suggest
+                    'stop_date': fields.Datetime.to_string(
+                        date_shift_guess[0] - timedelta(days=1))
                 })
+            elif future_lines:
+                date_suggest = fields.Date.from_string(
+                    future_lines[0].date_begin) - timedelta(days=1)
+                if stop_date != date_suggest:
+                    vals.update({
+                        'stop_date': date_suggest
+                    })
 
     @api.model
     def create(self, vals):
         type_id = vals.get('type_id', False)
         type_leave = self.env['shift.leave.type'].browse(type_id)
+
         if type_leave.is_anticipated:
-            self.update_date_end_anticipated_leave(vals)
+            partner_id = vals.get('partner_id', self.partner_id.id)
+            partner = self.env['res.partner'].browse(partner_id)
+            stop_date = vals.get('stop_date', False)
+
+            future_lines = partner.registration_ids.filtered(
+                lambda l: l.date_begin >= stop_date)
+            date_shift_guess = self.guess_future_date_shift(stop_date)
+
+            if date_shift_guess:
+                vals.update({
+                    'stop_date': fields.Datetime.to_string(
+                        date_shift_guess[0] - timedelta(days=1))
+                })
+            elif future_lines:
+                date_suggest = fields.Date.from_string(
+                    future_lines[0].date_begin) - timedelta(days=1)
+                if stop_date != date_suggest:
+                    vals.update({
+                        'stop_date': date_suggest
+                    })
         return super(ShiftLeave, self).create(vals)
 
     @api.multi
@@ -307,7 +383,7 @@ class ShiftLeave(models.Model):
                     template_registration.filtered(
                         lambda l: l.is_current).sorted(
                         key=lambda l: l.date_begin, reverse=True)
-                
+
                 # Must mark leave as done before setting end_date
                 # for tmpl_reg_line to make _compute_is_unsubscribed
                 # work as expected
@@ -320,7 +396,7 @@ class ShiftLeave(models.Model):
                 if last_templates:
                     last_templates[0].date_end = fields.Date.from_string(
                         leave.start_date) - timedelta(days=1)
-                
+
         return True
 
     @api.model
