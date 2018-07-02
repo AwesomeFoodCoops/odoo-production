@@ -64,3 +64,13 @@ msgstr "Total des transactions"
 #: model:ir.model,name:pos_session_summary.model_pos_session
 msgid "pos.session"
 msgstr "pos.session"
+
+#. module: pos_session_summary
+#: model:ir.model.fields,field_description:pos_session_summary.field_pos_order_amount_untaxed
+msgid "Amount Untaxed"
+msgstr "Montant hors-taxe"
+
+#. module: pos_session_summary
+#: model:ir.model.fields,field_description:pos_session_summary.field_pos_session_amount_subtotal
+msgid "Amount Subtotal"
+msgstr "Montant Sous-total"

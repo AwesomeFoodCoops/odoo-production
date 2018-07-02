@@ -14,7 +14,9 @@
         'point_of_sale',
     ],
     'data': [
+        'data/update_amount_untaxed_pos_session.yml',
         'views/pos_session_view.xml',
+        'views/pos_order_view.xml',
     ],
     'installable': True,
     'license': 'AGPL-3',
