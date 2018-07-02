@@ -1,0 +1,21 @@
+-
+  Update amount untaxed pos session
+  [S#17728] [F#28636] POS Sessions Summary
+-
+  !python {model: pos.order}: |
+    sql = '''
+    UPDATE pos_order 
+    SET amount_untaxed = sumprice 
+    FROM (SELECT SUM(price_subtotal) sumprice, order_id FROM pos_order_line GROUP BY order_id) as pol 
+    WHERE pos_order.id = pol.order_id AND amount_untaxed = 0
+    '''
+    cr.execute(sql)
+-
+  !python {model: pos.session}: |
+    sql = '''
+    UPDATE pos_session SET amount_subtotal = sumamount FROM (SELECT SUM(amount_untaxed) sumamount, session_id 
+        FROM pos_order group by session_id) as po 
+    WHERE pos_session.id = po.session_id AND amount_subtotal = 0
+    '''
+    cr.execute(sql)
+    

@@ -21,6 +21,8 @@
         'static/src/xml/templates.xml',
         'views/view_pos_order.xml',
         'views/view_res_config.xml',
+        'views/view_pos_session.xml',
+        'views/view_pos_order_line.xml',
     ],
     'installable': True,
 }

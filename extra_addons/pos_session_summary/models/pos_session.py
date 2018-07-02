@@ -24,3 +24,15 @@ class PosSession(models.Model):
     order_qty = fields.Integer(
         compute='_compute_orders', string='Orders Qty', multi='orders',
         store=True)
+
+    amount_subtotal = fields.Monetary(
+        compute='_compute_amount_untaxed', string='Amount Subtotal',
+        multi='orders',
+        store=True)
+
+    @api.multi
+    @api.depends('order_ids.lines.price_subtotal')
+    def _compute_amount_untaxed(self):
+        for session in self:
+            session.amount_subtotal = sum(
+                session.mapped('order_ids.amount_untaxed'))
