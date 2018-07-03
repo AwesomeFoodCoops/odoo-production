@@ -9,6 +9,9 @@
             <field name="partner_id" position="attributes">
                 <attribute name="options">{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}</attribute>
             </field>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
+                <field name="base_price"/>
+            </xpath>
         </field>
     </record>
 </odoo>
