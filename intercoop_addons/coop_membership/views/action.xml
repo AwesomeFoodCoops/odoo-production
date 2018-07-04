@@ -259,4 +259,9 @@
         <field name="context">{"search_default_upcoming": 1}</field>
     </record>
 
+    <record id="coop_shift.act_template_registration_from_template" model="ir.actions.act_window">
+        <field name="context">{'search_default_shift_template_id': active_id, 'default_shift_template_id': active_id, 'search_default_current_participant': True}</field>
+    </record>
+
+
 </odoo>
