@@ -197,6 +197,18 @@
             </field>
         </record>
 
+        <record id="view_template_registration_search_inherit" model="ir.ui.view">
+            <field name="name">shift.template.registration.search.inherit</field>
+            <field name="model">shift.template.registration</field>
+            <field name="inherit_id" ref="coop_shift.view_template_registration_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='message_needaction']" position="after">
+                    <filter string="Current Participants" name="current_participant" domain="[('is_current_participant','=',True)]"/>
+                    <separator/>
+                </xpath>
+            </field>
+        </record>
+
         <record model="ir.ui.view"
                 id="coop_shift.view_shift_template_registration_line_tree_futurechanges">
             <field name="groups_id" eval="[
