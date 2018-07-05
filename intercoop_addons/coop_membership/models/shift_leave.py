@@ -76,9 +76,15 @@ class ShiftLeave(models.Model):
                 partner.get_next_shift_date(start_date=leave_stop_time_utc)
 
             if not next_shift_date or not next_shift:
-                leave.reset_propose_info()
-                continue
-            next_shift = next_shift.shift_id
+                next_shift_date = leave.guess_future_date_shift(
+                    leave.stop_date, is_all_team=True)[0]
+                if next_shift_date:
+                    next_shift_date = fields.Date.to_string(
+                        next_shift_date)
+                else:
+                    leave.reset_propose_info()
+                    continue
+            next_shift = next_shift and next_shift.shift_id or ''
 
             next_shift_date = fields.Date.from_string(next_shift_date)
             in_ftop_team = partner.in_ftop_team
@@ -113,9 +119,13 @@ class ShiftLeave(models.Model):
                 continue
 
             leave.show_alert_proposed_date = True
-            shift_name = next_shift.name + \
-                (next_shift.begin_date_string and
-                 (' ' + next_shift.begin_date_string) or '')
+            if next_shift:
+                shift_name = next_shift.name + \
+                    (next_shift.begin_date_string and
+                     (' ' + next_shift.begin_date_string) or '')
+            else:
+                shift_name = ' begin on ' +\
+                    fields.Date.to_string(next_shift_date)
             leave.alert_message = alert_message.format(
                 end_date=stop_date, partner=leave.partner_id.name,
                 proposed_date=proposed_date, shift=shift_name)
@@ -285,12 +295,17 @@ class ShiftLeave(models.Model):
                     last_notes + '\nLast point quantity: %s' % last_points
 
     @api.multi
-    def guess_future_date_shift(self, stop_date):
+    def guess_future_date_shift(self, stop_date, is_all_team=False):
         for leave in self:
             templates = leave.partner_id.tmpl_reg_line_ids.filtered(
                 lambda l: (l.is_current or l.is_future) and
                 l.shift_ticket_id.shift_type ==
                 'standard').mapped('shift_template_id')
+            if is_all_team and not templates:
+                templates = leave.partner_id.tmpl_reg_line_ids.filtered(
+                    lambda l: (l.is_current or l.is_future) and
+                    l.shift_ticket_id.shift_type ==
+                    'ftop').mapped('shift_template_id')
             shift_after_leave = []
             for template in templates:
                 # Get the day after end leave 30 days to guess shift after leave
