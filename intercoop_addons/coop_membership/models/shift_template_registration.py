@@ -30,6 +30,10 @@ class ShiftTemplateRegistration(models.Model):
 
     partner_id = fields.Many2one(
         domain=[('is_worker_member', '=', True)])
+    is_current_participant = fields.Boolean(
+        compute="_compute_current_participant",
+        search="search_upper_current",
+        string="Current Participant")
 
     @api.multi
     @api.constrains('partner_id')
@@ -39,3 +43,34 @@ class ShiftTemplateRegistration(models.Model):
                 raise ValidationError(_(
                     'This partner does not have a type A capital subscription!'
                 ))
+
+    @api.multi
+    def _compute_current_participant(self):
+        for reg in self:
+            today = fields.Date.context_today(self)
+            reg.is_current_participant =\
+                any(line.date_begin <= today and
+                    (not line.date_end or line.date_end >= today)
+                    for line in reg.line_ids)
+
+    def search_upper_current(self, operator, value):
+        domain = []
+        today = fields.Date.context_today(self)
+        template_id = self._context.get('active_id', False)
+        if not template_id:
+            return domain
+        sql = '''
+            SELECT str.id
+            FROM shift_template_registration_line strl
+            JOIN shift_template_registration str
+            ON strl.registration_id = str.id
+            WHERE (strl.date_begin <= '%s') AND (strl.date_end >= '%s'
+            OR  strl.date_end is NULL) AND str.shift_template_id = %s
+        ''' % (today, today, template_id)
+        self.env.cr.execute(sql)
+        list_template_ids = self.env.cr.fetchall()
+        list_ids = []
+        for template_id in list_template_ids:
+            list_ids.append(template_id[0])
+        domain = [('id', 'in', list_ids)]
+        return domain
