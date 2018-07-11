@@ -18,35 +18,40 @@
                                     Inscription - Réunions d'accueil
                                 </span>
                                 <span class="first-text-block">
-                                    Rejoindre la coopérative passe exclusivement par votre présence à une réunion d’accueil. Ces réunions étant importantes, et le nombre de places limité pour chacune d'entre elles, merci de ne vous inscrire que dans le cas où vous êtes sûr d'être disponible, et ce sur toute la durée de la réunion. SI VOUS N'ETES PAS ENCORE COOPÉRATEUR ET QUE VOUS SOUHAITEZ SOUSCRIRE LE JOUR DE LA RÉUNION, IL FAUDRA VOUS MUNIR DE :</span>
+                                    Rejoindre la coopérative passe exclusivement par votre présence à une réunion d’accueil. Ces réunions étant importantes, et le nombre de places limité pour chacune d'entre elles, <strong>merci de ne vous inscrire que dans le cas où vous êtes sûr d'être disponible</strong>, et ce sur toute la durée de la réunion.
+                                </span>
+                                <span class="first-text-block">
+                                    Rappel : pour pouvoir souscrire à l’issue de la réunion d’accueil, vous devez <strong>obligatoirement vous munir de :</strong>
+                                </span>
                                     <span class="first-text-block">
                                         <ul>
-                                            <li>- votre carnet de chèque ou votre carte bancaire</li>
-                                            <li>- une pièce d’identité</li>
-                                            <li>- un justificatif pour une souscription réduite : minimas sociaux (document de moins de 3 mois attestant du versement du RSA, de l'ASS, l'AER-R, l'ATS, l'ATA, l'ADA, l'AAH, l'ASI, l'AV, l'ASV ou l’ASPA) ou étudiants boursiers 6 ou 7 (attestation de bourse).</li>
+                                            <li>1. votre carnet de chèque ou votre carte bancaire</li>
+                                            <li>2. une pièce d’identité</li>
+                                            <li>3. un justificatif datant de moins de 3 mois pour une souscription réduite : <a href="https://cooplalouve.fr/minimas-sociaux" class="link_style">https://cooplalouve.fr/minimas-sociaux.</a></li>
                                         </ul>
                                     </span>
 
-                                    <span class="first-text-block final-text-block">D'autres dates sont ajoutées régulièrement.</span>
+                                    <span class="first-text-block">De nouvelles dates sont ajoutées régulièrement.</span>
+                                    <em class="first-text-block final-text-block">Si vous devez contactez les organisateurs des réunions d’accueil, merci d’utiliser cette adresse : reunion.accueil@cooplalouve.fr</em>
                                 <div class="wrap-input100 validate-input bg1" data-validate = "Veuillez renseigner votre adresse électronique (e@a.x)">
-                                    <span class="label-input100">Courriel *</span>
+                                    <span class="label-input100">Courriel</span><span class="star_style"> *</span>
                                     <input class="input100" type="text" name="email" placeholder="Veuillez renseigner votre adresse électronique "></input>
                                 </div>
                                 <div class="wrap-input100 validate-input bg1" data-validate="Veuillez renseigner votre nom">
-                                    <span class="label-input100">Nom * </span>
+                                    <span class="label-input100">Nom</span><span class="star_style"> *</span>
                                     <input class="input100" type="text" name="name" placeholder="Veuillez renseigner votre nom"></input>
                                 </div>
                                 <div class="wrap-input100 validate-input bg1" data-validate="Veuillez renseigner votre prénom">
-                                    <span class="label-input100">Prénom *</span>
+                                    <span class="label-input100">Prénom</span><span class="star_style"> *</span>
                                     <input class="input100" type="text" name="first_name" placeholder="Veuillez renseigner votre prénom"></input>
                                 </div>
                                 <div class="wrap-input100 validate-input bg1 input_radio" data-validate = "Enter Your Sex" >
-                                    <span class="label-input100">Sexe *</span><br />
+                                    <span class="label-input100">Sexe</span><span class="star_style"> *</span><br />
                                     <input  type="radio" name="sex" value="m"> Homme </input><br />
                                     <input  type="radio" name="sex" value="f"> Femme </input><br />
                                     <input  type="radio" name="sex" value="o"> Autre </input><br />
                                 </div>
-                                <div class="wrap-input100 validate-input bg1" data-validate="Le format de la date doit être JJ/MM/AAAA et l'âge supérieur à 18 ans.">
+                                <div class="wrap-input100 validate-input bg1" data-validate="Vous devez avoir plus de 18 ans et le format de date doit être JJ/MM/AAA">
                                     <span class="label-input100">Date de naissance</span>
                                     <input class="dob input100" type="text" name="dob" placeholder="Veuillez renseigner votre date de naissance"></input>
                                 </div>                                
@@ -63,7 +68,7 @@
                                     <input class="input100" type="text" name="street1" placeholder="Veuillez renseigner votre adresse 1"></input>
                                 </div>
                                 <div class="wrap-input100 bg1" >
-                                    <span class="label-input100">Rue 2 </span>
+                                    <span class="label-input100">Complément d'adresse </span>
                                     <input class="input100" type="text" name="street2" placeholder="Veuillez renseigner votre adresse 2"></input>
                                 </div>
                                 <div class="wrap-input100 bg1" >
