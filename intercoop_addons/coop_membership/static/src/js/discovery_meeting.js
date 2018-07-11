@@ -105,7 +105,6 @@
             },
             language : moment.locale(),
             // format : time.strftime_to_moment_format((this.type_of_date === 'datetime')? (l10n.date_format + ' ' + l10n.time_format) : l10n.date_format),
-    });
-    
+    });    
 
 })(jQuery);

@@ -13,12 +13,12 @@
 
 body, html {
 	height: 100%;
-	font-family: Poppins-Regular, sans-serif;
+	font-family: Raleway,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: Poppins-Regular;
+	font-family: Helvetica;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -43,7 +43,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
-	font-family: Poppins-Regular;
+	font-family: Helvetica;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -146,7 +146,7 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #e6e6e6;
+  background: #fd420014;
   overflow: scroll;
 }
 
@@ -181,6 +181,7 @@ iframe {
   line-height: 1.2;
   text-align: center;
   padding-bottom: 59px;
+  font-weight: 900;
 }
 
 
@@ -206,7 +207,7 @@ iframe {
   font-weight: 400;
   color: #393939;
   line-height: 1.5;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .input100 {
@@ -394,7 +395,7 @@ textarea.input100 {
 
 .true-validate::after {
   content: "\f26b";
-  font-family: Material-Design-Iconic-Font;
+  font-family: Helvetica;
   font-size: 18px;
   color: #00ad5f;
   display: -webkit-box;
@@ -478,7 +479,7 @@ textarea.input100 {
 
 .select2-selection__arrow::before {
   content: '\f312';
-  font-family: Material-Design-Iconic-Font;
+  font-family: Helvetica;
   font-size: 18px;
   color: #555555;
 }
@@ -542,7 +543,7 @@ textarea.input100 {
 .select2-search--dropdown .select2-search__field {
   border: 1px solid #aaa;
   outline: none;
-  font-family: Poppins-Regular;
+  font-family: Helvetica;
   font-size: 15px;
   color: #333333;
   line-height: 1.2;
@@ -800,4 +801,12 @@ span.fa.fa-calendar.o_datepicker_button {
 
 .input_radio{
   line-height: 25px;
+}
+
+.star_style{   
+  color: #ff4200; 
+}
+
+.link_style{   
+  font-size: 16px; 
 }
