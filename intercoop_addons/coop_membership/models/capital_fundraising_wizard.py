@@ -32,7 +32,6 @@ class CapitalFundraisingWizard(models.TransientModel):
     def button_confirm(self):
         self.ensure_one()
         barcode_rule_obj = self.env['barcode.rule']
-        res = super(CapitalFundraisingWizard, self).button_confirm()
         wizard = self[0]
         if (wizard.category_id.is_worker_capital_category and
                 wizard.partner_id.is_associated_people):
@@ -52,4 +51,4 @@ class CapitalFundraisingWizard(models.TransientModel):
                 wizard.partner_id.barcode_rule_id = barcode_rule_id.id
                 wizard.partner_id.generate_base()
                 wizard.partner_id.generate_barcode()
-        return res
+        return super(CapitalFundraisingWizard, self).button_confirm()
