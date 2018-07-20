@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="confirm_success" name="Confirmation">
+            <html>
+                <head id="confirmed" name="confirmed">
+                    <title>Confirmation Email Validation</title>
+                    <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
+                    <link rel="stylesheet" href="/email_validation_check/static/lib/css/main.css"/>
+                </head>
+                <body>
+                    <div class="container-contact100">
+                        <div class="wrap-contact100 confirm-template">
+                            <span class="contact100-form-title">
+                                Votre email a été confirmé
+                            </span>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </template>
+
+        <template id="confirm_failed" name="Confirmation Failed">
+            <html>
+                <head id="confirm_failded" name="confirm_failded">
+                    <title>Confirmation Email Validation</title>
+                    <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
+                    <link rel="stylesheet" href="/email_validation_check/static/lib/css/main.css"/>
+                </head>
+                <body>
+                    <div class="container-contact100">
+                        <div class="wrap-contact100 confirm-template">
+                            <span class="contact100-form-title">
+                                Votre email n'a pas été confirmé
+                            </span>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </template>
+    </data>
+</openerp>
