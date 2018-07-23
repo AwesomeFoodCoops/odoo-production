@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="email_confirm_validate" model="mail.template">
+        <field name="name">Email Confirm Validate</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.email|safe}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">Confirm validated email</field>
+        <field name="body_html"><![CDATA[
+            <p>Bonjour ${object.name},</p>
+            <p>Pour confirmer votre email, cliquez sur le lien suivant: <a href="${object.validation_url}">here</a></p>
+            <p>Cordialement,</p>
+            ]]></field>
+    </record>
+</odoo>
