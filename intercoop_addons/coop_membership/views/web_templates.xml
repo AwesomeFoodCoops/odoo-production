@@ -80,7 +80,7 @@
                                     <input class="input100" type="text" name="zipcode" placeholder="Veuillez renseigner votre code postal"></input>
                                 </div>
                                 <div class="wrap-input100 bg1 input_radio" >
-                                    <span class="label-input100">Titulaire d'un justificatif minima social</span>
+                                    <span class="label-input100 long-text">Titulaire d'un justificatif minima social</span>
                                     <br />
                                     <input  type="radio" name="social_registration" value="yes">  Oui </input><br />
                                     <input  type="radio" checked="checked" name="social_registration" value="no">  Non </input><br />
