@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<template id="foodcoop_memberspace.assets_frontend" inherit_id="website.assets_frontend" name="Metasource">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:700" />
+
+            <!-- libs css -->
+
+            <!-- less -->
+            <link rel="stylesheet" href="/foodcoop_memberspace/static/src/less/style.less" type="text/less" t-ignore="true" />
+
+            <!-- lib js -->
+            
+            <!-- Odoo framework libs -->
+            <script type="text/javascript" src="/web/static/lib/moment/moment.js"></script>
+
+            <!-- custom js -->
+            <script src="/foodcoop_memberspace/static/src/js/style.js" type="text/javascript"/>
+        </xpath>
+    </template>
+</openerp>

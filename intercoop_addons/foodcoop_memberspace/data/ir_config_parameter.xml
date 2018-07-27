@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo >
+
+    <record id="parameter_warning_member_state" model="ir.config_parameter">
+        <field name="key">warning_member_state</field>
+        <field name="value">28</field>
+    </record>
+
+</odoo>
