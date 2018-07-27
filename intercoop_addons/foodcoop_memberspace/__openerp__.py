@@ -14,6 +14,7 @@
         'website'
     ],
     'data': [
+        'data/ir_config_parameter.xml',
         'data/website_menu.xml',
         'views/templates.xml',
         'views/website/my_work.xml',

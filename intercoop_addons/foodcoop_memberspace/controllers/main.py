@@ -14,13 +14,22 @@ class Website(openerp.addons.website.controllers.main.Website):
     @http.route('/', type='http', auth="public", website=True)
     def index(self, **kw):
         user = request.env.user
+        # Get member status
+        member_status = user.partner_id.get_warning_member_state()
+
+        # Get next shift
         shift_registration_env = request.env['shift.registration']
         shift = shift_registration_env.sudo().search(
-            [('partner_id', '=', user.partner_id.id),
-             ('state', '!=', 'cancel'),
-             ('date_begin', '>=', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))],
+            [
+                ('partner_id', '=', user.partner_id.id),
+                ('state', '!=', 'cancel'),
+                ('date_begin', '>=', datetime.now().strftime(
+                    '%Y-%m-%d %H:%M:%S'))
+            ],
             order="date_begin", limit=1
         )
+
+        # Get Turnover of the day
         lang = user.lang and (str(user.lang) + '.utf8') or 'fr_FR.utf8'
         locale.setlocale(locale.LC_TIME, lang)
         user_tz = user.tz or 'Europe/Paris'
@@ -43,11 +52,12 @@ class Website(openerp.addons.website.controllers.main.Website):
              ('date_order', '<=', datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'))]
         )
         turnover_the_day = sum(item.amount_total for item in turnover_the_day)
-        print '============= turnover_the_day', turnover_the_day
+
         values = {
             'date_begin': date_begin and date_begin.title() or False,
             'shift': shift,
-            'turnover_the_day': turnover_the_day
+            'turnover_the_day': turnover_the_day,
+            'member_status': member_status
         }
         return http.request.render('foodcoop_memberspace.homepage', values)
 
