@@ -7,11 +7,11 @@
         <field name="email_to">${object.email|safe}</field>
         <field name="lang">${object.lang}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Confirm validated email</field>
+        <field name="subject">Confirm validated email À : ${object.email} Cc :</field>
         <field name="body_html"><![CDATA[
-            <p>Bonjour ${object.name},</p>
-            <p>Pour confirmer votre email, cliquez sur le lien suivant: <a href="${object.validation_url}">here</a></p>
-            <p>Cordialement,</p>
+            <p>Dear ${object.name},</p>
+            <p>Here is link to confirm your email <a href="${object.validation_url}">here</a></p>
+            <p>Best regards,</p>
             ]]></field>
     </record>
 </odoo>
