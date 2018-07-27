@@ -210,6 +210,10 @@ iframe {
   text-transform: capitalize;
 }
 
+.long-text {
+  text-transform: unset;
+}
+
 .input100 {
   display: block;
   width: 100%;
