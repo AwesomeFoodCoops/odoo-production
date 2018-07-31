@@ -70,14 +70,15 @@ class ResPartner(models.Model):
     @api.multi
     def check_exist_email(self):
         for partner in self:
-            already_email = self.env['res.partner'].search([
-                ('email', '=', partner.email),
-                ('id', '!=', partner.id)
-            ])
-            if already_email:
-                raise ValidationError(
-                    _("Another user is already registered" +
-                      " using this email address."))
+            if partner.email:
+                already_email = self.env['res.partner'].search([
+                    ('email', '=', partner.email),
+                    ('id', '!=', partner.id)
+                ])
+                if already_email:
+                    raise ValidationError(
+                        _("Another user is already registered" +
+                          " using this email address."))
 
     @api.multi
     @api.depends('email')
