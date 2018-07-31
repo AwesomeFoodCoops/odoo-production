@@ -60,7 +60,8 @@ class WebsiteRegisterMeeting(http.Controller):
         event_obj = request.registry['event.event']
         event_ids = event_obj.search(request.cr, REGISTER_USER_ID, [
             ('is_discovery_meeting', '=', True),
-            ('state', '=', 'confirm')
+            ('state', '!=', 'cancel'),
+            ('date_begin', '>=', fields.Datetime.to_string(datetime.now())),
         ])
         events = event_obj.browse(request.cr, REGISTER_USER_ID, event_ids,
                                   context=request.context)
