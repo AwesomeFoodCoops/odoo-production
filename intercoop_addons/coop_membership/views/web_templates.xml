@@ -52,7 +52,7 @@
                                     <input  type="radio" name="sex" value="o"> Autre </input><br />
                                 </div>
                                 <div class="wrap-input100 validate-input bg1" data-validate="Vous devez avoir plus de 18 ans et le format de date doit être JJ/MM/AAA">
-                                    <span class="label-input100">Date de naissance</span>
+                                    <span class="label-input100 long-text">Date de naissance</span>
                                     <input class="dob input100" type="text" name="dob" placeholder="Veuillez renseigner votre date de naissance"></input>
                                 </div>                                
                                 <div class="wrap-input100 bg1" >
@@ -64,19 +64,19 @@
                                     <input class="input100" type="text" name="phone" placeholder="Veuillez renseigner votre numéro téléphone"></input>
                                 </div>
                                 <div class="wrap-input100 bg1" >
-                                    <span class="label-input100">Rue 1 </span>
-                                    <input class="input100" type="text" name="street1" placeholder="Veuillez renseigner votre adresse 1"></input>
+                                    <span class="label-input100">Adresse </span>
+                                    <input class="input100" type="text" name="street1" placeholder="Veuillez renseigner votre adresse"></input>
                                 </div>
                                 <div class="wrap-input100 bg1" >
-                                    <span class="label-input100">Complément d'adresse </span>
-                                    <input class="input100" type="text" name="street2" placeholder="Veuillez renseigner votre adresse 2"></input>
+                                    <span class="label-input100 long-text">Complément d'adresse </span>
+                                    <input class="input100" type="text" name="street2" placeholder="Veuillez renseigner votre complément d'adresse"></input>
                                 </div>
                                 <div class="wrap-input100 bg1" >
                                     <span class="label-input100">Ville </span>
                                     <input class="input100" type="text" name="city" placeholder="Veuillez renseigner votre ville"></input>
                                 </div>
                                 <div class="wrap-input100 bg1" >
-                                    <span class="label-input100">Code postal </span>
+                                    <span class="label-input100 long-text">Code postal </span>
                                     <input class="input100" type="text" name="zipcode" placeholder="Veuillez renseigner votre code postal"></input>
                                 </div>
                                 <div class="wrap-input100 bg1 input_radio" >
@@ -87,7 +87,7 @@
                                 </div>
 
                                 <div class="wrap-input100 input_radio validate-input bg1 dropDownSelect2" >
-                                    <span class="label-input100">Je m'inscris à la réunion d'accueil du :</span><br />
+                                    <span class="label-input100 long-text">Je m'inscris à la réunion d'accueil du :</span><br />
                                     <span style="color: #f04a4f" class="validate-option-event">Veuillez renseigner votre réunion</span>
                                     <div>
                                         <t t-foreach="datas" t-as="data">
