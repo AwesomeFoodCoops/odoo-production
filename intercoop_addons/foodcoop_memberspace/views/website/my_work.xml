@@ -23,7 +23,7 @@
                         <div class="col-md-10">
                             <div>
                                 <span class="fa fa-clock-o" style="font-size: 4.5em;"/>
-                                <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;">0</span>
+                                <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;" t-esc="standard_point" />
                             </div>
                             <div>
                                 <span style="font-size: 25px;font-weight: 600">Compteur classique</span>
@@ -44,7 +44,7 @@
                         <div class="col-md-10">
                             <div>
                                 <span class="fa fa-clock-o" style="font-size: 4.5em;"/>
-                                <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;">0</span>
+                                <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;" t-esc="ftop_point"/>
                             </div>
                             <div>
                                 <span style="font-size: 25px;font-weight: 600">Compteur extra</span>
@@ -646,7 +646,7 @@
                         <div class="col-md-10">
                             <div>
                                 <span class="fa fa-clock-o" style="font-size: 4.5em;"/>
-                                <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;">0</span>
+                                <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;" t-esc="ftop_point" />
                             </div>
                             <div>
                                 <span style="font-size: 25px;font-weight: 600">Mon compteur</span>

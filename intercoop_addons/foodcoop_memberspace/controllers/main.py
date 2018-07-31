@@ -72,67 +72,73 @@ class Website(openerp.addons.website.controllers.main.Website):
     @http.route('/mywork', type='http', auth='user', website=True)
     def page_mywork(self, **kwargs):
         user = request.env.user
+        partner = user.partner_id
         # check standard member or ftop member
+        datas = {
+            'is_standard_member': user.partner_id.shift_type == 'standard',
+            'is_ftop_member': user.partner_id.shift_type == 'ftop'
+        }
+        if user.partner_id.shift_type == 'standard':
+            d = datetime.now()
+            next_registrations = partner.sudo().registration_ids.filtered(
+                lambda r, d=d: r.date_begin >= d).sorted(
+                lambda r: r.date_begin)
+            partner.upcoming_registration_count = len(next_registrations)
+            next_registrations = next_registrations.sorted(
+                lambda r: r.date_begin)
+            datas.update({
+                'standard_point': user.partner_id.display_std_points,
+                'ftop_point': user.partner_id.display_ftop_points,
+                'next_registrations': next_registrations
+            })
+        elif user.partner_id.shift_type == 'ftop':
+            datas.update({
+                'ftop_point': user.partner_id.display_ftop_points
+            })
         return request.render(
-            'foodcoop_memberspace.mywork',
-            {
-                'is_standard_member': False,
-                'is_ftop_member': True
-            }
+            'foodcoop_memberspace.mywork', datas
         )
 
-    @http.route('/standard/counter_classic', type='http', auth='user', website=True)
+    @http.route('/standard/counter_classic', type='http',
+        auth='user', website=True)
     def page_counter_classic(self, **kwargs):
-        user = request.env.user
-        # check standard member or ftop member
         return request.render(
             'foodcoop_memberspace.counter',
             {
-                'is_standard_member': True,
                 'classic': True
             }
         )
 
-    @http.route('/standard/counter_extra', type='http', auth='user', website=True)
+    @http.route('/standard/counter_extra', type='http',
+        auth='user', website=True)
     def page_counter_extra(self, **kwargs):
-        user = request.env.user
-        # check standard member or ftop member
         return request.render(
             'foodcoop_memberspace.counter',
             {
-                'is_standard_member': True,
                 'extra': True
             }
         )
 
     @http.route('/standard/programmer_un_extra', type='http', auth='user', website=True)
     def page_programmer_un_extra(self, **kwargs):
-        user = request.env.user
-        # check standard member or ftop member
         return request.render(
             'foodcoop_memberspace.counter',
             {
-                'is_standard_member': True,
                 'programmer_un_extra': True
             }
         )
 
     @http.route('/standard/echange_de_services', type='http', auth='user', website=True)
     def page_echange_de_services(self, **kwargs):
-        user = request.env.user
-        # check standard member or ftop member
         return request.render(
             'foodcoop_memberspace.counter',
             {
-                'is_standard_member': True,
                 'echange_de_services': True
             }
         )
 
     @http.route('/ftop/my_counter', type='http', auth='user', website=True)
     def page_ftop_my_counter(self, **kwargs):
-        user = request.env.user
-        # check standard member or ftop member
         return request.render(
             'foodcoop_memberspace.ftop_my_counter',
             {
@@ -142,8 +148,6 @@ class Website(openerp.addons.website.controllers.main.Website):
 
     @http.route('/myteam', type='http', auth='user', website=True)
     def page_myteam(self, **kwargs):
-        user = request.env.user
-        # check standard member or ftop member
         return request.render(
             'foodcoop_memberspace.myteam',
             {}
