@@ -18,4 +18,3 @@ class ResPartner(models.Model):
                 warning_member_state['none']['message']
         return warning_member_state[self.cooperative_state]['alert'] + ' ' + \
             warning_member_state[self.cooperative_state]['message']
-            

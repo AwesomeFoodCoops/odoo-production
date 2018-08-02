@@ -73,13 +73,26 @@ class Website(openerp.addons.website.controllers.main.Website):
     def page_mywork(self, **kwargs):
         user = request.env.user
         partner = user.partner_id
+        # Get next shift
+        shift_registration_env = request.env['shift.registration']
+        shift_upcomming = shift_registration_env.sudo().search(
+            [
+                ('partner_id', '=', user.partner_id.id),
+                ('state', '!=', 'cancel'),
+                ('date_begin', '>=', datetime.now().strftime(
+                    '%Y-%m-%d %H:%M:%S'))
+            ],
+            order="date_begin"
+        )
         # check standard member or ftop member
         datas = {
             'is_standard_member': user.partner_id.shift_type == 'standard',
-            'is_ftop_member': user.partner_id.shift_type == 'ftop'
+            'is_ftop_member': user.partner_id.shift_type == 'ftop',
+            'shift_upcomming': shift_upcomming,
+            'user': user
         }
         if user.partner_id.shift_type == 'standard':
-            d = datetime.now()
+            d = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             next_registrations = partner.sudo().registration_ids.filtered(
                 lambda r, d=d: r.date_begin >= d).sorted(
                 lambda r: r.date_begin)
@@ -102,29 +115,60 @@ class Website(openerp.addons.website.controllers.main.Website):
     @http.route('/standard/counter_classic', type='http',
         auth='user', website=True)
     def page_counter_classic(self, **kwargs):
+        user = request.env.user
+        shift_counter_event_env = request.env['shift.counter.event']
+        shift_counter_events =  shift_counter_event_env.sudo().search([
+            ('partner_id', '=', user.partner_id.id),
+            ('type', '=', 'standard')
+        ])
         return request.render(
             'foodcoop_memberspace.counter',
             {
-                'classic': True
+                'classic': True,
+                'shift_counter_events': shift_counter_events,
+                'user': user
             }
         )
 
     @http.route('/standard/counter_extra', type='http',
         auth='user', website=True)
     def page_counter_extra(self, **kwargs):
+        user = request.env.user
+        shift_counter_event_env = request.env['shift.counter.event']
+        shift_counter_events =  shift_counter_event_env.sudo().search([
+            ('partner_id', '=', user.partner_id.id),
+            ('type', '=', 'ftop')
+        ])
         return request.render(
             'foodcoop_memberspace.counter',
             {
-                'extra': True
+                'extra': True,
+                'shift_counter_events_extra': shift_counter_events,
+                'user': user
             }
         )
 
-    @http.route('/standard/programmer_un_extra', type='http', auth='user', website=True)
+    @http.route('/standard/programmer_un_extra', type='http',
+        auth='user', website=True)
     def page_programmer_un_extra(self, **kwargs):
+        user = request.env.user
+        tmpl = user.partner_id.tmpl_reg_line_ids.filtered(
+            lambda r: r.is_current)
+        shift_env = request.env['shift.shift']
+        shifts_available = shift_env
+        if tmpl:
+            shifts_available = shift_env.sudo().search([
+                ('shift_template_id', '!=', tmpl[0].id),
+                ('date_begin', '>=', '2018-06-15 00:00:00'),
+                ('state', '=', 'confirm')
+            ]).filtered(
+                lambda r: user.partner_id.id not in r.registration_ids.mapped('partner_id').ids)
         return request.render(
             'foodcoop_memberspace.counter',
             {
-                'programmer_un_extra': True
+                'programmer_un_extra': True,
+                'shifts_available': shifts_available,
+                'user': user
             }
         )
 

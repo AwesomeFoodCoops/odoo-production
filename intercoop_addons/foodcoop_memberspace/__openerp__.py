@@ -11,7 +11,7 @@
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'depends': [
-        'website'
+        'website', 'coop_shift'
     ],
     'data': [
         'data/ir_config_parameter.xml',
