@@ -13,7 +13,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">tree,form</field>
         <field name="domain">['|','|','|','|',('is_member', '=', True),('is_associated_people', '=', True),('is_former_member', '=', True),('is_former_associated_people', '=', True),('is_interested_people', '=', True)]</field>
     </record>
 
