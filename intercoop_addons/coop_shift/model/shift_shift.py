@@ -236,8 +236,13 @@ class ShiftShift(models.Model):
     def write(self, vals):
         special = self._context.get('special', False)
         if any(shift.state == "done" for shift in self):
-            raise UserError(_(
-                'You can only repercute changes on draft shifts.'))
+            ignore_fields = ['state_in_holiday', 'is_on_holiday',
+                             'single_holiday_id', 'long_holiday_id']
+            for field in vals.keys():
+                if field in ignore_fields:
+                    break
+                raise UserError(_(
+                    'You can only repercute changes on draft shifts.'))
         res = super(ShiftShift, self).write(vals)
         if special:
             for field in special:
