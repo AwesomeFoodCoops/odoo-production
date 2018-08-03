@@ -22,4 +22,5 @@ from . import event_registration
 from . import event_event_ticket
 from . import web_access_buttons
 from . import shift_template_registration_line
-from . import shift_ticket
+from . import shift_ticketfrom . import shift_holiday
+from . import shift_counter_event

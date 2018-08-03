@@ -263,5 +263,13 @@
         <field name="context">{'search_default_shift_template_id': active_id, 'default_shift_template_id': active_id, 'search_default_current_participant': True}</field>
     </record>
 
+    <record model="ir.actions.act_window" id="action_shift_holiday">
+        <field name="name">Holidays</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shift.holiday</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
 
 </odoo>
