@@ -148,6 +148,13 @@
         <field name="sequence">1</field>
     </record>
 
+    <record model="ir.ui.menu" id="menu_shift_holiday">
+        <field name="name">Assouplissement Présence</field>
+        <field name="action" ref="action_shift_holiday"/>
+        <field name="parent_id" ref="coop_shift.menu_shift_configuration"/>
+        <field name="sequence">20</field>
+    </record>
+
     <record model="ir.ui.menu" id="coop_shift.shift_main_menu">
         <field name="groups_id" eval="[
             (4, ref('coop_membership.group_membership_access_user')),
