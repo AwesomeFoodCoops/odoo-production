@@ -432,7 +432,7 @@
                                 </tree>
                             </field>
 
-                            <field name="sex" attrs="{'required': True}"/>
+                            <field name="sex" attrs="{'required': [('company_type', '=', 'person')], 'invisible' : [('company_type', '=', 'company')]}"/>
                             <field name="is_deceased"
                                    groups="coop_membership.group_membership_see_associated_people,
                                    coop_membership.group_membership_access_user,
