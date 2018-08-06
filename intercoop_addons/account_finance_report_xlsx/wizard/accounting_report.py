@@ -10,7 +10,7 @@ class AccountingReport(models.TransientModel):
     _inherit = "accounting.report"
 
     def _print_report(self, data):
-        format_report = self.env.user.company_id.format_report_finance
+        format_report = self._context.get('format_report')
         if format_report == 'xlsx':
             data['form'].update(
                 self.read([
