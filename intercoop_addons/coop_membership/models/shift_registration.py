@@ -214,6 +214,8 @@ class ShiftRegistration(models.Model):
                     point_counter_env.sudo().with_context(
                         automatic=True).create(counter_vals)
 
+                shift_reg.adjust_qty_on_holiday(vals_state)
+
                 # Update point quantity of counter events when SET TO UNCONFIRMED
                 if vals_state == 'draft':
                     if shift_reg.partner_id:
@@ -236,6 +238,136 @@ class ShiftRegistration(models.Model):
         if 'template_created' in vals or 'shift_ticket_id' in vals or 'shift_id' in vals:
             self.check_leave_time()
         return res
+
+    @api.multi
+    def adjust_qty_on_holiday(self, vals):
+        '''
+            This method balance point qty for attendess that's on holiday
+            flowwing the rule:
+            Plus 2 in holiday type 0 make up and shift closed state
+            with shift type standard and attendees was absent
+            Plus 1 in holiday type 1 make up and shift open state
+            for (shift type standard and attendees were exscued) or (shift 
+            type volant and attendees were absent or excused) 
+        '''
+        self.ensure_one()
+        point_counter_env = self.env['shift.counter.event']
+        long_holiday = self.shift_id.long_holiday_id.filtered(
+            lambda h: h.state == 'done')
+        single_holiday = self.shift_id.single_holiday_id.filtered(
+            lambda h: h.state == 'done')
+
+        email_closed_template = self.env.ref(
+            'coop_membership.anounce_close_on_holiday_email')
+        email_open_template = self.env.ref(
+            'coop_membership.anounce_open_on_holiday_email')
+
+        if vals in ['absent', 'excused']:
+            counter_vals = {}
+            if self.shift_type == 'standard' and self.template_created:
+                if single_holiday:
+                    if self.shift_id.state_in_holiday == 'closed':
+                        if vals in ['absent']:
+                            counter_vals.update({
+                                'point_qty': 2
+                            })
+                        else:
+                            counter_vals.update({
+                                'point_qty': 1
+                            })
+                    elif self.shift_id.state_in_holiday == 'open' and\
+                            vals in ['absent']:
+                        counter_vals.update({
+                            'point_qty': 1
+                        })
+                elif long_holiday:
+                    if long_holiday.make_up_type == '0_make_up':
+                        if vals in ['absent']:
+                            counter_vals.update({
+                                'point_qty': 2
+                            })
+                        else:
+                            counter_vals.update({
+                                'point_qty': 1
+                            })
+                    elif long_holiday.make_up_type == '1_make_up' and\
+                            vals in ['absent']:
+                        counter_vals.update({
+                            'point_qty': 1
+                        })
+            elif self.shift_type == 'ftop':
+                if single_holiday:
+                    if self.shift_id.state_in_holiday == 'closed':
+                        if (vals in ['absent']) or\
+                                (vals in ['excused'] and self.template_created):
+                            counter_vals.update({
+                                'point_qty': 1
+                            })
+                elif long_holiday and not single_holiday:
+                    if long_holiday.make_up_type == '0_make_up':
+                        if (vals in ['absent']) or\
+                            (vals in ['excused'] and self.template_created):
+                            counter_vals.update({
+                                'point_qty': 1
+                            })
+            if counter_vals:
+                holiday_id = single_holiday and single_holiday.id\
+                    or long_holiday.id
+                counter_vals.update({
+                    'shift_id': self.shift_id.id,
+                    'type': self.shift_type,
+                    'partner_id': self.partner_id.id,
+                    'holiday_id': holiday_id,
+                    'name': _('Balance qty for holiday')
+                })
+
+                point_counter_env.sudo().with_context(
+                    automatic=True).create(counter_vals)
+
+            # Send auto mail in single holiday
+            if single_holiday:
+                if self.shift_id.state_in_holiday == 'closed'\
+                        and email_closed_template:
+                    email_closed_template.send_mail(self.id)
+                elif email_open_template:
+                    email_open_template.send_mail(self.id)
+        return True
+
+    @api.multi
+    def balance_point_qty_ftop_shift(self, holiday_id, current_point, state):
+        self.ensure_one()
+        point_counter_env = self.env['shift.counter.event']
+        point = 0
+        if current_point >= 1:
+            if state in ['0_make_up', 'closed']:
+                point = 1
+        else:
+            if state in ['0_make_up', 'closed']:
+                point = 2
+            else:
+                point = 1
+        # Create Point Counter
+        if point > 0:
+            point_counter_env.sudo().with_context(
+                {'automatic': True}).create({
+                    'name': _('Balance Qty For Shift Cloture'),
+                    'shift_id': self.shift_id.id,
+                    'type': 'ftop',
+                    'partner_id': self.partner_id.id,
+                    'point_qty': point,
+                    'holiday_id': holiday_id,
+                })
+
+    @api.multi
+    def convert_format_datatime(self):
+        for record in self:
+            date = record.shift_id.date_begin_tz[0:10].split('-')[2] + '/' +\
+                record.shift_id.date_begin_tz[0:10].split('-')[1] + '/' +\
+                record.shift_id.date_begin_tz[0:10].split('-')[0]
+            hour = record.shift_id.date_begin_tz[11:].split(':')[0]
+            minute = record.shift_id.date_begin_tz[11:].split(':')[1]
+            res = '%s à %sh%s' % (date, hour, minute)
+            return unicode(res, "utf-8")
 
     @api.multi
     @api.onchange("shift_id")

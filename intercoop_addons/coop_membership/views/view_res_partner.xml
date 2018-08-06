@@ -432,7 +432,7 @@
                                 </tree>
                             </field>
 
-                            <field name="sex" attrs="{'required': True}"/>
+                            <field name="sex" attrs="{'required': [('company_type', '=', 'person')], 'invisible' : [('company_type', '=', 'company')]}"/>
                             <field name="is_deceased"
                                    groups="coop_membership.group_membership_see_associated_people,
                                    coop_membership.group_membership_access_user,
@@ -1245,7 +1245,7 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">tree,form</field>
         <field name="domain">[('is_member', '=', True)]</field>
         <field name="context">{'default_is_member':1}</field>
         <field name="search_view_id" ref="view_bdm_search"/>
