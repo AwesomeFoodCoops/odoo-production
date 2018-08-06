@@ -93,14 +93,14 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_to" >${object.partner_id.email|safe}</field>
         <field name="lang">${object.partner_id.lang}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Décompte volant le ${object.shift_id.date_begin_tz[0:10].split('-')[2] + '/' + object.shift_id.date_begin_tz[0:10].split('-')[1] + '/' + object.shift_id.date_begin_tz[0:10].split('-')[0]} à ${object.shift_id.date_begin_tz[11:].split(':')[0]}h${object.shift_id.date_begin_tz[11:].split(':')[1]}</field>
+        <field name="subject">Décompte volant le ${object.convert_format_datatime()}</field>
         <field name="body_html"><![CDATA[
 <p>Bonjour membres de l’équipe volante--</p>
 <br/>
-<p>Juste un rappel pour vous dire que<h3>le prochain jour de décompte sera jeudi prochain, le ${object.shift_id.date_begin_tz[0:10].split('-')[2] + '/' + object.shift_id.date_begin_tz[0:10].split('-')[1] + '/' + object.shift_id.date_begin_tz[0:10].split('-')[0]} à ${object.shift_id.date_begin_tz[11:].split(':')[0]}h${object.shift_id.date_begin_tz[11:].split(':')[1]}</h3>... c'est le dernier jour pour effectuer un service volant et éviter des rattrapages.</p>
+<p>Juste un rappel pour vous dire que<h3>le prochain jour de décompte sera jeudi prochain, le ${object.convert_format_datatime()}</h3>... c'est le dernier jour pour effectuer un service volant et éviter des rattrapages.</p>
 <p>La programmation des services volants se fait via l’espace membres. Cliquez sur “outils”, puis “programmer un service volant”, puis “inscription”. Si vous n’avez pas accès à l’espace membres, il est toujours possible de programmer un service volant en contactant le Bureau des membres pendant ses horaires d’ouverture.</p>
 <p>Depuis le 1er décompte volant du mois d'août 2017, l'expérience montre que la grande majorité des volants s'inscrit sur un service les 3 jours précédant le jour du décompte. Les places volantes créées pour les mardi, mercredi et jeudi de semaine A sont donc systématiquement toutes prises, ce qui n'est pas le cas pour tous les autres jours des semaines A, B, C, D. Ceci crée un déséquilibre. Dans la mesure du possible, nous vous prions de bien vouloir essayer d'étaler la programmation de vos services sur les 4 semaines A, B, C, D. Pour information, les créneaux les plus "critiques" sont le dimanche matin à 7h15, le samedi soir à 19h, le lundi de 9h à 12h.</p>
-<h3>Qu’est ce qui se passe si je n’ai pas un crédit dans mon « compte » le ${object.shift_id.date_begin_tz[0:10].split('-')[2] + '/' + object.shift_id.date_begin_tz[0:10].split('-')[1] + '/' + object.shift_id.date_begin_tz[0:10].split('-')[0]} à ${object.shift_id.date_begin_tz[11:].split(':')[0]}h${object.shift_id.date_begin_tz[11:].split(':')[1]}?</h3> 
+<h3>Qu’est ce qui se passe si je n’ai pas un crédit dans mon « compte » le ${object.convert_format_datatime()}?</h3> 
 <p>Comme les membres de toutes les autres équipes, vous devrez 2 rattrapages. Donc, au total, vous aurez trois services à programmer et à effectuer avant le prochain jour de décompte  : les 2 rattrapages, et le service que vous devez de toute façon avant le prochain décompte. (Ces trois services à faire sont en plus des rattrapages que, éventuellement, vous devez déjà à La Louve).</p>
 <h3>Comment faire un rattrapage?</h3>
 <p>À la différence des membres des équipes ABCD, les membres de l’équipe volante doivent programmer leurs rattrapages, sans exception… tout simplement en programmant des vacations supplémentaires. Un membre de l’équipe volante ne peut pas utiliser le même système de rattrapage que celui des équipes ABCD. S’il se présente à n’importe quel service pour faire un rattrapage, sans l'avoir programmé, il ne sera pas crédité.</p>
@@ -158,5 +158,58 @@ If you think there was a mistake or wish to subscribe to another team please con
 ]]>
         </field>
     </record>
+
+    <record id="anounce_open_on_holiday_email" model="mail.template">
+        <field name="name">Anounce Open Store Email</field>
+        <field name="model_id" ref="coop_membership.model_shift_registration"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">Open store on holiday</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour membres de l’équipe ${object.shift_id.shift_template_id.name},</p>
+<br/>
+<p>Vous avez un service qui tombe le ${object.convert_format_datatime()}.</p>
+<p>Pendant votre service, le magasin sera ouvert. Comme il s'agit d'un jour férié ou autre jour special pour La Louve, si vous ne pouvez pas assurer votre service, un seul rattrapage vous serez attribué au lieu de deux.</p>
+<p>Cependant, afin que le supermarché puisse fonctionner normalement, nous vous rappelons que la solution idéale reste l'échange de service avec un autre coopérateur.</p>
+<p>Bien cordialement,</p>
+<p>Bureau de membres
+<br/>
+01 86 95 91 90</p>
+<p>Le bureau des membres ne prend aucune demande par mail. Pour toute question ou demande, merci d'appeler ou de passer au Bureau des membres pendant ses horaires d'ouverture.</p>
+<p>Mardi : 13h30 - 16h</p>
+<p>Mercredi à Vendredi : 13h30 - 20h</p>
+<p>Samedi : 10h - 16h</p>
+<br/>
+]]>
+        </field>
+    </record>
+
+    <record id="anounce_close_on_holiday_email" model="mail.template">
+        <field name="name">Anounce Close Store Email</field>
+        <field name="model_id" ref="coop_membership.model_shift_registration"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">Closed store on holiday</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour membres de l’équipe ${object.shift_id.shift_template_id.name},</p>
+<br/>
+<p>Vous avez un service qui tombe le ${object.convert_format_datatime()}.</p>
+<p>Pendant votre service, le magasin sera fermé. Comme il s'agit d'un jour férié ou autre jour special pour La Louve, vous êtes exemptés de ce service. Ce qui veut dire que vous n'avez pas à venir et que vous n'aurez pas de rattrapages à effectuer.</p>
+<p>Bien cordialement,</p>
+<p>Bureau de membres
+<br/>
+01 86 95 91 90</p>
+<p>Le bureau des membres ne prend aucune demande par mail. Pour toute question ou demande, merci d'appeler ou de passer au Bureau des membres pendant ses horaires d'ouverture.</p>
+<p>Mardi : 13h30 - 16h</p>
+<p>Mercredi à Vendredi : 13h30 - 20h</p>
+<p>Samedi : 10h - 16h</p>
+<br/>
+]]>
+        </field>
+    </record>  
 
 </odoo>
