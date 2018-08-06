@@ -49,7 +49,8 @@ class Website(openerp.addons.website.controllers.main.Website):
         turnover_the_day = request.env['pos.order'].sudo().search(
             [('state', '=', 'paid'),
              ('date_order', '>=', start_utc_dt.strftime('%Y-%m-%d %H:%M:%S')),
-             ('date_order', '<=', datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'))]
+             ('date_order', '<=', datetime.utcnow().strftime(
+                '%Y-%m-%d %H:%M:%S'))]
         )
         turnover_the_day = sum(item.amount_total for item in turnover_the_day)
 
@@ -159,10 +160,12 @@ class Website(openerp.addons.website.controllers.main.Website):
         if tmpl:
             shifts_available = shift_env.sudo().search([
                 ('shift_template_id', '!=', tmpl[0].id),
-                ('date_begin', '>=', '2018-06-15 00:00:00'),
+                ('date_begin', '>=', datetime.now().strftime(
+                    '%Y-%m-%d 00:00:00')),
                 ('state', '=', 'confirm')
             ]).filtered(
-                lambda r: user.partner_id.id not in r.registration_ids.mapped('partner_id').ids)
+                lambda r: user.partner_id.id not in
+                r.registration_ids.mapped('partner_id').ids)
         return request.render(
             'foodcoop_memberspace.counter',
             {
@@ -172,7 +175,8 @@ class Website(openerp.addons.website.controllers.main.Website):
             }
         )
 
-    @http.route('/standard/echange_de_services', type='http', auth='user', website=True)
+    @http.route('/standard/echange_de_services', type='http', auth='user',
+        website=True)
     def page_echange_de_services(self, **kwargs):
         return request.render(
             'foodcoop_memberspace.counter',
