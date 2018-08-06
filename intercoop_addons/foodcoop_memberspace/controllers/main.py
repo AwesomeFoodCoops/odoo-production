@@ -196,3 +196,13 @@ class Website(openerp.addons.website.controllers.main.Website):
             'foodcoop_memberspace.myteam',
             {}
         )
+
+    @http.route('/profile', type='http', auth='user', website=True)
+    def page_myprofile(self, **kwargs):
+        
+        return request.render(
+            'foodcoop_memberspace.myprofile',
+            {
+                'user': request.env.user
+            }
+        )

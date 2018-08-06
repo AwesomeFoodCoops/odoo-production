@@ -9,6 +9,10 @@
                 </t>
             </t>
         </xpath>
+
+        <xpath expr="//div[@class='navbar navbar-default navbar-static-top']//ul[@class='dropdown-menu js_usermenu']/li[@id='o_logout']" position="before">
+            <li ><a href="/profile" role="menuitem">Profile</a></li>
+		</xpath>
 	</template>
-    
+
 </openerp>
