@@ -83,21 +83,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Information 1 -->
-                <div class="row" style="margin-top:20px;margin-bottom:30px;padding-right:15px;padding-left:15px">
-                    <div style="height: 200px;border: 1px solid #b2b7bb;"></div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6" >
-                        <div style="border: 1px solid #b2b7bb;height: 250px;padding-right:10px;padding-left:10px"></div>
-                    </div>
-                    <div class="col-md-6">
-                        <div style="border: 1px solid #b2b7bb;height: 250px;padding-right:10px;padding-left:10px"></div>
-                    </div>
-                </div>
-
             </div>
 		</xpath>
 	</template>
