@@ -26,3 +26,41 @@ class ResPartner(models.Model):
     public_email = fields.Boolean(
         "Public Email Address", help="Public your email address on website"
     )
+
+    @api.multi
+    def create_memberspace_user(self):
+        members_dont_have_user = self.filtered(lambda r: not r.related_user_id)
+        # portal group
+        portal_group = self.env.ref('base.group_portal')
+        # memberspace group
+        memberspace_group = self.env.ref(
+            'foodcoop_memberspace.group_memberspace')
+        Users = self.env['res.users']
+        context = self.env.context.copy()
+        context.update({
+            'default_groups_id': [
+                (6, 0, [portal_group.id, memberspace_group.id])]
+        })
+        vals = Users.with_context(context).default_get(Users._fields.keys())
+        for member in members_dont_have_user:
+            sql = '''
+                SELECT id
+                FROM res_users
+                WHERE login = '%s'
+                LIMIT 1
+            ''' % (member.email)
+            self.env.cr.execute(sql)
+            user = self.env.cr.fetchone()
+            if user:
+                user = Users.browse(user[0])
+            if not user:
+                vals.update({
+                    'partner_id': member.id,
+                    'name': member.name,
+                    'login': member.email,
+                    'email': member.email
+                })
+                Users.create(vals)
+            elif user.active:
+                user.partner_id = member.id
+        return True

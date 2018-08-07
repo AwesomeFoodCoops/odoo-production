@@ -14,6 +14,7 @@
         'website', 'coop_shift'
     ],
     'data': [
+        'security/res_group_data.xml',
         'data/ir_config_parameter.xml',
         'data/website_menu.xml',
         'views/res_partner_view.xml',

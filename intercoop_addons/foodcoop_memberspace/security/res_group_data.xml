@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <!-- Memberspace Group -->
+        <record id="group_memberspace" model="res.groups">
+            <field name="name">Memberspace Group</field>
+        </record>
+    </data>
+</openerp>
