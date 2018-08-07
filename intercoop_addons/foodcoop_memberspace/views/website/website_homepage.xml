@@ -23,7 +23,7 @@
                             <div style="border: 1px solid #b2b7bb;padding: 10px;">
                                 <div class="row">
                                     <div class="col-md-4 col-xs-6" style="text-align: center">
-                                        <span class="fa fa-clock-o" style="font-size: 4.5em"/>
+                                        <i class="material-icons" style="font-size: 4.5em">alarm</i>
                                     </div>
                                     <div class="col-md-4 col-xs-6">
                                         <p class="text-right" t-esc="date_begin" />
@@ -48,13 +48,15 @@
                                                 margin-top: 0px;
                                             " t-esc="turnover_the_day" />
                                     </div>
-                                    <div class="col-md-4 col-xs-6">
-                                        <span class="fa fa-euro" style="
+                                    <div class="col-md-4 col-xs-6" style="display: inline-flex;">
+                                        <div><i class="material-icons" style="
                                                     font-size: 3.5em;
                                                     margin-right: 10px;
                                                     margin-top: 6px;
-                                                    "></span>
-                                        <span style="">TTC</span>
+                                                    ">euro_symbol</i></div>
+                                        <div style="margin-top: 22px;">
+                                            <span style="">TTC</span>
+                                        </div>
                                     </div>
                                     <div class="col-md-4 col-xs-12" style="text-align: right;margin-top:7px;">
                                         <span class="fa fa-caret-right" style="font-size: 4em"></span>

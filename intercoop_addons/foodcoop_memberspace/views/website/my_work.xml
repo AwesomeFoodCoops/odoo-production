@@ -23,7 +23,6 @@
                         <div class="col-md-10">
                             <div>
                                 <span class="fa fa-clock-o" style="font-size: 4.5em;"/>
-                                <i class="glyphicon-piggy-bank"></i>
                                 <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;" t-esc="standard_point" />
                             </div>
                             <div>
