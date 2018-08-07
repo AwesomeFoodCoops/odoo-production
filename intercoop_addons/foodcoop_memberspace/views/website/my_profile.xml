@@ -102,7 +102,7 @@
                                         Ville:
                                     </div>
                                     <div class="col-xs-8 col-sm-8 col-md-8">
-                                        <input class="pd-l-3" name="street" t-att-value="user.partner_id.city" />
+                                        <input class="pd-l-3" name="city" t-att-value="user.partner_id.city" />
                                     </div>
                                 </div>
                             </div>
