@@ -60,7 +60,7 @@ class ResPartner(models.Model):
                     'login': member.email,
                     'email': member.email
                 })
-                Users.create(vals)
+                Users.with_context(no_reset_password=True).create(vals)
             elif user.active:
                 user.partner_id = member.id
         return True
