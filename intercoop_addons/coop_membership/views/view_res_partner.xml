@@ -195,7 +195,7 @@
                     <field name="image" readonly="1" widget="image"
                            class="oe_avatar"
                            options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
-                    <div class="oe_title">
+                    <div class="oe_title" name="genaral_info">
                         <field name="is_company" invisible="1"/>
                         <field name="company_type" widget="radio"
                                class="oe_edit_only"
@@ -432,7 +432,7 @@
                                 </tree>
                             </field>
 
-                            <field name="sex" attrs="{'required': True}"/>
+                            <field name="sex" attrs="{'required': [('company_type', '=', 'person')], 'invisible' : [('company_type', '=', 'company')]}"/>
                             <field name="is_deceased"
                                    groups="coop_membership.group_membership_see_associated_people,
                                    coop_membership.group_membership_access_user,
@@ -1245,7 +1245,7 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">tree,form</field>
         <field name="domain">[('is_member', '=', True)]</field>
         <field name="context">{'default_is_member':1}</field>
         <field name="search_view_id" ref="view_bdm_search"/>

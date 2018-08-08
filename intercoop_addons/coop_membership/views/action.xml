@@ -13,7 +13,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">tree,form</field>
         <field name="domain">['|','|','|','|',('is_member', '=', True),('is_associated_people', '=', True),('is_former_member', '=', True),('is_former_associated_people', '=', True),('is_interested_people', '=', True)]</field>
     </record>
 
@@ -261,6 +261,14 @@
 
     <record id="coop_shift.act_template_registration_from_template" model="ir.actions.act_window">
         <field name="context">{'search_default_shift_template_id': active_id, 'default_shift_template_id': active_id, 'search_default_current_participant': True}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_shift_holiday">
+        <field name="name">Holidays</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shift.holiday</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
 
