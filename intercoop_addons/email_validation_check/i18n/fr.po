@@ -25,7 +25,8 @@ msgid "\n"
 msgstr "\n"
 "            <p>Cher ${object.name},</p>\n"
 "            <p>Pour confirmer votre adresse email à ${object.company_id.name}, <a href=\"${object.validation_url}\">veuillez cliquer sur ce lien.</a></p>\n"
-"            <p>Amicalement, L'équipe de la coopérative</p>\n"
+"            <p>Amicalement,</p>\n"
+"			 <p>L'équipe de la coopérative</p>\n"
 "            "
 
 #. module: email_validation_check
@@ -49,7 +50,7 @@ msgstr "<span class=\"contact100-form-title\">\n"
 #. module: email_validation_check
 #: model:mail.template,subject:email_validation_check.email_confirm_validate
 msgid "Confirm validated email"
-msgstr "Confirm validated email"
+msgstr "Confirmation de votre adresse email"
 
 #. module: email_validation_check
 #: model:ir.ui.view,arch_db:email_validation_check.confirm_failed
