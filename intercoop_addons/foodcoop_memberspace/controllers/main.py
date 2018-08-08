@@ -40,7 +40,8 @@ class Website(openerp.addons.website.controllers.main.Website):
             local),"%A, %B %d %Hh%M") or False
 
         local_dt = local.localize(datetime.strptime(
-            '2018-06-29 18:17:00', '%Y-%m-%d %H:%M:%S'))
+            datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'),
+            '%Y-%m-%d %H:%M:%S'))
         start_local_native_dt = datetime.strptime(
             local_dt.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
         start_local_tz_dt = local.localize(start_local_native_dt)

@@ -14,10 +14,16 @@
         'website', 'coop_shift'
     ],
     'data': [
+        'security/res_group_data.xml',
+        'security/ir.model.access.csv',
+        'security/ir_rule.xml',
+
         'data/ir_config_parameter.xml',
         'data/website_menu.xml',
+
         'views/res_partner_view.xml',
         'views/templates.xml',
+
         'views/website/my_work.xml',
         'views/website/my_team.xml',
         'views/website/my_profile.xml',
