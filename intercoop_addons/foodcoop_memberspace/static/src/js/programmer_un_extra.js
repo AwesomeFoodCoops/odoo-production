@@ -26,9 +26,7 @@ odoo.define('foodcoop_memberspace.programmer_un_extra', function (require) {
                 $('.fa.fa-check').on('click', function() {
                     let btn_add = this;
                     new Model('shift.ticket').call(
-                        'search', [[['shift_id', '=', parseInt(self.shift_id)], ['shift_type', '=', 'ftop']]],
-                        {"context": {'member_space': true}}
-                    )
+                        'search', [[['shift_id', '=', parseInt(self.shift_id)], ['shift_type', '=', 'ftop']]])
                     .then(function(data) {
                         if (data.length > 0) {
                             let vals = {
@@ -39,8 +37,7 @@ odoo.define('foodcoop_memberspace.programmer_un_extra', function (require) {
                                 'related_extension_id': false
                             }
                             new Model('shift.registration').call(
-                                'create', [vals], {"context": {'member_space': true}}
-                            )
+                                'create', [vals])
                             .then(function(result) {
                                 $('#btn-add-' + self.shift_id).removeAttr("data-toggle").removeAttr("data-target").css({'color': 'red'});
                                 let no_available_seats = '#avalable-seats-' + self.shift_id;
