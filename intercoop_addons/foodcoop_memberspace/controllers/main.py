@@ -160,7 +160,7 @@ class Website(openerp.addons.website.controllers.main.Website):
         shifts_available = shift_env
         if tmpl:
             shifts_available = shift_env.sudo().search([
-                ('shift_template_id', '!=', tmpl[0].id),
+                ('shift_template_id', '!=', tmpl[0].shift_template_id.id),
                 ('date_begin', '>=', datetime.now().strftime(
                     '%Y-%m-%d 00:00:00')),
                 ('state', '=', 'confirm')
@@ -197,9 +197,24 @@ class Website(openerp.addons.website.controllers.main.Website):
 
     @http.route('/myteam', type='http', auth='user', website=True)
     def page_myteam(self, **kwargs):
+        user = request.env.user
+        tmpl = user.partner_id.tmpl_reg_line_ids.filtered(
+            lambda r: r.is_current)
+        coordinators = tmpl and tmpl[0].shift_template_id.user_ids or []
+
+        shifts = request.env['shift.shift'].sudo().search([
+            ('user_ids', 'in', [user.partner_id.id]),
+            ('state', '=', 'confirm')
+        ])
+        members = shifts and shifts.registration_ids.mapped(
+            'partner_id').filtered(lambda r: r.shift_type == 'standard') or []
+
         return request.render(
             'foodcoop_memberspace.myteam',
-            {}
+            {
+                'coordinators': coordinators,
+                'members': members
+            }
         )
 
     @http.route('/profile', type='http', auth='user', website=True)

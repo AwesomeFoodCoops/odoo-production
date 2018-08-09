@@ -16,48 +16,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td>millot_fanny@yahoo.fr</td>
-                                    <td><span>0661354387</span></td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td>millot_fanny@yahoo.fr</td>
-                                    <td><span>0661354387</span></td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td>millot_fanny@yahoo.fr</td>
-                                    <td><span>0661354387</span></td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td>millot_fanny@yahoo.fr</td>
-                                    <td><span>0661354387</span></td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td>millot_fanny@yahoo.fr</td>
-                                    <td><span>0661354387</span></td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td>millot_fanny@yahoo.fr</td>
-                                    <td><span>0661354387</span></td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
+                                <t t-if="coordinators" t-foreach="coordinators" t-as="coordinator">
+                                    <tr>
+                                        <td class="td-v-mid" scope="row"><span t-esc="coordinator.name" /></td>
+                                        <td class="td-v-mid"><span t-esc="coordinator.email" /></td>
+                                        <td class="td-v-mid"><span t-esc="coordinator.mobile" /></td>
+                                        <td class="text-right">
+                                            <img class="img-responsive img-table-profile" t-if="coordinator.image" t-attf-src="data:image/*;base64,{{coordinator.image}}" />
+                                        </td>
+                                    </tr>
+                                </t>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <div class="row" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
+                <div t-if="members" class="row" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
                     <p style="font-size: 25px;font-weight: 600">Mon équipe</p>
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -68,30 +42,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Fanny MILLOT</td>
-                                    <td class="text-right"><span><i style="font-size: 4em;" class="fa fa-user"></i></span></td>
-                                </tr>
+                                <t t-foreach="members" t-as="member">
+                                    <tr>
+                                        <td class="td-v-mid" scope="row"><span t-esc="member.name" /></td>
+                                        <td class="text-right">
+                                            <img class="img-responsive img-table-profile" t-if="member.image" t-attf-src="data:image/*;base64,{{member.image}}" />
+                                        </td>
+                                    </tr>
+                                </t>
                             </tbody>
                         </table>
                     </div>
