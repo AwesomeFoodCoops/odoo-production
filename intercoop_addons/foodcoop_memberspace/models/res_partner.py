@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.tools.safe_eval import safe_eval
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class ResPartner(models.Model):
@@ -43,6 +46,14 @@ class ResPartner(models.Model):
         })
         vals = Users.with_context(context).default_get(Users._fields.keys())
         for member in members_dont_have_user:
+            already_email = self.env['res.partner'].search([
+                ('email', '=', member.email),
+                ('id', '!=', member.id)
+            ])
+            if already_email:
+                _logger.error(_("Another user is already registered" +
+                    " using this email address."))
+                continue
             sql = '''
                 SELECT id
                 FROM res_users
