@@ -8,7 +8,7 @@
             <xpath expr="//div[@name='genaral_info']" position="after">
                 <field name="is_checked_email" invisible="True"/>
                 <field name="email_validation_string" invisible="True"/>
-                <p class="alert alert-warning oe_read_only" attrs="{'invisible':['|', ('is_checked_email','=',True), '|', ('email_validation_string', '=', False), ('email', '=', False)]}">
+                <p class="alert alert-warning oe_read_only" attrs="{'invisible':['|', ('supplier', '=', True),'|', ('is_checked_email','=',True), '|', ('email_validation_string', '=', False), '|',('email', '=', False), ('is_member', '=', False), ('is_interested_people', '=', False)]}">
                     The current email address has not be validated. Click here to send a new validation link.
                     <button class="oe_highlight" name="recompute_hash_confirm_email" type="object" string="Send New"></button>
                 </p>

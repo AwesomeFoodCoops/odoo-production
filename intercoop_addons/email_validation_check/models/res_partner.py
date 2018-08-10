@@ -28,7 +28,7 @@ class ResPartner(models.Model):
         string="String Validation Email",
         compute="compute_hash_validation_email",
         store=True)
-    is_checked_email = fields.Boolean('Is Checked Email', default=False)
+    is_checked_email = fields.Boolean('Is Checked Email', default=True)
     validation_url = fields.Char('Link to validate',
                                  compute="compute_url_validation_email")
 
@@ -37,17 +37,18 @@ class ResPartner(models.Model):
         res = super(ResPartner, self).write(vals)
         if 'email' in vals:
             for partner in self:
-                partner.check_exist_email()
-                if partner.validation_url and\
-                        (partner.is_interested_people or partner.is_member):
-                    mail_template = self.env.ref(
-                        'email_validation_check.email_confirm_validate')
-                    if mail_template:
-                        mail_template.send_mail(self.id)
-
-                # Update login user which's related partner
                 if partner.email:
-                    partner.is_checked_email = False
+                    partner.check_exist_email()
+                    if partner.validation_url and\
+                            (partner.is_interested_people or
+                             partner.is_member) and not partner.supplier:
+                        mail_template = self.env.ref(
+                            'email_validation_check.email_confirm_validate')
+                        if mail_template:
+                            mail_template.send_mail(self.id)
+                        partner.is_checked_email = False
+
+                    # Update login user which's related partner
                     user_related = self.env['res.users'].search([
                         ('partner_id', '=', partner.id)
                     ])
@@ -60,11 +61,13 @@ class ResPartner(models.Model):
     def create(self, vals):
         res = super(ResPartner, self).create(vals)
         res.check_exist_email()
-        if res.validation_url and res.is_interested_people and res.email:
+        if res.validation_url and res.is_interested_people and\
+                res.email and not res.supplier:
             mail_template = self.env.ref(
                 'email_validation_check.email_confirm_validate')
             if mail_template:
                 mail_template.send_mail(res.id)
+            res.is_checked_email = False
         return res
 
     @api.multi
@@ -81,10 +84,12 @@ class ResPartner(models.Model):
                           " using this email address."))
 
     @api.multi
-    @api.depends('email')
+    @api.depends('email', 'is_member', 'is_interested_people', 'supplier')
     def compute_hash_validation_email(self):
         for partner in self:
-            if partner.email:
+            if partner.email and (
+                partner.is_interested_people or partner.is_member)\
+                    and not partner.supplier:
                 partner.email_validation_string = random_token()
         return True
 
