@@ -384,6 +384,15 @@
     perm_read: true
     perm_write: true
     perm_unlink: true
+-
+  !record {model: ir.model.access, id: bdm_presence_shift_counter_event}:
+    group_id: coop_membership.group_membership_bdm_presence
+    model_id: coop_membership.model_shift_counter_event
+    name: bdm.presence.shift.counter.event
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
 # Groups of BDM saisie
 -
   !record {model: ir.model.access, id: bdm_saisie_res_partner_group_partner_manager}:
@@ -585,3 +594,12 @@
     perm_read: true
     perm_write: true
     perm_unlink: true
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_counter_event}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_membership.model_shift_counter_event
+    name: bdm.saisie.shift.counter.event
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: false
