@@ -276,6 +276,54 @@
         </div> -->
     </template>
 
+    <template id="programmer_modal">
+        <div id="programmer_modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <!-- <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div> -->
+                    <div class="modal-body">
+                        <p class="text-center">Veuillez confirmer votre inscription au service suivant :</p>
+                        <div class="text-center">
+                            <span style="margin-right: 10px" id="modal_time"></span>
+                            <span id="modal_hour"></span>
+                        </div>
+                        <div class="text-center">
+                            <span class="fa fa-times" data-dismiss="modal" style="margin-right: 40px;font-size: 3em;" />
+                            <span class="fa fa-check" style="font-size: 3em;"/>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+    <template id="modal_error">
+        <div id="error_modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title" id="error_header"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center" id="error_body"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </template>
+
     <template id="foodcoop_memberspace.programmer_un_extra">
         <div class="row programmer_un_extra" style="padding: 10px;">
             <p style="font-size: 25px;font-weight: 600;margin-top: 30px;margin-bottom: 10px;">Programmer un extra</p>
@@ -296,56 +344,14 @@
                                 <td scope="row" t-attf-id="time-{{shift.id}}" ><t t-esc="date_begin and date_begin[0] or ''" /></td>
                                 <td t-attf-id="hour-{{shift.id}}"><t t-esc="date_begin and date_begin[1] or ''" /></td>
                                 <td><span t-attf-id="avalable-seats-{{shift.id}}" t-esc="sum(shift.shift_ticket_ids.mapped('seats_available'))" /></td>
-                                <td><a><span class="fa fa-user-plus" data-toggle="modal" data-target="#programmer_un_extra_modal" t-attf-id="btn-add-{{shift.id}}" t-att-data-shift-id="shift.id" /></a></td>
+                                <td><a><span class="fa fa-user-plus" data-toggle="modal" data-target="#programmer_modal" t-attf-id="btn-add-{{shift.id}}" t-att-data-shift-id="shift.id" /></a></td>
                             </tr>
                         </t>
                     </tbody>
                 </table>
             </div>
-
-            <div id="programmer_un_extra_modal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <!-- <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">x</button>
-                            <h4 class="modal-title">Modal Header</h4>
-                        </div> -->
-                        <div class="modal-body">
-                            <p class="text-center">Veuillez confirmer votre inscription au service suivant :</p>
-                            <div class="text-center">
-                                <span style="margin-right: 10px" id="modal_time">Vendredi 12 juin 2018</span>
-                                <span id="modal_hour">10H45</span>
-                            </div>
-                            <div class="text-center">
-                                <span class="fa fa-times" data-dismiss="modal" style="margin-right: 40px;font-size: 3em;" />
-                                <span class="fa fa-check" style="font-size: 3em;"/>
-                            </div>
-                        </div>
-                        <!-- <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div> -->
-                    </div>
-
-                </div>
-            </div>
-
-            <div id="programmer_un_extra_error_modal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">x</button>
-                            <h4 class="modal-title" id="programmer_un_extra_error_header"></h4>
-                        </div>
-                        <div class="modal-body">
-                            <p class="text-center" id="programmer_un_extra_error_body"></p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <t t-call="programmer_modal" />
+            <t t-call="modal_error" />
         </div>
     </template>
 
@@ -536,7 +542,7 @@
                     <p class="text-center">Si vous êtes membre de l’équipe volante, passez par ici pour voir les
                         services disponibles et programmer vôtre vacation. L’annulation
                         d’un service se fait uniquement par contact direct avec le bureau des membres.</p>
-                    <div class="text-center"><a class="btn btn-default" data-toggle="modal" data-target="#ftop_programmer_modal">Programmer</a></div>
+                    <div class="text-center"><a class="btn btn-default toggle-ftop-programmer">Programmer</a></div>
                 </div>
             </div>
         </div>
@@ -553,56 +559,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
-                                coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
-                            <td><a><span class="fa fa-times" data-toggle="modal" data-target="#myModal"/></a></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
-                                coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
-                            <td><a><span class="fa fa-times" data-toggle="modal" data-target="#myModal"/></a></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
-                                coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
-                            <td><a><span class="fa fa-times" data-toggle="modal" data-target="#myModal"/></a></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
-                                coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
-                            <td><a><span class="fa fa-times" data-toggle="modal" data-target="#myModal"/></a></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
-                                coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
-                            <td><a><span class="fa fa-times" data-toggle="modal" data-target="#myModal"/></a></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
-                                coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
-                            <td><a><span class="fa fa-times" data-toggle="modal" data-target="#myModal"/></a></td>
-                        </tr>
+                        <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
+                            <tr>
+                                <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %B %d, %Y', '%HH%M'])" />
+                                <td scope="row"><t t-if="date_begin" t-esc="date_begin[0]"/></td>
+                                <td><t t-if="date_begin" t-esc="date_begin[1]"/></td>
+                                <td><span><t t-esc="shift.get_coordinators()" /> <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
+                                    coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
+                                <td><a><span class="fa fa-times" data-toggle="modal" data-target="#myModal"/></a></td>
+                            </tr>
+                        </t>
                     </tbody>
                 </table>
             </div>
 
-            <div id="ftop_programmer_modal" class="modal fade" role="dialog">
+            <div id="ftop_programmer_modal" class="modal fade programmer_une_vacation" role="dialog">
                 <div class="modal-dialog">
 
-                    <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">x</button>
@@ -619,55 +592,20 @@
                                                 <th>Inscription</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td scope="row">Vendredi 12 juin 2018</td>
-                                                <td>10H45</td>
-                                                <td><span>1</span></td>
-                                                <td><a><span class="fa fa-user-plus" /></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td scope="row">Vendredi 12 juin 2018</td>
-                                                <td>10H45</td>
-                                                <td><span>1</span></td>
-                                                <td><a><span class="fa fa-user-plus" /></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td scope="row">Vendredi 12 juin 2018</td>
-                                                <td>10H45</td>
-                                                <td><span>1</span></td>
-                                                <td><a><span class="fa fa-user-plus" /></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td scope="row">Vendredi 12 juin 2018</td>
-                                                <td>10H45</td>
-                                                <td><span>1</span></td>
-                                                <td><a><span class="fa fa-user-plus" /></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td scope="row">Vendredi 12 juin 2018</td>
-                                                <td>10H45</td>
-                                                <td><span>1</span></td>
-                                                <td><a><span class="fa fa-user-plus" /></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td scope="row">Vendredi 12 juin 2018</td>
-                                                <td>10H45</td>
-                                                <td><span>1</span></td>
-                                                <td><a><span class="fa fa-user-plus" /></a></td>
-                                            </tr>
+                                        <tbody class="body_ftop_programmer">
+
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div> -->
                     </div>
 
                 </div>
             </div>
+
+            <t t-call="foodcoop_memberspace.programmer_modal" />
+            <t t-call="foodcoop_memberspace.modal_error" />
         </div>
     </template>
 
@@ -691,66 +629,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                    <td scope="row">Vendredi 12 juin 2018</td>
-                                    <td>10H45</td>
-                                    <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                                    <td>Extra</td>
-                                </tr>
+                                <t t-if="shift_counter_events" t-foreach="shift_counter_events" t-as="item">
+                                    <tr>
+                                        <t t-set="create_date" t-value="user.get_time_by_user_lang(item.create_date, ['%d/%m/%Y %H:%M'])" />
+                                        <td scope="row"><t t-esc="create_date and create_date[0] or ''" /></td>
+                                        <td><t t-esc="item.create_uid.name" /></td>
+                                        <td><span t-esc="item.shift_id and item.shift_id.name_get()[0][1] or ''"/></td>
+                                        <td><t t-esc="item.name" /></td>
+                                        <td><t t-esc="item.is_manual" /></td>
+                                        <td><t t-esc="item.ignored" /></td>
+                                        <td><t t-esc="item.point_qty" /></td>
+                                        <td><t t-esc="item.notes" /></td>
+                                    </tr>
+                                </t>
                             </tbody>
                         </table>
                     </div>

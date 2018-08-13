@@ -42,13 +42,13 @@ odoo.define('foodcoop_memberspace.programmer_un_extra', function (require) {
                                 $('#btn-add-' + self.shift_id).removeAttr("data-toggle").removeAttr("data-target").css({'color': 'red'});
                                 let no_available_seats = '#avalable-seats-' + self.shift_id;
                                 $(no_available_seats).text(parseInt($(no_available_seats).text()) - 1);
-                                $('#programmer_un_extra_modal').modal('hide');
+                                $('#programmer_modal').modal('hide');
                             })
                             .fail(function(error, event) {
-                                $('#programmer_un_extra_error_header').text(error.message);
-                                $('#programmer_un_extra_error_body').text(error.data.message);
-                                $('#programmer_un_extra_modal').modal('hide');
-                                $('#programmer_un_extra_error_modal').modal('show');
+                                $('#error_header').text(error.message);
+                                $('#error_body').text(error.data.message);
+                                $('#programmer_modal').modal('hide');
+                                $('#error_modal').modal('show');
                             });
                         }
                     })

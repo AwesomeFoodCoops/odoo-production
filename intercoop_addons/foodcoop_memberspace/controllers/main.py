@@ -165,8 +165,9 @@ class Website(openerp.addons.website.controllers.main.Website):
                     '%Y-%m-%d 00:00:00')),
                 ('state', '=', 'confirm')
             ]).filtered(
-                lambda r: user.partner_id.id not in
-                r.registration_ids.mapped('partner_id').ids)
+                lambda r, user=self.env.user: user.partner_id not in
+                r.registration_ids.mapped('partner_id')
+            ).sorted(key=lambda r: r.date_begin)
         return request.render(
             'foodcoop_memberspace.counter',
             {
@@ -188,10 +189,18 @@ class Website(openerp.addons.website.controllers.main.Website):
 
     @http.route('/ftop/my_counter', type='http', auth='user', website=True)
     def page_ftop_my_counter(self, **kwargs):
+        user = request.env.user
+        shift_counter_event_env = request.env['shift.counter.event']
+        shift_counter_events =  shift_counter_event_env.sudo().search([
+            ('partner_id', '=', user.partner_id.id),
+            ('type', '=', 'ftop')
+        ])
         return request.render(
             'foodcoop_memberspace.ftop_my_counter',
             {
                 'is_ftop_member': True,
+                'shift_counter_events': shift_counter_events,
+                'user': user
             }
         )
 
