@@ -17,7 +17,6 @@
     ],
     'data': [
         'report/report_account_finance_xlsx.xml',
-        'views/report_finance_format_view.xml',
-        'views/menu.xml',
+        'wizard/accounting_report_wizard.xml',
     ],
 }
