@@ -48,7 +48,7 @@ class Website(openerp.addons.website.controllers.main.Website):
         start_utc_dt = start_local_tz_dt.astimezone(pytz.utc)
 
         turnover_the_day = request.env['pos.order'].sudo().search(
-            [('state', '=', 'paid'),
+            [('state', 'in', ['paid', 'done']),
              ('date_order', '>=', start_utc_dt.strftime('%Y-%m-%d %H:%M:%S')),
              ('date_order', '<=', datetime.utcnow().strftime(
                 '%Y-%m-%d %H:%M:%S'))]
@@ -165,7 +165,7 @@ class Website(openerp.addons.website.controllers.main.Website):
                     '%Y-%m-%d 00:00:00')),
                 ('state', '=', 'confirm')
             ]).filtered(
-                lambda r, user=self.env.user: user.partner_id not in
+                lambda r, user=request.env.user: user.partner_id not in
                 r.registration_ids.mapped('partner_id')
             ).sorted(key=lambda r: r.date_begin)
         return request.render(
@@ -233,5 +233,42 @@ class Website(openerp.addons.website.controllers.main.Website):
             'foodcoop_memberspace.myprofile',
             {
                 'user': request.env.user
+            }
+        )
+
+    @http.route('/statistics', type='http', auth='user', website=True)
+    def page_statistics(self, **kwargs):
+
+        members = request.env['res.partner'].sudo().search([
+            ('is_member', '=', True),
+            ('cooperative_state', 'not in', ['blocked', 'unpayed'])
+        ])
+
+        first_day_of_year = datetime.now().strftime("%Y-01-01 00:00:00")
+        end_day_of_year = datetime.now().strftime("%Y-12-31 23:59:59")
+        sales = request.env['pos.order'].sudo().search([
+            ('state', 'in', ['paid', 'done']),
+            ('date_order', '>=', first_day_of_year),
+            ('date_order', '<=', end_day_of_year)
+        ])
+
+        turnover_year_wo_tax_sql = '''
+        SELECT SUM(amount_subtotal) as turnover_year_wo_tax, SUM(total_amount)
+            as turnover_year_tax
+        FROM pos_session
+        WHERE stop_at BETWEEN '%s' AND '%s'
+            AND state = 'closed'
+        ''' % (first_day_of_year, end_day_of_year)
+
+        request.env.cr.execute(turnover_year_wo_tax_sql)
+        datas = request.env.cr.fetchone()
+        return request.render(
+            'foodcoop_memberspace.statistics',
+            {
+                'user': request.env.user,
+                'num_of_members': len(members),
+                'num_of_sales': len(sales),
+                'turnover_year_wo_tax': datas[0],
+                'turnover_year_tax': datas[1]
             }
         )

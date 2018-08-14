@@ -3,6 +3,7 @@
 from openerp import models, api
 import pytz
 from datetime import datetime
+import calendar
 
 
 class ResUsers(models.Model):
@@ -43,3 +44,31 @@ class ResUsers(models.Model):
                 ).sorted(key=lambda r: r.date_begin)
                     
         return shifts_available.read([])
+
+    @api.model
+    def get_statistics_char(self):
+        datas = []
+        current_date = datetime.now()
+        current_month = current_date.month
+        for x in xrange(1, 13):
+            if x > current_month:
+                datas.append({'value': 0, 'color': 'transparent'})
+                continue
+            month_range = calendar.monthrange(current_date.year, x)
+            first_day_of_month = current_date.replace(
+                month=x, day=1).strftime("%Y-%m-%d 00:00:00")
+            last_day_of_month = current_date.replace(
+                month=x, day=month_range[1]).strftime("%Y-%m-%d 23:59:59")
+            turnover_month = '''
+                SELECT SUM(total_amount) / 1000
+                FROM pos_session
+                WHERE stop_at BETWEEN '%s' AND '%s'
+                    AND state = 'closed'
+            ''' % (first_day_of_month, last_day_of_month)
+            self.env.cr.execute(turnover_month)
+            value = self.env.cr.fetchone()[0] or 0
+            if x == current_month:
+                datas.append({'value': value, 'color': '#b2b7bb'})
+                continue
+            datas.append({'value': value, 'color': '#efeb1d'})
+        return datas

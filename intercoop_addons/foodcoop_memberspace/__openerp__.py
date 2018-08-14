@@ -27,6 +27,7 @@
         'views/website/my_work.xml',
         'views/website/my_team.xml',
         'views/website/my_profile.xml',
+        'views/website/statistics.xml',
         'views/website/website_homepage.xml',
         'views/website/website_template.xml',
     ],

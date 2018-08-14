@@ -276,7 +276,7 @@
         </div> -->
     </template>
 
-    <template id="programmer_modal">
+    <template id="foodcoop_memberspace.programmer_modal">
         <div id="programmer_modal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -306,7 +306,7 @@
         </div>
     </template>
 
-    <template id="modal_error">
+    <template id="foodcoop_memberspace.modal_error">
         <div id="error_modal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -350,8 +350,8 @@
                     </tbody>
                 </table>
             </div>
-            <t t-call="programmer_modal" />
-            <t t-call="modal_error" />
+            <t t-call="foodcoop_memberspace.programmer_modal" />
+            <t t-call="foodcoop_memberspace.modal_error" />
         </div>
     </template>
 
