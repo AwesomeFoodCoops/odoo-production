@@ -23,8 +23,10 @@ odoo.define('foodcoop_memberspace.programmer_un_extra', function (require) {
                     $('#modal_hour').text(hour);
                 });
 
-                $('.fa.fa-check').on('click', function() {
-                    let btn_add = this;
+                $('.fa.fa-check').on('click', function(e) {
+                    e.preventDefault();
+                    let btn_check = this;
+                    $(btn_check).attr("disabled", "disabled");
                     new Model('shift.ticket').call(
                         'search', [[['shift_id', '=', parseInt(self.shift_id)], ['shift_type', '=', 'ftop']]])
                     .then(function(data) {
@@ -43,13 +45,18 @@ odoo.define('foodcoop_memberspace.programmer_un_extra', function (require) {
                                 let no_available_seats = '#avalable-seats-' + self.shift_id;
                                 $(no_available_seats).text(parseInt($(no_available_seats).text()) - 1);
                                 $('#programmer_modal').modal('hide');
+                                $(btn_check).removeAttr("disabled");
                             })
                             .fail(function(error, event) {
                                 $('#error_header').text(error.message);
                                 $('#error_body').text(error.data.message);
                                 $('#programmer_modal').modal('hide');
                                 $('#error_modal').modal('show');
+                                $(btn_check).removeAttr("disabled");
                             });
+                        }
+                        else {
+                            $(btn_check).removeAttr("disabled");
                         }
                     })
                 });

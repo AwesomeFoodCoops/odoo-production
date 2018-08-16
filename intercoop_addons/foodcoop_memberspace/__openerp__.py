@@ -18,6 +18,7 @@
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
 
+        'data/deactive_ir_rule.yml',
         'data/ir_config_parameter.xml',
         'data/website_menu.xml',
 

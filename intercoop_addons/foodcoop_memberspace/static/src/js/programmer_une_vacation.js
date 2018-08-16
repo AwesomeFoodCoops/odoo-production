@@ -20,14 +20,15 @@ odoo.define('foodcoop_memberspace.programmer_une_vacation', function (require) {
                     .then(function(shifts) {
                         shifts.forEach(function(shift, idx, array) {
                             let promises = [];
-                            promises.push(new Model('res.users').call('get_time_by_user_lang', [shift.date_begin, ['%A %B %d %Y', '%HH%M'], shift]))
-                            promises.push(new Model('shift.ticket').call('read', [shift.shift_ticket_ids, ['seats_available']]));
+                            let domain = [['id', 'in', shift.shift_ticket_ids], ['shift_type', '=', 'ftop']]
+                            promises.push(new Model('res.users').call('get_time_by_user_lang', [shift.date_begin, ['%A %B %d %Y', '%HH%M'], shift, self.user_context.lang + '.utf8']))
+                            promises.push(new Model('shift.ticket').call('search_read', [domain]));
                             $.when.apply($, promises).then(function() {
                                 let shift = shifts.find(x => x.id === arguments[0][2]);
-                                if (shift) {
-                                    let sum = _.reduce(arguments[1], function(memo, num){
-                                        return memo + num.seats_available;
-                                    }, 0);
+                                let sum = _.reduce(arguments[1], function(memo, num){
+                                    return memo + num.seats_available;
+                                }, 0);
+                                if (shift && sum > 0) {
                                     $('.body_ftop_programmer').append(
                                         `<tr>
                                             <td scope="row" id="time-${shift.id}">${arguments[0][0]}</td>
@@ -50,7 +51,10 @@ odoo.define('foodcoop_memberspace.programmer_une_vacation', function (require) {
                         $('#ftop_programmer_modal').modal('show');
                     });
                 });
-                $('.fa.fa-check').on('click', function() {
+                $('.fa.fa-check').on('click', function(e) {
+                    e.preventDefault();
+                    let btn_check = this;
+                    $(btn_check).attr("disabled", "disabled");
                     new Model('shift.ticket').call(
                         'search', [[['shift_id', '=', parseInt(self.shift_id)], ['shift_type', '=', 'ftop']]])
                     .then(function(data) {
@@ -69,13 +73,18 @@ odoo.define('foodcoop_memberspace.programmer_une_vacation', function (require) {
                                 let no_available_seats = '#avalable-seats-' + self.shift_id;
                                 $(no_available_seats).text(parseInt($(no_available_seats).text()) - 1);
                                 $('#programmer_modal').modal('hide');
+                                $(btn_check).removeAttr("disabled");
                             })
                             .fail(function(error, event) {
                                 $('#error_header').text(error.message);
                                 $('#error_body').text(error.data.message);
                                 $('#programmer_modal').modal('hide');
                                 $('#error_modal').modal('show');
+                                $(btn_check).removeAttr("disabled");
                             });
+                        }
+                        else {
+                            $(btn_check).removeAttr("disabled");
                         }
                     })
                 });

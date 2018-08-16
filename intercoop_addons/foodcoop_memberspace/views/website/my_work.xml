@@ -76,7 +76,7 @@
                     <tbody>
                         <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
                             <tr>
-                                <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %B %d, %Y', '%HH%M'])" />
+                                <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %B %d, %Y', '%HH%M'], lang=user.lang + '.utf8')" />
                                 <td scope="row"><t t-if="date_begin" t-esc="date_begin[0]"/></td>
                                 <td><t t-if="date_begin" t-esc="date_begin[1]"/></td>
                                 <td><span><t t-esc="shift.get_coordinators()" /> <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
@@ -90,14 +90,14 @@
         </div>
 
         <div class="row" style="margin-top: 20px">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;">
                     <p style="font-size: 25px;font-weight: 600">Echange de services</p>
                     <p class="text-center">Si vous ne pouvez exceptionnellement assurer votre service,
                         vous pouvez l’échanger avec un autre membre via la bourse aux services !</p>
                     <div class="text-center"><a href="/standard/echange_de_services" class="btn btn-default">Echange</a></div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-6">
                 <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;">
                     <p style="font-size: 25px;font-weight: 600">Programmer un extra</p>
@@ -141,7 +141,7 @@
                     <tbody>
                         <t t-if="shift_counter_events" t-foreach="shift_counter_events" t-as="item">
                             <tr>
-                                <t t-set="create_date" t-value="user.get_time_by_user_lang(item.create_date, ['%d/%m/%Y %H:%M'])" />
+                                <t t-set="create_date" t-value="user.get_time_by_user_lang(item.create_date, ['%d/%m/%Y %H:%M'], lang=user.lang + '.utf8')" />
                                 <td scope="row"><t t-esc="create_date and create_date[0] or ''" /></td>
                                 <td><t t-esc="item.create_uid.name" /></td>
                                 <td><span t-esc="item.shift_id and item.shift_id.name_get()[0][1] or ''"/></td>
@@ -178,7 +178,7 @@
                     <tbody>
                         <t t-if="shift_counter_events_extra" t-foreach="shift_counter_events_extra" t-as="item">
                             <tr>
-                                <t t-set="create_date" t-value="user.get_time_by_user_lang(item.create_date, ['%d/%m/%Y %H:%M'])" />
+                                <t t-set="create_date" t-value="user.get_time_by_user_lang(item.create_date, ['%d/%m/%Y %H:%M'], lang=user.lang + '.utf8')" />
                                 <td scope="row"><t t-esc="create_date and create_date[0] or ''" /></td>
                                 <td><t t-esc="item.create_uid.name" /></td>
                                 <td><span t-esc="item.shift_id and item.shift_id.name_get()[0][1] or ''"/></td>
@@ -293,8 +293,8 @@
                             <span id="modal_hour"></span>
                         </div>
                         <div class="text-center">
-                            <span class="fa fa-times" data-dismiss="modal" style="margin-right: 40px;font-size: 3em;" />
-                            <span class="fa fa-check" style="font-size: 3em;"/>
+                            <button type="object" class="fa fa-times" data-dismiss="modal" style="margin-right: 40px;font-size: 3em;background-color: transparent;border: 0px;" />
+                            <button type="object" class="fa fa-check" style="font-size: 3em;background-color: transparent;border: 0px;"/>
                         </div>
                     </div>
                     <!-- <div class="modal-footer">
@@ -339,13 +339,16 @@
                     </thead>
                     <tbody>
                         <t t-if="shifts_available" t-foreach="shifts_available" t-as="shift">
-                            <tr>
-                                <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A %B %d %Y', '%HH%M'])" />
-                                <td scope="row" t-attf-id="time-{{shift.id}}" ><t t-esc="date_begin and date_begin[0] or ''" /></td>
-                                <td t-attf-id="hour-{{shift.id}}"><t t-esc="date_begin and date_begin[1] or ''" /></td>
-                                <td><span t-attf-id="avalable-seats-{{shift.id}}" t-esc="sum(shift.shift_ticket_ids.mapped('seats_available'))" /></td>
-                                <td><a><span class="fa fa-user-plus" data-toggle="modal" data-target="#programmer_modal" t-attf-id="btn-add-{{shift.id}}" t-att-data-shift-id="shift.id" /></a></td>
-                            </tr>
+                            <t t-set="seats_avail" t-value="sum(shift.shift_ticket_ids.filtered(lambda r: r.shift_type == 'ftop').mapped('seats_available'))" />
+                            <t t-if="seats_avail > 0">
+                                <tr>
+                                    <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A %B %d %Y', '%HH%M'], lang=user.lang + '.utf8')" />
+                                    <td scope="row" t-attf-id="time-{{shift.id}}" ><t t-esc="date_begin and date_begin[0] or ''" /></td>
+                                    <td t-attf-id="hour-{{shift.id}}"><t t-esc="date_begin and date_begin[1] or ''" /></td>
+                                    <td><span t-attf-id="avalable-seats-{{shift.id}}" t-esc="seats_avail" /></td>
+                                    <td><a><span class="fa fa-user-plus" data-toggle="modal" data-target="#programmer_modal" t-attf-id="btn-add-{{shift.id}}" t-att-data-shift-id="shift.id" /></a></td>
+                                </tr>
+                            </t>
                         </t>
                     </tbody>
                 </table>
@@ -561,7 +564,7 @@
                     <tbody>
                         <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
                             <tr>
-                                <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %B %d, %Y', '%HH%M'])" />
+                                <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %B %d, %Y', '%HH%M'], lang=user.lang + '.utf8')" />
                                 <td scope="row"><t t-if="date_begin" t-esc="date_begin[0]"/></td>
                                 <td><t t-if="date_begin" t-esc="date_begin[1]"/></td>
                                 <td><span><t t-esc="shift.get_coordinators()" /> <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
@@ -631,7 +634,7 @@
                             <tbody>
                                 <t t-if="shift_counter_events" t-foreach="shift_counter_events" t-as="item">
                                     <tr>
-                                        <t t-set="create_date" t-value="user.get_time_by_user_lang(item.create_date, ['%d/%m/%Y %H:%M'])" />
+                                        <t t-set="create_date" t-value="user.get_time_by_user_lang(item.create_date, ['%d/%m/%Y %H:%M'], lang=user.lang + '.utf8')" />
                                         <td scope="row"><t t-esc="create_date and create_date[0] or ''" /></td>
                                         <td><t t-esc="item.create_uid.name" /></td>
                                         <td><span t-esc="item.shift_id and item.shift_id.name_get()[0][1] or ''"/></td>

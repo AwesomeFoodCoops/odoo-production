@@ -4,17 +4,19 @@ from openerp import models, api
 import pytz
 from datetime import datetime
 import calendar
+import locale
 
 
 class ResUsers(models.Model):
     _inherit = "res.users"
 
     @api.model
-    def get_time_by_user_lang(self, date, formats, obj={}):
+    def get_time_by_user_lang(self, date, formats, obj={}, lang='fr_FR.utf8'):
         # Function return an array by formats parameters:
         if not date or not formats:
             return False
         try:
+            locale.setlocale(locale.LC_TIME, str(lang))
             user_tz = self.tz or self.env.user.tz or 'Europe/Paris'
             local = pytz.timezone(user_tz)
             date = pytz.utc.localize(datetime.strptime(
