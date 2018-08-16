@@ -59,7 +59,8 @@
 
         <menuitem
             name="Mail Schedulers"
-            id="menu_shift_type"
+            sequence="30"
+            id="menu_mail_schedule"
             action="action_shift_mail"
             parent="menu_shift_configuration"
             groups="base.group_no_one"/>
