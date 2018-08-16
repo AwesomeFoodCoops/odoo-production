@@ -241,7 +241,8 @@ class Website(openerp.addons.website.controllers.main.Website):
 
         members = request.env['res.partner'].sudo().search([
             ('is_member', '=', True),
-            ('cooperative_state', 'not in', ['blocked', 'unpayed'])
+            ('cooperative_state', 'not in',
+                ['blocked', 'unpayed', 'not_concerned', 'unsubscribed'])
         ])
 
         first_day_of_year = datetime.now().strftime("%Y-01-01 00:00:00")
