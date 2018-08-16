@@ -215,9 +215,8 @@ class Website(openerp.addons.website.controllers.main.Website):
             ('user_ids', 'in', [user.partner_id.id]),
             ('state', '=', 'confirm')
         ])
-        members = shifts and shifts.registration_ids.mapped(
+        members = shifts and shifts.mapped('registration_ids').mapped(
             'partner_id').filtered(lambda r: r.shift_type == 'standard') or []
-
         return request.render(
             'foodcoop_memberspace.myteam',
             {
