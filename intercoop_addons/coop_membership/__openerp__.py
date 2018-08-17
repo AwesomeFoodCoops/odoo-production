@@ -24,6 +24,7 @@
         'purchase_compute_order',
         'res_partner_account_move_line',
         'stock',
+        'pos_receipt_by_email',
     ],
     'data': [
         'data/update_template_name_ftop.yml',

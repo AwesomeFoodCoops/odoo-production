@@ -440,6 +440,7 @@
                                    coop_membership.group_membership_bdm_saisie"/>
                             <field name="date_of_death"
                                    attrs="{'invisible': [('is_deceased', '=', False)]}"/>
+                            <field name="email_pos_receipt"/>
                         </group>
                     </group>
 
