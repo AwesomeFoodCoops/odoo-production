@@ -272,3 +272,7 @@ class Website(openerp.addons.website.controllers.main.Website):
                 'turnover_year_tax': datas[1]
             }
         )
+
+    @http.route('/documents', type='http', auth='user', website=True)
+    def page_documents(self, **kwargs):
+        return request.render('foodcoop_memberspace.documents', {})

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<template id="foodcoop_memberspace.documents">
+		<t t-call="website.layout">
+            <div class="container oe_structure">
+            </div>
+        </t>
+    </template>
+</openerp>
