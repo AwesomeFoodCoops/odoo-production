@@ -5,6 +5,8 @@ import pytz
 from datetime import datetime
 import calendar
 import locale
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class ResUsers(models.Model):
@@ -17,6 +19,10 @@ class ResUsers(models.Model):
             return False
         try:
             locale.setlocale(locale.LC_TIME, str(lang))
+        except:
+            _logger.debug("Can't set locale")
+
+        try:
             user_tz = self.tz or self.env.user.tz or 'Europe/Paris'
             local = pytz.timezone(user_tz)
             date = pytz.utc.localize(datetime.strptime(
@@ -26,6 +32,7 @@ class ResUsers(models.Model):
                 rs.append(obj['id'])
             return rs
         except:
+            _logger.debug("Error while convering time by user lang")
             return False
 
     @api.model
@@ -43,8 +50,8 @@ class ResUsers(models.Model):
                 ('state', '=', 'confirm')
             ]).filtered(lambda r, user=self.env.user:
                 user.partner_id not in r.registration_ids.mapped('partner_id')
-                ).sorted(key=lambda r: r.date_begin)
-                    
+            ).sorted(key=lambda r: r.date_begin)
+
         return shifts_available.read([])
 
     @api.model

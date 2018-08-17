@@ -6,7 +6,9 @@ from openerp.http import request
 from openerp import tools
 from datetime import datetime
 import pytz
+import logging
 import locale
+_logger = logging.getLogger(__name__)
 
 
 class Website(openerp.addons.website.controllers.main.Website):
@@ -31,7 +33,11 @@ class Website(openerp.addons.website.controllers.main.Website):
 
         # Get Turnover of the day
         lang = user.lang and (str(user.lang) + '.utf8') or 'fr_FR.utf8'
-        locale.setlocale(locale.LC_TIME, lang)
+        try:
+            locale.setlocale(locale.LC_TIME, lang)
+        except Exception as e:
+            _logger.debug("Can't set locale: %s", e)
+
         user_tz = user.tz or 'Europe/Paris'
         local = pytz.timezone(user_tz)
         date_begin = shift and datetime.strftime(pytz.utc.localize(
@@ -227,7 +233,7 @@ class Website(openerp.addons.website.controllers.main.Website):
 
     @http.route('/profile', type='http', auth='user', website=True)
     def page_myprofile(self, **kwargs):
-        
+
         return request.render(
             'foodcoop_memberspace.myprofile',
             {
