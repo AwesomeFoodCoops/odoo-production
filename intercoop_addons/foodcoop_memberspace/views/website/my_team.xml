@@ -37,12 +37,10 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <tr>
-                                        <th>Nom</th>
-                                        <th>Courriel</th>
-                                        <th>Mobile</th>
-                                        <th></th>
-                                    </tr>
+                                    <th>Nom</th>
+                                    <th>Courriel</th>
+                                    <th>Mobile</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
