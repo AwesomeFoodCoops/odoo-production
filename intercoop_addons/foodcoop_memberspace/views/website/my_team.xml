@@ -19,10 +19,10 @@
                                 <t t-if="coordinators" t-foreach="coordinators" t-as="coordinator">
                                     <tr>
                                         <td class="td-v-mid" scope="row"><span t-esc="coordinator.name" /></td>
-                                        <td class="td-v-mid"><span t-esc="coordinator.email" /></td>
-                                        <td class="td-v-mid"><span t-esc="coordinator.mobile" /></td>
+                                        <td class="td-v-mid"><t t-if="coordinator.public_email"><span t-esc="coordinator.email" /></t></td>
+                                        <td class="td-v-mid"><t t-if="coordinator.public_mobile"><span t-esc="coordinator.mobile" /></t></td>
                                         <td class="text-right">
-                                            <img class="img-responsive img-table-profile" t-if="coordinator.image" t-attf-src="data:image/*;base64,{{coordinator.image}}" />
+                                            <t t-if="coordinator.image and coordinator.public_avatar"><img class="img-responsive img-table-profile" t-attf-src="data:image/*;base64,{{coordinator.image}}" /></t>
                                         </td>
                                     </tr>
                                 </t>
@@ -37,16 +37,22 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nom</th>
-                                    <th></th>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Courriel</th>
+                                        <th>Mobile</th>
+                                        <th></th>
+                                    </tr>
                                 </tr>
                             </thead>
                             <tbody>
                                 <t t-foreach="members" t-as="member">
                                     <tr>
                                         <td class="td-v-mid" scope="row"><span t-esc="member.name" /></td>
+                                        <td class="td-v-mid"><t t-if="member.public_email"><span t-esc="member.email" /></t></td>
+                                        <td class="td-v-mid"><t t-if="member.public_mobile"><span t-esc="member.mobile" /></t></td>
                                         <td class="text-right">
-                                            <img class="img-responsive img-table-profile" t-if="member.image" t-attf-src="data:image/*;base64,{{member.image}}" />
+                                            <t t-if="member.image and member.public_avatar"><img class="img-responsive img-table-profile" t-attf-src="data:image/*;base64,{{member.image}}" /></t>
                                         </td>
                                     </tr>
                                 </t>

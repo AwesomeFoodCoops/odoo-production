@@ -40,6 +40,7 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">15</field>
             <field name="website_id" ref="website.default_website"/>
+            <field name="new_window">True</field>
         </record>
 
         <record id="menu_foodcoop_blog" model="website.menu">
@@ -48,6 +49,7 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">16</field>
             <field name="website_id" ref="website.default_website"/>
+            <field name="new_window">True</field>
         </record>
 
         <record id="menu_foodcoop_forum" model="website.menu">
@@ -56,6 +58,7 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">17</field>
             <field name="website_id" ref="website.default_website"/>
+            <field name="new_window">True</field>
         </record>
 
         <delete model="website.menu" search="[('id','=', ref('website.menu_contactus'))]" />

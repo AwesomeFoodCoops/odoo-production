@@ -21,7 +21,7 @@ odoo.define('foodcoop_memberspace.programmer_une_vacation', function (require) {
                         shifts.forEach(function(shift, idx, array) {
                             let promises = [];
                             let domain = [['id', 'in', shift.shift_ticket_ids], ['shift_type', '=', 'ftop']]
-                            promises.push(new Model('res.users').call('get_time_by_user_lang', [shift.date_begin, ['%A %B %d %Y', '%HH%M'], shift, self.user_context.lang + '.utf8']))
+                            promises.push(new Model('res.users').call('get_time_by_user_lang', [shift.date_begin, ['%A %B %d %Y', '%HH%M'], shift, self.session.user_context.lang + '.utf8']))
                             promises.push(new Model('shift.ticket').call('search_read', [domain]));
                             $.when.apply($, promises).then(function() {
                                 let shift = shifts.find(x => x.id === arguments[0][2]);
