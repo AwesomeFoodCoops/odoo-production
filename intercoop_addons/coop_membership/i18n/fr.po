@@ -203,9 +203,153 @@ msgid "Contracts"
 msgstr "Contrats"
 
 #. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
+msgid "Approve"
+msgstr "Approuver"
+
+#. module: coop_membership
+#: model:ir.actions.act_window,name:coop_membership.action_shift_holiday
+msgid "Holidays"
+msgstr "Assouplissements"
+
+#. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_partner_cooperative_state
 msgid "Cooperative state"
 msgstr "Etat coopératif"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_holiday_type
+msgid " Holiday Type"
+msgstr " Type"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_members_config_settings_form
+#: model:ir.ui.view,arch_db:coop_membership.view_res_partner_generate_barcode_wizard_form
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_leave_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_single_day_shift_ids
+#: model:ir.ui.view,arch_db:coop_membership.view_partner_form
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
+msgid "Shifts"
+msgstr "Services"
+
+#. module: coop_membership
+#: selection:shift.holiday,make_up_type:0
+msgid "1 Make Up"
+msgstr "1 rattrapages"
+
+#. module: coop_membership
+#: selection:shift.holiday,make_up_type:0
+msgid "0 Make Up"
+msgstr "0 rattrapages"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_make_up_type
+msgid "Make Up"
+msgstr "Rattrapages"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_holiday.py:44
+#, python-format
+msgid "Date End should be greater than Date Begin."
+msgstr "La date de fin doit être supérieure à la date de début."
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_holiday.py:48
+#, python-format
+msgid "Date End should be equal Date Begin in Single Day."
+msgstr "Date de fin doit être égale date de début en un jour."
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_holiday.py:98
+#, python-format
+msgid "Here are shifts that weren't marked open or closed\n"
+"                                - %s\n"
+"\n"
+"                                Please mark all of shift"
+msgstr "Voici les quarts de travail qui n'ont pas été marqués comme ouverts ou fermés\n"
+"                                - %s\n"
+"\n"
+"                                Veuillez marquer tout le quart"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
+msgid "Set To Draft"
+msgstr "Remettre En Brouillon"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_shift_state_in_holiday
+msgid "State in holiday"
+msgstr "Application"
+
+#. module: coop_membership
+#: selection:shift.holiday,state:0
+msgid "Confirmed"
+msgstr "Confirmé"
+
+#. module: coop_membership
+#: selection:shift.holiday,state:0
+msgid "Done"
+msgstr "Terminé"
+
+#. module: coop_membership
+#: selection:shift.holiday,state:0
+msgid "Canceled"
+msgstr "Annulé"
+
+#. module: coop_membership
+#: selection:shift.holiday,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: coop_membership
+#: selection:shift.holiday,holiday_type:0
+msgid "Long Period"
+msgstr "Période"
+
+#. module: coop_membership
+#: selection:shift.holiday,holiday_type:0
+msgid "Single Day"
+msgstr "Journée"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_date_begin
+msgid "Date Begin"
+msgstr "Début"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_date_end
+msgid "Date End"
+msgstr "Fin"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_owned_share_name
+#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_name
+#: model:ir.ui.view,arch_db:coop_membership.view_partner_form
+#: model:ir.ui.view,arch_db:coop_membership.view_res_partner_owned_share_form
+msgid "Name"
+msgstr "Nom"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
+#: selection:shift.shift,state_in_holiday:0
+msgid "Open"
+msgstr "Ouvert"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
+#: selection:shift.shift,state_in_holiday:0
+msgid "Closed"
+msgstr "Fermé"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
+msgid "Confirm"
+msgstr "Confirmer"
 
 #. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_partner_cooperative_state_display
