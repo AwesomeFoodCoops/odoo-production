@@ -24,6 +24,7 @@
 from openerp import api, models, fields, tools
 from datetime import datetime
 
+
 class ShiftMailRegistration(models.Model):
     _inherit = 'event.mail.registration'
     _name = 'shift.mail.registration'
@@ -43,6 +44,8 @@ class ShiftMailRegistration(models.Model):
             # when users is in vacation, no email is sent to them.
             if self.registration_id.partner_id.working_state in ['exempted',
                                                                  'vacation']:
+                return
+            if self.registration_id.shift_id.is_on_holiday:
                 return
             return super(ShiftMailRegistration, self).execute()
         else:

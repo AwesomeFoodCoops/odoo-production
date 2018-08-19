@@ -166,7 +166,7 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_to" >${object.partner_id.email|safe}</field>
         <field name="lang">${object.partner_id.lang}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Open store on holiday</field>
+        <field name="subject">Le magasin sera ouvert le ${object.convert_format_datatime()}</field>
         <field name="body_html"><![CDATA[
 <p>Bonjour membres de l’équipe ${object.shift_id.shift_template_id.name},</p>
 <br/>
@@ -193,7 +193,7 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_to" >${object.partner_id.email|safe}</field>
         <field name="lang">${object.partner_id.lang}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Closed store on holiday</field>
+        <field name="subject">Le magasin sera fermé le ${object.convert_format_datatime()}</field>
         <field name="body_html"><![CDATA[
 <p>Bonjour membres de l’équipe ${object.shift_id.shift_template_id.name},</p>
 <br/>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<template id="foodcoop_memberspace.homepage" inherit_id="website.homepage" name="Main layout">
+		<xpath expr="//div[@id='wrap']" position="inside">
+            <div class="container-fluid" t-if="website.user_id != user_id">
+                <!-- Banner -->
+                <div style="text-align: center;color:red;margin-top: 10px;border: 1px solid red;margin-left: -15px;margin-right: -15px;">
+                    <h3>Séance Photo à l'AG du Lundi 9 Juillet : Nouvelle séance à l'ouverture de la salle de l'A.G. à partir de 18h45</h3>
+                </div>
+
+                <!-- Status -->
+                <div contenteditable="false" style="text-align: center;color:white;border: 1px solid #8bc34a;margin-top: 10px;background: #8bc34a;
+                    margin-left: -15px;margin-right: -15px;">
+                    <h3 t-esc="member_status or ''" />
+                </div>
+            </div>
+            <div class="container" t-if="website.user_id != user_id">
+                <!-- Current Week Information -->
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-4">
+                        <div>
+                            <span>Mon prochain service</span>
+                            <div style="border: 1px solid #b2b7bb;padding: 10px;">
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-6" style="text-align: center">
+                                        <i class="material-icons" style="font-size: 4.5em">alarm</i>
+                                    </div>
+                                    <div class="col-md-4 col-xs-6">
+                                        <p class="text-right" t-esc="date_begin" />
+                                    </div>
+                                    <div class="col-md-4 col-xs-12" style="text-align: right;margin-top:7px;">
+                                        <span class="fa fa-caret-right" style="font-size: 4em" />
+                                    </div>
+                                </div>
+                                <div style="text-align: right;margin-right:35px;"><a href="/mywork">Link My Work</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <span>Chiffre d’affaires du jour</span>
+                            <div style="border: 1px solid #b2b7bb;padding: 10px;">
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-6" style="text-align: center;margin-top: 18px;">
+                                        <span style="
+                                                font-size: 25px;
+                                                font-weight: 600;
+                                                margin-top: 0px;
+                                            " t-esc="turnover_the_day" />
+                                    </div>
+                                    <div class="col-md-4 col-xs-6" style="display: inline-flex;">
+                                        <div><i class="material-icons" style="
+                                                    font-size: 3.5em;
+                                                    margin-right: 10px;
+                                                    margin-top: 6px;
+                                                    ">euro_symbol</i></div>
+                                        <div style="margin-top: 22px;">
+                                            <span style="">TTC</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12" style="text-align: right;margin-top:7px;">
+                                        <span class="fa fa-caret-right" style="font-size: 4em"></span>
+                                    </div>
+                                </div>
+                                <div style="text-align: right;margin-right:35px;"><a href="#">Link Statistics</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <span>Semaine</span>
+                            <div style="border: 1px solid #b2b7bb;padding: 10px;">
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-6" style="text-align: center">
+                                        <a style="font-size: 3em;font-weight: 600;color: black"><span t-esc="shift.shift_id and dict(shift.shift_id._fields['week_number'].selection).get(shift.shift_id.week_number) or '' "/></a>
+                                    </div>
+                                    <div class="col-md-4 col-xs-6">
+                                    </div>
+                                    <div class="col-md-4 col-xs-12" style="text-align: right;margin-top:7px;">
+                                        <span class="fa fa-caret-right" style="font-size: 4em" />
+                                    </div>
+                                </div>
+                                <div style="text-align: right;margin-right:35px;"><a href="#">Link Calendar</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="oe_structure"></div>
+		</xpath>
+	</template>
+</openerp>
