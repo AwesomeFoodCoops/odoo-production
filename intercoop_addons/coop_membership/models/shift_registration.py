@@ -323,14 +323,6 @@ class ShiftRegistration(models.Model):
 
                 point_counter_env.sudo().with_context(
                     automatic=True).create(counter_vals)
-
-            # Send auto mail in single holiday
-            if single_holiday:
-                if self.shift_id.state_in_holiday == 'closed'\
-                        and email_closed_template:
-                    email_closed_template.send_mail(self.id)
-                elif email_open_template:
-                    email_open_template.send_mail(self.id)
         return True
 
     @api.multi

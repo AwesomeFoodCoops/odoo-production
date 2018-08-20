@@ -1,0 +1,7 @@
+-
+  Deactive Record Rule "read access on my commercial partner"
+-
+  !python {model: ir.rule}: |
+    record = self.browse(cr, uid, ref('base.res_partner_portal_public_rule'))
+    if record:
+      record.active = False

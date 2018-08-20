@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<template id="foodcoop_memberspace.myteam">
+		<t t-call="website.layout">
+            <div class="container">
+                <div class="row" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
+                    <p style="font-size: 25px;font-weight: 600">Mes coordinateurs</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Courriel</th>
+                                    <th>Mobile</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="coordinators" t-foreach="coordinators" t-as="coordinator">
+                                    <tr>
+                                        <td class="td-v-mid" scope="row"><span t-esc="coordinator.name" /></td>
+                                        <td class="td-v-mid"><t t-if="coordinator.public_email"><span t-esc="coordinator.email" /></t></td>
+                                        <td class="td-v-mid"><t t-if="coordinator.public_mobile"><span t-esc="coordinator.mobile" /></t></td>
+                                        <td class="text-right">
+                                            <t t-if="coordinator.image and coordinator.public_avatar"><img class="img-responsive img-table-profile" t-attf-src="data:image/*;base64,{{coordinator.image}}" /></t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div t-if="members" class="row" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
+                    <p style="font-size: 25px;font-weight: 600">Mon équipe</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Courriel</th>
+                                    <th>Mobile</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="members" t-as="member">
+                                    <tr>
+                                        <td class="td-v-mid" scope="row"><span t-esc="member.name" /></td>
+                                        <td class="td-v-mid"><t t-if="member.public_email"><span t-esc="member.email" /></t></td>
+                                        <td class="td-v-mid"><t t-if="member.public_mobile"><span t-esc="member.mobile" /></t></td>
+                                        <td class="text-right">
+                                            <t t-if="member.image and member.public_avatar"><img class="img-responsive img-table-profile" t-attf-src="data:image/*;base64,{{member.image}}" /></t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</openerp>

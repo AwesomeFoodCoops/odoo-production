@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<template id="foodcoop_memberspace.myprofile">
+		<t t-call="website.layout">
+            <div class="container my_profile">
+                <!-- Your Identity -->
+                <div>
+                    <div class="box-info-times">
+                        <div class="collapsed" data-toggle="collapse" data-target="#your_identify" aria-expanded="false">
+                            <i class="material-icons">perm_contact_calendar</i>
+                            <h5>Votre Identité</h5>
+                        </div>
+                    </div>
+                    <div id="your_identify" class="collapse box-info-content" aria-expanded="true" >
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                Civilité:
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <t t-esc="user.partner_id and dict(user.partner_id._fields['sex'].selection).get(user.partner_id.sex).capitalize() or '' " />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                Nom:
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <t t-esc="user.partner_id.name" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Your Phone Number -->
+                <form method="post" action="/edit-phone">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div>
+                        <div class="box-info-times">
+                            <div class="collapsed" data-toggle="collapse" data-target="#your_phone_number" aria-expanded="false">
+                                <i class="material-icons">contact_phone</i>
+                                <h5>Vos numéros de téléphone</h5>
+                            </div>
+                        </div>
+                        <div id="your_phone_number" class="collapse box-info-content" aria-expanded="true" >
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                    Numéro de mobile:
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <input class="pd-l-3 input-no-edit" name="mobile" t-att-value="user.partner_id.mobile" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                    Numéro de fixe:
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <input class="pd-l-3 input-no-edit" name="phone" t-att-value="user.partner_id.phone" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <button type="button" class="btn btn-warning btn-edit-phone">Modifier</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Your Postal Address -->
+                <div>
+                    <div class="box-info-times">
+                        <div class="collapsed" data-toggle="collapse" data-target="#your_postal_address" aria-expanded="false">
+                            <i class="material-icons">contact_mail</i>
+                            <h5>Votre adresse postale</h5>
+                        </div>
+                    </div>
+                    <form class="edit-postal-address" method="post" action="/edit-address">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div id="your_postal_address" class="collapse box-info-content" aria-expanded="true" >
+                            <div class="address-edit hide">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                        Rue:
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8">
+                                        <input class="pd-l-3" name="street" t-att-value="user.partner_id.street" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                        Code postal:
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8">
+                                        <input class="pd-l-3" name="zip" t-att-value="user.partner_id.zip" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                        Ville:
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8">
+                                        <input class="pd-l-3" name="city" t-att-value="user.partner_id.city" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row text-center address-no-edit">
+                                <span t-esc="user.partner_id.street" /> <br/>
+                                <span t-esc="user.partner_id.zip" />
+                                <span t-esc="user.partner_id.city" />
+                            </div>
+                            <div class="row text-center">
+                                <button type="button" class="btn btn-warning btn-edit-address">Modifier</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Your Display Preferences -->
+                <div>
+                    <div class="box-info-times">
+                        <div class="collapsed" data-toggle="collapse" data-target="#your_display_reference" aria-expanded="false">
+                            <i class="material-icons">contacts</i>
+                            <h5>Vos préférences d'affichage</h5>
+                        </div>
+                    </div>
+                    <div id="your_display_reference" class="collapse box-info-content" aria-expanded="true" >
+                        <p><strong>Afficher à votre équipe</strong></p>
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                Photo:
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <img class="img-responsive" t-if="user.image" t-attf-src="data:image/*;base64,{{user.image}}" />
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label class="switch">
+                                    <input type="checkbox" name="public_avatar" t-att-checked="user.partner_id.public_avatar" />
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <hr class="text-center" style="width: 72%"/>
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                Numéro affiché à votre équipe
+                            </div>
+                            <div class="col-md-8">
+                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                Mobile:
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <t t-esc="user.partner_id.mobile" />
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label class="switch">
+                                    <input type="checkbox" name="public_mobile" t-att-checked="user.partner_id.public_mobile" />
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                Adresse email:
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <t t-esc="user.partner_id.email" />
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <label class="switch">
+                                    <input type="checkbox" name="public_email" t-att-checked="user.partner_id.public_email" />
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</openerp>
