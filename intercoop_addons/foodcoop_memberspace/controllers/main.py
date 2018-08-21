@@ -253,7 +253,7 @@ class Website(openerp.addons.website.controllers.main.Website):
         first_day_of_year = datetime.now().strftime("%Y-01-01 00:00:00")
         end_day_of_year = datetime.now().strftime("%Y-12-31 23:59:59")
         sales = request.env['pos.order'].sudo().search([
-            ('state', 'in', ['paid', 'done']),
+            ('state', 'in', ['paid', 'done', 'invoiced']),
             ('date_order', '>=', first_day_of_year),
             ('date_order', '<=', end_day_of_year)
         ])
