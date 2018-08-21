@@ -31,6 +31,9 @@ class ResPartner(models.Model):
     is_checked_email = fields.Boolean('Is Checked Email', default=True)
     validation_url = fields.Char('Link to validate',
                                  compute="compute_url_validation_email")
+    show_send_email = fields.Boolean(compute="compute_hash_validation_email",
+                                     string="Show button send email confirm",
+                                     store=True)
 
     @api.multi
     def write(self, vals):
@@ -84,14 +87,20 @@ class ResPartner(models.Model):
                           " using this email address."))
 
     @api.multi
-    @api.depends('email', 'is_member', 'is_interested_people', 'supplier')
+    @api.depends('email', 'is_member', 'is_interested_people', 'supplier',
+                 'is_checked_email')
     def compute_hash_validation_email(self):
         for partner in self:
             if partner.email and (
                 partner.is_interested_people or partner.is_member)\
                     and not partner.supplier:
                 partner.email_validation_string = random_token()
-        return True
+            if partner.supplier or not partner.email or\
+                partner.is_checked_email or (
+                    not partner.is_member and not partner.is_interested_people):
+                partner.show_send_email = False
+            else:
+                partner.show_send_email = True
 
     @api.multi
     def check_email_validation_string(self, string):
