@@ -43,6 +43,7 @@
         'wizard/res_partner_generate_barcode_wizard.xml',
 
         # Classical Data
+        'views/view_shift_counter_event.xml',
         'views/view_res_partner_owned_share.xml',
         'views/view_res_partner.xml',
         'views/res_users_view.xml',
