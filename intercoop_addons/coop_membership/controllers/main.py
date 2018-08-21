@@ -65,7 +65,10 @@ class WebsiteRegisterMeeting(http.Controller):
         ])
         events = event_obj.browse(request.cr, REGISTER_USER_ID, event_ids,
                                   context=request.context)
-        datas = self.prepare_data_events(events)
+        available_events = events.filtered(
+            lambda e: not (e.seats_availability == 'limited' and
+                           e.seats_available < 1 and e.state == 'confirm'))
+        datas = self.prepare_data_events(available_events)
 
         value = {
             'datas': datas,
@@ -128,23 +131,9 @@ class WebsiteRegisterMeeting(http.Controller):
         event = event_obj.browse(request.cr, REGISTER_USER_ID, int(event_id),
                                  context=request.context)
 
-        is_event_valid = True
-
-        # Check invalid and available seat event
-        if event and event.is_discovery_meeting and event.state\
-                == 'confirm':
-            if event.seats_availability == 'limited' and event.seats_max\
-                    and event.seats_available < 1:
-                is_event_valid = False
-        else:
-            is_event_valid = False
-
         if partner_id:
             return request.render(
                 "coop_membership.register_submit_form_err_email")
-        elif not is_event_valid:
-            return request.render(
-                "coop_membership.register_submit_form_err_event")
         else:
 
             # create event registration
