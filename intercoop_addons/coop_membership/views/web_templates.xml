@@ -148,34 +148,6 @@
                 </body>
             </html>
         </template>
-
-        <template id="register_submit_form_err_event" name="Register Submit Form">
-            <html>
-                <head id="website_register_header" name="website_register_header">
-                    <title>Inscription - Réunions d'accueil</title>
-                    <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
-                </head>
-                <body>
-                    <div class="container-contact100">
-                        <div class="wrap-contact100">
-                            <span class="contact100-form-title">
-                                La date de la réunion que vous avez choisie est invalide ou bien cette réunion a atteint sa capacité maximale. Merci de choisir une autre date dans la liste..
-                            </span>
-                            <div class="container-contact100-form-btn">
-                                <a href="javascript:history.back()">
-                                    <button class="contact100-form-btn">
-                                        <span>
-                                            Retour
-                                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                                        </span>
-                                    </button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </body>
-            </html>
-        </template>
       
         <template id="register_submit_form_err_email" name="Register Submit Form">
             <html>
