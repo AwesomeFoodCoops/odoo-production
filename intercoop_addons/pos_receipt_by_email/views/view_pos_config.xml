@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_pos_config_form_inherit" model="ir.ui.view">
+        <field name="name">view.pos.config.form.inherit</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+        <field name="model">pos.config</field>
+        <field name="arch" type="xml">
+            <field name="cash_control" position="after">
+                <field name="is_print_receipt"/>
+            </field>
+        </field>
+    </record>
+</odoo>

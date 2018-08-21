@@ -554,26 +554,6 @@ msgid "You can not reconcile Capital Invoices for many Categories: %s"
 msgstr "Vous ne pouvez pas réconcilier des factures de levées de fonds qui concernent plusieurs catégories de titres : %s"
 
 #. module: capital_subscription
-#: code:addons/capital_subscription/models/account_invoice.py:147
-#, python-format
-msgid "You try to make an operation after which the partner will have %d share(s) of capital of kind '%s'.\n"
-"\n"
-" Minimum quantity : %d."
-msgstr "You try to make an operation after which the partner will have %d share(s) of capital of kind '%s'.\n"
-"\n"
-" Minimum quantity : %d."
-
-#. module: capital_subscription
-#: code:addons/capital_subscription/models/account_invoice.py:132
-#, python-format
-msgid "You try to make an operation after which the partner will have %d shares of capital of kind '%s'.\n"
-"\n"
-" Incorrect Value."
-msgstr "You try to make an operation after which the partner will have %d shares of capital of kind '%s'.\n"
-"\n"
-" Incorrect Value."
-
-#. module: capital_subscription
 #: model:ir.model,name:capital_subscription.model_capital_fundraising
 msgid "capital.fundraising"
 msgstr "capital.fundraising"
@@ -613,3 +593,13 @@ msgstr "Nombre d'actions à rembourser"
 #, python-format
 msgid "Deficit Share Account has not been configured for %s."
 msgstr "La Compte quote-part de déficit n'a pas été configurée pour la %s."
+
+#. module: capital_subscription
+#: code:addons/capital_subscription/models/account_invoice.py:145
+#, python-format
+msgid "You try to make an operation after which the partner will have %d shares of capital of kind '%s'.\n"
+"\n"
+" Incorrect Value."
+msgstr "Cette opération est impossible car le coopérateur aurait %d ['%s'] de capital à l'issue de l'opération.\n"
+"\n"
+" Le nombre de parts ne peut être négatif."
