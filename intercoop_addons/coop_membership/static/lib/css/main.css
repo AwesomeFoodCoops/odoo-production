@@ -814,3 +814,12 @@ span.fa.fa-calendar.o_datepicker_button {
 .link_style{   
   font-size: 16px; 
 }
+
+.content-hidden{
+  display: none;
+}
+
+.button-return{
+  width : unset !important;
+  margin : auto;
+}
