@@ -8,7 +8,8 @@ class BankStatementLineReconcileWizard(models.TransientModel):
     _name = 'bank.statement.line.reconcile.wizard'
     _description = 'Bank Statement Line Reconcile Wizard'
 
-    account_id = fields.Many2one('account.account', "Account", required=True)
+    account_id = fields.Many2one('account.account',
+        string="Account", required=True)
 
     @api.multi
     def bank_statement_line_reconcile(self):
