@@ -158,24 +158,88 @@
                 <body>
                     <div class="container-contact100">
                         <div class="wrap-contact100">
-                            <span class="contact100-form-title">
-                                La date de la réunion que vous avez choisie est invalide ou bien cette réunion a atteint sa capacité maximale. Merci de choisir une autre date dans la liste..
-                            </span>
-                            <div class="container-contact100-form-btn">
-                                <a href="javascript:history.back()">
-                                    <button class="contact100-form-btn">
+                            <form action="/discovery/reregister" method="POST" class="contact100-form validate-form" >
+                                <div class="wrap-input100 validate-input bg1 content-hidden" data-validate = "Veuillez renseigner votre adresse électronique (e@a.x)">
+                                    <span class="label-input100">Courriel</span><span class="star_style"> *</span>
+                                    <input class="input100" type="text" name="email" t-att-value="email" placeholder="Veuillez renseigner votre adresse électronique "></input>
+                                </div>
+                                <div class="wrap-input100 validate-input bg1 content-hidden" data-validate="Veuillez renseigner votre nom">
+                                    <span class="label-input100">Nom</span><span class="star_style"> *</span>
+                                    <input class="input100" type="text" t-att-value="name" name="name" placeholder="Veuillez renseigner votre nom"></input>
+                                </div>
+                                <div class="wrap-input100 validate-input bg1 content-hidden" data-validate="Veuillez renseigner votre prénom">
+                                    <span class="label-input100">Prénom</span><span class="star_style"> *</span>
+                                    <input class="input100" type="text" t-att-value="first_name" name="first_name" placeholder="Veuillez renseigner votre prénom"></input>
+                                </div>
+                                <div class="wrap-input100 validate-input bg1 input_radio content-hidden" data-validate = "Enter Your Sex" >
+                                    <span class="label-input100">Sexe</span><span class="star_style"> *</span><br />
+                                    <t t-if="sex == 'm'">
+                                        <input  type="radio" name="sex" checked="checked" value="m"> Homme </input><br />
+                                    </t>
+                                    <t t-if="sex == 'f'">
+                                        <input  type="radio" name="sex" checked="checked" value="f"> Femme </input><br />
+                                    </t>
+                                    <t t-if="sex == '0'">
+                                        <input  type="radio" name="sex" checked="checked" value="o"> Autre </input><br />
+                                    </t>
+                                </div>
+                                <div class="wrap-input100 validate-input bg1 content-hidden" data-validate="Vous devez avoir plus de 18 ans et le format de date doit être JJ/MM/AAA">
+                                    <span class="label-input100 long-text">Date de naissance</span>
+                                    <input class="dob input100" t-att-value="dob" type="text" name="dob" placeholder="Veuillez renseigner votre date de naissance"></input>
+                                </div>                                
+                                <div class="wrap-input100 bg1 content-hidden" >
+                                    <span class="label-input100">Mobile </span>
+                                    <input class="input100" t-att-value="mobile" type="text" name="mobile" placeholder="Veuillez renseigner votre numéro mobile"></input>
+                                </div>
+                                <div class="wrap-input100 bg1 content-hidden" >
+                                    <span class="label-input100">Téléphone </span>
+                                    <input class="input100" t-att-value="phone" type="text" name="phone" placeholder="Veuillez renseigner votre numéro téléphone"></input>
+                                </div>
+                                <div class="wrap-input100 bg1 content-hidden" >
+                                    <span class="label-input100">Adresse </span>
+                                    <input class="input100" t-att-value="street1" type="text" name="street1" placeholder="Veuillez renseigner votre adresse"></input>
+                                </div>
+                                <div class="wrap-input100 bg1 content-hidden" >
+                                    <span class="label-input100 long-text">Complément d'adresse </span>
+                                    <input class="input100" type="text" t-att-value="street2" name="street2" placeholder="Veuillez renseigner votre complément d'adresse"></input>
+                                </div>
+                                <div class="wrap-input100 bg1 content-hidden" >
+                                    <span class="label-input100">Ville </span>
+                                    <input class="input100" type="text" t-att-value="city" name="city" placeholder="Veuillez renseigner votre ville"></input>
+                                </div>
+                                <div class="wrap-input100 bg1 content-hidden" >
+                                    <span class="label-input100 long-text">Code postal </span>
+                                    <input class="input100" type="text" t-att-value="zipcode" name="zipcode" placeholder="Veuillez renseigner votre code postal"></input>
+                                </div>
+                                <div class="wrap-input100 bg1 input_radio content-hidden" >
+                                    <span class="label-input100 long-text">Titulaire d'un justificatif minima social</span>
+                                    <br />
+                                    <t t-if="social_registration == 'yes'">
+                                        <input  type="radio" name="social_registration" checked="checked" value="yes">  Oui </input>
+                                    </t>
+                                    <br />
+                                    <t t-if="social_registration == 'no'">
+                                        <input  type="radio" checked="checked" name="social_registration" value="no">  Non </input><br />
+                                    </t>
+                                </div>
+                                <span class="contact100-form-title">
+                                    La date de la réunion que vous avez choisie est invalide ou bien cette réunion a atteint sa capacité maximale. Merci de choisir une autre date dans la liste.
+                                </span>
+                                <div class="container-contact100-form-btn button-return">
+                                    <button class="contact100-form-btn" >
                                         <span>
                                             Retour
                                             <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
                                         </span>
                                     </button>
-                                </a>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </body>
             </html>
         </template>
+
       
         <template id="register_submit_form_err_email" name="Register Submit Form">
             <html>
@@ -231,6 +295,141 @@
                     </div>
                 </body>
             </html>
-        </template>  
+        </template>
+
+        <template id="register_again_form" name="Register Form">
+            <html>
+                <head id="website_form_register_header" name="website_form_register_header">
+                    <title>Inscription - Réunions d'accueil</title>
+                    <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
+                </head>
+                <body>
+                    <div class="container-contact100">
+                        <div class="wrap-contact100">
+                            <form action="/web/membership/register/submit" method="POST" class="contact100-form validate-form" >
+                                <span class="contact100-form-title">
+                                    Inscription - Réunions d'accueil
+                                </span>
+                                <span class="first-text-block">
+                                    Rejoindre la coopérative passe exclusivement par votre présence à une réunion d’accueil. Ces réunions étant importantes, et le nombre de places limité pour chacune d'entre elles, <strong>merci de ne vous inscrire que dans le cas où vous êtes sûr d'être disponible</strong>, et ce sur toute la durée de la réunion.
+                                </span>
+                                <span class="first-text-block">
+                                    Rappel : pour pouvoir souscrire à l’issue de la réunion d’accueil, vous devez <strong>obligatoirement vous munir de :</strong>
+                                </span>
+                                    <span class="first-text-block">
+                                        <ul>
+                                            <li>1. votre carnet de chèque ou votre carte bancaire</li>
+                                            <li>2. une pièce d’identité</li>
+                                            <li>3. un justificatif datant de moins de 3 mois pour une souscription réduite : <a href="https://cooplalouve.fr/minimas-sociaux" class="link_style">https://cooplalouve.fr/minimas-sociaux.</a></li>
+                                        </ul>
+                                    </span>
+
+                                    <span class="first-text-block">De nouvelles dates sont ajoutées régulièrement.</span>
+                                    <em class="first-text-block final-text-block">Si vous devez contactez les organisateurs des réunions d’accueil, merci d’utiliser cette adresse : reunion.accueil@cooplalouve.fr</em>
+                                <div class="wrap-input100 validate-input bg1" data-validate = "Veuillez renseigner votre adresse électronique (e@a.x)">
+                                    <span class="label-input100">Courriel</span><span class="star_style"> *</span>
+                                    <input class="input100" type="text" name="email" t-att-value="email" placeholder="Veuillez renseigner votre adresse électronique "></input>
+                                </div>
+                                <div class="wrap-input100 validate-input bg1" data-validate="Veuillez renseigner votre nom">
+                                    <span class="label-input100">Nom</span><span class="star_style"> *</span>
+                                    <input class="input100" type="text" t-att-value="name" name="name" placeholder="Veuillez renseigner votre nom"></input>
+                                </div>
+                                <div class="wrap-input100 validate-input bg1" data-validate="Veuillez renseigner votre prénom">
+                                    <span class="label-input100">Prénom</span><span class="star_style"> *</span>
+                                    <input class="input100" type="text" t-att-value="first_name" name="first_name" placeholder="Veuillez renseigner votre prénom"></input>
+                                </div>
+                                <div class="wrap-input100 validate-input bg1 input_radio" data-validate = "Enter Your Sex" >
+                                    <span class="label-input100">Sexe</span><span class="star_style"> *</span><br />
+                                    <t t-if="sex == 'm'">
+                                        <input  type="radio" name="sex" checked="checked" value="m"> Homme </input><br />
+                                        <input  type="radio" name="sex" value="f"> Femme </input><br />
+                                        <input  type="radio" name="sex" value="o"> Autre </input><br />
+                                    </t>
+                                    <t t-if="sex == 'f'">
+                                        <input  type="radio" name="sex" value="m"> Homme </input><br />
+                                        <input  type="radio" name="sex" checked="checked" value="f"> Femme </input><br />
+                                        <input  type="radio" name="sex" value="o"> Autre </input><br />
+                                    </t>
+                                    <t t-if="sex == '0'">
+                                        <input  type="radio" name="sex" value="m"> Homme </input><br />s
+                                        <input  type="radio" name="sex" value="f"> Femme </input><br />
+                                        <input  type="radio" name="sex" checked="checked" value="o"> Autre </input><br />
+                                    </t>
+                                </div>
+                                <div class="wrap-input100 validate-input bg1" data-validate="Vous devez avoir plus de 18 ans et le format de date doit être JJ/MM/AAA">
+                                    <span class="label-input100 long-text">Date de naissance</span>
+                                    <input class="dob input100" t-att-value="dob" type="text" name="dob" placeholder="Veuillez renseigner votre date de naissance"></input>
+                                </div>                                
+                                <div class="wrap-input100 bg1 " >
+                                    <span class="label-input100">Mobile </span>
+                                    <input class="input100" t-att-value="mobile" type="text" name="mobile" placeholder="Veuillez renseigner votre numéro mobile"></input>
+                                </div>
+                                <div class="wrap-input100 bg1 " >
+                                    <span class="label-input100">Téléphone </span>
+                                    <input class="input100" t-att-value="phone" type="text" name="phone" placeholder="Veuillez renseigner votre numéro téléphone"></input>
+                                </div>
+                                <div class="wrap-input100 bg1 " >
+                                    <span class="label-input100">Adresse </span>
+                                    <input class="input100" t-att-value="street1" type="text" name="street1" placeholder="Veuillez renseigner votre adresse"></input>
+                                </div>
+                                <div class="wrap-input100 bg1 " >
+                                    <span class="label-input100 long-text">Complément d'adresse </span>
+                                    <input class="input100" type="text" t-att-value="street2" name="street2" placeholder="Veuillez renseigner votre complément d'adresse"></input>
+                                </div>
+                                <div class="wrap-input100 bg1" >
+                                    <span class="label-input100">Ville </span>
+                                    <input class="input100" type="text" t-att-value="city" name="city" placeholder="Veuillez renseigner votre ville"></input>
+                                </div>
+                                <div class="wrap-input100 bg1" >
+                                    <span class="label-input100 long-text">Code postal </span>
+                                    <input class="input100" type="text" t-att-value="zipcode" name="zipcode" placeholder="Veuillez renseigner votre code postal"></input>
+                                </div>
+                                <div class="wrap-input100 bg1 input_radio" >
+                                    <span class="label-input100 long-text">Titulaire d'un justificatif minima social</span>
+                                    <br />
+                                    <t t-if="social_registration == 'yes'">
+                                        <input  type="radio" name="social_registration" checked="checked" value="yes">  Oui </input><br/>
+                                        <input  type="radio" name="social_registration" value="no">  Non </input><br />
+                                    </t>
+                                    <t t-if="social_registration == 'no'">
+                                        <input  type="radio" name="social_registration" value="yes">  Oui </input><br/>
+                                        <input  type="radio" checked="checked" name="social_registration" value="no">  Non </input><br />
+                                    </t>
+                                </div>
+
+                                <div class="wrap-input100 input_radio validate-input bg1 dropDownSelect2" >
+                                    <span class="label-input100 long-text">Je m'inscris à la réunion d'accueil du :</span><br />
+                                    <span style="color: #f04a4f" class="validate-option-event">Veuillez renseigner votre réunion</span>
+                                    <div>
+                                        <t t-foreach="datas" t-as="data">
+                                            <input  type="radio" name="select_event" class="validate-input-option validate-input" t-att-value="data[0]"> <t t-esc="data[2][0:10]"/> à <t t-esc="data[2][11:16] or False"/><t t-if="data[1]"> - <t t-esc="data[1]"/></t></input><br />
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="g-recaptcha" t-att-data-sitekey="captcha_site_key" data-validate="Veuillez cliquer sur la case reCAPTCHA"/>
+                                <div style="color: #f04a4f" class="validate-option-event">Veuillez cliquer sur la case reCAPTCHA</div>
+
+                                <div class="container-contact100-form-btn">
+                                    <button class="contact100-form-btn" >
+                                        <span>
+                                            Envoyer
+                                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                              
+                            </form>
+                        </div>
+                    </div>
+                    <script type="text/javascript" src="/coop_membership/static/lib/jquery/jquery-3.2.1.min.js"></script>
+                    <script type="text/javascript" src="/web/static/lib/moment/moment.js"></script>
+                    <script type="text/javascript" src="/web/static/lib/bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"/>
+                    <script type="text/javascript" src="/coop_membership/static/src/js/discovery_meeting.js"></script>
+                    <script src='https://www.google.com/recaptcha/api.js?hl=fr'></script>
+                </body>
+            </html>
+        </template>
+
     </data>
 </openerp>
