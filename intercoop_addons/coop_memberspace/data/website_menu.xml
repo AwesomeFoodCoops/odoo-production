@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="menu_my_work" model="website.menu">
+            <field name="name">Ma Participation</field>
+            <field name="url">/mywork</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">11</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+
+        <record id="menu_my_team" model="website.menu">
+            <field name="name">Mon équipe</field>
+            <field name="url">/myteam</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">12</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+
+        <record id="menu_documents" model="website.menu">
+            <field name="name">Documents</field>
+            <field name="url">/documents</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">13</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+
+        <record id="menu_Statistics" model="website.menu">
+            <field name="name">Statistiques</field>
+            <field name="url">/statistics</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">14</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+
+        <record id="menu_calendar" model="website.menu">
+            <field name="name">Calendrier</field>
+            <field name="url">/</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">15</field>
+            <field name="website_id" ref="website.default_website"/>
+            <field name="new_window">True</field>
+        </record>
+
+        <record id="menu_foodcoop_blog" model="website.menu">
+            <field name="name">Blog</field>
+            <field name="url">/</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">16</field>
+            <field name="website_id" ref="website.default_website"/>
+            <field name="new_window">True</field>
+        </record>
+
+        <record id="menu_foodcoop_forum" model="website.menu">
+            <field name="name">Forum</field>
+            <field name="url">/</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">17</field>
+            <field name="website_id" ref="website.default_website"/>
+            <field name="new_window">True</field>
+        </record>
+
+        <record id="website.menu_homepage" model="website.menu">
+            <field name="name">Accueil</field>
+        </record>
+
+        <delete model="website.menu" search="[('id','=', ref('website.menu_contactus'))]" />
+
+    </data>
+</openerp>

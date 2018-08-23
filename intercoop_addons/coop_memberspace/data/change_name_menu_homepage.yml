@@ -1,0 +1,7 @@
+-
+  Change name of menu Home (English) -> Accueil (French)
+-
+  !python {model: website.menu}: |
+    record = self.browse(cr, uid, ref('website.menu_homepage'))
+    if record:
+      record.name = 'Accueil'
