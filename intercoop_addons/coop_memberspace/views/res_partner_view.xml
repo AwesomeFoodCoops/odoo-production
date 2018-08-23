@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_res_partner_public_field_form" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="coop_membership.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page name="shifts" position="after">
+                    <page name="website" string="Website">
+                        <group>
+                            <field name="public_avatar"/>
+                            <field name="public_mobile"/>
+                        </group>
+                        <group>
+                            <field name="public_email"/>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>

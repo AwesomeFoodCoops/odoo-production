@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<template id="coop_memberspace.documents">
+		<t t-call="website.layout">
+            <t t-set="title">Espace membre | Documents</t>
+            <div class="container oe_structure">
+            </div>
+        </t>
+    </template>
+</openerp>

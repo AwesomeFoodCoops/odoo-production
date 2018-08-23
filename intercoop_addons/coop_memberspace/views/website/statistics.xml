@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<template id="coop_memberspace.statistics">
+		<t t-call="website.layout">
+            <t t-set="title">Espace membre | Statistiques</t>
+            <div class="container">
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-4">
+                        <h3>Coopérateurs actifs</h3>
+                        <div class="text-center" style="border: 1px solid #b2b7bb;padding: 10px;">
+                            <p t-esc="'{0:,.0f}'.format(num_of_members).replace(',', ' ')" />
+                            <i class="material-icons" style="font-size: 3.5em">accessibility_new</i>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Ventes cette année</h3>
+                        <div class="text-center" style="border: 1px solid #b2b7bb;padding: 10px;">
+                            <p t-esc="'{0:,.0f}'.format(num_of_sales).replace(',', ' ')" />
+                            <i class="material-icons" style="font-size: 3.5em">shopping_cart</i>
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+
+                <div class="row">
+                    <h3 style="margin-top: 10px; margin-left: 15px;">Chiffre d’affaires à date</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="text-center" style="border: 1px solid #b2b7bb;padding: 10px;">
+                            <p t-esc="'{0:,.0f}'.format(turnover_year_wo_tax).replace(',', ' ')" />
+                            <div style="display: inline-flex">
+                                <div>
+                                    <i class="material-icons"
+                                        style="font-size: 3.5em; margin-right: 10px;
+                                        margin-top: 6px;">euro_symbol</i>
+                                </div>
+                                <div>
+                                    <h3>HT</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center" style="border: 1px solid #b2b7bb;padding: 10px;">
+                            <p t-esc="'{0:,.0f}'.format(turnover_year_tax).replace(',', ' ')" />
+                            <div style="display: inline-flex">
+                                <div>
+                                    <i class="material-icons"
+                                        style="font-size: 3.5em; margin-right: 10px;
+                                        margin-top: 6px;">euro_symbol</i>
+                                </div>
+                                <div>
+                                    <h3>TTC</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+
+                <h3>Chiffre d’affaires mensuel (k€ TTC)</h3>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="chart-container">
+                            <canvas id="chart" class="chart-statistics"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</openerp>
