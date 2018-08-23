@@ -24,6 +24,7 @@
         'purchase_compute_order',
         'res_partner_account_move_line',
         'stock',
+        'pos_receipt_by_email',
     ],
     'data': [
         'data/update_template_name_ftop.yml',
@@ -42,6 +43,7 @@
         'wizard/res_partner_generate_barcode_wizard.xml',
 
         # Classical Data
+        'views/view_shift_counter_event.xml',
         'views/view_res_partner_owned_share.xml',
         'views/view_res_partner.xml',
         'views/res_users_view.xml',

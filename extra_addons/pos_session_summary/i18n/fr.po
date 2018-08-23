@@ -73,4 +73,4 @@ msgstr "Montant hors-taxe"
 #. module: pos_session_summary
 #: model:ir.model.fields,field_description:pos_session_summary.field_pos_session_amount_subtotal
 msgid "Amount Subtotal"
-msgstr "Montant Sous-total"
+msgstr "Montant hors-taxe"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>  
+
+    <record id="view_shift_counter_event_ftop_button_tree" model="ir.ui.view">
+        <field name="model">shift.counter.event</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree decoration-danger="is_changed == True">
+                <field name="shift_id"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="is_changed" invisible="1"/>
+                <field name="point_qty"/>
+                <field name="notes"/>
+                <field name="sum_current_qty" sum="Total Points"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="coop_shift.action_res_partner_point_counter_view_ftop">
+        <field name="view_id" ref="coop_membership.view_shift_counter_event_ftop_button_tree"/>
+    </record>
+
+</odoo>

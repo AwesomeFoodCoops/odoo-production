@@ -10,3 +10,20 @@ class ShiftCounterEvent(models.Model):
     _inherit = 'shift.counter.event'
 
     holiday_id = fields.Many2one('shift.holiday', string="Holiday")
+    sum_current_qty = fields.Integer(
+        compute="compute_sum_current_qty",
+        string="Sum",
+        store=True)
+
+    @api.multi
+    @api.depends('point_qty', 'partner_id', 'type')
+    def compute_sum_current_qty(self):
+        for record in self:
+            if record.partner_id and record.type == 'ftop':
+                counter_event_before =\
+                    record.partner_id.counter_event_ids.filtered(
+                        lambda c: c.create_date < record.create_date
+                        and c.type == 'ftop')
+                record.sum_current_qty = record.point_qty
+                for event in counter_event_before:
+                    record.sum_current_qty += event.point_qty

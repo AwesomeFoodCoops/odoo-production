@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="accounting_report_view_inherit" model="ir.ui.view">
+        <field name="name">Accounting Report</field>
+        <field name="model">accounting.report</field>
+        <field name="inherit_id" ref="account.accounting_report_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='check_report']" position="replace">
+                <button name="check_report" context="{'format_report': 'pdf'}" string="PDF" type="object" default_focus="1" class="oe_highlight"/>
+                <button name="check_report" context="{'format_report': 'xlsx'}" string="Excel" type="object" default_focus="1" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
