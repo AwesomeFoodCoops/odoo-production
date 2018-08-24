@@ -65,13 +65,73 @@ class WebsiteRegisterMeeting(http.Controller):
         ])
         events = event_obj.browse(request.cr, REGISTER_USER_ID, event_ids,
                                   context=request.context)
-        datas = self.prepare_data_events(events)
+        available_events = events.filtered(
+            lambda e: not (e.seats_availability == 'limited' and
+                           e.seats_available < 1 and e.state == 'confirm'))
+        datas = self.prepare_data_events(available_events)
 
         value = {
             'datas': datas,
             'captcha_site_key': captcha_site_key,
         }
         return request.render("coop_membership.register_form", value)
+
+    @http.route(['/discovery/reregister'], type='http',
+                auth="public", methods=['POST'], csrf=False, website=True)
+    def get_discover_meeting_again(self, **post):
+
+        main.ensure_db()
+
+        REGISTER_USER_ID =\
+            int(request.env['ir.config_parameter'].sudo(
+            ).get_param('register_user_id'))
+        captcha_site_key = request.env['ir.config_parameter'].sudo().get_param(
+            'captcha_site_key')
+
+        # Get event available
+        event_obj = request.registry['event.event']
+        event_ids = event_obj.search(request.cr, REGISTER_USER_ID, [
+            ('is_discovery_meeting', '=', True),
+            ('state', '!=', 'cancel'),
+            ('date_begin', '>=', fields.Datetime.to_string(datetime.now())),
+        ])
+        events = event_obj.browse(request.cr, REGISTER_USER_ID, event_ids,
+                                  context=request.context)
+        available_events = events.filtered(
+            lambda e: not (e.seats_availability == 'limited' and
+                           e.seats_available < 1 and e.state == 'confirm'))
+        datas = self.prepare_data_events(available_events)
+
+        name = post.get('name', False)
+        email = post.get('email', False)
+        first_name = post.get('first_name', False)
+        sex = post.get('sex', False)
+        mobile = post.get('mobile', False)
+        phone = post.get('phone', False)
+        street1 = post.get('street1', False)
+        street2 = post.get('street2', False)
+        city = post.get('city', False)
+        zipcode = post.get('zipcode', False)
+        social_registration = post.get('social_registration', False)
+        dob = post.get('dob', False)
+
+        value = {
+            'name': name,
+            'email': email,
+            'first_name': first_name,
+            'sex': sex,
+            'mobile': mobile,
+            'phone': phone,
+            'street1': street1,
+            'street2': street2,
+            'city': city,
+            'social_registration': social_registration,
+            'zipcode': zipcode,
+            'dob': dob,
+            'datas': datas,
+            'captcha_site_key': captcha_site_key,
+        }
+        return request.render("coop_membership.register_again_form", value)
 
     @http.route(['/web/membership/register/submit'], type='http',
                 auth="public", methods=['POST'], csrf=False, website=True)
@@ -127,7 +187,6 @@ class WebsiteRegisterMeeting(http.Controller):
         event_obj = request.registry['event.event']
         event = event_obj.browse(request.cr, REGISTER_USER_ID, int(event_id),
                                  context=request.context)
-
         is_event_valid = True
 
         # Check invalid and available seat event
@@ -143,8 +202,23 @@ class WebsiteRegisterMeeting(http.Controller):
             return request.render(
                 "coop_membership.register_submit_form_err_email")
         elif not is_event_valid:
+            value_registered = {
+                'name': name,
+                'email': email,
+                'first_name': first_name,
+                'sex': sex,
+                'mobile': mobile,
+                'phone': phone,
+                'street1': street1,
+                'street2': street2,
+                'city': city,
+                'social_registration': social_registration,
+                'zipcode': zipcode,
+                'dob': datetime.strptime(
+                    dob, '%Y-%m-%d').date().strftime("%d/%m/%Y"),
+            }
             return request.render(
-                "coop_membership.register_submit_form_err_event")
+                "coop_membership.register_submit_form_err_event", value_registered)
         else:
 
             # create event registration
