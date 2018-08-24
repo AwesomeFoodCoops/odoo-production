@@ -22,7 +22,6 @@ odoo.define('coop_memberspace.statistics', function (require) {
                         backgroundColor.push(item.color);
                         value.push(item.value);
                     });
-                    console.log(">>>>>>>>>>>>>>> value", value);
                     var data = {
                         labels: ["Janv.", "Fev.", "Mars", "Avril", "Mai", "Juin", "Juil", "Août", "Sept.", "Oct.", "Nov.", "Dec."],
                         datasets: [{

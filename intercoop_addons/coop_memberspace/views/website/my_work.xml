@@ -26,11 +26,11 @@
     <template id="coop_memberspace.mywork_standard">
         <div class="row" style="margin-top: 20px">
             <div class="col-md-6">
-                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 242px;">
                     <div class="row">
                         <div class="col-md-10">
                             <div>
-                                <span class="fa fa-clock-o" style="font-size: 4.5em;"/>
+                                <span class="glyphicon glyphicon-piggy-bank" style="font-size: 4.5em;"/>
                                 <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;" t-esc="standard_point" />
                             </div>
                             <div>
@@ -47,18 +47,18 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 242px;">
                     <div class="row">
                         <div class="col-md-10">
                             <div>
-                                <span class="fa fa-clock-o" style="font-size: 4.5em;"/>
+                                <span class="glyphicon glyphicon-piggy-bank" style="font-size: 4.5em;"/>
                                 <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;" t-esc="ftop_point"/>
                             </div>
                             <div>
                                 <span style="font-size: 25px;font-weight: 600">Compteur des services anticipés</span>
                             </div>
                             <div>
-                                <span style="font-size: 15px;font-weight: 600">Représente les points accumulés en faisant des services en plus de vos services habituels. A partir d’un cumul de 2 points, vous pouvez demander un congé anticipé.</span>
+                                <span style="font-size: 15px;font-weight: 600">Vous pouvez faire des services en plus de vos services habituels. A partir de 2 services accumulés, si vous ne devez pas des rattrapages, vous pouvez les “dépenser” en prenant un “congé anticipé”… période pendant laquelle, vous n’avez pas à venir travailler, mais tout en continuant à faire vos courses.</span>
                             </div>
                         </div>
                         <div class="col-md-2" style="text-align: right;margin-top:30px;">
@@ -544,11 +544,11 @@
     <template id="coop_memberspace.mywork_ftop">
         <div class="row" style="margin-top: 20px">
             <div class="col-md-6">
-                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 192px;">
                     <div class="row">
                         <div class="col-md-10">
                             <div>
-                                <span class="fa fa-clock-o" style="font-size: 4.5em;"/>
+                                <span class="glyphicon glyphicon-piggy-bank" style="font-size: 4.5em;"/>
                                 <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;" t-esc="ftop_point" />
                             </div>
                             <div>
@@ -565,7 +565,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 192px;">
                     <p style="font-size: 25px;font-weight: 600">Programmer un service volant</p>
                     <p class="text-center">Si vous êtes membre de l’équipe volante, passez par ici pour voir les
                         services disponibles et programmer vôtre vacation. L’annulation
@@ -586,7 +586,7 @@
                             <th>Annulation</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="ftop-programmer-une-vacation-body">
                         <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
                             <tr>
                                 <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %B %d, %Y', '%HH%M'], lang=user.lang + '.utf8')" />
@@ -594,11 +594,33 @@
                                 <td><t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/></td>
                                 <td><span><t t-esc="shift.get_coordinators()" /> <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
                                     coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
-                                <td><a><span class="fa fa-times" data-toggle="modal" data-target="#myModal"/></a></td>
+                                <td>
+                                    <t t-if="shift.state == 'cancel'">
+                                        Annulé
+                                    </t>
+                                    <t t-else="">
+                                        <a><button type="button" style="border: 0px; background-color: transparent" class="fa fa-times" data-toggle="modal" data-target="#not_cancel_registration_modal"/></a>
+                                    </t>
+                                </td>
                             </tr>
                         </t>
                     </tbody>
                 </table>
+            </div>
+
+            <div id="not_cancel_registration_modal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">x</button>
+                        </div>
+                        <div class="modal-body">
+                            Veuillez contacter le bureau des membres si vous êtes contraint d'annuler votre participation.
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             <div id="ftop_programmer_modal" class="modal fade programmer_une_vacation" role="dialog">
