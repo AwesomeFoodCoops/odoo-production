@@ -18,7 +18,7 @@
                                 <h4>Civilité :</h4>
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
-                                <p style="margin-top:10px;margin-bottom:10px;font-size:17px;" t-esc="user.partner_id and user.partner_id.sex and dict(user.partner_id._fields['sex'].selection).get(user.partner_id.sex).capitalize() or '' " />
+                                <p style="margin-top:10px;margin-bottom:10px;font-size:17px;" t-esc="user.partner_id and user.partner_id.get_partner_sex_website() or ''" />
                             </div>
                         </div>
                         <div class="row">

@@ -76,3 +76,11 @@ class ResPartner(models.Model):
             elif user.active:
                 user.partner_id = member.id
         return True
+
+    @api.model
+    def get_partner_sex_website(self):
+        if self.sex == 'm':
+            return 'Homme'
+        elif self.sex == 'f':
+            return 'Femme'
+        return 'Autre'
