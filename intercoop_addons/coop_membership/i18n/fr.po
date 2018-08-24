@@ -335,6 +335,16 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_counter_event_sum_current_qty
+msgid "Sum"
+msgstr "Solde"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_counter_event_ftop_button_tree
+msgid "Total Points"
+msgstr "Total des compteurs"
+
+#. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
 #: selection:shift.shift,state_in_holiday:0
 msgid "Open"
