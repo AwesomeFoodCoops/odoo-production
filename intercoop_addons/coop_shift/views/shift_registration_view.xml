@@ -26,7 +26,7 @@
                     <field name="partner_id" options="{'no_create_edit': True, 'no_create': True}"/>
                     <field name="name"/>
                     <field name="email"/>
-                    <field name="shift_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="shift_id" options="{'no_create_edit': True, 'no_create': True}" domain="['&amp;', ('state', '!=', 'cancel'), ('date_begin','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]"/>
                     <field name="shift_ticket_id" domain="[('shift_id', '=', shift_id)]" options="{'no_create_edit': True, 'no_create': True}"/>
                     <field name="state"/>
                     <field name="message_needaction" invisible="1"/>
