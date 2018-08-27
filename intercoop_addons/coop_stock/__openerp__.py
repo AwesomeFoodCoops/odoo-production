@@ -6,7 +6,7 @@
     'category': 'Custom',
     'summary': 'Custom settings for stock',
     'depends': [
-        'stock',
+        'stock', 'stock_account',
     ],
     'data': [
         'views/action.xml',
