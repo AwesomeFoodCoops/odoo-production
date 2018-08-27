@@ -485,7 +485,12 @@ function prettify_html(html) {
             level--;
         }
 
-        result += token.trim().replace(/\s+/, ' ');
+        // don't trim inline content (which could change appearance)
+        if (!inline) {
+            token = token.trim();
+        }
+
+        result += token.replace(/\s+/, ' ');
 
         if (inline_level > level) {
             result += '\n';
@@ -630,7 +635,15 @@ function summernote_mousedown (event) {
     }
 
     // restore range if range lost after clicking on non-editable area
-    var r = range.create();
+    try {
+        var r = range.create();
+    } catch (e) {
+        // If this code is running inside an iframe-editor and that the range
+        // is outside of this iframe, this will fail as the iframe does not have
+        // the permission to check the outside content this way. In that case,
+        // we simply ignore the exception as it is as if there was no range.
+        return;
+    }
     var editables = $(".o_editable[contenteditable], .note-editable[contenteditable]");
     var r_editable = editables.has((r||{}).sc);
     if (!r_editable.closest('.note-editor').is($editable) && !r_editable.filter('.o_editable').is(editables)) {
