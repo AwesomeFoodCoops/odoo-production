@@ -21,6 +21,11 @@ msgid "Account"
 msgstr "Compte"
 
 #. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard_account_id
+msgid "Account"
+msgstr "Compte comptable"
+
+#. module: coop_account
 #: model:ir.model.fields,field_description:coop_account.field_account_account_journal_credit_ids
 msgid "Account Journal Credit"
 msgstr "Account Journal Credit"
@@ -116,6 +121,17 @@ msgstr "Régénérer"
 #: model:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend_inherit
 msgid "Reverse Payment"
 msgstr "Extourner le paiement"
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_bank_statement_line.py:34
+#, python-format
+msgid " Reconcile"
+msgstr "Rapprochement"
+
+#. module: coop_account
+#: model:ir.ui.view,arch_db:coop_account.view_bank_statement_line_reconcile_wizard_form
+msgid "Cancel"
+msgstr "Annuler"
 
 #. module: coop_account
 #: code:addons/coop_account/models/account_move.py:32
