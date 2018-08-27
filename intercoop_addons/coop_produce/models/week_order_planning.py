@@ -334,6 +334,8 @@ class OrderWeekPlanning(models.Model):
     def action_update_start_inventory(self):
         self.ensure_one()
         for line in self.line_ids:
+            if not line.product_id.default_packaging:
+                UserError(_("The product %s has no default packaging set")%(line.product_id.name,))
             self.start_inv = line.product_id.qty_available / line.product_id.default_packaging
 
     @api.multi
@@ -600,7 +602,7 @@ class OrderWeekPlanningLine(models.Model):
                                                                     limit=1)
             if supplier_info:
                 self.price_unit = supplier_info[0].base_price
-                self.price_policy = supplier_info[0].base_price
+                self.price_policy = supplier_info[0].price_policy
                 self.supplier_packaging = supplier_info[0].package_qty
                 self.start_inv = supplier_info[0].package_qty and self.product_id.qty_available / supplier_info[
                     0].package_qty or 0.0
