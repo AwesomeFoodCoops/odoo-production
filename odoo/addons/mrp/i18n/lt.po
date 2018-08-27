@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-06 07:28+0000\n"
-"PO-Revision-Date: 2017-07-03 14:19+0000\n"
-"Last-Translator: Martin Trigaux\n"
+"PO-Revision-Date: 2018-07-30 10:13+0000\n"
+"Last-Translator: Linas Versada <paulius.sladkevicius@gmail.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/odoo/odoo-9/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #. module: mrp
 #: code:addons/mrp/stock.py:230
@@ -102,7 +102,7 @@ msgstr "<strong>Produktas</strong>"
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.report_mrporder
 msgid "<strong>Products to Consume</strong>"
-msgstr ""
+msgstr "<strong>Produktai, kurie bus panaudoti</strong>"
 
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.report_mrporder
@@ -242,7 +242,7 @@ msgstr "KS pavadinimas"
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_bom_line_attribute_value_ids
 msgid "BOM Product Variants needed form apply this line."
-msgstr ""
+msgstr "KS produktų variantams šiai eilutei reikia formos pritaikymo."
 
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.report_mrpbomstructure
@@ -258,7 +258,7 @@ msgstr "KS struktūra"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_bom_line_child_line_ids
 msgid "BOM lines of the referred bom"
-msgstr ""
+msgstr "Nurodytos KS komplektavimo eilutės"
 
 #. module: mrp
 #: code:addons/mrp/stock.py:25
@@ -314,7 +314,7 @@ msgid ""
 "Bills of Materials allow you to define the list of required raw\n"
 "                materials used to make a finished product; through a manufacturing\n"
 "                order or a pack of products."
-msgstr ""
+msgstr "Komplektavimo specifikacija leidžia jums nustatyti sąrašą\nžaliavų, kurių reikia pagaminti baigtinį produktą; naudojant gaminimo\nužsakymą arba produktų pakavimą."
 
 #. module: mrp
 #: selection:mrp.config.settings,module_mrp_byproduct:0
@@ -345,7 +345,7 @@ msgstr "KS tipas"
 #. module: mrp
 #: selection:mrp.product.produce,tracking:0
 msgid "By Lots"
-msgstr ""
+msgstr "Pagal partiją"
 
 #. module: mrp
 #: selection:mrp.product.produce,tracking:0
@@ -565,7 +565,7 @@ msgstr ""
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.mrp_bom_cost
 msgid "Cost Structure"
-msgstr ""
+msgstr "Kaštų struktūra"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_workcenter_costs_cycle
@@ -813,7 +813,7 @@ msgstr "Eilės tvarka, pagal kurią išdėstomas darbų sekos sąrašas."
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_bom_line_sequence
 msgid "Gives the sequence order when displaying."
-msgstr ""
+msgstr "Suteikia eilės tvarką, kai rodoma."
 
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.view_mrp_property_search
@@ -861,7 +861,7 @@ msgstr "ID"
 #: model:ir.model.fields,help:mrp.field_mrp_bom_product_id
 msgid ""
 "If a product variant is defined the BOM is available only for this product."
-msgstr ""
+msgstr "Jei produkto variantas yra nurodytas, KS galimas tik šiam produktui."
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_bom_message_unread
@@ -1147,7 +1147,7 @@ msgstr "Gamybos užsakymai, kurių vykdymui laukiama žaliavų."
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.mrp_production_form_view
 msgid "Manufacturing Reference"
-msgstr ""
+msgstr "Gamybos nuoroda"
 
 #. module: mrp
 #: code:addons/mrp/mrp.py:774
@@ -1313,7 +1313,7 @@ msgstr "Neperskaitytų žinučių skaičius"
 msgid ""
 "Odoo uses these BoMs to automatically propose manufacturing\n"
 "                orders according to procurement needs."
-msgstr ""
+msgstr "Odooo naudoja šiuos KS, kad automatiškai pasiūlytų gaminimo\nužsakymus pagal įsigijimo poreikius."
 
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.view_stock_move_consume_wizard
@@ -1729,7 +1729,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:mrp.mrp_routing_workcenter_form_view
 #: model:ir.ui.view,arch_db:mrp.mrp_routing_workcenter_tree_view
 msgid "Routing Work Centers"
-msgstr ""
+msgstr "Darbo centrų maršrutai"
 
 #. module: mrp
 #: model:ir.actions.act_window,name:mrp.mrp_routing_action
@@ -2044,7 +2044,7 @@ msgstr "Matavimo vienetas"
 msgid ""
 "Unit of Measure (Unit of Measure) is the unit of measurement for the "
 "inventory control"
-msgstr ""
+msgstr "Matavimo vienetas (Matavimo vienetas) yra matavimo vienetas inventoriaus kontrolei"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_bom_message_unread
@@ -2244,7 +2244,7 @@ msgid ""
 "                units. They consist of workers and/or machines, which are\n"
 "                considered as units for task assignation as well as capacity\n"
 "                and planning forecast."
-msgstr ""
+msgstr "Darbo centrai leidžia jums sukurti ir valdyti gamybos vienetus.\nJie susideda iš darbuotojų ir/ar įrenginių, kurie yra laikomi vienetais\nužduoties priskyrimui, pajėgumams ir planavimo prognozėms."
 
 #. module: mrp
 #: model:ir.model,name:mrp.model_mrp_production_workcenter_line
@@ -2259,7 +2259,7 @@ msgid ""
 "operations that should be followed within your work centers in order to "
 "produce a product. They are attached to bills of materials that will define "
 "the required raw materials."
-msgstr ""
+msgstr "Darbo užsakymų operacijos leidžia jums sukurti ir valdyti gaminimo operacijas, kurių turėtų būt laikomasi jūsų darbo centruose, kad būtų pagamintas produktas. Jos yra pridedamos prie medžiagų sąrašų, kurie nusako reikalingas žaliavas."
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_config_settings_module_mrp_operations
@@ -2299,7 +2299,7 @@ msgstr ""
 msgid ""
 "You can not delete a Bill of Material with running manufacturing orders.\n"
 "Please close or cancel it first."
-msgstr ""
+msgstr "Negalite ištrinti komplektavimo specifikacijos veikiantiems gamybos užsakymams.\nPirmiausia, uždarykite juos arba atšaukite."
 
 #. module: mrp
 #: code:addons/mrp/wizard/mrp_product_produce.py:128
