@@ -31,7 +31,7 @@ class AccountBankStatementLine(models.Model):
         line_ids = self._context.get('active_ids', [])
 
         return {
-            'name': _('Reconcile'),
+            'name': _(' Reconcile'),
             'type': 'ir.actions.act_window',
             'view_id': view_id.id,
             'view_mode': 'form',

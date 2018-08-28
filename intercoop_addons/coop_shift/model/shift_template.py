@@ -303,6 +303,23 @@ class ShiftTemplate(models.Model):
             template.name = name
 
     @api.multi
+    @api.depends('name')
+    def name_get(self):
+        result = []
+        no_show_time_ftop = self._context.get('no_show_time', False)
+        if no_show_time_ftop:
+            for template in self:
+                if template.shift_type_id.is_ftop:
+                    print template.id
+                    print template.name
+                    result.append((template.id, template.name[:-9]))
+                else:
+                    result.append((template.id, template.name))
+            return result
+        else:
+            return super(ShiftTemplate, self).name_get()
+
+    @api.multi
     @api.depends(
         'byday', 'recurrency', 'final_date', 'rrule_type', 'month_by',
         'interval', 'count', 'end_type', 'mo', 'tu', 'we', 'th', 'fr',

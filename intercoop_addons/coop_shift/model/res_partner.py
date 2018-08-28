@@ -66,6 +66,10 @@ class ResPartner(models.Model):
         'shift.registration', "partner_id", 'Next Registration',
         compute="_compute_registration_counts")
 
+    next_registrations = fields.One2many(
+        'shift.registration', "partner_id", 'Prochains Services',
+        compute="_compute_registration_counts", limit=4)
+
     tmpl_reg_ids = fields.One2many(
         'shift.template.registration', "partner_id",
         'Template Registrations')
@@ -196,6 +200,7 @@ class ResPartner(models.Model):
         for partner in self:
             next_registrations = partner.sudo().registration_ids.filtered(
                 lambda r, d=d: r.date_begin >= d)
+            partner.next_registrations = next_registrations
             partner.upcoming_registration_count = len(next_registrations)
             next_registrations = next_registrations.sorted(
                 lambda r: r.date_begin)
