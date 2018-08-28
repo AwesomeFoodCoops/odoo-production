@@ -25,7 +25,8 @@
                             icon="fa-calendar"
                             help="View partner Extensions"
                             groups="coop_shift.group_shift_manager">
-                        <field name="extension_qty" widget="statinfo" string="Ext."/>
+                        <field name="extension_qty" attrs="{'invisible':[('extension_qty', '=', 0)]}" widget="statinfo" string="Ext."/>
+                        <span attrs="{'invisible':[('extension_qty', '!=', 0)]}">Ext.</span>
                     </button>
                 </div>
         </field>
