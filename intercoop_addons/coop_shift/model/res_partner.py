@@ -66,9 +66,13 @@ class ResPartner(models.Model):
         'shift.registration', "partner_id", 'Next Registration',
         compute="_compute_registration_counts")
 
-    next_registrations = fields.One2many(
+    next_abcd_registrations = fields.One2many(
         'shift.registration', "partner_id", 'Prochains Services',
-        compute="_compute_registration_counts", limit=4)
+        compute="_compute_registration_counts")
+
+    next_ftop_registrations = fields.One2many(
+        'shift.registration', "partner_id", 'Prochain Décompte Volant',
+        compute="_compute_registration_counts")
 
     tmpl_reg_ids = fields.One2many(
         'shift.template.registration', "partner_id",
@@ -158,6 +162,10 @@ class ResPartner(models.Model):
         string='Extensions Quantity', compute='compute_extension_qty',
         store=True)
 
+    upcomming_extension_qty = fields.Integer(
+        string='Upcoming Extensions Quantity', compute='compute_extension_qty',
+        store=True)
+
     counter_event_ids = fields.One2many(
         comodel_name='shift.counter.event', inverse_name='partner_id',
         string='Counter Events')
@@ -192,7 +200,24 @@ class ResPartner(models.Model):
     @api.depends('leave_ids')
     def _compute_leave_qty(self):
         for partner in self:
-            partner.leave_qty = len(partner.leave_ids)
+            partner.leave_qty = len(partner.leave_ids.filtered(
+                lambda l: l.stop_date >= fields.Date.context_today(self)))
+
+    @api.multi
+    def set_next_registration(self, next_registrations):
+        self.ensure_one()
+        num_ftop = 0
+        num_abcd = 0
+        for registration in next_registrations.filtered(
+                lambda r: r.state == 'open'):
+            if registration.shift_id.shift_type_id.is_ftop:
+                if num_ftop < 4:
+                    self.next_ftop_registrations = [(4, registration.id)]
+                    num_ftop += 1
+            else:
+                if num_abcd < 4:
+                    self.next_abcd_registrations = [(4, registration.id)]
+                    num_abcd += 1
 
     @api.multi
     def _compute_registration_counts(self):
@@ -200,7 +225,14 @@ class ResPartner(models.Model):
         for partner in self:
             next_registrations = partner.sudo().registration_ids.filtered(
                 lambda r, d=d: r.date_begin >= d)
+<<<<<<< d304cd510aa0f92e80d5e71793c92086cd822459
             partner.next_registrations = next_registrations
+=======
+
+            # Set 4 next shifts
+            partner.set_next_registration(next_registrations)
+
+>>>>>>> [ADD][F#29509][S#18303]Streamlining member profile summary pages
             partner.upcoming_registration_count = len(next_registrations)
             next_registrations = next_registrations.sorted(
                 lambda r: r.date_begin)
@@ -242,6 +274,9 @@ class ResPartner(models.Model):
     def compute_extension_qty(self):
         for partner in self:
             partner.extension_qty = len(partner.sudo().extension_ids)
+            partner.upcomming_extension_qty =\
+                len(partner.sudo().extension_ids.filtered(
+                    lambda e: e.date_stop >= fields.Date.context_today(self)))
 
     @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
                  'counter_event_ids.type', 'counter_event_ids.partner_id',
@@ -456,6 +491,7 @@ class ResPartner(models.Model):
                                 })
 
         return super(ResPartner, self).write(vals)
+
 
 @job
 def update_member_working_state(session, model_name, partner_ids):

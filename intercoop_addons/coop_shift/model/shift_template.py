@@ -310,9 +310,7 @@ class ShiftTemplate(models.Model):
         if no_show_time_ftop:
             for template in self:
                 if template.shift_type_id.is_ftop:
-                    print template.id
-                    print template.name
-                    result.append((template.id, template.name[:-9]))
+                    result.append((template.id, template.name[:14]))
                 else:
                     result.append((template.id, template.name))
             return result
