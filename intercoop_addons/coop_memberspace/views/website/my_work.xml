@@ -58,7 +58,7 @@
                                 <span style="font-size: 25px;font-weight: 600">Compteur des services anticipés</span>
                             </div>
                             <div>
-                                <span style="font-size: 15px;font-weight: 600">Vous pouvez faire des services en plus de vos services habituels. A partir de 2 services accumulés, si vous ne devez pas des rattrapages, vous pouvez les “dépenser” en prenant un “congé anticipé”… période pendant laquelle, vous n’avez pas à venir travailler, mais tout en continuant à faire vos courses.</span>
+                                <span style="font-size: 15px;font-weight: 600">Représente les points accumulés en faisant des services en plus de vos services habituels. A partir d’un cumul de 2 points, vous pouvez demander un congé anticipé.</span>
                             </div>
                         </div>
                         <div class="col-md-2" style="text-align: right;margin-top:30px;">
@@ -109,9 +109,7 @@
             <div class="col-md-6">
                 <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;">
                     <p style="font-size: 25px;font-weight: 600">Programmer un service anticipé</p>
-                    <p class="text-center">Vous pouvez accumuler des services sur votre compteur extra en
-                        prévision de périodes de congés. Vous pourrez annuler votre
-                        participation en cas de besoin dans la section « Mes prochains services ».</p>
+                    <p class="text-center">Vous pouvez faire des services en plus de vos services habituels. A partir de 2 services accumulés, si vous ne devez pas des rattrapages, vous pouvez les “dépenser” en prenant un “congé anticipé”… période pendant laquelle, vous n’avez pas à venir travailler, mais tout en continuant à faire vos courses.</p>
                     <div class="text-center"><a href="/standard/programmer_un_extra" class="btn btn-default btn-warning">Programmer</a></div>
                 </div>
             </div>
