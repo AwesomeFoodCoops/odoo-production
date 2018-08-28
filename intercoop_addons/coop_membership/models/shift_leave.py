@@ -376,10 +376,11 @@ class ShiftLeave(models.Model):
 
     @api.multi
     def write(self, vals):
-        type_id = vals.get('type_id', self.type_id.id)
-        type_leave = self.env['shift.leave.type'].browse(type_id)
-        if type_leave.is_anticipated and 'stop_date' in vals:
-            self.update_date_end_anticipated_leave(vals)
+        for leave in self:
+            type_id = vals.get('type_id', leave.type_id.id)
+            type_leave = self.env['shift.leave.type'].browse(type_id)
+            if type_leave.is_anticipated and 'stop_date' in vals:
+                leave.update_date_end_anticipated_leave(vals)
         return super(ShiftLeave, self).write(vals)
 
     @api.multi

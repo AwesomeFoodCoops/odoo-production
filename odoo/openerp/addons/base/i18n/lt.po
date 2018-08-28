@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-22 07:25+0000\n"
-"PO-Revision-Date: 2017-07-09 21:25+0000\n"
-"Last-Translator: Martin Trigaux\n"
+"PO-Revision-Date: 2018-07-31 11:39+0000\n"
+"Last-Translator: Linas Versada <paulius.sladkevicius@gmail.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/odoo/odoo-9/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_pos_reprint
@@ -118,7 +118,7 @@ msgid ""
 "[1] See https://github.com/odoo/odoo/pull/6470 for detail.\n"
 "\n"
 "    "
-msgstr ""
+msgstr "\n\nApžvalga:\n---------\n\n* Japonijos sąskaitų planas ir mokesčių šablonas.\n* Tikėtina, kad čia nėra visų įmonei reikalingų sąskaitų. Galima pridėti/ištrinti/paredaguoti šablono sąskaitas pagal poreikį.\n\nPastaba:\n-----\n\n* Mokestinės aplinkos '内税' ir '外税' pridėtos POS implementavimo reikalavimų vykdymui. [1]  Įprastomis aplinkybėmis jų gali ir nereikėti.\n\n[1] Daugiau detalių https://github.com/odoo/odoo/pull/6470.\n\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_deferred_revenue
@@ -149,7 +149,7 @@ msgid ""
 "\n"
 "\n"
 "[object with reference: %s - %s]"
-msgstr ""
+msgstr "\n\n[objektas su nuoroda: %s - %s]"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_be_invoice_bba
@@ -195,7 +195,7 @@ msgid ""
 "\n"
 "        Accounting reports for Belgium\n"
 "    "
-msgstr ""
+msgstr "\n        Belgijos apskaitos ataskaitos\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_br_reports
@@ -203,7 +203,7 @@ msgid ""
 "\n"
 "        Accounting reports for Brazilian\n"
 "    "
-msgstr ""
+msgstr "\n        Brazilijos apskaitos ataskaitos\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_cl_reports
@@ -211,7 +211,7 @@ msgid ""
 "\n"
 "        Accounting reports for Chile\n"
 "    "
-msgstr ""
+msgstr "\n        Čilės apskaitos ataskaitos\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_hu_reports
@@ -219,7 +219,7 @@ msgid ""
 "\n"
 "        Accounting reports for Hungarian\n"
 " "
-msgstr ""
+msgstr "\n        Vengrijos apskaitos ataskaitos\n "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_nl_reports
@@ -227,7 +227,7 @@ msgid ""
 "\n"
 "        Accounting reports for Netherlands\n"
 "    "
-msgstr ""
+msgstr "\n        Nyderlandų apskaitos ataskaitos\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_ro_reports
@@ -235,7 +235,7 @@ msgid ""
 "\n"
 "        Accounting reports for Romania\n"
 "    "
-msgstr ""
+msgstr "\n        Rumunijos apskaitos ataskaitos\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_si_reports
@@ -243,7 +243,7 @@ msgid ""
 "\n"
 "        Accounting reports for Slovenian\n"
 "    "
-msgstr ""
+msgstr "\n        Slovėnijos apskaitos ataskaitos\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_es_reports
@@ -251,7 +251,7 @@ msgid ""
 "\n"
 "        Accounting reports for Spain\n"
 "    "
-msgstr ""
+msgstr "\n        Ispanijos apskaitos ataskaitos\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_ch_reports
@@ -259,7 +259,7 @@ msgid ""
 "\n"
 "        Accounting reports for Switzerland\n"
 "    "
-msgstr ""
+msgstr "\n        Šveicarijos apskaitos ataskaitos\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_uk_reports
@@ -267,7 +267,7 @@ msgid ""
 "\n"
 "        Accounting reports for UK\n"
 "    "
-msgstr ""
+msgstr "\n        Didžiosios Britanijos apskaitos ataskaitos\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_uy_reports
@@ -275,7 +275,7 @@ msgid ""
 "\n"
 "        Accounting reports for Uruguay\n"
 "\n"
-msgstr ""
+msgstr "\n        Urugvajaus apskaitos ataskaitos\n\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_extension
@@ -385,14 +385,14 @@ msgid ""
 "\n"
 "        This module adds support for barcodes scanning to the warehouse management system.\n"
 "    "
-msgstr ""
+msgstr "\n        Šis modulis prideda brūkšninių kodų nuskaitymo palaikymą sandėlio valdymo sistemai.\n    "
 
 #. module: base
 #: model:ir.module.module,summary:base.module_account_online_sync
 msgid ""
 "\n"
 "        This module is used for Online bank synchronization."
-msgstr ""
+msgstr "\n        Šis modulis naudojamas internetinio banko sinchronizacijai."
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_online_sync
@@ -400,7 +400,7 @@ msgid ""
 "\n"
 "        This module is used for Online bank synchronization. It provides basic methods to synchronize bank statement.\n"
 "    "
-msgstr ""
+msgstr "\n        Šis modulis naudojamas internetinio banko sinchronizacijai. Jis suteikia pagrindines priemones sinchronizuoti banko išrašą."
 
 #. module: base
 #: model:ir.module.module,description:base.module_hr_equipment
@@ -483,7 +483,7 @@ msgstr ""
 msgid ""
 "\n"
 "  Publish your products on eBay"
-msgstr ""
+msgstr "\n  Pateikite savo produktus eBay"
 
 #. module: base
 #: model:ir.module.module,description:base.module_report_intrastat
@@ -545,7 +545,7 @@ msgid ""
 "================================\n"
 "\n"
 "    "
-msgstr ""
+msgstr "\nArgentinos apskaitos ataskaitos\n================================\n\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_bo_reports
@@ -599,7 +599,7 @@ msgid ""
 "================================\n"
 "\n"
 "    "
-msgstr ""
+msgstr "\nEtijopijos apskaitos ataskaitos\n================================\n\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_fr_reports
@@ -609,7 +609,7 @@ msgid ""
 "================================\n"
 "\n"
 "    "
-msgstr ""
+msgstr "\nPrancūzijos apskaitos ataskaitos\n================================\n\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_gr_reports
@@ -619,7 +619,7 @@ msgid ""
 "=============================\n"
 "\n"
 "    "
-msgstr ""
+msgstr "\nGraikijos apskaitos ataskaitos\n=============================\n\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_in_reports
@@ -628,7 +628,7 @@ msgid ""
 "Accounting reports for India\n"
 "================================\n"
 "    "
-msgstr ""
+msgstr "\nIndijos apskaitos ataskaitos\n================================\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_jp_reports
@@ -637,7 +637,7 @@ msgid ""
 "Accounting reports for Japan\n"
 "================================\n"
 "    "
-msgstr ""
+msgstr "\nJaponijos apskaitos ataskaitos\n================================\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_lu_reports
@@ -655,7 +655,7 @@ msgid ""
 "Accounting reports for Maroc\n"
 "================================\n"
 "    "
-msgstr ""
+msgstr "\nMaroko apskaitos ataskaitos\n================================\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_no_reports
@@ -664,7 +664,7 @@ msgid ""
 "Accounting reports for Norway\n"
 "================================\n"
 "    "
-msgstr ""
+msgstr "\nNorvegijos apskaitos ataskaitos\n================================\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_pl_reports
@@ -673,7 +673,7 @@ msgid ""
 "Accounting reports for Poland\n"
 "================================\n"
 "    "
-msgstr ""
+msgstr "\nLenkijos apskaitos ataskaitos\n================================\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_sg_reports
@@ -682,7 +682,7 @@ msgid ""
 "Accounting reports for Singapore\n"
 "================================\n"
 "    "
-msgstr ""
+msgstr "\nSingapūro apskaitos ataskaitos\n================================\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_th_reports
@@ -691,7 +691,7 @@ msgid ""
 "Accounting reports for Thailand\n"
 "================================\n"
 "    "
-msgstr ""
+msgstr "\nTailando apskaitos ataskaitos\n================================\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_website_mass_mailing
@@ -2251,7 +2251,7 @@ msgid ""
 "\n"
 "Allows you to build web forms on the website using the website builder.\n"
 "        "
-msgstr ""
+msgstr "\nOdoo formų redaktorius\n====================\n\nLeidžia jums kurti web formas internetinėje svetainėje naudojant svetainių kūrimo įrankį.\n        "
 
 #. module: base
 #: model:ir.module.module,description:base.module_im_odoo_support
@@ -2297,7 +2297,7 @@ msgid ""
 "* Quick access to the `App Store` and `Theme Store`\n"
 "\n"
 "        "
-msgstr ""
+msgstr "\nOdoo valdym skydelis\n==============\n* Greitas programų įdiegimas\n* Greitas vartotojų pridėjimas\n* Pasiekite visus planavimo įrankius vienoje vietoje\n* Greita prieiga prie \"programų parduotuvės\" ir \"temų parduotuvės\"\n\n        "
 
 #. module: base
 #: model:ir.module.module,description:base.module_website_event_track
@@ -2753,7 +2753,7 @@ msgstr ""
 msgid ""
 "\n"
 "Sell digital product using attachments to virtual products\n"
-msgstr ""
+msgstr "\nParduokite skaitmeninį produktą naudodami prisegtukus prie virtualių produktų\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_analytic_default
@@ -2795,7 +2795,7 @@ msgid ""
 "\n"
 "Let your customers follow the signature process easily.\n"
 "    "
-msgstr ""
+msgstr "\nLengvai pasirašykite ir užpildykite savo dokumentus. Redaguokite savo dokumentus keisdami teksto ir parašų laukus ir išsiųskite juos gavėjams.\n\nLeiskite savo klientams lengvai sekti pasirašymo procesą.\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_sg
@@ -3845,7 +3845,7 @@ msgid ""
 "Shows you a list of applications features to install from.\n"
 "\n"
 "    "
-msgstr ""
+msgstr "\nŠis modulis padeda sukonfigūruoti sistemą įdiegiant naują duomenų bazę.\n================================================================================\n\nParodo jums sąrašą programų, kurias galite įdiegti.\n\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_hr_timesheet
@@ -4479,7 +4479,7 @@ msgstr "- grupės ="
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
 msgid "- ondelete ="
-msgstr ""
+msgstr "- ondelete ="
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
@@ -4537,7 +4537,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.view_rule_form
 msgid ""
 "2. Group-specific rules are combined together with a logical OR operator"
-msgstr ""
+msgstr "2. Grupėms skirtos taisyklės yra jungiamos su loginiu OR operatoriumi"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_lang_form
@@ -4611,7 +4611,7 @@ msgstr "<code>data iki</code> (Python modulis)"
 #: model:ir.ui.view,arch_db:base.view_model_fields_form
 #: model:ir.ui.view,arch_db:base.view_model_form
 msgid "<code>self</code> (the set of records to compute)"
-msgstr ""
+msgstr "<code>self</code> (įrašų rinkinys skaičiavimams)"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_model_fields_form
@@ -4880,7 +4880,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_bank_statement_import
 msgid "Account Bank Statement Import"
-msgstr ""
+msgstr "Banko išrašų importavimas"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_localization_account_charts
@@ -4895,7 +4895,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_extension
 msgid "Account Extension"
-msgstr ""
+msgstr "Apskaitos plėtinys"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_partner_bank_partner_id
@@ -5572,7 +5572,7 @@ msgstr "Argentina - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ar_reports
 msgid "Argentina - Accounting Reports"
-msgstr ""
+msgstr "Argentinos apskaitos ataskaitos"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_cron_args
@@ -5710,7 +5710,7 @@ msgstr "Authorize.Net pirkėjas"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_window_auto_search
 msgid "Auto Search"
-msgstr ""
+msgstr "Automatinė paieška"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_window_auto_refresh
@@ -5743,7 +5743,7 @@ msgstr "Automatinis parsisiųstų aplikacijų diegimas šiuo metu neįmanomas."
 msgid ""
 "Automatically set to let administators find new terms that might need to be "
 "translated"
-msgstr ""
+msgstr "Automatiškai nustatyta leisti administratoriams rasti naujus terminus, kuriems gali reikėti vertimų"
 
 #. module: base
 #: model:ir.ui.menu,name:base.menu_automation
@@ -5759,7 +5759,7 @@ msgstr "Azerbaidžanas"
 #: code:addons/translate.py:1046
 #, python-format
 msgid "Bad file format: %s"
-msgstr ""
+msgstr "Blogas failo formatas: %s"
 
 #. module: base
 #: model:res.country,name:base.bs
@@ -5812,7 +5812,7 @@ msgstr "Banko sąskaita"
 #. module: base
 #: model:ir.model.fields,help:base.field_res_partner_bank_acc_type
 msgid "Bank account type, inferred from account number"
-msgstr ""
+msgstr "Blogas sąskaitos tipas, pagal sąskaitos numerį"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_res_bank_form
@@ -5964,12 +5964,12 @@ msgstr "Belgija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_reports
 msgid "Belgium - Accounting Reports"
-msgstr ""
+msgstr "Belgijos apskaitos ataskaitos"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_coda
 msgid "Belgium - Import Bank CODA Statements"
-msgstr ""
+msgstr "Belgija - banko CODA išrašų importavimas"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll
@@ -6046,7 +6046,7 @@ msgstr "Bolivija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_bo_reports
 msgid "Bolivia - Accounting Reports"
-msgstr ""
+msgstr "Bolivijos apskaitos ataskaitos"
 
 #. module: base
 #: model:res.country,name:base.bq
@@ -6096,7 +6096,7 @@ msgstr "Brazilija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_br_reports
 msgid "Brazilian - Accounting Reports"
-msgstr ""
+msgstr "Brazilijos apskaitos ataskaitos"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_bridge
@@ -6304,7 +6304,7 @@ msgstr ""
 #: code:addons/base/res/res_lang.py:190
 #, python-format
 msgid "Cannot unactivate a language that is currently used by users."
-msgstr ""
+msgstr "Neleidžiama deaktyvuoti kalbos, kuri priskirta naudotojams."
 
 #. module: base
 #: model:res.country,name:base.cv
@@ -6387,7 +6387,7 @@ msgid ""
 "correctly set. If an existing contact starts working for a new company then "
 "a new contact should be created under that new company. You can use the "
 "\"Discard\" button to abandon this change."
-msgstr ""
+msgstr "Kontakto kompanijos keitimas turėtų būti atliekamas tik tada, jei jis niekada nebuvo teisingai nustatytas. Jei egzistuojantis kontaktas pradeda dirbti naujai kompanijai, naujas kontaktas turėtų būti sukuriamas toje kompanijoje. Galite paspausti atšaukimo mygtuką, kad anuliuotumėte šį pokytį."
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:506
@@ -6407,7 +6407,7 @@ msgstr "Keisti saugojimo sistemą laukui \"%s\" neleidžiama."
 msgid ""
 "Changing the type of a field is not yet supported. Please drop it and create"
 " it again!"
-msgstr ""
+msgstr "Lauko tipo keitimas dar nėra palaikomas. Palikite jį ir sukurkite naują."
 
 #. module: base
 #: selection:ir.property,type:0
@@ -6452,7 +6452,7 @@ msgstr "Pažymėkite šį lauką, jeigu kontaktas yra pirkėjas."
 msgid ""
 "Check this box if this contact is a vendor. If it's not checked, purchase "
 "people will not see it when encoding a purchase order."
-msgstr ""
+msgstr "Pažymėkite varnele, jei šis kontaktas yra tiekėjas. Pirkimo vadybininkai negalės matyti kontakto, kuriant pirkimo užsakymą, jei varnelė nebus uždėta."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_partner_employee
@@ -6541,7 +6541,7 @@ msgstr "Čilė - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_cl_reports
 msgid "Chile - Accounting Reports"
-msgstr ""
+msgstr "Čilės apskaitos ataskaitos"
 
 #. module: base
 #: model:res.country,name:base.cn
@@ -6719,7 +6719,7 @@ msgstr "Kolumbija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_co_reports
 msgid "Colombian - Accounting Reports"
-msgstr ""
+msgstr "Kolumbijos apskaitos ataskaitos"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_co
@@ -6863,7 +6863,7 @@ msgstr "Pilnas ID"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields_complete_name
 msgid "Complete Name"
-msgstr ""
+msgstr "Pilnas pavadinimas"
 
 #. module: base
 #: model:res.partner.category,name:base.res_partner_category_9
@@ -6964,7 +6964,7 @@ msgstr "Kongo Demokratinė Respublika"
 #. module: base
 #: model:ir.module.module,summary:base.module_hw_proxy
 msgid "Connect the Web Client to Hardware Peripherals"
-msgstr ""
+msgstr "Prijungti interneto klientą prie išorinių prietaisų"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.ir_mail_server_form
@@ -7272,7 +7272,7 @@ msgid ""
 "deactivated should there be a period of time during which they will/should "
 "not connect to the system. You can assign them groups in order to give them "
 "specific access to the applications they need to use in the system."
-msgstr ""
+msgstr "Kurkite ir valdykite vartotojus, kurie jungsis prie sistemos. Vartotojai gali būti deaktyvuojami, jei tam tikrą laiką neprisijungs prie sistemos. Galite jiems priskirti grupes, kad suteiktumėte prieigą prie tam tikrų programų sistemoje, kurias jiems reikės naudoti."
 
 #. module: base
 #: model:ir.module.module,summary:base.module_survey
@@ -7479,7 +7479,7 @@ msgstr "Kroatija - apskaita (RRIF 2012)"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_hr_reports
 msgid "Croatia - RRIF 2012 COA - Accounting Reports"
-msgstr ""
+msgstr "Kroatija - RRIF 2012 sąskaitų planas - apskaitos ataskaitos"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -7630,7 +7630,7 @@ msgstr "Pirkėjai"
 #: model:ir.ui.view,arch_db:base.view_view_custom_search
 #: model:ir.ui.view,arch_db:base.view_view_custom_tree
 msgid "Customized Views"
-msgstr ""
+msgstr "Pritaikyti vaizdai"
 
 #. module: base
 #: model:ir.actions.act_window,help:base.action_ui_view_custom
@@ -7657,7 +7657,7 @@ msgstr "Čekija"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_delivery_dhl
 msgid "DHL Shipping"
-msgstr ""
+msgstr "DHL gabenimas"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -7798,7 +7798,7 @@ msgstr "Klaidų taisymas"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency_decimal_places
 msgid "Decimal Places"
-msgstr ""
+msgstr "Skaičius po kablelio"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_decimal_precision
@@ -8153,7 +8153,7 @@ msgstr "Rodyti susijusių dokumentų galimybę, kad vykdytumėte šio serverio v
 msgid ""
 "Display and manage the list of all countries group. You can create or delete"
 " country group to make sure the ones you are working on will be maintained."
-msgstr ""
+msgstr "Rodyti ir valdyti visų šalių grupės sąrašą. Galite sukurti ar ištrinti šalių grupę, kad tos, su kuriomis dirbate, būtų tinkamai prižiūrimos."
 
 #. module: base
 #: model:ir.actions.act_window,help:base.action_country
@@ -8200,7 +8200,7 @@ msgstr "Dokumentacijos pavyzdžių testas"
 #: model:ir.model.fields,field_description:base.field_ir_rule_domain
 #: model:ir.model.fields,field_description:base.field_ir_rule_domain_force
 msgid "Domain"
-msgstr ""
+msgstr "Domenas"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_window_domain
@@ -8226,7 +8226,7 @@ msgstr "Dominikos Respublika - apskaita"
 #. module: base
 #: selection:ir.actions.todo,state:0
 msgid "Done"
-msgstr ""
+msgstr "Atlikta"
 
 #. module: base
 #: model:res.partner.title,shortcut:base.res_partner_title_doctor
@@ -8237,7 +8237,7 @@ msgstr "Dr."
 #: model:ir.module.module,shortdesc:base.module_stock_dropshipping
 #: model:ir.module.module,summary:base.module_stock_dropshipping
 msgid "Drop Shipping"
-msgstr ""
+msgstr "Tiesioginis perpardavimas"
 
 #. module: base
 #: selection:workflow.activity,kind:0
@@ -8503,7 +8503,7 @@ msgstr "Etiopija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_et_reports
 msgid "Ethiopia - Accounting Reports"
-msgstr ""
+msgstr "Etiopijos apskaitos ataskaitos"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_server_object_lines_type
@@ -8535,7 +8535,7 @@ msgstr "Būsenos išraiškos pavyzdys naudojant Python"
 msgid ""
 "Example of goal definitions and challenges that can be used related to the "
 "usage of the CRM Sale module."
-msgstr ""
+msgstr "Tikslų ir iššūkių pavyzdys, kuris gali būti naudojamas kartu su CRM pardavimų moduliu."
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_server_action_form
@@ -8547,7 +8547,7 @@ msgstr "Python kodo pavyzdys"
 msgid ""
 "Example: GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 OR "
 "GROUP_A_RULE_2) OR (GROUP_B_RULE_1 OR GROUP_B_RULE_2) )"
-msgstr ""
+msgstr "Pavyzdys: GLOBALI_TAISYKLĖ_1 AND GLOBALI_TAISYKLĖ_2 AND ( (GRUPĖS_A_TAISYKLĖ_1 OR GRUPĖS_A_TAISYKLĖ_2) OR (GRUPĖS_B_TAISYKLĖ_1 OR GRUPĖS_B_TAISYKLĖ_2) )"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_lang_form
@@ -8673,7 +8673,7 @@ msgstr "Išoriniai identifikatoriai"
 msgid ""
 "External Key/Identifier that can be used for data integration with third-"
 "party systems"
-msgstr ""
+msgstr "Išorinis raktas/identifikatorius, kuri gali būti naudojamas duomenų integracijai su trečiųjų šalių sistemomis"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_users_share
@@ -8738,7 +8738,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_delivery_fedex
 msgid "Fedex Shipping"
-msgstr ""
+msgstr "Fedex gabenimas"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_l10n_fr_fec
@@ -8913,7 +8913,7 @@ msgid ""
 "\n"
 "Technical Details:\n"
 "%s"
-msgstr ""
+msgstr "Failas nebuvo importuotas dėl formato neatitikimo ar netinkamo failo. (galimi formatai yra .csv, .po, .pot)\n\nTechniniai duomenys:\n%s"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_window_filter
@@ -9001,7 +9001,7 @@ msgstr "Automobilių parko valdymas"
 #. module: base
 #: selection:ir.property,type:0
 msgid "Float"
-msgstr ""
+msgstr "Skaičius su kableliu"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_wkf_activity_flow_start
@@ -9140,7 +9140,7 @@ msgstr "Prancūzija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_fr_reports
 msgid "France - Accounting Reports"
-msgstr ""
+msgstr "Prancūzijos apskaitos ataskaitos"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -9434,7 +9434,7 @@ msgstr "Graikija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_gr_reports
 msgid "Greece - Accounting Reports"
-msgstr ""
+msgstr "Graikijos apskaitos ataskaitos"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -9668,7 +9668,7 @@ msgstr ""
 msgid ""
 "Helps you handle your accounting needs, if you are not an accountant, we "
 "suggest you to install only the Invoicing."
-msgstr ""
+msgstr "Padeda jums tvarkyti buhalterijos poreikius, jei esate ne buhalteris, siūlome įdiegti tik sąskaitų pateikimą."
 
 #. module: base
 #: model:ir.module.category,description:base.module_category_sales_management
@@ -9711,7 +9711,7 @@ msgstr "Padeda Jums valdyti Jūsų gamybos procesus ir kurti šiems procesams at
 msgid ""
 "Helps you manage your mass mailing for design\n"
 "                professional emails and reuse templates."
-msgstr ""
+msgstr "Padeda valdyti jūsų masiškai siunčiamų laiškų\ndizainą ir naudoti šablonus."
 
 #. module: base
 #: model:ir.module.category,description:base.module_category_project_management
@@ -9765,7 +9765,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_users_action_id
 msgid "Home Action"
-msgstr ""
+msgstr "Pradžios veiksmas"
 
 #. module: base
 #: model:res.country,name:base.hn
@@ -9807,7 +9807,7 @@ msgstr ""
 msgid ""
 "How many times the method is called,\n"
 "a negative number indicates no limit."
-msgstr ""
+msgstr "Kiek kartų metodas yra kviečiamas,\nneigiamas skaičius nurodo neribotą skaičių kartų."
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_model_fields_form
@@ -9828,7 +9828,7 @@ msgstr "Vengrija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_hu_reports
 msgid "Hungarian - Accounting Reports"
-msgstr ""
+msgstr "Vengrijos apskaitos ataskaitos"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -9958,7 +9958,7 @@ msgstr "Tikslinio įrašo ID duomenų bazėje"
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_ui_view_xml_id
 msgid "ID of the view defined in xml file"
-msgstr ""
+msgstr "Vaizdo ID, kuris apibrėžtas xml faile"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_bus
@@ -10005,7 +10005,7 @@ msgstr "Piktogramos nuoroda"
 msgid ""
 "If checked and the action is bound to a model, it will only appear in the "
 "More menu on list views"
-msgstr ""
+msgstr "Jei pažymėta ir veiksmas yra susietas su modeliu, jis bus matomas tik \"Daugiau\" meniu sąrašo peržiūrose"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_mail_server_smtp_debug
@@ -10022,7 +10022,7 @@ msgstr "Jei jokia grupė nenurodyta, taisyklė yra visuotinė ir taikoma visiems
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_property_res_id
 msgid "If not set, acts as a default value for new resources"
-msgstr ""
+msgstr "Jei nenustatyta, veikia kaip numatytoji reikšmė naujiems resursams"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_act_report_xml_multi
@@ -10035,12 +10035,12 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_values_company_id
 msgid "If set, action binding only applies for this company"
-msgstr ""
+msgstr "Jei nustatyta, veiksmo susiejimas galioja tik šiai kompanijai"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_values_user_id
 msgid "If set, action binding only applies for this user."
-msgstr ""
+msgstr "Jei nustatyta, veiksmo susiejimas galioja tik šiam vartotojui"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model_fields_serialization_field_id
@@ -10062,7 +10062,7 @@ msgstr ""
 msgid ""
 "If specified, this action will be opened at log on for this user, in "
 "addition to the standard menu."
-msgstr ""
+msgstr "Jei nurodyta, šis veiksmas kartu su standartiniu meniu bus atidarytas vartotojui prisijungus."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_partner_lang
@@ -10077,7 +10077,7 @@ msgstr ""
 msgid ""
 "If this field is empty, the view applies to all users. Otherwise, the view "
 "applies to the users of those groups only."
-msgstr ""
+msgstr "Jei šis laukas tuščias, vaizdas pritaikomas visiems vartotojams. Kitu atveju, vaizdas pritaikomas tik tų grupių vartotojams."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_ui_view_active
@@ -10101,7 +10101,7 @@ msgstr ""
 msgid ""
 "If you check this box, your customized translations will be overwritten and "
 "replaced by the official ones."
-msgstr ""
+msgstr "Jei pažymėsite šį laukelį, jūsų individualizuoti vertimai bus perrašyti ir pakeisti oficialiais."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_act_report_xml_attachment_use
@@ -10115,7 +10115,7 @@ msgstr ""
 msgid ""
 "If you enable this option, existing translations (including custom ones) "
 "will be overwritten and replaced by those in this file"
-msgstr ""
+msgstr "Jei įjungsite šį pasirinkimą, egzistuojantys vertimai (įskaitant nestandartinius) bus perrašyti ir pakeisti tais, kurie yra šiame faile."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_ui_menu_groups_id
@@ -10123,7 +10123,7 @@ msgid ""
 "If you have groups, the visibility of this menu will be based on these "
 "groups. If this field is empty, Odoo will compute visibility based on the "
 "related object's read access."
-msgstr ""
+msgstr "Jei turite grupių, šio meniu matomumas bus pagrįstas tomis grupėmis. Jei šis laukas yra tuščias, Odoo apskaičiuos matomumą pagal susijusių objektų skaitymo prieigą."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model_access_active
@@ -10166,7 +10166,7 @@ msgstr "Įgyvendinimas"
 #. module: base
 #: model:ir.ui.menu,name:base.menu_import_crm
 msgid "Import & Synchronize"
-msgstr ""
+msgstr "Importuoti ir sinchronizuoti"
 
 #. module: base
 #: model:ir.ui.menu,name:base.menu_translation_export
@@ -10176,7 +10176,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_bank_statement_import_ofx
 msgid "Import OFX Bank Statement"
-msgstr ""
+msgstr "OFX banko išrašo importavimas"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_bank_statement_import_qif
@@ -10232,7 +10232,7 @@ msgstr "Indeksas"
 #: model:ir.model.fields,field_description:base.field_ir_attachment_index_content
 #: model:ir.ui.view,arch_db:base.view_attachment_form
 msgid "Indexed Content"
-msgstr ""
+msgstr "Indeksuotas turinys"
 
 #. module: base
 #: model:res.country,name:base.in
@@ -10247,7 +10247,7 @@ msgstr "Indija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_in_reports
 msgid "Indian - Accounting Reports"
-msgstr ""
+msgstr "Indijos apskaitos ataskaitos"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_in_hr_payroll
@@ -10325,7 +10325,7 @@ msgstr "Inicijavimo data"
 #. module: base
 #: selection:ir.actions.act_window,target:0
 msgid "Inline Edit"
-msgstr ""
+msgstr "Redagavimas eilutėje"
 
 #. module: base
 #: selection:ir.actions.act_window,target:0
@@ -10452,7 +10452,7 @@ msgstr "Vidinė pastaba..."
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_cron_interval_number
 msgid "Interval Number"
-msgstr ""
+msgstr "Intervalo skaičius"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_cron_interval_type
@@ -10557,7 +10557,7 @@ msgstr "Negalimas peržiūros aprašymas"
 #. module: base
 #: model:ir.module.category,name:base.module_category_warehouse_management
 msgid "Inventory"
-msgstr ""
+msgstr "Inventorius"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_generic_modules_inventory_control
@@ -10697,7 +10697,7 @@ msgstr "Japonija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_jp_reports
 msgid "Japan - Accounting Reports"
-msgstr ""
+msgstr "Japonijos apskaitos ataskaitos"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -10826,7 +10826,7 @@ msgstr "LGPL Versija 3"
 #. module: base
 #: model:ir.module.module,summary:base.module_stock_landed_costs
 msgid "Landed Costs"
-msgstr ""
+msgstr "Pristatymo kaštai"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_base_language_export_lang
@@ -10864,7 +10864,7 @@ msgstr "Kalbos kodas negali būti modifikuojamas."
 #. module: base
 #: sql_constraint:ir.translation:0
 msgid "Language code of translation item must be among known languages"
-msgstr ""
+msgstr "Vertimo kalbos kodas turi būti iš žinomų kalbų."
 
 #. module: base
 #: model:ir.actions.act_window,name:base.res_lang_act_window
@@ -11206,7 +11206,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.menu,name:base.menu_crm_config_lead
 msgid "Leads & Opportunities"
-msgstr ""
+msgstr "Šaltieji kontaktai ir galimybės"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_crm
@@ -11330,7 +11330,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_currency_rate_live
 msgid "Live Currency Exchange Rate"
-msgstr ""
+msgstr "Kintantis valiutos kursas"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_base_language_install
@@ -11391,7 +11391,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_loyalty
 msgid "Loyalty Program"
-msgstr ""
+msgstr "Lojalumo programa"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_loyalty
@@ -11421,7 +11421,7 @@ msgstr "Liuksemburgas - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_lu_reports
 msgid "Luxembourg - Accounting Reports"
-msgstr ""
+msgstr "Liuksemburgo apskaitos ataskaitos"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mrp
@@ -11530,7 +11530,7 @@ msgid ""
 " line and then delete it through the button that appeared. Items can be "
 "assigned to specific groups in order to make them accessible to some users "
 "within the system."
-msgstr ""
+msgstr "Valdyti ir individualizuoti galimus įrašus, rodomus jūsų Odoo sistemos meniu. Galite ištrinti įrašą paspausdami langelį kiekvienos eilutės pradžioje ir tada paspausdami atsiradusį mygtuką. Įrašai gali būti priskirti tam tikroms grupėms, kad jie būtų pasiekiami atitinkamiems vartotojams sistemoje."
 
 #. module: base
 #: model:ir.actions.act_window,help:base.action_res_bank_form
@@ -11555,7 +11555,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,summary:base.module_account_voucher
 msgid "Manage your debts and credits thanks to simple sale/purchase receipts"
-msgstr ""
+msgstr "Valdykite savo kreditus ir skolas naudodami paprastus pirkimo/pardavimo kvitus"
 
 #. module: base
 #: model:res.groups,name:base.group_hr_manager
@@ -11596,7 +11596,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,summary:base.module_mrp
 msgid "Manufacturing Orders, Bill of Materials, Routings"
-msgstr ""
+msgstr "Gaminimo užsakymai, komplektavimo specifikacijos, technologinės kortelės"
 
 #. module: base
 #: code:addons/models.py:2788
@@ -11658,7 +11658,7 @@ msgstr "Marokas - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ma_reports
 msgid "Maroc - Accounting Reports"
-msgstr ""
+msgstr "Maroko apskaitos ataskaitos"
 
 #. module: base
 #: model:res.country,name:base.mh
@@ -11683,7 +11683,7 @@ msgstr "Masinio el. pašto kampanijos"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mass_mailing_themes
 msgid "Mass Mailing Themes"
-msgstr ""
+msgstr "Masinių laiškų temos"
 
 #. module: base
 #: model:res.country,name:base.mr
@@ -11861,7 +11861,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_res_partner_mobile
 #: model:ir.model.fields,field_description:base.field_res_users_mobile
 msgid "Mobile"
-msgstr ""
+msgstr "Mobilus"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_partner_form
@@ -11885,6 +11885,18 @@ msgstr ""
 #: model:ir.ui.view,arch_db:base.view_model_search
 #: model:ir.ui.view,arch_db:base.view_server_action_search
 msgid "Model"
+msgstr ""
+
+#. module: base
+#: code:addons/base/ir/ir_model.py:382
+#, python-format
+msgid "Model %s does not exist"
+msgstr ""
+
+#. module: base
+#: code:addons/base/ir/ir_model.py:383
+#, python-format
+msgid "Please specify a valid model for the object relation"
 msgstr ""
 
 #. module: base
@@ -12042,7 +12054,7 @@ msgstr ""
 msgid ""
 "Module loading %s failed: file %s could not be processed:\n"
 " %s"
-msgstr ""
+msgstr "Modulio krovimas %s nepavyko: failas%s negalėjo būti apdorotas\n %s"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_translation_module
@@ -12237,7 +12249,7 @@ msgstr "Nyderlandai"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_nl_reports
 msgid "Netherlands - Accounting Reports"
-msgstr ""
+msgstr "Nyderlandų apskaitos ataskaitos"
 
 #. module: base
 #: model:res.country,name:base.an
@@ -12420,7 +12432,7 @@ msgstr "Norvegija - apskait"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_no_reports
 msgid "Norway - Accounting Reports"
-msgstr ""
+msgstr "Norvegijos apskaitos ataskaitos"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -12498,7 +12510,7 @@ msgstr ""
 #: code:addons/model.py:164
 #, python-format
 msgid "Object %s doesn't exist"
-msgstr ""
+msgstr "Objektas %s neegzistuoja"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields_model
@@ -12519,7 +12531,7 @@ msgstr ""
 #. module: base
 #: selection:ir.module.module,license:0
 msgid "Odoo Enterprise Edition License v1.0"
-msgstr ""
+msgstr "Odoo Enterprise leidimo licensija v1.0"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_im_odoo_support
@@ -12596,13 +12608,13 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields_on_delete
 msgid "On Delete"
-msgstr ""
+msgstr "Ištrinant"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_report_xml_multi
 #: model:ir.model.fields,field_description:base.field_ir_act_window_view_multi
 msgid "On Multiple Doc."
-msgstr ""
+msgstr "Keliems dokumentams"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model_fields_on_delete
@@ -12649,7 +12661,7 @@ msgstr "Nuotoliniai pasiūlymai"
 #: code:addons/base/res/res_config.py:551
 #, python-format
 msgid "Only administrators can change the settings"
-msgstr ""
+msgstr "Tik administratorius gali keisti nustatymus"
 
 #. module: base
 #: code:addons/base/ir/ir_attachment.py:108
@@ -13092,7 +13104,7 @@ msgstr "Pirkėjas: perkėlimo įgyvendinimas"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_reports_followup
 msgid "Payment Follow-up Management"
-msgstr ""
+msgstr "Mokėjimų priminimų valdymas"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_payment
@@ -13120,7 +13132,7 @@ msgstr "Paypal apskaita"
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_appraisal
 msgid "Periodical Appraisal"
-msgstr ""
+msgstr "Periodinis vertinimas"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -13270,7 +13282,7 @@ msgstr "Lenkija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_pl_reports
 msgid "Poland - Accounting Reports"
-msgstr ""
+msgstr "Lenkijos apskaitos ataskaitos"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -13309,7 +13321,7 @@ msgstr "Portalo sandėlis"
 msgid ""
 "Portal members have specific access rights (such as record rules and restricted menus).\n"
 "                They usually do not belong to the usual Odoo groups."
-msgstr ""
+msgstr "Portalo naudotojai turi specifines prieigos taisykles (tokias kaip įrašų taisykles ir apribotus meniu).\n                Dažniausiai, jie nepriklauso įprastoms Odoo grupėms."
 
 #. module: base
 #: model:res.country,name:base.pt
@@ -13568,7 +13580,7 @@ msgstr ""
 msgid ""
 "Public users have specific access rights (such as record rules and restricted menus).\n"
 "                They usually do not belong to the usual Odoo groups."
-msgstr ""
+msgstr "Portalo naudotojai turi specifines prieigos teises (tokias kaip įrašų taisykles ir apribotus meniu).\n                Dažniausiai, jie nepriklauso įprastoms Odoo grupėms."
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_membership
@@ -13782,7 +13794,7 @@ msgstr "Įrašo taisyklės"
 msgid ""
 "Record cannot be modified right now: This cron task is currently being "
 "executed and may not be modified Please try again in a few minutes"
-msgstr ""
+msgstr "Įrašas šiuo metu negali būti redaguojamas: šis suplanuotas veiksmas šiuo metu yra vykdomas ir negali būti modifikuojamas. Prašome bandyti dar kartą po kelių minučių."
 
 #. module: base
 #: code:addons/base/ir/ir_actions.py:407 code:addons/models.py:4952
@@ -13865,7 +13877,7 @@ msgstr "Susijęs serverio veiksmas"
 #: code:addons/base/ir/ir_model.py:319
 #, python-format
 msgid "Related field '%s' does not have comodel '%s'"
-msgstr ""
+msgstr "Susietas laukas '%s' neturi komodelio '%s'"
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:317
@@ -13887,7 +13899,7 @@ msgstr "Sąryšio pavadinimas"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields_relation_table
 msgid "Relation Table"
-msgstr ""
+msgstr "Ryšių lentelė"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_report_xml_attachment_use
@@ -14068,7 +14080,7 @@ msgstr "Šaltinio objektas"
 #. module: base
 #: model:ir.module.module,summary:base.module_project_forecast
 msgid "Resource management for Project"
-msgstr ""
+msgstr "Projekto išteklių valdymas"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_restaurant
@@ -14128,7 +14140,7 @@ msgstr "Rumunija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ro_reports
 msgid "Romania - Accounting Reports"
-msgstr ""
+msgstr "Romunijos apskaitos ataskaitos"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -14159,7 +14171,7 @@ msgstr ""
 #. module: base
 #: constraint:ir.rule:0
 msgid "Rules can not be applied on Transient models."
-msgstr ""
+msgstr "Taisyklės negali būti taikomos Transiet tipo modeliams."
 
 #. module: base
 #: constraint:ir.rule:0
@@ -14210,7 +14222,7 @@ msgstr "SMTP prievadas"
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_mail_server_smtp_port
 msgid "SMTP Port. Usually 465 for SSL, and 25 or 587 for other cases."
-msgstr ""
+msgstr "SMTP portas. Dažniausiai 465 SSL tipui ir 25 arba 587 kitais atvejais."
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_mail_server_smtp_host
@@ -14445,12 +14457,12 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_window_search_view
 msgid "Search View"
-msgstr ""
+msgstr "Paieškos vaizdas"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_window_search_view_id
 msgid "Search View Ref."
-msgstr ""
+msgstr "Paieškos vaizdo nuoroda"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_module_filter
@@ -14494,7 +14506,7 @@ msgstr "Žiūrėti visas galimas reikšmes"
 #: code:addons/common.py:42
 #, python-format
 msgid "See http://openerp.com"
-msgstr ""
+msgstr "Žiūrėti http://openerp.com"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_act_server_model_object_field
@@ -14570,12 +14582,12 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,description:base.module_delivery_dhl
 msgid "Send your shippings through DHL and track them online"
-msgstr ""
+msgstr "Siųskite siuntas per DHL ir stebėkite jų judėjimą"
 
 #. module: base
 #: model:ir.module.module,description:base.module_delivery_fedex
 msgid "Send your shippings through Fedex and track them online"
-msgstr ""
+msgstr "Siųskite siuntas per Fedex ir stebėkite jų judėjimą"
 
 #. module: base
 #: model:ir.module.module,description:base.module_delivery_temando
@@ -14585,12 +14597,12 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,description:base.module_delivery_ups
 msgid "Send your shippings through UPS and track them online"
-msgstr ""
+msgstr "Siųskite siuntas per UPS ir stebėkite jų judėjimą"
 
 #. module: base
 #: model:ir.module.module,description:base.module_delivery_usps
 msgid "Send your shippings through USPS and track them online"
-msgstr ""
+msgstr "Siųskite siuntas per USPS ir stebėkite jų judėjimą"
 
 #. module: base
 #: model:res.country,name:base.sn
@@ -14684,7 +14696,7 @@ msgstr "Serverio veiksmas"
 #. module: base
 #: model:ir.model,name:base.model_ir_server_object_lines
 msgid "Server Action value mapping"
-msgstr ""
+msgstr "Serverio veiksmo reikšmės sąsajos"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_server_action
@@ -14831,7 +14843,7 @@ msgstr "Singapūras - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_sg_reports
 msgid "Singapore - Accounting Reports"
-msgstr ""
+msgstr "Singapūro apskaitos ataskaitos"
 
 #. module: base
 #: model:res.country,name:base.sx
@@ -14862,7 +14874,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_slides
 msgid "Slides"
-msgstr ""
+msgstr "Skaidrės"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -14887,7 +14899,7 @@ msgstr "Slovėnija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_si_reports
 msgid "Slovenian - Accounting Reports"
-msgstr ""
+msgstr "Slovėnijos apskaitos ataskaitos"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -15026,7 +15038,7 @@ msgstr "Ispanija - apskaita (PGCE 2008)"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_es_reports
 msgid "Spain - Accounting (PGCE 2008) Reports"
-msgstr ""
+msgstr "Ispanijos apskaitos ataskaitos (PGCE 2008)"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -15114,7 +15126,7 @@ msgid ""
 "Specify a value only when creating a user or if you're changing the user's "
 "password, otherwise leave empty. After a change of password, the user has to"
 " login again."
-msgstr ""
+msgstr "Nurodykite reikšmę tik tada, kai kuriate vartotoją arba kai keičiate vartotojo slaptažodį, kitu atveju - palikite tuščią. Po slaptažodžio keitimo vartotojas turės prisijungti iš naujo."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_cron_doall
@@ -15145,7 +15157,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.menu,name:base.menu_project_config_project
 msgid "Stages"
-msgstr ""
+msgstr "Stadijos"
 
 #. module: base
 #: selection:ir.sequence,implementation:0
@@ -15399,7 +15411,7 @@ msgstr "Šveicarija - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ch_reports
 msgid "Switzerland - Accounting Reports"
-msgstr ""
+msgstr "Šveicarijos apskaitos ataskaitos"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency_symbol
@@ -15414,7 +15426,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_project_timesheet_synchro
 msgid "Synchronization with the external timesheet application"
-msgstr ""
+msgstr "Sinchronizavimas su išorinėmis darbo apskaitos žiniaraščio aplikacijomis"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_wizard_update_translations
@@ -15472,7 +15484,7 @@ msgstr ""
 msgid ""
 "TGZ format: this is a compressed archive containing a PO file, directly suitable\n"
 "                                for uploading to Odoo's translation platform,"
-msgstr ""
+msgstr "TGZ formatas: tai yra suarchyvuotas failas su PO failu, kuris tinkamas\n                                Odoo vertimų sukėlimui tiesiai į sistemą,"
 
 #. module: base
 #: code:addons/base/res/res_company.py:107
@@ -15548,7 +15560,7 @@ msgstr ""
 msgid ""
 "Tax Identification Number. Fill it if the company is subjected to taxes. "
 "Used by the some of the legal statements."
-msgstr ""
+msgstr "Mokėsčių mokėtojo kodas. Užpildykite, jei įmonė yra mokesčių mokėtoja. Naudojamas tam tikriems teisiniams procesams."
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_hr
@@ -16180,7 +16192,7 @@ msgstr "Tinklalapio projekto problemos laiko apskaitos žiniaraštis"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_timesheet_sheet
 msgid "Timesheets"
-msgstr ""
+msgstr "Darbo laiko žiniaraštis"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_timesheet_sheet
@@ -16220,7 +16232,7 @@ msgstr ""
 #: selection:ir.actions.todo,state:0
 #: model:ir.ui.view,arch_db:base.config_wizard_step_view_search
 msgid "To Do"
-msgstr ""
+msgstr "Reikia atlikti"
 
 #. module: base
 #: selection:ir.translation,state:0
@@ -16250,7 +16262,7 @@ msgstr "Bus atnaujinta"
 #, python-format
 msgid ""
 "To enable it, make sure this directory exists and is writable on the server:"
-msgstr ""
+msgstr "Prieš įjungiant tai, įsitikinkite, kad direktorija serveryje egzistuoja ir galima į ją rašyti:"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.ir_actions_todo_tree
@@ -16330,7 +16342,7 @@ msgstr "Perėjimai"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_groups_trans_implied_ids
 msgid "Transitively inherits"
-msgstr ""
+msgstr "Pereinamai paveldi"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields_translate
@@ -16380,7 +16392,7 @@ msgstr "Vertimo komentarai"
 #, python-format
 msgid ""
 "Translation features are unavailable until you install an extra translation."
-msgstr ""
+msgstr "Verttimų funkcijos neveikia, kol neinstaliuojamas papildomas vertimas."
 
 #. module: base
 #: selection:ir.translation,state:0
@@ -16526,7 +16538,7 @@ msgstr "UK - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_uk_reports
 msgid "UK - Accounting Reports"
-msgstr ""
+msgstr "Jungtinės Karalystės apskaitos ataskaitos"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_delivery_ups
@@ -16568,7 +16580,7 @@ msgstr "Uganda"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_logging_create_uid
 msgid "Uid"
-msgstr ""
+msgstr "Naudotojo ID"
 
 #. module: base
 #: model:res.country,name:base.ua
@@ -16614,7 +16626,7 @@ msgstr "Nepavyksta atnaujinti modulio, \"%s\" nes neatitinka išorinės priklaus
 #. module: base
 #: model:ir.module.category,name:base.module_category_uncategorized
 msgid "Uncategorized"
-msgstr ""
+msgstr "Nekategorizuotas"
 
 #. module: base
 #: code:addons/base/module/module.py:561
@@ -16626,7 +16638,7 @@ msgstr "Išdiegti"
 #. module: base
 #: selection:ir.module.module.dependency,state:0
 msgid "Uninstallable"
-msgstr ""
+msgstr "Neišdiegiamas"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_product_uos
@@ -16704,7 +16716,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Unrecognized extension: must be one of .csv, .po, or .tgz (received .%s)."
-msgstr ""
+msgstr "Neatpažintas plėtinys: turi būti vienas iš .csv, .po, or .tgz (dabartinis .%s)."
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_translation_search
@@ -16793,7 +16805,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_uy_reports
 msgid "Uruguay - Accounts Reports"
-msgstr ""
+msgstr "Urugvajaus apskaitos ataskaitos"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_uy
@@ -17010,7 +17022,7 @@ msgstr "Pardavėjas"
 #: model:ir.ui.menu,name:base.menu_procurement_management_supplier_name
 #: model:ir.ui.view,arch_db:base.view_res_partner_filter
 msgid "Vendors"
-msgstr ""
+msgstr "Tiekėjai"
 
 #. module: base
 #: model:res.country,name:base.ve
@@ -17040,7 +17052,7 @@ msgstr "Vietnamas - apskaita"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_vn_reports
 msgid "Vietnam - Accounting Reports"
-msgstr ""
+msgstr "Vietnamo apskaitos ataskaitos"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -17071,7 +17083,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_window_view_mode
 msgid "View Mode"
-msgstr ""
+msgstr "Vaizdo rėžimas"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_ui_view_name
@@ -17099,7 +17111,7 @@ msgstr "Peržiūrėti tipą"
 #. module: base
 #: model:ir.module.module,summary:base.module_account_reports
 msgid "View and create reports"
-msgstr ""
+msgstr "Ataskaitų kūrimas ir peržiūra"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_ui_view_mode
@@ -17140,7 +17152,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_ui_view_inherit_children_ids
 msgid "Views which inherit from this one"
-msgstr ""
+msgstr "Rodiniai paveldintys iš šio"
 
 #. module: base
 #: model:res.country,name:base.vg
@@ -17175,7 +17187,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_stock_barcode
 msgid "Warehouse Management Barcode Scanning"
-msgstr ""
+msgstr "Sandelio valdymas brūkšninio kodo nuskaitymas"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_stock_picking_wave
@@ -17324,7 +17336,7 @@ msgstr "Tinklalapio gyvas pokalbis su lankytojais / klientais"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_livechat
 msgid "Website Live Support"
-msgstr ""
+msgstr "Svetainės gyvoji pagalba"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_mail
@@ -17419,7 +17431,7 @@ msgstr ""
 msgid ""
 "When a relationship field is selected as first field, this field shows the "
 "document model the relationship goes to."
-msgstr ""
+msgstr "Kai sąryšio laukas yra pasirinktas kaip pirmas laukas, šis laukas nurodo to sąryšio dokumento modelį."
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_workflow_diagram
@@ -17436,7 +17448,7 @@ msgstr ""
 msgid ""
 "When dealing with multiple actions, the execution order is based on the "
 "sequence. Low number means high priority."
-msgstr ""
+msgstr "Kai tvarkotės su keliais veiksmais, vykdymo tvarka yra paremta seka. Mažas skaičius reiškia aukštą prioritetą."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_mail_server_sequence
@@ -17463,14 +17475,14 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model_fields_copy
 msgid "Whether the value is copied when duplicating a record."
-msgstr ""
+msgstr "Ar reikšmė yra  nukopijuojama, kai įrašas dubliuojamas."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model_fields_translate
 msgid ""
 "Whether values for this field can be translated (enables the translation "
 "mechanism for that field)"
-msgstr ""
+msgstr "Ar reikšmės šiame lauke gali būti išverčiamos (įjungia vertimo mechanizmą tam laukui)"
 
 #. module: base
 #: model:res.partner.category,name:base.res_partner_category_15
@@ -17571,7 +17583,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:base.field_ir_model_access_perm_write
 #: model:ir.ui.view,arch_db:base.ir_access_view_search
 msgid "Write Access"
-msgstr ""
+msgstr "Redagavimo teisė"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_rule_search
@@ -17621,7 +17633,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_yodlee
 msgid "Yodlee"
-msgstr ""
+msgstr "Yodlee"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_account_yodlee
@@ -17659,7 +17671,7 @@ msgstr ""
 msgid ""
 "You can not change the company as the partner/user has multiple user linked "
 "with different companies."
-msgstr ""
+msgstr "Neleidžiama pakeisti įmonės, kai parteris/naudotojas turi naudotoją, susietą su skirtingomis įmonėmis."
 
 #. module: base
 #: sql_constraint:res.users:0
@@ -17834,7 +17846,7 @@ msgstr "_unknown"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_online_sync
 msgid "account_online_sync"
-msgstr ""
+msgstr "account_online_sync"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_plaid
@@ -18418,7 +18430,7 @@ msgstr "test_convert"
 #. module: base
 #: model:res.groups,comment:base.group_hr_user
 msgid "the user will be able to approve document created by employees."
-msgstr ""
+msgstr "vartotojas galės patvirtinti dokumentą, sukurtą darbuotojų."
 
 #. module: base
 #: model:res.groups,comment:base.group_user
@@ -18444,7 +18456,7 @@ msgstr ""
 msgid ""
 "the user will have an access to the human resources configuration as well as"
 " statistic reports."
-msgstr ""
+msgstr "vartotojas turės prieigą prie žmogiškųjų išteklių konfigūracijos ir statistikos ataskaitų."
 
 #. module: base
 #: model:res.groups,comment:base.group_sale_manager

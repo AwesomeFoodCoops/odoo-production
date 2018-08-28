@@ -10,9 +10,9 @@
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="is_changed" invisible="1"/>
-                <field name="point_qty"/>
+                <field name="point_qty" sum="Total Points"/>
+                <field name="sum_current_qty"/>
                 <field name="notes"/>
-                <field name="sum_current_qty" sum="Total Points"/>
             </tree>
         </field>
     </record>
