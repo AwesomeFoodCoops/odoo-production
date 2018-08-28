@@ -159,9 +159,14 @@ class ShiftShift(models.Model):
     @api.depends('name', 'date_begin')
     def name_get(self):
         result = []
+        just_show_date = self._context.get('just_show_date', False)
         for shift in self:
-            name = shift.name + (shift.begin_date_string and
-                                 (' ' + shift.begin_date_string) or '')
+            if shift.shift_type_id.is_ftop and just_show_date:
+                name = (shift.begin_date_string and
+                        (' ' + shift.begin_date_string) or '')
+            else:
+                name = shift.name + (shift.begin_date_string and
+                                     (' ' + shift.begin_date_string) or '')
             result.append((shift.id, name))
         return result
 

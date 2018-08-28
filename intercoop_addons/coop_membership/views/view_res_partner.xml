@@ -42,7 +42,8 @@
                                 coop_membership.group_membership_bdm_lecture,
                                 coop_membership.group_membership_bdm_saisie">
                             <field name="extension_qty" widget="statinfo"
-                                   string="Ext."/>
+                                   string="Ext." attrs="{'invisible':[('extension_qty', '=', 0)]}"/>
+                            <span attrs="{'invisible':[('extension_qty', '!=', 0)]}">Ext.</span>
                         </button>
                         <button name="%(coop_shift.act_shift_registration_from_partner)d"
                                 type="action"
@@ -81,7 +82,8 @@
                                 coop_membership.group_membership_bdm_saisie"
                                 id="view_shift_leaves">
                             <field name="leave_qty" widget="statinfo"
-                                   string="Leaves"/>
+                                   string="Leaves" attrs="{'invisible':[('leave_qty', '=', 0)]}"/>
+                            <span attrs="{'invisible':[('leave_qty', '!=', 0)]}">Leaves</span>
                         </button>
                         <button type="action" class="oe_stat_button"
                                 id="invoice_button" icon="fa-pencil-square-o"
@@ -164,7 +166,7 @@
                                 coop_membership.group_membership_bdm_saisie"
                                 id="view_res_partner_point_counter_standard">
                             <field name="display_std_points" widget="statinfo"
-                                   string="Standard Points"/>
+                                   string="Rattrapages ABCD"/>
                         </button>
 
                         <button name="%(coop_shift.action_res_partner_point_counter_view_ftop)d"
@@ -178,7 +180,7 @@
                                 coop_membership.group_membership_bdm_saisie"
                                 id="view_res_partner_point_counter_ftop">
                             <field name="display_ftop_points" widget="statinfo"
-                                   string="FTOP Points"/>
+                                   string="Vacations"/>
                         </button>
 
                         <button name="%(coop_membership.action_res_partner_owned_share)d"
@@ -219,6 +221,21 @@
                                    groups="coop_membership.group_membership_see_associated_people"/>
                         </div>
                     </div>
+
+                    <group>
+                        <group>
+                        </group>
+                        <group>
+                            <field name="next_registrations" context="{'just_show_date': True}">
+                                <tree>
+                                    <field name="shift_id"/>
+                                    <field name="date_begin"/>
+                                    <field name="shift_ticket_id"/>                                
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
 
                     <group>
                         <group>
