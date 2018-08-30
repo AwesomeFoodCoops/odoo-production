@@ -25,7 +25,7 @@ import datetime
 from openerp import api, models, fields, _
 import openerp.addons.decimal_precision as dp
 
-from openerp.exceptions import UserError
+from openerp.exceptions import UserError, Warning
 
 import logging
 
@@ -328,7 +328,7 @@ class OrderWeekPlanning(models.Model):
     def unlink(self):
         for p in self:
             if p.state != 'draft':
-                UserError(_("It's not allowed to delete a vaalidated order planining"))
+                raise UserError(_("It's not allowed to delete a vaalidated order planining"))
             else:
                 super(OrderWeekPlanning,self).unlink()
 
@@ -336,9 +336,9 @@ class OrderWeekPlanning(models.Model):
     def action_update_start_inventory(self):
         self.ensure_one()
         for line in self.line_ids:
-            if not line.product_id.default_packaging:
-                UserError(_("The product %s has no default packaging set")%(line.product_id.name,))
-            self.start_inv = line.product_id.qty_available / line.product_id.default_packaging
+            if  line.default_packaging == 0.0:
+                raise UserError(_("The product %s has no default packaging set") % (line.product_id.name,))
+            self.start_inv = line.product_id.qty_available / line.default_packaging
 
     @api.multi
     def action_view_orders(self):
@@ -585,8 +585,9 @@ class OrderWeekPlanningLine(models.Model):
                               copy=False)
 
     _sql_constraints = [
-        ('number_uniq', 'unique(week_year, week_number, product_id, supplier_id)',
-         "You can't have two lines for the same, week, product, suppier and packaging!"),
+        ('unique_line_per_product',
+         'unique (week_year, week_number, product_id, supplier_id)',
+         "You can't have two lines for the same, week, product and suppier !"),
     ]
 
     @api.onchange('supplier_id')
