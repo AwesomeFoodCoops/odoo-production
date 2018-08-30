@@ -77,10 +77,10 @@ class ShiftLeave(models.Model):
 
             if not next_shift_date or not next_shift:
                 next_shift_date = leave.guess_future_date_shift(
-                    leave.stop_date, is_all_team=True)[0]
+                    leave.stop_date, is_all_team=True)
                 if next_shift_date:
                     next_shift_date = fields.Date.to_string(
-                        next_shift_date)
+                        next_shift_date[0])
                 else:
                     leave.reset_propose_info()
                     continue
