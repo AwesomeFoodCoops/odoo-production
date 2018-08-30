@@ -814,7 +814,7 @@ msgstr "Remplacé"
 #: code:addons/coop_membership/models/shift_shift.py:81
 #, python-format
 msgid "Shift Cloture"
-msgstr "Clôlturer le service"
+msgstr "Décompte"
 
 #. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_shift_form_inherit
