@@ -27,3 +27,13 @@ class ShiftCounterEvent(models.Model):
                 record.sum_current_qty = record.point_qty
                 for event in counter_event_before:
                     record.sum_current_qty += event.point_qty
+
+    @api.multi
+    def update_write_date(self):
+        sql = '''
+            UPDATE shift_counter_event
+            SET write_date = create_date
+            WHERE is_manual = false
+        '''
+        self.env.cr.execute(sql)
+        return True
