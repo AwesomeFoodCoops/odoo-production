@@ -329,6 +329,8 @@ class OrderWeekPlanning(models.Model):
         for p in self:
             if p.state != 'draft':
                 UserError(_("It's not allowed to delete a vaalidated order planining"))
+            else:
+                super(OrderWeekPlanning,self).unlink()
 
     @api.multi
     def action_update_start_inventory(self):
