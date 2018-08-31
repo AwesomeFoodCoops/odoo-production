@@ -187,7 +187,7 @@ class StockInventoryLine(osv.osv):
 
     _columns = {
         'default_packaging': fields.float(string='Default packaging', readonly=True),
-        'packaging_qty': fields.float(string='Theorical packaging qty', readonly=True),
+        'packaging_qty': fields.float(string='Theorical packaging qty', readonly=True,digits_compute=dp.get_precision('Product Unit of Measure')),
         'qty_loss': fields.function(_get_qty_loss, type="float", string='Quantity Lost',
                                     digits_compute=dp.get_precision('Product Unit of Measure'),
                                     help='Quantity Theoric Of Reference - Stock Quantity'),
