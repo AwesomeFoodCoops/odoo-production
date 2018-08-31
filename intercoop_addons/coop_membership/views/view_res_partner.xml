@@ -41,9 +41,9 @@
                                 coop_membership.group_membership_access_user,
                                 coop_membership.group_membership_bdm_lecture,
                                 coop_membership.group_membership_bdm_saisie">
-                            <field name="extension_qty" widget="statinfo"
-                                   string="Ext." attrs="{'invisible':[('extension_qty', '=', 0)]}"/>
-                            <span attrs="{'invisible':[('extension_qty', '!=', 0)]}">Ext.</span>
+                            <field name="upcomming_extension_qty" widget="statinfo"
+                                   string="Ext." attrs="{'invisible':[('upcomming_extension_qty', '=', 0)]}"/>
+                            <span attrs="{'invisible':[('upcomming_extension_qty', '!=', 0)]}">Ext.</span>
                         </button>
                         <button name="%(coop_shift.act_shift_registration_from_partner)d"
                                 type="action"
@@ -226,12 +226,21 @@
                         <group>
                         </group>
                         <group>
-                            <field name="next_registrations" context="{'just_show_date': True}">
+                            <field name="next_ftop_registrations" context="{'just_show_date': True}"
+                                attrs="{'invisible': [('shift_type','=', 'standard')]}"
+                                groups="coop_membership.group_membership_bdm_presence,
+                                       coop_membership.group_membership_bdm_lecture,
+                                       coop_membership.group_membership_bdm_saisie" >
+                                <tree decoration-bf="1==1">
+                                    <field name="shift_id"/>
+                                </tree>
+                            </field>
+                            <field name="next_abcd_registrations" context="{'just_show_date': True}"
+                                groups="coop_membership.group_membership_bdm_presence,
+                                       coop_membership.group_membership_bdm_lecture,
+                                       coop_membership.group_membership_bdm_saisie">
                                 <tree>
                                     <field name="shift_id"/>
-                                    <field name="date_begin"/>
-                                    <field name="shift_ticket_id"/>                                
-                                    <field name="state"/>
                                 </tree>
                             </field>
                         </group>
