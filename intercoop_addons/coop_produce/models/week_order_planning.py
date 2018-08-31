@@ -338,7 +338,8 @@ class OrderWeekPlanning(models.Model):
         for line in self.line_ids:
             if  line.default_packaging == 0.0:
                 raise UserError(_("The product %s has no default packaging set") % (line.product_id.name,))
-            self.start_inv = line.product_id.qty_available / line.default_packaging
+            line.default_packaging = line.product_id.default_packaging
+            line.start_inv = line.product_id.qty_available / line.default_packaging
 
     @api.multi
     def action_view_orders(self):
@@ -492,14 +493,15 @@ class OrderWeekPlanningLine(models.Model):
     _order = 'week_year desc, week_number desc, product_name asc'
 
     @api.depends('start_inv', 'monday_qty', 'tuesday_qty', 'wednesday_qty', 'thirsday_qty', 'friday_qty',
-                 'saturday_qty', 'end_inv_qty', 'loss_qty')
+                 'saturday_qty', 'end_inv_qty', 'loss_qty','default_packaging')
     def _get_kpi(self):
-        # Compute   ,  ninvivgi_gvgi_v_çèonbj
+        # Compute
         fields2sum = ['monday_qty', 'tuesday_qty', 'wednesday_qty', 'thirsday_qty', 'friday_qty',
                       'saturday_qty']
         for line in self:
             w_1_qty = line.get_previous_solde_qty(-1)
             w_2_qty = line.get_previous_solde_qty(-2)
+            #line.start_inv = line.start_inv * line.product_id.default_packaging/line.default_packaging
             line.total_qty = sum([line[x] for x in fields2sum]) + line.start_inv
             line.sold_qty = line.total_qty - line.end_inv_qty - line.loss_qty
             line.sold_w_1_qty = w_1_qty
@@ -709,7 +711,7 @@ class OrderWeekPlanningLine(models.Model):
         return result
 
     @api.multi
-    def get_previous_solde_qty(self, week_gap):
+    def get_previous_solde_qty(self, week_gap, default_package = 1):
         self.ensure_one()
         current_date = get_date_from_week_number(self.week_year, self.week_number, 0)
         day_delta = 7 * week_gap
@@ -721,6 +723,6 @@ class OrderWeekPlanningLine(models.Model):
                              ('week_year', '=', new_year),
                              ])
         if lines:
-            return sum(x.sold_qty for x in lines)
+            return sum(x.sold_qty * (x.default_package/default_package) for x in lines)
         else:
             return 0.0
