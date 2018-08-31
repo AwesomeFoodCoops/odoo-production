@@ -37,10 +37,10 @@
             <field name="arch" type="xml">
                 <form string="Order Scheduling">
                     <header>
-                        <button name="action_close_week" string="Close Week" type="object" class="oe_highlight"/>
+                        <button name="action_close_week" string="Close Week" type="object" class="oe_highlight" states="draft"/>
                         <button name="action_generate_next_week" string="Next week" type="object" class="oe_highlight"/>
                         <button name="action_reset" string="Reset" type="object"
-                                class="btn btn-danger"/>
+                                class="btn btn-danger" states="draft"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
                     </header>
 
@@ -69,8 +69,8 @@
                         <group attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}"
                                col="10">
                             <group col="2">
-                                <field name="categ_ids" widget="many2many_tags" string="Product Category"/>
-                                <field name="supplier_ids" widget="many2many_tags" string="Supplier"/>
+                                <field name="categ_ids" widget="many2many_tags" string="Product Category"  options="{'no_create': True}"/>
+                                <field name="supplier_ids" widget="many2many_tags" string="Supplier"  options="{'no_create': True}"/>
                             </group>
                             <group col="1">
                                 <button name="action_add_products" string="Add" type="object" class="oe_highlight"/>
@@ -130,12 +130,12 @@
                             </group>
                         </group>
                         <field name="line_ids" string="Order Planning Details"
-                               context="{'default_order_week_planning_id':active_id}">
-                            <tree string="Order Planning Details" editable="bottom">
+                               context="{'default_order_week_planning_id':active_id, 'order_planning_context':True}">
+                            <tree string="Order Planning Details" editable="bottom" mode="tree" >
                                 <button name="action_product_history_view" icon="STOCK_JUSTIFY_FILL" type="object"/>
                                 <field name="product_name" invisible="1"/>
                                 <field name="product_id" string="Product"/>
-                                <field name="default_packaging" string="Default packaging"/>
+                                <field name="default_packaging" string="Default packaging" readonly="True"/>
                                 <field name="supplier_packaging" string="Supplier packaging"/>
                                 <button name="action_update_supplier_packaging" icon="gtk-apply" type="object"/>
                                 <field name="supplier_id" string="Supplier" required="True"/>
