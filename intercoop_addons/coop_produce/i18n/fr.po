@@ -83,7 +83,7 @@ msgstr "Stock à date"
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
 msgid "Default packaging"
-msgstr "Colissage Ref."
+msgstr "PCB"
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
@@ -596,7 +596,7 @@ msgstr "Fournisseur"
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_supplier_packaging
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
 msgid "Supplier packaging"
-msgstr "Collisage Fournisseur"
+msgstr "PCBF"
 
 #. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_stock_inventory_supplier_ids
