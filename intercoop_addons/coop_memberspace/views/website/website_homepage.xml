@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<template id="coop_memberspace.homepage" inherit_id="website.homepage" name="Main layout">
+		<xpath expr="//div[@id='wrap']" position="replace">
+            <div id="wrap" class="oe_structure oe_empty" t-if="website.user_id != user_id">
+                <t t-set="title">Espace membre | Accueil</t>
+                <div class="container-fluid">
+                    <!-- Banner -->
+                    <div style="text-align: center;color:red;margin-top: 10px;border: 1px solid red;margin-left: -15px;margin-right: -15px;">
+                        <h3></h3>
+                    </div>
+
+                    <!-- Status -->
+                    <div contenteditable="false" style="text-align: center;color:white;border: 1px solid #8bc34a;margin-top: 10px;background: #8bc34a;
+                        margin-left: -15px;margin-right: -15px;">
+                        <h3 t-esc="member_status or ''" />
+                    </div>
+                </div>
+                <div class="container">
+                    <!-- Current Week Information -->
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-4">
+                            <div>
+                                <h3>Mon prochain service</h3>
+                                <div style="border: 1px solid #b2b7bb;padding: 10px;min-height: 115px;">
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-6" style="text-align: center">
+                                            <i class="material-icons" style="font-size: 4.5em">alarm</i>
+                                        </div>
+                                        <div class="col-md-4 col-xs-6">
+                                            <p class="text-right" t-esc="date_begin" />
+                                        </div>
+                                        <div class="col-md-4 col-xs-12" style="text-align: right;margin-top:7px;">
+                                            <a href="/mywork"><span class="fa fa-caret-right" style="font-size: 4em" /></a>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;margin-right:35px;">Link My Work</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <h3>Chiffre d’affaires du jour</h3>
+                                <div style="border: 1px solid #b2b7bb;padding: 10px;min-height: 115px;">
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-6" style="text-align: center;margin-top: 18px;">
+                                            <span style="
+                                                    font-size: 25px;
+                                                    font-weight: 600;
+                                                    margin-top: 0px;
+                                                " t-esc="turnover_the_day" />
+                                        </div>
+                                        <div class="col-md-4 col-xs-6" style="display: inline-flex;">
+                                            <div><i class="material-icons" style="
+                                                        font-size: 3.5em;
+                                                        margin-right: 10px;
+                                                        margin-top: 6px;
+                                                        ">euro_symbol</i></div>
+                                            <div style="margin-top: 22px;">
+                                                <span style="">TTC</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12" style="text-align: right;margin-top:7px;">
+                                            <a href="/statistics"><span class="fa fa-caret-right" style="font-size: 4em"></span></a>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;margin-right:35px;">Link Statistics</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <h3>Semaine actuelle</h3>
+                                <div style="border: 1px solid #b2b7bb;padding: 10px;min-height: 115px;">
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-6" style="text-align: center">
+                                            <span style="font-size: 3em;font-weight: 600;" t-esc="shift.shift_id and dict(shift.shift_id._fields['week_number'].selection).get(shift.shift_id.week_number) or '' "/>
+                                        </div>
+                                        <div class="col-md-4 col-xs-6">
+                                        </div>
+                                        <div class="col-md-4 col-xs-12" style="text-align: right;margin-top:7px;">
+                                            <a href="#"><span class="fa fa-caret-right" style="font-size: 4em" /></a>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;margin-right:35px;">Link Calendar</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure"></div>
+            </div>
+		</xpath>
+	</template>
+</openerp>

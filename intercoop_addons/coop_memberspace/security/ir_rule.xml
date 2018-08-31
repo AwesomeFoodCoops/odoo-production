@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Allow MemberSpace edit himself/hefsefl information -->
+        <record id="member_space_personal_contact" model="ir.rule">
+            <field name="name">MemberSpace Personal Contacts</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[('is_member', '=', True), ('related_user_id', '=', user.id)]</field>
+            <field eval="0" name="perm_read"/>
+            <field name="groups" eval="[(4, ref('coop_memberspace.group_memberspace'))]"/>
+        </record>
+    </data>
+</openerp>
