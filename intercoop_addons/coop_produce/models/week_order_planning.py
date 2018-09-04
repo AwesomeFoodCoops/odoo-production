@@ -25,7 +25,7 @@ import datetime
 from openerp import api, models, fields, _
 import openerp.addons.decimal_precision as dp
 
-from openerp.exceptions import UserError
+from openerp.exceptions import UserError, Warning
 
 import logging
 
@@ -328,13 +328,18 @@ class OrderWeekPlanning(models.Model):
     def unlink(self):
         for p in self:
             if p.state != 'draft':
-                UserError(_("It's not allowed to delete a vaalidated order planining"))
+                raise UserError(_("It's not allowed to delete a vaalidated order planining"))
+            else:
+                super(OrderWeekPlanning,self).unlink()
 
     @api.multi
     def action_update_start_inventory(self):
         self.ensure_one()
         for line in self.line_ids:
-            self.start_inv = line.product_id.qty_available / line.product_id.default_packaging
+            if  line.default_packaging == 0.0:
+                raise UserError(_("The product %s has no default packaging set") % (line.product_id.name,))
+            line.default_packaging = line.product_id.default_packaging
+            line.start_inv = line.product_id.qty_available / line.default_packaging
 
     @api.multi
     def action_view_orders(self):
@@ -488,14 +493,15 @@ class OrderWeekPlanningLine(models.Model):
     _order = 'week_year desc, week_number desc, product_name asc'
 
     @api.depends('start_inv', 'monday_qty', 'tuesday_qty', 'wednesday_qty', 'thirsday_qty', 'friday_qty',
-                 'saturday_qty', 'end_inv_qty', 'loss_qty')
+                 'saturday_qty', 'end_inv_qty', 'loss_qty','default_packaging')
     def _get_kpi(self):
-        # Compute   ,  ninvivgi_gvgi_v_çèonbj
+        # Compute
         fields2sum = ['monday_qty', 'tuesday_qty', 'wednesday_qty', 'thirsday_qty', 'friday_qty',
                       'saturday_qty']
         for line in self:
             w_1_qty = line.get_previous_solde_qty(-1)
             w_2_qty = line.get_previous_solde_qty(-2)
+            #line.start_inv = line.start_inv * line.product_id.default_packaging/line.default_packaging
             line.total_qty = sum([line[x] for x in fields2sum]) + line.start_inv
             line.sold_qty = line.total_qty - line.end_inv_qty - line.loss_qty
             line.sold_w_1_qty = w_1_qty
@@ -581,8 +587,9 @@ class OrderWeekPlanningLine(models.Model):
                               copy=False)
 
     _sql_constraints = [
-        ('number_uniq', 'unique(week_year, week_number, product_id, supplier_id)',
-         "You can't have two lines for the same, week, product, suppier and packaging!"),
+        ('unique_line_per_product',
+         'unique (week_year, week_number, product_id, supplier_id)',
+         "You can't have two lines for the same, week, product and suppier !"),
     ]
 
     @api.onchange('supplier_id')
@@ -600,7 +607,7 @@ class OrderWeekPlanningLine(models.Model):
                                                                     limit=1)
             if supplier_info:
                 self.price_unit = supplier_info[0].base_price
-                self.price_policy = supplier_info[0].base_price
+                self.price_policy = supplier_info[0].price_policy
                 self.supplier_packaging = supplier_info[0].package_qty
                 self.start_inv = supplier_info[0].package_qty and self.product_id.qty_available / supplier_info[
                     0].package_qty or 0.0
@@ -704,7 +711,7 @@ class OrderWeekPlanningLine(models.Model):
         return result
 
     @api.multi
-    def get_previous_solde_qty(self, week_gap):
+    def get_previous_solde_qty(self, week_gap, default_package = 1):
         self.ensure_one()
         current_date = get_date_from_week_number(self.week_year, self.week_number, 0)
         day_delta = 7 * week_gap
@@ -716,6 +723,6 @@ class OrderWeekPlanningLine(models.Model):
                              ('week_year', '=', new_year),
                              ])
         if lines:
-            return sum(x.sold_qty for x in lines)
+            return sum(x.sold_qty * (x.default_package/default_package) for x in lines)
         else:
             return 0.0

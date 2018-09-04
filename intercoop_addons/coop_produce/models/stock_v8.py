@@ -32,6 +32,21 @@ _logger = logging.getLogger(__name__)
 class StockInventory(models.Model):
     _inherit = "stock.inventory"
 
+    @api.one
+    @api.depends('date')
+    def _get_week_number(self):
+        if not self.date:
+            self.week_number = 0
+        else:
+            week_number = datetime.datetime.strptime(self.date, "%Y-%m-%d %H:%M:%S").strftime("%W")
+            self.week_number = week_number
+
+    week_number = fields.Integer(string="Week Number",
+                                 compute="_get_week_number",
+                                 store=True,
+                                 help="Number of Inventory Week")
+
+
     @api.model
     def _get_planning_line_from_inv_line(self,inv_lines):
         line_vals = []

@@ -37,11 +37,11 @@
                                attrs="{'invisible': ['|', ('hide_initialisation', '=', True),('state', '=', 'done')]}"
                                col="2">
                             <group col="3">
-                                <field name="categ_ids" widget="many2many_tags" string="Product Category"/>
+                                <field name="categ_ids" widget="many2many_tags" string="Product Category" options="{'no_create': True}"/>
                                 <button name="action_add_category_supplier" string="Add" type="object"
-                                        class="oe_highlight" groups="stock.group_stock_manager"/>
+                                        class="oe_highlight" groups="stock.group_stock_manager"  />
                                 <field name="supplier_ids" widget="many2many_tags" string="Supplliers"
-                                       style="width:9% !important"/>
+                                       style="width:9% !important"  options="{'no_create': True}"/>
                                 <button name="action_add_category_supplier" string="Add" type="object"
                                         class="oe_highlight" groups="stock.group_stock_manager"/>
                             </group>
@@ -56,15 +56,15 @@
                         <notebook>
                             <page string="Product inventory">
                                 <field name="line_ids" string="Inventory Details"
-                                       attrs="{'readonly': [('state', '=', 'done')]}" mode="tree">
+                                       attrs="{'readonly': [('state', '=', 'done')]}" mode="tree"  context="{'order_planning_context':True}">
                                     <tree string="Inventory Details" editable="bottom">
                                         <field name="product_id" string="Product"
-                                               on_change="on_change_product_id(product_id)"/>
+                                               on_change="on_change_product_id(product_id)" readonly="True"/>
                                         <field name="default_packaging" string="Default packaging"/>
                                         <field name="packaging_qty" string="Qty/Def. pack"/>
                                         <field name="qty_stock" string="Stock Qty"
-                                               on_change="on_change_qty_stock(product_id,packaging_qty,qty_stock,default_packaging)"/>
-                                        <field name="qty_loss" string="Loss"/>
+                                               on_change="on_change_qty_stock(product_id,packaging_qty,qty_stock,default_packaging)" autofocus="autofocus"/>
+                                        <field name="qty_loss" string="Adjustment"/>
                                         <field name="product_qty" string="Product Qty" invisible="1"
                                                groups="base.group_no_one"/>
                                         <field name="product_uom_id" string="UoM" invisible="1"
@@ -74,7 +74,7 @@
                                 </field>
                             </page>
                             <page string="Inventory Adjustments" attrs="{'invisible': [('state', '!=', 'done')]}">
-                                <field name="move_ids">
+                                <field name="move_ids" context="{'order_planning_context':True}">
                                     <tree decoration-muted="scrapped == True" string="Stock Moves">
                                         <field name="product_id"/>
                                         <field name="product_uom_qty"

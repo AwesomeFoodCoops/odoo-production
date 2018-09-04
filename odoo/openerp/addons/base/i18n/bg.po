@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Odoo 9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-22 07:25+0000\n"
-"PO-Revision-Date: 2018-02-13 20:24+0000\n"
-"Last-Translator: Martin Trigaux\n"
+"PO-Revision-Date: 2018-07-31 17:20+0000\n"
+"Last-Translator: Maria Boyadjieva <marabo2000@gmail.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/odoo/odoo-9/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,7 +67,7 @@ msgid ""
 "the point of sale, where the customers earn loyalty points\n"
 "and get rewards.\n"
 "\n"
-msgstr ""
+msgstr "\n\n=======================\n\nТози модул Ви позволява да определите програма за лоялност в\nЦентъра за продажби, където клиентите набират точки за роялност\nи получават награди.\n\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_hu
@@ -132,7 +132,7 @@ msgid ""
 "Keeps track of the revenue recognition installments, and creates corresponding journal entries.\n"
 "\n"
 "    "
-msgstr ""
+msgstr "\n\nПризнти приходи\n===================\nУправлявайте признатите приходи продажбите на продукти.\nПроследява вноските за признаване на приходи и създава съответстващи статии в журнала.\n\n    "
 
 #. module: base
 #: code:addons/base/res/res_config.py:360
@@ -393,7 +393,7 @@ msgstr ""
 msgid ""
 "\n"
 "        This module is used for Online bank synchronization."
-msgstr ""
+msgstr "\nТози модул се използва за Онлайн банкова синхронизация."
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_online_sync
@@ -401,7 +401,7 @@ msgid ""
 "\n"
 "        This module is used for Online bank synchronization. It provides basic methods to synchronize bank statement.\n"
 "    "
-msgstr ""
+msgstr "\n        Този модул се използва за онлайн банкова синхронизация. Той предоставя базисни методи за синхронизиране на банково извлечение.\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_hr_equipment
@@ -415,7 +415,7 @@ msgstr ""
 msgid ""
 "\n"
 "        Use Plaid.com to retrieve bank statements"
-msgstr ""
+msgstr "\n        Използвайте Plaid.com, за да обработвате банкови извлечения"
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_plaid
@@ -423,7 +423,7 @@ msgid ""
 "\n"
 "        Use Plaid.com to retrieve bank statements.\n"
 "    "
-msgstr ""
+msgstr "\n        Използвайте Plaid.com, за да обработвате банкови извлечения.\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_multilang
@@ -444,7 +444,7 @@ msgid ""
 "    Add an option on tax to allow them to be cash based, meaning that during reconciliation, if there is a tax with\n"
 "    cash basis involved, a new journal entry will be create containing those taxes value.\n"
 "    "
-msgstr ""
+msgstr "\n    Добавете опция за данъка, за да им  позволите да бъдат на касова основа, което ще рече, че в хода на обединяването, ако има включен данък\n    с касова основа, ще бъде създадена новa статия в дневника, съдържаща стойността на тези данъци.\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_test_documentation_examples
@@ -461,7 +461,7 @@ msgstr ""
 msgid ""
 "\n"
 "    Display delivery orders (picking) infos on the website\n"
-msgstr ""
+msgstr "\nПоказване на информация за поръчки за доставка (събиране) от уебсайта\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_hr_holidays_gantt
@@ -506,7 +506,7 @@ msgid ""
 "It gives the Administrator user access to all accounting features such as journal items and the chart of accounts.\n"
 "\n"
 "It assigns manager and user access rights to the Administrator for the accounting application and only user rights to the Demo user.\n"
-msgstr ""
+msgstr "\nПрава за достъп до счетоводство\n========================\nТова дава на администратора потребителски достъп до всички счетоводни характеристики като статии в журнал и сметкоплан.\n\nТо определя мениджър и правомощия за потребителски достъп на администратора за счетоводното приложение и само потребителски правомощия на демо патребителя.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_contract_dashboard
@@ -714,7 +714,7 @@ msgid ""
 "    * Requested Date (will be used as the expected date on pickings)\n"
 "    * Commitment Date\n"
 "    * Effective Date\n"
-msgstr ""
+msgstr "\nДобавете допълнителна информация за датата към поръчкиге за продажба.\n===================================================\n\nМожете да добавите следните допълнителни дати към поръчката за продажби:\n------------------------------------------------------------\n    * Заявна дата (ще бъде използвана като очакваната дата на пикингите)\n    * Дата на поет ангажимнт\n    * Ефективна дата\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_hr_contract
@@ -730,7 +730,7 @@ msgid ""
 "\n"
 "You can assign several contracts per employee.\n"
 "    "
-msgstr ""
+msgstr "\nДобавете цялата информация във формуляра на служителя, за да управлявате договори.\n=============================================================\n\n    * Договор\n    * Месторождение,\n    * Дата на медицински преглед\n    * Транспортно средство на компанията\n\nМожете да определите няколко договора за служител.\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_product_email_template
@@ -860,7 +860,7 @@ msgid ""
 "\n"
 "You can define your own carrier for prices. When creating\n"
 "invoices from picking, the system is able to add and compute the shipping line.\n"
-msgstr ""
+msgstr "\nПозволява ви да добавите методи за доставка в поръчките за продажба и пикинг.\n==============================================================\n\nМожете да определите свой собствен носител за цени. Когато създавате\nфактури от пикинг, системата може да добавя и изчислява реда на превоза.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_website_portal
@@ -992,7 +992,7 @@ msgid ""
 "scanner, and is used by the posbox to provide barcode scanner support to the\n"
 "point of sale module. \n"
 "\n"
-msgstr ""
+msgstr "\nХардуеърен драйвър за баркодов скенер\n================================\n\nТози модул позволява на уеб клиента да има достъп до дистанционно инсталиран баркодов \nскентер и се използва от posbox, за да предоставя поддръжка на баркодов скенер към\nмодула 'Център за продажба'. \n\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_et
@@ -1395,7 +1395,7 @@ msgid ""
 "to open ESC/POS controlled cashdrawers in the point of sale and other modules\n"
 "that would need such functionality.\n"
 "\n"
-msgstr ""
+msgstr "\nESC/POS Хардуеърен драйвър\n=======================\n\nТози модул позволява отварящо устройство, което да принтира с ESC/POS съвместими принтери и\ntда отваря ESC/POS ковтролирани касови чекмеджета в Центъра за продажби и други модули,\nкоито ще имат нужда от подобна функционалност.\n\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_eu_service
@@ -1526,7 +1526,7 @@ msgid ""
 "This module does **not** turn an Odoo Point Of Sale module into a certified\n"
 "Belgian cash register. It allows the communication on with a certified Fiscal\n"
 "Data Module but will not modify the behaviour of the Point of Sale.\n"
-msgstr ""
+msgstr "\nХардуеърен драйвър на модула за фискални данни\n==================================\n\nТози модул позволява на клиента от Центъра за продажби да комуникира със\nсвързания белгийски модул за фискални данни.\n\nТози модул **не** превръща модула на Центъра за продажби в Odoo в сертифициран\nбелгийски касов апарат. Той позволява комуникацията със сертифициран модул за фискални\nданни, но няма да промени поведението на Центъра за продажби.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_fr_hr_payroll
@@ -2135,7 +2135,7 @@ msgid ""
 "description provided by the CODA configuration tables is based upon the CODA\n"
 "V2.2 specifications.\n"
 "If required, you can manually adjust the descriptions via the CODA configuration menu.\n"
-msgstr ""
+msgstr "\n Модул за въвеждане на банкови извлечения CODA.\n======================================\n\nПоддържани са плоски файлове CODA във формат V2 от белгийски банкови сметки.\n----------------------------------------------------------------------\n    * поддръжка CODA v1.\n    * поддръжка CODA v2.2.\n    * Поддръжка на чуждестранна валута.\n    * Поддръжка за всички видове запис на данни (0, 1, 2, 3, 4, 8, 9).\n    * Разработване и регистриране на всички кодове за транзакции и комуникации със структуриран\n      формат.\n    * Автоматично определяне на финансов журнал чрез конфигурационните параметри на CODA.\n    * Поддръжка на множество журнали по номер на банкова сметка.\n    * Паддръжка на множество извлечениа от различни банкови сметки в един\n      файл CODA.\n    * Поддръжка на банкови сметки CODA на ниво 'само разработка' (дефинирани като type='info' в\n      конфигурационните данни за банковата сметка на CODA).\n    * Многоезикова разработка на CODA, анализ на конфигурационните данни, предоставени за английски\n      нидерландски, френски.\n\nThe machine readable CODA Files are parsed and stored in human readable format in\nCODA Bank Statements. Also Bank Statements are generated containing a subset of\nthe CODA information (only those transaction lines that are required for the\ncreation of the Financial Accounting records). The CODA Bank Statement is a\n'read-only' object, hence remaining a reliable representation of the original\nCODA file whereas the Bank Statement will get modified as required by accounting\nbusiness processes.\n\nCODA Bank Accounts configured as type 'Info' will only generate CODA Bank Statements.\n\nA removal of one object in the CODA processing results in the removal of the\nassociated objects. The removal of a CODA File containing multiple Bank\nStatements will also remove those associated statements.\n\nInstead of a manual adjustment of the generated Bank Statements, you can also\nre-import the CODA after updating the OpenERP database with the information that\nwas missing to allow automatic reconciliation.\n\nRemark on CODA V1 support:\n~~~~~~~~~~~~~~~~~~~~~~~~~~\nIn some cases a transaction code, transaction category or structured\ncommunication code has been given a new or clearer description in CODA V2.The\ndescription provided by the CODA configuration tables is based upon the CODA\nV2.2 specifications.\nIf required, you can manually adjust the descriptions via the CODA configuration menu.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_account_bank_statement_import_ofx
@@ -2568,7 +2568,7 @@ msgid ""
 "* Manager, colleague, collaborator, and employee himself/herself receives email to perform a periodical appraisal.\n"
 "* Every Appraisal Form filled by employees, colleague, collaborator, can be viewed in a PDF form.\n"
 "* Meeting Requests are created manually according to employees appraisals.\n"
-msgstr ""
+msgstr "\nПериодично оценяване на служителите\n==============================================\n\nBy using this application you can maintain the motivational process by doing periodical appraisals of your employees performance. The regular assessment of human resources can benefit your people as well your organization.\n\nНа всеки служител може да бъде определен план за оценка. These plans define the frequency and the way you manage your periodic personal appraisal.\n\nKey Features\n------------\n* Ability to create employee's appraisal(s).\n* An appraisal can be created by an employee's manager or automatically based on schedule which is defined in the employee form.\n* The appraisal is done according to a plan in which various surveys can be created. Each survey can be answered by a particular level in the employees hierarchy. The final review and appraisal is done by the manager.\n* Manager, colleague, collaborator, and employee himself/herself receives email to perform a periodical appraisal.\n* Every Appraisal Form filled by employees, colleague, collaborator, can be viewed in a PDF form.\n* Meeting Requests are created manually according to employees appraisals.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_pe
@@ -2639,7 +2639,7 @@ msgid ""
 "Publish and Assign Partner\n"
 "==========================\n"
 "        "
-msgstr ""
+msgstr "\nПубликувайте и определете партньор\n==========================\n        "
 
 #. module: base
 #: model:ir.module.module,description:base.module_sale_ebay
@@ -3235,7 +3235,7 @@ msgid ""
 "\n"
 "Procurements in exception should be checked manually and can be re-run.\n"
 "    "
-msgstr ""
+msgstr "\nThis is the module for computing Procurements.\n==============================================\n\nThis procurement module only depends on the product module and is not useful\non itself.  Procurements represent needs that need to be solved by a procurement\nrule.  When a procurement is created, it is confirmed.  When a rule is found,\nit will be put in running state.  After, it will check if what needed to be done\nfor the rule has been executed.  Then it will go to the done state.  A procurement\ncan also go into exception, for example when it can not find a rule and it can be cancelled.\n\nThe mechanism will be extended by several modules.  The procurement rule of stock will\ncreate a move and the procurement will be fulfilled when the move is done.\nThe procurement rule of sale_service will create a task.  Those of purchase or\nmrp will create a purchase order or a manufacturing order.\n\nThe scheduler will check дали може да определи правило за потвърдени придобивки and if\nit can put running procurements to done.\n\nProcurements in exception should be checked manually and can be re-run.\n    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_ro
@@ -4278,7 +4278,7 @@ msgid ""
 "    - Assign score on lead: sort your lead automatically and consider the more important at first.\n"
 "    - Assign lead to salesteams: define your own filters and sort automatically your leads by saleteam.\n"
 "    - Assign lead to salesmen: define filter by saleman and dispatch automatically your leads to the right saleman.\n"
-msgstr ""
+msgstr "    Оценка на лийдове\n===================\n\nТози модул Ви позволява да...\n    - Проследете конкретен изглед на страницата на уебсайта си.\n    - Определите предимствата на лийдовете: сортирайте лийдовете си автоматично, като започнете с най-важните.\n    - Определете лийд за търговски екипи: дефинирайте Ваши собствени филтри и сортирайте автоматично лийдовете си за търговски екип.\n    - Определете лийд за продавач: дефинирайте филтър за продавач и изпратете автоматично лийдовете си на правилния.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_inter_company_rules
@@ -4742,7 +4742,7 @@ msgid ""
 "default in order to customize the view of the menu that users will be able "
 "to see. Whether they can have a read, write, create and delete access right "
 "can be managed from here."
-msgstr ""
+msgstr "Дадена група представлява серия функционални зони, коитоще бъдат определени за потребителя, за да му предоставят достъп и права до специфични приложения и задачи в системата. Можете да създавате персонализирани групи или да редактирате съществуващите по подразбиране с оглед персонализирането на изгледа на менюто, което потребителите ще могат да виждат. Независимо дали имат право да четат, пишат, създават и изтриват, могат да бъдат управлявани оттук."
 
 #. module: base
 #: model:ir.module.module,summary:base.module_hw_posbox_homepage
@@ -4804,7 +4804,7 @@ msgstr ""
 #. module: base
 #: selection:res.company,rml_paper_format:0
 msgid "A4"
-msgstr ""
+msgstr "А4"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_partner_title_shortcut
@@ -4881,7 +4881,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_bank_statement_import
 msgid "Account Bank Statement Import"
-msgstr ""
+msgstr "Въвеждане извлечение на банкова сметка"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_localization_account_charts
@@ -5316,7 +5316,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.menu,name:base.menu_aftersale
 msgid "After-Sale"
-msgstr ""
+msgstr "Следпродажбено"
 
 #. module: base
 #: model:res.country,name:base.al
@@ -5935,7 +5935,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_batch_deposit
 msgid "Batch Deposit"
-msgstr ""
+msgstr "Партиден депозит"
 
 #. module: base
 #: selection:res.currency,position:0
@@ -5970,7 +5970,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_coda
 msgid "Belgium - Import Bank CODA Statements"
-msgstr ""
+msgstr "Белгия - въведете CODA банкови извлечения"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll
@@ -6277,7 +6277,7 @@ msgstr "Прекъсни инсталацията"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_cancel
 msgid "Cancel Journal Entries"
-msgstr ""
+msgstr "Отменете статиите в журнала"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.module_form
@@ -6400,7 +6400,7 @@ msgstr "Промяна на модела на полете е забранена
 #: code:addons/base/ir/ir_model.py:484
 #, python-format
 msgid "Changing the storing system for field \"%s\" is not allowed."
-msgstr ""
+msgstr "Промяната на системата за съхранение на полето \"%s\" не е разрешена."
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:509
@@ -6413,7 +6413,7 @@ msgstr ""
 #. module: base
 #: selection:ir.property,type:0
 msgid "Char"
-msgstr ""
+msgstr "Символ"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_livechat
@@ -6700,7 +6700,7 @@ msgid ""
 "        record['size'] = len(record.name)\n"
 "\n"
 "Modules time, datetime, dateutil are available."
-msgstr ""
+msgstr "Код за изчикление стойността на полето.\nСледете периодично набора от записи 'собствени-self' и определете стойност на полето:\n\n    за запис в 'собствен-self':\n        record['size'] = len(record.name)\n\nМодулите време, дата-време, дата-полезност са налични."
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pad
@@ -6776,7 +6776,7 @@ msgstr "Коментари"
 #: model:ir.model.fields,field_description:base.field_res_partner_commercial_partner_id
 #: model:ir.model.fields,field_description:base.field_res_users_commercial_partner_id
 msgid "Commercial Entity"
-msgstr ""
+msgstr "Търговско вписване"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_res_bank_form
@@ -6837,7 +6837,7 @@ msgstr "Данни за компанията"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company_company_registry
 msgid "Company Registry"
-msgstr ""
+msgstr "ЕИК/Булстат"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company_rml_header1
@@ -7048,7 +7048,7 @@ msgstr ""
 #: model:ir.ui.menu,name:base.menu_partner_category_form
 #: model:ir.ui.view,arch_db:base.view_partner_category_list
 msgid "Contact Tags"
-msgstr ""
+msgstr "Тагове на контактите"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_partner_title_contact
@@ -7273,7 +7273,7 @@ msgid ""
 "deactivated should there be a period of time during which they will/should "
 "not connect to the system. You can assign them groups in order to give them "
 "specific access to the applications they need to use in the system."
-msgstr ""
+msgstr "Създайте и управлявайте потребители, които ще се свържат със системата. Потребителите могат да се деактивират, стига да има период от време, по време на който няма/не трябва да се свързват със системата. Можете да им определите групи, за да им предоставите специфичен достъп до приложенията, които ще са им нужни, за да използват системата."
 
 #. module: base
 #: model:ir.module.module,summary:base.module_survey
@@ -7465,7 +7465,7 @@ msgstr "Кредитен лимит"
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_mercury
 msgid "Credit card support for Point Of Sale"
-msgstr ""
+msgstr "Поддръжка на кредитна карта за Център за продажби."
 
 #. module: base
 #: model:res.country,name:base.hr
@@ -7685,7 +7685,7 @@ msgstr "База данни"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_anonymization
 msgid "Database Anonymization"
-msgstr ""
+msgstr "Привеждане в режим 'анонимност' на базата данни"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_attachment_db_datas
@@ -8162,7 +8162,7 @@ msgid ""
 "Display and manage the list of all countries that can be assigned to your "
 "partner records. You can create or delete countries to make sure the ones "
 "you are working on will be maintained."
-msgstr ""
+msgstr "Покажете и управлявайте списъка на всички държави, които могат да бъдет разпределени към партньорските Ви записи. Можете да създавате или отменяте държави, за да сте сигурни, че тези, по които работите ще бъдат поддържани. "
 
 #. module: base
 #: model:res.partner.category,name:base.res_partner_category_13
@@ -9316,7 +9316,7 @@ msgstr ""
 msgid ""
 "Generic Wizard to Import Bank Statements. Includes the import of files in "
 ".OFX format"
-msgstr ""
+msgstr "Общ помощник за въвиждане на банкови извлечения. Влючва въвеждането на файлове в .OFX формат"
 
 #. module: base
 #: model:ir.module.module,description:base.module_website_form
@@ -10049,7 +10049,7 @@ msgid ""
 "If set, this field will be stored in the sparse structure of the "
 "serialization field, instead of having its own database column. This cannot "
 "be changed after creation."
-msgstr ""
+msgstr "Ако е зададено, това поле ще бъде съхранено в структура на полето за сериализация, вместо да има собствена колона в базата данни. Това не може да се промени след създаването."
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_server_action_form
@@ -10177,12 +10177,12 @@ msgstr "Внос / Износ"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_bank_statement_import_ofx
 msgid "Import OFX Bank Statement"
-msgstr ""
+msgstr "Въведете OFX банково извлечение"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_bank_statement_import_qif
 msgid "Import QIF Bank Statement"
-msgstr ""
+msgstr "Въведете QIF банково извлечение"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_view_base_import_language
@@ -11397,7 +11397,7 @@ msgstr "Програма за лоялност"
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_loyalty
 msgid "Loyalty Program for the Point of Sale "
-msgstr ""
+msgstr "Програма за лоялност за Центъра за продажба"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_lunch
@@ -11531,7 +11531,7 @@ msgid ""
 " line and then delete it through the button that appeared. Items can be "
 "assigned to specific groups in order to make them accessible to some users "
 "within the system."
-msgstr ""
+msgstr "Управлявайте и персонализирайте наличните и показани в системното Ви меню на Odoo редове. Можете да заличите ред като кликнете върху квадратчето в началото на всеки ред, след което да го изтриете посредством появилия се бутон. Редове могат да се разпределят към специфични групи с оглед на това да ги направят достъпти за някои потребители в системата."
 
 #. module: base
 #: model:ir.actions.act_window,help:base.action_res_bank_form
@@ -11597,7 +11597,7 @@ msgstr "Производствени операции"
 #. module: base
 #: model:ir.module.module,summary:base.module_mrp
 msgid "Manufacturing Orders, Bill of Materials, Routings"
-msgstr ""
+msgstr "Производствени поръчки, списък с материали, маршрути"
 
 #. module: base
 #: code:addons/models.py:2788
@@ -11632,7 +11632,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_margin
 msgid "Margins in Sales Orders"
-msgstr ""
+msgstr "Маржове в поръчките за продажби"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_marketing
@@ -11889,6 +11889,18 @@ msgid "Model"
 msgstr "Модел"
 
 #. module: base
+#: code:addons/base/ir/ir_model.py:382
+#, python-format
+msgid "Model %s does not exist"
+msgstr ""
+
+#. module: base
+#: code:addons/base/ir/ir_model.py:383
+#, python-format
+msgid "Please specify a valid model for the object relation"
+msgstr ""
+
+#. module: base
 #: code:addons/base/ir/ir_model.py:454
 #, python-format
 msgid "Model %s does not exist!"
@@ -11965,14 +11977,14 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_values_model
 msgid "Model to which this entry applies"
-msgstr ""
+msgstr "Модел, към който се прилага този запис"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_values_model_id
 msgid ""
 "Model to which this entry applies - helper field for setting a model, will "
 "automatically set the correct model name"
-msgstr ""
+msgstr "Модел, към който се прилага този запис - поле-помощник за налагане на модел, моментално ще зададе правилното име на модела."
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_model_model
@@ -12650,7 +12662,7 @@ msgstr ""
 #: code:addons/base/res/res_config.py:551
 #, python-format
 msgid "Only administrators can change the settings"
-msgstr ""
+msgstr "Само администратори мога да променят настройките"
 
 #. module: base
 #: code:addons/base/ir/ir_attachment.py:108
@@ -13013,7 +13025,7 @@ msgstr "Обръщения към партньори"
 #. module: base
 #: model:ir.model.fields,help:base.field_res_users_partner_id
 msgid "Partner-related data of the user"
-msgstr ""
+msgstr "Партньорски данни на потребителя"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_partner_category_partner_ids
@@ -13251,12 +13263,12 @@ msgstr "Център за продажби"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_discount
 msgid "Point of Sale Discounts"
-msgstr ""
+msgstr "Отстъпки на Център за продажби"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_reprint
 msgid "Point of Sale Receipt Reprinting"
-msgstr ""
+msgstr "Повторно разпечатване на квитанции на център за продажби."
 
 #. module: base
 #: model:res.country,name:base.pl
@@ -13609,7 +13621,7 @@ msgstr "Управление на покупки"
 #. module: base
 #: model:ir.module.module,summary:base.module_purchase
 msgid "Purchase Orders, Receipts, Vendor Bills"
-msgstr ""
+msgstr "Поръчки за покупки, квитанции, фактури за покупки "
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_purchase_requisition
@@ -13670,7 +13682,7 @@ msgstr ""
 #: model:ir.module.module,summary:base.module_sale_expense
 #: model:ir.module.module,summary:base.module_sale_stock
 msgid "Quotation, Sale Orders, Delivery & Invoicing Control"
-msgstr ""
+msgstr "Оферта, поръчки за продажба, контрол на доставките и фактурирането"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_sale
@@ -13919,7 +13931,7 @@ msgstr ""
 #: code:addons/base/ir/ir_model.py:486
 #, python-format
 msgid "Renaming sparse field \"%s\" is not allowed"
-msgstr ""
+msgstr "Преименуването на полето \"%s\" не е позволено."
 
 #. module: base
 #: model:ir.module.module,summary:base.module_mrp_repair
@@ -13952,7 +13964,7 @@ msgstr "Справка"
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_company_form
 msgid "Report Configuration"
-msgstr ""
+msgstr "Конфигурация на Отчет"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_report_xml_report_file
@@ -14079,7 +14091,7 @@ msgstr "Ресторант"
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_restaurant
 msgid "Restaurant extensions for the Point of Sale "
-msgstr ""
+msgstr "Разширения на ресторанти за Центъра за продажби"
 
 #. module: base
 #: selection:ir.model.fields,on_delete:0
@@ -14201,7 +14213,7 @@ msgstr "Руанда"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_sepa
 msgid "SEPA Credit Transfer"
-msgstr ""
+msgstr "Кредитен превод ЕЗПЕ"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_mail_server_smtp_port
@@ -14662,13 +14674,13 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields_serialization_field_id
 msgid "Serialization Field"
-msgstr ""
+msgstr "Поле за сериализиране"
 
 #. module: base
 #: code:addons/models.py:426
 #, python-format
 msgid "Serialization field `%s` not found for sparse field `%s`!"
-msgstr ""
+msgstr "Сериализираното поле '%s' не е намерено за полето '%s'!"
 
 #. module: base
 #: selection:ir.logging,type:0
@@ -14817,7 +14829,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_discount
 msgid "Simple Discounts in the Point of Sale "
-msgstr ""
+msgstr "Опростени отстъпки в Центъра за продажби"
 
 #. module: base
 #: model:res.country,name:base.sg
@@ -15146,7 +15158,7 @@ msgstr "Шри Ланка"
 #. module: base
 #: model:ir.ui.menu,name:base.menu_project_config_project
 msgid "Stages"
-msgstr ""
+msgstr "Стадии"
 
 #. module: base
 #: selection:ir.sequence,implementation:0
@@ -16166,7 +16178,7 @@ msgstr "Формат на час"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_timesheet
 msgid "Time Tracking"
-msgstr ""
+msgstr "Отчитане на Време"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_project_issue_sheet
@@ -16895,7 +16907,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_users_log_ids
 msgid "User log entries"
-msgstr ""
+msgstr "Логаритъм на записите на потребителя"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.act_values_form_defaults
@@ -17295,7 +17307,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_form_editor
 msgid "Website Form Builder"
-msgstr ""
+msgstr "Създател на формуляри за уебсайтове"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_gengo
@@ -17330,7 +17342,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_mail
 msgid "Website Mail"
-msgstr ""
+msgstr "Уебсайт имейл"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_mass_mailing
@@ -17380,13 +17392,13 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_version
 msgid "Website Versioning"
-msgstr ""
+msgstr "Версии на уебсайта"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_partner_website
 #: model:ir.model.fields,help:base.field_res_users_website
 msgid "Website of Partner or Company"
-msgstr ""
+msgstr "Уебсайт на партньор или фирма"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.sequence_view
@@ -17464,14 +17476,14 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model_fields_copy
 msgid "Whether the value is copied when duplicating a record."
-msgstr ""
+msgstr "Дали стойността се копира при дублиране на запис."
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model_fields_translate
 msgid ""
 "Whether values for this field can be translated (enables the translation "
 "mechanism for that field)"
-msgstr ""
+msgstr "Дали стойностите за това поле могат да бъдат преведени (позволява транслационния механизъм за това поле)"
 
 #. module: base
 #: model:res.partner.category,name:base.res_partner_category_15
@@ -17543,7 +17555,7 @@ msgstr "Превод на работен процес"
 #: model:ir.ui.view,arch_db:base.view_workflow_workitem_search
 #: model:ir.ui.view,arch_db:base.view_workflow_workitem_tree
 msgid "Workflow Workitems"
-msgstr ""
+msgstr "Работен поток, работни редове"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_workflow_form
@@ -17555,13 +17567,13 @@ msgstr "Работни процеси"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_wkf_triggers_workitem_id
 msgid "Workitem"
-msgstr ""
+msgstr "Работен ред"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_workflow_workitem_form
 #: model:ir.ui.menu,name:base.menu_workflow_workitem
 msgid "Workitems"
-msgstr ""
+msgstr "Работни редове"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_payment_sips
@@ -17622,7 +17634,7 @@ msgstr "Йемен"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_yodlee
 msgid "Yodlee"
-msgstr ""
+msgstr "Yodlee"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_account_yodlee
@@ -17634,7 +17646,7 @@ msgstr ""
 msgid ""
 "You are creating a new user. After saving, the user will receive an invite "
 "email containing a link to set its password."
-msgstr ""
+msgstr "Създавате нов потребител. След като запазите, потребителят ще получи имейл с покана, съдържащ връзка, за да зададе паролата му."
 
 #. module: base
 #: code:addons/base/module/module.py:443
@@ -17660,7 +17672,7 @@ msgstr ""
 msgid ""
 "You can not change the company as the partner/user has multiple user linked "
 "with different companies."
-msgstr ""
+msgstr "Не можете да промените фирмата, тъй като партньорът / потребителят има няколко потребители, свързани с различни компании."
 
 #. module: base
 #: sql_constraint:res.users:0
@@ -17678,7 +17690,7 @@ msgstr ""
 msgid ""
 "You can not remove the admin user as it is used internally for resources "
 "created by Odoo (updates, module installation, ...)"
-msgstr ""
+msgstr "Не можете да премахнете администратора, тъй като той се използва вътрешно за ресурси, създадени от Odoo (актуализации, инсталиране на модули, ...)"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_country_address_format
@@ -17707,13 +17719,13 @@ msgstr "Не можете да създавате рекурсивна йера�
 msgid ""
 "You cannot delete the language which is Active!\n"
 "Please de-activate the language first."
-msgstr ""
+msgstr "Не можете да изтриете езика, който е активен!\nМоля, първо деактивирайте езика."
 
 #. module: base
 #: code:addons/base/res/res_lang.py:205
 #, python-format
 msgid "You cannot delete the language which is User's Preferred Language!"
-msgstr ""
+msgstr "Не можете да изтриете езика, който е предпочитан за потребителя!"
 
 #. module: base
 #: code:addons/base/res/res_users.py:343
@@ -17845,7 +17857,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_partner_kanban_view
 msgid "at"
-msgstr ""
+msgstr "на"
 
 #. module: base
 #: model:ir.model,name:base.model_base_language_export
@@ -17997,7 +18009,7 @@ msgstr "вземи"
 #: selection:base.language.install,state:0
 #: selection:base.module.update,state:0
 msgid "init"
-msgstr ""
+msgstr "инициализация"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_partner_form
@@ -18275,7 +18287,7 @@ msgstr ""
 #: code:addons/base/ir/ir_fields.py:339
 #, python-format
 msgid "name"
-msgstr ""
+msgstr "име"
 
 #. module: base
 #: code:addons/base/ir/ir_fields.py:144
@@ -18344,7 +18356,7 @@ msgstr ""
 #. module: base
 #: model:ir.model,name:base.model_res_config_settings
 msgid "res.config.settings"
-msgstr ""
+msgstr "res.config.settings"
 
 #. module: base
 #: model:ir.model,name:base.model_res_partner_title
@@ -18433,7 +18445,7 @@ msgstr ""
 msgid ""
 "the user will have access to all records of everyone in the sales "
 "application."
-msgstr ""
+msgstr "Потребителят ще има достъп до всички записи на всички в заявлението за продажба."
 
 #. module: base
 #: model:res.groups,comment:base.group_sale_salesman
@@ -18452,7 +18464,7 @@ msgstr ""
 msgid ""
 "the user will have an access to the sales configuration as well as statistic"
 " reports."
-msgstr ""
+msgstr "Потребителят ще има достъп до конфигурацията за продажби, както и статистически отчети."
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_server_action_form

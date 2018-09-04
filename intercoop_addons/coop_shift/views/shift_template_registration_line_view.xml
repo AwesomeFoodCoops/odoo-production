@@ -60,7 +60,7 @@
             <field name="view_type">form</field>
             <field name="name">Attendees</field>
             <field name="view_mode">tree</field>
-            <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_upcoming': True}</field>
+            <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_upcoming': True, 'no_show_time': True}</field>
         </record>
 
         <record id="act_template_registration_line_from_partner_tree_mode" model="ir.actions.act_window">
@@ -68,7 +68,7 @@
             <field name="view_type">form</field>
             <field name="name">Attendees</field>
             <field name="view_mode">tree</field>
-            <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_upcoming': True}</field>
+            <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_upcoming': True, 'no_show_time': True}</field>
         </record>        
     </data>
 </openerp>

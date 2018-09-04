@@ -43,7 +43,7 @@ class StockInventory(osv.osv):
         return res
 
     _columns = {
-        'week_number': fields.integer(string="Week num.", readonly=True, help="Number of the week in the current year"),
+        #'week_number': fields.integer(string="Week num.", readonly=True, help="Number of the week in the current year"),
         'week_date': fields.date(string="Began order schuduling on.", help="Week planning start date"),
 
         'hide_initialisation': fields.boolean(string="Hide initialisation area", help="Hide Init. area",
@@ -61,12 +61,6 @@ class StockInventory(osv.osv):
     }
 
 
-    def onchange_date(self, cr, uid, ids, date, context=None):
-        res = {}
-        if date:
-            week_number = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S").strftime("%W")
-            res['value'] = {'week_number': week_number}
-        return res
 
     def _coop_produce_get_inventory_lines(self, cr, uid, inventory, context=None):
         '''
@@ -193,7 +187,7 @@ class StockInventoryLine(osv.osv):
 
     _columns = {
         'default_packaging': fields.float(string='Default packaging', readonly=True),
-        'packaging_qty': fields.float(string='Theorical packaging qty', readonly=True),
+        'packaging_qty': fields.float(string='Theorical packaging qty', readonly=True,digits_compute=dp.get_precision('Product Unit of Measure')),
         'qty_loss': fields.function(_get_qty_loss, type="float", string='Quantity Lost',
                                     digits_compute=dp.get_precision('Product Unit of Measure'),
                                     help='Quantity Theoric Of Reference - Stock Quantity'),
