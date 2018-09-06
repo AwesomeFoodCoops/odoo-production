@@ -399,7 +399,7 @@ class ShiftLeave(models.Model):
                 last_templates =\
                     template_registration.filtered(
                         lambda l: l.is_current).sorted(
-                        key=lambda l: l.date_begin, reverse=True)
+                        key=lambda l: l.date_begin)
 
                 # Must mark leave as done before setting end_date
                 # for tmpl_reg_line to make _compute_is_unsubscribed

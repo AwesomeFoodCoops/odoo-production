@@ -56,6 +56,8 @@ class ResPartner(models.Model):
 
     leave_qty = fields.Integer(
         string='Number of Shift Leaves', compute='_compute_leave_qty')
+    current_leave_info = fields.Char(
+        string='Current Leave Information', compute='_compute_leave_qty')
 
     registration_ids = fields.One2many(
         'shift.registration', "partner_id", 'Registrations')
@@ -70,8 +72,8 @@ class ResPartner(models.Model):
         'shift.registration', "partner_id", 'Prochains Services',
         compute="_compute_registration_counts")
 
-    next_ftop_registrations = fields.One2many(
-        'shift.registration', "partner_id", 'Prochain Décompte Volant',
+    next_ftop_registration_date = fields.Datetime(
+        string='Prochain Décompte Volant',
         compute="_compute_registration_counts")
 
     tmpl_reg_ids = fields.One2many(
@@ -89,6 +91,11 @@ class ResPartner(models.Model):
     active_tmpl_reg_line_count = fields.Integer(
         "Number of active registration lines",
         compute="_compute_registration_counts")
+
+    current_tmpl_reg_line = fields.Char(
+        string="Current Template Registration Lines",
+        compute="_compute_registration_counts"
+    )
 
     current_template_name = fields.Char(
         string='Current Template', compute='_compute_current_template_name')
@@ -162,9 +169,9 @@ class ResPartner(models.Model):
         string='Extensions Quantity', compute='compute_extension_qty',
         store=True)
 
-    upcomming_extension_qty = fields.Integer(
-        string='Upcoming Extensions Quantity', compute='compute_extension_qty',
-        store=True)
+    current_extension_day_end = fields.Char(
+        string='Current Extension Day End', compute='compute_extension_qty',
+    )
 
     counter_event_ids = fields.One2many(
         comodel_name='shift.counter.event', inverse_name='partner_id',
@@ -200,24 +207,40 @@ class ResPartner(models.Model):
     @api.depends('leave_ids')
     def _compute_leave_qty(self):
         for partner in self:
+            today = fields.Date.context_today(self)
             partner.leave_qty = len(partner.leave_ids.filtered(
-                lambda l: l.stop_date >= fields.Date.context_today(self)))
+                lambda l: l.stop_date >= today))
+            current_leave = partner.leave_ids.filtered(
+                lambda l: l.stop_date >= today and l.start_date <= today
+                and l.state != 'cancel')
+            if current_leave:
+                partner.current_leave_info = "".join(
+                    e[0].upper() for e in current_leave[0].type_id.name.split())\
+                    + "-" + current_leave[0].stop_date.split('-')[2] + '/' +\
+                    current_leave[0].stop_date.split('-')[1] + '/' +\
+                    current_leave[0].stop_date.split('-')[0]
+            else:
+                partner.current_leave_info = False
 
     @api.multi
     def set_next_registration(self, next_registrations):
         self.ensure_one()
-        num_ftop = 0
         num_abcd = 0
+        ftop_next_registrations = next_registrations.filtered(
+            lambda r: r.state == 'open' and
+            r.shift_id.shift_type_id.is_ftop)
+        if ftop_next_registrations:
+            self.next_ftop_registration_date =\
+                ftop_next_registrations[0].date_begin
+        else:
+            self.next_ftop_registration_date = False
+
         for registration in next_registrations.filtered(
-                lambda r: r.state == 'open'):
-            if registration.shift_id.shift_type_id.is_ftop:
-                if num_ftop < 4:
-                    self.next_ftop_registrations = [(4, registration.id)]
-                    num_ftop += 1
-            else:
-                if num_abcd < 4:
-                    self.next_abcd_registrations = [(4, registration.id)]
-                    num_abcd += 1
+            lambda r: r.state == 'open' and not
+                r.shift_id.shift_type_id.is_ftop):
+            if num_abcd < 4:
+                self.next_abcd_registrations = [(4, registration.id)]
+                num_abcd += 1
 
     @api.multi
     def _compute_registration_counts(self):
@@ -228,7 +251,7 @@ class ResPartner(models.Model):
 
             # Set 4 next shifts
             partner.set_next_registration(next_registrations)
-            
+
             partner.upcoming_registration_count = len(next_registrations)
             next_registrations = next_registrations.sorted(
                 lambda r: r.date_begin)
@@ -239,6 +262,15 @@ class ResPartner(models.Model):
             partner.active_tmpl_reg_line_count = len(
                 partner.sudo().tmpl_reg_line_ids.filtered(
                     lambda l: l.is_current or l.is_future))
+            current_tmpl_reg_line = partner.tmpl_reg_line_ids.filtered(
+                lambda l: l.is_current)
+            if current_tmpl_reg_line:
+                if not current_tmpl_reg_line[0].shift_template_id.shift_type_id.is_ftop:
+                    partner.current_tmpl_reg_line =\
+                        current_tmpl_reg_line[0].shift_template_id.name
+                else:
+                    partner.current_tmpl_reg_line =\
+                        current_tmpl_reg_line[0].shift_template_id.name[:14]
 
     @api.multi
     def _compute_current_template_name(self):
@@ -270,9 +302,16 @@ class ResPartner(models.Model):
     def compute_extension_qty(self):
         for partner in self:
             partner.extension_qty = len(partner.sudo().extension_ids)
-            partner.upcomming_extension_qty =\
-                len(partner.sudo().extension_ids.filtered(
-                    lambda e: e.date_stop >= fields.Date.context_today(self)))
+            today = fields.Date.context_today(self)
+            current_extension = partner.extension_ids.filtered(
+                lambda e: e.date_start <= today and e.date_stop >= today)
+            if current_extension:
+                partner.current_extension_day_end =\
+                    current_extension[0].date_stop.split('-')[2] + '/' +\
+                    current_extension[0].date_stop.split('-')[1] + '/' +\
+                    current_extension[0].date_stop.split('-')[0]
+            else:
+                partner.current_extension_day_end = False
 
     @api.depends('counter_event_ids', 'counter_event_ids.point_qty',
                  'counter_event_ids.type', 'counter_event_ids.partner_id',
