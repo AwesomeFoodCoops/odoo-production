@@ -1245,12 +1245,22 @@ msgstr "Tâches"
 #. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_partner_form
 msgid "Tmpl. Registr."
-msgstr "Créneau"
+msgstr "Équipe"
 
 #. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_partner_form
 msgid "Upc. Registr."
-msgstr "Présences"
+msgstr "Services"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_partner_form
+msgid "<span attrs=\"{'invisible':[('current_tmpl_reg_line', '!=', False)]}\">Tmpl. Registr.</span>"
+msgstr "<span attrs=\"{'invisible':[('current_tmpl_reg_line', '!=', False)]}\">Équipe</span>"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_partner_form
+msgid "<span attrs=\"{'invisible':[('current_leave_info', '!=', False)]}\">Leaves</span>"
+msgstr "<span attrs=\"{'invisible':[('current_leave_info', '!=', False)]}\">Congés</span>"
 
 #. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_partner_form
