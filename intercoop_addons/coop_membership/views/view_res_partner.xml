@@ -41,9 +41,9 @@
                                 coop_membership.group_membership_access_user,
                                 coop_membership.group_membership_bdm_lecture,
                                 coop_membership.group_membership_bdm_saisie">
-                            <field name="upcomming_extension_qty" widget="statinfo"
-                                   string="Ext." attrs="{'invisible':[('upcomming_extension_qty', '=', 0)]}"/>
-                            <span attrs="{'invisible':[('upcomming_extension_qty', '!=', 0)]}">Ext.</span>
+                            <field name="current_extension_day_end" 
+                                attrs="{'invisible':[('current_extension_day_end', '=', False)]}"/>
+                            <span attrs="{'invisible':[('current_extension_day_end', '!=', False)]}">Ext.</span>
                         </button>
                         <button name="%(coop_shift.act_shift_registration_from_partner)d"
                                 type="action"
@@ -70,8 +70,9 @@
                                 coop_membership.group_membership_bdm_saisie"
                                 id="view_partner_template_registrations"
                                 attrs="{'invisible':[('is_worker_member', '=', False)]}">
-                            <field name="active_tmpl_reg_line_count"
-                                   widget="statinfo" string="Tmpl. Registr."/>
+                            <field name="current_tmpl_reg_line"
+                                   attrs="{'invisible':[('current_tmpl_reg_line', '=', False)]}"/>
+                            <span attrs="{'invisible':[('current_tmpl_reg_line', '!=', False)]}">Tmpl. Registr.</span>
                         </button>
                         <button name="%(coop_shift.act_shift_leave_from_partner)d"
                                 type="action"
@@ -81,9 +82,9 @@
                                 coop_membership.group_membership_bdm_lecture,
                                 coop_membership.group_membership_bdm_saisie"
                                 id="view_shift_leaves">
-                            <field name="leave_qty" widget="statinfo"
-                                   string="Leaves" attrs="{'invisible':[('leave_qty', '=', 0)]}"/>
-                            <span attrs="{'invisible':[('leave_qty', '!=', 0)]}">Leaves</span>
+                            <field name="current_leave_info" 
+                                   attrs="{'invisible':[('current_leave_info', '=', False)]}"/>
+                            <span attrs="{'invisible':[('current_leave_info', '!=', False)]}">Leaves</span>
                         </button>
                         <button type="action" class="oe_stat_button"
                                 id="invoice_button" icon="fa-pencil-square-o"
@@ -166,7 +167,7 @@
                                 coop_membership.group_membership_bdm_saisie"
                                 id="view_res_partner_point_counter_standard">
                             <field name="display_std_points" widget="statinfo"
-                                   string="Rattrapages ABCD"/>
+                                   string="ABCD"/>
                         </button>
 
                         <button name="%(coop_shift.action_res_partner_point_counter_view_ftop)d"
@@ -226,16 +227,12 @@
                         <group>
                         </group>
                         <group>
-                            <field name="next_ftop_registrations" context="{'just_show_date': True}"
+                            <field name="next_ftop_registration_date" class="bold_type"
                                 attrs="{'invisible': [('shift_type','=', 'standard')]}"
                                 groups="coop_membership.group_membership_bdm_presence,
                                        coop_membership.group_membership_bdm_lecture,
-                                       coop_membership.group_membership_bdm_saisie" >
-                                <tree decoration-bf="1==1">
-                                    <field name="shift_id"/>
-                                </tree>
-                            </field>
-                            <field name="next_abcd_registrations" context="{'just_show_date': True}"
+                                       coop_membership.group_membership_bdm_saisie" />
+                            <field name="next_abcd_registrations"
                                 groups="coop_membership.group_membership_bdm_presence,
                                        coop_membership.group_membership_bdm_lecture,
                                        coop_membership.group_membership_bdm_saisie">
