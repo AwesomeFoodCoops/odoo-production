@@ -25,8 +25,8 @@
                             icon="fa-calendar"
                             help="View partner Extensions"
                             groups="coop_shift.group_shift_manager">
-                        <field name="upcomming_extension_qty" attrs="{'invisible':[('upcomming_extension_qty', '=', 0)]}" widget="statinfo" string="Ext."/>
-                        <span attrs="{'invisible':[('upcomming_extension_qty', '!=', 0)]}">Ext.</span>
+                        <field name="current_extension_day_end" attrs="{'invisible':[('current_extension_day_end', '=', False)]}"/>
+                        <span attrs="{'invisible':[('current_extension_day_end', '!=', False)]}">Ext.</span>
                     </button>
                 </div>
         </field>
