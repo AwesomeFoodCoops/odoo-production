@@ -45,8 +45,8 @@
                         icon="fa-sign-out"
                         help="View partner Leaves"
                         groups="coop_shift.group_shift_see_leave" id="view_shift_leaves">
-                        <field name="leave_qty" attrs="{'invisible':[('leave_qty', '=', 0)]}" widget="statinfo" string="Leaves"/>
-                        <span attrs="{'invisible':[('leave_qty', '!=', 0)]}">Leaves</span>
+                        <field name="current_leave_info" attrs="{'invisible':[('current_leave_info', '=', False)]}"  string="Leaves"/>
+                        <span attrs="{'invisible':[('current_leave_info', '!=', False)]}">Leaves</span>
                     </button>
                     <button name="%(coop_shift.act_template_registration_line_from_partner)d"
 
@@ -55,7 +55,9 @@
                         icon="fa-calendar-plus-o"
                         help="View partner Template Registrations"
                         groups="coop_shift.group_shift_manager" id="view_partner_template_registrations">
-                        <field name="active_tmpl_reg_line_count" widget="statinfo" string="Tmpl. Registr."/>
+                        <field name="current_tmpl_reg_line"
+                                   attrs="{'invisible':[('current_tmpl_reg_line', '=', False)]}"/>
+                        <span attrs="{'invisible':[('current_tmpl_reg_line', '!=', False)]}">Tmpl. Registr.</span>
                     </button>
 
                     <button name="%(coop_shift.action_res_partner_point_counter_view_standard)d"
@@ -64,7 +66,7 @@
                         icon="fa-star-o"
                         help="View Partner Points Standard Counter"
                         groups="coop_shift.group_shift_manager" id="view_res_partner_point_counter_standard">
-                        <field name="display_std_points" widget="statinfo" string="Rattrapages ABCD"/>
+                        <field name="display_std_points" widget="statinfo" string="ABCD"/>
                     </button>
 
                     <button name="%(coop_shift.action_res_partner_point_counter_view_ftop)d"
