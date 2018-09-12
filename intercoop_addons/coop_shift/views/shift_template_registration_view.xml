@@ -168,6 +168,7 @@
             id="menu_action_template_registration"
             parent="coop_shift.template_menu"
             action="action_template_registration"
+            groups="coop_shift.group_shift_manager"
             sequence="20"/>
     </data>
 </openerp>
