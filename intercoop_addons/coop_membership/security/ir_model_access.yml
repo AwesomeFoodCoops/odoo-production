@@ -603,3 +603,12 @@
     perm_read: true
     perm_write: true
     perm_unlink: false
+-
+  !record {model: ir.model.access, id: bdm_saisie_shift_change_team_user}:
+    group_id: coop_membership.group_membership_bdm_saisie
+    model_id: coop_membership.model_shift_change_team
+    name: bdm.saisie.shift.change_team.user
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true

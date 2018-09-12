@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_shift_change_team_tree" model="ir.ui.view">
+        <field name="model">shift.change.team</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id" />
+                <field name="current_shift_template_id"/>
+                <field name="next_current_shift_date" />
+                <field name="new_shift_template_id" />
+                <field name="new_next_shift_date" />
+                <field name="is_abcd_to_abcd" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+	<record id="view_shift_change_team_form" model="ir.ui.view">
+        <field name="model">shift.change.team</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="CHANGE TEAM" name="button_close" class="oe_highlight" type="object" attrs="{'invisible': [('state', '=', 'closed')]}" invisible="context.get('not_show_button_change_team',True)"/>
+                    <button string="SAVE AND NEW" name="button_save_new" class="oe_highlight" type="object" attrs="{'invisible': [('state', '=', 'closed')]}" invisible="context.get('not_show_button_next_member',False)"/>
+                    <button string="SAVE AND CLOSE" name="button_save_close" class="oe_highlight" type="object" attrs="{'invisible': [('state', '=', 'closed')]}" invisible="context.get('not_show_button_next_member',False)"/>
+                    <button string="NEXT MEMBER" name="button_next_member" class="oe_highlight" type="object" attrs="{'invisible': ['|',('state', '=', 'closed'),'|',('partner_id', '=', False), '|',('new_shift_template_id', '=', False), ('new_next_shift_date', '=', False)]}" invisible="context.get('not_show_button_next_member',False)"/>
+                    <field name="state" widget="statusbar" nolabel="1" readonly="1"/> 
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id" domain="[('is_member', '=', True)]" attrs="{'readonly' : [('state', '=', 'closed')]}"/>
+                            <field name="show_partner_state" invisible="1"/>
+                            <field name="current_shift_template_id" attrs="{'invisible': [('show_partner_state', '=', True)]}"/>
+                            <field name="partner_state" attrs="{'invisible': ['|',('partner_id', '=', False), ('show_partner_state', '=', False)]}"/>
+                            <field name="next_current_shift_date"/>
+                        </group>
+                        <group>
+                            <field name="new_shift_template_id" attrs="{'readonly' : [('state', '=', 'closed')]}"/>
+                            <field name="new_next_shift_date" attrs="{'readonly' : [('state', '=', 'closed')]}"/>
+                            <field name="is_abcd_to_abcd" invisible="1"/>
+                            <field name="is_catch_up" attrs="{'invisible': ['|', ('partner_state', '=', 'usubscribed'), ('is_abcd_to_abcd', '=', False)], 'readonly' : [('state', '=', 'closed')]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="is_full_seats_mess" invisible="True"/>
+                        <p class="alert alert-warning" attrs="{'invisible': [('is_full_seats_mess', '=', False)]}">
+                            <field name='full_seats_mess' nolabel='1'/>
+                            <button string="Continue" name="btn_full_seats_process" type="object" default_focus="1" class="btn-primary"/>
+                        </p>
+                        <field name="is_mess_change_team" invisible="True"/>
+                        <p class="alert alert-warning" attrs="{'invisible': [('is_mess_change_team', '=', False)]}">
+                            <field name='mess_change_team' nolabel='1'/>
+                            <button string="Continue" name="btn_change_team_process" type="object" default_focus="1" class="btn-primary"/>
+                        </p>
+                    </group>
+                </sheet>
+                <!-- <div class="oe_chatter">
+                    <field name="message_follower_ids"
+                           widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"
+                           options="{&quot;thread_level&quot;: 1}"/>
+                </div> -->
+            </form>
+        </field>
+    </record>
+
+</odoo>
