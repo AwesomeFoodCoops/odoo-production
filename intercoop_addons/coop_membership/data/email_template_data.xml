@@ -210,6 +210,62 @@ If you think there was a mistake or wish to subscribe to another team please con
 <br/>
 ]]>
         </field>
-    </record>  
+    </record>
 
+    <record id="change_team_abcd_email" model="mail.template">
+        <field name="name">Change to Classique team</field>
+        <field name="model_id" ref="coop_membership.model_shift_change_team"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">Changer d'équipe en Classique messages</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour ${object.partner_id.name}</p>
+<p>Vous êtes inscrit à partir du ${object.new_next_shift_date} dans l’équipe ${object.new_shift_template_id.name}</p>
+<p>Vos deux prochains services sont donc :<br/>
+-  ${object.convert_format_datatime(object.first_next_shift_date)}<br/>
+-  ${object.convert_format_datatime(object.second_next_shift_date)}<br/>
+</p>
+<p>Pour information, votre statut est ${object.convert_state_partner()}.</p>
+<p>Un rattrapage peut vous avoir été attribué si un écart supérieur à 6 semaines a été constaté entre la date de votre dernier service avec l’ancienne équipe et la date de votre premier service dans la nouvelle équipe. Ceci pour respecter la règle des 13 services à réaliser sur l’année.</p>
+<p>Pour tout renseignement, contactez le Bureau des membres pendant ses horaires d’ouverture : 01 86 95 91 90</p>
+<p>Horaires d’ouverture du Bureau Des Membres :</p>
+<p>Mardi : 13h30 - 16h<br/>
+   Mercredi à Vendredi : 13h30 - 20h<br/>
+   Samedi : 10h - 16h<br/>
+</p>
+<p>Bonne journée,
+</p>
+<p>LA LOUVE</p>
+]]>
+        </field>
+    </record>
+
+    <record id="change_team_ftop_email" model="mail.template">
+        <field name="name">Change to Volant team</field>
+        <field name="model_id" ref="coop_membership.model_shift_change_team"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">Changer d'équipe en Volant messages</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour ${object.partner_id.name}</p>
+<p>Vous êtes inscrit à partir du ${object.new_next_shift_date} dans l’équipe volante.</p>
+<p>Vous devrez avoir programmé et fait au moins un service volant entre cette date et le prochain décompte du ${object.convert_format_datatime(object.first_next_shift_date)}.</p>
+<p>En pièce-jointe se trouve le calendrier des semaines ABCD, ainsi que la fiche descriptive du fonctionnement de l’équipe volante. Le fonctionnement de cette équipe étant assez complexe, merci de lire cette fiche attentivement.</p>
+<p>Pour tout renseignement, contactez le Bureau des membres pendant ses horaires d’ouverture : 01 86 95 91 90</p>
+<p>Horaires d’ouverture du Bureau Des Membres :</p>
+<p>Mardi : 13h30 - 16h<br/>
+   Mercredi à Vendredi : 13h30 - 20h<br/>
+   Samedi : 10h - 16h<br/>
+</p>
+<p>Bonne journée,
+</p>
+<p>LA LOUVE</p>
+]]>
+        </field>
+    </record>
+    
 </odoo>

@@ -221,5 +221,12 @@
     <record model="res.groups" id="coop_membership.group_membership_bdm_saisie">
         <field name="menu_access" eval="[(4, ref('coop_shift.shift_menu'))]"/>
     </record>
+    
+    <record model="ir.ui.menu" id="menu_action_shift_change_team">
+        <field name="name">Change Teams</field>
+        <field name="action" ref="action_shift_change_teams"/>
+        <field name="parent_id" ref="coop_shift.template_menu"/>
+        <field name="sequence">40</field>
+    </record>
 
 </odoo>
