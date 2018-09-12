@@ -26,7 +26,7 @@
         parent="shift_main_menu"
         id="template_menu"
         sequence="22"
-        groups="coop_shift.group_shift_manager"/>
+        groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie"/>
     <menuitem
         name="Reports"
         parent="shift_main_menu"
@@ -67,6 +67,7 @@
         <field name="action" ref="action_shift_leave"/>
         <field name="parent_id" ref="template_menu"/>
         <field name="sequence">35</field>
+        <field name="groups_id" eval="[(6, 0, [ref('coop_shift.group_shift_manager')])]"/>
     </record>
 
     <record model="ir.ui.menu" id="menu_shift_leave_type">
