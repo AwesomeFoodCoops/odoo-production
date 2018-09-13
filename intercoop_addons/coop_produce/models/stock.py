@@ -115,7 +115,7 @@ class StockInventory(osv.osv):
                     pt.default_packaging as default_packaging,
                     pt.uom_id as product_uom_id,
                     sum(sq.qty) as product_qty,
-                    sum(sq.qty)/COALESCE(pt.default_packaging,1.0) as packaging_qty,
+                    COALESCE(sum(sq.qty)/pt.default_packaging,1.0) as packaging_qty,
                     sq.location_id as location_id
            FROM stock_quant sq
            INNER JOIN product_product pp ON ( sq.product_id = pp.id)
