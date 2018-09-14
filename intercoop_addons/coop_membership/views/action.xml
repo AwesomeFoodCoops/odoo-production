@@ -271,5 +271,34 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="action_shift_change_teams">
+        <field name="name">Change Teams</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shift.change.team</field>
+        <field name="view_type">form</field>
+        <field name="domain"></field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'not_show_button_next_member': True,
+            'not_show_button_change_team': False}</field>
+    </record>
+
+
+    <record id="mass_change_team_action_server" model="ir.actions.server">
+        <field name="name">Mass Change Teams</field>
+        <field name="model_id" ref="coop_membership.model_res_partner" />
+        <field name="state">code</field>
+        <field name="code">action = self._mass_change_team(cr, uid,
+            context.get('active_ids', []), context=context)</field>
+    </record>
+
+    <record id="action_mass_change_team" model="ir.values">
+        <field name="model_id" ref="base.model_res_partner" />
+        <field name="name">Mass Change Teams</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value"
+            eval="'ir.actions.server,%d'%mass_change_team_action_server" />
+        <field name="key">action</field>
+        <field name="model">res.partner</field>
+    </record>
 
 </odoo>

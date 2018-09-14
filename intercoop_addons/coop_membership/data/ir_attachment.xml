@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    	<record id="volant_sheet_attachment" model="ir.attachment">
+            <field name="name">Fiche Équipe Volante</field>
+            <field name="datas_fname">sheet_volant.pdf</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/coop_membership/static/src/pdf/sheet_volant.pdf</field>
+        </record>
+
+        <record id="volant_calendar_attachment" model="ir.attachment">
+            <field name="name">Calendrier Semaines 2018</field>
+            <field name="datas_fname">calendar_volant.pdf</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/coop_membership/static/src/pdf/calendar_volant.pdf</field>
+        </record>
+
+	</data>
+</openerp>
