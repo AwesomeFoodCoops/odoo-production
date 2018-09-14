@@ -9,13 +9,6 @@ class ProductProduct(models.Model):
     _inherit = 'product.product'
 
     @api.multi
-    def unlink(self):
-        raise Warning(_(
-            'You should not delete product, '
-            'please archive it by clicking button on the right'))
-        return super(ProductProduct, self).unlink()
-
-    @api.multi
     def write(self, vals):
         if 'available_in_pos' in vals and not vals['available_in_pos']:
             self.check_pos_session_running()
