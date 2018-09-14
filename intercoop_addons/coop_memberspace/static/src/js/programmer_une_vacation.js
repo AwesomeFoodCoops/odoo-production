@@ -70,7 +70,7 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                                 'create', [vals])
                             .then(function(result) {
                                 new Model('shift.registration').call(
-                                    'get_coordinators', [result])
+                                    'get_coordinators', [result, true])
                                 .then(function(coordinators) {
                                     let time = $('#time-' + self.shift_id).text();
                                     let hour = $('#hour-' + self.shift_id).text();
@@ -78,15 +78,15 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                                         <tr>
                                             <td scope="row">${time}</td>
                                             <td>${hour}</td>
-                                            <td><span><span>${coordinators}</span> <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
-                                                coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
+                                            <td><span><span>${coordinators[0]}</span> <i data-toggle="tooltip" title="Vous pouvez contacter vos coordinateurs en écrivant à
+                                                ${coordinators[1]} (we should be able to copy the address)" class="fa fa-question-circle js-copy" data-copy="${coordinators[1]}"></i></span></td>
                                             <td><a><button type="button" style="border: 0px; background-color: transparent" class="fa fa-times" data-toggle="modal" data-target="#not_cancel_registration_modal"/></a></td>
                                         </tr>
                                     `;
                                     $('.ftop-programmer-une-vacation-body').append(new_shift);
                                 });
                                 
-                                $('#btn-add-' + self.shift_id).removeAttr("data-toggle").removeAttr("data-target").css({'color': 'red'});
+                                $('#btn-add-' + self.shift_id).removeAttr("data-toggle").removeAttr("data-target").css({'color': 'grey'});
                                 let no_available_seats = '#avalable-seats-' + self.shift_id;
                                 $(no_available_seats).text(parseInt($(no_available_seats).text()) - 1);
                                 $('#programmer_modal').modal('hide');

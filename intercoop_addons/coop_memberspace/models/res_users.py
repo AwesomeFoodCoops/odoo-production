@@ -2,7 +2,7 @@
 
 from openerp import models, api
 import pytz
-from datetime import datetime
+from datetime import datetime, timedelta
 import calendar
 import locale
 import logging
@@ -27,7 +27,8 @@ class ResUsers(models.Model):
             local = pytz.timezone(user_tz)
             date = pytz.utc.localize(datetime.strptime(
                 date, "%Y-%m-%d %H:%M:%S")).astimezone(local)
-            rs = [datetime.strftime(date, item) for item in formats]
+            rs = [datetime.strftime(date, item).capitalize() \
+                for item in formats]
             if obj and obj.get('id', False):
                 rs.append(obj['id'])
             return rs
@@ -45,8 +46,9 @@ class ResUsers(models.Model):
         if tmpl:
             shifts_available = shift_env.sudo().search([
                 ('shift_template_id', '!=', tmpl[0].shift_template_id.id),
-                ('date_begin', '>=', datetime.now().strftime(
-                    '%Y-%m-%d 00:00:00')),
+                ('date_begin', '>=', (
+                    datetime.now() + timedelta(days=1)).strftime(
+                        '%Y-%m-%d 00:00:00')),
                 ('state', '=', 'confirm')
             ]).filtered(lambda r, user=self.env.user:
                 user.partner_id not in r.registration_ids.mapped('partner_id')
