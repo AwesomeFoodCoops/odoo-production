@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo>
+    
+    <menuitem
+        id="account_asset.menu_asset_depreciation_confirmation_wizard"
+        name="Generate Assets Entries"
+        parent="account.menu_finance_entries"
+        sequence="111"
+        groups="base.group_no_one,account.group_account_manager"/>
+
+</odoo>
