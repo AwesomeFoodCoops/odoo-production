@@ -39,7 +39,8 @@ class ResPartner(models.Model):
     @api.multi
     def write(self, vals):
         res = super(ResPartner, self).write(vals)
-        if 'email' in vals:
+        no_check_validate_email = self._context.get('no_check_validate_email')
+        if 'email' in vals and not no_check_validate_email:
             for partner in self:
                 if partner.email:
                     partner.check_exist_email()
@@ -63,10 +64,11 @@ class ResPartner(models.Model):
 
     @api.model
     def create(self, vals):
+        no_check_validate_email = self._context.get('no_check_validate_email')
         res = super(ResPartner, self).create(vals)
         res.check_exist_email()
         if res.validation_url and res.is_interested_people and\
-                res.email and not res.supplier:
+                res.email and not res.supplier and not no_check_validate_email:
             mail_template = self.env.ref(
                 'email_validation_check.email_confirm_validate')
             if mail_template:
