@@ -1,40 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo >
-    <data noupdate="1">
+    <data noupdate="0">
         <record id="parameter_warning_member_state" model="ir.config_parameter">
             <field name="key">warning_member_state</field>
             <field name="value">{
                 'none': {
                     'alert': 'Erreur',
-                    'message': 'Un problème technique nous empêche actuellement de connaître votre statut. Réessayez plus tard ou contactez le bureau des membres.'
+                    'message': "Un problème technique nous empêche actuellement de connaître votre statut. Réessayez plus tard ou contactez le bureau des membres.",
+                    'css-class': 'alert alert-danger'
                 },
                 'alert': {
-                    'alert': 'Attention',
-                    'message': 'Vous avez un ou plusieurs rattrapages à faire.'
+                    'alert': 'Attention !',
+                    'message': "Vous avez un ou plusieurs rattrapages à faire.",
+                    'css-class': 'alert alert-warning'
                 },
                 'suspended': {
-                    'alert': 'Alerte',
-                    'message': 'Vous avez été suspendu, merci de contacter le bureau des membres.'
+                    'alert': '',
+                    'message': "Vous avez été suspendu, merci de contacter le bureau des membres.",
+                    'css-class': 'alert alert-danger'
                 },
                 'delay': {
-                    'alert': 'Alerte',
-                    'message': 'Votre participation est temporairement gelée.'
+                    'alert': 'Attention !',
+                    'message': "Vous avez un ou plusieurs rattrapages à faire.",
+                    'css-class': 'alert alert-warning'
                 },
                 'unpayed': {
-                    'alert': 'Alerte',
-                    'message': 'Vous avez un paiement en retard, vous êtes momentanément suspendu, merci de contacter le bureau des membres.'
+                    'alert': '',
+                    'message': "Un incident s'est présenté sur votre compte. Veuillez contacter le bureau des membres.",
+                    'css-class': 'alert alert-info'
                 },
                 'blocked': {
-                    'alert': 'Alerte',
-                    'message': 'Vous avez été bloqué, merci de contacter le bureau des membres.'
+                    'alert': '',
+                    'message': "Un incident s'est présenté sur votre compte. Veuillez contacter le bureau des membres.",
+                    'css-class': 'alert alert-info'
                 },
                 'unsubscribed': {
-                    'alert': 'Alerte',
-                    'message': 'Vous avez été désinscrit de votre équipe, merci de contacter le bureau des membres.'
+                    'alert': '',
+                    'message': "Vous avez été désinscrit de votre équipe, merci de contacter le bureau des membres.",
+                    'css-class': 'alert alert-danger'
                 },
                 'up_to_date': {
-                    'alert': 'Bravo!',
-                    'message': 'Vous êtes à jour.'
+                    'alert': 'Bravo !',
+                    'message': "Vous êtes à jour.",
+                    'css-class': 'alert alert-success'
+                },
+                'vacation': {
+                    'alert': '',
+                    'message': "En congé.",
+                    'css-class': 'alert alert-warning'
+                },
+                'exempted': {
+                    'alert': '',
+                    'message': "En congé.",
+                    'css-class': 'alert alert-warning'
                 }
             }</field>
         </record>

@@ -24,6 +24,8 @@
         'data/website_menu.xml',
 
         'views/res_partner_view.xml',
+        'views/memberspace_alias_view.xml',
+        'views/memberspace_conversation_view.xml',
         'views/templates.xml',
 
         'views/website/my_work.xml',
