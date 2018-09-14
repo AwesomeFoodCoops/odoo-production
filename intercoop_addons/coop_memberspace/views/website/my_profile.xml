@@ -144,13 +144,13 @@
                         </div>
                     </div>
                     <div id="your_display_reference" class="collapse box-info-content" aria-expanded="true" >
-                        <h4 style="margin-left: 15px;font-size: 22px;">Afficher à votre équipe</h4>
+                        <h4 style="margin-left: 15px;font-size: 25px;">Afficher à votre équipe</h4>
                         <div class="row">
                             <div class="col-xs-4 col-sm-4 col-md-4 text-right">
                                 <h4>Photo :</h4>
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4">
-                                <img class="img-responsive" t-if="user.image" t-attf-src="data:image/*;base64,{{user.image}}" />
+                                <img class="img-responsive" t-if="user.partner_id and user.partner_id.image" t-attf-src="data:image/*;base64,{{user.partner_id.image}}" />
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <label class="switch">

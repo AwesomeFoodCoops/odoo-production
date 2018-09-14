@@ -5,9 +5,12 @@
             <t t-set="title">Espace membre | Ma Participation</t>
             <div class="container-fluid" t-if="website.user_id != user_id">
                 <!-- Status -->
-                <div contenteditable="false" style="text-align: center;color:white;border: 1px solid #8bc34a;margin-top: 10px;background: #8bc34a;
-                    margin-left: -15px;margin-right: -15px;">
-                    <h3 t-esc="member_status or ''" />
+                <div contenteditable="false" style="text-align: center;margin-top: 10px;margin-left: -15px;margin-right: -15px;"
+                    t-att-class="member_status[2]">
+                    <h3 style="margin-bottom: 0px;margin-top: 0px;">
+                        <strong><span t-esc="member_status[0] + ' '" /></strong>
+                        <span t-esc="member_status[1]" />
+                    </h3>
                 </div>
             </div>
             <div class="container">
@@ -78,17 +81,18 @@
                             <th>Date</th>
                             <th>Heure</th>
                             <th>Coordinateurs</th>
-                            <th>Echange</th>
+                            <th>Type</th>
                         </tr>
                     </thead>
                     <tbody>
                         <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
                             <tr>
-                                <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %B %d, %Y', '%HH%M'], lang=user.lang + '.utf8')" />
+                                <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')" />
                                 <td scope="row"><t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/></td>
                                 <td><t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/></td>
-                                <td><span><t t-esc="shift.get_coordinators()" /> <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
-                                    coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
+                                <t t-set="coordinators" t-value="shift.get_coordinators(get_alias_coordinator=True)" />
+                                <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
+                                    #{coordinators[1]} (cliquez pour copier l’adresse)" class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i></span></td>
                                 <td>Extra</td>
                             </tr>
                         </t>
@@ -363,7 +367,7 @@
                                 <t t-set="seats_avail" t-value="sum(shift.shift_ticket_ids.filtered(lambda r: r.shift_type == 'ftop').mapped('seats_available'))" />
                                 <t t-if="seats_avail > 0">
                                     <tr>
-                                        <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A %B %d %Y', '%HH%M'], lang=user.lang + '.utf8')" />
+                                        <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')" />
                                         <td scope="row" t-attf-id="time-{{shift.id}}" ><t t-esc="date_begin and date_begin[0] or ''" /></td>
                                         <td t-attf-id="hour-{{shift.id}}"><t t-esc="date_begin and date_begin[1] or ''" /></td>
                                         <td><span t-attf-id="avalable-seats-{{shift.id}}" t-esc="seats_avail" /></td>
@@ -391,14 +395,14 @@
                                 <th>Date</th>
                                 <th>Heure</th>
                                 <th>Coordinateurs</th>
-                                <th>Echange</th>
+                                <th>Type</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td scope="row">Vendredi 12 juin 2018</td>
                                 <td>10H45</td>
-                                <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
+                                <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA <i data-toggle="tooltip" title="Vous pouvez contacter vos coordinateurs en écrivant à
                                     coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
                                 <td>Extra</td>
                             </tr>
@@ -590,8 +594,9 @@
                                 <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %B %d, %Y', '%HH%M'], lang=user.lang + '.utf8')" />
                                 <td scope="row"><t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/></td>
                                 <td><t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/></td>
-                                <td><span><t t-esc="shift.get_coordinators()" /> <i data-toggle="tooltip" title="Info: Vous pouvez contacter vos coordinateurs en écrivant à
-                                    coordos.ave10@cooplalouve.fr (we should be able to copy the address)" class="fa fa-question-circle"></i></span></td>
+                                <t t-set="coordinators" t-value="shift.get_coordinators(get_alias_coordinator=True)" />
+                                <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
+                                    #{coordinators[1]} (we should be able to copy the address)" class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i></span></td>
                                 <td>
                                     <t t-if="shift.state == 'cancel'">
                                         Annulé
