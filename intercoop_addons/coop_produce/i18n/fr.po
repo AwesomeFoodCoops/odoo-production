@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-30 09:26+0000\n"
-"PO-Revision-Date: 2018-08-30 09:26+0000\n"
+"POT-Creation-Date: 2018-09-16 18:20+0000\n"
+"PO-Revision-Date: 2018-09-16 18:20+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -174,6 +174,11 @@ msgid "Historic Produit"
 msgstr "Historique Produit"
 
 #. module: coop_produce
+#: model:ir.model.fields,field_description:coop_produce.field_planification_product_history_line_ids
+msgid "History"
+msgstr "Historique"
+
+#. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_id
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_id
 #: model:ir.model.fields,field_description:coop_produce.field_planification_product_history_id
@@ -253,11 +258,6 @@ msgid "Last Updated on"
 msgstr "Mis à jour le"
 
 #. module: coop_produce
-#: model:ir.model.fields,field_description:coop_produce.field_planification_product_history_line_ids
-msgid "Line ids"
-msgstr "Lignes"
-
-#. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_loss_qty
 msgid "Loss"
 msgstr "Perte"
@@ -311,9 +311,9 @@ msgid "Next week"
 msgstr "Semaine suivante"
 
 #. module: coop_produce
-#: code:addons/coop_produce/models/week_order_planning.py:679
-#: code:addons/coop_produce/models/week_order_planning.py:683
-#: code:addons/coop_produce/wizard/show_product_planning_history.py:45
+#: code:addons/coop_produce/models/week_order_planning.py:681
+#: code:addons/coop_produce/models/week_order_planning.py:685
+#: code:addons/coop_produce/wizard/show_product_planning_history.py:57
 #, python-format
 msgid "Not yet implemented"
 msgstr "Pas encore implémentée"
@@ -331,7 +331,7 @@ msgid "N° Week"
 msgstr "N° Semaine"
 
 #. module: coop_produce
-#: code:addons/coop_produce/models/week_order_planning.py:455
+#: code:addons/coop_produce/models/week_order_planning.py:456
 #, python-format
 msgid "Order Plan Week %s/%s"
 msgstr "Planning hebdo. d'achat %s/%s"
@@ -369,8 +369,8 @@ msgstr "Tarification"
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
-msgid "PCB rE"
-msgstr "PCB rE"
+msgid "PCB"
+msgstr "PCB"
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_filter
@@ -458,8 +458,8 @@ msgid "Product categories"
 msgstr "Catégories"
 
 #. module: coop_produce
-#: code:addons/coop_produce/models/week_order_planning.py:422
-#: code:addons/coop_produce/models/week_order_planning.py:698
+#: code:addons/coop_produce/models/week_order_planning.py:423
+#: code:addons/coop_produce/models/week_order_planning.py:699
 #: model:ir.ui.view,arch_db:coop_produce.view_order_week_planning_line_search
 #: model:ir.ui.view,arch_db:coop_produce.view_order_week_planning_line_tree
 #, python-format
