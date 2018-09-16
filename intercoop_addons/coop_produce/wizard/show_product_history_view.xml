@@ -13,7 +13,7 @@
                             <field name="product_id" readonly="True" string="Product"/>
                             <field name="default_packaging" readonly="True" string="PCB"/>
                         </group>
-                        <field name="line_ids" string="Details Product" groups="stock.group_stock_manager">
+                        <field name="line_ids" string="Details Product" groups="stock.group_stock_manager" context="{'partner_display_only_ref':True}" readonly="True">
                             <tree string="Détails Historique Produit" create="false">
                                 <field name="week_year"/>
                                 <field name="week_number"/>

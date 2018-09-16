@@ -1,4 +1,5 @@
 import product
+import res_partner
 import stock
 import stock_v8
 import week_order_planning
