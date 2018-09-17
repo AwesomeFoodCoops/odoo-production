@@ -39,6 +39,7 @@ class ShiftRegistration(models.Model):
     related_shift_state = fields.Selection(related="shift_id.state",
                                            store=False,
                                            string="Shift State")
+    is_changed_team = fields.Boolean(string="Changed Team", default=False)
 
     @api.model
     def create(self, vals):

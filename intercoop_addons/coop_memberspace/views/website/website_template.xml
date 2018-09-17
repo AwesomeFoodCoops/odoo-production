@@ -18,4 +18,12 @@
 		</xpath>
 	</template>
 
+    <template id="coop_memberspace.show_sign_in" customize_show="True" inherit_id="website.show_sign_in" name="Show Sign In">
+        <xpath expr="//a[@t-attf-href='/web/login']" position="replace">
+            <a t-attf-href="/web/login">
+                <b>Se connecter</b>
+            </a>
+        </xpath>
+    </template>
+
 </openerp>

@@ -5,3 +5,7 @@
     record = self.browse(cr, uid, ref('base.res_partner_portal_public_rule'))
     if record:
       record.active = False
+
+    record = self.browse(cr, uid, ref('portal_sale.portal_personal_contact'))
+    if record and record.active:
+      record.active = False

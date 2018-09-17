@@ -302,6 +302,7 @@ msgid "Canceled"
 msgstr "Annulé"
 
 #. module: coop_membership
+#: selection:shift.change.team,state:0
 #: selection:shift.holiday,state:0
 msgid "Draft"
 msgstr "Brouillon"
@@ -352,6 +353,7 @@ msgstr "Ouvert"
 
 #. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
+#: selection:shift.change.team,state:0
 #: selection:shift.shift,state_in_holiday:0
 msgid "Closed"
 msgstr "Fermé"
@@ -644,6 +646,20 @@ msgstr "Date de décès"
 #: selection:res.partner,cooperative_state:0
 msgid "Unsubscribed"
 msgstr "Désinscrit"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:222
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_is_unsubscribed
+#: selection:shift.change.team,partner_state:0
+#, python-format
+msgid "Unsubscribed"
+msgstr "Désinscrit"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:94
+#, python-format
+msgid "There are some processes that were not done, please do it!"
+msgstr "l y a des processus qui n'ont pas été faits, faites-le s'il vous plaît!"
 
 #. module: coop_membership
 #: selection:res.partner,cooperative_state:0
@@ -1458,6 +1474,72 @@ msgid "Confirmation of your leave request"
 msgstr "Confirmation de votre demande de congé"
 
 #. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:262
+#: code:addons/coop_membership/models/shift_change_team.py:274
+#: code:addons/coop_membership/models/shift_change_team.py:299
+#: code:addons/coop_membership/models/shift_change_team.py:323
+#: code:addons/coop_membership/models/shift_change_team.py:335
+#: model:ir.actions.act_window,name:coop_membership.action_shift_change_teams
+#: model:ir.ui.menu,name:coop_membership.menu_action_shift_change_team
+#, python-format
+msgid "Change Teams"
+msgstr "Changement d’équipe"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_change_team_next_current_shift_date
+msgid "Next Shift with the Current Team"
+msgstr "Prochaine service, équipe actuelle"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:186
+#, python-format
+msgid "There is no more seat in this  team, would you like to continue?"
+msgstr "Il n’y a plus de place dans cette équipe, souhaitez-vous continuer?"
+
+#. module: coop_membership
+#: model:ir.actions.act_window,name:coop_membership.action_shift_change_team
+#: model:ir.ui.menu,name:coop_membership.menu_action_shift_change_team
+msgid "Change Team"
+msgstr "Changement d’équipe"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_change_team_new_shift_template_id
+msgid "New Team"
+msgstr "Nouvelle Équipe"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_change_team_new_next_shift_date
+msgid "Start date of shift new team"
+msgstr "Date de démarrage, nouvelle équipe"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:101
+#, python-format
+msgid "Can not change from FTOP to ABCD team"
+msgstr "Impossible de passer de l'équipe Volant à Classique"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_change_team_is_catch_up
+msgid "Add a catch-up?"
+msgstr "Ajouter un rattrapage ?"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_change_team_current_shift_template_id
+#: model:ir.model.fields,field_description:coop_membership.field_shift_change_team_partner_state
+msgid "Current Team"
+msgstr "Équipe actuelle"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_change_team_partner_id
+msgid "Member"
+msgstr "Membre"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_change_team_date_end_current_shift
+msgid "End Date Current Shift"
+msgstr "Date de fin, équipe actuelle"
+
+#. module: coop_membership
 #: model:mail.template,body_html:coop_membership.coop_ftop_leave_email
 msgid "\n"
 "<p>Hello ${object.partner_id.name}</p>\n"
@@ -1473,6 +1555,60 @@ msgstr "\n"
 "<p>Nous avons peut être prolongé la durée de votre congé par rapport à votre demande car votre date de retour proposée était trop proche du jour de décompte de l’équipe volante. N’oubliez pas que vous devez avoir fait un service qui suit votre retour${object.shift_date_after_return and (', le ' + str(object.shift_date_after_return)) or ''}.</p>\n"
 "\n"
 "<p>Bonne journée,</p>"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:144
+#, python-format
+msgid "Up to date"
+msgstr "A jour"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:148
+#, python-format
+msgid "Suspended"
+msgstr "Suspendu(e)"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:140
+#, python-format
+msgid "Exempted"
+msgstr "Exempté"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:142
+#, python-format
+msgid "Vacation"
+msgstr "En congés"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:146
+#, python-format
+msgid "Alert"
+msgstr "Alerte"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:150
+#, python-format
+msgid "Delay"
+msgstr "Délai"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:152
+#, python-format
+msgid "Blocked"
+msgstr "Bloqué(e)"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:154
+#, python-format
+msgid "Unpayed"
+msgstr "Impayé"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:156
+#, python-format
+msgid "Not Concerned"
+msgstr "Non concerné"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_leave.py:204
@@ -1512,6 +1648,54 @@ msgstr "Nombre de places volants maximum"
 #: model:ir.model.fields,field_description:coop_membership.field_shift_ticket_available_seat_standard
 msgid "Available Seats Standard"
 msgstr "Places classique disponibles"
+
+#. module: coop_membership
+#: model:ir.actions.server,name:coop_membership.mass_change_team_action_server
+msgid "Mass Change Teams"
+msgstr "Équipes de changement masse"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_change_team_form
+msgid "CHANGE TEAM"
+msgstr "ÉQUIPES DE CHANGEMENT"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_change_team_form
+msgid "SAVE AND CLOSE"
+msgstr "Sauver et fermer"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_change_team_form
+msgid "NEXT MEMBER"
+msgstr "Prochain Membre"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_change_team_form
+msgid "SAVE AND NEW"
+msgstr "Sauver et nouveau"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/res_partner.py:541
+#, python-format
+msgid "Change Team"
+msgstr "Changement d’équipe"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_change_team_form
+msgid "Continue"
+msgstr "Continuer"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:108
+#, python-format
+msgid "A person you want to change team must be a member"
+msgstr "Une personne que vous souhaitez changer d'équipe doit être membre"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_change_team.py:87
+#, python-format
+msgid "Changes Team"
+msgstr "Changement d’équipe"
 
 #. module: coop_membership
 #: model:ir.actions.act_window,name:coop_membership.action_shift_seats_available_tree_view

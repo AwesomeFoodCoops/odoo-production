@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<record id="view_purchase_receipt_form_inherit" model="ir.ui.view">
+		<field name="model">account.voucher</field>
+		<field name="inherit_id" ref="account_voucher.view_purchase_receipt_form"/>
+		<field name="arch" type="xml">
+		    <xpath expr="//field[@name='line_ids']/tree/field[@name='product_id']" position="attributes">
+		        <attribute name="options">{'no_create_edit': True, 'no_create': True}</attribute>
+		    </xpath>
+		</field>
+	</record>
+
+</odoo>

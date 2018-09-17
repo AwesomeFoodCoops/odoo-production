@@ -26,6 +26,8 @@
         "view/view_account_account.xml",
         "view/view_account_journal.xml",
         "wizard/view_bank_statement_line_reconcile_wizard.xml",
+
+        "view/menu.xml",
     ],
     'installable': True,
 }

@@ -1,0 +1,10 @@
+-
+  Update user right for menu Places créneaux
+-
+  !python {model: ir.ui.menu}: |
+    parent_menu_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'coop_shift', 'template_menu')[1]
+    menu_id = self.search(cr, uid, [('name', '=', 'Places créneaux'),('parent_id', '=', parent_menu_id)],limit=1, order=None)
+    menu = self.browse(cr, uid, menu_id, {})
+    group_manage = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'coop_shift', 'group_shift_manager')[1]
+    if menu:
+      menu.groups_id = [(6, 0, [group_manage])]
