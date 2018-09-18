@@ -217,37 +217,41 @@ class Website(openerp.addons.website.controllers.main.Website):
     @http.route('/myteam', type='http', auth='user', website=True)
     def page_myteam(self, **kwargs):
         user = request.env.user
-        tmpl = user.partner_id.tmpl_reg_line_ids.filtered(
+        tmpl_lines = user.partner_id.tmpl_reg_line_ids.filtered(
             lambda r: r.is_current)
-        coordinators = tmpl and tmpl[0].shift_template_id.user_ids or []
+        shift_tmpl = tmpl_lines and tmpl_lines[0].shift_template_id or False
+        coordinators = shift_tmpl and shift_tmpl.user_ids or []
 
-        shifts = request.env['shift.shift'].sudo().search(
-            [
-                ('user_ids', 'in', [user.partner_id.id]),
-                ('state', '=', 'confirm')
-            ]
-        )
-        members = shifts and shifts.mapped('registration_ids').mapped(
-            'partner_id').filtered(lambda r: r.shift_type == 'standard') or []
-        alias_team = request.env['memberspace.alias'].search(
-            [('shift_id', 'in', shifts.ids), ('type', '=', 'team')]
-        )
-        alias_team = ', '.join(
-            [alias.alias_id.name_get()[0][1] for alias in alias_team])
+        alias_leader = shift_tmpl and request.env['memberspace.alias'].search(
+            [('shift_id', '=', shift_tmpl.id), ('type', '=', 'coordinator')],
+            limit=1) or False
+        alias_leader = alias_leader and \
+            alias_leader[0].alias_id.name_get()[0][1] or ''
 
-        alias_leader = request.env['memberspace.alias'].search(
-            [('shift_id', 'in', shifts.ids), ('type', '=', 'coordinator')]
-        )
-        alias_leader = ', '.join(
-            [alias.alias_id.name_get()[0][1] for alias in alias_leader])
-        
+        # User may be have many shift template,
+        # but we just get the first shift template.
+        your_shift_tmpl = request.env['shift.template'].search([
+            ('user_ids', 'in', [user.partner_id.id])
+        ], limit=1)
+        members = your_shift_tmpl and \
+            your_shift_tmpl.registration_ids.filtered(
+                lambda r: r.is_current_participant).mapped(
+                    'partner_id').filtered(
+                        lambda r: r.shift_type == 'standard')
+        alias_team = your_shift_tmpl and \
+            request.env['memberspace.alias'].search(
+                [('shift_id', '=', your_shift_tmpl.id), ('type', '=', 'team')],
+                limit=1) or False
+        alias_team = alias_team and \
+            alias_team[0].alias_id.name_get()[0][1] or ''
+
         return request.render(
             'coop_memberspace.myteam',
             {
                 'coordinators': coordinators,
                 'members': members,
                 'alias_team': alias_team,
-                'alias_leader': alias_leader
+                'alias_leader': alias_leader,
             }
         )
 

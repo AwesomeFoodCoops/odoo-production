@@ -14,7 +14,10 @@ class MemberSpaceConversation(models.Model):
     @api.model
     def create(self, vals):
         res = super(MemberSpaceConversation, self).create(vals)
-        partner_ids = res.memberspace_alias_id.message_follower_ids.mapped(
-            'partner_id').ids
-        res.message_subscribe(partner_ids=partner_ids)
+        alias = res.memberspace_alias_id
+        partners = alias.shift_id.user_ids
+        if alias.type == 'team':
+            partners |= alias.shift_id.registration_ids.filtered(
+                lambda r: r.is_current_participant).mapped('partner_id')
+        res.message_subscribe(partner_ids=partners.ids)
         return res
