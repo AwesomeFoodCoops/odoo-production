@@ -16,6 +16,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_stock
+#: model:ir.ui.view,arch_db:coop_stock.stock_picking_form_view_inherit
+msgid "Copy expected qtys"
+msgstr "Quantités prévues"
+
+#. module: coop_stock
 #: model:ir.model,name:coop_stock.model_stock_inventory
 msgid "Inventory"
 msgstr "Inventaire"
@@ -34,3 +39,4 @@ msgstr "Colisage"
 #: model:ir.model.fields,field_description:coop_stock.field_stock_pack_operation_vendor_product_code
 msgid "Vendor Product Code"
 msgstr "Référence Fournisseur"
+
