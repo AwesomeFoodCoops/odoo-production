@@ -230,9 +230,18 @@ class Website(openerp.addons.website.controllers.main.Website):
 
         # User may be have many shift template,
         # but we just get the first shift template.
-        your_shift_tmpl = request.env['shift.template'].search([
-            ('user_ids', 'in', [user.partner_id.id])
-        ], limit=1)
+        your_shift_tmpls = request.env['shift.template'].search([
+            ('user_ids', 'in', [user.partner_id.id])])
+        your_shift_tmpl = False
+        if len(your_shift_tmpls) > 1:
+            for tmpl in your_shift_tmpls:
+                if user.partner_id in tmpl.registration_ids.filtered(
+                    lambda r: r.is_current_participant).mapped('partner_id'):
+                    your_shift_tmpl = tmpl
+                    break
+        else:
+            your_shift_tmpl = your_shift_tmpls[0]
+
         members = your_shift_tmpl and \
             your_shift_tmpl.registration_ids.filtered(
                 lambda r: r.is_current_participant).mapped(
