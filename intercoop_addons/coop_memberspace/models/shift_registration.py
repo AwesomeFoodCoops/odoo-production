@@ -20,7 +20,7 @@ class ShiftRegistration(models.Model):
         
         # Get alias coordinator
         alias_coordinator = self.env['memberspace.alias'].search([
-            ('shift_id', '=', shift.id),
+            ('shift_id', '=', shift.shift_template_id.id),
             ('type', '=', 'coordinator')
         ], limit=1)
         alias_coordinator = alias_coordinator.alias_id.name_get()[0][1] \
@@ -29,18 +29,3 @@ class ShiftRegistration(models.Model):
         if get_alias_coordinator:
             return coordinators, alias_coordinator
         return coordinators
-
-    @api.model
-    def create(self, vals):
-        res = super(ShiftRegistration, self).create(vals)
-
-        # Add follower to memberspace alias
-        memberspace_alias = self.env['memberspace.alias'].search(
-            [('shift_id', '=', res.shift_id.id), ('type', '=', 'team')],
-            limit=1
-        )
-        if memberspace_alias and \
-                res.state in ('draft', 'open', 'done', 'replacing'):
-            memberspace_alias.message_subscribe(
-                partner_ids=[res.partner_id.id])
-        return res
