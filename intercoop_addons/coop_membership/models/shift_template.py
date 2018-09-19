@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, fields
+from openerp import models, fields, api, _
 
 
 class ShiftTemplate(models.Model):
@@ -29,3 +29,21 @@ class ShiftTemplate(models.Model):
 
     user_ids = fields.Many2many(
         domain=[('is_worker_member', '=', True)])
+
+    warning_leader_unsubscribed = fields.Html(
+        compute="_compute_warning_leader_unsubscribed",
+        string="Warning unsubscribed leader",
+        store=True,
+    )
+
+    @api.multi
+    @api.depends('user_ids', 'user_ids.is_unsubscribed')
+    def _compute_warning_leader_unsubscribed(self):
+        for template in self:
+            if len(template.user_ids) == 1 and\
+                    template.user_ids[0].is_unsubscribed:
+                template.warning_leader_unsubscribed = (_(
+                    "Please choose another leader because" +
+                    " the current leader is unsubscribed"))
+            else:
+                template.warning_leader_unsubscribed = False
