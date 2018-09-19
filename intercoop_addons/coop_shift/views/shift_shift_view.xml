@@ -40,7 +40,7 @@
                         <group name="main_field_group">
                             <group>
                                 <field name="shift_template_id" groups="coop_shift.group_shift_manager" options="{'no_create': True}"/>
-                                <field name="user_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                                <field name="user_ids" options="{'no_create': True}" widget="many2many_tags" domain="[('is_member', '=', True),('is_unsubscribed', '=', False)]"  context="{'member_unsubscribed': True}"/>
                                 <field name="shift_type_id" options="{'no_create': True}"/>
                                 <!-- <field name="date_tz" /> -->
                             </group>
