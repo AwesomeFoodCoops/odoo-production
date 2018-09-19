@@ -19,22 +19,26 @@ class ShiftTemplate(models.Model):
     @api.multi
     def create_email_alias(self):
         self.ensure_one()
-        name = self.name + (self.start_datetime and
-            (' ' + self.start_datetime) or '')
-        alias_prefix = "_".join(
-            name.replace('-', '').replace('.', '').split(' '))
+        template_name = self.name.replace(' ', '').split('-')
+        if self.shift_type_id.is_ftop and len(template_name) > 2:
+            prefix = "%s%s" % (template_name[1][:3], template_name[2][:2])
+        else:
+            prefix = "%s%s" % (template_name[0][:3], template_name[1][:2])
+
             # 1. for the coordinators of the team
+        leader_alias_prefix = 'coordos.%s' % (prefix)
         self.env['memberspace.alias'].create({
-            'name': name + ' - Leader',
+            'name': leader_alias_prefix,
             'shift_id': self.id,
-            'alias_name': '%s_leader' % (alias_prefix),
+            'alias_name': leader_alias_prefix,
             'type': 'coordinator'
         })
             # 2. for the members of the team (include coordinators))
+        team_alias_prefix = 'service.%s' % (prefix)
         self.env['memberspace.alias'].create({
-            'name': name + ' - Team',
+            'name': team_alias_prefix,
             'shift_id': self.id,
-            'alias_name': '%s_team' % (alias_prefix),
+            'alias_name': team_alias_prefix,
             'type': 'team'
         })
 

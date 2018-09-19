@@ -221,6 +221,9 @@ class Website(openerp.addons.website.controllers.main.Website):
             lambda r: r.is_current)
         shift_tmpl = tmpl_lines and tmpl_lines[0].shift_template_id or False
         coordinators = shift_tmpl and shift_tmpl.user_ids or []
+        members = shift_tmpl and shift_tmpl.registration_ids.filtered(
+            lambda r: r.is_current_participant).mapped('partner_id').filtered(
+                lambda r: r.shift_type == 'standard')
 
         alias_leader = shift_tmpl and request.env['memberspace.alias'].search(
             [('shift_id', '=', shift_tmpl.id), ('type', '=', 'coordinator')],
@@ -228,31 +231,14 @@ class Website(openerp.addons.website.controllers.main.Website):
         alias_leader = alias_leader and \
             alias_leader[0].alias_id.name_get()[0][1] or ''
 
-        # User may be have many shift template,
-        # but we just get the first shift template.
-        your_shift_tmpls = request.env['shift.template'].search([
-            ('user_ids', 'in', [user.partner_id.id])])
-        your_shift_tmpl = False
-        if len(your_shift_tmpls) > 1:
-            for tmpl in your_shift_tmpls:
-                if user.partner_id in tmpl.registration_ids.filtered(
-                    lambda r: r.is_current_participant).mapped('partner_id'):
-                    your_shift_tmpl = tmpl
-                    break
-        else:
-            your_shift_tmpl = your_shift_tmpls[0]
-
-        members = your_shift_tmpl and \
-            your_shift_tmpl.registration_ids.filtered(
-                lambda r: r.is_current_participant).mapped(
-                    'partner_id').filtered(
-                        lambda r: r.shift_type == 'standard')
-        alias_team = your_shift_tmpl and \
+        alias_team = shift_tmpl and \
             request.env['memberspace.alias'].search(
-                [('shift_id', '=', your_shift_tmpl.id), ('type', '=', 'team')],
+                [('shift_id', '=', shift_tmpl.id), ('type', '=', 'team')],
                 limit=1) or False
         alias_team = alias_team and \
             alias_team[0].alias_id.name_get()[0][1] or ''
+
+        is_leader = user.partner_id in coordinators
 
         return request.render(
             'coop_memberspace.myteam',
@@ -261,6 +247,7 @@ class Website(openerp.addons.website.controllers.main.Website):
                 'members': members,
                 'alias_team': alias_team,
                 'alias_leader': alias_leader,
+                'is_leader': is_leader
             }
         )
 
