@@ -84,6 +84,12 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                                         </tr>
                                     `;
                                     $('.ftop-programmer-une-vacation-body').append(new_shift);
+                                    $('[data-toggle="tooltip"]').tooltip();
+                                    $('.js-copy').click(function() {
+                                        var text = $(this).attr('data-copy');
+                                        var el = $(this);
+                                        copyToClipboard(text, el);
+                                    });
                                 });
                                 
                                 $('#btn-add-' + self.shift_id).removeAttr("data-toggle").removeAttr("data-target").css({'color': 'grey'});
