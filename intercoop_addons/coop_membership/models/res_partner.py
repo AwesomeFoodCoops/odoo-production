@@ -221,6 +221,15 @@ class ResPartner(models.Model):
             if partner.is_unsubscribed != is_unsucribed:
                 partner.is_unsubscribed = is_unsucribed
 
+            # Auto remove partner from squadleader of team
+            if partner.is_unsubscribed:
+                templates = self.env['shift.template'].search([
+                    ('user_ids', 'in', partner.id),
+                ])
+                for template in templates:
+                    if len(template.user_ids) >= 2:
+                        template.write({'user_ids': [(3, partner.id)]})
+
     @api.multi
     @api.depends('fundraising_partner_type_ids')
     def _compute_is_underclass_population(self):
@@ -446,10 +455,16 @@ class ResPartner(models.Model):
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
+        is_member_unsubscribed = self._context.get(
+            'member_unsubscribed', False)
         if name.isdigit():
-            partners = self.search([
-                ('barcode_base', '=', name),
-                ('is_member', '=', True)], limit=limit)
+            domain = [('barcode_base', '=', name),
+                      ('is_member', '=', True)]
+
+            if is_member_unsubscribed:
+                domain.append(('is_unsubscribed', '=', False))
+
+            partners = self.search(domain, limit=limit)
             if partners:
                 return partners.name_get()
         return super(ResPartner, self).name_search(

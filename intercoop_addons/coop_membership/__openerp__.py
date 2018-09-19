@@ -70,6 +70,7 @@
         'views/view_shift_holiday.xml',
         'views/view_custom_css.xml',
         'views/view_shift_change_team.xml',
+        'views/view_shift_template.xml',
         'views/action.xml',
         'views/menu.xml',
 
