@@ -27,6 +27,7 @@ class ResPartner(models.Model):
         'blocked': 'danger',
         'unpayed': 'danger',
         'unsubscribed': 'danger',
+        'exempted': 'success',
     }
 
     next_shift_time = fields.Datetime(
@@ -46,6 +47,12 @@ class ResPartner(models.Model):
             partner.bootstrap_cooperative_state =\
                 self.MAPPING_COOPERATIVE_STATE.get(
                     partner.cooperative_state, 'danger')
+
+    @api.multi
+    def update_boostrap_partner_state(self):
+        for record in self:
+            record._compute_bootstrap_cooperative_state()
+        return True
 
     @api.multi
     def compute_next_shift_time(self):
