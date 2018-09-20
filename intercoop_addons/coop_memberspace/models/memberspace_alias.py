@@ -10,7 +10,8 @@ class MemberSpaceAlias(models.Model):
     _inherits = {'mail.alias': 'alias_id'}
 
     name = fields.Char("Name", required=True)
-    shift_id = fields.Many2one("shift.shift", "Shift", required=True)
+    shift_id = fields.Many2one(
+        "shift.template", "Shift Template", required=True)
     alias_id = fields.Many2one(
         'mail.alias', 'Alias',
         ondelete="restrict", required=True,

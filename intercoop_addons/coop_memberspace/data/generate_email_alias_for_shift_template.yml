@@ -1,0 +1,9 @@
+-
+  Generate email alias for templates
+  F#29399 - My team - email alias
+-
+  !python {model: shift.template}: |
+    template_ids = self.search(cr, uid, [], limit=None, order=None)
+    if template_ids:
+      templates = self.browse(cr, uid, template_ids)
+      templates.generate_email_alias()
