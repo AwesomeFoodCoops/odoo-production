@@ -23,7 +23,7 @@ odoo.define('coop_memberspace.statistics', function (require) {
                         value.push(item.value);
                     });
                     var data = {
-                        labels: ["Janv.", "Fev.", "Mars", "Avril", "Mai", "Juin", "Juil", "Août", "Sept.", "Oct.", "Nov.", "Dec."],
+                        labels: ["Janv.", "Fev.", "Mars", "Avril", "Mai", "Juin", "Juil.", "Août", "Sept.", "Oct.", "Nov.", "Dec."],
                         datasets: [{
                             label: "Chiffre d’affaires mensuel (k€ TTC)",
                             // borderColor: "#7f7575",
