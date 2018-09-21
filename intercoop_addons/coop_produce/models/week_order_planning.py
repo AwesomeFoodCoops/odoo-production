@@ -693,19 +693,18 @@ class OrderWeekPlanningLine(models.Model):
                              ('week_number', '<=', self.week_number),
                              ])
 
-        tree_view = self.env.ref('coop_produce.view_order_week_planning_line_tree')
-        search_view = self.env.ref('coop_produce.view_order_week_planning_line_search')
+        form_view = self.env.ref('coop_produce.view_coop_produce_historique_product_form')
 
         result = {
             'name': _("Product history"),
             'type': 'ir.actions.act_window',
             'view_type': 'form',
-            'view_mode': 'tree',
-            'view_id': tree_view.id,
-            'search_view_id': search_view.id,
-            'domain': [('id', 'in', lines.ids)],
-            'target': 'new',
-            'res_model': 'order.week.planning.line',
+            'view_mode': 'form',
+            'view_id': form_view.id,
+            'context':{'line_ids':lines.ids,'product_id':self.product_id.id},
+            #'domain': [('id', 'in', lines.ids)],
+            #'target': 'new',
+            'res_model': 'planification.product.history',
         }
 
         return result
@@ -723,6 +722,6 @@ class OrderWeekPlanningLine(models.Model):
                              ('week_year', '=', new_year),
                              ])
         if lines:
-            return sum(x.sold_qty * (x.default_package/default_package) for x in lines)
+            return sum(x.sold_qty * (x.default_packaging/default_package) for x in lines)
         else:
             return 0.0

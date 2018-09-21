@@ -130,7 +130,7 @@
                             </group>
                         </group>
                         <field name="line_ids" string="Order Planning Details"
-                               context="{'default_order_week_planning_id':active_id, 'order_planning_context':True}">
+                               context="{'default_order_week_planning_id':active_id, 'order_planning_context':True,'partner_display_only_ref':True}">
                             <tree string="Order Planning Details" editable="bottom" mode="tree" >
                                 <button name="action_product_history_view" icon="STOCK_JUSTIFY_FILL" type="object"/>
                                 <field name="product_name" invisible="1"/>

@@ -11,13 +11,17 @@
                     <sheet>
                         <group col="4">
                             <field name="product_id" readonly="True" string="Product"/>
-                            <field name="default_packaging" readonly="True" string="PCB rE"/>
+                            <field name="default_packaging" readonly="True" string="PCB"/>
                         </group>
-                        <field name="line_ids" string="Details Product" groups="stock.group_stock_manager">
+                        <field name="line_ids" string="Details Product" groups="stock.group_stock_manager" context="{'partner_display_only_ref':True}" readonly="True">
                             <tree string="Détails Historique Produit" create="false">
+                                <field name="week_year"/>
+                                <field name="week_number"/>
+                                <field name="product_name" invisible="1"/>
                                 <field name="supplier_id" string="Supplier"/>
+                                <field name="supplier_packaging"/>
                                 <field name="price_unit" string="Price U"/>
-                                <field name="start_inv"/>
+                                <field name="start_inv" readonly="1"/>
                                 <field name="monday_qty" string="M"/>
                                 <field name="tuesday_qty" string="T"/>
                                 <field name="wednesday_qty" string="W"/>
