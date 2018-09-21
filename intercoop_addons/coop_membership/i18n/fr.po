@@ -1702,3 +1702,9 @@ msgstr "Changement d’équipe"
 #: model:ir.ui.menu,name:coop_membership.menu_shift_seats_available
 msgid "FTOP Seats"
 msgstr "Places volants"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_template.py:45
+#, python-format
+msgid "Please choose another leader because the current leader is unsubscribed"
+msgstr "S'il vous plaît choisir un autre chef parce que le leader actuel est désabonné"
