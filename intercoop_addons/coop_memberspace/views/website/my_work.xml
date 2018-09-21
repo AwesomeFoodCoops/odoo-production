@@ -149,28 +149,19 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Créé le</th>
-                                <th>Créé par</th>
                                 <th>Service</th>
                                 <th>Description</th>
-                                <th>Manuel</th>
-                                <th>Ignoré</th>
                                 <th>Points</th>
-                                <th>Notes</th>
+                                <th>Solde</th>
                             </tr>
                         </thead>
                         <tbody>
                             <t t-if="shift_counter_events" t-foreach="shift_counter_events" t-as="item">
                                 <tr>
-                                    <t t-set="create_date" t-value="user.get_time_by_user_lang(item.create_date, ['%d/%m/%Y %H:%M'], lang=user.lang + '.utf8')" />
-                                    <td scope="row"><t t-esc="create_date and create_date[0] or ''" /></td>
-                                    <td><t t-esc="item.create_uid.name" /></td>
                                     <td><span t-esc="item.shift_id and item.shift_id.name_get()[0][1] or ''"/></td>
                                     <td><t t-esc="item.name" /></td>
-                                    <td><t t-esc="item.is_manual" /></td>
-                                    <td><t t-esc="item.ignored" /></td>
                                     <td><t t-esc="item.point_qty" /></td>
-                                    <td><t t-esc="item.notes" /></td>
+                                    <td><t t-esc="item.sum_current_qty" /></td>
                                 </tr>
                             </t>
                         </tbody>
@@ -188,28 +179,19 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Créé le</th>
-                                <th>Créé par</th>
                                 <th>Service</th>
                                 <th>Description</th>
-                                <th>Manuel</th>
-                                <th>Ignoré</th>
                                 <th>Points</th>
-                                <th>Notes</th>
+                                <th>Solde</th>
                             </tr>
                         </thead>
                         <tbody>
                             <t t-if="shift_counter_events_extra" t-foreach="shift_counter_events_extra" t-as="item">
                                 <tr>
-                                    <t t-set="create_date" t-value="user.get_time_by_user_lang(item.create_date, ['%d/%m/%Y %H:%M'], lang=user.lang + '.utf8')" />
-                                    <td scope="row"><t t-esc="create_date and create_date[0] or ''" /></td>
-                                    <td><t t-esc="item.create_uid.name" /></td>
                                     <td><span t-esc="item.shift_id and item.shift_id.name_get()[0][1] or ''"/></td>
                                     <td><t t-esc="item.name" /></td>
-                                    <td><t t-esc="item.is_manual" /></td>
-                                    <td><t t-esc="item.ignored" /></td>
                                     <td><t t-esc="item.point_qty" /></td>
-                                    <td><t t-esc="item.notes" /></td>
+                                    <td><t t-esc="item.sum_current_qty" /></td>
                                 </tr>
                             </t>
                         </tbody>
@@ -672,28 +654,19 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Créé le</th>
-                                    <th>Créé par</th>
                                     <th>Service</th>
                                     <th>Description</th>
-                                    <th>Manuel</th>
-                                    <th>Ignoré</th>
                                     <th>Points</th>
-                                    <th>Notes</th>
+                                    <th>Solde</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <t t-if="shift_counter_events" t-foreach="shift_counter_events" t-as="item">
                                     <tr>
-                                        <t t-set="create_date" t-value="user.get_time_by_user_lang(item.create_date, ['%d/%m/%Y %H:%M'], lang=user.lang + '.utf8')" />
-                                        <td scope="row"><t t-esc="create_date and create_date[0] or ''" /></td>
-                                        <td><t t-esc="item.create_uid.name" /></td>
                                         <td><span t-esc="item.shift_id and item.shift_id.name_get()[0][1] or ''"/></td>
                                         <td><t t-esc="item.name" /></td>
-                                        <td><t t-esc="item.is_manual" /></td>
-                                        <td><t t-esc="item.ignored" /></td>
                                         <td><t t-esc="item.point_qty" /></td>
-                                        <td><t t-esc="item.notes" /></td>
+                                        <td><t t-esc="item.sum_current_qty" /></td>
                                     </tr>
                                 </t>
                             </tbody>
