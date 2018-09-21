@@ -14,11 +14,13 @@ class AccountInvoiceLine(models.Model):
         account_invoice_line
         """
         values = {} if values is None else values
+        purchase_line_id = values.get('purchase_line_id')
+        purchase_line = self.env['purchase.order.line'].browse(purchase_line_id)
+        if purchase_line and purchase_line.discount:
+            values.update({'discount': purchase_line.discount})
         account_invoice_line = super(
             AccountInvoiceLine, self).new(values=values)
-        if account_invoice_line.purchase_line_id:
-            account_invoice_line.discount =\
-                account_invoice_line.purchase_line_id.discount
+                
         return account_invoice_line
 
     @api.one
