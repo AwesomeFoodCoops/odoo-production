@@ -1099,7 +1099,7 @@
         <field name="arch" type="xml">
             <tree string="Members">
                 <field name="barcode_base"/>
-                <field name="display_name"/>
+                <field name="name"/>
                 <field name="phone" groups="coop_membership.group_membership_see_associated_people,
 coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_saisie"/>
                 <field name="email" groups="coop_membership.group_membership_see_associated_people,
@@ -1245,7 +1245,7 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
         <field name="arch" type="xml">
             <tree string="Members">
                 <field name="barcode_base" string="Coop Number"/>
-                <field name="display_name"/>
+                <field name="name"/>
                 <field name="is_member"/>
                 <field name="is_worker_member"/>
                 <field name="is_former_member"/>
