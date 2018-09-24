@@ -220,10 +220,12 @@ class Website(openerp.addons.website.controllers.main.Website):
         tmpl_lines = user.partner_id.tmpl_reg_line_ids.filtered(
             lambda r: r.is_current)
         shift_tmpl = tmpl_lines and tmpl_lines[0].shift_template_id or False
-        coordinators = shift_tmpl and shift_tmpl.user_ids or []
+        coordinators = shift_tmpl and shift_tmpl.user_ids.sorted(
+            key=lambda r: r.name) or []
         members = shift_tmpl and shift_tmpl.registration_ids.filtered(
             lambda r: r.is_current_participant).mapped('partner_id').filtered(
-                lambda r: r.shift_type == 'standard')
+                lambda r: r.shift_type == 'standard').sorted(
+            key=lambda r: r.name) or []
 
         alias_leader = shift_tmpl and request.env['memberspace.alias'].search(
             [('shift_id', '=', shift_tmpl.id), ('type', '=', 'coordinator')],

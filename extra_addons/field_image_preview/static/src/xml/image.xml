@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+
+    <t t-name="FieldBinaryImage-img">
+	
+
+			<img 
+			t-att-src='url'
+			t-att-border="widget.readonly ? 0 : 1"
+			t-att-name="widget.name"
+			t-att-width="widget.node.attrs.img_width || widget.node.attrs.width"
+			t-att-height="widget.node.attrs.img_height || widget.node.attrs.height"
+			class="in"
+			/>
+
+	<div id="outer">
+		<img id="inner" src="" />
+  		<a href="#" class="open-block-close" title="close">x</a>
+	</div>
+
+    </t>
+
+
+
+</template>
