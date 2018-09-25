@@ -15,40 +15,37 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                     self.session = sessiondata;
                 });
                 $('.toggle-ftop-programmer').on('click', function() {
+                    var button_modal = this;
+                    $(button_modal).prop('disabled', true);
+                    $('.ftop-programmer-text').addClass("hide");
+                    $('.toggle-ftop-spinner-icon').removeClass("hide");
+                    $('.toggle-ftop-spinner-text').removeClass("hide");
                     $('.body_ftop_programmer').empty();
                     new Model('res.users').call('ftop_get_shift')
                     .then(function(shifts) {
                         shifts.forEach(function(shift, idx, array) {
-                            let promises = [];
-                            let domain = [['id', 'in', shift.shift_ticket_ids], ['shift_type', '=', 'ftop']]
-                            promises.push(new Model('res.users').call('get_time_by_user_lang', [shift.date_begin, ['%A %B %d %Y', '%HH%M'], shift, self.session.user_context.lang + '.utf8']))
-                            promises.push(new Model('shift.ticket').call('search_read', [domain]));
-                            $.when.apply($, promises).then(function() {
-                                let shift = shifts.find(x => x.id === arguments[0][2]);
-                                let sum = _.reduce(arguments[1], function(memo, num){
-                                    return memo + num.seats_available;
-                                }, 0);
-                                if (shift && sum > 0) {
-                                    $('.body_ftop_programmer').append(
-                                        `<tr>
-                                            <td scope="row" id="time-${shift.id}">${arguments[0][0]}</td>
-                                            <td id="hour-${shift.id}">${arguments[0][1]}</td>
-                                            <td id="avalable-seats-${shift.id}"><span>${sum}</span></td>
-                                            <td><a><span class="fa fa-user-plus" data-toggle="modal" data-target="#programmer_modal" id="btn-add-${shift.id}" shift-id="${shift.id}" /></a></td>
-                                        </tr>`
-                                    );
-                                    $('.fa.fa-user-plus').on('click', function() {
-                                        let shift_id = $(this).attr('shift-id');
-                                        self.shift_id = shift_id;
-                                        let time = $('#time-' + shift_id).text();
-                                        let hour = $('#hour-' + shift_id).text();
-                                        $('#modal_time').text(time);
-                                        $('#modal_hour').text(hour);
-                                    });
-                                }
+                            $('.body_ftop_programmer').append(
+                                `<tr>
+                                    <td scope="row" id="time-${shift.id}">${shift.date_begin[0]}</td>
+                                    <td id="hour-${shift.id}">${shift.date_begin[1]}</td>
+                                    <td id="avalable-seats-${shift.id}"><span>${shift.seats_avail}</span></td>
+                                    <td><a><span class="fa fa-user-plus" data-toggle="modal" data-target="#programmer_modal" id="btn-add-${shift.id}" shift-id="${shift.id}" /></a></td>
+                                </tr>`
+                            );
+                            $('.fa.fa-user-plus').on('click', function() {
+                                let shift_id = $(this).attr('shift-id');
+                                self.shift_id = shift_id;
+                                let time = $('#time-' + shift_id).text();
+                                let hour = $('#hour-' + shift_id).text();
+                                $('#modal_time').text(time);
+                                $('#modal_hour').text(hour);
                             });
                         });
                         $('#ftop_programmer_modal').modal('show');
+                        $('.ftop-programmer-text').removeClass("hide");
+                        $('.toggle-ftop-spinner-icon').addClass("hide");
+                        $('.toggle-ftop-spinner-text').addClass("hide");
+                        $(button_modal).prop('disabled', false);
                     });
                 });
                 $('.fa.fa-check').on('click', function(e) {
