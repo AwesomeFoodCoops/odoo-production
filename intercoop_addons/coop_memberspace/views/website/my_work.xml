@@ -554,7 +554,13 @@
                     <p class="text-center">Si vous êtes membre de l’équipe volante, passez par ici pour voir les
                         services disponibles et programmer vôtre vacation. L’annulation
                         d’un service se fait uniquement par contact direct avec le bureau des membres.</p>
-                    <div class="text-center"><a class="btn btn-default btn-warning toggle-ftop-programmer">Programmer</a></div>
+                    <div class="text-center">
+                        <button class="btn btn-default btn-warning toggle-ftop-programmer">
+                            <span class="ftop-programmer-text">Programmer</span>
+                            <i class="toggle-ftop-spinner-icon fa fa-spinner fa-spin hide"></i>
+                            <span class="toggle-ftop-spinner-text hide">Chargement</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -573,7 +579,7 @@
                     <tbody class="ftop-programmer-une-vacation-body">
                         <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
                             <tr>
-                                <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %B %d, %Y', '%HH%M'], lang=user.lang + '.utf8')" />
+                                <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')" />
                                 <td scope="row"><t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/></td>
                                 <td><t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/></td>
                                 <t t-set="coordinators" t-value="shift.get_coordinators(get_alias_coordinator=True)" />
