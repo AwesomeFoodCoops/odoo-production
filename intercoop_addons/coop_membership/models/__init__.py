@@ -25,3 +25,4 @@ from . import shift_template_registration_line
 from . import shift_ticketfrom . import shift_holiday
 from . import shift_counter_event
 from . import shift_change_team
+from . import res_company
