@@ -6,7 +6,7 @@
             <field name="model">account.journal</field>
             <field name="inherit_id" ref="account.view_account_journal_form"/>
             <field name="arch" type="xml">
-                <field name="company_id" position="after">
+                <field name="bank_acc_number" position="after">
                     <field name="search_limit_days" />
                 </field>
             </field>
