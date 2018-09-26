@@ -43,6 +43,7 @@
         # Wizard
         'wizard/view_capital_fundraising_wizard.xml',
         'wizard/res_partner_generate_barcode_wizard.xml',
+        'wizard/contact_us_message_wizard.xml',
 
         # Classical Data
         'views/view_shift_counter_event.xml',

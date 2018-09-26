@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- Views -->
+    <record model="ir.ui.view" id="view_contact_us_message_wizard">
+        <field name="model">contact.us.message.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="message" nolabel="1"/>
+                </group>
+                <footer>
+                    <button string="OK" name="button_ok" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <!-- <record model="ir.actions.act_window" id="action_res_partner_generate_barcode_wizard">
+        <field name="name">Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contact.us.message.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record> -->
+</odoo>
