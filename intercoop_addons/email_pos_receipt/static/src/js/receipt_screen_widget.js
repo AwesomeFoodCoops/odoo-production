@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 */
 
-odoo.define('pos_receipt_by_email.receipt_screen_widget', function (require) {
+odoo.define('email_pos_receipt.receipt_screen_widget', function (require) {
     "use strict";
 
     var models = require('point_of_sale.models');
@@ -18,8 +18,9 @@ odoo.define('pos_receipt_by_email.receipt_screen_widget', function (require) {
         print_web: function() {
             var client = this.pos.get_client();
             var email_pos_receipt = client ? client.email_pos_receipt: false;
-            if (this.pos.config.is_print_receipt == false && email_pos_receipt){
-                console.log("Skip print receipt by web")
+            var receipt_options = this.pos.config_settings ? this.pos.config_settings.receipt_options : false;
+            if (receipt_options && receipt_options == 3 && email_pos_receipt) {
+                console.log("Skip print receipt by web");
                 return
             } else {
                 return this._super();
@@ -29,11 +30,12 @@ odoo.define('pos_receipt_by_email.receipt_screen_widget', function (require) {
         print_xml: function() {
             var client = this.pos.get_client();
             var email_pos_receipt = client ? client.email_pos_receipt: false;
-            if (this.pos.config.is_print_receipt == false && email_pos_receipt){
-                console.log("Skip print receipt by xml")
+            var receipt_options = this.pos.config_settings ? this.pos.config_settings.receipt_options : false;
+            if (receipt_options && receipt_options == 3 && email_pos_receipt) {
+                console.log("Skip print receipt by web");
                 return
-            }else{
-                return this._super()
+            } else {
+                return this._super();
             }
         },
     });
