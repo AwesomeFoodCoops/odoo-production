@@ -10,5 +10,6 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     email_pos_receipt = fields.Boolean(
-        string="Send email POS",
-        default=False)
+        string="E-receipt",
+        default=False,
+        help="If you tick this box and option 3 is selected for 'Receipt' in point of sale settings, the user will only receive e-receipt")
