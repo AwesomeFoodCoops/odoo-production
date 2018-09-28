@@ -16,6 +16,7 @@
 							<field name="associated_people_available" widget="radio"/>
 							<field name="max_nb_associated_people" nolabel="1" attrs="{'invisible':[('associated_people_available','=','unlimited')], 'required':[('associated_people_available', '=', 'limited')]}"/>
                     	</div>
+                        <field name="contact_us_messages"/>
                     </group>
 
                 </form>

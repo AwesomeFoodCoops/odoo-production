@@ -14,6 +14,7 @@ PARAMS = [
      "coop_membership.associated_people_available"),
 ]
 
+
 class MembersConfiguration(models.TransientModel):
     _inherit = 'res.config.settings'
     _name = 'members.config.settings'
@@ -22,6 +23,8 @@ class MembersConfiguration(models.TransientModel):
     associated_people_available = fields.Selection([
         ('unlimited', 'Unlimited'),
         ('limited', 'Limited')], default='unlimited')
+    contact_us_messages = fields.Text(
+        string="Contact Us Message")
 
     @api.multi
     @api.constrains('max_nb_associated_people')
@@ -34,7 +37,7 @@ class MembersConfiguration(models.TransientModel):
         for rc in self:
             if rc.max_nb_associated_people < 0:
                 raise ValidationError(_("The maximum number of " +
-                    "associated people must be a positive number !"))
+                                        "associated people must be a positive number !"))
 
     @api.multi
     def set_params(self):
@@ -54,3 +57,23 @@ class MembersConfiguration(models.TransientModel):
                 'associated_people_available': avail_check
                 }
 
+    @api.model
+    def default_get(self, fields):
+        res = super(MembersConfiguration, self).default_get(fields)
+        message = self.env.user.company_id.contact_us_message
+        if 'contact_us_messages' in fields:
+            if not message:
+                message = _("Hello,\n" +
+                            "Please contact member office or any employee of the coop for administrative purpose.\n" +
+                            "Best regards %s" % (self.env.user.company_id.name))
+            res.update({
+                'contact_us_messages': message
+            })
+        return res
+
+    @api.multi
+    def execute(self):
+        for record in self:
+            self.env.user.company_id.contact_us_message =\
+                record.contact_us_messages
+        return super(MembersConfiguration, self).execute()

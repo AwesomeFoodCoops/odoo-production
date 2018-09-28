@@ -139,6 +139,7 @@ class ResPartner(models.Model):
                                          store=True,
                                          compute="compute_badge_to_distribute")
     badge_print_date = fields.Date(string="Badge Print Date")
+    contact_us_message = fields.Text(string="Contact Us Message")
 
     # Constraint Section
     @api.multi
@@ -202,6 +203,26 @@ class ResPartner(models.Model):
                 d1 = datetime.strptime(partner.birthdate, "%Y-%m-%d").date()
                 d2 = date.today()
                 partner.age = relativedelta(d2, d1).years
+
+    @api.multi
+    def set_messages_contact(self):
+        self.ensure_one()
+        message = self.env.user.company_id.contact_us_message
+        if self.contact_us_message:
+            message = self.contact_us_message
+        wizard = self.env['contact.us.message.wizard'].create({
+            'partner_id': self.id,
+            'message': message,
+        })
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Message Contact'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'contact.us.message.wizard',
+            'res_id': wizard.id,
+            'target': 'new',
+        }
 
     @api.multi
     @api.depends(

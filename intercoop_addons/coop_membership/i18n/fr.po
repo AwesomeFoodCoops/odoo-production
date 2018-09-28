@@ -177,6 +177,7 @@ msgid "Can Change fundraising Category"
 msgstr "Peux changer la catégorie de titre"
 
 #. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_contact_us_message_wizard
 #: model:ir.ui.view,name:coop_membership.view_res_partner_generate_barcode_wizard_form
 #: model:ir.ui.view,arch_db:coop_membership.view_shift_leave_form
 msgid "Cancel"
@@ -1681,9 +1682,43 @@ msgid "Change Team"
 msgstr "Changement d’équipe"
 
 #. module: coop_membership
+#: model:res.groups,name:coop_membership.group_see_contact_messeage
+msgid "See Internal Notes"
+msgstr "Voir les notes internes"
+
+#. module: coop_membership
+#: model:res.groups,name:coop_membership.group_edit_contact_messeage
+msgid "Edit Internal Notes"
+msgstr "Modifier les notes internes"
+
+#. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_shift_change_team_form
 msgid "Continue"
 msgstr "Continuer"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_partner_form
+msgid "Contact Us"
+msgstr "Contact BDM"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_contact_us_message_wizard_message
+#: model:ir.model.fields,field_description:coop_membership.field_members_config_settings_contact_us_messages
+#: model:ir.model.fields,field_description:coop_membership.field_res_company_contact_us_message
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_contact_us_message
+#: model:ir.model.fields,field_description:coop_membership.field_res_users_contact_us_message
+msgid "Contact Us Message"
+msgstr "Message contact badgeuse"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/res_config.py:73
+#, python-format
+msgid "Hello,\n"
+"Please contact member office or any employee of the coop for administrative purpose.\n"
+"Best regards %s"
+msgstr "Bonjour,\n"
+"Veuillez contacter un salarié ou vous rendre au bureau des membres pour une raison administrative.\n"
+"Cordialement, L'équipe %s"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_change_team.py:108
@@ -1702,6 +1737,16 @@ msgstr "Changement d’équipe"
 #: model:ir.ui.menu,name:coop_membership.menu_shift_seats_available
 msgid "FTOP Seats"
 msgstr "Places volants"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_contact_us_message_wizard
+msgid "OK"
+msgstr "Confirmer"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_partner_form
+msgid "Comment"
+msgstr "Commentaires"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_template.py:45
