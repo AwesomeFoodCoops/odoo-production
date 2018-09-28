@@ -40,10 +40,7 @@ Functionnalities
         'report',
     ],
     'data': [
-        # security
-        'security/ir.model.access.csv',
         'views/product_label_view.xml',
-        'views/product_product_view.xml',
         'data/product_label.xml',
         'data/ir_actions_report_xml.xml',
         'data/report_paperformat.xml',

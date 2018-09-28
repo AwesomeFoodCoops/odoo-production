@@ -1,4 +1,4 @@
-odoo.define('louve_custom_pos.models.init', function(require) {
+odoo.define('pos_search_improvement.models.init', function(require) {
     "use strict";
 
     var models = require('point_of_sale.models');
