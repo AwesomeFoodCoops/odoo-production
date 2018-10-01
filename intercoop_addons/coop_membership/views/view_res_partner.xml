@@ -850,6 +850,11 @@
                                 </p>
                             </div>
                         </page>
+                        <page name="contact_us_message" string="Comment"
+                              groups="coop_membership.group_see_contact_messeage">
+                            <button style="margin-top: 5px;" string="Contact Us" type="object" name="set_messages_contact" class="oe_highlight"  groups="coop_membership.group_edit_contact_messeage"/>
+                            <field style="margin-top: 5px;" name="contact_us_message" readonly="1"/>
+                        </page>
                     </notebook>
                 </sheet>
                 <!--TODO: bdm lecture should readonly mail message-->

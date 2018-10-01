@@ -5,4 +5,22 @@
         <field name="context">{'show_export_button': True}</field> 
     </record>
 
+    <record id="stock_picking_type_action_inherit" model="ir.actions.act_window">
+        <field name="name">Inventory</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to create a new picking type.
+          </p><p>
+            The picking type system allows you to assign each stock
+            operation a specific type which will alter its views accordingly.
+            On the picking type you could e.g. specify if packing is needed by default,
+            if it should show the customer.
+          </p>
+        </field>
+    </record>
+
 </odoo>

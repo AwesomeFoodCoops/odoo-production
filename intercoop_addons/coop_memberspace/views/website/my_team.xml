@@ -14,14 +14,14 @@
                     </h3>
                     <div class="row">
                         <t t-if="coordinators" t-foreach="coordinators" t-as="coordinator">
-                            <div class="col-sm-4 member_kanban">
+                            <div class="col-sm-6 col-md-4 member_kanban">
                                 <div class="member_kanban_content">
                                     <div class="member_image">
                                         <img t-if="coordinator.image and coordinator.public_avatar" t-attf-src="data:image/*;base64,{{coordinator.image}}" />
                                         <img t-if="not (coordinator.image and coordinator.public_avatar)" src="/base/static/src/img/avatar.png" />
                                     </div>
                                     <div class="member_detail">
-                                        <h5><strong class="member_heading" t-esc="coordinator.name" /></h5>
+                                        <h5  class="member_heading"><strong t-esc="coordinator.name" /></h5>
                                         <ul>
                                             <li><t t-if="coordinator.public_email"><t t-esc="coordinator.email" /></t></li>
                                             <li><t t-if="coordinator.public_mobile"><t t-esc="coordinator.mobile" /></t></li>
@@ -44,14 +44,14 @@
                     </h3>
                     <div class="row">
                         <t t-foreach="members" t-as="member">
-                            <div class="col-sm-4 member_kanban">
+                            <div class="col-sm-6 col-md-4 member_kanban">
                                 <div class="member_kanban_content">
                                     <div class="member_image">
                                         <img t-if="member.image and member.public_avatar" t-attf-src="data:image/*;base64,{{member.image}}" />
                                         <img t-if="not (member.image and member.public_avatar)" src="/base/static/src/img/avatar.png" />
                                     </div>
                                     <div class="member_detail">
-                                        <h5><strong class="member_heading" t-esc="member.name" /></h5>
+                                        <h5  class="member_heading"><strong t-esc="member.name" /></h5>
                                         <ul>
                                             <li><t t-if="member.public_email"><t t-esc="member.email" /></t></li>
                                             <li><t t-if="member.public_mobile"><t t-esc="member.mobile" /></t></li>
