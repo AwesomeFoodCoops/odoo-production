@@ -219,7 +219,9 @@ class PurchaseOrderLine(models.Model):
     @api.onchange('product_qty_package')
     def onchange_product_qty_package(self):
         if self.product_qty_package == int(self.product_qty_package):
-            self.product_qty = self.package_qty * self.product_qty_package
+            product_qty_package = self.product_qty/self.package_qty
+            if round(product_qty_package, 2) != self.product_qty_package:
+                self.product_qty = self.package_qty * self.product_qty_package
 
     @api.onchange('package_qty')
     def onchange_package_qty(self):
