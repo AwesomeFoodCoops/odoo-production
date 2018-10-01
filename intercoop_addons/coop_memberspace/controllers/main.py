@@ -172,8 +172,7 @@ class Website(openerp.addons.website.controllers.main.Website):
                 ('shift_template_id', '!=', tmpl[0].shift_template_id.id),
                 ('date_begin', '>=', (
                     datetime.now() + timedelta(days=1)).strftime(
-                        '%Y-%m-%d 00:00:00')),
-                ('state', '=', 'confirm')
+                        '%Y-%m-%d 00:00:00'))
             ]).filtered(
                 lambda r, user=request.env.user: user.partner_id not in
                 r.registration_ids.mapped('partner_id')

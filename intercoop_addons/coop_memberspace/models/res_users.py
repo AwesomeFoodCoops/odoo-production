@@ -49,8 +49,7 @@ class ResUsers(models.Model):
                 ('shift_template_id', '!=', tmpl[0].shift_template_id.id),
                 ('date_begin', '>=', (
                     datetime.now() + timedelta(days=1)).strftime(
-                        '%Y-%m-%d 00:00:00')),
-                ('state', '=', 'confirm')
+                        '%Y-%m-%d 00:00:00'))
             ]).filtered(lambda r, user=self.env.user:
                 user.partner_id not in r.registration_ids.mapped('partner_id')
             ).sorted(key=lambda r: r.date_begin)
