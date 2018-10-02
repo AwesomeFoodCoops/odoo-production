@@ -1489,7 +1489,7 @@ msgstr "Changement d’équipe"
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_change_team_next_current_shift_date
 msgid "Next Shift with the Current Team"
-msgstr "Prochaine service, équipe actuelle"
+msgstr "Prochain service, équipe actuelle"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_change_team.py:186

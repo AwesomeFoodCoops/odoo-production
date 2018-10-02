@@ -6,6 +6,7 @@
 from openerp import api, fields, models, _
 from openerp.exceptions import UserError
 from datetime import datetime, timedelta
+from dateutil import rrule
 
 
 class ShiftChangeTeam(models.Model):
@@ -146,9 +147,11 @@ class ShiftChangeTeam(models.Model):
         '''
         self.ensure_one()
         current_registrations = self.partner_id.tmpl_reg_line_ids.filtered(
-            lambda r: r.date_begin <= self.new_next_shift_date)
+            lambda r: r.date_begin <= self.new_next_shift_date and (
+                not r.date_end or r.date_end >= fields.Date.context_today(self)))
         future_registrations = self.partner_id.tmpl_reg_line_ids.filtered(
-            lambda r: r.date_begin > self.new_next_shift_date)
+            lambda r: r.date_begin > self.new_next_shift_date and
+            r.date_begin >= fields.Date.context_today(self))
         if current_registrations:
             current_registrations[0].date_end = fields.Date.to_string(
                 fields.Date.from_string(
@@ -256,6 +259,19 @@ class ShiftChangeTeam(models.Model):
             return (_('Not Concerned'))
         else:
             return ''
+
+    @api.multi
+    def save_new_without_partner(self):
+        self.button_close()
+        return {
+            'name': _('Change Teams'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'shift.change.team',
+            'view_type': 'form',
+            'target': 'new',
+            'view_mode': 'form',
+            'context': {},
+        }
 
     @api.multi
     def button_save_new(self):
@@ -389,23 +405,62 @@ class ShiftChangeTeam(models.Model):
                 self.current_shift_template_id = reg[0].shift_template_id
                 next_shifts =\
                     self.current_shift_template_id.shift_ids.filtered(
-                        lambda s: s.date_begin < self.new_next_shift_date).sorted(
-                        key=lambda l: l.date_begin, reverse=True)
+                        lambda s: s.date_begin >= fields.Date.context_today(self))
+
                 self.next_current_shift_date = next_shifts and\
                     next_shifts[0].date_begin or False
 
     @api.multi
-    def compute_range_day(self):
+    def check_num_week(self, new_next_shift_date):
         self.ensure_one()
+        weekA_date = fields.Datetime.from_string(
+            self.env.ref('coop_shift.config_parameter_weekA').value)
+
+        week_number = 1 + (((fields.Datetime.from_string(
+            new_next_shift_date) - weekA_date).days // 7) % 4)
+
+        num_week = (self.new_shift_template_id.week_number - (week_number)) % 4
+        return num_week
+
+    @api.multi
+    def compute_range_day(self):
+        '''
+        Compute range day base on next shift
+            Range day is range of the last shift current team and the date of first shift on new team 
+        '''
+        self.ensure_one()
+
+        next_shifts =\
+            self.current_shift_template_id.shift_ids.filtered(
+                lambda s: s.date_begin < self.new_next_shift_date).sorted(
+                key=lambda l: l.date_begin, reverse=True)
+
+        last_shift_date = next_shifts and next_shifts[0].date_begin or False
+
         new_team_start_date = fields.Datetime.from_string(
             self.new_next_shift_date).weekday()
 
         new_next_shift_date = self.new_next_shift_date
 
-        if new_team_start_date > 1:
+        if new_team_start_date > 1 and\
+                self.new_shift_template_id.shift_type_id.is_ftop:
             new_next_shift_date = (fields.Datetime.from_string(
                 self.new_next_shift_date) - timedelta(
                 days=new_team_start_date)).strftime('%Y-%m-%d')
+
+        if not self.new_shift_template_id.shift_type_id.is_ftop:
+            if self.check_num_week(new_next_shift_date) == 1:
+                new_next_shift_date = (fields.Datetime.from_string(
+                    new_next_shift_date) - timedelta(
+                    days=21)).strftime('%Y-%m-%d')
+            elif self.check_num_week(new_next_shift_date) == 2:
+                new_next_shift_date = (fields.Datetime.from_string(
+                    new_next_shift_date) - timedelta(
+                    days=14)).strftime('%Y-%m-%d')
+            elif self.check_num_week(new_next_shift_date) == 3:
+                new_next_shift_date = (fields.Datetime.from_string(
+                    new_next_shift_date) - timedelta(
+                    days=7)).strftime('%Y-%m-%d')
 
         next_shift_mounth = (fields.Datetime.from_string(
             new_next_shift_date) +
@@ -419,14 +474,14 @@ class ShiftChangeTeam(models.Model):
             if fields.Datetime.to_string(date) < self.new_next_shift_date:
                 rec_new_template_dates.remove(date)
 
-        if rec_new_template_dates and self.next_current_shift_date:
-            date_to_cal = self.next_current_shift_date
+        if rec_new_template_dates and last_shift_date:
+            date_to_cal = last_shift_date
             if self.new_shift_template_id.shift_type_id.is_ftop:
                 date_to_cal = self.new_next_shift_date
             range_dates = rec_new_template_dates[0] -\
                 fields.Datetime.from_string(date_to_cal)
             return range_dates.days, rec_new_template_dates
-        elif rec_new_template_dates and not self.next_current_shift_date:
+        elif rec_new_template_dates and not last_shift_date:
             if self.new_shift_template_id.shift_type_id.is_ftop:
                 range_dates = rec_new_template_dates[0] -\
                     fields.Datetime.from_string(self.new_next_shift_date)
@@ -446,7 +501,7 @@ class ShiftChangeTeam(models.Model):
                 range_dates, list_dates = record.compute_range_day()
                 if not record.current_shift_template_id.shift_type_id.is_ftop\
                         and not record.new_shift_template_id.shift_type_id.is_ftop:
-                    if range_dates and range_dates > 41:
+                    if range_dates and range_dates > 40:
                         record.mess_change_team = (_(
                             "Il y a un écart de plus de 6 " +
                             "semaines entre le dernier service dans " +
