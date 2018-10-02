@@ -524,8 +524,7 @@ class OrderWeekPlanningLine(models.Model):
                                  required=True,
                                  select=True)
 
-    default_packaging = fields.Float(string='Default packaging',
-                                     required=True)
+    default_packaging = fields.Float(string='Default packaging', related='product_id.default_packaging')
     supplier_packaging = fields.Float(string='Supplier packaging',
                                       required=True)
     price_policy = fields.Selection(
