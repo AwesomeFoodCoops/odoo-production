@@ -78,7 +78,7 @@
                             <group col="3">
 
                                 <field name="date_stock" invisible="1"/>
-                                <button name="action_update_start_inventory" string="MAJ S Inv" type="object"
+                                <button name="action_update_start_inventory" string="Update S. Inv" type="object"
                                         class="oe_highlight"/>
                             </group>
                         </group>
@@ -91,37 +91,37 @@
                                     <h4>Total received / to receive</h4>
                                 </group>
                                 <group col="1">
-                                    <button name="create_purchase_orders" string="Mond" type="object"
+                                    <button name="create_purchase_orders" string="Mon." type="object"
                                             class="oe_highlight" context="{'day_number':1}"/>
                                     <field name="monday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="monday_received_qty" nolabel="1" readonly="True"/>
                                 </group>
                                 <group col="1">
-                                    <button name="create_purchase_orders" string="Tues" type="object"
+                                    <button name="create_purchase_orders" string="Tue." type="object"
                                             class="oe_highlight" context="{'day_number':2}"/>
                                     <field name="tuesday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="tuesday_received_qty" nolabel="1" readonly="True"/>
                                 </group>
                                 <group col="1">
-                                    <button name="create_purchase_orders" string="Wed" type="object"
+                                    <button name="create_purchase_orders" string="Wed." type="object"
                                             class="oe_highlight" context="{'day_number':3}"/>
                                     <field name="wednesday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="wednesday_received_qty" nolabel="1" readonly="True"/>
                                 </group>
                                 <group col="1">
-                                    <button name="create_purchase_orders" string="Thurs" type="object"
+                                    <button name="create_purchase_orders" string="Thi." type="object"
                                             class="oe_highlight" context="{'day_number':4}"/>
                                     <field name="thirsday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="thirsday_received_qty" nolabel="1" readonly="True"/>
                                 </group>
                                 <group col="1">
-                                    <button name="create_purchase_orders" string="Fri" type="object"
+                                    <button name="create_purchase_orders" string="Fri." type="object"
                                             class="oe_highlight" context="{'day_number':5}"/>
                                     <field name="friday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="friday_received_qty" nolabel="1" readonly="True"/>
                                 </group>
                                 <group col="1">
-                                    <button name="create_purchase_orders" string="Sat" type="object"
+                                    <button name="create_purchase_orders" string="Sat." type="object"
                                             class="oe_highlight" context="{'day_number':6}"/>
                                     <field name="saturday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="saturday_received_qty" nolabel="1" readonly="True"/>
@@ -145,13 +145,13 @@
                                 <field name="sold_w_2_qty"/>
                                 <field name="sold_w_1_qty"/>
                                 <field name="start_inv" readonly="1"/>
-                                <field name="monday_qty" string="M"/>
-                                <field name="tuesday_qty" string="T"/>
-                                <field name="wednesday_qty" string="W"/>
+                                <field name="monday_qty" string="Mon."/>
+                                <field name="tuesday_qty" string="Tue."/>
+                                <field name="wednesday_qty" string="Wed."/>
                                 <field name="medium_inventory_qty" string="Med."/>
-                                <field name="thirsday_qty" string="T"/>
-                                <field name="friday_qty" string="F"/>
-                                <field name="saturday_qty" string="S"/>
+                                <field name="thirsday_qty" string="Thi."/>
+                                <field name="friday_qty" string="Fri."/>
+                                <field name="saturday_qty" string="Sat."/>
                                 <field name="total_qty"/>
                                 <field name="end_inv_qty"/>
                                 <field name="loss_qty"/>
@@ -204,13 +204,13 @@
                     <field name="supplier_id" string="Supplier"/>
                     <field name="price_unit" string="Price U"/>
                     <field name="start_inv" readonly="1"/>
-                    <field name="monday_qty" string="M"/>
-                    <field name="tuesday_qty" string="T"/>
-                    <field name="wednesday_qty" string="W"/>
+                    <field name="monday_qty" string="Mon."/>
+                    <field name="tuesday_qty" string="Tue."/>
+                    <field name="wednesday_qty" string="Wed."/>
                     <field name="medium_inventory_qty" string="Med."/>
-                    <field name="thirsday_qty" string="T"/>
-                    <field name="friday_qty" string="F"/>
-                    <field name="saturday_qty" string="S"/>
+                    <field name="thirsday_qty" string="Thi."/>
+                    <field name="friday_qty" string="Fri."/>
+                    <field name="saturday_qty" string="Sat."/>
                     <field name="total_qty"/>
                     <field name="end_inv_qty"/>
                     <field name="loss_qty"/>
