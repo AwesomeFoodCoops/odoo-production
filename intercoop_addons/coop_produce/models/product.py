@@ -21,8 +21,9 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models
+from openerp import api, fields, models, _
 from openerp.addons import decimal_precision as dp
+from openerp.exceptions import UserError
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
@@ -47,6 +48,14 @@ class ProductTemplate(models.Model):
 
 
     default_packaging = fields.Float('Default packaging',digits=dp.get_precision('Product Price'), default=1.0)
+
+    @api.multi
+    @api.constrains('default_packaging')
+    def check_default_packaging(self):
+        for p in self:
+            if p.default_packaging <= 0.0:
+                raise UserError(_("Default packaging of %s must be positive ! " % (p.name,)))
+
 
 
 
