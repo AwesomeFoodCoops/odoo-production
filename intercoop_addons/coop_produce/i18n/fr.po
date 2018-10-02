@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-02 13:53+0000\n"
-"PO-Revision-Date: 2018-10-02 13:53+0000\n"
+"POT-Creation-Date: 2018-10-02 14:17+0000\n"
+"PO-Revision-Date: 2018-10-02 14:17+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -84,6 +84,12 @@ msgstr "Stock à date"
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
 msgid "Default packaging"
 msgstr "PCB"
+
+#. module: coop_produce
+#: code:addons/coop_produce/models/product.py:57
+#, python-format
+msgid "Default packaging of %s must be positive ! "
+msgstr "Le colisage par défaut doit être strictement positif ! "
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
