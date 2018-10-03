@@ -177,6 +177,7 @@ class Website(openerp.addons.website.controllers.main.Website):
             ]).filtered(
                 lambda r, user=request.env.user: user.partner_id not in
                 r.registration_ids.mapped('partner_id')
+                and not r.shift_template_id.shift_type_id.is_ftop
             ).sorted(key=lambda r: r.date_begin)
         return request.render(
             'coop_memberspace.counter',
