@@ -52,6 +52,7 @@ class ResUsers(models.Model):
                         '%Y-%m-%d 00:00:00'))
             ]).filtered(lambda r, user=self.env.user:
                 user.partner_id not in r.registration_ids.mapped('partner_id')
+                and not r.shift_template_id.shift_type_id.is_ftop
             ).sorted(key=lambda r: r.date_begin)
             for shift in shifts_available:
                 tickets = shift.shift_ticket_ids.filtered(
