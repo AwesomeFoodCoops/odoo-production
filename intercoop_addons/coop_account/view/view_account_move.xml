@@ -25,11 +25,11 @@
       <field name="name">Unmatch Bank Statement</field>
       <field name="model_id" ref="account.model_account_move"/>
       <field name="code">
-        self.unmatch_bankstatement(cr, uid, context.get('active_ids', []), context=context)
+        action = self.unmatch_bankstatement_wizard(cr, uid, context.get('active_ids', []), context=context)
       </field>
     </record>
 
-    <record model="ir.values" id="action_value_mass_unreconcile">
+    <record model="ir.values" id="action_unmatch_bankstatement">
       <field name="model_id" ref="account.model_account_move" />
       <field name="name">Unmatch Bank Statement</field>
       <field name="key2">client_action_multi</field>

@@ -71,6 +71,33 @@ class AccountMoveLine(models.Model):
                 else False
         return res
 
+    @api.multi
+    def unmatch_bankstatement_wizard(self):
+        active_ids = self._context.get('active_ids', [])
+        active_model = self._context.get('active_model', [])
+
+        view_id = self.env.ref(
+            'coop_account.view_unmatch_bank_statement_wizard_form')
+
+        mess_confirm = _('Are you sure you want to unmatch %s transactions?') %\
+            (len(active_ids))
+
+        wizard = self.env['unmatch.bank.statement.wizard'].create({
+            'mess_confirm': mess_confirm
+        })
+
+        return {
+            'name': _('Unmatch Bank Statement'),
+            'type': 'ir.actions.act_window',
+            'view_id': view_id.id,
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_id': wizard.id,
+            'res_model': 'unmatch.bank.statement.wizard',
+            'target': 'new',
+            'context': {'active_ids': active_ids, 'active_model': active_model}
+        }
+
     @api.model
     def run_reconcile_411_pos(self, nb_lines_per_job=100):
         # Prepare session for job
