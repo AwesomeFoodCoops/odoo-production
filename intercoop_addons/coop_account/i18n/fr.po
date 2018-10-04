@@ -92,7 +92,12 @@ msgid "Salvage Value"
 msgstr "Valeur non amortissable"
 
 #. module: coop_account
+#: code:addons/coop_account/models/account_move.py:41
+#: code:addons/coop_account/models/account_move_line.py:90
 #: model:ir.actions.server,name:coop_account.action_server_unmatch_bankstatement
+#: model:ir.actions.server,name:coop_account.action_server_unmatch_bankstatement_line
+#: model:ir.ui.view,arch_db:coop_account.view_unmatch_bank_statement_wizard_form
+#, python-format
 msgid "Unmatch Bank Statement"
 msgstr "Dé-rapprocher"
 
@@ -111,6 +116,18 @@ msgstr "Si vrai, une pièce comptable ne pourra tout au plus avoir qu'une seule 
 #: model:ir.model.fields,field_description:coop_account.field_account_account_reconciled_account
 msgid "Bank Reconciliation"
 msgstr "Rapprochement bancaire"
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_move.py:33
+#: code:addons/coop_account/models/account_move_line.py:82
+#, python-format
+msgid "Are you sure you want to unmatch %s transactions?"
+msgstr "Souhaitez-vous dé-rapprocher %s transactions?"
+
+#. module: coop_account
+#: model:ir.ui.view,arch_db:coop_account.view_unmatch_bank_statement_wizard_form
+msgid "Confirm"
+msgstr "Confirmer"
 
 #. module: coop_account
 #: model:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend_inherit
@@ -140,6 +157,7 @@ msgstr "Rapprochement"
 
 #. module: coop_account
 #: model:ir.ui.view,arch_db:coop_account.view_bank_statement_line_reconcile_wizard_form
+#: model:ir.ui.view,arch_db:coop_account.view_unmatch_bank_statement_wizard_form
 msgid "Cancel"
 msgstr "Annuler"
 
