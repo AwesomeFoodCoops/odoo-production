@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="email_inform_cannot_send_to_memberspace_alias" model="mail.template">
+        <field name="name">Inform User Can Not Send Email To Memberspace Alias</field>
+        <field name="model_id" ref="coop_memberspace.model_res_users"/>
+        <field name="email_from"></field>
+        <field name="email_to" ></field>
+        <field name="lang"></field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">Vous n'êtes pas autorisé à envoyer des messages à cet alias</field>
+        <field name="body_html"><![CDATA[
+<p>You cannot post to this alias: ${ctx.get('email_add')}</p>
+]]>
+        </field>
+    </record>
+
+</odoo>

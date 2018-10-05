@@ -17,7 +17,6 @@
         'security/res_group_data.xml',
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
-
         'data/email/email_proposal.xml',
         'data/change_name_menu_homepage.yml',
         'data/deactive_ir_rule.yml',
