@@ -158,6 +158,21 @@ iframe {
   padding: 62px 55px 90px 55px;
 }
 
+.wrap-email-aready{
+  width: 1000px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 62px 55px 90px 55px;
+  text-align: center;
+}
+
+.email-aready{
+  font-size: 30px;
+  font-weight: 400;
+  color: #393939;
+  line-height: 1.5;
+}
 
 /*------------------------------------------------------------------
 [  ]*/
