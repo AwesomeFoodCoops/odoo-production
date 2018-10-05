@@ -17,7 +17,8 @@
         'security/res_group_data.xml',
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
-
+        'data/email/memberspace_alias_send_error_email.xml',
+        'data/email/email_proposal.xml',
         'data/change_name_menu_homepage.yml',
         'data/deactive_ir_rule.yml',
         'data/generate_email_alias_for_shift_template.yml',
