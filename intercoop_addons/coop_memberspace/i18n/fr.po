@@ -1283,3 +1283,14 @@ msgstr "remove_circle_outline"
 msgid "swap_horiz"
 msgstr "swap_horiz"
 
+#. module: coop_memberspace
+#: model:mail.template,body_html:coop_memberspace.email_inform_cannot_send_to_memberspace_alias
+msgid "\n"
+"<p>You cannot post to this alias: ${ctx.get('email_add')}</p>\n"
+"\n"
+"        "
+msgstr "\n"
+"<p>Vous n'êtes pas autorisé à envoyer des messages à cet alias: ${ctx.get('email_add')}</p>\n"
+"\n"
+"        "
+
