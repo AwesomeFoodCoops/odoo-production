@@ -22,13 +22,13 @@
                                 <field name="supplier_packaging"/>
                                 <field name="price_unit" string="Price U"/>
                                 <field name="start_inv" readonly="1"/>
-                                <field name="monday_qty" string="M"/>
-                                <field name="tuesday_qty" string="T"/>
-                                <field name="wednesday_qty" string="W"/>
+                                <field name="monday_qty" string="Mon."/>
+                                <field name="tuesday_qty" string="Tue."/>
+                                <field name="wednesday_qty" string="Wed."/>
                                 <field name="medium_inventory_qty" string="Med."/>
-                                <field name="thirsday_qty" string="T"/>
-                                <field name="friday_qty" string="F"/>
-                                <field name="saturday_qty" string="S"/>
+                                <field name="thirsday_qty" string="Thi."/>
+                                <field name="friday_qty" string="Fri."/>
+                                <field name="saturday_qty" string="Sat."/>
                                 <field name="total_qty"/>
                                 <field name="end_inv_qty"/>
                                 <field name="loss_qty"/>
