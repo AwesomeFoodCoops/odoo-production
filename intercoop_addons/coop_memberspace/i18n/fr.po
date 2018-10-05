@@ -15,7 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-<<<<<<< HEAD
 #. module: coop_memberspace
 #: model:mail.template,body_html:coop_memberspace.request_confirm_proposal
 msgid "\n"
@@ -1283,3 +1282,4 @@ msgstr "remove_circle_outline"
 #: model:ir.ui.view,arch_db:coop_memberspace.mywork_standard
 msgid "swap_horiz"
 msgstr "swap_horiz"
+
