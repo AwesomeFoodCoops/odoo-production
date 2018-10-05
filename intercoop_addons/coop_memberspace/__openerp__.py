@@ -22,6 +22,7 @@
         'data/deactive_ir_rule.yml',
         'data/generate_email_alias_for_shift_template.yml',
         'data/ir_config_parameter.xml',
+        'data/ir_cron.xml',
         'data/website_menu.xml',
 
         'views/res_partner_view.xml',
