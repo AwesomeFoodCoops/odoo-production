@@ -267,5 +267,73 @@ If you think there was a mistake or wish to subscribe to another team please con
 ]]>
         </field>
     </record>
+
+    <record id="registration_confirm_meeting_email" model="mail.template">
+        <field name="name">Registration Confirm Meeting Email</field>
+        <field name="model_id" ref="event.model_event_registration"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${object.company_id.email|safe}</field>
+        <field name="subject">Your registration to a welcome meeting on ${object.convert_event_date_begin()} at ${object.get_time_meeting()}</field>
+        <field name="body_html"><![CDATA[
+<p>Hello,</p>
+<br/>
+<p>You have just registered to a welcome meeting that will take place on ${object.convert_event_date_begin()} at ${object.get_time_meeting()}. Thanks for your interest in what we do!</p>
+<p>The meeting will take place at this address ${object.get_address_meeting()}.</p>
+<p>You should receive a reminder email three days before the meeting.</p>
+<p>If you wish to cancel or postpone your attendance, please write to ${object.get_email_contact_meeting()}.</p>
+<br/>
+<p>See you soon at the co-op!</p>
+<br />
+<img  src="/coop_membership/static/description/image_lalouve.png"/>
+]]>
+        </field>
+    </record>
+
+    <record id="registration_reminder_meeting_email" model="mail.template">
+        <field name="name">Registration Reminder Meeting Email</field>
+        <field name="model_id" ref="event.model_event_registration"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${object.company_id.email|safe}</field>
+        <field name="subject">Welcome meeting reminder email</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour,</p>
+<p>Vous êtes inscrit.e pour la réunion d’accueil de La Louve qui se déroulera le <strong> ${object.get_date_time_meeting()}, ${object.get_address_meeting()}</strong></p>
+<p>Métro : Marcadet-Poissonniers ou Simplon.</p>
+<p>L’accueil sera assuré à partir de <span style="color: red"><strong>${object.get_time_before(30)}</strong></span>.</p>
+<p>Les informations transmises pendant la réunion étant essentielles, aucun retard ne pourra être accepté. Nous vous remercions de votre compréhension.</p>
+<p><strong>Au menu de cette réunion d’accueil :</strong></p>
+<ul>
+    <li>Présentation détaillée de ce que signifie rejoindre La Louve : Principe de la coopérative, produits qui seront disponibles, organisation du travail bénévole</li>
+    <li>Réponse à vos questions générales</li>
+    <li>Réponse à vos questions individuelles</li>
+    <li>Visite du magasin</li>
+    <li>Souscription si vous décidez de rejoindre La Louve, inscription sur un créneau de travail </li>
+</ul>
+<p>La réunion durera environ 2h30’.</p>
+<p><strong>Si vous n'êtes pas encore coopérateur et que vous souhaitez nous rejoindre :</strong></p>
+<ul>
+    <li>Nous vous remercions par avance de prévoir de rester jusqu'à la fin de la réunion, puisque votre inscription sur un créneau de travail se fait à l'issue de la présentation <u>(ce choix se fera uniquement en présentiel, pas d'inscription sur les créneaux à distance)</u>.</li>
+    <li>Si vous souhaitez souscrire, prévoyez de vous munir : 
+        <ul>
+            <li>de votre carnet de chèque ou de votre Carte Bancaire </li>
+            <li>d'une pièce d’identité</li>
+            <li>d'un justificatif pour une souscription réduite (minima sociaux, étudiants boursiers 6 ou 7)</li>
+        </ul> 
+    </li>
+</ul>
+<p>Pour plus d’informations dès à présent sur les réunions d’accueil et les créneaux,<a href="https://docs.google.com/document/d/1Ra6X_UoH2yKDjuR6JlLTjwFFrrpy04lvCwBp4nnpfWc/edit"> consultez ce lien.</a></p>
+<p>Si vous ne pouvez finalement pas assister à cette réunion, vous pouvez contacter l’équipe des réunions d’accueil ${object.get_email_contact_meeting()} pour vous inscrire à une future réunion d’accueil.</p>
+<p>Cordialement,</p>
+<p>Cécile et Philippe</p>
+<p>Pour l’équipe des Réunions d’Accueil</p>
+<p>${object.get_email_contact_meeting()}</p>
+<img  src="/coop_membership/static/description/image_lalouve.png"/>
+]]>
+        </field>
+    </record>
     
 </odoo>

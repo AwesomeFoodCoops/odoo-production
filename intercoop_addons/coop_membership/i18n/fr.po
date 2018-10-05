@@ -1489,7 +1489,7 @@ msgstr "Changement d’équipe"
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_change_team_next_current_shift_date
 msgid "Next Shift with the Current Team"
-msgstr "Prochaine service, équipe actuelle"
+msgstr "Prochain service, équipe actuelle"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_change_team.py:186
@@ -1739,9 +1739,115 @@ msgid "FTOP Seats"
 msgstr "Places volants"
 
 #. module: coop_membership
+#: model:mail.template,body_html:coop_membership.registration_confirm_meeting_email
+msgid "\n"
+"<p>Hello,</p>\n"
+"<br/>\n"
+"<p>You have just registered to a welcome meeting that will take place on ${object.convert_event_date_begin()} at ${object.get_time_meeting()}. Thanks for your interest in what we do!</p>\n"
+"<p>The meeting will take place at this address ${object.get_address_meeting()}.</p>\n"
+"<p>You should receive a reminder email three days before the meeting.</p>\n"
+"<p>If you wish to cancel or postpone your attendance, please write to ${object.get_email_contact_meeting()}.</p>\n"
+"<br/>\n"
+"<p>See you soon at the co-op!</p>\n"
+"<br />\n"
+"<p> <img src="/coop_membership/static/description/image_lalouve.png" /> </p>\n"
+"\n"
+"        "
+msgstr "\n"
+"<p>Bonjour,</p>\n"
+"<br/>\n"
+"<p>Vous venez de vous inscrire à la réunion d’accueil de La Louve qui aura lieu le ${object.convert_event_date_begin()} à ${object.get_time_meeting()}. Merci de votre intérêt pour notre projet !</p>\n"
+"<p>La réunion aura lieu à la coopérative, ${object.get_address_meeting()}.</p>\n"
+"<p>Vous recevrez un mail de rappel accompagné d’informations complémentaires trois jours avant la réunion.</p>\n"
+"<p>Si vous souhaitez annuler ou reporter votre participation à cette réunion, merci d’envoyer un mail à ${object.get_email_contact_meeting()}.</p>\n"
+"<br/>\n"
+"<p>A bientôt à La Louve !</p>\n"
+"<br />\n"
+"<p> <img src="/coop_membership/static/description/image_lalouve.png" /> </p>\n"
+"\n"
+"        "
+
+#. module: coop_membership
+#: model:mail.template,subject:coop_membership.registration_confirm_meeting_email
+msgid "Your registration to a welcome meeting on ${object.convert_event_date_begin()} at ${object.get_time_meeting()}"
+msgstr "Votre inscription à la réunion d’accueil du ${object.convert_event_date_begin()} at ${object.get_time_meeting()}"
+
+#. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_contact_us_message_wizard
 msgid "OK"
 msgstr "Confirmer"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:113
+#, python-format
+msgid "January"
+msgstr "janvier"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:115
+#, python-format
+msgid "February"
+msgstr "février"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:117
+#, python-format
+msgid "March"
+msgstr "mars"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:119
+#, python-format
+msgid "April"
+msgstr "avril"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:121
+#, python-format
+msgid "May"
+msgstr "mai"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:123
+#, python-format
+msgid "June"
+msgstr "juin"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:125
+#, python-format
+msgid "July"
+msgstr "juillet"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:127
+#, python-format
+msgid "August"
+msgstr "août"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:129
+#, python-format
+msgid "September"
+msgstr "septembre"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:131
+#, python-format
+msgid "October"
+msgstr "octobre"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:133
+#, python-format
+msgid "November"
+msgstr "novembre"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/event_registration.py:135
+#, python-format
+msgid "December"
+msgstr "décembre"
 
 #. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_partner_form

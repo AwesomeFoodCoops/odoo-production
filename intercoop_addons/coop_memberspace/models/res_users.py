@@ -27,7 +27,7 @@ class ResUsers(models.Model):
             local = pytz.timezone(user_tz)
             date = pytz.utc.localize(datetime.strptime(
                 date, "%Y-%m-%d %H:%M:%S")).astimezone(local)
-            rs = [datetime.strftime(date, item).capitalize() \
+            rs = [datetime.strftime(date, item).capitalize().decode('UTF-8') \
                 for item in formats]
             if obj and obj.get('id', False):
                 rs.append(obj['id'])
@@ -49,10 +49,10 @@ class ResUsers(models.Model):
                 ('shift_template_id', '!=', tmpl[0].shift_template_id.id),
                 ('date_begin', '>=', (
                     datetime.now() + timedelta(days=1)).strftime(
-                        '%Y-%m-%d 00:00:00')),
-                ('state', '=', 'confirm')
+                        '%Y-%m-%d 00:00:00'))
             ]).filtered(lambda r, user=self.env.user:
                 user.partner_id not in r.registration_ids.mapped('partner_id')
+                and not r.shift_template_id.shift_type_id.is_ftop
             ).sorted(key=lambda r: r.date_begin)
             for shift in shifts_available:
                 tickets = shift.shift_ticket_ids.filtered(

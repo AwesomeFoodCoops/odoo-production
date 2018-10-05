@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<template id="coop_memberspace.proposal_confirm">
+		<t t-call="website.layout">
+            <t t-set="title">Espace membre | Proposition Confirmer</t>
+            <div class="container-fluid">
+                <!-- Status -->
+                <div style="text-align: center;margin-top: 10px;margin-left: -15px;margin-right: -15px;"
+                    t-att-class="bootstrap_class">
+                    <h3 style="margin-bottom: 0px;margin-top: 0px;">
+                        <span t-esc="message" />
+                    </h3>
+                </div>
+            </div>
+        </t>
+    </template>
+</openerp>

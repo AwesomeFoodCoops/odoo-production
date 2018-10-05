@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo noupdate="1">
+
+    <record model="ir.cron" id="cron_create_user_for_members">
+        <field name="name">User creation for members</field>
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model" eval="'res.partner'"/>
+        <field name="function" eval="'cron_create_user_for_members'"/>
+        <field name="nextcall" eval="(DateTime.now() + timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')" />
+        <field name="args" eval="'()'"/>
+        <field name="active" eval="False"/>
+    </record>
+
+</odoo>

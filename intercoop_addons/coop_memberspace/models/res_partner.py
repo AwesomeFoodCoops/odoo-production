@@ -104,6 +104,12 @@ class ResPartner(models.Model):
         return True
 
     @api.model
+    def cron_create_user_for_members(self):
+        members = self.search(
+            [('is_member', '=', True), ('email', '!=', False)])
+        members.create_memberspace_user()
+
+    @api.model
     def get_partner_sex_website(self):
         if self.sex == 'm':
             return 'Homme'

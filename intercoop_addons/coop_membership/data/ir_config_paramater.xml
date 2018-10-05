@@ -15,5 +15,16 @@
             <field name="key">captcha_secret_key</field>
             <field name="value">put_your_captcha_secret_key_here!</field>
         </record>
+
+        <record id="email_meeting_contact" model="ir.config_parameter">
+            <field name="key">email_meeting_contact</field>
+            <field name="value">reunion.accueil@cooplalouve.fr</field>
+        </record>
+
+        <record id="company_name" model="ir.config_parameter">
+            <field name="key">company_name</field>
+            <field name="value">La Louve</field>
+        </record>
+
     </data>
 </odoo>

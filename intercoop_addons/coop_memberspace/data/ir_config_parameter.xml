@@ -62,5 +62,12 @@
             <field name="value">1</field>
         </record>
 
+        <!-- 1. Unit is hour
+             2. Default : 0 (It mean we dont use token expiration) -->
+        <record id="parameter_proposal_token_expiration" model="ir.config_parameter">
+            <field name="key">proposal_token_expiration</field>
+            <field name="value">0</field>
+        </record>
+
     </data>
 </odoo>
