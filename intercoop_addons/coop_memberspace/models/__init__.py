@@ -6,3 +6,4 @@ from . import shift_registration
 from . import memberspace_conversation
 from . import memberspace_alias
 from . import shift_template
+from . import proposal

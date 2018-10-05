@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="request_confirm_proposal" model="mail.template">
+        <field name="name">Request Confirm Proposal</field>
+        <field name="model_id" ref="coop_memberspace.model_proposal"/>
+        <field name="email_from">${(object.src_registration_id.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.src_registration_id.partner_id.email|safe}</field>
+        <field name="lang">${(object.src_registration_id.partner_id.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">${'Proposition d’échange de votre service du ' + user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()}</field>
+        <field name="body_html"><![CDATA[
+<p>Cher ${object.src_registration_id.partner_id.name}</p>
+<p>${object.des_registration_id.partner_id.name} vous propose de remplacer votre service du ${user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()} à ${user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%Hh%M'])[0].lower()} par :</p>
+<p style="margin-left: 50px;">
+    <span style="margin-right: 20px;">${user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])[0]}</span>
+    <span>${user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%Hh%M'])[0].lower()}</span>
+</p>
+<p>Veuillez pouvez accepter ou refuser cette proposition en cliquant sur l’un des boutons ci-dessous.</p>
+<div style="height: auto;width:450px; margin:0 auto;padding-top:20px;padding-bottom:40px;">
+    <a style="margin-right: 40px;text-decoration:none;" href="/proposal/confirm?token=${object.token}&action=refuse">
+        <img style="width: 50px;border: 1px solid red;padding: 5px;" src="/coop_memberspace/static/src/img/cancel.svg" alt="Refuse" />
+    </a>
+    <a style="text-decoration:none;" href="/proposal/confirm?token=${object.token}&action=accept">
+        <img style="width: 50px;border: 1px solid green;padding: 5px;" src="/coop_memberspace/static/src/img/check.svg" alt="Accept" />
+    </a>
+</div>
+<p>Amicalement,</p>
+<p>L’équipe [La Louve]</p>
+]]>
+        </field>
+    </record>
+
+    <record id="confirm_exchange_done" model="mail.template">
+        <field name="name">Exchange Done</field>
+        <field name="model_id" ref="coop_memberspace.model_proposal"/>
+        <field name="email_from">${(object.src_registration_id.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.src_registration_id.partner_id.email|safe}</field>
+        <field name="lang">${(object.src_registration_id.partner_id.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">${'Confirmation d’échange de votre service du ' + user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()}</field>
+        <field name="body_html"><![CDATA[
+<p>Cher ${object.src_registration_id.partner_id.name}</p>
+<p>Nous avons le plaisir de vous confirmer que votre service du ${user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()} à ${user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%Hh%M'])[0].lower()} remplacé par :</p>
+<p style="margin-left: 50px;">
+    <span style="margin-right: 20px;">${user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])[0]}</span>
+    <span>${user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%Hh%M'])[0].lower()}</span>
+</p>
+<p>Amicalement,</p>
+<p>L’équipe [La Louve]</p>
+]]>
+        </field>
+    </record>
+
+    <record id="proposal_cancelled" model="mail.template">
+        <field name="name">Proposal Cancelled</field>
+        <field name="model_id" ref="coop_memberspace.model_proposal"/>
+        <field name="email_from">${(object.src_registration_id.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.des_registration_id.partner_id.email|safe}</field>
+        <field name="lang">${(object.des_registration_id.partner_id.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">${'Refus de votre proposition d’échange de votre service du ' + user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()}</field>
+        <field name="body_html"><![CDATA[
+<p>Cher ${object.des_registration_id.partner_id.name}</p>
+<p>Nous avons le regret de vous informer que votre proposition d’échange de votre service n’a pas été acceptée :</p>
+<p style="margin-left: 50px;">
+    <span style="margin-right: 20px;">${user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%A %d %B %Y'])[0]}</span>
+    <span>${user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%Hh%M'])[0].lower()}</span>
+</p>
+<p>Vous pouvez vous rendre sur la bourse aux services pour trouver une autre service de remplacement.</p>
+<a href="/standard/echange_de_services">Aller au marché</a>
+<p>Amicalement,</p>
+<p>L’équipe [La Louve]</p>
+]]>
+        </field>
+    </record>
+
+    <record id="proposal_accepted" model="mail.template">
+        <field name="name">Proposal Accepted</field>
+        <field name="model_id" ref="coop_memberspace.model_proposal"/>
+        <field name="email_from">${(object.src_registration_id.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.des_registration_id.partner_id.email|safe}</field>
+        <field name="lang">${(object.des_registration_id.partner_id.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">${'Acceptation de votre proposition d’échange de votre service du ' + user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()}</field>
+        <field name="body_html"><![CDATA[
+<p>Cher ${object.des_registration_id.partner_id.name}</p>
+<p>Nous avons le plaisir de vous confirmer que votre service du ${user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()} à ${user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%Hh%M'])[0].lower()} a été acceptée. Votre service est remplacé par :</p>
+<p style="margin-left: 50px;">
+    <span >${user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%A %d %B %Y'])[0]}</span>
+     à 
+    <span>${user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%Hh%M'])[0].lower()}</span>
+</p>
+<p>Amicalement,</p>
+<p>L’équipe [La Louve]</p>
+]]>
+        </field>
+    </record>
+
+</odoo>
