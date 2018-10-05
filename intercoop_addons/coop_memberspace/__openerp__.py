@@ -18,6 +18,7 @@
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
 
+        'data/email/email_proposal.xml',
         'data/change_name_menu_homepage.yml',
         'data/deactive_ir_rule.yml',
         'data/generate_email_alias_for_shift_template.yml',
@@ -29,6 +30,7 @@
         'views/memberspace_conversation_view.xml',
         'views/templates.xml',
 
+        'views/website/proposal_confirm.xml',
         'views/website/my_work.xml',
         'views/website/my_team.xml',
         'views/website/my_profile.xml',
