@@ -69,4 +69,17 @@
         <field name="active" eval="False"/>
     </record>
 
+    <record model="ir.cron" id="cron_reminder_meeting_email">
+        <field name="name">Reminder Event Meeting Email</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model" eval="'event.registration'"/>
+        <field name="function" eval="'send_mail_reminder'"/>
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=2)).strftime('%Y-%m-%d 03:00:00')" />
+        <field name="args" eval="'()'"/>
+        <field name="active" eval="False"/>
+    </record>
+
 </odoo>

@@ -249,10 +249,11 @@
                 </head>
                 <body>
                     <div class="container-contact100">
-                        <div class="wrap-contact100">
-                            <span class="contact100-form-title">
-                                L'email est déjà dans notre base de donnée, vous ne pouvez pas vous enregistrer en ligne.
-                            </span>
+                        <div class="wrap-email-aready">
+                            <span class="email-aready">Votre adresse mail est déjà dans les contacts de <span t-esc= "company_name"></span>.</span><br />
+                            <span class="email-aready">(Peut-être parce que vous êtes déjà membre, ou que vous vous êtes déjà inscrit.e à une réunion d’accueil.)</span><br />
+                            <span class="email-aready">Merci de nous contacter par mail à l’adresse <span t-esc= "email_contact"></span> pour que nous vous inscrivions directement à la date que vous souhaitez.</span><br />
+                            <span class="email-aready">A bientôt !</span>
                             <div class="container-contact100-form-btn">
                                 <a href="javascript:history.back()">
                                     <button class="contact100-form-btn">
