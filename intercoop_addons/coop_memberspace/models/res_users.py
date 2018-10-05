@@ -27,7 +27,7 @@ class ResUsers(models.Model):
             local = pytz.timezone(user_tz)
             date = pytz.utc.localize(datetime.strptime(
                 date, "%Y-%m-%d %H:%M:%S")).astimezone(local)
-            rs = [datetime.strftime(date, item).capitalize() \
+            rs = [datetime.strftime(date, item).capitalize().decode('UTF-8') \
                 for item in formats]
             if obj and obj.get('id', False):
                 rs.append(obj['id'])
