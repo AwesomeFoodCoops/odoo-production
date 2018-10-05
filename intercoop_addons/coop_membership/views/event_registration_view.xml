@@ -9,6 +9,9 @@
             <field name="event_id" position="after">
                 <field name="is_discovery_meeting_event" invisible="1" />
             </field>
+            <field name="event_id" position="after">
+                <field name="is_send_reminder" group="base.group_no_one" readonly="1"  />
+            </field>
             <field name="name" position="attributes">
             	<attribute name="attrs">{'invisible': [('is_discovery_meeting_event', '=', True)]}</attribute>
             </field>
