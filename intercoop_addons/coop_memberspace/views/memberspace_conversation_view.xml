@@ -6,7 +6,7 @@
             <field name="name">view.memberspace.conversation.form</field>
             <field name="model">memberspace.conversation</field>
             <field name="arch" type="xml">
-                <form string="Memberspace Conversation" create="false" edit="false">
+                <form string="Memberspace Conversation" create="false">
                     <sheet>
                         <group>
                             <field name="name" />
