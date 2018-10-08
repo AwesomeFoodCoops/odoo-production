@@ -524,8 +524,7 @@ class OrderWeekPlanningLine(models.Model):
                                  required=True,
                                  select=True)
 
-    default_packaging = fields.Float(string='Default packaging',
-                                     required=True)
+    default_packaging = fields.Float(string='Default packaging', related='product_id.default_packaging')
     supplier_packaging = fields.Float(string='Supplier packaging',
                                       required=True)
     price_policy = fields.Selection(
@@ -549,27 +548,27 @@ class OrderWeekPlanningLine(models.Model):
                               required=True)
     start_inv = fields.Float('S. Inv',
                              digits=dp.get_precision('Order Week Planning Precision'))
-    monday_qty = fields.Float('Mond',
+    monday_qty = fields.Float('Mon.',
                               default=0.0,
                               digits=dp.get_precision('Order Week Planning Precision'),
                               copy=False)
-    tuesday_qty = fields.Float('Tues',
+    tuesday_qty = fields.Float('Tue.',
                                default=0.0,
                                digits=dp.get_precision('Order Week Planning Precision'),
                               copy=False)
-    wednesday_qty = fields.Float('Wed',
+    wednesday_qty = fields.Float('Wed.',
                                  default=0.0,
                                  digits=dp.get_precision('Order Week Planning Precision'),
                               copy=False)
-    thirsday_qty = fields.Float('Thurs',
+    thirsday_qty = fields.Float('Thi.',
                                 default=0.0,
                                 digits=dp.get_precision('Order Week Planning Precision'),
                               copy=False)
-    friday_qty = fields.Float('Fri',
+    friday_qty = fields.Float('Fri.',
                               default=0.0,
                               digits=dp.get_precision('Order Week Planning Precision'),
                               copy=False)
-    saturday_qty = fields.Float('Sat',
+    saturday_qty = fields.Float('Sat.',
                                 default=0.0,
                                 digits=dp.get_precision('Order Week Planning Precision'),
                               copy=False)
@@ -581,7 +580,7 @@ class OrderWeekPlanningLine(models.Model):
                             default=0.0,
                             digits=dp.get_precision('Order Week Planning Precision'),
                               copy=False)
-    medium_inventory_qty = fields.Float('Medium Qty',
+    medium_inventory_qty = fields.Float('Med',
                                         default=0.0,
                                         digits=dp.get_precision('Order Week Planning Precision'),
                               copy=False)

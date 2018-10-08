@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- Views -->
+    <record model="ir.ui.view" id="view_unmatch_bank_statement_wizard_form">
+        <field name="model">unmatch.bank.statement.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Unmatch Bank Statement">
+                <group>
+                    <h3><field name="mess_confirm" nolabel="1" readonly="1"/></h3>
+                </group>
+                <footer>
+                    <button string="Confirm" name="unmatch_bankstatement" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+</odoo>
+

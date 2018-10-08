@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from openerp import api, models
+from openerp import api, models, _
 from datetime import datetime
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 

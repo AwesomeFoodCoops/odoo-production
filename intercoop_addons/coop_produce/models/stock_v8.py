@@ -59,7 +59,7 @@ class StockInventory(models.Model):
                 'price_policy':supplier_info and supplier_info.price_policy or 0.0, # set to this value because this value is used on purchase order
                 'default_packaging':line.product_id.default_packaging,
                 'supplier_packaging':supplier_info and supplier_info.package_qty or 0,
-                'start_inv':line.packaging_qty # it should be this. To be vaildated by coop : line.packaging_qty * line.product_id.default_packaging/(supplier_info.package_qty or 1),
+                'start_inv':line.qty_stock # it should be this. To be vaildated by coop : line.packaging_qty * line.product_id.default_packaging/(supplier_info.package_qty or 1),
             }
             line_vals.append(val)
         return line_vals

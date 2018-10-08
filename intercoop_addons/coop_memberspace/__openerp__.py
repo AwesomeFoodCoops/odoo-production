@@ -18,10 +18,13 @@
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
 
+        'data/email/memberspace_alias_send_error_email.xml',
+        'data/email/email_proposal.xml',
         'data/change_name_menu_homepage.yml',
         'data/deactive_ir_rule.yml',
         'data/generate_email_alias_for_shift_template.yml',
         'data/ir_config_parameter.xml',
+        'data/ir_cron.xml',
         'data/website_menu.xml',
 
         'views/res_partner_view.xml',
@@ -29,6 +32,7 @@
         'views/memberspace_conversation_view.xml',
         'views/templates.xml',
 
+        'views/website/proposal_confirm.xml',
         'views/website/my_work.xml',
         'views/website/my_team.xml',
         'views/website/my_profile.xml',

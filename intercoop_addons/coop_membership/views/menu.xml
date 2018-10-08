@@ -221,12 +221,31 @@
     <record model="res.groups" id="coop_membership.group_membership_bdm_saisie">
         <field name="menu_access" eval="[(4, ref('coop_shift.shift_menu'))]"/>
     </record>
+
+    <menuitem
+        name="Shifts"
+        parent="coop_shift.shift_main_menu"
+        id="coop_shift.shift_menu"
+        sequence="11"
+        groups="coop_shift.group_shift_user,coop_membership.group_membership_bdm_lecture"/>
+
+    <menuitem
+        name="Templates"
+        parent="coop_shift.shift_main_menu"
+        id="coop_shift.template_menu"
+        sequence="22"
+        groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie"/>
     
     <record model="ir.ui.menu" id="menu_action_shift_change_team">
         <field name="name">Change Teams</field>
         <field name="action" ref="action_shift_change_teams"/>
         <field name="parent_id" ref="coop_shift.template_menu"/>
-        <field name="sequence">40</field>
+        <field name="groups_id" eval="[
+            (4, ref('coop_shift.group_shift_manager')),
+            (4, ref('coop_membership.group_membership_bdm_saisie'))
+            ]"
+        />
+        <field name="sequence">50</field>
     </record>
 
 </odoo>

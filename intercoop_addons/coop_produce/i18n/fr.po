@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-16 18:20+0000\n"
-"PO-Revision-Date: 2018-09-16 18:20+0000\n"
+"POT-Creation-Date: 2018-10-02 14:17+0000\n"
+"PO-Revision-Date: 2018-10-02 14:17+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -86,6 +86,12 @@ msgid "Default packaging"
 msgstr "PCB"
 
 #. module: coop_produce
+#: code:addons/coop_produce/models/product.py:57
+#, python-format
+msgid "Default packaging of %s must be positive ! "
+msgstr "Le colisage par défaut doit être strictement positif ! "
+
+#. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
 msgid "Details Product"
 msgstr "Produits"
@@ -124,8 +130,10 @@ msgstr "Inventaire F&L"
 
 #. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_friday_qty
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
-msgid "Fri"
+#: model:ir.ui.view,arch_db:coop_produce.view_order_week_planning_line_tree
+msgid "Fri."
 msgstr "Ven."
 
 #. module: coop_produce
@@ -136,7 +144,7 @@ msgstr "Qté. Commandéé le Ven."
 #. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_friday_received_qty
 msgid "Friday's received qty"
-msgstr "Friday's received qty"
+msgstr "Réception du vendredi"
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_form
@@ -153,7 +161,7 @@ msgstr "Regrouper par"
 #. module: coop_produce
 #: model:ir.model.fields,help:coop_produce.field_stock_inventory_hide_initialisation
 msgid "Hide Init. area"
-msgstr "Hide Init. area"
+msgstr "Cacher la zone d'init."
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
@@ -268,26 +276,23 @@ msgid "Lot Inventory"
 msgstr "Inventaire par lot"
 
 #. module: coop_produce
-#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
-msgid "MAJ S Inv"
-msgstr "MAJ S Inv"
+#: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_medium_inventory_qty
+msgid "Med"
+msgstr "Int."
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
 #: model:ir.ui.view,arch_db:coop_produce.view_order_week_planning_line_tree
 msgid "Med."
-msgstr "Med."
-
-#. module: coop_produce
-#: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_medium_inventory_qty
-msgid "Medium Qty"
-msgstr "Qté Intermédiaire"
+msgstr "Int.."
 
 #. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_monday_qty
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
-msgid "Mond"
+#: model:ir.ui.view,arch_db:coop_produce.view_order_week_planning_line_tree
+msgid "Mon."
 msgstr "Lun."
 
 #. module: coop_produce
@@ -371,6 +376,11 @@ msgstr "Tarification"
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
 msgid "PCB"
 msgstr "PCB"
+
+#. module: coop_produce
+#: model:ir.model,name:coop_produce.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_stock_inventory_filter
@@ -505,12 +515,14 @@ msgstr "Réinitialiser"
 #. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_start_inv
 msgid "S. Inv"
-msgstr "S. Inv"
+msgstr "D. Sem"
 
 #. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_saturday_qty
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
-msgid "Sat"
+#: model:ir.ui.view,arch_db:coop_produce.view_order_week_planning_line_tree
+msgid "Sat."
 msgstr "Sam."
 
 #. module: coop_produce
@@ -643,6 +655,14 @@ msgid "Theorical packaging qty"
 msgstr "Quantité théorique"
 
 #. module: coop_produce
+#: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_thirsday_qty
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
+#: model:ir.ui.view,arch_db:coop_produce.view_order_week_planning_line_tree
+msgid "Thi."
+msgstr "Jeu."
+
+#. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_thirsday_ordered_qty
 msgid "Thirsday's ordered qty"
 msgstr "Jeudi: Qté commandée"
@@ -653,15 +673,9 @@ msgid "Thirsday's received qty"
 msgstr "Jeudi: Qté reçue"
 
 #. module: coop_produce
-#: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_thirsday_qty
-#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
-msgid "Thurs"
-msgstr "Jeu."
-
-#. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_total_qty
 msgid "Total + S. Inv."
-msgstr "Total + S. Inv."
+msgstr "Total + D. Sem.."
 
 #. module: coop_produce
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
@@ -685,8 +699,10 @@ msgstr "Total reçus"
 
 #. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_tuesday_qty
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
-msgid "Tues"
+#: model:ir.ui.view,arch_db:coop_produce.view_order_week_planning_line_tree
+msgid "Tue."
 msgstr "Mar."
 
 #. module: coop_produce
@@ -710,6 +726,11 @@ msgid "UoM"
 msgstr "UdM"
 
 #. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
+msgid "Update S. Inv"
+msgstr "MAJ D. Sem."
+
+#. module: coop_produce
 #: model:ir.ui.menu,name:coop_produce.menu_inventory_fruits_vegetables
 msgid "V&F inventory"
 msgstr "Inventaire F&L"
@@ -728,8 +749,10 @@ msgstr "Warning: Colisage par défaut erroné"
 
 #. module: coop_produce
 #: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_wednesday_qty
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_historique_product_form
 #: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
-msgid "Wed"
+#: model:ir.ui.view,arch_db:coop_produce.view_order_week_planning_line_tree
+msgid "Wed."
 msgstr "Mer."
 
 #. module: coop_produce

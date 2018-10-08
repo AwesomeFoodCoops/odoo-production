@@ -397,6 +397,7 @@ class ShiftRegistration(models.Model):
                     shift_reg.shift_type == 'standard' and \
                     not shift_reg.template_created and \
                     shift_reg.state not in ['replacing', 'replaced'] and \
+                    shift_reg.exchange_state not in ['replacing', 'replaced'] and \
                     shift_reg.partner_id.working_state == 'up_to_date':
                 uptodate_list.append('- [%s] %s' % (
                     shift_reg.partner_id.barcode_base,
