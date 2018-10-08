@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                <div class="row" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
+                <div t-if="current_member.shift_type == 'standard'" class="row" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
                     <h3>Mon équipe 
                         <button type="button" style="margin-left: 5px;background-color: transparent;border: 0px;" class="material-icons js-copy" data-toggle="tooltip"
                             t-attf-title="Vous pouvez contacter L’ENSEMBLE de vos coordinateurs en écrivant à #{alias_team} (cliquez pour copier l’adresse)."

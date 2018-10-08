@@ -278,7 +278,8 @@ class Website(openerp.addons.website.controllers.main.Website):
                 'members': members,
                 'alias_team': alias_team,
                 'alias_leader': alias_leader,
-                'is_leader': is_leader
+                'is_leader': is_leader,
+                'current_member': user.partner_id
             }
         )
 
