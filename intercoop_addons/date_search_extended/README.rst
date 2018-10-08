@@ -2,7 +2,7 @@
     :alt: License: AGPL-3
 
 ==========================
-Louve Custom - Date Search
+Coop Custom - Date Search
 ==========================
 
 This module adds date fields to make date search functions more complete.
