@@ -5,6 +5,7 @@
     	<template id="assets_backend" name="coop_membership css assets" inherit_id="web.assets_backend">
         	<xpath expr="." position="inside">
             	<link rel="stylesheet" href="/coop_membership/static/lib/css/coop_membership_customs.css"/>
+            	<script type="text/javascript" src="/coop_membership/static/src/js/sidebar_button_access.js"/>
         	</xpath>
     	</template>
   	</data>
