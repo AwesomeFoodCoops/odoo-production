@@ -4,7 +4,7 @@
         <record id="view_coop_produce_order_week_planning_tree" model="ir.ui.view">
             <field name="name">order.week.planning.tree</field>
             <field name="model">order.week.planning</field>
-            <field name="sequence" eval="18"/>
+            <field name="priority" eval="18"/>
             <field name="arch" type="xml">
                 <tree string="Order Scheduling" default_order='year desc,week_number desc'>
                     <field name="date" string="Date"/>
@@ -33,7 +33,7 @@
         <record id="view_coop_produce_order_week_planning_interface_form" model="ir.ui.view">
             <field name="name">order.week.planning.form</field>
             <field name="model">order.week.planning</field>
-            <field name="sequence" eval="18"/>
+            <field name="priority" eval="18"/>
             <field name="arch" type="xml">
                 <form string="Order Scheduling">
                     <header>
@@ -192,7 +192,7 @@
         <record id="view_order_week_planning_line_tree" model="ir.ui.view">
             <field name="name">order.week.planning.line.tree</field>
             <field name="model">order.week.planning.line</field>
-            <field name="sequence" eval="18"/>
+            <field name="priority" eval="18"/>
             <field name="arch" type="xml">
                 <tree string="Product history" default_order='week_year desc,week_number desc, product_name'>
                     <field name="week_year"/>
@@ -222,7 +222,7 @@
         <record id="view_order_week_planning_line_search" model="ir.ui.view">
             <field name="name">order.week.planning.line.search</field>
             <field name="model">order.week.planning.line</field>
-            <field name="sequence" eval="18"/>
+            <field name="priority" eval="18"/>
             <field name="arch" type="xml">
                 <search string="Product history">
                     <field name="week_year"/>
