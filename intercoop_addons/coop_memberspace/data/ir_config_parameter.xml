@@ -7,52 +7,52 @@
                 'none': {
                     'alert': 'Erreur',
                     'message': "Un problème technique nous empêche actuellement de connaître votre statut. Réessayez plus tard ou contactez le bureau des membres.",
-                    'css-class': 'alert alert-danger'
+                    'css-class': 'alert trobz-alert-danger'
                 },
                 'alert': {
                     'alert': 'Attention !',
                     'message': "Vous avez un ou plusieurs rattrapages à faire.",
-                    'css-class': 'alert alert-warning'
+                    'css-class': 'alert trobz-alert-warning'
                 },
                 'suspended': {
                     'alert': '',
                     'message': "Vous avez été suspendu, merci de contacter le bureau des membres.",
-                    'css-class': 'alert alert-danger'
+                    'css-class': 'alert trobz-alert-danger'
                 },
                 'delay': {
                     'alert': 'Attention !',
                     'message': "Vous avez un ou plusieurs rattrapages à faire.",
-                    'css-class': 'alert alert-warning'
+                    'css-class': 'alert trobz-alert-warning'
                 },
                 'unpayed': {
                     'alert': '',
                     'message': "Un incident s'est présenté sur votre compte. Veuillez contacter le bureau des membres.",
-                    'css-class': 'alert alert-info'
+                    'css-class': 'alert trobz-alert-info'
                 },
                 'blocked': {
                     'alert': '',
                     'message': "Un incident s'est présenté sur votre compte. Veuillez contacter le bureau des membres.",
-                    'css-class': 'alert alert-info'
+                    'css-class': 'alert trobz-alert-info'
                 },
                 'unsubscribed': {
                     'alert': '',
                     'message': "Vous avez été désinscrit de votre équipe, merci de contacter le bureau des membres.",
-                    'css-class': 'alert alert-danger'
+                    'css-class': 'alert trobz-alert-danger'
                 },
                 'up_to_date': {
                     'alert': 'Bravo !',
                     'message': "Vous êtes à jour.",
-                    'css-class': 'alert alert-success'
+                    'css-class': 'alert trobz-alert-success'
                 },
                 'vacation': {
                     'alert': '',
                     'message': "En congé.",
-                    'css-class': 'alert alert-warning'
+                    'css-class': 'alert trobz-alert-warning'
                 },
                 'exempted': {
                     'alert': '',
                     'message': "En congé.",
-                    'css-class': 'alert alert-warning'
+                    'css-class': 'alert trobz-alert-warning'
                 }
             }</field>
         </record>
