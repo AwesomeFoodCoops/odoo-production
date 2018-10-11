@@ -101,16 +101,21 @@
                 </td>
             </xpath>
             <xpath expr="//table[@class='table table-condensed'][2]/thead/tr//th[5]" position="replace">
-                <th class="text-right"><strong>Total</strong></th>
+                <th class="text-center" style="width: 10%;"><strong>Total</strong></th>
                 <th class="text-right" style="width: 20%;"><strong>NB d'unités théorique</strong></th>
             </xpath>
         
             <xpath expr="//table[@class='table table-condensed'][2]/tr//td[5]" position="after">
-                <td class="text-right" style="border-left:1px solid #ddd;border-bottom:1px solid #ddd"><span t-field="line.product_qty"/> <span t-field="line.product_uom_id" groups="product.group_uom"/></td>
+                <t t-if="line.product_uom_id.name == 'Unit(s)'">
+                    <td class="text-right" style="border-left:1px solid #ddd;border-bottom:1px solid #ddd"><span t-esc="'%.0f'%(line.product_qty)"/> <span t-field="line.product_uom_id" groups="product.group_uom"/></td>
+                </t>
+                <t t-if="line.product_uom_id.name != 'Unit(s)'">
+                    <td class="text-right" style="border-left:1px solid #ddd;border-bottom:1px solid #ddd"><span t-field="line.product_qty"/> <span t-field="line.product_uom_id" groups="product.group_uom"/></td>
+                </t>
             </xpath>
 
             <xpath expr="//table[@class='table table-condensed'][2]/tr//td[2]" position="replace">
-                <td style="border-bottom:1px solid #ddd"><span t-field="line.product_id"/></td>
+                <td style="border-bottom:1px solid #ddd; font-size: 12px;"><span t-field="line.product_id"/></td>
             </xpath>
 
             <xpath expr="//table[@class='table table-condensed'][2]/tr//td[3]" position="replace">
