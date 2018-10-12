@@ -354,14 +354,14 @@ class Website(openerp.addons.website.controllers.main.Website):
         })
         if not (proposal and proposal.token_valid):
             values['bootstrap_class'] = 'alert alert-danger'
-            values['message'] = _('Ooops... this offer is no longer valid, it has been withdrawn or the member closed a deal with somebody else.')
+            values['message'] = _('Désolé... cette proposition n’est plus valide, elle a été retirée ou le membre a échangé ce service avec une autre personne.')
         else:
             if action == 'accept':
                 proposal.accept_proposal()
                 values['bootstrap_class'] = 'alert alert-success'
-                values['message'] = _("Your exchange has been confirmed! Your information has been updated in 'My shifts' section of your member area.")
+                values['message'] = _("Votre échange est enregistré, vos changements ont été actualisés dans la section 'Ma participation' de votre espace membre.")
             else:
                 proposal.refuse_proposal()
                 values['bootstrap_class'] = 'alert alert-warning'
-                values['message'] = _('Well noted! We hope that you’ll find another option that suits you.')
+                values['message'] = _('C’est noté ! Nous espérons que vous trouverez une option qui vous conviendra.')
         return request.render('coop_memberspace.proposal_confirm', values)
