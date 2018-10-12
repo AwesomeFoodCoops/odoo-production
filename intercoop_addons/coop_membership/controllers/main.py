@@ -60,19 +60,24 @@ class WebsiteRegisterMeeting(http.Controller):
         event_obj = request.registry['event.event']
         event_ids = event_obj.search(request.cr, REGISTER_USER_ID, [
             ('is_discovery_meeting', '=', True),
-            ('state', '!=', 'cancel'),
+            ('state', '=', 'confirm'),
             ('date_begin', '>=', fields.Datetime.to_string(datetime.now())),
         ])
         events = event_obj.browse(request.cr, REGISTER_USER_ID, event_ids,
                                   context=request.context)
         available_events = events.filtered(
             lambda e: not (e.seats_availability == 'limited' and
-                           e.seats_available < 1 and e.state == 'confirm'))
+                           e.seats_available < 1))
         datas = self.prepare_data_events(available_events)
 
+        event_config = request.env['event.config.settings'].sudo().search(
+            [], limit=1, order="id desc"
+        )
         value = {
             'datas': datas,
             'captcha_site_key': captcha_site_key,
+            'description': event_config and event_config.description or "",
+            'notice': event_config and event_config.notice or ""
         }
         return request.render("coop_membership.register_form", value)
 
