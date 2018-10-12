@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">view_partner_form_inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <field name="type" position="before">
+                    <group colspan="2">
+                        <field name="related_user_id"
+                               attrs="{'invisible': [('related_user_id', '=', False)]}"
+                               context="{'form_view_ref': 'base.view_users_form'}"/>
+                        <button name="action_create_new_user"
+                                type="object" class="oe_highlight"
+                                string="Create New User"
+                                groups="create_users_partners.group_create_user_from_partner"
+                                attrs="{'invisible': [('related_user_id', '!=', False)]}"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

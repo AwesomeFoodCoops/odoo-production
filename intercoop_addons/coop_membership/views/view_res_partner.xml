@@ -252,8 +252,7 @@
                                 <button name="action_create_new_user"
                                         type="object" class="oe_highlight"
                                         string="Create New User"
-                                        groups="coop_membership.group_membership_see_associated_people,
-                                        coop_membership.group_membership_access_user"
+                                        groups="create_users_partners.group_create_user_from_partner"
                                         attrs="{'invisible': [('related_user_id', '!=', False)]}"/>
                             </group>
 
