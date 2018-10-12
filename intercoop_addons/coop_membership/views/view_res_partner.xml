@@ -377,7 +377,8 @@
                         </group>
                         <group string="MemberShip"
                                groups="coop_membership.group_membership_see_associated_people,
-                               coop_membership.group_membership_access_user">
+                               coop_membership.group_membership_access_user"
+                               attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
                             <field name="nb_associated_people"
                                    string="Number of Associated People"
                                    attrs="{'readonly': True, 'invisible': [('is_member','=',False),('is_former_member','=',False)]}"
@@ -428,7 +429,8 @@
                             <field name="is_unsubscribed"
                                    groups="coop_membership.group_membership_access_manager"/>
                         </group>
-                        <group string="Extra Data">
+                        <group string="Extra Data"
+                            attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
                             <field name="temp_coop_number"
                                    groups="coop_membership.group_membership_see_associated_people,
                                    coop_membership.group_membership_access_user"
@@ -773,7 +775,7 @@
                             </group>
                         </page>
                         <page name="shifts" string="Shifts"
-                              attrs="{'invisible': [('is_member', '=', False)]}"
+                              attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}"
                               groups="coop_membership.group_membership_access_user,
                               coop_membership.group_membership_bdm_lecture,coop_membership.group_membership_bdm_saisie">
                             <group name="state">
@@ -808,7 +810,8 @@
                         </page>
                         <page name="page_capital_fundraising"
                               string="Capital Subscriptions"
-                              groups="coop_membership.subscriptions_reader">
+                              groups="coop_membership.subscriptions_reader"
+                              attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
                             <group>
                                 <group string="Partner Type">
                                     <field name="fundraising_partner_type_ids"
@@ -1198,7 +1201,8 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
 
             <!-- New Page for Coop Data information -->
             <notebook position="inside">
-                <page string="Coop Data" name="coop_data">
+                <page string="Coop Data" name="coop_data"
+                      attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
                     <group>
                         <group string="MemberShip" >
                             <field name="nb_associated_people"
