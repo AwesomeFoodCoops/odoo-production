@@ -233,6 +233,7 @@
                                        coop_membership.group_membership_bdm_lecture,
                                        coop_membership.group_membership_bdm_saisie" />
                             <field name="next_abcd_registrations"
+                                widget="many2many_tags"
                                 groups="coop_membership.group_membership_bdm_presence,
                                        coop_membership.group_membership_bdm_lecture,
                                        coop_membership.group_membership_bdm_saisie">
