@@ -11,7 +11,7 @@
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'depends': [
-        'website', 'coop_shift', 'theme_bootswatch'
+        'website', 'coop_shift', 'theme_bootswatch', 'create_users_partners'
     ],
     'data': [
         'security/res_group_data.xml',
