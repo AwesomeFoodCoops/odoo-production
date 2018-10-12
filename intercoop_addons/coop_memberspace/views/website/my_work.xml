@@ -99,20 +99,25 @@
                                         Extra
                                     </td>
                                 </t>
-                                <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop'">
+                                <t t-if="shift.state == 'waiting' and shift_ticket_type != 'ftop'">
+                                    <td style="text-align: center;">
+                                        Waiting
+                                    </td>
+                                </t>
+                                <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                     <td style="text-align: center;">
                                         <button class="material-icons button-icon go-to-market" style="margin-right: 10px;"
                                             t-att-registration-id="shift.id">swap_horiz</button>
                                     </td>
                                 </t>
-                                <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop'">
+                                <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                     <td style="text-align: center;">
                                         <span>En cours </span>
                                         <button class="material-icons button-icon remove-proposal" t-att-registration-id="shift.id"
                                             data-toggle="modal" data-target="#modal_confirm_cancel_proposal">remove_circle_outline</button>
                                     </td>
                                 </t>
-                                <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop'">
+                                <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                     <td style="text-align: center;background: lightgray">
                                         Remplacé
                                     </td>
@@ -373,20 +378,25 @@
                                             Extra
                                         </td>
                                     </t>
-                                    <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop'">
+                                    <t t-if="shift.state == 'waiting' and shift_ticket_type != 'ftop'">
+                                        <td style="text-align: center;">
+                                            Waiting
+                                        </td>
+                                    </t>
+                                    <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                         <td style="text-align: center;">
                                             <button class="material-icons button-icon go-to-market" style="margin-right: 10px;"
                                                 t-att-registration-id="shift.id">swap_horiz</button>
                                         </td>
                                     </t>
-                                    <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop'">
+                                    <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                         <td style="text-align: center;">
                                             <span>En cours </span>
                                             <button class="material-icons button-icon remove-proposal" t-att-registration-id="shift.id"
                                                 data-toggle="modal" data-target="#modal_confirm_cancel_proposal">remove_circle_outline</button>
                                         </td>
                                     </t>
-                                    <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop'">
+                                    <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                         <td style="text-align: center;background: lightgray">
                                             Remplacé
                                         </td>
@@ -489,7 +499,7 @@
     <template id="coop_memberspace.mywork_ftop">
         <div class="row" style="margin-top: 20px">
             <div class="col-md-6">
-                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 192px;">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 205px;">
                     <div class="row">
                         <div class="col-md-10">
                             <div>
@@ -510,7 +520,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 192px;">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 205px;">
                     <p style="font-size: 25px;font-weight: 600">Programmer un service volant</p>
                     <p class="text-center">Si vous êtes membre de l’équipe volante, passez par ici pour voir les
                         services disponibles et programmer vôtre vacation. L’annulation

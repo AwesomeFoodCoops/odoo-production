@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+	<record model="res.groups" id="group_create_user_from_partner">
+	    <field name="name">Create User On Partner Form</field>
+	    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+	</record>
+
+</odoo>
+
+

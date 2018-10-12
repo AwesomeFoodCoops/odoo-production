@@ -23,5 +23,70 @@ msgstr "Valider les factures"
 #. module: louve_custom_account
 #: code:addons/louve_custom_account/models/account_invoice.py:46
 #, python-format
-msgid "You dont have the invoice validation right, so you cant validate this invoice"
+msgid "You do not have the invoice validation right, so you can not validate this invoice"
 msgstr "Vous n'avez pas le droit de validation sur les factures, vous ne pouvez donc pas valider cette facture"
+
+#. module: louve_custom_account
+#: selection:account.payment,operation_type:0
+msgid "SEPA Direct Credit"
+msgstr "Virement SEPA"
+
+#. module: louve_custom_account
+#: selection:account.payment,operation_type:0
+msgid "SEPA Direct Debit"
+msgstr "Prélèvement SEPA"
+
+#. module: louve_custom_account
+#: selection:account.payment,operation_type:0
+msgid "Other"
+msgstr "Other"
+
+#. module: louve_custom_account
+#: selection:account.payment,operation_type:0
+msgid "Credit card"
+msgstr "Carte bancaire"
+
+#. module: louve_custom_account
+#: selection:account.payment,operation_type:0
+msgid "LCR"
+msgstr "LCR"
+
+#. module: louve_custom_account
+#: selection:account.payment,operation_type:0
+msgid "Check"
+msgstr "Chèque"
+
+#. module: louve_custom_account
+#: model:ir.model.fields,field_description:louve_custom_account.field_account_payment_operation_type
+msgid "Operation Type"
+msgstr "Type d'Opération"
+
+#. module: louve_custom_account
+#: code:addons/louve_custom_account/models/account_payment.py:47
+#, python-format
+msgid "SEPA Direct Debit"
+msgstr "PRLV SEPA"
+
+#. module: louve_custom_account
+#: code:addons/louve_custom_account/models/account_payment.py:50
+#, python-format
+msgid "SEPA Direct Credit"
+msgstr "VIR SEPA"
+
+#. module: louve_custom_account
+#: code:addons/louve_custom_account/models/account_payment.py:53
+#, python-format
+msgid "Credit Card "
+msgstr "CB"
+
+#. module: louve_custom_account
+#: code:addons/louve_custom_account/models/account_payment.py:65
+#, python-format
+msgid "Check nb "
+msgstr "CHQ"
+
+#. module: louve_custom_account
+#: code:addons/louve_custom_account/models/account_payment.py:68
+#, python-format
+msgid "LCR nb "
+msgstr "LCR "

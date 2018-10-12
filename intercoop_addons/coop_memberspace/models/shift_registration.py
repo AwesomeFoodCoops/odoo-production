@@ -8,12 +8,6 @@ from datetime import datetime
 class ShiftRegistration(models.Model):
     _inherit = 'shift.registration'
 
-    exchange_state = fields.Selection([
-        ('draft', 'Draft'),
-        ('in_progress', 'In Progress'),
-        ('replacing', 'Replacing'),
-        ('replaced', 'Replaced')
-    ], string="Exchange Status", default='draft')
     exchange_replaced_reg_id = fields.Many2one(
         'shift.registration', "Exchange Registration Replaced", required=False,
         help="The old shift registration of the member before exchange")
