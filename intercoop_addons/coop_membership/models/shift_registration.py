@@ -379,6 +379,20 @@ class ShiftRegistration(models.Model):
                 lambda t: t.product_id == ticket_type_product)
 
     @api.multi
+    @api.depends('shift_id', 'date_begin')
+    def name_get(self):
+        result = []
+        for registration in self:
+            date_begin = ''
+            if registration.date_begin:
+                date_begin = registration.date_begin[:10].split(
+                    '-')[2] + '/' + registration.date_begin[:10].split('-')[1]\
+                    + '/' + registration.date_begin[:10].split('-')[0]
+            name = registration.shift_id.name + (' ' + date_begin)
+            result.append((registration.id, name))
+        return result
+
+    @api.multi
     def checking_shift_attendance(self):
         """
         @Function to check the attendance:
