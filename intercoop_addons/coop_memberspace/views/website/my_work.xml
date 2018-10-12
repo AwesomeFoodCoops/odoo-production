@@ -567,7 +567,7 @@
     <template id="coop_memberspace.mywork_ftop">
         <div class="row" style="margin-top: 20px">
             <div class="col-md-6">
-                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 192px;">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 205px;">
                     <div class="row">
                         <div class="col-md-10">
                             <div>
@@ -588,7 +588,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 192px;">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 205px;">
                     <p style="font-size: 25px;font-weight: 600">Programmer un service volant</p>
                     <p class="text-center">Si vous êtes membre de l’équipe volante, passez par ici pour voir les
                         services disponibles et programmer vôtre vacation. L’annulation
@@ -623,7 +623,7 @@
                                 <td><t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/></td>
                                 <t t-set="coordinators" t-value="shift.get_coordinators(get_alias_coordinator=True)" />
                                 <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
-                                    #{coordinators[1]} (we should be able to copy the address)" class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i></span></td>
+                                    #{coordinators[1]} (cliquez pour copier l’adresse)" class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i></span></td>
                                 <td>
                                     <t t-if="shift.state == 'cancel'">
                                         Annulé
