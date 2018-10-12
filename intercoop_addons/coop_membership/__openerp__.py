@@ -25,6 +25,7 @@
         'res_partner_account_move_line',
         'stock',
         'email_pos_receipt',
+        'create_users_partners',
     ],
     'data': [
         'data/update_template_name_ftop.yml',
