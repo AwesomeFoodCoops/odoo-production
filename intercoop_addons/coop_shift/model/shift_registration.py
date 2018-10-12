@@ -84,6 +84,13 @@ class ShiftRegistration(models.Model):
     is_related_shift_ftop = fields.Boolean(
         compute='compute_is_related_shift_ftop', store=False)
 
+    exchange_state = fields.Selection([
+        ('draft', 'Draft'),
+        ('in_progress', 'In Progress'),
+        ('replacing', 'Replacing'),
+        ('replaced', 'Replaced')
+    ], string="Exchange Status", default='draft')
+
     _sql_constraints = [(
         'shift_registration_uniq',
         'unique (shift_id, partner_id)',
