@@ -248,4 +248,12 @@
         <field name="sequence">50</field>
     </record>
 
+    <!-- Menu Welcome Events -->
+    <menuitem action="coop_membership.action_welcome_events_view"
+              id="menu_welcome_events" name="Welcome Events"
+              parent="event.event_main_menu" sequence="11"
+    />
+    <record id="event.menu_action_registration" model="ir.ui.menu">
+        <field name="sequence">12</field>
+    </record>
 </odoo>

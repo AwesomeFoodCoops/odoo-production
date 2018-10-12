@@ -63,6 +63,7 @@
         'views/account_view.xml',
         'views/capital_subscription_view.xml',
         'views/event_view.xml',
+        'views/event_config_settings_view.xml',
         'views/shift_view.xml',
         'views/view_shift_extension.xml',
         'views/view_shift_ticket.xml',

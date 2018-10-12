@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
-
         <template id="register_form" name="Register Form">
             <html>
                 <head id="website_register_header" name="website_register_header">
@@ -17,22 +15,24 @@
                                 <span class="contact100-form-title">
                                     Inscription - Réunions d'accueil
                                 </span>
-                                <span class="first-text-block">
+                                <t t-raw="description" />
+                                <t t-raw="notice" />
+                                <!-- <span class="first-text-block">
                                     Rejoindre la coopérative passe exclusivement par votre présence à une réunion d’accueil. Ces réunions étant importantes, et le nombre de places limité pour chacune d'entre elles, <strong>merci de ne vous inscrire que dans le cas où vous êtes sûr d'être disponible</strong>, et ce sur toute la durée de la réunion.
                                 </span>
                                 <span class="first-text-block">
                                     Rappel : pour pouvoir souscrire à l’issue de la réunion d’accueil, vous devez <strong>obligatoirement vous munir de :</strong>
                                 </span>
-                                    <span class="first-text-block">
-                                        <ul>
-                                            <li>1. votre carnet de chèque ou votre carte bancaire</li>
-                                            <li>2. une pièce d’identité</li>
-                                            <li>3. un justificatif datant de moins de 3 mois pour une souscription réduite : <a href="https://cooplalouve.fr/minimas-sociaux" class="link_style">https://cooplalouve.fr/minimas-sociaux.</a></li>
-                                        </ul>
-                                    </span>
+                                <span class="first-text-block">
+                                    <ul>
+                                        <li>1. votre carnet de chèque ou votre carte bancaire</li>
+                                        <li>2. une pièce d’identité</li>
+                                        <li>3. un justificatif datant de moins de 3 mois pour une souscription réduite : <a href="https://cooplalouve.fr/minimas-sociaux" class="link_style">https://cooplalouve.fr/minimas-sociaux.</a></li>
+                                    </ul>
+                                </span>
 
-                                    <span class="first-text-block">De nouvelles dates sont ajoutées régulièrement.</span>
-                                    <em class="first-text-block final-text-block">Si vous devez contactez les organisateurs des réunions d’accueil, merci d’utiliser cette adresse : reunion.accueil@cooplalouve.fr</em>
+                                <span class="first-text-block">De nouvelles dates sont ajoutées régulièrement.</span>
+                                <em class="first-text-block final-text-block">Si vous devez contactez les organisateurs des réunions d’accueil, merci d’utiliser cette adresse : reunion.accueil@cooplalouve.fr</em> -->
                                 <div class="wrap-input100 validate-input bg1" data-validate = "Veuillez renseigner votre adresse électronique (e@a.x)">
                                     <span class="label-input100">Courriel</span><span class="star_style"> *</span>
                                     <input class="input100" type="text" name="email" placeholder="Veuillez renseigner votre adresse électronique "></input>
@@ -45,13 +45,13 @@
                                     <span class="label-input100">Prénom</span><span class="star_style"> *</span>
                                     <input class="input100" type="text" name="first_name" placeholder="Veuillez renseigner votre prénom"></input>
                                 </div>
-                                <div class="wrap-input100 validate-input bg1 input_radio" data-validate = "Enter Your Sex" >
-                                    <span class="label-input100">Sexe</span><span class="star_style"> *</span><br />
+                                <div class="wrap-input100 bg1 input_radio">
+                                    <span class="label-input100">Sexe</span><br />
                                     <input  type="radio" name="sex" value="m"> Homme </input><br />
                                     <input  type="radio" name="sex" value="f"> Femme </input><br />
                                     <input  type="radio" name="sex" value="o"> Autre </input><br />
                                 </div>
-                                <div class="wrap-input100 validate-input bg1" data-validate="Vous devez avoir plus de 18 ans et le format de date doit être JJ/MM/AAA">
+                                <div class="wrap-input100 bg1">
                                     <span class="label-input100 long-text">Date de naissance</span>
                                     <input class="dob input100" type="text" name="dob" placeholder="Veuillez renseigner votre date de naissance"></input>
                                 </div>                                
@@ -79,12 +79,12 @@
                                     <span class="label-input100 long-text">Code postal </span>
                                     <input class="input100" type="text" name="zipcode" placeholder="Veuillez renseigner votre code postal"></input>
                                 </div>
-                                <div class="wrap-input100 bg1 input_radio" >
+                                <!-- <div class="wrap-input100 bg1 input_radio" >
                                     <span class="label-input100 long-text">Titulaire d'un justificatif minima social</span>
                                     <br />
                                     <input  type="radio" name="social_registration" value="yes">  Oui </input><br />
                                     <input  type="radio" checked="checked" name="social_registration" value="no">  Non </input><br />
-                                </div>
+                                </div> -->
 
                                 <div class="wrap-input100 input_radio validate-input bg1 dropDownSelect2" >
                                     <span class="label-input100 long-text">Je m'inscris à la réunion d'accueil du :</span><br />
@@ -171,8 +171,8 @@
                                     <span class="label-input100">Prénom</span><span class="star_style"> *</span>
                                     <input class="input100" type="text" t-att-value="first_name" name="first_name" placeholder="Veuillez renseigner votre prénom"></input>
                                 </div>
-                                <div class="wrap-input100 validate-input bg1 input_radio content-hidden" data-validate = "Enter Your Sex" >
-                                    <span class="label-input100">Sexe</span><span class="star_style"> *</span><br />
+                                <div class="wrap-input100 bg1 input_radio content-hidden" >
+                                    <span class="label-input100">Sexe</span><br />
                                     <t t-if="sex == 'm'">
                                         <input  type="radio" name="sex" checked="checked" value="m"> Homme </input><br />
                                     </t>
@@ -183,7 +183,7 @@
                                         <input  type="radio" name="sex" checked="checked" value="o"> Autre </input><br />
                                     </t>
                                 </div>
-                                <div class="wrap-input100 validate-input bg1 content-hidden" data-validate="Vous devez avoir plus de 18 ans et le format de date doit être JJ/MM/AAA">
+                                <div class="wrap-input100 bg1 content-hidden">
                                     <span class="label-input100 long-text">Date de naissance</span>
                                     <input class="dob input100" t-att-value="dob" type="text" name="dob" placeholder="Veuillez renseigner votre date de naissance"></input>
                                 </div>                                
@@ -339,8 +339,8 @@
                                     <span class="label-input100">Prénom</span><span class="star_style"> *</span>
                                     <input class="input100" type="text" t-att-value="first_name" name="first_name" placeholder="Veuillez renseigner votre prénom"></input>
                                 </div>
-                                <div class="wrap-input100 validate-input bg1 input_radio" data-validate = "Enter Your Sex" >
-                                    <span class="label-input100">Sexe</span><span class="star_style"> *</span><br />
+                                <div class="wrap-input100 bg1 input_radio" >
+                                    <span class="label-input100">Sexe</span><br />
                                     <t t-if="sex == 'm'">
                                         <input  type="radio" name="sex" checked="checked" value="m"> Homme </input><br />
                                         <input  type="radio" name="sex" value="f"> Femme </input><br />
@@ -357,7 +357,7 @@
                                         <input  type="radio" name="sex" checked="checked" value="o"> Autre </input><br />
                                     </t>
                                 </div>
-                                <div class="wrap-input100 validate-input bg1" data-validate="Vous devez avoir plus de 18 ans et le format de date doit être JJ/MM/AAA">
+                                <div class="wrap-input100 bg1">
                                     <span class="label-input100 long-text">Date de naissance</span>
                                     <input class="dob input100" t-att-value="dob" type="text" name="dob" placeholder="Veuillez renseigner votre date de naissance"></input>
                                 </div>                                
