@@ -681,8 +681,9 @@ msgstr "Assistant"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_event_event_is_discovery_meeting
+#: model:ir.ui.view,arch_db:coop_membership.view_event_event_search_inherit
 msgid "Discovery Meeting"
-msgstr "Article pour les réunions d'accueil"
+msgstr "Réunion d'accueil"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_registration.py:50
@@ -1859,3 +1860,31 @@ msgstr "Commentaires"
 #, python-format
 msgid "Please choose another leader because the current leader is unsubscribed"
 msgstr "S'il vous plaît choisir un autre chef parce que le leader actuel est désabonné"
+
+#. modules: coop_membership
+#: model:ir.actions.act_window,name:coop_membership.action_welcome_events_view
+#: model:ir.ui.menu,name:coop_membership.menu_welcome_events
+#: model:ir.ui.view,arch_db:coop_membership.view_event_configuration_form_inherit
+msgid "Welcome Events"
+msgstr "Réunions d'accueil"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_event_config_settings_seats_max
+msgid "Maximum Attendees Number"
+msgstr "Nombre maximum de participants"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_event_config_settings_description
+msgid "Description"
+msgstr "La description"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_event_config_settings_notice
+msgid "Notice"
+msgstr "Remarquer"
+
+#. module: coop_membership
+#: code:intercoop_addons/coop_membership/models/event.py:54
+#, python-format
+msgid "You cannot close this event. Please review attendances and mark all attendees as absent or present."
+msgstr "Vous ne pouvez clôturer cette réunion. Veuillez renseigner les présences, tous les participants doivent être marqués soit absent soit présent."
