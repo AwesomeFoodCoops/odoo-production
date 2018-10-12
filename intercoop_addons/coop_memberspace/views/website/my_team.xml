@@ -8,7 +8,8 @@
                     <h3>Mes coordinateurs 
                         <button type="button" style="margin-left: 5px;background-color: transparent;border: 0px;" class="material-icons js-copy" data-toggle="tooltip"
                             t-attf-title="Vous pouvez contacter L’ENSEMBLE de vos coordinateurs en écrivant à #{alias_leader} (cliquez pour copier l’adresse)."
-                            t-att-data-copy="alias_leader" >
+                            t-att-data-copy="alias_leader"
+                            data-container="body" >
                             email
                         </button>
                     </h3>
@@ -35,7 +36,7 @@
 
                 <div class="row" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
                     <h3>Mon équipe 
-                        <button type="button" style="margin-left: 5px;background-color: transparent;border: 0px;" class="material-icons js-copy" data-toggle="tooltip"
+                        <button type="button" style="margin-left: 5px;background-color: transparent;border: 0px;" class="material-icons js-copy" data-container="body" data-toggle="tooltip"
                             t-attf-title="Vous pouvez contacter L’ENSEMBLE de vos coordinateurs en écrivant à #{alias_team} (cliquez pour copier l’adresse)."
                             t-att-data-copy="alias_team"
                             t-if="is_leader and members" >
