@@ -1260,6 +1260,11 @@ msgid "Tasks"
 msgstr "Tâches"
 
 #. module: coop_membership
+#: model:res.groups,name:coop_membership.coop_partner_action
+msgid "Partner Actions"
+msgstr "Actions partenaires"
+
+#. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_partner_form
 msgid "Tmpl. Registr."
 msgstr "Équipe"
