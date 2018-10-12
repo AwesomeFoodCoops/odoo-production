@@ -20,7 +20,42 @@
                 <field name="subscription_help_member_ids" widget="many2many_tags"/>
                 <field name="subscription_member_ids" widget="many2many_tags"/>
             </field>
+            <field name="seats_min" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_discovery_meeting', '=', True)]}</attribute>event_sale.view_event_form_inherit_ticket
+            </field>
         </field>
+    </record>
+
+    <record id="view_event_sale_form_inherit" model="ir.ui.view">
+        <field name="name">view.event.sale.form.inherit</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event_sale.view_event_form_inherit_ticket"/>
+        <field name="arch" type="xml">
+            <field name="seats_min" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_discovery_meeting', '=', True)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_event_event_search_inherit" model="ir.ui.view">
+        <field name="name">view.event.event.search.inherit</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="after">
+                <filter string="Discovery Meeting" name="discovery_meeting" domain="[('is_discovery_meeting', '=', True)]" />
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_welcome_events_view">
+       <field name="name">Welcome Events</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">event.event</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">tree,form</field>
+       <field name="context">{"search_default_discovery_meeting": 1, "default_is_discovery_meeting": 1}</field>
+       <field name="search_view_id" ref="event.view_event_search"/>
     </record>
 
 </odoo>

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from . import event_config_settings
 from . import shift_leave_wizard
 from . import barcode_rule
 from . import res_partner
