@@ -25,6 +25,7 @@
         'res_partner_account_move_line',
         'stock',
         'email_pos_receipt',
+        'create_users_partners',
     ],
     'data': [
         'data/update_template_name_ftop.yml',
@@ -70,7 +71,7 @@
         'views/web_templates.xml',
         'views/view_web_access_buttons.xml',
         'views/view_shift_holiday.xml',
-        'views/view_custom_css.xml',
+        'views/custom_templates.xml',
         'views/view_shift_change_team.xml',
         'views/view_shift_template.xml',
         'views/action.xml',

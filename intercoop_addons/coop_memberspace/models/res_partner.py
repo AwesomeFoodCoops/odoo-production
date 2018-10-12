@@ -26,11 +26,12 @@ class ResPartner(models.Model):
             member_state.get('message', ""), member_state.get('css-class', "")
 
     public_avatar = fields.Boolean(
-        "Public Avatar", help="Public your avatar in website")
+        "Public Avatar", help="Public your avatar in website", default=True)
     public_mobile = fields.Boolean(
-        "Public Mobile", help="Public your mobile in website")
+        "Public Mobile", help="Public your mobile in website", default=False)
     public_email = fields.Boolean(
-        "Public Email Address", help="Public your email address on website"
+        "Public Email Address", help="Public your email address on website",
+        default=False
     )
 
     @api.multi

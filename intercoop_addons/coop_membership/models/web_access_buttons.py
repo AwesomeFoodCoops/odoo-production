@@ -21,8 +21,8 @@ def check_access_buttons(self):
     manager_group = self.env.user.has_group(
         'coop_membership.group_membership_access_manager')
     writer_group = self.env.user.has_group(
-        'coop_membership.group_membership_access_edit')                
-           
+        'coop_membership.group_membership_access_edit')
+
     if self.env.user.id == SUPERUSER_ID:
         return False
     elif self._name == 'res.partner':
@@ -55,4 +55,15 @@ def check_access_buttons(self):
         return False
 
 
+@api.multi
+def check_access_buttons_action(self):
+    partner_actions = self.env.user.has_group('coop_membership.coop_partner_action')
+
+    if self._name == 'res.partner' and not partner_actions:
+        return True
+    else:
+        return False
+
+
 models.BaseModel.check_access_buttons = check_access_buttons
+models.BaseModel.check_access_buttons_action = check_access_buttons_action
