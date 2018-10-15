@@ -60,7 +60,7 @@ class ShiftTemplate(models.Model):
         'res.partner', string='Shift Leader')
     user_ids = fields.Many2many(
         'res.partner', 'res_partner_shift_template_rel', 'shift_template_id',
-        'partner_id', string='Shift Leaders', required=True)
+        'partner_id', string='Shift Leaders')
     company_id = fields.Many2one(
         'res.company', string='Company', change_default=True,
         default=lambda self: self.env['res.company']._company_default_get(
