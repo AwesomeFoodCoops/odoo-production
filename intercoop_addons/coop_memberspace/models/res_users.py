@@ -64,7 +64,7 @@ class ResUsers(models.Model):
                     'id': shift.id,
                     'seats_avail': seats_avail,
                     'date_begin': user.get_time_by_user_lang(
-                        shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'],
+                        shift.date_begin, ['%A, %d %B', '%HH%M'],
                         lang=user.lang + '.utf8')
                 })
         return shifts

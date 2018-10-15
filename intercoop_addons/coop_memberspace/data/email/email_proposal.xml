@@ -66,8 +66,8 @@
     <span style="margin-right: 20px;">${user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%A %d %B %Y'])[0]}</span>
     <span>${user.get_time_by_user_lang(object.src_registration_id.date_begin, ['%Hh%M'])[0].lower()}</span>
 </p>
-<p>Vous pouvez vous rendre sur la bourse aux services pour trouver une autre service de remplacement.</p>
-<a href="/standard/echange_de_services">Aller au marché</a>
+<p>Vous pouvez vous rendre sur l'espace membres pour trouver une autre service de remplacement.</p>
+<a href="/standard/echange_de_services">Échange de services</a>
 <p>Amicalement,</p>
 <p>L’équipe [La Louve]</p>
 ]]>

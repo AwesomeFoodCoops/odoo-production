@@ -91,7 +91,7 @@
                                 <td scope="row"><t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/></td>
                                 <td><t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/></td>
                                 <t t-set="coordinators" t-value="shift.get_coordinators(get_alias_coordinator=True)" />
-                                <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
+                                <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" data-container="body" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
                                     #{coordinators[1]} (cliquez pour copier l’adresse)" class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i></span></td>
                                 <t t-set="shift_ticket_type" t-value="shift.shift_ticket_id.shift_type" />
                                 <t t-if="shift_ticket_type == 'ftop'">
@@ -99,20 +99,25 @@
                                         Extra
                                     </td>
                                 </t>
-                                <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop'">
+                                <t t-if="shift.state == 'waiting' and shift_ticket_type != 'ftop'">
+                                    <td style="text-align: center;">
+                                        Waiting
+                                    </td>
+                                </t>
+                                <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                     <td style="text-align: center;">
                                         <button class="material-icons button-icon go-to-market" style="margin-right: 10px;"
                                             t-att-registration-id="shift.id">swap_horiz</button>
                                     </td>
                                 </t>
-                                <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop'">
+                                <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                     <td style="text-align: center;">
                                         <span>En cours </span>
                                         <button class="material-icons button-icon remove-proposal" t-att-registration-id="shift.id"
                                             data-toggle="modal" data-target="#modal_confirm_cancel_proposal">remove_circle_outline</button>
                                     </td>
                                 </t>
-                                <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop'">
+                                <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                     <td style="text-align: center;background: lightgray">
                                         Remplacé
                                     </td>
@@ -124,7 +129,7 @@
                                     <td scope="row"><t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/></td>
                                     <td><t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/></td>
                                     <t t-set="coordinators" t-value="shift.exchange_replacing_reg_id.get_coordinators(get_alias_coordinator=True)" />
-                                    <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
+                                    <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" data-container="body" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
                                         #{coordinators[1]} (cliquez pour copier l’adresse)" class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i></span></td>
                                     <t t-set="shift_ticket_type" t-value="shift.exchange_replacing_reg_id.shift_ticket_id.shift_type" />
                                     <t t-if="shift_ticket_type == 'ftop'">
@@ -255,87 +260,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row" style="padding: 10px;">
-            <p style="font-size: 25px;font-weight: 600;margin-top: 30px;margin-bottom: 10px;">Compteur volant</p>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Créé le</th>
-                            <th>Créé par</th>
-                            <th>Service</th>
-                            <th>Description</th>
-                            <th>Manuel</th>
-                            <th>Ignoré</th>
-                            <th>Points</th>
-                            <th>Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                        </tr>
-                        <tr>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                            <td scope="row">Vendredi 12 juin 2018</td>
-                            <td>10H45</td>
-                            <td><span>Fanny MILLOT, Maryline DELARBRE, Patrick PIECZONKA </span></td>
-                            <td>Extra</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div> -->
     </template>
 
     <template id="coop_memberspace.programmer_modal">
@@ -405,8 +329,11 @@
                                 <t t-set="seats_avail" t-value="sum(shift.shift_ticket_ids.filtered(lambda r: r.shift_type == 'ftop').mapped('seats_available'))" />
                                 <t t-if="seats_avail > 0">
                                     <tr>
-                                        <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')" />
-                                        <td scope="row" t-attf-id="time-{{shift.id}}" ><t t-esc="date_begin and date_begin[0] or ''" /></td>
+                                        <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')" />
+                                        <td scope="row" >
+                                            <span t-attf-id="time-{{shift.id}}" t-esc="(date_begin and date_begin[0] or '') + ' '" />
+                                            <span t-esc="date_begin and date_begin[1] or ''" />
+                                        </td>
                                         <td t-attf-id="hour-{{shift.id}}"><t t-esc="date_begin and date_begin[1] or ''" /></td>
                                         <td><span t-attf-id="avalable-seats-{{shift.id}}" t-esc="seats_avail" /></td>
                                         <td><a><span class="fa fa-user-plus" data-toggle="modal" data-target="#programmer_modal" t-attf-id="btn-add-{{shift.id}}" t-att-data-shift-id="shift.id" /></a></td>
@@ -443,7 +370,7 @@
                                     <td scope="row"><t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/></td>
                                     <td><t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/></td>
                                     <t t-set="coordinators" t-value="shift.get_coordinators(get_alias_coordinator=True)" />
-                                    <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
+                                    <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" data-container="body" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
                                         #{coordinators[1]} (cliquez pour copier l’adresse)" class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i></span></td>
                                     <t t-set="shift_ticket_type" t-value="shift.shift_ticket_id.shift_type" />
                                     <t t-if="shift_ticket_type == 'ftop'">
@@ -451,20 +378,25 @@
                                             Extra
                                         </td>
                                     </t>
-                                    <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop'">
+                                    <t t-if="shift.state == 'waiting' and shift_ticket_type != 'ftop'">
+                                        <td style="text-align: center;">
+                                            Waiting
+                                        </td>
+                                    </t>
+                                    <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                         <td style="text-align: center;">
                                             <button class="material-icons button-icon go-to-market" style="margin-right: 10px;"
                                                 t-att-registration-id="shift.id">swap_horiz</button>
                                         </td>
                                     </t>
-                                    <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop'">
+                                    <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                         <td style="text-align: center;">
                                             <span>En cours </span>
                                             <button class="material-icons button-icon remove-proposal" t-att-registration-id="shift.id"
                                                 data-toggle="modal" data-target="#modal_confirm_cancel_proposal">remove_circle_outline</button>
                                         </td>
                                     </t>
-                                    <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop'">
+                                    <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                         <td style="text-align: center;background: lightgray">
                                             Remplacé
                                         </td>
@@ -476,7 +408,7 @@
                                         <td scope="row"><t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/></td>
                                         <td><t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/></td>
                                         <t t-set="coordinators" t-value="shift.exchange_replacing_reg_id.get_coordinators(get_alias_coordinator=True)" />
-                                        <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
+                                        <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" data-container="body" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
                                             #{coordinators[1]} (cliquez pour copier l’adresse)" class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i></span></td>
                                         <t t-set="shift_ticket_type" t-value="shift.exchange_replacing_reg_id.shift_ticket_id.shift_type" />
                                         <t t-if="shift_ticket_type == 'ftop'">
@@ -515,7 +447,7 @@
                                     <td scope="row"><t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/></td>
                                     <td><t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/></td>
                                     <t t-set="coordinators" t-value="shift.get_coordinators(get_alias_coordinator=True)" />
-                                    <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
+                                    <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" data-container="body" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
                                         #{coordinators[1]} (cliquez pour copier l’adresse)" class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i></span></td>
                                     <td><span data-toggle="modal" data-target="#modal_exchange_shift" t-att-registration-id="shift.id" class="fa fa-plus-square select-shift-proposal"/></td>
                                 </tr>
@@ -567,7 +499,7 @@
     <template id="coop_memberspace.mywork_ftop">
         <div class="row" style="margin-top: 20px">
             <div class="col-md-6">
-                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 192px;">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 205px;">
                     <div class="row">
                         <div class="col-md-10">
                             <div>
@@ -588,7 +520,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 192px;">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 205px;">
                     <p style="font-size: 25px;font-weight: 600">Programmer un service volant</p>
                     <p class="text-center">Si vous êtes membre de l’équipe volante, passez par ici pour voir les
                         services disponibles et programmer vôtre vacation. L’annulation
@@ -622,8 +554,8 @@
                                 <td scope="row"><t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/></td>
                                 <td><t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/></td>
                                 <t t-set="coordinators" t-value="shift.get_coordinators(get_alias_coordinator=True)" />
-                                <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
-                                    #{coordinators[1]} (we should be able to copy the address)" class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i></span></td>
+                                <td><span><t t-esc="coordinators[0]" /> <i data-toggle="tooltip" data-container="body" t-attf-title="Vous pouvez contacter vos coordinateurs en écrivant à
+                                    #{coordinators[1]} (cliquez pour copier l’adresse)" class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i></span></td>
                                 <td>
                                     <t t-if="shift.state == 'cancel'">
                                         Annulé

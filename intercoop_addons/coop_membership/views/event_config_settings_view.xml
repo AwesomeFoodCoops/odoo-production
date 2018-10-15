@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_event_configuration_form_inherit" model="ir.ui.view">
+        <field name="name">view.event.configuration.form.inherit</field>
+        <field name="model">event.config.settings</field>
+        <field name="inherit_id" ref="event.view_event_configuration"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="after">
+                <group string="Welcome Events">
+                    <field name="seats_max" />
+                    <field name="description" />
+                    <field name="notice" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

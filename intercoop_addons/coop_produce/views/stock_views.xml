@@ -5,7 +5,7 @@
         <record id="view_coop_produce_stock_inventory_form" model="ir.ui.view">
             <field name="name">stock.inventory.form</field>
             <field name="model">stock.inventory</field>
-            <field name="sequence" eval="18"/>
+            <field name="priority" eval="18"/>
             <field name="arch" type="xml">
                 <form string="Inventory F&amp;V">
                     <header>
