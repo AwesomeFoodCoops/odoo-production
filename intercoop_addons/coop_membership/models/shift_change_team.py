@@ -103,10 +103,10 @@ class ShiftChangeTeam(models.Model):
             if not record.partner_id.is_member:
                 raise UserError(
                     _('A person you want to change team must be a member'))
-            elif record.current_shift_template_id.shift_type_id.is_ftop and\
-                    not record.new_shift_template_id.shift_type_id.is_ftop:
-                raise UserError(
-                    _('Can not change from FTOP to ABCD team'))
+            # elif record.current_shift_template_id.shift_type_id.is_ftop and\
+            #         not record.new_shift_template_id.shift_type_id.is_ftop:
+            #     raise UserError(
+            #         _('Can not change from FTOP to ABCD team'))
             elif record.is_mess_change_team or record.is_full_seats_mess:
                 raise UserError(_(
                     'There are some processes that were not done, please do it!'))
@@ -131,10 +131,10 @@ class ShiftChangeTeam(models.Model):
                             point_counter_env = self.env['shift.counter.event']
                             point_counter_env.sudo().with_context({'automatic': True})\
                                 .create({
-                                    'name': _('Add 1 point for changing team'),
+                                    'name': _('Subtracted 1 point for changing team'),
                                     'type': 'standard',
                                     'partner_id': record.partner_id.id,
-                                    'point_qty': 1,
+                                    'point_qty': -1,
                                 })
 
                 record.state = 'closed'
@@ -448,6 +448,11 @@ class ShiftChangeTeam(models.Model):
                 self.new_next_shift_date) - timedelta(
                 days=new_team_start_date)).strftime('%Y-%m-%d')
 
+        # This code to handle the rule that use to calculate shifts in the future
+        # Making sure the calculation is not miss any shifts
+        # I also get shifts in the past and only choose shifts that are greater than
+        # the start  date of new shift
+
         if not self.new_shift_template_id.shift_type_id.is_ftop:
             if self.check_num_week(new_next_shift_date) == 1:
                 new_next_shift_date = (fields.Datetime.from_string(
@@ -496,27 +501,29 @@ class ShiftChangeTeam(models.Model):
                  'new_next_shift_date', 'partner_id')
     def compute_mess_change_team(self):
         for record in self:
-            record.compute_current_shift_template()
-            if record.new_shift_template_id and record.new_next_shift_date:
-                range_dates, list_dates = record.compute_range_day()
-                if not record.current_shift_template_id.shift_type_id.is_ftop\
-                        and not record.new_shift_template_id.shift_type_id.is_ftop:
-                    if range_dates and range_dates > 40:
-                        record.mess_change_team = (_(
-                            "Il y a un écart de plus de 6 " +
-                            "semaines entre le dernier service dans " +
-                            "l’ancienne équipe et le premier avec la nouvelle." +
-                            " Souhaitez-vous continuer ?"))
-                        record.is_abcd_to_abcd = True
-                        record.is_mess_change_team = True
-                elif record.new_shift_template_id.shift_type_id.is_ftop:
-                    if range_dates <= 14:
-                        record.mess_change_team = (_(
-                            "La date de démarrage est inférieure à 15 jours " +
-                            " avant le jour de décompte volant qui suit. " +
-                            "Souhaitez-vous continuer ?"
-                        ))
-                        record.is_mess_change_team = True
+            if not (record.current_shift_template_id.shift_type_id.is_ftop and
+                    not record.new_shift_template_id.shift_type_id.is_ftop):
+                record.compute_current_shift_template()
+                if record.new_shift_template_id and record.new_next_shift_date:
+                    range_dates, list_dates = record.compute_range_day()
+                    if not record.current_shift_template_id.shift_type_id.is_ftop\
+                            and not record.new_shift_template_id.shift_type_id.is_ftop:
+                        if range_dates and range_dates > 40:
+                            record.mess_change_team = (_(
+                                "Il y a un écart de plus de 6 " +
+                                "semaines entre le dernier service dans " +
+                                "l’ancienne équipe et le premier avec la nouvelle." +
+                                " Souhaitez-vous continuer ?"))
+                            record.is_abcd_to_abcd = True
+                            record.is_mess_change_team = True
+                    elif record.new_shift_template_id.shift_type_id.is_ftop:
+                        if range_dates <= 14:
+                            record.mess_change_team = (_(
+                                "La date de démarrage est inférieure à 15 jours " +
+                                " avant le jour de décompte volant qui suit. " +
+                                "Souhaitez-vous continuer ?"
+                            ))
+                            record.is_mess_change_team = True
 
     @api.multi
     def btn_change_team_process(self):
