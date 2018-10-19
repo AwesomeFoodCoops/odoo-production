@@ -19,6 +19,9 @@
                     </group>
                 </page>
             </xpath>
+            <field name="bank_acc_number" position="after">
+                <field name="search_limit_days" />
+            </field>
         </field>
     </record>
 </odoo>

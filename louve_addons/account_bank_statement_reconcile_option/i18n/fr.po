@@ -49,3 +49,13 @@ msgstr "Normal"
 msgid "Reconciliation Mode"
 msgstr "Mode de rapprochement bancaire"
 
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_journal_search_limit_days
+msgid "Search Limit Days"
+msgstr "Période de rapprochement"
+
+#. module: coop_account
+#: model:ir.model.fields,help:coop_account.field_account_journal_search_limit_days
+msgid "Set here the number of days before and after the bank transaction on which Journal Items can be proposed for reconciliation"
+msgstr "Définissez le nombre de jours avant et après la transaction bancaire pour la proposition d'écritures comptables à rapprocher"
+
