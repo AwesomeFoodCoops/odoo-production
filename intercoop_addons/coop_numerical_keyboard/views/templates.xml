@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<template id="coop_numerical_keyboard.assets_frontend" inherit_id="point_of_sale.assets" name="Numerical_keyboard">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/coop_numerical_keyboard/static/src/css/keyboard.css" />
+            <script type="text/javascript" src="/coop_numerical_keyboard/static/src/js/numerical_keyboard.js"/>
+        </xpath>
+    </template>
+</openerp>
