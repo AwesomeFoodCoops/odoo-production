@@ -447,6 +447,7 @@
                                    coop_membership.group_membership_bdm_saisie"
                             />
                             <field name="contact_origin_id"
+                                   widget="many2many_tags"
                                    groups="coop_membership.group_membership_see_associated_people,
                                    coop_membership.group_membership_access_user">
                                 <tree>
