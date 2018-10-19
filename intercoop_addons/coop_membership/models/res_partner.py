@@ -138,6 +138,8 @@ class ResPartner(models.Model):
     badge_print_date = fields.Date(string="Badge Print Date")
     contact_us_message = fields.Text(string="Contact Us Message")
 
+    force_customer = fields.Boolean(string="Force Customer", default=False)
+
     # Constraint Section
     @api.multi
     @api.constrains('is_member',
@@ -185,6 +187,19 @@ class ResPartner(models.Model):
                 if not record.badge_distribution_date or\
                         record.badge_distribution_date < record.badge_print_date:
                     record.badge_to_distribute = True
+
+    @api.multi
+    def force_customer_button(self):
+        for record in self:
+            record.force_customer = True
+        return True
+
+    @api.multi
+    def force_supplier_button(self):
+        for record in self:
+            record.force_customer = False
+        return True
+
 
     @api.multi
     def update_badge_print_date(self):
@@ -369,12 +384,15 @@ class ResPartner(models.Model):
             else:
                 partner.cooperative_state = 'not_concerned'
 
-    @api.depends('cooperative_state')
+    @api.depends('cooperative_state', 'force_customer')
     @api.multi
     def _compute_customer(self):
         for partner in self:
-            partner.customer =\
-                partner.cooperative_state in self.COOPERATIVE_STATE_CUSTOMER
+            if partner.cooperative_state in\
+                    self.COOPERATIVE_STATE_CUSTOMER or partner.force_customer:
+                partner.customer = True
+            else:
+                partner.customer = False
 
     @api.depends('child_ids')
     @api.multi
