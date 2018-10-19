@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="popups_template" xml:space="preserve">
+
+    <t t-name="OKPopupWidget">
+        <div class="modal-dialog">
+            <div class="popup popup-confirm">
+                <p class="title"><t t-esc=" widget.options.title || 'Confirm ?' " /></p>
+                <p><t t-esc="  widget.options.thanks_message || '' "/></p>
+                <ul style="padding-left: 30%;">
+                    <li style="list-style-type: disc;text-align: left;"><t t-esc="  widget.options.lemon || '' "/></li>
+                    <li style="list-style-type: disc;text-align: left;"><t t-esc="  widget.options.la_date || '' "/></li>
+                    <li style="list-style-type: disc;text-align: left;"><t t-esc="  widget.options.order_messages || '' "/></li>
+                    <li style="list-style-type: disc;text-align: left;"><t t-esc="  widget.options.signature || '' "/></li>
+                </ul>
+                <div class="footer">
+                    <div class="button confirm">
+                        OK
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>
+
