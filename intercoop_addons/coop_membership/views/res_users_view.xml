@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
                 <field name="partner_id" position="replace">
-                    <field name="partner_id" required="1" groups="base.group_no_one"/>
+                    <field name="partner_id" required="1" groups="base.group_no_one,coop_base.group_funtional_admin"/>
                 </field>
             </field>
         </record>
