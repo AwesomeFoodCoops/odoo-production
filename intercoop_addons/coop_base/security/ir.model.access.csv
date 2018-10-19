@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+,,,,,,,
+access_model_res_users,access_model_res_users,base.model_res_users,coop_base.group_funtional_admin,1,1,1,1

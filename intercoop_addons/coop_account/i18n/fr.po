@@ -166,3 +166,8 @@ msgstr "Annuler"
 #, python-format
 msgid "You cannot reconcile that account move with a bank statement line that is not related to bank journal."
 msgstr "Vous ne pouvez pas rapprocher cette pièce comptable avec une ligne d'un relevé qui n'est pas lié à un journal de banque."
+
+#: model:ir.actions.act_window,name:coop_account.inter_tranfer_payment_action
+#: model:ir.ui.menu,name:coop_account.menu_inter_tranfer_payment
+msgid "Inter Account Transfer"
+msgstr "Tranfert interne"

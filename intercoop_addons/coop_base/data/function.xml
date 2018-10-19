@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<openerp>
+  <data noupdate="0">
+    <function model="post.object" name="adjust_user_rights"/>
+  </data>
+</openerp>

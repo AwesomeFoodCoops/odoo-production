@@ -26,6 +26,7 @@
         'stock',
         'email_pos_receipt',
         'create_users_partners',
+        'coop_base',
     ],
     'data': [
         'data/update_template_name_ftop.yml',

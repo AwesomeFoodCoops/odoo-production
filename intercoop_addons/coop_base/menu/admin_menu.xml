@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record model="ir.ui.menu" id="menu_functional_admin_root">
+        <field name="name">Admin</field>
+        <field name="sequence">499</field>
+        <field name="groups_id" eval="[(4, ref('coop_base.group_funtional_admin'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="menu_user_root">
+        <field name="name">User</field>
+        <field name="parent_id" ref="menu_functional_admin_root"/>
+    </record>    
+
+    <record model="ir.ui.menu" id="menu_users">
+        <field name="name">Users</field>
+        <field name="parent_id" ref="menu_user_root"/>
+        <field name="action" ref="base.action_res_users"/>
+    </record>   
+</odoo>
