@@ -166,13 +166,13 @@ msgstr "<b>Se connecter</b>"
 
 #. module: coop_memberspace
 #: model:ir.ui.view,arch_db:coop_memberspace.homepage
-msgid "<i class=\"material-icons\" style=\"                                                         font-size: 3.5em;                                                         margin-right: 10px;                                                         margin-top: 6px;                                                         \">euro_symbol</i>"
-msgstr "<i class=\"material-icons\" style=\"                                                         font-size: 3.5em;                                                         margin-right: 10px;                                                         margin-top: 6px;                                                         \">euro_symbol</i>"
+msgid "<i class=\"material-icons\" style=\"font-size: 3.5em\">accessibility_new</i>"
+msgstr "<i class=\"material-icons\" style=\"font-size: 3.5em\">accessibility_new</i>"
 
 #. module: coop_memberspace
 #: model:ir.ui.view,arch_db:coop_memberspace.statistics
-msgid "<i class=\"material-icons\" style=\"font-size: 3.5em\">accessibility_new</i>"
-msgstr "<i class=\"material-icons\" style=\"font-size: 3.5em\">accessibility_new</i>"
+msgid "<i class=\"material-icons\" style=\"font-size: 3.5em\">credit_card</i>"
+msgstr "<i class=\"material-icons\" style=\"font-size: 3.5em\">credit_card</i>"
 
 #. module: coop_memberspace
 #: model:ir.ui.view,arch_db:coop_memberspace.statistics
@@ -382,7 +382,7 @@ msgid "Compteur extra"
 msgstr "Compteur extra"
 
 #. module: coop_memberspace
-#: model:ir.ui.view,arch_db:coop_memberspace.statistics
+#: model:ir.ui.view,arch_db:coop_memberspace.homepage
 msgid "Coopérateurs actifs"
 msgstr "Coopérateurs actifs"
 
@@ -838,6 +838,11 @@ msgstr "ID optionnel d'un fil (enregistrement) auquel tout message entrant sera 
 #: model:ir.model.fields,field_description:coop_memberspace.field_memberspace_alias_alias_user_id
 msgid "Owner"
 msgstr "Propriétaire"
+
+#. module: coop_memberspace
+#: model:ir.ui.view,arch_db:coop_memberspace.statistics
+msgid "Panier moyen"
+msgstr "Panier moyen"
 
 #. module: coop_memberspace
 #: model:ir.model.fields,field_description:coop_memberspace.field_memberspace_alias_alias_parent_model_id

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import division
 import openerp
 from openerp.addons.web import http
 from openerp.http import request
@@ -17,6 +18,14 @@ class Website(openerp.addons.website.controllers.main.Website):
     @http.route('/', type='http', auth="public", website=True)
     def index(self, **kw):
         user = request.env.user
+
+        # Get members
+        members = request.env['res.partner'].sudo().search([
+            ('is_member', '=', True),
+            ('cooperative_state', 'not in',
+             ['blocked', 'unpayed', 'not_concerned', 'unsubscribed'])
+        ])
+
         # Get member status
         member_status = user.partner_id.get_warning_member_state()
 
@@ -43,30 +52,13 @@ class Website(openerp.addons.website.controllers.main.Website):
         local = pytz.timezone(user_tz)
         date_begin = shift and datetime.strftime(pytz.utc.localize(
             datetime.strptime(
-            shift.date_begin, "%Y-%m-%d %H:%M:%S")).astimezone(
-            local),"%A, %d %B %Hh%M") or False
-
-        local_dt = local.localize(datetime.strptime(
-            datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'),
-            '%Y-%m-%d %H:%M:%S'))
-        start_local_native_dt = datetime.strptime(
-            local_dt.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
-        start_local_tz_dt = local.localize(start_local_native_dt)
-        start_utc_dt = start_local_tz_dt.astimezone(pytz.utc)
-
-        turnover_the_day = request.env['pos.order'].sudo().search(
-            [('state', 'in', ['paid', 'done']),
-             ('date_order', '>=', start_utc_dt.strftime('%Y-%m-%d %H:%M:%S')),
-             ('date_order', '<=', datetime.utcnow().strftime(
-                '%Y-%m-%d %H:%M:%S'))]
-        )
-        turnover_the_day = int(
-            sum(item.amount_total for item in turnover_the_day))
+                shift.date_begin, "%Y-%m-%d %H:%M:%S")).astimezone(
+                local), "%A, %d %B %Hh%M") or False
 
         values = {
             'date_begin': date_begin and date_begin.capitalize() or False,
             'shift': shift,
-            'turnover_the_day': turnover_the_day,
+            'num_of_members': len(members),
             'member_status': member_status
         }
         return http.request.render('coop_memberspace.homepage', values)
@@ -295,13 +287,6 @@ class Website(openerp.addons.website.controllers.main.Website):
 
     @http.route('/statistics', type='http', auth='user', website=True)
     def page_statistics(self, **kwargs):
-
-        members = request.env['res.partner'].sudo().search([
-            ('is_member', '=', True),
-            ('cooperative_state', 'not in',
-                ['blocked', 'unpayed', 'not_concerned', 'unsubscribed'])
-        ])
-
         first_day_of_year = datetime.now().strftime("%Y-01-01 00:00:00")
         end_day_of_year = datetime.now().strftime("%Y-12-31 23:59:59")
         sales = request.env['pos.order'].sudo().search([
@@ -327,10 +312,10 @@ class Website(openerp.addons.website.controllers.main.Website):
             'coop_memberspace.statistics',
             {
                 'user': request.env.user,
-                'num_of_members': len(members),
                 'num_of_sales': len(sales),
                 'turnover_year_wo_tax': int(datas[0]),
-                'turnover_year_tax': int(datas[1])
+                'turnover_year_tax': int(datas[1]),
+                'average_basket': int(datas[1])/len(sales)
             }
         )
 

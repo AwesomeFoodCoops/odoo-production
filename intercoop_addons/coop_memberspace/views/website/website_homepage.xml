@@ -42,33 +42,10 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div>
-                                <h3>Chiffre d’affaires du jour</h3>
-                                <div style="border: 1px solid #b2b7bb;padding: 10px;min-height: 115px;">
-                                    <div class="row">
-                                        <div class="col-md-4 col-xs-6" style="text-align: center;margin-top: 18px;">
-                                            <span style="
-                                                    font-size: 25px;
-                                                    font-weight: 600;
-                                                    margin-top: 0px;
-                                                " t-esc="turnover_the_day" />
-                                        </div>
-                                        <div class="col-md-4 col-xs-6" style="display: inline-flex;">
-                                            <div><i class="material-icons" style="
-                                                        font-size: 3.5em;
-                                                        margin-right: 10px;
-                                                        margin-top: 6px;
-                                                        ">euro_symbol</i></div>
-                                            <div style="margin-top: 22px;">
-                                                <span style="">TTC</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-xs-12" style="text-align: right;margin-top:7px;">
-                                            <a href="/statistics"><span class="fa fa-caret-right" style="font-size: 4em"></span></a>
-                                        </div>
-                                    </div>
-                                    <!-- <div style="text-align: right;margin-right:35px;">Link Statistics</div> -->
-                                </div>
+                            <h3>Coopérateurs actifs</h3>
+                            <div class="text-center" style="border: 1px solid #b2b7bb;padding: 10px;">
+                                <p t-esc="'{0:,.0f}'.format(num_of_members).replace(',', ' ')" />
+                                <i class="material-icons" style="font-size: 3.5em">accessibility_new</i>
                             </div>
                         </div>
                         <div class="col-md-4">

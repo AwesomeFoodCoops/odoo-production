@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'coop_memberspace'), ('name', '=', 'statistics')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
 	<template id="coop_memberspace.statistics">
 		<t t-call="website.layout">
             <t t-set="title">Espace membre | Statistiques</t>
             <div class="container">
                 <div class="row" style="margin-top: 10px;">
                     <div class="col-md-4">
-                        <h3>Coopérateurs actifs</h3>
+                        <h3>Panier moyen</h3>
                         <div class="text-center" style="border: 1px solid #b2b7bb;padding: 10px;">
-                            <p t-esc="'{0:,.0f}'.format(num_of_members).replace(',', ' ')" />
-                            <i class="material-icons" style="font-size: 3.5em">accessibility_new</i>
+                            <p t-esc="'{0:,.2f}'.format(average_basket).replace(',', ' ')" />
+                            <i class="material-icons" style="font-size: 3.5em">credit_card</i>
                         </div>
                     </div>
                     <div class="col-md-4">
