@@ -1850,6 +1850,16 @@ msgid "November"
 msgstr "novembre"
 
 #. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_partner_form
+msgid "Force to Customer"
+msgstr "Force au Client"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_partner_form
+msgid "Not Customer"
+msgstr "Pas Client"
+
+#. module: coop_membership
 #: code:addons/coop_membership/models/event_registration.py:135
 #, python-format
 msgid "December"
