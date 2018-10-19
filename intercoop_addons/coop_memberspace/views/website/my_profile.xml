@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'coop_memberspace'), ('name', '=', 'myprofile')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
 	<template id="coop_memberspace.myprofile">
 		<t t-call="website.layout">
             <t t-set="title">Espace membre | Profil</t>
@@ -140,7 +146,7 @@
                     <div class="box-info-times">
                         <div class="collapsed" data-toggle="collapse" data-target="#your_display_reference" aria-expanded="false">
                             <i class="material-icons">contacts</i>
-                            <h3 style="margin-left: 45px;">Vos préférences d'affichage</h3>
+                            <h3 style="margin-left: 45px;">Vos préférences</h3>
                         </div>
                     </div>
                     <div id="your_display_reference" class="collapse box-info-content" aria-expanded="true" >
@@ -186,6 +192,26 @@
                                     <input type="checkbox" name="public_email" t-att-checked="user.partner_id.public_email" />
                                     <span class="slider round"></span>
                                 </label>
+                            </div>
+                        </div>
+                        <h4 style="margin-left: 15px;font-size: 25px;">
+                            Ticket par email
+                        </h4>
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 text-right">
+                                <h4>Activer :</h4>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <form class="edit-email-pos-receipt" method="post" action="/edit-email-pos-receipt">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <label class="switch">
+                                        <input type="checkbox" name="email_pos_receipt" t-att-checked="user.partner_id.email_pos_receipt" onchange="this.form.submit();"/>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </form>
                             </div>
                         </div>
                     </div>
