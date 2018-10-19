@@ -18,10 +18,10 @@
 <p>Veuillez pouvez accepter ou refuser cette proposition en cliquant sur l’un des boutons ci-dessous.</p>
 <div style="height: auto;width:450px; margin:0 auto;padding-top:20px;padding-bottom:40px;">
     <a style="margin-right: 40px;text-decoration:none;" href="/proposal/confirm?token=${object.token}&action=refuse">
-        <img style="width: 50px;border: 1px solid red;padding: 5px;" src="/coop_memberspace/static/src/img/cancel.svg" alt="Refuse" />
+        <img style="width: 50px;" src="/coop_memberspace/static/src/img/cancel.svg" alt="Refuse" />
     </a>
     <a style="text-decoration:none;" href="/proposal/confirm?token=${object.token}&action=accept">
-        <img style="width: 50px;border: 1px solid green;padding: 5px;" src="/coop_memberspace/static/src/img/check.svg" alt="Accept" />
+        <img style="width: 50px;" src="/coop_memberspace/static/src/img/check.svg" alt="Accept" />
     </a>
 </div>
 <p>Amicalement,</p>
