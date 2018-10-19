@@ -136,6 +136,21 @@ msgid "Diacritics insensitive search"
 msgstr "Recherche insensible aux diacritiques"
 
 #. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_config_settings_account_journal_ids
+msgid "Cheques Journals"
+msgstr "Journaux chèques"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_config_settings_payable_to
+msgid "Payable to"
+msgstr "Ordre du chèque"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,help:coop_point_of_sale.field_pos_config_settings_account_journal_ids
+msgid "Please indicate here the cheques journals for which you would like to display a message when used in POS"
+msgstr "Veuillez renseigner ici les journaux pour lesquels vous souhaitez afficher un message d'alerte sur le POS."
+
+#. module: coop_point_of_sale
 #: code:addons/coop_point_of_sale/models/product_product.py:13
 #: code:addons/coop_point_of_sale/models/product_template.py:13
 #, python-format
