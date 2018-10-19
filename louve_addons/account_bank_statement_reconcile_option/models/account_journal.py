@@ -29,3 +29,9 @@ class AccountJournal(models.Model):
         'account_id',
         string='Bank Reconcile Account Allowed'
     )
+    search_limit_days = fields.Integer(
+        string='Search Limit Days',
+        help="Set here the number of days before and after the bank " +
+        "transaction on which Journal Items can be proposed for reconciliation",
+        default=0
+    )
