@@ -671,7 +671,10 @@
                               purchase.group_purchase_user">
                             <group name="container_row_2">
                                 <group string="Sale" name="sale">
+                                    <button name="force_customer_button" type="object" class="oe_highlight" string="Force to Customer" attrs="{'invisible': [('customer','=',True)]}" />
+                                    <button name="force_supplier_button" type="object" class="oe_highlight" string="Not Customer" attrs="{'invisible': [('force_customer', '=', False)]}"/>
                                     <field name="customer"/>
+                                    <field name="force_customer" invisible="True"/>
                                     <field name="user_id"
                                            context="{'default_groups_ref': ['base.group_partner_manager']}"/>
                                     <group colspan="2" col="3">
