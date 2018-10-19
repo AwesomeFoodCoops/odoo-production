@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="OnscreenKeyboardSimple">
+        <t t-jquery="ul.simple_keyboard" t-operation="after">
+            <ul class="keyboard numeric_keyboard" style="display:none">
+                <li class="symbol firstitem row_789"><span>7</span></li>
+                <li class="symbol"><span>8</span></li>
+                <li class="symbol"><span>9</span></li>
+                <li class="symbol firstitem row_456"><span>4</span></li>
+                <li class="symbol"><span>5</span></li>
+                <li class="symbol"><span>6</span></li>
+                <li class="symbol firstitem row_123"><span>1</span></li>
+                <li class="symbol"><span>2</span></li>
+                <li class="symbol"><span>3</span></li>
+                <li class="symbol firstitem row_0"><span>0</span></li>
+                <li class="delete">Delete</li>
+                <li class="return lastitem">Return</li>
+            </ul>
+        </t>
+    </t>
+</templates>

@@ -22,5 +22,4 @@ Overload screens.ClientListScreenWidget
             return '/web/image?model=res.partner&id='+id+'&field=image';
         },
     });
-
 });

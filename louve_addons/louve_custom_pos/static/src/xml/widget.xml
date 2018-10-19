@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates id="template" xml:space="preserve">
+    <t t-extend="ProductCategoriesWidget">
+        <t t-jquery="div.searchbox" t-operation="replace">
+            <div class="searchbox numeric_keyboard">
+                <input placeholder="Search Products" />
+                <span class="search-clear"></span>
+            </div>
+        </t>
+    </t>
+</templates>
+
