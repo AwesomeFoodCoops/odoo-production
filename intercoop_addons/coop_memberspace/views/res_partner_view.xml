@@ -20,5 +20,16 @@
             </field>
         </record>
 
+        <record id="view_partner_form_email_pos_receipt_inherit" model="ir.ui.view">
+            <field name="name">view_partner_form_inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="email_pos_receipt.view_partner_form_inherit" />
+            <field name="arch" type="xml">
+                <field name="email_pos_receipt" position="attributes">
+                    <attribute name="groups">coop_memberspace.group_memberspace</attribute>
+                </field>
+            </field>
+        </record>
+
     </data>
 </openerp>
