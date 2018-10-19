@@ -16,6 +16,7 @@
     ],
     'qweb': [
         'static/src/xml/point_of_sale.xml',
+        'static/src/xml/popups.xml',
     ],
     'data': [
         'static/src/xml/templates.xml',
@@ -23,6 +24,7 @@
         'views/view_res_config.xml',
         'views/view_pos_session.xml',
         'views/view_pos_order_line.xml',
+        'views/view_pos_config_settings.xml',
     ],
     'installable': True,
 }
