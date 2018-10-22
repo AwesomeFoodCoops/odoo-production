@@ -15,10 +15,14 @@
         'point_of_sale',
         'pos_report_total_vat_excluded',
         'coop_point_of_sale',
-        'louve_custom_product'
+        'louve_custom_product',
+        'coop_numerical_keyboard',
     ],
     'data': [
-        'static/src/xml/templates.xml',
+      'views/templates.xml'
+    ],
+    'qweb': [
+        'static/src/xml/widget.xml',
     ],
     'installable': True,
 }

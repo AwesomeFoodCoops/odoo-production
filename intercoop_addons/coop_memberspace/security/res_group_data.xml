@@ -5,5 +5,11 @@
         <record id="group_memberspace" model="res.groups">
             <field name="name">Memberspace Group</field>
         </record>
+
+        <!-- Update the group `POS manager` by using `Memberspace Group` as an implements-->
+        <record id="point_of_sale.group_pos_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="implied_ids" eval="[(4, ref('coop_memberspace.group_memberspace'))]"/>
+        </record>
     </data>
 </openerp>

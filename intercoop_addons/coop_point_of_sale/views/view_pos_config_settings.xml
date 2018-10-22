@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_pos_config_settings_form_pos_inherit" model="ir.ui.view">
+        <field name="model">pos.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.view_sale_config_settings_form_pos"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <field name="account_journal_ids" widget="many2many_tags"/>
+                <field name="payable_to" />           
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

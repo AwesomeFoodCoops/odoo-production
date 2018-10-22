@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, api
+from openerp import api, fields, models
 import pytz
 from datetime import datetime, timedelta
 import calendar
@@ -11,6 +11,11 @@ _logger = logging.getLogger(__name__)
 
 class ResUsers(models.Model):
     _inherit = "res.users"
+
+    public_active = fields.Boolean(
+        "Public Active", help="Public your active status on website",
+        default=False
+    )
 
     @api.model
     def get_time_by_user_lang(self, date, formats, obj={}, lang='fr_FR.utf8'):

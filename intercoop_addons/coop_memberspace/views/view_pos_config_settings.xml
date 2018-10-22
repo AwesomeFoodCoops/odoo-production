@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_pos_config_settings_form_email_pos_receipt_inherit"
+            model="ir.ui.view">
+        <field name="model">pos.config.settings</field>
+        <field name="inherit_id"
+               ref="email_pos_receipt.view_pos_config_settings_form_pos_inherit"/>
+        <field name="arch" type="xml">
+            <field name="receipt_options" position="attributes">
+                <attribute name="groups">coop_memberspace.group_memberspace</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

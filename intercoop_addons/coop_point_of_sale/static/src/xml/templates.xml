@@ -11,6 +11,9 @@
             <script type="text/javascript" src="/coop_point_of_sale/static/src/js/jdu/jdu.js"/>
             <script type="text/javascript" src="/coop_point_of_sale/static/src/js/coop_point_of_sale.js"/>
             <script type="text/javascript" src="/coop_point_of_sale/static/src/js/db.js"/>
+            <script type="text/javascript" src="/coop_point_of_sale/static/src/js/popup_verify_payment.js"/>
+            <script type="text/javascript" src="/coop_point_of_sale/static/src/js/popups.js"/>
+            <script type="text/javascript" src="/coop_point_of_sale/static/src/js/pos_model.js"/>
         </xpath>
         <xpath expr="//link[@id='pos-stylesheet']" position="after">
             <link rel="stylesheet" href="/coop_point_of_sale/static/src/css/coop_point_of_sale.css"/>

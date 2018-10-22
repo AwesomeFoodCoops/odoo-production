@@ -11,7 +11,11 @@
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'depends': [
-        'website', 'coop_shift', 'theme_bootswatch', 'create_users_partners'
+        'website',
+        'coop_shift',
+        'theme_bootswatch',
+        'email_pos_receipt',
+        'create_users_partners'
     ],
     'data': [
         'security/res_group_data.xml',
@@ -31,6 +35,7 @@
         'views/memberspace_alias_view.xml',
         'views/memberspace_conversation_view.xml',
         'views/templates.xml',
+        'views/view_pos_config_settings.xml',
 
         'views/website/proposal_confirm.xml',
         'views/website/my_work.xml',

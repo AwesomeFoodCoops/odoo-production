@@ -24,7 +24,6 @@
         "view/view_account_payment.xml",
         "view/view_account_asset_asset.xml",
         "view/view_account_account.xml",
-        "view/view_account_journal.xml",
         "wizard/view_bank_statement_line_reconcile_wizard.xml",
         "wizard/view_unmatch_bank_statement_wizard.xml",
 
