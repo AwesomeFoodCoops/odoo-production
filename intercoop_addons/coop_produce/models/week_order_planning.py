@@ -468,6 +468,9 @@ class OrderWeekPlanning(models.Model):
                 company_id=self.env.user.company_id.id).get_fiscal_position(
                 supplier.id)
 
+            lines = supplier_lines[supplier].convert2order_line_vals(day_num, order_date, fpos)
+            if not lines:
+                continue
             po_vals = {
                 'partner_id': supplier.id,
                 'date_order': str_date_order,
@@ -478,7 +481,6 @@ class OrderWeekPlanning(models.Model):
             }
             new_purchase = self.env['purchase.order'].create(po_vals)
 
-            lines = supplier_lines[supplier].convert2order_line_vals(day_num, order_date, fpos)
 
             for line in lines:
                 line['order_id'] = new_purchase.id
