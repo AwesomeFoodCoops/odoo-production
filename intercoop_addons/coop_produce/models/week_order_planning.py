@@ -285,7 +285,6 @@ class OrderWeekPlanning(models.Model):
         if self.supplier_ids:
             supplier_infos += supplier_infos.search([('name', 'in', self.supplier_ids.ids)])
             product_tmpls = supplier_infos.read(['product_tmpl_id'])
-            print product_tmpls
             product_tmpls_ids = [x['product_tmpl_id'][0] for x in product_tmpls]
             products += products.search([('product_tmpl_id', 'in', product_tmpls_ids)])
 
@@ -681,7 +680,13 @@ class OrderWeekPlanningLine(models.Model):
 
     @api.multi
     def action_update_supplier_packaging(self):
-        raise UserError(_("Not yet implemented"))
+        self.ensure_one()
+        supplier_info = self.env['product.supplierinfo'].search([
+            ('name', '=', self.supplier_id.id),
+            ('product_tmpl_id', '=', self.product_id.product_tmpl_id.id)
+        ])
+        supplier_info.write({'package_qty': self.supplier_packaging})
+        return True
 
     @api.multi
     def action_product_history_view(self):
