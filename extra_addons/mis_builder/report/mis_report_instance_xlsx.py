@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-# © 2014-2016 ACSONE SA/NV (<http://acsone.eu>)
+# Copyright 2014-2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from collections import defaultdict
 import logging
+import numbers
 
 from openerp.report import report_sxw
 
@@ -43,7 +44,8 @@ class MisBuilderXlsx(ReportXlsx):
 
         # create worksheet
         report_name = u'{} - {}'.format(
-            objects[0].name, objects[0].company_id.name)
+            objects[0].name, u', '.join(
+                [a.name for a in objects[0].query_company_ids]))
         sheet = workbook.add_worksheet(report_name[:31])
         row_pos = 0
         col_pos = 0
@@ -97,6 +99,9 @@ class MisBuilderXlsx(ReportXlsx):
 
         # rows
         for row in matrix.iter_rows():
+            if (row.style_props.hide_empty and row.is_empty()) or \
+                    row.style_props.hide_always:
+                continue
             row_xlsx_style = style_obj.to_xlsx_style(row.style_props)
             row_format = workbook.add_format(row_xlsx_style)
             col_pos = 0
@@ -114,7 +119,8 @@ class MisBuilderXlsx(ReportXlsx):
                     # TODO col/subcol format
                     sheet.write(row_pos, col_pos, '', row_format)
                     continue
-                cell_xlsx_style = style_obj.to_xlsx_style(cell.style_props)
+                cell_xlsx_style = style_obj.to_xlsx_style(
+                    cell.style_props, no_indent=True)
                 cell_xlsx_style['align'] = 'right'
                 cell_format = workbook.add_format(cell_xlsx_style)
                 if isinstance(cell.val, DataError):
@@ -123,7 +129,11 @@ class MisBuilderXlsx(ReportXlsx):
                 elif cell.val is None or cell.val is AccountingNone:
                     val = ''
                 else:
-                    val = cell.val / float(cell.style_props.get('divider', 1))
+                    divider = float(cell.style_props.get('divider', 1))
+                    if divider != 1 and isinstance(cell.val, numbers.Number):
+                        val = cell.val / divider
+                    else:
+                        val = cell.val
                 sheet.write(row_pos, col_pos, val, cell_format)
                 col_width[col_pos] = max(col_width[col_pos],
                                          len(cell.val_rendered or ''))
