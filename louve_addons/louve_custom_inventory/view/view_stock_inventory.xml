@@ -24,4 +24,12 @@
 	        </xpath>
 	    </field>
 	</record>
+
+    <record model="ir.actions.act_window" id="stock.quantsact">
+        <field name="name">Quants</field>
+        <field name="res_model">stock.quant</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('product_type', '=', 'product')]</field>
+    </record>
 </odoo>
