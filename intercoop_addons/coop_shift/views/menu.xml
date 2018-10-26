@@ -20,13 +20,13 @@
         parent="shift_main_menu"
         id="shift_menu"
         sequence="11"
-        groups="coop_shift.group_shift_user,coop_membership.group_membership_bdm_lecture"/>
+        groups="coop_shift.group_shift_user"/>
     <menuitem
         name="Templates"
         parent="shift_main_menu"
         id="template_menu"
         sequence="22"
-        groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie"/>
+        groups="coop_shift.group_shift_manager"/>
     <menuitem
         name="Reports"
         parent="shift_main_menu"
