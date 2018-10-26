@@ -180,11 +180,9 @@ class ShiftRegistration(models.Model):
                                 shift_reg.partner_id.in_ftop_team:
                             counter_vals['ignored'] = True
 
-                    elif vals_state in ['excused', 'waiting'] and \
+                    elif vals_state in ['excused'] and \
                             shift_reg.template_created:
-                        reason = vals_state == 'excused' and \
-                            _('Excused') or \
-                            _('Waiting')
+                        reason = vals_state == _('Excused')
                         counter_vals['point_qty'] = -1
                         counter_vals['name'] = reason
 
