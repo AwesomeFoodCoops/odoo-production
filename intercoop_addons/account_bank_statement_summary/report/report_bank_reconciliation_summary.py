@@ -31,7 +31,8 @@ class ReportBankReconciliationSummary(ReportXlsx):
         # generate main content
         self.generate_report_title()
         # generate data table
-        move_lines, bank_statement_lines, bank_balance, account_balance = self.get_data(self.object)
+        move_lines, bank_statement_lines, bank_balance, account_balance = self.get_data(
+            self.object)
         self.generate_title_bank_reconciliation()
         total_move_line, total_debit_bank_statement_line = \
             self.generate_data_bank_reconciliation(
@@ -50,26 +51,54 @@ class ReportBankReconciliationSummary(ReportXlsx):
             ('statement_id.account_id', '=', default_account_credit)],
             order='date')
 
+        bank_statement_lines_ex = '''
+            SELECT bl.id 
+            FROM account_bank_statement_line bl
+                LEFT JOIN account_move am ON am.statement_line_id = bl.id
+                LEFT JOIN account_move_line aml ON aml.move_id = am.id
+                LEFT JOIN account_bank_statement bs ON bs.id = bl.statement_id
+            WHERE (bl.date <= '%s' AND aml.date > '%s' AND bl.journal_id = '%s'
+                AND aml.account_id = %s)
+        ''' % (obj.analysis_date, obj.analysis_date, journal_id,
+               default_account_credit)
+        self.env.cr.execute(bank_statement_lines_ex)
+        bank_statement_line_ids = self.env.cr.fetchall()
+
+        line_ids = []
+
+        for line_id in bank_statement_line_ids:
+            line_ids.append(line_id[0])
+        lines = self.env['account.bank.statement.line'].browse(line_ids)
+
+        bank_statement_lines = bank_statement_lines | lines
+
         # Get total debit bank statement line unmatch
         total_debit_sql = """SELECT sum(amount)
             FROM account_bank_statement_line
             WHERE date <= '%s' AND journal_id = %s
-        """  % (obj.analysis_date, journal_id)
+        """ % (obj.analysis_date, journal_id)
         self.env.cr.execute(total_debit_sql)
         bank_balance = self.env.cr.fetchone()
         bank_balance = bank_balance and bank_balance[0] or 0
-
 
         sql_move_lines = """SELECT ml.date, am.name, rp.name, ml.ref,
         ml.name, ml.debit, ml.credit
             FROM account_move_line ml
                 LEFT JOIN account_move am ON ml.move_id = am.id
                 LEFT JOIN res_partner rp ON ml.partner_id = rp.id
-            WHERE ml.date <= '%s' AND ml.reconciled = false AND
+                LEFT JOIN account_bank_statement_line bs 
+                    ON am.statement_line_id = bs.id
+            WHERE (ml.date <= '%s' AND ml.reconciled = false AND
             ml.statement_id is null AND
             ml.account_id = %s AND
-            am.state = 'posted'
-            ORDER BY ml.date""" % (obj.analysis_date, default_account_credit)
+            am.state = 'posted') OR (bs.date > '%s' AND ml.date <= '%s'
+            AND ml.reconciled = false AND
+            ml.account_id = %s AND
+            am.state = 'posted')
+            ORDER BY ml.date""" % (obj.analysis_date,
+                                   default_account_credit,
+                                   obj.analysis_date, obj.analysis_date,
+                                   default_account_credit)
         self.env.cr.execute(sql_move_lines)
         move_lines = self.env.cr.fetchall()
 
@@ -84,7 +113,6 @@ class ReportBankReconciliationSummary(ReportXlsx):
         self.env.cr.execute(sql_move_lines_extend)
         account_balance = self.env.cr.fetchone()
         account_balance = account_balance and account_balance[0] or 0
-
 
         return move_lines, bank_statement_lines, bank_balance, account_balance
 
