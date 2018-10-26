@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2014-2015 ACSONE SA/NV (<http://acsone.eu>)
+# Copyright 2014-2018 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import logging
@@ -25,3 +25,9 @@ class Report(models.Model):
         return super(Report, self).get_pdf(cr, uid, ids, report_name,
                                            html=html, data=data,
                                            context=context)
+
+    @api.v8
+    def get_pdf(self, records, report_name, html=None, data=None):
+        return self._model.get_pdf(self._cr, self._uid,
+                                   records.ids, report_name,
+                                   html=html, data=data, context=self._context)
