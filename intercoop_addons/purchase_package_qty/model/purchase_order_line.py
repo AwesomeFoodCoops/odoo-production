@@ -199,7 +199,9 @@ class PurchaseOrderLine(models.Model):
         if seller.price_policy == "package":
             self.price_unit = seller.base_price
         res = {}
-        if (not(self.indicative_package) and self.package_qty > 0 and
+        # Use `seller.indicative_package` instead
+        # because `self.indicative_package` is still not assigned
+        if (not(seller.indicative_package) and self.package_qty > 0 and
                 int(self.product_qty / self.package_qty) !=
                 self.product_qty / self.package_qty):
             res['warning'] = {
