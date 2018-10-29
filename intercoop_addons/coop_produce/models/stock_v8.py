@@ -75,7 +75,8 @@ class StockInventory(models.Model):
 
         week_planning_value = {
             'date':self.week_date,
-            'line_ids':[(0,0,x) for x in line_vals]
+            'line_ids':[(0,0,x) for x in line_vals],
+            'hide_initialisation': True
         }
         new_id = week_planning_obj.create(week_planning_value)
         return {

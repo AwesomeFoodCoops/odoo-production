@@ -15,6 +15,7 @@
     """,
     'depends': [
         'base',
+        'product',
         'stock',
         'purchase',
         'purchase_package_qty',
