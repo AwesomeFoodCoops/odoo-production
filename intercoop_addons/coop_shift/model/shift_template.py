@@ -232,7 +232,10 @@ class ShiftTemplate(models.Model):
     @api.depends('registration_ids')
     def _compute_registration_qty(self):
         for template in self:
-            template.registration_qty = len(template.registration_ids)
+            current_regs = template.registration_ids.filtered(
+                lambda reg: reg.is_current_participant
+            )
+            template.registration_qty = len(current_regs)
 
     @api.multi
     @api.depends('seats_max', 'registration_ids')
