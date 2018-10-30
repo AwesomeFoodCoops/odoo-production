@@ -150,25 +150,25 @@
 			                    <field name="product_name" invisible="1"/>
 			                    <field name="product_id" string="Product" attrs="{'readonly': [('toggle_product', '=', True)]}"/>
 			                    <field name="default_packaging" string="Default packaging" readonly="True"/>
-			                    <field name="supplier_packaging" string="Supplier packaging"/>
+			                    <field name="supplier_packaging" string="Supplier packaging" class="auto_select"/>
 			                    <button name="action_update_supplier_packaging" icon="gtk-apply" type="object"/>
 			                    <field name="supplier_id" string="Supplier" required="True"/>
-			                    <field name="price_unit" string="Price U"/>
+			                    <field name="price_unit" string="Price U" class="auto_select"/>
 			                    <button name="action_update_unit_price" icon="gtk-apply" type="object"/>
 			                    <field name="price_policy" string="P. Policy"/>
 			                    <field name="sold_w_2_qty"/>
 			                    <field name="sold_w_1_qty"/>
 			                    <field name="start_inv" readonly="1"/>
-			                    <field name="monday_qty" string="Mon." attrs="{'readonly': [('toggle_monday_qty', '=', True)]}"/>
-			                    <field name="tuesday_qty" string="Tue." attrs="{'readonly': [('toggle_tuesday_qty', '=', True)]}"/>
-			                    <field name="wednesday_qty" string="Wed." attrs="{'readonly': [('toggle_wednesday_qty', '=', True)]}"/>
-			                    <field name="medium_inventory_qty" string="Med."/>
-			                    <field name="thirsday_qty" string="Thi." attrs="{'readonly': [('toggle_thursday_qty', '=', True)]}"/>
-			                    <field name="friday_qty" string="Fri." attrs="{'readonly': [('toggle_friday_qty', '=', True)]}"/>
-			                    <field name="saturday_qty" string="Sat." attrs="{'readonly': [('toggle_saturday_qty', '=', True)]}"/>
+			                    <field name="monday_qty" string="Mon." attrs="{'readonly': [('toggle_monday_qty', '=', True)]}" class="auto_select"/>
+			                    <field name="tuesday_qty" string="Tue." attrs="{'readonly': [('toggle_tuesday_qty', '=', True)]}" class="auto_select"/>
+			                    <field name="wednesday_qty" string="Wed." attrs="{'readonly': [('toggle_wednesday_qty', '=', True)]}" class="auto_select"/>
+			                    <field name="medium_inventory_qty" string="Med." class="auto_select"/>
+			                    <field name="thirsday_qty" string="Thi." attrs="{'readonly': [('toggle_thursday_qty', '=', True)]}" class="auto_select"/>
+			                    <field name="friday_qty" string="Fri." attrs="{'readonly': [('toggle_friday_qty', '=', True)]}" class="auto_select"/>
+			                    <field name="saturday_qty" string="Sat." attrs="{'readonly': [('toggle_saturday_qty', '=', True)]}" class="auto_select"/>
 			                    <field name="total_qty"/>
-			                    <field name="end_inv_qty" attrs="{'readonly': [('toggle_end_inv_qty', '=', True)]}"/>
-			                    <field name="loss_qty" attrs="{'readonly': [('toggle_loss_qty', '=', True)]}"/>
+			                    <field name="end_inv_qty" attrs="{'readonly': [('toggle_end_inv_qty', '=', True)]}" class="auto_select"/>
+			                    <field name="loss_qty" attrs="{'readonly': [('toggle_loss_qty', '=', True)]}" class="auto_select"/>
 			                    <field name="sold_qty"/>
 			                    <field name="week_number" invisible="1"/>
 			                    <field name="toggle_monday_qty" invisible="1"/>

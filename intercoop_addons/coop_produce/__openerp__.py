@@ -28,6 +28,7 @@
         #VIEWS
         'views/product_views.xml',
         'views/stock_views.xml',
+        'views/templates.xml',
         'views/week_order_planning_view.xml',
         'wizard/show_product_history_view.xml',
         'wizard/stock_inventory_wizard.xml',
