@@ -30,6 +30,7 @@
         'views/stock_views.xml',
         'views/week_order_planning_view.xml',
         'wizard/show_product_history_view.xml',
+        'wizard/stock_inventory_wizard.xml',
 
     ],
 }

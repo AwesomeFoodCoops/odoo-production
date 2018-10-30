@@ -86,3 +86,16 @@ class StockInventory(models.Model):
             'view_mode': 'form',
             'target': 'current',
         }
+
+    @api.multi
+    def action_done(self):
+        for stock_inventory in self:
+            if not stock_inventory.week_date:
+                return {
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'stock.inventory.wizard',
+                    'res_id': False,
+                    'view_mode': 'form',
+                    'target': 'new',
+                }
+        return super(StockInventory, self).action_done()
