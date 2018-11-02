@@ -98,7 +98,7 @@
                                             class="oe_highlight" context="{'day_number':1}"/>
                                     <field name="monday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="monday_received_qty" nolabel="1" readonly="True"/>
-	                                <field name="toggle_monday_qty" nolabel="1"/>
+                                    <field name="toggle_monday_qty" nolabel="1" />
                                 </group>
                                 <group col="1">
                                     <button name="create_purchase_orders" string="Tue." type="object"
@@ -144,7 +144,12 @@
 		                    <field name="toggle_loss_qty"/>
 	                    </group>
 	                    <field name="line_ids" string="Order Planning Details"
-	                           context="{'default_order_week_planning_id':active_id, 'order_planning_context':True,'partner_display_only_ref':True, 'form_view_ref': False}">
+	                           context="
+	                           {'default_order_week_planning_id':active_id, 'order_planning_context':True,'partner_display_only_ref':True, 'form_view_ref': False,
+	                           'toggle_monday_qty': toggle_monday_qty, 'toggle_tuesday_qty': toggle_tuesday_qty, 'toggle_wednesday_qty': toggle_wednesday_qty,
+	                           'toggle_thursday_qty': toggle_thursday_qty, 'toggle_friday_qty': toggle_friday_qty, 'toggle_saturday_qty': toggle_saturday_qty,
+	                           'toggle_product': toggle_product, 'toggle_end_inv_qty': toggle_end_inv_qty, 'toggle_loss_qty': toggle_loss_qty
+	                           }">
 		                    <tree string="Order Planning Details" editable="bottom" mode="tree" >
 			                    <button name="action_product_history_view" icon="STOCK_JUSTIFY_FILL" type="object"/>
 			                    <field name="product_name" invisible="1"/>

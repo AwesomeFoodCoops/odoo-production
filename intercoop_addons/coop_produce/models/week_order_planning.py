@@ -39,6 +39,19 @@ def get_date_from_week_number(year, week_num, offset):
     return r
 
 
+TOGGLES = [
+    'toggle_monday_qty',
+    'toggle_tuesday_qty',
+    'toggle_wednesday_qty',
+    'toggle_thursday_qty',
+    'toggle_friday_qty',
+    'toggle_saturday_qty',
+    'toggle_product',
+    'toggle_end_inv_qty',
+    'toggle_loss_qty',
+]
+
+
 class OrderWeekPlanning(models.Model):
     _name = "order.week.planning"
     _description = "Order Week Planning"
@@ -254,7 +267,6 @@ class OrderWeekPlanning(models.Model):
     toggle_product = fields.Boolean(default=True, help="Disable/Enable Product")
     toggle_end_inv_qty = fields.Boolean(default=True, help="Disable/Enable E. Inv")
     toggle_loss_qty = fields.Boolean(default=True, help="Disable/Enable Loss")
-
 
     @api.multi
     def action_generate_next_week(self):
@@ -671,6 +683,17 @@ class OrderWeekPlanningLine(models.Model):
                     self.start_inv = supplier_info.package_qty and self.product_id.qty_available / supplier_info.package_qty or 0.0
                     self.supplier_packaging = supplier_info.package_qty
                     self.default_packaging = self.product_id.default_packaging
+
+    @api.model
+    def default_get(self, fields_list):
+        vals = super(OrderWeekPlanningLine, self).default_get(fields_list)
+        context = self._context
+        if context:
+            vals.update({
+                TOGGLE: context.get(TOGGLE, False)
+                for TOGGLE in TOGGLES
+            })
+        return vals
 
     def convert2order_line_vals(self, day, date_planned, fpos):
         ret = []
