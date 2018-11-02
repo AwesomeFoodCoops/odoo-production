@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<menuitem id="menu_bi_sql_view"
+	          parent="coop_base.menu_functional_admin_root"
+	          action="bi_sql_editor.action_bi_sql_view"/>
+	</data>
+</openerp>
