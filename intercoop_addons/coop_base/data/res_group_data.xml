@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'base'), ('name', '=', 'group_system')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
 
     <record id="group_funtional_admin" model="res.groups">
         <field name="name">Functional Admin</field>
