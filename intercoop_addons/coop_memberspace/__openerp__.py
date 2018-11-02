@@ -27,6 +27,7 @@
         'data/change_name_menu_homepage.yml',
         'data/deactive_ir_rule.yml',
         'data/generate_email_alias_for_shift_template.yml',
+        'data/function.xml',
         'data/ir_config_parameter.xml',
         'data/ir_cron.xml',
         'data/website_menu.xml',
