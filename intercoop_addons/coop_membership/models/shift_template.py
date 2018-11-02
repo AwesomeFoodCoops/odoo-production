@@ -35,6 +35,19 @@ class ShiftTemplate(models.Model):
         string="Warning unsubscribed leader",
         store=True,
     )
+    registration_qty = fields.Integer(
+        string='Number of Attendees', compute='_compute_registration_qty',
+        store=True
+    )
+
+    @api.multi
+    @api.depends('registration_ids')
+    def _compute_registration_qty(self):
+        for template in self:
+            current_regs = template.registration_ids.filtered(
+                lambda reg: reg.is_current_participant
+            )
+            template.registration_qty = len(current_regs)
 
     @api.multi
     @api.depends('user_ids', 'user_ids.is_unsubscribed')
