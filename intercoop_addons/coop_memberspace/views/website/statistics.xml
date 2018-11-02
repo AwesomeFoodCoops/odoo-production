@@ -14,8 +14,12 @@
                     <div class="col-md-4">
                         <h3>Panier moyen</h3>
                         <div class="text-center" style="border: 1px solid #b2b7bb;padding: 10px;">
-                            <p t-esc="'{0:,.2f}'.format(average_basket).replace(',', ' ')" />
-                            <i class="material-icons" style="font-size: 3.5em">credit_card</i>
+                            <p>
+	                            <span t-esc="'{0:,.2f}'.format(average_basket).replace(',', ' ').replace('.', ',')"/>
+                                <t t-set="company" t-value="request.env['res.company']._company_default_get()"/>
+	                            <span t-esc="company and company.currency_id.symbol or '&#8364;'"/>
+	                        </p>
+	                        <i class="material-icons" style="font-size: 3.5em">credit_card</i>
                         </div>
                     </div>
                     <div class="col-md-4">
