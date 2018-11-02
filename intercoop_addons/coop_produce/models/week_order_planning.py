@@ -39,17 +39,17 @@ def get_date_from_week_number(year, week_num, offset):
     return r
 
 
-TOGGLES = [
-    'toggle_monday_qty',
-    'toggle_tuesday_qty',
-    'toggle_wednesday_qty',
-    'toggle_thursday_qty',
-    'toggle_friday_qty',
-    'toggle_saturday_qty',
-    'toggle_product',
-    'toggle_end_inv_qty',
-    'toggle_loss_qty',
-]
+TOGGLES = {
+    'toggle_monday_qty': False,
+    'toggle_tuesday_qty': True,
+    'toggle_wednesday_qty': True,
+    'toggle_thursday_qty': True,
+    'toggle_friday_qty': True,
+    'toggle_saturday_qty': True,
+    'toggle_product': True,
+    'toggle_end_inv_qty': True,
+    'toggle_loss_qty': True,
+}
 
 
 class OrderWeekPlanning(models.Model):
@@ -690,8 +690,8 @@ class OrderWeekPlanningLine(models.Model):
         context = self._context
         if context:
             vals.update({
-                TOGGLE: context.get(TOGGLE, False)
-                for TOGGLE in TOGGLES
+                TOGGLE: context.get(TOGGLE, DEFAULT_VALUE)
+                for TOGGLE, DEFAULT_VALUE in TOGGLES.items()
             })
         return vals
 
