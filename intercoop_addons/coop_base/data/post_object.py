@@ -26,6 +26,9 @@ class ResUsers(models.TransientModel):
         # remove normal users from base.group_system
         _logger.info(">>>>> START: Adjust User Right <<<<<<")
         group_admin_settings = self.env.ref('base.group_system')
+        simon_user = self.env['res.users'].search([
+            ('login', '=', 'simon.jejcic@gmail.com')
+        ], limit=1)
         # to update user ids
         settings_user_ids = []
         access_right_ids = []
@@ -33,7 +36,7 @@ class ResUsers(models.TransientModel):
         if len(group_admin_settings.users) > 1:
             # get current users to switch to functional admin
             settings_user_ids = group_admin_settings.users.ids
-            group_admin_settings.write({'users': [[6, 0, [SUPERUSER_ID]]]})
+            group_admin_settings.write({'users': [[6, 0, [SUPERUSER_ID] + simon_user.ids]]})
 
         # remove normal users from base.group_erp_manager
         group_admin_access_rights = self.env.ref('base.group_erp_manager')
@@ -45,10 +48,16 @@ class ResUsers(models.TransientModel):
 
         if settings_user_ids or access_right_ids:
             functional_admin = self.env.ref('coop_base.group_funtional_admin')
+            admin_settings_group = self.env.ref('base.group_system')
             update_user_ids = [SUPERUSER_ID] + \
                 settings_user_ids + access_right_ids
+            # Add user Simon to functional admin group
+            update_user_ids += simon_user.ids
             functional_admin.write({
                 'users': [[6, 0, update_user_ids]]
+            })
+            group_admin_settings.write({
+                'users': [(4, simon_user.id)]
             })
         _logger.info(">>>>> END: Adjust User Right <<<<<<")
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
