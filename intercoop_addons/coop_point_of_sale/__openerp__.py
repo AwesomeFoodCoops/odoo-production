@@ -19,6 +19,7 @@
         'static/src/xml/popups.xml',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'static/src/xml/templates.xml',
         'views/view_pos_order.xml',
         'views/view_res_config.xml',
