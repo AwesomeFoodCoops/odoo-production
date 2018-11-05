@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<openerp>
+	<data noupdate="0">
+		<function name="_compute_registration_qty" model="shift.template">
+			<function name="search" model="shift.template">
+				<value eval="[]"/>
+			</function>
+		</function>
+	</data>
+</openerp>
