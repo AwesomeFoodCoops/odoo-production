@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
+	<function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'coop_memberspace'), ('name', '=', 'homepage')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
 	<template id="coop_memberspace.homepage" inherit_id="website.homepage" name="Main layout">
 		<xpath expr="//div[@id='wrap']" position="replace">
             <div id="wrap" class="oe_structure oe_empty" t-if="website.user_id != user_id">

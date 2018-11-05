@@ -6,11 +6,11 @@
 Create Users Partners
 ===================
 
-This module has been developped to create users for partners quickly.
+This module has been developped to quickly create users from partners.
 
-Users are in the group "Partner Actions" can execute that action
+Users in the group "Partner Actions" can execute this action.
 
-Action is execute by button that is on partner form
+A button is added to the partner form view in order to create associated res.user
 
 Image
 ===================

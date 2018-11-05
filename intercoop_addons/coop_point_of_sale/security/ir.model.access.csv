@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_model_pos_config_settings,Manager POS Config Settings,coop_point_of_sale.model_pos_config_settings,point_of_sale.group_pos_manager,1,1,1,0
