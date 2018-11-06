@@ -63,7 +63,7 @@ class AccountBankStatementLine(models.Model):
     def check_payment_aml_date_month(self, payment_aml_rec):
         self.ensure_one()
         result = True
-        if len(payment_aml_rec) > 1:
+        if payment_aml_rec and len(payment_aml_rec) > 1:
             statement_line_date = fields.Date.from_string(self.date)
             for payment_aml in payment_aml_rec:
                 payment_aml_date = fields.Date.from_string(payment_aml.date)
