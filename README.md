@@ -1,13 +1,13 @@
 Odoo mutualization
 ============
 
-That repository aims to handle a commom Odoo code for the food co-ops that take part in the mutualization (and found it).
-Our code if free, so that coops don't want to fit in the previsous rules can freely fork this Github repository. However, we higly encourage then to not fork the common modules. In that case it would be very difficult for them to entrer in the mutualization in the future.
+This repository aims to handle a commom Odoo source code for the food co-ops that take part in the mutualization (and found it).
+Our code if free, so that co-ops don't want to fit in the previsous rules can freely fork this Github repository. However, we higly encourage then to not fork the common modules. In that case it would be very difficult for them to entrer in the mutualization in the future.
 
 Repository organization
 ============
-For maintenability purpose, all the coop have to use the same version of commun module. Those modules are in odoo, extra_addons and coop_addons folders.
-In addition, each coop has a dedicated folder where it can build custom modules. Those modules should not conflict with the common modules.
+For maintenability purpose, all the co-ops have to use the same version of commun module. Those modules are in odoo, extra_addons and coop_addons folders.
+In addition, each co-op has a dedicated folder where it can build custom modules. Those modules should not conflict with the common modules.
 
 Changes proposal on common modules
 ============
