@@ -8,4 +8,19 @@
         sequence="111"
         groups="base.group_no_one,account.group_account_manager"/>
 
+    <record id="action_export_wrong_reconciliation_ml_client" model="ir.actions.client">
+            <field name="name">Export wrong reconciliation move lines</field>
+            <field name="tag">export_wrong_reconciliation_move_lines</field>
+            <!--<field name="params" eval="{'menu_id': ref('menu_point_root')}"/>-->
+        </record>
+
+    <menuitem
+        id="menu_export_wrong_reconciliation_ml"
+        name="Export wrong reconciliation move lines"
+        parent="account.menu_finance_entries"
+        groups="account.group_account_manager"
+        action="action_export_wrong_reconciliation_ml_client"
+        sequence="112"
+    />
+
 </odoo>
