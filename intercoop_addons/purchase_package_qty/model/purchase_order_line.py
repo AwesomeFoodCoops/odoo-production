@@ -33,17 +33,24 @@ class PurchaseOrderLine(models.Model):
 
     @api.depends('product_qty', 'price_unit', 'taxes_id', 'price_policy')
     def _compute_amount(self):
-        line_qty = {}
+        """
+        Override native method to compute amount based on price_policy
+        (per package or per uom)
+        """
         for line in self:
+            qty_to_compute = line.product_qty
             if line.price_policy == 'package':
-                line_qty[line.id] = line.product_qty
-                line.product_qty = line.product_qty_package
-
-            super(PurchaseOrderLine, line)._compute_amount()
-
-            # Restore the Quantity
-            if line.price_policy == 'package':
-                line.product_qty = line_qty[line.id]
+                qty_to_compute = line.product_qty_package
+            taxes = line.taxes_id.compute_all(
+                line.price_unit, line.order_id.currency_id, qty_to_compute,
+                product=line.product_id, partner=line.order_id.partner_id
+            )
+            line.update({
+                'price_tax': taxes['total_included'] - taxes[
+                    'total_excluded'],
+                'price_total': taxes['total_included'],
+                'price_subtotal': taxes['total_excluded'],
+            })
 
     @api.model
     def _get_supplierinfovals(self, partner=False):
