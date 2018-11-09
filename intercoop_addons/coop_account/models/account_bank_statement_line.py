@@ -40,3 +40,35 @@ class AccountBankStatementLine(models.Model):
             'target': 'new',
             'context': {'line_ids': line_ids}
         }
+
+    """
+    Override native method to check date_month of payment account move line 
+    when processing bank statement line
+    """
+    @api.multi
+    def process_reconciliation(self, counterpart_aml_dicts=None,
+                               payment_aml_rec=None, new_aml_dicts=None):
+        self.ensure_one()
+        if not self.check_payment_aml_date_month(payment_aml_rec):
+            raise UserError(_('You cannot reconcile with an account.move posterior to the transaction date except if you reconcile the transaction with only one account move.'))
+        return super(AccountBankStatementLine, self).process_reconciliation(
+            counterpart_aml_dicts, payment_aml_rec, new_aml_dicts)
+
+
+    """
+    Make sure all payment account move lines month 
+    less than or equal to the current month of bank statement line 
+    """
+    @api.multi
+    def check_payment_aml_date_month(self, payment_aml_rec):
+        self.ensure_one()
+        result = True
+        if len(payment_aml_rec) > 1:
+            statement_line_date = fields.Date.from_string(self.date)
+            for payment_aml in payment_aml_rec:
+                payment_aml_date = fields.Date.from_string(payment_aml.date)
+                if not (payment_aml_date.year <= statement_line_date.year and
+                        payment_aml_date.month <= statement_line_date.month):
+                    result = False
+                    break
+        return result
