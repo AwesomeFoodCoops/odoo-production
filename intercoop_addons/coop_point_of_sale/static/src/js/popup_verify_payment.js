@@ -17,8 +17,16 @@ odoo.define('coop_point_of_sale.popup_screen_payment', function (require) {
         click_paymentmethods: function(id) {
             var self = this;
 
-            var payable_to = this.pos.config_settings ? this.pos.config_settings.payable_to : false;
-            var account_journal_ids = this.pos.config_settings ? this.pos.config_settings.account_journal_ids : [];
+            var payable_to = '';
+            var account_journal_ids = [];
+            if (this.pos.config_info_settings.payable_to){
+                payable_to = this.pos.config_info_settings.payable_to;
+            }
+
+            if (this.pos.config_info_settings.account_journal_ids){
+                account_journal_ids = this.pos.config_info_settings.account_journal_ids;
+            }
+
             /*var  = this.pos.config_settings ? this.pos.config_settings.receipt_options : false;*/
 
             var thanks_message = _("Merci de vérifier sur le chèque :"); 

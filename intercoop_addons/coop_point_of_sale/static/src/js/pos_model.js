@@ -12,11 +12,11 @@ odoo.define('coop_point_of_sale.pos_model', function (require) {
     pos_model.load_models([{
         model: "pos.config.settings",
         fields: ["account_journal_ids", "payable_to"],
-        loaded: function(self, config_settings){
-            const config_setting = config_settings.length > 0 ? config_settings.reduce(function(prev, current) {
+        loaded: function(self, config_info_settings){
+            const config_setting = config_info_settings.length > 0 ? config_info_settings.reduce(function(prev, current) {
                 return (prev.id > current.id) ? prev : current
             }) : false; //returns object
-            self.config_settings = config_setting;
+            self.config_info_settings = config_setting;
         }
     }]);
 
