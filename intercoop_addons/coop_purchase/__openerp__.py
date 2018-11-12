@@ -16,11 +16,14 @@
         'purchase_package_qty',
         'purchase_compute_order',
         'coop_product_coefficient',
+        'account_product_fiscal_classification',
     ],
     'data': [
         'views/purchase_view.xml',
         'views/purchase_config_settings_view.xml',
         'views/account_invoice_view.xml',
+        'views/account_product_fiscal_classification_view.xml',
+        'views/product_template_view.xml',
         'views/actions.xml',
         'views/menu.xml'
     ],
