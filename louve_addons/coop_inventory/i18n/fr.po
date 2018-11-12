@@ -1,0 +1,46 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_inventory
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-03 12:02+0000\n"
+"PO-Revision-Date: 2017-03-03 12:02+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.report_inventory_louve
+msgid "<strong>G.F. Qty</strong>"
+msgstr "<strong>Qté en Vente</strong>"
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.report_inventory_louve
+msgid "<strong>UG. Qty</strong>"
+msgstr "<strong>Qté en Stock</strong>"
+
+#. module: coop_inventory
+#: model:ir.model,name:coop_inventory.model_stock_change_product_qty
+msgid "Change Product Quantity"
+msgstr "Changer la quantité d'articles"
+
+#. module: coop_inventory
+#: model:ir.model.fields,field_description:coop_inventory.field_stock_change_product_qty_current_quantity
+msgid "Current Quantity"
+msgstr "Quantité actuelle"
+
+#. module: coop_inventory
+#: model:ir.model,name:coop_inventory.model_stock_inventory_line
+msgid "Inventory Line"
+msgstr "Ligne d'inventaire"
+
+#. module: coop_inventory'
+#: model:ir.model.fields,field_description:coop_inventory.field_stock_picking_partner_ref
+msgid "Partner Ref"
+msgstr "Référence Fournisseur"

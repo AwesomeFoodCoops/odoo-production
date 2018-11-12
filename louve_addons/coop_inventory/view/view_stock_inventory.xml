@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_inventory_form_louve" model="ir.ui.view">
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_qty'][1]" position="attributes">
+                <attribute name="readonly" eval="True"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']//field[@name='package_id']" position="replace"/>
+            <xpath expr="//field[@name='line_ids']//tree" position="attributes">
+                <attribute name="decoration-danger">theoretical_qty != product_qty</attribute>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="view_stock_picking_tree_inherit" model="ir.ui.view">
+	    <field name="model">stock.picking</field>
+	    <field name="inherit_id" ref="stock.vpicktree"/>
+	    <field name="arch" type="xml">
+	        <xpath expr="//field[@name='partner_id']" position="after">
+	            <field name="partner_ref" attrs="{'invisible': [('purchase_id', '=', False)]}"/>
+	            <field name="purchase_id" invisible="1"/>
+	        </xpath>
+	    </field>
+	</record>
+
+    <record model="ir.actions.act_window" id="stock.quantsact">
+        <field name="name">Quants</field>
+        <field name="res_model">stock.quant</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('product_type', '=', 'product')]</field>
+    </record>
+</odoo>
