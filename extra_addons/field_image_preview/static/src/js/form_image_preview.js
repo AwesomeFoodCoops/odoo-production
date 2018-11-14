@@ -13,6 +13,7 @@ odoo.define('field_image_preview.image_widget_extend', function (require) {
 imageWidget.include({
 	
     render_value: function() {
+        this._super();
         var self = this;
         var url;
         this.session = session;
