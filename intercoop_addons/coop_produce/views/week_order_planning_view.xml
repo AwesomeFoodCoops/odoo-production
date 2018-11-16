@@ -89,76 +89,104 @@
                                     <h4>' to order</h4>
                                     <h4>Total ordered / to order</h4>
                                     <h4>Total received / to receive</h4>
+	                                <h4>
+		                                <span>Disable/Enable</span>
+	                                </h4>
                                 </group>
                                 <group col="1">
                                     <button name="create_purchase_orders" string="Mon." type="object"
                                             class="oe_highlight" context="{'day_number':1}"/>
                                     <field name="monday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="monday_received_qty" nolabel="1" readonly="True"/>
+                                    <field name="toggle_monday_qty" nolabel="1" widget="toggle_slider" />
                                 </group>
                                 <group col="1">
                                     <button name="create_purchase_orders" string="Tue." type="object"
                                             class="oe_highlight" context="{'day_number':2}"/>
                                     <field name="tuesday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="tuesday_received_qty" nolabel="1" readonly="True"/>
+                                    <field name="toggle_tuesday_qty" nolabel="1" widget="toggle_slider"/>
                                 </group>
                                 <group col="1">
                                     <button name="create_purchase_orders" string="Wed." type="object"
                                             class="oe_highlight" context="{'day_number':3}"/>
                                     <field name="wednesday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="wednesday_received_qty" nolabel="1" readonly="True"/>
+	                                <field name="toggle_wednesday_qty" nolabel="1" widget="toggle_slider"/>
                                 </group>
                                 <group col="1">
                                     <button name="create_purchase_orders" string="Thi." type="object"
                                             class="oe_highlight" context="{'day_number':4}"/>
                                     <field name="thirsday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="thirsday_received_qty" nolabel="1" readonly="True"/>
+	                                <field name="toggle_thursday_qty" nolabel="1" widget="toggle_slider"/>
                                 </group>
                                 <group col="1">
                                     <button name="create_purchase_orders" string="Fri." type="object"
                                             class="oe_highlight" context="{'day_number':5}"/>
                                     <field name="friday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="friday_received_qty" nolabel="1" readonly="True"/>
+	                                <field name="toggle_friday_qty" nolabel="1" widget="toggle_slider"/>
                                 </group>
                                 <group col="1">
                                     <button name="create_purchase_orders" string="Sat." type="object"
                                             class="oe_highlight" context="{'day_number':6}"/>
                                     <field name="saturday_ordered_qty" nolabel="1" readonly="True"/>
                                     <field name="saturday_received_qty" nolabel="1" readonly="True"/>
+	                                <field name="toggle_saturday_qty" nolabel="1" widget="toggle_slider"/>
                                 </group>
 
                             </group>
                         </group>
+	                    <group col="6">
+		                    <field name="toggle_product" widget="toggle_slider"/>
+		                    <field name="toggle_end_inv_qty" widget="toggle_slider"/>
+		                    <field name="toggle_loss_qty" widget="toggle_slider"/>
+                        </group>
                         <field name="line_ids" string="Order Planning Details"
-                               context="{'default_order_week_planning_id':active_id, 'order_planning_context':True,'partner_display_only_ref':True}">
-                            <tree string="Order Planning Details" editable="bottom" mode="tree" >
+	                           context="
+	                           {'default_order_week_planning_id':active_id, 'order_planning_context':True,'partner_display_only_ref':True, 'form_view_ref': False,
+	                           'toggle_monday_qty': toggle_monday_qty, 'toggle_tuesday_qty': toggle_tuesday_qty, 'toggle_wednesday_qty': toggle_wednesday_qty,
+	                           'toggle_thursday_qty': toggle_thursday_qty, 'toggle_friday_qty': toggle_friday_qty, 'toggle_saturday_qty': toggle_saturday_qty,
+	                           'toggle_product': toggle_product, 'toggle_end_inv_qty': toggle_end_inv_qty, 'toggle_loss_qty': toggle_loss_qty
+	                           }">
+                            <tree string="Order Planning Details" editable="bottom" mode="tree">
                                 <button name="action_product_history_view" icon="STOCK_JUSTIFY_FILL" type="object"/>
                                 <field name="product_name" invisible="1"/>
-                                <field name="product_id" string="Product"/>
+                                <field name="product_id" string="Product" attrs="{'readonly': [('toggle_product', '=', True)]}"/>
                                 <field name="default_packaging" string="Default packaging" readonly="True"/>
-                                <field name="supplier_packaging" string="Supplier packaging"/>
+                                <field name="supplier_packaging" string="Supplier packaging" class="auto_select"/>
                                 <button name="action_update_supplier_packaging" icon="gtk-apply" type="object"/>
                                 <field name="supplier_id" string="Supplier" required="True"/>
-                                <field name="price_unit" string="Price U"/>
+                                <field name="price_unit" string="Price U" class="auto_select"/>
                                 <button name="action_update_unit_price" icon="gtk-apply" type="object"/>
                                 <field name="price_policy" string="P. Policy"/>
                                 <field name="sold_w_2_qty"/>
                                 <field name="sold_w_1_qty"/>
                                 <field name="start_inv" readonly="1"/>
-                                <field name="monday_qty" string="Mon."/>
-                                <field name="tuesday_qty" string="Tue."/>
-                                <field name="wednesday_qty" string="Wed."/>
-                                <field name="medium_inventory_qty" string="Med."/>
-                                <field name="thirsday_qty" string="Thi."/>
-                                <field name="friday_qty" string="Fri."/>
-                                <field name="saturday_qty" string="Sat."/>
+                                <field name="monday_qty" string="Mon." attrs="{'readonly': [('toggle_monday_qty', '=', True)]}" class="auto_select"/>
+                                <field name="tuesday_qty" string="Tue." attrs="{'readonly': [('toggle_tuesday_qty', '=', True)]}" class="auto_select"/>
+                                <field name="wednesday_qty" string="Wed." attrs="{'readonly': [('toggle_wednesday_qty', '=', True)]}" class="auto_select"/>
+                                <field name="medium_inventory_qty" string="Med." class="auto_select"/>
+                                <field name="thirsday_qty" string="Thi." attrs="{'readonly': [('toggle_thursday_qty', '=', True)]}" class="auto_select"/>
+                                <field name="friday_qty" string="Fri." attrs="{'readonly': [('toggle_friday_qty', '=', True)]}" class="auto_select"/>
+                                <field name="saturday_qty" string="Sat." attrs="{'readonly': [('toggle_saturday_qty', '=', True)]}" class="auto_select"/>
                                 <field name="total_qty"/>
-                                <field name="end_inv_qty"/>
-                                <field name="loss_qty"/>
+                                <field name="end_inv_qty" attrs="{'readonly': [('toggle_end_inv_qty', '=', True)]}" class="auto_select"/>
+                                <field name="loss_qty" attrs="{'readonly': [('toggle_loss_qty', '=', True)]}" class="auto_select"/>
                                 <field name="sold_qty"/>
                                 <field name="week_number" invisible="1"/>
+                                <field name="toggle_monday_qty" invisible="1"/>
+                                <field name="toggle_tuesday_qty" invisible="1"/>
+                                <field name="toggle_wednesday_qty" invisible="1"/>
+                                <field name="toggle_thursday_qty" invisible="1"/>
+                                <field name="toggle_friday_qty" invisible="1"/>
+                                <field name="toggle_saturday_qty" invisible="1"/>
+                                <field name="toggle_product" invisible="1"/>
+                                <field name="toggle_end_inv_qty" invisible="1"/>
+                                <field name="toggle_loss_qty" invisible="1"/>
                             </tree>
-                        </field>
+	                    </field>
                     </sheet>
                 </form>
             </field>

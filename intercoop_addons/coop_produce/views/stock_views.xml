@@ -62,7 +62,7 @@
                                                on_change="on_change_product_id(product_id)" readonly="True"/>
                                         <field name="default_packaging" string="Default packaging"/>
                                         <field name="packaging_qty" string="Qty/Def. pack"/>
-                                        <field name="qty_stock" string="Stock Qty"
+                                        <field name="qty_stock" string="Stock Qty" class="auto_select"
                                                on_change="on_change_qty_stock(product_id,packaging_qty,qty_stock,default_packaging)" autofocus="autofocus"/>
                                         <field name="qty_loss" string="Adjustment"/>
                                         <field name="product_qty" string="Product Qty" invisible="1"
