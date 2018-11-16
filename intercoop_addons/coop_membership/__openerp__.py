@@ -88,6 +88,7 @@
         'data/barcode_rule.xml',
         'data/shift_extension_type_data.xml',
         'data/ir_config_paramater.xml',
+        'data/function.xml',
 
         # Report
         'views/account_report.xml',

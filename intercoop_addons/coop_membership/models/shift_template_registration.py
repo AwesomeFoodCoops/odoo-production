@@ -64,7 +64,8 @@ class ShiftTemplateRegistration(models.Model):
             FROM shift_template_registration_line strl
             JOIN shift_template_registration str
             ON strl.registration_id = str.id
-            WHERE (strl.date_begin <= '%s') AND (strl.date_end >= '%s'
+            WHERE (strl.date_begin <= '%s' OR  strl.date_begin is NULL) 
+            AND (strl.date_end >= '%s'
             OR  strl.date_end is NULL) AND str.shift_template_id = %s
         ''' % (today, today, template_id)
         self.env.cr.execute(sql)
