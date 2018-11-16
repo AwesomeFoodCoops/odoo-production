@@ -139,6 +139,9 @@ class ResPartner(models.Model):
 
     force_customer = fields.Boolean(string="Force Customer", default=False)
 
+    inform_id = fields.Many2one(
+        comodel_name='res.partner.inform', string='Informé')
+
     # Constraint Section
     @api.multi
     @api.constrains('is_member',
@@ -681,6 +684,7 @@ class ResPartner(models.Model):
             toolbar=toolbar,
             submenu=submenu)
         # Read only field contact base specific groups
+        doc = etree.fromstring(res['arch'])
         if uid != SUPERUSER_ID:
             lecture_group = self.user_has_groups(
                 cr, uid,
@@ -688,31 +692,30 @@ class ResPartner(models.Model):
             writer_group = self.user_has_groups(
                 cr, uid,
                 'coop_membership.group_membership_access_edit')
-            if lecture_group and not writer_group:
-                if view_type == 'form':
-                    doc = etree.fromstring(res['arch'])
+            if view_type == 'form':
+                if lecture_group and not writer_group:
                     model_data_obj = self.pool['ir.model.data']
-                    shift_ext_from_partner_id = model_data_obj.\
+                    shift_ext_from_partner_id = model_data_obj. \
                         get_object_reference(
-                            cr, uid,
-                            'coop_shift',
-                            'act_shift_registration_from_partner')[1]
-                    shift_ext_from_partner_tree_id = model_data_obj.\
+                        cr, uid,
+                        'coop_shift',
+                        'act_shift_registration_from_partner')[1]
+                    shift_ext_from_partner_tree_id = model_data_obj. \
                         get_object_reference(
-                            cr, uid,
-                            'coop_shift',
-                            'act_shift_registration_from_partner_tree_mode')[1]
+                        cr, uid,
+                        'coop_shift',
+                        'act_shift_registration_from_partner_tree_mode')[1]
 
-                    tpl_reg_line_fr_partner_id = model_data_obj.\
+                    tpl_reg_line_fr_partner_id = model_data_obj. \
                         get_object_reference(
-                            cr, uid,
-                            'coop_shift',
-                            'act_template_registration_line_from_partner')[1]
-                    tpl_reg_line_fr_partner_tree_id = model_data_obj.\
+                        cr, uid,
+                        'coop_shift',
+                        'act_template_registration_line_from_partner')[1]
+                    tpl_reg_line_fr_partner_tree_id = model_data_obj. \
                         get_object_reference(
-                            cr, uid,
-                            'coop_shift',
-                            'act_template_registration_line_from_partner_tree_mode')[1]
+                        cr, uid,
+                        'coop_shift',
+                        'act_template_registration_line_from_partner_tree_mode')[1]
 
                     for node in doc.xpath("//button"):
                         if node.get('name') == str(shift_ext_from_partner_id):
@@ -723,5 +726,19 @@ class ResPartner(models.Model):
                             node.set(
                                 'name',
                                 str(tpl_reg_line_fr_partner_tree_id))
-                    res['arch'] = etree.tostring(doc)
+        access_inform = self.user_has_groups(
+            cr, uid,
+            'coop_membership.coop_group_access_res_partner_inform'
+        )
+        if not access_inform:
+            node = doc.xpath("//field[@name='inform_id']")
+            options = {
+                'no_create': True,
+                'no_quick_create': True,
+                'no_create_edit': True
+            }
+            if node:
+                node[0].set("options", repr(options))
+                setup_modifiers(node[0], res['fields']['inform_id'])
+        res['arch'] = etree.tostring(doc)
         return res

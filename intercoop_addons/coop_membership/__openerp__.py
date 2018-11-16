@@ -86,11 +86,15 @@
         'data/email_template_data.xml',
         'data/ir_sequences.xml',
         'data/barcode_rule.xml',
+        'data/res_partner_inform.xml',
         'data/shift_extension_type_data.xml',
         'data/ir_config_paramater.xml',
 
         # Report
         'views/account_report.xml',
+
+        # Custom function
+        'data/function.xml',
     ],
     'demo': [
         'demo/capital_fundraising_category.xml',
