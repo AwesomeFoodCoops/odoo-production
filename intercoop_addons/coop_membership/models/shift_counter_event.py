@@ -3,7 +3,9 @@
 # @author: La Louve
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
+from lxml import etree
 from openerp import api, fields, models, _
+from openerp.osv.orm import setup_modifiers
 
 
 class ShiftCounterEvent(models.Model):
@@ -14,6 +16,9 @@ class ShiftCounterEvent(models.Model):
         compute="compute_sum_current_qty",
         string="Sum",
         store=True)
+
+    reason_ids = fields.Many2many(
+        comodel_name='shift.counter.event.reason', string='Justification')
 
     @api.multi
     @api.depends('point_qty', 'partner_id', 'type')
@@ -37,3 +42,33 @@ class ShiftCounterEvent(models.Model):
         '''
         self.env.cr.execute(sql)
         return True
+
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form',
+                        context=None, toolbar=False, submenu=False):
+        if context is None:
+            context = {}
+        res = super(ShiftCounterEvent, self).fields_view_get(
+            cr, uid,
+            view_id=view_id,
+            view_type=view_type,
+            context=context,
+            toolbar=toolbar,
+            submenu=submenu
+        )
+        doc = etree.fromstring(res['arch'])
+        access_inform = self.user_has_groups(
+            cr, uid,
+            'coop_membership.coop_group_access_res_partner_inform'
+        )
+        if not access_inform:
+            node = doc.xpath("//field[@name='reason_ids']")
+            options = {
+                'no_create': True,
+                'no_quick_create': True,
+                'no_create_edit': True
+            }
+            if node:
+                node[0].set("options", repr(options))
+                setup_modifiers(node[0], res['fields']['reason_ids'])
+                res['arch'] = etree.tostring(doc)
+        return res

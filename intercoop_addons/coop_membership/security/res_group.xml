@@ -233,4 +233,9 @@
                eval="[(4, ref('purchase.group_purchase_manager')), (4, ref('coop_membership.group_membership_access_manager'))]"/>
     </record>
 
+    <record model="res.groups" id="coop_group_access_res_partner_inform">
+        <field name="name">Access Res Partner Inform</field>
+        <field name="category_id" ref="base.module_category_extra"/>
+    </record>
+
 </odoo>
