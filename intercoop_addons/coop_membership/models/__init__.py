@@ -28,3 +28,5 @@ from . import shift_holiday
 from . import shift_counter_event
 from . import shift_change_team
 from . import res_company
+from . import res_partner_inform
+from . import shift_counter_reason
