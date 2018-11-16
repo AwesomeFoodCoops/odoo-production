@@ -38,9 +38,9 @@
                 <t t-set="company" t-value="res_company"></t>
             </t>
 
-            <t t-call="louve_custom_inventory.external_layout_header_adjust" />
+            <t t-call="coop_inventory.external_layout_header_adjust" />
             <t t-raw="0" />
-            <t t-call="louve_custom_inventory.external_layout_footer_adjust" />
+            <t t-call="coop_inventory.external_layout_footer_adjust" />
         </template>
 
         <template id="external_layout_header_adjust">
@@ -92,7 +92,7 @@
         <template id="report_inventory_adjust" inherit_id="stock.report_inventory">
 
             <xpath expr="//t[@t-call='report.external_layout']" position="attributes">
-                <attribute name="t-call">louve_custom_inventory.external_layout_adjust</attribute>
+                <attribute name="t-call">coop_inventory.external_layout_adjust</attribute>
             </xpath>
 
             <xpath expr="//table[@class='table table-condensed'][1]//tbody/tr//td[1]" position="replace">
