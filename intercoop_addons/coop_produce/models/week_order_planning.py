@@ -618,15 +618,29 @@ class OrderWeekPlanningLine(models.Model):
                                         digits=dp.get_precision('Order Week Planning Precision'),
                               copy=False)
 
-    toggle_monday_qty = fields.Boolean(related='order_week_planning_id.toggle_monday_qty')
-    toggle_tuesday_qty = fields.Boolean(related='order_week_planning_id.toggle_tuesday_qty')
-    toggle_wednesday_qty = fields.Boolean(related='order_week_planning_id.toggle_wednesday_qty')
-    toggle_thursday_qty = fields.Boolean(related='order_week_planning_id.toggle_thursday_qty')
-    toggle_friday_qty = fields.Boolean(related='order_week_planning_id.toggle_friday_qty')
-    toggle_saturday_qty = fields.Boolean(related='order_week_planning_id.toggle_saturday_qty')
-    toggle_product = fields.Boolean(related='order_week_planning_id.toggle_product')
-    toggle_end_inv_qty = fields.Boolean(related='order_week_planning_id.toggle_end_inv_qty')
-    toggle_loss_qty = fields.Boolean(related='order_week_planning_id.toggle_loss_qty')
+    toggle_monday_qty = fields.Boolean(
+        related='order_week_planning_id.toggle_monday_qty', related_sudo=False)
+    toggle_tuesday_qty = fields.Boolean(
+        related='order_week_planning_id.toggle_tuesday_qty',
+        related_sudo=False)
+    toggle_wednesday_qty = fields.Boolean(
+        related='order_week_planning_id.toggle_wednesday_qty',
+        related_sudo=False)
+    toggle_thursday_qty = fields.Boolean(
+        related='order_week_planning_id.toggle_thursday_qty',
+        related_sudo=False)
+    toggle_friday_qty = fields.Boolean(
+        related='order_week_planning_id.toggle_friday_qty', related_sudo=False)
+    toggle_saturday_qty = fields.Boolean(
+        related='order_week_planning_id.toggle_saturday_qty',
+        related_sudo=False)
+    toggle_product = fields.Boolean(
+        related='order_week_planning_id.toggle_product', related_sudo=False)
+    toggle_end_inv_qty = fields.Boolean(
+        related='order_week_planning_id.toggle_end_inv_qty',
+        related_sudo=False)
+    toggle_loss_qty = fields.Boolean(
+        related='order_week_planning_id.toggle_loss_qty', related_sudo=False)
 
     _sql_constraints = [
         ('unique_line_per_product',

@@ -23,7 +23,7 @@
     'data': [
         # DATA
         'security/ir.model.access.csv',
-		'data/decimal_precision.xml',
+        'data/decimal_precision.xml',
 
         #VIEWS
         'views/product_views.xml',
@@ -34,4 +34,5 @@
         'wizard/stock_inventory_wizard.xml',
 
     ],
+    'qweb': ['static/src/xml/widget.xml'],
 }
