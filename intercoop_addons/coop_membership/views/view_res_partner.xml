@@ -225,6 +225,7 @@
 
                     <group>
                         <group>
+                            <field name="inform_id" />
                         </group>
                         <group>
                             <field name="next_ftop_registration_date" class="bold_type"
