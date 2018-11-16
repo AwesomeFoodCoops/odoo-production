@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import json
 from openerp import api, models, fields, _
-from openerp.exceptions import UserError
+from openerp.exceptions import UserError, Warning
 from openerp.addons.connector.session import ConnectorSession
 from openerp.addons.connector.queue.job import job
 
@@ -97,6 +98,78 @@ class AccountMoveLine(models.Model):
             'target': 'new',
             'context': {'active_ids': active_ids, 'active_model': active_model}
         }
+
+    @api.model
+    def export_wrong_reconciliation_ml(self):
+        wrong_reconciliation_ml_data = self.get_wrong_reconciliation_ml_data()
+        data = {
+            'model': self._name,
+            'headers': wrong_reconciliation_ml_data['headers'],
+            'rows': wrong_reconciliation_ml_data['rows']
+        }
+        return json.dumps(data)
+
+    @api.model
+    def get_wrong_reconciliation_ml_data(self):
+        read_columns = [
+            'name', 'journal_id', 'ref', 'date', 'partner_id', 'company_id',
+            'check_holder_name', 'account_id', 'move_id', 'debit', 'credit',
+            'quantity', 'statement_line_id', 'statement_id', 'payment_id',
+            'check_deposit_id'
+        ]
+        model_fields = self._fields
+        header_columns = [getattr(model_fields[column], 'string') for column in read_columns]
+        header_columns = ['External ID'] + header_columns
+        read_columns = ['id'] + read_columns
+        wrong_move_lines = self.get_wrong_reconciliation_ml()
+        if not wrong_move_lines:
+            raise Warning(_('Found no wrong account move lines.'))
+        record_values_dict = wrong_move_lines.export_data(read_columns)
+        converted_data_rows = [
+            [unicode(cell_data) for cell_data in data_row]
+            for data_row in record_values_dict['datas']
+        ]
+        return {
+            'rows': converted_data_rows,
+            'headers': header_columns,
+        }
+
+    @api.model
+    def get_wrong_reconciliation_ml(self):
+        wrong_move_lines = self
+        selected_journals = self.env['account.journal'].search([
+            ('name', 'not like', '%Chèques%'),
+            '|',
+            ('name', 'like', 'CCOOP - compte courant'),
+            ('name', 'ilike', '%cep%'),
+        ])
+        bank_statement_line_query = """
+            select statement_line_id
+            from account_move
+            where statement_line_id is not null and journal_id in {} 
+            group by statement_line_id
+            having count(statement_line_id) > 1
+        """.format(tuple(selected_journals.ids))
+
+        self.env.cr.execute(bank_statement_line_query)
+        results = self.env.cr.fetchall()
+        line_ids = [id_tuple[0] for id_tuple in results]
+        bank_statement_line_ids = self.env['account.bank.statement.line']\
+            .browse(line_ids)
+        for stml in bank_statement_line_ids:
+            stml_date = fields.Date.from_string(stml.date)
+            move_ids = stml.journal_entry_ids
+            move_line_ids = move_ids.mapped('line_ids')
+            if len(move_ids) == 1 and len(move_line_ids) == 2:
+                continue
+            for aml in move_line_ids.filtered(lambda ml: not ml.statement_id):
+                aml_date = fields.Date.from_string(aml.date)
+                if aml_date.year <= stml_date.year and \
+                        aml_date.month <= stml_date.month:
+                    continue
+                else:
+                    wrong_move_lines |= aml
+        return wrong_move_lines
 
     @api.model
     def run_reconcile_411_pos(self, nb_lines_per_job=100):

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="coop_account assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/coop_account/static/src/js/export_wrong_reconciliation_move_lines.js"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

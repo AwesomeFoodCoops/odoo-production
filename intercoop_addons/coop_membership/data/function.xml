@@ -6,5 +6,6 @@
 				<value eval="[]"/>
 			</function>
 		</function>
-	</data>
+    <function model="post.object" name="adjust_user_rights" />
+  </data>
 </openerp>
