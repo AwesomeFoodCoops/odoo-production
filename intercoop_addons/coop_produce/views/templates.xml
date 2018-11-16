@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="coop_produce" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/coop_produce/static/src/less/togglebutton.less" type="text/less" t-ignore="true"/>
+                <script type="text/javascript" src="/coop_produce/static/src/js/auto_select.js" />
+                <script type="text/javascript" src="/coop_produce/static/src/js/form_widget.js" />
+            </xpath>
+        </template>
+    </data>
+</openerp>

@@ -44,7 +44,7 @@ class StockInventory(osv.osv):
 
     _columns = {
         #'week_number': fields.integer(string="Week num.", readonly=True, help="Number of the week in the current year"),
-        'week_date': fields.date(string="Began order schuduling on.", help="Week planning start date"),
+        'week_date': fields.date(string="Began order scheduling on.", help="Week planning start date"),
 
         'hide_initialisation': fields.boolean(string="Hide initialisation area", help="Hide Init. area",
                                               states={'done': [('readonly', True)], 'cancel': [('readonly', True)]}),
