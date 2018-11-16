@@ -32,8 +32,6 @@ import pycountry
 import openerp.addons.hw_proxy.controllers.main as hw_proxy
 from openerp import http
 from openerp.tools.config import config
-from telium import *
-
 
 logger = logging.getLogger(__name__)
 

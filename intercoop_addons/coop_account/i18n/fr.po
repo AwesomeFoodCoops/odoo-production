@@ -171,3 +171,9 @@ msgstr "Vous ne pouvez pas rapprocher cette pièce comptable avec une ligne d'un
 #: model:ir.ui.menu,name:coop_account.menu_inter_tranfer_payment
 msgid "Inter Account Transfer"
 msgstr "Tranfert interne"
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_bank_statement_line.py:53
+#, python-format
+msgid "You cannot reconcile with an account.move posterior to the transaction date except if you reconcile the transaction with only one account move."
+msgstr "Vous ne pouvez pas rapprocher une transaction avec une pièce postérieure, sauf si vous ne rapprochez qu'avec une seule écriture."
