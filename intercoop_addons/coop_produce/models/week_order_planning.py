@@ -39,6 +39,19 @@ def get_date_from_week_number(year, week_num, offset):
     return r
 
 
+TOGGLES = {
+    'toggle_monday_qty': False,
+    'toggle_tuesday_qty': True,
+    'toggle_wednesday_qty': True,
+    'toggle_thursday_qty': True,
+    'toggle_friday_qty': True,
+    'toggle_saturday_qty': True,
+    'toggle_product': True,
+    'toggle_end_inv_qty': True,
+    'toggle_loss_qty': True,
+}
+
+
 class OrderWeekPlanning(models.Model):
     _name = "order.week.planning"
     _description = "Order Week Planning"
@@ -245,6 +258,15 @@ class OrderWeekPlanning(models.Model):
                                        default=0,
                                        compute='_compute_orders')
 
+    toggle_monday_qty = fields.Boolean(default=False, help="Disable/Enable Mon. Quantity")
+    toggle_tuesday_qty = fields.Boolean(default=True, help="Disable/Enable Tue. Quantity")
+    toggle_wednesday_qty = fields.Boolean(default=True, help="Disable/Enable Wed. Quantity")
+    toggle_thursday_qty = fields.Boolean(default=True, help="Disable/Enable Thi. Quantity")
+    toggle_friday_qty = fields.Boolean(default=True, help="Disable/Enable Fri. Quantity")
+    toggle_saturday_qty = fields.Boolean(default=True, help="Disable/Enable Sat. Quantity")
+    toggle_product = fields.Boolean(default=True, help="Disable/Enable Product")
+    toggle_end_inv_qty = fields.Boolean(default=True, help="Disable/Enable E. Inv")
+    toggle_loss_qty = fields.Boolean(default=True, help="Disable/Enable Loss")
 
     @api.multi
     def action_generate_next_week(self):
@@ -485,6 +507,16 @@ class OrderWeekPlanning(models.Model):
                 line['order_id'] = new_purchase.id
                 new_line = po_line_obj.create(line)
                 new_line._compute_amount()
+        TOGGLE_DAYS_NUM = {
+            1: 'toggle_monday_qty',
+            2: 'toggle_tuesday_qty',
+            3: 'toggle_wednesday_qty',
+            4: 'toggle_thursday_qty',
+            5: 'toggle_friday_qty',
+            6: 'toggle_saturday_qty',
+        }
+        if TOGGLE_DAYS_NUM.get(day_num, False):
+            self[TOGGLE_DAYS_NUM[day_num]] = False
 
 
 class OrderWeekPlanningLine(models.Model):
@@ -586,6 +618,16 @@ class OrderWeekPlanningLine(models.Model):
                                         digits=dp.get_precision('Order Week Planning Precision'),
                               copy=False)
 
+    toggle_monday_qty = fields.Boolean(related='order_week_planning_id.toggle_monday_qty')
+    toggle_tuesday_qty = fields.Boolean(related='order_week_planning_id.toggle_tuesday_qty')
+    toggle_wednesday_qty = fields.Boolean(related='order_week_planning_id.toggle_wednesday_qty')
+    toggle_thursday_qty = fields.Boolean(related='order_week_planning_id.toggle_thursday_qty')
+    toggle_friday_qty = fields.Boolean(related='order_week_planning_id.toggle_friday_qty')
+    toggle_saturday_qty = fields.Boolean(related='order_week_planning_id.toggle_saturday_qty')
+    toggle_product = fields.Boolean(related='order_week_planning_id.toggle_product')
+    toggle_end_inv_qty = fields.Boolean(related='order_week_planning_id.toggle_end_inv_qty')
+    toggle_loss_qty = fields.Boolean(related='order_week_planning_id.toggle_loss_qty')
+
     _sql_constraints = [
         ('unique_line_per_product',
          'unique (week_year, week_number, product_id, supplier_id)',
@@ -641,6 +683,17 @@ class OrderWeekPlanningLine(models.Model):
                     self.start_inv = supplier_info.package_qty and self.product_id.qty_available / supplier_info.package_qty or 0.0
                     self.supplier_packaging = supplier_info.package_qty
                     self.default_packaging = self.product_id.default_packaging
+
+    @api.model
+    def default_get(self, fields_list):
+        vals = super(OrderWeekPlanningLine, self).default_get(fields_list)
+        context = self._context
+        if context:
+            vals.update({
+                TOGGLE: context.get(TOGGLE, DEFAULT_VALUE)
+                for TOGGLE, DEFAULT_VALUE in TOGGLES.items()
+            })
+        return vals
 
     def convert2order_line_vals(self, day, date_planned, fpos):
         ret = []
