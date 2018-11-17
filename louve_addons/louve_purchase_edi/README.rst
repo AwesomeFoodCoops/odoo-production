@@ -3,14 +3,17 @@
    :alt: License: AGPL-3
 
 ======================
-Louve - EDI Configuration
+Louve - EDI Purchase
 ======================
 
 Features
 --------
 
-* FTP configuration zones, for every supplier working with lalouve.
-* Fields mapping configuration.
+This module provides three interfaces handling the purchase relationship with lalouve suppliers
+
+* Purchase order generation and export using FTP.
+* Supplier pricelist update.
+* Delivery order update.
 
 
 Credits

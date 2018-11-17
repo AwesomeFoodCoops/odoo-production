@@ -3,13 +3,14 @@
    :alt: License: AGPL-3
 
 ======================
-Louve - Welcome Email
+Louve - EDI Configuration
 ======================
 
 Features
 --------
 
-* Defining a custom welcome email template for La Louve
+* FTP configuration zones, for every supplier working with lalouve.
+* Fields mapping configuration.
 
 
 Credits

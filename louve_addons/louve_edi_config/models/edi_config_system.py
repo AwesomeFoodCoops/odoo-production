@@ -3,35 +3,90 @@
 # @author: La Louve
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-import ftplib
-import base64
+import logging
+import os
+from datetime import datetime
 
-from openerp import models, api, _, tools
-from openerp.exceptions import ValidationError
+from openerp import models, api, fields
+
+_logger = logging.getLogger(__name__)
+
+try:
+    from ftplib import FTP
+except ImportError:
+    _logger.warning(
+        "Cannot import 'ftplib' Python Librairy. 'louve_edi_config'"
+        " module will not work properly.")
 
 
-class FtpConfig(models.AbstractModel):
-    _name = 'ftp.config'
+class EdiConfigSystem(models.Model):
+    _name = 'edi.config.system'
 
-    def get_ftp_param(self):
-        return {
-            'host': self.env['ir.config_parameter'].get_param('ftp_host'),
-            'user': self.env['ir.config_parameter'].get_param('ftp_user'),
-            'password': self.env['ir.config_parameter'].get_param('ftp_password'),
-            'directory': self.env['ir.config_parameter'].get_param('ftp_directory')
-        }
+    name = fields.Char(string="Name", required=True)
+    supplier_id = fields.Many2one(comodel_name="res.partner", string="EDI supplier",
+                                  domain=[('supplier', '=', True), ('is_edi', '=', True)], required=True)
+    ftp_host = fields.Char(string="FTP Server Host", default='xxx.xxx.xxx.xxx', required=True)
+    ftp_port = fields.Char(string="FTP Server Port", default='21', required=True)
+    ftp_login = fields.Char(string="FTP Login", required=True)
+    ftp_password = fields.Char(string="FTP Password", required=True)
+    csv_relative_in_path = fields.Char(string="Relative path for IN interfaces", default='/', required=True)
+    csv_relative_out_path = fields.Char(string="Relative path for OUT interfaces", default='/', required=True)
+    po_text_file_pattern = fields.Char(string="Purchase order File pattern", required=True)
+    do_text_file_pattern = fields.Char(string="Delivery order File pattern", required=True)
+    pricing_text_file_pattern = fields.Char(string="Pricing File pattern", required=True)
+    customer_code = fields.Char(string="Customer code", required=True)
+    constant = fields.Char(string="Constant", required=True)
+    vrp_code = fields.Char(string="VRP Code", required=True)
+    mapping_ids = fields.One2many(comodel_name="edi.mapping.lines", inverse_name="config_id")
 
     @api.model
-    def ftp_transfert(self, file_path=False, file_name=False):
+    def ftp_connection_open(self, edi_system):
+        """Return a new FTP connection with found parameters."""
+        _logger.info("Trying to connect to ftp://%s@%s:%d" % (
+            edi_system.ftp_login, edi_system.ftp_host,
+            edi_system.ftp_port))
         try:
-            if not file_path or not file_name:
-                raise ValidationError(_('There is no file path / file name'))
-            ftp_params = self.get_ftp_param()
-            session = ftplib.FTP(ftp_params['host'], ftp_params['user'], ftp_params['password'])
-            session.cwd(ftp_params['directory'])
-            ftp_file = open(file_path, 'rb')
-            session.storbinary('STOR %s' % file_name, ftp_file)
-            ftp_file.close()
-            session.quit()
-        except Exception, e:
-            raise ValidationError(tools.ustr(e))
+            ftp = FTP()
+            ftp.connect(edi_system.ftp_host, edi_system.ftp_port)
+            if edi_system.ftp_login:
+                ftp.login(
+                    edi_system.ftp_login,
+                    edi_system.ftp_password)
+            else:
+                ftp.login()
+            return ftp
+        except:
+            _logger.error("Connection to ftp://%s@%s:%d failed." % (
+                edi_system.ftp_login, edi_system.ftp_host,
+                edi_system.ftp_port))
+            return False
+
+    @api.model
+    def ftp_connection_close(self, ftp):
+        try:
+            ftp.quit()
+        except:
+            pass
+
+    @api.model
+    def ftp_connection_push_order_file(self, ftp, distant_folder_path, local_folder_path,
+                                       pattern, lines, encoding):
+        if lines:
+            # Generate temporary file
+            f_name = datetime.now().strftime(pattern)
+            local_path = os.path.join(local_folder_path, f_name)
+            distant_path = os.path.join(distant_folder_path, f_name)
+            f = open(local_path, 'w')
+            for line in lines:
+                raw_text = line
+                if encoding != 'utf-8':
+                    raw_text = raw_text.translate(self._TRANSLATED_TERM)
+                f.write(raw_text.encode(encoding, errors='ignore'))
+            f.close()
+
+            # Send File by FTP
+            f = open(local_path, 'r')
+            ftp.storbinary('STOR ' + distant_path, f)
+            f.close()
+            # Delete temporary file
+            os.remove(local_path)

@@ -6,12 +6,8 @@
 from openerp import models, api, fields
 
 
-class EdiMappingLines(models.Model):
-    _name = 'edi.mapping.lines'
+class PurchaseOrder(models.Model):
+    _inherit = 'purchase.order'
 
-    config_id = fields.Many2one(comodel_name="edi.config.system")
-    position = fields.Integer(string="Position", required=True)
-    delimiter = fields.Char(string="Delimiter", required=True)
-    required_field = fields.Boolean(string="Required")
-    size = fields.Integer(string="Size", required=True)
-    decimal_precision = fields.Integer(string="Decimal precision")
+
+

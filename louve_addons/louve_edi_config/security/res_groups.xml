@@ -8,14 +8,14 @@
 <odoo>
 
     <record model="res.groups" id="group_user">
-        <field name="name">Bizerba Scale User</field>
-        <field name="category_id" ref="category_bizerba_scale" />
+        <field name="name">DIAPAR EDI User</field>
+        <field name="category_id" ref="category_diapar_edi" />
     </record>
 
     <record model="res.groups" id="group_manager">
-        <field name="name">Bizerba Scale Manager</field>
+        <field name="name">BDIAPAR EDI Manager</field>
         <field name="implied_ids" eval="[(6, False, [ref('group_user')])]" />
-        <field name="category_id" ref="category_bizerba_scale" />
+        <field name="category_id" ref="category_diapar_edi" />
     </record>
 
 </odoo>

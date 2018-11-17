@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+    <data>
+
+        <record id="view_purchase_edi_log_tree" model="ir.ui.view">
+            <field name="model">purchase.edi.log</field>
+            <field name="arch" type="xml">
+                <tree string="EDI Log" colors="gray:sent == True;">
+                    <field name="log_date"/>
+                    <field name="interface"/>
+                    <field name="sent"/>
+                    <field name="last_send_date"/>
+                    <field name="edi_system_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_purchase_edi_log_form" model="ir.ui.view">
+            <field name="model">purchase.edi.log</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header/>
+                    <sheet>
+                        <group>
+                            <field name="log_date"/>
+                            <field name="interface"/>
+                            <field name="sent"/>
+                            <field name="last_send_date"/>
+                            <field name="edi_system_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

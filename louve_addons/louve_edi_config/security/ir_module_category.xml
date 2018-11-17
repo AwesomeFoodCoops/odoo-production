@@ -6,8 +6,8 @@
 -->
 
 <odoo>
-    <record model="ir.module.category" id="category_bizerba_scale">
-        <field name="name">Bizerba Scale</field>
+    <record model="ir.module.category" id="category_diapar_edi">
+        <field name="name">DIAPAR EDI</field>
     </record>
 
 </odoo>

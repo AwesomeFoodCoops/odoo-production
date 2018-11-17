@@ -4,18 +4,21 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 {
-    'name': 'Louve Custom - Welcome Email',
+    'name': 'Louve EDI Config',
     'version': '9.0.1.0.2',
     'category': 'Custom',
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'license': 'AGPL-3',
-    'depends': [
-        'coop_membership',
-        'email_attachment_custom'
+    'depends': ['purchase'
     ],
-    'data': [
-        'data/email_template_data.xml',
-        'data/mail_attachtment_custom_data.xml'
+    'data': ['views/actions.xml',
+             'views/menus.xml',
+             'views/edi_config_system_view.xml',
+             'views/purchase_edi_log_view.xml',
+             'views/res_partner_view.xml',
+             'security/ir_module_category.xml',
+             'security/res_groups.xml',
+             'security/ir.model.access.csv',
     ],
 }

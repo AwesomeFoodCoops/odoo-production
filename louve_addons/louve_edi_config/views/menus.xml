@@ -5,26 +5,21 @@ Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<openerp><data>
+<odoo>
+    <data>
 
-    <menuitem id="menu_scale_root"
-        name="Scales"
-        parent="base.menu_sale_config" sequence="25"/>
+        <menuitem id="menu_edi_config_root"
+            name="EDI Purchase"
+            parent="purchase.menu_purchase_config" sequence="35"/>
 
-    <menuitem id="menu_product_scale_system"
-        parent="menu_scale_root" sequence="1"
-        action="action_product_scale_system"/>
+        <menuitem id="menu_edi_config_system"
+            parent="menu_edi_config_root" sequence="1"
+            action="action_edi_config_system"/>
 
-    <menuitem id="menu_product_scale_group"
-        parent="menu_scale_root" sequence="2"
-        action="action_product_scale_group"/>
+        <menuitem id="menu_purchase_edi_logs"
+            parent="menu_edi_config_root" sequence="2"
+            action="action_purchase_edi_logs"/>
 
-    <menuitem id="menu_product_scale_log"
-        parent="menu_scale_root" sequence="3"
-        action="action_product_scale_log"/>
 
-    <menuitem id="menu_product_scale_update"
-        parent="menu_scale_root" sequence="20"
-        action="action_product_scale_force_update"/>
-
-</data></openerp>
+    </data>
+</odoo>
