@@ -25,8 +25,9 @@ class PurchaseEdiLog(models.Model):
             self.search(cr, uid, [('sent', '=', False)], context=context))
 
     @api.model
-    def set_log_history(self, supplier_interface):
-        sequence = self.create({'user_id': self.env.user.id,
-                                'log_date': fields.datetime.now(),
-                                'interface': supplier_interface}).id
-        return sequence
+    def create_log_history(self, supplier_interface, edi_system):
+        return self.create({'user_id': self.env.user.id,
+                            'log_date': fields.datetime.now(),
+                            'interface': supplier_interface,
+                            'edi_system_id': edi_system,
+                            'sent': True})
