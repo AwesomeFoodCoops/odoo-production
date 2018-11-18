@@ -33,7 +33,7 @@ class EdiConfigSystem(models.Model):
     csv_relative_in_path = fields.Char(string="Relative path for IN interfaces", default='/', required=True)
     csv_relative_out_path = fields.Char(string="Relative path for OUT interfaces", default='/', required=True)
     po_text_file_pattern = fields.Char(string="Purchase order File pattern",
-                                       default="'LD%sH%s.C99' % self.env['edi.config.system'].get_datenow_file_format()",
+                                       default="'LD%sH%s.C99' % self.env['edi.config.system'].get_datenow_format_for_file()",
                                        required=True)
     do_text_file_pattern = fields.Char(string="Delivery order File pattern")
     pricing_text_file_pattern = fields.Char(string="Pricing File pattern")
@@ -46,12 +46,13 @@ class EdiConfigSystem(models.Model):
     @api.model
     def ftp_connection_open(self, edi_system):
         """Return a new FTP connection with found parameters."""
-        _logger.info("Trying to connect to ftp://%s@%s:%d" % (
+        _logger.info("Trying to connect to ftp://%s@%s:%s" % (
             edi_system.ftp_login, edi_system.ftp_host,
             edi_system.ftp_port))
+        print("==============",edi_system.ftp_login, edi_system.ftp_host, edi_system.ftp_port)
         try:
             ftp = FTP()
-            ftp.connect(edi_system.ftp_host, edi_system.ftp_port)
+            ftp.connect(edi_system.ftp_host)
             if edi_system.ftp_login:
                 ftp.login(
                     edi_system.ftp_login,
@@ -60,7 +61,7 @@ class EdiConfigSystem(models.Model):
                 ftp.login()
             return ftp
         except:
-            _logger.error("Connection to ftp://%s@%s:%d failed." % (
+            _logger.error("Connection to ftp://%s@%s:%s failed." % (
                 edi_system.ftp_login, edi_system.ftp_host,
                 edi_system.ftp_port))
             return False
@@ -99,3 +100,8 @@ class EdiConfigSystem(models.Model):
         date = now.split(' ')[0].replace('-', '')
         hour = now.split(' ')[1].replace(':', '')
         return date, hour
+
+    @api.model
+    def get_datetime_format_ddmmyyyy(self, date):
+        do_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+        return "%s%s%s" % (do_date.day, do_date.month, str(do_date.year)[2:])
