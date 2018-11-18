@@ -3,6 +3,7 @@
 # @author: La Louve
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
+import time
 import logging
 import os
 from datetime import datetime
@@ -31,10 +32,11 @@ class EdiConfigSystem(models.Model):
     ftp_password = fields.Char(string="FTP Password", required=True)
     csv_relative_in_path = fields.Char(string="Relative path for IN interfaces", default='/', required=True)
     csv_relative_out_path = fields.Char(string="Relative path for OUT interfaces", default='/', required=True)
-    po_text_file_pattern = fields.Char(string="Purchase order File pattern", default='LD%Y%m%dH%H%M%S.C99',
+    po_text_file_pattern = fields.Char(string="Purchase order File pattern",
+                                       default="'LD%sH%s.C99' % self.env['edi.config.system'].get_datenow_file_format()",
                                        required=True)
-    do_text_file_pattern = fields.Char(string="Delivery order File pattern", required=True)
-    pricing_text_file_pattern = fields.Char(string="Pricing File pattern", required=True)
+    do_text_file_pattern = fields.Char(string="Delivery order File pattern")
+    pricing_text_file_pattern = fields.Char(string="Pricing File pattern")
     customer_code = fields.Char(string="Customer code", default='33513', required=True)
     constant_file_start = fields.Char(string="Constant file start", default='HDIAPAR', required=True)
     constant_file_end = fields.Char(string="Constant file end", default='*DIAPAR*DIAPAR', required=True)
@@ -90,3 +92,10 @@ class EdiConfigSystem(models.Model):
             f.close()
             # Delete temporary file
             os.remove(local_path)
+
+    @api.model
+    def get_datenow_format_for_file(self):
+        now = time.strftime("%Y-%m-%d %H:%M:%S")
+        date = now.split(' ')[0].replace('-', '')
+        hour = now.split(' ')[1].replace(':', '')
+        return date, hour
