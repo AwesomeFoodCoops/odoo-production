@@ -48,8 +48,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                             <group string="Fields mapping">
                                 <field name="mapping_ids" nolabel="1">
                                     <tree editable="bottom">
-                                        <field name="value"/>
                                         <field name="sequence" widget="handle"/>
+                                        <field name="value"/>
                                         <field name="position"/>
                                         <field name="delimiter"/>
                                         <field name="required_field"/>
