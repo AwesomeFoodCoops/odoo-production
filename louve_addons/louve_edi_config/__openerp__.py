@@ -12,7 +12,8 @@
     'license': 'AGPL-3',
     'depends': ['purchase'
     ],
-    'data': ['views/actions.xml',
+    'data': ['data/ir_config_parameter.xml',
+             'views/actions.xml',
              'views/menus.xml',
              'views/edi_config_system_view.xml',
              'views/purchase_edi_log_view.xml',

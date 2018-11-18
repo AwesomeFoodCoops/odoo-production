@@ -72,7 +72,7 @@ class EdiConfigSystem(models.Model):
 
     @api.model
     def ftp_connection_push_order_file(self, ftp, distant_folder_path, local_folder_path,
-                                       pattern, lines, encoding):
+                                       pattern, lines, encoding='utf-8'):
         if lines:
             # Generate temporary file
             f_name = datetime.now().strftime(pattern)
@@ -81,8 +81,6 @@ class EdiConfigSystem(models.Model):
             f = open(local_path, 'w')
             for line in lines:
                 raw_text = line
-                if encoding != 'utf-8':
-                    raw_text = raw_text.translate(self._TRANSLATED_TERM)
                 f.write(raw_text.encode(encoding, errors='ignore'))
             f.close()
 

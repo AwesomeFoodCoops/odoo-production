@@ -9,5 +9,3 @@ from openerp import models, api, fields
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
-
-
