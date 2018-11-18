@@ -8,9 +8,10 @@ from openerp import models, api, fields
 
 class EdiMappingLines(models.Model):
     _name = 'edi.mapping.lines'
+    _order ='position'
 
     config_id = fields.Many2one(comodel_name="edi.config.system")
-    sequence = fields.Integer(string="Sequence", required=True)
+    sequence = fields.Integer(string="Sequence", required=True, default=1)
     value = fields.Char(string="Value", help="Python code expression", required=True)
     position = fields.Integer(string="Position", required=True)
     delimiter = fields.Char(string="Delimiter", required=True)
