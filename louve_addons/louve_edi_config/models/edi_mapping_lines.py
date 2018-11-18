@@ -11,6 +11,7 @@ class EdiMappingLines(models.Model):
 
     config_id = fields.Many2one(comodel_name="edi.config.system")
     sequence = fields.Integer(string="Sequence", required=True)
+    value = fields.Char(string="Value", help="Python code expression", required=True)
     position = fields.Integer(string="Position", required=True)
     delimiter = fields.Char(string="Delimiter", required=True)
     required_field = fields.Boolean(string="Required")

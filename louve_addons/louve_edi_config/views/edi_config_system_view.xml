@@ -40,13 +40,15 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                                 <field name="po_text_file_pattern"/>
                             </group>
                             <group string="Constants">
-                                <field name="constant"/>
+                                <field name="constant_file_start"/>
+                                <field name="constant_file_end"/>
                                 <field name="vrp_code"/>
                                 <field name="customer_code"/>
                             </group>
                             <group string="Fields mapping">
                                 <field name="mapping_ids" nolabel="1">
                                     <tree editable="bottom">
+                                        <field name="value"/>
                                         <field name="sequence" widget="handle"/>
                                         <field name="position"/>
                                         <field name="delimiter"/>
