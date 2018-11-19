@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-# @author: La Louve
+# Copyright (C) 2016-Today: Druidoo (<http://www.druidoo.io/>)
+# @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 from openerp import models, api, fields
@@ -8,7 +8,7 @@ from openerp import models, api, fields
 
 class EdiMappingLines(models.Model):
     _name = 'edi.mapping.lines'
-    _order ='position'
+    _order = 'position'
 
     config_id = fields.Many2one(comodel_name="edi.config.system")
     sequence = fields.Integer(string="Sequence", required=True, default=1)
