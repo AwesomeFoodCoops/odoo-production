@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* louve_edi_config
+#	* edi_purchase_config
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-16 22:30+0000\n"
-"PO-Revision-Date: 2018-11-16 22:30+0000\n"
+"POT-Creation-Date: 2018-11-19 12:13+0000\n"
+"PO-Revision-Date: 2018-11-19 12:13+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,248 +15,299 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: louve_edi_config
-#: model:res.groups,name:louve_edi_config.group_manager
-msgid "EDI Manager"
-msgstr "Manager configuration EDI"
-
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_config_id
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_config_id
 msgid "Config id"
 msgstr "Config id"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_constant
-msgid "Constant"
-msgstr "Constante"
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_constant_file_end
+msgid "Constant file end"
+msgstr "Constante fin de fichier"
 
-#. module: louve_edi_config
-#: model:ir.ui.view,arch_db:louve_edi_config.view_edi_config_system_form
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_constant_file_start
+msgid "Constant file start"
+msgstr "Constant début de fichier"
+
+#. module: edi_purchase_config
+#: model:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
 msgid "Constants"
 msgstr "Constantes"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_create_uid
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_create_uid
-#: model:ir.model.fields,field_description:louve_edi_config.field_purchase_edi_log_create_uid
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_create_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_create_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_create_date
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_create_date
-#: model:ir.model.fields,field_description:louve_edi_config.field_purchase_edi_log_create_date
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_create_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_create_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_create_date
 msgid "Created on"
 msgstr "Créé le"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_customer_code
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_customer_code
 msgid "Customer code"
 msgstr "Code client"
 
-#. module: louve_edi_config
-#: model:ir.module.category,name:louve_edi_config.category_diapar_edi
-msgid "DIAPAR EDI"
-msgstr "EDI DIAPAR"
-
-#. module: louve_edi_config
-#: model:res.groups,name:louve_edi_config.group_user
-msgid "DIAPAR EDI User"
-msgstr "Utilisateur EDI"
-
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_decimal_precision
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_decimal_precision
 msgid "Decimal precision"
 msgstr "Précision décimale"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_delimiter
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_delimiter
 msgid "Delimiter"
 msgstr "Séparateur"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_do_text_file_pattern
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_do_text_file_pattern
 msgid "Delivery order File pattern"
-msgstr "Motif du nom de fichier des BL"
+msgstr "Motif du fichier BLE"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_display_name
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_display_name
-#: model:ir.model.fields,field_description:louve_edi_config.field_purchase_edi_log_display_name
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_display_name
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_display_name
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
-#. module: louve_edi_config
-#: model:ir.actions.act_window,name:louve_edi_config.action_edi_config_system
-#: model:ir.ui.menu,name:louve_edi_config.menu_edi_config_system
+#. module: edi_purchase_config
+#: model:ir.actions.act_window,name:edi_purchase_config.action_edi_config_system
+#: model:ir.ui.menu,name:edi_purchase_config.menu_edi_config_system
 msgid "EDI Config Systems"
-msgstr "Système de configuration EDI"
+msgstr "Systèmes EDI"
 
-#. module: louve_edi_config
-#: model:ir.ui.view,arch_db:louve_edi_config.view_purchase_edi_log_tree
+#. module: edi_purchase_config
+#: model:ir.ui.view,arch_db:edi_purchase_config.view_purchase_edi_log_tree
 msgid "EDI Log"
 msgstr "Log EDI"
 
-#. module: louve_edi_config
-#: model:ir.ui.menu,name:louve_edi_config.menu_edi_config_root
+#. module: edi_purchase_config
+#: model:res.groups,name:edi_purchase_config.group_manager
+msgid "EDI Manager"
+msgstr "Manager EDI"
+
+#. module: edi_purchase_config
+#: model:ir.ui.menu,name:edi_purchase_config.menu_edi_config_root
 msgid "EDI Purchase"
 msgstr "Achats par EDI"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_purchase_edi_log_edi_system_id
+#. module: edi_purchase_config
+#: model:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "EDI Supplier"
+msgstr "Fournisseur EDI"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_edi_system_id
 msgid "EDI System"
 msgstr "Système EDI"
 
-#. module: louve_edi_config
-#: model:ir.ui.view,arch_db:louve_edi_config.view_edi_config_system_form
+#. module: edi_purchase_config
+#: model:res.groups,name:edi_purchase_config.group_user
+msgid "EDI User"
+msgstr "Utilisateur EDI"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_supplier_id
+msgid "EDI supplier"
+msgstr "Fournisseur EDI"
+
+#. module: edi_purchase_config
+#: model:ir.module.category,name:edi_purchase_config.category_supplier_edi
+msgid "Electronic data interchange"
+msgstr "Echanges de données informatisé"
+
+#. module: edi_purchase_config
+#: model:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
 msgid "FTP Connection"
 msgstr "Connexion FTP"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_ftp_login
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_ftp_login
 msgid "FTP Login"
 msgstr "Login"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_ftp_password
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_ftp_password
 msgid "FTP Password"
 msgstr "Mot de passe"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_ftp_host
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_ftp_host
 msgid "FTP Server Host"
-msgstr "Nom d'hôte"
+msgstr "Hôte serveur FTP"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_ftp_port
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_ftp_port
 msgid "FTP Server Port"
 msgstr "Port"
 
-#. module: louve_edi_config
-#: model:ir.ui.view,arch_db:louve_edi_config.view_edi_config_system_form
+#. module: edi_purchase_config
+#: model:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
 msgid "Fields mapping"
 msgstr "Mapping des champs"
 
-#. module: louve_edi_config
-#: model:ir.ui.view,arch_db:louve_edi_config.view_edi_config_system_form
+#. module: edi_purchase_config
+#: model:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
 msgid "File name"
 msgstr "Nom du fichier"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_id
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_id
-#: model:ir.model.fields,field_description:louve_edi_config.field_purchase_edi_log_id
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_id
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_id
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_id
 msgid "ID"
 msgstr "Identifiant"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_purchase_edi_log_sent
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_interface
+msgid "Interface"
+msgstr "Interface"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_sent
 msgid "Is Sent"
 msgstr "Est envoyé"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system___last_update
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines___last_update
-#: model:ir.model.fields,field_description:louve_edi_config.field_purchase_edi_log___last_update
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_res_partner_is_edi
+msgid "Is an EDI supplier"
+msgstr "Est un fournisseur EDI"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system___last_update
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines___last_update
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_purchase_edi_log_last_send_date
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_last_send_date
 msgid "Last Send Date"
-msgstr "Date de dernier envoie"
+msgstr "Dernière date d'envoi"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_write_uid
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_write_uid
-#: model:ir.model.fields,field_description:louve_edi_config.field_purchase_edi_log_write_uid
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_write_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_write_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_write_date
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_write_date
-#: model:ir.model.fields,field_description:louve_edi_config.field_purchase_edi_log_write_date
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_write_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_write_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_purchase_edi_log_log_date
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_log_date
 msgid "Log Date"
 msgstr "Date du log"
 
-#. module: louve_edi_config
-#: model:ir.actions.act_window,name:louve_edi_config.action_purchase_edi_logs
-#: model:ir.ui.menu,name:louve_edi_config.menu_purchase_edi_logs
+#. module: edi_purchase_config
+#: model:ir.actions.act_window,name:edi_purchase_config.action_purchase_edi_logs
+#: model:ir.ui.menu,name:edi_purchase_config.menu_purchase_edi_logs
 msgid "Logs"
 msgstr "Logs"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_mapping_ids
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_mapping_ids
 msgid "Mapping ids"
 msgstr "Mapping ids"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_name
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_name
 msgid "Name"
 msgstr "Nom"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_position
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_position
 msgid "Position"
 msgstr "Position"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_pricing_text_file_pattern
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_pricing_text_file_pattern
 msgid "Pricing File pattern"
-msgstr "Motif du fichier de MAJ Prix"
+msgstr "Motif fichier MAJ prix"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_po_text_file_pattern
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_po_text_file_pattern
 msgid "Purchase order File pattern"
-msgstr "Motif du fichier de commande achat"
+msgstr "Motif fichier commande achat"
 
-#. module: louve_edi_config
-#: model:ir.ui.view,arch_db:louve_edi_config.view_edi_config_system_form
+#. module: edi_purchase_config
+#: model:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
 msgid "Purchase order interface"
-msgstr "Interface des commandes achat"
+msgstr "Interface des commandes"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_csv_relative_in_path
+#. module: edi_purchase_config
+#: model:ir.model.fields,help:edi_purchase_config.field_edi_mapping_lines_value
+msgid "Python code expression"
+msgstr "Expression python"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_csv_relative_in_path
 msgid "Relative path for IN interfaces"
 msgstr "Chemin relatif des interfaces entrantes"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_csv_relative_out_path
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_csv_relative_out_path
 msgid "Relative path for OUT interfaces"
 msgstr "Chemin relatif des interfaces sortantes"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_required_field
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_required_field
 msgid "Required"
-msgstr "Requis"
+msgstr "Obligatoire"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_mapping_lines_size
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_size
 msgid "Size"
 msgstr "Taille"
 
-#. module: louve_edi_config
-#: model:ir.model.fields,field_description:louve_edi_config.field_edi_config_system_vrp_code
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_user_id
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_vrp_code
 msgid "VRP Code"
 msgstr "Code VRP"
 
-#. module: louve_edi_config
-#: model:ir.model,name:louve_edi_config.model_edi_config_system
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_value
+msgid "Value"
+msgstr "Valeur"
+
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_edi_config_system
 msgid "edi.config.system"
 msgstr "edi.config.system"
 
-#. module: louve_edi_config
-#: model:ir.model,name:louve_edi_config.model_edi_mapping_lines
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_edi_mapping_lines
 msgid "edi.mapping.lines"
 msgstr "edi.mapping.lines"
 
-#. module: louve_edi_config
-#: model:ir.model,name:louve_edi_config.model_purchase_edi_log
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_purchase_edi_log
 msgid "purchase.edi.log"
 msgstr "purchase.edi.log"
+
