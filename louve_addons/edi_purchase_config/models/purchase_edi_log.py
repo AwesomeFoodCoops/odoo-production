@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-# @author: La Louve
+# Copyright (C) 2016-Today: Druidoo (<http://www.druidoo.io/>)
+# @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 
@@ -21,8 +21,7 @@ class PurchaseEdiLog(models.Model):
 
     # View Section
     def _needaction_count(self, cr, uid, domain=None, context=None):
-        return len(
-            self.search(cr, uid, [('sent', '=', False)], context=context))
+        return len(self.search(cr, uid, [('sent', '=', False)], context=context))
 
     @api.model
     def create_log_history(self, supplier_interface, edi_system):

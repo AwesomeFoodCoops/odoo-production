@@ -17,7 +17,7 @@ msgstr ""
 
 #. module: louve_edi_config
 #: model:res.groups,name:louve_edi_config.group_manager
-msgid "BDIAPAR EDI Manager"
+msgid "EDI Manager"
 msgstr "Manager configuration EDI"
 
 #. module: louve_edi_config

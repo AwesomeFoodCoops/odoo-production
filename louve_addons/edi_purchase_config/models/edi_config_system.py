@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-# @author: La Louve
+# Copyright (C) 2016-Today: Druidoo (<http://www.druidoo.io/>)
+# @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 import time
@@ -16,7 +16,7 @@ try:
     from ftplib import FTP
 except ImportError:
     _logger.warning(
-        "Cannot import 'ftplib' Python Librairy. 'louve_edi_config'"
+        "Cannot import 'ftplib' Python Librairy. 'edi_purchase_config'"
         " module will not work properly.")
 
 

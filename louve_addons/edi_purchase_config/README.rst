@@ -3,22 +3,22 @@
    :alt: License: AGPL-3
 
 ======================
-Louve - EDI Purchase
+EDI Configuration
 ======================
 
 Features
 --------
 
-This module provides three interfaces handling the purchase relationship with lalouve suppliers
-
-* Purchase order generation and export using FTP.
-* Supplier pricelist update.
-* Delivery order update.
+* Supplier FTP configuration.
+* Fields mapping configuration.
+* New tag "EDI Supplier" added on suppliers form.
 
 
 Credits
 =======
 
+Yassine TEIMI <yteimi01@gmail.com>
+Simon Mas <simon.mas@druidoo.io>
 
 Funders
 -------
