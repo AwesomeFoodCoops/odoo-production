@@ -49,7 +49,6 @@ class EdiConfigSystem(models.Model):
         _logger.info("Trying to connect to ftp://%s@%s:%s" % (
             edi_system.ftp_login, edi_system.ftp_host,
             edi_system.ftp_port))
-        print("==============",edi_system.ftp_login, edi_system.ftp_host, edi_system.ftp_port)
         try:
             ftp = FTP()
             ftp.connect(edi_system.ftp_host)
@@ -105,3 +104,19 @@ class EdiConfigSystem(models.Model):
     def get_datetime_format_ddmmyyyy(self, date):
         do_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
         return "%s%s%s" % (do_date.day, do_date.month, str(do_date.year)[2:])
+
+    @api.model
+    def _fix_lenght(self, value, lenght, mode='float', replace='', position='before'):
+        """
+            Mode = string/integer
+            replace ==> ' ' or '0'
+            position ==> before / after
+        """
+        value = str(value)
+        if mode == 'float':
+            value = value.split('.')[0]
+        if position == 'before':
+            value = ''.join([replace for i in range(lenght - len(value))]) + value
+        else:
+            value += ''.join([replace for i in range(lenght - len(value))])
+        return value[0:lenght]

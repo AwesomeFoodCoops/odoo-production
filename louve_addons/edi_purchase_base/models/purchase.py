@@ -35,13 +35,14 @@ class PurchaseOrder(models.Model):
         return lines
 
     @api.multi
-    def _get_data_from_mapping_config(self, lines, edi):
+    def _get_data_from_mapping_config(self, order_lines, edi):
         """
             Data From mapping
         """
         self.ensure_one()
         data = """"""
         for line in edi.mapping_ids:
+            print line.value
             data += eval(line.value)
             # RAF traitement des order_line et le nombre de caractere
         return data
@@ -89,7 +90,7 @@ class PurchaseOrder(models.Model):
                                                data_lines,
                                                encoding='utf-8')
         # Log
-        
+        self.env['purchase.edi.log'].create_log_history(edi_system.name, edi_system.id)
         # Close FTP
         ecs_obj.ftp_connection_close(ftp)
         return True
@@ -98,10 +99,9 @@ class PurchaseOrder(models.Model):
     @api.multi
     def button_confirm(self):
         """
-        Override: 1.Consolidated lines.
-                  2.Send FTP.
+        Override: Send FTP.
         """
-        for order in self:
-            # Send FTP
+        res = super(PurchaseOrder, self).button_confirm()
+        for order in self.filtered(lambda l: l.partner_id.is_edi):
             order._process_send_ftp()
-        return super(PurchaseOrder, self).button_confirm()
+        return res
