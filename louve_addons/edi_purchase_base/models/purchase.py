@@ -42,9 +42,7 @@ class PurchaseOrder(models.Model):
         self.ensure_one()
         data = """"""
         for line in edi.mapping_ids:
-            print line.value
             data += eval(line.value)
-            # RAF traitement des order_line et le nombre de caractere
         return data
 
     @api.multi
