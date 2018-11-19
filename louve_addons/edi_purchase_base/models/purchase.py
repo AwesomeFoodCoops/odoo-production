@@ -81,6 +81,10 @@ class PurchaseOrder(models.Model):
         local_folder_path = config_obj.get_param('edi.local_folder_path')
         # Open FTP
         ftp = ecs_obj.ftp_connection_open(edi_system)
+        # Check current directory
+        print('Current directory : %s' % ftp.pwd())
+        # Positioning on the directory
+        # ftp.cwd('/33513_ftp/Reception')
         # Send
         ecs_obj.ftp_connection_push_order_file(ftp,
                                                distant_folder_path,
