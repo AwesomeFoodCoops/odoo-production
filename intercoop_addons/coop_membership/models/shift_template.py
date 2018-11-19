@@ -44,9 +44,11 @@ class ShiftTemplate(models.Model):
     @api.depends('registration_ids')
     def _compute_registration_qty(self):
         for template in self:
-            current_regs = template.registration_ids.filtered(
-                lambda reg: reg.is_current_participant
-            )
+            current_regs = template.env['shift.template.registration']\
+                .with_context(active_id=template.id).search([
+                    ('shift_template_id', '=', template.id),
+                    ('is_current_participant', '=', True),
+                ])
             template.registration_qty = len(current_regs)
 
     @api.multi

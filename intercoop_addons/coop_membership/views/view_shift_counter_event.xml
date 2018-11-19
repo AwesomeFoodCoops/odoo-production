@@ -21,4 +21,14 @@
         <field name="view_id" ref="coop_membership.view_shift_counter_event_ftop_button_tree"/>
     </record>
 
+    <record id="view_shift_counter_event_form_inherit" model="ir.ui.view">
+        <field name="model">shift.counter.event</field>
+        <field name="inherit_id" ref="coop_shift.view_shift_counter_event_form"/>
+        <field name="arch" type="xml">
+            <field name="notes" position="before">
+                <field name="reason_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+
 </odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ToggleSlider">
+        <span class="oe_form_field oe_form_field_boolean" t-att-style="widget.node.attrs.style">
+            <span class="switch">
+            <input type="checkbox"
+                    t-att-id="widget.id_for_label"
+                    t-att-name="widget.name"
+                    t-att-tabindex="widget.node.attrs.tabindex"
+                    t-att-autofocus="widget.node.attrs.autofocus"
+                    class="field_boolean"/>
+            <span class="slider round"></span>
+            </span>
+        </span>
+    </t>
+</templates>

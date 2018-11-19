@@ -612,3 +612,43 @@
     perm_read: true
     perm_write: true
     perm_unlink: true
+
+# Model res.partner.inform
+-
+  !record {model: ir.model.access, id: access_res_partner_inform}:
+    group_id: coop_membership.coop_group_access_res_partner_inform
+    model_id: coop_membership.model_res_partner_inform
+    name: access.res.partner.inform
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
+-
+  !record {model: ir.model.access, id: read_res_partner_inform}:
+    group_id: false
+    model_id: coop_membership.model_res_partner_inform
+    name: read.res.partner.inform
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false
+
+# Model shift.counter.event.reason
+-
+  !record {model: ir.model.access, id: access_shift_counter_event_reason}:
+    group_id: coop_membership.coop_group_access_res_partner_inform
+    model_id: coop_membership.model_shift_counter_event_reason
+    name: access.shift.counter.event.reason
+    perm_create: true
+    perm_read: true
+    perm_write: true
+    perm_unlink: true
+-
+  !record {model: ir.model.access, id: read_shift_counter_event_reason}:
+    group_id: false
+    model_id: coop_membership.model_shift_counter_event_reason
+    name: read.shift.counter.event.reason
+    perm_create: false
+    perm_read: true
+    perm_write: false
+    perm_unlink: false

@@ -57,3 +57,9 @@ msgstr "Avoirs fournisseur"
 msgid "purchase.config.settings"
 msgstr "purchase.config.settings"
 
+#. module: coop_purchase
+#: code:addons/coop_purchase/models/account_invoice.py:83
+#, python-format
+msgid "Please confirm reception before creating an invoice for this PO"
+msgstr "Veuillez enregistrer la réception avant de créer la facture"
+

@@ -2,13 +2,31 @@
 <openerp>
     <!-- TODO REFACTOR ME, merging in report_timesheet.xml file -->
     <template id="report_timesheet_state" inherit_id="report_timesheet">
-        <xpath expr="//table[@class='table table-bordered'][2]/tbody/tr[1]/td[2]" position="inside">
+        <xpath expr="//div[@class='page'][1]//table[@class='table table-bordered'][1]" position="replace" />
+
+        <xpath expr="//div[@class='page'][1]//table[@class='table table-bordered'][1]/thead/tr[1]" position="after">
+            <tr>
+                <th style="text-align:center" colspan="5">MEMBRE PROGRAMMÉ</th>
+                <th class="text-center" style="border-left: 4px solid #ddd;" colspan="4">MEMBRE PRÉSENT</th>
+            </tr>
+        </xpath>
+
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]" position="replace" />
+
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/thead/tr[1]" position="after">
+            <tr>
+                <th style="text-align:center" colspan="2">MEMBRE CRÉDITÉ</th>
+                <th class="text-center" style="border-left: 4px solid #ddd;" colspan="4">MEMBRE PRÉSENT</th>
+            </tr>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[1]/td[2]" position="inside">
             <t t-if="registration['registration'].partner_id.final_standard_point&lt;0"><span t-esc="-1 * registration['registration'].partner_id.final_standard_point"/></t>
         </xpath>
-        <xpath expr="//table[@class='table table-bordered'][2]/tbody/tr[4]/td[2]" position="inside">
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[4]/td[2]" position="inside">
             <t t-if="ftop.partner_id.final_standard_point&lt;0"><span t-esc="-1 * ftop.partner_id.final_ftop_point"/></t>
         </xpath>
-        <xpath expr="//table[@class='table table-bordered'][2]/tbody/tr[1]//td[1]" position="inside">
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[1]//td[1]" position="inside">
             <t t-if="registration['is_on_leave']">CONG</t>
             <t t-if="not registration['is_on_leave']">
                 <t t-if="registration['registration'].partner_id.cooperative_state=='alert'">A</t>
@@ -19,7 +37,7 @@
             </t>
             
         </xpath>
-        <xpath expr="//table[@class='table table-bordered'][2]/tbody/tr[4]//td[1]" position="inside">
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[4]//td[1]" position="inside">
             <t t-if="is_on_leave">CONG</t>
             <t t-if="not is_on_leave">
                 <t t-if="ftop.partner_id.cooperative_state=='alert'">A</t>
@@ -28,6 +46,104 @@
                 <t t-if="ftop.partner_id.cooperative_state=='unpayed'">I</t>
                 <t t-if="ftop.partner_id.cooperative_state=='blocked'">B</t>
             </t>
+        </xpath>
+
+        <!-- There may have 36 lines in each page. Use empty line to fill the rest of page -->
+        <xpath expr="//table[@class='table table-bordered'][1]/thead/tr/th[2]" position="replace">
+            <th width="6%">Rattrapages</th>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[1]/td[3]" position="inside">
+            <t t-if="registration['registration'].partner_id.is_squadleader">CRDO</t>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-bordered'][1]/thead/tr[1]/th[6]" position="replace">
+            <th width="6%" class="text-center" style="border-left: 4px solid #ddd">échange</th>
+        </xpath>
+
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/thead/tr[1]/th[3]" position="replace" />
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/thead/tr[1]/th[3]" position="replace" />
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/thead/tr[1]/th[3]" position="replace" />
+
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/tbody/tr/td[3]" position="replace" />
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/tbody/tr/td[3]" position="replace" />
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/tbody/tr/td[3]" position="replace" />
+
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/thead/tr[1]/th[3]" position="replace">
+            <th width="7%" class="text-center" style="border-left: 4px solid #ddd">échange</th>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[3]/td[@colspan='9']" position="replace">
+            <td colspan="9" class="text-center" style="font-size:18px"><b>**---VACATIONS---**</b></td>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[1]/td[8]" position="inside">
+            <t t-if="registration['is_on_leave']">CONG</t>
+
+        </xpath>
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[4]/td[8]" position="inside">
+            <t t-if="is_on_leave">CONG</t>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[2]" position="before">
+            <t t-set="no_lines_before_vacation" t-value="4"/>
+            <t t-set="lines_per_page" t-value="36"/>
+            <t t-set="total_lines" t-value="shift['registration_number'] + shift['ftop_number']"/>
+            <t t-set="no_pages" t-value="total_lines // lines_per_page + 1"/>
+            <t t-set="no_empty_lines" t-value="no_pages * lines_per_page - total_lines - no_lines_before_vacation"/>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[2]" position="attributes">
+            <attribute name="t-foreach">no_lines_before_vacation - 1</attribute>'
+        </xpath>
+        
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[1]/td[6]" position="attributes">
+            <attribute name="style">border-left: 4px solid #ddd</attribute>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[2]/td[6]" position="attributes">
+            <attribute name="style">border-left: 4px solid #ddd</attribute>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[4]/td[6]" position="attributes">
+            <attribute name="style">border-left: 4px solid #ddd</attribute>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[last()]" position="attributes">
+            <attribute name="t-foreach">no_empty_lines</attribute>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-bordered'][1]/tbody/tr[last()]/td[6]" position="attributes">
+            <attribute name="style">border-left: 4px solid #ddd</attribute>
+        </xpath>
+
+        <xpath expr="//div[@class='page'][2]/div[2]" position="replace">
+            <div class="row mt0 mb0">
+                <h2 class="text-center" style="background:#DDDDDD;margin-left:15px;margin-right:15px;padding:20px"><strong>RATTRAPAGES</strong></h2>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/thead/tr[1]/th[3]" position="attributes">
+            <attribute name="width">6%</attribute>
+        </xpath>
+
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/thead/tr[1]/th[4]" position="attributes">
+            <attribute name="width">8%</attribute>
+        </xpath>
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/thead/tr[1]/th[5]" position="attributes">
+            <attribute name="width">28%</attribute>
+        </xpath>
+
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/thead/tr[1]/th[1]" position="replace">
+            <th width="15%">Numéro</th>
+        </xpath>
+
+        <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/thead/tr[1]/th[2]" position="replace">
+            <th width="35%">Nom</th>
+        </xpath>
+
+         <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/tbody/tr[1]/td[3]" position="attributes">
+            <attribute name="style">border-left: 4px solid #ddd</attribute>
         </xpath>
     </template>
 </openerp>

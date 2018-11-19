@@ -15,6 +15,7 @@
     """,
     'depends': [
         'base',
+        'product',
         'stock',
         'purchase',
         'purchase_package_qty',
@@ -22,13 +23,16 @@
     'data': [
         # DATA
         'security/ir.model.access.csv',
-		'data/decimal_precision.xml',
+        'data/decimal_precision.xml',
 
         #VIEWS
         'views/product_views.xml',
         'views/stock_views.xml',
+        'views/templates.xml',
         'views/week_order_planning_view.xml',
         'wizard/show_product_history_view.xml',
+        'wizard/stock_inventory_wizard.xml',
 
     ],
+    'qweb': ['static/src/xml/widget.xml'],
 }
