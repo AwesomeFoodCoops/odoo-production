@@ -44,6 +44,12 @@ class EdiConfigSystem(models.Model):
     vrp_code = fields.Char(string="VRP Code", default='03', required=True)
     mapping_ids = fields.One2many(comodel_name="edi.mapping.lines", inverse_name="config_id")
 
+    @api.one
+    @api.constrains('ftp_port')
+    def _check_ftp_port(self):
+        if not self.ftp_port.isdigit():
+            raise ValidationError(_("FTP port must be numeric!"))
+
     @api.model
     def ftp_connection_open(self, edi_system):
         """Return a new FTP connection with found parameters."""
