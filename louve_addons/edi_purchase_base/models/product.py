@@ -28,6 +28,3 @@ class ProductProduct(models.Model):
         if not code:
             raise ValidationError(_("No code for this product %s!") % self.name)
         return code, origin_code
-
-
-
