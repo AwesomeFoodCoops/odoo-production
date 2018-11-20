@@ -5,7 +5,7 @@
 
 from datetime import datetime # Used when eval python codes !!
 
-from openerp import models, api, fields, _
+from openerp import models, api, fields, _, tools
 from openerp.exceptions import ValidationError
 
 
@@ -49,8 +49,11 @@ class PurchaseOrder(models.Model):
         """
         self.ensure_one()
         data = """"""
-        for line in edi.mapping_ids:
-            data += eval(line.value)
+        try:
+            for line in edi.mapping_ids:
+                data += eval(line.value)
+        except Exception, e:
+            raise ValidationError(_("Error in python code mapping values:\n %s") % tools.ustr(e))
         return data
 
     @api.multi

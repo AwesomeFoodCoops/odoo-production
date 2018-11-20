@@ -8,7 +8,8 @@ import logging
 import os
 from datetime import datetime
 
-from openerp import models, api, fields
+from openerp import models, api, fields, tools, _
+from openerp.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -59,40 +60,40 @@ class EdiConfigSystem(models.Model):
             else:
                 ftp.login()
             return ftp
-        except:
-            _logger.error("Connection to ftp://%s@%s:%s failed." % (
-                edi_system.ftp_login, edi_system.ftp_host,
-                edi_system.ftp_port))
-            return False
+        except Exception, e:
+            raise ValidationError(_("Error when opening FTP connection:\n %s") % tools.ustr(e))
 
     @api.model
     def ftp_connection_close(self, ftp):
         try:
             ftp.quit()
-        except:
-            pass
+        except Exception, e:
+            raise ValidationError(_("Error when closing FTP connection:\n %s") % tools.ustr(e))
 
     @api.model
     def ftp_connection_push_order_file(self, ftp, distant_folder_path, local_folder_path,
                                        pattern, lines, encoding='utf-8'):
-        if lines:
-            # Generate temporary file
-            f_name = datetime.now().strftime(pattern)
-            local_path = os.path.join(local_folder_path, f_name)
-            distant_path = os.path.join(distant_folder_path, f_name)
-            f = open(local_path, 'w')
-            for line in lines:
-                raw_text = line
-                f.write(raw_text.encode(encoding, errors='ignore'))
-            f.close()
+        try:
+            if lines:
+                # Generate temporary file
+                f_name = datetime.now().strftime(pattern)
+                local_path = os.path.join(local_folder_path, f_name)
+                distant_path = os.path.join(distant_folder_path, f_name)
+                f = open(local_path, 'w')
+                for line in lines:
+                    raw_text = line
+                    f.write(raw_text.encode(encoding, errors='ignore'))
+                f.close()
 
-            # Send File by FTP
-            f = open(local_path, 'r')
-            print("Chemin distant : %s" % distant_path)
-            ftp.storbinary('STOR ' + distant_path, f)
-            f.close()
-            # Delete temporary file
-            os.remove(local_path)
+                # Send File by FTP
+                f = open(local_path, 'r')
+                print("Chemin distant : %s" % distant_path)
+                ftp.storbinary('STOR ' + distant_path, f)
+                f.close()
+                # Delete temporary file
+                os.remove(local_path)
+        except Exception, e:
+            raise ValidationError(_("Error when ushing order file:\n %s") % tools.ustr(e)) 
 
     @api.model
     def get_datenow_format_for_file(self):
