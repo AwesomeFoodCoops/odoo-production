@@ -8,7 +8,6 @@ from datetime import datetime # Used when eval python codes !!
 from openerp import models, api, fields, _, tools
 from openerp.exceptions import ValidationError
 
-ORDER_INTERFACE = 'Purchase order interface'
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
@@ -100,7 +99,7 @@ class PurchaseOrder(models.Model):
                                                data_lines,
                                                encoding='utf-8')
         # Log
-        self.env['purchase.edi.log'].create_log_history(ORDER_INTERFACE, edi_system.id)
+        self.env['purchase.edi.log'].create_log_history(edi_system.name, edi_system.id)
         # Close FTP
         ecs_obj.ftp_connection_close(ftp)
         return True
