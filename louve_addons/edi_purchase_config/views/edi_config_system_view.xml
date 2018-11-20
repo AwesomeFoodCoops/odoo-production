@@ -44,12 +44,8 @@
                                 <field name="mapping_ids" nolabel="1">
                                     <tree editable="bottom">
                                         <field name="sequence" widget="handle"/>
-                                        <field name="value"/>
                                         <field name="position"/>
-                                        <field name="delimiter"/>
-                                        <field name="required_field"/>
-                                        <field name="size"/>
-                                        <field name="decimal_precision"/>
+                                        <field name="value"/>
                                     </tree>
                                 </field>
                             </group>

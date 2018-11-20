@@ -14,10 +14,9 @@ class PurchaseEdiLog(models.Model):
 
     log_date = fields.Datetime(string="Log Date", required=True)
     user_id = fields.Many2one(comodel_name="res.users", string="User")
-    interface = fields.Char(string="Interface", required=True)
+    name = fields.Char(string="Interface", required=True)
     edi_system_id = fields.Many2one(comodel_name="edi.config.system", string="EDI System", required=True)
     sent = fields.Boolean(string="Is Sent")
-    last_send_date = fields.Datetime(string="Last Send Date")
 
     # View Section
     def _needaction_count(self, cr, uid, domain=None, context=None):

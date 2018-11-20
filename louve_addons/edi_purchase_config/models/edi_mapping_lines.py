@@ -12,9 +12,6 @@ class EdiMappingLines(models.Model):
 
     config_id = fields.Many2one(comodel_name="edi.config.system")
     sequence = fields.Integer(string="Sequence", required=True, default=1)
-    value = fields.Char(string="Value", help="Python code expression", required=True)
+    value = fields.Char(string="Python code", help="Use python code to generate your order file, using methods defined"
+                                                   "on the configuration system model", required=True)
     position = fields.Integer(string="Position", required=True)
-    delimiter = fields.Char(string="Delimiter", required=True)
-    required_field = fields.Boolean(string="Required")
-    size = fields.Integer(string="Size", required=True)
-    decimal_precision = fields.Integer(string="Decimal precision")

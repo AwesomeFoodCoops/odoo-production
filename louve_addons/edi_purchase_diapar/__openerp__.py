@@ -8,9 +8,9 @@
     'version': '9.0.1.0.2',
     'category': 'Custom',
     'author': 'Druidoo',
-    'website': 'http://www.lalouve.net',
+    'website': 'http://www.druidoo.io',
     'license': 'AGPL-3',
-    'depends': ['product', 'edi_purchase_base'
+    'depends': ['product', 'edi_purchase_config', 'edi_purchase_base'
     ],
     'data': [
     ],
