@@ -1,17 +1,28 @@
 # -*- coding: utf-8 -*-
 
-from openerp import api, models
+from openerp import api, fields, models
 from openerp.tools.safe_eval import safe_eval
 
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
+    price_unit_tax = fields.Monetary(
+        compute='_compute_price_unit_tax', string='Price Unit Tax Included',
+        store=True)
+
+    @api.multi
+    @api.depends('price_total', 'product_qty')
+    def _compute_price_unit_tax(self):
+        for pol in self:
+            if pol.product_qty:
+                pol.price_unit_tax = pol.price_total / pol.product_qty
+
     @api.multi
     def update_po_price_to_vendor_price(self):
-        '''
+        """
         @Function for the action of updating vendor price
-        '''
+        """
         update_main_vendor = self.env['ir.config_parameter'].get_param(
             'update_main_vendor_on_update_vendor_price', 'False')
         update_main_vendor = safe_eval(update_main_vendor)
