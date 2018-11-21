@@ -62,11 +62,11 @@ class PurchaseOrder(models.Model):
             Data lines to send
         """
         self.ensure_one()
-        data = """%s\nA%sB%s%s%s""" % (edi.constant_file_start,
-                                       edi.vrp_code,
-                                       edi.customer_code,
-                                       self._get_data_from_mapping_config(lines, edi),
-                                       edi.constant_file_end)
+        data = """%sA%sB%s%s%s""" % (edi.constant_file_start,
+                                     edi.vrp_code,
+                                     edi.customer_code,
+                                     self._get_data_from_mapping_config(lines, edi),
+                                     edi.constant_file_end)
         return data
 
     @api.multi
