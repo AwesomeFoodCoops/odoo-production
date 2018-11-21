@@ -1,0 +1,65 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* edi_purchase_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-20 19:03+0000\n"
+"PO-Revision-Date: 2018-11-20 19:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/purchase.py:32
+#, python-format
+msgid "Check price for lines with product %s!"
+msgstr "Merci de vérifier le prix des lignes du produit : %s!"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/purchase.py:30
+#, python-format
+msgid "Check taxes for lines with product %s!"
+msgstr "Merci de vérifier les taxes des lignes du produit : %s!"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/purchase.py:57
+#, python-format
+msgid "Error in python code mapping values:\n"
+" %s"
+msgstr "Erreur dans le code python du mapping  :\n"
+" %s"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/purchase.py:86
+#, python-format
+msgid "No Config FTP for this supplier %s!"
+msgstr "Aucune configuration FTP pour le fournisseur %s!"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/product.py:29
+#, python-format
+msgid "No code for this product %s!"
+msgstr "Aucun code pour le produit : %s!"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/purchase.py:25
+#, python-format
+msgid "No lines in this order %s!"
+msgstr "Aucune ligne pour cette commande : %s!"
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_product_product
+msgid "Product"
+msgstr "Article"
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_purchase_order
+msgid "Purchase Order"
+msgstr "Commande fournisseur"
+
