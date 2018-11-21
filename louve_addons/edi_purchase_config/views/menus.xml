@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+
+        <menuitem id="menu_edi_config_root"
+            name="EDI Purchase"
+            parent="purchase.menu_purchase_config" sequence="35"/>
+
+        <menuitem id="menu_edi_config_system"
+            parent="menu_edi_config_root" sequence="1"
+            action="action_edi_config_system"/>
+
+        <menuitem id="menu_purchase_edi_logs"
+            parent="menu_edi_config_root" sequence="2"
+            action="action_purchase_edi_logs"/>
+
+
+    </data>
+</odoo>
