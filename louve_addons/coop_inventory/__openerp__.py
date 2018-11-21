@@ -13,6 +13,7 @@
     'depends': [
         'stock',
         'purchase_package_qty',
+        'stock_inventory_by_category',
     ],
     'data': [
         'view/report_stockinventory.xml',
