@@ -11,7 +11,9 @@
                     <header>
                         <button name="action_done" string="Validate" type="object"
                                 attrs="{'invisible': [('state', '=', 'done')]}" class="oe_highlight"
-                                groups="stock.group_stock_manager"/>
+                                groups="stock.group_stock_manager"
+                                context="{'check_date_begin': True}"
+                        />
                         <button name="action_generate_planification" states="done" string="Generate Week Planification"
                                 type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
