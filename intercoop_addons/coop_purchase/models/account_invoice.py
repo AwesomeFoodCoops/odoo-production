@@ -75,12 +75,13 @@ class AccountInvoice(models.Model):
 
     @api.model
     def check_received_product(self, purchase_id):
-        for line in purchase_id.order_line:
-            product_id = line.product_id
-            purchase_method = product_id.purchase_method
-            received_qty = line.qty_received
-            if purchase_method == 'receive' and not received_qty:
-                raise Warning(_('Please confirm reception before creating an invoice for this PO'))
+        pickings = purchase_id.picking_ids
+        have_not_receive_picking = any(
+            picking.state not in ['done', 'cancel']
+            for picking in pickings
+        )
+        if have_not_receive_picking:
+            raise Warning(_('Please confirm reception before creating an invoice for this PO'))
 
     def _prepare_invoice_line_from_po_line(self, line):
         data = super(AccountInvoice, self).\
