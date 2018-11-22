@@ -89,8 +89,9 @@ class StockInventory(models.Model):
 
     @api.multi
     def action_done(self):
+        check_date_begin = self._context.get('check_date_begin', False)
         for stock_inventory in self:
-            if not stock_inventory.week_date:
+            if not stock_inventory.week_date and check_date_begin:
                 return {
                     'type': 'ir.actions.act_window',
                     'res_model': 'stock.inventory.wizard',
