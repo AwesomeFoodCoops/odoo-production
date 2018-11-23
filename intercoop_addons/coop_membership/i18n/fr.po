@@ -1871,6 +1871,23 @@ msgid "Comment"
 msgstr "Commentaires"
 
 #. module: coop_membership
+#: code:addons/coop_membership/models/shift_extension.py:91
+#, python-format
+msgid "The counter of the member is positive."
+msgstr "Le compteur du member est en positif."
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_extension.py:96
+#, python-format
+msgid "Impossible. The member has already benefited from 2 consecutive reduced counts."
+msgstr "Pas possible. Le membre a déjà bénéficié de 2 décomptes allégés consécutifs."
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_extension_reduce_deduction
+msgid "Reduced Deduction"
+msgstr "Décompte allégé"
+
+#. module: coop_membership
 #: code:addons/coop_membership/models/shift_template.py:45
 #, python-format
 msgid "Please choose another leader because the current leader is unsubscribed"
