@@ -12,6 +12,9 @@
             <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
                 <field name="base_price"/>
             </xpath>
+            <xpath expr="//header/button[@name='action_cancel_draft']" position="after">
+		        <button name="button_update_prices" type="object" string="Upd. Prices" class="btn btn-primary"/>
+		    </xpath>
         </field>
     </record>
 </odoo>

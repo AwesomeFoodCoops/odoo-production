@@ -108,3 +108,8 @@ class AccountInvoice(models.Model):
                 'quantity': qty_invoiced
             })
         return data
+
+    @api.multi
+    def button_update_prices(self):
+        self.ensure_one()
+        return self.env.ref('coop_purchase.supplier_info_update_act').read()[0]
