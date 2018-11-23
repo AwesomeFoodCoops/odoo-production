@@ -25,7 +25,8 @@
         'views/account_product_fiscal_classification_view.xml',
         'views/product_template_view.xml',
         'views/actions.xml',
-        'views/menu.xml'
+        'views/menu.xml',
+        'wizard/supplier_info_update.xml',
     ],
     'installable': True,
 }
