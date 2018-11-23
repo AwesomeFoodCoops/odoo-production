@@ -105,7 +105,11 @@ class ShiftShift(models.Model):
                     if current_point >= 1:
                         point = -1
                     else:
-                        point = -2
+                        if registration.reduce_extension_id and\
+                                registration.reduce_extension_id.reduce_deduction:
+                            point = -1
+                        else:
+                            point = -2
                     # Create Point Counter
                     point_counter_env.sudo().with_context(
                         {'automatic': True}).create({

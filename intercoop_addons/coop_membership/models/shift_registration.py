@@ -40,6 +40,8 @@ class ShiftRegistration(models.Model):
                                            store=False,
                                            string="Shift State")
     is_changed_team = fields.Boolean(string="Changed Team", default=False)
+    reduce_extension_id = fields.Many2one('shift.extension',
+                                          string="Reduced Extension")
 
     @api.model
     def create(self, vals):
@@ -256,11 +258,6 @@ class ShiftRegistration(models.Model):
         single_holiday = self.shift_id.single_holiday_id.filtered(
             lambda h: h.state == 'done')
 
-        email_closed_template = self.env.ref(
-            'coop_membership.anounce_close_on_holiday_email')
-        email_open_template = self.env.ref(
-            'coop_membership.anounce_open_on_holiday_email')
-
         if vals in ['absent', 'excused']:
             counter_vals = {}
             if self.shift_type == 'standard' and self.template_created:
@@ -305,7 +302,7 @@ class ShiftRegistration(models.Model):
                 elif long_holiday and not single_holiday:
                     if long_holiday.make_up_type == '0_make_up':
                         if (vals in ['absent']) or\
-                            (vals in ['excused'] and self.template_created):
+                                (vals in ['excused'] and self.template_created):
                             counter_vals.update({
                                 'point_qty': 1
                             })
@@ -334,7 +331,11 @@ class ShiftRegistration(models.Model):
                 point = 1
         else:
             if state in ['0_make_up', 'closed']:
-                point = 2
+                if self.reduce_extension_id and\
+                        self.reduce_extension_id.reduce_deduction:
+                    point = 1
+                else:
+                    point = 2
             else:
                 point = 1
         # Create Point Counter
