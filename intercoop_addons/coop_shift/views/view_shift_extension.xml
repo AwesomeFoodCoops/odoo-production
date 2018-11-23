@@ -9,7 +9,7 @@
     <record id="view_shift_extension_tree" model="ir.ui.view">
         <field name="model">shift.extension</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree name="shift_extensions">
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="type_id"/>
