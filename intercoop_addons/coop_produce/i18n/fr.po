@@ -846,3 +846,86 @@ msgstr "par colis"
 #: selection:order.week.planning.line,price_policy:0
 msgid "per UOM"
 msgstr "par UdM"
+
+#. module: coop_produce
+#: code:addons/coop_produce/models/week_order_planning.py:268
+#: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_toggle_end_inv_qty
+#: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_toggle_end_inv_qty
+#, python-format
+msgid "Toggle E. Inv"
+msgstr "Basculer E. Inv"
+
+#. module: coop_produce
+#: code:addons/coop_produce/models/week_order_planning.py:269
+#: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_toggle_loss_qty
+#: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_toggle_loss_qty
+#, python-format
+msgid "Toggle Loss"
+msgstr "Basculer la perte"
+
+#. module: coop_produce
+#: code:addons/coop_produce/models/week_order_planning.py:267
+#: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_line_toggle_product
+#: model:ir.model.fields,field_description:coop_produce.field_order_week_planning_toggle_product
+#, python-format
+msgid "Toggle product"
+msgstr "Basculer le produit"
+
+#. module: coop_produce
+#: model:ir.ui.view,arch_db:coop_produce.view_coop_produce_order_week_planning_interface_form
+msgid "<span>Enable/Disable</span>"
+msgstr "<span>Activer/Désactiver</span>"
+
+#. module: coop_produce
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_line_toggle_end_inv_qty
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_toggle_end_inv_qty
+msgid "Enable/Disable E. Inv"
+msgstr "Activer/Désactiver E. Inv"
+
+#. module: coop_produce
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_line_toggle_friday_qty
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_toggle_friday_qty
+msgid "Enable/Disable Fri. Quantity"
+msgstr "Activer/Désactiver Ven. Quantité"
+
+#. module: coop_produce
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_line_toggle_loss_qty
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_toggle_loss_qty
+msgid "Enable/Disable Loss"
+msgstr "Activer/Désactiver la perte"
+
+#. module: coop_produce
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_line_toggle_monday_qty
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_toggle_monday_qty
+msgid "Enable/Disable Mon. Quantity"
+msgstr "Activer/Désactiver Lun. Quantité"
+
+#. module: coop_produce
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_line_toggle_product
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_toggle_product
+msgid "Enable/Disable Product"
+msgstr "Activer/Désactiver Produit"
+
+#. module: coop_produce
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_line_toggle_saturday_qty
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_toggle_saturday_qty
+msgid "Enable/Disable Sat. Quantity"
+msgstr "Activer/Désactiver Sam. Quantité"
+
+#. module: coop_produce
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_line_toggle_thursday_qty
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_toggle_thursday_qty
+msgid "Enable/Disable Thi. Quantity"
+msgstr "Activer/Désactiver Jeu. Quantité"
+
+#. module: coop_produce
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_line_toggle_tuesday_qty
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_toggle_tuesday_qty
+msgid "Enable/Disable Tue. Quantity"
+msgstr "Activer/Désactiver Mar. Quantité"
+
+#. module: coop_produce
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_line_toggle_wednesday_qty
+#: model:ir.model.fields,help:coop_produce.field_order_week_planning_toggle_wednesday_qty
+msgid "Enable/Disable Wed. Quantity"
+msgstr "Activer/Désactiver Mer. Quantité"
