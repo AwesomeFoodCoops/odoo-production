@@ -63,3 +63,20 @@ msgstr "purchase.config.settings"
 msgid "Please confirm reception before creating an invoice for this PO"
 msgstr "Veuillez enregistrer la réception avant de créer la facture"
 
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.invoice_supplier_form_inherit
+#: model:ir.ui.view,arch_db:coop_purchase.view_purchase_order_form_inherit
+msgid "Upd. Prices"
+msgstr "MàJ Prix"
+
+#. module: coop_purchase
+#: model:ir.actions.act_window,name:coop_purchase.supplier_info_update_act
+msgid "Update Prices"
+msgstr "MàJ Prix"
+
+#. module: coop_purchase
+#: code:addons/coop_purchase/models/res_partner.py:11
+#: model:ir.model.fields,field_description:coop_purchase.field_res_partner_show_discount
+#, python-format
+msgid "Show discounts on update prices"
+msgstr "Remises sur la mise des prix"

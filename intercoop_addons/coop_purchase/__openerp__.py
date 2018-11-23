@@ -30,7 +30,8 @@
         'views/report_purchaseorder.xml',
         'views/report_purchasequotation.xml',
         'views/actions.xml',
-        'views/menu.xml'
+        'views/menu.xml',
+        'wizard/supplier_info_update.xml',
     ],
     'installable': True,
 }
