@@ -136,6 +136,7 @@
             <field name="arch" type="xml">
                 <field name="shift_type" position="after">
                     <field name="related_shift_state" invisible="1"/>
+                    <field name="reduce_extension_id" readonly="1" groups="base.group_no_one"/>
                 </field>
                 
                 <button name="action_send_badge_email" position="attributes">

@@ -143,8 +143,8 @@ class ShiftHoliday(models.Model):
                             attendee.shift_type == 'ftop' and\
                             attendee.state == 'absent':
                         count_vals = {
-                                'point_qty': 1
-                            }
+                            'point_qty': 1
+                        }
                 elif attendee.shift_id.shift_type_id.is_ftop:
                     if attendee.shift_id.state == 'done':
                         if attendee.partner_id.final_ftop_point >= 0:
@@ -152,9 +152,15 @@ class ShiftHoliday(models.Model):
                                 'point_qty': 1
                             }
                         elif attendee.partner_id.final_ftop_point < -1:
-                            count_vals = {
-                                'point_qty': 2
-                            }
+                            if attendee.reduce_extension_id and\
+                                    attendee.reduce_extension_id.reduce_deduction:
+                                count_vals = {
+                                    'point_qty': 1
+                                }
+                            else:
+                                count_vals = {
+                                    'point_qty': 2
+                                }
             else:
                 if (not attendee.shift_id.shift_type_id.is_ftop and attendee.state ==
                     'absent' and attendee.template_created)\
@@ -232,11 +238,11 @@ class ShiftHoliday(models.Model):
                             'point_qty': 1
                         }
                 elif not attendee_closed.template_created and\
-                            attendee_closed.shift_type == 'ftop' and\
-                            attendee_closed.state == 'absent':
-                        count_vals_closed = {
-                                'point_qty': 1
-                            }
+                        attendee_closed.shift_type == 'ftop' and\
+                        attendee_closed.state == 'absent':
+                    count_vals_closed = {
+                        'point_qty': 1
+                    }
             elif attendee_closed.shift_id.shift_type_id.is_ftop:
                 if attendee_closed.shift_id.state == 'done':
                     if attendee_closed.partner_id.final_ftop_point >= 0:
@@ -244,9 +250,16 @@ class ShiftHoliday(models.Model):
                             'point_qty': 1
                         }
                     elif attendee_closed.partner_id.final_ftop_point < -1:
-                        count_vals_closed = {
-                            'point_qty': 2
-                        }
+                        if attendee_closed.reduce_extension_id and\
+                                attendee_closed.reduce_extension_id.reduce_deduction:
+                            count_vals_closed = {
+                                'point_qty': 1
+                            }
+                        else:
+                            count_vals_closed = {
+                                'point_qty': 2
+                            }
+
             if count_vals_closed:
                 count_vals_closed.update({
                     'shift_id': attendee_closed.shift_id.id,
