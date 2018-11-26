@@ -40,15 +40,15 @@ def get_date_from_week_number(year, week_num, offset):
 
 
 TOGGLES = {
-    'toggle_monday_qty': False,
-    'toggle_tuesday_qty': True,
-    'toggle_wednesday_qty': True,
-    'toggle_thursday_qty': True,
-    'toggle_friday_qty': True,
-    'toggle_saturday_qty': True,
-    'toggle_product': True,
-    'toggle_end_inv_qty': True,
-    'toggle_loss_qty': True,
+    'toggle_monday_qty': True,
+    'toggle_tuesday_qty': False,
+    'toggle_wednesday_qty': False,
+    'toggle_thursday_qty': False,
+    'toggle_friday_qty': False,
+    'toggle_saturday_qty': False,
+    'toggle_product': False,
+    'toggle_end_inv_qty': False,
+    'toggle_loss_qty': False,
 }
 
 
@@ -258,15 +258,15 @@ class OrderWeekPlanning(models.Model):
                                        default=0,
                                        compute='_compute_orders')
 
-    toggle_monday_qty = fields.Boolean(default=False, help="Disable/Enable Mon. Quantity")
-    toggle_tuesday_qty = fields.Boolean(default=True, help="Disable/Enable Tue. Quantity")
-    toggle_wednesday_qty = fields.Boolean(default=True, help="Disable/Enable Wed. Quantity")
-    toggle_thursday_qty = fields.Boolean(default=True, help="Disable/Enable Thi. Quantity")
-    toggle_friday_qty = fields.Boolean(default=True, help="Disable/Enable Fri. Quantity")
-    toggle_saturday_qty = fields.Boolean(default=True, help="Disable/Enable Sat. Quantity")
-    toggle_product = fields.Boolean(default=True, help="Disable/Enable Product")
-    toggle_end_inv_qty = fields.Boolean(default=True, help="Disable/Enable E. Inv")
-    toggle_loss_qty = fields.Boolean(default=True, help="Disable/Enable Loss")
+    toggle_monday_qty = fields.Boolean(default=True, help="Enable/Disable Mon. Quantity")
+    toggle_tuesday_qty = fields.Boolean(default=False, help="Enable/Disable Tue. Quantity")
+    toggle_wednesday_qty = fields.Boolean(default=False, help="Enable/Disable Wed. Quantity")
+    toggle_thursday_qty = fields.Boolean(default=False, help="Enable/Disable Thi. Quantity")
+    toggle_friday_qty = fields.Boolean(default=False, help="Enable/Disable Fri. Quantity")
+    toggle_saturday_qty = fields.Boolean(default=False, help="Enable/Disable Sat. Quantity")
+    toggle_product = fields.Boolean(default=False, help="Enable/Disable Product", string=_("Toggle product"))
+    toggle_end_inv_qty = fields.Boolean(default=False, help="Enable/Disable E. Inv", string=_("Toggle E. Inv"))
+    toggle_loss_qty = fields.Boolean(default=False, help="Enable/Disable Loss", string=_("Toggle Loss"))
 
     @api.multi
     def action_generate_next_week(self):
@@ -470,6 +470,16 @@ class OrderWeekPlanning(models.Model):
     def create_purchase_orders(self):
         self.ensure_one()
         day_num = self._context.get('day_number', 0)
+        TOGGLE_DAYS_NUM = {
+            1: 'toggle_monday_qty',
+            2: 'toggle_tuesday_qty',
+            3: 'toggle_wednesday_qty',
+            4: 'toggle_thursday_qty',
+            5: 'toggle_friday_qty',
+            6: 'toggle_saturday_qty',
+        }
+        if TOGGLE_DAYS_NUM.get(day_num, False):
+            self[TOGGLE_DAYS_NUM[day_num]] = True
         order_date = get_date_from_week_number(self.year, self.week_number, day_num)
         supplier_lines = self._get_lines_grouped_per_supplier()
         supplier_ids = [p.id for p in supplier_lines.keys()]
@@ -507,16 +517,6 @@ class OrderWeekPlanning(models.Model):
                 line['order_id'] = new_purchase.id
                 new_line = po_line_obj.create(line)
                 new_line._compute_amount()
-        TOGGLE_DAYS_NUM = {
-            1: 'toggle_monday_qty',
-            2: 'toggle_tuesday_qty',
-            3: 'toggle_wednesday_qty',
-            4: 'toggle_thursday_qty',
-            5: 'toggle_friday_qty',
-            6: 'toggle_saturday_qty',
-        }
-        if TOGGLE_DAYS_NUM.get(day_num, False):
-            self[TOGGLE_DAYS_NUM[day_num]] = False
 
 
 class OrderWeekPlanningLine(models.Model):
