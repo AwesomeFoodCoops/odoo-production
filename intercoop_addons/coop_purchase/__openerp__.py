@@ -12,9 +12,11 @@
     'depends': [
         'base',
         'account',
+        'product',
         'purchase',
         'purchase_package_qty',
         'purchase_compute_order',
+        'stock',
         'coop_product_coefficient',
         'account_product_fiscal_classification',
     ],
@@ -24,8 +26,12 @@
         'views/account_invoice_view.xml',
         'views/account_product_fiscal_classification_view.xml',
         'views/product_template_view.xml',
+        'views/product_supplierinfo_view.xml',
+        'views/report_purchaseorder.xml',
+        'views/report_purchasequotation.xml',
         'views/actions.xml',
-        'views/menu.xml'
+        'views/menu.xml',
+        'wizard/supplier_info_update.xml',
     ],
     'installable': True,
 }

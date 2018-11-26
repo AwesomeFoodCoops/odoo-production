@@ -43,7 +43,6 @@ Copyright, Author and Licence :
         'purchase',
         'product',
         'purchase_package_qty',
-        'coop_purchase',
         'stock',
     ],
     'data': [
@@ -51,5 +50,5 @@ Copyright, Author and Licence :
         'views/product_supplierinfo_view.xml',
         'views/report_purchaseorder.xml',
         'views/report_purchasequotation.xml',
-    ],
+    ]
 }

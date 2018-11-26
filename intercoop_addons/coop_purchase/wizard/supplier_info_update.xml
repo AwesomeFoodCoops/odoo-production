@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="supplier_info_update_act" model="ir.actions.act_window">
+        <field name="name">Update Prices</field>
+        <field name="res_model">supplier.info.update</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <record id="view_supplier_info_update" model="ir.ui.view">
+        <field name="name">supplier.info.update.form.view</field>
+        <field name="model">supplier.info.update</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="partner_id" readonly="1"/>
+                        <field name="show_discount"/>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <group col="2">
+                                <field name="line_ids" view_mode="tree" nolabel="1" context="{'form_view_ref': False}" attrs="{'invisible': [('show_discount', '=', False)]}">
+                                    <tree create="false" delete="false" editable="bottom">
+                                        <field name="product_id" readonly="1"/>
+                                        <field name="price_unit" attrs="{'readonly': [('seller_id', '=', False)]}"/>
+                                        <field name="price_policy" readonly="1"/>
+                                        <field name="discount" attrs="{'readonly': ['|', ('seller_id', '=', False), ('show_discount', '=', False)]}"/>
+                                        <field name="show_discount"  invisible="1"/>
+                                        <field name="seller_id"  invisible="1"/>
+                                    </tree>
+                                </field>
+                                <field name="line2_ids" view_mode="tree" nolabel="1" context="{'form_view_ref': False}" attrs="{'invisible': [('show_discount', '=', True)]}">
+                                    <tree create="false" delete="false" editable="bottom">
+                                        <field name="product_id" readonly="1"/>
+                                        <field name="price_unit" attrs="{'readonly': [('seller_id', '=', False)]}"/>
+                                        <field name="price_policy" readonly="1"/>
+                                        <field name="discount" attrs="{'readonly': ['|', ('seller_id', '=', False), ('show_discount', '=', False)]}" invisible="1"/>
+                                        <field name="show_discount"  invisible="1"/>
+                                        <field name="seller_id"  invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="update_prices" string="Validate" type="object"
+                            class="btn btn-primary"/>
+                    <button string="Cancel" class="btn-default"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
