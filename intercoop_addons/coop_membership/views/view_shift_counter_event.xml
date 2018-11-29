@@ -26,7 +26,7 @@
         <field name="inherit_id" ref="coop_shift.view_shift_counter_event_form"/>
         <field name="arch" type="xml">
             <field name="notes" position="before">
-                <field name="reason_ids" widget="many2many_tags" />
+                <field name="reason_ids" />
             </field>
         </field>
     </record>
