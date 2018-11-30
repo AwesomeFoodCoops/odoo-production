@@ -54,3 +54,8 @@ class ProductTemplate(models.Model):
                 fiscal_classification_id)
             vals.update(fiscal_account_values)
         return super(ProductTemplate, self).write(vals=vals)
+
+    @api.multi
+    def toggle_available_in_pos(self):
+        for product_template in self:
+            product_template.available_in_pos = not product_template.available_in_pos
