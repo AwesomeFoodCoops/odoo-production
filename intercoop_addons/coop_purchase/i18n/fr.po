@@ -80,3 +80,20 @@ msgstr "MàJ Prix"
 #, python-format
 msgid "Show discounts on update prices"
 msgstr "Remises sur la mise des prix"
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.product_template_form_view_button_inherit
+msgid "<span class=\"o_stat_text o_not_hover text-success\" attrs=\"{'invisible': [('available_in_pos', '=', False)]}\">Put back</span>\n"
+"                        <span class=\"o_stat_text o_not_hover text-danger\" attrs=\"{'invisible': [('available_in_pos', '=', True)]}\">Remove</span>\n"
+"                        <span class=\"o_stat_text o_hover text-danger\" attrs=\"{'invisible': [('available_in_pos', '=', False)]}\">Remove</span>\n"
+"                        <span class=\"o_stat_text o_hover text-success\" attrs=\"{'invisible': [('available_in_pos', '=', True)]}\">Put back</span>"
+msgstr "<span class=\"o_stat_text o_not_hover text-success\" attrs=\"{'invisible': [('available_in_pos', '=', False)]}\">Remettre</span>\n"
+"                        <span class=\"o_stat_text o_not_hover text-danger\" attrs=\"{'invisible': [('available_in_pos', '=', True)]}\">Retirer</span>\n"
+"                        <span class=\"o_stat_text o_hover text-danger\" attrs=\"{'invisible': [('available_in_pos', '=', False)]}\">Retirer</span>\n"
+"                        <span class=\"o_stat_text o_hover text-success\" attrs=\"{'invisible': [('available_in_pos', '=', True)]}\">Remettre</span>"
+
+#. module: coop_purchase
+#: code:addons/coop_purchase/models/stock_picking.py:16
+#, python-format
+msgid "The product {} received should have \"available in pos\""
+msgstr "The product {} received should have \"available in pos\""
