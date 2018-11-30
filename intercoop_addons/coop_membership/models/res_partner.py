@@ -135,7 +135,8 @@ class ResPartner(models.Model):
                                          store=True,
                                          compute="compute_badge_to_distribute")
     badge_print_date = fields.Date(string="Badge Print Date")
-    contact_us_message = fields.Text(string="Contact Us Message")
+    contact_us_message = fields.Html(
+        string="Contact Us Message", translate=True)
 
     force_customer = fields.Boolean(string="Force Customer", default=False)
 
@@ -222,21 +223,10 @@ class ResPartner(models.Model):
     def set_messages_contact(self):
         self.ensure_one()
         message = self.env.user.company_id.contact_us_message
-        if self.contact_us_message:
-            message = self.contact_us_message
-        wizard = self.env['contact.us.message.wizard'].create({
-            'partner_id': self.id,
-            'message': message,
+        self.write({
+            'contact_us_message': message
         })
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('Message Contact'),
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'contact.us.message.wizard',
-            'res_id': wizard.id,
-            'target': 'new',
-        }
+        return True
 
     @api.multi
     @api.depends(
@@ -740,5 +730,13 @@ class ResPartner(models.Model):
             if node:
                 node[0].set("options", repr(options))
                 setup_modifiers(node[0], res['fields']['inform_id'])
+
+        edit_contact_us_message = self.user_has_groups(
+            cr, uid, 'coop_membership.group_edit_contact_messeage')
+        if not edit_contact_us_message:
+            node = doc.xpath("//field[@name='contact_us_message']")
+            if node:
+                node[0].set("readonly", "1")
+                setup_modifiers(node[0], res['fields']['contact_us_message'])
         res['arch'] = etree.tostring(doc)
         return res
