@@ -1717,16 +1717,6 @@ msgid "Contact Us Message"
 msgstr "Message contact badgeuse"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/res_config.py:73
-#, python-format
-msgid "Hello,\n"
-"Please contact member office or any employee of the coop for administrative purpose.\n"
-"Best regards %s"
-msgstr "Bonjour,\n"
-"Veuillez contacter un salarié ou vous rendre au bureau des membres pour une raison administrative.\n"
-"Cordialement, L'équipe %s"
-
-#. module: coop_membership
 #: code:addons/coop_membership/models/shift_change_team.py:108
 #, python-format
 msgid "A person you want to change team must be a member"
