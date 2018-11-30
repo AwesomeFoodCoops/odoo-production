@@ -14,14 +14,10 @@
         'base'     
     ],
     'data': [
-        # data
         "data/res_group_data.xml",
 
         # security
         "security/ir.model.access.csv",
-
-        # views
-        "views/view_user_config_settings.xml",
         
         # menu
         "menu/admin_menu.xml",
