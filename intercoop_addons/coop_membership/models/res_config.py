@@ -23,8 +23,8 @@ class MembersConfiguration(models.TransientModel):
     associated_people_available = fields.Selection([
         ('unlimited', 'Unlimited'),
         ('limited', 'Limited')], default='unlimited')
-    contact_us_messages = fields.Text(
-        string="Contact Us Message")
+    contact_us_messages = fields.Html(
+        string="Contact Us Message", translate=True)
 
     @api.multi
     @api.constrains('max_nb_associated_people')
@@ -62,10 +62,6 @@ class MembersConfiguration(models.TransientModel):
         res = super(MembersConfiguration, self).default_get(fields)
         message = self.env.user.company_id.contact_us_message
         if 'contact_us_messages' in fields:
-            if not message:
-                message = _("Hello,\n" +
-                            "Please contact member office or any employee of the coop for administrative purpose.\n" +
-                            "Best regards %s" % (self.env.user.company_id.name))
             res.update({
                 'contact_us_messages': message
             })

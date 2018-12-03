@@ -20,6 +20,16 @@ class product_template(Model):
                     ignore = not product.scale_group_id\
                         and 'scale_group_id' not in vals.keys()
                     if not ignore:
+                        is_continue = False
+                        if not product.available_in_pos and 'available_in_pos' not in vals:
+                            is_continue = True
+                        if product.available_in_pos and 'available_in_pos' in vals and not vals.get('available_in_pos'):
+                            is_continue = True
+
+                        if is_continue:
+                            defered[product.id] = 'unlink'
+                            continue
+
                         if not product.scale_group_id:
                             # (the product is new on this group)
                             defered[product.id] = 'create'
@@ -37,6 +47,8 @@ class product_template(Model):
                                     cr, uid, vals, product, context=context):
                                 # Data related to the scale
                                 defered[product.id] = 'write'
+                            elif vals.get('available_in_pos'):
+                                defered[product.id] = 'create'
         ctx['bizerba_off'] = True
         res = super(product_template, self).write(
             cr, uid, ids, vals, context=ctx)

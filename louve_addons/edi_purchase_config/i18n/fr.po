@@ -110,7 +110,7 @@ msgstr "Fournisseur EDI"
 #. module: edi_purchase_config
 #: model:ir.module.category,name:edi_purchase_config.category_supplier_edi
 msgid "Electronic data interchange"
-msgstr "Echanges de données informatisé"
+msgstr "Echanges de données (EDI)"
 
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:75

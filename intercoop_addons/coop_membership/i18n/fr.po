@@ -683,7 +683,7 @@ msgstr "Assistant"
 #: model:ir.model.fields,field_description:coop_membership.field_event_event_is_discovery_meeting
 #: model:ir.ui.view,arch_db:coop_membership.view_event_event_search_inherit
 msgid "Discovery Meeting"
-msgstr "Réunion d'accueil"
+msgstr "Article pour les réunions d'accueil"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_registration.py:50
@@ -1715,16 +1715,6 @@ msgstr "Contact BDM"
 #: model:ir.model.fields,field_description:coop_membership.field_res_users_contact_us_message
 msgid "Contact Us Message"
 msgstr "Message contact badgeuse"
-
-#. module: coop_membership
-#: code:addons/coop_membership/models/res_config.py:73
-#, python-format
-msgid "Hello,\n"
-"Please contact member office or any employee of the coop for administrative purpose.\n"
-"Best regards %s"
-msgstr "Bonjour,\n"
-"Veuillez contacter un salarié ou vous rendre au bureau des membres pour une raison administrative.\n"
-"Cordialement, L'équipe %s"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_change_team.py:108
