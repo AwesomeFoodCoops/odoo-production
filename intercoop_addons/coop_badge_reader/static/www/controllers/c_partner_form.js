@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('starter').controller('PartnerFormCtrl', ['$scope', '$state', 'ResPartnerModel', '$document', function ($scope, $state, ResPartnerModel, $document) {
+angular.module('starter').controller('PartnerFormCtrl', ['$scope', '$state',  '$sce', 'ResPartnerModel', '$document', function ($scope, $state, $sce, ResPartnerModel, $document) {
 
     $scope.partner = {};
 
@@ -13,6 +13,7 @@ angular.module('starter').controller('PartnerFormCtrl', ['$scope', '$state', 'Re
                     partner_res.css_class = 'partner-' + partner_res.bootstrap_cooperative_state;
                     $document[0].getElementById('sound_res_partner_' + partner_res.bootstrap_cooperative_state).play();
                     $scope.partner = partner_res;
+                    $scope.contact_us_message = $sce.trustAsHtml(partner_res.contact_us_message);
                 });
             });
         }

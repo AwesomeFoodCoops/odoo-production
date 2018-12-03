@@ -46,10 +46,6 @@ angular.module('starter').factory('ResPartnerModel', ['$q', 'jsonRpc', function 
                 if (partner_res.records.length == 1){
                     var res = partner_res.records[0];
                     res.image_url = "../../../web/image?model=res.partner&id=" + partner_id + "&field=image";
-                    console.log(res.contact_us_message);
-                    if (res.contact_us_message){
-                        res.contact_us_message = res.contact_us_message.replace(/(?:\r\n|\r|\n)/g, '<br />');
-                    }
                     return res;
                 }else{
                     return false;
