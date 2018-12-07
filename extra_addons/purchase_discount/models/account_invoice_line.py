@@ -20,7 +20,7 @@ class AccountInvoiceLine(models.Model):
             values.update({'discount': purchase_line.discount})
         account_invoice_line = super(
             AccountInvoiceLine, self).new(values=values)
-                
+
         return account_invoice_line
 
     @api.one
