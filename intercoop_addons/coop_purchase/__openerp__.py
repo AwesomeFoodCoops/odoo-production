@@ -19,6 +19,7 @@
         'stock',
         'coop_product_coefficient',
         'account_product_fiscal_classification',
+        'l10n_fr_pos_cert_base',
     ],
     'data': [
         'views/purchase_view.xml',

@@ -4,14 +4,14 @@
 
 
 {
-    'name': 'Coop Base',
+    'name': 'l10n_fr_pos_cert_base',
     'version': '9.0.1.0.0',
     'category': '',
-    'summary': 'Coop Base',
+    'summary': 'l10n_fr_pos_cert_base',
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'depends': [
-        'base'     
+        'base',
     ],
     'data': [
         # data
@@ -22,12 +22,11 @@
 
         # views
         "views/view_user_config_settings.xml",
+        "views/templates.xml",
         
         # menu
         "menu/admin_menu.xml",
-
-        # Post function
-        "data/function.xml",
     ],
+    'qweb': ['static/src/xml/widget.xml'],
     'installable': True,
 }
