@@ -683,7 +683,7 @@ msgstr "Assistant"
 #: model:ir.model.fields,field_description:coop_membership.field_event_event_is_discovery_meeting
 #: model:ir.ui.view,arch_db:coop_membership.view_event_event_search_inherit
 msgid "Discovery Meeting"
-msgstr "Article pour les réunions d'accueil"
+msgstr "Réunion d'accueil"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_registration.py:50
