@@ -22,9 +22,11 @@
 
         # views
         "views/view_user_config_settings.xml",
+        "views/templates.xml",
         
         # menu
         "menu/admin_menu.xml",
     ],
+    'qweb': ['static/src/xml/widget.xml'],
     'installable': True,
 }
