@@ -23,4 +23,4 @@ msgstr "Administrateurs env. recette"
 #. module: l10n_fr_pos_cert_base
 #: model:ir.ui.menu,name:l10n_fr_pos_cert_base.menu_user_settings
 msgid "Admin Users on staging"
-msgstr "l10n_fr_pos_cert_base"
+msgstr "Administrateurs env. recette"
