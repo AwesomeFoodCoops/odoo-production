@@ -23,9 +23,11 @@
                                 <field name="line_ids" view_mode="tree" nolabel="1" context="{'form_view_ref': False}" attrs="{'invisible': [('show_discount', '=', False)]}">
                                     <tree create="false" delete="false" editable="bottom">
                                         <field name="product_id" readonly="1"/>
-                                        <field name="price_unit" attrs="{'readonly': [('seller_id', '=', False)]}"/>
+                                        <field name="supplier_price_unit" readonly="1"/>
+                                        <field name="supplier_discount" readonly="1"/>
                                         <field name="price_policy" readonly="1"/>
-                                        <field name="discount" attrs="{'readonly': ['|', ('seller_id', '=', False), ('show_discount', '=', False)]}"/>
+                                        <field name="price_unit" class="auto_select" />
+                                        <field name="discount" class="auto_select" />
                                         <field name="show_discount"  invisible="1"/>
                                         <field name="seller_id"  invisible="1"/>
                                     </tree>
@@ -33,9 +35,11 @@
                                 <field name="line2_ids" view_mode="tree" nolabel="1" context="{'form_view_ref': False}" attrs="{'invisible': [('show_discount', '=', True)]}">
                                     <tree create="false" delete="false" editable="bottom">
                                         <field name="product_id" readonly="1"/>
-                                        <field name="price_unit" attrs="{'readonly': [('seller_id', '=', False)]}"/>
+                                        <field name="supplier_price_unit" readonly="1"/>
+                                        <field name="supplier_discount" readonly="1"/>
                                         <field name="price_policy" readonly="1"/>
-                                        <field name="discount" attrs="{'readonly': ['|', ('seller_id', '=', False), ('show_discount', '=', False)]}" invisible="1"/>
+                                        <field name="price_unit" class="auto_select" />
+                                        <field name="discount" invisible="1"/>
                                         <field name="show_discount"  invisible="1"/>
                                         <field name="seller_id"  invisible="1"/>
                                     </tree>
