@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'base'), ('name', 'in', ['group_system', 'group_erp_manager', 'group_configuration'])]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+        <function model="post.object" name="adjust_user_rights"/>
+    </data>
+</openerp>
