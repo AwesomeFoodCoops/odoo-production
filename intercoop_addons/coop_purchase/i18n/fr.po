@@ -97,3 +97,9 @@ msgstr "<span class=\"o_stat_text o_not_hover text-success\" attrs=\"{'invisible
 #, python-format
 msgid "The product {} received should have \"available in pos\""
 msgstr "The product {} received should have \"available in pos\""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_show_discount
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_show_discount
+msgid "Show discount"
+msgstr "Afficher les remises"
