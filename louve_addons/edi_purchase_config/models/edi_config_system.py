@@ -109,7 +109,7 @@ class EdiConfigSystem(models.Model):
     @api.model
     def get_datetime_format_ddmmyyyy(self, date):
         do_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
-        return "%s%s%s" % (do_date.day, do_date.month, str(do_date.year)[2:])
+        return "%02d%02d%s" % (do_date.day, do_date.month, str(do_date.year)[2:])
 
     @api.model
     def _fix_lenght(self, value, lenght, mode='float', replace='', position='before'):
