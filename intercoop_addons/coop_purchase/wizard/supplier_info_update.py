@@ -78,12 +78,12 @@ class SupplierInfoUpdate(models.TransientModel):
                     or 'invoice_line_id'
                 seller_values = {
                     'product_id': product_id.id,
-                    'price_unit': seller_price_unit,
                     'price_policy': seller_price_policy,
-                    'discount': seller_discount,
+                    'supplier_price_unit': seller_price_unit,
+                    'supplier_discount': seller_discount,
                     'show_discount': partner_id.show_discount,
                     linked_line_key: line.id,
-                    'seller_id': False,
+                    'seller_id': selected_seller_id.id,
                 }
                 line_price_unit = line.price_unit
                 line_discount = 'discount' in line and line.discount \
@@ -95,36 +95,31 @@ class SupplierInfoUpdate(models.TransientModel):
                 line_discount = \
                     line_discount != seller_discount and line_discount or 0
 
-                # Prepare new line to update supplier info
-                new_line_values = seller_values.copy()
-                new_line_values.update({
+                # Prepare values in current document line
+                seller_values.update({
                     'price_unit': line_price_unit,
                     'discount': line_discount,
-                    'seller_id': selected_seller_id.id,
                 })
                 lines.append((0, 0, seller_values))
-                lines.append((0, 0, new_line_values))
         return lines
 
     @api.multi
     def update_prices(self):
         self.ensure_one()
         lines = self.line_ids.sorted()
-        for i in range(0, len(lines), 2):
+        for line in lines:
             update_values = {}
-            first_line = lines[i]
-            second_line = lines[i+1]
-            price_unit_1st = first_line.price_unit
-            price_unit_2nd = second_line.price_unit
-            if price_unit_2nd > 0 and price_unit_2nd != price_unit_1st:
-                update_values['base_price'] = price_unit_2nd
+            supplier_price_unit = line.supplier_price_unit
+            updated_price_unit = line.price_unit
+            if updated_price_unit > 0 and updated_price_unit != supplier_price_unit:
+                update_values['base_price'] = updated_price_unit
 
-            discount_1st = first_line.discount
-            discount_2nd = second_line.discount
-            if discount_2nd != discount_1st:
-                update_values['discount'] = discount_2nd
+            supplier_discount = line.supplier_discount
+            updated_discount = line.discount
+            if updated_discount != supplier_discount:
+                update_values['discount'] = updated_discount
             if update_values:
-                seller_id = second_line.seller_id
+                seller_id = line.seller_id
                 product_template = seller_id.product_tmpl_id
 
                 seller_id.write(update_values)
