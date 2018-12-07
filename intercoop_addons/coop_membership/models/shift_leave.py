@@ -118,17 +118,25 @@ class ShiftLeave(models.Model):
             if leave.proposed_date and leave.proposed_date == leave.stop_date:
                 continue
 
+            date_format =  "%d/%m/%Y"
             leave.show_alert_proposed_date = True
             if next_shift:
                 shift_name = next_shift.name + \
-                    (next_shift.begin_date_string and
-                     (' ' + next_shift.begin_date_string) or '')
+                             (next_shift.begin_date_string and
+                              (' ' + next_shift.begin_date_string) or '')
             else:
-                shift_name = ' begin on ' +\
-                    fields.Date.to_string(next_shift_date)
+                format_next_shift_date = \
+                    next_shift_date and next_shift_date.strftime(date_format) \
+                    or ''
+                shift_name = ' begin on ' + format_next_shift_date
+
+            format_proposed_date = \
+                proposed_date and proposed_date.strftime(date_format) or ''
+            format_stop_date = \
+                stop_date and stop_date.strftime(date_format) or ''
             leave.alert_message = alert_message.format(
-                end_date=stop_date, partner=leave.partner_id.name,
-                proposed_date=proposed_date, shift=shift_name)
+                end_date=format_stop_date, partner=leave.partner_id.name,
+                proposed_date=format_proposed_date, shift=shift_name)
 
     @api.multi
     def _compute_shift_time_after_return(self):
