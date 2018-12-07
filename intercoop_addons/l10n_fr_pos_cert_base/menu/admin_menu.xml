@@ -10,11 +10,6 @@
     <record model="ir.ui.menu" id="menu_user_root">
         <field name="name">User</field>
         <field name="parent_id" ref="menu_functional_admin_root"/>
-    </record>
-
-    <record model="ir.ui.menu" id="menu_users">
-        <field name="name">Users</field>
-        <field name="parent_id" ref="menu_user_root"/>
         <field name="action" ref="base.action_res_users"/>
     </record>
 
