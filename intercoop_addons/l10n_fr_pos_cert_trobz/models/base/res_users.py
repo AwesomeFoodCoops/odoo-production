@@ -9,8 +9,10 @@ from openerp.osv.orm import setup_modifiers   # @UnresolvedImport
 import openerp   # @UnresolvedImport
 _logger = logging.getLogger(__name__)
 
+
 def name_boolean_group(id):
     return 'in_group_' + str(id)
+
 
 class ResUsers(models.Model):
 
@@ -26,7 +28,7 @@ class ResUsers(models.Model):
         self.ensure_one()
 
         return self.id == openerp.SUPERUSER_ID or\
-            self.sudo(self).has_group('coop_base.group_funtional_admin')
+            self.sudo(self).has_group('l10n_fr_pos_cert_base.group_funtional_admin')
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form',
                         context=None, toolbar=False, submenu=False):

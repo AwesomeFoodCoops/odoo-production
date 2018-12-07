@@ -7,7 +7,7 @@
     'license': 'AGPL-3',
     'category': 'Reporting',
     'depends': [
-        'coop_base',
+        'l10n_fr_pos_cert_base',
         'bi_sql_editor',
     ],
     'data': [
