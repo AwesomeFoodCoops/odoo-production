@@ -1825,7 +1825,7 @@ msgstr "Participant(e)"
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_line_search
 #: model:ir.ui.view,arch_db:coop_shift.view_template_registration_search
 msgid "Partner"
-msgstr "Coopérateur
+msgstr "Coopérateur"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_registration_line_is_past
