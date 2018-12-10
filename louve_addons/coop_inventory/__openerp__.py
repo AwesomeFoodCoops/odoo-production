@@ -8,7 +8,7 @@
     'version': '9.0.1.0.0',
     'category': 'Custom',
     'author': 'La Louve',
-    'website': 'http://www.lalouve.net',
+    'website': 'https://cooplalouve.fr',
     'license': 'AGPL-3',
     'depends': [
         'stock',

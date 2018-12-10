@@ -7,11 +7,17 @@ class SupplierInfoUpdateLine(models.TransientModel):
 
     product_id = fields.Many2one(
         comodel_name='product.product')
+
+    # get from current document fields
     price_unit = fields.Float()
+    discount = fields.Float()
+
+    # get from product.supplier.info
+    supplier_price_unit = fields.Float()
+    supplier_discount = fields.Float()
     price_policy = fields.Selection(
         selection=[('uom', 'per UOM'), ('package', 'Per Package')]
     )
-    discount = fields.Float()
 
     po_line_id = fields.Many2one(comodel_name='purchase.order.line')
     invoice_line_id = fields.Many2one(comodel_name='account.invoice.line')
