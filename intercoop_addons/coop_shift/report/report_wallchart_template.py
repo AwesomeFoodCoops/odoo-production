@@ -121,21 +121,31 @@ class ReportWallchartTemplate(models.AbstractModel):
                     ('end_time', '<=', t[1] + rounding_limit),
                     ('week_list', '=', week_day.upper()),
                 ]
-                week_letter = ['A', 'B', 'C', 'D']
+                week_letters = ['A', 'B', 'C', 'D']
                 for week in [1, 2, 3, 4]:
                     template = self.env['shift.template'].search(
                         base_search + [('week_number', '=', week)])
                     if not template:
-                        res['partners' + week_letter[week - 1]] = []
-                        res['free_seats' + week_letter[week - 1]] = 0
+                        res['partners' + week_letters[week - 1]] = []
+                        res['free_seats' + week_letters[week - 1]] = 0
                         continue
                     template = template[0]
                     partners, seats_max, future_seats =\
                         self._get_template_info(template)
-                    res['partners' + week_letter[week - 1]] = partners
-                    res['free_seats' + week_letter[week - 1]] =\
+                    res['partners' + week_letters[week - 1]] = partners
+                    res['free_seats' + week_letters[week - 1]] =\
                         max(0, seats_max - len(partners))
-                result.append(res)
+
+                contain_data_in_period = any(
+                    len(res.get('partners' + week_letter, [])) > 0 and
+                    any(
+                        partner['dates'] != ''
+                        for partner in res.get('partners' + week_letter, [])
+                    )
+                    for week_letter in week_letters
+                )
+                if contain_data_in_period:
+                    result.append(res)
             if result:
                 final_result.append({
                     'day': WEEK_DAYS[week_day],
