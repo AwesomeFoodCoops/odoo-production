@@ -744,7 +744,7 @@ class ShiftTemplate(models.Model):
             stop = fields.Datetime.from_string(before or template.final_date)
             delta = (template.week_number - self._get_week_number(start)) % 4
             start += timedelta(weeks=delta)
-            return rrule.rrulestr(str(template.rrule), dtstart=start).between(
+            return rrule.rrulestr(str(template.rrule), dtstart=start, ignoretz=True).between(
                 after=start, before=stop, inc=True)
 
     def _get_empty_rrule_data(self):
