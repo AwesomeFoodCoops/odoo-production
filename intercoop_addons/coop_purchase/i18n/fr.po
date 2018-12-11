@@ -103,3 +103,58 @@ msgstr "The product {} received should have \"available in pos\""
 #: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_show_discount
 msgid "Show discount"
 msgstr "Afficher les remises"
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_price_policy
+msgid "Price policy"
+msgstr "Tarification"
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_partner_id
+msgid "Partner id"
+msgstr "Fournisseur"
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_product_id
+msgid "Product id"
+msgstr "Article"
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_supplier_price_unit
+msgid "Supplier price unit"
+msgstr "Prix unitaire"
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_supplier_discount
+msgid "Supplier discount"
+msgstr "Remise"
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_discount
+msgid "Discount"
+msgstr "Remise"
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_price_policy
+msgid "Price policy"
+msgstr "Tarification"
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_price_unit
+msgid "Price unit"
+msgstr "Prix unitaire"
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplier_info_update
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplier_info_update
+msgid "Validate"
+msgstr "Valider"
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplier_info_update
+msgid "Lines"
+msgstr "Lignes"
