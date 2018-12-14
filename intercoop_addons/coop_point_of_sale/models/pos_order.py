@@ -86,6 +86,16 @@ class PosOrder(models.Model):
                 session, 'pos.order', order_list)
         return True
 
+    def _order_fields(self, cr, uid, ui_order, context=None):
+        res = super(PosOrder, self)._order_fields(cr, uid, ui_order, context)
+        lines_value_lst = res.get('lines', [])
+        updated_lines_lst = []
+        for line_values in lines_value_lst:
+            if line_values[-1].get('qty', 0):
+                updated_lines_lst.append(line_values)
+        res['lines'] = updated_lines_lst
+        return res
+
 
 @job
 def update_cycle_pos_order_job(session, model_name, order_list):
