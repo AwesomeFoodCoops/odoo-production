@@ -36,4 +36,27 @@ Overload models.PosModel
         },
     });
 
+    // Custom OrderWidget to remove order line when setting quantity equal to 0
+    screens.OrderWidget.include({
+        set_value: function(val) {
+            var order = this.pos.get_order();
+            var selectedLine = order.get_selected_orderline();
+            if (selectedLine) {
+                var mode = this.numpad_state.get('mode');
+                if( mode === 'quantity'){
+                    if (val == '0'){
+                          order.remove_orderline(selectedLine);
+                    }
+                    else {
+                        selectedLine.set_quantity(val);
+                    }
+                }else if( mode === 'discount'){
+                    selectedLine.set_discount(val);
+                }else if( mode === 'price'){
+                    selectedLine.set_unit_price(val);
+                }
+            }
+        },
+    });
+
 });
