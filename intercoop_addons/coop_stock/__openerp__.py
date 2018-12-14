@@ -11,6 +11,7 @@
     'data': [
         'views/action.xml',
         'views/menu.xml',
+        'views/product_view.xml',
         'views/stock_picking_view.xml',
     ],
     'installable': True,
