@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<openerp><data noupdate="1">
     <function name="write" model="ir.model.data">
         <function name="search" model="ir.model.data">
             <value eval="[('module', '=', 'coop_memberspace'), ('name', '=', 'myprofile')]" />
@@ -219,4 +219,4 @@
             </div>
         </t>
     </template>
-</openerp>
+</data></openerp>
