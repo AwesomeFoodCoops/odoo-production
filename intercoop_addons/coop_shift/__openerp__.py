@@ -18,7 +18,8 @@
         'event_sale',
         'mail',
         'barcodes_generate',
-        'connector'
+        'connector',
+        'web',
     ],
     'data': [
         'security/ir_module_category.xml',
@@ -67,6 +68,7 @@
         'data/cron.xml',
         'data/ir_cron.xml',
     ],
+    'qweb': ['static/src/xml/base.xml'],
     'demo': [
         'demo/res_groups.xml',
         'demo/res_partner.xml',

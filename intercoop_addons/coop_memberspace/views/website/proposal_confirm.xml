@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<openerp><data noupdate="1">
 	<template id="coop_memberspace.proposal_confirm">
 		<t t-call="website.layout">
             <t t-set="title">Espace membre | Proposition Confirmer</t>
@@ -14,4 +14,4 @@
             </div>
         </t>
     </template>
-</openerp>
+</data></openerp>
