@@ -2,10 +2,19 @@
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 # @author: La Louve
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
+import openerp.tools.image
 from openerp import api, fields, models
+from openerp.tools.image import image_resize_image
 from openerp.tools.safe_eval import safe_eval
 
+def new_image_resize_image_medium(
+        base64_source, size=(315, 417), encoding='base64', filetype=None,
+        avoid_if_small=False):
+    return image_resize_image(
+        base64_source, size, encoding, filetype, avoid_if_small)
+
+# Override native method
+openerp.tools.image.image_resize_image_medium = new_image_resize_image_medium
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
@@ -46,7 +55,6 @@ class ResPartner(models.Model):
                 record.updated_badges_info = False
 
     # ###### RECORD OPERATION FUNCTIONS #########
-
     @api.multi
     def untick_badges_to_print(self):
         for record in self:
