@@ -22,6 +22,7 @@
         'l10n_fr_pos_cert_base',
     ],
     'data': [
+        'security/res_group.xml',
         'views/purchase_view.xml',
         'views/purchase_config_settings_view.xml',
         'views/account_invoice_view.xml',
@@ -32,6 +33,7 @@
         'views/report_purchasequotation.xml',
         'views/actions.xml',
         'views/menu.xml',
+        'views/stock_picking_view.xml',
         'wizard/supplier_info_update.xml',
     ],
     'installable': True,
