@@ -158,3 +158,8 @@ msgstr "Valider"
 #: model:ir.ui.view,arch_db:coop_purchase.view_supplier_info_update
 msgid "Lines"
 msgstr "Lignes"
+
+#. module: coop_purchase
+#: model:res.groups,name:coop_purchase.group_put_in_pack
+msgid "Put in pack"
+msgstr "Mettre en colis"
