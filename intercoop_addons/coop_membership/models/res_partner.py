@@ -16,6 +16,9 @@ from openerp import SUPERUSER_ID
 from lxml import etree
 from openerp.osv.orm import setup_modifiers
 
+from openerp.addons.connector.queue.job import job
+from openerp.addons.connector.session import ConnectorSession
+
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
     ('not_concerned', 'Not Concerned'),
@@ -144,6 +147,12 @@ class ResPartner(models.Model):
     inform_id = fields.Many2one(
         comodel_name='res.partner.inform', string='Informé que')
 
+    shift_type = fields.Selection(
+        string='Shift type',
+        compute='_compute_shift_type',
+        store=True
+    )
+
     # Constraint Section
     @api.multi
     @api.constrains('is_member',
@@ -182,6 +191,16 @@ class ResPartner(models.Model):
                     rec.nb_associated_people > max_nb:
                 raise ValidationError(_("The maximum number of " +
                                         "associated people has been exceeded."))
+
+
+    @api.multi
+    @api.depends('is_associated_people', 'parent_id.shift_type')
+    def _compute_shift_type(self):
+        for partner in self:
+            if partner.is_associated_people and partner.parent_id:
+                partner.shift_type = partner.parent_id.shift_type
+            else:
+                partner.shift_type = 'standard'
 
     @api.multi
     @api.depends('badge_distribution_date', 'badge_print_date')
@@ -741,3 +760,25 @@ class ResPartner(models.Model):
                 setup_modifiers(node[0], res['fields']['contact_us_message'])
         res['arch'] = etree.tostring(doc)
         return res
+
+    @api.multi
+    def update_shift_type(self):
+        partners = self.ids
+        num_partner_per_job = 100
+        splited_partner_list = \
+            [partners[i: i + num_partner_per_job]
+             for i in range(0, len(partners), num_partner_per_job)]
+        # Prepare session for job
+        session = ConnectorSession(self._cr, self._uid)
+        # Create jobs
+        for partner_list in splited_partner_list:
+            update_shift_type_res_partner_session_job.delay(
+                session, 'res.partner', partner_list)
+        return True
+
+@job
+def update_shift_type_res_partner_session_job(
+        session, model_name, session_list):
+    """ Job for compute shift type """
+    partners = session.env[model_name].browse(session_list)
+    partners._compute_shift_type()
