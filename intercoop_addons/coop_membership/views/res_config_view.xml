@@ -19,6 +19,11 @@
                         <field name="contact_us_messages"/>
                     </group>
 
+                    <group string="FTOP Registration Limits" name="config_ftop_registration_limits_section">
+                        <field name="max_registrations_per_day"/>
+                        <field name="max_registration_per_period"/>
+                        <field name="number_of_days_in_period"/>
+                    </group>
                 </form>
             </field>
         </record>

@@ -49,7 +49,7 @@ odoo.define('coop_memberspace.programmer_un_extra', function (require) {
                             })
                             .fail(function(error, event) {
                                 $('#error_header').text(error.message);
-                                $('#error_body').text(error.data.message);
+                                $('#error_body').text(error.data.arguments[0] || '');
                                 $('#programmer_modal').modal('hide');
                                 $('#error_modal').modal('show');
                                 $(btn_check).removeAttr("disabled");
