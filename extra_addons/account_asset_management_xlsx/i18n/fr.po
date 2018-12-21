@@ -26,29 +26,29 @@ msgid "Account Asset Xlsx Wizard"
 msgstr "Account Asset Xlsx Wizard"
 
 #. module: account_asset_management_xlsx
-#: model:ir.ui.menu,name:account_asset_management_xlsx.open_account_asset_xlsx_wizard
-msgid "Asset Report Xlsx"
-msgstr "Asset Report Xlsx"
+#: selection:account.asset.xlsx.wizard,asset_state:0
+msgid "All assets"
+msgstr "Toutes les immobilisations"
+
+#. module: account_asset_management_xlsx
+#: selection:account.asset.xlsx.wizard,target_move:0
+msgid "All moves"
+msgstr "Toutes les écritures"
 
 #. module: account_asset_management_xlsx
 #: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_asset_category_ids
 msgid "Asset Categories"
-msgstr "Asset Categories"
+msgstr "Catégories"
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_asset_state
-msgid "Asset state"
-msgstr "Asset state"
+#: model:ir.ui.menu,name:account_asset_management_xlsx.open_account_asset_xlsx_wizard
+msgid "Asset Report Xlsx"
+msgstr "État immobilisations"
 
 #. module: account_asset_management_xlsx
 #: model:ir.ui.view,arch_db:account_asset_management_xlsx.view_account_asset_xlsx_wizard
 msgid "Cancel"
 msgstr "Annuler"
-
-#. module: account_asset_management_xlsx
-#: selection:account.asset.xlsx.wizard,asset_state:0
-msgid "Close"
-msgstr "Fermer"
 
 #. module: account_asset_management_xlsx
 #: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_create_uid
@@ -64,11 +64,6 @@ msgstr "Créé le"
 #: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
-
-#. module: account_asset_management_xlsx
-#: selection:account.asset.xlsx.wizard,asset_state:0
-msgid "Draft"
-msgstr "Brouillon"
 
 #. module: account_asset_management_xlsx
 #: model:ir.ui.view,arch_db:account_asset_management_xlsx.view_account_asset_xlsx_wizard
@@ -107,13 +102,23 @@ msgstr "Mis à jour le"
 
 #. module: account_asset_management_xlsx
 #: selection:account.asset.xlsx.wizard,asset_state:0
-msgid "Running"
-msgstr "En cours"
+msgid "Open only"
+msgstr "Uniquement les immobilisations en cours"
+
+#. module: account_asset_management_xlsx
+#: selection:account.asset.xlsx.wizard,target_move:0
+msgid "Posted moves"
+msgstr "Toutes les écritures comptabilisées"
 
 #. module: account_asset_management_xlsx
 #: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_asset_state
 msgid "Status"
 msgstr "Statut"
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_target_move
+msgid "Target move"
+msgstr "Target move"
 
 #. module: account_asset_management_xlsx
 #: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_to_date
