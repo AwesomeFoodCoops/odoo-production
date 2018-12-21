@@ -2822,18 +2822,6 @@ msgid "This field contains the template of the mail that will be\n"
 msgstr "Ce champ associe le modèle de courriel qui sera automatiquement envoyé"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_registration.py:260
-#, python-format
-msgid "This member already has %s registrations in the preceding %s days. You can't program more."
-msgstr "Attention ! Ce membre a déjà atteint son quota de %s inscriptions sur la période de %s jours, cette inscription ne peut être enregistrée."
-
-#. module: coop_shift
-#: code:addons/coop_shift/model/shift_registration.py:248
-#, python-format
-msgid "This member already has %s registrations in the same day. You can't program more."
-msgstr "Attention ! Ce membre s'est déjà inscrit %s fois sur cette journée, cette inscription ne peut être enregistrée."
-
-#. module: coop_shift
 #: sql_constraint:shift.registration:0
 msgid "This partner is already registered on this Shift !"
 msgstr "Attention ! Ce membre est déjà inscrit sur ce service."
