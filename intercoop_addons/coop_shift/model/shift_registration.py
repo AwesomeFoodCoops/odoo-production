@@ -140,36 +140,12 @@ class ShiftRegistration(models.Model):
 
     @api.model
     def create(self, vals):
-        if not self.template_created:
-            if self.shift_ticket_id.seats_max and\
-                    self.shift_ticket_id.seats_available <= 0:
+        if not vals.get('template_created', False):
+            shift_ticket_id = vals.get('shift_ticket_id', False)
+            shift_ticket = self.env['shift.ticket'].browse(shift_ticket_id)
+            if shift_ticket and shift_ticket.seats_max and \
+                    shift_ticket.seats_available <= 0:
                 raise UserError(_('No more available seats for this ticket'))
-        partner_id = vals.get('partner_id', False)
-        partner = self.env['res.partner'].browse(partner_id)
-        date_reg = vals.get('date_begin', False)
-        if date_reg:
-            date_reg = fields.Date.from_string(date_reg)
-            regs = partner.registration_ids.filtered(
-                lambda r, d=date_reg:
-                fields.Date.from_string(r.date_begin) == d and
-                r.state != 'cancel')
-            if len(regs) >= MAX_REGISTRATIONS_PER_DAY:
-                raise UserError(_(
-                    """This member already has %s registrations """
-                    """in the same day. You can't program more.""") %
-                    len(regs))
-            check_begin_date = date_reg - timedelta(
-                days=NUMBER_OF_DAYS_IN_PERIOD - 1)
-            regs = partner.registration_ids.filtered(
-                lambda r, d1=check_begin_date, d2=date_reg:
-                fields.Date.from_string(r.date_begin) >= d1 and
-                fields.Date.from_string(r.date_begin) <= d2 and
-                r.state != 'cancel')
-            if len(regs) >= MAX_REGISTRATION_PER_PERIOD:
-                raise UserError(_(
-                    """This member already has %s registrations in the """
-                    """preceding %s days. You can't program more.""") % (
-                    len(regs), NUMBER_OF_DAYS_IN_PERIOD))
         reg_id = super(ShiftRegistration, self).create(vals)
         if reg_id.shift_id.state == "confirm":
             reg_id.confirm_registration()
