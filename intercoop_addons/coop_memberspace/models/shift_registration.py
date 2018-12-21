@@ -15,6 +15,11 @@ class ShiftRegistration(models.Model):
         'shift.registration', "Exchange Registration Replacing", required=False,
         help="The new shift registration of the member after exchange")
 
+    @api.model
+    def create(self, vals):
+        # To check constrains limit of registration in module coop_membership
+        return super(ShiftRegistration, self.with_context(
+            check_limit=True)).create(vals)
 
     @api.model
     def get_coordinators(

@@ -26,6 +26,25 @@ class MembersConfiguration(models.TransientModel):
     contact_us_messages = fields.Html(
         string="Contact Us Message", translate=True)
 
+    max_registrations_per_day = fields.Integer(
+        string='FTOP Max. Registration per day'
+    )
+    max_registration_per_period = fields.Integer(
+        string='FTOP Max. Registration per period'
+    )
+    number_of_days_in_period = fields.Integer(
+        string='FTOP Registration period'
+    )
+
+    @api.multi
+    @api.constrains('number_of_days_in_period')
+    def _check_positive_number_of_days_in_period(self):
+        for config in self:
+            if config.number_of_days_in_period < 0:
+                raise ValidationError(
+                    _("The FTOP Max. Registration per period number must be a positive number !")
+                )
+
     @api.multi
     @api.constrains('max_nb_associated_people')
     def _check_positive_number_of_associated_people(self):
@@ -61,9 +80,19 @@ class MembersConfiguration(models.TransientModel):
     def default_get(self, fields):
         res = super(MembersConfiguration, self).default_get(fields)
         message = self.env.user.company_id.contact_us_message
+        max_registrations_per_day = \
+            self.env.user.company_id.max_registrations_per_day
+        max_registration_per_period = \
+            self.env.user.company_id.max_registration_per_period
+        number_of_days_in_period = \
+            self.env.user.company_id.number_of_days_in_period
+
         if 'contact_us_messages' in fields:
             res.update({
-                'contact_us_messages': message
+                'contact_us_messages': message,
+                'max_registrations_per_day': max_registrations_per_day,
+                'max_registration_per_period': max_registration_per_period,
+                'number_of_days_in_period': number_of_days_in_period,
             })
         return res
 
@@ -72,4 +101,11 @@ class MembersConfiguration(models.TransientModel):
         for record in self:
             self.env.user.company_id.contact_us_message =\
                 record.contact_us_messages
+            self.env.user.company_id.max_registrations_per_day =\
+                record.max_registrations_per_day
+            self.env.user.company_id.max_registration_per_period =\
+                record.max_registration_per_period
+            self.env.user.company_id.number_of_days_in_period =\
+                record.number_of_days_in_period
+
         return super(MembersConfiguration, self).execute()
