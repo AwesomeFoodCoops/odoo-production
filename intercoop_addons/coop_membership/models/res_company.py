@@ -14,6 +14,9 @@ class ResCompany(models.Model):
         translate=True,
         default=lambda self: self.get_default_message()
     )
+    max_registrations_per_day = fields.Integer(default=2)
+    max_registration_per_period = fields.Integer(default=5)
+    number_of_days_in_period = fields.Integer(default=28)
 
     @api.model
     def get_default_message(self):

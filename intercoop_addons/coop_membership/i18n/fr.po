@@ -1906,7 +1906,39 @@ msgid "Notice"
 msgstr "Remarquer"
 
 #. module: coop_membership
-#: code:intercoop_addons/coop_membership/models/event.py:54
+#: code:addons/coop_membership/models/event.py:54
 #, python-format
 msgid "You cannot close this event. Please review attendances and mark all attendees as absent or present."
 msgstr "Vous ne pouvez clôturer cette réunion. Veuillez renseigner les présences, tous les participants doivent être marqués soit absent soit présent."
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_registration.py:132
+#, python-format
+msgid "This member already has %s registrations in the preceding %s days. You can't program more."
+msgstr "Attention ! Ce membre a déjà atteint son quota de %s inscriptions sur la période de %s jours, cette inscription ne peut être enregistrée."
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_registration.py:95
+#, python-format
+msgid "This member already has %s registrations in the same day. You can't program more."
+msgstr "Attention ! Ce membre s'est déjà inscrit %s fois sur cette journée, cette inscription ne peut être enregistrée."
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_members_config_settings_max_registrations_per_day
+msgid "FTOP Max. Registration per day"
+msgstr "Nb. max. de vacations par jour"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_members_config_settings_number_of_days_in_period
+msgid "FTOP Registration period"
+msgstr "Période de contrôle des vacations"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_members_config_settings_form
+msgid "FTOP Registration Limits"
+msgstr "Contrôle des inscriptions volants"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_members_config_settings_max_registration_per_period
+msgid "FTOP Max. Registration per period"
+msgstr "Nb. max. de vacations par période"
