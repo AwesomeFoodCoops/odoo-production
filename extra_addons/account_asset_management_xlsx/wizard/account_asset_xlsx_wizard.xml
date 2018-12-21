@@ -11,6 +11,7 @@
                         <field name="from_date" />
                         <field name="to_date" />
                         <field name="asset_state" />
+                        <field name="target_move" widget="radio"/>
                     </group>
                     <group>
                         <field name="asset_category_ids" options="{'no_create_edit': True, 'no_quick_create': True}"/>

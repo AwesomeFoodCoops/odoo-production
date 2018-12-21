@@ -126,8 +126,10 @@ class ReportAccountAssetXlsx(ReportXlsx):
         today = fields.Date.from_string(fields.Date.today())
         formated_today_str = today.strftime("%d/%m/%Y")
         created_by_header = u'Créé le : '
+        created_uid = self.object._context.get('uid', self.env.uid)
+        created_user = self.env['res.users'].browse(created_uid)
         created_by_info = '{} par {}'.format(
-            formated_today_str, self.env.user.name)
+            formated_today_str, created_user.name)
         self.sheet.write_rich_string(
             row_pos, col_pos,
             self.format_bold, created_by_header,
@@ -181,11 +183,6 @@ class ReportAccountAssetXlsx(ReportXlsx):
         category_data_lines_length = len(category_data_lines)
         start_row_pos = row_pos
 
-        row_val_nette_observable_cols = [
-            'value',
-            'amo_ant',
-            'cum_amo',
-        ]
         for index in range(category_data_lines_length + 1):
             is_sub_summary_section = False
             if index < category_data_lines_length:
@@ -202,7 +199,6 @@ class ReportAccountAssetXlsx(ReportXlsx):
                     'cum_amo': '=SUM({}:{})',
                     'val_nette': '=SUM({}:{})',
                 }
-            calculate_val_nette_row_cells = []
             for col_index, column in enumerate(self.table_columns, 0):
                 col_pos = col_index
                 cell_value = line_data.get(column, '')
@@ -234,17 +230,6 @@ class ReportAccountAssetXlsx(ReportXlsx):
                         xl_rowcol_to_cell(row_pos, col_pos)
                     )
                 else:
-                    if column in row_val_nette_observable_cols:
-                        calculate_val_nette_row_cells.append(
-                            xl_rowcol_to_cell(row_pos, col_pos)
-                        )
-                    if column == 'val_nette':
-                        cell_formula_value = '=SUM({})'.format(
-                            ', '.join(calculate_val_nette_row_cells)
-                        )
-                        self.sheet.write_formula(
-                            row_pos, col_pos, cell_formula_value, cell_format)
-                        continue
                     if column == 'date' and not is_sub_summary_section:
                         cell_format = self.format_table_date
                         cell_value = fields.Date.from_string(cell_value)
@@ -265,12 +250,12 @@ class ReportAccountAssetXlsx(ReportXlsx):
             'cum_amo': '=SUM({})',
             'val_nette': '=SUM({})',
         }
-        cell_format = self.format_table_header
+        cell_format = self.format_table_header_dark_grey
         for col_index, column in enumerate(self.table_columns, 0):
             col_pos = col_index
             cell_value = summary_data.get(column, '')
             if '=SUM' in cell_value:
-                cell_format = self.format_table_number_bold
+                cell_format = self.format_table_number_bold_dark_grey
                 cell_formula_value = cell_value.format(
                     ', '.join(self.summary_column_info[column])
                 )
@@ -382,6 +367,16 @@ class ReportAccountAssetXlsx(ReportXlsx):
             'font_size': 10
         })
         self.format_table_date = workbook.add_format(format_table_date)
+
+        self.format_table_header_dark_grey = workbook.add_format(format_table_header)
+        self.format_table_header_dark_grey.set_bg_color('#808080')
+        self.format_table_header_dark_grey.set_font_color('#000000')
+
+        self.format_table_number_bold_dark_grey = workbook.add_format(
+            format_table_number_bold)
+        self.format_table_number_bold_dark_grey.set_num_format('#,##0.00')
+        self.format_table_number_bold_dark_grey.set_bg_color('#808080')
+        self.format_table_number_bold_dark_grey.set_font_color('#000000')
 
 
 ReportAccountAssetXlsx(
