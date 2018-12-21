@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+	<record id="view_picking_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page/button[@name='put_in_pack']" position="attributes">
+                <attribute name="groups">coop_purchase.group_put_in_pack</attribute>
+		    </xpath>
+        </field>
+    </record>
+</odoo>
