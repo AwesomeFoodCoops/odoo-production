@@ -5,5 +5,3 @@
 
 from . import product
 from . import edi_config_system
-from . import purchase
-
