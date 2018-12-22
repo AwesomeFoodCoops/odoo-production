@@ -16,7 +16,7 @@ class PurchaseEdiLog(models.Model):
     user_id = fields.Many2one(comodel_name="res.users", string="User")
     name = fields.Char(string="Interface", required=True)
     edi_system_id = fields.Many2one(comodel_name="edi.config.system", string="EDI System", required=True)
-    sent = fields.Boolean(string="Is Sent")
+    sent = fields.Boolean(string="Successfull ?")
 
     # View Section
     def _needaction_count(self, cr, uid, domain=None, context=None):

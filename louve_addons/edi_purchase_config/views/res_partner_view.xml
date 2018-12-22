@@ -11,6 +11,7 @@
 
                 <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group[@name='container_row_2']/group[@name='purchase']/field[@name='supplier']" position="after">
                     <field name="is_edi"/>
+                    <field name="is_prices_interface"/>
                 </xpath>
 
             </field>

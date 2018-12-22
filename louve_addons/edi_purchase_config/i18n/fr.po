@@ -38,6 +38,7 @@ msgstr "Constantes"
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_create_uid
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_create_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_create_uid
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_create_uid
 msgid "Created by"
 msgstr "Créé par"
@@ -45,6 +46,7 @@ msgstr "Créé par"
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_create_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_create_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_create_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_create_date
 msgid "Created on"
 msgstr "Créé le"
@@ -55,6 +57,11 @@ msgid "Customer code"
 msgstr "Code client"
 
 #. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_decimal_precision
+msgid "Decimal precision"
+msgstr "Précision Decimale"
+
+#. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_do_text_file_pattern
 msgid "Delivery order File pattern"
 msgstr "Motif du fichier BLE"
@@ -62,6 +69,7 @@ msgstr "Motif du fichier BLE"
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_display_name
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_display_name
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_display_name
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
@@ -114,6 +122,7 @@ msgstr "Echanges de données (EDI)"
 
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:75
+#: code:addons/edi_purchase_config/models/edi_config_system.py:79
 #, python-format
 msgid "Error when closing FTP connection:\n"
 " %s"
@@ -122,6 +131,7 @@ msgstr "Erreur à la fermeture de la connexion FTP :\n"
 
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:68
+#: code:addons/edi_purchase_config/models/edi_config_system.py:72
 #, python-format
 msgid "Error when opening FTP connection:\n"
 " %s"
@@ -129,7 +139,16 @@ msgstr "Erreur à l'ouverture de la connexion FTP :\n"
 " %s"
 
 #. module: edi_purchase_config
+#: code:addons/edi_purchase_config/models/edi_config_system.py:127
+#, python-format
+msgid "Error when pulling prices update file:\n"
+" %s"
+msgstr "Erreur au téléchargement du fichier des prix :\n"
+" %s"
+
+#. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:100
+#: code:addons/edi_purchase_config/models/edi_config_system.py:103
 #, python-format
 msgid "Error when pushing order file:\n"
 " %s"
@@ -163,6 +182,7 @@ msgstr "Port"
 
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:49
+#: code:addons/edi_purchase_config/models/edi_config_system.py:53
 #, python-format
 msgid "FTP port must be numeric!"
 msgstr "Le port FTP doit être numérique!"
@@ -180,6 +200,7 @@ msgstr "Nom du fichier"
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_id
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_id
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_id
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_id
 msgid "ID"
 msgstr "Identifiant"
@@ -195,13 +216,24 @@ msgid "Is Sent"
 msgstr "Est envoyé"
 
 #. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_is_date
+msgid "Is a date?"
+msgstr "Est une date?"
+
+#. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_res_partner_is_edi
 msgid "Is an EDI supplier"
 msgstr "Est un fournisseur EDI"
 
 #. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_is_numeric
+msgid "Is numeric ?"
+msgstr "Est un nombre?"
+
+#. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system___last_update
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines___last_update
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping___last_update
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
@@ -209,6 +241,7 @@ msgstr "Dernière modification le"
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_write_uid
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_write_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_write_uid
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
@@ -216,6 +249,7 @@ msgstr "Dernière mise à jour par"
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_write_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_write_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_write_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
@@ -248,8 +282,29 @@ msgstr "Partenaire"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_position
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_position
 msgid "Position"
 msgstr "Position"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_price_config_id
+msgid "Price config id"
+msgstr "Price config id"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_price_mapping_ids
+msgid "Price mapping ids"
+msgstr "Price mapping ids"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_mapping_field_id
+msgid "Prices mapping field"
+msgstr "Prices mapping field"
+
+#. module: edi_purchase_config
+#: model:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "Prices update interface"
+msgstr "Prices update interface"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_pricing_text_file_pattern
@@ -283,8 +338,24 @@ msgstr "Chemin relatif des interfaces sortantes"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_sequence
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_sequence
 msgid "Sequence"
 msgstr "Séquence"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_sequence_end
+msgid "Sequence end"
+msgstr "Fin séquence"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_sequence_start
+msgid "Sequence start"
+msgstr "Début séquence"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_res_partner_is_prices_interface
+msgid "Supports prices interface"
+msgstr "Supporte l'interface des prix"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,help:edi_purchase_config.field_edi_mapping_lines_value
@@ -302,6 +373,11 @@ msgid "VRP Code"
 msgstr "Code VRP"
 
 #. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_name
+msgid "Zone description"
+msgstr "Description zone"
+
+#. module: edi_purchase_config
 #: model:ir.model,name:edi_purchase_config.model_edi_config_system
 msgid "edi.config.system"
 msgstr "edi.config.system"
@@ -310,6 +386,11 @@ msgstr "edi.config.system"
 #: model:ir.model,name:edi_purchase_config.model_edi_mapping_lines
 msgid "edi.mapping.lines"
 msgstr "edi.mapping.lines"
+
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_edi_price_mapping
+msgid "edi.price.mapping"
+msgstr "edi.price.mapping"
 
 #. module: edi_purchase_config
 #: model:ir.model,name:edi_purchase_config.model_purchase_edi_log
