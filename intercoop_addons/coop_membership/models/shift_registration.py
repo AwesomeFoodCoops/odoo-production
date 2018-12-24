@@ -22,7 +22,7 @@
 ##############################################################################
 
 from openerp import api, models, fields, _
-from openerp.exceptions import UserError
+from openerp.exceptions import UserError, ValidationError
 from datetime import datetime, timedelta
 import pytz
 
@@ -43,6 +43,15 @@ class ShiftRegistration(models.Model):
     reduce_extension_id = fields.Many2one('shift.extension',
                                           string="Reduced Extension")
 
+    @api.multi
+    @api.constrains('shift_id')
+    def _check_limit_of_registration(self):
+        check_limit = self._context.get('check_limit', False)
+        if not check_limit:
+            return True
+        self.check_limit_of_registration()
+        return True
+
     @api.model
     def create(self, vals):
         partner_id = vals.get('partner_id', False)
@@ -60,6 +69,70 @@ class ShiftRegistration(models.Model):
         # Don't allow member register in leaving time
         res.check_leave_time()
         return res
+
+    """
+    Limit a number of registration for shift type FTOP per partner
+    """
+    @api.multi
+    def check_limit_of_registration(self):
+        for reg in self:
+            partner = reg.partner_id
+            shift = reg.shift_id
+            date_reg = shift.date_begin or False
+
+            company_id = self.env.user.company_id
+            max_registrations_per_day = company_id.max_registrations_per_day
+            max_registration_per_period = company_id.max_registration_per_period
+
+            if date_reg:
+                date_reg = fields.Date.from_string(date_reg)
+                regs = partner.registration_ids.filtered(
+                    lambda r, d=date_reg:
+                    fields.Date.from_string(r.date_begin) == d and
+                    r.state != 'cancel' and r.shift_type == 'ftop')
+                if max_registrations_per_day and \
+                        len(regs) > max_registrations_per_day:
+                    raise ValidationError(_(
+                        """This member already has %s registrations """
+                        """in the same day. You can't program more.""") %
+                                    (len(regs) -1))
+                # Check pass registration
+                self.check_registration_period(date_reg, partner)
+                limit = max_registration_per_period + 1
+                next_regs = partner.registration_ids.filtered(
+                    lambda r, d=date_reg:
+                    fields.Date.from_string(r.date_begin) > d and
+                    r.state != 'cancel' and r.shift_type == 'ftop'
+                )[:limit]
+
+                next_sorted_regs = next_regs.sorted(
+                    key=lambda r: fields.Date.from_string(r.date_begin)
+                )
+
+                # Check next 10 days registration
+                for next_reg in next_sorted_regs:
+                    check_next_date_reg = fields.Date.from_string(
+                        next_reg.date_begin)
+                    self.check_registration_period(
+                        check_next_date_reg, partner)
+    @api.multi
+    def check_registration_period(self, date_reg, partner):
+        company_id = self.env.user.company_id
+        max_registration_per_period = company_id.max_registration_per_period
+        number_of_days_in_period = company_id.number_of_days_in_period
+        check_begin_date = date_reg - timedelta(
+            days=number_of_days_in_period - 1)
+        regs = partner.registration_ids.filtered(
+            lambda r, d1=check_begin_date, d2=date_reg:
+            fields.Date.from_string(r.date_begin) >= d1 and
+            fields.Date.from_string(r.date_begin) <= d2 and
+            r.state != 'cancel' and r.shift_type == 'ftop')
+        if max_registration_per_period and \
+                len(regs) > max_registration_per_period:
+            raise ValidationError(_(
+                """This member already has %s registrations in the """
+                """preceding %s days. You can't program more.""") % (
+                                      len(regs) - 1, number_of_days_in_period))
 
     @api.multi
     def action_create_extension(self):

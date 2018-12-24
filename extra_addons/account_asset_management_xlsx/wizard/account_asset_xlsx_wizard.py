@@ -17,11 +17,19 @@ class AccountAssetXlsxWizard(models.TransientModel):
 
     asset_state = fields.Selection(
         selection=[
-            ('draft', 'Draft'),
-            ('open', 'Running'),
-            ('close', 'Close'),
+            ('all', 'All assets'),
+            ('open', 'Open only'),
         ],
-        string='Status'
+        string='Status',
+        default='all',
+        required=True
+    )
+    target_move = fields.Selection(
+        selection=[
+            ('all', 'All moves'),
+            ('posted', 'Posted moves'),
+        ],
+        default='all'
     )
 
     @api.multi
@@ -46,7 +54,7 @@ class AccountAssetXlsxWizard(models.TransientModel):
             domain.append(
                 ('category_id', 'in', self.asset_category_ids.ids)
             )
-        if self.asset_state:
+        if self.asset_state and self.asset_state != 'all':
             domain.append(
                 ('state', '=', self.asset_state)
             )
@@ -78,15 +86,18 @@ class AccountAssetXlsxWizard(models.TransientModel):
             # Mapping selection values
             fr_context = self._context.copy()
             fr_context.update({'lang': 'fr_FR'})
-            selection_field_values = self.env['account.asset.asset'].fields_get(
-                ['state', 'method'], context=fr_context
+            selection_field_values = self.with_context(fr_context).env[
+                'account.asset.asset'].fields_get(
+                    ['state', 'method'], context=fr_context
             )
 
             account_assets = self.env['account.asset.asset'].search(
                 domain, order="category_id,id")
 
-            asset_state_dict = dict(selection_field_values['state']['selection'])
-            asset_method_dict = dict(selection_field_values['method']['selection'])
+            asset_state_dict = dict(
+                selection_field_values['state']['selection'])
+            asset_method_dict = dict(
+                selection_field_values['method']['selection'])
             for asset in account_assets:
                 asset_category = asset.category_id
                 asset_data = asset.sudo().read(read_line_fields)
@@ -128,31 +139,51 @@ class AccountAssetXlsxWizard(models.TransientModel):
             asset_category = asset.category_id
             category_asset_depreciation_account = \
                 asset_category.account_depreciation_id
+            fixed_asset_account_type = self.env.ref(
+                'account.data_account_type_fixed_assets')
 
             # Calculate history and the selected range account values
-            account_move_line_before = self.env['account.move.line'].search([
+            aml_period_domain = [
                 ('move_id.asset_id', '=', asset.id),
                 ('account_id', '=', category_asset_depreciation_account.id),
-                ('date', '<', self.from_date),
-            ])
+            ]
+            state_domain = []
+            if self.target_move == 'posted':
+                state_domain.append(
+                    ('move_id.state', '=', 'posted')
+                )
+                aml_period_domain += state_domain
 
-            account_move_line_in_range = self.env['account.move.line'].search([
-                ('move_id.asset_id', '=', asset.id),
-                ('account_id', '=', category_asset_depreciation_account.id),
+            aml_before_date_start = self.env['account.move.line'].search([
+                ('date', '<', self.from_date),
+            ] + aml_period_domain)
+
+            aml_in_range = self.env['account.move.line'].search([
                 ('date', '>=', self.from_date),
                 ('date', "<=", self.to_date),
-            ])
+            ] + aml_period_domain)
 
-            amount_before = sum(
-                account_move_line_before.mapped(lambda l: l.credit - l.debit)
+            aml_before_date_end = self.env['account.move.line'].search([
+                ('move_id.asset_id', '=', asset.id),
+                ('account_id.user_type_id', '=', fixed_asset_account_type.id),
+                ('date', "<=", self.to_date),
+            ] + state_domain)
+
+            amount_before_date_start = sum(
+                aml_before_date_start.mapped(lambda l: l.credit - l.debit)
             )
 
             amount_in_range = sum(
-                account_move_line_in_range.mapped(lambda l: l.credit - l.debit)
+                aml_in_range.mapped(lambda l: l.credit - l.debit)
+            )
+
+            amount_before_date_end = sum(
+                aml_before_date_end.mapped(lambda l: l.credit - l.debit)
             )
 
             account_amount_values.update({
-                'amo_ant': amount_before * sign,
+                'amo_ant': amount_before_date_start * sign,
                 'cum_amo': amount_in_range * sign,
+                'val_nette': amount_before_date_end,
             })
         return account_amount_values
