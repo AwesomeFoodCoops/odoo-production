@@ -652,6 +652,7 @@
                                                        groups="coop_membership.group_membership_see_associated_people,
                                                        coop_membership.group_membership_access_user,
                                                        coop_membership.group_membership_bdm_saisie"/>
+                                                <field name="is_designated_buyer" />
                                             </group>
                                         </group>
                                         <field name="supplier" invisible="True"/>
