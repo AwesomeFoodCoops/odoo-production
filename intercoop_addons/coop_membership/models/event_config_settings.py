@@ -3,7 +3,7 @@
 from openerp import api, models, fields
 
 
-class EventConfigSettings(models.Model):
+class EventConfigSettings(models.TransientModel):
     _inherit = 'event.config.settings'
 
     seats_max = fields.Integer(gitstring='Maximum Attendees Number')
@@ -54,3 +54,11 @@ class EventConfigSettings(models.Model):
         return self.env['ir.values'].sudo().set_default(
             'event.config.settings', 'notice',
             self.notice or "")
+
+    @api.multi
+    def execute(self):
+        has_group_event_manager = \
+            self.env.user.has_group('event.group_event_manager')
+        if has_group_event_manager:
+            return super(EventConfigSettings, self.sudo()).execute()
+        return super(EventConfigSettings, self).execute()
