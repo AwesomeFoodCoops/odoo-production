@@ -30,6 +30,8 @@ class EdiConfigSystem(models.Model):
     name = fields.Char(string="Name", required=True)
     supplier_id = fields.Many2one(comodel_name="res.partner", string="EDI supplier",
                                   domain=[('supplier', '=', True), ('is_edi', '=', True)], required=True)
+    parent_supplier_id = fields.Many2one(comodel_name="res.partner", string="EDI Parent supplier",
+                                         domain=[('supplier', '=', True), ('is_edi', '=', True)])
     ftp_host = fields.Char(string="FTP Server Host", default='xxx.xxx.xxx.xxx', required=True)
     ftp_port = fields.Char(string="FTP Server Port", default='21', required=True)
     ftp_login = fields.Char(string="FTP Login", required=True)
@@ -84,7 +86,7 @@ class EdiConfigSystem(models.Model):
         try:
             if lines:
                 # Generate temporary file
-                f_name = datetime.now().strftime(pattern)
+                f_name = datetime.datetime.now().strftime(pattern)
                 local_path = os.path.join(local_folder_path, f_name)
                 distant_path = os.path.join(distant_folder_path, f_name)
                 f = open(local_path, 'w')
@@ -114,7 +116,7 @@ class EdiConfigSystem(models.Model):
                     file_date = parser.parse(timestamp)
                     diff = today - file_date.date()
                     days_gap = diff.days
-                    if days_gap < 35:
+                    if days_gap < 7:
                         with open(os.path.join(local_folder_path, name), "wb") as f:
                             ftp.retrbinary("RETR {}".format(name), f.write)
                         zf = zipfile.ZipFile(os.path.join(local_folder_path, name))
