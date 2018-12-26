@@ -15,7 +15,7 @@
     'data': ['data/ir_cron.xml',
              'views/supplier_price_list_view.xml',
              'views/actions.xml',
-             'views/product_template_view.xml'
-
+             'views/product_template_view.xml',
+             'security/ir.model.access.csv'
     ],
 }

@@ -99,7 +99,7 @@ class PurchaseOrder(models.Model):
                                                data_lines,
                                                encoding='utf-8')
         # Log
-        self.env['purchase.edi.log'].create_log_history(edi_system.name, edi_system.id)
+        self.env['purchase.edi.log'].create_log_history(_('Orders interface'), edi_system.id)
         # Close FTP
         ecs_obj.ftp_connection_close(ftp)
         return True
