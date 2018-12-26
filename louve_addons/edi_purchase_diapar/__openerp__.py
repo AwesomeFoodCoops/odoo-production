@@ -10,8 +10,9 @@
     'author': 'Druidoo',
     'website': 'http://www.druidoo.io',
     'license': 'AGPL-3',
-    'depends': ['product', 'edi_purchase_config', 'edi_purchase_base', 'purchase_package_qty'
+    'depends': ['product', 'edi_purchase_config', 'edi_purchase_base', 'purchase_package_qty', 'coop_purchase',
+                'coop_membership'
     ],
-    'data': [
+    'data': ['views/res_partner_view.xml'
     ],
 }

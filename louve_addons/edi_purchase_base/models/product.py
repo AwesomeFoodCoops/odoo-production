@@ -108,13 +108,16 @@ class ProductProduct(models.Model):
         ecs_obj = self.env['edi.config.system']
         config_obj = self.env['ir.config_parameter']
         partner_obj = self.env['res.partner']
-        partner_ids = partner_obj.search([('is_edi', '=', True), ('is_prices_interface', '=', True)])
+        partner_ids = partner_obj.search([('is_edi', '=', True)])
         # Check EDI System config
         edi_systems = ecs_obj.search([('supplier_id', 'in', partner_ids.ids)])
         if not edi_systems:
-            raise ValidationError(_("No Config FTP for this supplier %s!") % self.partner_id.name)
+            raise ValidationError(_("No Configuration found for EDI suppliers on the whole system!"))
+        # Prices interface is only for parent suppliers, any segmentation is not considered by the EDI system FTP
+        # operations.
+        edi_systems_list = [edi_system for edi_system in edi_systems if not edi_system.parent_supplier_id]
         # Prepare parameters
-        for edi_system in edi_systems:
+        for edi_system in edi_systems_list:
             distant_folder_path = edi_system.csv_relative_out_path
             local_folder_path = config_obj.get_param('edi.local_folder_path')
             # Open FTP
@@ -134,6 +137,21 @@ class ProductSupplierinfo(models.Model):
     _inherit = 'product.supplierinfo'
 
     @api.model
+    def compute_edi_partner(self, partner_id):
+        """
+        :param partner_id: purchase order/invoice supplier
+        :return: EDI supplier used in FTP prices operations
+        """
+        ecs_obj = self.env['edi.config.system']
+        edi_system = ecs_obj.search([('supplier_id', '=', partner_id.id)], limit=1)
+        if not edi_system:
+            raise ValidationError(_("No Config FTP for this supplier %s!") % self.partner_id.name)
+        if edi_system.parent_supplier_id:
+            return edi_system.parent_supplier_id
+        else:
+            return edi_system.supplier_id
+
+    @api.model
     def update_purchase_price(self, vals):
         """
             Looks for most recent price on purchase table of prices, only for EDI suppliers
@@ -143,10 +161,11 @@ class ProductSupplierinfo(models.Model):
         supplier_id = vals.get('name', False)
         supplier = self.env['res.partner'].browse(supplier_id)
         if supplier.is_edi:
+            edi_supplier = self.compute_edi_partner(supplier)
             supplier_code = vals.get('product_code', False)
             if not supplier_code:
                 raise ValidationError(_('Please give a supplier code to create the product!'))
-            price = self.env['supplier.price.list'].search([('supplier_id', '=', supplier_id),
+            price = self.env['supplier.price.list'].search([('supplier_id', '=', edi_supplier.id),
                                                             ('supplier_code', '=', supplier_code)],
                                                             order="import_date DESC")[0]
             vals.update({'base_price': price.price})

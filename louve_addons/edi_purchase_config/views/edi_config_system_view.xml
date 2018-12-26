@@ -19,6 +19,7 @@
                     <group>
                         <group string="EDI Supplier" col="1">
                             <field name="supplier_id" nolabel="1"/>
+                            <field name="parent_supplier_id"/>
                         </group>
                         <group string="FTP Connection">
                             <field name="ftp_host"/>

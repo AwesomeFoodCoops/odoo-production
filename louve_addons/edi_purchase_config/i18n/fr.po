@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-20 19:08+0000\n"
-"PO-Revision-Date: 2018-11-20 19:08+0000\n"
+"POT-Creation-Date: 2018-12-26 10:55+0000\n"
+"PO-Revision-Date: 2018-12-26 10:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -91,6 +91,11 @@ msgid "EDI Manager"
 msgstr "Manager EDI"
 
 #. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_parent_supplier_id
+msgid "EDI Parent supplier"
+msgstr "Fournisseur EDI parent"
+
+#. module: edi_purchase_config
 #: model:ir.ui.menu,name:edi_purchase_config.menu_edi_config_root
 msgid "EDI Purchase"
 msgstr "Achats par EDI"
@@ -123,6 +128,7 @@ msgstr "Echanges de données (EDI)"
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:75
 #: code:addons/edi_purchase_config/models/edi_config_system.py:79
+#: code:addons/edi_purchase_config/models/edi_config_system.py:81
 #, python-format
 msgid "Error when closing FTP connection:\n"
 " %s"
@@ -132,6 +138,7 @@ msgstr "Erreur à la fermeture de la connexion FTP :\n"
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:68
 #: code:addons/edi_purchase_config/models/edi_config_system.py:72
+#: code:addons/edi_purchase_config/models/edi_config_system.py:74
 #, python-format
 msgid "Error when opening FTP connection:\n"
 " %s"
@@ -140,6 +147,7 @@ msgstr "Erreur à l'ouverture de la connexion FTP :\n"
 
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:127
+#: code:addons/edi_purchase_config/models/edi_config_system.py:129
 #, python-format
 msgid "Error when pulling prices update file:\n"
 " %s"
@@ -149,6 +157,7 @@ msgstr "Erreur au téléchargement du fichier des prix :\n"
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:100
 #: code:addons/edi_purchase_config/models/edi_config_system.py:103
+#: code:addons/edi_purchase_config/models/edi_config_system.py:105
 #, python-format
 msgid "Error when pushing order file:\n"
 " %s"
@@ -183,6 +192,7 @@ msgstr "Port"
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:49
 #: code:addons/edi_purchase_config/models/edi_config_system.py:53
+#: code:addons/edi_purchase_config/models/edi_config_system.py:55
 #, python-format
 msgid "FTP port must be numeric!"
 msgstr "Le port FTP doit être numérique!"
@@ -244,7 +254,7 @@ msgstr "Dernière modification le"
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_write_uid
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_write_uid
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr "Mis à jour par"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_write_date
@@ -252,7 +262,7 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_write_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_write_date
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr "Mis à jour le"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_log_date
@@ -299,12 +309,12 @@ msgstr "Price mapping ids"
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_mapping_field_id
 msgid "Prices mapping field"
-msgstr "Prices mapping field"
+msgstr "Mapping champ Odoo"
 
 #. module: edi_purchase_config
 #: model:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
 msgid "Prices update interface"
-msgstr "Prices update interface"
+msgstr "Interface MAJ prix"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_pricing_text_file_pattern
@@ -351,6 +361,11 @@ msgstr "Fin séquence"
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_sequence_start
 msgid "Sequence start"
 msgstr "Début séquence"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_sent
+msgid "Successfull ?"
+msgstr "Opération reussie ?"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_res_partner_is_prices_interface
