@@ -7,7 +7,7 @@ PARAMS = [
     ("notice", "coop_membership.notice_event_config_settings"),
 ]
 
-class EventConfigSettings(models.Model):
+class EventConfigSettings(models.TransientModel):
     _inherit = 'event.config.settings'
 
     seats_max = fields.Integer(gitstring='Maximum Attendees Number')
@@ -44,3 +44,11 @@ class EventConfigSettings(models.Model):
         for field_name, key_name in PARAMS:
             value = getattr(self, field_name, False)
             config_param_env.set_param(key_name, value)
+
+    @api.multi
+    def execute(self):
+        has_group_event_manager = \
+            self.env.user.has_group('event.group_event_manager')
+        if has_group_event_manager:
+            return super(EventConfigSettings, self.sudo()).execute()
+        return super(EventConfigSettings, self).execute()
