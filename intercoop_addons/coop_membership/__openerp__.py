@@ -33,6 +33,7 @@
         'data/update_menu_user_right.yml',
         'data/report_paperformat_data.xml',
         'data/ir_attachment.xml',
+        'data/ir_config_parameter.xml',
 
 
 
