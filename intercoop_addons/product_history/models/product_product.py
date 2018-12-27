@@ -199,8 +199,7 @@ class ProductProduct(models.Model):
         # Get previous week starting on Monday with weekday value is equal to 0
         current_week_monday_dt = from_dt - td(days=from_dt.weekday())
         prev_week_from_dt = current_week_monday_dt - td(days=7)
-        prev_week_to_dt = current_week_monday_dt - td(days=1)
-        return prev_week_from_dt, prev_week_to_dt
+        return prev_week_from_dt, current_week_monday_dt
 
     @api.multi
     def _compute_history(self, history_range):
@@ -266,7 +265,9 @@ class ProductProduct(models.Model):
         self.env.cr.execute(sql, params)
         stock_moves = self.env.cr.fetchall()
 
-        to_date = self.get_previous_week_range(now)[1]
+        to_date = now
+        if history_range == 'weeks':
+            to_date = self.get_previous_week_range(now)[1]
         for product_id in product_ids:
             stock_moves_product = []
 
