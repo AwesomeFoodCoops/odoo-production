@@ -144,7 +144,7 @@ class ResPartner(models.Model):
 
     force_customer = fields.Boolean(string="Force Customer", default=False)
 
-    inform_id = fields.Many2one(
+    inform_ids = fields.Many2many(
         comodel_name='res.partner.inform', string='Informé que')
 
     shift_type = fields.Selection(
@@ -741,7 +741,7 @@ class ResPartner(models.Model):
             'coop_membership.coop_group_access_res_partner_inform'
         )
         if not access_inform:
-            node = doc.xpath("//field[@name='inform_id']")
+            node = doc.xpath("//field[@name='inform_ids']")
             options = {
                 'no_create': True,
                 'no_quick_create': True,
@@ -749,7 +749,7 @@ class ResPartner(models.Model):
             }
             if node:
                 node[0].set("options", repr(options))
-                setup_modifiers(node[0], res['fields']['inform_id'])
+                setup_modifiers(node[0], res['fields']['inform_ids'])
 
         edit_contact_us_message = self.user_has_groups(
             cr, uid, 'coop_membership.group_edit_contact_messeage')
