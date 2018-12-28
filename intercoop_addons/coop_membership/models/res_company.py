@@ -18,6 +18,8 @@ class ResCompany(models.Model):
     max_registration_per_period = fields.Integer(default=5)
     number_of_days_in_period = fields.Integer(default=28)
 
+    maximum_active_days = fields.Integer(default=180)
+
     @api.model
     def get_default_message(self):
         return u"Bonjour,<br/>Veuillez contacter un salarié ou vous rendre au bureau des membres pour une raison administrative.<br/>Cordialement, L'équipe {}".format(self.env.user.company_id.name)

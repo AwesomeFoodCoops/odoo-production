@@ -429,6 +429,9 @@
                                    groups="coop_membership.group_membership_access_manager"/>
                             <field name="is_unsubscribed"
                                    groups="coop_membership.group_membership_access_manager"/>
+                            <field name="is_designated_buyer"
+                                   readonly="1"
+                                   groups="coop_membership.group_membership_access_manager"/>
                         </group>
                         <group string="Extra Data"
                             attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
@@ -468,6 +471,8 @@
                             <field name="date_of_death"
                                    attrs="{'invisible': [('is_deceased', '=', False)]}"/>
                             <field name="email_pos_receipt"/>
+                            <field name="deactivated_date" readonly="1"
+                                   groups="coop_membership.group_membership_access_manager" />
                         </group>
                     </group>
 
@@ -652,6 +657,7 @@
                                                        groups="coop_membership.group_membership_see_associated_people,
                                                        coop_membership.group_membership_access_user,
                                                        coop_membership.group_membership_bdm_saisie"/>
+                                                <field name="is_designated_buyer" />
                                             </group>
                                         </group>
                                         <field name="supplier" invisible="True"/>

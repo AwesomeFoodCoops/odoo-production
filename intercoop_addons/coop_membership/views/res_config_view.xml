@@ -24,6 +24,9 @@
                         <field name="max_registration_per_period"/>
                         <field name="number_of_days_in_period"/>
                     </group>
+                    <group string="Designated buyer" name="config_designated_buyer_section">
+                        <field name="maximum_active_days" />
+                    </group>
                 </form>
             </field>
         </record>

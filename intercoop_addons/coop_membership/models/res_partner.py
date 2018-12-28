@@ -6,7 +6,7 @@
 # Some code from https://www.odoo.com/apps/modules/8.0/birth_date_age/
 # Copyright (C) Sythil
 
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from dateutil.relativedelta import relativedelta
 import pytz
 from openerp.exceptions import ValidationError
@@ -113,6 +113,12 @@ class ResPartner(models.Model):
     is_associated_people = fields.Boolean(
         string='Is Associated People', store=True,
         compute='_compute_is_associated_people')
+
+    is_designated_buyer = fields.Boolean(
+        string='Designated buyer'
+    )
+
+    deactivated_date = fields.Date()
 
     welcome_email = fields.Boolean(
         string='Welcome email sent', default=False)
@@ -424,6 +430,7 @@ class ResPartner(models.Model):
     def create(self, vals):
         partner = super(ResPartner, self).create(vals)
         self._generate_associated_barcode(partner)
+        self.check_designated_buyer(partner)
         return partner
 
     @api.multi
@@ -439,6 +446,16 @@ class ResPartner(models.Model):
         return res
 
     # Custom Section
+    @api.model
+    def check_designated_buyer(self, partner):
+        company_id = self.env.user.company_id
+        maximum_active_days = company_id.maximum_active_days
+        today = fields.Date.from_string(fields.Date.today())
+        if partner.is_designated_buyer:
+            partner.deactivated_date = \
+                today + timedelta(days=maximum_active_days)
+
+
     @api.model
     def _generate_associated_barcode(self, partner):
         barcode_rule_obj = self.env['barcode.rule']
@@ -487,6 +504,15 @@ class ResPartner(models.Model):
             ('is_unsubscribed', '=', False),
         ])
         partners.send_welcome_email()
+
+    @api.model
+    def deactivate_designated_buyer(self):
+        partners = self.search([
+            ('deactivated_date', '=', fields.Date.today())
+        ])
+        partners.write({
+            'active': False
+        })
 
     # View section
     @api.multi
