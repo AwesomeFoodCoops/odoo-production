@@ -14,7 +14,10 @@ class ProductCategoryprint(models.Model):
     @api.model
     def _needaction_count(self, domain=None, context=None):
         product_obj = self.env['product.product']
-        return len(product_obj.search([('to_print', '=', True)]))
+        return len(product_obj.search([
+            ('to_print', '=', True),
+            ('category_print_id', '!=', False),
+        ]))
 
     @api.model
     def _get_default_model(self):
