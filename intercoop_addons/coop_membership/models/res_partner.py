@@ -757,6 +757,16 @@ class ResPartner(models.Model):
             if node:
                 node[0].set("readonly", "1")
                 setup_modifiers(node[0], res['fields']['contact_us_message'])
+        can_modify_partner_photo = self.user_has_groups(
+            cr, uid,
+            'coop_membership.coop_group_access_res_partner_image'
+        )
+        if can_modify_partner_photo:
+            node = doc.xpath("//field[@name='image']")
+            if node:
+                node[0].set("readonly", "0")
+                setup_modifiers(node[0], res['fields']['image'])
+
         res['arch'] = etree.tostring(doc)
         return res
 
