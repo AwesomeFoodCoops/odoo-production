@@ -2,6 +2,10 @@
 
 from openerp import api, models, fields
 
+PARAMS = [
+    ("description", "coop_membership.description_event_config_settings"),
+    ("notice", "coop_membership.notice_event_config_settings"),
+]
 
 class EventConfigSettings(models.TransientModel):
     _inherit = 'event.config.settings'
@@ -25,35 +29,21 @@ class EventConfigSettings(models.TransientModel):
             'event.config.settings', 'seats_max',
             self.seats_max or 0)
 
-    @api.model
-    def get_default_description(self, fields):
-        description = self.env['ir.values'].get_default(
-            'event.config.settings', 'description')
+    @api.multi
+    def get_default_params(self):
+        config_param_env = self.env['ir.config_parameter']
         return {
-            'description': description,
+            field_name: config_param_env.get_param(parameter_key, '')
+            for field_name, parameter_key in PARAMS
         }
 
     @api.multi
-    def set_default_description(self):
+    def set_params(self):
         self.ensure_one()
-        return self.env['ir.values'].sudo().set_default(
-            'event.config.settings', 'description',
-            self.description or "")
-
-    @api.model
-    def get_default_notice(self, fields):
-        notice = self.env['ir.values'].get_default(
-            'event.config.settings', 'notice')
-        return {
-            'notice': notice,
-        }
-
-    @api.multi
-    def set_default_notice(self):
-        self.ensure_one()
-        return self.env['ir.values'].sudo().set_default(
-            'event.config.settings', 'notice',
-            self.notice or "")
+        config_param_env = self.env['ir.config_parameter']
+        for field_name, key_name in PARAMS:
+            value = getattr(self, field_name, False)
+            config_param_env.set_param(key_name, value)
 
     @api.multi
     def execute(self):
@@ -62,3 +52,4 @@ class EventConfigSettings(models.TransientModel):
         if has_group_event_manager:
             return super(EventConfigSettings, self.sudo()).execute()
         return super(EventConfigSettings, self).execute()
+

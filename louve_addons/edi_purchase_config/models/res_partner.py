@@ -11,3 +11,4 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     is_edi = fields.Boolean(string="Is an EDI supplier")
+    is_prices_interface = fields.Boolean(string="Supports prices interface")

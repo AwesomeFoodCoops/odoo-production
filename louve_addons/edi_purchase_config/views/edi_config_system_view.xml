@@ -19,6 +19,7 @@
                     <group>
                         <group string="EDI Supplier" col="1">
                             <field name="supplier_id" nolabel="1"/>
+                            <field name="parent_supplier_id"/>
                         </group>
                         <group string="FTP Connection">
                             <field name="ftp_host"/>
@@ -46,6 +47,23 @@
                                         <field name="sequence" widget="handle"/>
                                         <field name="position"/>
                                         <field name="value"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Prices update interface">
+                            <group string="Fields mapping">
+                                <field name="price_mapping_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="position"/>
+                                        <field name="name"/>
+                                        <field name="mapping_field_id" options="{'no_create': True, 'no_open': True}"/>
+                                        <field name="sequence_start"/>
+                                        <field name="sequence_end"/>
+                                        <field name="is_numeric"/>
+                                        <field name="is_date"/>
+                                        <field name="decimal_precision"/>
                                     </tree>
                                 </field>
                             </group>
