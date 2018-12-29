@@ -7,3 +7,6 @@ access_model_edi_mapping_lines_manager,access_model_edi_mapping_lines_manager,mo
 ,,,,,,,
 access_model_purchase_edi_log_all,access_model_purchase_edi_log_all,model_purchase_edi_log,,1,0,0,0
 access_model_purchase_edi_log_manager,access_model_purchase_edi_log_manager,model_purchase_edi_log,edi_purchase_config.group_manager,1,1,1,1
+,,,,,,,
+access_model_edi_price_mapping_all,access_model_edi_price_mapping_all,model_edi_price_mapping,,1,0,0,0
+access_model_edi_price_mapping_manager,access_model_edi_price_mapping_manager,model_edi_price_mapping,edi_purchase_config.group_manager,1,1,1,1

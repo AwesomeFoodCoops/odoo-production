@@ -7,7 +7,6 @@
         <field name="interval_number">1</field>
         <field name="interval_type">hours</field>
         <field name="numbercall">-1</field>
-        <field name="nextcall" eval="datetime.today().replace(hour=08, minute=0, second=0).strftime('%Y-%m-%d %H:%M:%S')" />
         <field name="doall" eval="False"/>
         <field name="model">product.product</field>
         <field name="function">cron_update_purchase_prices</field>
