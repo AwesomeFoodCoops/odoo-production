@@ -1107,6 +1107,12 @@
                 <field name="barcode_base"/>
                 <field name="ref"/>
             </field>
+            <xpath expr="//search/group[@name='group_by']//filter[last()]"
+                   position="after">
+                <filter name="team_template" string="Team/Template"
+                        domain="[]"
+                        context="{'group_by' : 'current_template_name'}" />
+            </xpath>
         </field>
     </record>
 
