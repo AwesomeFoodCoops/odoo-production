@@ -1942,3 +1942,8 @@ msgstr "Contrôle des inscriptions volants"
 #: model:ir.model.fields,field_description:coop_membership.field_members_config_settings_max_registration_per_period
 msgid "FTOP Max. Registration per period"
 msgstr "Nb. max. de vacations par période"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_mail_mass_mailing_contact_partner_id
+msgid "Number"
+msgstr "Numero"

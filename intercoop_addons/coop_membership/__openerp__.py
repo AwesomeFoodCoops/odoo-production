@@ -74,6 +74,7 @@
         'views/custom_templates.xml',
         'views/view_shift_change_team.xml',
         'views/view_shift_template.xml',
+        'views/view_mass_mailling.xml',
         'views/action.xml',
         'views/menu.xml',
 
