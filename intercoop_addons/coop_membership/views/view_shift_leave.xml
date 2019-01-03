@@ -23,6 +23,7 @@
                 </p>
             </xpath>
             <xpath expr="//sheet/notebook" position="before">
+                <field name="non_defined_type" invisible="1"/>
                 <field name="show_proceed_message" invisible="1"/>
                 <p class="alert alert-warning" attrs="{'invisible':['|', ('show_proceed_message','=',False), ('state', '!=', 'draft')]}">
                     <field name="proceed_message"/>
@@ -34,7 +35,6 @@
                 <field name="non_defined_leave"
                        attrs="{'invisible': [('non_defined_type', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
                        tabindex="5"/>
-                <field name="non_defined_type" invisible="1"/>
             </field>
         </field>
     </record>
