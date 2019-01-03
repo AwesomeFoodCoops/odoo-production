@@ -6,7 +6,7 @@
 # Some code from https://www.odoo.com/apps/modules/8.0/birth_date_age/
 # Copyright (C) Sythil
 
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from dateutil.relativedelta import relativedelta
 import pytz
 from openerp.exceptions import ValidationError
@@ -114,6 +114,12 @@ class ResPartner(models.Model):
         string='Is Associated People', store=True,
         compute='_compute_is_associated_people')
 
+    is_designated_buyer = fields.Boolean(
+        string='Designated buyer'
+    )
+
+    deactivated_date = fields.Date()
+
     welcome_email = fields.Boolean(
         string='Welcome email sent', default=False)
 
@@ -144,7 +150,7 @@ class ResPartner(models.Model):
 
     force_customer = fields.Boolean(string="Force Customer", default=False)
 
-    inform_id = fields.Many2one(
+    inform_ids = fields.Many2many(
         comodel_name='res.partner.inform', string='Informé que')
 
     shift_type = fields.Selection(
@@ -424,6 +430,7 @@ class ResPartner(models.Model):
     def create(self, vals):
         partner = super(ResPartner, self).create(vals)
         self._generate_associated_barcode(partner)
+        self.check_designated_buyer(partner)
         return partner
 
     @api.multi
@@ -439,6 +446,16 @@ class ResPartner(models.Model):
         return res
 
     # Custom Section
+    @api.model
+    def check_designated_buyer(self, partner):
+        company_id = self.env.user.company_id
+        maximum_active_days = company_id.maximum_active_days
+        today = fields.Date.from_string(fields.Date.today())
+        if partner.is_designated_buyer:
+            partner.deactivated_date = \
+                today + timedelta(days=maximum_active_days)
+
+
     @api.model
     def _generate_associated_barcode(self, partner):
         barcode_rule_obj = self.env['barcode.rule']
@@ -487,6 +504,15 @@ class ResPartner(models.Model):
             ('is_unsubscribed', '=', False),
         ])
         partners.send_welcome_email()
+
+    @api.model
+    def deactivate_designated_buyer(self):
+        partners = self.search([
+            ('deactivated_date', '=', fields.Date.today())
+        ])
+        partners.write({
+            'active': False
+        })
 
     # View section
     @api.multi
@@ -749,7 +775,7 @@ class ResPartner(models.Model):
             'coop_membership.coop_group_access_res_partner_inform'
         )
         if not access_inform:
-            node = doc.xpath("//field[@name='inform_id']")
+            node = doc.xpath("//field[@name='inform_ids']")
             options = {
                 'no_create': True,
                 'no_quick_create': True,
@@ -757,7 +783,7 @@ class ResPartner(models.Model):
             }
             if node:
                 node[0].set("options", repr(options))
-                setup_modifiers(node[0], res['fields']['inform_id'])
+                setup_modifiers(node[0], res['fields']['inform_ids'])
 
         edit_contact_us_message = self.user_has_groups(
             cr, uid, 'coop_membership.group_edit_contact_messeage')
@@ -766,6 +792,16 @@ class ResPartner(models.Model):
             if node:
                 node[0].set("readonly", "1")
                 setup_modifiers(node[0], res['fields']['contact_us_message'])
+        can_modify_partner_photo = self.user_has_groups(
+            cr, uid,
+            'coop_membership.coop_group_access_res_partner_image'
+        )
+        if can_modify_partner_photo:
+            node = doc.xpath("//field[@name='image']")
+            if node:
+                node[0].set("readonly", "0")
+                setup_modifiers(node[0], res['fields']['image'])
+
         res['arch'] = etree.tostring(doc)
         return res
 
