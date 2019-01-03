@@ -153,6 +153,12 @@ class ResPartner(models.Model):
         store=True
     )
 
+    current_template_name = fields.Char(
+        string='Current Template',
+        compute='_compute_current_template_name',
+        store=True
+    )
+
     # Constraint Section
     @api.multi
     @api.constrains('is_member',
@@ -418,6 +424,21 @@ class ResPartner(models.Model):
                          for p in partner.child_ids])
             else:
                 partner.nb_associated_people = 0
+
+    @api.multi
+    @api.depends('tmpl_reg_ids.is_current')
+    def _compute_current_template_name(self):
+        for partner in self:
+            reg = partner.tmpl_reg_ids.filtered(
+                lambda r: r.is_current)
+            if reg:
+                partner.current_template_name = reg[0].shift_template_id.name
+            else:
+                reg = partner.tmpl_reg_ids.filtered(
+                    lambda r: r.is_future)
+                if reg:
+                    partner.current_template_name = \
+                        reg[0].shift_template_id.name
 
     # Overload Section
     @api.model
@@ -776,9 +797,32 @@ class ResPartner(models.Model):
                 session, 'res.partner', partner_list)
         return True
 
+    @api.multi
+    def create_job_to_compute_current_template_name(self):
+        partners = self.ids
+        num_partner_per_job = 100
+        splited_partner_list = \
+            [partners[i: i + num_partner_per_job]
+             for i in range(0, len(partners), num_partner_per_job)]
+        # Prepare session for job
+        session = ConnectorSession(self._cr, self._uid)
+        # Create jobs
+        for partner_list in splited_partner_list:
+            update_member_current_template_name.delay(
+                session, 'res.partner', partner_list)
+        return True
+
+
 @job
 def update_shift_type_res_partner_session_job(
         session, model_name, session_list):
     """ Job for compute shift type """
     partners = session.env[model_name].browse(session_list)
     partners._compute_shift_type()
+
+
+@job
+def update_member_current_template_name(session, model_name, partner_ids):
+    """ Job for Updating Current Shift Template Name """
+    partners = session.env[model_name].browse(partner_ids)
+    partners._compute_current_template_name()
