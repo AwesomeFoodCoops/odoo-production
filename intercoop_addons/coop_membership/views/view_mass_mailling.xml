@@ -11,8 +11,11 @@
             <field name="unsubscription_date" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
+            <field name="name" position="replace">
+            </field>
             <field name="email" position="before">
                 <field name="partner_id" context="{'only_show_barcode_base': True}"/>
+                <field name="name"/>
             </field>
         </field>
     </record>
