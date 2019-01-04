@@ -525,6 +525,8 @@ class ShiftTemplate(models.Model):
         if 'user_ids' in vals and 'updated_fields' in vals \
                 and len(vals.keys()) <= 2:
             self.update_shift(vals)
+        elif 'seats_max' in vals:
+            self.update_max_seats_related_shifts(vals.get('seats_max'))
 
         return super(ShiftTemplate, self).write(vals)
 
@@ -532,6 +534,22 @@ class ShiftTemplate(models.Model):
     @api.multi
     def discard_changes(self):
         return self.write({'updated_fields': ''})
+
+    @api.multi
+    def update_max_seats_related_shifts(self, seats_max):
+        """
+        Update max seats information in related shifts
+        """
+        for record in self:
+            if len(record.shift_ids):
+                shifts = record.shift_ids.filtered(
+                    lambda s: s.date_end >= fields.Date.context_today(self)
+                    and s.state != 'cancel'
+                )
+                shifts.with_context(tracking_disable=True).write({
+                    'seats_max': seats_max
+                })
+        return True
 
     @api.multi
     def update_shift(self, vals):

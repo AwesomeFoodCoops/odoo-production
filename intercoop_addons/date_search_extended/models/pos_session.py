@@ -5,6 +5,8 @@
 
 from datetime import datetime
 from openerp import models, fields, api
+from openerp.addons.connector.queue.job import job
+from openerp.addons.connector.session import ConnectorSession
 
 
 class PosSession(models.Model):
@@ -36,3 +38,26 @@ class PosSession(models.Model):
                 item.search_year = False
                 item.search_month = False
                 item.search_day = False
+
+    @api.multi
+    def create_job_to_compute_date_search(self):
+        pos_sessions = self.ids
+        num_pos_session_per_job = 100
+        splited_pos_session_list = \
+            [pos_sessions[i: i + num_pos_session_per_job]
+             for i in range(0, len(pos_sessions), num_pos_session_per_job)]
+        # Prepare session for job
+        session = ConnectorSession(self._cr, self._uid)
+        # Create jobs
+        for pos_session_list in splited_pos_session_list:
+            compute_date_search_job.delay(
+                session, 'pos.session', pos_session_list)
+        return True
+
+
+@job
+def compute_date_search_job(session, model_name, session_list):
+    """ Job for compute date_search of pos.session """
+    pos_sessions = session.env[model_name].browse(session_list)
+    pos_sessions._compute_date_search()
+

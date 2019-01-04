@@ -36,6 +36,8 @@ class MembersConfiguration(models.TransientModel):
         string='FTOP Registration period'
     )
 
+    maximum_active_days = fields.Integer()
+
     @api.multi
     @api.constrains('number_of_days_in_period')
     def _check_positive_number_of_days_in_period(self):
@@ -79,13 +81,12 @@ class MembersConfiguration(models.TransientModel):
     @api.model
     def default_get(self, fields):
         res = super(MembersConfiguration, self).default_get(fields)
-        message = self.env.user.company_id.contact_us_message
-        max_registrations_per_day = \
-            self.env.user.company_id.max_registrations_per_day
-        max_registration_per_period = \
-            self.env.user.company_id.max_registration_per_period
-        number_of_days_in_period = \
-            self.env.user.company_id.number_of_days_in_period
+        company = self.env.user.company_id
+        message = company.contact_us_message
+        max_registrations_per_day = company.max_registrations_per_day
+        max_registration_per_period = company.max_registration_per_period
+        number_of_days_in_period = company.number_of_days_in_period
+        maximum_active_days = company.maximum_active_days
 
         if 'contact_us_messages' in fields:
             res.update({
@@ -93,19 +94,22 @@ class MembersConfiguration(models.TransientModel):
                 'max_registrations_per_day': max_registrations_per_day,
                 'max_registration_per_period': max_registration_per_period,
                 'number_of_days_in_period': number_of_days_in_period,
+                'maximum_active_days': maximum_active_days,
             })
         return res
 
     @api.multi
     def execute(self):
+        company = self.env.user.company_id
         for record in self:
-            self.env.user.company_id.contact_us_message =\
-                record.contact_us_messages
-            self.env.user.company_id.max_registrations_per_day =\
+            company.contact_us_message = record.contact_us_messages
+            company.max_registrations_per_day = \
                 record.max_registrations_per_day
-            self.env.user.company_id.max_registration_per_period =\
+            company.max_registration_per_period = \
                 record.max_registration_per_period
-            self.env.user.company_id.number_of_days_in_period =\
+            company.number_of_days_in_period = \
                 record.number_of_days_in_period
+
+            company.maximum_active_days = record.maximum_active_days
 
         return super(MembersConfiguration, self).execute()
