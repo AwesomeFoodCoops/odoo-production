@@ -1944,8 +1944,6 @@ msgid "FTOP Max. Registration per period"
 msgstr "Nb. max. de vacations par période"
 
 #. module: coop_membership
-#: model:ir.model.fields,field_description:coop_membership.field_res_partner_is_designated_buyer
-#: model:ir.model.fields,field_description:coop_membership.field_res_users_is_designated_buyer
-#: model:ir.ui.view,arch_db:coop_membership.view_members_config_settings_form
-msgid "Designated buyer"
-msgstr "Acheteur désigné"
+#: model:ir.model.fields,field_description:coop_membership.field_mail_mass_mailing_contact_partner_id
+msgid "Number"
+msgstr "Numero"
