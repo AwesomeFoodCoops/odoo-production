@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr t-foreach="wallchart['times']" t-as="time">
+                            <tr t-foreach="wallchart['times']" t-as="time" style="page-break-inside:avoid; page-break-after:auto">
                                 <td><span t-esc="time['start_time']"/> - <span t-esc="time['end_time']"/></td>
                                 <td>
                                     <t t-set="num" t-value="1"/>

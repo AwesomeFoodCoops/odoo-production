@@ -135,7 +135,7 @@ class ShiftTemplate(models.Model):
         string='End Date Time', required=True, help="End date of the first"
         "  shift")
     end_datetime_tz = fields.Datetime(
-        string='End Date Time', compute="_compute_end_datetime_tz")
+        string='End Date Time', compute="_compute_end_datetime_tz", store=True)
     start_date = fields.Date(
         string='Obsolete Start Date', compute='_compute_start_date',
         help="Technical Field. First date this shift will be scheduled",
