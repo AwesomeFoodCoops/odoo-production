@@ -570,13 +570,21 @@ class ResPartner(models.Model):
         res = []
         i = 0
         original_res = super(ResPartner, self).name_get()
+        only_show_barcode_base = self._context.get(
+            'only_show_barcode_base', False)
+
         for partner in self:
+            original_value = original_res[i][1]
+            name_get_values = (partner.id, original_value)
             if partner.is_member:
-                res.append((
+                name_get_values = (
                     partner.id,
-                    '%s - %s' % (partner.barcode_base, original_res[i][1])))
-            else:
-                res.append((partner.id, original_res[i][1]))
+                    '%s - %s' % (partner.barcode_base, original_value)
+                )
+            if only_show_barcode_base:
+                name_get_values = (partner.id, str(partner.barcode_base))
+
+            res.append(name_get_values)
             i += 1
         return res
 
