@@ -686,10 +686,10 @@ msgid "Discovery Meeting"
 msgstr "Réunion d'accueil"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:50
+#: code:addons/coop_membership/models/shift_registration.py:61
 #, python-format
-msgid "You can't register this partner on a shift because he isn't registered on a template"
-msgstr "Vous ne pouvez pas inscrire cette personne, parce qu'elle n'est pas inscrite à un créneau."
+msgid "You can't register {} on a shift because he isn't registered on a template"
+msgstr "Vous ne pouvez pas inscrire {}, parce qu'elle n'est pas inscrite à un créneau."
 
 #. module: coop_membership
 #: model:mail.template,subject:coop_membership.unsubscribe_email

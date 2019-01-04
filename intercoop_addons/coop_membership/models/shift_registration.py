@@ -59,8 +59,8 @@ class ShiftRegistration(models.Model):
         if partner.is_unsubscribed and not self.env.context.get(
                 'creation_in_progress', False):
             raise UserError(_(
-                """You can't register this partner on a shift because """
-                """he isn't registered on a template"""))
+                """You can't register {} on a shift because """
+                """he isn't registered on a template""".format(partner.name)))
         res = super(ShiftRegistration, self).create(vals)
         # Do not allow member with Up to date status register make up
         # in a ABCD shift on a ABCD tickets
