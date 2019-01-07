@@ -204,11 +204,10 @@ class ResPartner(models.Model):
                 raise ValidationError(_("The maximum number of " +
                                         "associated people has been exceeded."))
 
-
     @api.multi
     @api.depends('is_associated_people', 'parent_id.shift_type')
     def _compute_shift_type(self):
-        for partner in self:
+        for partner in self.sorted(key=lambda p: p.is_associated_people):
             if partner.is_associated_people and partner.parent_id:
                 partner.shift_type = partner.parent_id.shift_type
             else:
