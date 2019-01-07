@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-20 19:13+0000\n"
-"PO-Revision-Date: 2018-11-20 19:13+0000\n"
+"POT-Creation-Date: 2018-12-26 10:56+0000\n"
+"PO-Revision-Date: 2018-12-26 10:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,39 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: edi_purchase_diapar
+#: code:addons/edi_purchase_diapar/models/purchase.py:31
+#, python-format
+msgid "Check price for lines with product %s!"
+msgstr "Check price for lines with product %s!"
+
+#. module: edi_purchase_diapar
+#: code:addons/edi_purchase_diapar/models/purchase.py:29
+#, python-format
+msgid "Check taxes for lines with product %s!"
+msgstr "Merci de vérifier la taxe pour les lignes au produit: %s!"
+
+#. module: edi_purchase_diapar
 #: model:ir.model,name:edi_purchase_diapar.model_product_supplierinfo
 msgid "Information about a product vendor"
 msgstr "Information sur le vendeur de l'article"
+
+#. module: edi_purchase_diapar
+#: code:addons/edi_purchase_diapar/wizard/supplier_info_update.py:22
+#, python-format
+msgid "No Config FTP for this supplier %s!"
+msgstr "Aucune configuration trouvée pour le fournisseur: %s!"
+
+#. module: edi_purchase_diapar
+#: code:addons/edi_purchase_diapar/models/purchase.py:24
+#, python-format
+msgid "No lines in this order %s!"
+msgstr "Aucune ligne pour cette commande: %s!"
+
+#. module: edi_purchase_diapar
+#: code:addons/edi_purchase_diapar/wizard/supplier_info_update.py:69
+#, python-format
+msgid "No supplier code given for product: %s for supplier: %s!, please give a supplier code to continue prices operation update"
+msgstr "Aucun code fournisseur renseigné pour ce produit : %s avec le fournisseur: %s!, merci de mettre à jour le codde fournisseur pour continuer la mise à jour des prix."
 
 #. module: edi_purchase_diapar
 #: code:addons/edi_purchase_diapar/models/product.py:20

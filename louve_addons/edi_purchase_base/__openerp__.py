@@ -12,6 +12,10 @@
     'license': 'AGPL-3',
     'depends': ['purchase', 'edi_purchase_config'
     ],
-    'data': [
+    'data': ['data/ir_cron.xml',
+             'views/supplier_price_list_view.xml',
+             'views/actions.xml',
+             'views/product_template_view.xml',
+             'security/ir.model.access.csv'
     ],
 }

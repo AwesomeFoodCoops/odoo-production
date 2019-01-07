@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="view_mail_mass_mailing_contact_tree_inherit">
+        <field name="name">mail.mass_mailing.contact.tree</field>
+        <field name="model">mail.mass_mailing.contact</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_contact_tree"/>
+        <field name="arch" type="xml">
+            <field name="list_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="unsubscription_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="name" position="replace">
+            </field>
+            <field name="email" position="before">
+                <field name="partner_id" context="{'only_show_barcode_base': True}"/>
+                <field name="name"/>
+            </field>
+        </field>
+    </record>
+    <record model="ir.actions.act_window"
+            id="mass_mailing.action_view_mass_mailing_contacts">
+        <field name="name">Mailing List Subscribers</field>
+        <field name="res_model">mail.mass_mailing.contact</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,graph</field>
+        <field name="context">{'search_default_not_opt_out': 1, 'only_show_barcode_base': True}</field>
+    </record>
+</odoo>

@@ -16,6 +16,7 @@ class EdiConfigSystem(models.Model):
     constant_file_start = fields.Char(string="Constant file start", default='HDIAPAR ', required=True)
     constant_file_end = fields.Char(string="Constant file end", default='*DIAPAR*DIAPAR', required=True)
     vrp_code = fields.Char(string="VRP Code", default='03', required=True)
+    ftp_host = fields.Char(string="FTP Server Host", default='213.215.34.21', required=True)
     ftp_login = fields.Char(string="FTP Login", default='33513',required=True)
     ftp_password = fields.Char(string="FTP Password", default='divers', required=True)
     csv_relative_in_path = fields.Char(string="Relative path for IN interfaces", default='/Reception', required=True)

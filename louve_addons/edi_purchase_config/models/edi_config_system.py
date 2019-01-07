@@ -4,9 +4,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 import time
+import fnmatch
+import zipfile
 import logging
 import os
-from datetime import datetime
+from dateutil import parser
+import datetime
 
 from openerp import models, api, fields, tools, _
 from openerp.exceptions import ValidationError
@@ -27,6 +30,8 @@ class EdiConfigSystem(models.Model):
     name = fields.Char(string="Name", required=True)
     supplier_id = fields.Many2one(comodel_name="res.partner", string="EDI supplier",
                                   domain=[('supplier', '=', True), ('is_edi', '=', True)], required=True)
+    parent_supplier_id = fields.Many2one(comodel_name="res.partner", string="EDI Parent supplier",
+                                         domain=[('supplier', '=', True), ('is_edi', '=', True)])
     ftp_host = fields.Char(string="FTP Server Host", default='xxx.xxx.xxx.xxx', required=True)
     ftp_port = fields.Char(string="FTP Server Port", default='21', required=True)
     ftp_login = fields.Char(string="FTP Login", required=True)
@@ -41,6 +46,7 @@ class EdiConfigSystem(models.Model):
     constant_file_end = fields.Char(string="Constant file end", required=True)
     vrp_code = fields.Char(string="VRP Code", required=True)
     mapping_ids = fields.One2many(comodel_name="edi.mapping.lines", inverse_name="config_id")
+    price_mapping_ids = fields.One2many(comodel_name="edi.price.mapping", inverse_name="price_config_id")
 
     @api.one
     @api.constrains('ftp_port')
@@ -80,7 +86,7 @@ class EdiConfigSystem(models.Model):
         try:
             if lines:
                 # Generate temporary file
-                f_name = datetime.now().strftime(pattern)
+                f_name = datetime.datetime.now().strftime(pattern)
                 local_path = os.path.join(local_folder_path, f_name)
                 distant_path = os.path.join(distant_folder_path, f_name)
                 f = open(local_path, 'w')
@@ -91,13 +97,36 @@ class EdiConfigSystem(models.Model):
 
                 # Send File by FTP
                 f = open(local_path, 'r')
-                print("Chemin distant : %s" % distant_path)
                 ftp.storbinary('STOR ' + distant_path, f)
                 f.close()
                 # Delete temporary file
                 os.remove(local_path)
         except Exception, e:
             raise ValidationError(_("Error when pushing order file:\n %s") % tools.ustr(e))
+
+    @api.model
+    def ftp_connection_pull_prices(self, ftp, distant_folder_path, local_folder_path):
+        try:
+            today = datetime.date.today()
+            ftp.cwd(distant_folder_path)
+            names = ftp.nlst()
+            for name in names:
+                if fnmatch.fnmatch(name, "CH*"):
+                    timestamp = ftp.voidcmd("MDTM " + distant_folder_path + "/" + name)[4:].strip()
+                    file_date = parser.parse(timestamp)
+                    diff = today - file_date.date()
+                    days_gap = diff.days
+                    if days_gap < 7:
+                        with open(os.path.join(local_folder_path, name), "wb") as f:
+                            ftp.retrbinary("RETR {}".format(name), f.write)
+                        zf = zipfile.ZipFile(os.path.join(local_folder_path, name))
+                        zf.extractall(local_folder_path)
+                        zf.close()
+                        name_without_zip = name[:-4]
+                        file = open(os.path.join(local_folder_path, name_without_zip), "r")
+                        return file.readlines(), name
+        except Exception, e:
+            raise ValidationError(_("Error when pulling prices update file:\n %s") % tools.ustr(e))
 
     @api.model
     def get_datenow_format_for_file(self):
@@ -108,8 +137,22 @@ class EdiConfigSystem(models.Model):
 
     @api.model
     def get_datetime_format_ddmmyyyy(self, date):
-        do_date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+        do_date = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
         return "%02d%02d%s" % (do_date.day, do_date.month, str(do_date.year)[2:])
+
+    @api.model
+    def get_date_format_yyyymmdd(self, date):
+        """
+        Transform a string date to datetime and format it to standard odoo date format
+        """
+        return datetime.datetime.strptime(date, "%y%m%d").strftime('%Y-%m-%d')
+
+    @api.model
+    def insert_separator(self, string, index, separator):
+        """
+            This method is to insert a separator inside string on a certain position
+        """
+        return string[:index] + separator + string[index:]
 
     @api.model
     def _fix_lenght(self, value, lenght, mode='float', replace='', position='before'):

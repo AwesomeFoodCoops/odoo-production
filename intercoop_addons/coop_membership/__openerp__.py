@@ -33,6 +33,7 @@
         'data/update_menu_user_right.yml',
         'data/report_paperformat_data.xml',
         'data/ir_attachment.xml',
+        'data/ir_config_parameter.xml',
 
 
 
@@ -74,6 +75,7 @@
         'views/custom_templates.xml',
         'views/view_shift_change_team.xml',
         'views/view_shift_template.xml',
+        'views/view_mass_mailling.xml',
         'views/action.xml',
         'views/menu.xml',
 

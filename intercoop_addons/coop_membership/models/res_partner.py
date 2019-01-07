@@ -6,7 +6,7 @@
 # Some code from https://www.odoo.com/apps/modules/8.0/birth_date_age/
 # Copyright (C) Sythil
 
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from dateutil.relativedelta import relativedelta
 import pytz
 from openerp.exceptions import ValidationError
@@ -114,6 +114,12 @@ class ResPartner(models.Model):
         string='Is Associated People', store=True,
         compute='_compute_is_associated_people')
 
+    is_designated_buyer = fields.Boolean(
+        string='Designated buyer'
+    )
+
+    deactivated_date = fields.Date()
+
     welcome_email = fields.Boolean(
         string='Welcome email sent', default=False)
 
@@ -144,12 +150,18 @@ class ResPartner(models.Model):
 
     force_customer = fields.Boolean(string="Force Customer", default=False)
 
-    inform_id = fields.Many2one(
+    inform_ids = fields.Many2many(
         comodel_name='res.partner.inform', string='Informé que')
 
     shift_type = fields.Selection(
         string='Shift type',
         compute='_compute_shift_type',
+        store=True
+    )
+
+    current_template_name = fields.Char(
+        string='Current Template',
+        compute='_compute_current_template_name',
         store=True
     )
 
@@ -419,11 +431,27 @@ class ResPartner(models.Model):
             else:
                 partner.nb_associated_people = 0
 
+    @api.multi
+    @api.depends('tmpl_reg_ids.is_current')
+    def _compute_current_template_name(self):
+        for partner in self:
+            reg = partner.tmpl_reg_ids.filtered(
+                lambda r: r.is_current)
+            if reg:
+                partner.current_template_name = reg[0].shift_template_id.name
+            else:
+                reg = partner.tmpl_reg_ids.filtered(
+                    lambda r: r.is_future)
+                if reg:
+                    partner.current_template_name = \
+                        reg[0].shift_template_id.name
+
     # Overload Section
     @api.model
     def create(self, vals):
         partner = super(ResPartner, self).create(vals)
         self._generate_associated_barcode(partner)
+        self.check_designated_buyer(partner)
         return partner
 
     @api.multi
@@ -439,6 +467,16 @@ class ResPartner(models.Model):
         return res
 
     # Custom Section
+    @api.model
+    def check_designated_buyer(self, partner):
+        company_id = self.env.user.company_id
+        maximum_active_days = company_id.maximum_active_days
+        today = fields.Date.from_string(fields.Date.today())
+        if partner.is_designated_buyer:
+            partner.deactivated_date = \
+                today + timedelta(days=maximum_active_days)
+
+
     @api.model
     def _generate_associated_barcode(self, partner):
         barcode_rule_obj = self.env['barcode.rule']
@@ -488,6 +526,15 @@ class ResPartner(models.Model):
         ])
         partners.send_welcome_email()
 
+    @api.model
+    def deactivate_designated_buyer(self):
+        partners = self.search([
+            ('deactivated_date', '=', fields.Date.today())
+        ])
+        partners.write({
+            'active': False
+        })
+
     # View section
     @api.multi
     def set_underclass_population(self):
@@ -523,13 +570,21 @@ class ResPartner(models.Model):
         res = []
         i = 0
         original_res = super(ResPartner, self).name_get()
+        only_show_barcode_base = self._context.get(
+            'only_show_barcode_base', False)
+
         for partner in self:
+            original_value = original_res[i][1]
+            name_get_values = (partner.id, original_value)
             if partner.is_member:
-                res.append((
+                name_get_values = (
                     partner.id,
-                    '%s - %s' % (partner.barcode_base, original_res[i][1])))
-            else:
-                res.append((partner.id, original_res[i][1]))
+                    '%s - %s' % (partner.barcode_base, original_value)
+                )
+            if only_show_barcode_base:
+                name_get_values = (partner.id, str(partner.barcode_base))
+
+            res.append(name_get_values)
             i += 1
         return res
 
@@ -741,7 +796,7 @@ class ResPartner(models.Model):
             'coop_membership.coop_group_access_res_partner_inform'
         )
         if not access_inform:
-            node = doc.xpath("//field[@name='inform_id']")
+            node = doc.xpath("//field[@name='inform_ids']")
             options = {
                 'no_create': True,
                 'no_quick_create': True,
@@ -749,7 +804,7 @@ class ResPartner(models.Model):
             }
             if node:
                 node[0].set("options", repr(options))
-                setup_modifiers(node[0], res['fields']['inform_id'])
+                setup_modifiers(node[0], res['fields']['inform_ids'])
 
         edit_contact_us_message = self.user_has_groups(
             cr, uid, 'coop_membership.group_edit_contact_messeage')
@@ -776,9 +831,32 @@ class ResPartner(models.Model):
                 session, 'res.partner', partner_list)
         return True
 
+    @api.multi
+    def create_job_to_compute_current_template_name(self):
+        partners = self.ids
+        num_partner_per_job = 100
+        splited_partner_list = \
+            [partners[i: i + num_partner_per_job]
+             for i in range(0, len(partners), num_partner_per_job)]
+        # Prepare session for job
+        session = ConnectorSession(self._cr, self._uid)
+        # Create jobs
+        for partner_list in splited_partner_list:
+            update_member_current_template_name.delay(
+                session, 'res.partner', partner_list)
+        return True
+
+
 @job
 def update_shift_type_res_partner_session_job(
         session, model_name, session_list):
     """ Job for compute shift type """
     partners = session.env[model_name].browse(session_list)
     partners._compute_shift_type()
+
+
+@job
+def update_member_current_template_name(session, model_name, partner_ids):
+    """ Job for Updating Current Shift Template Name """
+    partners = session.env[model_name].browse(partner_ids)
+    partners._compute_current_template_name()

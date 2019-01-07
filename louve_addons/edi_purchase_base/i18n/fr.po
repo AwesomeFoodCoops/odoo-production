@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-20 19:03+0000\n"
-"PO-Revision-Date: 2018-11-20 19:03+0000\n"
+"POT-Creation-Date: 2018-12-26 10:53+0000\n"
+"PO-Revision-Date: 2018-12-26 10:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,19 +16,44 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/purchase.py:32
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_apply_date
+msgid "Apply date"
+msgstr "Date d'application"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/purchase.py:31
 #, python-format
 msgid "Check price for lines with product %s!"
 msgstr "Merci de vérifier le prix des lignes du produit : %s!"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/purchase.py:30
+#: code:addons/edi_purchase_base/models/purchase.py:29
 #, python-format
 msgid "Check taxes for lines with product %s!"
 msgstr "Merci de vérifier les taxes des lignes du produit : %s!"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/purchase.py:57
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_supplier_id
+msgid "EDI Supplier"
+msgstr "Fournisseur EDI"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/purchase.py:56
 #, python-format
 msgid "Error in python code mapping values:\n"
 " %s"
@@ -36,30 +61,146 @@ msgstr "Erreur dans le code python du mapping  :\n"
 " %s"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/purchase.py:86
+#: code:addons/edi_purchase_base/models/product.py:42
+#, python-format
+msgid "Error when removing file from ftp server : %s"
+msgstr "Erreur dans la suppression du fichier du serveur FTP : %s"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_id
+msgid "ID"
+msgstr "ID"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_import_date
+msgid "Import date"
+msgstr "Date d'importation"
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_product_supplierinfo
+msgid "Information about a product vendor"
+msgstr "Information sur le vendeur de l'article"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/product.py:115
+#: code:addons/edi_purchase_base/models/product.py:148
+#: code:addons/edi_purchase_base/models/purchase.py:85
 #, python-format
 msgid "No Config FTP for this supplier %s!"
 msgstr "Aucune configuration FTP pour le fournisseur %s!"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/product.py:29
+#: code:addons/edi_purchase_base/models/product.py:115
+#, python-format
+msgid "No Configuration found for EDI suppliers on the whole system!"
+msgstr "Aucune configuration EDI trouvée pour le fournisseur EDI dans tout le système!"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/product.py:33
 #, python-format
 msgid "No code for this product %s!"
 msgstr "Aucun code pour le produit : %s!"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/purchase.py:25
+#: code:addons/edi_purchase_base/models/purchase.py:24
 #, python-format
 msgid "No lines in this order %s!"
 msgstr "Aucune ligne pour cette commande : %s!"
 
 #. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/purchase.py:102
+#, python-format
+msgid "Orders interface"
+msgstr "Interface commandes"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/product.py:57
+#, python-format
+msgid "Please configure fields mapping for prices interface on your EDI system!"
+msgstr "Merci de configurer le mapping des champs de l'interface des prix dans votre système EDI!"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/product.py:148
+#: code:addons/edi_purchase_base/models/product.py:167
+#, python-format
+msgid "Please give a supplier code to create the product!"
+msgstr "Merci de renseigner le code chez le fournisseur pour créer le produit!"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_price
+msgid "Price"
+msgstr "Prix"
+
+#. module: edi_purchase_base
+#: model:ir.ui.view,arch_db:edi_purchase_base.view_product_price_history_search
+msgid "Price History"
+msgstr "Historique des prix"
+
+#. module: edi_purchase_base
+#: model:ir.ui.view,arch_db:edi_purchase_base.view_template_history_form
+msgid "Price history"
+msgstr "Historique des prix"
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/product.py:128
+#: code:addons/edi_purchase_base/models/product.py:131
+#, python-format
+msgid "Prices interface"
+msgstr "Interface des prix"
+
+#. module: edi_purchase_base
 #: model:ir.model,name:edi_purchase_base.model_product_product
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_product_tmpl_id
 msgid "Product"
 msgstr "Article"
+
+#. module: edi_purchase_base
+#: model:ir.actions.act_window,name:edi_purchase_base.view_product_price_history_action
+msgid "Product Price History"
+msgstr "Historique des prix"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_product_name
+msgid "Product name"
+msgstr "Désignation produit"
 
 #. module: edi_purchase_base
 #: model:ir.model,name:edi_purchase_base.model_purchase_order
 msgid "Purchase Order"
 msgstr "Commande fournisseur"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_supplier_code
+msgid "Supplier code"
+msgstr "Code fournisseur"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_supplier_price_list_price
+msgid "The price HT to purchase a product"
+msgstr "Prix d'achat HT"
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_supplier_info_update
+msgid "supplier.info.update"
+msgstr "supplier.info.update"
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_supplier_price_list
+msgid "supplier.price.list"
+msgstr "supplier.price.list"
 
