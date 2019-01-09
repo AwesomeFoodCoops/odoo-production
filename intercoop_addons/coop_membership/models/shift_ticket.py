@@ -17,6 +17,10 @@ class ShiftTicket(models.Model):
         string="Available Seats Standard",
         compute="_compute_seats_ticket",
         store=True)
+    available_seat_ftop = fields.Integer(
+        string="Available Seats FTOP",
+        compute="_compute_seats_ticket",
+        store=True)
 
     @api.multi
     @api.depends('shift_id', 'shift_id.shift_ticket_ids',
@@ -26,12 +30,16 @@ class ShiftTicket(models.Model):
         for record in self:
             max_standard_seat = 0
             available_standard_seat = 0
+            available_ftop_seat = 0
             for ticket in record.shift_id.shift_ticket_ids:
                 if ticket.shift_type == 'standard':
                     max_standard_seat += ticket.seats_max
                     available_standard_seat += ticket.seats_available
+                if ticket.shift_type == 'ftop':
+                    available_ftop_seat += ticket.seats_available
             record.available_seat_standard = available_standard_seat
             record.max_available_seat_standard = max_standard_seat
+            record.available_seat_ftop = available_ftop_seat
 
     @api.multi
     def update_shift_available_seat(self):
