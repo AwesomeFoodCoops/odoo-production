@@ -17,13 +17,16 @@ class SupplierInfoUpdate(models.TransientModel):
         :return: EDI supplier used in FTP prices operations
         """
         ecs_obj = self.env['edi.config.system']
-        edi_system = ecs_obj.search([('supplier_id', '=', partner_id.id)], limit=1)
-        if not edi_system:
-            raise ValidationError(_("No Config FTP for this supplier %s!") % self.partner_id.name)
-        if edi_system.parent_supplier_id:
-            return edi_system.parent_supplier_id
+        if partner_id.is_edi:
+            edi_system = ecs_obj.search([('supplier_id', '=', partner_id.id)], limit=1)
+            if not edi_system:
+                raise ValidationError(_("No Config FTP for this supplier %s!") % partner_id.name)
+            if edi_system.parent_supplier_id:
+                return edi_system.parent_supplier_id
+            else:
+                return edi_system.supplier_id
         else:
-            return edi_system.supplier_id
+            return True
 
     @api.model
     def update_lines_prices(self, obj_lines_values):
