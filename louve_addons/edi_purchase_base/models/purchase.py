@@ -35,7 +35,7 @@ class PurchaseOrder(models.Model):
                 values = {
                     'code': code,
                     'origin_code': origin_code,
-                    'quantity': line.product_qty,
+                    'quantity': line.product_qty_package,
                     'price_unit': line.price_unit,
                     'taxes_id': line.taxes_id
                 }
