@@ -10,7 +10,7 @@
     'author': 'Druidoo',
     'website': 'http://www.lalouve.net',
     'license': 'AGPL-3',
-    'depends': ['purchase', 'edi_purchase_config', 'purchase_qty_package'
+    'depends': ['purchase', 'edi_purchase_config'
     ],
     'data': ['data/ir_cron.xml',
              'views/supplier_price_list_view.xml',
