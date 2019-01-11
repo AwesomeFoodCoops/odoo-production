@@ -1954,6 +1954,11 @@ msgstr "Numero"
 msgid "Designated buyer"
 msgstr "Acheteur désigné"
 
+#. module: coop_shift
+#: selection:shift.leave,state:0
+msgid "Not finished"
+msgstr "Non-aboutie"
+
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_ticket_available_seat_ftop
 msgid "Available Seats FTOP"
