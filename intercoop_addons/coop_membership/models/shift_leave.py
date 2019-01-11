@@ -227,7 +227,7 @@ class ShiftLeave(models.Model):
                     raise ValidationError(_(
                         "Normally, this member is not eligible for early" +
                         " leave because he has to catch up"))
-                elif len(abcd_lines_in_leave) < 2:
+                elif total_line < 2:
                     raise ValidationError(_(
                         "The period of leave must include TWO" +
                         " minimum missed services."))
