@@ -17,10 +17,12 @@
         'coop_membership',
     ],
     'data': [
+        'data/mail_template.xml',
         'security/ir_module_category.xml',
         'security/res_groups.xml',
         'security/ir.model.access.csv',
         'views/view_res_partner.xml',
+        'views/view_res_partner_alert.xml',
         'views/view_res_partner_move.xml',
         'views/view_shift_extension_type.xml',
         'views/view_shift_extension.xml',
