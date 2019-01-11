@@ -65,6 +65,9 @@ class ResPartner(models.Model):
     def log_move(self, action):
         self.ensure_one()
         partner_move_obj = self.env['res.partner.move']
+        partner_alert_obj = self.env['res.partner.alert']
+        partner_alert_mail_template = self.env.ref(
+            'coop_badge_reader.email_template_partner_alert')
         for partner in self:
             partner_move_obj.create({
                 'partner_id': partner.id,
@@ -73,6 +76,15 @@ class ResPartner(models.Model):
                 'bootstrap_cooperative_state':
                 partner.bootstrap_cooperative_state,
             })
+            if partner_alert_mail_template and action == 'in':
+                partner_alerts = partner_alert_obj.search([
+                    ('expected_member_id', '=', partner.id),
+                    ('state', '=', 'open'),
+                ])
+
+                for partner_alert in partner_alerts:
+                    partner_alert_mail_template.send_mail(partner_alert.id)
+
 
     @api.multi
     def action_grace_partner(self):
