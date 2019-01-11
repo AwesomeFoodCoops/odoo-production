@@ -7,6 +7,7 @@
             	<link rel="stylesheet" href="/coop_membership/static/lib/css/coop_membership_customs.css"/>
             	<link rel="stylesheet" href="/coop_membership/static/src/css/ftop_seats.css"/>
             	<script type="text/javascript" src="/coop_membership/static/src/js/sidebar_button_access.js"/>
+				<script type="text/javascript" src="/coop_membership/static/src/js/web_access_buttons.js"></script>
         	</xpath>
     	</template>
   	</data>
