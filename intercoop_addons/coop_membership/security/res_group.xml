@@ -235,7 +235,7 @@
         <field name="name">Partner Actions</field>
         <field name="category_id" ref="base.module_category_extra"/>
         <field name="implied_ids"
-               eval="[(4, ref('purchase.group_purchase_manager')), (4, ref('coop_membership.group_membership_access_manager'))]"/>
+               eval="[(3, ref('purchase.group_purchase_manager')), (3, ref('coop_membership.group_membership_access_manager'))]"/>
     </record>
 
     <record model="res.groups" id="coop_group_access_res_partner_inform">
