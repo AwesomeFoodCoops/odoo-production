@@ -126,6 +126,8 @@ class ResPartner(models.Model):
     cooperative_state = fields.Selection(
         selection=EXTRA_COOPERATIVE_STATE_SELECTION, default='not_concerned')
 
+    working_state = fields.Selection(selection=EXTRA_COOPERATIVE_STATE_SELECTION)
+
     nb_associated_people = fields.Integer(
         'Number of Associated People',
         compute="_compute_number_of_associated_people",
