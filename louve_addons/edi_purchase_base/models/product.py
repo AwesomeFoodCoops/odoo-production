@@ -167,8 +167,9 @@ class ProductSupplierinfo(models.Model):
                 raise ValidationError(_('Please give a supplier code to create the product!'))
             price = self.env['supplier.price.list'].search([('supplier_id', '=', edi_supplier.id),
                                                             ('supplier_code', '=', supplier_code)],
-                                                            order="import_date DESC")[0]
-            vals.update({'base_price': price.price})
+                                                            order="import_date DESC")
+            if price:
+                vals.update({'base_price': price[0].price})
         return vals
 
     @api.model
