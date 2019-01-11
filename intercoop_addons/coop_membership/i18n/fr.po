@@ -1953,3 +1953,8 @@ msgstr "Numero"
 #: model:ir.ui.view,arch_db:coop_membership.view_members_config_settings_form
 msgid "Designated buyer"
 msgstr "Acheteur désigné"
+
+#. module: coop_shift
+#: selection:shift.leave,state:0
+msgid "Not finished"
+msgstr "Non-aboutie"

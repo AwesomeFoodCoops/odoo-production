@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 import pytz
 from openerp import api, fields, models, _
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DF
@@ -40,6 +41,43 @@ class ShiftLeave(models.Model):
     is_send_reminder = fields.Boolean("Send Reminder", default=False)
     event_id = fields.Many2one('shift.counter.event', string="Event Counter")
 
+    is_absence_leave = fields.Boolean()
+    medical_excuse_provided = fields.Boolean()
+    absence_less_than_15days = fields.Boolean(
+        compute='_compute_absence_less_than_15days',
+        store=True
+    )
+
+    state = fields.Selection(selection_add=[('not_finished', 'Not finished')])
+
+    @api.multi
+    @api.constrains('absence_less_than_15days')
+    def _check_absence_less_than_15days(self):
+        for leave in self:
+            if leave.is_absence_leave and leave.absence_less_than_15days:
+                raise ValidationError(
+                    """Le minimum pour une absence pour incapacité \
+                    est de 15 jours.""")
+
+    @api.onchange('type_id')
+    def _onchange_type_id_absence(self):
+        absence_shift_type = self.env['shift.leave.type'].search([
+            ('name', '=', 'Absence pour Incapacité')
+        ])
+        if self.type_id and self.type_id == absence_shift_type:
+            self.is_absence_leave = True
+        else:
+            self.is_absence_leave = False
+
+    @api.multi
+    @api.depends('is_absence_leave', 'duration')
+    def _compute_absence_less_than_15days(self):
+        for leave in self:
+            if leave.is_absence_leave and leave.duration < 15:
+                leave.absence_less_than_15days = True
+            else:
+                leave.absence_less_than_15days = False
+                
     @api.multi
     @api.depends('partner_id', 'type_id', 'stop_date', 'non_defined_leave')
     def _compute_proposed_date(self):
@@ -446,3 +484,59 @@ class ShiftLeave(models.Model):
             leave_to_send.write({
                 'is_send_reminder': True
             })
+
+    @api.multi
+    def send_absence_leave_validated_mail(self):
+        """Send validation email when validated an absence leave"""
+        self.ensure_one()
+        confirmation_message_absence_leave_email = self.env.ref(
+            'coop_membership.confirmation_message_absence_leave_email')
+
+        # Send validated absence leave email
+        if self.is_absence_leave:
+            confirmation_message_absence_leave_email.send_mail(self.id)
+
+    @api.model
+    def cron_send_mail_absence_leave(self):
+        """Send mail about medical_excuse_provided of absence leaves daily"""
+        today = fields.Date.today()
+        today_dt = fields.Date.from_string(today)
+        before_15days = today_dt - relativedelta(days=15)
+        before_22days = today_dt - relativedelta(days=22)
+
+        # Send reminder mail to member if 15 days after leave began
+        # and medical_excuse_provided wasn't checked
+        to_send_reminder_mail_leaves = self.search([
+            ('is_absence_leave', '=', True),
+            ('medical_excuse_provided', '=', False),
+            ('start_date', '=', before_15days),
+        ])
+
+        # Reminder Message
+        reminder_medical_excuse_mail_template = self.env.ref(
+            'coop_membership.reminder_message_absence_leave_email')
+
+        for leave in to_send_reminder_mail_leaves:
+            # Send reminder email
+            reminder_medical_excuse_mail_template.send_mail(leave.id)
+
+        # Send cancellation mail to member if 22 days after leave began
+        # and medical_excuse_provided wasn't checked
+        to_send_cancellation_mail_leaves = self.search([
+            ('is_absence_leave', '=', True),
+            ('medical_excuse_provided', '=', False),
+            ('start_date', '=', before_22days),
+        ])
+
+        # Cancellation Message
+        cancellation_absence_leave_email_template = self.env.ref(
+            'coop_membership.cancellation_message_absence_leave_email')
+        abandon_absence_leave_email = self.env.ref(
+            'coop_membership.abandoned_message_leave_email')
+
+        for leave in to_send_cancellation_mail_leaves:
+            leave.state = 'not_finished'
+            # Send cancellation email
+            cancellation_absence_leave_email_template.send_mail(leave.id)
+            abandon_absence_leave_email.send_mail(leave.id)
+

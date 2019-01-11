@@ -28,6 +28,16 @@
                     <field name="proceed_message"/>
                 </p>
             </xpath>
+            <xpath expr="//sheet/group" position="after">
+                <field name="is_absence_leave" invisible="1"/>
+                <field name="absence_less_than_15days" invisible="1"/>
+                <group col="2" attrs="{'invisible': ['|', ('is_absence_leave', '=', False), ('absence_less_than_15days', '=', False)] }">
+                     <p class='alert alert-warning'>
+                         Le minimum pour une absence pour incapacité est de 15 jours.
+                     </p>
+                </group>
+            </xpath>
+
             <field name="partner_state" position="after">
                 <field name="is_send_reminder" group="base.group_no_one"
                        readonly="1"/>
@@ -35,6 +45,7 @@
                        attrs="{'invisible': [('non_defined_type', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
                        tabindex="5"/>
                 <field name="non_defined_type" invisible="1"/>
+                <field name="medical_excuse_provided" attrs="{'invisible': [('is_absence_leave', '=', False)]}"/>
             </field>
         </field>
     </record>

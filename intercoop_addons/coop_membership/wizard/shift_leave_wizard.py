@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from openerp import api, models
+from openerp import api, fields, models
 
 
 class ShiftLeaveWizard(models.TransientModel):
@@ -13,6 +13,8 @@ class ShiftLeaveWizard(models.TransientModel):
 
         for wiz in self:
             leave = wiz.leave_id
+            if leave.is_absence_leave:
+                leave.send_absence_leave_validated_mail()
 
             if leave.non_defined_type and leave.non_defined_leave:
                 tmpl_name = 'coop_membership.confirm_leave_non_define_email'
