@@ -1659,7 +1659,7 @@ msgid "No end"
 msgstr "Pas de fin"
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_registration.py:237
+#: code:addons/coop_shift/model/shift_registration.py:149
 #, python-format
 msgid "No more available seats for this ticket"
 msgstr "Aucune place restante de ce type"
