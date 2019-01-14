@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_wizard_valuation_history_inherit" model="ir.ui.view">
+            <field name="name">Inventory at Date</field>
+            <field name="model">wizard.valuation.history</field>
+            <field name="inherit_id" ref="stock_account.view_wizard_valuation_history"/>
+            <field name="arch" type="xml">
+                <xpath expr="//footer/button[@name='open_table']" position="after">
+                    <button name="export_xlsx" string="Excel" type="object" class="btn-success"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

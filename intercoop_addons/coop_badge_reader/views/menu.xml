@@ -14,4 +14,10 @@
         <field name="sequence">2</field>
     </record>
 
+    <menuitem
+            name="Alerte entrée"
+            id="menu_alert_entry"
+            action="action_alert_entry"
+            parent="coop_shift.menu_shift_configuration"/>
+
 </odoo>

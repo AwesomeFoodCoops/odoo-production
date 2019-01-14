@@ -202,10 +202,15 @@
     </record>
 
     <!-- Bdm saisie - Comprehensive data entry profile -->
+    <record model="res.groups" id="coop_group_access_res_partner_image">
+        <field name="name">Access Res Partner Image</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+    </record>
+
     <record model="res.groups" id="group_membership_bdm_saisie">
         <field name="name">Membership Data Entry</field>
         <field name="category_id" ref="module_membership_access_management"/>
-        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('coop_group_access_res_partner_image'))]"/>
     </record>
 
     <record model="res.groups" id="group_clean_up">
@@ -230,7 +235,7 @@
         <field name="name">Partner Actions</field>
         <field name="category_id" ref="base.module_category_extra"/>
         <field name="implied_ids"
-               eval="[(4, ref('purchase.group_purchase_manager')), (4, ref('coop_membership.group_membership_access_manager'))]"/>
+               eval="[(3, ref('purchase.group_purchase_manager')), (3, ref('coop_membership.group_membership_access_manager'))]"/>
     </record>
 
     <record model="res.groups" id="coop_group_access_res_partner_inform">

@@ -132,6 +132,8 @@ class ResPartner(models.Model):
     cooperative_state = fields.Selection(
         selection=EXTRA_COOPERATIVE_STATE_SELECTION, default='not_concerned')
 
+    working_state = fields.Selection(selection=EXTRA_COOPERATIVE_STATE_SELECTION)
+
     nb_associated_people = fields.Integer(
         'Number of Associated People',
         compute="_compute_number_of_associated_people",
@@ -204,11 +206,10 @@ class ResPartner(models.Model):
                 raise ValidationError(_("The maximum number of " +
                                         "associated people has been exceeded."))
 
-
     @api.multi
     @api.depends('is_associated_people', 'parent_id.shift_type')
     def _compute_shift_type(self):
-        for partner in self:
+        for partner in self.sorted(key=lambda p: p.is_associated_people):
             if partner.is_associated_people and partner.parent_id:
                 partner.shift_type = partner.parent_id.shift_type
             else:
@@ -456,6 +457,8 @@ class ResPartner(models.Model):
 
     @api.multi
     def write(self, vals):
+        asscociated_member_ids = self.filtered(
+            lambda p: p.is_associated_people).ids
         res = super(ResPartner, self).write(vals)
         for partner in self:
             self._generate_associated_barcode(partner)
@@ -464,6 +467,14 @@ class ResPartner(models.Model):
                 not 'name' in vals):
             for partner in self:
                 partner.name = partner.name
+
+        if 'parent_id' in vals:
+            # Update is_former_associated_people to true
+            # if an associated member had been removed from its parent
+            if not vals.get('parent_id'):
+                for partner in self:
+                    if partner.id in asscociated_member_ids:
+                        partner.is_former_associated_people = True
         return res
 
     # Custom Section
@@ -813,6 +824,16 @@ class ResPartner(models.Model):
             if node:
                 node[0].set("readonly", "1")
                 setup_modifiers(node[0], res['fields']['contact_us_message'])
+        can_modify_partner_photo = self.user_has_groups(
+            cr, uid,
+            'coop_membership.coop_group_access_res_partner_image'
+        )
+        if can_modify_partner_photo:
+            node = doc.xpath("//field[@name='image']")
+            if node:
+                node[0].set("readonly", "0")
+                setup_modifiers(node[0], res['fields']['image'])
+
         res['arch'] = etree.tostring(doc)
         return res
 

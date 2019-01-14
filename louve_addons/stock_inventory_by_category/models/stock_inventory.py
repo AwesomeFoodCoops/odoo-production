@@ -37,8 +37,9 @@ class StockInventory(models.Model):
                 cr, uid,
                 [('categ_id', 'in', [c.id for c in inventory.category_ids])],
                 context=context)
-            domain += ' and product_id In %s'
-            args += (tuple(products),)
+            if products:
+                domain += ' and product_id In %s'
+                args += (tuple(products),)
             cr.execute('''
                SELECT product_id, sum(qty) as product_qty, location_id,
                lot_id as prod_lot_id, package_id, owner_id as partner_id
@@ -54,18 +55,26 @@ class StockInventory(models.Model):
                 product_quant_dict)
 
             # Get products with category and not stock quant
-            cr.execute('''
-               SELECT pp.id as product_id, '' as product_qty,
+            query_str = """
+            SELECT pp.id as product_id, '' as product_qty,
                %s as location_id,
                '' as prod_lot_id, '' as package_id, '' as partner_id
                FROM product_product pp
                JOIN product_template pt
                ON pp.product_tmpl_id = pt.id
-               WHERE pt.categ_id in %s AND pp.id NOT IN %s AND pp.active = True
-               GROUP BY product_id, location_id, prod_lot_id, package_id,
-               partner_id
-            ''' % (inventory.location_id.id, product_categ_ids,
-                   product_stock_ids))
+               WHERE pt.categ_id in %s AND pp.active = True
+            """
+            group_by_clause = """
+                GROUP BY product_id, location_id, prod_lot_id, package_id, 
+                partner_id
+            """
+            params = [inventory.location_id.id, product_categ_ids]
+            if product_stock_ids:
+                query_str += " AND pp.id NOT IN %s"
+                params.append(product_stock_ids)
+
+            computed_query_str = (query_str + group_by_clause) % tuple(params)
+            cr.execute(computed_query_str)
             product_not_quant_dict = cr.dictfetchall()
 
             # Get all product with stock quant and without stock quant
@@ -91,6 +100,10 @@ class StockInventory(models.Model):
             for key, value in line.items():
                 if key == 'product_id':
                     product_stock_lst.append(value)
-        product_stock_ids = '(%s)' % ','.join(str(product_stock_id)
-                                    for product_stock_id in product_stock_lst)
+        if not product_stock_lst:
+            return ''
+        product_stock_ids = '(%s)' % ','.join(
+            str(product_stock_id)
+            for product_stock_id in product_stock_lst
+        )
         return product_stock_ids

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <report
+            id="report_stock_inventory_xlsx"
+            model="wizard.valuation.history"
+            name="stock_inventory_xlsx"
+            file="stock_inventory_xlsx"
+            report_type="xlsx"
+            string="Stock Inventory At Date"
+        />
+    </data>
+</openerp>
