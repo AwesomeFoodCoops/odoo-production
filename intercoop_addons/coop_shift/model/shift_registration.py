@@ -84,6 +84,13 @@ class ShiftRegistration(models.Model):
     is_related_shift_ftop = fields.Boolean(
         compute='compute_is_related_shift_ftop', store=False)
 
+    replacing_partner_id = fields.Many2one(
+        comodel_name='res.partner',
+        string="Replacing Member",
+        related="replacing_reg_id.partner_id",
+        store=True
+    )
+
     exchange_state = fields.Selection([
         ('draft', 'Draft'),
         ('in_progress', 'In Progress'),

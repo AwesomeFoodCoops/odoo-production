@@ -3452,3 +3452,9 @@ msgstr "Disponibilité des places"
 #, python-format
 msgid "You can't register this line because it would create an overlap with another line for this member"
 msgstr "La période de cette inscription est en recouvrement avec une autre inscription pour ce membre. Enregistrement impossible"
+
+#. module: coop_shift
+#: model:ir.actions.act_window,name:coop_shift.action_shift_shift_registration_exchanges
+#: model:ir.ui.menu,name:coop_shift.menu_shift_registration_exchanges
+msgid "Exchanges"
+msgstr "Échanges"
