@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime
 from openerp import api, fields, models
 
 
@@ -11,11 +10,24 @@ class WizardValuationHistory(models.TransientModel):
     @api.multi
     def export_xlsx(self):
         self.ensure_one()
+        fmt_datetime = "%d/%m/%Y %H:%M:%S"
+        user_tz = self._context.get('tz', self.env.user.tz) or 'UTC'
+        self_with_ctx = self.with_context(tz=user_tz)
+        inventory_dt = fields.Datetime.context_timestamp(
+            self_with_ctx, fields.Datetime.from_string(self.date)
+        )
+        today_dt = fields.Datetime.context_timestamp(
+            self_with_ctx, fields.Datetime.from_string(fields.Datetime.now())
+        )
+        inventory_dt_str = inventory_dt.strftime(fmt_datetime)
+        today_dt_str = today_dt.strftime(fmt_datetime)
+
         datas = dict()
         res = self.env['report'].get_action(self, "stock_inventory_xlsx")
         datas['context'] = self._context
         datas['history_values_lst'] = self.get_history_datas()
-        datas['date'] = self.date or fields.Datetime.now()
+        datas['inventory_date'] = inventory_dt_str
+        datas['print_date'] = today_dt_str
         res.update({
             'datas': datas,
         })
