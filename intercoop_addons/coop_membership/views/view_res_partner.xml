@@ -40,7 +40,9 @@
                                 groups="coop_shift.group_shift_manager,
                                 coop_membership.group_membership_access_user,
                                 coop_membership.group_membership_bdm_lecture,
-                                coop_membership.group_membership_bdm_saisie">
+                                coop_membership.group_membership_bdm_saisie"
+                                attrs="{'invisible': [('is_member', '!=', True)]}"
+                        >
                             <field name="current_extension_day_end" 
                                 attrs="{'invisible':[('current_extension_day_end', '=', False)]}"/>
                             <span attrs="{'invisible':[('current_extension_day_end', '!=', False)]}">Ext.</span>
@@ -81,7 +83,9 @@
                                 groups="coop_shift.group_shift_see_leave,
                                 coop_membership.group_membership_bdm_lecture,
                                 coop_membership.group_membership_bdm_saisie"
-                                id="view_shift_leaves">
+                                id="view_shift_leaves"
+                                attrs="{'invisible': [('is_member', '!=', True)]}"
+                        >
                             <field name="current_leave_info" 
                                    attrs="{'invisible':[('current_leave_info', '=', False)]}"/>
                             <span attrs="{'invisible':[('current_leave_info', '!=', False)]}">Leaves</span>
@@ -165,7 +169,9 @@
                                 coop_membership.group_membership_access_user,
                                 coop_membership.group_membership_bdm_lecture,
                                 coop_membership.group_membership_bdm_saisie"
-                                id="view_res_partner_point_counter_standard">
+                                id="view_res_partner_point_counter_standard"
+                                attrs="{'invisible': [('is_member', '!=', True)]}"
+                        >
                             <field name="display_std_points" widget="statinfo"
                                    string="ABCD"/>
                         </button>
@@ -179,7 +185,9 @@
                                 coop_membership.group_membership_access_user,
                                 coop_membership.group_membership_bdm_lecture,
                                 coop_membership.group_membership_bdm_saisie"
-                                id="view_res_partner_point_counter_ftop">
+                                id="view_res_partner_point_counter_ftop"
+                                attrs="{'invisible': [('is_member', '!=', True)]}"
+                        >
                             <field name="display_ftop_points" widget="statinfo"
                                    string="Vacations"/>
                         </button>
@@ -189,7 +197,9 @@
                                 class="oe_stat_button"
                                 icon="fa-calendar"
                                 help="View Partner Owned Shares"
-                                groups="coop_membership.group_membership_access_manager">
+                                groups="coop_membership.group_membership_access_manager"
+                                attrs="{'invisible': [('is_member', '!=', True)]}"
+                        >
                             <field name="total_partner_owned_share"
                                    widget="statinfo" string="Owned Shares"/>
                         </button>
@@ -225,7 +235,7 @@
 
                     <group>
                         <group>
-                            <field name="inform_ids" widget="many2many_tags"/>
+                            <field name="inform_ids" widget="many2many_tags" attrs="{'invisible': [('is_member', '!=', True)]}"/>
                         </group>
                         <group>
                             <field name="next_ftop_registration_date" class="bold_type"
@@ -237,7 +247,9 @@
                                 widget="many2many_tags"
                                 groups="coop_membership.group_membership_bdm_presence,
                                        coop_membership.group_membership_bdm_lecture,
-                                       coop_membership.group_membership_bdm_saisie">
+                                       coop_membership.group_membership_bdm_saisie"
+                                attrs="{'invisible': [('is_member', '!=', True)]}"
+                            >
                                 <tree>
                                     <field name="shift_id"/>
                                 </tree>
@@ -462,7 +474,7 @@
                                 </tree>
                             </field>
 
-                            <field name="sex" attrs="{'required': [('company_type', '=', 'person')], 'invisible' : [('company_type', '=', 'company')]}"/>
+                            <field name="sex" attrs="{'required': ['&amp;', ('company_type', '=', 'person'), ('is_member', '=', True)], 'invisible' : [('company_type', '=', 'company')]}"/>
                             <field name="is_deceased"
                                    groups="coop_membership.group_membership_see_associated_people,
                                    coop_membership.group_membership_access_user,
