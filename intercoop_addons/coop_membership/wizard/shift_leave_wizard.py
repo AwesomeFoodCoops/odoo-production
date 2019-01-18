@@ -9,10 +9,18 @@ class ShiftLeaveWizard(models.TransientModel):
     @api.multi
     def button_confirm(self):
         res = super(ShiftLeaveWizard, self).button_confirm()
+        anticipated_leave_type = self.env['shift.leave.type'].search([
+            ('name', 'like', u'Congé anticipé')
+        ], limit=1)
         tmpl_name = self._context.get('leave_mail_tmpl', False)
 
         for wiz in self:
             leave = wiz.leave_id
+            if leave.type_id == anticipated_leave_type:
+                anticipated_mail = self.env.ref(
+                    'coop_membership.confirmation_anticipated_leave_email')
+                anticipated_mail.send_mail(leave.id)
+
             if leave.is_absence_leave:
                 leave.send_absence_leave_validated_mail()
 
