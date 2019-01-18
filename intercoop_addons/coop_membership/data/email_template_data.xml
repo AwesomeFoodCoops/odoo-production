@@ -496,4 +496,60 @@ Pour tout renseignement, contactez le bureau des membres pendant ses horaires d�
 <span>L A   L O U V E</span>
 ]]></field>
     </record>
+
+    <record id="notify_mirror_children_email" model="mail.template">
+        <field name="name">Notify mirror children</field>
+        <field name="model_id" ref="coop_membership.model_res_partner"/>
+        <field name="email_from">bureau.membres@cooplalouve.fr</field>
+        <field name="email_to" >${object.parent_id and object.parent_id.email|safe}</field>
+        <field name="lang">${(object.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">Votre enfant rattaché(e)</field>
+        <field name="body_html"><![CDATA[
+<style>
+#notify-mirror-children ol {
+  counter-reset: item;
+  margin-left: 0;
+  padding-left: 0;
+}
+#notify-mirror-children > ol > li {
+  display: block;
+  margin-bottom: .5em;
+  margin-left: 2em;
+}
+#notify-mirror-children > ol > li::before {
+  display: inline-block;
+  content: counter(item) ") ";
+  counter-increment: item;
+  width: 2em;
+  margin-left: -2em;
+}
+</style>
+<div id="notify-mirror-children">
+<p>Bonjour, </p>
+<p>
+Votre enfant rattaché va bientôt avoir 18 ans. On lui souhaite en avance un joyeux anniversaire.
+</p>
+<p>
+Le jour de son anniversaire, il / elle sera dissocié(e) de votre compte et perdra ses droits d’acheteur à La Louve.
+S’il / elle souhaite continuer à faire des courses à La Louve, il y a 2 possibilités :
+</p>
+<ol>
+<li>Il / elle devient membre de La Louve.
+Il faut visiter notre site web et s’inscrire à une réunion d’accueil, puis suivre la démarche que vous avez fait pour devenir membre de La Louve.
+</li>
+<li>Il / elle devient rattaché(e) adulte… une possibilité uniquement si vous n’avez pas déjà un autre adulte dans votre menage associé à votre compte à La Louve.
+Pour qu’il / elle devient adulte rattaché(e), il faut que vous passiez tous les deux au Bureau des membres pendant les horaires d’ouverture.
+Votre enfant doit apporter une pièce d’identité et un justificatif qui montre qu’il / elle habite à la meme adresse que vous.
+</li>
+</ol>
+<p>
+Bonne journée,
+</p>
+<p>L A   L O U V E</p>
+</div>
+]]>
+        </field>
+    </record>
+
 </odoo>
