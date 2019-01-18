@@ -18,6 +18,7 @@
             name="Alerte entrée"
             id="menu_alert_entry"
             action="action_alert_entry"
+            groups="coop_badge_reader.group_alert_entry_manager"
             parent="coop_shift.menu_shift_configuration"/>
 
 </odoo>
