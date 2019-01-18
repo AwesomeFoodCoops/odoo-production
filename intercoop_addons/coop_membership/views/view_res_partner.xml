@@ -625,7 +625,9 @@
                                                        widget="date"
                                                        groups="coop_membership.group_membership_see_associated_people,
                                                        coop_membership.group_membership_access_user,
-                                                       coop_membership.group_membership_bdm_saisie"/>
+                                                       coop_membership.group_membership_bdm_saisie"
+                                                       attrs="{'required': [('is_minor_child', '=', True)]}"
+                                                />
                                                 <field name="age"
                                                        attrs="{'invisible': [('age', '=', 0)]}"
                                                        groups="coop_membership.group_membership_see_associated_people,
@@ -658,6 +660,7 @@
                                                        coop_membership.group_membership_access_user,
                                                        coop_membership.group_membership_bdm_saisie"/>
                                                 <field name="is_designated_buyer" />
+                                                <field name="is_minor_child" />
                                             </group>
                                         </group>
                                         <field name="supplier" invisible="True"/>
