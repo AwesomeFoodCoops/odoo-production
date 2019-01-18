@@ -155,3 +155,7 @@ msgstr "Statut Avec Problème"
 msgid "Work Problem"
 msgstr "Problème de Shift"
 
+#. module: coop_badge_reader
+#: model:res.groups,name:coop_badge_reader.group_alert_entry_manager
+msgid "Access Alert"
+msgstr "Alerte entrée"
