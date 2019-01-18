@@ -45,8 +45,8 @@
                 <field name="non_defined_leave"
                        attrs="{'invisible': [('non_defined_type', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
                        tabindex="5"/>
-                <field name="non_defined_type" invisible="1"/>
                 <field name="medical_excuse_provided" attrs="{'invisible': [('is_absence_leave', '=', False)]}"/>
+                <field name="non_defined_type" invisible="1"/>
             </field>
         </field>
     </record>
