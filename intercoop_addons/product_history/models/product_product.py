@@ -22,7 +22,7 @@
 ##############################################################################
 
 from openerp import models, fields, api
-from datetime import date
+from datetime import date, time
 from datetime import datetime as dt
 from datetime import timedelta as td
 from dateutil.relativedelta import relativedelta as rd
@@ -165,7 +165,7 @@ class ProductProduct(models.Model):
         product_ids = products.ids
 
         # Split product list in multiple parts
-        num_prod_per_job = 100
+        num_prod_per_job = 50
         splited_prod_list = \
             [product_ids[i: i + num_prod_per_job]
              for i in range(0, len(product_ids), num_prod_per_job)]
@@ -175,6 +175,28 @@ class ProductProduct(models.Model):
         # Create jobs
         for product_list in splited_prod_list:
             job_compute_history.delay(
+                session, 'product.product', 'weeks', product_list)
+
+    @api.model
+    def run_recompute_6weeks_product_history(self):
+        # This method is called by the cron task
+        products = self.env['product.product'].search([
+            '|', ('active', '=', True),
+            ('active', '=', False)])
+
+        product_ids = products.ids
+
+        # Split product list into multiple parts
+        num_prod_per_job = 50
+        splited_prod_list = \
+            [product_ids[i: i + num_prod_per_job]
+             for i in range(0, len(product_ids), num_prod_per_job)]
+        # Prepare session for job
+        session = ConnectorSession(
+            self._cr, self._uid, context=self.env.context)
+        # Create jobs
+        for product_list in splited_prod_list:
+            job_recompute_last_6weeks_history.delay(
                 session, 'product.product', 'weeks', product_list)
 
     @api.model
@@ -196,7 +218,7 @@ class ProductProduct(models.Model):
 
     @api.multi
     def _compute_history(self, history_range):
-        now = date.today()
+        to_date = date.today()
         if history_range == "months":
             delta = rd(months=1)
         elif history_range == "weeks":
@@ -222,6 +244,7 @@ class ProductProduct(models.Model):
                     last_record[0], "%Y-%m-%d").date() or old_date
                 last_qty = last_record and last_record[1] or 0
                 from_date = last_date + td(days=1)
+
             else:
                 self.env.cr.execute(
                     """SELECT date FROM stock_move
@@ -229,7 +252,7 @@ class ProductProduct(models.Model):
                     % (product.id))
                 fetch = self.env.cr.fetchone()
                 from_date = fetch and dt.strptime(
-                    fetch[0].split(" ")[0], "%Y-%m-%d").date() or now
+                    fetch[0].split(" ")[0], "%Y-%m-%d").date() or to_date
                 if history_range == "months":
                     from_date = date(
                         from_date.year, from_date.month, 1)
@@ -275,7 +298,7 @@ class ProductProduct(models.Model):
             last_qty = last_qtys.get(product_id, 0)
             history_id = False
 
-            while from_date + delta <= now:
+            while from_date + delta <= to_date:
                 stock_moves_product_dates = []
                 start_qty = last_qty
                 last_date = from_date + delta - td(days=1)
@@ -354,9 +377,114 @@ class ProductProduct(models.Model):
                 else:
                     product.last_history_day = history_id.id
 
+    @api.multi
+    def recompute_last_6weeks_history(self):
+        for product in self:
+            history_ids = self.env['product.history'].search([
+                ('history_range', '=', 'weeks'),
+                ('product_id', '=', product.id)
+            ], order="id desc", limit=7)
+            if history_ids:
+                length = len(history_ids)
+                last_6weeks_histories = history_ids[:6]
+                past_7th_history = history_ids[-1]
+
+                # Remove the last 6 weeks histories
+                last_6weeks_histories.unlink()
+
+                if length == 7:
+                    to_date = past_7th_history.to_date
+                    to_date_dt = fields.Date.from_string(to_date)
+                    ending_qty = product.get_stock_inventory_at(
+                        to_date_dt).get(product.id, 0)
+                    past_7th_history.write(dict(end_qty=ending_qty))
+
+    @api.multi
+    def get_stock_inventory_at(self, at_date=False):
+        values = {}
+        if not at_date:
+            at_date = fields.Datetime.now()
+        elif isinstance(at_date, date):
+            at_date = dt.combine(at_date, time(23, 59, 59))
+
+        if isinstance(at_date, dt):
+            at_date = fields.Datetime.to_string(at_date)
+
+        query = """
+SELECT product_id, sum(quantity) AS quantity
+FROM   
+(
+    (
+        SELECT sum(quant.qty) AS quantity,
+                stock_move.product_id AS product_id
+        FROM   stock_quant AS quant
+        JOIN stock_quant_move_rel
+            ON stock_quant_move_rel.quant_id = quant.id
+        JOIN stock_move
+            ON stock_move.id = stock_quant_move_rel.move_id
+        JOIN stock_location dest_location
+            ON stock_move.location_dest_id = dest_location.id
+        JOIN stock_location source_location
+            ON stock_move.location_id = source_location.id
+        WHERE  quant.qty > 0
+            AND stock_move.state = 'done'
+            AND dest_location.usage IN ( 'internal', 'transit' )
+            AND ( NOT ( source_location.company_id IS NULL
+                        AND dest_location.company_id IS NULL )
+                    OR source_location.company_id != dest_location.company_id
+                    OR source_location.usage NOT IN ( 'internal', 'transit' )
+                )
+            AND stock_move.date <= %s
+            AND stock_move.product_id = %s
+         GROUP  BY stock_move.product_id
+    )
+    UNION ALL
+    (
+        SELECT sum(-quant.qty)       AS quantity,
+                stock_move.product_id AS product_id
+        FROM   stock_quant AS quant
+        JOIN stock_quant_move_rel
+            ON stock_quant_move_rel.quant_id = quant.id
+        JOIN stock_move
+            ON stock_move.id = stock_quant_move_rel.move_id
+        JOIN stock_location source_location
+            ON stock_move.location_id = source_location.id
+        JOIN stock_location dest_location
+            ON stock_move.location_dest_id = dest_location.id
+        WHERE  quant.qty > 0
+            AND stock_move.state = 'done'
+            AND source_location.usage IN ( 'internal', 'transit' )
+            AND ( NOT ( dest_location.company_id IS NULL
+                        AND source_location.company_id IS NULL )
+                    OR dest_location.company_id != source_location.company_id
+                    OR dest_location.usage NOT IN ( 'internal', 'transit' ) 
+                )
+            AND stock_move.date <= %s
+            AND stock_move.product_id = %s
+        GROUP  BY stock_move.product_id
+    )
+) AS foo
+GROUP  BY product_id
+
+"""
+        for product in self:
+            product.env.cr.execute(
+                query, (at_date, product.id, at_date, product.id))
+            result = product.env.cr.fetchall()
+            values[product.id] = result and result[0][1] or 0
+
+        return values
+
 
 @job
 def job_compute_history(session, model_name, history_range, product_ids):
-    ''' Job for Computing Product History '''
+    """ Job for Computing Product History """
     products = session.env[model_name].browse(product_ids)
     products._compute_history(history_range)
+
+
+@job
+def job_recompute_last_6weeks_history(session, model_name, history_range, product_ids):
+    """ Job for Recompute the last 6 weeks Product History """
+    products = session.env[model_name].browse(product_ids)
+    products.recompute_last_6weeks_history()
