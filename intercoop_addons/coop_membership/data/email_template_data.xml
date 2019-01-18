@@ -369,7 +369,7 @@ Vous aviez fait la demande d’un congé pour incapacité auprès du Bureau des 
 Pour que ce congé puisse être validé, vous aviez 3 semaines pour nous presenter un justificatif médical.
 Sauf erreur de notre part, nous n’avons pas vu ce document.
 </div>
-<p>Votre congé n’a donc pas abouti.Votre congé n’a donc pas abouti.</p>
+<p>Votre congé n’a donc pas abouti.</p>
 <p>Les services manqués pendant votre absence sont désormais enregistrés comme des services manqués.</p>
 <p>Pour régulariser votre situation, contactez le bureau des membres pendant ses horaires d’ouverture :</p>
 <p>
@@ -435,44 +435,7 @@ Sauf erreur de notre part, nous n’avons pas vu ce document.
         <field name="subject">Rappel justificatif</field>
         <field name="body_html"><![CDATA[
 <p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
-<p>Votre absence pour incapacité du ${object.start_date} au ${object.stop_date} a été enregistré.</p>
-<span>Sauf erreur de notre part, nous n’avons toujours pas vu de justificatif médical.</span>
-<br/>
-<span>Il vous reste une semaine pour nous le presenter ou l’envoyer à :</span>
-<br/>
-<p>bureau.membres@cooplalouve.fr.</p>
-<p>Sans ce document, votre congé sera rétroactivement annulé.</p>
-<p>Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :</p>
-<p>
-    <span>Mardi : 13h30 - 16h</span>
-    <br />
-    <span>Mercredi à Vendredi : 13h30 - 20h</span>
-    <br />
-    <span>Samedi : 10h - 16h</span>
-    <br />
-</p>
-<p>01 86 95 91 90</p>
-<span>Bonne journée,</span>
-<br/>
-<span>Le Bureau des membres</span>
-<br/>
-<span>L A   L O U V E</span>
-]]>
-        </field>
-    </record>
-
-    <!--Reminder Message-->
-    <record id="reminder_message_absence_leave_email" model="mail.template">
-        <field name="name">Reminder Message Absence Leave Email</field>
-        <field name="model_id" ref="coop_membership.model_shift_leave"/>
-        <field name="email_from">bureau.membres@cooplalouve.fr</field>
-        <field name="email_to" >${object.partner_id.email|safe}</field>
-        <field name="lang">${(object.partner_id.lang)|safe}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Rappel justificatif</field>
-        <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
-<p>Votre absence pour incapacité du ${object.start_date} au ${object.stop_date} a été enregistré.</p>
+<p>Votre absence pour incapacité du ${object.start_date} au ${object.stop_date} a été enregistrée.</p>
 <span>Sauf erreur de notre part, nous n’avons toujours pas vu de justificatif médical.</span>
 <br/>
 <span>Il vous reste une semaine pour nous le presenter ou l’envoyer à :</span>
