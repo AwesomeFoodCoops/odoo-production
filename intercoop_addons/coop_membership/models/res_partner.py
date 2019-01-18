@@ -167,6 +167,8 @@ class ResPartner(models.Model):
         store=True
     )
 
+    is_minor_child = fields.Boolean(string='Enfant mineur')
+
     # Constraint Section
     @api.multi
     @api.constrains('is_member',
@@ -545,6 +547,63 @@ class ResPartner(models.Model):
         partners.write({
             'active': False
         })
+
+    @api.model
+    def cron_send_notify_mirror_children_email(self):
+        today_dt = fields.Date.from_string(fields.Date.today())
+        today_dt_last_18years = \
+            today_dt - relativedelta(years=18) + relativedelta(weeks=2)
+        today_dt_last_18years_tr = today_dt_last_18years.strftime("%Y-%m-%d")
+        query = """
+            SELECT id
+            FROM res_partner 
+            WHERE to_date(birthdate, 'YYYY-MM-DD') <= %s 
+            AND parent_id IS NOT NULL 
+            AND is_associated_people IS TRUE
+            AND is_minor_child IS TRUE
+        """
+        self.env.cr.execute(
+            query, (today_dt_last_18years_tr,)
+        )
+        result = self.env.cr.fetchall()
+        if result:
+            notify_email_template = self.env.ref(
+                'coop_membership.notify_mirror_children_email')
+            to_notify_member_ids = [item[0] for item in result]
+            to_notify_members = self.browse(to_notify_member_ids)
+            if notify_email_template:
+                for member in to_notify_members:
+                    notify_email_template.send_mail(member.id)
+
+    @api.model
+    def cron_update_mirror_children(self):
+        today_dt = fields.Date.from_string(fields.Date.today())
+        today_dt_last_18years = today_dt - relativedelta(years=18)
+        today_dt_last_18years_tr = today_dt_last_18years.strftime("%Y-%m-%d")
+        query = """
+            SELECT id
+            FROM res_partner 
+            WHERE to_date(birthdate, 'YYYY-MM-DD') <= %s 
+            AND parent_id IS NOT NULL 
+            AND is_associated_people IS TRUE
+            AND is_minor_child IS TRUE
+            """
+        self.env.cr.execute(
+            query, (today_dt_last_18years_tr,)
+        )
+        result = self.env.cr.fetchall()
+        if result:
+            to_update_member_ids = [item[0] for item in result]
+            to_update_members = self.browse(to_update_member_ids)
+            to_update_members.write({
+                'parent_id': False,
+            })
+
+            # Need to write again field `is_former_associated_people`
+            to_update_members.write({
+                'is_former_associated_people': False,
+                'is_member': True,
+            })
 
     # View section
     @api.multi
