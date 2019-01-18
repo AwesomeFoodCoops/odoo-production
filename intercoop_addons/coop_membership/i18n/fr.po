@@ -1963,3 +1963,8 @@ msgstr "Non-aboutie"
 #: model:ir.model.fields,field_description:coop_membership.field_shift_ticket_available_seat_ftop
 msgid "Available Seats FTOP"
 msgstr "Vacations disponibles"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_leave_medical_excuse_provided
+msgid "Medical excuse provided"
+msgstr "Justificatif medical rendu"
