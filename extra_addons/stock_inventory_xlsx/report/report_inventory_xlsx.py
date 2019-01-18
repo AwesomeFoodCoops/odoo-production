@@ -6,7 +6,7 @@ from xlsxwriter.utility import xl_rowcol_to_cell
 from openerp.addons.report_xlsx.report.report_xlsx import ReportXlsx
 from openerp.api import Environment
 from openerp import SUPERUSER_ID
-from openerp import fields
+from openerp import fields, _
 
 
 class ReportStockInventoryXlsx(ReportXlsx):
@@ -79,14 +79,12 @@ class ReportStockInventoryXlsx(ReportXlsx):
     def generate_report_general(self, data):
         row_pos = self.row_pos
         col_pos = 0
-        fmt_datetime = "%d/%m/%Y %H:%M:%S"
-        today = fields.Date.from_string(fields.Datetime.now())
-        format_today_str = today.strftime(fmt_datetime)
+        print_date_str = data.get('print_date', '')
         created_at_header = u'Créé le : '
         self.sheet.write_rich_string(
             row_pos, col_pos,
             self.format_bold, created_at_header,
-            self.format_default, format_today_str
+            self.format_default, print_date_str
         )
         row_pos += 1
 
@@ -100,14 +98,12 @@ class ReportStockInventoryXlsx(ReportXlsx):
         )
 
         row_pos += 1
-        inventory_date_str = data.get('date')
-        inventory_date_dt = fields.Datetime.from_string(inventory_date_str)
-        format_inventory_date_str = inventory_date_dt.strftime(fmt_datetime)
+        inventory_date_str = data.get('inventory_date', '')
         inventory_at_header = u'Inventaire au : '
         self.sheet.write_rich_string(
             row_pos, col_pos,
             self.format_bold, inventory_at_header,
-            self.format_default, format_inventory_date_str
+            self.format_default, inventory_date_str
         )
         row_pos += 1
         self.row_pos = row_pos
@@ -140,7 +136,7 @@ class ReportStockInventoryXlsx(ReportXlsx):
             else:
                 is_summary_section = True
                 history_values = {
-                    'internal_ref': 'Total',
+                    'internal_ref': _('Total'),
                     'barcode': '',
                     'name': '',
                     'quantity': '',
