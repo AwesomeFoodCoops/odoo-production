@@ -369,7 +369,7 @@ Vous aviez fait la demande d’un congé pour incapacité auprès du Bureau des 
 Pour que ce congé puisse être validé, vous aviez 3 semaines pour nous presenter un justificatif médical.
 Sauf erreur de notre part, nous n’avons pas vu ce document.
 </div>
-<p>Votre congé n’a donc pas abouti.Votre congé n’a donc pas abouti.</p>
+<p>Votre congé n’a donc pas abouti.</p>
 <p>Les services manqués pendant votre absence sont désormais enregistrés comme des services manqués.</p>
 <p>Pour régulariser votre situation, contactez le bureau des membres pendant ses horaires d’ouverture :</p>
 <p>
@@ -461,25 +461,25 @@ Sauf erreur de notre part, nous n’avons pas vu ce document.
         </field>
     </record>
 
-    <!--Reminder Message-->
-    <record id="reminder_message_absence_leave_email" model="mail.template">
-        <field name="name">Reminder Message Absence Leave Email</field>
+    <record id="confirmation_anticipated_leave_email" model="mail.template">
+        <field name="name">Confirmation Anticipated Leave Email</field>
         <field name="model_id" ref="coop_membership.model_shift_leave"/>
         <field name="email_from">bureau.membres@cooplalouve.fr</field>
         <field name="email_to" >${object.partner_id.email|safe}</field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Rappel justificatif</field>
+        <field name="subject">Confirmation de votre demande de congé </field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
-<p>Votre absence pour incapacité du ${object.start_date} au ${object.stop_date} a été enregistré.</p>
-<span>Sauf erreur de notre part, nous n’avons toujours pas vu de justificatif médical.</span>
-<br/>
-<span>Il vous reste une semaine pour nous le presenter ou l’envoyer à :</span>
-<br/>
-<p>bureau.membres@cooplalouve.fr.</p>
-<p>Sans ce document, votre congé sera rétroactivement annulé.</p>
-<p>Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :</p>
+<p>
+Bonjour ${object.partner_id.name.split(',')[0]},
+</p>
+<p>
+Votre demande de congé anticipé du ${object.start_date} au ${object.stop_date} a été bien enregistrée.
+Pendant cette période vous pouvez faire vos courses sans venir faire vos services. Une fois le congé terminé, vous serez attendu à votre prochain service.
+</p>
+<p>
+Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :
+</p>
 <p>
     <span>Mardi : 13h30 - 16h</span>
     <br />
@@ -494,7 +494,62 @@ Sauf erreur de notre part, nous n’avons pas vu ce document.
 <span>Le Bureau des membres</span>
 <br/>
 <span>L A   L O U V E</span>
+]]></field>
+    </record>
+
+    <record id="notify_mirror_children_email" model="mail.template">
+        <field name="name">Notify mirror children</field>
+        <field name="model_id" ref="coop_membership.model_res_partner"/>
+        <field name="email_from">bureau.membres@cooplalouve.fr</field>
+        <field name="email_to" >${object.parent_id and object.parent_id.email|safe}</field>
+        <field name="lang">${(object.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">Votre enfant rattaché(e)</field>
+        <field name="body_html"><![CDATA[
+<style>
+#notify-mirror-children ol {
+  counter-reset: item;
+  margin-left: 0;
+  padding-left: 0;
+}
+#notify-mirror-children > ol > li {
+  display: block;
+  margin-bottom: .5em;
+  margin-left: 2em;
+}
+#notify-mirror-children > ol > li::before {
+  display: inline-block;
+  content: counter(item) ") ";
+  counter-increment: item;
+  width: 2em;
+  margin-left: -2em;
+}
+</style>
+<div id="notify-mirror-children">
+<p>Bonjour, </p>
+<p>
+Votre enfant rattaché va bientôt avoir 18 ans. On lui souhaite en avance un joyeux anniversaire.
+</p>
+<p>
+Le jour de son anniversaire, il / elle sera dissocié(e) de votre compte et perdra ses droits d’acheteur à La Louve.
+S’il / elle souhaite continuer à faire des courses à La Louve, il y a 2 possibilités :
+</p>
+<ol>
+<li>Il / elle devient membre de La Louve.
+Il faut visiter notre site web et s’inscrire à une réunion d’accueil, puis suivre la démarche que vous avez fait pour devenir membre de La Louve.
+</li>
+<li>Il / elle devient rattaché(e) adulte… une possibilité uniquement si vous n’avez pas déjà un autre adulte dans votre menage associé à votre compte à La Louve.
+Pour qu’il / elle devient adulte rattaché(e), il faut que vous passiez tous les deux au Bureau des membres pendant les horaires d’ouverture.
+Votre enfant doit apporter une pièce d’identité et un justificatif qui montre qu’il / elle habite à la meme adresse que vous.
+</li>
+</ol>
+<p>
+Bonne journée,
+</p>
+<p>L A   L O U V E</p>
+</div>
 ]]>
         </field>
     </record>
+
 </odoo>

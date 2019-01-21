@@ -84,6 +84,13 @@ class ShiftRegistration(models.Model):
     is_related_shift_ftop = fields.Boolean(
         compute='compute_is_related_shift_ftop', store=False)
 
+    replacing_partner_id = fields.Many2one(
+        comodel_name='res.partner',
+        string="Replacing Member",
+        related="replacing_reg_id.partner_id",
+        store=True
+    )
+
     exchange_state = fields.Selection([
         ('draft', 'Draft'),
         ('in_progress', 'In Progress'),
@@ -143,8 +150,9 @@ class ShiftRegistration(models.Model):
         if not vals.get('template_created', False):
             shift_ticket_id = vals.get('shift_ticket_id', False)
             shift_ticket = self.env['shift.ticket'].browse(shift_ticket_id)
-            if shift_ticket and shift_ticket.seats_max and \
-                    shift_ticket.seats_available <= 0:
+            if shift_ticket and shift_ticket.shift_type != 'standard' \
+                    and shift_ticket.seats_max \
+                    and shift_ticket.seats_available <= 0:
                 raise UserError(_('No more available seats for this ticket'))
         reg_id = super(ShiftRegistration, self).create(vals)
         if reg_id.shift_id.state == "confirm":
