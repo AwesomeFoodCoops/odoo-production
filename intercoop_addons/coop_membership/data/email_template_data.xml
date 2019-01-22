@@ -552,4 +552,50 @@ Bonne journée,
         </field>
     </record>
 
+    <record id="notify_un_subscription_ftpop_email" model="mail.template">
+        <field name="name">Notify Un Subscription FTOP Email</field>
+        <field name="model_id" ref="coop_membership.model_res_partner"/>
+        <field name="email_from">bureau.membres@cooplalouve.fr</field>
+        <field name="email_to" >${object.email|safe}</field>
+        <field name="lang">${(object.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">Désinscription de votre équipe</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour ${object.name.split(',')[0]}, </p>
+<div>
+    <span>
+        Sauf erreur de notre part, vous avez accumulé 8 rattrapages.
+        Nous vous avons donc désinscrit de l’équipe volante.
+    </span>
+    <br/>
+    <span>
+        Cette désinscription automatique est conçue pour vous éviter d’accumuler une quantité de rattrapages difficilement surmontable.
+    </span>
+    <br/>
+    <span>
+        Sachez que, une fois dans votre vie, vous pouvez bénéficier d’un “jubilé”, c’est à dire d’une remise à zero de votre compteur de rattrapages.
+    </span>
+</div>
+<p>
+    Si vous souhaitez de nouveau rejoindre une équipe, vous pouvez contacter le bureau des membres pendant ses horaires d’ouverture :
+</p>
+<p>
+    <span>Mardi : 13h30 - 16h</span>
+    <br />
+    <span>Mercredi à Vendredi : 13h30 - 20h</span>
+    <br />
+    <span>Samedi : 10h - 16h</span>
+    <br />
+</p>
+<p>01 86 95 91 90</p>
+<span>Bonne journée,</span>
+<br/>
+<span>Le Bureau des membres</span>
+<br/>
+<span>L A   L O U V E</span>
+]]>
+        </field>
+    </record>
+
+
 </odoo>

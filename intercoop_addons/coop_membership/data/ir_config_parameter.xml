@@ -26,5 +26,10 @@ Rejoindre la coopérative passe exclusivement par votre présence à une réunio
         </field>
     </record>
 
+    <record id="parameter_unsubscribed_ftop_template" model="ir.config_parameter">
+        <field name="key">coop.membership.unsubscribed.ftop.template</field>
+        <field name="value">Equipe Volante AJe 22:00</field>
+    </record>
+
 </data>
 </openerp>
