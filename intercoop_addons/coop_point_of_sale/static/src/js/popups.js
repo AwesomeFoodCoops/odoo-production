@@ -54,6 +54,13 @@ var OKPopupWidget = BaseWidget.extend({
         }
     },
 
+    click_cancel: function(){
+        this.gui.close_popup();
+        if (this.options.cancel_callback) {
+            this.options.cancel_callback();
+        }
+    },
+
     close: function(){
         if (this.pos.barcode_reader) {
             this.pos.barcode_reader.restore_callbacks();

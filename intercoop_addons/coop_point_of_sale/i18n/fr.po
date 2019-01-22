@@ -224,3 +224,10 @@ msgstr "Jour"
 #: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session_week_number
 msgid "Week"
 msgstr "Semaine"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/popups.xml:16
+#, python-format
+msgid "Cancel"
+msgstr "Annuler"
