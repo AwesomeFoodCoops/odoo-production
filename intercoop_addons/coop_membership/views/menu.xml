@@ -265,4 +265,12 @@
         <field name="groups_id" eval="[(4,ref('event.group_event_manager'))]"/>
     </record>
 
+    <record model="ir.ui.menu" id="menu_shift_counter_event_reason">
+        <field name="name">Shift Counter Event Reason</field>
+        <field name="parent_id" ref="coop_shift.menu_shift_configuration"/>
+        <field name="sequence">10</field>
+        <field name="action" ref="action_shift_counter_event_reason"/>
+        <field name="groups_id" eval="[(4,ref('event.group_event_manager'))]"/>
+    </record>
+
 </odoo>
