@@ -84,6 +84,7 @@ class SupplierInfoUpdate(models.TransientModel):
                     'show_discount': partner_id.show_discount,
                     linked_line_key: line.id,
                     'seller_id': selected_seller_id.id,
+                    'observable_discount': seller_discount,
                 }
                 line_price_unit = line.price_unit
                 line_discount = 'discount' in line and line.discount \
@@ -115,7 +116,7 @@ class SupplierInfoUpdate(models.TransientModel):
                 update_values['base_price'] = updated_price_unit
 
             supplier_discount = line.supplier_discount
-            updated_discount = line.discount
+            updated_discount = line.observable_discount
             if updated_discount != supplier_discount:
                 update_values['discount'] = updated_discount
             if update_values:
