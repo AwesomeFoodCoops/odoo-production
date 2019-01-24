@@ -301,4 +301,12 @@
         <field name="model">res.partner</field>
     </record>
 
+     <record model="ir.actions.act_window" id="action_shift_counter_event_reason">
+        <field name="name">Shift Counter Event Reason</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shift.counter.event.reason</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
 </odoo>
