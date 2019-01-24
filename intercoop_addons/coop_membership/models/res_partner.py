@@ -9,7 +9,7 @@
 from datetime import datetime, date, timedelta
 from dateutil.relativedelta import relativedelta
 import pytz
-from openerp.exceptions import ValidationError
+from openerp.exceptions import ValidationError, UserError
 from openerp import models, fields, api, _
 import base64
 from openerp import SUPERUSER_ID
@@ -169,7 +169,24 @@ class ResPartner(models.Model):
 
     is_minor_child = fields.Boolean(string='Enfant mineur')
 
+    @api.onchange('birthdate')
+    def _onchange_birthdate(self):
+        if self.birthdate and self.is_minor_child:
+            self.check_minor_child_birthdate(
+                self.birthdate, self.is_minor_child
+            )
+
     # Constraint Section
+    @api.multi
+    @api.constrains('birthdate')
+    def _check_partner_birthdate(self):
+        """ Check minor child's birth date """
+        for partner in self:
+            if partner.is_minor_child and partner.birthdate:
+                partner.check_minor_child_birthdate(
+                    partner.birthdate, partner.is_minor_child
+                )
+
     @api.multi
     @api.constrains('is_member',
                     'parent_id',
@@ -237,7 +254,6 @@ class ResPartner(models.Model):
         for record in self:
             record.force_customer = False
         return True
-
 
     @api.multi
     def update_badge_print_date(self):
@@ -634,6 +650,17 @@ class ResPartner(models.Model):
                 return partners.name_get()
         return super(ResPartner, self).name_search(
             name=name, args=args, operator=operator, limit=limit)
+
+    @api.model
+    def check_minor_child_birthdate(self, birthdate, is_minor_child):
+        if birthdate and is_minor_child:
+            birthdate = datetime.strptime(birthdate, "%Y-%m-%d").date()
+            past_18_years_dt = date.today() - relativedelta(years=18)
+            if birthdate < past_18_years_dt:
+                raise ValidationError(_(
+                    "Cette personne a plus de 18 ans et ne peux pas être "
+                    "saisie comme un enfant mineur.")
+                )
 
     @api.multi
     def name_get(self):
