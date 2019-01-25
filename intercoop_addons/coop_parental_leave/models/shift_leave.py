@@ -48,12 +48,14 @@ class ShiftLeave(models.Model):
                     leave.expected_birthdate)
                 day_diff = (stop_date - start_date).days
                 if day_diff > 730:
-                    raise ValidationError(_("""You cannot propose a parental leave of more than 24 months, even in case of multiple birth."""))
+                    raise ValidationError(_(
+                        "You cannot propose a parental leave of more than 24 "
+                        "months, even in case of multiple birth."))
                 if start_date < expected_birthdate < today:
                     raise ValidationError(_(
-                        """You're not allowed to define a parental leave \
-                        in case both expected birth date and beginning date \
-                        are in the past."""
+                        "You're not allowed to define a parental leave "
+                        "in case both expected birth date and "
+                        "beginning date are in the past."
                     ))
 
     @api.onchange('type_id')
@@ -104,8 +106,8 @@ class ShiftLeave(models.Model):
                         self.stop_date = regular_stop_date
                     else:
                         raise UserError(_(
-                            """You are not allowed to have this parental leave \
-                            because of your children's age.""")
+                            "You are not allowed to have this parental leave "
+                            "because of your children's age.")
                         )
 
                 if (expected_birthdate - start_date).days > 84:
@@ -123,12 +125,6 @@ class ShiftLeave(models.Model):
                 self.is_exceeded_stop_date = True
             else:
                 self.is_exceeded_stop_date = False
-
-    @api.onchange('shared_leave')
-    def _onchange_shared_leave(self):
-        if self.shared_leave:
-            self.regular_stop_date = False
-            self.stop_date = False
 
     @api.depends('is_parental_leave', 'provided_birth_certificate')
     def _compute_forced_member_status(self):

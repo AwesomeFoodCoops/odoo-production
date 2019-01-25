@@ -37,15 +37,15 @@ msgid "The proposed leave exceeds 12 months. Is this a case of multiple birth?"
 msgstr "Le congé proposé dépasse 12 mois. Est-ce qu’il s’agit de jumeaux, triplés etc ?"
 
 #. module: coop_parental_leave
-#: code:addons/coop_parental_leave/models/shift_leave.py:48
+#: code:addons/coop_parental_leave/models/shift_leave.py:51
 #, python-format
 msgid "You cannot propose a parental leave of more than 24 months, even in case of multiple birth."
 msgstr "Vous ne pouvez pas proposer un congé parental qui dure plus que 24 mois, même en cas de septuplés ou octuplés."
 
 #. module: coop_parental_leave
-#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_expected_birthdate
-msgid "Expected or actual birthdate"
-msgstr "Date de naissance prévue ou réelle"
+#: model:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
+msgid "Expected or actual birthdate : (to be entered first)"
+msgstr "Date de naissance prévue ou réelle : (à saisir en premier)"
 
 #. module: coop_parental_leave
 #: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_provided_birth_certificate
