@@ -304,9 +304,13 @@ class ResPartner(models.Model):
                 templates = self.env['shift.template'].search([
                     ('user_ids', 'in', partner.id),
                 ])
+                # TODO Check here to re add this partner as a leader
                 for template in templates:
                     if len(template.user_ids) >= 2:
-                        template.write({'user_ids': [(3, partner.id)]})
+                        template.write({
+                            'user_ids': [(3, partner.id)],
+                            'removed_user_ids': [(4, partner.id)],
+                        })
 
                 tmpl_reg_lines = partner.tmpl_reg_line_ids.filtered(
                     lambda tmpl_rgl: tmpl_rgl.date_end).sorted(
