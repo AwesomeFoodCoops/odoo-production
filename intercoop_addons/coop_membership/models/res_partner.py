@@ -168,6 +168,11 @@ class ResPartner(models.Model):
     )
 
     is_minor_child = fields.Boolean(string='Enfant mineur')
+    unsubscription_date = fields.Date(
+        string='Unsubscription Date',
+        compute='_compute_is_unsubscribed',
+        store=True
+    )
 
     @api.onchange('birthdate')
     def _onchange_birthdate(self):
@@ -289,13 +294,16 @@ class ResPartner(models.Model):
             # useless triger for state
             today = fields.Date.context_today(self)
             leave_none_defined = partner.leave_ids.filtered(
-                lambda l: l.start_date <= today and l.stop_date >=
-                today and l.non_defined_leave and l.state == 'done')
-            reg_count_line = partner.active_tmpl_reg_line_count == 0
+                lambda l: l.start_date <= today <= l.stop_date
+                and l.non_defined_leave and l.state == 'done')
+            no_reg_line = partner.active_tmpl_reg_line_count == 0
 
-            is_unsucribed = (reg_count_line and not leave_none_defined)
-            if partner.is_unsubscribed != is_unsucribed:
-                partner.is_unsubscribed = is_unsucribed
+            is_unsubscribed = (no_reg_line and not leave_none_defined)
+            if partner.is_unsubscribed != is_unsubscribed:
+                partner.is_unsubscribed = is_unsubscribed
+
+            if partner.active_tmpl_reg_line_count:
+                partner.unsubscription_date = False
 
             # Auto remove partner from squadleader of team
             if partner.is_unsubscribed:
@@ -305,6 +313,16 @@ class ResPartner(models.Model):
                 for template in templates:
                     if len(template.user_ids) >= 2:
                         template.write({'user_ids': [(3, partner.id)]})
+
+                tmpl_reg_lines = partner.tmpl_reg_line_ids.filtered(
+                    lambda tmpl_rgl: tmpl_rgl.date_end).sorted(
+                    lambda tmpl_rgl: tmpl_rgl.id
+                )
+
+                if tmpl_reg_lines:
+                    partner.unsubscription_date = fields.Date.from_string(
+                        tmpl_reg_lines[-1].date_end
+                    )
 
     @api.multi
     @api.depends('fundraising_partner_type_ids')
@@ -504,7 +522,6 @@ class ResPartner(models.Model):
         if partner.is_designated_buyer:
             partner.deactivated_date = \
                 today + timedelta(days=maximum_active_days)
-
 
     @api.model
     def _generate_associated_barcode(self, partner):

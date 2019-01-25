@@ -319,12 +319,14 @@ class OrderWeekPlanning(models.Model):
             val = {
                 'product_id': product.id,
                 'supplier_id': supplier_info and supplier_info.name.id or False,
-                'price_unit': supplier_info and supplier_info.price_taxes_excluded or 0.0,
+                'price_unit': supplier_info and supplier_info.price or 0.0,
+                'price_policy': supplier_info and supplier_info.price_policy or 'uom',
                 # set to this value because this value is used on purchase order
                 'default_packaging': product.default_packaging or 0,
                 'supplier_packaging': supplier_info.package_qty or 0,
                 'start_inv': supplier_info.package_qty and product.qty_available / supplier_info.package_qty or 0.0,
                 'order_week_planning_id': self.id,
+                'supplier_info_id': supplier_info.id,
             }
             vals.append(val)
         return vals
@@ -568,8 +570,14 @@ class OrderWeekPlanningLine(models.Model):
     supplier_packaging = fields.Float(string='Supplier packaging',
                                       required=True)
     price_policy = fields.Selection(
-        [('uom', 'per UOM'), ('package', 'per Package')], "Price Policy",
-        default='uom', required=True, readonly=True)
+        selection=[
+            ('uom', 'per UOM'),
+            ('package', 'per Package')
+        ],
+        default='uom',
+        string="Price Policy",
+        required=True
+    )
     sold_w_2_qty = fields.Float(string="Sold W-2",
                                 compute="_get_kpi",
                                 digits=dp.get_precision('Order Week Planning Precision'))
@@ -653,45 +661,67 @@ class OrderWeekPlanningLine(models.Model):
         related='order_week_planning_id.toggle_loss_qty', related_sudo=False,
         readonly=True)
 
+    supplier_info_id = fields.Many2one(comodel_name="product.supplierinfo")
+
     _sql_constraints = [
         ('unique_line_per_product',
          'unique (week_year, week_number, product_id, supplier_id)',
          "You can't have two lines for the same, week, product and suppier !"),
     ]
 
+    @api.onchange('price_policy')
+    def _onchange_price_policy(self):
+        if self.supplier_id and self.product_id and self.price_policy:
+            supplier_info = self.env['product.supplierinfo'].search([
+                ('name', '=', self.supplier_id.id),
+                ('product_tmpl_id', '=', self.product_id.product_tmpl_id.id)
+            ], limit=1)
+            if supplier_info:
+                if self.price_policy == 'package':
+                    supplier_info_price = supplier_info.base_price / (
+                            supplier_info.package_qty or 1)
+                else:
+                    supplier_info_price = supplier_info.base_price
+                self.price_unit = supplier_info_price
+
     @api.onchange('supplier_id')
     def _onchange_supplier_id(self):
+        self.supplier_info_id = False
         if not self.supplier_id or not self.product_id:
             self.supplier_id = False
             self.price_unit = 0.0
             self.start_inv = 0.0
             self.default_packaging = 0.0
         else:
-
-            supplier_info = self.env['product.supplierinfo'].search([('name', '=', self.supplier_id.id),
-                                                                     ('product_tmpl_id', '=',
-                                                                      self.product_id.product_tmpl_id.id)],
-                                                                    limit=1)
+            supplier_info = self.env['product.supplierinfo'].search([
+                ('name', '=', self.supplier_id.id),
+                ('product_tmpl_id', '=', self.product_id.product_tmpl_id.id)
+            ], limit=1)
             if supplier_info:
-                self.price_unit = supplier_info[0].base_price
-                self.price_policy = supplier_info[0].price_policy
-                self.supplier_packaging = supplier_info[0].package_qty
-                self.start_inv = supplier_info[0].package_qty and self.product_id.qty_available / supplier_info[
-                    0].package_qty or 0.0
+                self.price_unit = supplier_info.price
+                self.price_policy = supplier_info.price_policy
+                self.supplier_packaging = supplier_info.package_qty
+                self.start_inv = supplier_info.package_qty and \
+                    self.product_id.qty_available / supplier_info.package_qty \
+                    or 0.0
+                self.supplier_info_id = supplier_info
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
+        self.supplier_info_id = False
         if self.product_id:
             # look if a line of this product is already set
             if isinstance(self.id, models.NewId):
                 # On NewId order_week_planning_id id not yet defined
                 # In this case we get, the id passed in the context
-                order_week_planning_id = self._context.get('default_order_week_planning_id')
+                order_week_planning_id = self._context.get(
+                    'default_order_week_planning_id')
 
                 if order_week_planning_id:
-                    line = self.search([('product_id', '=', self.product_id.id),
-                                        ('order_week_planning_id', '=', self.order_week_planning_id.id),
-                                        ], limit=1)
+                    line = self.search([
+                        ('product_id', '=', self.product_id.id),
+                        ('order_week_planning_id', '=', self.order_week_planning_id.id)
+                    ], limit=1)
             else:
                 line = self.search([('product_id', '=', self.product_id.id),
                                     ('order_week_planning_id', '=', self.order_week_planning_id.id),
@@ -700,14 +730,16 @@ class OrderWeekPlanningLine(models.Model):
             self.supplier_id = False
             if not line:
                 # Init the line with the right data
-                supplier_info = self.product_id.seller_ids and self.product_id.seller_ids[0] or False
+                supplier_info = self.product_id.seller_ids and \
+                    self.product_id.seller_ids[0] or False
                 if supplier_info:
                     self.supplier_id = supplier_info.name
-                    self.price_unit = supplier_info.base_price
+                    self.price_unit = supplier_info.price
                     self.price_policy = supplier_info.price_policy
                     self.start_inv = supplier_info.package_qty and self.product_id.qty_available / supplier_info.package_qty or 0.0
                     self.supplier_packaging = supplier_info.package_qty
                     self.default_packaging = self.product_id.default_packaging
+                    self.supplier_info_id = supplier_info
 
     @api.model
     def default_get(self, fields_list):
@@ -757,6 +789,19 @@ class OrderWeekPlanningLine(models.Model):
     @api.multi
     def action_update_unit_price(self):
         raise UserError(_("Not yet implemented"))
+
+    @api.multi
+    def action_update_price_policy(self):
+        self.ensure_one()
+        supplier_info = self.env['product.supplierinfo'].search([
+            ('name', '=', self.supplier_id.id),
+            ('product_tmpl_id', '=', self.product_id.product_tmpl_id.id)
+        ], limit=1)
+        if supplier_info:
+            supplier_info.write({'price_policy': self.price_policy})
+        else:
+            raise UserError(_("""No price information found for this supplier, please create it on the product"""))
+        return True
 
     @api.multi
     def action_update_supplier_packaging(self):
