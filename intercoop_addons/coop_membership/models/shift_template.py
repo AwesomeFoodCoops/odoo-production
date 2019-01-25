@@ -40,6 +40,15 @@ class ShiftTemplate(models.Model):
         store=True
     )
 
+    # This field help to re-add member as a leader after his/her leave
+    removed_user_ids = fields.Many2many(
+        comodel_name='res.partner',
+        relation='removed_res_partner_shift_template_rel',
+        column1='shift_template_id',
+        column2='partner_id',
+        string='Removed Leaders'
+    )
+
     @api.multi
     @api.depends('registration_ids')
     def _compute_registration_qty(self):

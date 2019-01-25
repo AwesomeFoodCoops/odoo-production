@@ -286,9 +286,13 @@ class ResPartner(models.Model):
                 templates = self.env['shift.template'].search([
                     ('user_ids', 'in', partner.id),
                 ])
+                # TODO Check here to re add this partner as a leader
                 for template in templates:
                     if len(template.user_ids) >= 2:
-                        template.write({'user_ids': [(3, partner.id)]})
+                        template.write({
+                            'user_ids': [(3, partner.id)],
+                            'removed_user_ids': [(4, partner.id)],
+                        })
 
     @api.multi
     @api.depends('fundraising_partner_type_ids')
