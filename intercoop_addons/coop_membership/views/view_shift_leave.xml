@@ -45,16 +45,15 @@
                 <field name="non_defined_leave"
                        attrs="{'invisible': [('non_defined_type', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
                        tabindex="5"/>
-<<<<<<< f25b99133e017826600e3b8257a5a8d2cd2a16cd
-<<<<<<< 6796b2a8855c36515c9cd01286a6e3a92d968ffa
-=======
                 <field name="non_defined_type" invisible="1"/>
                 <field name="medical_excuse_provided" attrs="{'invisible': [('is_absence_leave', '=', False)]}"/>
->>>>>>> [FIX] F#32255 - Strmeamling the “Absence pour Incapacité” leave
-=======
                 <field name="medical_excuse_provided" attrs="{'invisible': [('is_absence_leave', '=', False)]}"/>
                 <field name="non_defined_type" invisible="1"/>
->>>>>>> F#32467 Two improvements for our “Absence pour incapacité” leaves tool
+            <field name="require_stop_date" position="before">
+                <field name="non_defined_leave" attrs="{'invisible': [('non_defined_type', '=', False)], 'readonly': [('state', '!=', 'draft')]}" tabindex="7"/>
+                <field name="medical_excuse_provided" attrs="{'invisible': [('is_absence_leave', '=', False)]}" tabindex="5"/>
+                <field name="non_defined_type" invisible="1"/>
+                <field name="is_send_reminder" group="base.group_no_one" readonly="1"/>
             </field>
         </field>
     </record>
