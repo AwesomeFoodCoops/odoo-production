@@ -929,3 +929,9 @@ msgstr "Afficher/Masquer Mar. Quantité"
 #: model:ir.model.fields,help:coop_produce.field_order_week_planning_toggle_wednesday_qty
 msgid "Enable/Disable Wed. Quantity"
 msgstr "Afficher/Masquer Mer. Quantité"
+
+#. module: coop_produce
+#: code:addons/coop_produce/models/week_order_planning.py:801
+#, python-format
+msgid "No price information found for this supplier, please create it on the product"
+msgstr "Aucune information prix fournisseur trouvée pour ce produit, veuillez la créer dans la fiche produit."

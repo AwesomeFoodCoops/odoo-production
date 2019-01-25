@@ -161,6 +161,7 @@
                                 <field name="price_unit" string="Price U" class="auto_select"/>
                                 <button name="action_update_unit_price" icon="gtk-apply" type="object"/>
                                 <field name="price_policy" string="P. Policy"/>
+                                <button name="action_update_price_policy" icon="gtk-apply" type="object"/>
                                 <field name="sold_w_2_qty"/>
                                 <field name="sold_w_1_qty"/>
                                 <field name="start_inv" readonly="1"/>
@@ -185,6 +186,7 @@
                                 <field name="toggle_product" invisible="1"/>
                                 <field name="toggle_end_inv_qty" invisible="1"/>
                                 <field name="toggle_loss_qty" invisible="1"/>
+                                <field name="supplier_info_id" invisible="1"/>
                             </tree>
 	                    </field>
                     </sheet>
