@@ -150,7 +150,7 @@
 	                           'toggle_thursday_qty': toggle_thursday_qty, 'toggle_friday_qty': toggle_friday_qty, 'toggle_saturday_qty': toggle_saturday_qty,
 	                           'toggle_product': toggle_product, 'toggle_end_inv_qty': toggle_end_inv_qty, 'toggle_loss_qty': toggle_loss_qty
 	                           }">
-                            <tree string="Order Planning Details" editable="bottom" mode="tree">
+                            <tree string="Order Planning Details" editable="bottom" mode="tree" class="week_planning">
                                 <button name="action_product_history_view" icon="STOCK_JUSTIFY_FILL" type="object"/>
                                 <field name="product_name" invisible="1"/>
                                 <field name="product_id" string="Product" attrs="{'readonly': [('toggle_product', '=', False)]}"/>
