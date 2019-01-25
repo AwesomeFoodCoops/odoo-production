@@ -83,7 +83,8 @@ class ResPartner(models.Model):
                 ])
 
                 for partner_alert in partner_alerts:
-                    partner_alert_mail_template.send_mail(partner_alert.id)
+                    partner_alert_mail_template.send_mail(
+                        res_id=partner_alert.id, force_send=True)
 
 
     @api.multi
