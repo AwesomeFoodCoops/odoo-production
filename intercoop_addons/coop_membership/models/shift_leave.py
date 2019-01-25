@@ -540,3 +540,23 @@ class ShiftLeave(models.Model):
             cancellation_absence_leave_email_template.send_mail(leave.id)
             abandon_absence_leave_email.send_mail(leave.id)
 
+    @api.model
+    def cron_update_shift_leader_end_leave(self):
+        """Update shift leaders when leave ends"""
+        yesterday_dt = \
+            fields.Date.from_string(fields.Date.today()) - timedelta(days=1)
+        yesterday_str = fields.Date.to_string(yesterday_dt)
+        end_leaves = self.search([
+            ('stop_date', '=', yesterday_str)
+        ])
+        partners = end_leaves.mapped('partner_id')
+        for partner in partners:
+            partner_leader_templates = self.env['shift.template'].search([
+                ('removed_user_ids', 'in', partner.ids)
+            ])
+            if partner_leader_templates:
+                partner_leader_templates.write({
+                    'user_ids': [(4, partner.id)],
+                    'removed_user_ids': [(3, partner.id)],
+                })
+
