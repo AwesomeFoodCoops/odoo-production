@@ -26,29 +26,40 @@ odoo.define('coop_point_of_sale.popup_screen_payment', function (require) {
             if (this.pos.config_info_settings.account_journal_ids){
                 account_journal_ids = this.pos.config_info_settings.account_journal_ids;
             }
-
             /*var  = this.pos.config_settings ? this.pos.config_settings.receipt_options : false;*/
+            var currentPaymentLines = this.pos.get_order().paymentlines.models;
 
-            var thanks_message = _("Merci de vérifier sur le chèque :"); 
-            var lemon = _("le montant"); 
-            var la_date = _("la date"); 
-            var order_messages = _("l'ordre: " + payable_to);
-            var signature = _("la présence d'une signature");
-
-
-            if(account_journal_ids.includes(id)){
-                this.gui.show_popup('okpopup',{
-                'title': _('Vérifier sur le chèque'),
-                'thanks_message': thanks_message,
-                'lemon': lemon,
-                'la_date': la_date,
-                'order_messages': order_messages,
-                'signature': signature,
-
+            var sameMethodPaymentLines = currentPaymentLines.filter(function(paymentline){
+                return paymentline.cashregister.journal_id[0] == id;
             });
-            }
 
-            this._super.apply(this, arguments);
+            if (!sameMethodPaymentLines.length) {
+                var thanks_message = _("Merci de vérifier sur le chèque :"); 
+                var lemon = _("le montant"); 
+                var la_date = _("la date"); 
+                var order_messages = _("l'ordre: " + payable_to);
+                var signature = _("la présence d'une signature");
+
+
+                if(account_journal_ids.includes(id)){
+                    this.gui.show_popup('okpopup',{
+                    'title': _('Vérifier sur le chèque'),
+                    'thanks_message': thanks_message,
+                    'lemon': lemon,
+                    'la_date': la_date,
+                    'order_messages': order_messages,
+                    'signature': signature,
+                    'cancel_callback': function(){
+                            var selectedPaymentLineEle = $('.paymentline.selected');
+                            if (selectedPaymentLineEle) {
+                                var paymentLineId = $(selectedPaymentLineEle[0]).find('.delete-button').data('cid');
+                                if(paymentLineId) self.click_delete_paymentline(paymentLineId);   
+                            }
+                        },
+                    });
+                }
+                this._super.apply(this, arguments);
+            }
         },
     });
 
