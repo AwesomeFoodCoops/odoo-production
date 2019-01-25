@@ -1968,3 +1968,12 @@ msgstr "Vacations disponibles"
 #: model:ir.model.fields,field_description:coop_membership.field_shift_leave_medical_excuse_provided
 msgid "Medical excuse provided"
 msgstr "Justificatif medical rendu"
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_bdm_search
+msgid "Sleeping"
+msgstr "En sommeil"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_bdm_search
+msgid "Just Unsubscribed"
+msgstr "Désinscription récente"
