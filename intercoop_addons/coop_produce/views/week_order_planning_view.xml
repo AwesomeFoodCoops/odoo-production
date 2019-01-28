@@ -150,7 +150,7 @@
 	                           'toggle_thursday_qty': toggle_thursday_qty, 'toggle_friday_qty': toggle_friday_qty, 'toggle_saturday_qty': toggle_saturday_qty,
 	                           'toggle_product': toggle_product, 'toggle_end_inv_qty': toggle_end_inv_qty, 'toggle_loss_qty': toggle_loss_qty
 	                           }">
-                            <tree string="Order Planning Details" editable="bottom" mode="tree">
+                            <tree string="Order Planning Details" editable="bottom" mode="tree" class="week_planning">
                                 <button name="action_product_history_view" icon="STOCK_JUSTIFY_FILL" type="object"/>
                                 <field name="product_name" invisible="1"/>
                                 <field name="product_id" string="Product" attrs="{'readonly': [('toggle_product', '=', False)]}"/>
@@ -161,6 +161,7 @@
                                 <field name="price_unit" string="Price U" class="auto_select"/>
                                 <button name="action_update_unit_price" icon="gtk-apply" type="object"/>
                                 <field name="price_policy" string="P. Policy"/>
+                                <button name="action_update_price_policy" icon="gtk-apply" type="object"/>
                                 <field name="sold_w_2_qty"/>
                                 <field name="sold_w_1_qty"/>
                                 <field name="start_inv" readonly="1"/>
@@ -185,6 +186,7 @@
                                 <field name="toggle_product" invisible="1"/>
                                 <field name="toggle_end_inv_qty" invisible="1"/>
                                 <field name="toggle_loss_qty" invisible="1"/>
+                                <field name="supplier_info_id" invisible="1"/>
                             </tree>
 	                    </field>
                     </sheet>

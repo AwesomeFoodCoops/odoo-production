@@ -9,7 +9,7 @@
 from datetime import datetime, date, timedelta
 from dateutil.relativedelta import relativedelta
 import pytz
-from openerp.exceptions import ValidationError
+from openerp.exceptions import ValidationError, UserError
 from openerp import models, fields, api, _
 import base64
 from openerp import SUPERUSER_ID
@@ -168,8 +168,30 @@ class ResPartner(models.Model):
     )
 
     is_minor_child = fields.Boolean(string='Enfant mineur')
+    unsubscription_date = fields.Date(
+        string='Unsubscription Date',
+        compute='_compute_is_unsubscribed',
+        store=True
+    )
+
+    @api.onchange('birthdate')
+    def _onchange_birthdate(self):
+        if self.birthdate and self.is_minor_child:
+            self.check_minor_child_birthdate(
+                self.birthdate, self.is_minor_child
+            )
 
     # Constraint Section
+    @api.multi
+    @api.constrains('birthdate')
+    def _check_partner_birthdate(self):
+        """ Check minor child's birth date """
+        for partner in self:
+            if partner.is_minor_child and partner.birthdate:
+                partner.check_minor_child_birthdate(
+                    partner.birthdate, partner.is_minor_child
+                )
+
     @api.multi
     @api.constrains('is_member',
                     'parent_id',
@@ -238,7 +260,6 @@ class ResPartner(models.Model):
             record.force_customer = False
         return True
 
-
     @api.multi
     def update_badge_print_date(self):
         for record in self:
@@ -273,22 +294,39 @@ class ResPartner(models.Model):
             # useless triger for state
             today = fields.Date.context_today(self)
             leave_none_defined = partner.leave_ids.filtered(
-                lambda l: l.start_date <= today and l.stop_date >=
-                today and l.non_defined_leave and l.state == 'done')
-            reg_count_line = partner.active_tmpl_reg_line_count == 0
+                lambda l: l.start_date <= today <= l.stop_date
+                and l.non_defined_leave and l.state == 'done')
+            no_reg_line = partner.active_tmpl_reg_line_count == 0
 
-            is_unsucribed = (reg_count_line and not leave_none_defined)
-            if partner.is_unsubscribed != is_unsucribed:
-                partner.is_unsubscribed = is_unsucribed
+            is_unsubscribed = (no_reg_line and not leave_none_defined)
+            if partner.is_unsubscribed != is_unsubscribed:
+                partner.is_unsubscribed = is_unsubscribed
+
+            if partner.active_tmpl_reg_line_count:
+                partner.unsubscription_date = False
 
             # Auto remove partner from squadleader of team
             if partner.is_unsubscribed:
                 templates = self.env['shift.template'].search([
                     ('user_ids', 'in', partner.id),
                 ])
+                # TODO Check here to re add this partner as a leader
                 for template in templates:
                     if len(template.user_ids) >= 2:
-                        template.write({'user_ids': [(3, partner.id)]})
+                        template.write({
+                            'user_ids': [(3, partner.id)],
+                            'removed_user_ids': [(4, partner.id)],
+                        })
+
+                tmpl_reg_lines = partner.tmpl_reg_line_ids.filtered(
+                    lambda tmpl_rgl: tmpl_rgl.date_end).sorted(
+                    lambda tmpl_rgl: tmpl_rgl.id
+                )
+
+                if tmpl_reg_lines:
+                    partner.unsubscription_date = fields.Date.from_string(
+                        tmpl_reg_lines[-1].date_end
+                    )
 
     @api.multi
     @api.depends('fundraising_partner_type_ids')
@@ -489,7 +527,6 @@ class ResPartner(models.Model):
             partner.deactivated_date = \
                 today + timedelta(days=maximum_active_days)
 
-
     @api.model
     def _generate_associated_barcode(self, partner):
         barcode_rule_obj = self.env['barcode.rule']
@@ -634,6 +671,17 @@ class ResPartner(models.Model):
                 return partners.name_get()
         return super(ResPartner, self).name_search(
             name=name, args=args, operator=operator, limit=limit)
+
+    @api.model
+    def check_minor_child_birthdate(self, birthdate, is_minor_child):
+        if birthdate and is_minor_child:
+            birthdate = datetime.strptime(birthdate, "%Y-%m-%d").date()
+            past_18_years_dt = date.today() - relativedelta(years=18)
+            if birthdate < past_18_years_dt:
+                raise ValidationError(_(
+                    "Cette personne a plus de 18 ans et ne peux pas être "
+                    "saisie comme un enfant mineur.")
+                )
 
     @api.multi
     def name_get(self):

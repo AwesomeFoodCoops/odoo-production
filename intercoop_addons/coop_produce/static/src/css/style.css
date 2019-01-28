@@ -1,0 +1,5 @@
+.week_planning th[data-id="medium_inventory_qty"],
+.week_planning td[data-field="medium_inventory_qty"],
+.week_planning [data-fieldname="medium_inventory_qty"] > input {
+    color: red !important;
+}

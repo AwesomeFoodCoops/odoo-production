@@ -249,11 +249,12 @@
             <field name="model">shift.registration</field>
             <field eval="40" name="priority"/>
             <field name="arch" type="xml">
-                <tree string="Registration">
+                <tree string="Registration" default_order="write_date desc">
                     <field name="replacing_reg_id" string="Date de service"/>
                     <field name="partner_id" string="Rémplacé"/>
                     <field name="replacing_partner_id" string="Rémplaçant"/>
                     <field name="state" invisible="1"/>
+                    <field name="write_date" invisible="1"/>
                 </tree>
             </field>
         </record>

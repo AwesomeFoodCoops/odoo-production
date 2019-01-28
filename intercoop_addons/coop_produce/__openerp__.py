@@ -26,12 +26,12 @@
         'security/ir.model.access.csv',
         'data/decimal_precision.xml',
 
-        #VIEWS
+        # VIEWS
         'views/product_views.xml',
         'views/stock_views.xml',
         'views/week_order_planning_view.xml',
+        'views/templates.xml',
         'wizard/show_product_history_view.xml',
         'wizard/stock_inventory_wizard.xml',
-
     ],
 }

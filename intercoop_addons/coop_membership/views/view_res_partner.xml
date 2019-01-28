@@ -1122,6 +1122,13 @@
                 <field name="barcode_base"/>
                 <field name="ref"/>
             </field>
+            <field name="parent_id" position="after">
+                <separator/>
+                <filter name="sleeping" string="Sleeping"
+                        domain="[('unsubscription_date', '&lt;', (context_today()-datetime.timedelta(weeks=12)).strftime('%Y-%m-%d'))]"/>
+                <filter name="just_unsubscribed" string="Just Unsubscribed"
+                        domain="[('unsubscription_date', '&gt;=', (context_today()-datetime.timedelta(weeks=12)).strftime('%Y-%m-%d'))]"/>
+            </field>
             <xpath expr="//search/group[@name='group_by']//filter[last()]"
                    position="after">
                 <filter name="team_template" string="Team/Template"
@@ -1146,6 +1153,7 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
 coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_saisie"/>
                 <field name="cooperative_state"/>
                 <field name="zip" groups="coop_membership.group_membership_bdm_lecture,coop_membership.group_membership_bdm_presence"/>
+                <field name="unsubscription_date" />
             </tree>
         </field>
     </record>

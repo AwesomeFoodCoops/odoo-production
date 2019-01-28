@@ -13,6 +13,9 @@
                     <li style="list-style-type: disc;text-align: left;"><t t-esc="  widget.options.signature || '' "/></li>
                 </ul>
                 <div class="footer">
+                    <div class="button cancel">
+                        Cancel
+                    </div>
                     <div class="button confirm">
                         OK
                     </div>
@@ -22,4 +25,3 @@
     </t>
 
 </templates>
-
