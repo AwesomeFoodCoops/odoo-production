@@ -314,8 +314,22 @@ class OrderWeekPlanning(models.Model):
         if not products:
             return vals
 
+        week_planning_line_env = self.env['order.week.planning.line']
         for product in products:
-            supplier_info = product.seller_ids and product.seller_ids[0] or False
+            supplier_info = \
+                product.seller_ids and product.seller_ids[0] or False
+
+            start_inv = product.qty_available / (
+                    product.default_packaging or 1
+            )
+
+            # Start_inv = previous week planning's end_inv quantity
+            previous_line = week_planning_line_env.get_previous_lines(
+                product.id, self.year, self.week_number, limit=1)
+
+            if previous_line:
+                start_inv = previous_line.end_inv_qty
+
             val = {
                 'product_id': product.id,
                 'supplier_id': supplier_info and supplier_info.name.id or False,
@@ -323,8 +337,8 @@ class OrderWeekPlanning(models.Model):
                 'price_policy': supplier_info and supplier_info.price_policy or 'uom',
                 # set to this value because this value is used on purchase order
                 'default_packaging': product.default_packaging or 0,
-                'supplier_packaging': supplier_info.package_qty or 0,
-                'start_inv': supplier_info.package_qty and product.qty_available / supplier_info.package_qty or 0.0,
+                'supplier_packaging': supplier_info and supplier_info.package_qty or 0,
+                'start_inv': start_inv,
                 'order_week_planning_id': self.id,
                 'supplier_info_id': supplier_info.id,
             }
@@ -353,16 +367,29 @@ class OrderWeekPlanning(models.Model):
             if p.state != 'draft':
                 raise UserError(_("It's not allowed to delete a vaalidated order planining"))
             else:
-                super(OrderWeekPlanning,self).unlink()
+                super(OrderWeekPlanning, self).unlink()
 
     @api.multi
     def action_update_start_inventory(self):
         self.ensure_one()
+        week_planning_line_env = self.env['order.week.planning.line']
         for line in self.line_ids:
-            if  line.default_packaging == 0.0:
+            if line.default_packaging == 0.0:
                 raise UserError(_("The product %s has no default packaging set") % (line.product_id.name,))
             line.default_packaging = line.product_id.default_packaging
-            line.start_inv = line.product_id.qty_available / line.default_packaging
+
+            previous_lines = week_planning_line_env.get_previous_lines(
+                line.product_id.id, self.year, self.week_number, limit=2)
+
+            start_inv = line.product_id.qty_available / (
+                    line.default_packaging or 1
+            )
+
+            # Get start_inv qty from previous line
+            previous_line = previous_lines and previous_lines[-1] or False
+            if previous_line:
+                start_inv = previous_line.end_inv_qty
+            line.start_inv = start_inv
 
     @api.multi
     def action_view_orders(self):
@@ -698,12 +725,22 @@ class OrderWeekPlanningLine(models.Model):
                 ('product_tmpl_id', '=', self.product_id.product_tmpl_id.id)
             ], limit=1)
             if supplier_info:
+                product = self.product_id
+                start_inv = product.qty_available / (
+                        supplier_info.package_qty or 1
+                )
+
+                # Start_inv = previous week planning's end_inv quantity
+                previous_line = self.get_previous_lines(
+                    product.id, self.week_year, self.week_number, limit=1)
+
+                if previous_line:
+                    start_inv = previous_line.end_inv_qty
+
                 self.price_unit = supplier_info.price
                 self.price_policy = supplier_info.price_policy
                 self.supplier_packaging = supplier_info.package_qty
-                self.start_inv = supplier_info.package_qty and \
-                    self.product_id.qty_available / supplier_info.package_qty \
-                    or 0.0
+                self.start_inv = start_inv
                 self.supplier_info_id = supplier_info
 
     @api.onchange('product_id')
@@ -733,10 +770,22 @@ class OrderWeekPlanningLine(models.Model):
                 supplier_info = self.product_id.seller_ids and \
                     self.product_id.seller_ids[0] or False
                 if supplier_info:
+                    product = self.product_id
+                    start_inv = product.qty_available / (
+                            supplier_info.package_qty or 1
+                    )
+
+                    # Start_inv = previous week planning's end_inv quantity
+                    previous_line = self.get_previous_lines(
+                        product.id, self.week_year, self.week_number, limit=1)
+
+                    if previous_line:
+                        start_inv = previous_line.end_inv_qty
+
                     self.supplier_id = supplier_info.name
                     self.price_unit = supplier_info.price
                     self.price_policy = supplier_info.price_policy
-                    self.start_inv = supplier_info.package_qty and self.product_id.qty_available / supplier_info.package_qty or 0.0
+                    self.start_inv = start_inv
                     self.supplier_packaging = supplier_info.package_qty
                     self.default_packaging = self.product_id.default_packaging
                     self.supplier_info_id = supplier_info
@@ -751,6 +800,18 @@ class OrderWeekPlanningLine(models.Model):
                 for TOGGLE, DEFAULT_VALUE in TOGGLES.items()
             })
         return vals
+
+    @api.model
+    def get_previous_lines(self, product_id, week_year, week_number, limit=1):
+        previous_lines = self.env['order.week.planning.line'].search([
+            ('product_id', '=', product_id),
+            '|',
+            ('week_year', '<', week_year),
+            '&',
+            ('week_year', '=', week_year),
+            ('week_number', '<=', week_number),
+        ], order="week_year desc, week_number desc", limit=limit)
+        return previous_lines
 
     def convert2order_line_vals(self, day, date_planned, fpos):
         ret = []
@@ -817,12 +878,17 @@ class OrderWeekPlanningLine(models.Model):
     def action_product_history_view(self):
         self.ensure_one()
 
-        lines = self.search([('product_id', '=', self.product_id.id),
-                             '|', ('week_year', '<', self.week_year), '&', ('week_year', '=', self.week_year),
-                             ('week_number', '<=', self.week_number),
-                             ])
+        lines = self.search([
+            ('product_id', '=', self.product_id.id),
+            '|',
+            ('week_year', '<', self.week_year),
+            '&',
+            ('week_year', '=', self.week_year),
+            ('week_number', '<=', self.week_number),
+        ])
 
-        form_view = self.env.ref('coop_produce.view_coop_produce_historique_product_form')
+        form_view = self.env.ref(
+            'coop_produce.view_coop_produce_historique_product_form')
 
         result = {
             'name': _("Product history"),
@@ -830,27 +896,31 @@ class OrderWeekPlanningLine(models.Model):
             'view_type': 'form',
             'view_mode': 'form',
             'view_id': form_view.id,
-            'context':{'line_ids':lines.ids,'product_id':self.product_id.id},
+            'context': {
+                'line_ids': lines.ids,
+                'product_id': self.product_id.id},
             #'domain': [('id', 'in', lines.ids)],
-            #'target': 'new',
+            'target': 'new',
             'res_model': 'planification.product.history',
         }
 
         return result
 
     @api.multi
-    def get_previous_solde_qty(self, week_gap, default_package = 1):
+    def get_previous_solde_qty(self, week_gap, default_package=1):
         self.ensure_one()
-        current_date = get_date_from_week_number(self.week_year, self.week_number, 0)
+        current_date = get_date_from_week_number(
+            self.week_year, self.week_number, 0)
         day_delta = 7 * week_gap
         new_date = current_date + datetime.timedelta(days=day_delta)
         new_year = new_date.year
         new_week_num = int(new_date.strftime("%W"))
-        lines = self.search([('product_id', '=', self.product_id.id),
-                             ('week_number', '=', new_week_num),
-                             ('week_year', '=', new_year),
-                             ])
+        lines = self.search([
+            ('product_id', '=', self.product_id.id),
+            ('week_number', '=', new_week_num),
+            ('week_year', '=', new_year),
+        ])
         if lines:
-            return sum(x.sold_qty * (x.default_packaging/default_package) for x in lines)
+            return sum(x.sold_qty for x in lines)
         else:
             return 0.0
