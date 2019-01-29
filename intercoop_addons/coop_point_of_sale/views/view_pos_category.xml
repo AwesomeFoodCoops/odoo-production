@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_pos_category_form_inherit" model="ir.ui.view">
+        <field name="model">pos.category</field>
+        <field name="inherit_id" ref="point_of_sale.product_pos_category_form_view"/>
+        <field name="arch" type="xml">
+            <field name="sequence" position="after">
+                <field name="active"/>
+            </field>
+        </field>
+    </record>
+</odoo>
