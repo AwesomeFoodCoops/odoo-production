@@ -449,7 +449,7 @@ msgstr "Si cochée, les personnes qui ont souscrit des parts A vont avoir cette 
 #. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_partner_is_associated_people
 msgid "Is Associated People"
-msgstr "Est une personne rattachée"
+msgstr "Personne rattachée"
 
 #. module: coop_membership
 #: model:ir.model.fields,name:coop_membership.field_res_partner_is_deceased
