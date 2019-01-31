@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record model="res.groups" id="group_hide">
+            <field name="name">Group Hide</field>
+        </record>
+
+        <record model="res.groups" id="group_access_badge_report">
+            <field name="name">Imprimeur des badges</field>
+            <field name="category_id"
+                   ref="coop_membership.module_membership_access_management"/>
+        </record>
+
+    </data>
+</openerp>
