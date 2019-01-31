@@ -5,11 +5,24 @@
 -->
 <openerp>
 	<data>
+        <record model="ir.ui.menu" id="coop_shift.menu_reporting_shifts">
+            <field name="name">Reports</field>
+            <field name="groups_id" eval="[(5,)]"/>
+        </record>
 		<record model="ir.ui.menu" id="menu_badge_to_print">
 			<field name="name">Badges</field>
 			<field name="action" ref="action_badge_to_print" />
 			<field name="parent_id" ref="coop_shift.menu_reporting_shifts" />
 			<field name="sequence">20</field>
+			<field name="groups_id" eval="[(6, 0, [ref('coop_print_badge.group_access_badge_report')])]" />
+		</record>
+
+		<record model="ir.ui.menu" id="menu_badge_to_distribute">
+			<field name="name">Badges</field>
+			<field name="action" ref="action_badge_to_distribute" />
+			<field name="parent_id" ref="coop_membership.menu_coop_member_submain" />
+			<field name="sequence">2</field>
+			<field name="groups_id" eval="[(4, ref('coop_membership.group_membership_bdm_lecture')), (4, ref('coop_membership.group_membership_bdm_saisie'))]"/>
 		</record>
 	</data>
 </openerp>
