@@ -84,8 +84,10 @@ class SupplierInfoUpdate(models.TransientModel):
                     'show_discount': partner_id.show_discount,
                     linked_line_key: line.id,
                     'seller_id': selected_seller_id.id,
-                    'observable_discount': seller_discount,
                 }
+                # Observe discount value
+                observable_discount = seller_discount
+
                 line_price_unit = line.price_unit
                 line_discount = 'discount' in line and line.discount \
                                 or seller_discount
@@ -96,10 +98,16 @@ class SupplierInfoUpdate(models.TransientModel):
                 line_discount = \
                     line_discount != seller_discount and line_discount or 0
 
+                # If line discount is difference from seller_discount,
+                # then assign line_discount value to it
+                observable_discount = \
+                    line_discount and line_discount or observable_discount
+
                 # Prepare values in current document line
                 seller_values.update({
                     'price_unit': line_price_unit,
                     'discount': line_discount,
+                    'observable_discount': observable_discount,
                 })
                 lines.append((0, 0, seller_values))
         return lines
