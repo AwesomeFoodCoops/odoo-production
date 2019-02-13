@@ -88,7 +88,7 @@ class ResPartner(models.Model):
                 FROM res_users
                 WHERE login = '%s'
                 LIMIT 1
-            ''' % (member.email)
+            ''' % (member.email,)
             self.env.cr.execute(sql)
             user = self.env.cr.fetchone()
             if user:
@@ -98,7 +98,8 @@ class ResPartner(models.Model):
                     'partner_id': member.id,
                     'name': member.name,
                     'login': member.email,
-                    'email': member.email
+                    'email': member.email,
+                    'image': member.image,
                 })
                 # Users.with_context(no_reset_password=True).create(vals)
                 Users.create(vals)
