@@ -31,15 +31,13 @@ class Website(openerp.addons.website.controllers.main.Website):
 
         # Get next shift
         shift_registration_env = request.env['shift.registration']
-        shift = shift_registration_env.sudo().search(
-            [
-                ('partner_id', '=', user.partner_id.id),
-                ('state', '!=', 'cancel'),
-                ('date_begin', '>=', datetime.now().strftime(
-                    '%Y-%m-%d %H:%M:%S'))
-            ],
-            order="date_begin", limit=1
-        )
+        shift = shift_registration_env.sudo().search([
+            ('shift_id.shift_template_id.is_technical', '=', False),
+            ('partner_id', '=', user.partner_id.id),
+            ('state', '!=', 'cancel'),
+            ('date_begin', '>=', datetime.now().strftime(
+                '%Y-%m-%d %H:%M:%S'))
+        ], order="date_begin", limit=1)
 
         # Get Turnover of the day
         lang = user.lang and (str(user.lang) + '.utf8') or 'fr_FR.utf8'
@@ -78,16 +76,14 @@ class Website(openerp.addons.website.controllers.main.Website):
         # Get next shift
         shift_registration_env = request.env['shift.registration']
         member_status = partner.get_warning_member_state()
-        shift_upcomming = shift_registration_env.sudo().search(
-            [
-                ('partner_id', '=', user.partner_id.id),
-                ('state', '!=', 'cancel'),
-                ('exchange_state', '!=', 'replacing'),
-                ('date_begin', '>=', datetime.now().strftime(
-                    '%Y-%m-%d %H:%M:%S'))
-            ],
-            order="date_begin"
-        )
+        shift_upcomming = shift_registration_env.sudo().search([
+            ('shift_id.shift_template_id.is_technical', '=', False),
+            ('partner_id', '=', user.partner_id.id),
+            ('state', '!=', 'cancel'),
+            ('exchange_state', '!=', 'replacing'),
+            ('date_begin', '>=', datetime.now().strftime(
+                '%Y-%m-%d %H:%M:%S'))
+        ],  order="date_begin")
         # check standard member or ftop member
         datas = {
             'is_standard_member': user.partner_id.shift_type == 'standard',
@@ -163,6 +159,7 @@ class Website(openerp.addons.website.controllers.main.Website):
         shifts_available = shift_env
         if tmpl:
             shifts_available = shift_env.sudo().search([
+                ('shift_id.shift_template_id.is_technical', '=', False),
                 ('shift_template_id', '!=', tmpl[0].shift_template_id.id),
                 ('date_begin', '>=', (
                     datetime.now() + timedelta(days=1)).strftime(
@@ -187,27 +184,21 @@ class Website(openerp.addons.website.controllers.main.Website):
         user = request.env.user
         # Get next shift
         shift_registration_env = request.env['shift.registration']
-        shift_upcomming = shift_registration_env.sudo().search(
-            [
-                ('partner_id', '=', user.partner_id.id),
-                ('state', 'not in', ['cancel']),
-                ('exchange_state', '!=', 'replacing'),
-                ('date_begin', '>=', datetime.now().strftime(
-                    '%Y-%m-%d %H:%M:%S')),
-                ('shift_id.shift_type_id.is_ftop', '=', False)
-            ],
-            order="date_begin"
-        )
-        shifts_on_market = shift_registration_env.sudo().search(
-            [
-                ('partner_id', '!=', user.partner_id.id),
-                ('state', '!=', 'cancel'),
-                ('exchange_state', '=', 'in_progress'),
-                ('date_begin', '>=', datetime.now().strftime(
-                    '%Y-%m-%d %H:%M:%S'))
-            ],
-            order="date_begin"
-        )
+        shift_upcomming = shift_registration_env.sudo().search([
+            ('partner_id', '=', user.partner_id.id),
+            ('state', 'not in', ['cancel']),
+            ('exchange_state', '!=', 'replacing'),
+            ('date_begin', '>=', datetime.now().strftime(
+                '%Y-%m-%d %H:%M:%S')),
+            ('shift_id.shift_type_id.is_ftop', '=', False)
+        ], order="date_begin")
+        shifts_on_market = shift_registration_env.sudo().search([
+            ('partner_id', '!=', user.partner_id.id),
+            ('state', '!=', 'cancel'),
+            ('exchange_state', '=', 'in_progress'),
+            ('date_begin', '>=', datetime.now().strftime(
+                '%Y-%m-%d %H:%M:%S'))
+        ], order="date_begin")
         return request.render(
             'coop_memberspace.counter',
             {
