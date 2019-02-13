@@ -193,6 +193,12 @@ class ShiftTemplate(models.Model):
     rrule = fields.Char(
         compute="_compute_rulestring", store=True, string='Recurrent Rule',)
 
+    is_technical = fields.Boolean(default=False)
+    is_ftop = fields.Boolean(
+        compute='_compute_is_ftop',
+        store=True
+    )
+
     @api.model
     def _default_tickets(self):
         try:
@@ -221,6 +227,12 @@ class ShiftTemplate(models.Model):
                     return child
             return comp_id.partner_id
     # Compute Section
+
+    @api.multi
+    @api.depends('shift_type_id')
+    def _compute_is_ftop(self):
+        for template in self:
+            template.is_ftop = template.shift_type_id.is_ftop
 
     @api.multi
     @api.depends('shift_ids')
