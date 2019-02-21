@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import api, fields, models
+from openerp.addons import decimal_precision as dp
 
 
 class SupplierInfoUpdateLine(models.TransientModel):
@@ -9,12 +10,13 @@ class SupplierInfoUpdateLine(models.TransientModel):
         comodel_name='product.product')
 
     # get from current document fields
-    price_unit = fields.Float()
+    price_unit = fields.Float(digits=dp.get_precision('Product Price'))
     discount = fields.Float()
     observable_discount = fields.Float()
 
     # get from product.supplier.info
-    supplier_price_unit = fields.Float()
+    supplier_price_unit = fields.Float(
+        digits=dp.get_precision('Product Price'))
     supplier_discount = fields.Float()
     price_policy = fields.Selection(
         selection=[('uom', 'per UOM'), ('package', 'Per Package')]

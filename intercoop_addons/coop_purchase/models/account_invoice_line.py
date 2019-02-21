@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, api, fields
+from openerp.addons import decimal_precision as dp
 
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
-    base_price = fields.Monetary("Base Price")
+    base_price = fields.Monetary(
+        string="Base Price",
+        digits=dp.get_precision('Product Price')
+    )
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
