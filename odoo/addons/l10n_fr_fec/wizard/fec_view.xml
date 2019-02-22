@@ -13,7 +13,9 @@
                 <field name="export_type" groups="base.group_no_one"/>
             </group>
             <footer>
-                <button string="Generate" name="generate_fec" type="object"
+                <button string="CSV" name="export_fec_csv" type="object"
+                    class="oe_highlight"/>
+                <button string="TXT" name="export_fec_txt" type="object"
                     class="oe_highlight"/>
                 <button string="Cancel" special="cancel"
                     class="oe_link"/>
