@@ -126,6 +126,8 @@
                                 <field name="start_datetime"/>
                                 <field name="end_datetime"/>
                                 <field name="duration"/>
+                                <field name="is_ftop" invisible="1"/>
+                                <field name="is_technical" attrs="{'invisible': [('is_ftop', '=', False)]}"/>
                             </group>
                         </group>
                         <notebook>

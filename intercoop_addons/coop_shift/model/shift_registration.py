@@ -98,11 +98,23 @@ class ShiftRegistration(models.Model):
         ('replaced', 'Replaced')
     ], string="Exchange Status", default='draft')
 
+    is_technical = fields.Boolean(
+        compute='_compute_is_technical',
+        store=True
+    )
+
     _sql_constraints = [(
         'shift_registration_uniq',
         'unique (shift_id, partner_id)',
         'This partner is already registered on this Shift !'),
     ]
+
+    @api.multi
+    @api.depends('shift_id.shift_template_id.is_technical')
+    def _compute_is_technical(self):
+        for registration in self:
+            registration.is_technical = \
+                registration.shift_id.shift_template_id.is_technical
 
     @api.multi
     def compute_is_related_shift_ftop(self):
