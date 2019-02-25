@@ -78,7 +78,17 @@ class AccountFrFec(models.TransientModel):
         return listrow
 
     @api.multi
-    def generate_fec(self):
+    def export_fec_csv(self):
+        self.ensure_one()
+        return self.generate_fec()
+
+    @api.multi
+    def export_fec_txt(self):
+        self.ensure_one()
+        return self.generate_fec(extension="txt", delimiter='\t')
+
+    @api.multi
+    def generate_fec(self, extension="csv", delimiter='|'):
         self.ensure_one()
         # We choose to implement the flat file instead of the XML
         # file for 2 reasons :
@@ -118,7 +128,7 @@ class AccountFrFec(models.TransientModel):
                 _("FEC is for French companies only !"))
 
         fecfile = StringIO.StringIO()
-        w = csv.writer(fecfile, delimiter='|')
+        w = csv.writer(fecfile, delimiter=delimiter)
         w.writerow(header)
 
         # INITIAL BALANCE
@@ -344,7 +354,7 @@ class AccountFrFec(models.TransientModel):
         self.write({
             'fec_data': base64.encodestring(fecvalue),
             # Filename = <siren>FECYYYYMMDD where YYYMMDD is the closing date
-            'filename': '%sFEC%s%s.csv' % (siren, end_date, suffix),
+            'filename': '%sFEC%s%s.%s' % (siren, end_date, suffix, extension),
             })
         fecfile.close()
 

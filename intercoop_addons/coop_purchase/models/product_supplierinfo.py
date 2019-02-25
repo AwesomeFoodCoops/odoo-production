@@ -30,6 +30,13 @@ class ProductSupplierinfo(models.Model):
         'Sale Price Taxes Included', compute='_get_prices', multi='taxes',
         digits_compute=dp.get_precision('Product Price'), )
 
+    base_price = fields.Float(
+        'Price', required=True,
+        digits_compute=dp.get_precision('Product Price'),
+        digits=dp.get_precision('Product Price'),
+        help="The price to purchase a product"
+    )
+
     @api.multi
     @api.depends('price_total', 'product_qty')
     def _compute_price_unit_tax(self):
