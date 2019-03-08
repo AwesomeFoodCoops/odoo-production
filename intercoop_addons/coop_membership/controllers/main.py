@@ -28,10 +28,11 @@ class WebsiteRegisterMeeting(http.Controller):
         for event in events:
 
             # Build address info event
-            street = event.address_id and event.address_id.street or False
-            zip_code = event.address_id and event.address_id.zip or False
-            city = event.address_id and event.address_id.city or False
-            address = '%s %s %s' % (str(street), str(zip_code), str(city))
+            event_address_obj = event.address_id
+            street = event_address_obj and event_address_obj.street or ''
+            zip_code = event_address_obj and event_address_obj.zip or ''
+            city = event_address_obj and event_address_obj.city or ''
+            address = u"{} {} {}".format(street, zip_code, city)
 
             # Get correct time
             date_tz = user.tz
