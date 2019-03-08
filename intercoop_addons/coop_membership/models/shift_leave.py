@@ -315,18 +315,23 @@ class ShiftLeave(models.Model):
             l.shift_ticket_id.shift_type ==
             'standard').mapped('shift_template_id')
 
-        # Get number of shifts in period that is from end date of past ABCD line to
-        # the end of leave to guess line partner might register
-
+        # Get number of shifts in period
+        # that is from end date of past ABCD line to the end of leave
+        # to guess line partner might register
         num_shift_guess = 0
 
         for template in templates:
+            # last_shift_date is the last day of its shift.shift begin date
             last_shift_date = (fields.Datetime.from_string(
                 template.last_shift_date) + timedelta(days=1)).strftime('%Y-%m-%d')
+
+            # Future dates of this template starting from last_shift_date date
+            # to leave's stop_date
             rec_dates = template.get_recurrent_dates(
                 last_shift_date, self.stop_date)
             for rec in rec_dates:
-                if fields.Datetime.to_string(rec) < self.stop_date:
+                date_rec_str = fields.Datetime.to_string(rec)
+                if self.start_date < date_rec_str < self.stop_date:
                     num_shift_guess += 1
         return num_shift_guess
 
