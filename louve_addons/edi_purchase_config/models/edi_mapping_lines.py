@@ -32,3 +32,16 @@ class EdiPriceMapping(models.Model):
     is_numeric = fields.Boolean(string="Is numeric ?")
     is_date = fields.Boolean(string="Is a date?")
     decimal_precision = fields.Integer(string="Decimal precision")
+
+
+class EdiBleMapping(models.Model):
+    _name = 'edi.ble.mapping'
+    _order = 'position'
+
+    sequence = fields.Integer(string="Sequence", default=1)
+    position = fields.Integer(string="Position", required=True)
+    ble_config_id = fields.Many2one(comodel_name="edi.config.system")
+    mapping_field_id = fields.Many2one(comodel_name="ir.model.fields", string="Prices mapping field")
+    name = fields.Char(string="Zone description")
+    sequence_start = fields.Integer(string="Sequence start")
+    sequence_end = fields.Integer(string="Sequence end")

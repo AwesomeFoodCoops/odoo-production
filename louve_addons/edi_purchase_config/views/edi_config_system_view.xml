@@ -68,6 +68,26 @@
                                 </field>
                             </group>
                         </page>
+                        <page string="BLE update interface">
+                            <group string="General settings">
+                                <field name="days"/>
+                                <field name="header_code"/>
+                                <field name="lines_code"/>
+                                <field name="delivery_sign"/>
+                            </group>
+                            <group string="Fields mapping">
+                                <field name="ble_mapping_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="position"/>
+                                        <field name="name"/>
+                                        <field name="mapping_field_id"/>
+                                        <field name="sequence_start"/>
+                                        <field name="sequence_end"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

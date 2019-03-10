@@ -12,14 +12,14 @@
                 <field name="product_name"/>
                 <field name="default_code"/>
             </xpath>
-            <xpath expr="//field[@name='date_start']" position="replace"/>
-            <xpath expr="//field[@name='date_end']" position="replace"/>
+            <!--xpath expr="//field[@name='date_start']" position="replace"/-->
+            <!--xpath expr="//field[@name='date_end']" position="replace"/>
             <xpath expr="//field[@name='price']" position="after">
                 <field name="price_taxes_excluded"/>
                 <field name="price_taxes_included"/>
                 <field name="taxes_id" widget="many2many_tags"/>
                 <field name="supplier_taxes_id" widget="many2many_tags"/>
-            </xpath>
+            </xpath-->
             <xpath expr="//tree" position="attributes">
                 <attribute name="editable">top</attribute>
             </xpath>
