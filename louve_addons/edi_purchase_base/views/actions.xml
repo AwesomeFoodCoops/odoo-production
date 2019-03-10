@@ -10,12 +10,6 @@
             <field name="search_view_id" ref="view_product_price_history_search"/>
         </record>
 
-        <record id="picking_update_edi_action" model="ir.actions.act_window">
-            <field name="name">Delivery order update</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">picking.update</field>
-            <field name="view_mode">tree,form</field>
-        </record>
 
     </data>
 </odoo>

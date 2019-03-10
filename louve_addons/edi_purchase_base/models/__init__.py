@@ -5,6 +5,4 @@
 
 from . import purchase
 from . import product
-from . import stock
 from . import supplier_price_list
-from . import picking_update

@@ -47,11 +47,6 @@ class EdiConfigSystem(models.Model):
     vrp_code = fields.Char(string="VRP Code", required=True)
     mapping_ids = fields.One2many(comodel_name="edi.mapping.lines", inverse_name="config_id")
     price_mapping_ids = fields.One2many(comodel_name="edi.price.mapping", inverse_name="price_config_id")
-    ble_mapping_ids = fields.One2many(comodel_name="edi.ble.mapping", inverse_name="ble_config_id")
-    delivery_sign = fields.Char(string="Delivery sign")
-    days = fields.Integer(string="Frequency check (days)")
-    header_code = fields.Char(string="Header code")
-    lines_code = fields.Char(string="Lines code")
 
     @api.one
     @api.constrains('ftp_port')
@@ -131,31 +126,7 @@ class EdiConfigSystem(models.Model):
                         file = open(os.path.join(local_folder_path, name_without_zip), "r")
                         return file.readlines(), name
         except Exception, e:
-            raise ValidationError(_("Error when pulling prices update file:\n %s") % tools.ustr(e))\
-
-    @api.model
-    def ftp_connection_pull_ble(self, ftp, edi_system, distant_folder_path, local_folder_path):
-        try:
-            today = datetime.date.today()
-            ftp.cwd(distant_folder_path)
-            names = ftp.nlst()
-            for name in names:
-                if fnmatch.fnmatch(name, "BLE*"):
-                    timestamp = ftp.voidcmd("MDTM " + distant_folder_path + "/" + name)[4:].strip()
-                    file_date = parser.parse(timestamp)
-                    diff = today - file_date.date()
-                    days_gap = diff.days
-                    if days_gap < edi_system.days:
-                        with open(os.path.join(local_folder_path, name), "wb") as f:
-                            ftp.retrbinary("RETR {}".format(name), f.write)
-                        zf = zipfile.ZipFile(os.path.join(local_folder_path, name))
-                        zf.extractall(local_folder_path)
-                        zf.close()
-                        name_without_zip = name[:-4]
-                        file = open(os.path.join(local_folder_path, name_without_zip), "r")
-                        return file.readlines(), name
-        except Exception, e:
-            raise ValidationError(_("Error when pulling BLE update file:\n %s") % tools.ustr(e))
+            raise ValidationError(_("Error when pulling prices update file:\n %s") % tools.ustr(e))
 
     @api.model
     def get_datenow_format_for_file(self):
@@ -174,15 +145,7 @@ class EdiConfigSystem(models.Model):
         """
         Transform a string date to datetime and format it to standard odoo date format
         """
-        return datetime.datetime.strptime(date, "%y%m%d").strftime('%Y-%m-%d')\
-
-    @api.model
-    def get_date_format_ble_yyyymmdd(self, date):
-        """
-        Transform a string date (specific to delivery order interface format) to datetime object and format it to standard odoo date format
-        """
-        return datetime.datetime.strptime(date, "%Y%m%d").strftime('%Y-%m-%d')
-
+        return datetime.datetime.strptime(date, "%y%m%d").strftime('%Y-%m-%d')
 
     @api.model
     def insert_separator(self, string, index, separator):
