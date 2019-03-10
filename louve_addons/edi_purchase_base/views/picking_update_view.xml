@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="picking_update_todo_list_view_tree" model="ir.ui.view">
+           <field name="name">picking.update.tree</field>
+           <field name="model">picking.update</field>
+           <field name="arch" type="xml">
+               <tree colors="grey:done == True">
+                   <field name="create_date"/>
+                   <field name="name"/>
+                   <field name="done"/>
+               </tree>
+           </field>
+        </record>
+
+        <record id="picking_update_todo_list_view_form" model="ir.ui.view">
+            <field name="name">picking.update.form</field>
+            <field name="model">picking.update</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="button_update_picking_order" type="object" class="oe_highlight" string="Update picking"
+                                attrs="{'invisible': [('done', '=', True)]}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="create_date" readonly="1"/>
+                            <field name="done"/>
+                        </group>
+                        <group string="Quantities to update (Contains only product updated from EDI )">
+                            <field name="values_proposed_ids" nolabel="1">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="ordered_quantity"/>
+                                    <field name="product_qty"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
