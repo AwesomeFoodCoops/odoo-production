@@ -6,29 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-10 22:51+0000\n"
-"PO-Revision-Date: 2019-03-10 22:51+0000\n"
+"POT-Creation-Date: 2018-12-26 10:55+0000\n"
+"PO-Revision-Date: 2018-12-26 10:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: edi_purchase_config
-#: model:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
-msgid "BLE update interface"
-msgstr "Interface mise à jour BLE"
-
-#. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_ble_config_id
-msgid "Ble config id"
-msgstr "Ble config id"
-
-#. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_ble_mapping_ids
-msgid "Ble mapping ids"
-msgstr "Ble mapping ids"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_config_id
@@ -51,7 +36,6 @@ msgid "Constants"
 msgstr "Constantes"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_create_uid
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_create_uid
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_create_uid
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_create_uid
@@ -60,7 +44,6 @@ msgid "Created by"
 msgstr "Créé par"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_create_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_create_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_create_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_create_date
@@ -84,12 +67,6 @@ msgid "Delivery order File pattern"
 msgstr "Motif du fichier BLE"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_delivery_sign
-msgid "Delivery sign"
-msgstr "Code livraison"
-
-#. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_display_name
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_display_name
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_display_name
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_display_name
@@ -151,7 +128,7 @@ msgstr "Echanges de données (EDI)"
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:75
 #: code:addons/edi_purchase_config/models/edi_config_system.py:79
-#: code:addons/edi_purchase_config/models/edi_config_system.py:86
+#: code:addons/edi_purchase_config/models/edi_config_system.py:81
 #, python-format
 msgid "Error when closing FTP connection:\n"
 " %s"
@@ -161,7 +138,7 @@ msgstr "Erreur à la fermeture de la connexion FTP :\n"
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:68
 #: code:addons/edi_purchase_config/models/edi_config_system.py:72
-#: code:addons/edi_purchase_config/models/edi_config_system.py:79
+#: code:addons/edi_purchase_config/models/edi_config_system.py:74
 #, python-format
 msgid "Error when opening FTP connection:\n"
 " %s"
@@ -169,16 +146,8 @@ msgstr "Erreur à l'ouverture de la connexion FTP :\n"
 " %s"
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:158
-#, python-format
-msgid "Error when pulling BLE update file:\n"
-" %s"
-msgstr "Erreur à l'import des fichiers BLE:\n"
-" %s"
-
-#. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:127
-#: code:addons/edi_purchase_config/models/edi_config_system.py:134
+#: code:addons/edi_purchase_config/models/edi_config_system.py:129
 #, python-format
 msgid "Error when pulling prices update file:\n"
 " %s"
@@ -188,7 +157,7 @@ msgstr "Erreur au téléchargement du fichier des prix :\n"
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:100
 #: code:addons/edi_purchase_config/models/edi_config_system.py:103
-#: code:addons/edi_purchase_config/models/edi_config_system.py:110
+#: code:addons/edi_purchase_config/models/edi_config_system.py:105
 #, python-format
 msgid "Error when pushing order file:\n"
 " %s"
@@ -223,7 +192,7 @@ msgstr "Port"
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:49
 #: code:addons/edi_purchase_config/models/edi_config_system.py:53
-#: code:addons/edi_purchase_config/models/edi_config_system.py:60
+#: code:addons/edi_purchase_config/models/edi_config_system.py:55
 #, python-format
 msgid "FTP port must be numeric!"
 msgstr "Le port FTP doit être numérique!"
@@ -239,22 +208,6 @@ msgid "File name"
 msgstr "Nom du fichier"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_days
-msgid "Frequency check (days)"
-msgstr "Fréquence de vérification (jours)"
-
-#. module: edi_purchase_config
-#: model:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
-msgid "General settings"
-msgstr "Paramétrages générals"
-
-#. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_header_code
-msgid "Header code"
-msgstr "Code entête"
-
-#. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_id
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_id
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_id
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_id
@@ -288,7 +241,6 @@ msgid "Is numeric ?"
 msgstr "Est un nombre?"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping___last_update
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system___last_update
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines___last_update
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping___last_update
@@ -297,7 +249,6 @@ msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_write_uid
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_write_uid
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_write_uid
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_write_uid
@@ -306,18 +257,12 @@ msgid "Last Updated by"
 msgstr "Mis à jour par"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_write_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_write_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_write_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_write_date
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_write_date
 msgid "Last Updated on"
 msgstr "Mis à jour le"
-
-#. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system_lines_code
-msgid "Lines code"
-msgstr "Code lignes"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_log_date
@@ -346,7 +291,6 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_position
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_position
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_position
 msgid "Position"
@@ -363,7 +307,6 @@ msgid "Price mapping ids"
 msgstr "Price mapping ids"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_mapping_field_id
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_mapping_field_id
 msgid "Prices mapping field"
 msgstr "Mapping champ Odoo"
@@ -404,20 +347,17 @@ msgid "Relative path for OUT interfaces"
 msgstr "Chemin relatif des interfaces sortantes"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_sequence
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines_sequence
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_sequence
 msgid "Sequence"
 msgstr "Séquence"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_sequence_end
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_sequence_end
 msgid "Sequence end"
 msgstr "Fin séquence"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_sequence_start
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_sequence_start
 msgid "Sequence start"
 msgstr "Début séquence"
@@ -448,15 +388,9 @@ msgid "VRP Code"
 msgstr "Code VRP"
 
 #. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping_name
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_name
 msgid "Zone description"
 msgstr "Description zone"
-
-#. module: edi_purchase_config
-#: model:ir.model,name:edi_purchase_config.model_edi_ble_mapping
-msgid "edi.ble.mapping"
-msgstr "edi.ble.mapping"
 
 #. module: edi_purchase_config
 #: model:ir.model,name:edi_purchase_config.model_edi_config_system
