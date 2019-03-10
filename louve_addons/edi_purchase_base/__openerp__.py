@@ -10,14 +10,12 @@
     'author': 'Druidoo',
     'website': 'http://www.lalouve.net',
     'license': 'AGPL-3',
-    'depends': ['purchase', 'stock', 'edi_purchase_config'
+    'depends': ['purchase', 'edi_purchase_config'
     ],
     'data': ['data/ir_cron.xml',
              'views/supplier_price_list_view.xml',
              'views/actions.xml',
-             'views/menus.xml',
              'views/product_template_view.xml',
-             'views/picking_update_view.xml',
              'security/ir.model.access.csv'
     ],
 }
