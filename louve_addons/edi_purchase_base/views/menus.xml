@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="picking_edi_update_menu" name="Delivery order update" action="picking_update_edi_action"
+                  parent="edi_purchase_config.menu_edi_config_root" sequence="3"/>
+
+    </data>
+</odoo>
