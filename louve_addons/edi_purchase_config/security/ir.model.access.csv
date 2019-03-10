@@ -10,3 +10,6 @@ access_model_purchase_edi_log_manager,access_model_purchase_edi_log_manager,mode
 ,,,,,,,
 access_model_edi_price_mapping_all,access_model_edi_price_mapping_all,model_edi_price_mapping,,1,0,0,0
 access_model_edi_price_mapping_manager,access_model_edi_price_mapping_manager,model_edi_price_mapping,edi_purchase_config.group_manager,1,1,1,1
+,,,,,,,
+access_model_edi_ble_mapping_all,access_model_edi_ble_mapping_all,model_edi_ble_mapping,,1,0,0,0
+access_model_edi_ble_mapping_manager,access_model_edi_ble_mapping_manager,model_edi_ble_mapping,edi_purchase_config.group_manager,1,1,1,1
