@@ -23,13 +23,11 @@ class event_registration(models.Model):
     @api.multi
     def get_address_meeting(self):
         for record in self:
-            street = record.event_id.address_id and\
-                record.event_id.address_id.street or False
-            zip_code = record.event_id.address_id and\
-                record.event_id.address_id.zip or False
-            city = record.event_id.address_id and\
-                record.event_id.address_id.city or False
-            address = '%s %s %s' % (str(street), str(zip_code), str(city))
+            event_address_obj = record.event_id.address_id
+            street = event_address_obj and event_address_obj.street or ''
+            zip_code = event_address_obj and event_address_obj.zip or ''
+            city = event_address_obj and event_address_obj.city or ''
+            address = u"{} {} {}".format(street, zip_code, city)
             return address
 
     @api.multi
