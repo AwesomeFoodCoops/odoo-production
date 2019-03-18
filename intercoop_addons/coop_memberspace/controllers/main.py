@@ -159,7 +159,7 @@ class Website(openerp.addons.website.controllers.main.Website):
         shifts_available = shift_env
         if tmpl:
             shifts_available = shift_env.sudo().search([
-                ('shift_id.shift_template_id.is_technical', '=', False),
+                ('shift_template_id.is_technical', '=', False),
                 ('shift_template_id', '!=', tmpl[0].shift_template_id.id),
                 ('date_begin', '>=', (
                     datetime.now() + timedelta(days=1)).strftime(

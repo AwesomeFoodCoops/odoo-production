@@ -13,4 +13,15 @@
         <field name="active" eval="False"/>
     </record>
 
+    <record id="ir_cron_update_stock_picking" model="ir.cron">
+        <field name="name">Update stock picking quantities</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model">stock.picking</field>
+        <field name="function">cron_update_stock_picking</field>
+        <field name="active" eval="False"/>
+    </record>
+
 </odoo>
