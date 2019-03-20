@@ -25,7 +25,7 @@ class ShiftTicket(models.Model):
     @api.multi
     @api.depends('shift_id', 'shift_id.shift_ticket_ids',
                  'shift_id.shift_ticket_ids.seats_max',
-                 'shift_id.shift_ticket_ids.seats_available')
+                 'shift_id.shift_ticket_ids.registration_ids.state')
     def _compute_seats_ticket(self):
         for record in self:
             max_standard_seat = 0
