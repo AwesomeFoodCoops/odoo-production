@@ -480,7 +480,7 @@ class ResPartner(models.Model):
             tmpl_reg = partner.tmpl_reg_ids.filtered(
                 lambda r: r.is_current
                 and r.shift_ticket_id.shift_type == 'ftop'
-                and r.shift_template_id.shift_type_id in ftop_type_ids
+                and r.shift_template_id.shift_type_id.id in ftop_type_ids
             )
             partner.in_ftop_team = len(tmpl_reg) > 0
 
