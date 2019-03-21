@@ -474,16 +474,15 @@ class ResPartner(models.Model):
 
     @api.multi
     def _compute_in_ftop_team(self):
-        shift_reg_templ_env = self.env['shift.template.registration'].sudo()
         ftop_type_ids = self.env['shift.type'].sudo().search(
             [('is_ftop', '=', True)]).ids
         for partner in self:
-            templ_reg = shift_reg_templ_env.search_count(
-                [('shift_ticket_id.shift_type', '=', 'ftop'),
-                 ('shift_template_id.shift_type_id', 'in', ftop_type_ids),
-                 ('partner_id', '=', partner.id)]
+            tmpl_reg = partner.tmpl_reg_ids.filtered(
+                lambda r: r.is_current
+                and r.shift_ticket_id.shift_type == 'ftop'
+                and r.shift_template_id.shift_type_id.id in ftop_type_ids
             )
-            partner.in_ftop_team = templ_reg and True or False
+            partner.in_ftop_team = len(tmpl_reg) > 0
 
     @api.depends('working_state')
     @api.multi
