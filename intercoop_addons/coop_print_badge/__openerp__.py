@@ -18,6 +18,7 @@
         'report',
     ],
     'data': [
+        'security/res_groups.xml',
         'views/view_res_partner.xml',
         'data/report_paperformat.xml',
         'data/ir_config_parameter_data.xml',

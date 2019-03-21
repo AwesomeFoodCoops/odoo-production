@@ -62,3 +62,7 @@ msgstr "Champs dont la modification provoque la ré-impression du badge"
 msgid "Badge Printing"
 msgstr "Impression du badge"
 
+#. module: coop_print_badge
+#: model:ir.model.fields,field_description:coop_print_badge.field_res_partner_badge_to_print
+msgid "Badge To Print"
+msgstr "Badge à imprimer"
