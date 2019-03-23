@@ -13,7 +13,7 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
     date_planned = fields.Datetime(string='Scheduled Date', compute='_compute_date_planned', required=True, index=True,
-                                   oldname='minimum_planned_date', store=True)
+                                   oldname='minimum_planned_date', store=True, copy=True)
 
     @api.multi
     def _consolidate_products(self):
