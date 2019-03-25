@@ -9,7 +9,7 @@
         name="coop_print_badge.report_printbadge"
         file="coop_print_badge.report_printbadge"
         attachment_use="False"
-        groups="coop_membership.group_membership_access_user,coop_membership.group_membership_see_associated_people"
+        groups="coop_membership.group_membership_access_user,coop_membership.group_membership_see_associated_people,coop_print_badge.group_access_badge_report"
     />
 
     <record id="coop_print_badge.action_report_printbadge" model="ir.actions.report.xml">

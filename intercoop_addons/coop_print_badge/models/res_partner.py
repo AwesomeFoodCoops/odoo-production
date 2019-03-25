@@ -13,8 +13,10 @@ def new_image_resize_image_medium(
     return image_resize_image(
         base64_source, size, encoding, filetype, avoid_if_small)
 
+
 # Override native method
 openerp.tools.image.image_resize_image_medium = new_image_resize_image_medium
+
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
