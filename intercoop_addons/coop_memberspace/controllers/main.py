@@ -4,8 +4,8 @@ from __future__ import division
 import openerp
 from openerp.addons.web import http
 from openerp.http import request
-from openerp import tools, _
-from datetime import datetime, timedelta
+from openerp import fields, tools, _
+from datetime import date, datetime, timedelta
 import pytz
 import logging
 import locale
@@ -31,12 +31,17 @@ class Website(openerp.addons.website.controllers.main.Website):
 
         # Get next shift
         shift_registration_env = request.env['shift.registration']
-        shift = shift_registration_env.sudo().search([
+        today = date.today()
+        monday_of_this_week = today - timedelta(days=today.isoweekday() % 7)
+        sunday_of_this_week = monday_of_this_week + timedelta(days=7)
+        shift_registration = shift_registration_env.sudo().search([
             ('shift_id.shift_template_id.is_technical', '=', False),
             ('partner_id', '=', user.partner_id.id),
             ('state', '!=', 'cancel'),
-            ('date_begin', '>=', datetime.now().strftime(
-                '%Y-%m-%d %H:%M:%S'))
+            ('date_begin', '>=', monday_of_this_week.strftime(
+                '%Y-%m-%d 00:00:01')),
+            ('date_begin', '<=', sunday_of_this_week.strftime(
+                '%Y-%m-%d 23:59:59')),
         ], order="date_begin", limit=1)
 
         # Get Turnover of the day
@@ -48,14 +53,19 @@ class Website(openerp.addons.website.controllers.main.Website):
 
         user_tz = user.tz or 'Europe/Paris'
         local = pytz.timezone(user_tz)
-        date_begin = shift and datetime.strftime(pytz.utc.localize(
+        date_begin = shift_registration and datetime.strftime(pytz.utc.localize(
             datetime.strptime(
-                shift.date_begin, "%Y-%m-%d %H:%M:%S")).astimezone(
+                shift_registration.date_begin, "%Y-%m-%d %H:%M:%S")).astimezone(
                 local), "%A, %d %B %Hh%M") or False
+
+        weekA_date = fields.Date.from_string(
+            request.env.ref('coop_shift.config_parameter_weekA').value)
+        week_number = 1 + (((today - weekA_date).days // 7) % 4)
+        week_number_chr = chr(week_number + 64)
 
         values = {
             'date_begin': date_begin and date_begin.capitalize() or False,
-            'shift': shift,
+            'week_number': week_number_chr,
             'num_of_members': len(members),
             'member_status': member_status
         }
