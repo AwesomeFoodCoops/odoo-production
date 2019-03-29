@@ -79,6 +79,8 @@ class ResPartner(models.Model):
     @api.multi
     def check_exist_email(self):
         for partner in self:
+            if partner.supplier:
+                continue
             if partner.email:
                 already_email = self.env['res.partner'].search([
                     ('email', '=', partner.email),
