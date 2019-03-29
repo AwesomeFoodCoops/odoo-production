@@ -61,7 +61,7 @@
                                 <div style="border: 1px solid #b2b7bb;padding: 10px;min-height: 115px;">
                                     <div class="row">
                                         <div class="col-md-4 col-xs-6" style="text-align: center">
-                                            <span style="font-size: 3em;font-weight: 600;" t-esc="shift.shift_id and dict(shift.shift_id._fields['week_number'].selection).get(shift.shift_id.week_number) or '' "/>
+                                            <span style="font-size: 3em;font-weight: 600;" t-esc="week_number"/>
                                         </div>
                                         <div class="col-md-4 col-xs-6">
                                         </div>
