@@ -539,7 +539,12 @@ class ShiftTemplate(models.Model):
             self.update_shift(vals)
         elif 'seats_max' in vals:
             self.update_max_seats_related_shifts(vals.get('seats_max'))
-
+            only_update_seats_max = all(
+                key in ['seats_max', 'updated_fields']
+                for key in vals.keys()
+            )
+            if only_update_seats_max:
+                vals['updated_fields'] = False
         return super(ShiftTemplate, self).write(vals)
 
     # Custom Public Section
