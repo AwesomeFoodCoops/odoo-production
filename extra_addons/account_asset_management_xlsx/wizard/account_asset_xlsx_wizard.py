@@ -154,31 +154,32 @@ class AccountAssetXlsxWizard(models.TransientModel):
                 )
                 aml_period_domain += state_domain
 
-            aml_before_date_start = self.env['account.move.line'].search([
+            read_fields = ['credit', 'debit']
+            aml_before_date_start = self.env['account.move.line'].search_read([
                 ('date', '<', self.from_date),
-            ] + aml_period_domain)
+            ] + aml_period_domain, fields=read_fields)
 
-            aml_in_range = self.env['account.move.line'].search([
+            aml_in_range = self.env['account.move.line'].search_read([
                 ('date', '>=', self.from_date),
                 ('date', "<=", self.to_date),
-            ] + aml_period_domain)
+            ] + aml_period_domain, fields=read_fields)
 
-            aml_before_date_end = self.env['account.move.line'].search([
+            aml_before_date_end = self.env['account.move.line'].search_read([
                 ('move_id.asset_id', '=', asset.id),
                 ('account_id.user_type_id', '=', fixed_asset_account_type.id),
                 ('date', "<=", self.to_date),
-            ] + state_domain)
+            ] + state_domain, fields=read_fields)
 
             amount_before_date_start = sum(
-                aml_before_date_start.mapped(lambda l: l.credit - l.debit)
+                [(l['credit'] - l['debit']) for l in aml_before_date_start]
             )
 
             amount_in_range = sum(
-                aml_in_range.mapped(lambda l: l.credit - l.debit)
+                [(l['credit'] - l['debit']) for l in aml_in_range]
             )
 
             amount_before_date_end = sum(
-                aml_before_date_end.mapped(lambda l: l.credit - l.debit)
+                [(l['credit'] - l['debit']) for l in aml_before_date_end]
             )
 
             account_amount_values.update({
