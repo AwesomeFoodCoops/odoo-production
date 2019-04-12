@@ -33,6 +33,25 @@ class ShiftCounterEvent(models.Model):
                 for event in counter_event_before:
                     record.sum_current_qty += event.point_qty
 
+    @api.model
+    def create(self, vals):
+        record = super(ShiftCounterEvent, self).create(vals)
+        self.send_unsubscribed_ftop_member_email(record.partner_id)
+        return record
+
+    @api.model
+    def send_unsubscribed_ftop_member_email(self, partner):
+        unsubscribed_ftop_template = \
+            self.env['ir.config_parameter'].sudo().get_param(
+                'coop.membership.unsubscribed.ftop.template')
+        notify_un_subscription_ftpop_email = self.env.ref(
+            'coop_membership.notify_un_subscription_ftpop_email')
+        if partner.display_ftop_points <= -8:
+            if partner.current_template_name == unsubscribed_ftop_template:
+                if not partner.is_unsubscribed:
+                    partner.is_unsubscribed = True
+                    notify_un_subscription_ftpop_email.send_mail(partner.id)
+
     @api.multi
     def update_write_date(self):
         sql = '''
