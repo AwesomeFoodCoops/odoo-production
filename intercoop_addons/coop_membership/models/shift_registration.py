@@ -115,6 +115,7 @@ class ShiftRegistration(models.Model):
                         next_reg.date_begin)
                     self.check_registration_period(
                         check_next_date_reg, partner)
+
     @api.multi
     def check_registration_period(self, date_reg, partner):
         company_id = self.env.user.company_id
@@ -242,7 +243,8 @@ class ShiftRegistration(models.Model):
                         reason = vals_state == 'done' and \
                             _('Attended') or \
                             _('Replaced')
-                        counter_vals['point_qty'] = 1
+                        counter_vals['point_qty'] = \
+                            shift_reg.get_volants_supplemental_credit()
                         counter_vals['name'] = reason
 
                     elif vals_state in ['absent']:
@@ -274,7 +276,8 @@ class ShiftRegistration(models.Model):
                     else:
                         if vals_state in ['done', 'replaced']:
                             reason = _('Attended')
-                            counter_vals['point_qty'] = 1
+                            counter_vals['point_qty'] = \
+                                shift_reg.get_standard_supplemental_credit()
                             counter_vals['name'] = reason
 
                 # Create Point Counter
@@ -312,6 +315,60 @@ class ShiftRegistration(models.Model):
         if 'template_created' in vals or 'shift_ticket_id' in vals or 'shift_id' in vals:
             self.check_leave_time()
         return res
+
+    @api.multi
+    def get_standard_supplemental_credit(self):
+        self.ensure_one()
+        standard_point = 1
+        is_standard_shift = self.shift_type == 'standard'
+        is_standard_ticket = self.shift_ticket_id.shift_type == 'standard'
+        not_belong_to_template = not self.template_created
+        if is_standard_shift and is_standard_ticket and not_belong_to_template:
+            current_template = self.shift_id.shift_template_id
+            credit_config = self.env['shift.credit.config'].search([
+                ('template_ids', 'in', current_template.ids),
+                ('state', '=', 'active'),
+                '&',
+                ('apply_for_abcd', '=', True),
+                '|',
+                ('end_date', '=', False),
+                ('end_date', '>', fields.Date.today()),
+            ], limit=1)
+            if credit_config:
+                standard_point = float(credit_config.credited_make_ups)
+        # Check current standard points
+        balance_standard_point = 0
+        partner = self.partner_id
+        current_standard_point = sum([
+            point_counter.point_qty
+            for point_counter in partner.counter_event_ids
+            if point_counter.type == 'standard'
+        ])
+        if standard_point + current_standard_point > balance_standard_point:
+            standard_point = balance_standard_point - current_standard_point
+        return standard_point
+
+    @api.multi
+    def get_volants_supplemental_credit(self):
+        self.ensure_one()
+        volant_point = 1
+        is_ftop_shift = self.shift_type == 'ftop'
+        is_ftop_ticket = self.shift_ticket_id.shift_type == 'ftop'
+        in_ftop_team = self.partner_id.in_ftop_team
+        if is_ftop_shift and is_ftop_ticket and in_ftop_team:
+            current_template = self.shift_id.shift_template_id
+            credit_config = self.env['shift.credit.config'].search([
+                ('template_ids', 'in', current_template.ids),
+                ('state', '=', 'active'),
+                '&',
+                ('apply_for_volants', '=', True),
+                '|',
+                ('end_date', '=', False),
+                ('end_date', '>', fields.Date.today()),
+            ], limit=1)
+            if credit_config:
+                volant_point = float(credit_config.credited_make_ups)
+        return volant_point
 
     @api.multi
     def adjust_qty_on_holiday(self, vals):

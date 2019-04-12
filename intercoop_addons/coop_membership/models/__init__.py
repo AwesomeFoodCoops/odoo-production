@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from . import event_config_settings
 from . import shift_leave_wizard
 from . import barcode_rule
@@ -29,3 +30,4 @@ from . import res_company
 from . import res_partner_inform
 from . import shift_counter_reason
 from . import mail_mass_mailing_contact
+from . import shift_credit_config
