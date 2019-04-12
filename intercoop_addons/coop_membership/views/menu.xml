@@ -273,4 +273,11 @@
         <field name="groups_id" eval="[(4,ref('event.group_event_manager'))]"/>
     </record>
 
+    <record model="ir.ui.menu" id="menu_incite_o_matic">
+        <field name="name">Incite-o-matique</field>
+        <field name="action" ref="action_incite_o_matic"/>
+        <field name="parent_id" ref="coop_shift.menu_shift_configuration"/>
+        <field name="sequence">10</field>
+    </record>
+
 </odoo>
