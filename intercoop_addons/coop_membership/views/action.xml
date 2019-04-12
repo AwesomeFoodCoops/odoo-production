@@ -309,4 +309,11 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="action_incite_o_matic">
+        <field name="name">Incite-o-matique</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shift.credit.config</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 </odoo>

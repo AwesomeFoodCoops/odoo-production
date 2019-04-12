@@ -23,7 +23,7 @@ class ShiftCounterEvent(models.Model):
         string='Partner', comodel_name='res.partner', required=True,
         select=True)
     is_manual = fields.Boolean('Manual', readonly=True, default=True)
-    point_qty = fields.Integer(string='Point Quantity', required=True)
+    point_qty = fields.Float(string='Point Quantity', required=True)
     ignored = fields.Boolean(
         string="Ignored",
         readonly=True,

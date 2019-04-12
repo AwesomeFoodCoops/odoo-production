@@ -1978,3 +1978,66 @@ msgstr "En sommeil"
 #: model:ir.ui.view,arch_db:coop_membership.view_bdm_search
 msgid "Just Unsubscribed"
 msgstr "Désinscription récente"
+
+#. module: coop_membership
+#: selection:shift.credit.config,state:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: coop_membership
+#: selection:shift.credit.config,state:0
+#: selection:shift.holiday,state:0
+msgid "Canceled"
+msgstr "Annulé"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_credit_config_credited_make_ups
+msgid "Credited make-ups"
+msgstr "Rattrapages crédités"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_credit_config_template_ids
+msgid "Créneau"
+msgstr "Créneau"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_credit_config_end_date
+msgid "Date de clôture de l’exception"
+msgstr "Date de clôture de l’exception"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_credit_config_state
+#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_state
+#: model:ir.ui.view,arch_db:coop_membership.view_partner_form
+msgid "State"
+msgstr "État"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_credit_config_apply_for_volants
+msgid "Volants"
+msgstr "Volants"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_credit_config_apply_for_abcd
+msgid "ABCD rattrapages"
+msgstr "ABCD rattrapages"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_credit_config_form
+msgid "Templates"
+msgstr "Créneau"
+
+#. module: coop_membership
+#: model:ir.ui.view,arch_db:coop_membership.view_members_config_settings_form
+#: model:ir.ui.view,arch_db:coop_membership.view_res_partner_generate_barcode_wizard_form
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_credit_config_form
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
+#: model:ir.ui.view,arch_db:coop_membership.view_shift_leave_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_credit_config.py:60
+#, python-format
+msgid "The configuration is duplicated"
+msgstr "The configuration is duplicated"
