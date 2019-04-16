@@ -131,21 +131,21 @@ class ResPartner(models.Model):
         " depends on the 'Working State' and extra custom settings.")
 
     # Fields for final standard and ftop points
-    final_standard_point = fields.Integer(
+    final_standard_point = fields.Float(
         string='Final Standard points', compute='compute_final_standard_point',
         store=True)
 
-    final_ftop_point = fields.Integer(
+    final_ftop_point = fields.Float(
         string='Final FTOP points', compute='compute_final_ftop_point',
         store=True)
 
-    display_std_points = fields.Integer(
+    display_std_points = fields.Float(
         string="Actual Current Standard Points",
         compute="compute_display_counter_point",
         store=True
     )
 
-    display_ftop_points = fields.Integer(
+    display_ftop_points = fields.Float(
         string="Actual Current FTOP Points",
         compute="compute_display_counter_point",
         store=True
