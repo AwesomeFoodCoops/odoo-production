@@ -24,10 +24,10 @@
         <field name="name">res.partner.badge.to_distribute.tree</field>
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
-            <tree create="false">
-                <field name="barcode_base" />
-                <field name="name" />
-                <field name="is_associated_people" />
+            <tree create="false" editable="top">
+                <field name="barcode_base" readonly="1"/>
+                <field name="name" readonly="1"/>
+                <field name="is_associated_people" readonly="1"/>
                 <field name="badge_distribution_date" />
             </tree>
         </field>
