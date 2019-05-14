@@ -5,38 +5,21 @@
 <openerp>
     <data>
 
-        <record id="view_terminal_reconciliation_report" model="ir.ui.view">
-            <field name="name">terminal.reconciliation.report.form</field>
-            <field name="model">terminal.reconciliation.report</field>
+        <record id="view_bank_statement_form" model="ir.ui.view">
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="model">account.bank.statement</field>
             <field name="arch" type="xml">
-                <form string="Reconciliation">
-                    <group >
-                        <field name="name" readonly="1"/>
-                    </group>
-                    <footer>
-                        <button string="Payment Terminal auto reconcil" name="payment_terminal_bank_launch" type="object"/>
-                        <button string="Close" class="btn-default" special="cancel"/>
-                    </footer>
-               </form>
+                <button name="button_cancel" position="before">
+                    <field name="can_reconcile_expense" invisible="True"/>
+                    <field name="can_reconcile_pos" invisible="True"/>
+                    <button string="Auto Reconcile Expenses"
+                        name="button_reconcile_bank_expense" type="object"
+                        attrs="{'invisible':['|','|','|',('can_reconcile_expense', '=', False),('all_lines_reconciled','=',True),('line_ids','=',[]),('state', '!=', 'open')]}"/>
+                    <button string="Auto Reconcile POS Payments"
+                        name="button_reconcile_pos" type="object"
+                        attrs="{'invisible':['|','|','|',('can_reconcile_expense', '=', False),('all_lines_reconciled','=',True),('line_ids','=',[]),('state', '!=', 'open')]}"/>
+                </button>
             </field>
-        </record>
-
-        <record id="action_view_payment_terminal_reconcil" model="ir.actions.act_window">
-            <field name="name">Payment Terminal auto reconcil</field>
-            <field name="res_model">terminal.reconciliation.report</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="view_terminal_reconciliation_report"/>
-            <field name="target">new</field>
-        </record>
-
-        <record model="ir.values" id="action_payment_terminal_reconcil">
-            <field name="model_id" ref="model_account_bank_statement_line" />
-            <field name="name">Payment Terminal auto reconcil</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,' +str(ref('action_view_payment_terminal_reconcil'))" />
-            <field name="key">action</field>
-            <field name="model">account.bank.statement.line</field>
         </record>
 
     </data>
