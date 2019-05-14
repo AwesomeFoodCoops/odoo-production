@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<openerp>
+    <data>
+
+        <record id="view_bank_statement_form" model="ir.ui.view">
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="model">account.bank.statement</field>
+            <field name="arch" type="xml">
+                <button name="button_cancel" position="before">
+                    <field name="can_reconcile_expense" invisible="True"/>
+                    <field name="can_reconcile_pos" invisible="True"/>
+                    <button string="Auto Reconcile Expenses"
+                        name="button_reconcile_bank_expense" type="object"
+                        attrs="{'invisible':['|','|','|',('can_reconcile_expense', '=', False),('all_lines_reconciled','=',True),('line_ids','=',[]),('state', '!=', 'open')]}"/>
+                    <button string="Auto Reconcile POS Payments"
+                        name="button_reconcile_pos" type="object"
+                        attrs="{'invisible':['|','|','|',('can_reconcile_expense', '=', False),('all_lines_reconciled','=',True),('line_ids','=',[]),('state', '!=', 'open')]}"/>
+                </button>
+            </field>
+        </record>
+
+    </data>
+</openerp>
