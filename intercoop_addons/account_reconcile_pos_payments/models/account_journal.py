@@ -4,6 +4,7 @@
 #    POS Payment Terminal module for Odoo
 #    Copyright (C) 2014 Aurélien DUMAINE
 #    Copyright (C) 2015 Akretion (www.akretion.com)
+#    Copyright (C) 2017 Iván Todorovich <ivan.todorovich@druidoo.io>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -25,11 +26,22 @@ from openerp import models, fields
 class AccountJournal(models.Model):
     _inherit = 'account.journal'
 
-    name_pattern_bank_return = fields.Char('Name pattern', default='.*')
-    ref_pattern_bank_return = fields.Char('Ref pattern', default='.*')
-    note_pattern_bank_return = fields.Char('Note pattern', default='.*')
-    date_pattern_bank_return = fields.Char('Date pattern', default='%Y-%m-%d')
-    name_charges_pattern_bank_return = fields.Char('Name charges pattern', default='.*')
-    ref_charges_pattern_bank_return = fields.Char('Ref charges pattern', default='.*')
-    note_charges_pattern_bank_return = fields.Char('Note charges pattern', default='.*')
-    bank_charge_account_id = fields.Many2one('account.account', 'Bank charge account')
+    # POS Payments
+    cb_parent_id = fields.Many2one(
+        'account.journal', 'CB Parent')
+
+    cb_child_ids = fields.One2many(
+        'account.journal', 'cb_parent_id', string='CB Childs')
+
+    cb_contract_number = fields.Char('CB Contact Number')
+    cb_contract_number_contactless = fields.Char('Contactless Contract Number')
+
+    cb_delta_days = fields.Integer('CB Delta Days', default=3)
+
+    # Charges
+    bank_expense_name_pattern = fields.Char()
+    bank_expense_ref_pattern = fields.Char()
+    bank_expense_note_pattern = fields.Char()
+
+    bank_expense_account_id = fields.Many2one(
+        'account.account', 'Bank Expense Account')
