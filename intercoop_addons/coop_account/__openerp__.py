@@ -10,7 +10,7 @@
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'depends': [
-        'account', 'account_asset', 'account_bank_statement_summary'
+        'account', 'account_asset', 'account_bank_statement_summary', 'pos_payment_terminal'
     ],
     'data': [
         "data/update_other_balance_move_line.yml",
