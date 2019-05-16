@@ -2,14 +2,16 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 # Copyright (C) 2013-2015 Akretion (http://www.akretion.com)
+from datetime import datetime, timedelta
+from glob import glob
+import csv
+import os
 
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning
-from datetime import datetime
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
-import base64
-import StringIO
-import csv
+from openerp.modules import get_module_resource
+
 
 
 class AccountFrFec(models.TransientModel):
@@ -18,8 +20,8 @@ class AccountFrFec(models.TransientModel):
 
     date_from = fields.Date(string='Start Date', required=True)
     date_to = fields.Date(string='End Date', required=True)
-    fec_data = fields.Binary('FEC File', readonly=True)
-    filename = fields.Char(string='Filename', size=256, readonly=True)
+    # fec_data = fields.Binary('FEC File', readonly=True)
+    # filename = fields.Char(string='Filename', size=256, readonly=True)
     export_type = fields.Selection([
         ('official', 'Official FEC report (posted entries only)'),
         ('nonofficial', 'Non-official FEC report (posted and unposted entries)'),
@@ -72,7 +74,6 @@ class AccountFrFec(models.TransientModel):
         formatted_date_year = date_from.year
         self._cr.execute(
             sql_query, (formatted_date_year, formatted_date_from, formatted_date_from, formatted_date_from, self.date_from, company.id))
-        listrow = []
         row = self._cr.fetchone()
         listrow = list(row)
         return listrow
@@ -127,8 +128,15 @@ class AccountFrFec(models.TransientModel):
             raise Warning(
                 _("FEC is for French companies only !"))
 
-        fecfile = StringIO.StringIO()
-        w = csv.writer(fecfile, delimiter=delimiter)
+        siren = company.vat[4:13]
+        end_date = self.date_to.replace('-', '')
+        suffix = ''
+        if self.export_type == "nonofficial":
+            suffix = '-NONOFFICIAL'
+        file_name = '{}FEC{}{}.{}'.format(siren, end_date, suffix, extension)
+        file_path = get_module_resource("l10n_fr_fec", "static")
+        fec_file = open('{}/{}'.format(file_path, file_name), 'w')
+        w = csv.writer(fec_file, delimiter=delimiter)
         w.writerow(header)
 
         # INITIAL BALANCE
@@ -338,30 +346,46 @@ class AccountFrFec(models.TransientModel):
             am.name,
             aml.id
         '''
-        self._cr.execute(
-            sql_query, (self.date_from, self.date_to, company.id))
-
-        for row in self._cr.fetchall():
+        for row in self.minimize_execute(
+                sql_query, (self.date_from, self.date_to, company.id)):
             listrow = list(row)
             w.writerow([s.encode("utf-8") for s in listrow])
 
-        siren = company.vat[4:13]
-        end_date = self.date_to.replace('-', '')
-        suffix = ''
-        if self.export_type == "nonofficial":
-            suffix = '-NONOFFICIAL'
-        fecvalue = fecfile.getvalue()
-        self.write({
-            'fec_data': base64.encodestring(fecvalue),
-            # Filename = <siren>FECYYYYMMDD where YYYMMDD is the closing date
-            'filename': '%sFEC%s%s.%s' % (siren, end_date, suffix, extension),
-            })
-        fecfile.close()
-
-        action = {
+        fec_file.close()
+        return {
             'name': 'FEC',
             'type': 'ir.actions.act_url',
-            'url': "web/content/?model=account.fr.fec&id=" + str(self.id) + "&filename_field=filename&field=fec_data&download=true&filename=" + self.filename,
+            'url': "/l10n_fr_fec/static/{}".format(file_name),
             'target': 'self',
-            }
-        return action
+        }
+
+    def minimize_execute(self, query, params):
+        self._cr.execute(query, params)
+        while 1:
+            # http://initd.org/psycopg/docs/cursor.html#cursor.fetchmany
+            # Set cursor.arraysize to minimize network round trips
+            self._cr.arraysize = 1000
+            rows = self._cr.fetchmany()
+            if not rows:
+                break
+            for row in rows:
+                yield row
+
+    @api.model
+    def cron_clean_fec_files(self):
+        # Clean the past FEC files
+        static_path = get_module_resource("l10n_fr_fec", "static")
+        csv_pattern = '{}/*.csv'.format(static_path)
+        txt_pattern = '{}/*.txt'.format(static_path)
+        yesterday = datetime.now() - timedelta(days=1)
+
+        for pattern in [csv_pattern, txt_pattern]:
+            for csv_file in glob(pattern):
+                print(csv_file)
+                creation_dt = datetime.fromtimestamp(
+                    os.path.getctime(csv_file)
+                )
+                # Delete past FEC files
+                if creation_dt <= yesterday:
+                    os.remove(csv_file)
+        return True
