@@ -10,7 +10,11 @@
     'summary': "Fichier d'Échange Informatisé (FEC) for France",
     'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com',
-    'depends': ['l10n_fr', 'account_accountant'],
+    'depends': [
+        'l10n_fr',
+        'account_accountant',
+        'connector'
+    ],
     'data': [
         'data/ir_cron.xml',
         'wizard/fec_view.xml',

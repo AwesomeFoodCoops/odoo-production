@@ -3,15 +3,19 @@
 
 # Copyright (C) 2013-2015 Akretion (http://www.akretion.com)
 from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 from glob import glob
 import csv
 import os
+import time
 
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from openerp.modules import get_module_resource
 
+from openerp.addons.connector.queue.job import job
+from openerp.addons.connector.session import ConnectorSession
 
 
 class AccountFrFec(models.TransientModel):
@@ -89,7 +93,37 @@ class AccountFrFec(models.TransientModel):
         return self.generate_fec(extension="txt", delimiter='\t')
 
     @api.multi
+    def export_fec_csv_background(self):
+        self.ensure_one()
+        return self.generate_fec_file_in_background()
+
+    @api.multi
+    def export_fec_txt_background(self):
+        self.ensure_one()
+        return self.generate_fec_file_in_background(
+            extension="txt", delimiter='\t')
+
+    @api.multi
     def generate_fec(self, extension="csv", delimiter='|'):
+        self.ensure_one()
+        file_path, file_name = self.write_fec_header(extension, delimiter)
+        self.write_fec_lines(
+            file_path, delimiter, self.date_from, self.date_to
+        )
+        return self.get_fec_file(file_name)
+
+    @api.multi
+    def get_fec_file(self, file_name):
+        self.ensure_one()
+        return {
+            'name': 'FEC',
+            'type': 'ir.actions.act_url',
+            'url': "/l10n_fr_fec/static/{}".format(file_name),
+            'target': 'self',
+        }
+
+    @api.multi
+    def write_fec_header(self, extension="csv", delimiter='|'):
         self.ensure_one()
         # We choose to implement the flat file instead of the XML
         # file for 2 reasons :
@@ -131,11 +165,19 @@ class AccountFrFec(models.TransientModel):
         siren = company.vat[4:13]
         end_date = self.date_to.replace('-', '')
         suffix = ''
+        timestamp = int(time.mktime(datetime.now().timetuple()))
         if self.export_type == "nonofficial":
             suffix = '-NONOFFICIAL'
-        file_name = '{}FEC{}{}.{}'.format(siren, end_date, suffix, extension)
-        file_path = get_module_resource("l10n_fr_fec", "static")
-        fec_file = open('{}/{}'.format(file_path, file_name), 'w')
+        file_name = '{}FEC{}{}_{}.{}'.format(
+            siren, end_date, suffix, timestamp, extension)
+        static_path = get_module_resource("l10n_fr_fec", "static")
+        if not static_path:
+            module_path = get_module_resource("l10n_fr_fec")
+            print(module_path)
+            os.mkdir("{}/static".format(module_path))
+            static_path = get_module_resource("l10n_fr_fec", "static")
+        file_path = '{}/{}'.format(static_path, file_name)
+        fec_file = open(file_path, 'w')
         w = csv.writer(fec_file, delimiter=delimiter)
         w.writerow(header)
 
@@ -278,86 +320,78 @@ class AccountFrFec(models.TransientModel):
         AND aat.type in ('receivable', 'payable')
         '''
         self._cr.execute(
-            sql_query, (formatted_date_year, formatted_date_from, formatted_date_from, formatted_date_from, self.date_from, company.id))
+            sql_query, (
+                formatted_date_year,
+                formatted_date_from,
+                formatted_date_from,
+                formatted_date_from,
+                self.date_from,
+                company.id
+            )
+        )
 
         for row in self._cr.fetchall():
             listrow = list(row)
             account_id = listrow.pop()
             w.writerow([s.encode("utf-8") for s in listrow])
 
-        # LINES
-        sql_query = '''
-        SELECT
-            replace(aj.code, '|', '/') AS JournalCode,
-            replace(aj.name, '|', '/') AS JournalLib,
-            replace(am.name, '|', '/') AS EcritureNum,
-            TO_CHAR(am.date, 'YYYYMMDD') AS EcritureDate,
-            aa.code AS CompteNum,
-            replace(aa.name, '|', '/') AS CompteLib,
-            CASE WHEN rp.ref IS null OR rp.ref = ''
-            THEN COALESCE('ID ' || rp.id, '')
-            ELSE rp.ref
-            END
-            AS CompAuxNum,
-            COALESCE(replace(rp.name, '|', '/'), '') AS CompAuxLib,
-            CASE WHEN am.ref IS null OR am.ref = ''
-            THEN '-'
-            ELSE replace(am.ref, '|', '/')
-            END
-            AS PieceRef,
-            TO_CHAR(am.date, 'YYYYMMDD') AS PieceDate,
-            CASE WHEN aml.name IS NULL THEN '/'
-                WHEN aml.name SIMILAR TO '[\t|\s|\n]*' THEN '/'
-                ELSE replace(aml.name, '|', '/') END AS EcritureLib,
-            replace(CASE WHEN aml.debit = 0 THEN '0,00' ELSE to_char(aml.debit, '000000000000000D99') END, '.', ',') AS Debit,
-            replace(CASE WHEN aml.credit = 0 THEN '0,00' ELSE to_char(aml.credit, '000000000000000D99') END, '.', ',') AS Credit,
-            CASE WHEN rec.name IS NULL THEN '' ELSE rec.name END AS EcritureLet,
-            CASE WHEN aml.full_reconcile_id IS NULL THEN '' ELSE TO_CHAR(rec.create_date, 'YYYYMMDD') END AS DateLet,
-            TO_CHAR(am.date, 'YYYYMMDD') AS ValidDate,
-            CASE
-                WHEN aml.amount_currency IS NULL OR aml.amount_currency = 0 THEN ''
-                ELSE replace(to_char(aml.amount_currency, '000000000000000D99'), '.', ',')
-            END AS Montantdevise,
-            CASE WHEN aml.currency_id IS NULL THEN '' ELSE rc.name END AS Idevise
-        FROM
-            account_move_line aml
-            LEFT JOIN account_move am ON am.id=aml.move_id
-            LEFT JOIN res_partner rp ON rp.id=aml.partner_id
-            JOIN account_journal aj ON aj.id = am.journal_id
-            JOIN account_account aa ON aa.id = aml.account_id
-            LEFT JOIN res_currency rc ON rc.id = aml.currency_id
-            LEFT JOIN account_full_reconcile rec ON rec.id = aml.full_reconcile_id
-        WHERE
-            am.date >= %s
-            AND am.date <= %s
-            AND am.company_id = %s
-            AND (aml.debit != 0 OR aml.credit != 0)
-        '''
-
-        # For official report: only use posted entries
-        if self.export_type == "official":
-            sql_query += '''
-            AND am.state = 'posted'
-            '''
-
-        sql_query += '''
-        ORDER BY
-            am.date,
-            am.name,
-            aml.id
-        '''
-        for row in self.minimize_execute(
-                sql_query, (self.date_from, self.date_to, company.id)):
-            listrow = list(row)
-            w.writerow([s.encode("utf-8") for s in listrow])
-
         fec_file.close()
-        return {
-            'name': 'FEC',
-            'type': 'ir.actions.act_url',
-            'url': "/l10n_fr_fec/static/{}".format(file_name),
-            'target': 'self',
+        return file_path, file_name
+
+    @api.multi
+    def generate_fec_file_in_background(self, extension="csv", delimiter='|'):
+        self.ensure_one()
+        # Write FEC header
+        file_path, file_name = self.write_fec_header(extension, delimiter)
+        # Prepare periods
+        date_from = fields.Date.from_string(self.date_from)
+        date_to = fields.Date.from_string(self.date_to)
+        periods = self.prepare_periods(date_from, date_to)
+
+        # Call job
+        session = ConnectorSession(self._cr, self._uid)
+        for priority, (period_from, period_to) in enumerate(periods, 10):
+            print(priority, period_from, period_to)
+            # Create jobs
+            period_from_str = fields.Date.to_string(period_from)
+            period_to_str = fields.Date.to_string(period_to)
+            write_fec_lines_session_job.delay(
+                session, self._name, self.ids, file_path,
+                period_from_str, period_to_str, delimiter, priority=priority
+            )
+
+        mail_values = self.prepare_mail_values(file_name)
+        get_fec_file_session_job.delay(session, mail_values, priority=1000)
+        return True
+
+    @api.multi
+    def prepare_periods(self, date_from, date_to):
+        periods = []
+        period_from = period_to = date_from
+        while period_to < date_to:
+            period_to = period_from + relativedelta(months=1)
+
+            if period_to > date_to:
+                period_to = date_to
+            periods.append(
+                (period_from, period_to)
+            )
+            period_from = period_to + relativedelta(days=1)
+        return periods
+
+    @api.multi
+    def prepare_mail_values(self, file_name):
+        self.ensure_one()
+        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        url = "{}/l10n_fr_fec/static/{}".format(base_url, file_name)
+        mail_values = {
+            'subject': "Your requested FEC file",
+            'body': """
+            <a href="{}">Here is your requested file</a>
+            """.format(url),
+            'partner_ids': [self.env.user.partner_id.id]
         }
+        return mail_values
 
     def minimize_execute(self, query, params):
         self._cr.execute(query, params)
@@ -370,6 +404,81 @@ class AccountFrFec(models.TransientModel):
                 break
             for row in rows:
                 yield row
+
+    @api.multi
+    def write_fec_lines(self, file_path, delimiter, date_from, date_to):
+        self.ensure_one()
+        if not os.path.exists(file_path):
+            raise ValueError('File {} not found'.format(file_path))
+
+        fec_file = open(file_path, 'a+')
+        w = csv.writer(fec_file, delimiter=delimiter)
+        sql_query = '''
+                SELECT
+                    replace(aj.code, '|', '/') AS JournalCode,
+                    replace(aj.name, '|', '/') AS JournalLib,
+                    replace(am.name, '|', '/') AS EcritureNum,
+                    TO_CHAR(am.date, 'YYYYMMDD') AS EcritureDate,
+                    aa.code AS CompteNum,
+                    replace(aa.name, '|', '/') AS CompteLib,
+                    CASE WHEN rp.ref IS null OR rp.ref = ''
+                    THEN COALESCE('ID ' || rp.id, '')
+                    ELSE rp.ref
+                    END
+                    AS CompAuxNum,
+                    COALESCE(replace(rp.name, '|', '/'), '') AS CompAuxLib,
+                    CASE WHEN am.ref IS null OR am.ref = ''
+                    THEN '-'
+                    ELSE replace(am.ref, '|', '/')
+                    END
+                    AS PieceRef,
+                    TO_CHAR(am.date, 'YYYYMMDD') AS PieceDate,
+                    CASE WHEN aml.name IS NULL THEN '/'
+                        WHEN aml.name SIMILAR TO '[\t|\s|\n]*' THEN '/'
+                        ELSE replace(aml.name, '|', '/') END AS EcritureLib,
+                    replace(CASE WHEN aml.debit = 0 THEN '0,00' ELSE to_char(aml.debit, '000000000000000D99') END, '.', ',') AS Debit,
+                    replace(CASE WHEN aml.credit = 0 THEN '0,00' ELSE to_char(aml.credit, '000000000000000D99') END, '.', ',') AS Credit,
+                    CASE WHEN rec.name IS NULL THEN '' ELSE rec.name END AS EcritureLet,
+                    CASE WHEN aml.full_reconcile_id IS NULL THEN '' ELSE TO_CHAR(rec.create_date, 'YYYYMMDD') END AS DateLet,
+                    TO_CHAR(am.date, 'YYYYMMDD') AS ValidDate,
+                    CASE
+                        WHEN aml.amount_currency IS NULL OR aml.amount_currency = 0 THEN ''
+                        ELSE replace(to_char(aml.amount_currency, '000000000000000D99'), '.', ',')
+                    END AS Montantdevise,
+                    CASE WHEN aml.currency_id IS NULL THEN '' ELSE rc.name END AS Idevise
+                FROM
+                    account_move_line aml
+                    LEFT JOIN account_move am ON am.id=aml.move_id
+                    LEFT JOIN res_partner rp ON rp.id=aml.partner_id
+                    JOIN account_journal aj ON aj.id = am.journal_id
+                    JOIN account_account aa ON aa.id = aml.account_id
+                    LEFT JOIN res_currency rc ON rc.id = aml.currency_id
+                    LEFT JOIN account_full_reconcile rec ON rec.id = aml.full_reconcile_id
+                WHERE
+                    am.date >= %s
+                    AND am.date <= %s
+                    AND am.company_id = %s
+                    AND (aml.debit != 0 OR aml.credit != 0)
+                '''
+
+        # For official report: only use posted entries
+        if self.export_type == "official":
+            sql_query += '''
+                    AND am.state = 'posted'
+                    '''
+
+        sql_query += '''
+                ORDER BY
+                    am.date,
+                    am.name,
+                    aml.id
+                '''
+        company = self.env.user.company_id
+        for row in self.minimize_execute(
+                sql_query, (date_from, date_to, company.id)):
+            listrow = list(row)
+            w.writerow([s.encode("utf-8") for s in listrow])
+        fec_file.close()
 
     @api.model
     def cron_clean_fec_files(self):
@@ -389,3 +498,21 @@ class AccountFrFec(models.TransientModel):
                 if creation_dt <= yesterday:
                     os.remove(csv_file)
         return True
+
+
+@job
+def write_fec_lines_session_job(
+        session, model_name, session_list, file_path,
+        date_from, date_to, delimiter='|'):
+    """ Job to write FEC lines per period """
+    fec_wizard = session.env[model_name].browse(session_list)
+    fec_wizard.write_fec_lines(
+        file_path, delimiter, date_from, date_to)
+
+
+@job
+def get_fec_file_session_job(session, mail_values):
+    """ Job to send file FEC generated via email """
+    mail = session.env['mail.thread']
+    mail.message_post(message_type='email', **mail_values)
+    return True
