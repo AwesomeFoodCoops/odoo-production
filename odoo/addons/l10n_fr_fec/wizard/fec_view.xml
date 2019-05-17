@@ -17,6 +17,11 @@
                     class="oe_highlight"/>
                 <button string="TXT" name="export_fec_txt" type="object"
                     class="oe_highlight"/>
+                <button string="CSV Background" name="export_fec_csv_background" type="object"
+                    class="oe_highlight"/>
+                <button string="TXT Background" name="export_fec_txt_background" type="object"
+                    class="oe_highlight"/>
+
                 <button string="Cancel" special="cancel"
                     class="oe_link"/>
             </footer>
