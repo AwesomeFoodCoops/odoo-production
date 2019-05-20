@@ -5,31 +5,30 @@
 <openerp>
     <data>
 
-
         <record id="view_account_journal_form" model="ir.ui.view">
             <field name="name">account.journal.form</field>
             <field name="model">account.journal</field>
             <field name="inherit_id" ref="account.view_account_journal_form"/>
             <field name="arch" type="xml">
                 <page name="bank_account" position="inside">
-                    <group string="Automatic Payment Terminal Reconciliation" name="auto_reconciliation">
+                    <group string="Automatic POS Reconciliation" name="auto_reconciliation">
                         <group>
-                            <field name="name_pattern_bank_return"/>
-                            <field name="ref_pattern_bank_return"/>
+                            <field name="cb_contract_number"/>
+                            <field name="cb_contract_number_contactless" invisible="True"/>
+                            <field name="cb_delta_days"/>
                         </group>
                         <group>
-                            <field name="note_pattern_bank_return"/>
-                            <field name="date_pattern_bank_return"/>
+                            <field name="cb_child_ids" widget="many2many_tags" options="{'no_create': True}"/>
                         </group>
                     </group>
                     <group string="Automatic Charges Reconciliation" name="auto_reconciliation">
                         <group>
-                            <field name="name_charges_pattern_bank_return"/>
-                            <field name="ref_charges_pattern_bank_return"/>
+                            <field name="bank_expense_name_pattern"/>
+                            <field name="bank_expense_ref_pattern"/>
+                            <field name="bank_expense_note_pattern"/>
                         </group>
                         <group>
-                            <field name="note_charges_pattern_bank_return"/>
-                            <field name="bank_charge_account_id"/>
+                            <field name="bank_expense_account_id"/>
                         </group>
                     </group>
                 </page>

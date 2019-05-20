@@ -36,7 +36,7 @@ class AccountBankStatementLine(models.Model):
             else:
                 try:
                     payment_term_return = simplejson.loads(vals.get('payment_terminal_return_message'))
-                    vals['card_number'] = payment_term_return['_card_type'][_numbers]
+                    vals['card_number'] = payment_term_return['_card_type']['_masked_numbers']
                     priv = payment_term_return['_private']
                     if priv[0] == '2':
                         vals['transaction_number'] = priv[1:4]
