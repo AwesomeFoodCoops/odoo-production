@@ -24,13 +24,6 @@
 				<xpath expr="//page[@name='coop_data']/group/group[1]/field[@name='is_member']" position="before">
 					<field name="badge_to_print" invisible="1"/>
 				</xpath>
-				<xpath expr="//page[@name='coop_data']/group[1]" position="before">
-					<field name="updated_badges_info" invisible="1" />
-					<group attrs="{'invisible': [('updated_badges_info','=',False)]}">
-						<p class='alert alert-warning'> Des données du badge ont changé, il est nécessaire de réimprimer ce badge. Vous pouvez retrouver tous les badges à réimprimer en utilisant le filtre "Badges à imprimer" sur la vue list. Une fois le badge imprimé, décocher le champ "Badges à imprimer"
-						</p>
-					</group>
-				</xpath>
 			</field>
 		</record>
 	</data>
