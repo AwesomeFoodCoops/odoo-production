@@ -15,10 +15,10 @@
                 <field name="create_uid" readonly="1"/>
                 <field name="shift_id"/>
                 <field name="name"/>
-                <field name="partner_id"/>
-                <field name="type"/>
-                <field name="is_manual"/>
-                <field name="ignored"/>
+                <field name="partner_id" invisible="1"/>
+                <field name="type" invisible="1"/>
+                <field name="is_manual" invisible="1"/>
+                <field name="ignored" invisible="1"/>
                 <field name="is_changed" invisible="1"/>
                 <field name="point_qty" sum="Total Points"/>
                 <field name="notes"/>
