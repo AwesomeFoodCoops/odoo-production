@@ -14,4 +14,14 @@
         </field>
     </record>
 
+    <record id="view_shift_template_tree_leader_one2many" model="ir.ui.view">
+        <field name="name">shift.template.tree.view.leader.one2many</field>
+        <field name="model">shift.template</field>
+        <field name="arch" type="xml">
+            <tree name="Template Leaders">
+                <field name="user_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
 </odoo>
