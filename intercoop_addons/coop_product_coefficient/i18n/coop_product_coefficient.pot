@@ -1,0 +1,472 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_product_coefficient
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient_active
+msgid "Active"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_alternative_base_price_sale
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_alternative_base_price_sale
+msgid "Alternative Base Price for Sale Price"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_alternative_base_price_standard
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_alternative_base_price_standard
+msgid "Alternative Base Price for Standard Price"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_sale_config_settings_auto_update_theorical_cost
+msgid "An update of Theorical Cost updates Cost automatically"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_sale_config_settings_auto_update_theorical_price
+msgid "An update of Theorical Price updates Price automatically"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_sale_config_settings_auto_update_base_price
+msgid "An update of Vendor Price updates Base Price automatically"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_wizard_use_theoritical_price_form
+msgid "Apply"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_coefficient_search
+msgid "Archived"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_base_price
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_base_price
+msgid "Base Price"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_base_price
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_base_price
+msgid "Base Price is the Sale Price of your Supplier.\n"
+"If product is sold by many suppliers, the first one is selected.\n"
+"If a supplier sell the product with different prices, the bigger price is used.\n"
+"\n"
+"If The supplier info belong an end date, the base price will be updated nightly, by a cron task."
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_wizard_use_theoritical_price_form
+msgid "By clicking on 'apply' Button, you will changes the prices of all the selected products, using theoritical prices computed by coefficients system."
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_wizard_use_theoritical_price_form
+msgid "Cancel"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff1_id
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff1_id
+msgid "Coefficient 1"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff2_id
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff2_id
+msgid "Coefficient 2"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff3_id
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff3_id
+msgid "Coefficient 3"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff4_id
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff4_id
+msgid "Coefficient 4"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff5_id
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff5_id
+msgid "Coefficient 5"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff6_id
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff6_id
+msgid "Coefficient 6"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff7_id
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff7_id
+msgid "Coefficient 7"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff8_id
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff8_id
+msgid "Coefficient 8"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff9_id
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff9_id
+msgid "Coefficient 9"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_sales_config_inherit
+msgid "Coefficients"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient_create_uid
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_wizard_use_theoritical_price_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient_create_date
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_wizard_use_theoritical_price_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient_display_name
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_wizard_use_theoritical_price_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: selection:product.coefficient,operation_type:0
+msgid "Fixed Amount"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_has_theoritical_cost_different
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_has_theoritical_cost_different
+msgid "Has Theoritical Cost Different"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_has_theoritical_price_different
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_has_theoritical_price_different
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_search
+msgid "Has Theoritical Price Different"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient_id
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_wizard_use_theoritical_price_id
+msgid "ID"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_coefficient_active
+msgid "If unchecked, it will allow you to hide the coefficient without removing it."
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_incl_in_standard_price_1
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_incl_in_standard_price_2
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_incl_in_standard_price_3
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_incl_in_standard_price_4
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_incl_in_standard_price_5
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_incl_in_standard_price_6
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_incl_in_standard_price_7
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_incl_in_standard_price_8
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_incl_in_standard_price_9
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_incl_in_standard_price_1
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_incl_in_standard_price_2
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_incl_in_standard_price_3
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_incl_in_standard_price_4
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_incl_in_standard_price_5
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_incl_in_standard_price_6
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_incl_in_standard_price_7
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_incl_in_standard_price_8
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_incl_in_standard_price_9
+msgid "If you check this\n"
+"        box, this coefficient will be used to calculate the standard price of\n"
+"        the product"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
+msgid "Incl. in S. Price"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_incl_in_standard_price_1
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_incl_in_standard_price_2
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_incl_in_standard_price_3
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_incl_in_standard_price_4
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_incl_in_standard_price_5
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_incl_in_standard_price_6
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_incl_in_standard_price_7
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_incl_in_standard_price_8
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_incl_in_standard_price_9
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_incl_in_standard_price_1
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_incl_in_standard_price_2
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_incl_in_standard_price_3
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_incl_in_standard_price_4
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_incl_in_standard_price_5
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_incl_in_standard_price_6
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_incl_in_standard_price_7
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_incl_in_standard_price_8
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_incl_in_standard_price_9
+msgid "Include in Standard Price"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient___last_update
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_wizard_use_theoritical_price___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient_write_uid
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_wizard_use_theoritical_price_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient_write_date
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_wizard_use_theoritical_price_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: selection:product.coefficient,operation_type:0
+msgid "Multiplier"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient_name
+msgid "Name"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient_note
+msgid "Note"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient_operation_type
+msgid "Operation Type"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model,name:coop_product_coefficient.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model,name:coop_product_coefficient.model_product_category
+msgid "Product Category"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model,name:coop_product_coefficient.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.actions.act_window,name:coop_product_coefficient.action_product_template_coefficient_tree
+#: model:ir.ui.menu,name:coop_product_coefficient.menu_product_template_coefficient
+msgid "Products (Coefficients View)"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.actions.act_window,name:coop_product_coefficient.action_product_coefficient
+#: model:ir.ui.menu,name:coop_product_coefficient.menu_product_coefficient
+msgid "Products Coefficients"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
+msgid "Recompute Base price"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
+msgid "Sale Price"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_coefficient_form
+msgid "Settings"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
+msgid "Standard Price"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_theoritical_price
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_theoritical_price
+msgid "Theoritical Price VAT Incl."
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_alternative_base_price_sale
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_product_alternative_base_price_standard
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_alternative_base_price_sale
+#: model:ir.model.fields,help:coop_product_coefficient.field_product_template_alternative_base_price_standard
+msgid "This alternative base price will be used instead of the Base Price, if defined."
+msgstr ""
+
+#. module: coop_product_coefficient
+#: code:addons/coop_product_coefficient/models/product_template.py:369
+#, python-format
+msgid "Unimplemented Feature\n"
+"The Tax %s is not correctly set for computing prices with coefficients for the product %s"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
+msgid "Use Theoritical Cost"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_coefficient_tree
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
+msgid "Use Theoritical Price"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.actions.act_window,name:coop_product_coefficient.action_product_use_theoritical_price
+#: model:ir.ui.view,arch_db:coop_product_coefficient.view_wizard_use_theoritical_price_form
+msgid "Use Theoritical Prices"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_coefficient_value
+msgid "Value"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff1_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff1_inter
+msgid "With Coefficient 1"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff2_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff2_inter
+msgid "With Coefficient 2"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff3_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff3_inter
+msgid "With Coefficient 3"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff4_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff4_inter_sp
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff4_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff4_inter_sp
+msgid "With Coefficient 4"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff5_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff5_inter_sp
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff5_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff5_inter_sp
+msgid "With Coefficient 5"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff6_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff6_inter_sp
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff6_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff6_inter_sp
+msgid "With Coefficient 6"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff7_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff7_inter_sp
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff7_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff7_inter_sp
+msgid "With Coefficient 7"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff8_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff8_inter_sp
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff8_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff8_inter_sp
+msgid "With Coefficient 8"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff9_inter
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff9_inter
+msgid "With Coefficient 9"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff3_inter_sp
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff3_inter_sp
+msgid "With Loss Coefficient"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff9_inter_sp
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff9_inter_sp
+msgid "With Margin Coefficient"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff2_inter_sp
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff2_inter_sp
+msgid "With Shipping Coefficient"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product_coeff1_inter_sp
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template_coeff1_inter_sp
+msgid "With Supplier Discount Coefficient"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model,name:coop_product_coefficient.model_product_coefficient
+msgid "product.coefficient"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model,name:coop_product_coefficient.model_sale_config_settings
+msgid "sale.config.settings"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model,name:coop_product_coefficient.model_wizard_use_theoritical_price
+msgid "wizard.use.theoritical.price"
+msgstr ""
+
