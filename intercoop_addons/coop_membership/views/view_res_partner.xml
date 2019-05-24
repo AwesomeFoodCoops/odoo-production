@@ -822,7 +822,7 @@
                             </group>
                             <group name="squadleader">
                                 <field name="is_squadleader"/>
-                                <field name="template_ids"/>
+                                <field name="template_ids" context="{'tree_view_ref' : 'coop_membership.view_shift_template_tree_leader_one2many'}"/>
                             </group>
                             <group name="button"
                                    groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie">
