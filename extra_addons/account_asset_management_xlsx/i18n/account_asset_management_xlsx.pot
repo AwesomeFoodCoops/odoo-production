@@ -1,0 +1,130 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_asset_management_xlsx
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_asset_management_xlsx
+#: model:ir.actions.report.xml,name:account_asset_management_xlsx.report_account_asset_xlsx
+msgid "Account Asset Report"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.ui.view,arch_db:account_asset_management_xlsx.view_account_asset_xlsx_wizard
+msgid "Account Asset Xlsx Wizard"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: selection:account.asset.xlsx.wizard,asset_state:0
+msgid "All assets"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: selection:account.asset.xlsx.wizard,target_move:0
+msgid "All moves"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_asset_category_ids
+msgid "Asset Categories"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.ui.menu,name:account_asset_management_xlsx.open_account_asset_xlsx_wizard
+msgid "Asset Report Xlsx"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.ui.view,arch_db:account_asset_management_xlsx.view_account_asset_xlsx_wizard
+msgid "Cancel"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.ui.view,arch_db:account_asset_management_xlsx.view_account_asset_xlsx_wizard
+msgid "Export"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.actions.act_window,name:account_asset_management_xlsx.action_account_asset_xlsx_wizard
+msgid "Export Account Asset Report"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_from_date
+msgid "From date"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_id
+msgid "ID"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: selection:account.asset.xlsx.wizard,asset_state:0
+msgid "Open only"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: selection:account.asset.xlsx.wizard,target_move:0
+msgid "Posted moves"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_asset_state
+msgid "Status"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_target_move
+msgid "Target move"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_to_date
+msgid "To date"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model,name:account_asset_management_xlsx.model_account_asset_xlsx_wizard
+msgid "account.asset.xlsx.wizard"
+msgstr ""
+
