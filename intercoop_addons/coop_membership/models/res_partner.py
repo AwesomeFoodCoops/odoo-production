@@ -237,10 +237,12 @@ class ResPartner(models.Model):
     @api.depends('badge_distribution_date', 'badge_print_date')
     def compute_badge_to_distribute(self):
         for record in self:
+            badge_to_distribute = False
             if record.badge_print_date:
                 if not record.badge_distribution_date or\
                         record.badge_distribution_date < record.badge_print_date:
-                    record.badge_to_distribute = True
+                    badge_to_distribute = True
+            record.badge_to_distribute = badge_to_distribute
 
     @api.multi
     def force_customer_button(self):
