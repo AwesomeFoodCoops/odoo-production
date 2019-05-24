@@ -1,0 +1,150 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_reconcile_pos_payments
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_reconcile_pos_payments
+#: model:ir.ui.view,arch_db:account_reconcile_pos_payments.view_bank_statement_form
+msgid "Auto Reconcile Expenses"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.ui.view,arch_db:account_reconcile_pos_payments.view_bank_statement_form
+msgid "Auto Reconcile POS Payments"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.ui.view,arch_db:account_reconcile_pos_payments.view_account_journal_form
+msgid "Automatic Charges Reconciliation"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.ui.view,arch_db:account_reconcile_pos_payments.view_account_journal_form
+msgid "Automatic POS Reconciliation"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,field_description:account_reconcile_pos_payments.field_account_journal_bank_expense_account_id
+msgid "Bank Expense Account"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model,name:account_reconcile_pos_payments.model_account_bank_statement
+msgid "Bank Statement"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model,name:account_reconcile_pos_payments.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,field_description:account_reconcile_pos_payments.field_account_journal_bank_expense_name_pattern
+msgid "Bank expense name pattern"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,field_description:account_reconcile_pos_payments.field_account_journal_bank_expense_note_pattern
+msgid "Bank expense note pattern"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,field_description:account_reconcile_pos_payments.field_account_journal_bank_expense_ref_pattern
+msgid "Bank expense ref pattern"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,field_description:account_reconcile_pos_payments.field_account_journal_cb_child_ids
+msgid "CB Childs"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,field_description:account_reconcile_pos_payments.field_account_journal_cb_contract_number
+msgid "CB Contact Number"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,field_description:account_reconcile_pos_payments.field_account_journal_cb_delta_days
+msgid "CB Delta Days"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,field_description:account_reconcile_pos_payments.field_account_journal_cb_parent_id
+msgid "CB Parent"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,field_description:account_reconcile_pos_payments.field_account_bank_statement_can_reconcile_expense
+msgid "Can reconcile expense"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,field_description:account_reconcile_pos_payments.field_account_bank_statement_can_reconcile_pos
+msgid "Can reconcile pos"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.ui.view,arch_db:account_reconcile_pos_payments.view_terminal_reconciliation_report
+msgid "Close"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,field_description:account_reconcile_pos_payments.field_account_journal_cb_contract_number_contactless
+msgid "Contactless Contract Number"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model,name:account_reconcile_pos_payments.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.actions.act_window,name:account_reconcile_pos_payments.action_view_payment_terminal_reconcil
+#: model:ir.ui.view,arch_db:account_reconcile_pos_payments.view_terminal_reconciliation_report
+msgid "Payment Terminal auto reconcil"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.ui.view,arch_db:account_reconcile_pos_payments.view_terminal_reconciliation_report
+msgid "Reconciliation"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model.fields,help:account_reconcile_pos_payments.field_account_bank_statement_can_reconcile_expense
+#: model:ir.model.fields,help:account_reconcile_pos_payments.field_account_bank_statement_can_reconcile_pos
+msgid "Technical field"
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: code:addons/account_reconcile_pos_payments/models/account_bank_statement.py:79
+#, python-format
+msgid "The journal %s has no CB Contract number."
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: code:addons/account_reconcile_pos_payments/models/account_bank_statement.py:74
+#, python-format
+msgid "The journal %s has no CB journals."
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: code:addons/account_reconcile_pos_payments/models/account_bank_statement_line.py:49
+#, python-format
+msgid "You need to set a Bank Expense Account in the journal if you want to use this feature."
+msgstr ""
+
+#. module: account_reconcile_pos_payments
+#: model:ir.model,name:account_reconcile_pos_payments.model_terminal_reconciliation_report
+msgid "terminal.reconciliation.report"
+msgstr ""
+
