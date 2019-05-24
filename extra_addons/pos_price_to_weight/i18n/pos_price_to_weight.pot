@@ -1,0 +1,26 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_price_to_weight
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_price_to_weight
+#: code:addons/pos_price_to_weight/models/barcode_rule.py:17
+#, python-format
+msgid "Priced Product (Computed Weight)"
+msgstr ""
+
+#. module: pos_price_to_weight
+#: model:ir.model,name:pos_price_to_weight.model_barcode_rule
+msgid "barcode.rule"
+msgstr ""
+
