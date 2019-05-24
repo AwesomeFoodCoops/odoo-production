@@ -105,15 +105,15 @@
             <field name="arch" type="xml">
                 <tree string="Shifts" decoration-bf="message_needaction==True" decoration-danger="(seats_min and seats_min&gt;seats_reserved) or (seats_max and seats_max&lt;seats_reserved)" decoration-muted="state=='cancel'" create="false">
                     <field name="name"/>
-                    <field name="week_number"/>
-                    <field name="shift_type_id"/>
+                    <field name="week_number" invisible="1"/>
+                    <field name="shift_type_id" invisible="1"/>
                     <field name="date_begin"/>
-                    <field name="date_end"/>
-                    <field name="seats_reserved"/>
-                    <field name="seats_min"/>
+                    <field name="date_end" invisible="1"/>
+                    <field name="seats_reserved" invisible="1"/>
+                    <field name="seats_min" invisible="1"/>
                     <field name="seats_max" invisible="1"/>
-                    <field name="user_ids"/>
-                    <field name="state"/>
+                    <field name="user_ids" invisible="1"/>
+                    <field name="state" />
                     <field name="message_needaction" invisible="1"/>
                 </tree>
             </field>
