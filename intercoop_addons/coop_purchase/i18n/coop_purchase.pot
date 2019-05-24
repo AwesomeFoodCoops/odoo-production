@@ -1,0 +1,436 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_purchase
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.product_template_form_view_button_inherit
+msgid "<i class=\"material-icons\" attrs=\"{'invisible': [('available_in_pos', '=', False)]}\">screen_share</i>\n"
+"                        <i class=\"material-icons\" attrs=\"{'invisible': [('available_in_pos', '=', True)]}\">stop_screen_share</i>"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.product_template_form_view_button_inherit
+msgid "<span class=\"o_stat_text o_not_hover text-success\" attrs=\"{'invisible': [('available_in_pos', '=', False)]}\">Put back</span>\n"
+"                        <span class=\"o_stat_text o_not_hover text-danger\" attrs=\"{'invisible': [('available_in_pos', '=', True)]}\">Remove</span>\n"
+"                        <span class=\"o_stat_text o_hover text-danger\" attrs=\"{'invisible': [('available_in_pos', '=', False)]}\">Remove</span>\n"
+"                        <span class=\"o_stat_text o_hover text-success\" attrs=\"{'invisible': [('available_in_pos', '=', True)]}\">Put back</span>"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.report_purchaseorder_louve
+msgid "<strong>Creator:</strong>"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.report_purchaseorder_louve
+#: model:ir.ui.view,arch_db:coop_purchase.report_purchasequotation_louve
+msgid "<strong>Nb of Packages</strong>"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.report_purchaseorder_louve
+msgid "<strong>Package Price</strong>"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.report_purchaseorder_louve
+#: model:ir.ui.view,arch_db:coop_purchase.report_purchasequotation_louve
+msgid "<strong>Package qty</strong>"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.report_purchaseorder_louve
+#: model:ir.ui.view,arch_db:coop_purchase.report_purchasequotation_louve
+msgid "<strong>Qty</strong>"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.report_purchaseorder_louve
+msgid "<strong>Scheduled Date:</strong>"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_product_supplierinfo_is_product_active
+msgid "Active"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_account_invoice_line_base_price
+msgid "Base Price"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplier_info_update
+msgid "Cancel"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search_inherit
+msgid "Category"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_create_uid
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_create_date
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_product_supplierinfo_taxes_id
+msgid "Customer Taxes"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_discount
+msgid "Discount"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_display_name
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_account_product_fiscal_classification_expense_account_id
+msgid "Expense Account"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search_inherit
+msgid "Group By"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_id
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_id
+msgid "ID"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,help:coop_purchase.field_product_supplierinfo_is_product_active
+msgid "If unchecked, it will allow you to hide the product without removing it."
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_account_product_fiscal_classification_income_account_id
+msgid "Income Account"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search_inherit
+msgid "Indicative Package"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_product_supplierinfo
+msgid "Information about a product vendor"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_product_supplierinfo_categ_id
+msgid "Internal Category"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_product_supplierinfo_default_code
+msgid "Internal Reference"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_account_invoice_line
+msgid "Invoice Line"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_invoice_line_id
+msgid "Invoice line id"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update___last_update
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_write_uid
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_write_date
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_ids
+msgid "Line ids"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line2_ids
+msgid "Line2 ids"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplier_info_update
+msgid "Lines"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_observable_discount
+msgid "Observable discount"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_partner_id
+msgid "Partner id"
+msgstr ""
+
+#. module: coop_purchase
+#: selection:supplier.info.update.line,price_policy:0
+msgid "Per Package"
+msgstr ""
+
+#. module: coop_purchase
+#: code:addons/coop_purchase/models/account_invoice.py:84
+#, python-format
+msgid "Please confirm reception before creating an invoice for this PO"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_po_line_id
+msgid "Po line id"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_purchase_order_line_price_unit_tax
+msgid "Price Unit Tax Included"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_price_policy
+msgid "Price policy"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_price_unit
+msgid "Price unit"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_product_product
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search
+msgid "Product"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search
+msgid "Product Active"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_product_supplierinfo_product_purchase_ok
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search
+msgid "Product can be purchase"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_product_id
+msgid "Product id"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_purchase_order
+msgid "Purchase Order"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_purchase_order_line_tree
+msgid "Purchase Order Lines"
+msgstr ""
+
+#. module: coop_purchase
+#: model:res.groups,name:coop_purchase.group_put_in_pack
+msgid "Put in pack"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_product_supplierinfo_price_taxes_excluded
+msgid "Sale Price Taxes Excluded"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_product_supplierinfo_price_taxes_included
+msgid "Sale Price Taxes Included"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,help:coop_purchase.field_product_supplierinfo_categ_id
+msgid "Select category for the current product"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_seller_id
+msgid "Seller id"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_show_discount
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_show_discount
+msgid "Show discount"
+msgstr ""
+
+#. module: coop_purchase
+#: code:addons/coop_purchase/models/res_partner.py:11
+#: model:ir.model.fields,field_description:coop_purchase.field_res_partner_show_discount
+#, python-format
+msgid "Show discounts on update prices"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search
+msgid "Supplier"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_supplier_discount
+msgid "Supplier discount"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_supplier_price_unit
+msgid "Supplier price unit"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search_inherit
+msgid "Supplierinfo"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_purchase_config_settings_update_main_vendor_on_update_vendor_price
+msgid "The action \"Update Vendors Prices\" defines Vendor as Main Vendor of selected products"
+msgstr ""
+
+#. module: coop_purchase
+#: code:addons/coop_purchase/models/stock_picking.py:16
+#, python-format
+msgid "The product {} received should have \"available in pos\""
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.invoice_supplier_form_inherit
+#: model:ir.ui.view,arch_db:coop_purchase.view_purchase_order_form_inherit
+msgid "Upd. Prices"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.actions.act_window,name:coop_purchase.supplier_info_update_act
+msgid "Update Prices"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.actions.server,name:coop_purchase.purchase_order_line_action_update_vendor_price
+#: model:ir.ui.view,arch_db:coop_purchase.view_purchase_config_settings_inherit
+msgid "Update Vendors Prices"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_update_id
+msgid "Update id"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplier_info_update
+msgid "Validate"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.actions.act_window,name:coop_purchase.action_invoice_refund
+#: model:ir.ui.menu,name:coop_purchase.menu_invoice_refund
+msgid "Vendor Refunds"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_product_supplierinfo_supplier_taxes_id
+msgid "Vendor Taxes"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_account_product_fiscal_classification
+msgid "account.product.fiscal.classification"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search_inherit
+msgid "not Indicative Package"
+msgstr ""
+
+#. module: coop_purchase
+#: selection:supplier.info.update.line,price_policy:0
+msgid "per UOM"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_purchase_config_settings
+msgid "purchase.config.settings"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_supplier_info_update
+msgid "supplier.info.update"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_supplier_info_update_line
+msgid "supplier.info.update.line"
+msgstr ""
+
