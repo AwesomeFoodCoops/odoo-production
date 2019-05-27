@@ -162,11 +162,20 @@ class ResPartner(models.Model):
 
     current_template_name = fields.Char(
         string='Current Template',
-        compute='_compute_current_template_name',
+        compute='_compute_current_template',
         store=True
     )
 
     is_minor_child = fields.Boolean(string='Enfant mineur')
+
+    leader_ids = fields.Many2many(
+        comodel_name='res.partner',
+        relation='partner_leader_rel',
+        column1='leader_id',
+        column2='partner_id',
+        compute='_compute_current_template',
+        string='Shift Leaders'
+    )
 
     @api.onchange('birthdate')
     def _onchange_birthdate(self):
@@ -470,18 +479,21 @@ class ResPartner(models.Model):
 
     @api.multi
     @api.depends('tmpl_reg_ids.is_current')
-    def _compute_current_template_name(self):
+    def _compute_current_template(self):
         for partner in self:
+            current_template = False
             reg = partner.tmpl_reg_ids.filtered(
                 lambda r: r.is_current)
             if reg:
-                partner.current_template_name = reg[0].shift_template_id.name
+                current_template = reg[0].shift_template_id
             else:
                 reg = partner.tmpl_reg_ids.filtered(
                     lambda r: r.is_future)
                 if reg:
-                    partner.current_template_name = \
-                        reg[0].shift_template_id.name
+                    current_template = reg[0].shift_template_id
+            if current_template:
+                partner.leader_ids = current_template.user_ids
+                partner.current_template_name = current_template.name
 
     # Overload Section
     @api.model
@@ -956,7 +968,7 @@ class ResPartner(models.Model):
         return True
 
     @api.multi
-    def create_job_to_compute_current_template_name(self):
+    def create_job_to_compute_current_template(self):
         partners = self.ids
         num_partner_per_job = 100
         splited_partner_list = \
@@ -983,4 +995,4 @@ def update_shift_type_res_partner_session_job(
 def update_member_current_template_name(session, model_name, partner_ids):
     """ Job for Updating Current Shift Template Name """
     partners = session.env[model_name].browse(partner_ids)
-    partners._compute_current_template_name()
+    partners._compute_current_template()
