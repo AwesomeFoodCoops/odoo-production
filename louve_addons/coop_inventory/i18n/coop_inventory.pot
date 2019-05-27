@@ -1,0 +1,105 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_inventory
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+msgid "&amp;bull;"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.report_inventory_louve
+msgid "<strong>G.F. Qty</strong>"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.report_inventory_adjust
+msgid "<strong>NB d'unités théorique</strong>"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.report_inventory_adjust
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.report_inventory_louve
+msgid "<strong>UG. Qty</strong>"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+msgid "Email:"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+msgid "Fax:"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.model,name:coop_inventory.model_stock_inventory
+msgid "Inventory"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+msgid "Page:"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.model.fields,field_description:coop_inventory.field_stock_picking_partner_ref
+msgid "Partner Ref"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+msgid "Phone:"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.model.fields,field_description:coop_inventory.field_stock_quant_product_type
+msgid "Product type"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.model,name:coop_inventory.model_purchase_order
+msgid "Purchase Order"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.model,name:coop_inventory.model_stock_quant
+msgid "Quants"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.model.fields,help:coop_inventory.field_stock_picking_partner_ref
+msgid "Reference of the sales order or bid sent by the vendor. It's used to do the matching when you receive the products as this reference is usually written on the delivery order sent by your vendor."
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+msgid "TIN:"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.model,name:coop_inventory.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: coop_inventory
+#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+msgid "Website:"
+msgstr ""
+

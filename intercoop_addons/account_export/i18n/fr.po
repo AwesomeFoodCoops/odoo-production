@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_export
+# 	* account_export
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2016-12-21 18:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -17,13 +18,15 @@ msgstr ""
 
 #. module: account_export
 #: model:ir.model.fields,help:account_export.field_account_export_config_dateformat
-msgid "\n"
+msgid ""
+"\n"
 "        %d: day on 2 digits\n"
 "        %m: month on 2 digits\n"
 "        %y: year on 2 digits\n"
 "        %Y: year on 4 digits\n"
 "        exemple: %d%m%y -> 211216"
-msgstr "\n"
+msgstr ""
+"\n"
 "        %d: jour sur 2 digits\n"
 "        %m: mois sur 2 digits\n"
 "        %y: année sur 2 digits\n"
@@ -182,9 +185,11 @@ msgstr "Pied de page"
 
 #. module: account_export
 #: model:ir.model.fields,help:account_export.field_account_export_config_footer
-msgid "Footer of the exported file.\n"
+msgid ""
+"Footer of the exported file.\n"
 "        exemple: END"
-msgstr "Pied de page du fichier.\n"
+msgstr ""
+"Pied de page du fichier.\n"
 "        exemple: FIN"
 
 #. module: account_export
@@ -204,22 +209,26 @@ msgstr "Entête"
 
 #. module: account_export
 #: model:ir.model.fields,help:account_export.field_account_export_config_header
-msgid "Header of the exported file.\n"
+msgid ""
+"Header of the exported file.\n"
 "        exemple: journal,account,ref,amount"
-msgstr "Entête du fichier.\n"
+msgstr ""
+"Entête du fichier.\n"
 "        exemple: journal,compte,ref,montant"
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config_id_7668
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_id_4601
 #: model:ir.model.fields,field_description:account_export.field_account_export_id
 msgid "ID"
 msgstr "ID"
 
 #. module: account_export
 #: model:ir.model.fields,help:account_export.field_account_journal_group_fields
-msgid "If you specify fields here, they will be used to group the\n"
+msgid ""
+"If you specify fields here, they will be used to group the\n"
 "        move lines in the generated exported file."
-msgstr "Si vous spécifiez des champs ici, ils seront utilisés pour\n"
+msgstr ""
+"Si vous spécifiez des champs ici, ils seront utilisés pour\n"
 "        regrouper les écritures comptables lors de l'export comptable."
 
 #. module: account_export
@@ -339,6 +348,11 @@ msgid "Receivable account in your accounting software"
 msgstr "Compte Client dans votre logiciel de comptabilité"
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_csv_separator
+msgid "Separator"
+msgstr "séparateur"
+
+#. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export_config_dateformat
 msgid "Software Date Format"
 msgstr "Format de Date"
@@ -347,12 +361,6 @@ msgstr "Format de Date"
 #: model:ir.model.fields,field_description:account_export.field_account_export_state
 msgid "State"
 msgstr "État"
-
-#. module: account_export
-#: code:addons/account_export/models/account_export.py:152
-#, python-format
-msgid "There are no moves to export."
-msgstr "Aucune écriture à exporter."
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export_date_to
@@ -374,19 +382,11 @@ msgstr "account.export.config"
 msgid "active"
 msgstr "actif"
 
-#. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config_csv_separator
-msgid "Separator"
-msgstr "séparateur"
+#~ msgid "There are no moves to export."
+#~ msgstr "Aucune écriture à exporter."
 
-#. module: account_export
-#: code:addons/account_export/models/account_export.py:129
-#, python-format
-msgid "No export code defined for these accounts: %s"
-msgstr "Aucun compte d'export n'est défini pour ces comptes: %s"
+#~ msgid "No export code defined for these accounts: %s"
+#~ msgstr "Aucun compte d'export n'est défini pour ces comptes: %s"
 
-#. module: account_export
-#: code:addons/account_export/models/account_export.py:135
-#, python-format
-msgid "No export code defined for these journals: %s"
-msgstr "Aucun code d'export n'est défini pour ces journaux: %s"
+#~ msgid "No export code defined for these journals: %s"
+#~ msgstr "Aucun code d'export n'est défini pour ces journaux: %s"

@@ -1,0 +1,41 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_report_total_vat_excluded
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_report_total_vat_excluded
+#: model:ir.model,name:pos_report_total_vat_excluded.model_pos_order_line
+msgid "Lines of Point of Sale"
+msgstr ""
+
+#. module: pos_report_total_vat_excluded
+#: model:ir.model.fields,field_description:pos_report_total_vat_excluded.field_report_pos_order_order_id
+#: model:ir.ui.view,arch_db:pos_report_total_vat_excluded.view_report_pos_order_search_inherit
+msgid "Order"
+msgstr ""
+
+#. module: pos_report_total_vat_excluded
+#: model:ir.ui.view,arch_db:pos_report_total_vat_excluded.view_report_pos_order_search_inherit
+msgid "Partner"
+msgstr ""
+
+#. module: pos_report_total_vat_excluded
+#: model:ir.model,name:pos_report_total_vat_excluded.model_report_pos_order
+msgid "Point of Sale Orders Statistics"
+msgstr ""
+
+#. module: pos_report_total_vat_excluded
+#: model:ir.model.fields,field_description:pos_report_total_vat_excluded.field_report_pos_order_price_total_vat_excl
+msgid "Total w/o Taxes"
+msgstr ""
+

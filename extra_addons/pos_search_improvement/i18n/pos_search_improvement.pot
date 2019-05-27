@@ -1,0 +1,81 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_search_improvement
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_search_improvement
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_product_pos_allow_negative_qty
+msgid "Allow Negative Quantity on PoS"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_multi_barcode_barcode
+msgid "Barcode"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_multi_barcode_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_multi_barcode_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_multi_barcode_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_multi_barcode_id
+msgid "ID"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_multi_barcode___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_multi_barcode_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_multi_barcode_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.ui.view,arch_db:pos_search_improvement.product_product_view_form
+msgid "Multiple Barcodes"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.model,name:pos_search_improvement.model_product_product
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_multi_barcode_product_id
+msgid "Product"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_product_multi_barcode_ids
+msgid "Product Multiple Barcodes"
+msgstr ""
+
+#. module: pos_search_improvement
+#: model:ir.model,name:pos_search_improvement.model_product_multi_barcode
+msgid "product.multi.barcode"
+msgstr ""
+

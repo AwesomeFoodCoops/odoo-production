@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* edi_purchase_base
+# 	* edi_purchase_base
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2019-03-10 22:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -21,20 +22,18 @@ msgid "Apply date"
 msgstr "Date d'application"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/stock.py:149
+#: code:addons/edi_purchase_base/models/stock.py:139
 #, python-format
 msgid "BLE interface"
 msgstr "interface BLE"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/purchase.py:31
 #: code:addons/edi_purchase_base/models/purchase.py:34
 #, python-format
 msgid "Check price for lines with product %s!"
 msgstr "Merci de vérifier le prix des lignes du produit : %s!"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/purchase.py:29
 #: code:addons/edi_purchase_base/models/purchase.py:32
 #, python-format
 msgid "Check taxes for lines with product %s!"
@@ -83,12 +82,13 @@ msgid "EDI Supplier"
 msgstr "Fournisseur EDI"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/purchase.py:56
 #: code:addons/edi_purchase_base/models/purchase.py:59
 #, python-format
-msgid "Error in python code mapping values:\n"
+msgid ""
+"Error in python code mapping values:\n"
 " %s"
-msgstr "Erreur dans le code python du mapping  :\n"
+msgstr ""
+"Erreur dans le code python du mapping  :\n"
 " %s"
 
 #. module: edi_purchase_base
@@ -142,9 +142,7 @@ msgid "Line to update id"
 msgstr "Ligne à mettre à jour"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/product.py:115
 #: code:addons/edi_purchase_base/models/product.py:148
-#: code:addons/edi_purchase_base/models/purchase.py:85
 #: code:addons/edi_purchase_base/models/purchase.py:88
 #, python-format
 msgid "No Config FTP for this supplier %s!"
@@ -152,10 +150,12 @@ msgstr "Aucune configuration FTP pour le fournisseur %s!"
 
 #. module: edi_purchase_base
 #: code:addons/edi_purchase_base/models/product.py:115
-#: code:addons/edi_purchase_base/models/stock.py:132
+#: code:addons/edi_purchase_base/models/stock.py:123
 #, python-format
 msgid "No Configuration found for EDI suppliers on the whole system!"
-msgstr "Aucune configuration EDI trouvée pour le fournisseur EDI dans tout le système!"
+msgstr ""
+"Aucune configuration EDI trouvée pour le fournisseur EDI dans tout le "
+"système!"
 
 #. module: edi_purchase_base
 #: code:addons/edi_purchase_base/models/product.py:33
@@ -164,7 +164,6 @@ msgid "No code for this product %s!"
 msgstr "Aucun code pour le produit : %s!"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/purchase.py:24
 #: code:addons/edi_purchase_base/models/purchase.py:27
 #, python-format
 msgid "No lines in this order %s!"
@@ -192,19 +191,22 @@ msgid "Picking update id"
 msgstr "Picking update id"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/stock.py:40
+#: code:addons/edi_purchase_base/models/stock.py:39
 #, python-format
 msgid "Please configure fields mapping for BLE interface on your EDI system!"
-msgstr "Merci de configurer le mapping des champs de votre interface EDI des BLE!"
+msgstr ""
+"Merci de configurer le mapping des champs de votre interface EDI des BLE!"
 
 #. module: edi_purchase_base
 #: code:addons/edi_purchase_base/models/product.py:57
 #, python-format
-msgid "Please configure fields mapping for prices interface on your EDI system!"
-msgstr "Merci de configurer le mapping des champs de l'interface des prix dans votre système EDI!"
+msgid ""
+"Please configure fields mapping for prices interface on your EDI system!"
+msgstr ""
+"Merci de configurer le mapping des champs de l'interface des prix dans votre "
+"système EDI!"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/product.py:148
 #: code:addons/edi_purchase_base/models/product.py:167
 #, python-format
 msgid "Please give a supplier code to create the product!"
@@ -226,7 +228,6 @@ msgid "Price history"
 msgstr "Historique des prix"
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/product.py:128
 #: code:addons/edi_purchase_base/models/product.py:131
 #, python-format
 msgid "Prices interface"
@@ -304,12 +305,9 @@ msgid "picking.update"
 msgstr "picking.update"
 
 #. module: edi_purchase_base
-#: model:ir.model,name:edi_purchase_base.model_supplier_info_update
-msgid "supplier.info.update"
-msgstr "supplier.info.update"
-
-#. module: edi_purchase_base
 #: model:ir.model,name:edi_purchase_base.model_supplier_price_list
 msgid "supplier.price.list"
 msgstr "supplier.price.list"
 
+#~ msgid "supplier.info.update"
+#~ msgstr "supplier.info.update"
