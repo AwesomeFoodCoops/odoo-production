@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* edi_purchase_config
+# 	* edi_purchase_config
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2019-03-10 22:51+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -149,50 +150,53 @@ msgid "Electronic data interchange"
 msgstr "Echanges de données (EDI)"
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:75
-#: code:addons/edi_purchase_config/models/edi_config_system.py:79
 #: code:addons/edi_purchase_config/models/edi_config_system.py:86
 #, python-format
-msgid "Error when closing FTP connection:\n"
+msgid ""
+"Error when closing FTP connection:\n"
 " %s"
-msgstr "Erreur à la fermeture de la connexion FTP :\n"
+msgstr ""
+"Erreur à la fermeture de la connexion FTP :\n"
 " %s"
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:68
-#: code:addons/edi_purchase_config/models/edi_config_system.py:72
 #: code:addons/edi_purchase_config/models/edi_config_system.py:79
 #, python-format
-msgid "Error when opening FTP connection:\n"
+msgid ""
+"Error when opening FTP connection:\n"
 " %s"
-msgstr "Erreur à l'ouverture de la connexion FTP :\n"
+msgstr ""
+"Erreur à l'ouverture de la connexion FTP :\n"
 " %s"
 
 #. module: edi_purchase_config
 #: code:addons/edi_purchase_config/models/edi_config_system.py:158
 #, python-format
-msgid "Error when pulling BLE update file:\n"
+msgid ""
+"Error when pulling BLE update file:\n"
 " %s"
-msgstr "Erreur à l'import des fichiers BLE:\n"
+msgstr ""
+"Erreur à l'import des fichiers BLE:\n"
 " %s"
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:127
 #: code:addons/edi_purchase_config/models/edi_config_system.py:134
 #, python-format
-msgid "Error when pulling prices update file:\n"
+msgid ""
+"Error when pulling prices update file:\n"
 " %s"
-msgstr "Erreur au téléchargement du fichier des prix :\n"
+msgstr ""
+"Erreur au téléchargement du fichier des prix :\n"
 " %s"
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:100
-#: code:addons/edi_purchase_config/models/edi_config_system.py:103
 #: code:addons/edi_purchase_config/models/edi_config_system.py:110
 #, python-format
-msgid "Error when pushing order file:\n"
+msgid ""
+"Error when pushing order file:\n"
 " %s"
-msgstr "Erreur dans l'envoi du fichier de la commande :\n"
+msgstr ""
+"Erreur dans l'envoi du fichier de la commande :\n"
 " %s"
 
 #. module: edi_purchase_config
@@ -221,8 +225,6 @@ msgid "FTP Server Port"
 msgstr "Port"
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:49
-#: code:addons/edi_purchase_config/models/edi_config_system.py:53
 #: code:addons/edi_purchase_config/models/edi_config_system.py:60
 #, python-format
 msgid "FTP port must be numeric!"
@@ -266,11 +268,6 @@ msgstr "Identifiant"
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_name
 msgid "Interface"
 msgstr "Interface"
-
-#. module: edi_purchase_config
-#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_sent
-msgid "Is Sent"
-msgstr "Est envoyé"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_is_date
@@ -434,8 +431,13 @@ msgstr "Supporte l'interface des prix"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,help:edi_purchase_config.field_edi_mapping_lines_value
-msgid "Use python code to generate your order file, using methods definedon the configuration system model"
-msgstr "Utilisez des expressions python pour générer la structure de fichier de votre commande fournisseur, en utilisant les fonctions python définies dans le modèle de configuration FTP, ou bien en y ajoutant de nouvelles."
+msgid ""
+"Use python code to generate your order file, using methods definedon the "
+"configuration system model"
+msgstr ""
+"Utilisez des expressions python pour générer la structure de fichier de "
+"votre commande fournisseur, en utilisant les fonctions python définies dans "
+"le modèle de configuration FTP, ou bien en y ajoutant de nouvelles."
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_user_id
@@ -478,3 +480,5 @@ msgstr "edi.price.mapping"
 msgid "purchase.edi.log"
 msgstr "purchase.edi.log"
 
+#~ msgid "Is Sent"
+#~ msgstr "Est envoyé"
