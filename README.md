@@ -1,3 +1,7 @@
+<a href="https://translate.druidoo.io/engage/awesomefoodcoops/?utm_source=widget">
+<img src="https://translate.druidoo.io/widgets/awesomefoodcoops/-/svg-badge.svg" alt="Estado de la traducción" />
+</a>
+
 Odoo mutualization
 ============
 
