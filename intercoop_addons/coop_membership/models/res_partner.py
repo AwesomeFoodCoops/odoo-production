@@ -252,10 +252,12 @@ class ResPartner(models.Model):
     @api.depends('badge_distribution_date', 'badge_print_date')
     def compute_badge_to_distribute(self):
         for record in self:
+            badge_to_distribute = False
             if record.badge_print_date:
                 if not record.badge_distribution_date or\
                         record.badge_distribution_date < record.badge_print_date:
-                    record.badge_to_distribute = True
+                    badge_to_distribute = True
+            record.badge_to_distribute = badge_to_distribute
 
     @api.multi
     def force_customer_button(self):
@@ -500,6 +502,20 @@ class ResPartner(models.Model):
                 partner.current_template_name = current_template.name
 
     # Overload Section
+    @api.model
+    def search(self, args, offset=0, limit=None, order=None, count=False):
+        if self._context.get('allow_to_search_barcode_base', False):
+            barcode_base_clauses = filter(
+                lambda clause: clause[0] == 'barcode_base'
+                and not clause[-1].isdigit(),
+                args
+            )
+            for barcode_base_clause in barcode_base_clauses:
+                barcode_base_clause[0] = u'display_name'
+                barcode_base_clause[1] = u'ilike'
+        return super(ResPartner, self).search(
+            args=args, offset=offset, limit=limit, order=order, count=count)
+
     @api.model
     def create(self, vals):
         partner = super(ResPartner, self).create(vals)
