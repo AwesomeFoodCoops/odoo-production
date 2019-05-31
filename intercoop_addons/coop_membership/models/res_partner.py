@@ -497,6 +497,20 @@ class ResPartner(models.Model):
 
     # Overload Section
     @api.model
+    def search(self, args, offset=0, limit=None, order=None, count=False):
+        if self._context.get('allow_to_search_barcode_base', False):
+            barcode_base_clauses = filter(
+                lambda clause: clause[0] == 'barcode_base'
+                and not clause[-1].isdigit(),
+                args
+            )
+            for barcode_base_clause in barcode_base_clauses:
+                barcode_base_clause[0] = u'display_name'
+                barcode_base_clause[1] = u'ilike'
+        return super(ResPartner, self).search(
+            args=args, offset=offset, limit=limit, order=order, count=count)
+
+    @api.model
     def create(self, vals):
         partner = super(ResPartner, self).create(vals)
         self._generate_associated_barcode(partner)
