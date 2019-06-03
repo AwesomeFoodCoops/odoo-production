@@ -163,7 +163,7 @@ class ResPartner(models.Model):
 
     current_template_name = fields.Char(
         string='Current Template',
-        compute='_compute_current_template_name',
+        compute='_compute_current_template',
         store=True
     )
 
@@ -172,6 +172,15 @@ class ResPartner(models.Model):
         string='Unsubscription Date',
         compute='_compute_is_unsubscribed',
         store=True
+    )
+
+    leader_ids = fields.Many2many(
+        comodel_name='res.partner',
+        relation='partner_leader_rel',
+        column1='leader_id',
+        column2='partner_id',
+        compute='_compute_current_template',
+        string='Shift Leaders'
     )
 
     @api.onchange('birthdate')
@@ -243,10 +252,12 @@ class ResPartner(models.Model):
     @api.depends('badge_distribution_date', 'badge_print_date')
     def compute_badge_to_distribute(self):
         for record in self:
+            badge_to_distribute = False
             if record.badge_print_date:
                 if not record.badge_distribution_date or\
                         record.badge_distribution_date < record.badge_print_date:
-                    record.badge_to_distribute = True
+                    badge_to_distribute = True
+            record.badge_to_distribute = badge_to_distribute
 
     @api.multi
     def force_customer_button(self):
@@ -474,20 +485,37 @@ class ResPartner(models.Model):
 
     @api.multi
     @api.depends('tmpl_reg_ids.is_current')
-    def _compute_current_template_name(self):
+    def _compute_current_template(self):
         for partner in self:
+            current_template = False
             reg = partner.tmpl_reg_ids.filtered(
                 lambda r: r.is_current)
             if reg:
-                partner.current_template_name = reg[0].shift_template_id.name
+                current_template = reg[0].shift_template_id
             else:
                 reg = partner.tmpl_reg_ids.filtered(
                     lambda r: r.is_future)
                 if reg:
-                    partner.current_template_name = \
-                        reg[0].shift_template_id.name
+                    current_template = reg[0].shift_template_id
+            if current_template:
+                partner.leader_ids = current_template.user_ids
+                partner.current_template_name = current_template.name
 
     # Overload Section
+    @api.model
+    def search(self, args, offset=0, limit=None, order=None, count=False):
+        if self._context.get('allow_to_search_barcode_base', False):
+            barcode_base_clauses = filter(
+                lambda clause: clause[0] == 'barcode_base'
+                and not clause[-1].isdigit(),
+                args
+            )
+            for barcode_base_clause in barcode_base_clauses:
+                barcode_base_clause[0] = u'display_name'
+                barcode_base_clause[1] = u'ilike'
+        return super(ResPartner, self).search(
+            args=args, offset=offset, limit=limit, order=order, count=count)
+
     @api.model
     def create(self, vals):
         partner = super(ResPartner, self).create(vals)
@@ -960,7 +988,7 @@ class ResPartner(models.Model):
         return True
 
     @api.multi
-    def create_job_to_compute_current_template_name(self):
+    def create_job_to_compute_current_template(self):
         partners = self.ids
         num_partner_per_job = 100
         splited_partner_list = \
@@ -987,4 +1015,4 @@ def update_shift_type_res_partner_session_job(
 def update_member_current_template_name(session, model_name, partner_ids):
     """ Job for Updating Current Shift Template Name """
     partners = session.env[model_name].browse(partner_ids)
-    partners._compute_current_template_name()
+    partners._compute_current_template()
