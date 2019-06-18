@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- modify Configuration/GeneralSettings view defined in
+             addons/base_setup/res_config_view.xml -->
+        <record id="view_general_configuration_x_user_menu_support_url" model="ir.ui.view">
+            <field name="name">base.config.settings.x_user_menu_support_url</field>
+            <field name="model">base.config.settings</field>
+            <field name="inherit_id" ref="base_setup.view_general_configuration"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='google']" position='before'>
+                    <group>
+                        <label for="x_user_menu_support_url"/>
+                        <div name="x_user_menu_support">
+                            <field name="x_user_menu_support_url"/>
+                            <label string="Lien «Support» dans le menu utilisateur"/>
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
