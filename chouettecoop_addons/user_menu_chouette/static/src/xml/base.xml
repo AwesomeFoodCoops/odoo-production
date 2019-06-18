@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- replace UserMenu dropdown-menu defined in addons/web/static/src/xml/base.xml -->
+    <t t-extend="UserMenu" >
+        <t t-jquery="ul.dropdown-menu" t-operation="inner">
+                <li><a href="#" data-menu="documentation">Documentation</a></li>
+                <li><a href="#" data-menu="support_chouette">Support</a></li>
+                <li><a href="#" data-menu="about">About</a></li>
+                <li class="divider"/>
+                <li><a href="#" data-menu="settings">Preferences</a></li>
+                <li class="dropdown-menu-last"><a href="#" data-menu="logout">Log out</a></li>
+        </t>
+    </t>
+
+</templates>
