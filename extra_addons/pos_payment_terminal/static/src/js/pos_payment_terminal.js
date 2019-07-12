@@ -46,21 +46,22 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             }
             return false;
         },
-        get_data_send: function(order, line, currency_iso) {
+        get_data_send: function(order, line, currency_iso, currency_decimals) {
             var data = {
                     'amount' : order.get_due(line),
                     'currency_iso' : currency_iso,
+                    'currency_decimals' : currency_decimals,
                     'payment_mode' : line.cashregister.journal.payment_mode,
                     'wait_terminal_answer' : this.wait_terminal_answer(),
                     };
             return data;
         },
 
-        payment_terminal_transaction_start: function(screen, currency_iso){
+        payment_terminal_transaction_start: function(screen, currency_iso, currency_decimals){
             var self = this;
             var order = this.pos.get_order();
             var line = order.selected_paymentline;
-            var data = self.get_data_send(order, line, currency_iso);
+            var data = self.get_data_send(order, line, currency_iso, currency_decimals);
             if (this.wait_terminal_answer()) {
                 screen.$('.delete-button').css('display', 'none');
                 this.message('payment_terminal_transaction_start_with_return', {'payment_info' : JSON.stringify(data)}, { timeout: 240000 }).then(function (answer) {
@@ -109,7 +110,7 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             var auto = line.get_automatic_payment_terminal();
             $('.back').hide();
             if (auto) {
-                this.pos.proxy.payment_terminal_transaction_start(self, self.pos.currency.name);
+                this.pos.proxy.payment_terminal_transaction_start(self, self.pos.currency.name, self.pos.currency.decimals);
             }
         },
         transaction_error: function() {
