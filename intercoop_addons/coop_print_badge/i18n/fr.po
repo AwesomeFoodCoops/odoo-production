@@ -66,3 +66,9 @@ msgstr "Impression du badge"
 #: model:ir.model.fields,field_description:coop_print_badge.field_res_partner_badge_to_print
 msgid "Badge To Print"
 msgstr "Badge à imprimer"
+
+#. module: coop_print_badge
+#: model:ir.ui.menu,name:coop_print_badge.menu_badge_to_distribute
+#: model:ir.actions.act_window,name:coop_print_badge.action_badge_to_distribute
+msgid "Badges"
+msgstr "Badges à Récupérer"
