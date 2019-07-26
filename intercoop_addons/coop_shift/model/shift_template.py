@@ -544,8 +544,23 @@ class ShiftTemplate(models.Model):
                 for key in vals.keys()
             )
             if only_update_seats_max:
-                vals['updated_fields'] = False
-        return super(ShiftTemplate, self).write(vals)
+                vals['updated_fields'] = ''
+
+        res = super(ShiftTemplate, self).write(vals)
+        updated_fields = vals.get('updated_fields', '')
+        if updated_fields.startswith('{'):
+            update_wizard_env = self.env['update.shifts.wizard']
+            for shift_template in self:
+                wizard_obj = update_wizard_env.create({
+                    'template_id': shift_template.id,
+                    'updated_fields': updated_fields,
+                })
+                wizard_obj.write({
+                    'line_ids': wizard_obj._get_line_ids(shift_template)
+                })
+                wizard_obj.update_shifts()
+
+        return res
 
     # Custom Public Section
     @api.multi
