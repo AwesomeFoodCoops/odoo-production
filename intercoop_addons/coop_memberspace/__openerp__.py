@@ -6,7 +6,11 @@
 
 {
     'name': 'Coop Memberspace',
-    'version': '0.0.0.1',
+    'description': """
+        Version 0.0.0.2 : ajout de la page planning par Supercoop pour visualiser les prochains services confirmés avec le nombre de places disponibles 
+        ATTENTION : WIP sur la prod de Supercoop, pas encore pushé sur le répertoire github commun !
+    """,
+    'version': '0.0.0.2',
     'category': 'Custom',
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
@@ -45,6 +49,7 @@
         'views/website/statistics.xml',
         'views/website/website_homepage.xml',
         'views/website/website_template.xml',
+        'views/website/planning.xml',
     ],
     'installable': True,
 }
