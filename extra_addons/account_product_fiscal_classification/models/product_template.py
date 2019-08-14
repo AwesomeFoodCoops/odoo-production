@@ -36,6 +36,12 @@ class ProductTemplate(models.Model):
         self.write_taxes_setting(vals)
         return res
 
+    @api.onchange('fiscal_classification_id')
+    def onchange_fiscal_classification_id(self):
+        fc = self.fiscal_classification_id
+        self.supplier_taxes_id = [[6, 0, fc.purchase_tax_ids.ids]]
+        self.taxes_id = [[6, 0, fc.sale_tax_ids.ids]]
+
     # Constraint Section
     @api.multi
     @api.constrains('fiscal_classification_id', 'categ_id')
