@@ -23,6 +23,7 @@
 
 import logging
 import simplejson
+import telium
 import time
 import curses.ascii
 from threading import Thread, Lock
@@ -83,12 +84,12 @@ class TeliumPaymentTerminalDriver(Thread):
             'payment_info_dict should be a dict'
         answer = {}
         try:
-            my_device = Telium('/dev/ttyACM0')
+            my_device = telium.Telium('/dev/ttyACM0')
             amount = float(payment_info_dict['amount'])
             if payment_info_dict['payment_mode'] == 'check':
-                payment_mode = TERMINAL_TYPE_PAYMENT_CHECK
+                payment_mode = telium.TERMINAL_TYPE_PAYMENT_CHECK
             elif payment_info_dict['payment_mode'] == 'card':
-                payment_mode = TERMINAL_TYPE_PAYMENT_CARD
+                payment_mode = telium.TERMINAL_TYPE_PAYMENT_CARD
             else:
                 logger.error(
                 "The payment mode '%s' is not supported"
@@ -103,22 +104,22 @@ class TeliumPaymentTerminalDriver(Thread):
             #    logger.error("Currency %s is not recognized" % cur_iso_letter)
             #    return False
 
-            my_payment = TeliumAsk(
+            my_payment = telium.TeliumAsk(
                 '1',  # Checkout ID 1
-                TERMINAL_ANSWER_SET_FULLSIZED,  # Ask for fullsized repport
-                TERMINAL_MODE_PAYMENT_DEBIT,  # Ask for debit
+                telium.TERMINAL_ANSWER_SET_FULLSIZED,  # Ask for fullsized repport
+                telium.TERMINAL_MODE_PAYMENT_DEBIT,  # Ask for debit
                 payment_mode,  # Using a card or a check
                 #cur_numeric.zfill(3),  # Set currency to EUR
-                TERMINAL_NUMERIC_CURRENCY_EUR,
-                TERMINAL_REQUEST_ANSWER_WAIT_FOR_TRANSACTION,  # Wait for transaction to end before getting final answer
-                TERMINAL_FORCE_AUTHORIZATION_DISABLE,  # Let device choose if we should ask for authorization
+                telium.TERMINAL_NUMERIC_CURRENCY_EUR,
+                telium.TERMINAL_REQUEST_ANSWER_WAIT_FOR_TRANSACTION,  # Wait for transaction to end before getting final answer
+                telium.TERMINAL_FORCE_AUTHORIZATION_DISABLE,  # Let device choose if we should ask for authorization
                 amount  # Ask for 12.5 EUR
             )
             try:
                 if not my_device.ask(my_payment):
                     logger.error('Unable to init payment on device.')
                     return False
-            except TerminalInitializationFailedException as e:
+            except telium.TerminalInitializationFailedException as e:
                 logger.error(format(e))
                 return False
 
