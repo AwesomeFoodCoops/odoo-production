@@ -5,14 +5,14 @@
             <t t-set="title">Espace Membre | Planning</t>
             <div class="container">
                 <div class="row">
-                    <h1>Manque de coopérateurs sur les services à venir</h1>
-                    <p>Page fonctionnelle mais toujours en cours de développement par le cercle informatique, des améliorations (notamment cosmétiques) sont encore prévues :)</p>
+                    <h1>Planning Supercoop</h1>
+                    <p>Manque de coopérateurs sur les services à venir : choisir en priorité les créneaux <span style="color: #ee2c2c;">rouges</span>, puis <span style="color: #ffa500;">oranges</span>, puis <span style="color: #ffd700;">jaunes</span>, puis <span style="color: #ffe4c4;">beiges</span>...</p>
                     <div class="row">
                         <t t-if="upcoming_shifts">
                             <t t-set="week_number" t-value="dict(upcoming_shifts[0]._fields['week_number'].selection).get(upcoming_shifts[0].week_number)" />
                             <t t-set="date" t-value="upcoming_shifts[0].date_without_time" />
                             <div class="col-md-12"><h3>Semaine <span t-esc="week_number" /></h3></div>
-                            <div class="col-md-12"><h4><span t-esc="date" /></h4></div>
+                            <div class="col-md-12"><h4><span t-esc="user.get_time_by_user_lang(upcoming_shifts[0].date_begin, ['%A %d %B %Y'])[0]" /></h4></div>
                         </t>
                         <t t-if="upcoming_shifts" t-foreach="upcoming_shifts" t-as="shift">
                             <t t-if="dict(shift._fields['week_number'].selection).get(shift.week_number) != week_number">
@@ -21,17 +21,32 @@
                             </t>
                             <t t-if="shift.date_without_time != date">
                                 <t t-set="date" t-value="shift.date_without_time" />
-                                <div class="col-md-12"><h4><span t-esc="date" /></h4></div>
+                                <div class="col-md-12"><h4><span t-esc="user.get_time_by_user_lang(shift.date_begin, ['%A %d %B %Y'])[0]" /></h4></div>
                             </t>
-                            <t t-if="shift.seats_available >= shift.seats_reserved" t-set="color" t-value="'red'" />
-                            <t t-if="shift.seats_reserved > shift.seats_available" t-set="color" t-value="'black'" />
-                            <div class="col-md-3" t-attf-style="border: 1px solid {{ color }}; margin: 10px;">
+                            <t t-set="present" t-value="datetime.datetime.now()" />
+                            <t t-set="availability_rate" t-value="float(shift.seats_available) / shift.seats_max" />
+
+                            <t t-set="css_color_style" t-value="''"/>
+                            <t t-if="availability_rate >= 0.25">
+                                <t t-set="css_color_style" t-value="'color: #665b4e; background-color: #ffe4c4'"/>
+                            </t>
+                            <t t-if="availability_rate >= 0.5">
+                                <t t-set="css_color_style" t-value="'color: #665600; background-color: #ffd700'"/>
+                            </t>
+                            <t t-if="availability_rate >= 0.75">
+                                <t t-set="css_color_style" t-value="'color: #664200; background-color: #ffa500;'"/>
+                            </t>
+                            <t t-if="shift.seats_available > 0 and present > (datetime.datetime.strptime(shift.date_begin_tz, '%Y-%m-%d %H:%M:%S') - datetime.timedelta(days=3))">
+                                <t t-set="css_color_style" t-value="'color: #fbd4d4; background-color: #ee2c2c;'"/>
+                            </t>
+
+                            <div t-attf-class="col-md-3" t-attf-style="border: 1px solid; margin: 10px; {{ css_color_style }}">
                                 <h5><span t-esc="shift.name" /></h5>
                                 <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')" />
                                 <t t-set="date_end" t-value="user.get_time_by_user_lang(shift.date_end, ['%A %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')" />
                                 <div><span t-esc="date_begin and date_begin[0] or ''" /> - <span t-esc="date_end and date_end[1] or ''" /></div>
                                 <div><span t-esc="shift.seats_reserved" /> participants attendus</div>
-                                <div t-attf-style="color: {{ color }};"><strong><span t-esc="shift.seats_available" /> places disponibles</strong></div>
+                                <div><strong><span t-esc="shift.seats_available" /> places disponibles</strong></div>
                             </div>
                         </t>
                     </div>
