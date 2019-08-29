@@ -136,7 +136,7 @@ class TeliumPaymentTerminalDriver(Thread):
                     'payment_terminal_return_message': my_answer.__dict__,
                 }
                 logger.error('answer = %s' % answer)
-        except Exception, e:
+        except Exception as e:
             logger.error('Error : %s' % str(e))
         return answer
 
