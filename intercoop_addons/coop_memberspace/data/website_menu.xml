@@ -65,7 +65,7 @@
             <field name="name">Accueil</field>
         </record>
 
-        <delete model="website.menu" search="[('id','=', ref('website.menu_contactus'))]" />
+        <delete model="website.menu" search="[('id','=', ref('website.contactus'))]" />
 
     </data>
 </openerp>
