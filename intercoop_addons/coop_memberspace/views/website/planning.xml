@@ -5,8 +5,8 @@
             <t t-set="title">Espace Membre | Planning</t>
             <div class="container">
                 <div class="row">
-                    <h1>Planning Supercoop</h1>
-                    <p>Manque de coopérateurs sur les services à venir : choisir en priorité les créneaux <span style="color: #ee2c2c;">rouges</span>, puis <span style="color: #ffa500;">oranges</span>, puis <span style="color: #ffd700;">jaunes</span>, puis <span style="color: #ffe4c4;">beiges</span>...</p>
+                    <h1>Planning du magasin</h1>
+                    <p>Manque de coopérateurs·trices sur les services à venir : choisir en priorité les créneaux <span style="color: #ee2c2c;">rouges</span>, puis <span style="color: #ffa500;">oranges</span>, puis <span style="color: #ffd700;">jaunes</span>, puis <span style="color: #ffe4c4;">beiges</span>...</p>
                     <div class="row">
                         <t t-if="upcoming_shifts">
                             <t t-set="week_number" t-value="dict(upcoming_shifts[0]._fields['week_number'].selection).get(upcoming_shifts[0].week_number)" />
