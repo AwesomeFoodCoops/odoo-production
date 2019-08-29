@@ -25,14 +25,10 @@ import logging
 import simplejson
 import telium
 import time
-import curses.ascii
 from threading import Thread, Lock
 from Queue import Queue
-from serial import Serial
-import pycountry
 import openerp.addons.hw_proxy.controllers.main as hw_proxy
 from openerp import http
-from openerp.tools.config import config
 
 logger = logging.getLogger(__name__)
 
