@@ -92,20 +92,11 @@ class TeliumPaymentTerminalDriver(Thread):
                 % payment_info_dict['payment_mode'])
                 return False
 
-            #cur_iso_letter = payment_info_dict['currency_iso'].upper()
-            #try:
-            #    cur = pycountry.currencies.get(letter=cur_iso_letter)
-            #    cur_numeric = str(cur.numeric)
-            #except:
-            #    logger.error("Currency %s is not recognized" % cur_iso_letter)
-            #    return False
-
             my_payment = telium.TeliumAsk(
                 '1',  # Checkout ID 1
                 telium.TERMINAL_ANSWER_SET_FULLSIZED,  # Ask for fullsized repport
                 telium.TERMINAL_MODE_PAYMENT_DEBIT,  # Ask for debit
                 payment_mode,  # Using a card or a check
-                #cur_numeric.zfill(3),  # Set currency to EUR
                 telium.TERMINAL_NUMERIC_CURRENCY_EUR,
                 telium.TERMINAL_REQUEST_ANSWER_WAIT_FOR_TRANSACTION,  # Wait for transaction to end before getting final answer
                 telium.TERMINAL_FORCE_AUTHORIZATION_DISABLE,  # Let device choose if we should ask for authorization
