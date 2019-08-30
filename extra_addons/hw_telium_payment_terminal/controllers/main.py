@@ -124,7 +124,7 @@ class TeliumPaymentTerminalDriver(Thread):
 
             if my_answer is not None:
                 # Print answered data from terminal
-                logger.error(my_answer.__dict__)
+                logger.debug(my_answer.__dict__)
                 answer = {
                     'pos_number': my_answer.__dict__['_pos_number'],
                     'transaction_result': my_answer.__dict__['_transaction_result'],
@@ -132,7 +132,7 @@ class TeliumPaymentTerminalDriver(Thread):
                     'payment_mode': my_answer.__dict__['_payment_mode'],
                     'payment_terminal_return_message': my_answer.__dict__,
                 }
-                logger.error('answer = %s' % answer)
+                logger.debug('answer = %s' % answer)
         except Exception as e:
             logger.error('Error : %s' % str(e))
         return answer
@@ -171,5 +171,5 @@ class TeliumPaymentTerminalProxy(hw_proxy.Proxy):
             'Telium: Call payment_terminal_transaction_start with return '
             'payment_info=%s', payment_info)
         answer = driver.transaction_start(payment_info)
-        logger.warning(answer)
+        logger.debug(answer)
         return answer
