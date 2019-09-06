@@ -92,7 +92,7 @@ class ComputedPurchaseOrder(models.Model):
     purchase_target = fields.Integer('Purchase Target', default=0)
     target_type = fields.Selection(
         _TARGET_TYPE, 'Target Type', required=True,
-        default='product_price_inv_eq',
+        default='time',
         help="""This defines the amount of products you want to"""
         """ purchase. \n"""
         """The system will compute a purchase order based on the stock"""
