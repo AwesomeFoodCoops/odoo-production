@@ -5,3 +5,4 @@ purchase-workflow
 server-ux
 server-tools
 web
+druidoo-addons https://github.com/druidoo/druidoo-addons.git
