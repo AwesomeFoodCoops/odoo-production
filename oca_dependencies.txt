@@ -1,5 +1,6 @@
 account-financial-reporting
 connector
+l10n-france
 mis-builder
 pos
 purchase-workflow
