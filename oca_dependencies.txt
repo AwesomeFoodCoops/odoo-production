@@ -1,6 +1,7 @@
 account-financial-reporting
 connector
 mis-builder
+pos
 purchase-workflow
 server-ux
 server-tools
