@@ -113,6 +113,12 @@ class ComputedPurchaseOrder(models.Model):
         digits_compute=dp.get_precision('Product Price'),
         string='Amount of the computed order',
         multi='computed_amount_duration')
+    package_qty_count = fields.Float(
+        string='Total Quantity of Packages',
+        help='Total count of packages by the current vendor',
+        compute='_compute_package_quantity_count',
+        readonly='True',
+    )
     computed_duration = fields.Integer(
         compute='_get_computed_amount_duration',
         string='Minimum duration after order',
@@ -274,6 +280,13 @@ class ComputedPurchaseOrder(models.Model):
                     quantity = 0
                 line.purchase_qty = quantity
                 line.purchase_qty_package = quantity / line.package_qty
+
+    @api.multi
+    @api.depends('line_ids.purchase_qty_package')
+    def _compute_package_quantity_count(self):
+        for rec in self:
+            rec.package_qty_count = sum(rec.mapped(
+                'line_ids.purchase_qty_package'))
 
     @api.multi
     def _compute_purchase_quantities_other(self, field):
