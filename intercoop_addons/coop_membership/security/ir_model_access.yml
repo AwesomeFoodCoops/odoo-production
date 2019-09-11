@@ -599,9 +599,9 @@
     group_id: coop_membership.group_membership_bdm_saisie
     model_id: coop_membership.model_shift_counter_event
     name: bdm.saisie.shift.counter.event
-    perm_create: true
+    perm_create: false
     perm_read: true
-    perm_write: true
+    perm_write: false
     perm_unlink: false
 -
   !record {model: ir.model.access, id: bdm_saisie_shift_change_team_user}:

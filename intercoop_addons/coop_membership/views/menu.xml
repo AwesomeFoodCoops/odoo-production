@@ -68,7 +68,8 @@
         <field name="parent_id" ref="menu_coop_member_submain"/>
         <field name="sequence">3</field>
         <field name="groups_id"
-               eval="[(4, ref('coop_membership.group_membership_see_associated_people'))]"/>
+               eval="[(4, ref('coop_membership.group_membership_see_associated_people')),
+               (4, ref('coop_membership.group_membership_bdm_saisie'))]"/>
     </record>
 
     <!-- Former Members -->

@@ -279,7 +279,8 @@
                                     <button name="open_parent" type="object"
                                             string="(edit)" class="oe_link"
                                             attrs="{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}"
-                                            groups="coop_membership.group_membership_access_manager"/>
+                                            groups="coop_membership.group_membership_access_manager,
+                                                    coop_membership.group_membership_bdm_saisie"/>
                                 </div>
 
                                 <field name="street" placeholder="Street..."
@@ -331,7 +332,8 @@
                             </div>
                             <field name="website" widget="url" placeholder="e.g. www.odoo.com"
                                    groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user"
+                                   coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_saisie"
                             />
                         </group>
                         <group>
@@ -354,15 +356,14 @@
                             />
                             <field name="fax"
                                    groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user"
+                                   coop_membership.group_membership_access_user,
+                                    coop_membership.group_membership_bdm_saisie"
                             />
                             <field name="user_ids" invisible="1"/>
                             <field name="notify_email" widget="radio"
-                                   groups="coop_membership.group_membership_bdm_lecture,
-                                   coop_membership.group_membership_bdm_saisie"/>
+                                   groups="coop_membership.group_membership_bdm_lecture"/>
                             <field name="opt_out" string="Mailing Opt-Out"
-                                   groups="coop_membership.group_membership_bdm_lecture,
-                                   coop_membership.group_membership_bdm_saisie"/>
+                                   groups="coop_membership.group_membership_bdm_lecture"/>
                             <field name="email" widget="email"
                                    attrs="{'required': [('user_ids','!=', [])]}"
                                    groups="coop_membership.group_membership_see_associated_people,
@@ -381,8 +382,7 @@
                                    coop_membership.group_membership_bdm_saisie"/>
                             <field name="lang"
                                    groups="coop_membership.group_membership_access_manager,
-                                   coop_membership.group_membership_bdm_lecture,
-                                   coop_membership.group_membership_bdm_saisie"/>
+                                   coop_membership.group_membership_bdm_lecture"/>
                             <field name="category_id" widget="many2many_tags"
                                    placeholder="Tags..."
                                    groups="coop_membership.group_membership_access_manager,
@@ -390,7 +390,7 @@
                         </group>
                         <group string="MemberShip"
                                groups="coop_membership.group_membership_see_associated_people,
-                               coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_saisie"
+                               coop_membership.group_membership_access_user"
                                attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
                             <field name="nb_associated_people"
                                    string="Number of Associated People"
@@ -482,7 +482,8 @@
                                    coop_membership.group_membership_bdm_saisie"/>
                             <field name="date_of_death"
                                    attrs="{'invisible': [('is_deceased', '=', False)]}"/>
-                            <field name="email_pos_receipt"/>
+                            <field name="email_pos_receipt" groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user"/>
                             <field name="deactivated_date" readonly="1"
                                    groups="coop_membership.group_membership_access_manager" />
                         </group>
@@ -806,7 +807,7 @@
                               coop_membership.group_membership_bdm_lecture,coop_membership.group_membership_bdm_saisie">
                             <group name="state">
                                 <group name="state1"
-                                       groups="coop_shift.group_shift_see_counter,coop_membership.group_membership_bdm_lecture,coop_membership.group_membership_bdm_saisie">
+                                       groups="coop_shift.group_shift_see_counter,coop_membership.group_membership_bdm_lecture">
                                     <field name="shift_type"/>
                                     <field name="is_blocked"/>
                                     <field name="is_exempted"/>
@@ -816,7 +817,7 @@
 
                                 </group>
                                 <group name="state2"
-                                       groups="coop_shift.group_shift_see_counter,coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_saisie,coop_membership.group_membership_bdm_lecture">
+                                       groups="coop_shift.group_shift_see_counter,coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_lecture">
                                     <field name="working_state"/>
                                 </group>
                             </group>
@@ -826,7 +827,7 @@
                                 <field name="leader_ids" widget="many2many_tags"/>
                             </group>
                             <group name="button"
-                                   groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie">
+                                   groups="coop_shift.group_shift_manager">
                                 <button name="%(coop_shift.action_add_template_registration)d"
                                         type="action" class="oe_highlight"
                                         icon="fa-cogs"
