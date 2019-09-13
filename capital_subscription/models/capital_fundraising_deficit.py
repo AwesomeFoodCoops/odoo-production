@@ -1,14 +1,14 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 # @author: La Louve
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-from openerp import api, fields, models, _
-from openerp.exceptions import ValidationError
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class CapitalFundraisingDeficit(models.Model):
     _name = 'capital.fundraising.deficit'
+    _description = 'Capital Fundraising Deficit'
 
     start_date = fields.Date("Start Date", required=True)
     end_date = fields.Date("End Date")

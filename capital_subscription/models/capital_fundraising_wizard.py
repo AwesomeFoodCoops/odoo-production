@@ -1,13 +1,13 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api
+from odoo import models, fields, api
 
 
 class CapitalFundraisingWizard(models.TransientModel):
     _name = 'capital.fundraising.wizard'
+    _description = 'Capital Fundraising Wizard'
 
     def default_partner_id(self):
         if self._context.get('active_model', False) == 'res.partner':
@@ -99,7 +99,7 @@ class CapitalFundraisingWizard(models.TransientModel):
         invoice.onchange_fundraising_category_id()
 
         # Validate Invoice, calling workflow
-        invoice.signal_workflow('invoice_open')
+        invoice.action_invoice_open()
 
         # Mark Payment
         payment_methods = wizard.category_id.fundraising_id.journal_id.\

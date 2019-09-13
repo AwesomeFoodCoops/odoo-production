@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 
 import logging
-from openerp import SUPERUSER_ID
-from openerp.modules.registry import RegistryManager
+from odoo import SUPERUSER_ID
+from odoo.modules.registry import RegistryManager
 
 logger = logging.getLogger('openerp.capital_subscription')
 

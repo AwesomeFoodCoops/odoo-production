@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 
-from openerp import api, fields, models, _
-from openerp.exceptions import Warning
+from odoo import api, fields, models, _
+from odoo.exceptions import Warning
 import copy
 
 

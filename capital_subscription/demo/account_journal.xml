@@ -19,6 +19,8 @@
         <field name="type">bank</field>
         <field name="code">P-CF</field>
         <field name="is_payment_capital_fundraising" eval="1"/>
+        <field name="default_debit_account_id" ref="unpaid_capital_account_category_A"/>
+        <field name="default_credit_account_id" ref="unpaid_capital_account_category_A"/>
     </record>
 
 </odoo>

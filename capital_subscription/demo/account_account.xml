@@ -57,6 +57,7 @@
         <field name="user_type_id" ref="account.data_account_type_equity" />
         <field name="company_id" ref="base.main_company" />
         <field name="code">1012A</field>
+        <field name="reconcile">1</field>
     </record>
 
     <record model="account.account" id="unpaid_capital_account_category_B">

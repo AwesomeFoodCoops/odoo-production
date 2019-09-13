@@ -1,13 +1,13 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields
+from odoo import models, fields
 
 
 class CapitalFundraisingCategoryLine(models.Model):
     _name = 'capital.fundraising.category.line'
+    _description = 'Capital Fundraising Category Line'
 
     minimum_share_qty = fields.Integer(
         string='Minimum Share Quantity', required=True, default=1)

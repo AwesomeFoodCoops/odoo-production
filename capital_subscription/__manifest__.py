@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
@@ -6,7 +5,7 @@
 
 {
     'name': 'Capital Subscription',
-    'version': '9.0.0.0.2',
+    'version': '12.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Provide extra accounting features for Capital Subscription',
     'author': 'La Louve',
@@ -14,7 +13,6 @@
     'depends': [
         'account',
         'l10n_generic_coa',
-        'account_full_reconcile',
     ],
     'data': [
         'data/data_product_product.xml',
