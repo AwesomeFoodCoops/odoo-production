@@ -117,8 +117,10 @@ class AccountInvoice(models.Model):
             # Compute minimum qty depending of partner state
             if invoice.partner_id.fundraising_partner_type_ids:
                 for line in category.line_ids:
-                    if line.fundraising_partner_type_id.id in\
-                            invoice.partner_id.fundraising_partner_type_ids.ids:
+                    if (
+                        line.fundraising_partner_type_id.id in
+                        invoice.partner_id.fundraising_partner_type_ids.ids
+                    ):
                         minimum_qty = min(line.minimum_share_qty, minimum_qty)
 
             capital_qty = 0
