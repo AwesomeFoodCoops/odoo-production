@@ -4,8 +4,8 @@ from .common import CapitalSubscriptionTest
 class TestFund(CapitalSubscriptionTest):
     def test_capital_fundraising_confirm_payment01(self):
         """
-            Test the Capital Fundraising with Payment Confirm True , it should create Invoice and
-            Invoice Status must be Paid
+            Test the Capital Fundraising with Payment Confirm True ,
+            it should create Invoice and Invoice Status must be Paid
         """
         wiz = self.CapitalFund.create({
             'date_invoice': self.date_invoice,
@@ -27,8 +27,8 @@ class TestFund(CapitalSubscriptionTest):
 
     def test_capital_fundraising_confirm_payment02(self):
         """
-            Test the Capital Fundraising with Payment Confirm False, it should create Invoice and
-            Invoice Status must be Open
+            Test the Capital Fundraising with Payment Confirm False,
+            it should create Invoice and Invoice Status must be Open
         """
         wiz = self.CapitalFund.create({
             'date_invoice': self.date_invoice,

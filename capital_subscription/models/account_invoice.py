@@ -195,8 +195,8 @@ class AccountInvoice(models.Model):
                         if not source_product.deficit_share_account_id and \
                                 deficit_share_amount:
                             raise UserError(_("Deficit Share Account has not "
-                                            "been configured for %s.") %
-                                          source_product.display_name)
+                                              "been configured for %s.") %
+                                            source_product.display_name)
                         # Update quantity of source product line
                         inv_line.write({'quantity': quantity})
 

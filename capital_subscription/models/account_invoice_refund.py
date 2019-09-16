@@ -43,7 +43,8 @@ class AccountInvoiceRefund(models.TransientModel):
             return True
         origin_inv = AccountInvoice.browse(active_id)
         if origin_inv.is_capital_fundraising and self.refund_quantity <= 0:
-            raise UserError(_("Error! The refund quantity must be greater than 0."))
+            raise UserError(
+                _("Error! The refund quantity must be greater than 0."))
         return True
 
     @api.multi
