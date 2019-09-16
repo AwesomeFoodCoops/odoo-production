@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2017-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+ -->
+<odoo>
+    <record id="view_shift_leave_form" model="ir.ui.view">
+        <field name="model">shift.leave</field>
+        <field name="inherit_id" ref="coop_shift.view_shift_leave_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('is_worker_member', '=', True)]</attribute>
+            </field>
+            <xpath expr="//sheet/notebook" position="before">
+                <field name="show_alert_proposed_date" invisible="1"/>
+                <p class="alert alert-warning"
+                   attrs="{'invisible':['|', ('show_alert_proposed_date','=',False), ('state', '!=', 'draft')]}"
+                   role="alert">
+                    <field name='alert_message' nolabel='1'/>
+                    <button string="Accept" name="btn_confirm_propose" type="object" default_focus="1"
+                            class="btn-primary"/>
+                    <button string="Cancel" name="btn_cancel_propose" class="btn-default" type="object"/>
+                </p>
+            </xpath>
+            <xpath expr="//sheet/notebook" position="before">
+                <field name="non_defined_type" invisible="1"/>
+                <field name="show_proceed_message" invisible="1"/>
+                <p class="alert alert-warning"
+                   attrs="{'invisible':['|', ('show_proceed_message','=',False), ('state', '!=', 'draft')]}"
+                   role="alert">
+                    <field name="proceed_message"/>
+                </p>
+            </xpath>
+            <xpath expr="//sheet/group" position="after">
+                <field name="is_absence_leave" invisible="1"/>
+                <field name="absence_less_than_15days" invisible="1"/>
+                <group col="2"
+                       attrs="{'invisible': ['|', ('is_absence_leave', '=', False), ('absence_less_than_15days', '=', False)] }">
+                    <p class='alert alert-warning' role="alert">
+                        Le minimum pour une absence pour incapacité est de 15 jours.
+                    </p>
+                </group>
+            </xpath>
+
+            <field name="require_stop_date" position="before">
+                <field name="non_defined_leave"
+                       attrs="{'invisible': [('non_defined_type', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
+                       tabindex="7"/>
+                <field name="medical_excuse_provided" attrs="{'invisible': [('is_absence_leave', '=', False)]}"
+                       tabindex="5"/>
+                <field name="non_defined_type" invisible="1"/>
+                <field name="is_send_reminder" group="base.group_no_one" readonly="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

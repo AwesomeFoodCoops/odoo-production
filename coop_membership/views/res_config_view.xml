@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.members</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="65"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Members" string="Members" data-key="coop_membership">
+                    <h2>Membership</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-12 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="associated_people_available" class="o_light_label" widget="radio"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-12 o_setting_box"
+                             attrs="{'invisible':[('associated_people_available','=','unlimited')], 'required':[('associated_people_available', '=', 'limited')]}">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Maximum Associated People</span>
+                                <div class="text-muted">
+                                    <field name="max_nb_associated_people"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="contact_us_messages" class="o_light_label"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>FTOP Registration Limits</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">FTOP Max. Registration per day</span>
+                                <div class="text-muted">
+                                    <field name="max_registrations_per_day"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">FTOP Max. Registration per period</span>
+                                <div class="text-muted">
+                                    <field name="max_registration_per_period"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">FTOP Registration period</span>
+                                <div class="text-muted">
+                                    <field name="number_of_days_in_period"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Maximum Active Days</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Maximum Active Days</span>
+                                <div class="text-muted">
+                                    <field name="max_registrations_per_day"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_coop_membership_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <!-- <field name="view_id" ref="res_config_settings_view_form"/> -->
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'coop_membership'}</field>
+    </record>
+
+    <menuitem
+            id="menu_shift_type_seting"
+            name="Settings"
+            action="action_coop_membership_config_settings"
+            parent="coop_shift.menu_shift_configuration"
+            sequence="0"/>
+
+    <!--      <record id="hr_config_settings_action" model="ir.actions.act_window">
+     <field name="name">Settings</field>
+     <field name="type">ir.actions.act_window</field>
+     <field name="res_model">res.config.settings</field>
+     <field name="view_mode">form</field>
+     <field name="target">inline</field>
+     <field name="context">{'module' : 'hr'}</field>
+ </record>
+
+ <menuitem id="hr_menu_configuration"
+     name="Settings"
+     parent="menu_human_resources_configuration"
+     sequence="0"
+     action="hr_config_settings_action"
+     groups="base.group_system"/> -->
+</odoo>
