@@ -1,7 +1,7 @@
+import copy
 
 from odoo import api, fields, models, _
-from odoo.exceptions import Warning
-import copy
+from odoo.exceptions import UserError
 
 
 class AccountInvoiceRefund(models.TransientModel):
@@ -26,7 +26,7 @@ class AccountInvoiceRefund(models.TransientModel):
         if not active_id:
             return 0.0
         origin_inv = AccountInvoice.browse(active_id)
-        qty = sum([line.quantity for line in origin_inv.invoice_line_ids if \
+        qty = sum([line.quantity for line in origin_inv.invoice_line_ids if
                    line.product_id and line.product_id.is_capital_fundraising])
         return qty
 
@@ -43,7 +43,7 @@ class AccountInvoiceRefund(models.TransientModel):
             return True
         origin_inv = AccountInvoice.browse(active_id)
         if origin_inv.is_capital_fundraising and self.refund_quantity <= 0:
-            raise Warning("Error! The refund quantity must be greater than 0.")
+            raise UserError(_("Error! The refund quantity must be greater than 0."))
         return True
 
     @api.multi
@@ -59,4 +59,3 @@ class AccountInvoiceRefund(models.TransientModel):
                 invs = AccountInvoice.search(domain)
                 invs.apply_refund_deficit_share(self.refund_quantity)
         return res
-

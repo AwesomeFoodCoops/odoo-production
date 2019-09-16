@@ -15,11 +15,11 @@ class ResPartner(models.Model):
 
     amount_subscription = fields.Float(
         string="Total Subscribed Amount",
-        compute='compute_amount_subscription')
+        compute='_compute_amount_subscription')
 
     # Compute section
     @api.multi
-    def compute_amount_subscription(self):
+    def _compute_amount_subscription(self):
         inv_obj = self.env['account.invoice'].sudo()
         for partner in self:
             amount_subscription = sum(inv_obj.search([

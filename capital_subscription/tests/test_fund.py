@@ -1,5 +1,6 @@
 from .common import CapitalSubscriptionTest
 
+
 class TestFund(CapitalSubscriptionTest):
     def test_capital_fundraising_confirm_payment01(self):
         """
@@ -10,14 +11,15 @@ class TestFund(CapitalSubscriptionTest):
             'date_invoice': self.date_invoice,
             'partner_id': self.partner_agrolite_id,
             'category_id': self.category_id,
-            'share_qty' : self.share_qty,
+            'share_qty': self.share_qty,
             'payment_journal_id': self.payment_journal_id,
             'confirm_payment': True,
             'payment_term_id': self.payment_term_id
         })
-        
+
         invoice_dict = wiz.button_confirm()
-        invoice = self.env[invoice_dict['res_model']].browse(invoice_dict['res_id'])
+        invoice = self.env[invoice_dict['res_model']].browse(
+            invoice_dict['res_id'])
         self.assertEqual(invoice.is_capital_fundraising, 1)
         self.assertEqual(invoice.fundraising_category_id.id, self.category_id)
         self.assertEqual(invoice.invoice_line_ids[0].quantity, self.share_qty)
@@ -39,7 +41,8 @@ class TestFund(CapitalSubscriptionTest):
         })
 
         invoice_dict = wiz.button_confirm()
-        invoice = self.env[invoice_dict['res_model']].browse(invoice_dict['res_id'])
+        invoice = self.env[invoice_dict['res_model']].browse(
+            invoice_dict['res_id'])
         self.assertEqual(invoice.is_capital_fundraising, 1)
         self.assertEqual(invoice.fundraising_category_id.id, self.category_id)
         self.assertEqual(invoice.invoice_line_ids[0].quantity, self.share_qty)

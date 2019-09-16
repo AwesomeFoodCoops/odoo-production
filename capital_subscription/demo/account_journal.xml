@@ -7,7 +7,7 @@
 
 <odoo>
 
-    <record model="account.journal" id="capital_journal">
+    <record model="account.journal" id="sale_capital_journal">
         <field name="name">Sale Demo Capital Fundraising Journal</field>
         <field name="type">general</field>
         <field name="code">S-CF</field>

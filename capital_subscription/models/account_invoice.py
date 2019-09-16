@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import models, fields, api, exceptions, _
-from odoo.exceptions import Warning
+from odoo.exceptions import UserError
 
 
 class AccountInvoice(models.Model):
@@ -194,7 +194,7 @@ class AccountInvoice(models.Model):
                             source_product.is_capital_fundraising:
                         if not source_product.deficit_share_account_id and \
                                 deficit_share_amount:
-                            raise Warning(_("Deficit Share Account has not "
+                            raise UserError(_("Deficit Share Account has not "
                                             "been configured for %s.") %
                                           source_product.display_name)
                         # Update quantity of source product line

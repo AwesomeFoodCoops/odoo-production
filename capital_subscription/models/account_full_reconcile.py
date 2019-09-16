@@ -91,8 +91,6 @@ class AccountFullReconcile(models.Model):
                     'journal_id': journal.id,
                     'date': payment_date,
                     'narration': _("Paid Capital"),
-                    'payment_id': payment_id and payment_id[0].id or False
-                    if is_payment else _("Unpaid Capital"),
                 }
                 move = move_obj.create(move_vals)
                 move.post()
