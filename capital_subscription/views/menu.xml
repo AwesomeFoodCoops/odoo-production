@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.ui.menu" id="menu_capital_main">
+        <field name="name">Capital</field>
+        <field name="parent_id" ref="account.menu_finance"/>
+        <field name="sequence">4</field>
+    </record>
+
+    <record model="ir.ui.menu" id="menu_capital_fundraising">
+        <field name="name">Fundraisings</field>
+        <field name="action" ref="action_capital_fundraising"/>
+        <field name="parent_id" ref="menu_capital_main"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <record model="ir.ui.menu" id="menu_capital_fundraising_category">
+        <field name="name">Fundraising Categories</field>
+        <field name="action" ref="action_capital_fundraising_category"/>
+        <field name="parent_id" ref="menu_capital_main"/>
+        <field name="sequence">2</field>
+    </record>
+
+    <record model="ir.ui.menu" id="menu_capital_fundraising_partner_type">
+        <field name="name">Fundraising Partner Types</field>
+        <field name="action" ref="action_capital_fundraising_partner_type"/>
+        <field name="parent_id" ref="menu_capital_main"/>
+        <field name="sequence">3</field>
+    </record>
+
+    <record model="ir.ui.menu" id="menu_capital_fundraising_wizard">
+        <field name="name">Wizard</field>
+        <field name="action" ref="action_capital_fundraising_wizard"/>
+        <field name="parent_id" ref="menu_capital_main"/>
+        <field name="sequence">4</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.ui.view" id="view_capital_fundraising_wizard_form">
+        <field name="model">capital.fundraising.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="date_invoice"/>
+                    <field name="partner_id"/>
+                    <field name="fundraising_partner_type_ids" readonly="1" widget="many2many_tags" colspan="2"/>
+                    <field name="category_id" widget="selection"/>
+                    <field name="share_qty"/>
+                    <field name="payment_journal_id" widget="selection"/>
+                    <field name="confirm_fundraising_payment" invisible="1"/>
+                    <field name="confirm_payment" attrs="{'invisible': [('payment_journal_id', '=', False)], 'readonly': [('confirm_fundraising_payment', 'in', ['allways', 'never'])]}"/>
+                    <field name="payment_term_id" widget="selection"/>
+                </group>
+                <footer>
+                    <button string="Confirm" name="button_confirm" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
