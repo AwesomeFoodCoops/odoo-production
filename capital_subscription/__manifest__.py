@@ -11,6 +11,7 @@
     'summary': 'Provide extra accounting features for Capital Subscription',
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
+    'license': 'AGPL-3',
     'depends': [
         'account',
         'l10n_generic_coa',
