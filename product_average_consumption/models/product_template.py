@@ -39,7 +39,7 @@ class ProductTemplate(models.Model):
     average_consumption = fields.Float(compute='_compute_average_consumption',
                                        string='Average Consumption')
     displayed_average_consumption = fields.Float(
-        compute='_displayed_average_consumption',
+        compute='_compute_displayed_average_consumption',
         string='Average Consumption')
     total_consumption = fields.Float(compute='_compute_average_consumption',
                                      string='Total Consumption')
@@ -88,7 +88,7 @@ class ProductTemplate(models.Model):
 
     @api.depends('display_range', 'average_consumption')
     @api.multi
-    def _displayed_average_consumption(self):
+    def _compute_displayed_average_consumption(self):
         for template in self:
             template.displayed_average_consumption = \
                 template.average_consumption * template.display_range

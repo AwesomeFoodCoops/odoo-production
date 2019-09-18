@@ -34,15 +34,16 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     # Columns Section
-    average_consumption = fields.Float(compute='_average_consumption',
+    average_consumption = fields.Float(compute='_compute_average_consumption',
                                        string='Average Consumption')
     displayed_average_consumption = fields.Float(
-        compute='_displayed_average_consumption',
+        compute='_compute_displayed_average_consumption',
         string='Average Consumption')
-    total_consumption = fields.Float(compute='_average_consumption',
+    total_consumption = fields.Float(compute='_compute_average_consumption',
                                      string='Total Consumption')
-    nb_days = fields.Integer(compute='_average_consumption',
-                             string='Number of days for the calculation',
+    nb_days = fields.Integer(
+        compute='_compute_average_consumption',
+        string='Number of days for the calculation',
         help="""The calculation will be done according to Calculation Range"""
         """ field or since the first stock move of the product if it's"""
         """ more recent""")
@@ -60,12 +61,12 @@ class ProductProduct(models.Model):
         cr = self.env.cr
         cr.execute(query)
         results = cr.fetchall()
-        return results and results[0] and results[0][0]\
-               or time.strftime('%Y-%m-%d')
+        return results and results[0] and results[0][0] \
+            or time.strftime('%Y-%m-%d')
 
     # Fields Function Section
     @api.depends('consumption_calculation_method', 'calculation_range')
-    def _average_consumption(self):
+    def _compute_average_consumption(self):
         for product in self:
             if product.consumption_calculation_method == 'moves':
                 product._average_consumption_moves()
@@ -113,7 +114,7 @@ class ProductProduct(models.Model):
 
     @api.onchange('display_range', 'average_consumption')
     @api.multi
-    def _displayed_average_consumption(self):
+    def _compute_displayed_average_consumption(self):
         for product in self:
             product.displayed_average_consumption = \
                 product.average_consumption * product.display_range
