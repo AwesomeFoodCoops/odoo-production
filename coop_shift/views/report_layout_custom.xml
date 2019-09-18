@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Custom Layout for WALL CHART -->
+        <template id="custom_external_layout_footer">
+            <div class="footer" style="border-top: 1px solid black;">
+                <div class="col-xs-2"/>
+                <div class="text-center col-xs-8">
+                    <ul class="list-inline" t-if="not company.custom_footer">
+                        <li t-if="company.phone">Phone: 
+                            <span t-field="company.phone"/></li>
+                        <li t-if="company.fax and company.phone">&amp;bull;</li>
+                        <li t-if="company.fax">Fax: 
+                            <span t-field="company.fax"/></li>
+                        <li t-if="company.email and company.fax or company.email and company.phone">&amp;bull;</li>
+                        <li t-if="company.email">Email: 
+                            <span t-field="company.email"/></li>
+                        <li t-if="company.website and company.email or company.website and company.fax or company.website and company.phone">&amp;bull;</li>
+                        <li t-if="company.website">Website: 
+                            <span t-field="company.website"/></li>
+                    </ul>
+                    <ul class="list-inline" name="financial_infos" t-if="not company.custom_footer">
+                        <li t-if="company.vat">TIN: 
+                            <span t-field="company.vat"/></li>
+                    </ul>
+                    <t t-if="company.custom_footer">
+                        <span t-raw="company.rml_footer"/>
+                    </t>
+                    <ul class="list-inline">
+                        <li>Page:</li>
+                        <li>
+                            <span class="page"/>
+                        </li>
+                        <li>/</li>
+                        <li>
+                            <span class="topage"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-right col-xs-2">
+                    <span t-esc="date.strftime(date.today(),'%d/%m/%Y')"/>
+                </div>
+            </div>
+        </template>
+
+        <template id="custom_external_layout">
+            <!-- Multicompany -->
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+            <t t-raw="0"/>
+            <t t-call="coop_shift.custom_external_layout_footer"/>
+        </template>
+    </data>
+</odoo>
