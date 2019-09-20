@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from openerp import api, models
+from odoo import api, models
 
 
 class AccountInvoice(models.Model):
@@ -29,4 +29,4 @@ class AccountInvoice(models.Model):
     def _onchange_partner_id(self):
         super(AccountInvoice, self)._onchange_partner_id()
         if self.partner_id and self.partner_id.default_purchase_journal_id:
-                self.journal_id = self.partner_id.default_purchase_journal_id
+            self.journal_id = self.partner_id.default_purchase_journal_id
