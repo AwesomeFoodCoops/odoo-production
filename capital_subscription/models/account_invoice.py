@@ -34,7 +34,7 @@ class AccountInvoice(models.Model):
             description=description, journal_id=journal_id)
         res['is_capital_fundraising'] = invoice.is_capital_fundraising
         res['fundraising_category_id'] = invoice.fundraising_category_id.id
-        #Set Account from fundraising category
+        # Set Account from fundraising category
         if invoice.fundraising_category_id:
             for line in res['invoice_line_ids']:
                 line[2]['account_id'] = \

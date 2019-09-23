@@ -57,9 +57,9 @@ class ProductProduct(models.Model):
     @api.model
     def _min_date(self, product_id):
         query = """SELECT to_char(min(date), 'YYYY-MM-DD') \
-                from stock_move where product_id = %s""" % (product_id)
+                from stock_move where product_id = %s"""
         cr = self.env.cr
-        cr.execute(query)
+        cr.execute(query, (product_id, ))
         results = cr.fetchall()
         return results and results[0] and results[0][0] \
             or time.strftime('%Y-%m-%d')

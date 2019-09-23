@@ -1,8 +1,11 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Purchase - Computed Purchase Order Module for Odoo
+#    Copyright (C) 2019-Today: La Louve (<https://cooplalouve.fr>)
+#    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 #    Copyright (C) 2013-Today GRAP (http://www.grap.coop)
+#    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+#    @author Druidoo
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -21,7 +24,7 @@
 #
 ##############################################################################
 
-from openerp import models, fields
+from odoo import models, fields
 
 
 class ResPartner(models.Model):
@@ -35,9 +38,9 @@ class ResPartner(models.Model):
     ]
 
     # Columns Section
-    purchase_target = fields.Integer('Purchase Target')
+    purchase_target = fields.Integer()
     target_type = fields.Selection(
-        _TARGET_TYPE, 'Target Type', required=True,
+        _TARGET_TYPE, required=True,
         default='product_price_inv_eq',
         help="""This defines the amount of products you want to"""
         """ purchase. \n"""

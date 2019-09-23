@@ -1,8 +1,11 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Purchase - Computed Purchase Order Module for Odoo
+#    Copyright (C) 2019-Today: La Louve (<https://cooplalouve.fr>)
+#    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 #    Copyright (C) 2013-Today GRAP (http://www.grap.coop)
+#    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+#    @author Druidoo
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -21,7 +24,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class ProductProduct(models.Model):
@@ -29,9 +32,9 @@ class ProductProduct(models.Model):
 
     # Private section
     @api.model
-    @api.one
     # Later, we may want to implement other valid_psi options
     def _valid_psi(self, method):
+        self.ensure_one()
         if method == 'first':
             return self._first_valid_psi()
         elif method == 'all':
@@ -40,8 +43,8 @@ class ProductProduct(models.Model):
             return False
 
     @api.model
-    @api.one
     def _all_valid_psi(self):
+        self.ensure_one()
         today = fields.Date.today()
         if not self.product_tmpl_id.seller_ids:
             return False
@@ -51,8 +54,8 @@ class ProductProduct(models.Model):
         return valid_si
 
     @api.model
-    @api.one
     def _first_valid_psi(self):
+        self.ensure_one()
         if not self.product_tmpl_id.seller_ids:
             return False
         valid_si = self._all_valid_psi()[0]

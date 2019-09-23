@@ -1,8 +1,11 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Purchase - Computed Purchase Order Module for Odoo
+#    Copyright (C) 2019-Today: La Louve (<https://cooplalouve.fr>)
+#    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 #    Copyright (C) 2013-Today GRAP (http://www.grap.coop)
+#    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+#    @author Druidoo
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -21,9 +24,9 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api, _
-import openerp.addons.decimal_precision as dp
-from openerp.exceptions import ValidationError
+from odoo import models, fields, api, _
+import odoo.addons.decimal_precision as dp
+from odoo.exceptions import ValidationError
 
 
 class ComputedPurchaseOrderLine(models.Model):
@@ -42,10 +45,9 @@ class ComputedPurchaseOrderLine(models.Model):
         'computed.purchase.order', 'Order Reference', required=True,
         ondelete='cascade')
     state = fields.Selection(
-        _STATE, 'State', required=True, readonly=True, default='new',
+        _STATE, required=True, readonly=True, default='new',
         help="Shows if the product's information has been updated")
     sequence = fields.Integer(
-        'Sequence',
         help="""Gives the sequence order when displaying a list of"""
         """ purchase order lines.""")
     product_id = fields.Many2one(
@@ -55,46 +57,49 @@ class ComputedPurchaseOrderLine(models.Model):
         related='product_id.uom_id', string="UoM", readonly='True')
     product_code = fields.Char('Supplier Product Code',)
     product_code_inv = fields.Char(
-        compute='_get_product_information', inverse='_set_product_code',
+        compute='_compute_product_information',
+        inverse='_inverse_product_code',
         string='Supplier Product Code', multi='product_code_name_price',
         help="""This supplier's product code will be used when printing"""
         """ a request for quotation. Keep empty to use the internal"""
         """ one.""")
     product_name = fields.Char('Supplier Product Name',)
     product_name_inv = fields.Char(
-        compute='_get_product_information', inverse='_set_product_name',
+        compute='_compute_product_information',
+        inverse='_inverse_product_name',
         string='Supplier Product Name', multi='product_code_name_price',
         help="""This supplier's product name will be used when printing"""
         """ a request for quotation. Keep empty to use the internal"""
         """ one.""")
     product_price = fields.Float(
         'Supplier Product Price',
-        digits_compute=dp.get_precision('Product Price'))
+        digits=dp.get_precision('Product Price'))
     discount = fields.Float(
-        string='Discount (%)', digits_compute=dp.get_precision('Discount'))
+        string='Discount (%)', digits=dp.get_precision('Discount'))
     discount_inv = fields.Float(
-        string='Discount (%)', digits_compute=dp.get_precision('Discount'),
-        compute='_get_product_information', inverse='_set_discount',
+        string='Discount (%)', digits=dp.get_precision('Discount'),
+        compute='_compute_product_information', inverse='_inverse_discount',
         multi='product_code_name_price',)
     product_price_inv = fields.Float(
-        compute='_get_product_information', inverse='_set_product_price',
+        compute='_compute_product_information',
+        inverse='_inverse_product_price',
         string='Supplier Product Price', multi='product_code_name_price',)
     price_policy = fields.Selection(
-        [('uom', 'per UOM'), ('package', 'per Package')], "Price Policy",
+        [('uom', 'per UOM'), ('package', 'per Package')],
         default='uom', required=True)
     product_price_inv_eq = fields.Float(
         compute='_compute_product_price_inv_eq',
         string='Supplier Product Price per Uom',)
     subtotal = fields.Float(
-        'Subtotal', compute='_compute_subtotal_price',
-        digits_compute=dp.get_precision('Product Price'))
+        compute='_compute_subtotal_price',
+        digits=dp.get_precision('Product Price'))
     package_qty = fields.Float('Package quantity')
     package_qty_inv = fields.Float(
-        compute='_get_product_information', inverse='_set_package_qty',
+        compute='_compute_product_information', inverse='_inverse_package_qty',
         string='Package quantity', multi='product_code_name_price',)
     weight = fields.Float(
         related='product_id.weight', string='Net Weight', readonly='True')
-    uom_po_id = fields.Many2one('product.uom', 'UoM', required=True)
+    uom_po_id = fields.Many2one('uom.uom', 'UoM', required=True)
 
     average_consumption = fields.Float(
         compute="_compute_average_consumption", digits=(12, 3))
@@ -125,29 +130,29 @@ class ComputedPurchaseOrderLine(models.Model):
         """- negative quantity : extra output ; \n"""
         """- positive quantity : extra input.""")
     qty_available = fields.Float(
-        compute='_get_qty', string='Quantity On Hand', multi='get_qty',
+        compute='_compute_qty', string='Quantity On Hand', multi='get_qty',
         help="The available quantity on hand for this product")
     incoming_qty = fields.Float(
-        compute='_get_qty', string='Incoming Quantity',
+        compute='_compute_qty', string='Incoming Quantity',
         help="Virtual incoming entries", multi='get_qty',)
     outgoing_qty = fields.Float(
-        compute='_get_qty', string='Outgoing Quantity',
+        compute='_compute_qty', string='Outgoing Quantity',
         help="Virtual outgoing entries", multi='get_qty',)
     virtual_qty = fields.Float(
-        compute='_get_qty', string='Virtual Quantity',
+        compute='_compute_qty', string='Virtual Quantity',
         help="Quantity on hand + Virtual incoming and outgoing entries",
         multi='get_qty',)
     computed_qty = fields.Float(
-        compute='_get_computed_qty', string='Stock',
+        compute='_compute_computed_qty', string='Stock',
         help="The sum of all quantities selected.",
-        digits_compute=dp.get_precision('Product UoM'),)
+        digits=dp.get_precision('Product UoM'),)
     cpo_state = fields.Selection([
         ('draft', 'Draft'),
         ('done', 'Done'),
         ('canceled', 'Canceled'),
     ],
         related='computed_purchase_order_id.state',
-        string='State')
+        string='CPO State')
 
     # Constraints section
     _sql_constraints = [(
@@ -210,7 +215,7 @@ class ComputedPurchaseOrderLine(models.Model):
     # Fields Function section
     @api.depends('product_id')
     @api.multi
-    def _get_qty(self):
+    def _compute_qty(self):
         for cpol in self:
             cpol.qty_available = cpol.product_id.qty_available
             cpol.incoming_qty = cpol.product_id.incoming_qty
@@ -219,22 +224,15 @@ class ComputedPurchaseOrderLine(models.Model):
                 cpol.outgoing_qty
 
     @api.multi
-    def _get_computed_qty(self):
-        use_pending_qties = False
+    def _compute_computed_qty(self):
         for cpol in self:
+            computed_qty = cpol.qty_available
             if cpol.computed_purchase_order_id.compute_pending_quantity:
-                use_pending_qties = True
-            if use_pending_qties:
-                break
-
-        for cpol in self:
-            q = cpol.qty_available
-            if use_pending_qties:
-                q += cpol.incoming_qty - cpol.outgoing_qty
-            cpol.computed_qty = q
+                computed_qty += cpol.incoming_qty - cpol.outgoing_qty
+            cpol.computed_qty = computed_qty
 
     @api.multi
-    def _get_product_information(self):
+    def _compute_product_information(self):
         psi_obj = self.env['product.supplierinfo']
         for cpol in self:
             if not cpol.product_id:
@@ -267,31 +265,31 @@ class ComputedPurchaseOrderLine(models.Model):
                         cpol.price_policy = psi.price_policy
 
     @api.depends('product_code_inv')
-    def _set_product_code(self):
+    def _inverse_product_code(self):
         self.product_code = self.product_code_inv
         if self.state == 'up_to_date':
             self.state = 'updated'
 
     @api.depends('product_name_inv')
-    def _set_product_name(self):
+    def _inverse_product_name(self):
         self.product_name = self.product_name_inv
         if self.state == 'up_to_date':
             self.state = 'updated'
 
     @api.depends('product_price_inv')
-    def _set_product_price(self):
+    def _inverse_product_price(self):
         self.product_price = self.product_price_inv
         if self.state == 'up_to_date':
             self.state = 'updated'
 
     @api.depends('discount_inv')
-    def _set_discount(self):
+    def _inverse_discount(self):
         self.discount = self.discount_inv
         if self.state == 'up_to_date':
             self.state = 'updated'
 
     @api.onchange('package_qty_inv')
-    def _set_package_qty(self):
+    def _inverse_package_qty(self):
         self.package_qty = self.package_qty_inv
         if self.state == 'up_to_date':
             self.state = 'updated'
@@ -333,7 +331,7 @@ class ComputedPurchaseOrderLine(models.Model):
             if self.computed_purchase_order_id:
                 cpo = self.computed_purchase_order_id
                 # Check if the product is already in the list.
-                products = [x.product_id.id for x in cpo.line_ids]
+                products = cpo.line_ids.mapped('product_id').ids
                 if self.product_id.id in products:
                     raise ValidationError(
                         _('This product is already in the list!'))
@@ -400,6 +398,7 @@ class ComputedPurchaseOrderLine(models.Model):
     @api.multi
     def create_psi(self):
         psi_obj = self.env['product.supplierinfo']
+        psi_ids = []
         for cpol in self:
             cpo = cpol.computed_purchase_order_id
             partner_id = cpo.partner_id.id
@@ -419,6 +418,6 @@ class ComputedPurchaseOrderLine(models.Model):
                 })],
                 'price_policy': cpol.price_policy,
             }
-            psi_id = psi_obj.create(vals)
+            psi_ids.append(psi_obj.create(vals).id)
             cpol.state = 'up_to_date'
-        return psi_id
+        return psi_ids

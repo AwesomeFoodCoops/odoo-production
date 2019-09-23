@@ -1,8 +1,11 @@
-# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    Purchase - Computed Purchase Order Module for Odoo
+#    Copyright (C) 2019-Today: La Louve (<https://cooplalouve.fr>)
+#    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 #    Copyright (C) 2013-Today GRAP (http://www.grap.coop)
+#    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+#    @author Druidoo
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -21,8 +24,8 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models
-import openerp.addons.decimal_precision as dp
+from odoo import api, fields, models
+import odoo.addons.decimal_precision as dp
 
 
 class UpdateProductsWizard(models.TransientModel):
@@ -43,10 +46,7 @@ class UpdateProductsWizard(models.TransientModel):
         if active_id:
             psi_obj = self.env['product.supplierinfo']
             cpo = self.env['computed.purchase.order'].browse(active_id)
-            updated_lines = [
-                x.id for x in cpo.line_ids if x.state == 'updated']
-            cpol = self.env['computed.purchase.order.line'].browse(
-                updated_lines)
+            cpol = cpo.line_ids.filtered(lambda l: l.state == 'updated')
             for line in cpol:
                 psi = psi_obj.search([
                     ('name', '=',
@@ -72,9 +72,7 @@ class UpdateProductsWizard(models.TransientModel):
     # Action section
     @api.multi
     def apply_product_change(self):
-        psi_obj = self.env['product.supplierinfo']
-        cpol_obj = self.env['computed.purchase.order.line']
-        cpol_ids = []
+        cpol = self.env['computed.purchase.order.line']
         for upw in self:
             for line in upw.line_ids:
                 values = {
@@ -87,9 +85,9 @@ class UpdateProductsWizard(models.TransientModel):
                     'price': line.price,
                     'discount': line.discount,
                 }
-                psi_obj.browse(line.supplierinfo_id.id).write(values)
-                cpol_ids += [line.computed_purchase_order_line_id.id]
-        cpol_obj.browse(cpol_ids).write({'state': 'up_to_date'})
+                line.supplierinfo_id.write(values)
+                cpol |= line.computed_purchase_order_line_id
+        return cpol.write({'state': 'up_to_date'})
 
 
 class UpdateProductsLineWizard(models.TransientModel):
@@ -98,10 +96,10 @@ class UpdateProductsLineWizard(models.TransientModel):
 
     # Columns section
     wizard_id = fields.Many2one(
-        'update.products.wizard', 'Wizard Reference', select=True)
+        'update.products.wizard', 'Wizard Reference', index=True)
     product_id = fields.Many2one(
         'product.product', 'Product', required=True, ondelete='cascade',
-        select=True)
+        index=True)
     supplierinfo_id = fields.Many2one(
         'product.supplierinfo', 'Partner Information', required=True,
         ondelete='cascade')
@@ -116,7 +114,7 @@ class UpdateProductsLineWizard(models.TransientModel):
         """ a request for quotation. Keep empty to use the internal"""
         """ one.""")
     product_uom = fields.Many2one(
-        'product.uom', 'Supplier Unit of Measure', required=True,
+        'uom.uom', 'Supplier Unit of Measure', required=True,
         help="""This comes from the product form.""")
     package_qty = fields.Float(
         'Package Quantity', required=True,
@@ -126,12 +124,12 @@ class UpdateProductsLineWizard(models.TransientModel):
         """ otherwise.""")
     price = fields.Float(
         'Unit Price', required=True,
-        digits_compute=dp.get_precision('Product Price'),
+        digits=dp.get_precision('Product Price'),
         help="""This price will be considered as a price for the"""
         """ supplier Unit of Measure if any or the default Unit of"""
         """ Measure of the product otherwise""")
     discount = fields.Float(
-        string='Discount (%)', digits_compute=dp.get_precision('Discount'))
+        string='Discount (%)', digits=dp.get_precision('Discount'))
     computed_purchase_order_line_id = fields.Many2one(
         'computed.purchase.order.line', 'Compute Line', required=True,
-        ondelete='cascade', select=True)
+        ondelete='cascade', index=True)

@@ -1,7 +1,13 @@
 ##############################################################################
 #
-#    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+#    Purchase - Computed Purchase Order Module for Odoo
+#    Copyright (C) 2019-Today: La Louve (<https://cooplalouve.fr>)
+#    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
+#    Copyright (C) 2013-Today GRAP (http://www.grap.coop)
+#    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+#    @author Druidoo
 #    @author Julien WESTE
+#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,12 +24,5 @@
 #
 ##############################################################################
 
-from odoo import models, fields
-
-
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-
-    default_purchase_journal_id = fields.Many2one(
-        'account.journal', 'Default Purchase Journal',
-        domain="[('type', '=', 'purchase')]")
+from . import models
+from . import wizard
