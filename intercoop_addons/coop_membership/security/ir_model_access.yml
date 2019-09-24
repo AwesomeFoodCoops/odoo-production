@@ -346,7 +346,7 @@
     name: bdm.presence.shift.template.registration.line.user
     perm_create: false
     perm_read: true
-    perm_write: false
+    perm_write: true
     perm_unlink: false
 -
   !record {model: ir.model.access, id: bdm_presence_shift_template_registration_user}:
