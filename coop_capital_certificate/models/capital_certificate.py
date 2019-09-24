@@ -1,14 +1,14 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 # @author: Julien Weste (julien.weste@akretion.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models, _
-from openerp.exceptions import ValidationError
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class CapitalCertificate(models.Model):
     _name = "capital.certificate"
+    _description = "Capital Certificates"
 
     partner_id = fields.Many2one(
         'res.partner', string='Partner', required=True, ondelete='cascade')
@@ -25,10 +25,9 @@ class CapitalCertificate(models.Model):
     @api.constrains('partner_id', 'year')
     def _unique_partner_year(self):
         for certificate in self:
-            if self.search_count([
-                ('partner_id', '=', self.partner_id.id),
-                ('year', '=', self.year),
-            ]) > 1:
+            if certificate.search_count(
+                [('partner_id', '=', certificate.partner_id.id),
+                 ('year', '=', certificate.year), ]) > 1:
                 raise ValidationError(_(
                     "Partner %s already has a certificate for year %s!" % (
                         certificate.partner_id.name, certificate.year)))
@@ -56,13 +55,12 @@ class CapitalCertificate(models.Model):
         attachment_ids = Attachment.create(attachment_vals)
 
         if send_mail:
-            Mail = self.env['mail.mail']
             mail_vals = self._prepare_mail(values, attachment_ids)
-            mail = Mail.create(mail_vals)
+            mail = self.env['mail.mail'].create(mail_vals)
             mail.send()
 
     @api.multi
-    def _prepare_attachment(self, values={}):
+    def _prepare_attachment(self, values):
         self.ensure_one()
         return {
             'name': (self.partner_id.name + ' - ' + str(self.year) +
@@ -78,20 +76,20 @@ class CapitalCertificate(models.Model):
         }
 
     @api.multi
-    def _prepare_mail(self, values={}, attachment_ids=None):
+    def _prepare_mail(self, values, attachment_ids=None):
         self.ensure_one()
         email_to = ",".join([p.email for p in self.env['res.partner'].browse(
-            values['partner_ids'])])
+            values.get('partner_ids', False))])
         return {
-            'body_html': values['body'],
+            'body_html': values.get('body', ''),
             'email_to': email_to,
-            'recipient_ids': (0, 0, values['partner_ids']),
+            'recipient_ids': (0, 0, values.get('partner_ids', [])),
             'auto_delete': True,
-            'subject': values['subject'],
+            'subject': values.get('subject', ''),
             'model': 'capital.certificate',
             'res_id': self.id,
-            'email_from': values['email_from'],
-            'reply_to': values['reply_to'],
+            'email_from': values.get('email_from', ''),
+            'reply_to': values.get('reply_to', ''),
             'attachment_ids': [(6, 0, [a.id for a in attachment_ids])],
             'mail_server_id': self.env['ir.mail_server'].search([])[0].id
         }
@@ -99,6 +97,7 @@ class CapitalCertificate(models.Model):
 
 class CapitalCertificateLine(models.Model):
     _name = "capital.certificate.line"
+    _description = "Capital Certificate Lines"
 
     account_move_line_id = fields.Many2one(
         string="Account Move Line", comodel_name="account.move.line")

@@ -12,7 +12,7 @@
                     <field name="send_mail"/>
                 </group>
                 <group name="message" attrs="{'invisible':[('send_mail', '=', False)]}">
-                    <p class='alert alert-warning'>Be careful!<br/>
+                    <p class="alert alert-warning" role="alert">Be careful!<br/>
                     By clicking on the Generate button, an email will be sent to every partner that suscribed capital in the selected year</p>
                 </group>
                 <group name="partners">
@@ -41,12 +41,4 @@
         action="create_capital_certificate_action"
         sequence="100" />
 
-   <record id="action_certificate_multi" model="ir.values">
-       <field name="model_id" ref="base.model_res_partner"/>
-       <field name="name">Create Capital Certificate</field>
-       <field name="key2">client_action_multi</field>
-       <field name="value" eval="'ir.actions.act_window,' +str(ref('coop_capital_certificate.create_capital_certificate_action'))" />
-       <field name="key">action</field>
-       <field name="model">res.partner</field>
-    </record>
 </odoo>

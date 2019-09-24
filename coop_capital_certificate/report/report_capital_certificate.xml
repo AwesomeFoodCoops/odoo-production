@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_capital_certificate_document">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <div class="page">
+                    <h1 style="text-align:center;">Capital Certificate</h1>
+                    <br/>
+                    <br/>
+                    <h2 style="text-align:center">
+                        <t t-esc="o.partner_id.company_id.capital_certificate_header or o.partner_id.company_id.name"/>
+                    </h2>
+                    <h2 style="text-align:center">certifies that:</h2>
+                    <br/>
+                    <br/>
+                    <span t-field="o.partner_id.name"/>
+                    <br/>
+                    living at
+                    <span t-field="o.partner_id.street"/>
+                    <span t-field="o.partner_id.zip"/>
+                    <span t-field="o.partner_id.city"/>
+                    <br/>
+                    <br/>
+                    <h2>subscribed:</h2>
+                    <tr t-foreach="o.line_ids" t-as="line">
+                        <p>
+                            <span t-esc="line.qty"/>
+                            <span t-esc="line.product"/>
+                            at the face value of
+                            <span t-esc="line.price"/>
+                            <span t-esc="o.partner_id.company_id.currency_id.symbol"/>
+                            on
+                            <span t-if="line.date"
+                                  t-esc="line.date.strftime('%d/%m/%Y')"/>
+                            paid on
+                            <span t-if="line.payment_date"
+                                  t-esc="line.payment_date.strftime('%d/%m/%Y')"/>
+                        </p>
+                    </tr>
+                    <br/>
+                    <br/>
+                    <p>
+                        Done in
+                        <span t-field="o.partner_id.company_id.city"/>
+                        on
+                        <span t-esc="datetime.datetime.now().strftime('%d/%m/%Y')"/>
+                    </p>
+                    <br/>
+                    <h2 style="text-align:right">The President</h2>
+                    <div style="float: right;">
+                        <img t-if="o.partner_id.company_id.signature"
+                             t-att-src="image_data_uri(o.partner_id.company_id.signature)"
+                             alt="Signature"/>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p style="text-align:center">
+                        Cet état individuel est établi en l'application de l'article 199
+                        terdecies-0 A du CGI par
+                        <t
+                                t-esc="o.partner_id.company_id.capital_certificate_header or o.partner_id.company_id.name"/>
+                        , dont l’objet social est la vente en commerce de détail, dont le
+                        siège social est sis
+                        <span t-field="o.partner_id.company_id.street"/>
+                        <span t-field="o.partner_id.company_id.zip"/>
+                        <span t-field="o.partner_id.company_id.city"/>
+                        , et qui remplit les conditions mentionnées aux c, d et e du 2°
+                        du I de l'article 199 terdecies-0 A du CGI
+                    </p>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_capital_certificate">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.partner_id.lang"/>
+                    <t t-call="coop_capital_certificate.report_capital_certificate_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -8,7 +8,7 @@
         report_type="qweb-pdf"
         name="coop_capital_certificate.report_capital_certificate"
         file="coop_capital_certificate.report_capital_certificate"
-        attachment_use="True"
         attachment="(object.partner_id.name+' - '+str(object.year)+'.pdf').replace(',','')"
+        print_report_name="(object.partner_id.name+' - '+str(object.year).replace(',',''))"
     />
 </odoo>

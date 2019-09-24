@@ -9,7 +9,26 @@
                     <group>
                         <field name="partner_id"/>
                         <field name="year"/>
-                        <field name="line_ids"/>
+                        <field name="line_ids">
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="account_move_line_id"/>
+                                        <field name="date"/>
+                                        <field name="qty"/>
+                                        <field name="price"/>
+                                    </group>
+                                    <group>
+                                        <field name="certificate_id"/>
+                                        <field name="payment_date"/>
+                                        <field name="product"/>
+                                    </group>
+                                </group>
+                            </form>
+                            <tree>
+                                <field name="account_move_line_id"/>
+                            </tree>
+                        </field>
                     </group>
                 </sheet>
             </form>
