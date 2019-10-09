@@ -249,7 +249,7 @@
             action="action_shift_template"
             name="Templates"
             parent="coop_shift.template_menu"
-            groups="group_shift_manager,coop_membership.group_membership_bdm_saisie"
+            groups="group_shift_manager"
             sequence="14"/>
     </data>
 </openerp>
