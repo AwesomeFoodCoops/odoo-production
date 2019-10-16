@@ -20,22 +20,26 @@
 #
 ##############################################################################
 
-
 {
     'name': 'POS Automatic Cashdrawer',
-    'version': '9.0.0.1.0',
+    'version': '9.0.1.0.0',
     'category': 'Point Of Sale',
     'summary': 'Manage Automatic Cashdrawer device from POS front end',
     'author': "Aurélien DUMAINE",
     'license': 'AGPL-3',
-    'depends': ['point_of_sale'],
+    'depends': [
+        'point_of_sale',
+    ],
     'data': [
         'security/res_groups.xml',
-        'pos_automatic_cashdrawer_view.xml',
-        'account_journal_view.xml',
-        'static/src/xml/templates.xml',
-        ],
-    'qweb': ['static/src/xml/pos_automatic_cashdrawer.xml'],
-    'demo': ['pos_automatic_cashdrawer_demo.xml'],
-    'installable': True,
+        'views/assets.xml',
+        'views/account_journal.xml',
+        'views/pos_config.xml',
+    ],
+    'qweb': [
+        'static/src/xml/pos_automatic_cashdrawer.xml',
+    ],
+    'demo': [
+        'demo/demo.xml',
+    ],
 }

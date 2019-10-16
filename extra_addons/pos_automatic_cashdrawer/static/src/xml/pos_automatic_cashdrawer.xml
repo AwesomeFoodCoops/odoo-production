@@ -1,60 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <!--<t t-extend="PaymentScreen-Paymentlines" >
-        <t t-jquery=".col-name" t-operation="append">
-            <t t-if="line.get_automatic_cashdrawer()">
-                   <button class="automatic-cashdrawer-transaction-start" t-att-data-cid='line.cid'>Start transaction</button>
-            </t>
-        </t>
-    </t>-->
 
-    <!--<t t-name="AutoCashdrawerWidget">
-        <div class="oe_status js_auto_cashdrawer">
-            <span class='js_msg oe_orange oe_hidden'></span>
-            <div class="js_connected oe_icon oe_green">
-                <i class='fa fa-fw fa-euro'></i>
-            </div>
-            <div class="js_connecting oe_icon oe_hidden">
-                <i class='fa fa-fw fa-spin fa-spinner'></i>
-            </div>
-            <div class="js_warning oe_icon oe_orange oe_hidden">
-                <i class='fa fa-fw fa-euro'></i>
-            </div>
-            <div class="js_disconnected oe_icon oe_red oe_hidden">
-                <i class='fa fa-fw fa-euro'></i>
-            </div>
-        </div>
-    </t>-->
-
-    <t t-name="AutoCashdrawerInitWidget">
-        <div class="oe_status js_auto_cashdrawer_init">
-            <div class="button automatic-cashdrawer-connection-init">
+    <t t-name="AutoCashdrawerConfigWidget">
+        <div class="oe_status js_auto_cashdrawer_config">
+            <div data-toggle="tooltip" data-placement="bottom" title="Cashlogy Backoffice" class="button automatic-cashdrawer-display-backoffice">
                 <i class='fa fa-eur'></i>
             </div>
         </div>
     </t>
 
-    <t t-name="AutoCashdrawerConfigWidget">
-        <div class="oe_status js_auto_cashdrawer_config">
-            <div class="button automatic-cashdrawer-display-backoffice">
-                <i class='fa fa-wrench'></i>
-            </div>
-        </div>
-    </t>
-
-    <!--<t t-extend="PaymentScreenWidget" >
-        <t t-jquery=".payment-buttons" t-operation="append">
-                <t t-if="widget.is_manager()">
-                    <div class="button automatic-cashdrawer-connection-init">
-                        <i class="fa fa-wrench"></i> Connect cashdrawer
-                    </div>
-                </t>-->
-                <!-- <button class="automatic-cashdrawer-connection-exit">Disconnect cashdrawer</button> -->
-                <!--<t t-if="widget.is_manager()">
-                    <div class="button automatic-cashdrawer-display-backoffice">
-                        <i class="fa fa-wrench"></i> Display backoffice
-                    </div>
-                </t>
-        </t>
-    </t>-->
 </templates>
