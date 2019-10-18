@@ -62,4 +62,4 @@ ir_model_access_event_ticket_access,event.ticket access,event_sale.model_event_e
 ,,,,,,,
 ir_model_access_event_mail_registration,event.mail.registration access,event.model_event_mail_registration,coop_shift.group_event_without_menu,1,1,1,1
 ,,,,,,,
-ir_model_access_shift_template_registration_membership_read,shift_template_registration membership read,coop_shift.model_shift_template_registration,coop_shift.group_membership_bdm_lecture,1,0,0,0
+ir_model_access_shift_template_registration_membership_read,shift.template.registration membership read access,coop_shift.model_shift_template_registration,coop_membership.group_membership_bdm_lecture,1,0,0,0
