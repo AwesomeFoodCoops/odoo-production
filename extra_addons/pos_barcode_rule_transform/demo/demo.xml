@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2019 - Druidoo (https://www.druidoo.io)
+@author Iván Todorovich
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="product_price_transform_barcode" model="product.product">
+        <field name="name">Product with Price Transform Barcode</field>
+        <field name="barcode">2212345044547</field>
+    </record>
+
+    <record id="rule_price_transform" model="barcode.rule">
+        <field name="name">Price Transform Barcodes</field>
+        <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+        <field name="type">price</field>
+        <field name="pattern">22.....{NNNDD}</field>
+        <field name="sequence">15</field>
+        <field name="encoding">ean13</field>
+        <field name="transform">value * 0.15</field>
+    </record>
+
+</odoo>
