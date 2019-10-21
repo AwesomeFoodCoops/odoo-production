@@ -109,7 +109,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" placeholder="Template Name"/></h1>
                         </div>
-                        <group attrs="{'invisible': [('updated_fields','=',False)]}">
+                        <group attrs="{'invisible': [('updated_fields','=', False)]}">
                             <p class='alert alert-warning'> You have some changes on this template. You should consider <button type="action" name="%(coop_shift.action_update_shifts)d"  string="updating the linked shifts"  help="Click here to update some shifts linked to this template. " class="oe_link"/> or <button type="object" name="discard_changes" string="discarding the changes"  help="Click here if you don't want to repercute the template changes on the linked shifts. " class="oe_link"/> <br/>
                             </p>
                         </group>

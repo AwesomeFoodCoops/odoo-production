@@ -43,7 +43,7 @@ class UpdateShiftsWizard(models.TransientModel):
                     shift.state == "draft":
                 line_ids.append((0, 0, {
                     'wizard_id': self.id,
-                    'shift_id': shift,
+                    'shift_id': shift.id,
                     'name': shift.name,
                     'user_ids': [(6, 0, shift.user_ids.ids)],
                     'shift_type_id': shift.shift_type_id.id,
@@ -61,6 +61,13 @@ class UpdateShiftsWizard(models.TransientModel):
             return self._get_line_ids(
                 template, date_from=self.date_from, date_to=self.date_to)
 
+    @api.model
+    def _get_updated_fields(self):
+        template_id = self.env.context.get('active_id', False)
+        if template_id:
+            template = self.env['shift.template'].browse(template_id)
+            return template.updated_fields
+
     @api.onchange('date_from', 'date_to')
     def _onchange_dates(self):
         template_id = self.env.context.get('active_id', False)
@@ -75,8 +82,9 @@ class UpdateShiftsWizard(models.TransientModel):
     date_from = fields.Date('Update shifts from')
     date_to = fields.Date('Update shifts until')
     updated_fields = fields.Char(
-        related='template_id.updated_fields',
-        string="""Changes to repercute on selected shifts""")
+        default=_get_updated_fields,
+        string="""Changes to repercute on selected shifts"""
+    )
 
     @api.multi
     def update_lines(self, date_from=None, date_to=None):
@@ -101,7 +109,9 @@ class UpdateShiftsWizard(models.TransientModel):
                     del vals['shift_ticket_ids']
                 shift_obj.browse(shift_ids).with_context(
                     tracking_disable=True, special=special).write(vals)
-                wizard.template_id.updated_fields = ""
+                wizard.template_id.write({
+                    'updated_fields': ''
+                })
         return True
 
 

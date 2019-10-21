@@ -91,13 +91,12 @@
         'data/res_partner_inform.xml',
         'data/shift_extension_type_data.xml',
         'data/ir_config_paramater.xml',
-        'data/function.xml',
 
         # Report
         'views/account_report.xml',
 
         # Custom function
-        'data/function.xml',
+        # 'data/function.xml',
     ],
     'demo': [
         'demo/capital_fundraising_category.xml',

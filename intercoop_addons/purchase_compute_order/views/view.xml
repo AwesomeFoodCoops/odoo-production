@@ -50,8 +50,13 @@
                         </group>
                     </group>
                     <group string="Result" col="6">
-                        <field name="computed_amount"/>
-                        <field name="computed_duration"/>
+                        <group>
+                            <field name="computed_amount"/>
+                            <field name="package_qty_count"/>
+                        </group>
+                        <group>
+                            <field name="computed_duration"/>
+                        </group>
                     </group>
                     <notebook colspan="4">
                         <page name="orderlines" string="Order lines">
