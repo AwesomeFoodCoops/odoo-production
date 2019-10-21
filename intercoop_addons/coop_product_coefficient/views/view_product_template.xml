@@ -9,6 +9,7 @@
 
     <record id="view_product_template_coefficient_tree" model="ir.ui.view">
         <field name="model">product.template</field>
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <tree editable="bottom">
                 <field name="name" readonly="1"/>
@@ -149,5 +150,3 @@
     </record>
 
 </odoo>
-
-<!--invisible="1"-->
