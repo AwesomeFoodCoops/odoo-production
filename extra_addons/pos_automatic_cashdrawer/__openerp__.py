@@ -25,7 +25,7 @@
     'version': '9.0.1.0.0',
     'category': 'Point Of Sale',
     'summary': 'Manage Automatic Cashdrawer device from POS front end',
-    'author': "Aurélien DUMAINE",
+    'author': "Aurélien DUMAINE, Iván Todorovich",
     'license': 'AGPL-3',
     'depends': [
         'point_of_sale',
