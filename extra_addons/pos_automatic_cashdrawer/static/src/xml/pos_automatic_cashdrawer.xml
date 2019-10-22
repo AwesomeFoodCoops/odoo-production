@@ -1,10 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-name="AutoCashdrawerConfigWidget">
+    <t t-name="AutomaticCashdrawerConfigWidget">
         <div class="oe_status js_auto_cashdrawer_config">
             <div data-toggle="tooltip" data-placement="bottom" title="Cashlogy Backoffice" class="button automatic-cashdrawer-display-backoffice">
                 <i class='fa fa-eur'></i>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="AutomaticCashdrawerAdminDialog">
+        <div class="modal-dialog">
+            <div class="popup popup-alert popup-cashdrawer popup-cashdrawer-admin">
+                <p class="title">Cashdrawer Admin</p>
+                <p class="body"><t t-esc=" widget.options.body || '' "/></p>
+                <div class='actions scrollable-y touch-scrollable'>
+                    <div class="button" data-action="put_money_in"><i class="fa fa-level-down"/>Put Money In</div>
+                    <div class="button" data-action="take_money_out"><i class="fa fa-level-up"/>Take Money Out</div>
+                    <hr/>
+                    <div class="button" data-action="print_inventory"><i class="fa fa-print"/>Print Inventory</div>
+                    <div class="button" data-action="close_till"><i class="fa fa-balance-scale"/>Close Till / Cash Float</div>
+                    <div class="button" data-action="empty_stacker"><i class="fa fa-money"/>Empty Stacker</div>
+                    <div class="button" data-action="complete_emptying"><i class="fa fa-sign-out"/>Complete Emptying</div>
+                    <hr/>
+                    <div class="button" data-action="display_backoffice"><i class="fa fa-wrench"/>Open Backoffice</div>
+                    <div class="button" data-action="cancel"><i class="fa fa-cancel"/>Send Cancel Command</div>
+                </div>
+                <div class="footer">
+                    <div class="button cancel">Cancel</div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="AutomaticCashdrawerCashInDialog">
+        <div class="modal-dialog">
+            <div class="popup popup-alert popup-cashdrawer">
+                <p class="title"><t t-esc=" widget.options.title || 'Add cash' "/></p>
+                <t t-set="default_body">
+                    <p>Start adding cash into the machine.</p>
+                    <p>When you finish, press confirm.</p>
+                </t>
+                <div class="body"><t t-raw=" widget.options.body || default_body "/></div>
+
+                <div class="total text-center">
+                    <span class="value">0.00</span>
+                    <p>Added so far</p>
+                </div>
+
+                <div class="footer">
+                    <div class="button confirm">Confirm</div>
+                </div>
             </div>
         </div>
     </t>
