@@ -96,4 +96,127 @@
         </div>
     </t>
 
+    <t t-name="AutomaticCashdrawerInventoryXmlReport">
+        <receipt align='center' width='40' value-thousands-separator='' >
+
+            <!-- Header -->
+
+            <h1>Automatic Cashdrawer</h1>
+            <h3>Inventory</h3>
+
+            <t t-if="report.company">
+                <t t-if='report.company.logo'>
+                    <img t-att-src='report.company.logo' />
+                    <br/>
+                </t>
+                <t t-if='!report.company.logo'>
+                    <h1><t t-esc='report.company.name' /></h1>
+                    <br/>
+                </t>
+            </t>
+
+            <div font='b'>
+                <div class='cashier'>
+                    <div>--------------------------------</div>
+                    <div>User: <t t-esc='widget.pos.get_cashier().name' /></div>
+                </div>
+            </div>
+            <br /><br />
+
+            <!-- Lines -->
+
+            <line><left>TOTALS</left></line>
+            <line><left>--------------------------------</left></line>
+            <div line-ratio='0.3'>
+                <t t-foreach="report.sorted_values" t-as="value">
+                    <line>
+                        <left><value value-decimals="2"><t t-esc="value"/></value></left>
+                        <right>
+                            x (
+                                <value value-decimals="0" value-autoint="on"><t t-esc="report.inventory.recycler[value]"/></value>
+                              + <value value-decimals="0" value-autoint="on"><t t-esc="report.inventory.stacker[value]"/></value>
+                            ) = <value value-decimals="2"><t t-esc="value * report.inventory.total[value]"/></value>
+                        </right>
+                    </line>
+                </t>
+            </div>
+
+            <!-- Subtotal -->
+
+            <line><right>--------</right></line>
+            <line>
+                <left>Recycler</left>
+                <right><value><t t-esc="report.totals.recycler"/></value></right>
+            </line>
+            <line>
+                <left>Stacker</left>
+                <right><value><t t-esc="report.totals.stacker"/></value></right>
+            </line>
+
+            <!-- Total -->
+
+            <line><right>--------</right></line>
+            <line size='double-height'>
+                <left><pre>        TOTAL</pre></left>
+                <right><value><t t-esc='report.totals.total' /></value></right>
+            </line>
+            <br/><br/>
+
+            <br/>
+            <div font='b'>
+                <div t-if="report.name"><t t-esc='report.name'/></div>
+                <div><t t-esc='report.date || (new Date()).toLocaleString()' /></div>
+            </div>
+
+        </receipt>
+
+    </t>
+
+    <t t-name="AutomaticCashdrawerActionXmlReport">
+        <receipt align='center' width='40' value-thousands-separator='' >
+
+
+            <h1>Automatic Cashdrawer</h1>
+            <h3><t t-esc="report.name || ''"/></h3>
+
+            <!-- Header -->
+            <t t-if="report.company">
+                <t t-if='report.company.logo'>
+                    <img t-att-src='report.company.logo' />
+                    <br/>
+                </t>
+                <t t-if='!report.company.logo'>
+                    <h1><t t-esc='report.company.name' /></h1>
+                    <br/>
+                </t>
+            </t>
+
+            <div font='b'>
+                <div class='cashier'>
+                    <div>--------------------------------</div>
+                    <div>User: <t t-esc='pos.get_cashier().name' /></div>
+                </div>
+                <div><t t-esc='report.date || (new Date()).toLocaleString()' /></div>
+            </div>
+            <br /><br />
+
+            <!-- Note -->
+
+            <t t-set="lines" t-value="report.lines || []"/>
+            <t t-foreach="lines" t-as="line">
+                <p><t t-esc="line"/></p>
+            </t>
+
+            <!-- Statement line (for reference) -->
+            <div t-if="report.st_line" font='b'>
+                <br/>
+                <div>--------------------------------</div>
+                <div>Statement: <t t-esc="report.st_line.statement_id[1]"/></div>
+                <div>REF: <t t-esc="report.st_line.ref"/> (<t t-esc="report.st_line.id"/>)</div>
+            </div>
+
+        </receipt>
+
+    </t>
+
 </templates>

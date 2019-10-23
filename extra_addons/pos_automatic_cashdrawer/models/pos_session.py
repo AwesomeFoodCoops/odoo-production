@@ -2,6 +2,7 @@
 # Copyright (C) 2019 Druidoo <https://www.druidoo.io>
 
 from openerp import api, models, fields, _
+from openerp.exceptions import UserError
 
 
 class PosSession(models.Model):
@@ -27,12 +28,24 @@ class PosSession(models.Model):
                 "which is closed."))
         return True
 
+    @api.model
+    def _get_cash_in_out_fields(self):
+        return [
+            'id', 'display_name', 'ref', 'create_date', 'date', 'statement_id',
+        ]
+
     @api.multi
     def action_put_money_in(self, amount, reason):
         self.ensure_one()
         wizard = self.env['cash.box.in'].create({
             'amount': amount, 'name': reason})
         wizard.with_context(active_model=self._name, active_ids=self.ids).run()
+        # Return the last added line
+        return self.env['account.bank.statement.line'].sudo().search([
+                ('statement_id', '=', self.cash_register_id.id)],
+                limit=1,
+                order='id desc',
+        ).read(self._get_cash_in_out_fields())[0]
 
     @api.multi
     def action_take_money_out(self, amount, reason):
@@ -40,3 +53,9 @@ class PosSession(models.Model):
         wizard = self.env['cash.box.out'].create({
             'amount': amount, 'name': reason})
         wizard.with_context(active_model=self._name, active_ids=self.ids).run()
+        # Return the last added line
+        return self.env['account.bank.statement.line'].sudo().search([
+                ('statement_id', '=', self.cash_register_id.id)],
+                limit=1,
+                order='id desc',
+        ).read(self._get_cash_in_out_fields())[0]
