@@ -40,6 +40,7 @@ BUFFER_SIZE = 1024
 KEEPALIVE_TIME_LIMIT = 120
 KEEPALIVE_INTERVAL = 30
 SOCKET_TIMEOUT = 30
+INITIALIZE_TIMEOUT = 240
 
 
 class CashlogyAutomaticCashdrawerDriver(Thread):
@@ -115,6 +116,7 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
         return self.status
 
     def set_status(self, status, message=None):
+        _logger.debug('STATUS: %s [%s]' % (status, message))
         if not self.status:
             self.status = {}
         if status == self.status.get('status'):
@@ -151,20 +153,13 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
             return False
         # Connect and initialize
         try:
-            _logger.debug('Cashlogy is connecting')
             self.set_status('connecting')
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socket.settimeout(SOCKET_TIMEOUT)
             self.socket.connect((host, port))
             # Initialize Cashlogy
-            _logger.debug('Cashlogy initializing..')
             self.set_status('connecting', 'Initializing..')
-            # Do we need to initialize
-            res = self.send(['I'])
-            if len(res) != 2:
-                raise Exception('Invalid initialize response: %s' % res)
-            if res[0] != '0':
-                raise Exception('Initialization error: %s' % res)
+            self.initialize()
             self.set_status('connected')
             self.config = config
             # Start thread
@@ -173,6 +168,20 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
         except Exception as e:
             self.set_status('error', repr(e))
             return False
+
+    def initialize(self):
+        '''
+        Initializes the machine.
+        Should be called on startup. It will take around 1 minute to finish
+        Returns the version number ie: 2.01
+        '''
+        # We increase the timeout because it takes longer
+        self.socket.settimeout(INITIALIZE_TIMEOUT)
+        try:
+            res = self.send(['I'])
+        finally:
+            self.socket.settimeout(SOCKET_TIMEOUT)
+        return res[1]
 
     def disconnect(self):
         '''
@@ -205,19 +214,25 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
             self.push_task('connect', config)
         return self.get_status()
 
-    def _send(self, msg):
+    def _send(self, msg, blocking=False):
         '''
             Raw implementation to send a message and get a response
         '''
         with self.lock:
             try:
+                if blocking:
+                    self.socket.settimeout(None)
                 self.socket.send(msg)
-                return self.socket.recv(BUFFER_SIZE)
+                res = self.socket.recv(BUFFER_SIZE)
             except Exception as e:
                 self.set_status('error', repr(e))
                 raise e
+            finally:
+                if blocking:
+                    self.socket.settimeout(SOCKET_TIMEOUT)
+            return res
 
-    def send(self, msg, raw=False):
+    def send(self, msg, raw=False, blocking=False):
         '''
         Sends message to the CashlogyConnector and waits for a response
         It will try to auto connect, if connection configuration has been
@@ -225,6 +240,8 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
 
         Params
             msg    accepts either '#I#0#1#' or ['I', 0, 1]
+            raw    if true, the response won't be parsed
+            blocking if true, the timeout will be disabled
         Returns a response parsed as list, where # is the delimiter
         '''
         if isinstance(msg, basestring):
@@ -245,7 +262,7 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
                     _logger.debug('Unrecognized param: %s' % v)
                     msg[i] = str(v)
             msg = '#%s#' % '#'.join(msg)
-        res_raw = self._send(msg)
+        res_raw = self._send(msg, blocking=blocking)
         res = res_raw.strip('#').split('#')
         if len(res) >= 1:
             if res[0].startswith('ER:'):
@@ -262,7 +279,7 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
         '''
         This function display the backoffice on the cashier screen.
         '''
-        return self.send("#G#1#1#1#1#1#1#1#1#1#1#1#1#1#")
+        return self.send("#G#1#1#1#1#1#1#1#1#1#1#1#1#1#", blocking=True)
 
     def get_inventory(self):
         '''
@@ -362,7 +379,7 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
         amount = float(amount)
         operation_number = options.get('operation_number', '00000')
         msg = ['C', operation_number, 1, amount, 15, 15, 1, 1, 1, 0, 0]
-        res = self.send(msg)
+        res = self.send(msg, blocking=True)
         # Check response
         amount_in = self.value_float(res[1])
         amount_out = self.value_float(res[2])
