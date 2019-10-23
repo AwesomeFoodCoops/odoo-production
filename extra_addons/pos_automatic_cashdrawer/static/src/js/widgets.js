@@ -165,8 +165,12 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
                         framework.blockUI();
                         self.pos.proxy.automatic_cashdrawer_dispense(value)
                         .then(function(res) {
-                            self.pos.action_take_money_out(res, _t('Manual: take money out'))
+                            var print_lines = [];
+                            // handling
                             if (res != value) {
+                                // Print it on the ticket aswell
+                                print_lines.push(_t('The requested amount to dispense was: ') + value + _t(' but the dispensed amount was: ') + res);
+                                // Show error popup
                                 self.gui.show_popup('error', {
                                     title: _t('Could not dispense the value requested'),
                                     body: (
@@ -176,6 +180,18 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
                                     )
                                 });
                             }
+                            // register accounting
+                            self.pos.action_take_money_out(res, _t('Manual: take money out')).then(function(st_line) {
+                                print_lines.push(_t('Dispensed: ') + self.format_currency(res));
+                                self.pos.proxy.print_receipt(QWeb.render('AutomaticCashdrawerActionXmlReport', {
+                                    pos: self.pos,
+                                    report: {
+                                        name: _t('Cash Withdrawal'),
+                                        lines: print_lines,
+                                        st_line: st_line,
+                                    }
+                                }));
+                            });
                         }).always(function() {
                             framework.unblockUI();
                         });
@@ -185,9 +201,19 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
         },
 
         action_cancel: function() {
+            var self = this;
             this.pos.proxy.automatic_cashdrawer_stop_acceptance()
             .then(function(res) {
-                console.log('Accepted: ', res);
+                self.pos.proxy.print_receipt(QWeb.render('AutomaticCashdrawerActionXmlReport', {
+                    pos: self.pos,
+                    report: {
+                        name: _t('Manual Cancel'),
+                        lines: [
+                            _t('Money in/out: ') + self.format_currency(res),
+                            _t('IMPORTANT: This operations is not registered on the cash statement. You have to manually register it.')
+                        ],
+                    }
+                }));
             });
         },
 
@@ -203,10 +229,32 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
             }).then(function() {
                 self.pos.proxy.automatic_cashdrawer_display_close_till().then(function(res) {
                     if (res['added']) {
-                        self.pos.action_put_money_in(res['added'], _t('Automatic Cashdrawer: Close Till / ADDED'));
+                        self.pos.action_put_money_in(res['added'], _t('Automatic Cashdrawer: Close Till / ADDED')).then(function(st_line) {
+                            self.pos.proxy.print_receipt(QWeb.render('AutomaticCashdrawerActionXmlReport', {
+                                pos: self.pos,
+                                report: {
+                                    name: _t('Close Till: Put In'),
+                                    lines: [
+                                        _t('Total added: ') + self.format_currency(res['added']),
+                                    ],
+                                    st_line: st_line,
+                                }
+                            }));
+                        })
                     }
                     if (res['dispensed']) {
-                        self.pos.action_take_money_out(res['dispensed'], _t('Automatic Cashdrawer: Close Till / DISPENSED'));
+                        self.pos.action_take_money_out(res['dispensed'], _t('Automatic Cashdrawer: Close Till / DISPENSED')).then(function(st_line) {
+                            self.pos.proxy.print_receipt(QWeb.render('AutomaticCashdrawerActionXmlReport', {
+                                pos: self.pos,
+                                report: {
+                                    name: _t('Close Till Result'),
+                                    lines: [
+                                        _t('Total dispensed: ') + self.format_currency(res['dispensed']),
+                                    ],
+                                    st_line: st_line,
+                                }
+                            }));
+                        })
                     }
                 });
             });
@@ -224,7 +272,18 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
             }).then(function() {
                 self.pos.proxy.automatic_cashdrawer_display_empty_stacker().then(function(res) {
                     if (res) {
-                        self.pos.action_take_money_out(res, _t('Automatic Cashdrawer: Empty Stacker'));
+                        self.pos.action_take_money_out(res, _t('Automatic Cashdrawer: Empty Stacker')).then(function(st_line) {
+                            self.pos.proxy.print_receipt(QWeb.render('AutomaticCashdrawerActionXmlReport', {
+                                pos: self.pos,
+                                report: {
+                                    name: _t('Empty Stacker'),
+                                    lines: [
+                                        _t('Total dispensed: ') + self.format_currency(res),
+                                    ],
+                                    st_line: st_line,
+                                }
+                            }));
+                        })
                     }
                 });
             });
@@ -242,7 +301,18 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
             }).then(function() {
                 self.pos.proxy.automatic_cashdrawer_display_complete_emptying().then(function(res) {
                     if (res) {
-                        self.pos.action_take_money_out(res, _t('Automatic Cashdrawer: Complete Emptying'));
+                        self.pos.action_take_money_out(res, _t('Automatic Cashdrawer: Complete Emptying')).then(function(st_line) {
+                            self.pos.proxy.print_receipt(QWeb.render('AutomaticCashdrawerActionXmlReport', {
+                                pos: self.pos,
+                                report: {
+                                    name: _t('Complete Emptying'),
+                                    lines: [
+                                        _t('Total dispensed: ') + self.format_currency(res),
+                                    ],
+                                    st_line: st_line,
+                                }
+                            }));
+                        });
                     }
                 });
             });
@@ -288,7 +358,18 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
             var self = this;
             this._super.apply(this, arguments);
             this.pos.proxy.automatic_cashdrawer_stop_acceptance().then(function(res) {
-                self.pos.action_put_money_in(res, _t('Manual: put money in'));
+                self.pos.action_put_money_in(res, _t('Manual: put money in')).then(function(st_line) {
+                    self.pos.proxy.print_receipt(QWeb.render('AutomaticCashdrawerActionXmlReport', {
+                        pos: self.pos,
+                        report: {
+                            name: _t('Added Cash'),
+                            lines: [
+                                _t('Total added: ') + self.format_currency(res),
+                            ],
+                            st_line: st_line,
+                        }
+                    }));
+                });
             });
         },
 
@@ -321,7 +402,6 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
         show: function(options) {
             this._super.apply(this, arguments);
             var self = this;
-            console.log('Inventory Show')
             // Get information from driver and delays showing
             framework.blockUI();
             $.when(
@@ -329,6 +409,7 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
                 this.pos.proxy.automatic_cashdrawer_get_inventory(),
             ).then(function(totals, inventory) {
                 self.inventory_total = totals.total;
+                self.totals = totals;
                 self.inventory = inventory;
                 self.sorted_values = Object.keys(self.inventory.total).sort(function(a, b){ return Number(b) - Number(a) });
                 self.renderElement();
@@ -344,7 +425,17 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
         },
 
         click_confirm: function() {
-            console.log('TODO: Implement printing');
+            var self = this;
+            this.pos.proxy.print_receipt(QWeb.render('AutomaticCashdrawerInventoryXmlReport', {
+                widget: this,
+                pos: this.pos,
+                report: {
+                    totals: this.totals,
+                    inventory: this.inventory,
+                    sorted_values: this.sorted_values,
+                    date: false, // todo
+                }
+            }));
             return this._super.apply(this, arguments);
         },
 

@@ -52,21 +52,21 @@ odoo.define('pos_automatic_cashdrawer.models', function (require) {
 
         // Saves cash in
         action_put_money_in: function(amount, reason) {
-            if (!amount) { return; }
+            if (!amount) { return $.Deferred().resolve(); }
             var session = new Model('pos.session');
             return session.call('action_put_money_in', [this.pos_session.id], {
                 'amount': amount,
                 'reason': reason,
-            })
+            });
         },
 
         action_take_money_out: function(amount, reason) {
-            if (!amount) { return; }
+            if (!amount) { return $.Deferred().resolve(); }
             var session = new Model('pos.session');
             return session.call('action_take_money_out', [this.pos_session.id], {
                 'amount': amount,
                 'reason': reason,
-            })
+            });
         },
     });
 
