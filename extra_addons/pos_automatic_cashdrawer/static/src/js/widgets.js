@@ -123,10 +123,7 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
 
         action_print_inventory: function() {
             var self = this;
-            return this.pos.proxy.automatic_cashdrawer_get_inventory().then(function(res) {
-                console.log('Cashdrawer Inventory:', res);
-                self.pos.proxy.automatic_cashdrawer_print_inventory();
-            });
+            this.gui.show_popup('cashdrawer_inventory');
         },
 
         action_display_backoffice: function() {
@@ -263,8 +260,7 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
             this.inputbuffer = 0.00;
             
             framework.blockUI();
-            this.pos.proxy.automatic_cashdrawer_start_add_change()
-            .then(function(res) {
+            this.pos.proxy.automatic_cashdrawer_start_add_change().then(function(res) {
                 self.update_counter();
             }).fail(function(err) {
                 self.close();
@@ -280,8 +276,7 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
 
         update_counter: function() {
             var self = this;
-            this.pos.proxy.automatic_cashdrawer_get_amount_accepted()
-            .then(function(res) {
+            this.pos.proxy.automatic_cashdrawer_get_amount_accepted().then(function(res) {
                 console.log('Update counter', res);
                 self.inputbuffer = res;
                 self.$('.value').text(self.format_currency(self.inputbuffer));
@@ -292,8 +287,7 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
         click_confirm: function() {
             var self = this;
             this._super.apply(this, arguments);
-            this.pos.proxy.automatic_cashdrawer_stop_acceptance()
-            .then(function(res) {
+            this.pos.proxy.automatic_cashdrawer_stop_acceptance().then(function(res) {
                 self.pos.action_put_money_in(res, _t('Manual: put money in'));
             });
         },
@@ -313,10 +307,59 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
     gui.define_popup({name:'cashdrawer_admin', widget: AutomaticCashdrawerAdminDialog});
     gui.define_popup({name:'cashdrawer_cash_in', widget: AutomaticCashDrawerCashInDialog});
 
+
+    var AutomaticCashdrawerInventoryDialog = PopupWidget.extend({
+        template: 'AutomaticCashdrawerInventoryDialog',
+        
+        init: function(options) {
+            this._super.apply(this, arguments);
+            this.inventory_total = 0.00;
+            this.inventory = { total: {}, stacker: {}, recycler: {} };
+            this.sorted_values = [];
+        },
+
+        show: function(options) {
+            this._super.apply(this, arguments);
+            var self = this;
+            console.log('Inventory Show')
+            // Get information from driver and delays showing
+            framework.blockUI();
+            $.when(
+                this.pos.proxy.automatic_cashdrawer_get_total_amount(),
+                this.pos.proxy.automatic_cashdrawer_get_inventory(),
+            ).then(function(totals, inventory) {
+                self.inventory_total = totals.total;
+                self.inventory = inventory;
+                self.sorted_values = Object.keys(self.inventory.total).sort(function(a, b){ return Number(b) - Number(a) });
+                self.renderElement();
+            }).fail(function() {
+                self.close();
+            }).always(function() {
+                framework.unblockUI();
+            });
+        },
+
+        to_num: function(v) {
+            return Number(v);
+        },
+
+        click_confirm: function() {
+            console.log('TODO: Implement printing');
+            return this._super.apply(this, arguments);
+        },
+
+        click_cancel: function() {
+            return this._super.apply(this, arguments);
+        },
+    });
+
+    gui.define_popup({name: 'cashdrawer_inventory', widget: AutomaticCashdrawerInventoryDialog});
+
     return {
         AutomaticCashdrawerConfigWidget: AutomaticCashdrawerConfigWidget,
         AutomaticCashdrawerAdminDialog: AutomaticCashdrawerAdminDialog,
         AutomaticCashDrawerCashInDialog: AutomaticCashDrawerCashInDialog,
+        AutomaticCashdrawerInventoryDialog: AutomaticCashdrawerInventoryDialog,
     };
 
 });
