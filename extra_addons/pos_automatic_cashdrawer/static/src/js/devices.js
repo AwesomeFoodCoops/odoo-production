@@ -137,7 +137,7 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
                 'amount': amount,
                 'options': options,
             });
-            done.then(function(res) {
+            done.done(function(res) {
                 if (res !== amount) {
                     console.error('Cashlogy', 'The dispensed amount was different than the requested', amount, res);
                 }
@@ -203,6 +203,22 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
         automatic_cashdrawer_get_inventory: function() {
             var self = this;
             var done = this.message('cashlogy/get_inventory');
+            done.fail(function(error) {
+                self.pos.gui.show_popup('error-traceback', {
+                    'title': _t('Cashdrawer Error: ') + error.data.message,
+                    'body': error.data.debug
+                });
+            });
+            return done;
+        },
+        
+        /*
+            Gets the total amount on the machine
+            Returns {total: 0.00, recycler: 0.00, stacker: 0.00}
+        */
+        automatic_cashdrawer_get_total_amount: function() {
+            var self = this;
+            var done = this.message('cashlogy/get_total_amount');
             done.fail(function(error) {
                 self.pos.gui.show_popup('error-traceback', {
                     'title': _t('Cashdrawer Error: ') + error.data.message,

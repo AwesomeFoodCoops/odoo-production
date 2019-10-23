@@ -24,7 +24,7 @@
                     <div class="button" data-action="complete_emptying"><i class="fa fa-sign-out"/>Complete Emptying</div>
                     <hr/>
                     <div class="button" data-action="display_backoffice"><i class="fa fa-wrench"/>Open Backoffice</div>
-                    <div class="button" data-action="cancel"><i class="fa fa-cancel"/>Send Cancel Command</div>
+                    <div class="button" data-action="cancel"><i class="fa fa-ban"/>Send Cancel Command</div>
                 </div>
                 <div class="footer">
                     <div class="button cancel">Cancel</div>
@@ -50,6 +50,47 @@
 
                 <div class="footer">
                     <div class="button confirm">Confirm</div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="AutomaticCashdrawerInventoryDialog">
+        <div class="modal-dialog">
+            <div class="popup popup-cashdrawer popup-cashdrawer-inventory">
+                <p class="title"><t t-esc=" widget.options.title || 'Inventory' "/></p>
+                <p class="body"><t t-esc=" widget.options.body || '' "/></p>
+
+                <div class="total text-center">
+                    <span class="value"><t t-esc="widget.format_currency(widget.inventory_total)"/></span>
+                </div>
+
+                <div class="inventory-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Recycler</th>
+                                <th>Stacker</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="widget.sorted_values" t-as="value">
+                                <tr>
+                                    <td><t t-esc="widget.format_currency(widget.to_num(value))"/></td>
+                                    <td><t t-esc="widget.inventory.recycler[value] || '-'"/></td>
+                                    <td><t t-esc="widget.inventory.stacker[value] || '-'"/></td>
+                                    <td><t t-esc="widget.inventory.total[value] || '-'"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="footer">
+                    <div class="button cancel">Close</div>
+                    <div class="button confirm">Print</div>
                 </div>
             </div>
         </div>
