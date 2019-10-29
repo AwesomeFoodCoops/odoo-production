@@ -39,8 +39,8 @@ class ProductTemplate(models.Model):
     @api.onchange('fiscal_classification_id')
     def onchange_fiscal_classification_id(self):
         fc = self.fiscal_classification_id
-        self.supplier_taxes_id = [[6, 0, fc.purchase_tax_ids.ids]]
-        self.taxes_id = [[6, 0, fc.sale_tax_ids.ids]]
+        self.supplier_taxes_id = fc.purchase_tax_ids
+        self.taxes_id = fc.sale_tax_ids
 
     # Constraint Section
     @api.multi
@@ -69,9 +69,9 @@ class ProductTemplate(models.Model):
         if self.categ_id and self.categ_id.fiscal_restriction:
             if len(self.categ_id.fiscal_classification_ids) == 1:
                 # Set classification if category allows only one
-                self.fiscal_classification_id =\
+                self.fiscal_classification_id = \
                     self.categ_id.fiscal_classification_ids[0]
-            elif self.fiscal_classification_id not in\
+            elif self.fiscal_classification_id not in \
                     self.categ_id.fiscal_classification_ids:
                 # Remove classification if category and classification are not
                 # compatible
@@ -106,29 +106,32 @@ class ProductTemplate(models.Model):
         """If Fiscal Classification is defined, set the according taxes
         to the product(s); Otherwise, find the correct Fiscal classification,
         depending of the taxes, or create a new one, if no one are found."""
+        fc_obj = self.env['account.product.fiscal.classification']
         for template in self:
             if vals.get('fiscal_classification_id', False):
                 # update or replace 'taxes_id' and 'supplier_taxes_id'
-                classification = template.fiscal_classification_id
+                classification = fc_obj.browse(
+                    vals.get('fiscal_classification_id'))
                 tax_vals = {
-                    'supplier_taxes_id': [[6, 0, [
-                        x.id for x in classification.purchase_tax_ids]]],
-                    'taxes_id': [[6, 0, [
-                        x.id for x in classification.sale_tax_ids]]],
-                    }
-                super(ProductTemplate, template.sudo()).write(tax_vals)
-            elif ('supplier_taxes_id' in vals.keys() or
-                    'taxes_id' in vals.keys()):
+                    'fiscal_classification_id': classification.id,
+                    'supplier_taxes_id': [
+                        [6, 0, classification.purchase_tax_ids.ids]],
+                    'taxes_id': [
+                        [6, 0, classification.sale_tax_ids.ids]],
+                }
+                super(ProductTemplate, template).write(tax_vals)
+            elif (
+                    'supplier_taxes_id' in vals.keys() or
+                    'taxes_id' in vals.keys()
+                    ):
                 # product template Single update mode
-                fc_obj = self.env['account.product.fiscal.classification']
                 if len(self) != 1:
                     raise ValidationError(
                         _("You cannot change Taxes for many Products."))
-                purchase_tax_ids = [
-                    x.id for x in template.sudo().supplier_taxes_id]
-                sale_tax_ids = [
-                    x.id for x in template.sudo().taxes_id]
+                purchase_tax_ids = template.supplier_taxes_id.ids
+                sale_tax_ids = template.taxes_id.ids
                 fc_id = fc_obj.find_or_create(
                     template.company_id.id, sale_tax_ids, purchase_tax_ids)
-                super(ProductTemplate, template.sudo()).write(
-                    {'fiscal_classification_id': fc_id})
+                super(ProductTemplate, template).write({
+                    'fiscal_classification_id': fc_id,
+                })
