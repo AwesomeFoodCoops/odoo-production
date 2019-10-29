@@ -26,7 +26,6 @@
         'views/purchase_view.xml',
         'views/purchase_config_settings_view.xml',
         'views/account_invoice_view.xml',
-        'views/account_product_fiscal_classification_view.xml',
         'views/product_template_view.xml',
         'views/product_supplierinfo_view.xml',
         'views/report_purchaseorder.xml',
