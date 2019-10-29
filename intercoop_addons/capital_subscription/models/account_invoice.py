@@ -35,6 +35,11 @@ class AccountInvoice(models.Model):
             description=description, journal_id=journal_id)
         res['is_capital_fundraising'] = invoice.is_capital_fundraising
         res['fundraising_category_id'] = invoice.fundraising_category_id.id
+        #Set Account from fundraising category
+        if invoice.fundraising_category_id:
+            for line in res['invoice_line_ids']:
+                line[2]['account_id'] = \
+                    invoice.fundraising_category_id.capital_account_id.id
         # Set saleman is curent user
         res['user_id'] = invoice.env.user.id
         if res['date_due'] and res['date_due'] < date_invoice:
