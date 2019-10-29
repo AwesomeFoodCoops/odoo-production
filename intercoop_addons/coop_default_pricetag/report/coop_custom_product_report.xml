@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    
     <!-- QWeb Reports -->
     <report
         id="pricetag"
@@ -10,8 +11,26 @@
         file="coop_default_pricetag.report_pricetag"
         attachment_use="False"
     />
+
     <record id="coop_default_pricetag.pricetag" model="ir.actions.report.xml">
         <field name="paperformat_id" ref="coop_default_pricetag.paperformat_pricetag"/>
         <field name="attachment_use" eval="0"/>
     </record>
+
+    <!-- With barcode -->
+    <report
+        id="pricetag_barcode"
+        model="report.pricetag"
+        string="Pricetags with Barcode"
+        report_type="qweb-pdf"
+        name="coop_default_pricetag.report_pricetag_barcode"
+        file="coop_default_pricetag.report_pricetag_barcode"
+        attachment_use="False"
+    />
+
+    <record id="coop_default_pricetag.pricetag_barcode" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="coop_default_pricetag.paperformat_pricetag"/>
+        <field name="attachment_use" eval="0"/>
+    </record>
+
 </odoo>

@@ -3,8 +3,8 @@
 from openerp import api, models
 
 
-class ReportPricetag(models.AbstractModel):
-    _name = 'report.coop_default_pricetag.report_pricetag'
+class ReportPricetagBase(models.AbstractModel):
+    _name = 'report.coop_default_pricetag.report_pricetag_base'
 
     @api.model
     def _get_products(self, lines, fields):
@@ -43,3 +43,13 @@ class ReportPricetag(models.AbstractModel):
         }
         return self.env['report'].render(
             report_model, docargs)
+
+
+class ReportPricetag(models.AbstractModel):
+    _name = 'report.coop_default_pricetag.report_pricetag'
+    _inherit = 'report.coop_default_pricetag.report_pricetag_base'
+
+
+class ReportPricetagBarcode(models.AbstractModel):
+    _name = 'report.coop_default_pricetag.report_pricetag_barcode'
+    _inherit = 'report.coop_default_pricetag.report_pricetag_base'
