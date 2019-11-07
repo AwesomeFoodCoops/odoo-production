@@ -75,7 +75,7 @@ This module has been written by Alexis de Lattre
     """,
     'author': "Akretion,Odoo Community Association (OCA)",
     'website': 'http://www.akretion.com',
-    'depends': ['hw_proxy', 'pos_payment_terminal'],
+    'depends': ['hw_proxy'],
     'external_dependencies': {
         'python': ['serial', 'pycountry'],
     },
