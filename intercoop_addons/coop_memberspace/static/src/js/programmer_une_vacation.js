@@ -24,11 +24,21 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                     new Model('res.users').call('ftop_get_shift')
                     .then(function(shifts) {
                         shifts.forEach(function(shift, idx, array) {
+                            var week_number = shift.week_number;
+                            var dict_week_number = {
+                                1: 'A', 2: 'B', 3: 'C', 4: 'D'
+                            };
+                            if (week_number && dict_week_number[week_number]){
+                                week_number = dict_week_number[week_number];
+                            }
                             $('.body_ftop_programmer').append(
                                 `<tr>
                                     <td scope="row">
                                         <span id="time-${shift.id}">${shift.date_begin[0] + ' '}</span>
                                         <span>${shift.date_begin[1]}</span>
+                                    </td>
+                                    <td t-attf-id="week-${shift.id}">
+                                        ${week_number || ''}
                                     </td>
                                     <td id="hour-${shift.id}">${shift.date_begin[1]}</td>
                                     <td id="avalable-seats-${shift.id}"><span>${shift.seats_avail}</span></td>
