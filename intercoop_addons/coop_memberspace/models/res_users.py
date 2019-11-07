@@ -67,6 +67,7 @@ class ResUsers(models.Model):
                     continue
                 shifts.append({
                     'id': shift.id,
+                    'week_number': shift.week_number,
                     'seats_avail': seats_avail,
                     'date_begin': user.get_time_by_user_lang(
                         shift.date_begin, ['%A, %d %B', '%HH%M'],
