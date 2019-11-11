@@ -48,7 +48,7 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
                 CancelledOperation
                 Busy
 
-            @returns    0.00
+            @returns    {amount: 0.00, amount_in: 0.00, amount_out: 0.00}
         */
         automatic_cashdrawer_display_transaction_start: function(amount, options) {
             options = options || {};

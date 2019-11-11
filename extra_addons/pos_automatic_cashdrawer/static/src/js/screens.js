@@ -31,7 +31,7 @@ odoo.define('pos_automatic_cashdrawer.screens', function (require) {
     /*
         Overload 'start' function to display correctly unauthorized function
         at the beginning of the session, based on current user
-        
+
         TODO: Analyze why we need this here, on the numpad..
         Isn't it already handled by the set_cashier function?
     */
@@ -55,13 +55,14 @@ odoo.define('pos_automatic_cashdrawer.screens', function (require) {
                 // TODO Block input
                 this.pos.proxy.automatic_cashdrawer_display_transaction_start(amount, {operation_number: order.name})
                 .done(function(response) {
-                    line.set_amount(response);
+                    var amount = response.amount_in;
+                    var amount_formatted = self.format_currency_no_symbol(amount);
+                    line.set_amount(amount);
                     self.order_changes();
                     self.render_paymentlines();
-                    var amount_formatted = self.format_currency_no_symbol(response);
                     self.$('.paymentline.selected .edit').text(amount_formatted);
                     self.$('.delete-button').css('display', 'none');
-                })
+                });
             }
         },
     });
