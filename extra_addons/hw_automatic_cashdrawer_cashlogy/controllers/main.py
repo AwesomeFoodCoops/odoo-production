@@ -373,7 +373,7 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
     def display_transaction_start(self, amount, options):
         '''
         Sets the machine to receive money from the customer.
-        Result is {amount: 0.00}
+        Result is {amount: 0.00, amount_in: 0.00, amount_out: 0.00}
         '''
         # Send message and wait for confirmation
         amount = float(amount)
@@ -384,7 +384,11 @@ class CashlogyAutomaticCashdrawerDriver(Thread):
         amount_in = self.value_float(res[1])
         amount_out = self.value_float(res[2])
         amount = amount_in - amount_out
-        return amount
+        return {
+            'amount_in': amount_in,
+            'amount_out': amount_out,
+            'amount': amount,
+        }
 
     def display_close_till(self):
         '''
