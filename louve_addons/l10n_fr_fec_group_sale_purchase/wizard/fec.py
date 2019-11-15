@@ -194,5 +194,5 @@ class AccountFrFec(models.TransientModel):
                 sql_query, (date_from, date_to, company.id, date_from,
                             date_to, company.id)):
             listrow = list(row)
-            w.writerow([s.encode("utf-8") for s in listrow])
+            w.writerow([s.encode("utf-8") if s else '' for s in listrow])
         fec_file.close()
