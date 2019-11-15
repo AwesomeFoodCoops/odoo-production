@@ -6,16 +6,20 @@
 from openerp import api, fields, models, _
 from dateutil.relativedelta import relativedelta
 from openerp.exceptions import ValidationError
+from datetime import date
 
 
 class ShiftExtension(models.Model):
     _inherit = 'shift.extension'
+    _order = 'date_start desc, partner_id'
 
     reduce_deduction = fields.Boolean(string="Reduced Deduction")
     is_show_reduce_deduction = fields.Boolean(
         compute="_compute_show_reduce_deduction",
         string="Is Show Reduced Deduction",
         store=True)
+    current_extension = fields.Boolean(compute='_compute_current_extension',
+                                       store=False)
 
     @api.onchange('type_id', 'partner_id', 'date_start')
     def onchange_type_id(self):
@@ -27,6 +31,15 @@ class ShiftExtension(models.Model):
                 extension_type=extension.type_id,
                 partner=extension.partner_id,
                 date_start=extension.date_start)
+
+    @api.depends('date_start', 'date_stop')
+    def _compute_current_extension(self):
+        today_date = str(date.today())
+        for ext in self:
+            if ext.date_start <= today_date and ext.date_stop >= today_date:
+                ext.current_extension = True
+            else:
+                ext.current_extension = False
 
     @api.multi
     @api.depends('partner_id.shift_type', 'type_id.extension_method')

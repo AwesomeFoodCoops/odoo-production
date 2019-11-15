@@ -61,9 +61,11 @@
         <field name="arch" type="xml">
             <field name="type_id" position="after">
                 <field name="reduce_deduction" invisible="1"/> 
+                <field name="current_extension" invisible="1"/>
             </field>
             <xpath expr="//tree[@name='shift_extensions']" position="attributes">
-                <attribute name="colors">red:reduce_deduction==True;</attribute>
+                <attribute name="colors">red:reduce_deduction==True;
+                    blue:current_extension==True</attribute>
             </xpath>
         </field>
     </record>
