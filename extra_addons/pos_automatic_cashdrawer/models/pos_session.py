@@ -1,61 +1,61 @@
-
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-# @author: Aurélien DUMAINE (http://www.dumaine.me)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright (C) 2019 Druidoo <https://www.druidoo.io>
 
-from openerp import fields, models, api
+from openerp import api, models, fields, _
+from openerp.exceptions import UserError
 
 
 class PosSession(models.Model):
     _inherit = 'pos.session'
-    
-    def _get_automatic_cashdrawer_content_inventory(self):
-        proxy = self.pool['proxy.action.helper'].create()
-        posbox_address = self.config_id.proxy_ip
-        if posbox_address[:4] != 'http': #if https, it's also OK
-          posbox_address += 'http://'
-        #check cashlogy initialization
-        url = posbox_ip+'/hw_proxy/automatic_cashdrawer_connection_check'
-        cashlogy_cnnector_ip_adress = self.config_id.iface_automatic_cashdrawer_ip_address
-        cashlogy_connector_tcp_port = self.config_id.iface_automatic_cashdrawer_tcp_port
-        request = {'url': url,'params':{connection_info:{'ip_address':cashlogy_cnnector_ip_adress,'tcp_port':cashlogy_connector_tcp_port}}}
-        init_cashlogy = prox.send_proxy([request])
-        # get cashlogy content inventory
-        url = posbox_ip+'/hw_proxy/automatic_cashdrawer_content_inventory'
-        request = {'url': url,'params':''}
-        inventory = prox.send_proxy([request])
-        #inventory = {'value_of_coin_bill':number_coin_bill,...}
-        #inventory = {'2.00':4,'50.0':3} => 2€x4 + 50€x3 => 158€
-        return inventory
-"""
-    def wkf_action_opening_control(self, cr, uid, ids, context=None):
-        result = dict()
-        for session in self.browse(cr, uid, ids, context=context):
-            if self.config.id.automatic_cashdrawer == True :
-                cash_inventory = self._get_automatic_cashdrawer_content_inventory()
-                if cash_inventory==None :
-                      result[session.id]=erromessage
-                for i in cash_inventory:
-                     #add to opening balance
-                if openning_balance = 0
-                      result[session.id]=erromessage
-        result[session.id]=True
-        return super(pos_session, self).wkf_action_opening_control()
 
-    def wkf_action_closing_control(self, cr, uid, ids, context=None):
-        result = dict()
-        if self.config.id.automatic_cashdrawer == True :
-            cash_inventory = self._get_automatic_cashdrawer_content_inventory()
-            if cash_inventory==None :
-                  result[session.id]=erromessage
-            for i in cash_inventory:
-                 #add to closing balance
-        result[session.id]=True
-        return super(pos_session, self).wkf_action_closing_control()
-"""
-    #TODO : add a object bank.statement.cash.balance.detail that have "value/number_opening/total_openning/number_closing/total_closing"
-    #TODO : add field on bank.statement.cash_balance_detail_ids that trigger computation of balance_start and balance_end_real
-    #TODO : add button to call the backend on session form.
-    #TODO : add a pos user right to hide "Close" button from the front end
-    #TODO : in the pos.session resume, add lines bellow cash summary with detail of coins/bills number @oenning and @closing
+    @api.multi
+    def check_cash_in_out_possible(self):
+        self.ensure_one()
+        if not self.cash_register_id:
+            raise UserError(_(
+                "There's no cash register on this session"))
+        if not self.cash_register_id.journal_id:
+            raise UserError(_(
+                "Please check that the field 'Journal' is set "
+                "on the Bank Statement"))
+        if not self.cash_register_id.journal_id.company_id.transfer_account_id:
+            raise UserError(_(
+                "Please check that the field 'Transfer Account' is set "
+                "on the company."))
+        if self.cash_register_id.state == 'confirm':
+            raise UserError(_(
+                "You cannot put/take money in/out for a bank statement "
+                "which is closed."))
+        return True
+
+    @api.model
+    def _get_cash_in_out_fields(self):
+        return [
+            'id', 'display_name', 'ref', 'create_date', 'date', 'statement_id',
+        ]
+
+    @api.multi
+    def action_put_money_in(self, amount, reason):
+        self.ensure_one()
+        wizard = self.env['cash.box.in'].create({
+            'amount': amount, 'name': reason})
+        wizard.with_context(active_model=self._name, active_ids=self.ids).run()
+        # Return the last added line
+        return self.env['account.bank.statement.line'].sudo().search([
+                ('statement_id', '=', self.cash_register_id.id)],
+                limit=1,
+                order='id desc',
+        ).read(self._get_cash_in_out_fields())[0]
+
+    @api.multi
+    def action_take_money_out(self, amount, reason):
+        self.ensure_one()
+        wizard = self.env['cash.box.out'].create({
+            'amount': amount, 'name': reason})
+        wizard.with_context(active_model=self._name, active_ids=self.ids).run()
+        # Return the last added line
+        return self.env['account.bank.statement.line'].sudo().search([
+                ('statement_id', '=', self.cash_register_id.id)],
+                limit=1,
+                order='id desc',
+        ).read(self._get_cash_in_out_fields())[0]

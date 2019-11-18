@@ -2,7 +2,7 @@
 <openerp>
     <data>
 
-        <record id="view_aacount_journal_form" model="ir.ui.view">
+        <record id="view_account_journal_form" model="ir.ui.view">
             <field name="name">account.journal.automatic.cashdrawer.form</field>
             <field name="model">account.journal</field>
             <field name="inherit_id" ref="account.view_account_journal_form"/>

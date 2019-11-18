@@ -23,15 +23,12 @@
 
 import logging
 import simplejson
+import telium
 import time
-import curses.ascii
 from threading import Thread, Lock
 from Queue import Queue
-from serial import Serial
-import pycountry
 import openerp.addons.hw_proxy.controllers.main as hw_proxy
 from openerp import http
-from openerp.tools.config import config
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +43,7 @@ class TeliumPaymentTerminalDriver(Thread):
     def get_status(self):
         self.push_task('status')
         return self.status
-    
+
     def set_status(self, status, message=None):
         if status == self.status['status']:
             if message is not None and message != self.status['messages'][-1]:
@@ -83,42 +80,33 @@ class TeliumPaymentTerminalDriver(Thread):
             'payment_info_dict should be a dict'
         answer = {}
         try:
-            my_device = Telium('/dev/ttyACM0')
+            my_device = telium.Telium('/dev/ttyACM0')
             amount = float(payment_info_dict['amount'])
             if payment_info_dict['payment_mode'] == 'check':
-                payment_mode = TERMINAL_TYPE_PAYMENT_CHECK
+                payment_mode = telium.TERMINAL_TYPE_PAYMENT_CHECK
             elif payment_info_dict['payment_mode'] == 'card':
-                payment_mode = TERMINAL_TYPE_PAYMENT_CARD
+                payment_mode = telium.TERMINAL_TYPE_PAYMENT_CARD
             else:
                 logger.error(
                 "The payment mode '%s' is not supported"
                 % payment_info_dict['payment_mode'])
                 return False
 
-            #cur_iso_letter = payment_info_dict['currency_iso'].upper()
-            #try:
-            #    cur = pycountry.currencies.get(letter=cur_iso_letter)
-            #    cur_numeric = str(cur.numeric)
-            #except:
-            #    logger.error("Currency %s is not recognized" % cur_iso_letter)
-            #    return False
-
-            my_payment = TeliumAsk(
+            my_payment = telium.TeliumAsk(
                 '1',  # Checkout ID 1
-                TERMINAL_ANSWER_SET_FULLSIZED,  # Ask for fullsized repport
-                TERMINAL_MODE_PAYMENT_DEBIT,  # Ask for debit
+                telium.TERMINAL_ANSWER_SET_FULLSIZED,  # Ask for fullsized repport
+                telium.TERMINAL_MODE_PAYMENT_DEBIT,  # Ask for debit
                 payment_mode,  # Using a card or a check
-                #cur_numeric.zfill(3),  # Set currency to EUR
-                TERMINAL_NUMERIC_CURRENCY_EUR,
-                TERMINAL_REQUEST_ANSWER_WAIT_FOR_TRANSACTION,  # Wait for transaction to end before getting final answer
-                TERMINAL_FORCE_AUTHORIZATION_DISABLE,  # Let device choose if we should ask for authorization
+                telium.TERMINAL_NUMERIC_CURRENCY_EUR,
+                telium.TERMINAL_REQUEST_ANSWER_WAIT_FOR_TRANSACTION,  # Wait for transaction to end before getting final answer
+                telium.TERMINAL_FORCE_AUTHORIZATION_DISABLE,  # Let device choose if we should ask for authorization
                 amount  # Ask for 12.5 EUR
             )
             try:
                 if not my_device.ask(my_payment):
                     logger.error('Unable to init payment on device.')
                     return False
-            except TerminalInitializationFailedException as e:
+            except telium.TerminalInitializationFailedException as e:
                 logger.error(format(e))
                 return False
 
@@ -127,7 +115,7 @@ class TeliumPaymentTerminalDriver(Thread):
 
             if my_answer is not None:
                 # Print answered data from terminal
-                logger.error(my_answer.__dict__)
+                logger.debug(my_answer.__dict__)
                 answer = {
                     'pos_number': my_answer.__dict__['_pos_number'],
                     'transaction_result': my_answer.__dict__['_transaction_result'],
@@ -135,8 +123,8 @@ class TeliumPaymentTerminalDriver(Thread):
                     'payment_mode': my_answer.__dict__['_payment_mode'],
                     'payment_terminal_return_message': my_answer.__dict__,
                 }
-                logger.error('answer = %s' % answer)
-        except Exception, e:
+                logger.debug('answer = %s' % answer)
+        except Exception as e:
             logger.error('Error : %s' % str(e))
         return answer
 
@@ -174,5 +162,5 @@ class TeliumPaymentTerminalProxy(hw_proxy.Proxy):
             'Telium: Call payment_terminal_transaction_start with return '
             'payment_info=%s', payment_info)
         answer = driver.transaction_start(payment_info)
-        logger.warning(answer)
+        logger.debug(answer)
         return answer

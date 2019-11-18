@@ -1,60 +1,222 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <!--<t t-extend="PaymentScreen-Paymentlines" >
-        <t t-jquery=".col-name" t-operation="append">
-            <t t-if="line.get_automatic_cashdrawer()">
-                   <button class="automatic-cashdrawer-transaction-start" t-att-data-cid='line.cid'>Start transaction</button>
-            </t>
-        </t>
-    </t>-->
 
-    <!--<t t-name="AutoCashdrawerWidget">
-        <div class="oe_status js_auto_cashdrawer">
-            <span class='js_msg oe_orange oe_hidden'></span>
-            <div class="js_connected oe_icon oe_green">
-                <i class='fa fa-fw fa-euro'></i>
-            </div>
-            <div class="js_connecting oe_icon oe_hidden">
-                <i class='fa fa-fw fa-spin fa-spinner'></i>
-            </div>
-            <div class="js_warning oe_icon oe_orange oe_hidden">
-                <i class='fa fa-fw fa-euro'></i>
-            </div>
-            <div class="js_disconnected oe_icon oe_red oe_hidden">
-                <i class='fa fa-fw fa-euro'></i>
-            </div>
-        </div>
-    </t>-->
-
-    <t t-name="AutoCashdrawerInitWidget">
-        <div class="oe_status js_auto_cashdrawer_init">
-            <div class="button automatic-cashdrawer-connection-init">
+    <t t-name="AutomaticCashdrawerConfigWidget">
+        <div class="oe_status js_auto_cashdrawer_config">
+            <div data-toggle="tooltip" data-placement="bottom" title="Cashlogy Backoffice" class="button automatic-cashdrawer-display-backoffice">
                 <i class='fa fa-eur'></i>
             </div>
         </div>
     </t>
 
-    <t t-name="AutoCashdrawerConfigWidget">
-        <div class="oe_status js_auto_cashdrawer_config">
-            <div class="button automatic-cashdrawer-display-backoffice">
-                <i class='fa fa-wrench'></i>
+    <t t-name="AutomaticCashdrawerAdminDialog">
+        <div class="modal-dialog">
+            <div class="popup popup-alert popup-cashdrawer popup-cashdrawer-admin">
+                <p class="title">Cashdrawer Admin</p>
+                <p class="body"><t t-esc=" widget.options.body || '' "/></p>
+                <div class='actions scrollable-y touch-scrollable'>
+                    <div class="button" data-action="put_money_in"><i class="fa fa-level-down"/>Put Money In</div>
+                    <div class="button" data-action="take_money_out"><i class="fa fa-level-up"/>Take Money Out</div>
+                    <hr/>
+                    <div class="button" data-action="print_inventory"><i class="fa fa-print"/>Print Inventory</div>
+                    <div class="button" data-action="close_till"><i class="fa fa-balance-scale"/>Close Till / Cash Float</div>
+                    <div class="button" data-action="empty_stacker"><i class="fa fa-money"/>Empty Stacker</div>
+                    <div class="button" data-action="complete_emptying"><i class="fa fa-sign-out"/>Complete Emptying</div>
+                    <hr/>
+                    <div class="button" data-action="display_backoffice"><i class="fa fa-wrench"/>Open Backoffice</div>
+                    <div class="button" data-action="cancel"><i class="fa fa-ban"/>Send Cancel Command</div>
+                </div>
+                <div class="footer">
+                    <div class="button cancel">Cancel</div>
+                </div>
             </div>
         </div>
     </t>
 
-    <!--<t t-extend="PaymentScreenWidget" >
-        <t t-jquery=".payment-buttons" t-operation="append">
-                <t t-if="widget.is_manager()">
-                    <div class="button automatic-cashdrawer-connection-init">
-                        <i class="fa fa-wrench"></i> Connect cashdrawer
-                    </div>
-                </t>-->
-                <!-- <button class="automatic-cashdrawer-connection-exit">Disconnect cashdrawer</button> -->
-                <!--<t t-if="widget.is_manager()">
-                    <div class="button automatic-cashdrawer-display-backoffice">
-                        <i class="fa fa-wrench"></i> Display backoffice
-                    </div>
+    <t t-name="AutomaticCashdrawerCashInDialog">
+        <div class="modal-dialog">
+            <div class="popup popup-alert popup-cashdrawer">
+                <p class="title"><t t-esc=" widget.options.title || 'Add cash' "/></p>
+                <t t-set="default_body">
+                    <p>Start adding cash into the machine.</p>
+                    <p>When you finish, press confirm.</p>
                 </t>
-        </t>
-    </t>-->
+                <div class="body"><t t-raw=" widget.options.body || default_body "/></div>
+
+                <div class="total text-center">
+                    <span class="value">0.00</span>
+                    <p>Added so far</p>
+                </div>
+
+                <div class="footer">
+                    <div class="button confirm">Confirm</div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="AutomaticCashdrawerInventoryDialog">
+        <div class="modal-dialog">
+            <div class="popup popup-cashdrawer popup-cashdrawer-inventory">
+                <p class="title"><t t-esc=" widget.options.title || 'Inventory' "/></p>
+                <p class="body"><t t-esc=" widget.options.body || '' "/></p>
+
+                <div class="total text-center">
+                    <span class="value"><t t-esc="widget.format_currency(widget.inventory_total)"/></span>
+                </div>
+
+                <div class="inventory-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Recycler</th>
+                                <th>Stacker</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="widget.sorted_values" t-as="value">
+                                <tr>
+                                    <td><t t-esc="widget.format_currency(widget.to_num(value))"/></td>
+                                    <td><t t-esc="widget.inventory.recycler[value] || '-'"/></td>
+                                    <td><t t-esc="widget.inventory.stacker[value] || '-'"/></td>
+                                    <td><t t-esc="widget.inventory.total[value] || '-'"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="footer">
+                    <div class="button cancel">Close</div>
+                    <div class="button confirm">Print</div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="AutomaticCashdrawerInventoryXmlReport">
+        <receipt align='center' width='40' value-thousands-separator='' >
+
+            <!-- Header -->
+
+            <h1>Automatic Cashdrawer</h1>
+            <h3>Inventory</h3>
+
+            <t t-if="report.company">
+                <t t-if='report.company.logo'>
+                    <img t-att-src='report.company.logo' />
+                    <br/>
+                </t>
+                <t t-if='!report.company.logo'>
+                    <h1><t t-esc='report.company.name' /></h1>
+                    <br/>
+                </t>
+            </t>
+
+            <div font='b'>
+                <div class='cashier'>
+                    <div>--------------------------------</div>
+                    <div>User: <t t-esc='widget.pos.get_cashier().name' /></div>
+                </div>
+            </div>
+            <br /><br />
+
+            <!-- Lines -->
+
+            <line><left>TOTALS</left></line>
+            <line><left>--------------------------------</left></line>
+            <div line-ratio='0.3'>
+                <t t-foreach="report.sorted_values" t-as="value">
+                    <line>
+                        <left><value value-decimals="2"><t t-esc="value"/></value></left>
+                        <right>
+                            x (
+                                <value value-decimals="0" value-autoint="on"><t t-esc="report.inventory.recycler[value]"/></value>
+                              + <value value-decimals="0" value-autoint="on"><t t-esc="report.inventory.stacker[value]"/></value>
+                            ) = <value value-decimals="2"><t t-esc="value * report.inventory.total[value]"/></value>
+                        </right>
+                    </line>
+                </t>
+            </div>
+
+            <!-- Subtotal -->
+
+            <line><right>--------</right></line>
+            <line>
+                <left>Recycler</left>
+                <right><value><t t-esc="report.totals.recycler"/></value></right>
+            </line>
+            <line>
+                <left>Stacker</left>
+                <right><value><t t-esc="report.totals.stacker"/></value></right>
+            </line>
+
+            <!-- Total -->
+
+            <line><right>--------</right></line>
+            <line size='double-height'>
+                <left><pre>        TOTAL</pre></left>
+                <right><value><t t-esc='report.totals.total' /></value></right>
+            </line>
+            <br/><br/>
+
+            <br/>
+            <div font='b'>
+                <div t-if="report.name"><t t-esc='report.name'/></div>
+                <div><t t-esc='report.date || (new Date()).toLocaleString()' /></div>
+            </div>
+
+        </receipt>
+
+    </t>
+
+    <t t-name="AutomaticCashdrawerActionXmlReport">
+        <receipt align='center' width='40' value-thousands-separator='' >
+
+
+            <h1>Automatic Cashdrawer</h1>
+            <h3><t t-esc="report.name || ''"/></h3>
+
+            <!-- Header -->
+            <t t-if="report.company">
+                <t t-if='report.company.logo'>
+                    <img t-att-src='report.company.logo' />
+                    <br/>
+                </t>
+                <t t-if='!report.company.logo'>
+                    <h1><t t-esc='report.company.name' /></h1>
+                    <br/>
+                </t>
+            </t>
+
+            <div font='b'>
+                <div class='cashier'>
+                    <div>--------------------------------</div>
+                    <div>User: <t t-esc='pos.get_cashier().name' /></div>
+                </div>
+                <div><t t-esc='report.date || (new Date()).toLocaleString()' /></div>
+            </div>
+            <br /><br />
+
+            <!-- Note -->
+
+            <t t-set="lines" t-value="report.lines || []"/>
+            <t t-foreach="lines" t-as="line">
+                <p><t t-esc="line"/></p>
+            </t>
+
+            <!-- Statement line (for reference) -->
+            <div t-if="report.st_line" font='b'>
+                <br/>
+                <div>--------------------------------</div>
+                <div>Statement: <t t-esc="report.st_line.statement_id[1]"/></div>
+                <div>REF: <t t-esc="report.st_line.ref"/> (<t t-esc="report.st_line.id"/>)</div>
+            </div>
+
+        </receipt>
+
+    </t>
+
 </templates>
