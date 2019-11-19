@@ -8,6 +8,7 @@
               <script type="text/javascript" src="/pos_automatic_cashdrawer/static/src/js/devices.js"></script>
               <script type="text/javascript" src="/pos_automatic_cashdrawer/static/src/js/widgets.js"></script>
               <script type="text/javascript" src="/pos_automatic_cashdrawer/static/src/js/screens.js"></script>
+              <script type="text/javascript" src="/pos_automatic_cashdrawer/static/src/js/chrome.js"></script>
               <link rel="stylesheet" href="/pos_automatic_cashdrawer/static/src/css/pos_automatic_cashdrawer.css" />
           </xpath>
         </template>
