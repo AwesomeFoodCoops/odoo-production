@@ -77,6 +77,9 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
                     _super.apply(self, args);
                 });
             })
+            .fail(function() {
+                _super.apply(self, args);
+            })
             .always(function() {
                 self.chrome.loading_hide();
             });
