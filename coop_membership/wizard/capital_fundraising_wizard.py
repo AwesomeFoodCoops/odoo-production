@@ -38,24 +38,29 @@ class CapitalFundraisingWizard(models.TransientModel):
     @api.multi
     def button_confirm(self):
         self.ensure_one()
-        barcode_rule_obj = self.env['barcode.rule']
-        wizard = self[0]
-        if (wizard.category_id.is_worker_capital_category and
-                wizard.partner_id.is_associated_people):
+        if (
+            self.category_id.is_worker_capital_category
+            and self.partner_id.is_associated_people
+        ):
             # If the partner is currently associated, make him cooperator
-            wizard.partner_id.parent_id = False
+            self.partner_id.parent_id = False
             # Remove number
-            wizard.partner_id.barcode_rule_id = False
-            wizard.partner_id.barcode_base = False
-
-        if (wizard.category_id.is_worker_capital_category and
-                not wizard.partner_id.barcode_rule_id and
-                not wizard.partner_id.barcode_base):
-            # Add the barcode rule
-            barcode_rule_id = barcode_rule_obj.search(
+            self.partner_id.barcode_rule_id = False
+            self.partner_id.barcode_base = False
+        res = super().button_confirm()
+        # Add the barcode rule
+        # We do it after calling super so that the sequence is assigned
+        # at the very last moment, hence avoiding consuming numbers in
+        # case of exception.
+        if (
+            self.category_id.is_worker_capital_category
+            and not self.partner_id.barcode_rule_id
+            and not self.partner_id.barcode_base
+        ):
+            barcode_rule_id = self.env['barcode.rule'].search(
                 [('for_type_A_capital_subscriptor', '=', True)], limit=1)
             if barcode_rule_id and barcode_rule_id.generate_type == 'sequence':
-                wizard.partner_id.barcode_rule_id = barcode_rule_id.id
-                wizard.partner_id.generate_base()
-                wizard.partner_id.generate_barcode()
-        return super(CapitalFundraisingWizard, self).button_confirm()
+                self.partner_id.barcode_rule_id = barcode_rule_id.id
+                self.partner_id.generate_base()
+                self.partner_id.generate_barcode()
+        return res
