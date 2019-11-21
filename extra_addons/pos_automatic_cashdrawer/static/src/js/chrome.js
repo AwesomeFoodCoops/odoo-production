@@ -35,16 +35,12 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
                             body: _t('The opening balance for this session is missing. Do you wan\'t to synchronize it with the automatic cashdrawer?'),
                             confirm: function() {
                                 framework.blockUI();
-                                var done = self.pos.proxy.automatic_cashdrawer_get_inventory();
-                                done.then(function(inventory) {
-                                    self.pos.action_set_balance(inventory.total, 'start').then(function() {
-                                        self.gui.show_popup('alert', {
-                                            title: _t('Opening Balance Synchronized'),
-                                            body: _t('The opening balance was synchronized successfully.'),
-                                        });
-                                    })
-                                });
-                                done.always(function() { framework.unblockUI(); });
+                                self.pos.proxy.automatic_cashdrawer_get_inventory()
+                                .then(function(inventory) {
+                                    self.pos.action_set_balance(inventory.total, 'start')
+                                    .always(function() { framework.unblockUI(); });
+                                })
+                                .fail(function() { framework.unblockUI(); })
                             }
                         })
                     })

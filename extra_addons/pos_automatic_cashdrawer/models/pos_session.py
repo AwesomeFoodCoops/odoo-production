@@ -18,6 +18,9 @@ class PosSession(models.Model):
         if self.cash_register_id.cashbox_start_id:
             _logger.warning('Cashbox is already started')
             return False
+        if self.cash_register_id.line_ids:
+            _logger.warning('Cashbox is missing but there are already lines')
+            return False
         return True
 
     @api.multi
