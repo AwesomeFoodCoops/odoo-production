@@ -22,7 +22,7 @@
 ##############################################################################
 {
     'name': 'Product - History',
-    'version': '9.0.2',
+    'version': '9.0.3',
     'category': 'Product',
     'description': """
 Computes figures about the product's sales, purchases, stocks.

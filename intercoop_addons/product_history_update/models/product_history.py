@@ -106,7 +106,10 @@ class ProductHistory(models.Model):
                                 line.sale_qty + loss_qty
                             line.write({'start_qty': opening_qty,
                                         'loss_qty': loss_qty,
-                                        'end_qty': end_qty})
+                                        'end_qty': end_qty,
+                                        'virtual_qty':
+                                            end_qty + line.incoming_qty +
+                                            line.outgoing_qty})
                             opening_qty = end_qty
                 product_obj.browse(product_id).write({'history_updated': True})
 
