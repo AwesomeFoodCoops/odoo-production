@@ -77,6 +77,7 @@ class Website(openerp.addons.website.controllers.main.Website):
 
     @http.route('/planning', type='http', auth='user', website=True)
     def page_planning(self, **kwargs):
+        user = request.env.user
         upcoming_shifts = request.env['shift.shift'].sudo().search([
             ('date_begin', '>=', datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
             ('state', '=', 'confirm'),
@@ -84,7 +85,8 @@ class Website(openerp.addons.website.controllers.main.Website):
         return request.render(
             'coop_memberspace.planning',
             {
-                'user': request.env.user,
+                'user': user,
+                'shift_type': user.partner_id.shift_type,
                 'upcoming_shifts': upcoming_shifts,
             }
         )
