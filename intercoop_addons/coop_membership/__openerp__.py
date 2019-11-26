@@ -27,6 +27,7 @@
         'email_pos_receipt',
         'create_users_partners',
         'l10n_fr_pos_cert_base',
+        'purchase_discount',
     ],
     'data': [
         'data/update_template_name_ftop.yml',

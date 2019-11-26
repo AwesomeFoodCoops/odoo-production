@@ -104,6 +104,26 @@ class ComputedPurchaseOrder(models.Model):
         """ average consumption)\n"""
         """ * Target type 'kg': computed purchase order will weight at"""
         """ least the weight specified""")
+    line_order_field = fields.Selection(
+        [
+            ('product_code', 'Supplier Product Code'),
+            ('product_name', 'Supplier Product Name'),
+            ('product_sequence', 'Product Sequence'),
+        ],
+        string='Lines Order',
+        help='The field used to sort the CPO lines',
+        default='product_code',
+        required=True,
+    )
+    line_order = fields.Selection(
+        [
+            ('asc', 'Ascending'),
+            ('desc', 'Descending'),
+        ],
+        string='Lines Order Direction',
+        default='asc',
+        required=True,
+    )
     valid_psi = fields.Selection(
         _VALID_PSI, 'Supplier choice', required=True,
         default='first',
@@ -167,6 +187,8 @@ class ComputedPurchaseOrder(models.Model):
         if self.partner_id:
             self.purchase_target = self.partner_id.purchase_target
             self.target_type = self.partner_id.target_type
+            self.line_order_field = self.partner_id.cpo_line_order_field
+            self.line_order = self.partner_id.cpo_line_order
         self.line_ids = map(lambda x: (2, x.id, False), self.line_ids)
 
     # Overload Section
@@ -180,57 +202,23 @@ class ComputedPurchaseOrder(models.Model):
 
     @api.multi
     def write(self, vals):
-        cpo_id = super(ComputedPurchaseOrder, self).write(vals)
-        if self.update_sorting(vals):
-            self._sort_lines()
-        return cpo_id
+        res = super(ComputedPurchaseOrder, self).write(vals)
+        if 'line_ids' in vals:
+            self.sort_lines()
+        return res
 
     @api.multi
-    def update_sorting(self, vals):
-        for cpo in self:
-            try:
-                line_ids = vals.get('line_ids', False)
-                if not line_ids:
-                    return False
-                # this context check will allow you to change the field list
-                # without overriding the whole function
-                need_sorting_fields = self.env.context.get(
-                    'need_sorting_fields', False)
-                if not need_sorting_fields:
-                    need_sorting_fields = [
-                        'average_consumption',
-                        'computed_qty',
-                        'stock_duration',
-                        'manual_input_output_qty',
-                    ]
-                for value in line_ids:
-                    if len(value) > 2 and value[2] and isinstance(
-                            value[2], dict) and (set(
-                            need_sorting_fields) & set(value[2].keys())):
-                        return True
-                return False
-            except:
-                return False
+    def sort_lines(self):
+        for rec in self:
+            # sort based on field
+            lines = rec.line_ids.sorted(
+                key=lambda l: getattr(l, rec.line_order_field),
+                reverse=(rec.line_order == 'desc'))
+            # store new sequence
+            for i, line in enumerate(lines):
+                line.sequence = i
 
     # Private Section
-    @api.multi
-    def _sort_lines(self):
-        cpol_obj = self.env['computed.purchase.order.line']
-        for cpo in self:
-            lines = cpol_obj.browse([x.id for x in cpo.line_ids]).read(
-                ['stock_duration', 'average_consumption'])
-            lines = sorted(
-                lines, key=lambda line: line['average_consumption'],
-                reverse=True)
-            lines = sorted(lines, key=lambda line: line['stock_duration'])
-
-            id_index_list = {}
-            for i in lines:
-                id_index_list[i['id']] = lines.index(i)
-            for line_id in id_index_list.keys():
-                cpol_obj.browse(line_id).write(
-                    {'sequence': id_index_list[line_id]})
-
     @api.model
     def _make_po_lines(self):
         all_lines = []

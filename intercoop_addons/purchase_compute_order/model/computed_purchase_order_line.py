@@ -53,6 +53,7 @@ class ComputedPurchaseOrderLine(models.Model):
         domain=[('purchase_ok', '=', True)])
     uom_id = fields.Many2one(
         related='product_id.uom_id', string="UoM", readonly='True')
+    product_sequence = fields.Integer(related='product_id.sequence')
     product_code = fields.Char('Supplier Product Code',)
     product_code_inv = fields.Char(
         compute='_get_product_information', inverse='_set_product_code',

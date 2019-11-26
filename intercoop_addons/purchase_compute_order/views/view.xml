@@ -42,6 +42,8 @@
                         <group string="Compute Order" colspan="3" col="3">
                             <field name="purchase_target"/>
                             <field name="target_type" nolabel="1"/>
+                            <field name="line_order_field" invisible="1"/>
+                            <field name="line_order" invisible="1"/>
                             <button name="compute_purchase_quantities"
                                 type="object"
                                 string="Compute Purchase Quantities"
@@ -60,6 +62,7 @@
                     </group>
                     <notebook colspan="4">
                         <page name="orderlines" string="Order lines">
+                            <button name="sort_lines" type="object" string="Sort lines" groups="base.group_no_one"/>
                             <field name="line_ids" options="{'reload_on_button': true}">
                                 <tree
                     string="Computed purchase order lines"
@@ -160,18 +163,24 @@
     </record>
 
 
-<!-- View : res.partner -->
+    <!-- View : res.partner -->
     <record id="view_partner_form_cpo" model="ir.ui.view">
         <field name="name">res.partner.form.cpo</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <field name="user_id" position="after">
-                <group colspan='2' col='3'>
-                    <field name="purchase_target"/>
-                    <field name="target_type" nolabel="1"/>
-                </group>
-            </field>
+            <group name="purchase" position="inside">
+                <div name="purchase_target">
+                    <field name="purchase_target" class="oe_inline"/>
+                    <field name="target_type" class="oe_inline"/>
+                </div>
+                <label for="cpo_line_order_field"/>
+                <div name="cpo_line_order_field">
+                    <field name="cpo_line_order_field" class="oe_inline"/>
+                    <field name="cpo_line_order" class="oe_inline"/>
+                </div>
+            </group>
         </field>
     </record>
+
 </odoo>
