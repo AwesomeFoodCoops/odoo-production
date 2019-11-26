@@ -10,6 +10,8 @@
             <xpath expr="//field[@name='history_range']" position="after">
               <button name="update_history" string="Update History"
                       type="object"/>
+              <button name="calc_history" string="Calculate History"
+                      type="object" invisible="1"/>
             </xpath>
         </field>
     </record>

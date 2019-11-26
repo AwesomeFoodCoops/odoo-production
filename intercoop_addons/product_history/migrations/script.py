@@ -3,6 +3,7 @@
 from openerp import SUPERUSER_ID
 from openerp.addons.connector.session import ConnectorSession
 from openerp.addons.connector.queue.job import job, related_action
+from collections import defaultdict
 
 import logging
 logger = logging.getLogger('openerp.louve_change_translation')
@@ -29,20 +30,23 @@ def update_products_history(session, product_ids):
                     order='from_date')
                 if history_lines:
                     sql = """
-                            SELECT min(sm.id), sm.product_id,
-                            date_trunc(%s, sm.date)::date,
-                                sum(sm.product_qty) as product_qty
-                            FROM stock_move as sm, stock_location as orig,
-                                stock_location as dest
-                            WHERE sm.location_id = orig.id and
-                                sm.location_dest_id = dest.id
-                                and sm.product_id = %s and
-                                sm.date >= %s and
-                                sm.date <= %s and
-                                dest.usage = 'inventory' and
-                                sm.state != 'cancel'
-                            GROUP BY sm.product_id, date_trunc(%s,sm.date)
-                            ORDER BY sm.product_id, date_trunc(%s,sm.date)
+                        SELECT date_trunc(%s, sm.date)::date,
+                            orig.usage usage,
+                            CASE WHEN orig.usage = 'inventory'
+                            THEN SUM(sm.product_qty)
+                            ELSE -sum(sm.product_qty) END product_qty
+                        FROM stock_move as sm, stock_location as orig,
+                            stock_location as dest
+                        WHERE sm.location_id = orig.id and
+                            sm.location_dest_id = dest.id
+                            and sm.product_id = %s and
+                            sm.date >= %s and
+                            sm.date <= %s and
+                            (dest.usage = 'inventory' or
+                             orig.usage = 'inventory') and
+                            sm.state = 'done'
+                        GROUP BY date_trunc(%s,sm.date), orig.usage
+                        ORDER BY date_trunc(%s,sm.date)
                             """
                     params = (history_range[:-1], product_id,
                               history_lines[0].from_date,
@@ -50,17 +54,13 @@ def update_products_history(session, product_ids):
                               history_range[:-1], history_range[:-1])
                     session.env.cr.execute(sql, params)
                     stock_moves = session.env.cr.fetchall()
-                    stock_moves_dict = {}
+                    stock_moves_dict = defaultdict(float)
                     for move in stock_moves:
                         # set sm.date as a key
-                        stock_moves_dict[move[2]] = move
+                        stock_moves_dict[move[0]] += move[2]
                     opening_qty = history_lines[0].start_qty
                     for line in history_lines:
-                        move = stock_moves_dict.get(line.from_date, [])
-                        if move:
-                            loss_qty = -move[3]  # Loss Qty
-                        else:
-                            loss_qty = 0
+                        loss_qty = stock_moves_dict.get(line.from_date, 0)
                         end_qty = opening_qty + line.purchase_qty + \
                             line.sale_qty + loss_qty
                         line.write({'start_qty': opening_qty,
@@ -86,7 +86,6 @@ def product_history_update_background(cr):
                           for i in range(0, len(product_ids),
                                          num_prod_per_job)]
     # Create jobs
-    print splitted_prod_list
     for product_list in splitted_prod_list:
         create_job_to_update_product_history.delay(
             session, 'product.history', product_list, priority=1,
