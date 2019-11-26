@@ -23,7 +23,7 @@
 
 {
     'name': 'Computed Purchase Order',
-    'version': '9.0.1',
+    'version': '9.0.2',
     'category': 'Purchase',
     'description': """
 Provide tools to help purchaser during purchase process

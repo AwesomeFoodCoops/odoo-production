@@ -700,10 +700,6 @@
                                     <field name="force_customer" invisible="True"/>
                                     <field name="user_id"
                                            context="{'default_groups_ref': ['base.group_partner_manager']}"/>
-                                    <group colspan="2" col="3">
-                                        <field name="purchase_target"/>
-                                        <field name="target_type" nolabel="1"/>
-                                    </group>
                                     <field name="property_product_pricelist"
                                            groups="product.group_sale_pricelist"
                                            attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False)]}"/>
@@ -721,8 +717,17 @@
                                 </group>
                                 <group string="Purchase" name="purchase">
                                     <field name="supplier"/>
-                                    <field name="property_purchase_currency_id"
-                                           groups="base.group_multi_currency"/>
+                                    <field name="property_purchase_currency_id" groups="base.group_multi_currency"/>
+                                    <label for="purchase_target"/>
+                                    <div name="purchase_target">
+                                        <field name="purchase_target" class="oe_inline"/>
+                                        <field name="target_type" class="oe_inline"/>
+                                    </div>
+                                    <label for="cpo_line_order_field"/>
+                                    <div name="cpo_line_order_field">
+                                        <field name="cpo_line_order_field" class="oe_inline"/>
+                                        <field name="cpo_line_order" class="oe_inline"/>
+                                    </div>
                                 </group>
                                 <group string="Misc">
                                     <field name="ref"/>
