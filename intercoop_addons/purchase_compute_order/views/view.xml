@@ -62,7 +62,7 @@
                     </group>
                     <notebook colspan="4">
                         <page name="orderlines" string="Order lines">
-                            <button name="sort_lines" type="object" string="Sort lines"/>
+                            <button name="sort_lines" type="object" string="Sort lines" groups="base.group_no_one"/>
                             <field name="line_ids" options="{'reload_on_button': true}">
                                 <tree
                     string="Computed purchase order lines"
