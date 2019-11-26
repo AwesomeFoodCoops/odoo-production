@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-21 14:10+0000\n"
-"PO-Revision-Date: 2019-10-21 14:10+0000\n"
+"POT-Creation-Date: 2019-11-26 20:33+0000\n"
+"PO-Revision-Date: 2019-11-26 20:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,25 +16,15 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: purchase_compute_order
-#: model:ir.model.fields,help:purchase_compute_order.field_product_product_is_mercuriale
-msgid "A product in mercuriale has price that changes very regularly."
-msgstr "Un produit en mercuriale voit son prix changer très fréquemment."
-
-#. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_active
 msgid "Active"
 msgstr "Actif"
 
 #. module: purchase_compute_order
-#: code:addons/purchase_compute_order/model/computed_purchase_order.py:389
+#: code:addons/purchase_compute_order/model/computed_purchase_order.py:377
 #, python-format
 msgid "All purchase quantities are set to 0!"
 msgstr "Toutes les quantités d'achat sont à 0!"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_pos_allow_negative_qty
-msgid "Allow Negative Quantity on PoS"
-msgstr "PdV - Autoriser les quantités négatives"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_computed_amount
@@ -45,6 +35,12 @@ msgstr "Montant de la commande"
 #: model:ir.ui.view,arch_db:purchase_compute_order.view_update_products_form
 msgid "Apply"
 msgstr "Appliquer"
+
+#. module: purchase_compute_order
+#: selection:computed.purchase.order,line_order:0
+#: selection:res.partner,cpo_line_order:0
+msgid "Ascending"
+msgstr "Ascendant"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_displayed_average_consumption
@@ -62,6 +58,16 @@ msgid "By unchecking the active field, you may hide this item without deleting i
 msgstr "En décochant la case actif, vous pouvez cacher cet enregistrement sans le supprimer."
 
 #. module: purchase_compute_order
+#: model:ir.model.fields,field_description:purchase_compute_order.field_res_partner_cpo_line_order_field
+msgid "CPO Lines Order"
+msgstr "Ordre des lignes CPO"
+
+#. module: purchase_compute_order
+#: model:ir.model.fields,field_description:purchase_compute_order.field_res_partner_cpo_line_order
+msgid "CPO Lines Order Direction"
+msgstr "Ordre des lignes CPO (direction)"
+
+#. module: purchase_compute_order
 #: model:ir.ui.view,arch_db:purchase_compute_order.view_update_products_form
 msgid "Cancel"
 msgstr "Annuler"
@@ -70,11 +76,6 @@ msgstr "Annuler"
 #: selection:computed.purchase.order,state:0
 msgid "Canceled"
 msgstr "Annulé"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_fresh_category
-msgid "Category for Fresh Product"
-msgstr "Catégorie de produits frais"
 
 #. module: purchase_compute_order
 #: model:ir.actions.act_window,help:purchase_compute_order.action_view_computed_purchase_order_tree
@@ -161,16 +162,6 @@ msgid "Converted"
 msgstr "Converti"
 
 #. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_pricetag_rackinfos
-msgid "Coop rack fields"
-msgstr "Coop rack fields"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,help:purchase_compute_order.field_product_product_country_id
-msgid "Country of production of the product"
-msgstr "Pays de production du produit"
-
-#. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_create_uid
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_create_uid
 #: model:ir.model.fields,field_description:purchase_compute_order.field_update_products_line_wizard_create_uid
@@ -192,9 +183,10 @@ msgid "Default Unit of Measure used for all stock operation."
 msgstr "Unité de mesure par défaut utilisée pour toutes les opérations de stock"
 
 #. module: purchase_compute_order
-#: model:ir.model.fields,help:purchase_compute_order.field_product_product_department_id
-msgid "Department of production of the product"
-msgstr "Département de production du produit"
+#: selection:computed.purchase.order,line_order:0
+#: selection:res.partner,cpo_line_order:0
+msgid "Descending"
+msgstr "Descendant"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_discount
@@ -223,45 +215,9 @@ msgid "Draft"
 msgstr "Brouillon"
 
 #. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_expiration_date_days
-msgid "Expiration Date (Days)"
-msgstr "DLC (En jour)"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,help:purchase_compute_order.field_product_product_fresh_category
-msgid "Extra - Hight Quality : product without default ;\n"
-"Quality I - Good Quality : Product with little defaults ;\n"
-"Quality II - Normal Quality : Product with default ;\n"
-"Quality III - Bad Quality : Use this option only in specific situation."
-msgstr "Extra - Excellente Qualité : Article sans défaut ;\n"
-"Qualité I - Bonne Qualité : Article avec quelques défauts ;\n"
-"Qualité II - Qualité Normal : Article avec défauts ;\n"
-"Qualité III - Mauvaise Qualité : N'utilisez cette option que dans des cas spécifiques."
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_extra_note_bizerba_pricetag_1
-msgid "Extra Note printed on Bizerba Pricetags #1"
-msgstr "Information pour les étiquettes Bizerba #1"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_extra_note_bizerba_pricetag_2
-msgid "Extra Note printed on Bizerba Pricetags #2"
-msgstr "Information pour les étiquettes Bizerba #2"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_extra_food_info
-msgid "Extra information for invoices"
-msgstr "Information complémentaire sur facture"
-
-#. module: purchase_compute_order
 #: model:ir.ui.view,arch_db:purchase_compute_order.view_computed_purchase_order_form
 msgid "Fetch all active products sold by selected supplier and calculate the available quantities. It ignores inactive or not purchasable products and products in state 'obsolete' or 'end'"
 msgstr "Récupère tous les produits actifs vendus par le fournisseur et calcule les stocks disponibles. Les produits inactifs ou non achetable sont ignorés ainsi que les produit en état 'fin de cycle de vie' ou 'obsolète'."
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,help:purchase_compute_order.field_product_product_expiration_date_days
-msgid "Field used to compute the expiration date. (Number of days after packaging the product)"
-msgstr "Champ utilisé pour calculer la DLC. (Nombre de jour après la date d'emballage du produit)"
 
 #. module: purchase_compute_order
 #: model:ir.ui.view,arch_db:purchase_compute_order.view_computed_purchase_order_form
@@ -279,12 +235,17 @@ msgid "Gives the sequence order when displaying a list of purchase order lines."
 msgstr "Donne le numéro de séquance lors de l'affichage des lignes."
 
 #. module: purchase_compute_order
+#: model:ir.model.fields,help:purchase_compute_order.field_computed_purchase_order_line_product_sequence
+msgid "Gives the sequence order when displaying a product list"
+msgstr "Indique l'ordre d'affichage lorsqu'une liste d'articles est affichée."
+
+#. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_id
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_id
 #: model:ir.model.fields,field_description:purchase_compute_order.field_update_products_line_wizard_id
 #: model:ir.model.fields,field_description:purchase_compute_order.field_update_products_wizard_id
 msgid "ID"
-msgstr "ID"
+msgstr "Identifiant"
 
 #. module: purchase_compute_order
 #: model:ir.ui.view,arch_db:purchase_compute_order.view_computed_purchase_order_form
@@ -307,24 +268,9 @@ msgid "Indicate if there were any products updated in the list"
 msgstr "Indique si des produits de la liste ont été modifiés"
 
 #. module: purchase_compute_order
-#: model:ir.model,name:purchase_compute_order.model_product_supplierinfo
-msgid "Information about a product vendor"
-msgstr "Information sur le vendeur de l'article"
-
-#. module: purchase_compute_order
 #: model:ir.model,name:purchase_compute_order.model_update_products_line_wizard
 msgid "Information about products to update"
 msgstr "Informations sur les produits à mettre à jour"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_ingredients
-msgid "Ingredients"
-msgstr "Ingrédients"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_label_ids
-msgid "Labels"
-msgstr "Labels"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order___last_update
@@ -340,7 +286,7 @@ msgstr "Dernière modification le"
 #: model:ir.model.fields,field_description:purchase_compute_order.field_update_products_line_wizard_write_uid
 #: model:ir.model.fields,field_description:purchase_compute_order.field_update_products_wizard_write_uid
 msgid "Last Updated by"
-msgstr "Mis à jour par"
+msgstr "Dernière mise à jour par"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_write_date
@@ -348,7 +294,17 @@ msgstr "Mis à jour par"
 #: model:ir.model.fields,field_description:purchase_compute_order.field_update_products_line_wizard_write_date
 #: model:ir.model.fields,field_description:purchase_compute_order.field_update_products_wizard_write_date
 msgid "Last Updated on"
-msgstr "Mis à jour le"
+msgstr "Dernière mise à jour le"
+
+#. module: purchase_compute_order
+#: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_order_field
+msgid "Lines Order"
+msgstr "Lines Order"
+
+#. module: purchase_compute_order
+#: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_order
+msgid "Lines Order Direction"
+msgstr "Lines Order Direction"
 
 #. module: purchase_compute_order
 #: model:ir.ui.view,arch_db:purchase_compute_order.view_computed_purchase_order_form
@@ -356,19 +312,9 @@ msgid "Make Purchase Order"
 msgstr "Convertir en commande d'achat"
 
 #. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_maker_description
-msgid "Maker"
-msgstr "Producteur"
-
-#. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_manual_input_output_qty
 msgid "Manual variation"
 msgstr "Var. manu."
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_is_mercuriale
-msgid "Mercuriale Product"
-msgstr "Produit en Mercuriale"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,help:purchase_compute_order.field_computed_purchase_order_valid_psi
@@ -382,7 +328,6 @@ msgstr "Durée minimum après commande"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_weight
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_weight_net
 msgid "Net Weight"
 msgstr "Poids Net"
 
@@ -425,21 +370,6 @@ msgid "Order lines"
 msgstr "Lignes de commande"
 
 #. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_origin_description
-msgid "Origin Complement"
-msgstr "Complément d'origine"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_country_id
-msgid "Origin Country"
-msgstr "Pays d'origine"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_department_id
-msgid "Origin Department"
-msgstr "Département d'origine"
-
-#. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_outgoing_qty
 msgid "Outgoing Quantity"
 msgstr "Quantité sortante"
@@ -476,16 +406,6 @@ msgid "Price Policy"
 msgstr "Tarification"
 
 #. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_price_weight_net
-msgid "Price by kg"
-msgstr "Prix/kg"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_price_volume
-msgid "Price by liter"
-msgstr "Prix/L"
-
-#. module: purchase_compute_order
 #: model:ir.model,name:purchase_compute_order.model_product_product
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_product_id
 #: model:ir.model.fields,field_description:purchase_compute_order.field_update_products_line_wizard_product_id
@@ -498,19 +418,15 @@ msgid "Product Information"
 msgstr "Information de l'article"
 
 #. module: purchase_compute_order
-#: model:ir.model,name:purchase_compute_order.model_product_template
-msgid "Product Template"
-msgstr "Modèle d'article"
+#: selection:computed.purchase.order,line_order_field:0
+#: selection:res.partner,cpo_line_order_field:0
+msgid "Product Sequence"
+msgstr "Séquence"
 
 #. module: purchase_compute_order
 #: sql_constraint:computed.purchase.order.line:0
 msgid "Product must be unique by computed purchase order!"
 msgstr "Un produit ne peut pas apparaître plusieurs fois!"
-
-#. module: purchase_compute_order
-#: model:ir.model.fields,help:purchase_compute_order.field_product_product_origin_description
-msgid "Production location complementary information"
-msgstr "Information complémentaire sur la production"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,help:purchase_compute_order.field_computed_purchase_order_line_ids
@@ -519,7 +435,7 @@ msgid "Products to order."
 msgstr "Produits à commander."
 
 #. module: purchase_compute_order
-#: code:addons/purchase_compute_order/model/computed_purchase_order.py:411
+#: code:addons/purchase_compute_order/model/computed_purchase_order.py:399
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_purchase_order_id
 #: model:ir.ui.view,arch_db:purchase_compute_order.view_cpo_config_settings
 #, python-format
@@ -570,11 +486,6 @@ msgstr "Plage (en jours) pour l'affichage de la\n"
 "        consommation moyenne"
 
 #. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_fresh_range
-msgid "Range for Fresh Product"
-msgstr "Gamme de produits frais alimentaires"
-
-#. module: purchase_compute_order
 #: model:ir.ui.view,arch_db:purchase_compute_order.view_purchase_order_line_tree
 msgid "Reference"
 msgstr "Référence"
@@ -590,6 +501,7 @@ msgid "Search Purchase Order"
 msgstr "Chercher un bon de commande"
 
 #. module: purchase_compute_order
+#: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_product_sequence
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_sequence
 msgid "Sequence"
 msgstr "Séquence"
@@ -598,6 +510,11 @@ msgstr "Séquence"
 #: model:ir.model.fields,help:purchase_compute_order.field_computed_purchase_order_line_state
 msgid "Shows if the product's information has been updated"
 msgstr "Indique si les informations du produit ont été modifiées"
+
+#. module: purchase_compute_order
+#: model:ir.ui.view,arch_db:purchase_compute_order.view_computed_purchase_order_form
+msgid "Sort lines"
+msgstr "Sort lines"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_cpo_state
@@ -632,18 +549,22 @@ msgid "Supplier"
 msgstr "Fournisseur"
 
 #. module: purchase_compute_order
+#: selection:computed.purchase.order,line_order_field:0
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_product_code
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_product_code_inv
 #: model:ir.model.fields,field_description:purchase_compute_order.field_update_products_line_wizard_product_code
+#: selection:res.partner,cpo_line_order_field:0
 msgid "Supplier Product Code"
-msgstr "Code (fourn)"
+msgstr "Référence fournisseur"
 
 #. module: purchase_compute_order
+#: selection:computed.purchase.order,line_order_field:0
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_product_name
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_product_name_inv
 #: model:ir.model.fields,field_description:purchase_compute_order.field_update_products_line_wizard_product_name
+#: selection:res.partner,cpo_line_order_field:0
 msgid "Supplier Product Name"
-msgstr "Nom (fourn)"
+msgstr "Nom de l'article chez le fournisseur"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_line_product_price
@@ -679,14 +600,15 @@ msgid "Target Type"
 msgstr "Type d'objectif"
 
 #. module: purchase_compute_order
-#: model:ir.model.fields,field_description:purchase_compute_order.field_product_product_pricetag_origin
-msgid "Text about origin"
-msgstr "Texte concernant l'origine"
-
-#. module: purchase_compute_order
 #: model:ir.model.fields,help:purchase_compute_order.field_computed_purchase_order_line_qty_available
 msgid "The available quantity on hand for this product"
 msgstr "Le stock de produit disponible"
+
+#. module: purchase_compute_order
+#: model:ir.model.fields,help:purchase_compute_order.field_computed_purchase_order_line_order_field
+#: model:ir.model.fields,help:purchase_compute_order.field_res_partner_cpo_line_order_field
+msgid "The field used to sort the CPO lines"
+msgstr "The field used to sort the CPO lines"
 
 #. module: purchase_compute_order
 #: model:ir.model.fields,help:purchase_compute_order.field_update_products_line_wizard_package_qty
@@ -746,7 +668,7 @@ msgid "This price will be considered as a price for the supplier Unit of Measure
 msgstr "Le prix du produit par UdM d'achat"
 
 #. module: purchase_compute_order
-#: code:addons/purchase_compute_order/model/computed_purchase_order_line.py:339
+#: code:addons/purchase_compute_order/model/computed_purchase_order_line.py:340
 #, python-format
 msgid "This product is already in the list!"
 msgstr "Ce produit est déjà dans la liste!"
