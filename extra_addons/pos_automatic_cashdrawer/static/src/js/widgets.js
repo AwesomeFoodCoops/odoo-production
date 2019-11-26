@@ -49,6 +49,7 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
 
     /*
         Add Cashdrawer connection to the ProxyStatus widget
+        It'll also monitor cashdrawer cashbox initial balance status
     */
     chrome.ProxyStatusWidget.include({
         set_smart_status: function (status) {
@@ -314,6 +315,40 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
                             }));
                         });
                     }
+                });
+            });
+        },
+
+        action_sync_opening_balance: function() {
+            var self = this;
+            this.pos.check_opening_balance_missing().then(function(res) {
+                if (res == true) {
+                    self.pos.proxy.automatic_cashdrawer_get_inventory().then(function(res) {
+                        self.pos.action_set_balance(res.total, 'start')
+                        .then(function(res) {
+                            self.gui.show_popup('alert', {
+                                title: _t('Opening Balance Set'),
+                                body: _t('Success'),
+                            });
+                        });
+                    });
+                } else {
+                    self.gui.show_popup('error', {
+                        title: _t('Unable to set balance on opened sessions'),
+                        body: _t('It looks the session is already opened'),
+                    });
+                };
+            });
+        },
+
+        action_sync_closing_balance: function() {
+            var self = this;
+            this.pos.proxy.automatic_cashdrawer_get_inventory().then(function(res) {
+                self.pos.action_set_balance(res.total, 'end').then(function(res) {
+                    self.gui.show_popup('alert', {
+                        title: _t('Closing Balance Set'),
+                        body: _t('Success'),
+                    });
                 });
             });
         },

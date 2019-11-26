@@ -4,9 +4,55 @@
 from openerp import api, models, fields, _
 from openerp.exceptions import UserError
 
+import logging
+_logger = logging.getLogger(__name__)
+
 
 class PosSession(models.Model):
     _inherit = 'pos.session'
+
+    @api.multi
+    def check_opening_balance_missing(self):
+        self.ensure_one()
+        self.check_cash_in_out_possible()
+        if self.cash_register_id.cashbox_start_id:
+            _logger.warning('Cashbox is already started')
+            return False
+        if self.cash_register_id.line_ids:
+            _logger.warning('Cashbox is missing but there are already lines')
+            return False
+        return True
+
+    @api.multi
+    def action_set_balance(self, inventory, balance='start'):
+        '''
+        Sets the opening balance.
+        Inventory is a dict with:
+        { denomination: quantity }
+        '''
+        self.ensure_one()
+        self.check_cash_in_out_possible()
+        # Try to fetch current cashbox
+        if balance == 'start':
+            cashbox = self.cash_register_id.cashbox_start_id
+        else:
+            cashbox = self.cash_register_id.cashbox_end_id
+        # Or create a new one..
+        if not cashbox:
+            cashbox = self.env['account.bank.statement.cashbox'].create({})
+        # Add context values
+        cashbox = cashbox.with_context(
+            bank_statement_id=self.cash_register_id.id,
+            balance=balance)
+        # Replace lines with inventory
+        cashbox.cashbox_lines_ids = [(5, 0, 0)]
+        cashbox.cashbox_lines_ids = [
+            (0, 0, {'coin_value': value, 'number': number})
+            for value, number in inventory.items()
+        ]
+        # Validate
+        cashbox.validate()
+        return True
 
     @api.multi
     def check_cash_in_out_possible(self):

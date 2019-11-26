@@ -24,6 +24,8 @@ odoo.define('pos_automatic_cashdrawer.models', function (require) {
         'group_pos_automatic_cashlogy_config',
     ]);
 
+    var Session = new Model('pos.session');
+
     /*
         PosModel
     */
@@ -44,17 +46,39 @@ odoo.define('pos_automatic_cashdrawer.models', function (require) {
             return _super_PosModel.after_load_server_data.apply(this, arguments);
         },
 
+        // Checks if the opening balance is missing, fails silently
+        check_opening_balance_missing: function() {
+            var done = new $.Deferred();
+            Session.call('check_opening_balance_missing', [this.pos_session.id])
+            .then(function(res) { done.resolve(res); })
+            .fail(function(err) { console.error(err); done.resolve(false); })
+            return done;
+        },
+
+        // Sets the balance
+        action_set_balance: function(inventory, balance) {
+            var done = Session.call('action_set_balance', [this.pos_session.id], {
+                'inventory': inventory,
+                'balance': balance,
+            });
+            done.fail(function(error) {
+                self.pos.gui.show_popup('error-traceback', {
+                    'title': _t('Set balance error: ') + error.data.message,
+                    'body': error.data.debug
+                });
+            });
+            return done;
+        },
+
         // Checks if the session is able to do cash operations
         check_cash_in_out_possible: function() {
-            var session = new Model('pos.session');
-            return session.call('check_cash_in_out_possible', [this.pos_session.id]);
+            return Session.call('check_cash_in_out_possible', [this.pos_session.id]);
         },
 
         // Saves cash in
         action_put_money_in: function(amount, reason) {
             if (!amount) { return $.Deferred().resolve(); }
-            var session = new Model('pos.session');
-            return session.call('action_put_money_in', [this.pos_session.id], {
+            return Session.call('action_put_money_in', [this.pos_session.id], {
                 'amount': amount,
                 'reason': reason,
             });
@@ -62,8 +86,7 @@ odoo.define('pos_automatic_cashdrawer.models', function (require) {
 
         action_take_money_out: function(amount, reason) {
             if (!amount) { return $.Deferred().resolve(); }
-            var session = new Model('pos.session');
-            return session.call('action_take_money_out', [this.pos_session.id], {
+            return Session.call('action_take_money_out', [this.pos_session.id], {
                 'amount': amount,
                 'reason': reason,
             });
