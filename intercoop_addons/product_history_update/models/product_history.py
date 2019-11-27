@@ -3,8 +3,6 @@
 from openerp import models, api
 from openerp.addons.connector.session import ConnectorSession
 from openerp import SUPERUSER_ID
-from openerp.addons.product_history.migrations.script import \
-    update_products_history
 
 
 class ProductTemplate(models.Model):
@@ -12,8 +10,7 @@ class ProductTemplate(models.Model):
 
     @api.multi
     def update_history(self):
-        session = ConnectorSession(self.env.cr, SUPERUSER_ID)
-        update_products_history(session,
+        self.env['product.history'].update_products_history(
                                 self.mapped('product_variant_ids').ids)
         return True
 
