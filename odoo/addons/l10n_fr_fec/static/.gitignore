@@ -1,5 +1,0 @@
-# Ignore csv and txt files in this directory
-*.txt
-*.csv
-# Except this file
-!.gitignore
