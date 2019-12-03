@@ -35,13 +35,13 @@ class ReportAccountAssetXlsx(ReportXlsx):
             'date',
             'value',
             'salvage_value',
-            'value_residual',
             'method',
             'method_number',
             'prorata',
             'amo_ant',
+            'amo_de_lan',
             'cum_amo',
-            'val_nette',
+            'value_residual'
         ]
         self.info_labels = {
             'name': {'str': u"Nom de l'immobilisation"},
@@ -57,11 +57,6 @@ class ReportAccountAssetXlsx(ReportXlsx):
                 'type': 'formula',
                 'format': self.format_table_number
             },
-            'value_residual': {
-                'str': u'Valeur rés.',
-                'type': 'formula',
-                'format': self.format_table_number
-            },
             'method': {'str': u'Méthode'},
             'method_number': {'str': 'Nb. amort.'},
             'prorata': {'str': 'Prorata'},
@@ -70,13 +65,18 @@ class ReportAccountAssetXlsx(ReportXlsx):
                 'type': 'formula',
                 'format': self.format_table_number
             },
+            'amo_de_lan': {
+                'str': u"Amortissement de l'année",
+                'type': 'formula',
+                'format': self.format_table_number
+            },
             'cum_amo': {
                 'str': 'Cum. amo.',
                 'type': 'formula',
                 'format': self.format_table_number
             },
-            'val_nette': {
-                'str': 'Val. nette',
+            'value_residual': {
+                'str': u'Val. résiduelle',
                 'type': 'formula',
                 'format': self.format_table_number
             },
@@ -87,6 +87,7 @@ class ReportAccountAssetXlsx(ReportXlsx):
             'value_residual': [],
             'salvage_value': [],
             'amo_ant': [],
+            'amo_de_lan': [],
             'cum_amo': [],
             'val_nette': [],
         }
@@ -196,6 +197,7 @@ class ReportAccountAssetXlsx(ReportXlsx):
                     'value_residual': '=SUM({}:{})',
                     'salvage_value': '=SUM({}:{})',
                     'amo_ant': '=SUM({}:{})',
+                    'amo_de_lan': '=SUM({}:{})',
                     'cum_amo': '=SUM({}:{})',
                     'val_nette': '=SUM({}:{})',
                 }
@@ -247,6 +249,7 @@ class ReportAccountAssetXlsx(ReportXlsx):
             'value_residual': '=SUM({})',
             'salvage_value': '=SUM({})',
             'amo_ant': '=SUM({})',
+            'amo_de_lan': '=SUM({})',
             'cum_amo': '=SUM({})',
             'val_nette': '=SUM({})',
         }
@@ -368,7 +371,8 @@ class ReportAccountAssetXlsx(ReportXlsx):
         })
         self.format_table_date = workbook.add_format(format_table_date)
 
-        self.format_table_header_dark_grey = workbook.add_format(format_table_header)
+        self.format_table_header_dark_grey = workbook.add_format(
+            format_table_header)
         self.format_table_header_dark_grey.set_bg_color('#808080')
         self.format_table_header_dark_grey.set_font_color('#000000')
 
