@@ -86,7 +86,6 @@ class ResPartner(models.Model):
                     partner_alert_mail_template.send_mail(
                         res_id=partner_alert.id, force_send=True)
 
-
     @api.multi
     def action_grace_partner(self):
         '''
@@ -100,7 +99,9 @@ class ResPartner(models.Model):
         '''
         self.ensure_one()
         # Only grace extensions for suspended user with no extension
-        if self.cooperative_state != 'suspended' or self.extension_ids:
+        if self.cooperative_state != 'suspended' or \
+                (self.extension_ids and any(self.extension_ids.mapped(
+                    'current_extension'))):
             return False
 
         shift_ext_env = self.env['shift.extension']
