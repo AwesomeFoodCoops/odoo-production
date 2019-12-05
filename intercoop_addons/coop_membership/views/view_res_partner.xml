@@ -448,8 +448,7 @@
                         <group string="Extra Data"
                             attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
                             <field name="temp_coop_number"
-                                   groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user"
+                                   groups="coop_membership.group_membership_access_user"
                             />
                             <field name="birthdate" widget="date"
                                    attrs="{'required': [('is_member', '=', True)]}"
@@ -464,8 +463,7 @@
                             />
                             <field name="contact_origin_id"
                                    widget="many2many_tags"
-                                   groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user">
+                                   groups="coop_membership.group_membership_access_user">
                                 <tree>
                                     <field name="event_id"/>
                                     <field name="state" invisible="1"/>
@@ -482,8 +480,7 @@
                                    coop_membership.group_membership_bdm_saisie"/>
                             <field name="date_of_death"
                                    attrs="{'invisible': [('is_deceased', '=', False)]}"/>
-                            <field name="email_pos_receipt" groups="coop_membership.group_membership_see_associated_people,
-                                   coop_membership.group_membership_access_user"/>
+                            <field name="email_pos_receipt" groups="coop_membership.group_membership_access_user"/>
                             <field name="deactivated_date" readonly="1"
                                    groups="coop_membership.group_membership_access_manager" />
                         </group>
@@ -905,6 +902,17 @@
         </field>
     </record>
 
+    <record id="view_partner_form_email_pos_receipt_inherit" model="ir.ui.view">
+        <field name="name">view_partner_form_inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="email_pos_receipt.view_partner_form_inherit" />
+        <field name="arch" type="xml">
+            <field name="email_pos_receipt" position="attributes">
+                <attribute name="groups">coop_membership.group_membership_access_user</attribute>
+            </field>
+        </field>
+    </record>
+
     <!-- Default: Contacts menu will use native form view of res.partner
     We should override form view action of Contacts menu in "mail" module as well to make Odoo open same res_partner form  -->
     <record id="mail.action_contacts_view_form" model="ir.actions.act_window.view">
@@ -929,7 +937,7 @@
                 <field name="is_former_associated_people"/>
                 <field name="is_unpayed"/>
                 <field name="is_unsubscribed"/>
-                <field name="temp_coop_number"/>
+                <field name="temp_coop_number" groups="coop_membership.group_membership_access_user"/>
             </field>
         </field>
     </record>
@@ -1272,7 +1280,7 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
                             <field name="is_unsubscribed"/>
                         </group>
                         <group string="Extra Data">
-                            <field name="temp_coop_number"/>
+                            <field name="temp_coop_number" groups="coop_membership.group_membership_access_user"/>
                             <field name="birthdate" widget="date"
                                    attrs="{'required': [('is_member', '=', True)]}"/>
                             <field name="age"

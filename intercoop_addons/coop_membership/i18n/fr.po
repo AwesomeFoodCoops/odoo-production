@@ -1954,6 +1954,11 @@ msgstr "Numero"
 msgid "Designated buyer"
 msgstr "Acheteur désigné"
 
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_partner_leader_ids
+msgid "Shift Leaders"
+msgstr "Coordinateurs"
+
 #. module: coop_shift
 #: selection:shift.leave,state:0
 msgid "Not finished"
