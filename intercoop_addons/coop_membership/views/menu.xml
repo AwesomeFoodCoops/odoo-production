@@ -237,6 +237,13 @@
         sequence="22"
         groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie"/>
     
+    <record model="ir.ui.menu" id="coop_shift.menu_shift_template">
+        <field name="groups_id" eval="[
+            (4, ref('coop_membership.group_membership_bdm_saisie'))
+            ]"
+        />
+    </record>
+
     <record model="ir.ui.menu" id="menu_action_shift_change_team">
         <field name="name">Change Teams</field>
         <field name="action" ref="action_shift_change_teams"/>

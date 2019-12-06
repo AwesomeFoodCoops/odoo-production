@@ -2335,7 +2335,7 @@ msgstr "Responsable d'équipe"
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_user_ids
 #: model:ir.model.fields,field_description:coop_shift.field_shift_ticket_user_ids
 msgid "Shift Leaders"
-msgstr "Responsables d'équipes"
+msgstr "Coordinateurs"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_mail_form
@@ -3335,7 +3335,7 @@ msgstr "L'intervalle ne peut être négatif."
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_res_partner_is_squadleader
 msgid "is an active Squadleader"
-msgstr "Est responsable d'équipe"
+msgstr "Est un coordinateur"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.shift_report_timesheet_view
