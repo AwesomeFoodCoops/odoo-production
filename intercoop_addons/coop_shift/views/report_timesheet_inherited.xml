@@ -145,5 +145,13 @@
          <xpath expr="//div[@class='page'][2]//table[@class='table table-bordered'][1]/tbody/tr[1]/td[3]" position="attributes">
             <attribute name="style">border-left: 4px solid #ddd</attribute>
         </xpath>
+
+        <xpath expr="//div[@class='page'][2]" position="after">
+            <div class="page"
+                 t-if="(no_pages+1)%2 == 1 and Shifts[-1] != shift"
+                 style="page-break-after:always">
+            </div>
+        </xpath>
+
     </template>
 </openerp>
