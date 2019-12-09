@@ -23,7 +23,7 @@ msgstr "Dernière modification le"
 #. module: coop_print_badge
 #: model:ir.actions.report.xml,name:coop_print_badge.action_report_printbadge
 msgid "Print Badge"
-msgstr "Imprimer Badge"
+msgstr "Imprimer badge"
 
 #. module: coop_print_badge
 #: model:ir.model,name:coop_print_badge.model_report_coop_print_badge_report_printbadge
@@ -43,7 +43,7 @@ msgstr "RATTACHÉ(E)"
 #. module: coop_print_badge
 #: model:ir.model,name:coop_print_badge.model_res_partner
 msgid "Badges To Print"
-msgstr "Badges à imprimer"
+msgstr "Badges à distribuer"
 
 #. module: coop_print_badge
 #: model:ir.ui.menu,name:coop_print_badge.menu_badge_to_print
@@ -71,4 +71,4 @@ msgstr "Badge à imprimer"
 #: model:ir.ui.menu,name:coop_print_badge.menu_badge_to_distribute
 #: model:ir.actions.act_window,name:coop_print_badge.action_badge_to_distribute
 msgid "Badges"
-msgstr "Badges à Récupérer"
+msgstr "Badges à récupérer"
