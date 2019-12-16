@@ -60,6 +60,7 @@ class ProductProduct(models.Model):
         string='last day history record', comodel_name='product.history',)
     last_history_month = fields.Many2one(
         string='last day history record', comodel_name='product.history',)
+    history_updated = fields.Boolean('History Updated', default=False)
 
 # Private section
     @api.onchange(

@@ -3462,7 +3462,7 @@ msgstr ""
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_res_partner_is_squadleader
 msgid "is an active Squadleader"
-msgstr ""
+msgstr "Est un coordinateur"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.shift_report_timesheet_view
