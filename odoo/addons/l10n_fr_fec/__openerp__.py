@@ -16,4 +16,5 @@
     ],
     'installable': True,
     'auto_install': True,
+    'post_init_hook': '_auto_install_fr_fec_custom',
 }
