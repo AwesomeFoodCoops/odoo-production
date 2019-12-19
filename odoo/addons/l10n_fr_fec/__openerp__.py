@@ -5,7 +5,7 @@
 
 {
     'name': 'France - FEC',
-    'version': '1.0',
+    'version': '2.0',
     'category': 'Localization',
     'summary': "Fichier d'Échange Informatisé (FEC) for France",
     'author': "Akretion,Odoo Community Association (OCA)",
@@ -16,5 +16,4 @@
     ],
     'installable': True,
     'auto_install': True,
-    'post_init_hook': '_auto_install_fr_fec_custom',
 }
