@@ -32,6 +32,13 @@ class AccountAssetXlsxWizard(models.TransientModel):
         default='all'
     )
 
+    @api.onchange('to_date')
+    def onchange_to_date(self):
+        if self.to_date:
+            self.from_date = self.to_date[:5] + '01-01'
+        else:
+            self.from_date = False
+
     @api.multi
     def export_report(self):
         self.ensure_one()
@@ -65,7 +72,6 @@ class AccountAssetXlsxWizard(models.TransientModel):
             'date',
             'value',
             'salvage_value',
-            'value_residual',
             'method',
             'method_number',
             'prorata'
@@ -110,7 +116,7 @@ class AccountAssetXlsxWizard(models.TransientModel):
                         new_value = asset_method_dict.get(value, value)
 
                     if new_value:
-                       line_data[column] = new_value
+                        line_data[column] = new_value
 
                 if line_data and asset_category:
                     account_amount_values = \
@@ -164,12 +170,6 @@ class AccountAssetXlsxWizard(models.TransientModel):
                 ('date', "<=", self.to_date),
             ] + aml_period_domain, fields=read_fields)
 
-            aml_before_date_end = self.env['account.move.line'].search_read([
-                ('move_id.asset_id', '=', asset.id),
-                ('account_id.user_type_id', '=', fixed_asset_account_type.id),
-                ('date', "<=", self.to_date),
-            ] + state_domain, fields=read_fields)
-
             amount_before_date_start = sum(
                 [(l['credit'] - l['debit']) for l in aml_before_date_start]
             )
@@ -178,13 +178,11 @@ class AccountAssetXlsxWizard(models.TransientModel):
                 [(l['credit'] - l['debit']) for l in aml_in_range]
             )
 
-            amount_before_date_end = sum(
-                [(l['credit'] - l['debit']) for l in aml_before_date_end]
-            )
-
+            cum_amo = amount_in_range + amount_before_date_start
             account_amount_values.update({
                 'amo_ant': amount_before_date_start * sign,
-                'cum_amo': amount_in_range * sign,
-                'val_nette': amount_before_date_end,
+                'amo_de_lan': amount_in_range * sign,
+                'cum_amo': cum_amo * sign,
+                'value_residual': asset.value - cum_amo,
             })
         return account_amount_values
