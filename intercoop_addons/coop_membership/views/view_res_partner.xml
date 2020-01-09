@@ -262,7 +262,8 @@
                             <group colspan="2">
                                 <field name="related_user_id"
                                        attrs="{'invisible': [('related_user_id', '=', False)]}"
-                                       context="{'form_view_ref': 'base.view_users_form'}"/>
+                                       context="{'form_view_ref': 'base.view_users_form'}"
+                                       groups="create_users_partners.group_create_user_from_partner,coop_membership.group_membership_see_associated_people"/>
                                 <button name="action_create_new_user"
                                         type="object" class="oe_highlight"
                                         string="Create New User"
@@ -361,7 +362,7 @@
                             />
                             <field name="user_ids" invisible="1"/>
                             <field name="notify_email" widget="radio"
-                                   groups="coop_membership.group_membership_bdm_lecture"/>
+                                   groups="coop_membership.group_membership_see_associated_people"/>
                             <field name="opt_out" string="Mailing Opt-Out"
                                    groups="coop_membership.group_membership_bdm_lecture"/>
                             <field name="email" widget="email"
@@ -382,7 +383,7 @@
                                    coop_membership.group_membership_bdm_saisie"/>
                             <field name="lang"
                                    groups="coop_membership.group_membership_access_manager,
-                                   coop_membership.group_membership_bdm_lecture"/>
+                                   coop_membership.group_membership_see_associated_people"/>
                             <field name="category_id" widget="many2many_tags"
                                    placeholder="Tags..."
                                    groups="coop_membership.group_membership_access_manager,
@@ -454,12 +455,14 @@
                                    attrs="{'required': [('is_member', '=', True)]}"
                                    groups="coop_membership.group_membership_see_associated_people,
                                    coop_membership.group_membership_access_user,
-                                   coop_membership.group_membership_bdm_saisie"
+                                   coop_membership.group_membership_bdm_saisie,
+                                   coop_membership.group_membership_see_associated_people"
                             />
                             <field name="age" attrs="{'invisible': [('age', '=', 0)]}"
                                    groups="coop_membership.group_membership_see_associated_people,
                                    coop_membership.group_membership_access_user,
-                                   coop_membership.group_membership_bdm_saisie"
+                                   coop_membership.group_membership_bdm_saisie,
+                                   coop_membership.group_membership_bdm_lecture"
                             />
                             <field name="contact_origin_id"
                                    widget="many2many_tags"
@@ -479,7 +482,11 @@
                                    coop_membership.group_membership_bdm_lecture,
                                    coop_membership.group_membership_bdm_saisie"/>
                             <field name="date_of_death"
-                                   attrs="{'invisible': [('is_deceased', '=', False)]}"/>
+                                   attrs="{'invisible': [('is_deceased', '=', False)]}"
+                                   groups="coop_membership.group_membership_see_associated_people,
+                                   coop_membership.group_membership_access_user,
+                                   coop_membership.group_membership_bdm_lecture,
+                                   coop_membership.group_membership_bdm_saisie"/>
                             <field name="email_pos_receipt" groups="coop_membership.group_membership_access_user"/>
                             <field name="deactivated_date" readonly="1"
                                    groups="coop_membership.group_membership_access_manager" />
@@ -681,7 +688,7 @@
                             </field>
                         </page>
                         <page name="internal_notes" string="Internal Notes"
-                              groups="coop_membership.group_membership_see_associated_people,
+                              groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_bdm_lecture,
                               coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_saisie">
                             <field name="comment" placeholder="Internal note..."/>
                         </page>
