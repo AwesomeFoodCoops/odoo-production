@@ -146,6 +146,10 @@
             <attribute name="style">border-left: 4px solid #ddd</attribute>
         </xpath>
 
+         <xpath expr="//div[@class='page'][1]//table[@class='table table-bordered'][1]/tbody/tr[1]/td[5]" position="replace">
+             <td style="font-size:11px;padding: 4px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><span t-esc="registration['registration'].name[:30]"/></td>
+         </xpath>
+
         <xpath expr="//div[@class='page'][2]" position="after">
             <div class="page"
                  t-if="(no_pages+1)%2 == 1 and Shifts[-1] != shift"
