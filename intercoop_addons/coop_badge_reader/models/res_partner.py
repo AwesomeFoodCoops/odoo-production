@@ -107,8 +107,8 @@ class ResPartner(models.Model):
         shift_ext_env = self.env['shift.extension']
         ext_type_env = self.env['shift.extension.type']
         date_start_str = fields.Date.context_today(self)
-        grace_ext_type = ext_type_env.search([('is_grace_period', '=', True)],
-                                             limit=1)
+        grace_ext_type = ext_type_env.sudo().search([
+            ('is_grace_period', '=', True)], limit=1)
 
         if not grace_ext_type:
             return False
@@ -131,7 +131,7 @@ class ResPartner(models.Model):
                 next_shift_date or date_stop_str
 
         # Create extension
-        shift_ext_env.create({
+        shift_ext_env.sudo().create({
             'date_start': date_start_str,
             'date_stop': date_stop_str,
             'partner_id': self.id,
