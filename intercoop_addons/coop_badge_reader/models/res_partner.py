@@ -98,10 +98,14 @@ class ResPartner(models.Model):
                     be the next shift time
         '''
         self.ensure_one()
+
+        current_extension = self.extension_ids.filtered('current_extension')
+
+        if current_extension:
+            return current_extension.date_stop
+
         # Only grace extensions for suspended user with no extension
-        if self.cooperative_state != 'suspended' or \
-                (self.extension_ids and any(self.extension_ids.mapped(
-                    'current_extension'))):
+        if self.cooperative_state != 'suspended':
             return False
 
         shift_ext_env = self.env['shift.extension']
@@ -131,13 +135,13 @@ class ResPartner(models.Model):
                 next_shift_date or date_stop_str
 
         # Create extension
-        shift_ext_env.sudo().create({
+        res = shift_ext_env.sudo().create({
             'date_start': date_start_str,
             'date_stop': date_stop_str,
             'partner_id': self.id,
             'type_id': grace_ext_type.id
         })
-        return True
+        return res.date_stop
 
     @api.multi
     def set_badge_distributed(self):
