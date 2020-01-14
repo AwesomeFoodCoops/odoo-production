@@ -14,6 +14,13 @@ angular.module('starter').controller('PartnerFormCtrl', ['$scope', '$state',  '$
                     $document[0].getElementById('sound_res_partner_' + partner_res.bootstrap_cooperative_state).play();
                     $scope.partner = partner_res;
                     $scope.contact_us_message = $sce.trustAsHtml(partner_res.contact_us_message);
+                    if (partner_res.cooperative_state == 'delay' && grace_result) {
+                        var date_stop_str = grace_result.slice(8, 10) + '/' + grace_result.slice(5, 7) + '/' + grace_result.slice(0, 4);
+                        $scope.warning_message = $sce.trustAsHtml("Un délai de grâce jusqu'a " + date_stop_str + " ou jusqu'à votre prochain service vous a été attribué. Vous pouvez faire vos courses !");
+                    } else if (partner_res.cooperative_state == 'suspended') {
+                        console.log(partner_res)
+                        $scope.fail_message = $sce.trustAsHtml("Nous n'avons pas pu vous attribuer de délai de grâce, vous devez rattraper vos services avant de faire vos courses.")
+                    }
                 });
             });
         }

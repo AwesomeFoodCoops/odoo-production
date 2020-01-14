@@ -29,7 +29,13 @@
                         <h3 style="display: none;">
                             <span class="label label-danger" ng-show="partner.badge_to_distribute">Badge à distribuer</span>
                         </h3>
-                        <h3 style="text-align: left; margin-top: 20px;">
+                        <h3 ng-show="warning_message" class="text-warning" style="text-align: left; margin-top: 20px;">
+                            <span ng-bind-html="warning_message"></span>
+                        </h3>
+                        <h3 ng-show="fail_message" class="text-danger" style="text-align: left; margin-top: 20px;">
+                            <span ng-bind-html="fail_message"></span>
+                        </h3>
+                        <h3 ng-show="contact_us_message" style="text-align: left; margin-top: 20px;">
                             <span ng-bind-html="contact_us_message"></span>
                         </h3>
                     </div>
