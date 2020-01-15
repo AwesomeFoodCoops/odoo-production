@@ -242,8 +242,8 @@ class ShiftLeave(models.Model):
                 if leave.type_id.is_temp_leave and days_leave < 56:
                     leave.show_proceed_message = True
                     leave.proceed_message = (_(
-                        "Leave duration is under 8 weeks, do you want to proceed?"
-                    ))
+                        "Leave duration is under 8 weeks, "
+                        "do you want to proceed?"))
 
     @api.multi
     @api.constrains('type_id', 'partner_id', 'start_date', 'stop_date')
@@ -256,23 +256,29 @@ class ShiftLeave(models.Model):
                 today and l.state != 'cancel' and
                 l.shift_ticket_id.shift_type == 'standard')
             if record.type_id.is_anticipated:
-                num_line_guess = record.calculate_number_shift_future_in_leave()
+                num_line_guess = \
+                    record.calculate_number_shift_future_in_leave()
                 total_line = len(abcd_lines_in_leave) + num_line_guess
                 if record.partner_id.in_ftop_team:
-                    raise ValidationError(
-                        _("This member is not part of an ABCD team."))
+                    raise ValidationError(_(
+                        "This member is not part of an ABCD team."))
                 elif record.partner_id.final_standard_point != 0:
                     raise ValidationError(_(
-                        "Normally, this member is not eligible for early" +
-                        " leave because he has to catch up"))
+                        "Normally, this member is not eligible for early "
+                        "leave because he has to catch up.\n\n"
+                        "Count: %d") % record.partner_id.final_standard_point)
                 elif total_line < 2:
                     raise ValidationError(_(
                         "The period of leave must include TWO" +
                         " minimum missed services."))
                 elif record.partner_id.final_ftop_point < total_line:
                     raise ValidationError(_(
-                        "The member does not have enough" +
-                        " credits to cover the proposed period."))
+                        "The member does not have enough credits to "
+                        "cover the proposed period.\n\n"
+                        "Required: %d\n"
+                        "Got: %d") % (
+                            total_line,
+                            record.partner_id.final_ftop_point))
 
     @api.multi
     def update_info_anticipated_leave(self):
