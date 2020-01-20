@@ -55,13 +55,13 @@ class CapitalFundraisingWizard(models.TransientModel):
         # case of exception.
         if (
             self.category_id.is_worker_capital_category
-            and not self.partner_id.barcode_rule_id
-            and not self.partner_id.barcode_base
+            and not self.partner_id.barcode
         ):
             barcode_rule_id = self.env['barcode.rule'].search(
                 [('for_type_A_capital_subscriptor', '=', True)], limit=1)
             if barcode_rule_id and barcode_rule_id.generate_type == 'sequence':
                 self.partner_id.barcode_rule_id = barcode_rule_id.id
-                self.partner_id.generate_base()
+                if not self.partner_id.barcode_base:
+                    self.partner_id.generate_base()
                 self.partner_id.generate_barcode()
         return res
