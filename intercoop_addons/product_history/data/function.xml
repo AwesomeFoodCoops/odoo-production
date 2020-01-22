@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- *********************************************************************** -->
-<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
-<!-- *********************************************************************** -->
-<openerp>
-  <data noupdate="1">
-    <function model="product.product" name="init_history"/>
-  </data>
-</openerp>
