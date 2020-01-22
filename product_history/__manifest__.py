@@ -1,8 +1,10 @@
-# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    Product - Average Consumption Module for Odoo
 #    Copyright (C) 2013-Today GRAP (http://www.grap.coop)
+#    Copyright (C) 2019-Today: La Louve (<https://cooplalouve.fr>)
+#    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
+#    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -20,9 +22,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
     'name': 'Product - History',
-    'version': '9.0.2',
+    'version': '12.0.1.0.0',
     'category': 'Product',
     'description': """
 Computes figures about the product's sales, purchases, stocks.
@@ -51,12 +54,12 @@ Copyright, Author and Licence :
         'connector',
     ],
     'data': [
+        'security/product_history_security.xml',
+        'security/ir.model.access.csv',
         'views/res_config_view.xml',
         'views/product_history_view.xml',
         'views/product_template_view.xml',
         'data/function.xml',
         'data/cron.xml',
-        'security/ir_model_access_data.yml',
-        'security/ir_rule_data.yml',
     ],
 }

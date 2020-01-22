@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 
-from openerp import fields, models
+from odoo import fields, models
 
 
 class ProductHistorySettings(models.TransientModel):
-    _inherit = 'stock.config.settings'
+    _inherit = 'res.config.settings'
 
     default_history_range = fields.Selection([
         ('days', 'Days'),

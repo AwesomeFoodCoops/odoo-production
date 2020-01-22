@@ -1,8 +1,10 @@
-# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    Product - Average Consumption Module for Odoo
 #    Copyright (C) 2013-Today GRAP (http://www.grap.coop)
+#    Copyright (C) 2019-Today: La Louve (<https://cooplalouve.fr>)
+#    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
+#    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 #
@@ -21,13 +23,12 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
+from odoo import models, fields, api
 from datetime import date, time
 from datetime import datetime as dt
 from datetime import timedelta as td
 from dateutil.relativedelta import relativedelta as rd
-from openerp.addons.connector.session import ConnectorSession
-from openerp.addons.connector.queue.job import job
+from odoo.addons.queue_job.job import job
 
 
 old_date = date(2015, 1, 1)
@@ -136,7 +137,7 @@ class ProductProduct(models.Model):
                 product.average_consumption = 0
                 product.number_of_periods_real = 0
             else:
-                ids = range(nb)
+                ids = list(range(nb))
                 total_consumption = 0
                 for id in ids:
                     total_consumption -= history_ids[id].sale_qty
@@ -169,13 +170,9 @@ class ProductProduct(models.Model):
         splited_prod_list = \
             [product_ids[i: i + num_prod_per_job]
              for i in range(0, len(product_ids), num_prod_per_job)]
-        # Prepare session for job
-        session = ConnectorSession(self._cr, self._uid,
-                                   context=self.env.context)
         # Create jobs
         for product_list in splited_prod_list:
-            job_compute_history.delay(
-                session, 'product.product', 'weeks', product_list)
+            self.job_compute_history.delay('weeks', product_list)
 
     @api.model
     def run_recompute_6weeks_product_history(self):
@@ -191,13 +188,9 @@ class ProductProduct(models.Model):
         splited_prod_list = \
             [product_ids[i: i + num_prod_per_job]
              for i in range(0, len(product_ids), num_prod_per_job)]
-        # Prepare session for job
-        session = ConnectorSession(
-            self._cr, self._uid, context=self.env.context)
         # Create jobs
         for product_list in splited_prod_list:
-            job_recompute_last_6weeks_history.delay(
-                session, 'product.product', 'weeks', product_list)
+            self.job_recompute_last_6weeks_history.delay('weeks', product_list)
 
     @api.model
     def run_product_history_month(self):
@@ -251,8 +244,7 @@ class ProductProduct(models.Model):
                     WHERE product_id=%s ORDER BY "date" LIMIT 1"""
                     % (product.id))
                 fetch = self.env.cr.fetchone()
-                from_date = fetch and dt.strptime(
-                    fetch[0].split(" ")[0], "%Y-%m-%d").date() or to_date
+                from_date = fetch and fetch[0].date() or to_date
                 if history_range == "months":
                     from_date = date(
                         from_date.year, from_date.month, 1)
@@ -307,10 +299,8 @@ class ProductProduct(models.Model):
 
                 i_move = 0
                 while i_move < len(stock_moves_product):
-                    if stock_moves_product[i_move][2] >=\
-                            fields.Datetime.to_string(from_date) and\
-                            stock_moves_product[i_move][2] <=\
-                            fields.Datetime.to_string(last_date):
+                    if stock_moves_product[i_move][2].date() >= from_date and \
+                            stock_moves_product[i_move][2].date() <= last_date:
                         stock_moves_product_dates.append(
                             stock_moves_product.pop(i_move))
                     else:
@@ -475,16 +465,14 @@ GROUP  BY product_id
 
         return values
 
+    @job
+    def job_compute_history(self, history_range, product_ids):
+        """ Job for Computing Product History """
+        products = self.browse(product_ids)
+        products._compute_history(history_range)
 
-@job
-def job_compute_history(session, model_name, history_range, product_ids):
-    """ Job for Computing Product History """
-    products = session.env[model_name].browse(product_ids)
-    products._compute_history(history_range)
-
-
-@job
-def job_recompute_last_6weeks_history(session, model_name, history_range, product_ids):
-    """ Job for Recompute the last 6 weeks Product History """
-    products = session.env[model_name].browse(product_ids)
-    products.recompute_last_6weeks_history()
+    @job
+    def job_recompute_last_6weeks_history(self, history_range, product_ids):
+        """ Job for Recompute the last 6 weeks Product History """
+        products = self.browse(product_ids)
+        products.recompute_last_6weeks_history()
