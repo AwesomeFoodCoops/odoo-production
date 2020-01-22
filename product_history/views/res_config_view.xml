@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <field name="default_consumption_calculation_method" position="after">
                 <field name="default_number_of_periods" attrs="{'invisible': [('default_consumption_calculation_method','!=','history')]}"/>
-             </field>
+            </field>
         </field>
     </record>
 

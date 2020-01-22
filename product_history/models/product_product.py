@@ -23,13 +23,13 @@
 #
 ##############################################################################
 
-from odoo import models, fields, api
 from datetime import date, time
 from datetime import datetime as dt
 from datetime import timedelta as td
-from dateutil.relativedelta import relativedelta as rd
-from odoo.addons.queue_job.job import job
 
+from dateutil.relativedelta import relativedelta as rd
+from odoo import models, fields, api
+from odoo.addons.queue_job.job import job
 
 old_date = date(2015, 1, 1)
 
@@ -43,7 +43,7 @@ DAYS_IN_RANGE = {
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-# Column section
+    # Column section
     product_tmpl_id = fields.Many2one(comodel_name='product.template')
     history_range = fields.Selection(related="product_tmpl_id.history_range",
                                      readonly=True)
@@ -56,13 +56,13 @@ class ProductProduct(models.Model):
     number_of_periods_target = fields.Integer(
         related='product_tmpl_id.number_of_periods')
     last_history_day = fields.Many2one(
-        string='last day history record', comodel_name='product.history',)
+        string='last day history record', comodel_name='product.history', )
     last_history_week = fields.Many2one(
-        string='last day history record', comodel_name='product.history',)
+        string='last day history record', comodel_name='product.history', )
     last_history_month = fields.Many2one(
-        string='last day history record', comodel_name='product.history',)
+        string='last day history record', comodel_name='product.history', )
 
-# Private section
+    # Private section
     @api.onchange(
         'history_range', 'product_history_ids', 'number_of_periods_target')
     @api.multi
@@ -142,12 +142,12 @@ class ProductProduct(models.Model):
                 for id in ids:
                     total_consumption -= history_ids[id].sale_qty
                 product.total_consumption = total_consumption
-                product.average_consumption = total_consumption / nb /\
-                    DAYS_IN_RANGE[product.history_range]
+                product.average_consumption = \
+                    total_consumption/nb/DAYS_IN_RANGE[product.history_range]
                 product.number_of_periods_real = nb
                 self._displayed_average_consumption()
 
-# Action section
+    # Action section
     @api.model
     def run_product_history_day(self):
         # This method is called by the cron task

@@ -25,7 +25,6 @@
 
 from odoo import models, fields, api
 
-
 HISTORY_RANGE = [
     # TODO: find a way to speed up the day history computation before
     # enabling this in selection again
@@ -52,7 +51,7 @@ class ProductTemplate(models.Model):
             History)'),)
         return selection
 
-# Columns section
+    # Columns section
     consumption_calculation_method = fields.Selection(
         _get_consumption_calculation_method,
         'Consumption Calculation Method', default='moves')
@@ -65,7 +64,7 @@ class ProductTemplate(models.Model):
         'Number of History periods', default=6,
         help="""Number of valid history periods used for the calculation""")
 
-# Private section
+    # Private section
     @api.depends('history_range')
     @api.multi
     def _compute_product_history_ids(self):
@@ -102,6 +101,6 @@ class ProductTemplate(models.Model):
                 template.number_of_periods = number_of_periods
                 template.total_consumption = total_consumption
                 template.average_consumption = (
-                    number_of_periods and
-                    (total_consumption / number_of_periods /
-                        DAYS_IN_RANGE[product.history_range]) or False)
+                        number_of_periods and
+                        (total_consumption / number_of_periods /
+                         DAYS_IN_RANGE[product.history_range]) or False)

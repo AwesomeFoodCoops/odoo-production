@@ -36,7 +36,7 @@ class ProductHistory(models.Model):
     _name = "product.history"
     _order = 'from_date desc'
 
-# Columns section
+    # Columns section
     product_id = fields.Many2one(
         comodel_name='product.product', string='Product',
         required=True, ondelete='cascade')
@@ -70,7 +70,7 @@ class ProductHistory(models.Model):
             history_range)', 'This history line already exists!'),
     ]
 
-# Private section
+    # Private section
     @api.multi
     def mark_line(self, ignored=True):
         for line in self:
@@ -88,7 +88,7 @@ class ProductHistory(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('history_range') == 'weeks' and\
+        if vals.get('history_range') == 'weeks' and \
                 vals.get('sale_qty', 0) == 0:
             vals['ignored'] = True
         return super(ProductHistory, self).create(vals)
