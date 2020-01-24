@@ -10,7 +10,6 @@
     <record model="product.category" id="product_category_fundraising">
         <field name="name">Share Fundraising</field>
         <field name="parent_id" ref="product.product_category_all" />
-        <field name="type">normal</field>
     </record>
 
 </odoo>
