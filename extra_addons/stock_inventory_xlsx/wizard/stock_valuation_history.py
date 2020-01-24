@@ -55,7 +55,10 @@ FROM
             ON stock_move.location_dest_id = dest_location.id
         JOIN stock_location source_location
             ON stock_move.location_id = source_location.id
+        JOIN product_product product
+            ON stock_move.product_id = product.id
         WHERE  quant.qty > 0
+            AND product.active IS TRUE
             AND stock_move.state = 'done'
             AND dest_location.usage IN ( 'internal', 'transit' )
             AND ( NOT ( source_location.company_id IS NULL
@@ -79,7 +82,10 @@ FROM
             ON stock_move.location_id = source_location.id
         JOIN stock_location dest_location
             ON stock_move.location_dest_id = dest_location.id
+        JOIN product_product product
+            ON stock_move.product_id = product.id
         WHERE  quant.qty > 0
+            AND product.active IS TRUE
             AND stock_move.state = 'done'
             AND source_location.usage IN ( 'internal', 'transit' )
             AND ( NOT ( dest_location.company_id IS NULL
