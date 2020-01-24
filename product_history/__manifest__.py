@@ -9,23 +9,6 @@
     'name': 'Product - History',
     'version': '12.0.1.0.0',
     'category': 'Product',
-    'description': """
-Computes figures about the product's sales, purchases, stocks.
-In menu Inventory/Settings, you can choose if this data will be displayed per
-day/week/month.
-===========================================================================
-Possible improvements:
-    Register history per location_id
-    Add production_qty
-
-Copyright, Author and Licence :
--------------------------------
-    * Copyright : 2015-Today, Akretion;
-    * Author :
-        * Julien WESTE;
-        * Sylvain LE GAL (https://twitter.com/legalsylvain);
-    * Licence : AGPL-3 (http://www.gnu.org/licenses/)
-    """,
     'author': 'Akretion',
     'website': 'http://www.akretion.com/fr',
     'license': 'AGPL-3',
