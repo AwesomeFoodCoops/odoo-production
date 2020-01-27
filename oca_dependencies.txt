@@ -7,4 +7,8 @@ purchase-workflow
 server-ux
 server-tools
 web
+stock-logistics-workflow
+stock-logistics-warehouse
+stock-logistics-barcode
+stock-logistics-reporting
 druidoo-addons https://github.com/druidoo/druidoo-addons.git
