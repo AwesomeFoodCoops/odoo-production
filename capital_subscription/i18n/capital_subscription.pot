@@ -27,13 +27,13 @@ msgid " Check this box if you want to use this product for capital fundraising.\
 msgstr ""
 
 #. module: capital_subscription
-#: code:addons/capital_subscription/models/account_invoice.py:83
+#: code:addons/capital_subscription/models/account_invoice.py:88
 #, python-format
 msgid "%s category do not allow %s products"
 msgstr ""
 
 #. module: capital_subscription
-#: code:addons/capital_subscription/models/account_invoice.py:69
+#: code:addons/capital_subscription/models/account_invoice.py:74
 #, python-format
 msgid "A Capital fundraising must have a capital category defined"
 msgstr ""
@@ -181,7 +181,7 @@ msgid "Deficit Product"
 msgstr ""
 
 #. module: capital_subscription
-#: code:addons/capital_subscription/models/account_invoice.py:225
+#: code:addons/capital_subscription/models/account_invoice.py:230
 #: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category__deficit_share_amount_ids
 #: model:product.product,name:capital_subscription.product_deficit_share
 #: model:product.template,name:capital_subscription.product_deficit_share_product_template
@@ -196,7 +196,7 @@ msgid "Deficit Share Account"
 msgstr ""
 
 #. module: capital_subscription
-#: code:addons/capital_subscription/models/account_invoice.py:199
+#: code:addons/capital_subscription/models/account_invoice.py:204
 #, python-format
 msgid "Deficit Share Account has not been configured for %s."
 msgstr ""
@@ -379,7 +379,7 @@ msgid "No by Default"
 msgstr ""
 
 #. module: capital_subscription
-#: code:addons/capital_subscription/models/account_invoice.py:106
+#: code:addons/capital_subscription/models/account_invoice.py:111
 #, python-format
 msgid "Non capital invoice do not accept line with capital subscription products : %s"
 msgstr ""
@@ -595,7 +595,7 @@ msgid "You cannot have two Capital Fundraising Deficit configuration lines that 
 msgstr ""
 
 #. module: capital_subscription
-#: code:addons/capital_subscription/models/account_invoice.py:160
+#: code:addons/capital_subscription/models/account_invoice.py:165
 #, python-format
 msgid "You try to make an operation after which the partner will have %d share(s) of capital of kind '%s'.\n"
 "\n"
@@ -603,7 +603,7 @@ msgid "You try to make an operation after which the partner will have %d share(s
 msgstr ""
 
 #. module: capital_subscription
-#: code:addons/capital_subscription/models/account_invoice.py:145
+#: code:addons/capital_subscription/models/account_invoice.py:150
 #, python-format
 msgid "You try to make an operation after which the partner will have %d shares of capital of kind '%s'.\n"
 "\n"
