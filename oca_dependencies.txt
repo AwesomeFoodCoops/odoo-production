@@ -1,4 +1,5 @@
 account-financial-reporting
+queue
 connector
 l10n-france
 mis-builder
