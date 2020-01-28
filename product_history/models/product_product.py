@@ -13,8 +13,6 @@ from dateutil.relativedelta import relativedelta as rd
 from odoo import models, fields, api
 from odoo.addons.queue_job.job import job
 
-old_date = date(2015, 1, 1)
-
 DAYS_IN_RANGE = {
     'days': 1,
     'weeks': 7,
@@ -133,17 +131,15 @@ class ProductProduct(models.Model):
     @api.model
     def run_product_history_day(self):
         # This method is called by the cron task
-        products = self.env['product.product'].search([
-            '|', ('active', '=', True),
-            ('active', '=', False)])
+        products = self.env['product.product'].with_context(
+            active_test=False).search([])
         products._compute_history('days')
 
     @api.model
     def run_product_history_week(self):
         # This method is called by the cron task
-        products = self.env['product.product'].search([
-            '|', ('active', '=', True),
-            ('active', '=', False)])
+        products = self.env['product.product'].with_context(
+            active_test=False).search([])
 
         product_ids = products.ids
 
@@ -159,9 +155,8 @@ class ProductProduct(models.Model):
     @api.model
     def run_recompute_6weeks_product_history(self):
         # This method is called by the cron task
-        products = self.env['product.product'].search([
-            '|', ('active', '=', True),
-            ('active', '=', False)])
+        products = self.env['product.product'].with_context(
+            active_test=False).search([])
 
         product_ids = products.ids
 
@@ -177,16 +172,14 @@ class ProductProduct(models.Model):
     @api.model
     def run_product_history_month(self):
         # This method is called by the cron task
-        products = self.env['product.product'].search([
-            '|', ('active', '=', True),
-            ('active', '=', False)])
+        products = self.env['product.product'].with_context(
+            active_test=False).search([])
         products._compute_history('months')
 
     @api.model
     def init_history(self):
-        products = self.env['product.product'].search([
-            '|', ('active', '=', True),
-            ('active', '=', False)])
+        products = self.env['product.product'].with_context(
+            active_test=False).search([])
         products._compute_history('months')
         products._compute_history('weeks')
         products._compute_history('days')
@@ -215,7 +208,7 @@ class ProductProduct(models.Model):
                     ORDER BY "id" DESC LIMIT 1""", (product.id, history_range))
                 last_record = self.env.cr.fetchone()
                 last_date = last_record and dt.strptime(
-                    last_record[0], "%Y-%m-%d").date() or old_date
+                    last_record[0], "%Y-%m-%d").date()
                 last_qty = last_record and last_record[1] or 0
                 from_date = last_date + td(days=1)
 
@@ -267,7 +260,7 @@ class ProductProduct(models.Model):
                 continue
 
             product = self.env['product.product'].browse(product_id)
-            from_date = last_dates.get(product_id, old_date)
+            from_date = last_dates.get(product_id)
             last_qty = last_qtys.get(product_id, 0)
             history_id = False
 
