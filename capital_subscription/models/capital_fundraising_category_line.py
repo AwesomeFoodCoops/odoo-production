@@ -18,4 +18,4 @@ class CapitalFundraisingCategoryLine(models.Model):
 
     fundraising_category_id = fields.Many2one(
         comodel_name='capital.fundraising.category', string='Category',
-        required=True)
+        required=True, ondelete='cascade')
