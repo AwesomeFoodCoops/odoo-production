@@ -10,6 +10,7 @@
     'summary': 'Custom settings for membership',
     'author': 'La Louve, Druidoo',
     'website': 'http://www.lalouve.net',
+    'license': 'AGPL-3',
     'depends': [
         'hr_maintenance',
         'project',

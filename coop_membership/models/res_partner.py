@@ -15,6 +15,7 @@ from odoo import models, fields, api, _
 from odoo.addons.queue_job.job import job
 from odoo.exceptions import ValidationError
 from odoo.osv.orm import setup_modifiers
+from odoo.tools.safe_eval import safe_eval
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
     ('not_concerned', 'Not Concerned'),
@@ -236,7 +237,7 @@ class ResPartner(models.Model):
         '''
         config_param_env = self.env['ir.config_parameter']
         key_max_nb = 'coop_membership.max_nb_associated_people'
-        max_nb = eval(config_param_env.sudo().get_param(key_max_nb, '0'))
+        max_nb = safe_eval(config_param_env.sudo().get_param(key_max_nb, '0'))
         key_avail_check = 'coop_membership.associated_people_available'
         avail_check = config_param_env.sudo().get_param(
             key_avail_check, 'unlimited')
