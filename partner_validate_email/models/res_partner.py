@@ -49,8 +49,8 @@ class ResPartner(models.Model):
                     # It still be correct so pass this case.
                     valid = True
                     _logger.warning(
-                        "[TimeoutError] - time out when checking " + "email '%s' - partner_id=" %
-                        (email, self.id))
+                        "[TimeoutError] - time out when checking "
+                        "email '%s' - partner_id=" % (email, self.id))
         elif email_temp:
             valid = False
         else:
