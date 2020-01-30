@@ -36,7 +36,6 @@ project-reporting
 
 server-ux
 server-tools
-server-auth
 server-backend
 
 queue
