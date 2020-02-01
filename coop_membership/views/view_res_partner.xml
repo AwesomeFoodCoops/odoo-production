@@ -360,11 +360,6 @@
                     coop_membership.group_membership_bdm_saisie
                 </attribute>
             </xpath>
-            <xpath expr="//notebook/page[@autofocus='autofocus']" position="attributes">
-                <attribute name="attrs">
-                    {'invisible': [('is_member', '=', False)]}
-                </attribute>
-            </xpath>
             <xpath expr="//field[@name='child_ids']/kanban" position="attributes">
                 <attribute name="create">false</attribute>
             </xpath>
