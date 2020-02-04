@@ -48,6 +48,7 @@ community-data-files
 stock-logistics-workflow
 stock-logistics-warehouse
 stock-logistics-reporting
+stock-logistics-barcode
 
 intrastat-extrastat
 l10n-france
