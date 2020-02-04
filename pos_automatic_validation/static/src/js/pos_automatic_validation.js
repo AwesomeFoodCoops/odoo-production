@@ -1,8 +1,9 @@
 /*
     POS Automatic Validation module for Odoo
     Copyright (C) 2017 Julius Network Solutions
+    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
     @author: Mathieu VATEL
-    The licence is in the file __openerp__.py
+    The licence is in the file __manifest__.py
 */
 
 odoo.define('pos_automatic_validation.pos_automatic_validation', function (require) {
@@ -20,12 +21,12 @@ odoo.define('pos_automatic_validation.pos_automatic_validation', function (requi
             return this.cashregister.journal.iface_automatic_validation;
         },
     });
-    
+
     screens.PaymentScreenWidget.include({
         show: function(){
             this._super();
             $('.next').hide();
-         },
+        },
 
         click_paymentmethods: function(id) {
             var self = this;
@@ -52,17 +53,17 @@ odoo.define('pos_automatic_validation.pos_automatic_validation', function (requi
                 if (auto_validation == true) {
                     var rounding = self.pos.currency.rounding;
                     var to_pay = round_pr(order.get_total_with_tax(), rounding);
-                    var paid = round_pr(order.get_total_paid(), rounding); 
+                    var paid = round_pr(order.get_total_paid(), rounding);
                     //alert(to_pay);
                     //alert(paid);
                     //if (order.get_total_with_tax() - order.get_total_paid() == 0) {
                     //if (Math.abs(order.get_total_with_tax() - order.get_total_paid()) < 0.001) {
                     if (to_pay - paid == 0) {
                         self.validate_order();
-                     }
+                    }
                 }
             }
         },
     });
-    
+
 });

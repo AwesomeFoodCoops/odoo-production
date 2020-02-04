@@ -27,4 +27,5 @@ Contributors
 
 * Aurelien Dumaine
 * Mathieu Vatel
+* Druidoo <https://www.druidoo.io>
 
