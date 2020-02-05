@@ -48,6 +48,7 @@ class CapitalFundraisingWizard(models.TransientModel):
             # Remove number
             self.partner_id.barcode_rule_id = False
             self.partner_id.barcode_base = False
+            self.partner_id.barcode = False
         res = super(CapitalFundraisingWizard, self).button_confirm()
         # Add the barcode rule
         # We do it after calling super so that the sequence is assigned
