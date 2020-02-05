@@ -10,7 +10,7 @@
     'author': 'La Louve, Druidoo',
     'website': 'http://www.lalouve.net',
     'depends': [
-        'base', 'account'
+        'account',
     ],
     'data': [
         "views/res_partner.xml",
