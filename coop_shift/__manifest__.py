@@ -13,14 +13,10 @@
     'website': 'http://www.lalouve.net',
     'license': 'AGPL-3',
     'depends': [
-        'base',
-        'event',
         'event_sale',
-        'mail',
         'barcodes_generator_partner',
         'barcodes_generator_product',
         'queue_job',
-        'web',
     ],
     'data': [
         'security/ir_module_category.xml',
