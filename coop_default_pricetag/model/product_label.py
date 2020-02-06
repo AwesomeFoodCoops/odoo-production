@@ -23,41 +23,50 @@
 ##############################################################################
 
 
-from openerp import tools, fields, models, api
+from odoo import tools, fields, models, api
 
 
 class ProductLabel(models.Model):
-    _name = 'product.label'
+    _name = "product.label"
 
     # Columns Section
-    code = fields.Char(string='Code', required=True)
+    code = fields.Char(string="Code", required=True)
 
-    name = fields.Char(string='Name', required=True)
+    name = fields.Char(string="Name", required=True)
 
-    active = fields.Boolean(string='Active', default=True)
+    active = fields.Boolean(string="Active", default=True)
 
-    company_id = fields.Many2one(string='Company', comodel_name='res.company')
+    company_id = fields.Many2one(string="Company", comodel_name="res.company")
 
-    website = fields.Char(string='Website')
+    website = fields.Char(string="Website")
 
-    note = fields.Text(string='Note')
+    note = fields.Text(string="Note")
 
     # image: all image fields are base64 encoded and PIL-supported
     image = fields.Binary(
-        string='Image', attachment=True, help="This field holds the image"
-        " used as image for the label, limited to 1024x1024px.")
+        string="Image",
+        attachment=True,
+        help="This field holds the image"
+        " used as image for the label, limited to 1024x1024px.",
+    )
 
     image_medium = fields.Binary(
-        string='Medium-sized image', attachment=True, help="Medium-sized"
+        string="Medium-sized image",
+        attachment=True,
+        help="Medium-sized"
         " image of the product. It is automatically resized as a 128x128px"
         " image, with aspect ratio preserved, only when the image exceeds one"
-        " of those sizes. Use this field in form views or some kanban views.")
+        " of those sizes. Use this field in form views or some kanban views.",
+    )
 
     image_small = fields.Binary(
-        string='Small-sized image', attachment=True, help="Small-sized image"
+        string="Small-sized image",
+        attachment=True,
+        help="Small-sized image"
         " of the product. It is automatically resized as a 64x64px image,"
         " with aspect ratio preserved. Use this field anywhere a small image"
-        " is required.")
+        " is required.",
+    )
 
     # Overload Section
     @api.model

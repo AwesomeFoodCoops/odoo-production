@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Sale - Food Module for Odoo
@@ -21,10 +20,10 @@
 #
 ##############################################################################
 
-from openerp import fields, models
+from odoo import fields, models
 
 
 class ProductUomCateg(models.Model):
-    _inherit = 'product.uom.categ'
+    _inherit = "product.uom.categ"
 
-    pricetag_printable = fields.Boolean('Print on Price Tag')
+    pricetag_printable = fields.Boolean("Print on Price Tag")
