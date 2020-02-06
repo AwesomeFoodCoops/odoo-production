@@ -10,17 +10,15 @@ from datetime import datetime, timedelta
 class ShiftShift(models.Model):
     _inherit = "shift.shift"
 
-    standard_registration_ids = fields.One2many("shift.registration",
-                                                "shift_id",
-                                                string="Standard Attendances",
-                                                domain=[('shift_type', '=',
-                                                         'standard')])
+    standard_registration_ids = fields.One2many(
+        "shift.registration", "shift_id",
+        string="Standard Attendances",
+        domain=[('shift_type', '=', 'standard')])
 
-    ftop_registration_ids = fields.One2many("shift.registration",
-                                            "shift_id",
-                                            string="FTOP Attendances",
-                                            domain=[('shift_type', '=', 'ftop')
-                                                    ])
+    ftop_registration_ids = fields.One2many(
+        "shift.registration", "shift_id",
+        string="FTOP Attendances",
+        domain=[('shift_type', '=', 'ftop')])
 
     state = fields.Selection([('draft', 'Unconfirmed'),
                               ('cancel', 'Cancelled'),

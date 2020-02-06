@@ -169,7 +169,7 @@ class WebsiteRegisterMeeting(http.Controller):
             dob = datetime.strptime(
                 dob, "%d/%m/%Y").date().strftime('%Y-%m-%d')
         except BaseException:
-            _logger.warn(
+            _logger.warning(
                 """Convert birthdate from %s on
                 discovery meeting form failed
                 """, dob)

@@ -20,15 +20,20 @@ class ResConfigSettings(models.TransientModel):
     associated_people_available = fields.Selection(
         [('unlimited', 'Unlimited'),
          ('limited', 'Limited')], default='unlimited')
-    contact_us_messages = fields.Html(string="Contact Us Message",
-                                      translate=True)
+    contact_us_messages = fields.Html(
+        related="company_id.contact_us_message",
+        string="Contact Us Message", translate=True, readonly=False)
     max_registrations_per_day = fields.Integer(
-        string='FTOP Max. Registration per day')
+        related="company_id.max_registrations_per_day",
+        string='FTOP Max. Registration per day', readonly=False)
     max_registration_per_period = fields.Integer(
-        string='FTOP Max. Registration per period')
+        related="company_id.max_registration_per_period",
+        string='FTOP Max. Registration per period', readonly=False)
     number_of_days_in_period = fields.Integer(
-        string='FTOP Registration period')
-    maximum_active_days = fields.Integer()
+        related="company_id.number_of_days_in_period",
+        string='FTOP Registration period', readonly=False)
+    maximum_active_days = fields.Integer(
+        related="company_id.maximum_active_days", readonly=False)
 
     @api.model
     def get_values(self):
@@ -38,25 +43,9 @@ class ResConfigSettings(models.TransientModel):
             "coop_membership.max_nb_associated_people", default=0)
         associated_people_available = config_obj.get_param(
             "coop_membership.associated_people_available")
-        contact_us_messages = config_obj.get_param(
-            "coop_membership.contact_us_messages")
-        max_registrations_per_day = config_obj.get_param(
-            "coop_membership.max_registrations_per_day", default=0)
-        max_registration_per_period = config_obj.get_param(
-            "coop_membership.max_registration_per_period", default=0)
-        number_of_days_in_period = config_obj.get_param(
-            "coop_membership.number_of_days_in_period", default=0)
-        maximum_active_days = config_obj.get_param(
-            "coop_membership.maximum_active_days", default=0)
 
         res.update(max_nb_associated_people=int(max_nb_associated_people))
         res.update(associated_people_available=associated_people_available)
-        res.update(contact_us_messages=contact_us_messages)
-        res.update(max_registrations_per_day=int(max_registrations_per_day))
-        res.update(
-            max_registration_per_period=int(max_registration_per_period))
-        res.update(number_of_days_in_period=int(number_of_days_in_period))
-        res.update(maximum_active_days=int(maximum_active_days))
         return res
 
     @api.multi
@@ -70,14 +59,6 @@ class ResConfigSettings(models.TransientModel):
             self.associated_people_available)
         config_obj.set_param(
             "coop_membership.contact_us_messages", self.contact_us_messages)
-        config_obj.set_param("coop_membership.max_registrations_per_day",
-                             self.max_registrations_per_day)
-        config_obj.set_param("coop_membership.max_registration_per_period",
-                             self.max_registration_per_period)
-        config_obj.set_param("coop_membership.number_of_days_in_period",
-                             self.number_of_days_in_period)
-        config_obj.set_param("coop_membership.maximum_active_days",
-                             self.maximum_active_days)
 
     @api.multi
     @api.constrains('number_of_days_in_period')
@@ -103,39 +84,3 @@ class ResConfigSettings(models.TransientModel):
                 The maximum number of
                 associated people must be a positive number !
                 """))
-
-    @api.model
-    def default_get(self, fields):
-        res = super(ResConfigSettings, self).default_get(fields)
-        company = self.env.user.company_id
-        message = company.contact_us_message
-        max_registrations_per_day = company.max_registrations_per_day
-        max_registration_per_period = company.max_registration_per_period
-        number_of_days_in_period = company.number_of_days_in_period
-        maximum_active_days = company.maximum_active_days
-
-        if 'contact_us_messages' in fields:
-            res.update({
-                'contact_us_messages': message,
-                'max_registrations_per_day': max_registrations_per_day,
-                'max_registration_per_period': max_registration_per_period,
-                'number_of_days_in_period': number_of_days_in_period,
-                'maximum_active_days': maximum_active_days,
-            })
-        return res
-
-    @api.multi
-    def execute(self):
-        company = self.env.user.company_id
-        for record in self:
-            company.contact_us_message = record.contact_us_messages
-            company.max_registrations_per_day = \
-                record.max_registrations_per_day
-            company.max_registration_per_period = \
-                record.max_registration_per_period
-            company.number_of_days_in_period = \
-                record.number_of_days_in_period
-
-            company.maximum_active_days = record.maximum_active_days
-
-        return super(ResConfigSettings, self).execute()
