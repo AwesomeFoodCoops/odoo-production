@@ -175,6 +175,11 @@ msgid "Credit Note"
 msgstr ""
 
 #. module: capital_subscription
+#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category__minimum_share_qty
+msgid "Default Minimum qty"
+msgstr ""
+
+#. module: capital_subscription
 #: model:ir.model.fields,field_description:capital_subscription.field_product_product__is_deficit_product
 #: model:ir.model.fields,field_description:capital_subscription.field_product_template__is_deficit_product
 msgid "Deficit Product"
@@ -225,6 +230,11 @@ msgstr ""
 #: code:addons/capital_subscription/models/account_invoice_refund.py:47
 #, python-format
 msgid "Error! The refund quantity must be greater than 0."
+msgstr ""
+
+#. module: capital_subscription
+#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category__line_ids
+msgid "Exception rules for minimum qty"
 msgstr ""
 
 #. module: capital_subscription
@@ -341,17 +351,11 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: capital_subscription
-#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category__line_ids
-msgid "Lines"
-msgstr ""
-
-#. module: capital_subscription
 #: model:res.groups,name:capital_subscription.manage_fundraising_partner_type
 msgid "Manage Fundraising Partner Type"
 msgstr ""
 
 #. module: capital_subscription
-#: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category__minimum_share_qty
 #: model:ir.model.fields,field_description:capital_subscription.field_capital_fundraising_category_line__minimum_share_qty
 msgid "Minimum Share Quantity"
 msgstr ""
