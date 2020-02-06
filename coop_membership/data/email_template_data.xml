@@ -1,0 +1,601 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="welcome_email" model="mail.template">
+        <field name="name">Welcome Email</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.email|safe}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">Welcome to Coop</field>
+        <field name="body_html"><![CDATA[]]></field>
+    </record>
+    <record id="unsubscribe_email" model="mail.template">
+        <field name="name">Unbsubscribed Email</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.email|safe}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">You have been unsubscribed from your team</field>
+        <field name="body_html"><![CDATA[
+            <p>Dear ${object.name},</p>
+            <p>You missed 2 consecutive programmed shifts and did not come to a make-up in-between. You have been unsubscribed from your team. The &quot;Unsubscribed&quot; status will show when you swipe your badge at the shop. This does not allow you to shop at your favorite co-op.
+If you think there was a mistake or wish to subscribe to another team please contact us as soon as possible.</p>
+            ]]></field>
+    </record>
+
+    <record id="coop_abcd_leave_email" model="mail.template">
+        <field name="name">Letter for Classique/ABCD members</field>
+        <field name="model_id" ref="coop_membership.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Confirmation of your leave request</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.partner_id.name}</p>
+<br/>
+<p>We have registered your temporary leave from ${object.start_date} to ${object.stop_date}. During this period, you do not need to come and you will not be able to go shopping.</p>
+<p>We may have extended the duration of your requested leave. You will be able to continue shopping when you come for a shift. The date of your first shift after leave is ${object.return_date}.</p>
+<br/>
+<p>Have a good day,</p>
+]]>
+        </field>
+    </record>
+
+    <record id="coop_ftop_leave_email" model="mail.template">
+        <field name="name">Letter for Volant/FTOP members</field>
+        <field name="model_id" ref="coop_membership.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Confirmation of your leave request</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.partner_id.name}</p>
+<br/>
+<p>We have registered your temporary leave from ${object.start_date} to ${object.stop_date}. During this period, you do not need to come and you will not be able to go shopping.</p>
+<p>We may have extended the duration of your requested leave because your proposed return date is too closed to the shift of FTOP team. Remember that you have to be on the shift that follows your return${object.shift_date_after_return and (' on ' + str(object.shift_date_after_return)) or ''}.</p>
+<br/>
+<p>Have a good day,</p>
+]]>
+        </field>
+    </record>
+
+    <record id="register_confirm_email" model="mail.template">
+        <field name="name">Register Confirm Email</field>
+        <field name="model_id" ref="event.model_event_registration"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">Register Confirmation Email</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.name}</p>
+<br/>
+<p>We confirm your registration for the ${object.company_id.name or ''} meeting scheduled on ${object.event_id.date_begin}. IF YOU ARE NOT A CO-OPERATOR AND WISH TO SUBSCRIBE ON THE DAY OF THE MEETING, YOU SHOULD HAVE:<br/>
+- Your check book or bank card<br/>
+- An ID</p>
+<p>Proof of reduced subscription: social minimums (document of less than 3 months attesting the payment of the RSA, the ASS, the AER-R, the ATS, the ATA, the ADA, the AAH, the 'ASI, AV, ASV or ASPA) or scholarship students 6 or 7 (scholarship certificate).</p>
+<br/>
+<p>You will find attached the contract which you will have to sign at the end of the meeting if you accept the conditions of operation which will be presented to you. If possible, please print and bring this form to the welcome meeting. In case of forgetfulness, you will be forced to fill a blank copy on the spot. If an error is present on this form, thank you to correct it with the pen in a visible way visible.</p>
+<br/>
+<p>Cordially.</p>
+]]>
+        </field>
+    </record>
+
+    <record id="coop_ftop_members_reminder_email" model="mail.template">
+        <field name="name">Remind FTOP Member Email</field>
+        <field name="model_id" ref="coop_membership.model_shift_registration"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">Count flying on ${object.convert_format_datatime()}</field>
+        <field name="body_html"><![CDATA[
+<p>Hello flying team members-- </p>
+<br/>
+<p>Just a reminder to tell you that <h3> the next counting day will be next Thursday, the ${object.convert_format_datatime()}</h3>... it's the last day to perform a flying service and avoid catching up.</p>
+<p>The programming of the flying services is done via the members area. Click on “tools”, then “program a steering wheel service”, then “registration”. If you do not have access to the members area, it is always possible to schedule a flying service by contacting the Members' office during its opening hours. </p>
+<p>Since the 1st steering wheel count in August 2017, experience shows that the vast majority of steering wheels registers for a service the 3 days preceding the day of the count. The flying places created for Tuesday, Wednesday and Thursday of week A are therefore systematically taken, which is not the case for all the other days of weeks A, B, C, D. This creates an imbalance. As far as possible, we kindly ask you to try to spread the programming of your services over the 4 weeks A, B, C, D. For information, the most "critical" slots are Sunday morning at 7.15 am, Saturday evening at 7 p.m., Monday from 9 a.m. to 12 p.m.</p>
+<h3>What happens if I don't have a credit in my "account" the ${object.convert_format_datatime()}?</h3>
+<p>Like the members of all the other teams, you will need 2 catch-ups. So, in total, you will have three services to program and perform before the next countdown day: the 2 catch-ups, and the service you need anyway before the next countdown. (These three services to do are in addition to the catch-ups that you may already need at ${object.company_id.name or ''}).</p>
+<h3>How to catch up? </h3>
+<p>Unlike the ABCD team members, the flying team members must schedule their overtakes, without exception ... simply by scheduling additional shifts. A member of the flying team cannot use the same catch-up system as that of the ABCD teams. If he shows up at any service to catch up, without having scheduled it, he will not be credited.</p>
+<h3>Cancel a scheduled service?</h3>
+<p>Scheduling a vacation then missing it without first canceling it will result in the withdrawal of a credit from its service savings account. Members of the flying team may cancel their vacations without penalty up to one hour before their start, at the members' office during opening hours.</p>
+<h3>For more information, contact the Membership Office during its opening hours: ${(object.company_id.phone or '')|safe}.</h3>
+<p>Opening hours of the Members' Office:</p>
+Tuesday: 1:30 p.m. - 4 p.m.</p>
+<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
+<p>Saturday: 10 a.m. - 4 p.m.</p>
+<br/>
+<p>Sincerely,</p>
+]]>
+        </field>
+    </record>
+
+    <record id="reminder_end_leave_email" model="mail.template">
+        <field name="name">Reminder End Leave Email</field>
+        <field name="model_id" ref="coop_shift.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Reminder End Leave Email</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.partner_id.name.split(',')[0]}</p>
+<p>The end of your leave at ${(object.partner_id.company_id.name or '')|safe} is approaching. To ensure that you can do your shopping as soon as you return, it is strongly recommended that you contact the Members' Office to reintegrate a new team.</p>
+<p>End date of your leave: ${object.stop_date}</p>
+<p>Opening hours of the Members' Office: Tuesday: 1:30 p.m. - 4 p.m. Wednesday to Friday: 1:30 p.m. - 8 p.m. Saturday: 10 a.m. - 4 p.m.</p>
+<p>Tel: ${(object.partner_id.company_id.phone or '')|safe}</p>
+<p>Have a nice day,</p>
+<p>The Membership Office of ${(object.partner_id.company_id.name or '')|safe}</p>
+]]>
+        </field>
+    </record>
+
+    <record id="confirm_leave_non_define_email" model="mail.template">
+        <field name="name">Confirmation of your undefined leave request</field>
+        <field name="model_id" ref="coop_shift.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Confirmation of your leave request non defined</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.partner_id.name}</p>
+<p>We have recorded your "undefined" leave from ${object.start_date}. During this period you do not need to come and do your services.</p>
+<p>If it's temporary leave, you can't do your shopping.</p>
+<p>If it's parental leave, you can do your shopping at ${(object.partner_id.company_id.name or '')|safe}.</p>
+<p>10 days before the estimated end of leave date you have given us, you will receive a message reminding you to contact the Members' Office to join a team again.</p><br/>
+<p>Have a nice day,</p>
+<p>Members office ${(object.partner_id.company_id.phone or '')|safe}</p>
+<p>For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
+<p>Tuesday: 1:30 p.m. - 4 p.m. Wednesday to Friday: 1:30 p.m. - 8 p.m. Saturday: 10 a.m. - 4 p.m.</p>
+]]>
+        </field>
+    </record>
+
+    <record id="anounce_open_on_holiday_email" model="mail.template">
+        <field name="name">Anounce Open Store Email</field>
+        <field name="model_id" ref="coop_membership.model_shift_registration"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">The store will be open on ${object.convert_format_datatime()}</field>
+        <field name="body_html"><![CDATA[
+<p>Hello team members ${object.shift_id.shift_template_id.name},</p>
+<br/>
+<p>You have a service that falls on ${object.convert_format_datatime()}.</p>
+<p>During your service, the store will be open. As this is a public holiday or other special day for ${(object.company_id.name or '')|safe}, if you cannot provide your service, you will be allocated only one catch instead of two .</p>
+<p>However, so that the supermarket can function normally, we remind you that the ideal solution remains the exchange of service with another cooperator.</p>
+<p>Sincerely,</p>
+<p>Membership office
+<br/>
+${(object.company_id.phone or '')|safe}</p>
+<p>The members' office does not take any requests by email. For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
+<p>Tuesday: 1:30 p.m. - 4 p.m.</p>
+<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
+<p>Saturday: 10 a.m. - 4 p.m.</p>
+<br/>
+]]>
+        </field>
+    </record>
+
+    <record id="anounce_close_on_holiday_email" model="mail.template">
+        <field name="name">Anounce Close Store Email</field>
+        <field name="model_id" ref="coop_membership.model_shift_registration"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">The store will be closed on ${object.convert_format_datatime()}</field>
+        <field name="body_html"><![CDATA[
+<p>Hello team members ${object.shift_id.shift_template_id.name},</p>
+<br/>
+<p>You have a service that falls on ${object.convert_format_datatime()}.</p>
+<p>During your service, the store will be closed. As this is a holiday or other special day for ${(object.company_id.name or '')|safe}, you are exempt from this service. Which means you don't have to come and you won't have to catch up.</p>
+<p>Sincerely,</p>
+<p>Membership office
+<br/>
+${(object.company_id.phone or '')|safe}</p>
+<p>The members' office does not take any requests by email. For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
+<p>Tuesday: 1:30 p.m. - 4 p.m.</p>
+<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
+<p>Saturday: 10 a.m. - 4 p.m.</p>
+<br/>
+]]>
+        </field>
+    </record>
+
+    <record id="change_team_abcd_email" model="mail.template">
+        <field name="name">Change to Classique team</field>
+        <field name="model_id" ref="coop_membership.model_shift_change_team"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Change team to Classic messages</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.partner_id.name}</p>
+<p>You are registered from ${object.new_next_shift_date} in the team ${object.new_shift_template_id.name}</p>
+<p>Your next two services are therefore:<br/>
+- ${object.convert_format_datatime(object.first_next_shift_date)}<br/>
+- ${object.convert_format_datatime(object.second_next_shift_date)}<br/>
+</p>
+<p>For information, your status is ${object.convert_state_partner()}.</p>
+<p>You may have been awarded a catch-up if a difference of more than 6 weeks has been noted between the date of your last service with the old team and the date of your first service in the new team. This is to respect the rule of 13 services to be performed over the year.</p>
+<p>For more information, contact the Membership Office during its opening hours: ${(object.partner_id.company_id.phone or '')|safe}</p>
+<p>Opening hours of the Members' Office:</p>
+<p>Tuesday: 1:30 p.m. - 4 p.m.<br/>
+   Wednesday to Friday: 1:30 p.m. - 8 p.m.<br/>
+   Saturday: 10 a.m. - 4 p.m.<br/>
+</p>
+<p>Have a good day,</p>
+<p>${(object.partner_id.company_id.name or '')|safe}</p>
+]]>
+        </field>
+    </record>
+
+    <record id="change_team_ftop_email" model="mail.template">
+        <field name="name">Change to Volant team</field>
+        <field name="model_id" ref="coop_membership.model_shift_change_team"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Change Team by Flying Messages</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.partner_id.name}</p>
+<p>You are registered from the ${object.new_next_shift_date} in the flying team.</p>
+<p>You must have programmed and made at least one flying service between this date and the next count of the ${object.convert_format_datatime(object.first_next_shift_date)}.</p>
+<p>Attached is the calendar of ABCD weeks, as well as the description of the functioning of the flying team. The operation of this team is quite complex, please read this sheet carefully.</p>
+<p>For more information, contact the Membership Office during its opening hours: ${(object.partner_id.company_id.phone or '')|safe}</p>
+<p>Opening hours of the Members' Office:</p>
+<p>Tuesday: 1:30 p.m. - 4 p.m.<br/>
+    Wednesday to Friday: 1:30 p.m. - 8 p.m.<br/>
+    Saturday: 10 a.m. - 4 p.m.<br/>
+</p>
+<p>Have a good day,</p>
+<p>${(object.partner_id.company_id.name or '')|safe}</p>
+]]>
+        </field>
+    </record>
+
+    <record id="registration_confirm_meeting_email" model="mail.template">
+        <field name="name">Registration Confirm Meeting Email</field>
+        <field name="model_id" ref="event.model_event_registration"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${object.company_id.email|safe}</field>
+        <field name="subject">Your registration to a welcome meeting on ${object.convert_event_date_begin()} at
+            ${object.get_time_meeting()}
+        </field>
+        <field name="body_html"><![CDATA[
+<p>Hello,</p>
+<br/>
+<p>You have just registered to a welcome meeting that will take place on ${object.convert_event_date_begin()} at ${object.get_time_meeting()}. Thanks for your interest in what we do!</p>
+<p>The meeting will take place at this address ${object.get_address_meeting()}.</p>
+<p>You should receive a reminder email three days before the meeting.</p>
+<p>If you wish to cancel or postpone your attendance, please write to ${object.get_email_contact_meeting()}.</p>
+<br/>
+<p>See you soon at the co-op!</p>
+<br/>
+<img  src="/coop_membership/static/description/image_lalouve.png"/>
+]]>
+        </field>
+    </record>
+
+    <record id="registration_reminder_meeting_email" model="mail.template">
+        <field name="name">Registration Reminder Meeting Email</field>
+        <field name="model_id" ref="event.model_event_registration"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${object.company_id.email|safe}</field>
+        <field name="subject">Welcome meeting reminder email</field>
+        <field name="body_html"><![CDATA[
+<p>Hello</p>
+<p>You are registered for the welcome meeting of ${(object.company_id.name or '')|safe} which will take place on <strong>${object.get_date_time_meeting()}, ${object. get_address_meeting()}</strong></p>
+<p>Metro: Marcadet-Poissonniers or Simplon.</p>
+<p>Reception will be provided from <span style = "color: red"><strong>${object.get_time_before(30)}</strong></span>.</p>
+<p>As the information transmitted during the meeting is essential, no delay will be accepted. Thank you for your understanding.</p>
+<p><strong>On the menu for this welcome meeting:</strong></p>
+<ul>
+    <li>Detailed presentation of what it means to join ${(object.company_id.name or '')|safe}: Principle of the cooperative, products that will be available, organization of voluntary work</li>
+    <li>Answers to your general questions</li>
+    <li>Answers to your individual questions</li>
+    <li>Visit the store</li>
+    <li>Subscription if you decide to join ${(object.company_id.name or '')|safe}, registration on a working niche</li>
+</ul>
+<p>The meeting will last approximately 2.5 hours.</p>
+<p><strong>If you are not yet a cooperative member and wish to join us:</strong></p>
+<ul>
+    <li>We thank you in advance for planning to stay until the end of the meeting, since your registration on a working window is done at the end of the presentation <u>(this choice will only be made face-to-face, no registration on remote slots)</u>.</li>
+    <li>If you want to subscribe, plan to bring:
+        <ul>
+            <li>from your check book or your Credit Card</li>
+            <li>of an identity document</li>
+            <li>proof of a reduced subscription (social minimum, scholarship students 6 or 7)</li>
+        </ul>
+    </li>
+</ul>
+<p>For more information now on welcome meetings and slots, <a href="https://docs.google.com/document/d/1Ra6X_UoH2yKDjuR6JlLTjwFFrrpy04lvCwBp4nnpfWc/edit"> see this link.</a></p>
+<p>If you are unable to attend this meeting, you can contact the home meeting team ${object.get_email_contact_meeting()} to register for a future home meeting.</p>
+<p>Sincerely,</p>
+<p>Cécile and Philippe</p>
+<p>For the Welcome Meetings team</p>
+<p>${object.get_email_contact_meeting()}</p>
+<img  src="/coop_membership/static/description/image_lalouve.png"/>
+]]>
+        </field>
+    </record>
+
+    <!--Abandoned Message-->
+    <record id="abandoned_message_leave_email" model="mail.template">
+        <field name="name">Abandoned Message Absence Leave Email</field>
+        <field name="model_id" ref="coop_membership.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">bureau.membres@cooplalouve.fr</field>
+        <field name="subject">API failed</field>
+        <field name="body_html"><![CDATA[
+<p>Hello</p>
+<p>
+${object.partner_id.name.split(',')[0]} ${object.partner_id.barcode_base}
+has not provided proof of Absence due to incapacity. The proposed absence is therefore canceled.
+</p>
+]]>
+        </field>
+    </record>
+
+    <!--Cancellation Message-->
+    <record id="cancellation_message_absence_leave_email" model="mail.template">
+        <field name="name">Cancellation Message Absence Leave Email</field>
+        <field name="model_id" ref="coop_membership.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Absence for unsuccessful incapacity</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.partner_id.name.split(',')[0]},</p>
+<div>
+You requested disability leave from the Membership Office.
+In order for this leave to be validated, you had 3 weeks to present us with medical proof.
+Unless we are mistaken, we have not seen this document.
+</div>
+<p>Your leave was therefore unsuccessful.</p>
+<p>Services missed during your absence are now recorded as missed services.</p>
+<p>To regularize your situation, contact the members' office during its opening hours:</p>
+<p>
+    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
+    <br/>
+    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
+    <br/>
+    <span>Saturday: 10 a.m. - 4 p.m.</span>
+    <br/>
+</p>
+<p>${(object.partner_id.company_id.phone or '')|safe}</p>
+<span>Have a nice day,</span>
+<br/>
+<span>The Membership Office</span>
+<br/>
+<span>${(object.partner_id.company_id.name or '')|safe}</span>
+]]>
+        </field>
+    </record>
+
+    <!--Confirmation Message-->
+    <record id="confirmation_message_absence_leave_email" model="mail.template">
+        <field name="name">Confirmation Message Absence Leave Email</field>
+        <field name="model_id" ref="coop_membership.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Absence due to incapacity</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.partner_id.name.split(',')[0]},</p>
+<p>Your absence for disability from ${object.start_date} to ${object.stop_date} has been recorded.</p>
+<p>As a reminder, during this period, you can do your shopping, and you are exempt from services.</p>
+<p>You have 3 weeks from the date of sending this email to show us or send us a medical proof.</p>
+<p>Without this document, your leave will be retroactively canceled.</p>
+<p>For any information, contact the members' office during its opening hours:</p>
+<p>
+    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
+    <br/>
+    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
+    <br/>
+    <span>Saturday: 10 a.m. - 4 p.m.</span>
+    <br/>
+</p>
+<p>${(object.partner_id.company_id.phone or '')|safe}</p>
+<span>Have a nice day,</span>
+<br/>
+<span>The Membership Office</span>
+<br/>
+<span>${(object.partner_id.company_id.name or '')|safe}</span>
+]]>
+        </field>
+    </record>
+
+    <!--Reminder Message-->
+    <record id="reminder_message_absence_leave_email" model="mail.template">
+        <field name="name">Reminder Message Absence Leave Email</field>
+        <field name="model_id" ref="coop_membership.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Supporting reminder</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.partner_id.name.split(',')[0]},</p>
+<p>Your absence for disability from ${object.start_date} to ${object.stop_date} has been recorded.</p>
+<span>Unless we’re mistaken, we still haven’t seen any medical evidence.</span>
+<br/>
+<span>You have one week left to present it or send it to:</span>
+<br/>
+<p>${(object.partner_id.company_id.email or '')|safe}.</p>
+<p>Without this document, your leave will be retroactively canceled.</p>
+<p>For any information, contact the members' office during its opening hours:</p>
+<p>
+    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
+    <br/>
+    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
+    <br/>
+    <span>Saturday: 10 a.m. - 4 p.m.</span>
+    <br/>
+</p>
+<p>${(object.partner_id.company_id.phone or '')|safe}</p>
+<span>Have a nice day,</span>
+<br/>
+<span>The Membership Office</span>
+<br/>
+<span>${(object.partner_id.company_id.name or '')|safe}</span>
+]]>
+        </field>
+    </record>
+
+    <record id="confirmation_anticipated_leave_email" model="mail.template">
+        <field name="name">Confirmation Anticipated Leave Email</field>
+        <field name="model_id" ref="coop_membership.model_shift_leave"/>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}</field>
+        <field name="lang">${(object.partner_id.lang)|safe}</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Confirmation of your leave request</field>
+        <field name="body_html"><![CDATA[
+<p>
+Hello ${object.partner_id.name.split(',')[0]},
+</p>
+<p>
+Your request for early leave from ${object.start_date} to ${object.stop_date} has been received.
+During this period you can do your shopping without coming to do your services. Once the leave is over, you will be waited for your next service.
+</p>
+<p>
+For any information, contact the members' office during its opening hours:
+</p>
+<p>
+    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
+    <br/>
+    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
+    <br/>
+    <span>Saturday: 10 a.m. - 4 p.m.</span>
+    <br/>
+</p>
+<p> ${(object.partner_id.company_id.phone or '')|safe}</p>
+<span> Have a nice day,</span>
+<br/>
+<span>The Membership Office</span>
+<br/>
+<span>${(object.partner_id.company_id.name or '')|safe}</span>
+]]></field>
+    </record>
+
+    <record id="notify_mirror_children_email" model="mail.template">
+        <field name="name">Notify mirror children</field>
+        <field name="model_id" ref="coop_membership.model_res_partner"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.parent_id and object.parent_id.email|safe}</field>
+        <field name="lang">${(object.lang)|safe}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">Your child attached</field>
+        <field name="body_html"><![CDATA[
+<style>
+#notify-mirror-children ol {
+  counter-reset: item;
+  margin-left: 0;
+  padding-left: 0;
+}
+#notify-mirror-children > ol > li {
+  display: block;
+  margin-bottom: .5em;
+  margin-left: 2em;
+}
+#notify-mirror-children > ol > li::before {
+  display: inline-block;
+  content: counter(item) ") ";
+  counter-increment: item;
+  width: 2em;
+  margin-left: -2em;
+}
+</style>
+<div id="notify-mirror-children">
+<p>Hello,</p>
+<p>
+Your related child will soon be 18 years old. We wish him a happy birthday in advance.
+</p>
+<p>
+On his birthday, he / she will be unlinked from your account and will lose buyer rights to ${(object.company_id.name or '')|safe}.
+If he / she wishes to continue shopping at ${(object.company_id.name or '')|safe}, there are 2 possibilities:
+</p>
+<ol>
+<li>He / she becomes a member of ${(object.company_id.name or '')|safe}.
+You must visit our website and register for a welcome meeting, then follow the steps you have taken to become a member of ${(object.company_id.name or '')|safe}.
+</li>
+<li>He / she becomes attached to an adult... a possibility only if you do not already have another adult in your household associated with your account at ${(object.company_id.name or '')|safe}.
+For him / her to become a connected adult, you must both go to the Members' office during opening hours.
+Your child must bring a piece of identification and proof that he / she lives at the same address as you.
+</li>
+</ol>
+<p>
+Have a good day,
+</p>
+<p>${(object.company_id.name or '')|safe}</p>
+</div>
+]]>
+        </field>
+    </record>
+
+    <record id="notify_un_subscription_ftpop_email" model="mail.template">
+        <field name="name">Notify Un Subscription FTOP Email</field>
+        <field name="model_id" ref="coop_membership.model_res_partner"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.email|safe}</field>
+        <field name="lang">${(object.lang)|safe}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">Unsubscribe from your team</field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.name.split(',')[0]},</p>
+<div>
+    <span>
+        Unless we are mistaken, you have accumulated 8 catches.
+        So we unsubscribed you from the flying team.
+    </span>
+    <br/>
+    <span>
+        This automatic unsubscription is designed to prevent you from accumulating a quantity of catch-ups that is difficult to overcome.
+    </span>
+    <br/>
+    <span>
+        Note that, once in your life, you can benefit from a "jubilee", that is to say a reset to your catch-up counter.
+    </span>
+</div>
+<p>
+    If you want to join a team again, you can contact the members' office during its opening hours:
+</p>
+<p>
+    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
+    <br/>
+    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
+    <br/>
+    <span>Saturday: 10 a.m. - 4 p.m.</span>
+    <br/>
+</p>
+<p>${(object.company_id.phone or '')|safe}</p>
+<span>Have a nice day,</span>
+<br/>
+<span>The Membership Office</span>
+<br/>
+<span>${(object.company_id.name or '')|safe}</span>
+]]>
+        </field>
+    </record>
+
+
+</odoo>

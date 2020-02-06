@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+        <function name="_compute_registration_qty" model="shift.template">
+            <value eval="[]"/>
+        </function>
+    </data>
+</odoo>

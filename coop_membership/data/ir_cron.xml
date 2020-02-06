@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <data>
+        <record model="ir.cron" id="cron_to_update_partner_shift_type">
+            <field name="name">Update Partner Shift Type</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="coop_shift.model_shift_template_registration_line"/>
+            <field name="code">model.cron_update_partner_shift_type()</field>
+            <field name="state">code</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 01:00:00')"/>
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="cron_update_partner_is_unsubscribed" model="ir.cron">
+            <field name="name">Partner : Update Is Unsubscribed State</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">model.update_is_unsubscribed()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record model="ir.cron" id="cron_welcome_email">
+            <field name="name">Welcome Email</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">model.send_welcome_emails()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record model="ir.cron" id="cron_reminder_ftop_members_email">
+            <field name="name">Reminder FTOP Member Email</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="coop_shift.model_shift_shift"/>
+            <field name="code">model.send_mail_reminder_ftop_members()</field>
+            <field name="state">code</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 03:00:00')"/>
+            <field name="active" eval="False"/>
+        </record>
+
+        <record model="ir.cron" id="cron_reminder_non_define_leave_email">
+            <field name="name">Reminder Non Define Leave Email</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="coop_shift.model_shift_leave"/>
+            <field name="code">model.send_mail_reminder_non_defined_leaves()</field>
+            <field name="state">code</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 02:00:00')"/>
+            <field name="active" eval="False"/>
+        </record>
+
+        <record model="ir.cron" id="cron_reminder_meeting_email">
+            <field name="name">Reminder Event Meeting Email</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_event_registration"/>
+            <field name="code">model.send_mail_reminder()</field>
+            <field name="state">code</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=2)).strftime('%Y-%m-%d 03:00:00')"/>
+            <field name="active" eval="False"/>
+        </record>
+
+        <record model="ir.cron" id="cron_deactivate_designated_buyer">
+            <field name="name">Deactivate Designated Buyer</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="code">model.deactivate_designated_buyer()</field>
+            <field name="state">code</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:01')"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="ir.cron" id="cron_reminder_medical_excuse_absence_leave">
+            <field name="name">Send Reminder Medical Excuse Absence Leave</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="coop_shift.model_shift_leave"/>
+            <field name="code">model.cron_send_mail_absence_leave()</field>
+            <field name="state">code</field>
+            <field name="nextcall"
+                   eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:01:00')"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="ir.cron" id="cron_send_notify_mirror_children_email">
+            <field name="name">Send Notify Mirror Children Email</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="code">model.cron_send_notify_mirror_children_email()</field>
+            <field name="state">code</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:01:00')"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="ir.cron" id="cron_update_mirror_children">
+            <field name="name">Update Mirror Children</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="code">model.cron_update_mirror_children()</field>
+            <field name="state">code</field>
+            <field name="nextcall"
+                   eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:01:00')"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="ir.cron" id="cron_update_shift_leader_end_leave">
+            <field name="name">Update Shift Leader End Leave</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="coop_shift.model_shift_leave"/>
+            <field name="code">model.cron_update_shift_leader_end_leave()</field>
+            <field name="state">code</field>
+            <field name="nextcall"
+                   eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:01:00')"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

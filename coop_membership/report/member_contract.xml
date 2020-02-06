@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="member_contract_report"
+                string="Member Contract"
+                model="res.partner"
+                report_type="qweb-pdf"
+                name="coop_membership.member_contract_template"
+                file="coop_membership.member_contract_template"/>
+
+        <record id="member_contract_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="coop_membership.paperformat_member_contract"/>
+        </record>
+
+    </data>
+</odoo>
