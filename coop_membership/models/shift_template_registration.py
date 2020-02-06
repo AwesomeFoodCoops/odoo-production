@@ -49,8 +49,8 @@ class ShiftTemplateRegistration(models.Model):
             WHERE (strl.date_begin <= '%s' OR strl.date_begin is NULL)
             AND (strl.date_end >= '%s'
             OR strl.date_end is NULL) AND str.shift_template_id = %s
-        """
-        self.env.cr.execute(sql, today, today, template_id)
+        """ % (today, today, template_id)
+        self.env.cr.execute(sql)
         list_template_ids = self.env.cr.fetchall()
         list_ids = []
         for template_id in list_template_ids:
