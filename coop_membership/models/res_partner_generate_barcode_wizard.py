@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 try:
     import barcode
 except ImportError:
-    _logger.debug("Cannot import 'barcode' python Librairy.")
+    _logger.error("Cannot import 'barcode' python Librairy.")
     barcode = None
 
 

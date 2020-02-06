@@ -3,7 +3,7 @@ from . import account_invoice
 from . import barcode_rule
 from . import capital_fundraising_category
 from . import event
-from . import event_config_settings
+from . import res_config_settings
 from . import event_event_ticket
 from . import event_registration
 from . import mail_mass_mailing_contact

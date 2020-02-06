@@ -31,5 +31,30 @@ Rejoindre la coopérative passe exclusivement par votre présence à une réunio
             <field name="value">Equipe Volante AJe 22:00</field>
         </record>
 
+        <record id="register_user_id" model="ir.config_parameter">
+            <field name="key">register_user_id</field>
+            <field name="value">1</field>
+        </record>
+
+        <record id="captcha_site_key" model="ir.config_parameter">
+            <field name="key">captcha_site_key</field>
+            <field name="value">6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI</field>
+        </record>
+
+        <record id="captcha_secret_key" model="ir.config_parameter">
+            <field name="key">captcha_secret_key</field>
+            <field name="value">6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe</field>
+        </record>
+
+        <record id="email_meeting_contact" model="ir.config_parameter">
+            <field name="key">email_meeting_contact</field>
+            <field name="value">reunion.accueil@cooplalouve.fr</field>
+        </record>
+
+        <record id="company_name" model="ir.config_parameter">
+            <field name="key">company_name</field>
+            <field name="value">La Louve</field>
+        </record>
+
     </data>
 </odoo>

@@ -84,19 +84,19 @@ class EventRegistration(models.Model):
     def convert_weekdays(self, wd):
         self.ensure_one()
         if wd == 0:
-            wd = _("Lundi")
+            wd = _("Monday")
         elif wd == 1:
-            wd = _("Mardi")
+            wd = _("Tuesday")
         elif wd == 2:
-            wd = _("Mercredi")
+            wd = _("Wednesday")
         elif wd == 3:
-            wd = _("Jeudi")
+            wd = _("Thursday")
         elif wd == 4:
-            wd = _("Vendredi")
+            wd = _("Friday")
         elif wd == 5:
-            wd = _("Samedi")
+            wd = _("Saturday")
         elif wd == 6:
-            wd = _("Dimanche")
+            wd = _("Sunday")
         return wd
 
     @api.multi

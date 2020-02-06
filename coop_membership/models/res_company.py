@@ -20,6 +20,6 @@ class ResCompany(models.Model):
 
     @api.model
     def get_default_message(self):
-        return u"""Bonjour,<br/>Veuillez contacter un salarié ou vous rendre
-        au bureau des membres pour une raison administrative.<br/>
-        Cordialement, L'équipe {}""".format(self.env.user.company_id.name)
+        return u"""Hello,<br/>Please contact an employee or go at the members\'
+        office for administrative reasons.<br/>
+        Cordially, {} team""".format(self.env.user.company_id.name)
