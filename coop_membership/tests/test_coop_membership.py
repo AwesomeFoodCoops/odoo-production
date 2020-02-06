@@ -40,7 +40,7 @@ class TestCoopMembership(CoopMembershipTest):
 
         shift_ticket_id = self.ShiftTemplateTicket.search(
             [('shift_template_id', '=', self.shift_template),
-             ('shift_type', '=', 'standard')])
+             ('shift_type', '=', 'standard')], limit=1)
 
         self.ShiftTemplateRegLine.create({
             'shift_template_id': self.shift_template,
