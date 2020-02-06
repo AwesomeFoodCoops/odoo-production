@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record model="ir.ui.view" id="view_product_print_category_tree">
+        <field name="model">product.print.category</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree colors="red: product_to_print_qty != 0">
+                <field name="name" />
+                <field name="product_to_print_qty" />
+                <field name="product_qty" />
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_product_category_print_wizard_values" model="ir.values">
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="name">Print Products</field>
+        <field name="key2">client_action_multi</field>
+        <field name="key">action</field>
+        <field name="model">product.print.category</field>
+        <field name="value" eval="'ir.actions.act_window,' +str(ref('action_product_print_wizard'))"/>
+    </record>
+
+    <record model="ir.ui.view" id="view_product_print_category_form">
+        <field name="model">product.print.category</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <header>
+                <button name="%(product_print_category.action_product_print_wizard)d" type="action"
+                    attrs="{'invisible': [('product_to_print_qty', '=', 0)]}" string="Print Obsolete Products" class="oe_highlight"/>
+                <button name="%(product_print_category.action_product_print_wizard)d" type="action"
+                    attrs="{'invisible': [('product_qty', '=', 0)]}" string="Print All Products"
+                    context="{'all_products': True}"/>
+            </header>
+            <sheet>
+                <div class="oe_title">
+                    <label class="oe_edit_only" for="name" string="Name"/>
+                    <h1><field name="name" placeholder="Product Name"/></h1>
+                </div>
+                <div class="oe_right oe_button_box" name="buttons">
+                    <button type="action" class="oe_stat_button" icon="fa-print"
+                            name="%(product.product_normal_action)d"
+                            attrs="{'invisible': [('product_to_print_qty', '=', 0)]}"
+                            context="{'search_default_print_category_id': active_id, 'search_default_filter_to_print': 1}">
+                        <field string="To Print" name="product_to_print_qty" widget="statinfo"/>
+                    </button>
+                    <button type="action" class="oe_stat_button" icon="fa-list"
+                            name="%(product.product_normal_action)d"
+                            context="{'search_default_print_category_id': active_id}">
+                        <field string="Products" name="product_qty" widget="statinfo"/>
+                    </button>
+                </div>
+                <group>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="active" groups="product_print_category.manager"/>
+                    </group>
+                    <group>
+                        <field name="qweb_view_id" groups="product_print_category.manager"/>
+                        <field name="field_ids" widget="many2many_tags" groups="product_print_category.manager"/>
+                    </group>
+                </group>
+            </sheet>
+        </field>
+    </record>
+
+</data></openerp>

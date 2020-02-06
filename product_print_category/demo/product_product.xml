@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+Copyright (C) 2018-Today: GRAP (<http://www.grap.coop>)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record model="product.product" id="demo_product">
+        <field name="name">Demo Product With Print category</field>
+        <field name="print_category_id" ref="demo_category" />
+    </record>
+
+</data></openerp>

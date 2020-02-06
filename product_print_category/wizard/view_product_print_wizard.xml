@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2012-Today GRAP (http://www.grap.coop)
+@author Julien WESTE
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record id="view_product_print_wizard_form" model="ir.ui.view">
+        <field name="model">product.print.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Print Products">
+                <group colspan="2">
+                    <group string="Products" col="4" colspan="2">
+                        <field name="line_ids" nolabel="1">
+                            <tree editable="top">
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                <field name="print_category_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Print" type="object" icon="gtk-print"/>
+                        or
+                        <button icon="gtk-cancel" special="cancel" string="Cancel"/>
+                    </footer>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_product_print_wizard" model="ir.actions.act_window">
+        <field name="name">Print Products</field>
+        <field name="res_model">product.print.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</data></openerp>

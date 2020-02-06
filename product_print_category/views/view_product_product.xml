@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record id="action_product_product_print_wizard_values" model="ir.values">
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="name">Print Products</field>
+        <field name="key2">client_action_multi</field>
+        <field name="key">action</field>
+        <field name="model">product.product</field>
+        <field name="value" eval="'ir.actions.act_window,' +str(ref('action_product_print_wizard'))"/>
+    </record>
+
+</data></openerp>
