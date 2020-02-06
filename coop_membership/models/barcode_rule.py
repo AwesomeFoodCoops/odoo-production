@@ -11,12 +11,12 @@ class BarcodeRule(models.Model):
     _inherit = 'barcode.rule'
 
     for_type_A_capital_subscriptor = fields.Boolean(
-        string='For Type A Subscriptors', old='is_member',
+        string='For Type A Subscriptors',
         help="If checked, Louve members that subscribe type A capital will"
              " have this barcode rule by default.")
 
     for_associated_people = fields.Boolean(
-        string='For Associated People', old='is_associated_people',
+        string='For Associated People',
         help="If checked, Associated people will have this barcode rule by"
              " default.")
 

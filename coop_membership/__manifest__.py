@@ -1,4 +1,5 @@
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+# Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -25,10 +26,6 @@
         'stock',
     ],
     'data': [
-
-        # To Convert
-        # 'data/update_template_name_ftop.yml',
-        # 'data/update_menu_user_right.yml',
 
         # Security
         'security/ir_module_category.xml',
@@ -82,10 +79,6 @@
         'data/barcode_rule.xml',
         'data/res_partner_inform.xml',
         'data/shift_extension_type_data.xml',
-        'data/ir_config_paramater.xml',
-        'data/function.xml',
-
-        # Custom function
         'data/function.xml',
     ],
     'demo': [

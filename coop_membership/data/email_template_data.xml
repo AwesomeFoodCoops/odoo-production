@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<odoo>
+<odoo noupdate="1">
     <record id="welcome_email" model="mail.template">
         <field name="name">Welcome Email</field>
         <field name="model_id" ref="base.model_res_partner"/>
         <field name="email_from">${(object.company_id.email or '')|safe}</field>
         <field name="email_to">${object.email|safe}</field>
         <field name="lang">${object.lang}</field>
-        <field name="reply_to">${object.company_id.email|safe}</field>
-        <field name="subject">Bienvenue à Coop</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">Welcome to Coop</field>
         <field name="body_html"><![CDATA[]]></field>
     </record>
     <record id="unsubscribe_email" model="mail.template">
@@ -16,7 +16,7 @@
         <field name="email_from">${(object.company_id.email or '')|safe}</field>
         <field name="email_to">${object.email|safe}</field>
         <field name="lang">${object.lang}</field>
-        <field name="reply_to">${object.company_id.email|safe}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
         <field name="subject">You have been unsubscribed from your team</field>
         <field name="body_html"><![CDATA[
             <p>Dear ${object.name},</p>
@@ -31,7 +31,7 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${object.partner_id.lang}</field>
-        <field name="reply_to">${object.partner_id.company_id.email|safe}</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="subject">Confirmation of your leave request</field>
         <field name="body_html"><![CDATA[
 <p>Hello ${object.partner_id.name}</p>
@@ -50,8 +50,8 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${object.partner_id.lang}</field>
-        <field name="reply_to">${object.partner_id.company_id.email|safe}</field>
-        <field name="subject">Confirmation de votre demande de congé</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Confirmation of your leave request</field>
         <field name="body_html"><![CDATA[
 <p>Hello ${object.partner_id.name}</p>
 <br/>
@@ -69,18 +69,18 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_from">${(object.company_id.email or '')|safe}</field>
         <field name="email_to">${object.email|safe}</field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
-        <field name="reply_to">${object.company_id.email|safe}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
         <field name="subject">Register Confirmation Email</field>
         <field name="body_html"><![CDATA[
 <p>Hello ${object.name}</p>
 <br/>
-<p>We confirm your registration for the La Louve meeting scheduled on ${object.event_id.date_begin}. IF YOU ARE NOT A CO-OPERATOR AND WISH TO SUBSCRIBE ON THE DAY OF THE MEETING, YOU SHOULD HAVE:<br/>
+<p>We confirm your registration for the ${object.company_id.name or ''} meeting scheduled on ${object.event_id.date_begin}. IF YOU ARE NOT A CO-OPERATOR AND WISH TO SUBSCRIBE ON THE DAY OF THE MEETING, YOU SHOULD HAVE:<br/>
 - Your check book or bank card<br/>
 - An ID</p>
 <p>Proof of reduced subscription: social minimums (document of less than 3 months attesting the payment of the RSA, the ASS, the AER-R, the ATS, the ATA, the ADA, the AAH, the 'ASI, AV, ASV or ASPA) or scholarship students 6 or 7 (scholarship certificate).</p>
 <br/>
 <p>You will find attached the contract which you will have to sign at the end of the meeting if you accept the conditions of operation which will be presented to you. If possible, please print and bring this form to the welcome meeting. In case of forgetfulness, you will be forced to fill a blank copy on the spot. If an error is present on this form, thank you to correct it with the pen in a visible way visible.</p>
-<br />
+<br/>
 <p>Cordially.</p>
 ]]>
         </field>
@@ -92,27 +92,27 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${object.partner_id.lang}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Décompte volant le ${object.convert_format_datatime()}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">Count flying on ${object.convert_format_datatime()}</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour membres de l’équipe volante--</p>
+<p>Hello flying team members-- </p>
 <br/>
-<p>Juste un rappel pour vous dire que<h3>le prochain jour de décompte sera jeudi prochain, le ${object.convert_format_datatime()}</h3>... c'est le dernier jour pour effectuer un service volant et éviter des rattrapages.</p>
-<p>La programmation des services volants se fait via l’espace membres. Cliquez sur “outils”, puis “programmer un service volant”, puis “inscription”. Si vous n’avez pas accès à l’espace membres, il est toujours possible de programmer un service volant en contactant le Bureau des membres pendant ses horaires d’ouverture.</p>
-<p>Depuis le 1er décompte volant du mois d'août 2017, l'expérience montre que la grande majorité des volants s'inscrit sur un service les 3 jours précédant le jour du décompte. Les places volantes créées pour les mardi, mercredi et jeudi de semaine A sont donc systématiquement toutes prises, ce qui n'est pas le cas pour tous les autres jours des semaines A, B, C, D. Ceci crée un déséquilibre. Dans la mesure du possible, nous vous prions de bien vouloir essayer d'étaler la programmation de vos services sur les 4 semaines A, B, C, D. Pour information, les créneaux les plus "critiques" sont le dimanche matin à 7h15, le samedi soir à 19h, le lundi de 9h à 12h.</p>
-<h3>Qu’est ce qui se passe si je n’ai pas un crédit dans mon « compte » le ${object.convert_format_datatime()}?</h3> 
-<p>Comme les membres de toutes les autres équipes, vous devrez 2 rattrapages. Donc, au total, vous aurez trois services à programmer et à effectuer avant le prochain jour de décompte  : les 2 rattrapages, et le service que vous devez de toute façon avant le prochain décompte. (Ces trois services à faire sont en plus des rattrapages que, éventuellement, vous devez déjà à La Louve).</p>
-<h3>Comment faire un rattrapage?</h3>
-<p>À la différence des membres des équipes ABCD, les membres de l’équipe volante doivent programmer leurs rattrapages, sans exception… tout simplement en programmant des vacations supplémentaires. Un membre de l’équipe volante ne peut pas utiliser le même système de rattrapage que celui des équipes ABCD. S’il se présente à n’importe quel service pour faire un rattrapage, sans l'avoir programmé, il ne sera pas crédité.</p>
-<h3>Annuler un service programmé?</h3>
-<p>Programmer une vacation puis la manquer sans l'annuler au préalable entraîne le retrait d’un crédit de son compte d’épargne de services. Les membres de l’équipe volante peuvent annuler leurs vacations sans pénalités jusqu’à une heure avant leur démarrage, auprès du bureau des membres, pendant les horaires d’ouverture.</p>
-<h3>Pour tout renseignement, contactez le Bureau des membres pendant ses horaires d’ouverture : 01 86 95 91 90.</h3>
-<p>Horaires d’ouverture du Bureau Des Membres :</p>
-<p>TMardi : 13h30 - 16h</p>
-<p>Mercredi à Vendredi : 13h30 - 20h</p>
-<p>Samedi : 10h - 16h</p>
+<p>Just a reminder to tell you that <h3> the next counting day will be next Thursday, the ${object.convert_format_datatime()}</h3>... it's the last day to perform a flying service and avoid catching up.</p>
+<p>The programming of the flying services is done via the members area. Click on “tools”, then “program a steering wheel service”, then “registration”. If you do not have access to the members area, it is always possible to schedule a flying service by contacting the Members' office during its opening hours. </p>
+<p>Since the 1st steering wheel count in August 2017, experience shows that the vast majority of steering wheels registers for a service the 3 days preceding the day of the count. The flying places created for Tuesday, Wednesday and Thursday of week A are therefore systematically taken, which is not the case for all the other days of weeks A, B, C, D. This creates an imbalance. As far as possible, we kindly ask you to try to spread the programming of your services over the 4 weeks A, B, C, D. For information, the most "critical" slots are Sunday morning at 7.15 am, Saturday evening at 7 p.m., Monday from 9 a.m. to 12 p.m.</p>
+<h3>What happens if I don't have a credit in my "account" the ${object.convert_format_datatime()}?</h3>
+<p>Like the members of all the other teams, you will need 2 catch-ups. So, in total, you will have three services to program and perform before the next countdown day: the 2 catch-ups, and the service you need anyway before the next countdown. (These three services to do are in addition to the catch-ups that you may already need at ${object.company_id.name or ''}).</p>
+<h3>How to catch up? </h3>
+<p>Unlike the ABCD team members, the flying team members must schedule their overtakes, without exception ... simply by scheduling additional shifts. A member of the flying team cannot use the same catch-up system as that of the ABCD teams. If he shows up at any service to catch up, without having scheduled it, he will not be credited.</p>
+<h3>Cancel a scheduled service?</h3>
+<p>Scheduling a vacation then missing it without first canceling it will result in the withdrawal of a credit from its service savings account. Members of the flying team may cancel their vacations without penalty up to one hour before their start, at the members' office during opening hours.</p>
+<h3>For more information, contact the Membership Office during its opening hours: ${(object.company_id.phone or '')|safe}.</h3>
+<p>Opening hours of the Members' Office:</p>
+Tuesday: 1:30 p.m. - 4 p.m.</p>
+<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
+<p>Saturday: 10 a.m. - 4 p.m.</p>
 <br/>
-<p>Cordialement,</p>
+<p>Sincerely,</p>
 ]]>
         </field>
     </record>
@@ -123,16 +123,16 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="subject">Reminder End Leave Email</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name.split(',')[0]}</p>
-<p>La fin de votre congé à La Louve approche. Pour vous assurer de pouvoir faire vos courses dès votre retour, il est fortement conseillé que vous contactiez le Bureau des membres pour réintégrer une nouvelle équipe.</p>
-<p>Date de fin de votre congé : ${object.stop_date}</p>
-<p>Horaires d’ouverture du Bureau Des Membres : Mardi : 13h30 - 16h Mercredi à Vendredi : 13h30 - 20h Samedi : 10h - 16h.</p>
-<p>Tél : 01 86 95 91 90</p>
-<p>Bonne journée,</p>
-<p>Le Bureau des membres de La Louve</p>
+<p>Hello ${object.partner_id.name.split(',')[0]}</p>
+<p>The end of your leave at ${(object.partner_id.company_id.name or '')|safe} is approaching. To ensure that you can do your shopping as soon as you return, it is strongly recommended that you contact the Members' Office to reintegrate a new team.</p>
+<p>End date of your leave: ${object.stop_date}</p>
+<p>Opening hours of the Members' Office: Tuesday: 1:30 p.m. - 4 p.m. Wednesday to Friday: 1:30 p.m. - 8 p.m. Saturday: 10 a.m. - 4 p.m.</p>
+<p>Tel: ${(object.partner_id.company_id.phone or '')|safe}</p>
+<p>Have a nice day,</p>
+<p>The Membership Office of ${(object.partner_id.company_id.name or '')|safe}</p>
 ]]>
         </field>
     </record>
@@ -143,18 +143,18 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Confirmation de votre demande de congé non définie</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Confirmation of your leave request non defined</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name}</p>
-<p>Nous avons enregistré votre congé "non défini" à partir du ${object.start_date}. Pendant cette période vous n’avez pas besoin de venir faire vos services.</p>
-<p>S'il s’agit d'un congé temporaire, vous ne pouvez pas faire vos courses.</p>
-<p>S'il s'agit d'un congé parental, vous pouvez faire vos courses à la Louve.</p>
-<p>10 jours avant la date de fin de congé estimée que vous nous avez donnée, vous recevrez un message vous rappelant de contacter le Bureau des membres pour de nouveau intégrer une équipe.</p><br/>
-<p>Bonne journée,</p>
-<p>Bureau de membres 01 86 95 91 90</p>
-<p>Pour toute question ou demande, merci d'appeler ou de passer au Bureau des membres pendant ses horaires d'ouverture.</p>
-<p>Mardi : 13h30 - 16h Mercredi à Vendredi : 13h30 - 20h Samedi : 10h - 16h</p>
+<p>Hello ${object.partner_id.name}</p>
+<p>We have recorded your "undefined" leave from ${object.start_date}. During this period you do not need to come and do your services.</p>
+<p>If it's temporary leave, you can't do your shopping.</p>
+<p>If it's parental leave, you can do your shopping at ${(object.partner_id.company_id.name or '')|safe}.</p>
+<p>10 days before the estimated end of leave date you have given us, you will receive a message reminding you to contact the Members' Office to join a team again.</p><br/>
+<p>Have a nice day,</p>
+<p>Members office ${(object.partner_id.company_id.phone or '')|safe}</p>
+<p>For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
+<p>Tuesday: 1:30 p.m. - 4 p.m. Wednesday to Friday: 1:30 p.m. - 8 p.m. Saturday: 10 a.m. - 4 p.m.</p>
 ]]>
         </field>
     </record>
@@ -165,22 +165,22 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${object.partner_id.lang}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Le magasin sera ouvert le ${object.convert_format_datatime()}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">The store will be open on ${object.convert_format_datatime()}</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour membres de l’équipe ${object.shift_id.shift_template_id.name},</p>
+<p>Hello team members ${object.shift_id.shift_template_id.name},</p>
 <br/>
-<p>Vous avez un service qui tombe le ${object.convert_format_datatime()}.</p>
-<p>Pendant votre service, le magasin sera ouvert. Comme il s'agit d'un jour férié ou autre jour special pour La Louve, si vous ne pouvez pas assurer votre service, un seul rattrapage vous serez attribué au lieu de deux.</p>
-<p>Cependant, afin que le supermarché puisse fonctionner normalement, nous vous rappelons que la solution idéale reste l'échange de service avec un autre coopérateur.</p>
-<p>Bien cordialement,</p>
-<p>Bureau de membres
+<p>You have a service that falls on ${object.convert_format_datatime()}.</p>
+<p>During your service, the store will be open. As this is a public holiday or other special day for ${(object.company_id.name or '')|safe}, if you cannot provide your service, you will be allocated only one catch instead of two .</p>
+<p>However, so that the supermarket can function normally, we remind you that the ideal solution remains the exchange of service with another cooperator.</p>
+<p>Sincerely,</p>
+<p>Membership office
 <br/>
-01 86 95 91 90</p>
-<p>Le bureau des membres ne prend aucune demande par mail. Pour toute question ou demande, merci d'appeler ou de passer au Bureau des membres pendant ses horaires d'ouverture.</p>
-<p>Mardi : 13h30 - 16h</p>
-<p>Mercredi à Vendredi : 13h30 - 20h</p>
-<p>Samedi : 10h - 16h</p>
+${(object.company_id.phone or '')|safe}</p>
+<p>The members' office does not take any requests by email. For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
+<p>Tuesday: 1:30 p.m. - 4 p.m.</p>
+<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
+<p>Saturday: 10 a.m. - 4 p.m.</p>
 <br/>
 ]]>
         </field>
@@ -192,21 +192,21 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${object.partner_id.lang}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Le magasin sera fermé le ${object.convert_format_datatime()}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">The store will be closed on ${object.convert_format_datatime()}</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour membres de l’équipe ${object.shift_id.shift_template_id.name},</p>
+<p>Hello team members ${object.shift_id.shift_template_id.name},</p>
 <br/>
-<p>Vous avez un service qui tombe le ${object.convert_format_datatime()}.</p>
-<p>Pendant votre service, le magasin sera fermé. Comme il s'agit d'un jour férié ou autre jour special pour La Louve, vous êtes exemptés de ce service. Ce qui veut dire que vous n'avez pas à venir et que vous n'aurez pas de rattrapages à effectuer.</p>
-<p>Bien cordialement,</p>
-<p>Bureau de membres
+<p>You have a service that falls on ${object.convert_format_datatime()}.</p>
+<p>During your service, the store will be closed. As this is a holiday or other special day for ${(object.company_id.name or '')|safe}, you are exempt from this service. Which means you don't have to come and you won't have to catch up.</p>
+<p>Sincerely,</p>
+<p>Membership office
 <br/>
-01 86 95 91 90</p>
-<p>Le bureau des membres ne prend aucune demande par mail. Pour toute question ou demande, merci d'appeler ou de passer au Bureau des membres pendant ses horaires d'ouverture.</p>
-<p>Mardi : 13h30 - 16h</p>
-<p>Mercredi à Vendredi : 13h30 - 20h</p>
-<p>Samedi : 10h - 16h</p>
+${(object.company_id.phone or '')|safe}</p>
+<p>The members' office does not take any requests by email. For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
+<p>Tuesday: 1:30 p.m. - 4 p.m.</p>
+<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
+<p>Saturday: 10 a.m. - 4 p.m.</p>
 <br/>
 ]]>
         </field>
@@ -218,26 +218,25 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Changer d'équipe en Classique messages</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Change team to Classic messages</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name}</p>
-<p>Vous êtes inscrit à partir du ${object.new_next_shift_date} dans l’équipe ${object.new_shift_template_id.name}</p>
-<p>Vos deux prochains services sont donc :<br/>
--  ${object.convert_format_datatime(object.first_next_shift_date)}<br/>
--  ${object.convert_format_datatime(object.second_next_shift_date)}<br/>
+<p>Hello ${object.partner_id.name}</p>
+<p>You are registered from ${object.new_next_shift_date} in the team ${object.new_shift_template_id.name}</p>
+<p>Your next two services are therefore:<br/>
+- ${object.convert_format_datatime(object.first_next_shift_date)}<br/>
+- ${object.convert_format_datatime(object.second_next_shift_date)}<br/>
 </p>
-<p>Pour information, votre statut est ${object.convert_state_partner()}.</p>
-<p>Un rattrapage peut vous avoir été attribué si un écart supérieur à 6 semaines a été constaté entre la date de votre dernier service avec l’ancienne équipe et la date de votre premier service dans la nouvelle équipe. Ceci pour respecter la règle des 13 services à réaliser sur l’année.</p>
-<p>Pour tout renseignement, contactez le Bureau des membres pendant ses horaires d’ouverture : 01 86 95 91 90</p>
-<p>Horaires d’ouverture du Bureau Des Membres :</p>
-<p>Mardi : 13h30 - 16h<br/>
-   Mercredi à Vendredi : 13h30 - 20h<br/>
-   Samedi : 10h - 16h<br/>
+<p>For information, your status is ${object.convert_state_partner()}.</p>
+<p>You may have been awarded a catch-up if a difference of more than 6 weeks has been noted between the date of your last service with the old team and the date of your first service in the new team. This is to respect the rule of 13 services to be performed over the year.</p>
+<p>For more information, contact the Membership Office during its opening hours: ${(object.partner_id.company_id.phone or '')|safe}</p>
+<p>Opening hours of the Members' Office:</p>
+<p>Tuesday: 1:30 p.m. - 4 p.m.<br/>
+   Wednesday to Friday: 1:30 p.m. - 8 p.m.<br/>
+   Saturday: 10 a.m. - 4 p.m.<br/>
 </p>
-<p>Bonne journée,
-</p>
-<p>LA LOUVE</p>
+<p>Have a good day,</p>
+<p>${(object.partner_id.company_id.name or '')|safe}</p>
 ]]>
         </field>
     </record>
@@ -248,22 +247,21 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Changer d'équipe en Volant messages</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Change Team by Flying Messages</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name}</p>
-<p>Vous êtes inscrit à partir du ${object.new_next_shift_date} dans l’équipe volante.</p>
-<p>Vous devrez avoir programmé et fait au moins un service volant entre cette date et le prochain décompte du ${object.convert_format_datatime(object.first_next_shift_date)}.</p>
-<p>En pièce-jointe se trouve le calendrier des semaines ABCD, ainsi que la fiche descriptive du fonctionnement de l’équipe volante. Le fonctionnement de cette équipe étant assez complexe, merci de lire cette fiche attentivement.</p>
-<p>Pour tout renseignement, contactez le Bureau des membres pendant ses horaires d’ouverture : 01 86 95 91 90</p>
-<p>Horaires d’ouverture du Bureau Des Membres :</p>
-<p>Mardi : 13h30 - 16h<br/>
-   Mercredi à Vendredi : 13h30 - 20h<br/>
-   Samedi : 10h - 16h<br/>
+<p>Hello ${object.partner_id.name}</p>
+<p>You are registered from the ${object.new_next_shift_date} in the flying team.</p>
+<p>You must have programmed and made at least one flying service between this date and the next count of the ${object.convert_format_datatime(object.first_next_shift_date)}.</p>
+<p>Attached is the calendar of ABCD weeks, as well as the description of the functioning of the flying team. The operation of this team is quite complex, please read this sheet carefully.</p>
+<p>For more information, contact the Membership Office during its opening hours: ${(object.partner_id.company_id.phone or '')|safe}</p>
+<p>Opening hours of the Members' Office:</p>
+<p>Tuesday: 1:30 p.m. - 4 p.m.<br/>
+    Wednesday to Friday: 1:30 p.m. - 8 p.m.<br/>
+    Saturday: 10 a.m. - 4 p.m.<br/>
 </p>
-<p>Bonne journée,
-</p>
-<p>LA LOUVE</p>
+<p>Have a good day,</p>
+<p>${(object.partner_id.company_id.name or '')|safe}</p>
 ]]>
         </field>
     </record>
@@ -287,7 +285,7 @@ If you think there was a mistake or wish to subscribe to another team please con
 <p>If you wish to cancel or postpone your attendance, please write to ${object.get_email_contact_meeting()}.</p>
 <br/>
 <p>See you soon at the co-op!</p>
-<br />
+<br/>
 <img  src="/coop_membership/static/description/image_lalouve.png"/>
 ]]>
         </field>
@@ -302,36 +300,36 @@ If you think there was a mistake or wish to subscribe to another team please con
         <field name="reply_to">${object.company_id.email|safe}</field>
         <field name="subject">Welcome meeting reminder email</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour,</p>
-<p>Vous êtes inscrit.e pour la réunion d’accueil de La Louve qui se déroulera le <strong> ${object.get_date_time_meeting()}, ${object.get_address_meeting()}</strong></p>
-<p>Métro : Marcadet-Poissonniers ou Simplon.</p>
-<p>L’accueil sera assuré à partir de <span style="color: red"><strong>${object.get_time_before(30)}</strong></span>.</p>
-<p>Les informations transmises pendant la réunion étant essentielles, aucun retard ne pourra être accepté. Nous vous remercions de votre compréhension.</p>
-<p><strong>Au menu de cette réunion d’accueil :</strong></p>
+<p>Hello</p>
+<p>You are registered for the welcome meeting of ${(object.company_id.name or '')|safe} which will take place on <strong>${object.get_date_time_meeting()}, ${object. get_address_meeting()}</strong></p>
+<p>Metro: Marcadet-Poissonniers or Simplon.</p>
+<p>Reception will be provided from <span style = "color: red"><strong>${object.get_time_before(30)}</strong></span>.</p>
+<p>As the information transmitted during the meeting is essential, no delay will be accepted. Thank you for your understanding.</p>
+<p><strong>On the menu for this welcome meeting:</strong></p>
 <ul>
-    <li>Présentation détaillée de ce que signifie rejoindre La Louve : Principe de la coopérative, produits qui seront disponibles, organisation du travail bénévole</li>
-    <li>Réponse à vos questions générales</li>
-    <li>Réponse à vos questions individuelles</li>
-    <li>Visite du magasin</li>
-    <li>Souscription si vous décidez de rejoindre La Louve, inscription sur un créneau de travail </li>
+    <li>Detailed presentation of what it means to join ${(object.company_id.name or '')|safe}: Principle of the cooperative, products that will be available, organization of voluntary work</li>
+    <li>Answers to your general questions</li>
+    <li>Answers to your individual questions</li>
+    <li>Visit the store</li>
+    <li>Subscription if you decide to join ${(object.company_id.name or '')|safe}, registration on a working niche</li>
 </ul>
-<p>La réunion durera environ 2h30’.</p>
-<p><strong>Si vous n'êtes pas encore coopérateur et que vous souhaitez nous rejoindre :</strong></p>
+<p>The meeting will last approximately 2.5 hours.</p>
+<p><strong>If you are not yet a cooperative member and wish to join us:</strong></p>
 <ul>
-    <li>Nous vous remercions par avance de prévoir de rester jusqu'à la fin de la réunion, puisque votre inscription sur un créneau de travail se fait à l'issue de la présentation <u>(ce choix se fera uniquement en présentiel, pas d'inscription sur les créneaux à distance)</u>.</li>
-    <li>Si vous souhaitez souscrire, prévoyez de vous munir : 
+    <li>We thank you in advance for planning to stay until the end of the meeting, since your registration on a working window is done at the end of the presentation <u>(this choice will only be made face-to-face, no registration on remote slots)</u>.</li>
+    <li>If you want to subscribe, plan to bring:
         <ul>
-            <li>de votre carnet de chèque ou de votre Carte Bancaire </li>
-            <li>d'une pièce d’identité</li>
-            <li>d'un justificatif pour une souscription réduite (minima sociaux, étudiants boursiers 6 ou 7)</li>
-        </ul> 
+            <li>from your check book or your Credit Card</li>
+            <li>of an identity document</li>
+            <li>proof of a reduced subscription (social minimum, scholarship students 6 or 7)</li>
+        </ul>
     </li>
 </ul>
-<p>Pour plus d’informations dès à présent sur les réunions d’accueil et les créneaux,<a href="https://docs.google.com/document/d/1Ra6X_UoH2yKDjuR6JlLTjwFFrrpy04lvCwBp4nnpfWc/edit"> consultez ce lien.</a></p>
-<p>Si vous ne pouvez finalement pas assister à cette réunion, vous pouvez contacter l’équipe des réunions d’accueil ${object.get_email_contact_meeting()} pour vous inscrire à une future réunion d’accueil.</p>
-<p>Cordialement,</p>
-<p>Cécile et Philippe</p>
-<p>Pour l’équipe des Réunions d’Accueil</p>
+<p>For more information now on welcome meetings and slots, <a href="https://docs.google.com/document/d/1Ra6X_UoH2yKDjuR6JlLTjwFFrrpy04lvCwBp4nnpfWc/edit"> see this link.</a></p>
+<p>If you are unable to attend this meeting, you can contact the home meeting team ${object.get_email_contact_meeting()} to register for a future home meeting.</p>
+<p>Sincerely,</p>
+<p>Cécile and Philippe</p>
+<p>For the Welcome Meetings team</p>
 <p>${object.get_email_contact_meeting()}</p>
 <img  src="/coop_membership/static/description/image_lalouve.png"/>
 ]]>
@@ -342,14 +340,14 @@ If you think there was a mistake or wish to subscribe to another team please con
     <record id="abandoned_message_leave_email" model="mail.template">
         <field name="name">Abandoned Message Absence Leave Email</field>
         <field name="model_id" ref="coop_membership.model_shift_leave"/>
-        <field name="email_from">no-reply@cooplalouve.fr</field>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">bureau.membres@cooplalouve.fr</field>
-        <field name="subject">API non-aboutie</field>
+        <field name="subject">API failed</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour,</p>
+<p>Hello</p>
 <p>
 ${object.partner_id.name.split(',')[0]} ${object.partner_id.barcode_base}
-n’a pas rendu son justificatif pour une Absence pour incapacité. L’absence proposée est donc annulée.
+has not provided proof of Absence due to incapacity. The proposed absence is therefore canceled.
 </p>
 ]]>
         </field>
@@ -359,35 +357,35 @@ n’a pas rendu son justificatif pour une Absence pour incapacité. L’absence 
     <record id="cancellation_message_absence_leave_email" model="mail.template">
         <field name="name">Cancellation Message Absence Leave Email</field>
         <field name="model_id" ref="coop_membership.model_shift_leave"/>
-        <field name="email_from">bureau.membres@cooplalouve.fr</field>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Absence pour incapacité non-aboutie</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Absence for unsuccessful incapacity</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
+<p>Hello ${object.partner_id.name.split(',')[0]},</p>
 <div>
-Vous aviez fait la demande d’un congé pour incapacité auprès du Bureau des membres.
-Pour que ce congé puisse être validé, vous aviez 3 semaines pour nous presenter un justificatif médical.
-Sauf erreur de notre part, nous n’avons pas vu ce document.
+You requested disability leave from the Membership Office.
+In order for this leave to be validated, you had 3 weeks to present us with medical proof.
+Unless we are mistaken, we have not seen this document.
 </div>
-<p>Votre congé n’a donc pas abouti.</p>
-<p>Les services manqués pendant votre absence sont désormais enregistrés comme des services manqués.</p>
-<p>Pour régulariser votre situation, contactez le bureau des membres pendant ses horaires d’ouverture :</p>
+<p>Your leave was therefore unsuccessful.</p>
+<p>Services missed during your absence are now recorded as missed services.</p>
+<p>To regularize your situation, contact the members' office during its opening hours:</p>
 <p>
-    <span>Mardi : 13h30 - 16h</span>
-    <br />
-    <span>Mercredi à Vendredi : 13h30 - 20h</span>
-    <br />
-    <span>Samedi : 10h - 16h</span>
-    <br />
+    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
+    <br/>
+    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
+    <br/>
+    <span>Saturday: 10 a.m. - 4 p.m.</span>
+    <br/>
 </p>
-<p>01 86 95 91 90</p>
-<span>Bonne journée,</span>
+<p>${(object.partner_id.company_id.phone or '')|safe}</p>
+<span>Have a nice day,</span>
 <br/>
-<span>Le Bureau des membres</span>
+<span>The Membership Office</span>
 <br/>
-<span>L A   L O U V E</span>
+<span>${(object.partner_id.company_id.name or '')|safe}</span>
 ]]>
         </field>
     </record>
@@ -396,32 +394,32 @@ Sauf erreur de notre part, nous n’avons pas vu ce document.
     <record id="confirmation_message_absence_leave_email" model="mail.template">
         <field name="name">Confirmation Message Absence Leave Email</field>
         <field name="model_id" ref="coop_membership.model_shift_leave"/>
-        <field name="email_from">bureau.membres@cooplalouve.fr</field>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Absence pour incapacité</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Absence due to incapacity</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
-<p>Votre absence pour incapacité du ${object.start_date} au ${object.stop_date} a été enregistré.</p>
-<p>Pour rappel, pendant cette période, vous pouvez faire vos courses, et vous êtes exemptés de services.</p>
-<p>Vous avez 3 semaines à partir de la date d’envoi de ce mail pour nous montrer ou nous transmettre un justificatif medical.</p>
-<p>Sans ce document, votre congé sera rétroactivement annulé.</p>
-<p>Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :</p>
+<p>Hello ${object.partner_id.name.split(',')[0]},</p>
+<p>Your absence for disability from ${object.start_date} to ${object.stop_date} has been recorded.</p>
+<p>As a reminder, during this period, you can do your shopping, and you are exempt from services.</p>
+<p>You have 3 weeks from the date of sending this email to show us or send us a medical proof.</p>
+<p>Without this document, your leave will be retroactively canceled.</p>
+<p>For any information, contact the members' office during its opening hours:</p>
 <p>
-    <span>Mardi : 13h30 - 16h</span>
-    <br />
-    <span>Mercredi à Vendredi : 13h30 - 20h</span>
-    <br />
-    <span>Samedi : 10h - 16h</span>
-    <br />
+    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
+    <br/>
+    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
+    <br/>
+    <span>Saturday: 10 a.m. - 4 p.m.</span>
+    <br/>
 </p>
-<p>01 86 95 91 90</p>
-<span>Bonne journée,</span>
+<p>${(object.partner_id.company_id.phone or '')|safe}</p>
+<span>Have a nice day,</span>
 <br/>
-<span>Le Bureau des membres</span>
+<span>The Membership Office</span>
 <br/>
-<span>L A   L O U V E</span>
+<span>${(object.partner_id.company_id.name or '')|safe}</span>
 ]]>
         </field>
     </record>
@@ -430,35 +428,35 @@ Sauf erreur de notre part, nous n’avons pas vu ce document.
     <record id="reminder_message_absence_leave_email" model="mail.template">
         <field name="name">Reminder Message Absence Leave Email</field>
         <field name="model_id" ref="coop_membership.model_shift_leave"/>
-        <field name="email_from">bureau.membres@cooplalouve.fr</field>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Rappel justificatif</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Supporting reminder</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
-<p>Votre absence pour incapacité du ${object.start_date} au ${object.stop_date} a été enregistré.</p>
-<span>Sauf erreur de notre part, nous n’avons toujours pas vu de justificatif médical.</span>
+<p>Hello ${object.partner_id.name.split(',')[0]},</p>
+<p>Your absence for disability from ${object.start_date} to ${object.stop_date} has been recorded.</p>
+<span>Unless we’re mistaken, we still haven’t seen any medical evidence.</span>
 <br/>
-<span>Il vous reste une semaine pour nous le presenter ou l’envoyer à :</span>
+<span>You have one week left to present it or send it to:</span>
 <br/>
-<p>bureau.membres@cooplalouve.fr.</p>
-<p>Sans ce document, votre congé sera rétroactivement annulé.</p>
-<p>Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :</p>
+<p>${(object.partner_id.company_id.email or '')|safe}.</p>
+<p>Without this document, your leave will be retroactively canceled.</p>
+<p>For any information, contact the members' office during its opening hours:</p>
 <p>
-    <span>Mardi : 13h30 - 16h</span>
-    <br />
-    <span>Mercredi à Vendredi : 13h30 - 20h</span>
-    <br />
-    <span>Samedi : 10h - 16h</span>
-    <br />
+    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
+    <br/>
+    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
+    <br/>
+    <span>Saturday: 10 a.m. - 4 p.m.</span>
+    <br/>
 </p>
-<p>01 86 95 91 90</p>
-<span>Bonne journée,</span>
+<p>${(object.partner_id.company_id.phone or '')|safe}</p>
+<span>Have a nice day,</span>
 <br/>
-<span>Le Bureau des membres</span>
+<span>The Membership Office</span>
 <br/>
-<span>L A   L O U V E</span>
+<span>${(object.partner_id.company_id.name or '')|safe}</span>
 ]]>
         </field>
     </record>
@@ -466,47 +464,47 @@ Sauf erreur de notre part, nous n’avons pas vu ce document.
     <record id="confirmation_anticipated_leave_email" model="mail.template">
         <field name="name">Confirmation Anticipated Leave Email</field>
         <field name="model_id" ref="coop_membership.model_shift_leave"/>
-        <field name="email_from">bureau.membres@cooplalouve.fr</field>
+        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="email_to">${object.partner_id.email|safe}</field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Confirmation de votre demande de congé</field>
+        <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
+        <field name="subject">Confirmation of your leave request</field>
         <field name="body_html"><![CDATA[
 <p>
-Bonjour ${object.partner_id.name.split(',')[0]},
+Hello ${object.partner_id.name.split(',')[0]},
 </p>
 <p>
-Votre demande de congé anticipé du ${object.start_date} au ${object.stop_date} a été bien enregistrée.
-Pendant cette période vous pouvez faire vos courses sans venir faire vos services. Une fois le congé terminé, vous serez attendu à votre prochain service.
+Your request for early leave from ${object.start_date} to ${object.stop_date} has been received.
+During this period you can do your shopping without coming to do your services. Once the leave is over, you will be waited for your next service.
 </p>
 <p>
-Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :
+For any information, contact the members' office during its opening hours:
 </p>
 <p>
-    <span>Mardi : 13h30 - 16h</span>
-    <br />
-    <span>Mercredi à Vendredi : 13h30 - 20h</span>
-    <br />
-    <span>Samedi : 10h - 16h</span>
-    <br />
+    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
+    <br/>
+    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
+    <br/>
+    <span>Saturday: 10 a.m. - 4 p.m.</span>
+    <br/>
 </p>
-<p>01 86 95 91 90</p>
-<span>Bonne journée,</span>
+<p> ${(object.partner_id.company_id.phone or '')|safe}</p>
+<span> Have a nice day,</span>
 <br/>
-<span>Le Bureau des membres</span>
+<span>The Membership Office</span>
 <br/>
-<span>L A   L O U V E</span>
+<span>${(object.partner_id.company_id.name or '')|safe}</span>
 ]]></field>
     </record>
 
     <record id="notify_mirror_children_email" model="mail.template">
         <field name="name">Notify mirror children</field>
         <field name="model_id" ref="coop_membership.model_res_partner"/>
-        <field name="email_from">bureau.membres@cooplalouve.fr</field>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
         <field name="email_to">${object.parent_id and object.parent_id.email|safe}</field>
         <field name="lang">${(object.lang)|safe}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Votre enfant rattaché(e)</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">Your child attached</field>
         <field name="body_html"><![CDATA[
 <style>
 #notify-mirror-children ol {
@@ -528,27 +526,27 @@ Pour tout renseignement, contactez le bureau des membres pendant ses horaires d�
 }
 </style>
 <div id="notify-mirror-children">
-<p>Bonjour, </p>
+<p>Hello,</p>
 <p>
-Votre enfant rattaché va bientôt avoir 18 ans. On lui souhaite en avance un joyeux anniversaire.
+Your related child will soon be 18 years old. We wish him a happy birthday in advance.
 </p>
 <p>
-Le jour de son anniversaire, il / elle sera dissocié(e) de votre compte et perdra ses droits d’acheteur à La Louve.
-S’il / elle souhaite continuer à faire des courses à La Louve, il y a 2 possibilités :
+On his birthday, he / she will be unlinked from your account and will lose buyer rights to ${(object.company_id.name or '')|safe}.
+If he / she wishes to continue shopping at ${(object.company_id.name or '')|safe}, there are 2 possibilities:
 </p>
 <ol>
-<li>Il / elle devient membre de La Louve.
-Il faut visiter notre site web et s’inscrire à une réunion d’accueil, puis suivre la démarche que vous avez fait pour devenir membre de La Louve.
+<li>He / she becomes a member of ${(object.company_id.name or '')|safe}.
+You must visit our website and register for a welcome meeting, then follow the steps you have taken to become a member of ${(object.company_id.name or '')|safe}.
 </li>
-<li>Il / elle devient rattaché(e) adulte… une possibilité uniquement si vous n’avez pas déjà un autre adulte dans votre menage associé à votre compte à La Louve.
-Pour qu’il / elle devient adulte rattaché(e), il faut que vous passiez tous les deux au Bureau des membres pendant les horaires d’ouverture.
-Votre enfant doit apporter une pièce d’identité et un justificatif qui montre qu’il / elle habite à la meme adresse que vous.
+<li>He / she becomes attached to an adult... a possibility only if you do not already have another adult in your household associated with your account at ${(object.company_id.name or '')|safe}.
+For him / her to become a connected adult, you must both go to the Members' office during opening hours.
+Your child must bring a piece of identification and proof that he / she lives at the same address as you.
 </li>
 </ol>
 <p>
-Bonne journée,
+Have a good day,
 </p>
-<p>L A   L O U V E</p>
+<p>${(object.company_id.name or '')|safe}</p>
 </div>
 ]]>
         </field>
@@ -557,44 +555,44 @@ Bonne journée,
     <record id="notify_un_subscription_ftpop_email" model="mail.template">
         <field name="name">Notify Un Subscription FTOP Email</field>
         <field name="model_id" ref="coop_membership.model_res_partner"/>
-        <field name="email_from">bureau.membres@cooplalouve.fr</field>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
         <field name="email_to">${object.email|safe}</field>
         <field name="lang">${(object.lang)|safe}</field>
-        <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Désinscription de votre équipe</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">Unsubscribe from your team</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.name.split(',')[0]}, </p>
+<p>Hello ${object.name.split(',')[0]},</p>
 <div>
     <span>
-        Sauf erreur de notre part, vous avez accumulé 8 rattrapages.
-        Nous vous avons donc désinscrit de l’équipe volante.
+        Unless we are mistaken, you have accumulated 8 catches.
+        So we unsubscribed you from the flying team.
     </span>
     <br/>
     <span>
-        Cette désinscription automatique est conçue pour vous éviter d’accumuler une quantité de rattrapages difficilement surmontable.
+        This automatic unsubscription is designed to prevent you from accumulating a quantity of catch-ups that is difficult to overcome.
     </span>
     <br/>
     <span>
-        Sachez que, une fois dans votre vie, vous pouvez bénéficier d’un “jubilé”, c’est à dire d’une remise à zero de votre compteur de rattrapages.
+        Note that, once in your life, you can benefit from a "jubilee", that is to say a reset to your catch-up counter.
     </span>
 </div>
 <p>
-    Si vous souhaitez de nouveau rejoindre une équipe, vous pouvez contacter le bureau des membres pendant ses horaires d’ouverture :
+    If you want to join a team again, you can contact the members' office during its opening hours:
 </p>
 <p>
-    <span>Mardi : 13h30 - 16h</span>
-    <br />
-    <span>Mercredi à Vendredi : 13h30 - 20h</span>
-    <br />
-    <span>Samedi : 10h - 16h</span>
-    <br />
+    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
+    <br/>
+    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
+    <br/>
+    <span>Saturday: 10 a.m. - 4 p.m.</span>
+    <br/>
 </p>
-<p>01 86 95 91 90</p>
-<span>Bonne journée,</span>
+<p>${(object.company_id.phone or '')|safe}</p>
+<span>Have a nice day,</span>
 <br/>
-<span>Le Bureau des membres</span>
+<span>The Membership Office</span>
 <br/>
-<span>L A   L O U V E</span>
+<span>${(object.company_id.name or '')|safe}</span>
 ]]>
         </field>
     </record>
