@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-     <template id="minimal_layout_inherit" inherit_id="report.minimal_layout">
+     <template id="minimal_layout_inherit" inherit_id="web.minimal_layout">
           <xpath expr="//head" position="inside">
                  <link rel='stylesheet' href="/coop_default_pricetag/static/src/css/pricetag.css"/>
           </xpath>
     </template>
 
     <template id="report_pricetag">
-        <t t-call="report.html_container">
+        <t t-call="web.html_container">
         <div class="page">
             <t t-foreach="Products" t-as="product">
             <t t-foreach="product['line'].quantity" t-as="q">
@@ -51,7 +51,7 @@
     </template>
 
     <template id="report_pricetag_barcode">
-        <t t-call="report.html_container">
+        <t t-call="web.html_container">
         <div class="page">
             <t t-foreach="Products" t-as="product">
             <t t-foreach="product['line'].quantity" t-as="q">

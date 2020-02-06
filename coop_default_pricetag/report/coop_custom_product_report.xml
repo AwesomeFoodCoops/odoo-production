@@ -12,7 +12,7 @@
         attachment_use="False"
     />
 
-    <record id="coop_default_pricetag.pricetag" model="ir.actions.report.xml">
+    <record id="coop_default_pricetag.pricetag" model="ir.actions.report">
         <field name="paperformat_id" ref="coop_default_pricetag.paperformat_pricetag"/>
         <field name="attachment_use" eval="0"/>
     </record>
@@ -28,7 +28,7 @@
         attachment_use="False"
     />
 
-    <record id="coop_default_pricetag.pricetag_barcode" model="ir.actions.report.xml">
+    <record id="coop_default_pricetag.pricetag_barcode" model="ir.actions.report">
         <field name="paperformat_id" ref="coop_default_pricetag.paperformat_pricetag"/>
         <field name="attachment_use" eval="0"/>
     </record>
