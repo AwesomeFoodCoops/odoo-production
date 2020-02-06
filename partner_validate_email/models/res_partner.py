@@ -21,6 +21,7 @@ try:
     import DNS
 except ImportError:
     _logger.error('Unable to import DNS. "py3dns" library is required')
+    DNS = None
 
 
 class ResPartner(models.Model):
