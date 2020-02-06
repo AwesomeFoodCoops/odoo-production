@@ -370,10 +370,10 @@ class ShiftLeave(models.Model):
             shift_after_leave = []
             for template in templates:
                 # Get the day after end leave 30 days to guess shift after leave
-                next_shift_mounth = (fields.Datetime.from_string(
+                next_shift_month = (fields.Datetime.from_string(
                     stop_date) + timedelta(days=30)).strftime('%Y-%m-%d')
                 rec_dates = template.get_recurrent_dates(
-                    template.last_shift_date, next_shift_mounth)
+                    stop_date, next_shift_month)
 
                 for rec in rec_dates:
                     if fields.Datetime.to_string(rec) > stop_date:
