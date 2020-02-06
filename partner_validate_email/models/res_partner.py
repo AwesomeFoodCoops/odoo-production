@@ -9,13 +9,18 @@ from odoo import api, models, tools, _
 from odoo.exceptions import UserError
 from odoo.tools.safe_eval import safe_eval
 
+_logger = logging.getLogger(__name__)
+
 try:
     from validate_email import validate_email
-    import DNS
 except ImportError:
+    _logger.error('Unable to import validate_email')
     validate_email = None
 
-_logger = logging.getLogger(__name__)
+try:
+    import DNS
+except ImportError:
+    _logger.error('Unable to import DNS. "py3dns" library is required')
 
 
 class ResPartner(models.Model):
