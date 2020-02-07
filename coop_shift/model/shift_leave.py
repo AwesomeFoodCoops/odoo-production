@@ -117,9 +117,9 @@ class ShiftLeave(models.Model):
                             _('Undefined')))
 
     @api.multi
-    def copy(self, default=None):
+    def copy_data(self, default=None):
         raise ValidationError(_(
-            "You can not duplicate a leave : Unimplemented Feature"))
+            'You can not duplicate a leave : Unimplemented Feature.'))
 
     @api.multi
     def unlink(self):

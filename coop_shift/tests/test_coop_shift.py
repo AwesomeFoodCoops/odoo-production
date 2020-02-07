@@ -36,7 +36,8 @@ class TestCoopShift(CoopShiftTest):
         # Standard member registrations for this shift
         shift_ticket_id = self.ShiftTicket.search(
             [('shift_id', '=', shift_id.id),
-             ('product_id', '=', self.product_product_shift_standard)])
+             ('product_id', '=', self.product_product_shift_standard)],
+            limit=1)
         self.assertEqual(len(shift_ticket_id), 1, 'Shift Ticket: not created')
 
         test_std_reg1 = self.ShiftRegistration.create({
@@ -85,7 +86,7 @@ class TestCoopShift(CoopShiftTest):
         # Standard member registrations for this shift
         shift_ticket_id = self.ShiftTicket.search(
             [('shift_id', '=', shift_id.id),
-             ('product_id', '=', self.product_product_shift_ftop)])
+             ('product_id', '=', self.product_product_shift_ftop)], limit=1)
         self.assertEqual(len(shift_ticket_id), 1, 'Shift Ticket: not created')
 
         test_std_reg2 = self.ShiftRegistration.create({

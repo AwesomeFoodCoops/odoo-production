@@ -9,7 +9,7 @@
 
     <record model="shift.template.ticket" id="template_ticket_1_standard">
         <field name="name">Standard</field>
-        <field name="product_id" eval="ref('coop_shift.product_product_shift_ftop_product_template')"/>
+        <field name="product_id" eval="ref('coop_shift.product_product_shift_standard')"/>
         <field name="shift_type_id" eval="ref('coop_shift.shift_type')"/>
         <field name="shift_template_id" eval="ref('coop_shift.standard_template_1')"/>
         <field name="start_datetime" eval="'%s-%s-%s 09:00:00' %(datetime.now().year, datetime.now().month, datetime.now().day)"/>

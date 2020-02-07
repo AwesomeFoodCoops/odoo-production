@@ -505,7 +505,7 @@ class ShiftChangeTeam(models.Model):
             return False, False
 
     @api.multi
-    @api.depends('next_current_shift_date', 'new_shift_template_id',
+    @api.depends('new_shift_template_id',
                  'new_next_shift_date', 'partner_id')
     def _compute_mess_change_team(self):
         for record in self:
