@@ -12,11 +12,6 @@ class EventRegistration(models.Model):
     is_send_reminder = fields.Boolean("Send Reminder", default=False)
 
     @api.multi
-    def convert_event_date_begin(self):
-        for record in self:
-            return fields.Date.to_string(record.event_id.date_begin)
-
-    @api.multi
     def get_address_meeting(self):
         for record in self:
             event_address_obj = record.event_id.address_id
@@ -49,36 +44,6 @@ class EventRegistration(models.Model):
         time = '%sh%s' % \
                (time[11:].split(':')[0], time.split(':')[1])
         return time
-
-    @api.multi
-    def get_time_meeting(self):
-        for record in self:
-            meeting_time = '%sh%s' % \
-                           (record.event_id.date_begin_located[11:].
-                            split(':')[0], record.event_id.
-                            date_begin_located[11:].split(':')[1])
-            return meeting_time
-
-    @api.multi
-    def get_date_time_meeting(self):
-        for record in self:
-            date_begin = record.event_id.date_begin_located
-            date_end = record.event_id.date_end_located
-            wd = datetime.strptime(date_begin, '%Y-%m-%d %H:%M:%S').weekday()
-            weekday = self.convert_weekdays(wd)
-            month_number = datetime.strptime(date_begin, '%Y-%m-%d %H:%M:%S')
-            month = self.convert_month(month_number.month)
-
-            date = date_begin[0:10].split('-')[2]
-
-            meeting_time = self.get_time_meeting()
-
-            time_end = self.convert_meeting_time(date_end)
-
-            date_time_meeting = '%s %s %s de %s à %s' % (str(weekday), str(
-                date), str(month), str(meeting_time), str(time_end))
-
-            return date_time_meeting.encode('utf-8')
 
     @api.multi
     def convert_weekdays(self, wd):

@@ -410,7 +410,7 @@ msgstr ""
 msgid "\n"
 "<p>Hello,</p>\n"
 "<br/>\n"
-"<p>You have just registered to a welcome meeting that will take place on ${object.convert_event_date_begin()} at ${object.get_time_meeting()}. Thanks for your interest in what we do!</p>\n"
+"<p>You have just registered to a welcome meeting that will take place on ${object.event_id.date_begin_located}. Thanks for your interest in what we do!</p>\n"
 "<p>The meeting will take place at this address ${object.get_address_meeting()}.</p>\n"
 "<p>You should receive a reminder email three days before the meeting.</p>\n"
 "<p>If you wish to cancel or postpone your attendance, please write to ${object.get_email_contact_meeting()}.</p>\n"
@@ -438,7 +438,7 @@ msgstr ""
 #: model:mail.template,body_html:coop_membership.registration_reminder_meeting_email
 msgid "\n"
 "<p>Hello</p>\n"
-"<p>You are registered for the welcome meeting of ${(object.company_id.name or '')|safe} which will take place on <strong>${object.get_date_time_meeting()}, ${object. get_address_meeting()}</strong></p>\n"
+"<p>You are registered for the welcome meeting of ${(object.company_id.name or '')|safe} which will take place on <strong>${object.event_id.date_begin_located}, ${object. get_address_meeting()}</strong></p>\n"
 "<p>Metro: Marcadet-Poissonniers or Simplon.</p>\n"
 "<p>Reception will be provided from <span style = \"color: red\"><strong>${object.get_time_before(30)}</strong></span>.</p>\n"
 "<p>As the information transmitted during the meeting is essential, no delay will be accepted. Thank you for your understanding.</p>\n"
@@ -3927,9 +3927,7 @@ msgstr ""
 
 #. module: coop_membership
 #: model:mail.template,subject:coop_membership.registration_confirm_meeting_email
-msgid "Your registration to a welcome meeting on ${object.convert_event_date_begin()} at\n"
-"            ${object.get_time_meeting()}\n"
-"        "
+msgid "Your registration to a welcome meeting on ${object.event_id.date_begin_located}"
 msgstr ""
 
 #. module: coop_membership
