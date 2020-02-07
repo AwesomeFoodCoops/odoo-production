@@ -1,4 +1,4 @@
-* Go to 'Sale' / 'Sale' / 'Print Categories'
+* Go to 'Settings' / 'User & Companies' / 'Print Categories'
 * Create new print categories of products
 * Affect products to the categories
 

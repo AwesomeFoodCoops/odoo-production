@@ -33,7 +33,7 @@ When a field has changed, the product will be set as 'To print' automatically.
 Usage
 =====
 
-* Go to 'Sale' / 'Sale' / 'Print Categories'
+* Go to 'Settings' / 'User & Companies' / 'Print Categories'
 * Create new print categories of products
 * Affect products to the categories
 
@@ -62,11 +62,13 @@ Authors
 
 * GRAP
 * La Louve
+* Druidoo
 
 Contributors
 ~~~~~~~~~~~~
 
 * Sylvain LE GAL <https://twitter.com/legalsylvain>
+* Druidoo <https://www.druidoo.io>
 
 Maintainers
 ~~~~~~~~~~~

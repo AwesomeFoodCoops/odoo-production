@@ -2,14 +2,15 @@
 <!--
 Copyright (C) 2018-Today: GRAP (<http://www.grap.coop>)
 @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<openerp><data>
+<odoo>
 
     <record model="product.product" id="demo_product">
         <field name="name">Demo Product With Print category</field>
         <field name="print_category_id" ref="demo_category" />
     </record>
 
-</data></openerp>
+</odoo>

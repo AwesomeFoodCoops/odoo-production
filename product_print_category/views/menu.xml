@@ -2,14 +2,15 @@
 <!--
     Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
     @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<openerp><data>
+<odoo>
 
     <menuitem id="menu_product_print_category"
-        parent="base.menu_sales" sequence="110"
-        action="action_product_print_category"
-        groups="product_print_category.user"/>
+              parent="base.menu_users" sequence="110"
+              action="action_product_print_category"
+              groups="product_print_category.user"/>
 
-</data></openerp>
+</odoo>

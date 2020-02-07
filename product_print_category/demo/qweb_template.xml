@@ -2,10 +2,11 @@
 <!--
 Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<openerp><data>
+<odoo>
 
     <template id="qweb_template_demo">
         <t t-foreach="category_data['lines']" t-as="line">
@@ -26,4 +27,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         </t>
     </template>
 
-</data></openerp>
+</odoo>
