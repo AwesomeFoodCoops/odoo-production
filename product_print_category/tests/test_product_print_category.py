@@ -22,15 +22,22 @@ class TestProductPrintCategory(TransactionCase):
         wizard = self.wizard_obj.with_context(
             active_model="product.print.category",
             active_ids=[self.print_category.id], ).create({})
-        self.assertEqual(len(wizard.line_ids), 1,
-            'Print obsolete product should propose 1 product', )
+        self.assertEqual(
+            len(wizard.line_ids),
+            1,
+            'Print obsolete product should propose 1 product'
+        )
 
     def test_02_test_wizard_all(self):
         wizard = self.wizard_obj.with_context(
             active_model="product.print.category",
-            active_ids=[self.print_category.id], all_products=True, ).create({})
-        self.assertEqual(len(wizard.line_ids), 2,
-            "Print all products should propose 5 products", )
+            active_ids=[self.print_category.id], all_products=True, ).create({
+            })
+        self.assertEqual(
+            len(wizard.line_ids),
+            2,
+            "Print all products should propose 5 products"
+        )
         data = wizard.print_report()
-        self.env['report.product_print_category.report_pricetag' \
-                 '']._get_report_values(docids=None, data=data.get('data'))
+        self.env['report.product_print_category.report_pricetag'].\
+            _get_report_values(docids=None, data=data.get('data'))

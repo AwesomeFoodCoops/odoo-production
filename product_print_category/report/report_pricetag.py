@@ -8,9 +8,6 @@ class ReportPricetag(models.AbstractModel):
 
     @api.model
     def _get_report_values(self, docids, data=None):
-        report = self.env['ir.actions.report']._get_report_from_name(
-            'product_print_category.report_pricetag'
-        )
         return self._prepare_categories_data(data)
 
     @api.model
