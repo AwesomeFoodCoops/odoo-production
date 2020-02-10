@@ -164,6 +164,7 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
                     body: 'How much do you want to withdraw?',
                     confirm: function(value) {
                         value = formats.parse_value(value, {type: "float"}, 0.0);
+                        if (value == 0) { return; }
                         framework.blockUI();
                         self.pos.proxy.automatic_cashdrawer_dispense(value)
                         .then(function(res) {
