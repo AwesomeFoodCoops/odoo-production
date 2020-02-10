@@ -53,16 +53,23 @@ odoo.define('pos_automatic_cashdrawer.screens', function (require) {
             if (line && line.get_automatic_cashdrawer()) {
                 var amount = order.get_due(line);
                 // TODO Block input
-                this.pos.proxy.automatic_cashdrawer_display_transaction_start(amount, {operation_number: order.name})
-                .done(function(response) {
-                    var amount = response.amount_in;
-                    var amount_formatted = self.format_currency_no_symbol(amount);
-                    line.set_amount(amount);
-                    self.order_changes();
-                    self.render_paymentlines();
-                    self.$('.paymentline.selected .edit').text(amount_formatted);
-                    self.$('.delete-button').css('display', 'none');
-                });
+                this.gui.show_popup('cashdrawer_cash_in', {
+                    title: _t('Customer Transaction'),
+                    to_collect: amount,
+                    auto_accept: true,
+                    allow_cancel: true,
+                    confirm: function(amount, change) {
+                        var amount_formatted = self.format_currency_no_symbol(amount);
+                        line.set_amount(amount);
+                        self.order_changes();
+                        self.render_paymentlines();
+                        self.$('.paymentline.selected .edit').text(amount_formatted);
+                        self.$('.delete-button').css('display', 'none');
+                    },
+                    cancel: function() {
+                        // TODO: remove the payment line
+                    }
+                })
             }
         },
     });
