@@ -41,7 +41,14 @@
     <t t-name="AutomaticCashdrawerCashInDialog">
         <div class="modal-dialog">
             <div class="popup popup-alert popup-cashdrawer">
-                <p class="title"><t t-esc=" widget.options.title || 'Add cash' "/></p>
+                <p class="title"><t t-esc=" widget.options.title"/></p>
+
+                <t t-if="widget.options.to_collect">
+                    <div class="body">
+                        <strong>To collect: <span><t t-esc="widget.format_currency(widget.options.to_collect)"/></span></strong>
+                    </div>
+                </t>
+
                 <t t-set="default_body">
                     <p>Start adding cash into the machine.</p>
                     <p>When you finish, press confirm.</p>
@@ -50,11 +57,11 @@
 
                 <div class="total text-center">
                     <span class="value">0.00</span>
-                    <p>Added so far</p>
                 </div>
 
                 <div class="footer">
                     <div class="button confirm">Confirm</div>
+                    <div t-if="widget.options.allow_cancel" class="button cancel">Cancel</div>
                 </div>
             </div>
         </div>
