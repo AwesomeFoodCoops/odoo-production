@@ -15,6 +15,7 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
     var gui = require('point_of_sale.gui');
     var core = require('web.core');
     var framework = require('web.framework');
+    var formats = require('web.formats');
 
     var _t = core._t;
     var QWeb = core.qweb;
@@ -162,7 +163,7 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
                     title: 'Cash Withdrawal',
                     body: 'How much do you want to withdraw?',
                     confirm: function(value) {
-                        value = Number(value);
+                        value = formats.parse_value(value, {type: "float"}, 0.0);
                         framework.blockUI();
                         self.pos.proxy.automatic_cashdrawer_dispense(value)
                         .then(function(res) {
