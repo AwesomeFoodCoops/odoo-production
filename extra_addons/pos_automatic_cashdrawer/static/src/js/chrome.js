@@ -20,30 +20,68 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
         /*
             Extend init to display an open session balance message
             It will check if the session has an opening balance cashbox and
-            if it doesn't, it will ask the user if he wants to synchronize it with
-            the automatic cashdrawer
+            if it doesn't, it will syncrhonize it as long as it's the same amount.
+            If it's different, it will ask for a manager and offer to overwrite it
         */
         init: function() {
             var self = this;
             this._super.apply(this, arguments);
             this.ready.done(function() {
-                if (self.pos.config.iface_automatic_cashdrawer) {
-                    self.pos.check_opening_balance_missing().then(function(missing) {
+                if (self.pos.config.iface_automatic_cashdrawer && self.pos.config.cash_control) {
+                    self.pos.check_opening_balance_missing().then(function(res) {
+                        var missing = res['missing'];
+                        var balance_start = res['balance_start'];
+                        // It's not missing, do nothing
                         if (!missing) return;
-                        self.gui.show_popup('confirm', {
-                            title: _t('Sync Opening Balance'),
-                            body: _t('The opening balance for this session is missing. Do you wan\'t to synchronize it with the automatic cashdrawer?'),
-                            confirm: function() {
+                        // Get the inventory from cashdrawer
+                        framework.blockUI();
+                        $.when(
+                            self.pos.proxy.automatic_cashdrawer_get_total_amount(),
+                            self.pos.proxy.automatic_cashdrawer_get_inventory(),
+                        ).then(function(totals, inventory) {
+                            // Check if the amount is different
+                            if (totals.total != balance_start) {
+                                // Check access rights
+                                var user = self.pos.get_cashier();
+                                if (user.groups_id.indexOf(self.pos.config.group_pos_automatic_cashlogy_config[0]) != -1) {
+                                    self.gui.show_popup('confirm', {
+                                        title: _t('The opening balance does not match'),
+                                        body: 
+                                            _t('The opening balance for this session does not match with the Cashdrawer Inventory.') + '\n' +
+                                            _t('Do you want to overwrite it with the real amount?') + '\n\n' +
+                                            _t('Cashdrawer Inventory: ') + self.format_currency(totals.total) + '\n' +
+                                            _t('Session Starting Balance: ') + self.format_currency(balance_start),
+                                        confirm: function() {
+                                            framework.blockUI();
+                                            self.pos.action_set_balance(inventory.total, 'start')
+                                            .always(function() { framework.unblockUI(); })
+                                        }
+                                    })
+                                // If user does not have enough access rights, we block the POS
+                                } else {
+                                    self.gui.show_popup('error', {
+                                        title: _t('The opening balance does not match'),
+                                        body:
+                                            _t('The opening balance for this session does not match with the Cashdrawer Inventory.') + '\n' +
+                                            _t('Please ask your manager to fix it.')
+                                    });
+                                }
+                            // If inventory matchs, we still need to syncronize it
+                            // But we do it without asking
+                            } else {
                                 framework.blockUI();
-                                self.pos.proxy.automatic_cashdrawer_get_inventory()
-                                .then(function(inventory) {
-                                    self.pos.action_set_balance(inventory.total, 'start')
-                                    .always(function() { framework.unblockUI(); });
-                                })
-                                .fail(function() { framework.unblockUI(); })
+                                self.pos.action_set_balance(inventory.total, 'start')
+                                .always(function() { framework.unblockUI(); });
                             }
+                        }).fail(function(error) {
+                            self.gui.show_popup('error', {
+                                title: _t('Unable to syncronize inventory'),
+                                body: _t('Check that the Cashdrawer is online before starting the session, and refresh the browser.\n\n') + error.data.message,
+                            });
+                        }).always(function() {
+                            framework.unblockUI();
                         })
-                    })
+                    });
                 }
             });
         },
