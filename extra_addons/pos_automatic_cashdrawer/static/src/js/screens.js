@@ -58,16 +58,17 @@ odoo.define('pos_automatic_cashdrawer.screens', function (require) {
                     to_collect: amount,
                     auto_accept: true,
                     allow_cancel: true,
-                    confirm: function(amount, change) {
-                        var amount_formatted = self.format_currency_no_symbol(amount);
-                        line.set_amount(amount);
+                    confirm: function(amount, amount_in, amount_out) {
+                        var amount_formatted = self.format_currency_no_symbol(amount_in);
+                        line.set_amount(amount_in);
                         self.order_changes();
                         self.render_paymentlines();
                         self.$('.paymentline.selected .edit').text(amount_formatted);
                         self.$('.delete-button').css('display', 'none');
                     },
                     cancel: function() {
-                        // TODO: remove the payment line
+                        // Remove payment line
+                        self.click_delete_paymentline(line.cid);
                     }
                 })
             }
