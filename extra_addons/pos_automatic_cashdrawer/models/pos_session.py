@@ -13,15 +13,23 @@ class PosSession(models.Model):
 
     @api.multi
     def check_opening_balance_missing(self):
+        '''
+        Checks if the opening balance is missing
+        If it is, returns the theoretical starting balance
+        '''
         self.ensure_one()
         self.check_cash_in_out_possible()
+        missing = True
         if self.cash_register_id.cashbox_start_id:
-            _logger.warning('Cashbox is already started')
-            return False
+            # Cashbox already started
+            missing = False
         if self.cash_register_id.line_ids:
             _logger.warning('Cashbox is missing but there are already lines')
-            return False
-        return True
+            missing = False
+        return {
+            'missing': missing,
+            'balance_start': self.cash_register_balance_start,
+        }
 
     @api.multi
     def action_set_balance(self, inventory, balance='start'):

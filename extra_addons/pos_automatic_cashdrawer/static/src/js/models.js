@@ -51,12 +51,18 @@ odoo.define('pos_automatic_cashdrawer.models', function (require) {
             var done = new $.Deferred();
             Session.call('check_opening_balance_missing', [this.pos_session.id])
             .then(function(res) { done.resolve(res); })
-            .fail(function(err) { console.error(err); done.resolve(false); })
+            .fail(function(error) {
+                self.pos.gui.show_popup('error-traceback', {
+                    'title': _t('Set balance error: ') + error.data.message,
+                    'body': error.data.debug,
+                });
+            })
             return done;
         },
 
         // Sets the balance
         action_set_balance: function(inventory, balance) {
+            var self = this;
             var done = Session.call('action_set_balance', [this.pos_session.id], {
                 'inventory': inventory,
                 'balance': balance,
