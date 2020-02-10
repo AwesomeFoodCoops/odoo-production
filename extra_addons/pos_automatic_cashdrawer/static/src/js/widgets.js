@@ -421,7 +421,7 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
                     var change = utils.round_precision(value - self.options.to_collect, self.pos.currency.rounding);
                     self.pos.proxy.automatic_cashdrawer_dispense(change).then(function(res) {
                         if (self.options.confirm) {
-                            self.options.confirm.call(self, value, change);
+                            self.options.confirm.call(self, value - change, value, change);
                         }
                     })
                 } else {
