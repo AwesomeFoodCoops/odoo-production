@@ -382,6 +382,7 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
         show: function(options) {
             var self = this;
             this._super.apply(this, arguments);
+            this.closed = false;
             this.inputbuffer = 0.00;
             framework.blockUI();
             this.pos.proxy.automatic_cashdrawer_start_add_change().then(function(res) {
