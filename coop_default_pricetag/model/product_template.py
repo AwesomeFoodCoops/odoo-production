@@ -68,7 +68,8 @@ class ProductTemplate(models.Model):
             if data.rack_location:
                 tmp = data.rack_location + (" - " + tmp if tmp else "")
             if data.rack_number_of_packages:
-                tmp = data.rack_number_of_packages + (" - " + tmp if tmp else "")
+                tmp = data.rack_number_of_packages + \
+                    (" - " + tmp if tmp else "")
             if data.default_seller_id.package_qty:
                 tmp = str(data.default_seller_id.package_qty) + (
                     " - " + tmp if tmp else ""
@@ -168,7 +169,9 @@ class ProductTemplate(models.Model):
         """Return the price by liter"""
         for data in self:
             if data.list_price and data.volume:
-                data.price_volume = "%.2f" % round(data.list_price / data.volume, 2)
+                data.price_volume = "%.2f" % round(
+                    data.list_price / data.volume, 2
+                )
             else:
                 data.price_volume = ""
 
@@ -192,7 +195,8 @@ class ProductTemplate(models.Model):
             if data.origin_description:
                 tmp = data.origin_description
             if data.country_id:
-                tmp = data.country_id.name.upper() + (" - " + tmp if tmp else "")
+                tmp = data.country_id.name.upper() + \
+                    (" - " + tmp if tmp else "")
             if data.maker_description:
                 tmp = (tmp and (tmp + " - ") or "") + data.maker_description
             data.pricetag_origin = tmp
