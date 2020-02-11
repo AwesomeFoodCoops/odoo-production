@@ -24,7 +24,7 @@
     "name": "Coop Default Price Tag",
     "version": "12.0.1.0.0",
     "category": "Custom",
-    "author": "GRAP," "Akretion - Julien WESTE",
+    "author": "GRAP," "Akretion - Julien WESTE," "Druidoo",
     "website": "http://www.grap.coop",
     "license": "AGPL-3",
     "depends": [
