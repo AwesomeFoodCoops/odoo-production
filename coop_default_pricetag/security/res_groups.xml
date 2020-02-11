@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <record id="group_food_manager" model="res.groups">
+        <field name="name">Manage Food fields</field>
+        <field name="implied_ids" eval="[(4, ref('product_print_category.user'))]"/>
+        <field name="category_id" ref="product_print_category.module_product_print_category"/>
+    </record>
+
+</odoo>

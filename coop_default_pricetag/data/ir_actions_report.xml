@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<odoo noupdate="1">
+
+    <delete id="product.report_productlabel" model="ir.actions.report" />
+
+</odoo>
