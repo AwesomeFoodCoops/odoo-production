@@ -1,0 +1,247 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* product_print_category
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-09 22:28+0000\n"
+"PO-Revision-Date: 2018-04-09 22:28+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_print_category
+#: field:product.print.category,active:0
+msgid "Active"
+msgstr "Active"
+
+#. module: product_print_category
+#: view:product.print.wizard:product_print_category.view_product_print_wizard_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: product_print_category
+#: model:ir.model,name:product_print_category.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: product_print_category
+#: field:product.print.category,company_id:0
+msgid "Company"
+msgstr "Société"
+
+#. module: product_print_category
+#: field:product.print.category,create_uid:0
+#: field:product.print.wizard,create_uid:0
+#: field:product.print.wizard.line,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: product_print_category
+#: field:product.print.category,create_date:0
+#: field:product.print.wizard,create_date:0
+#: field:product.print.wizard.line,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: product_print_category
+#: field:res.company,print_category_id:0
+msgid "Default Print Category"
+msgstr "Catégorie d'impression par défaut"
+
+#. module: product_print_category
+#: field:product.print.category,display_name:0
+#: field:product.print.wizard,display_name:0
+#: field:product.print.wizard.line,display_name:0
+#: field:report.product_print_category.report_pricetag,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: product_print_category
+#: field:product.print.category,field_ids:0
+msgid "Field ids"
+msgstr "Field ids"
+
+#. module: product_print_category
+#: field:product.print.category,id:0
+#: field:product.print.wizard,id:0
+#: field:product.print.wizard.line,id:0
+#: field:report.product_print_category.report_pricetag,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: product_print_category
+#: field:product.print.category,__last_update:0
+#: field:product.print.wizard,__last_update:0
+#: field:product.print.wizard.line,__last_update:0
+#: field:report.product_print_category.report_pricetag,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: product_print_category
+#: field:product.print.category,write_uid:0
+#: field:product.print.wizard,write_uid:0
+#: field:product.print.wizard.line,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: product_print_category
+#: field:product.print.category,write_date:0
+#: field:product.print.wizard,write_date:0
+#: field:product.print.wizard.line,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: product_print_category
+#: field:product.print.wizard,line_ids:0
+msgid "Lines"
+msgstr "Lignes"
+
+#. module: product_print_category
+#: view:product.print.category:product_print_category.view_product_print_category_form
+#: field:product.print.category,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: product_print_category
+#: field:product.template,to_print:0
+msgid "Pricetag to reprint"
+msgstr "Etiquette à réimprimer"
+
+#. module: product_print_category
+#: model:ir.actions.report.xml,name:product_print_category.pricetag
+#: model:ir.module.category,name:product_print_category.module_product_print_category
+msgid "Pricetags"
+msgstr "Etiquettes"
+
+#. module: product_print_category
+#: view:product.print.wizard:product_print_category.view_product_print_wizard_form
+msgid "Print"
+msgstr "Imprimer"
+
+#. module: product_print_category
+#: view:product.print.category:product_print_category.view_product_print_category_form
+msgid "Print All Products"
+msgstr "Imprimer tous les produits"
+
+#. module: product_print_category
+#: model:ir.actions.act_window,name:product_print_category.action_product_print_category
+#: model:ir.ui.menu,name:product_print_category.menu_product_print_category
+msgid "Print Categories"
+msgstr "Catégories d'impression"
+
+#. module: product_print_category
+#: field:product.print.wizard.line,print_category_id:0
+#: field:product.product,print_category_id:0
+#: field:product.template,print_category_id:0
+msgid "Print Category"
+msgstr "Catégorie d'impression"
+
+#. module: product_print_category
+#: model:res.groups,name:product_print_category.manager
+msgid "Print Category Manager"
+msgstr "Responsable de catégorie d'impression"
+
+#. module: product_print_category
+#: model:res.groups,name:product_print_category.user
+msgid "Print Category User"
+msgstr "Utilisateur de catégorie d'impression"
+
+#. module: product_print_category
+#: view:product.print.category:product_print_category.view_product_print_category_form
+msgid "Print Obsolete Products"
+msgstr "Imprimer les articles obsolètes"
+
+#. module: product_print_category
+#: model:ir.actions.act_window,name:product_print_category.action_product_print_wizard
+#: view:product.print.wizard:product_print_category.view_product_print_wizard_form
+msgid "Print Products"
+msgstr "Imprimer les articles"
+
+#. module: product_print_category
+#: model:ir.model,name:product_print_category.model_product_product
+#: field:product.print.wizard.line,product_id:0
+msgid "Product"
+msgstr "Article"
+
+#. module: product_print_category
+#: view:product.print.category:product_print_category.view_product_print_category_form
+msgid "Product Name"
+msgstr "Nom du produit"
+
+#. module: product_print_category
+#: model:ir.model,name:product_print_category.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: product_print_category
+#: field:product.print.category,product_ids:0
+msgid "Product ids"
+msgstr "Product ids"
+
+#. module: product_print_category
+#: field:product.print.category,product_to_print_ids:0
+msgid "Product to print ids"
+msgstr "Product to print ids"
+
+#. module: product_print_category
+#: view:product.template:product_print_category.view_product_template_form
+msgid "Product to print!"
+msgstr "Article à réimprimer !"
+
+#. module: product_print_category
+#: view:product.print.category:product_print_category.view_product_print_category_form
+#: field:product.print.category,product_qty:0
+#: view:product.print.wizard:product_print_category.view_product_print_wizard_form
+msgid "Products"
+msgstr "Article"
+
+#. module: product_print_category
+#: field:product.print.category,product_to_print_qty:0
+msgid "Products To Print"
+msgstr "Articles à réimprimer"
+
+#. module: product_print_category
+#: field:product.print.wizard.line,quantity:0
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: product_print_category
+#: field:product.print.category,qweb_view_id:0
+msgid "Qweb View"
+msgstr "Vue Qweb"
+
+#. module: product_print_category
+#: code:addons/product_print_category/wizard/product_print_wizard.py:45
+#, python-format
+msgid "The following products has not print category defined. Please define one before.\n"
+" %s"
+msgstr "Les articles suivants n'ont pas de catégorie d'impression définie. Veuillez en définir une auparavant.\n"
+" %s"
+
+#. module: product_print_category
+#: view:product.print.category:product_print_category.view_product_print_category_form
+#: field:product.product,to_print:0
+msgid "To Print"
+msgstr "A imprimer"
+
+#. module: product_print_category
+#: view:product.template:product_print_category.view_product_template_search
+msgid "To print"
+msgstr "A imprimer"
+
+#. module: product_print_category
+#: field:product.print.wizard.line,wizard_id:0
+msgid "Wizard id"
+msgstr "Wizard id"
+
+#. module: product_print_category
+#: view:product.print.wizard:product_print_category.view_product_print_wizard_form
+msgid "or"
+msgstr "ou"
+

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo noupdate="1">
+
+    <record model="product.print.category" id="demo_category">
+        <field name="name">Demo Category</field>
+        <field name="qweb_view_id" ref="qweb_template_demo" />
+        <field name="field_ids" eval="[(4, ref('product.field_product_product__name')),(4, ref('product.field_product_product__list_price'))]" />
+    </record>
+
+    <record id="product_product_penpcl4_product_template" model="product.template">
+        <field name="name">Pen</field>
+        <field name="categ_id" ref="product.product_category_5"/>
+        <field name="standard_price">500.0</field>
+        <field name="list_price">750.0</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="description_sale">160x80cm, with large legs.</field>
+        <field name="print_category_id" ref="demo_category"/>
+    </record>
+    <record id="product_product_penpcl4" model="product.product">
+        <field name="name">Pen</field>
+        <field name="categ_id" ref="product.product_category_5"/>
+        <field name="list_price">500.0</field>
+        <field name="standard_price">750.0</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="default_code">FURN_7800</field>
+        <field name="product_tmpl_id" ref="product_print_category.product_product_penpcl4_product_template"/>
+    </record>
+    <record id="product_product_bookpcl4" model="product.product">
+        <field name="name">Book</field>
+        <field name="categ_id" ref="product.product_category_5"/>
+        <field name="list_price">450.0</field>
+        <field name="standard_price">300.0</field>
+        <field name="type">consu</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="to_print">True</field>
+        <field name="print_category_id" ref="demo_category"/>
+    </record>
+
+</odoo>
