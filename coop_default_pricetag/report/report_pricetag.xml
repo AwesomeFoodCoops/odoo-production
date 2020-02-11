@@ -124,6 +124,9 @@
                                         €
                                     </div>
                                 </div>
+                                <div class="label_middle">
+                                    <span t-if="product['product'].barcode" t-field="product['product'].barcode"/>
+                                </div>
                                 <div class="label_bottom">
                                     <div class="product_shelf_origin">
                                     </div>
