@@ -3652,7 +3652,7 @@ msgstr ""
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_leave.py:121
 #, python-format
-msgid "You can not duplicate a leave : Unimplemented Feature"
+msgid "You can not duplicate a leave : Unimplemented Feature."
 msgstr ""
 
 #. module: coop_shift
