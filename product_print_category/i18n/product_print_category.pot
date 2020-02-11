@@ -14,6 +14,16 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_print_category
+#: code:addons/product_print_category/wizard/product_print_wizard.py:48
+#: code:addons/product_print_category/wizard/product_print_wizard.py:57
+#, python-format
+msgid "\n"
+"                    The products you selected have different\n"
+"                    Print Categories! Please select products belonging\n"
+"                    to a single Print Category."
+msgstr ""
+
+#. module: product_print_category
 #: model:product.product,description_sale:product_print_category.product_product_penpcl4
 #: model:product.template,description_sale:product_print_category.product_product_penpcl4_product_template
 msgid "160x80cm, with large legs."
@@ -306,9 +316,7 @@ msgstr ""
 
 #. module: product_print_category
 #: model:ir.actions.act_window,name:product_print_category.action_product_print_wizard
-#: model:ir.actions.act_window,name:product_print_category.action_product_product_print_wizard_values
-#: model:ir.actions.act_window,name:product_print_category.action_product_template_print_wizard_values
-#: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_wizard_form
+#: model:ir.actions.act_window,name:product_print_category.action_product_variant_print_wizard
 msgid "Print Products"
 msgstr ""
 
@@ -375,7 +383,7 @@ msgid "Status based on activities\n"
 msgstr ""
 
 #. module: product_print_category
-#: code:addons/product_print_category/wizard/product_print_wizard.py:47
+#: code:addons/product_print_category/wizard/product_print_wizard.py:66
 #, python-format
 msgid "The following products has not print category defined. Please define one before.\n"
 " %s"
