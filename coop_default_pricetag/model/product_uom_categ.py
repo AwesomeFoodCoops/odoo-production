@@ -4,6 +4,7 @@
 #    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+#    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -23,7 +24,7 @@
 from odoo import fields, models
 
 
-class ProductUomCateg(models.Model):
-    _inherit = "product.uom.categ"
+class UomCateg(models.Model):
+    _inherit = "uom.category"
 
-    pricetag_printable = fields.Boolean("Print on Price Tag")
+    pricetag_printable = fields.Boolean(string="Print on Price Tag")

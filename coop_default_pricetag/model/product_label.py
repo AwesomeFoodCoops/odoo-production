@@ -6,6 +6,7 @@
 #    Copyright (C) 2016-Today La Louve (http://www.lalouve.net)
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+#    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -29,27 +30,18 @@ from odoo import tools, fields, models, api
 class ProductLabel(models.Model):
     _name = "product.label"
 
-    # Columns Section
     code = fields.Char(string="Code", required=True)
-
     name = fields.Char(string="Name", required=True)
-
     active = fields.Boolean(string="Active", default=True)
-
     company_id = fields.Many2one(string="Company", comodel_name="res.company")
-
     website = fields.Char(string="Website")
-
     note = fields.Text(string="Note")
-
-    # image: all image fields are base64 encoded and PIL-supported
     image = fields.Binary(
         string="Image",
         attachment=True,
         help="This field holds the image"
         " used as image for the label, limited to 1024x1024px.",
     )
-
     image_medium = fields.Binary(
         string="Medium-sized image",
         attachment=True,
@@ -58,7 +50,6 @@ class ProductLabel(models.Model):
         " image, with aspect ratio preserved, only when the image exceeds one"
         " of those sizes. Use this field in form views or some kanban views.",
     )
-
     image_small = fields.Binary(
         string="Small-sized image",
         attachment=True,
@@ -68,7 +59,6 @@ class ProductLabel(models.Model):
         " is required.",
     )
 
-    # Overload Section
     @api.model
     def create(self, vals):
         tools.image_resize_images(vals)
