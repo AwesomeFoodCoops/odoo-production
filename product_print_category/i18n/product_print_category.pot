@@ -1,16 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* product_print_category
+#	* product_print_category
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 22:28+0000\n"
-"PO-Revision-Date: 2018-04-09 22:28+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -30,19 +27,17 @@ msgstr ""
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__active
 msgid "Active"
-msgstr "Active"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__activity_ids
-#, fuzzy
 msgid "Activities"
-msgstr "Active"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__activity_state
-#, fuzzy
 msgid "Activity State"
-msgstr "Active"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__message_attachment_count
@@ -58,7 +53,7 @@ msgstr ""
 #. module: product_print_category
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_wizard_form
 msgid "Cancel"
-msgstr "Annuler"
+msgstr ""
 
 #. module: product_print_category
 #: model_terms:ir.ui.view,arch_db:product_print_category.qweb_template_demo
@@ -68,38 +63,37 @@ msgstr ""
 #. module: product_print_category
 #: model:ir.model,name:product_print_category.model_res_company
 msgid "Companies"
-msgstr "Sociétés"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__company_id
 msgid "Company"
-msgstr "Société"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__create_uid
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard__create_uid
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard_line__create_uid
 msgid "Created by"
-msgstr "Created by"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__create_date
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard__create_date
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard_line__create_date
 msgid "Created on"
-msgstr "Created on"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_res_company__print_category_id
 msgid "Default Print Category"
-msgstr "Catégorie d'impression par défaut"
+msgstr ""
 
 #. module: product_print_category
 #: model:product.product,name:product_print_category.demo_product
 #: model:product.template,name:product_print_category.demo_product_product_template
-#, fuzzy
 msgid "Demo Product With Print category"
-msgstr "Catégorie d'impression par défaut"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__display_name
@@ -107,13 +101,12 @@ msgstr "Catégorie d'impression par défaut"
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard_line__display_name
 #: model:ir.model.fields,field_description:product_print_category.field_report_product_print_category_report_pricetag__display_name
 msgid "Display Name"
-msgstr "Display Name"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__field_ids
-#, fuzzy
 msgid "Field"
-msgstr "Field ids"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__message_follower_ids
@@ -136,7 +129,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard_line__id
 #: model:ir.model.fields,field_description:product_print_category.field_report_product_print_category_report_pricetag__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,help:product_print_category.field_product_print_category__message_unread
@@ -164,26 +157,26 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard_line____last_update
 #: model:ir.model.fields,field_description:product_print_category.field_report_product_print_category_report_pricetag____last_update
 msgid "Last Modified on"
-msgstr "Last Modified on"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__write_uid
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard__write_uid
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard_line__write_uid
 msgid "Last Updated by"
-msgstr "Last Updated by"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__write_date
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard__write_date
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard_line__write_date
 msgid "Last Updated on"
-msgstr "Last Updated on"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard__line_ids
 msgid "Lines"
-msgstr "Lignes"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__message_main_attachment_id
@@ -204,7 +197,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__name
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_category_form
 msgid "Name"
-msgstr "Nom"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__activity_date_deadline
@@ -265,51 +258,51 @@ msgstr ""
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_template__to_print
 msgid "Pricetag to reprint"
-msgstr "Etiquette à réimprimer"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.actions.report,name:product_print_category.pricetag
 #: model:ir.module.category,name:product_print_category.module_product_print_category
 msgid "Pricetags"
-msgstr "Etiquettes"
+msgstr ""
 
 #. module: product_print_category
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_wizard_form
 msgid "Print"
-msgstr "Imprimer"
+msgstr ""
 
 #. module: product_print_category
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_category_form
 msgid "Print All Products"
-msgstr "Imprimer tous les produits"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.actions.act_window,name:product_print_category.action_product_print_category
 #: model:ir.ui.menu,name:product_print_category.menu_product_print_category
 msgid "Print Categories"
-msgstr "Catégories d'impression"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard_line__print_category_id
 #: model:ir.model.fields,field_description:product_print_category.field_product_product__print_category_id
 #: model:ir.model.fields,field_description:product_print_category.field_product_template__print_category_id
 msgid "Print Category"
-msgstr "Catégorie d'impression"
+msgstr ""
 
 #. module: product_print_category
 #: model:res.groups,name:product_print_category.manager
 msgid "Print Category Manager"
-msgstr "Responsable de catégorie d'impression"
+msgstr ""
 
 #. module: product_print_category
 #: model:res.groups,name:product_print_category.user
 msgid "Print Category User"
-msgstr "Utilisateur de catégorie d'impression"
+msgstr ""
 
 #. module: product_print_category
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_category_form
 msgid "Print Obsolete Products"
-msgstr "Imprimer les articles obsolètes"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.actions.act_window,name:product_print_category.action_product_print_wizard
@@ -317,57 +310,56 @@ msgstr "Imprimer les articles obsolètes"
 #: model:ir.actions.act_window,name:product_print_category.action_product_template_print_wizard_values
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_wizard_form
 msgid "Print Products"
-msgstr "Imprimer les articles"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model,name:product_print_category.model_product_product
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__product_ids
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard_line__product_id
 msgid "Product"
-msgstr "Article"
+msgstr ""
 
 #. module: product_print_category
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_category_form
 msgid "Product Name"
-msgstr "Nom du produit"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model,name:product_print_category.model_product_template
 msgid "Product Template"
-msgstr "Modèle d'article"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__product_to_print_ids
-#, fuzzy
 msgid "Product To Print"
-msgstr "Articles à réimprimer"
+msgstr ""
 
 #. module: product_print_category
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_template_form
 msgid "Product to print!"
-msgstr "Article à réimprimer !"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__product_qty
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_category_form
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_wizard_form
 msgid "Products"
-msgstr "Article"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__product_to_print_qty
 msgid "Products To Print"
-msgstr "Articles à réimprimer"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard_line__quantity
 msgid "Quantity"
-msgstr "Quantité"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__qweb_view_id
 msgid "Qweb View"
-msgstr "Vue Qweb"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__activity_user_id
@@ -376,8 +368,7 @@ msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,help:product_print_category.field_product_print_category__activity_state
-msgid ""
-"Status based on activities\n"
+msgid "Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
@@ -386,25 +377,20 @@ msgstr ""
 #. module: product_print_category
 #: code:addons/product_print_category/wizard/product_print_wizard.py:47
 #, python-format
-msgid ""
-"The following products has not print category defined. Please define one "
-"before.\n"
+msgid "The following products has not print category defined. Please define one before.\n"
 " %s"
 msgstr ""
-"Les articles suivants n'ont pas de catégorie d'impression définie. Veuillez "
-"en définir une auparavant.\n"
-" %s"
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_product__to_print
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_category_form
 msgid "To Print"
-msgstr "A imprimer"
+msgstr ""
 
 #. module: product_print_category
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_template_search
 msgid "To print"
-msgstr "A imprimer"
+msgstr ""
 
 #. module: product_print_category
 #: selection:product.print.category,activity_state:0
@@ -443,9 +429,8 @@ msgstr ""
 
 #. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_wizard_line__wizard_id
-#, fuzzy
 msgid "Wizard"
-msgstr "Wizard id"
+msgstr ""
 
 #. module: product_print_category
 #: model:product.product,weight_uom_name:product_print_category.demo_product
@@ -460,19 +445,17 @@ msgstr ""
 #. module: product_print_category
 #: model_terms:ir.ui.view,arch_db:product_print_category.view_product_print_wizard_form
 msgid "or"
-msgstr "ou"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model,name:product_print_category.model_product_print_category
-#, fuzzy
 msgid "product.print.category"
-msgstr "Catégorie d'impression"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model,name:product_print_category.model_product_print_wizard
-#, fuzzy
 msgid "product.print.wizard"
-msgstr "Product to print ids"
+msgstr ""
 
 #. module: product_print_category
 #: model:ir.model,name:product_print_category.model_product_print_wizard_line
@@ -484,5 +467,3 @@ msgstr ""
 msgid "report.product_print_category.report_pricetag"
 msgstr ""
 
-#~ msgid "Product ids"
-#~ msgstr "Product ids"
