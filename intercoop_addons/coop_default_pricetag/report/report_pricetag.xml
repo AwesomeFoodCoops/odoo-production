@@ -76,11 +76,14 @@
                         </div>
                         <div class="label_bottom">
                             <div class="product_shelf_origin">
-                                <t name="pricetag_origine" t-if="product['product'].pricetag_origin">Origine: <t t-esc="product['product'].pricetag_origin"/><br/></t>
+                                <t name="pricetag_origine" t-if="product['product'].pricetag_origin">Origine: <t t-esc="product['product'].pricetag_origin"/></t>
                             </div>
                             <div class="product_shelf_rackinfo_barcode">
                                 <t t-if="product['product'].pricetag_rackinfos"><t t-esc="product['product'].pricetag_rackinfos"/></t>
                                 <img t-if="product['product'].barcode" class="barcode_image" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product['product'].barcode, 200, 40)"/>
+                            </div>
+                            <div style="text-align:center;" t-if="product['product'].barcode">
+                                <span t-field="product['product'].barcode" />
                             </div>
                             <div class="pricetag_shelf_coopinfos">
                                 <t t-if="product['product'].pricetag_coopinfos"><t t-esc="product['product'].pricetag_coopinfos"/> </t>
