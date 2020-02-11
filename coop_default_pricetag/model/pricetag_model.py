@@ -52,4 +52,3 @@ class ProductPrintCategory(models.Model):
         string='Pricetag Model',
         default=lambda s: s._get_default_model()
     )
-
