@@ -10,10 +10,11 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 <odoo>
 
     <record id="view_product_print_wizard_form" model="ir.ui.view">
+        <field name="name">view.product.print.wiz.form</field>
         <field name="model">product.print.wizard</field>
         <field name="arch" type="xml">
-            <form string="Print Products">
-                <group colspan="2">
+            <form>
+                <sheet>
                     <group string="Products" col="4" colspan="2">
                         <field name="line_ids" nolabel="1">
                             <tree editable="top">
@@ -24,21 +25,27 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                         </field>
                     </group>
                     <footer>
-                        <button name="print_report" string="Print" type="object" icon="fa-print"/>
+                        <button colspan="1" name="print_report" string="Print" type="object" class="btn btn-primary" />
                         or
-                        <button icon="fa-archive" special="cancel" string="Cancel"/>
+                        <button colspan="1" class="btn-secondary" special="cancel" string="Cancel"/>
                     </footer>
-                </group>
+                </sheet>
             </form>
         </field>
     </record>
 
-    <record id="action_product_print_wizard" model="ir.actions.act_window">
-        <field name="name">Print Products</field>
-        <field name="res_model">product.print.wizard</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-    </record>
+    <act_window id="action_product_print_wizard"
+            name="Print Products"
+            src_model="product.template"
+            res_model="product.print.wizard"
+            view_type="form" view_mode="form"
+            key2="client_action_multi" target="new" />
+
+    <act_window id="action_product_variant_print_wizard"
+            name="Print Products"
+            src_model="product.product"
+            res_model="product.print.wizard"
+            view_type="form" view_mode="form"
+            key2="client_action_multi" target="new" />
 
 </odoo>

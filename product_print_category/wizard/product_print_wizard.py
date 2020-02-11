@@ -40,6 +40,25 @@ class ProductPrintWizard(models.TransientModel):
         else:
             return False
 
+        if context.get("active_model", False) == 'product.template':
+            product_ids = context.get("active_ids", [])
+            products = self.env['product.template'].browse(product_ids)
+            pricetag_categ = products.mapped(lambda p: p.print_category_id)
+            if len(pricetag_categ) > 1:
+                raise UserError(_("""
+                    The products you selected have different
+                    Print Categories! Please select products belonging
+                    to a single Print Category."""))
+        if context.get("active_model", False) == 'product.product':
+            product_ids = context.get("active_ids", [])
+            products = product_obj.browse(product_ids)
+            pricetag_categ = products.mapped(lambda p: p.print_category_id)
+            if len(pricetag_categ) > 1:
+                raise UserError(_("""
+                    The products you selected have different
+                    Print Categories! Please select products belonging
+                    to a single Print Category."""))
+
         # Initialize lines
         products_without = products.filtered(lambda x: not x.print_category_id)
         if products_without:
