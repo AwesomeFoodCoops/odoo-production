@@ -8,7 +8,7 @@
         <field name="model">pos.config</field>
         <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
         <field name="arch" type="xml">
-            <field name="default_fiscal_position_id" position="after">
+            <field name="cash_control" position="after">
                 <field name="picking_creation_delayed"/>
             </field>
         </field>
