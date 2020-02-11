@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Sale - Food Module for Odoo
@@ -22,7 +21,7 @@
 #
 ##############################################################################
 
-from odoo import tools, fields, models, api
+from odoo import fields, models, api
 
 
 class PricetagModel(models.Model):

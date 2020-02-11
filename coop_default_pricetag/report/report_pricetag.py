@@ -1,5 +1,3 @@
-# -*- encoding: utf-8 -*-
-
 from odoo import api, models
 
 
@@ -24,16 +22,12 @@ class ReportPricetagBase(models.AbstractModel):
     @api.multi
     def render_html(self, data):
         self.model = self.env.context.get("active_model")
-        docs = self.env[self.model].browse(self.env.context.get("active_id"))
         line_ids = data.get('line_data')
         report_context = self._context.copy()
         report_context.update(data.get("used_context", {}))
         product_res = self.with_context(report_context)._get_products(
             line_ids
         )
-        if line_ids:
-            categ_ids = self.env["product.print.wizard.line"].browse(
-                line_ids)[0].print_category_id.pricetag_model_id
         docargs = {
             "partner_id": self.env.user.partner_id,
             "Products": product_res,
