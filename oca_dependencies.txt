@@ -1,4 +1,4 @@
-# OCA Modules
+# OCA Repositories
 partner-contact
 product-attribute
 product-variant
@@ -55,4 +55,3 @@ l10n-france
 
 # Other Modules
 druidoo-addons https://github.com/druidoo/druidoo-addons.git
-grap-odoo-incubator https://github.com/grap/grap-odoo-incubator.git
