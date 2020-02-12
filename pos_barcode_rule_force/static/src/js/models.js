@@ -11,7 +11,7 @@ odoo.define('pos_barcode_rule_force.models', function (require) {
     // instead of barcodes.BarcodeParser because of the hooks
     var BarcodeParser = require('pos_barcode_rule_transform.BarcodeParser');
     var models = require('point_of_sale.models');
-    
+
     // Load field on pos init
     models.load_fields('product.product', ['force_barcode_rule_id']);
 
@@ -28,7 +28,9 @@ odoo.define('pos_barcode_rule_force.models', function (require) {
                 }
                 var rule = rules[i];
                 parsed_code = this.barcode_reader.barcode_parser.try_rule(parsed_code, parsed_code.code, rule);
-                return _super_PosModel.scan_product.apply(this, [parsed_code]);
+                if (parsed_code) {
+                    return _super_PosModel.scan_product.apply(this, [parsed_code]);
+                }
             }
             // normal behaviour
             return _super_PosModel.scan_product.apply(this, arguments);
