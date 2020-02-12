@@ -2707,8 +2707,7 @@ msgstr "Congé de quart"
 #. module: coop_shift
 #: model:ir.model,name:coop_shift.model_shift_leave_type
 msgid "Shift Leave Type"
-msgstr "Shift Leave Type
-"
+msgstr "Shift Leave Type"
 
 #. module: coop_shift
 #: model:ir.model,name:coop_shift.model_shift_leave_wizard
@@ -3711,8 +3710,7 @@ msgstr "Vous ne pouvez pas créer un service si votre fuseau horaire n'est pas d
 #: code:addons/coop_shift/model/shift_leave.py:121
 #, python-format
 msgid "You can not duplicate a leave : Unimplemented Feature."
-msgstr "Vous ne pouvez pas dupliquer un congé: Fonction non implémentée.
-"
+msgstr "Vous ne pouvez pas dupliquer un congé: Fonction non implémentée."
 
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_leave.py:128
