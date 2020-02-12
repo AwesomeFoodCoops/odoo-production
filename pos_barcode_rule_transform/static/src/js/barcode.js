@@ -8,7 +8,9 @@ odoo.define('pos_barcode_rule_transform.BarcodeParser', function (require) {
     "use strict";
 
     var BarcodeParser = require('barcodes.BarcodeParser');
-    var Model = require('web.Model');
+    // var Model = require('web.Model');
+    var rpc = require('web.rpc');
+
 
     /*
     Include some hooks. Nothing more
@@ -16,7 +18,7 @@ odoo.define('pos_barcode_rule_transform.BarcodeParser', function (require) {
     */
     BarcodeParser.include({
 
-        _barcode_rule_query_fields: function() {
+        _barcode_rule_query_fields: function () {
             return ['name', 'sequence', 'type', 'encoding', 'pattern', 'alias'];
         },
 
@@ -24,21 +26,34 @@ odoo.define('pos_barcode_rule_transform.BarcodeParser', function (require) {
         Overload to add hooks:
             _barcode_rule_query_fields
         */
-        load: function(){
+        load: function () {
             var self = this;
-            return new Model('barcode.nomenclature')
-                .query(['name','rule_ids','upc_ean_conv'])
-                .filter([['id','=',this.nomenclature_id[0]]])
-                .first()
-                .then(function(nomenclature){
-                    self.nomenclature = nomenclature;
-                    return new Model('barcode.rule')
-                        //.query(['name','sequence','type','encoding','pattern','alias'])
-                        .query(self._barcode_rule_query_fields())
-                        .filter([['barcode_nomenclature_id','=',self.nomenclature.id ]])
-                        .all();
-                }).then(function(rules){
-                    rules = rules.sort(function(a,b){ return a.sequence - b.sequence; });
+            if (!this.nomenclature_id) {
+                return;
+            }
+            var id = this.nomenclature_id[0];
+            rpc.query({
+                    model: 'barcode.nomenclature',
+                    method: 'read',
+                    args: [[id], ['name', 'rule_ids', 'upc_ean_conv']],
+                })
+                .then(function (nomenclatures) {
+                    self.nomenclature = nomenclatures[0];
+
+                    var args = [
+                        [['barcode_nomenclature_id', '=', self.nomenclature.id]],
+                        // ['name', 'sequence', 'type', 'encoding', 'pattern', 'alias'],
+                        self._barcode_rule_query_fields()
+                    ];
+                    return rpc.query({
+                        model: 'barcode.rule',
+                        method: 'search_read',
+                        args: args,
+                    });
+                }).then(function (rules) {
+                    rules = rules.sort(function (a, b) {
+                        return a.sequence - b.sequence;
+                    });
                     self.nomenclature.rules = rules;
                 });
         },
@@ -48,11 +63,11 @@ odoo.define('pos_barcode_rule_transform.BarcodeParser', function (require) {
         Overload to add hooks:
             _apply_rule_parsed_result
         */
-        parse_barcode: function(barcode){
+        parse_barcode: function (barcode) {
             var parsed_result = {
                 encoding: '',
-                type:'error',  
-                code:barcode,
+                type: 'error',
+                code: barcode,
                 base_code: barcode,
                 value: 0,
             };
@@ -65,21 +80,23 @@ odoo.define('pos_barcode_rule_transform.BarcodeParser', function (require) {
             for (var i = 0; i < rules.length; i++) {
                 var rule = rules[i];
                 var res = this.try_rule(parsed_result, barcode, rule);
-                if (res) { return res; }
+                if (res) {
+                    return res;
+                }
             }
             return parsed_result;
         },
 
-        try_rule: function(parsed_result, barcode, rule) {
+        try_rule: function (parsed_result, barcode, rule) {
             var cur_barcode = barcode;
-            if (    rule.encoding === 'ean13' && 
+            if (rule.encoding === 'ean13' &&
                     this.check_encoding(barcode,'upca') &&
-                    this.nomenclature.upc_ean_conv in {'upc2ean':'','always':''} ){
+                    this.nomenclature.upc_ean_conv in {'upc2ean': '', 'always': ''}) {
                 cur_barcode = '0' + cur_barcode;
             } else if (rule.encoding === 'upca' &&
                     this.check_encoding(barcode,'ean13') &&
                     barcode[0] === '0' &&
-                    this.upc_ean_conv in {'ean2upc':'','always':''} ){
+                    this.upc_ean_conv in {'ean2upc': '', 'always': ''}) {
                 cur_barcode = cur_barcode.substr(1,12);
             }
 
@@ -89,7 +106,7 @@ odoo.define('pos_barcode_rule_transform.BarcodeParser', function (require) {
 
             var match = this.match_pattern(cur_barcode, rule.pattern, rule.encoding);
             if (match.match) {
-                if(rule.type === 'alias') {
+                if (rule.type === 'alias') {
                     barcode = rule.alias;
                     parsed_result.code = barcode;
                     parsed_result.type = 'alias';
@@ -98,7 +115,7 @@ odoo.define('pos_barcode_rule_transform.BarcodeParser', function (require) {
                     parsed_result.type      = rule.type;
                     parsed_result.value     = match.value;
                     parsed_result.code      = cur_barcode;
-                    if (rule.encoding === "ean13"){
+                    if (rule.encoding === "ean13") {
                         parsed_result.base_code = this.sanitize_ean(match.base_code);
                     } else {
                         parsed_result.base_code = match.base_code;
@@ -115,13 +132,13 @@ odoo.define('pos_barcode_rule_transform.BarcodeParser', function (require) {
     Actual implementation of barcode transform
     */
     BarcodeParser.include({
-        _barcode_rule_query_fields: function() {
+        _barcode_rule_query_fields: function () {
             var res = this._super.apply(this, arguments);
             res.push('transform_expr');
             return res;
         },
 
-        try_rule: function(parsed_result, barcode, rule) {
+        try_rule: function (parsed_result, barcode, rule) {
             var res = this._super.apply(this, arguments);
             if (res && res.value && rule.transform_expr) {
                 try {
@@ -144,5 +161,5 @@ odoo.define('pos_barcode_rule_transform.BarcodeParser', function (require) {
     });
 
     return BarcodeParser;
-    
+
 });
