@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
+    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
+    @author Julien WESTE
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="view_uom_categ_form_inherited_coop_pricetag" model="ir.ui.view">
+        <field name="name">uom.category.form.inherit</field>
+        <field name="model">uom.category</field>
+        <field name="inherit_id" ref="uom.product_uom_categ_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="pricetag_printable" groups="base.group_no_one"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

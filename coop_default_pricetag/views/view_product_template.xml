@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
+    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
+    @author Julien WESTE
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="product_template_form_view_food" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Food Informations" groups="coop_default_pricetag.group_food_manager">
+                    <group colspan="4">
+                        <group>
+                            <separator string="Origin" colspan="2"/>
+                            <field name="country_id" options="{'quick_create':false}"/>
+                            <!-- <field name="department_id" options="{'quick_create':false}"/> -->
+                            <field name="origin_description"/>
+                            <field name="maker_description"/>
+                        </group>
+                        <group>
+                            <separator string="Food" colspan="2"/>
+                            <field name="fresh_category"/>
+                            <field name="fresh_range"/>
+                            <field name="is_mercuriale"/>
+                            <field name="label_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group colspan="4">
+                        <group colspan="2">
+                            <separator string="Price Tag" />
+                            <field name="expiration_date_days"/>
+                            <field name="expiration_comsumption_days"/>
+                            <field name="extra_note_bizerba_pricetag_1"/>
+                            <field name="extra_note_bizerba_pricetag_2"/>
+                            <field name="ingredients" widget="hmtl"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+            <xpath expr="//field[@name='weight']/.." position="after">
+                <field name="weight_net"/>
+                <field name="price_weight_net"/>
+            </xpath>
+            <xpath expr="//field[@name='volume']/.." position="after">
+                <field name="price_volume"/>
+            </xpath>
+            <xpath expr="//group[@name='group_standard_price']" position="after">
+                <group string="Pricetag Information" name="sticker_info">
+                    <field name="rack_instruction"/>
+                    <field name="rack_location"/>
+                    <field name="rack_number_of_packages"/>
+                    <field name="farming_method"/>
+                    <field name="other_information"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

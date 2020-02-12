@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
+    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
+    @author Julien WESTE
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="pricetag_model_default" model="pricetag.model">
+        <field name="name">Default pricetag model</field>
+        <field name="pricetag_paperformat_id" ref="coop_default_pricetag.paperformat_pricetag"/>
+        <field name="report_model">coop_default_pricetag.report_pricetag</field>
+    </record>
+
+    <record id="pricetag_model_barcode" model="pricetag.model">
+        <field name="name">Default pricetag model with barcode</field>
+        <field name="pricetag_paperformat_id" ref="coop_default_pricetag.paperformat_pricetag"/>
+        <field name="report_model">coop_default_pricetag.report_pricetag_barcode</field>
+    </record>
+
+</odoo>

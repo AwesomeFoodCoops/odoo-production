@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
+    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
+    @author Julien WESTE
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="view_product_label_tree" model="ir.ui.view">
+        <field name="model">product.label</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code" />
+                <field name="name" />
+                <field name="website" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_label_form" model="ir.ui.view">
+        <field name="model">product.label</field>
+        <field name="arch" type="xml">
+            <form string="Label" version="7.0">
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar oe_left" />
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name" />
+                        </div>
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                        <label for="code" class="oe_edit_only" />
+                        <h2>
+                            <field name="code" />
+                        </h2>
+                    </div>
+                    <notebook>
+                        <page string="Information">
+                            <group col="4">
+                                <field name="active" />
+                                <field name="company_id" groups="base.group_multi_company" />
+                                <newline />
+                                <field name="website" colspan="4" />
+                                <field name="note" widget="html" colspan="4" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_product_label_kanban2" model="ir.ui.view">
+        <field name="name">Product label Kanban</field>
+        <field name="model">product.label</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id" />
+                <field name="image_small" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_box oe_kanban_color_border">
+                            <div class="product_label_kanban">
+                                <div class="product_label_kanban_name">
+                                    <a type="edit">
+                                        <field name="name" />
+                                    </a>
+                                </div>
+                                <div class="product_label_kanban_image">
+                                    <img
+                                        t-att-src="kanban_image('product.label', 'image_small', record.id.raw_value)"
+                                        alt="product label" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

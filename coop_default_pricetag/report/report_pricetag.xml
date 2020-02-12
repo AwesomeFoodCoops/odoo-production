@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
+    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
+    @author Julien WESTE
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <template id="assets_common" name="report_coop_pricetag assets"
+        inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss"
+                href="/coop_default_pricetag/static/src/scss/report_coop_pricetag.scss" />
+        </xpath>
+    </template>
+
+    <template id="report_pricetag">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="Products" t-as="product">
+                    <t t-foreach="product['line'].quantity" t-as="q">
+                        <div class="label_container">
+                            <div class="pricetag">
+                                <div class="label_top">
+                                    <div class="product_name">
+                                        <t t-esc="product['product'].name" />
+                                    </div>
+                                </div>
+                                <div class="label_left">
+                                    <div class="product_informations">
+                                        <t t-if="product['product'].code">
+                                            Code:
+                                            <t t-esc="product['product'].code" />
+                                            <br />
+                                        </t>
+                                        <t t-if="product['product'].weight_net">
+                                            <t t-esc="product['product'].weight_net" />
+                                            kg ---
+                                            <t t-esc="product['product'].price_weight_net" />
+                                            €/kg
+                                            <br />
+                                        </t>
+                                        <t
+                                            t-if="not(product['product'].weight_net) and product['product'].volume">
+                                            <t t-esc="product['product'].volume" />
+                                            L ---
+                                            <t t-esc="product['product'].price_volume" />
+                                            €/L
+                                            <br />
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="label_right">
+                                    <div class="product_price">
+                                        <t t-esc="'%0.2f' % (product['product'].list_price)" />
+                                        €
+                                    </div>
+                                </div>
+                                <div class="label_bottom">
+                                    <div class="product_shelf_origin">
+                                        <t name="pricetag_origine" t-if="product['product'].pricetag_origin">
+                                            Origine:
+                                            <t t-esc="product['product'].pricetag_origin" />
+                                            <br />
+                                        </t>
+                                    </div>
+                                    <div class="product_shelf_rackinfo_barcode">
+                                        <t t-if="product['product'].pricetag_rackinfos">
+                                            <t t-esc="product['product'].pricetag_rackinfos" />
+                                        </t>
+                                        &#160;&#160;
+                                        <t t-if="product['product'].barcode">
+                                            <t t-esc="product['product'].barcode" />
+                                        </t>
+                                    </div>
+                                    <div class="pricetag_shelf_coopinfos">
+                                        <t t-if="product['product'].pricetag_coopinfos">
+                                            <t t-esc="product['product'].pricetag_coopinfos" />
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_pricetag_barcode">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="Products" t-as="product">
+                    <t t-foreach="product['line'].quantity" t-as="q">
+                        <div class="label_container">
+                            <div class="pricetag pricetag-barcode">
+                                <div class="label_top">
+                                    <div class="product_name">
+                                        <t t-esc="product['product'].name" />
+                                    </div>
+                                </div>
+                                <div class="label_left">
+                                    <div class="product_informations">
+                                        <t t-if="product['product'].code">
+                                            Code:
+                                            <t t-esc="product['product'].code" />
+                                            <br />
+                                        </t>
+                                        <t t-if="product['product'].weight_net">
+                                            <t t-esc="product['product'].weight_net" />
+                                            kg ---
+                                            <t t-esc="product['product'].price_weight_net" />
+                                            €/kg
+                                            <br />
+                                        </t>
+                                        <t
+                                            t-if="not(product['product'].weight_net) and product['product'].volume">
+                                            <t t-esc="product['product'].volume" />
+                                            L ---
+                                            <t t-esc="product['product'].price_volume" />
+                                            €/L
+                                            <br />
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="label_right">
+                                    <div class="product_price">
+                                        <t t-esc="'%0.2f' % (product['product'].list_price)" />
+                                        €
+                                    </div>
+                                </div>
+                                <div class="label_middle">
+                                    <span t-if="product['product'].barcode" t-field="product['product'].barcode"/>
+                                </div>
+                                <div class="label_bottom">
+                                    <div class="product_shelf_origin">
+                                    </div>
+                                    <div class="product_shelf_rackinfo_barcode">
+                                        <img t-if="product['product'].barcode" class="barcode_image"
+                                            t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product['product'].barcode, 200, 40)" />
+                                    </div>
+                                    <div class="pricetag_shelf_coopinfos">
+                                        <t t-if="product['product'].pricetag_coopinfos">
+                                            <t t-esc="product['product'].pricetag_coopinfos" />
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </template>
+
+</odoo>

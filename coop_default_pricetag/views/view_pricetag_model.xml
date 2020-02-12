@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
+    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
+    @author Julien WESTE
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+<!-- Model: pricetag_model -->
+    <record id="view_pricetag_model_search" model="ir.ui.view">
+        <field name="model">pricetag.model</field>
+        <field name="arch" type="xml">
+            <search string="Paper Format">
+                <field name="name"/>
+                <field name="pricetag_paperformat_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_pricetag_model_form" model="ir.ui.view">
+        <field name="model">pricetag.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="oe_title">
+                    <label class="oe_edit_only" for="name" string="Name"/>
+                    <h1><field name="name" placeholder="Model Name"/></h1>
+                </div>
+                <group cols="4">
+                    <field name="pricetag_paperformat_id"/>
+                    <field name="report_model"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_product_print_category_inherited_coop_pricetag" model="ir.ui.view">
+        <field name="model">product.print.category</field>
+        <field name="inherit_id" ref="product_print_category.view_product_print_category_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="pricetag_model_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
