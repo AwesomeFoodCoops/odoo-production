@@ -2927,7 +2927,7 @@ msgstr ""
 
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_leave.py:97
-#: code:addons/coop_shift/model/shift_template_registration_line.py:61
+#: code:addons/coop_shift/model/shift_template_registration_line.py:59
 #, python-format
 msgid "Stop Date should be greater than Start Date."
 msgstr ""
@@ -3668,13 +3668,13 @@ msgid "You can only repercute changes on draft shifts."
 msgstr ""
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template_registration_line.py:73
+#: code:addons/coop_shift/model/shift_template_registration_line.py:71
 #, python-format
 msgid "You can't register this line because it would create an overlap with another line for this member"
 msgstr ""
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template_registration_line.py:173
+#: code:addons/coop_shift/model/shift_template_registration_line.py:176
 #, python-format
 msgid "You cannot make changes on this template registration. Please make your changes directly on the leave recorded for this period. You will need to cancel it then set to draft before you can make required changes."
 msgstr ""
