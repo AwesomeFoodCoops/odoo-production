@@ -10,8 +10,8 @@
     "author": "Druidoo, Odoo Community Association (OCA)",
     "website": "https://www.druidoo.io/",
     "license": "AGPL-3",
-    "depends": ["point_of_sale",],
-    "data": ["views/assets.xml", "views/barcode_rule.xml",],
-    "demo": ["demo/demo.xml",],
+    "depends": ["point_of_sale"],
+    "data": ["views/assets.xml", "views/barcode_rule.xml"],
+    "demo": ["demo/demo.xml"],
     "installable": True,
 }
