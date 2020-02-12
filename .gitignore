@@ -84,3 +84,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Pycharm project settings
+.idea
