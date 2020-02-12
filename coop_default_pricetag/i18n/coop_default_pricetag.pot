@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,13 +14,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_default_pricetag
-#: code:addons/coop_default_pricetag/model/product_template.py:208
+#: code:addons/coop_default_pricetag/model/product_template.py:196
 #, python-format
 msgid " - Category: "
 msgstr ""
 
 #. module: coop_default_pricetag
-#: code:addons/coop_default_pricetag/model/product_template.py:206
+#: code:addons/coop_default_pricetag/model/product_template.py:194
 #, python-format
 msgid " - Range: "
 msgstr ""
@@ -56,12 +56,13 @@ msgid "6 - Dehydrated and Shelf"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_template_is_mercuriale
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_product__is_mercuriale
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_template__is_mercuriale
 msgid "A product in mercuriale has price that changes very regularly."
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_active
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__active
 msgid "Active"
 msgstr ""
 
@@ -81,74 +82,75 @@ msgid "Category III"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_fresh_category
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__fresh_category
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__fresh_category
 msgid "Category for Fresh Product"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_code
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__code
 msgid "Code"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_barcode
 msgid "Code:"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_company_id
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__company_id
 msgid "Company"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_pricetag_coopinfos
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__pricetag_coopinfos
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__pricetag_coopinfos
 msgid "Coop custom fields"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_pricetag_rackinfos
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__pricetag_rackinfos
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__pricetag_rackinfos
 msgid "Coop rack fields"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_template_country_id
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_product__country_id
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_template__country_id
 msgid "Country of production of the product"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_create_uid
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_pricetag_model__create_uid
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_create_date
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_pricetag_model__create_date
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_template_department_id
-msgid "Department of production of the product"
-msgstr ""
-
-#. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_display_name
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_display_name
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_pricetag_model__display_name
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__display_name
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag__display_name
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_barcode__display_name
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_base__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: code:addons/coop_default_pricetag/model/product_template.py:220
-#, python-format
-msgid "Error ! Department %s doesn't belong to %s."
-msgstr ""
-
-#. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_expiration_comsumption_days
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__expiration_comsumption_days
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__expiration_comsumption_days
 msgid "Expiration Consumption (Days)"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_expiration_date_days
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__expiration_date_days
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__expiration_date_days
 msgid "Expiration Date (Days)"
 msgstr ""
 
@@ -158,7 +160,8 @@ msgid "Extra"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_template_fresh_category
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_product__fresh_category
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_template__fresh_category
 msgid "Extra - Hight Quality : product without default ;\n"
 "Quality I - Good Quality : Product with little defaults ;\n"
 "Quality II - Normal Quality : Product with default ;\n"
@@ -166,98 +169,119 @@ msgid "Extra - Hight Quality : product without default ;\n"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_extra_note_bizerba_pricetag_1
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__extra_note_bizerba_pricetag_1
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__extra_note_bizerba_pricetag_1
 msgid "Extra Note printed on Bizerba Pricetags #1"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_extra_note_bizerba_pricetag_2
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__extra_note_bizerba_pricetag_2
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__extra_note_bizerba_pricetag_2
 msgid "Extra Note printed on Bizerba Pricetags #2"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_extra_food_info
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__extra_food_info
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__extra_food_info
 msgid "Extra information for invoices"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_farming_method
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__farming_method
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__farming_method
 msgid "Farming Method"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_template_expiration_date_days
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_product__expiration_date_days
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_template__expiration_date_days
 msgid "Field used to compute the expiration date. (Number of days after packaging the product)"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.ui.view,arch_db:coop_default_pricetag.product_template_form_view_food
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.product_template_form_view_food
 msgid "Food"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.ui.view,arch_db:coop_default_pricetag.product_template_form_view_food
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.product_template_form_view_food
 msgid "Food Informations"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_template_rack_instruction
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_product__rack_instruction
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_template__rack_instruction
 msgid "For example, the number of packages that\n"
 "        should be stored on the rack"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_id
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_id
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_pricetag_model__id
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__id
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag__id
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_barcode__id
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_base__id
 msgid "ID"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_image
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_pricetag_model__report_model
+msgid "ID of the report template"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__image
 msgid "Image"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.ui.view,arch_db:coop_default_pricetag.view_product_label_form
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.view_product_label_form
 msgid "Information"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_ingredients
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__ingredients
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__ingredients
 msgid "Ingredients"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.ui.view,arch_db:coop_default_pricetag.view_product_label_form
-#: model:ir.ui.view,arch_db:coop_default_pricetag.view_product_label_tree
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.view_product_label_form
 msgid "Label"
 msgstr ""
 
 #. module: coop_default_pricetag
 #: model:ir.actions.act_window,name:coop_default_pricetag.action_product_label
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_label_ids
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__label_ids
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__label_ids
 #: model:ir.ui.menu,name:coop_default_pricetag.menu_product_label
 msgid "Labels"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label___last_update
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag___last_update
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_pricetag_model____last_update
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label____last_update
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag____last_update
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_barcode____last_update
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_base____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_write_uid
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_pricetag_model__write_uid
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_write_date
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_pricetag_model__write_date
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_maker_description
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__maker_description
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__maker_description
 msgid "Maker"
 msgstr ""
 
@@ -267,103 +291,131 @@ msgid "Manage Food fields"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_image_medium
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__image_medium
 msgid "Medium-sized image"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_label_image_medium
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_label__image_medium
 msgid "Medium-sized image of the product. It is automatically resized as a 128x128px image, with aspect ratio preserved, only when the image exceeds one of those sizes. Use this field in form views or some kanban views."
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_is_mercuriale
-#: model:ir.ui.view,arch_db:coop_default_pricetag.view_product_product_search
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__is_mercuriale
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__is_mercuriale
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.view_product_product_search
 msgid "Mercuriale Product"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_name
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.view_pricetag_model_form
+msgid "Model Name"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_pricetag_model__name
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__name
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.view_pricetag_model_form
 msgid "Name"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_weight_net
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__weight_net
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__weight_net
 msgid "Net Weight"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_note
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__note
 msgid "Note"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_rack_number_of_packages
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__rack_number_of_packages
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__rack_number_of_packages
 msgid "Number of packages on the rack"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_template_farming_method
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_product__farming_method
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_template__farming_method
 msgid "Organic Label"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.ui.view,arch_db:coop_default_pricetag.product_template_form_view_food
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.product_template_form_view_food
 msgid "Origin"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_origin_description
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__origin_description
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__origin_description
 msgid "Origin Complement"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_country_id
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__country_id
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__country_id
 msgid "Origin Country"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_department_id
-msgid "Origin Department"
-msgstr ""
-
-#. module: coop_default_pricetag
-#: model:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag
 msgid "Origine:"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_other_information
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__other_information
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__other_information
 msgid "Other Information"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.ui.view,arch_db:coop_default_pricetag.product_template_form_view_food
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_pricetag_model__pricetag_paperformat_id
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.view_pricetag_model_search
+msgid "Paper Format"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.product_template_form_view_food
 msgid "Price Tag"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_price_weight_net
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__price_weight_net
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__price_weight_net
 msgid "Price by kg"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_price_volume
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__price_volume
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__price_volume
 msgid "Price by liter"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.ui.view,arch_db:coop_default_pricetag.product_template_form_view_food
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.product_template_form_view_food
 msgid "Pricetag Information"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.actions.report.xml,name:coop_default_pricetag.pricetag
-msgid "Pricetags"
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_print_category__pricetag_model_id
+msgid "Pricetag Model"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_uom_categ_pricetag_printable
+#: model:ir.actions.report,name:coop_default_pricetag.pricetag_barcode
+msgid "Pricetags with Barcode"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__category_print_id
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__category_print_id
+msgid "Print Category"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_uom_category__pricetag_printable
 msgid "Print on Price Tag"
 msgstr ""
 
@@ -373,26 +425,25 @@ msgid "Product Template"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model,name:coop_default_pricetag.model_product_uom_categ
-msgid "Product uom categ"
+#: model:ir.model,name:coop_default_pricetag.model_uom_category
+msgid "Product UoM Categories"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_template_origin_description
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_product__origin_description
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_template__origin_description
 msgid "Production location complementary information"
 msgstr ""
 
 #. module: coop_default_pricetag
 #: model:ir.actions.act_window,name:coop_default_pricetag.action_product_product_food
 #: model:ir.ui.menu,name:coop_default_pricetag.menu_product_product_food
-#: model:ir.ui.view,arch_db:coop_default_pricetag.view_product_product_food_tree
 msgid "Products (Food)"
 msgstr ""
 
 #. module: coop_default_pricetag
 #: model:ir.actions.act_window,name:coop_default_pricetag.action_product_product_origin
 #: model:ir.ui.menu,name:coop_default_pricetag.menu_product_product_origin_3
-#: model:ir.ui.view,arch_db:coop_default_pricetag.view_product_product_origin_tree
 msgid "Products (Origin)"
 msgstr ""
 
@@ -403,53 +454,69 @@ msgid "Products (Price Tags)"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_rack_instruction
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__rack_instruction
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__rack_instruction
 msgid "Rack Instruction"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_rack_location
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__rack_location
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__rack_location
 msgid "Rack Location"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_fresh_range
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__fresh_range
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__fresh_range
 msgid "Range for Fresh Product"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_image_small
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__image_small
 msgid "Small-sized image"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_label_image_small
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_label__image_small
 msgid "Small-sized image of the product. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template_pricetag_origin
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__pricetag_origin
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__pricetag_origin
 msgid "Text about origin"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_template_rack_location
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_product__rack_location
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_template__rack_location
 msgid "The name or place of the rack"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,help:coop_default_pricetag.field_product_label_image
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_label__image
 msgid "This field holds the image used as image for the label, limited to 1024x1024px."
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label_website
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__website
 msgid "Website"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_barcode
 msgid "kg ---"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_pricetag_model
+msgid "pricetag.model"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.view_product_label_kanban2
+msgid "product label"
 msgstr ""
 
 #. module: coop_default_pricetag
@@ -458,12 +525,34 @@ msgid "product.label"
 msgstr ""
 
 #. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_product_print_category
+msgid "product.print.category"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_product_print_wizard
+msgid "product.print.wizard"
+msgstr ""
+
+#. module: coop_default_pricetag
 #: model:ir.model,name:coop_default_pricetag.model_report_coop_default_pricetag_report_pricetag
 msgid "report.coop_default_pricetag.report_pricetag"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag
-msgid "€/kg<br/>"
+#: model:ir.model,name:coop_default_pricetag.model_report_coop_default_pricetag_report_pricetag_barcode
+msgid "report.coop_default_pricetag.report_pricetag_barcode"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_report_coop_default_pricetag_report_pricetag_base
+msgid "report.coop_default_pricetag.report_pricetag_base"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_barcode
+msgid "€/kg\n"
+"                                            <br/>"
 msgstr ""
 
