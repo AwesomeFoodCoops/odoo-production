@@ -4,8 +4,6 @@
 # @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime
-
 import pytz
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import ValidationError
@@ -38,11 +36,11 @@ class ShiftTemplateRegistrationLine(models.Model):
         'shift.registration', 'tmpl_reg_line_id',
         'Registrations',)
     partner_id = fields.Many2one(
-        related="registration_id.partner_id", store=True)
+        related="registration_id.partner_id", store=True, readonly=False)
     shift_template_id = fields.Many2one(
-        related="registration_id.shift_template_id")
+        related="registration_id.shift_template_id", readonly=False)
     shift_ticket_id = fields.Many2one(
-        related="registration_id.shift_ticket_id")
+        related="registration_id.shift_ticket_id", readonly=False)
     is_current = fields.Boolean(
         string="Current", compute="_compute_current", multi="current")
     is_past = fields.Boolean(
@@ -92,6 +90,11 @@ class ShiftTemplateRegistrationLine(models.Model):
     def create(self, vals):
         begin = vals.get('date_begin', False)
         end = vals.get('date_end', False)
+        if begin:
+            begin = fields.Date.from_string(begin)
+
+        if end:
+            end = fields.Date.from_string(end)
 
         st_reg_id = vals.get('registration_id', False)
         if not st_reg_id:
@@ -208,8 +211,8 @@ class ShiftTemplateRegistrationLine(models.Model):
             # it
             shifts = st_reg.shift_template_id.shift_ids.filtered(
                 lambda s, b=begin, e=end: (
-                    self.convert_local_date(s.date_begin) >= b or not b) and (
-                    self.convert_local_date(s.date_end) <= e or not e) and (
+                    s.date_begin.date() >= b or not b) and (
+                    s.date_end.date() <= e or not e) and (
                     s.state != 'done'))
 
             for shift in shifts:
@@ -255,11 +258,8 @@ class ShiftTemplateRegistrationLine(models.Model):
         if not timeutc:
             return False
         tz_name = self._context.get('tz') or self.env.user.tz
-        dateutc_obj = datetime.strptime(
-            timeutc, tools.DEFAULT_SERVER_DATETIME_FORMAT)
         utc_timestamp = pytz.utc.localize(
-            dateutc_obj, is_dst=False)
+            timeutc, is_dst=False)
         context_tz = pytz.timezone(tz_name)
         datelocal_obj = utc_timestamp.astimezone(context_tz)
-
         return datelocal_obj.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)

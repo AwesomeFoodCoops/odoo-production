@@ -166,5 +166,7 @@ class ShiftTemplateRegistration(models.Model):
         standard_product = self.env.ref(
             "coop_shift.product_product_shift_standard")
         for reg in self:
-            reg.shift_ticket_id = reg.shift_template_id.shift_ticket_ids.\
+            shift_ticket_ids = reg.shift_template_id.shift_ticket_ids. \
                 filtered(lambda t: t.product_id == standard_product)
+            if shift_ticket_ids:
+                reg.shift_ticket_id = shift_ticket_ids[0]
