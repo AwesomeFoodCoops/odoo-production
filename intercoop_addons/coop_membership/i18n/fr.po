@@ -3910,7 +3910,7 @@ msgstr "Désinscrit"
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner_unsubscription_date
 #: model:ir.model.fields,field_description:coop_membership.field_res_users_unsubscription_date
 msgid "Unsubscription Date"
-msgstr "Date de décinscription"
+msgstr "Date de désinscription"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_change_team.py:247

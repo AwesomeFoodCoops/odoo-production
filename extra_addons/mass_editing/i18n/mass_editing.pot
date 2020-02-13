@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mass_editing
-#: code:addons/mass_editing/models/mass_object.py:101
+#: code:addons/mass_editing/models/mass_object.py:98
 #, python-format
 msgid "%s (copy)"
 msgstr ""
@@ -39,12 +39,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mass_editing.field_mass_editing_wizard_create_date
 #: model:ir.model.fields,field_description:mass_editing.field_mass_object_create_date
 msgid "Created on"
-msgstr ""
-
-#. module: mass_editing
-#: code:addons/mass_editing/models/mass_object.py:89
-#, python-format
-msgid "Deletion of the action record failed."
 msgstr ""
 
 #. module: mass_editing
@@ -97,7 +91,7 @@ msgid "Mass Editing"
 msgstr ""
 
 #. module: mass_editing
-#: code:addons/mass_editing/models/mass_object.py:58
+#: code:addons/mass_editing/models/mass_object.py:57
 #, python-format
 msgid "Mass Editing (%s)"
 msgstr ""
@@ -128,7 +122,7 @@ msgid "Name"
 msgstr ""
 
 #. module: mass_editing
-#: code:addons/mass_editing/models/mass_object.py:34
+#: code:addons/mass_editing/models/mass_object.py:33
 #: sql_constraint:mass.object:0
 #, python-format
 msgid "Name must be unique!"

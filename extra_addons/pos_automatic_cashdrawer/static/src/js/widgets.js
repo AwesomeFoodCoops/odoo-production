@@ -15,6 +15,8 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
     var gui = require('point_of_sale.gui');
     var core = require('web.core');
     var framework = require('web.framework');
+    var formats = require('web.formats');
+    var utils = require('web.utils');
 
     var _t = core._t;
     var QWeb = core.qweb;
@@ -143,7 +145,24 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
                     body: error.data.message,
                 });
             }).then(function() {
-                self.gui.show_popup('cashdrawer_cash_in');
+                self.gui.show_popup('cashdrawer_cash_in', {
+                    allow_cancel: true,
+                    title: _t('Add cash'),
+                    confirm: function(value) {
+                        self.pos.action_put_money_in(value, _t('Manual: put money in')).then(function(st_line) {
+                            self.pos.proxy.print_receipt(QWeb.render('AutomaticCashdrawerActionXmlReport', {
+                                pos: self.pos,
+                                report: {
+                                    name: _t('Added Cash'),
+                                    lines: [
+                                        _t('Total added: ') + self.format_currency(value),
+                                    ],
+                                    st_line: st_line,
+                                }
+                            }));
+                        });
+                    }
+                });
             });
         },
 
@@ -162,7 +181,8 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
                     title: 'Cash Withdrawal',
                     body: 'How much do you want to withdraw?',
                     confirm: function(value) {
-                        value = Number(value);
+                        value = formats.parse_value(value, {type: "float"}, 0.0);
+                        if (value == 0) { return; }
                         framework.blockUI();
                         self.pos.proxy.automatic_cashdrawer_dispense(value)
                         .then(function(res) {
@@ -362,8 +382,8 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
         show: function(options) {
             var self = this;
             this._super.apply(this, arguments);
+            this.closed = false;
             this.inputbuffer = 0.00;
-            
             framework.blockUI();
             this.pos.proxy.automatic_cashdrawer_start_add_change().then(function(res) {
                 self.update_counter();
@@ -376,35 +396,41 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
 
         close: function(options) {
             if (this.timer) { clearTimeout(this.timer); }
+            this.closed = true;
             this._super.apply(this, arguments);
         },
 
         update_counter: function() {
             var self = this;
             this.pos.proxy.automatic_cashdrawer_get_amount_accepted().then(function(res) {
-                console.log('Update counter', res);
+                // Because we might get here after the popup was closed
+                if (self.closed) { return false; }
                 self.inputbuffer = res;
                 self.$('.value').text(self.format_currency(self.inputbuffer));
-                self.timer = setTimeout(function() { self.update_counter(); }, 500);
+                // Auto accept dialog if amount is enough
+                if (self.options.to_collect && self.options.auto_accept && self.inputbuffer >= self.options.to_collect) {
+                    return self.click_confirm();
+                }
+                self.timer = setTimeout(function() { self.update_counter(); }, 100);
             });
         },
 
         click_confirm: function() {
             var self = this;
-            this._super.apply(this, arguments);
-            this.pos.proxy.automatic_cashdrawer_stop_acceptance().then(function(res) {
-                self.pos.action_put_money_in(res, _t('Manual: put money in')).then(function(st_line) {
-                    self.pos.proxy.print_receipt(QWeb.render('AutomaticCashdrawerActionXmlReport', {
-                        pos: self.pos,
-                        report: {
-                            name: _t('Added Cash'),
-                            lines: [
-                                _t('Total added: ') + self.format_currency(res),
-                            ],
-                            st_line: st_line,
+            this.pos.proxy.automatic_cashdrawer_stop_acceptance().then(function(value) {
+                if (self.options.to_collect && value > self.options.to_collect) {
+                    var change = utils.round_precision(value - self.options.to_collect, self.pos.currency.rounding);
+                    self.pos.proxy.automatic_cashdrawer_dispense(change).then(function(res) {
+                        if (self.options.confirm) {
+                            self.options.confirm.call(self, value - change, value, change);
                         }
-                    }));
-                });
+                    })
+                } else {
+                    if (self.options.confirm) {
+                        self.options.confirm.call(self, value);
+                    }
+                }
+                self.gui.close_popup();
             });
         },
 
@@ -414,8 +440,20 @@ odoo.define('pos_automatic_cashdrawer.widgets', function (require) {
             the inserted amount.
         */
         click_cancel: function() {
-            this.gui.show_popup('error', { message: 'Not implemented yet' });
-            this._super.apply(this, arguments);
+            var self = this;
+            if (this.options.allow_cancel) {
+                self.pos.proxy.automatic_cashdrawer_stop_acceptance().then(function(value) {
+                    self.pos.proxy.automatic_cashdrawer_dispense(value).then(function() {
+                        if (self.options.cancel) {
+                            self.options.cancel.call(self);
+                        }
+                        self.gui.close_popup();
+                    });
+                });
+            } else {
+                this.gui.show_popup('error', { message: _t('Cancel not enabled') });
+                this.gui.close_popup();
+            }
         },
     })
 

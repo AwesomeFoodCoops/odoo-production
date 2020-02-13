@@ -28,7 +28,8 @@ from datetime import timedelta as td
 from dateutil.relativedelta import relativedelta as rd
 from openerp.addons.connector.session import ConnectorSession
 from openerp.addons.connector.queue.job import job
-
+import logging
+_logger = logging.getLogger(__name__)
 
 old_date = date(2015, 1, 1)
 
@@ -367,7 +368,10 @@ class ProductProduct(models.Model):
                     'outgoing_qty': outgoing_qty,
                     'history_range': history_range,
                 }
-                history_id = self.env['product.history'].create(vals)
+                try:
+                    history_id = self.env['product.history'].create(vals)
+                except Exception, e:
+                    _logger.info(str(e))
                 from_date = last_date + td(days=1)
 
             if history_id:
