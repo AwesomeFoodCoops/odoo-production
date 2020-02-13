@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2019 - Druidoo (https://www.druidoo.io)
+@author Iván Todorovich
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="view_barcode_rule_form" model="ir.ui.view">
+        <field name="model">barcode.rule</field>
+        <field name="inherit_id" ref="barcodes.view_barcode_rule_form"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <field name="pattern" position="after">
+                <field name="transform_expr" placeholder="value * 1.15"/>
+            </field>
+        </field>
+    </record>
+</odoo>
