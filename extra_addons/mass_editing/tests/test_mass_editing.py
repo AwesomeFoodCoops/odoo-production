@@ -6,10 +6,12 @@ import ast
 
 from openerp.tests import common
 from openerp.modules import registry
-from openerp.addons.mass_editing.hooks import uninstall_hook
+from ..hooks import uninstall_hook
 
 
 class TestMassEditing(common.TransactionCase):
+    at_install = False
+    post_install = True
 
     def setUp(self):
         super(TestMassEditing, self).setUp()
@@ -17,6 +19,9 @@ class TestMassEditing(common.TransactionCase):
         self.mass_wiz_obj = self.env['mass.editing.wizard']
         self.mass_object_model = self.env['mass.object']
         self.res_partner_model = self.env['res.partner']
+        self.ir_translation_model = self.env['ir.translation']
+        self.lang_model = self.env['res.lang']
+
         self.partner = self._create_partner()
         self.partner_model = model_obj.\
             search([('model', '=', 'res.partner')])
@@ -27,9 +32,21 @@ class TestMassEditing(common.TransactionCase):
                                     'country_id', 'customer', 'child_ids',
                                     'title'])])
         self.mass = self._create_mass_editing(self.partner_model,
-                                              self.fields_model)
+                                              self.fields_model,
+                                              'Partner')
         self.copy_mass = self.mass.copy()
         self.user = self._create_user()
+
+        self.res_partner_title_model = self.env['res.partner.title']
+        self.partner_title = self._create_partner_title()
+        self.partner_title_model = model_obj.\
+            search([('model', '=', 'res.partner.title')])
+        self.fields_partner_title_model = self.env['ir.model.fields']. \
+            search([('model_id', '=', self.partner_title_model.id),
+                    ('name', 'in', ['abbreviation'])])
+        self.mass_partner_title = self._create_mass_editing(
+            self.partner_title_model, self.fields_partner_title_model,
+            'Partner Title')
 
     def _create_partner(self):
         """Create a Partner."""
@@ -39,7 +56,23 @@ class TestMassEditing(common.TransactionCase):
             'email': 'example@yourcompany.com',
             'phone': 123456,
             'category_id': [(6, 0, categ_ids)],
+            'notify_email': 'always'
         })
+
+    def _create_partner_title(self):
+        """Create a Partner Title."""
+        # Loads German to work with translations
+        self.lang_model.load_lang('de_DE')
+
+        partner_title = self.res_partner_title_model.create({
+            'name': 'Ambassador',
+            'shortcut': 'Amb.',
+        })
+        # Adding translated terms
+        ctx = {'lang': 'de_DE'}
+        partner_title.with_context(ctx).write({'name': 'Botschafter',
+                                               'shortcut': 'Bots.'})
+        return partner_title
 
     def _create_user(self):
         return self.env['res.users'].create({
@@ -48,24 +81,24 @@ class TestMassEditing(common.TransactionCase):
             'email': 'test@test.com',
         })
 
-    def _create_mass_editing(self, model, fields):
+    def _create_mass_editing(self, model, fields, model_name):
         """Create a Mass Editing with Partner as model and
         email field of partner."""
         mass = self.mass_object_model.create({
-            'name': 'Mass Editing for Partner',
+            'name': u'Mass Editing for {0}'.format(model_name),
             'model_id': model.id,
             'field_ids': [(6, 0, fields.ids)]
         })
         mass.create_action()
         return mass
 
-    def _apply_action(self, partner, vals):
+    def _apply_action(self, obj, vals):
         """Create Wizard object to perform mass editing to
         REMOVE field's value."""
         ctx = {
-            'active_id': partner.id,
-            'active_ids': partner.ids,
-            'active_model': 'res.partner',
+            'active_id': obj.id,
+            'active_ids': obj.ids,
+            'active_model': obj._name,
         }
         return self.mass_wiz_obj.with_context(ctx).create(vals)
 
@@ -80,6 +113,10 @@ class TestMassEditing(common.TransactionCase):
         result = self.mass_wiz_obj.with_context(ctx).fields_view_get()
         self.assertTrue(result.get('arch'),
                         'Fields view get must return architecture.')
+        fields = result.get("fields")
+        self.assertTrue(fields)
+        for name, values in fields.items():
+            self.assertTrue(isinstance(values["views"], dict))
 
     def test_onchange_model(self):
         """Test whether onchange model_id returns model_id in list"""
@@ -88,6 +125,35 @@ class TestMassEditing(common.TransactionCase):
         model_list = ast.literal_eval(new_mass.model_list)
         self.assertTrue(self.user_model.id in model_list,
                         'Onchange model list must contains model_id.')
+
+    def test_mass_edit_partner_title(self):
+        """Test Case for MASS EDITING which will check if translation
+        was loaded for new partner title, and if they are removed
+        as well as the value for the abbreviation for the partner title."""
+
+        search_domain = [('res_id', '=', self.partner_title.id),
+                         ('type', '=', 'model'),
+                         ('name', '=', 'res.partner.title,shortcut'),
+                         ('lang', '=', 'de_DE')]
+
+        translation_ids = self.ir_translation_model.search(search_domain)
+
+        self.assertEqual(len(translation_ids), 1,
+                         'Translation for Partner Title\'s Abbreviation '
+                         'was not loaded properly.')
+
+        vals = {
+            'selection__shortcut': 'remove',
+        }
+        self._apply_action(self.partner_title, vals)
+        self.assertEqual(self.partner_title.shortcut, False,
+                         'Partner Title\'s Abbreviation should be removed.')
+
+        translation_ids = self.ir_translation_model.search(search_domain)
+
+        self.assertEqual(len(translation_ids), 0,
+                         'Translation for Partner Title\'s Abbreviation '
+                         'was not removed properly.')
 
     def test_mass_edit_email(self):
         """Test Case for MASS EDITING which will remove and after add

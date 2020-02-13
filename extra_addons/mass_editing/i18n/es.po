@@ -1,33 +1,34 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * mass_editing
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2016
+# Pedro M. Baeza <pedro.baeza@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-10 02:53+0000\n"
-"PO-Revision-Date: 2016-09-10 02:53+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
+"POT-Creation-Date: 2017-01-17 13:12+0000\n"
+"PO-Revision-Date: 2017-01-17 13:12+0000\n"
+"Last-Translator: Pedro M. Baeza <pedro.baeza@gmail.com>, 2016\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: mass_editing
-#: code:addons/mass_editing/models/mass_object.py:101
+#: code:addons/mass_editing/models/mass_object.py:98
 #, python-format
 msgid "%s (copy)"
-msgstr ""
+msgstr "%s (copia)"
 
 #. module: mass_editing
 #: model:ir.ui.view,arch_db:mass_editing.view_mass_object_form
 msgid "Add Sidebar Button"
-msgstr ""
+msgstr "Añadir menú de acción"
 
 #. module: mass_editing
 #: model:ir.ui.view,arch_db:mass_editing.view_mass_object_form
@@ -47,12 +48,6 @@ msgid "Created on"
 msgstr "Creado en"
 
 #. module: mass_editing
-#: code:addons/mass_editing/models/mass_object.py:89
-#, python-format
-msgid "Deletion of the action record failed."
-msgstr "Borrado del registro de la acción fallido"
-
-#. module: mass_editing
 #: model:ir.model.fields,field_description:mass_editing.field_mass_editing_wizard_display_name
 #: model:ir.model.fields,field_description:mass_editing.field_mass_object_display_name
 msgid "Display Name"
@@ -64,8 +59,8 @@ msgid ""
 "Display a button in the sidebar of related documents to open a composition "
 "wizard"
 msgstr ""
-"Mostrar un botón en el menú contextual de los documentos relacionados para "
-"abrir un asistente de composición"
+"Mostrar un menú en el menú \"Acción\" de los documentos relacionados para "
+"abrir el asistente de edición"
 
 #. module: mass_editing
 #: model:ir.model,name:mass_editing.model_ir_model_fields
@@ -106,7 +101,7 @@ msgid "Mass Editing"
 msgstr "Edición masiva"
 
 #. module: mass_editing
-#: code:addons/mass_editing/models/mass_object.py:58
+#: code:addons/mass_editing/models/mass_object.py:57
 #, python-format
 msgid "Mass Editing (%s)"
 msgstr "Edición Masiva (%s)"
@@ -114,7 +109,7 @@ msgstr "Edición Masiva (%s)"
 #. module: mass_editing
 #: model:ir.model,name:mass_editing.model_mass_object
 msgid "Mass Editing Object"
-msgstr ""
+msgstr "Objeto de edición masiva"
 
 #. module: mass_editing
 #: model:ir.model.fields,field_description:mass_editing.field_mass_object_model_id
@@ -132,6 +127,8 @@ msgid ""
 "Model is used for Selecting Fields. This is editable until Sidebar menu is "
 "not created."
 msgstr ""
+"El modelo se usa para seleccionar campos. El mismo es editable mientras no "
+"se añada el menú de acción."
 
 #. module: mass_editing
 #: model:ir.model.fields,field_description:mass_editing.field_mass_object_name
@@ -139,7 +136,7 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: mass_editing
-#: code:addons/mass_editing/models/mass_object.py:34
+#: code:addons/mass_editing/models/mass_object.py:33
 #: sql_constraint:mass.object:0
 #, python-format
 msgid "Name must be unique!"
@@ -154,17 +151,18 @@ msgstr "Objeto"
 #. module: mass_editing
 #: model:ir.ui.view,arch_db:mass_editing.view_mass_object_form
 msgid "Remove Sidebar Button"
-msgstr ""
+msgstr "Eliminar menú de acción"
 
 #. module: mass_editing
 #: model:ir.ui.view,arch_db:mass_editing.view_mass_object_form
 msgid "Remove the contextual action to use this template on related documents"
 msgstr ""
+"Elimina el menú de acción para usar esta plantilla en el modelo relacionado"
 
 #. module: mass_editing
 #: model:ir.model.fields,field_description:mass_editing.field_mass_object_ref_ir_act_window_id
 msgid "Sidebar action"
-msgstr ""
+msgstr "Acción contextual"
 
 #. module: mass_editing
 #: model:ir.model.fields,help:mass_editing.field_mass_object_ref_ir_act_window_id
@@ -172,18 +170,20 @@ msgid ""
 "Sidebar action to make this template available on records of the related "
 "document model."
 msgstr ""
+"Acción contextual que pone disponible esta plantilla en los registros del "
+"modelo de documento relacionado."
 
 #. module: mass_editing
 #: model:ir.model.fields,field_description:mass_editing.field_mass_object_ref_ir_value_id
 msgid "Sidebar button"
-msgstr ""
+msgstr "Menú de acción"
 
 #. module: mass_editing
 #: model:ir.model.fields,help:mass_editing.field_mass_object_ref_ir_value_id
 msgid "Sidebar button to open the sidebar action."
-msgstr ""
+msgstr "Menú de acción para abrir la abrir la acción contextual"
 
 #. module: mass_editing
 #: model:ir.model,name:mass_editing.model_mass_editing_wizard
 msgid "mass.editing.wizard"
-msgstr ""
+msgstr "Asistente de edición masiva"
