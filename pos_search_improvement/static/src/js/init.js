@@ -7,13 +7,14 @@ odoo.define('pos_search_improvement.models.init', function(require) {
     
     models.load_models([
         {
-            model:  'product.multi.barcode',
+            model: 'product.multi.barcode',
             fields: ['barcode', 'product_id'],
             domain: [],
-            loaded: function(self, barcodes){
-                self.db.set_multi_barcodes(barcodes)
+            loaded: function (self, barcodes) {
+                self.db.set_multi_barcodes(barcodes);
             },
         },
-    ],{'before': 'product.product'});
+    ], {'before': 'product.product'});
 
-})
+});
+
