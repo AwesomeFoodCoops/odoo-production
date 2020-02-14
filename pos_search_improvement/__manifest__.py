@@ -11,6 +11,7 @@
     "summary": "Search Exactly Products",
     "author": "La Louve, Druidoo",
     "website": "http://www.lalouve.net",
+    'license': 'AGPL-3',
     "depends": ["point_of_sale", "product"],
     "data": [
         "security/ir.model.access.csv",
