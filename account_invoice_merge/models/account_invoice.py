@@ -1,15 +1,14 @@
-# -*- coding: utf-8 -*-
 # Copyright 2004-2010 Tiny SPRL (http://tiny.be).
 # Copyright 2010-2011 Elico Corp.
 # Copyright 2016 Acsone (https://www.acsone.eu/)
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
+# Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, api
-from openerp import workflow
-from openerp.osv.orm import browse_record, browse_null
-from openerp.tools import float_is_zero
+from odoo import models, api
+from odoo.osv.orm import browse_record, browse_null
+from odoo.tools import float_is_zero
 
 
 class AccountInvoice(models.Model):
@@ -156,25 +155,25 @@ class AccountInvoice(models.Model):
         invoices_info = {}
         qty_prec = self.env['decimal.precision'].precision_get(
             'Product Unit of Measure')
-        for invoice_key, (invoice_data, old_ids) in new_invoices.iteritems():
+        for invoice_key, (invoice_data, old_ids) in new_invoices.items():
             # skip merges with only one invoice
             if len(old_ids) < 2:
                 allinvoices += (old_ids or [])
                 continue
             # cleanup invoice line data
-            for key, value in invoice_data['invoice_line_ids'].iteritems():
+            for key, value in invoice_data['invoice_line_ids'].items():
                 value.update(dict(key))
 
             if remove_empty_invoice_lines:
                 invoice_data['invoice_line_ids'] = [
                     (0, 0, value) for value in
-                    invoice_data['invoice_line_ids'].itervalues() if
+                    invoice_data['invoice_line_ids'].values() if
                     not float_is_zero(
                         value['quantity'], precision_digits=qty_prec)]
             else:
                 invoice_data['invoice_line_ids'] = [
                     (0, 0, value) for value in
-                    invoice_data['invoice_line_ids'].itervalues()]
+                    invoice_data['invoice_line_ids'].values()]
 
             if date_invoice:
                 invoice_data['date_invoice'] = date_invoice
@@ -186,13 +185,7 @@ class AccountInvoice(models.Model):
             allnewinvoices.append(newinvoice)
             # make triggers pointing to the old invoices point to the new
             # invoice
-            for old_id in old_ids:
-                workflow.trg_redirect(
-                    self.env.uid, 'account.invoice', old_id, newinvoice.id,
-                    self.env.cr)
-                workflow.trg_validate(
-                    self.env.uid, 'account.invoice', old_id, 'invoice_cancel',
-                    self.env.cr)
+            self.browse(old_ids).action_invoice_cancel()
 
         # Make link between original sale order
         # None if sale is not installed
@@ -215,7 +208,7 @@ class AccountInvoice(models.Model):
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
         anal_line_obj = self.env['account.analytic.line']
-        if 'invoice_id' in anal_line_obj._columns:
+        if 'invoice_id' in anal_line_obj._fields:
             for new_invoice_id in invoices_info:
                 todos = anal_line_obj.search(
                     [('invoice_id', 'in', invoices_info[new_invoice_id])])

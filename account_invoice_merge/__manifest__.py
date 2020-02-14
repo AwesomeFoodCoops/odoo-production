@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
 # © 2010-2011 Elico Corp. All Rights Reserved.
 # Author: Ian Li <ian.li@elico-corp.com>
+# Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {

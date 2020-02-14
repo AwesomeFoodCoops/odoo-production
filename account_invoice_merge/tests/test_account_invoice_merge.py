@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
+# Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from openerp.tests.common import TransactionCase
-from openerp.exceptions import Warning
+from odoo.tests.common import TransactionCase
+from odoo.exceptions import Warning as UserError
 
 
 class TestAccountInvoiceMerge(TransactionCase):
@@ -101,5 +101,5 @@ class TestAccountInvoiceMerge(TransactionCase):
             active_ids=[self.invoice1.id, self.invoice3.id],
             active_model='account.invoice'
         ).create({})
-        with self.assertRaises(Warning):
+        with self.assertRaises(UserError):
             wiz_id.fields_view_get()

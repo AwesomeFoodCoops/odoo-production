@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 # © 2010-2011 Elico Corp. All Rights Reserved.
+# Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api, exceptions
-from openerp.tools.translate import _
+from odoo import models, fields, api, exceptions
+from odoo.tools.translate import _
 
 
 class InvoiceMerge(models.TransientModel):
@@ -92,6 +92,6 @@ class InvoiceMerge(models.TransientModel):
         }[invoices[0].type]
         action = aw_obj.for_xml_id('account', xid)
         action.update({
-            'domain': [('id', 'in', ids + allinvoices.keys())],
+            'domain': [('id', 'in', ids + list(allinvoices.keys()))],
         })
         return action
