@@ -5,7 +5,7 @@
 
 {
     'name': 'Account Invoice Merge Wizard',
-    'version': '9.0.1.0.2',
+    'version': '12.0.1.0.0',
     'category': 'Finance',
     'author': "Elico Corp, Odoo Community Association (OCA)",
     'website': 'https://github.com/OCA/account-invoicing/',
