@@ -1,0 +1,73 @@
+<ion-view view-title="Fiche membre" class="{{partner.css_class}}">
+    <ion-content class="padding">
+
+        <div class="container theme-showcase" role="main">
+
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img ng-src="{{partner.image_url}}" class="img-thumbnail img-badge-partner-form"/>
+                    </div>
+                    <div class="col-sm-8">
+                        <h1><span ng-bind="partner.name"/></h1>
+                        <h3>Statut :
+                            <span class="label label-success" ng-show="partner.cooperative_state == 'up_to_date'">A jour</span>
+                            <span class="label label-warning" ng-show="partner.cooperative_state == 'alert'">En alerte</span>
+                            <span class="label label-warning" ng-show="partner.cooperative_state == 'delay'">Délai accordé</span>
+                            <span class="label label-danger" ng-show="partner.cooperative_state == 'suspended'">Suspendu(e)</span>
+                            <span class="label label-danger" ng-show="partner.cooperative_state == 'not_concerned'">Non concerné(e)</span>
+                            <span class="label label-danger" ng-show="partner.cooperative_state == 'blocked'">Bloqué(e)</span>
+                            <span class="label label-danger" ng-show="partner.cooperative_state == 'unpayed'">Impayé constaté</span>
+                            <span class="label label-danger" ng-show="partner.cooperative_state == 'unsubscribed'">Désinscrit</span>
+                            <span class="label label-success" ng-show="partner.cooperative_state == 'exempted'">Exempté</span>
+                            <span class="label label-danger" ng-show="partner.cooperative_state == 'vacation'">En congés</span>
+                        </h3>
+                        <h3>Peut acheter :
+                            <span class="label label-success" ng-show="partner.customer">OUI</span>
+                            <span class="label label-danger" ng-hide="partner.customer">NON</span>
+                        </h3>
+                        <h3 style="display: none;">
+                            <span class="label label-danger" ng-show="partner.badge_to_distribute">Badge à distribuer</span>
+                        </h3>
+                        <h3 ng-show="warning_message" class="text-warning" style="text-align: left; margin-top: 20px;">
+                            <span ng-bind-html="warning_message"></span>
+                        </h3>
+                        <h3 ng-show="fail_message" class="text-danger" style="text-align: left; margin-top: 20px;">
+                            <span ng-bind-html="fail_message"></span>
+                        </h3>
+                        <h3 ng-show="contact_us_message" style="text-align: left; margin-top: 20px;">
+                            <span ng-bind-html="contact_us_message"></span>
+                        </h3>
+                    </div>
+                </div>      
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-sm-3" style="text-align: center;">
+                        <form ng-submit="partner_in()">
+                            <input type="submit" class="button button-positive" value="Entre" style="width:150px;">
+                        </form>
+                    </div>
+                    <div class="col-sm-3" style="text-align: center;">
+                        <form ng-submit="partner_out()">
+                            <input type="submit" class="button button-positive" value="N'entre pas" style="width:150px;">
+                        </form>
+                    </div>
+                    <div class="col-sm-3" style="text-align: center;">
+                            <form ng-submit="partner_wrong()">
+                            <input type="submit" class="button button-positive" value="Erreur" style="width:150px;">
+                        </form>
+                    </div>
+                    <div class="col-sm-3" style="text-align: center;display: none;" ng-show="partner.badge_to_distribute">
+                            <form ng-submit="set_badge_distributed()">
+                            <input type="submit" class="button button-positive" value="Badge distribué" style="width:150px;">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <audio id="sound_res_partner_success" src="./audio/res_partner_success.mp3"></audio>
+        <audio id="sound_res_partner_warning" src="./audio/res_partner_warning.mp3"></audio>
+        <audio id="sound_res_partner_danger" src="./audio/res_partner_danger.mp3"></audio>
+    </ion-content>
+</ion-view>
