@@ -32,7 +32,6 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 				login : login,
 				password : password
 			};
-
 			return odooRpc.sendRequest('/web/session/authenticate', params).then(function(result) {
 				if (!result.uid) {
 					delete $cookies.session_id;
@@ -190,15 +189,18 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 			*/
 			function buildRequest(url, params) {
 				odooRpc.uniq_id_counter += 1;
-				if (odooRpc.shouldManageSessionId)
-					params.session_id = $cookies.session_id
+				
+				//if (params.model)
+				//    params.session_id = $cookies.session_id
+				//if (odooRpc.shouldManageSessionId)
+				//	params.session_id = $cookies.session_id
 
 				var json_data = {
 					jsonrpc: '2.0',
 					method: 'call',
 					params: params, //payload
 				};
-				return {
+				/*return {
 					'method' : 'POST',
 					'url' : odooRpc.odoo_server + url,
 					'data' : JSON.stringify(json_data),
@@ -206,7 +208,19 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 						'Content-Type' : 'application/json'
 					},
 					'id': ("r" + odooRpc.uniq_id_counter),
-				};
+				};*/
+				return {
+                    'method' : 'POST',
+                    'url' : odooRpc.odoo_server + url,
+                    'data' : JSON.stringify(json_data),
+                    'Content-Type' : 'application/json',
+                    'headers': {
+                        'X-Debug-Mode': '',
+                        'timeout' : 60000,
+                    },
+                    'id': ("r" + odooRpc.uniq_id_counter),
+                };
+				
 			}
 
 			/** (internal) Odoo do some error handling and doesn't care

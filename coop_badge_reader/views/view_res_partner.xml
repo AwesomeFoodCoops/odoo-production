@@ -2,18 +2,19 @@
 <!--
     Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
     @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
 <odoo>
 
-    <record model="ir.ui.view" id="view_res_partner_form">
+    <record model="ir.ui.view" id="view_res_partner_form_inherited_badge">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <field name="ref" position="before">
+            <xpath expr="//field[@name='ref']" position="before">
                 <field name="bootstrap_cooperative_state" />
-            </field>
+            </xpath>
         </field>
     </record>
 
