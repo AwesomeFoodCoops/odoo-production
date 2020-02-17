@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Are you sure you want to merge these invoices ?"
 msgstr ""
 
@@ -25,27 +25,27 @@ msgid "At least one of the selected invoices is %s!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Cancel"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_create_uid
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_create_date
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_display_name
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_id
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__id
 msgid "ID"
 msgstr ""
 
@@ -55,39 +55,39 @@ msgid "Invoice"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_date_invoice
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__date_invoice
 msgid "Invoice Date"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_keep_references
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__keep_references
 msgid "Keep references from original invoices"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge___last_update
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_uid
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_date
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
 msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Partner Invoice"
 msgstr ""
 
@@ -128,14 +128,23 @@ msgid "Not all invoices use the same account!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
-msgid "Please note that:<br/><br/>\n"
-"Invoices will only be merged if:<br/>\n"
-"* Invoices are in draft<br/>\n"
-"* Invoices belong to the same partner<br/>\n"
-"* Invoices are have same company, partner, address, currency, journal, salesman, account, type<br/><br/>\n"
-"Lines will only be merged if:<br/>\n"
-"* Invoice lines are exactly the same except for the product,quantity and unit<br/>"
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid "Please note that:\n"
+"                        <br/>\n"
+"                        <br/>\n"
+"                        Invoices will only be merged if:\n"
+"                        <br/>\n"
+"                        * Invoices are in draft\n"
+"                        <br/>\n"
+"                        * Invoices belong to the same partner\n"
+"                        <br/>\n"
+"                        * Invoices are have same company, partner, address, currency, journal, salesman, account, type\n"
+"                        <br/>\n"
+"                        <br/>\n"
+"                        Lines will only be merged if:\n"
+"                        <br/>\n"
+"                        * Invoice lines are exactly the same except for the product,quantity and unit\n"
+"                        <br/>"
 msgstr ""
 
 #. module: account_invoice_merge
@@ -145,7 +154,7 @@ msgid "Please select multiple invoice to merge in the list view."
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "or"
 msgstr ""
 
