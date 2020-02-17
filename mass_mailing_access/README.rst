@@ -13,7 +13,7 @@ Regular user will only have the possibility to create a mass mailing, and send a
 Configuration
 =============
 
-Once installed, go to Settings / Users / Users and give 'Manager' Access to people allowed to send mass mailing.
+Once installed, go to Settings / Users / Email Marketing and give 'Manager' Access to people allowed to send mass mailing.
 
 Credits
 =======
@@ -22,3 +22,4 @@ Contributors
 ------------
 
 * Sylvain LE GAL <https://twitter.com/legalsylvain>
+* Druidoo <https://www.druidoo.io>
