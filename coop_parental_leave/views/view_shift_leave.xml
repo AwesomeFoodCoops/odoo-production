@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_shift_leave_form" model="ir.ui.view">
+        <field name="model">shift.leave</field>
+        <field name="inherit_id" ref="coop_shift.view_shift_leave_form"/>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <field name="type_id" position="after">
+                <field name="expected_birthdate"
+                       attrs="{'invisible': [('is_parental_leave', '=', False)] , 'required': [('is_parental_leave', '=', True)]}"
+                       string="Expected or actual birthdate : (to be entered first)"
+                       colspan="4"
+                       tabindex="3"
+                />
+            </field>
+            <field name="partner_state" position="before">
+                <field name="provided_birth_certificate" tabindex="5"
+                       attrs="{'invisible': [('is_parental_leave', '=', False)] }"/>
+                <field name="shared_leave" tabindex="6"
+                       attrs="{'invisible': [('is_parental_leave', '=', False)] }"/>
+                <field name="shared_partner_id" tabindex="7"
+                       attrs="{'invisible': ['|', ('is_parental_leave', '=', False), ('shared_leave', '=', False)] }"/>
+            </field>
+            <field name="require_stop_date" position="after">
+                <field name="is_parental_leave" invisible="1"/>
+                <field name="regular_stop_date" invisible="1"/>
+                <field name="is_exceeded_stop_date" invisible="1"/>
+                <field name="is_warning_start_date" invisible="1"/>
+            </field>
+            <xpath expr="//sheet//group" position="after">
+                <group col="2" attrs="{'invisible': ['|', ('is_parental_leave', '=', False), ('is_exceeded_stop_date', '=', False)] }">
+                    <p class='alert alert-warning'>
+                        The proposed leave exceeds 12 months. Is this a case of multiple birth?
+                        <button string="Yes" type="object" name="ok"
+                                class="oe_link"/>
+                        <button type="object" name="revert_stop_date_parental_leave" string="No"  class="oe_link"/>
+                    </p>
+                </group>
+                <group col="2" attrs="{'invisible': ['|', ('is_parental_leave', '=', False), ('is_warning_start_date', '=', False)] }">
+                     <p class='alert alert-warning'>
+                         Do you confirm the leave should start earlier than 12 weeks before the expected birthdate?
+                         <button string="Yes" type="object" name="ok" class="oe_link"/><br/>
+                     </p>
+                </group>
+            </xpath>
+            <field name="state" position="attributes">
+                <attribute name="statusbar_visible">draft,done,cancel</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>
