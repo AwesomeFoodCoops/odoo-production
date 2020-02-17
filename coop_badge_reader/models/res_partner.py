@@ -117,12 +117,7 @@ class ResPartner(models.Model):
         )
         if not grace_ext_type:
             return False
-        # Create new extension
-        date_stop = datetime.strptime(date_start_str, DF) + timedelta(
-            days=grace_ext_type.duration
-        )
-        date_stop_str = date_stop.strftime(DF)
-        # Check The Date Stop with the Shift Limitation
+        date_stop_str = date_start_str + timedelta(days=grace_ext_type.duration)
         _next_shift_time, next_shift_date = self.get_next_shift_date()
         if next_shift_date:
             # Set the next shift date as the end date if the end date exceed

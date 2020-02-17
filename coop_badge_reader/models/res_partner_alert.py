@@ -15,6 +15,7 @@ class ResPartnerAlert(models.Model):
     state = fields.Selection(
         selection=[("open", "Open"), ("close", "Closed")], default="open"
     )
+
     @api.multi
     def button_close(self):
         self.write({"state": "close"})

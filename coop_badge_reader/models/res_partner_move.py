@@ -50,10 +50,6 @@ class ResPartnerMove(models.Model):
     def set_badge_distributed(self):
         for record in self:
             if record.partner_id:
-                record.partner_id.write(
-                    {
-                        "badge_distribution_date": fields.Date.context_today(
-                            self
-                        )
-                    }
-                )
+                record.partner_id.write({
+                    "badge_distribution_date": fields.Date.context_today(self)
+                })
