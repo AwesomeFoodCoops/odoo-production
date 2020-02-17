@@ -2,7 +2,7 @@
     :alt: License: AGPL-3
 
 Ionic Apps - Coop Badge Reader
-=========================
+===============================
 
 Provide light JS apps that provides badge reader interface.
 
@@ -101,6 +101,7 @@ Contributors
 ------------
 
 * Sylvain LE GAL <https://twitter.com/legalsylvain>
+* Druidoo (<https://www.druidoo.io>)
 
 Icon module comes from <https://www.iconfinder.com/icons/52644/card_reader_security_icon> and is copyright by <www.tpdkdesign.net>
 

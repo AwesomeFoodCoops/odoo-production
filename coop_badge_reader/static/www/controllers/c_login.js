@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular.module('starter').controller('LoginCtrl', ['$scope', 'jsonRpc', '$state', '$stateParams', function ($scope, jsonRpc, $state, $stateParams) {
 
     $scope.login = {};
@@ -8,7 +7,6 @@ angular.module('starter').controller('LoginCtrl', ['$scope', 'jsonRpc', '$state'
     $scope.init = function () {
         // Set focus
         angular.element(document.querySelector('#database'))[0].focus();
-
         // prefill form with GET parameters
         $scope.login.db = $stateParams['db'];
         $scope.login.username = $stateParams['username'];
@@ -24,7 +22,7 @@ angular.module('starter').controller('LoginCtrl', ['$scope', 'jsonRpc', '$state'
 
     $scope.submit = function () {
         jsonRpc.login($scope.login.db, $scope.login.username, $scope.login.password).then(function (user) {
-            jsonRpc.call('res.users', 'check_group', ['coop_badge_reader.group_time_clock']).then(function (res) {
+            jsonRpc.call('res.users', 'user_has_groups', ['coop_badge_reader.group_time_clock']).then(function (res) {
                 if (res){
                     $scope.login.css_class = 'authentication-ok';
                     $scope.errorMessage = "";
