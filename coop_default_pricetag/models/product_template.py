@@ -5,6 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models, _
+import odoo.addons.decimal_precision as dp
 
 
 class ProductTemplate(models.Model):
@@ -144,6 +145,8 @@ class ProductTemplate(models.Model):
     category_print_id = fields.Many2one(
         comodel_name="product.category.print", string="Print Category"
     )
+    scale_logo_code = fields.Char(readonly=True)
+    volume = fields.Float(digits=dp.get_precision('Volume'))
 
     # Compute Section
     @api.depends("list_price", "volume")
@@ -195,3 +198,38 @@ class ProductTemplate(models.Model):
             if data.fresh_category:
                 tmp += _(" - Category: ") + data.fresh_category
             data.extra_food_info = tmp
+
+    @api.model
+    def create(self, vals):
+        vals['scale_logo_code'] = '1'
+        if 'label_ids' in vals:
+            label_ids_val = vals.get("label_ids", [])
+            if label_ids_val and isinstance(label_ids_val, list) and \
+                    len(label_ids_val[0]) == 3:
+                label_ids = label_ids_val[0][2]
+                labels = self.env['product.label'].browse(label_ids)
+                vals['scale_logo_code'] = labels and \
+                    labels[0].scale_logo_code or '1'
+
+        return super(ProductTemplate, self).create(vals)
+
+    @api.multi
+    def write(self, vals):
+        if 'label_ids' in vals:
+            res = True
+            for product in self:
+                current_logo_code = product.scale_logo_code
+                res = super(ProductTemplate, product).write(vals)
+
+                # Browse again to see check the value
+                updated_prod = self.browse(product.id)
+                new_logo_code = updated_prod.label_ids and \
+                    updated_prod.label_ids[0].scale_logo_code or '1'
+
+                # Only trigger the change if it is actually change
+                if current_logo_code != new_logo_code:
+                    res = super(ProductTemplate, updated_prod).write(
+                        {'scale_logo_code': new_logo_code}
+                    )
+            return res
+        return super(ProductTemplate, self).write(vals)

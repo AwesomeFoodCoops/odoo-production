@@ -473,3 +473,43 @@ msgstr "report.coop_default_pricetag.report_pricetag"
 #: model:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag
 msgid "€/kg<br/>"
 msgstr "€/kg<br/>"
+
+#. module: coop_default_pricetag
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_vegetables_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: coop_default_pricetag
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_vegetables_id
+msgid "ID"
+msgstr "ID"
+
+#. module: coop_default_pricetag
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_vegetables___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: coop_default_pricetag
+#: model:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_vegetables
+msgid "Origine:"
+msgstr "Origine:"
+
+#. module: coop_default_pricetag
+#: model:ir.actions.report,name:coop_default_pricetag.pricetag_vegetables
+msgid "Vegetable Pricetags"
+msgstr "Étiquettes Fruits & Légumes"
+
+#. module: coop_default_pricetag
+#: model:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_vegetables
+msgid "kg ---"
+msgstr "kg ---"
+
+#. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_report_coop_default_pricetag_report_pricetag_vegetables
+msgid "report.coop_default_pricetag.report_pricetag_vegetables"
+msgstr "report.coop_default_pricetag.report_pricetag_vegetables"
+
+#. module: coop_default_pricetag
+#: model:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_vegetables
+msgid "€/kg<br/>"
+msgstr "€/kg<br/>"

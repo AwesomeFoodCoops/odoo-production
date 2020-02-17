@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
-    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
-    @author Julien WESTE
-    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
 <odoo>
 
     <report
@@ -16,12 +9,8 @@
         name="coop_default_pricetag.report_pricetag"
         file="coop_default_pricetag.report_pricetag"
         attachment_use="False"
+        paperformat="paperformat_pricetag"
     />
-
-    <record id="product_print_category.pricetag" model="ir.actions.report">
-        <field name="paperformat_id" ref="paperformat_pricetag"/>
-        <field name="attachment_use" eval="0"/>
-    </record>
 
     <report
         id="pricetag_barcode"
@@ -31,11 +20,18 @@
         name="coop_default_pricetag.report_pricetag_barcode"
         file="coop_default_pricetag.report_pricetag_barcode"
         attachment_use="False"
+        paperformat="paperformat_pricetag"
     />
 
-    <record id="pricetag_barcode" model="ir.actions.report">
-        <field name="paperformat_id" ref="paperformat_pricetag"/>
-        <field name="attachment_use" eval="0"/>
-    </record>
+    <report
+        id="pricetag_vegetables"
+        model="report.pricetag_vegetables"
+        string="Vegetable Pricetags"
+        report_type="qweb-pdf"
+        name="coop_default_pricetag.report_pricetag_vegetables"
+        file="coop_default_pricetag.report_pricetag_vegetables"
+        attachment_use="False"
+        paperformat="coop_default_pricetag.paperformat_pricetag_vegetables"
+    />
 
 </odoo>

@@ -38,6 +38,7 @@ class ProductLabel(models.Model):
         " with aspect ratio preserved. Use this field anywhere a small image"
         " is required.",
     )
+    scale_logo_code = fields.Char()
 
     @api.model
     def create(self, vals):

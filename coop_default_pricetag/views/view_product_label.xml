@@ -37,6 +37,10 @@
                         <h2>
                             <field name="code" />
                         </h2>
+                        <label for="scale_logo_code" class="oe_edit_only"/>
+                        <h2>
+                            <field name="scale_logo_code"/>
+                        </h2>
                     </div>
                     <notebook>
                         <page string="Information">
