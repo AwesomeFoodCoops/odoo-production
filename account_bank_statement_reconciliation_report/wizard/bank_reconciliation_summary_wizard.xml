@@ -5,7 +5,7 @@
         <field name="name">view.bank.reconciliation.summary.wizard</field>
         <field name="model">bank.reconciliation.summary.wizard</field>
         <field name="arch" type="xml">
-            <form string="Bank Reconciliation Summary Wizard">
+            <form string="Reconciliation Summary">
                 <group>
                     <field name="journal_id"/>
                     <field name="analysis_date"/>
@@ -19,7 +19,7 @@
     </record>
 
     <record id="action_bank_reconciliation_summary" model="ir.actions.act_window">
-        <field name="name">Bank Reconciliation Summary Wizard</field>
+        <field name="name">Reconciliation Report</field>
         <field name="res_model">bank.reconciliation.summary.wizard</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
@@ -27,7 +27,7 @@
         <field name="target">new</field>
     </record>
 
-    <menuitem id="report_bank_reconciliation_summary" name="Bank Reconciliation Summary Wizard" parent="account.menu_finance_reports" 
+    <menuitem id="report_bank_reconciliation_summary" name="Reconciliation Report" parent="account.menu_finance_reports"
         action="action_bank_reconciliation_summary" sequence="11"/>
     
 </odoo>
