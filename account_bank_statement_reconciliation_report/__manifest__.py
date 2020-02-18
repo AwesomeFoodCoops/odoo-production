@@ -5,7 +5,7 @@
 
 {
     'name': 'Account Bank Statement Summary',
-    'version': '9.0.1.0.11',
+    'version': '12.0.1.0.0',
     'category': 'Account',
     'author': 'Odoo Community Association (OCA), Druidoo',
     'license': 'AGPL-3',
