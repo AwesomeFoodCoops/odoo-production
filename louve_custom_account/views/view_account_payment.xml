@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <!--
 Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
@@ -50,9 +51,11 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="arch" type="xml">
             <field name="communication" position="before">
                 <field name="operation_type" />
-                <field name="text_check_code" attrs="{'invisible': [('operation_type', '!=', 'check')],
+                <field name="text_check_code"
+                    attrs="{'invisible': [('operation_type', '!=', 'check')],
                     'required': [('operation_type', '=', 'check')]}"/>
-                <field name="text_lcr_code" attrs="{'invisible': [('operation_type', '!=', 'lcr')],
+                <field name="text_lcr_code"
+                    attrs="{'invisible': [('operation_type', '!=', 'lcr')],
                     'required': [('operation_type', '=', 'lcr')]}"/>
             </field>
         </field>

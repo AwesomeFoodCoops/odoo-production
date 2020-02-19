@@ -20,13 +20,6 @@ Features
 * [account_tax_balance] Make function '_compute_move_type' on account.move'
   public.
 
-Note
-----
-the function compute_move_type can will be removed, after the initialization
-of account_tax_balance.
-
-* Make supplier invoice date field equired
-
 Credits
 =======
 
@@ -35,6 +28,7 @@ Contributors
 
 * Sylvain LE GAL
 * Julien Weste
+* Druidoo <https://www.druidoo.io>
 
 Funders
 -------

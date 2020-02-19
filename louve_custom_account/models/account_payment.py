@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2017-Today: La Louve (<http://www.lalouve.net/>)
+# Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 #          Julien Weste
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, models, fields, _
+from odoo import api, models, fields, _
 
 
 class account_payment(models.Model):
@@ -21,16 +21,6 @@ class account_payment(models.Model):
         ('other', 'Other')], string='Operation Type')
     text_check_code = fields.Text(string='Check Code')
     text_lcr_code = fields.Text(string='LCR Code')
-
-    @api.multi
-    def cancel_payment(self):
-        super(account_payment, self).cancel()
-        return True
-
-    @api.multi
-    def post_payment(self):
-        super(account_payment, self).post()
-        return True
 
     @api.onchange('operation_type')
     def onchange_operation_type(self):

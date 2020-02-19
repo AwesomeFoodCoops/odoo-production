@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 
-from openerp import models, api, _
-from openerp.exceptions import Warning
+from odoo import models, api, _
+from odoo.exceptions import Warning
 
 
 class AccountInvoice(models.Model):
@@ -30,8 +29,8 @@ class AccountInvoice(models.Model):
                     to_delete_ids.append(line.id)
                     line_to_merge.write({
                         'quantity': line_to_merge.quantity + line.quantity,
-                        'origin': (line_to_merge.origin or
-                                   '') + (line.origin or '')})
+                        'origin': (line_to_merge.origin or '') +
+                        (line.origin or '')})
             invoice.write({
                 'invoice_line_ids': [
                     (2, id_delete) for id_delete in to_delete_ids

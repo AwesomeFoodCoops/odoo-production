@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!-- 
+Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="view_account_invoice_form_supplier" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form" />
+        <field name="arch" type="xml">
+            <button name="action_invoice_open" position="attributes">
+                <attribute name="groups">
+                    louve_custom_account.group_validate_invoice
+                </attribute>
+            </button>
+            <field name="date_invoice" position="attributes">
+                <attribute name="required">True</attribute>
+            </field>
+            <field name="reference" position="attributes">
+                <attribute name="attrs">{'required': [('state','=','draft')]}
+                </attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="account_invoice_inherit_view_form" model="ir.ui.view">
+        <field name="name">account.invoice.inherit.view.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <button name="action_invoice_open" states="draft" position="attributes">
+                <attribute name="groups">
+                    louve_custom_account.group_validate_invoice
+                </attribute>
+            </button>
+        </field>
+    </record>
+
+    <record id="action_server_merge_lines" model="ir.actions.server">
+         <field name="name">Merge Invoice Lines</field>
+         <field name="model_id" ref="account.model_account_invoice"/>
+         <field name="binding_model_id" ref="account.model_account_invoice"/>
+         <field name="state">code</field>
+         <field name="code">records.merge_lines()</field>
+     </record>
+
+</odoo>
