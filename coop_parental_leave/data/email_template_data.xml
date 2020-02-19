@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 <odoo>
-    <!--CPmessage1-->
+
+    <!--CPmessage1 -->
     <record id="validate_parental_leave_email" model="mail.template">
         <field name="name">Validate Leave Email</field>
-        <field name="model_id" ref="coop_parental_leave.model_shift_leave"/>
+        <field name="model_id" ref="coop_parental_leave.model_shift_leave" />
         <field name="email_from">bureau.membres@cooplalouve.fr</field>
-        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}
+        </field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
         <field name="subject">Cong√© parental</field>
@@ -38,17 +40,17 @@ Il faut programmer ces services en ligne sur votre espace membre, ou sur place o
         </field>
     </record>
 
-    <!--CPmessage2-->
+    <!--CPmessage2 -->
     <record id="abandoned_parental_leave_email" model="mail.template">
         <field name="name">Notify Abandoned Leave Email</field>
-        <field name="model_id" ref="coop_parental_leave.model_shift_leave"/>
+        <field name="model_id" ref="coop_parental_leave.model_shift_leave" />
         <field name="email_from">bureau.membres@cooplalouve.fr</field>
-        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}
+        </field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
         <field name="subject">Cong√© parental non-abouti</field>
         <field name="body_html"><![CDATA[
-
 <p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
 <br>
 <div>
@@ -89,18 +91,18 @@ Pour tout renseignement, contactez le bureau des membres pendant ses horaires d‚
 <span>Le Bureau des membres</span>
 <br>
 <span>L A   L O U V E</span>
-
-
 ]]>
         </field>
     </record>
 
-    <!--CPmessage3-->
+    <!--CPmessage3 -->
     <record id="reminder_birth_certificate_leave_email" model="mail.template">
-        <field name="name">Reminder To Provide Birth Certificate Leave Email</field>
-        <field name="model_id" ref="coop_parental_leave.model_shift_leave"/>
+        <field name="name">Reminder To Provide Birth Certificate Leave
+            Email</field>
+        <field name="model_id" ref="coop_parental_leave.model_shift_leave" />
         <field name="email_from">bureau.membres@cooplalouve.fr</field>
-        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}
+        </field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
         <field name="subject">Cong√© parental, acte de naissance</field>
@@ -118,7 +120,7 @@ La Louve ne garde aucune copie, nous avons juste besoin de voir le certificat.
 <div>
 Date limite pour montrer l‚Äôacte de naissance :
 % if object.expected_birthdate:
-<span>${( datetime.datetime.strptime(object.expected_birthdate, '%Y-%m-%d') + datetime.timedelta(days=28) ).strftime('%Y-%m-%d')}</span>
+<span>${( object.expected_birthdate + datetime.timedelta(days=28) ).strftime('%Y-%m-%d')}</span>
 % endif
 </div>
 <br/>
@@ -159,13 +161,13 @@ Pour tout renseignement, contactez le bureau des membres pendant ses horaires d‚
         </field>
     </record>
 
-    <!--CPmessage4-->
-    <record id="validate_non_defined_parental_leave_email"
-            model="mail.template">
+    <!--CPmessage4 -->
+    <record id="validate_non_defined_parental_leave_email" model="mail.template">
         <field name="name">Validate Non-Defined Leave Email</field>
-        <field name="model_id" ref="coop_parental_leave.model_shift_leave"/>
+        <field name="model_id" ref="coop_parental_leave.model_shift_leave" />
         <field name="email_from">bureau.membres@cooplalouve.fr</field>
-        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}
+        </field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
         <field name="subject">Cong√© parental</field>
@@ -201,13 +203,14 @@ Pour tout renseignement, contactez le bureau des membres pendant ses horaires d‚
         </field>
     </record>
 
-    <!--CPmessage5-->
+    <!--CPmessage5 -->
     <record id="validate_parental_leave_email_after_birthdate"
-            model="mail.template">
+        model="mail.template">
         <field name="name">Validate Leave Email After Birthdate</field>
-        <field name="model_id" ref="coop_parental_leave.model_shift_leave"/>
+        <field name="model_id" ref="coop_parental_leave.model_shift_leave" />
         <field name="email_from">bureau.membres@cooplalouve.fr</field>
-        <field name="email_to" >${object.partner_id.email|safe}</field>
+        <field name="email_to">${object.partner_id.email|safe}
+        </field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
         <field name="subject">Cong√© parental</field>
@@ -240,5 +243,5 @@ Pour tout renseignement, contactez le bureau des membres pendant ses horaires d‚
 ]]>
         </field>
     </record>
-    
+
 </odoo>
