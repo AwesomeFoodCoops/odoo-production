@@ -122,9 +122,7 @@ class ResPartner(models.Model):
         if next_shift_date:
             # Set the next shift date as the end date if the end date exceed
             # the next shift date
-            next_shift_date = datetime.strptime(next_shift_date, DF)
             next_shift_date += timedelta(days=1)
-            next_shift_date = next_shift_date.strftime(DF)
             if date_stop_str > next_shift_date:
                 date_stop_str = next_shift_date
             else:
