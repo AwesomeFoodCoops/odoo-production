@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <act_window id="action_product_coefficient"
+        name="Products Coefficients"
+        res_model="product.coefficient"
+        view_mode="tree,form" />
+
+    <act_window id="action_product_template_coefficient_tree"
+        name="Products (Coefficients View)"
+        res_model="product.template"
+        view_mode="tree,form"
+        view_id="view_product_template_coefficient_tree"/>
+
+
+    <act_window id="action_product_use_theoritical_price"
+        name="Use Theoritical Prices"
+        src_model="product.template"
+        res_model="wizard.use.theoritical.price"
+        view_mode="form"
+        multi="True"
+        target="new"
+        key2="client_action_multi"/>
+
+</odoo>
