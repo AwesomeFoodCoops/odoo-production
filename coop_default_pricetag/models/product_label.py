@@ -10,14 +10,13 @@ from odoo import tools, fields, models, api
 class ProductLabel(models.Model):
     _name = "product.label"
 
-    code = fields.Char(string="Code", required=True)
-    name = fields.Char(string="Name", required=True)
-    active = fields.Boolean(string="Active", default=True)
+    code = fields.Char(required=True)
+    name = fields.Char(required=True)
+    active = fields.Boolean(default=True)
     company_id = fields.Many2one(string="Company", comodel_name="res.company")
-    website = fields.Char(string="Website")
-    note = fields.Text(string="Note")
+    website = fields.Char()
+    note = fields.Text()
     image = fields.Binary(
-        string="Image",
         attachment=True,
         help="This field holds the image"
         " used as image for the label, limited to 1024x1024px.",

@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
-    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
-    @author Julien WESTE
-    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
 <odoo>
 
     <record id="view_product_label_tree" model="ir.ui.view">
@@ -23,7 +16,7 @@
     <record id="view_product_label_form" model="ir.ui.view">
         <field name="model">product.label</field>
         <field name="arch" type="xml">
-            <form string="Label" version="7.0">
+            <form string="Label">
                 <sheet>
                     <field name="image" widget="image" class="oe_avatar oe_left" />
                     <div class="oe_title">
@@ -86,4 +79,18 @@
             </kanban>
         </field>
     </record>
+
+    <record id="action_product_label" model="ir.actions.act_window">
+        <field name="name">Labels</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.label</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <menuitem id="menu_product_label"
+        parent="purchase.menu_procurement_management"
+        action="action_product_label"
+        sequence="150" />
+
 </odoo>

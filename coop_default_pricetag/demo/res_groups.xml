@@ -1,19 +1,9 @@
 <?xml version="1.0"?>
-<!-- 
-    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
-    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
-    @author Julien WESTE
-    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
 <odoo>
 
     <record id="group_food_manager" model="res.groups">
         <field name="name">Manage Food fields</field>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
-    <!-- <record id="base.group_sale_manager" model="res.groups">
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
-    </record> -->
 
 </odoo>

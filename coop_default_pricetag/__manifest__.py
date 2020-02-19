@@ -5,7 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Coop Default Price Tag",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Custom",
     "author": "GRAP, Akretion - Julien WESTE, Druidoo",
     "website": "http://www.grap.coop",
@@ -34,8 +34,6 @@
         "views/view_product_product.xml",
         "views/view_product_template.xml",
         "views/view_product_uom_categ.xml",
-        "views/action.xml",
-        "views/menu.xml",
     ],
     "demo": [
         "demo/res_groups.xml"

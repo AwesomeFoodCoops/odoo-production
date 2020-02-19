@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
-    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
-    @author Julien WESTE
-    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
 <odoo>
 
     <record id="view_product_product_search" model="ir.ui.view">
@@ -42,5 +35,48 @@
             </tree>
         </field>
     </record>
+
+    <record id="action_product_product_food" model="ir.actions.act_window">
+        <field name="name">Products (Food)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_product_product_food_tree"/>
+    </record>
+
+    <record id="action_product_product_origin" model="ir.actions.act_window">
+        <field name="name">Products (Origin)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_product_product_origin_tree"/>
+    </record>
+
+    <record id="action_product_product_pricetag" model="ir.actions.act_window">
+        <field name="name">Products (Price Tags)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'search_default_print_todo':1}</field>
+        <field name="search_view_id" ref="view_product_product_search"/>
+    </record>
+
+    <menuitem id="menu_product_product_food"
+        parent="purchase.menu_procurement_management"
+        action="action_product_product_food"
+        sequence="151" />
+
+    <menuitem id="menu_product_product_origin_3"
+        parent="purchase.menu_procurement_management"
+        action="action_product_product_origin"
+        sequence="152" />
+
+    <menuitem id="menu_product_product_pricetag_3"
+        parent="purchase.menu_procurement_management"
+        action="action_product_product_pricetag"
+        sequence="153" />
 
 </odoo>

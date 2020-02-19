@@ -320,8 +320,8 @@ msgid "Name"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__weight_net
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__weight_net
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__weight
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__weight
 msgid "Net Weight"
 msgstr ""
 
@@ -382,8 +382,8 @@ msgid "Price Tag"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__price_weight_net
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__price_weight_net
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__price_weight
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__price_weight
 msgid "Price by kg"
 msgstr ""
 

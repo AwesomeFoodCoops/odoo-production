@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-    Copyright (C) 2012-Today GRAP (http://www.grap.coop)
-    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
-    @author Julien WESTE
-    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
 <odoo>
 
     <record id="product_template_form_view_food" model="ir.ui.view">
@@ -43,8 +36,7 @@
                 </page>
             </notebook>
             <xpath expr="//field[@name='weight']/.." position="after">
-                <field name="weight_net"/>
-                <field name="price_weight_net"/>
+                <field name="price_weight"/>
             </xpath>
             <xpath expr="//field[@name='volume']/.." position="after">
                 <field name="price_volume"/>

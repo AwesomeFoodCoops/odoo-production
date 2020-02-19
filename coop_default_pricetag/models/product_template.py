@@ -76,7 +76,7 @@ class ProductTemplate(models.Model):
     expiration_comsumption_days = fields.Integer(
         string="Expiration Consumption (Days)"
     )
-    ingredients = fields.Text(string="Ingredients")
+    ingredients = fields.Text()
     extra_note_bizerba_pricetag_1 = fields.Char(
         string="Extra Note printed on Bizerba Pricetags #1"
     )
@@ -88,13 +88,17 @@ class ProductTemplate(models.Model):
         help="A product in mercuriale has price"
         " that changes very regularly.",
     )
-    weight_net = fields.Float("Net Weight", default=0)
-
-    price_volume = fields.Char(
-        compute="_compute_price_volume", string="Price by liter"
+    price_volume = fields.Monetary(
+        compute="_compute_price_volume",
+        string="Price by liter",
+        store=True,
+        currency_field='currency_id',
     )
-    price_weight_net = fields.Char(
-        compute="_compute_price_weight_net", string="Price by kg"
+    price_weight = fields.Monetary(
+        compute="_compute_price_weight",
+        string="Price by kg",
+        store=True,
+        currency_field='currency_id',
     )
     country_id = fields.Many2one(
         string="Origin Country",
@@ -126,16 +130,15 @@ class ProductTemplate(models.Model):
         string="Extra information for invoices",
     )
     rack_instruction = fields.Char(
-        "Rack Instruction",
         help="""For example, the number of packages that
         should be stored on the rack""",
     )
     rack_location = fields.Char(
-        "Rack Location", help="""The name or place of the rack"""
+        help="""The name or place of the rack"""
     )
     rack_number_of_packages = fields.Char("Number of packages on the rack")
-    farming_method = fields.Char("Farming Method", help="""Organic Label""")
-    other_information = fields.Char("Other Information")
+    farming_method = fields.Char(help="""Organic Label""")
+    other_information = fields.Char()
     pricetag_rackinfos = fields.Char(
         compute=_compute_pricetag_rackinfos, string="Coop rack fields"
     )
@@ -150,31 +153,24 @@ class ProductTemplate(models.Model):
 
     # Compute Section
     @api.depends("list_price", "volume")
-    @api.multi
     def _compute_price_volume(self):
         """Return the price by liter"""
         for data in self:
             if data.list_price and data.volume:
-                data.price_volume = "%.2f" % round(
-                    data.list_price / data.volume, 2
-                )
+                data.price_volume = data.list_price / data.volume
             else:
-                data.price_volume = ""
+                data.price_volume = 0.0
 
-    @api.depends("list_price", "weight_net")
-    @api.multi
-    def _compute_price_weight_net(self):
+    @api.depends("list_price", "weight")
+    def _compute_price_weight(self):
         """Return the price by kg"""
         for data in self:
-            if data.list_price and data.weight_net:
-                data.price_weight_net = "%.2f" % round(
-                    data.list_price / data.weight_net, 2
-                )
+            if data.list_price and data.weight:
+                data.price_weight = data.list_price / data.weight
             else:
-                data.price_weight_net = ""
+                data.price_weight = 0.0
 
     @api.depends("origin_description", "country_id")
-    @api.multi
     def _compute_pricetag_origin(self):
         for data in self:
             tmp = ""
@@ -188,7 +184,6 @@ class ProductTemplate(models.Model):
             data.pricetag_origin = tmp
 
     @api.depends("fresh_category", "fresh_range")
-    @api.multi
     def _compute_extra_food_info(self):
         """Return extra information about food for legal documents"""
         for data in self:

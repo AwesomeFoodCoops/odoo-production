@@ -28,15 +28,15 @@
                                             <t t-esc="product['product'].code" />
                                             <br />
                                         </t>
-                                        <t t-if="product['product'].weight_net">
-                                            <t t-esc="product['product'].weight_net" />
+                                        <t t-if="product['product'].weight">
+                                            <t t-esc="product['product'].weight" />
                                             kg ---
                                             <t t-esc="product['product'].price_weight_net" />
                                             €/kg
                                             <br />
                                         </t>
                                         <t
-                                            t-if="not(product['product'].weight_net) and product['product'].volume">
+                                            t-if="not(product['product'].weight) and product['product'].volume">
                                             <t t-esc="product['product'].volume" />
                                             L ---
                                             <t t-esc="product['product'].price_volume" />
@@ -101,15 +101,15 @@
                                             <t t-esc="product['product'].code" />
                                             <br />
                                         </t>
-                                        <t t-if="product['product'].weight_net">
-                                            <t t-esc="product['product'].weight_net" />
+                                        <t t-if="product['product'].weight">
+                                            <t t-esc="product['product'].weight" />
                                             kg ---
-                                            <t t-esc="product['product'].price_weight_net" />
+                                            <t t-esc="product['product'].price_weight" />
                                             €/kg
                                             <br />
                                         </t>
                                         <t
-                                            t-if="not(product['product'].weight_net) and product['product'].volume">
+                                            t-if="not(product['product'].weight) and product['product'].volume">
                                             <t t-esc="product['product'].volume" />
                                             L ---
                                             <t t-esc="product['product'].price_volume" />
