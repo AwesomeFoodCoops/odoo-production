@@ -14,13 +14,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_default_pricetag
-#: code:addons/coop_default_pricetag/model/product_template.py:196
+#: code:addons/coop_default_pricetag/models/product_template.py:194
 #, python-format
 msgid " - Category: "
 msgstr ""
 
 #. module: coop_default_pricetag
-#: code:addons/coop_default_pricetag/model/product_template.py:194
+#: code:addons/coop_default_pricetag/models/product_template.py:192
 #, python-format
 msgid " - Range: "
 msgstr ""
@@ -139,6 +139,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag__display_name
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_barcode__display_name
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_base__display_name
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_product_report_pricetag_vegetables__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -221,6 +222,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag__id
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_barcode__id
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_base__id
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_product_report_pricetag_vegetables__id
 msgid "ID"
 msgstr ""
 
@@ -264,6 +266,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag____last_update
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_barcode____last_update
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_base____last_update
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_product_report_pricetag_vegetables____last_update
 msgid "Last Modified on"
 msgstr ""
 
@@ -317,12 +320,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__name
 #: model_terms:ir.ui.view,arch_db:coop_default_pricetag.view_pricetag_model_form
 msgid "Name"
-msgstr ""
-
-#. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__weight
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__weight
-msgid "Net Weight"
 msgstr ""
 
 #. module: coop_default_pricetag
@@ -420,6 +417,11 @@ msgid "Print on Price Tag"
 msgstr ""
 
 #. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: coop_default_pricetag
 #: model:ir.model,name:coop_default_pricetag.model_product_template
 msgid "Product Template"
 msgstr ""
@@ -472,6 +474,13 @@ msgid "Range for Fresh Product"
 msgstr ""
 
 #. module: coop_default_pricetag
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__scale_logo_code
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__scale_logo_code
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__scale_logo_code
+msgid "Scale Logo Code"
+msgstr ""
+
+#. module: coop_default_pricetag
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_product_label__image_small
 msgid "Small-sized image"
 msgstr ""
@@ -494,8 +503,25 @@ msgid "The name or place of the rack"
 msgstr ""
 
 #. module: coop_default_pricetag
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_product__volume
+#: model:ir.model.fields,help:coop_default_pricetag.field_product_template__volume
+msgid "The volume in m3."
+msgstr ""
+
+#. module: coop_default_pricetag
 #: model:ir.model.fields,help:coop_default_pricetag.field_product_label__image
 msgid "This field holds the image used as image for the label, limited to 1024x1024px."
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.actions.report,name:coop_default_pricetag.pricetag_vegetables
+msgid "Vegetable Pricetags"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__volume
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__volume
+msgid "Volume"
 msgstr ""
 
 #. module: coop_default_pricetag
@@ -506,6 +532,7 @@ msgstr ""
 #. module: coop_default_pricetag
 #: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag
 #: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_barcode
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_vegetables
 msgid "kg ---"
 msgstr ""
 
@@ -550,9 +577,19 @@ msgid "report.coop_default_pricetag.report_pricetag_base"
 msgstr ""
 
 #. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_report_coop_product_report_pricetag_vegetables
+msgid "report.coop_product.report_pricetag_vegetables"
+msgstr ""
+
+#. module: coop_default_pricetag
 #: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag
 #: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_barcode
 msgid "€/kg\n"
 "                                            <br/>"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_vegetables
+msgid "€/kg<br/>"
 msgstr ""
 
