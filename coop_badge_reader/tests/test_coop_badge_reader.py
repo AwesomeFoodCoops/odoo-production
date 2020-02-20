@@ -1,5 +1,4 @@
 from odoo.tests.common import TransactionCase
-from odoo import fields
 
 
 class CoopBadgeReaderTest(TransactionCase):
