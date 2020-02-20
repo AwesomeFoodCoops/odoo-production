@@ -1,6 +1,5 @@
 from odoo.tests.common import TransactionCase
 from odoo import fields
-from odoo.tests import Form
 
 
 class TestCoopInventory(TransactionCase):
