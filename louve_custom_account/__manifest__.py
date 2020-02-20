@@ -13,7 +13,7 @@
     'license': 'AGPL-3',
     'depends': [
         'account',
-        'barcodes_generator_product',
+        'barcodes_generator_partner',
         'account_tax_balance',
     ],
     'data': [
