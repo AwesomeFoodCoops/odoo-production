@@ -1,0 +1,63 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_parental_leave
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-02 11:18+0000\n"
+"PO-Revision-Date: 2019-01-02 11:18+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+
+#. module: coop_parental_leave
+#: model:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
+msgid "No"
+msgstr "Non"
+
+#. module: coop_parental_leave
+#: model:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
+msgid "Do you confirm the leave should start earlier than 12 weeks before the expected birthdate?"
+msgstr "Êtes-vous sûr de vouloir démarrer le congé parental plus tôt que 12 semaines avant la date de naissance prévue ?"
+
+#. module: coop_parental_leave
+#: model:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
+msgid "Yes"
+msgstr "Oui"
+
+#. module: coop_parental_leave
+#: model:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
+msgid "The proposed leave exceeds 12 months. Is this a case of multiple birth?"
+msgstr "Le congé proposé dépasse 12 mois. Est-ce qu’il s’agit de jumeaux, triplés etc ?"
+
+#. module: coop_parental_leave
+#: code:addons/coop_parental_leave/models/shift_leave.py:51
+#, python-format
+msgid "You cannot propose a parental leave of more than 24 months, even in case of multiple birth."
+msgstr "Vous ne pouvez pas proposer un congé parental qui dure plus que 24 mois, même en cas de septuplés ou octuplés."
+
+#. module: coop_parental_leave
+#: model:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
+msgid "Expected or actual birthdate : (to be entered first)"
+msgstr "Date de naissance prévue ou réelle : (à saisir en premier)"
+
+#. module: coop_parental_leave
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_provided_birth_certificate
+msgid "Birth Certificate Provided"
+msgstr "Acte de naissance transmis"
+
+#. module: coop_parental_leave
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_shared_leave
+msgid " Shared Leave"
+msgstr " Congé partagé"
+
+#. module: coop_parental_leave
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_shared_partner_id
+msgid "Shared with"
+msgstr "Partagé avec"
