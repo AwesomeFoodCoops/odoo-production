@@ -1,0 +1,65 @@
+/*Overload ionic and bootstrap them*/
+
+.container{
+    width: 100%;
+}
+
+ion-content.padding{
+    padding-top:70px;
+}
+
+.item{
+    padding: 1px;
+}
+
+div.jumbotron{
+    background-color: #c0c0c0;
+}
+
+/*Custom CSS*/
+
+.partner-success {
+    background-color: #5cb85c;
+}
+
+.partner-warning {
+    background-color: #f0ad4e;
+}
+
+.partner-danger {
+    background-color: #d9534f;
+}
+
+.partner-search {
+    background-color: #FFF;
+}
+
+.authentication-ok {
+    background-color: #FFF;
+}
+
+.authentication-acces-right-problem, .authentication-incorrect {
+    background-color: #d9534f;
+}
+
+.img-badge-partner-form{
+    width: 280px;
+    height: 280px;
+}
+
+.img-partner-list{
+    width: 70px;
+    height: 70px;
+}
+
+.partner-list-image-part{
+    width:15%; text-align: center; float:left;
+}
+
+.partner-list-name-part{
+    width:50%; float:left;
+}
+
+.partner-list-status-part{
+    width:30%; float:left;
+}
