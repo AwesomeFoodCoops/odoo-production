@@ -3,10 +3,8 @@
 # Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime
 from datetime import timedelta
 from odoo import fields, models, api
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 BADGE_PARTNER_BOOTSTRAP_COOPERATIVE_STATE = [
     ("success", "OK"),
@@ -117,7 +115,9 @@ class ResPartner(models.Model):
         )
         if not grace_ext_type:
             return False
-        date_stop_str = date_start_str + timedelta(days=grace_ext_type.duration)
+        date_stop_str = date_start_str + timedelta(
+            days=grace_ext_type.duration
+        )
         _next_shift_time, next_shift_date = self.get_next_shift_date()
         if next_shift_date:
             # Set the next shift date as the end date if the end date exceed
