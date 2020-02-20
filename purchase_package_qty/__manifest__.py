@@ -40,7 +40,7 @@
         'views/purchase_order_view.xml',
         'views/stock_picking_view.xml',
         'views/account_invoice_view.xml',
-        # 'views/report_stockinventory.xml',
+        'views/report_stockinventory.xml',
         'views/stock_inventory_view.xml',
         'views/report_invoice.xml',
         'data/function.xml',
