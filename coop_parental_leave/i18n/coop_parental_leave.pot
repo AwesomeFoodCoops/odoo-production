@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -12,56 +12,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: coop_parental_leave
-#: model:mail.template,body_html:coop_parental_leave.abandoned_parental_leave_email
-msgid "\n"
-"\n"
-"<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>\n"
-"<br>\n"
-"<div>\n"
-"Vous aviez fait la demande d’un congé parental auprès du Bureau des membres.\n"
-"Pour que ce congé puisse être validé, vous aviez 4 semaines pour nous presenter l’acte de naissance de votre enfant.\n"
-"Sauf erreur de notre part, nous n’avons pas vu ce document.\n"
-"Votre congé n’a donc pas abouti.\n"
-"</div>\n"
-"<br>\n"
-"<div>\n"
-"Si vous aviez choisi de garder votre place dans votre équipe lorsque vous aviez demandé le congé,\n"
-"votre statut reflète maintenant votre situation lorsque vous avez posé la demande de congés.\n"
-"On vous attend à votre prochaine service.\n"
-"</div>\n"
-"<br>\n"
-"<div>\n"
-"Si vous ne faisiez pas partie d’une équipe ou bien vous aviez décidé de quitter votre équipe lorsque vous avez demandé le congé,\n"
-"votre statut est maintenant “désinscrit”.\n"
-"Vous n’êtes dans aucune équipe, vous ne pouvez donc pas faire vos courses au magasin.\n"
-"Pour rejoinder de nouveau une équipe, vous devez contacter le Bureau des membres.\n"
-"</div>\n"
-"<br>\n"
-"<div>\n"
-"Merci de consulter votre espace membre pour connaitre votre statut.\n"
-"Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :\n"
-"</div>\n"
-"<p>\n"
-"    <span>Mardi : 13h30 - 16h</span>\n"
-"    <br>\n"
-"    <span>Mercredi à Vendredi : 13h30 - 20h</span>\n"
-"    <br>\n"
-"    <span>Samedi : 10h - 16h</span>\n"
-"    <br>\n"
-"</p>\n"
-"<p>01 86 95 91 90</p>\n"
-"<span>Bonne journée,</span>\n"
-"<br>\n"
-"<span>Le Bureau des membres</span>\n"
-"<br>\n"
-"<span>L A   L O U V E</span>\n"
-"\n"
-"\n"
-"\n"
-"        "
-msgstr ""
 
 #. module: coop_parental_leave
 #: model:mail.template,body_html:coop_parental_leave.reminder_birth_certificate_leave_email
@@ -79,7 +29,7 @@ msgid "\n"
 "<div>\n"
 "Date limite pour montrer l’acte de naissance :\n"
 "% if object.expected_birthdate:\n"
-"<span>${( datetime.datetime.strptime(object.expected_birthdate, '%Y-%m-%d') + datetime.timedelta(days=28) ).strftime('%Y-%m-%d')}</span>\n"
+"<span>${( object.expected_birthdate + datetime.timedelta(days=28) ).strftime('%Y-%m-%d')}</span>\n"
 "% endif\n"
 "</div>\n"
 "<br/>\n"
@@ -218,13 +168,65 @@ msgid "\n"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_shared_leave
+#: model:mail.template,body_html:coop_parental_leave.abandoned_parental_leave_email
+msgid "\n"
+"<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>\n"
+"<br>\n"
+"<div>\n"
+"Vous aviez fait la demande d’un congé parental auprès du Bureau des membres.\n"
+"Pour que ce congé puisse être validé, vous aviez 4 semaines pour nous presenter l’acte de naissance de votre enfant.\n"
+"Sauf erreur de notre part, nous n’avons pas vu ce document.\n"
+"Votre congé n’a donc pas abouti.\n"
+"</div>\n"
+"<br>\n"
+"<div>\n"
+"Si vous aviez choisi de garder votre place dans votre équipe lorsque vous aviez demandé le congé,\n"
+"votre statut reflète maintenant votre situation lorsque vous avez posé la demande de congés.\n"
+"On vous attend à votre prochaine service.\n"
+"</div>\n"
+"<br>\n"
+"<div>\n"
+"Si vous ne faisiez pas partie d’une équipe ou bien vous aviez décidé de quitter votre équipe lorsque vous avez demandé le congé,\n"
+"votre statut est maintenant “désinscrit”.\n"
+"Vous n’êtes dans aucune équipe, vous ne pouvez donc pas faire vos courses au magasin.\n"
+"Pour rejoinder de nouveau une équipe, vous devez contacter le Bureau des membres.\n"
+"</div>\n"
+"<br>\n"
+"<div>\n"
+"Merci de consulter votre espace membre pour connaitre votre statut.\n"
+"Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :\n"
+"</div>\n"
+"<p>\n"
+"    <span>Mardi : 13h30 - 16h</span>\n"
+"    <br>\n"
+"    <span>Mercredi à Vendredi : 13h30 - 20h</span>\n"
+"    <br>\n"
+"    <span>Samedi : 10h - 16h</span>\n"
+"    <br>\n"
+"</p>\n"
+"<p>01 86 95 91 90</p>\n"
+"<span>Bonne journée,</span>\n"
+"<br>\n"
+"<span>Le Bureau des membres</span>\n"
+"<br>\n"
+"<span>L A   L O U V E</span>\n"
+"\n"
+"        "
+msgstr ""
+
+#. module: coop_parental_leave
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave__shared_leave
 msgid " Shared Leave"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_provided_birth_certificate
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave__provided_birth_certificate
 msgid "Birth Certificate Provided"
+msgstr ""
+
+#. module: coop_parental_leave
+#: selection:shift.leave,state:0
+msgid "Canceled"
 msgstr ""
 
 #. module: coop_parental_leave
@@ -245,8 +247,23 @@ msgid "Congé parental, acte de naissance"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
+#: model:ir.model,name:coop_parental_leave.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: coop_parental_leave
+#: model_terms:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
 msgid "Do you confirm the leave should start earlier than 12 weeks before the expected birthdate?"
+msgstr ""
+
+#. module: coop_parental_leave
+#: selection:shift.leave,state:0
+msgid "Done"
+msgstr ""
+
+#. module: coop_parental_leave
+#: selection:shift.leave,state:0
+msgid "Draft"
 msgstr ""
 
 #. module: coop_parental_leave
@@ -255,62 +272,91 @@ msgid "Exempted"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_exempted_until_end
-msgid "Exempted until end"
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave__exempted_until_end
+msgid "Exempted Until End"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_expected_birthdate
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave__expected_birthdate
 msgid "Expected or actual birthdate"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
+#: model_terms:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
 msgid "Expected or actual birthdate : (to be entered first)"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_forced_member_status
-msgid "Forced member status"
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave__forced_member_status
+msgid "Forced Member Status"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_is_exceeded_stop_date
-msgid "Is exceeded stop date"
+#: code:addons/coop_parental_leave/wizard/shift_leave_wizard.py:17
+#, python-format
+msgid "Il faut un acte de naissance pour valider ce congé."
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_is_parental_leave
-msgid "Is parental leave"
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave__is_exceeded_stop_date
+msgid "Is Exceeded Stop Date"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_is_warning_start_date
-msgid "Is warning start date"
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave__is_parental_leave
+msgid "Is Parental Leave"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave__is_warning_start_date
+msgid "Is Warning Start Date"
+msgstr ""
+
+#. module: coop_parental_leave
+#: model_terms:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
 msgid "No"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.model,name:coop_parental_leave.model_res_partner
-msgid "Partner"
+#: selection:shift.leave,state:0
+msgid "Not finished"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_regular_stop_date
-msgid "Regular stop date"
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave__regular_stop_date
+msgid "Regular Stop Date"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave_shared_partner_id
+#: model:ir.actions.server,name:coop_parental_leave.cron_reminder_birth_certificate_parental_leave_ir_actions_server
+#: model:ir.cron,cron_name:coop_parental_leave.cron_reminder_birth_certificate_parental_leave
+#: model:ir.cron,name:coop_parental_leave.cron_reminder_birth_certificate_parental_leave
+msgid "Send Reminder Birth Certificate Parental Leave\n"
+"        "
+msgstr ""
+
+#. module: coop_parental_leave
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave__shared_partner_id
 msgid "Shared with"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
+#: model:ir.model,name:coop_parental_leave.model_shift_leave
+msgid "Shift Leave"
+msgstr ""
+
+#. module: coop_parental_leave
+#: model:ir.model,name:coop_parental_leave.model_shift_leave_wizard
+msgid "Shift Leave Wizard"
+msgstr ""
+
+#. module: coop_parental_leave
+#: model:ir.model.fields,field_description:coop_parental_leave.field_shift_leave__state
+msgid "State"
+msgstr ""
+
+#. module: coop_parental_leave
+#: model_terms:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
 msgid "The proposed leave exceeds 12 months. Is this a case of multiple birth?"
 msgstr ""
 
@@ -320,35 +366,33 @@ msgid "Unsubscribed"
 msgstr ""
 
 #. module: coop_parental_leave
-#: model:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
+#: model:ir.actions.server,name:coop_parental_leave.cron_update_member_forced_status_parental_leave_ir_actions_server
+#: model:ir.cron,cron_name:coop_parental_leave.cron_update_member_forced_status_parental_leave
+#: model:ir.cron,name:coop_parental_leave.cron_update_member_forced_status_parental_leave
+msgid "Update member status based on Parental Leave\n"
+"        "
+msgstr ""
+
+#. module: coop_parental_leave
+#: model_terms:ir.ui.view,arch_db:coop_parental_leave.view_shift_leave_form
 msgid "Yes"
 msgstr ""
 
 #. module: coop_parental_leave
-#: code:addons/coop_parental_leave/models/shift_leave.py:108
+#: code:addons/coop_parental_leave/models/shift_leave.py:97
 #, python-format
 msgid "You are not allowed to have this parental leave because of your children's age."
 msgstr ""
 
 #. module: coop_parental_leave
-#: code:addons/coop_parental_leave/models/shift_leave.py:51
+#: code:addons/coop_parental_leave/models/shift_leave.py:42
 #, python-format
 msgid "You cannot propose a parental leave of more than 24 months, even in case of multiple birth."
 msgstr ""
 
 #. module: coop_parental_leave
-#: code:addons/coop_parental_leave/models/shift_leave.py:55
+#: code:addons/coop_parental_leave/models/shift_leave.py:47
 #, python-format
 msgid "You're not allowed to define a parental leave in case both expected birth date and beginning date are in the past."
-msgstr ""
-
-#. module: coop_parental_leave
-#: model:ir.model,name:coop_parental_leave.model_shift_leave
-msgid "shift.leave"
-msgstr ""
-
-#. module: coop_parental_leave
-#: model:ir.model,name:coop_parental_leave.model_shift_leave_wizard
-msgid "shift.leave.wizard"
 msgstr ""
 
