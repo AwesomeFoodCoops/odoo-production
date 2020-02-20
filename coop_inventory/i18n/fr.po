@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-03 12:02+0000\n"
-"PO-Revision-Date: 2017-03-03 12:02+0000\n"
+"POT-Creation-Date: 2020-02-19 12:02+0000\n"
+"PO-Revision-Date: 2017-02-19 12:02+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -17,49 +17,39 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_inventory
-#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
-msgid "&amp;bull;"
-msgstr ""
-
-#. module: coop_inventory
-#: model:ir.ui.view,arch_db:coop_inventory.report_inventory_louve
+#: model_terms:ir.ui.view,arch_db:coop_inventory.report_inventory
 msgid "<strong>G.F. Qty</strong>"
 msgstr "<strong>Qté en Vente</strong>"
 
 #. module: coop_inventory
-#: model:ir.ui.view,arch_db:coop_inventory.report_inventory_adjust
-msgid "<strong>NB d'unités théorique</strong>"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:coop_inventory.report_inventory
+msgid "<strong>Theoretical Qty</strong>"
+msgstr "<strong>NB d'unités théorique</strong>"
 
 #. module: coop_inventory
-#: model:ir.ui.view,arch_db:coop_inventory.report_inventory_adjust
+#: model_terms:ir.ui.view,arch_db:coop_inventory.report_inventory
 #, fuzzy
 msgid "<strong>Total</strong>"
 msgstr "<strong>Qté en Stock</strong>"
 
 #. module: coop_inventory
-#: model:ir.ui.view,arch_db:coop_inventory.report_inventory_louve
+#: model_terms:ir.ui.view,arch_db:coop_inventory.report_inventory
 msgid "<strong>UG. Qty</strong>"
-msgstr "<strong>Qté en Stock</strong>"
+msgstr ""
 
 #. module: coop_inventory
-#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+#: model_terms:ir.ui.view,arch_db:coop_inventory.external_layout
 msgid "Email:"
 msgstr ""
 
 #. module: coop_inventory
-#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
-msgid "Fax:"
-msgstr ""
-
-#. module: coop_inventory
-#: model:ir.model,name:coop_inventory.model_stock_inventory
+#: model_terms:ir.model,name:coop_inventory.model_stock_inventory
 #, fuzzy
 msgid "Inventory"
 msgstr "Ligne d'inventaire"
 
 #. module: coop_inventory
-#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+#: model_terms:ir.ui.view,arch_db:coop_inventory.external_layout
 msgid "Page:"
 msgstr ""
 
@@ -69,23 +59,13 @@ msgid "Partner Ref"
 msgstr "Référence Fournisseur"
 
 #. module: coop_inventory
-#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+#: model:ir.ui.view,arch_db:coop_inventory.external_layout
 msgid "Phone:"
-msgstr ""
-
-#. module: coop_inventory
-#: model:ir.model.fields,field_description:coop_inventory.field_stock_quant_product_type
-msgid "Product type"
 msgstr ""
 
 #. module: coop_inventory
 #: model:ir.model,name:coop_inventory.model_purchase_order
 msgid "Purchase Order"
-msgstr ""
-
-#. module: coop_inventory
-#: model:ir.model,name:coop_inventory.model_stock_quant
-msgid "Quants"
 msgstr ""
 
 #. module: coop_inventory
@@ -97,7 +77,7 @@ msgid ""
 msgstr ""
 
 #. module: coop_inventory
-#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+#: model_terms:ir.ui.view,arch_db:coop_inventory.external_layout
 msgid "TIN:"
 msgstr ""
 
@@ -107,7 +87,7 @@ msgid "Transfer"
 msgstr ""
 
 #. module: coop_inventory
-#: model:ir.ui.view,arch_db:coop_inventory.external_layout_footer_adjust
+#: model:ir.ui.view,arch_db:coop_inventory.external_layout
 msgid "Website:"
 msgstr ""
 
