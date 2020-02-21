@@ -3,26 +3,35 @@
 
     <record id="view_sales_config_inherit" model="ir.ui.view">
         <field name="name">view.sales.config.inherit</field>
-        <field name="model">sale.config.settings</field>
-        <field name="inherit_id" ref="sale.view_sales_config"/>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <field name="deposit_product_id_setting" position="before">
-                <label for="id" string="Coefficients"/>
-                <div>
-                    <div>
-                        <field name="auto_update_base_price" class="oe_inline"/>
+            <xpath expr="//div[hasclass('app_settings_block')]/div[hasclass('o_settings_container')]" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="auto_update_base_price"/>
+                    </div>
+                    <div class="o_setting_right_pane">
                         <label for="auto_update_base_price"/>
                     </div>
-                    <div>
-                        <field name="auto_update_theorical_cost" class="oe_inline"/>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="auto_update_theorical_cost"/>
+                    </div>
+                    <div class="o_setting_right_pane">
                         <label for="auto_update_theorical_cost"/>
                     </div>
-                    <div>
-                        <field name="auto_update_theorical_price" class="oe_inline"/>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="auto_update_theorical_price"/>
+                    </div>
+                    <div class="o_setting_right_pane">
                         <label for="auto_update_theorical_price"/>
                     </div>
                 </div>
-            </field>
+            </xpath>
         </field>
     </record>
 

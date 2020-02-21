@@ -2,6 +2,7 @@
 <!--
     Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
     @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    Copyright (C) 2012-Today: Druidoo (<https://www.druidoo.io>)
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
@@ -9,15 +10,15 @@
 
     <menuitem id="menu_product_coefficient"
         name="Products Coefficients"
-        parent="base.menu_sale_config"
+        parent="sale.menu_sale_config"
         sequence="20"
         action="action_product_coefficient" />
 
     <menuitem id="menu_product_template_coefficient"
         name="Products (Coefficients View)"
-        parent="base.menu_sales"
+        parent="sale.menu_sale_config"
         sequence="20"
         action="action_product_template_coefficient_tree"
-        groups="base.group_sale_manager"/>
+        groups="sales_team.group_sale_manager"/>
 
 </odoo>

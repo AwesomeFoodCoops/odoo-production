@@ -2,6 +2,7 @@
 <!--
     Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
     @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    Copyright (C) 2012-Today: Druidoo (<https://www.druidoo.io>)
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
@@ -13,8 +14,9 @@
         <field name="numbercall">-1</field>
         <field name="doall" eval="False"/>
         <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 02:00:00')" />
-        <field name="model">product.template</field>
-        <field name="function">cron_recompute_base_price</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="code">model.cron_recompute_base_price()</field>
+        <field name="state">code</field>
         <field name="active" eval="False"/>
     </record>
 </odoo>
