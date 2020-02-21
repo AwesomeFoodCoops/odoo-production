@@ -576,7 +576,7 @@ class ProductTemplate(models.Model):
     def auto_update_theoritical_cost_price(self):
         for obj in self:
             if obj.has_theoritical_cost_different and \
-                obj.get_auto_update_theorical_cost():
+                 obj.get_auto_update_theorical_cost():
                 obj.use_theoritical_cost()
             if obj.has_theoritical_price_different and \
                obj.get_auto_update_theorical_price():
@@ -585,7 +585,7 @@ class ProductTemplate(models.Model):
     @api.multi
     def write(self, vals):
         if self.has_theoritical_cost_different and \
-            self.get_auto_update_theorical_cost():
+             self.get_auto_update_theorical_cost():
             coeff9_inter_sp = self.coeff9_inter_sp
             if vals and vals.get('coeff9_inter_sp'):
                 coeff9_inter_sp = vals.get('coeff9_inter_sp')
