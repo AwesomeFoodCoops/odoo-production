@@ -4,7 +4,7 @@
 # Copyright (C) 2012-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 from odoo.addons import decimal_precision as dp
 
 
@@ -512,7 +512,6 @@ class ProductTemplate(models.Model):
             for tax in template.taxes_id:
                 if tax.amount_type == "percent" or tax.price_include:
                     multi *= 1 + (tax.amount / 100)
-                  #I think no need warning in compute method
 #                 if tax.amount_type != "percent" or not tax.price_include:
 #                     raise ValidationError(
 #                         _(
