@@ -1,6 +1,6 @@
-import logging
 _logger = logging.getLogger(__name__)
 from odoo.tests.common import SavepointCase
+import logging
 
 
 def change_list_price_and_standard_price(products):
