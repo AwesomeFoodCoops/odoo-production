@@ -43,7 +43,6 @@ class ReportBankReconciliationSummary(models.AbstractModel):
             ('date', '<=', obj.analysis_date),
             ('journal_id', '=', journal_id),
             ('journal_entry_ids', '=', False),
-            ('statement_id.account_id', '=', default_account_credit),
         ], order='date')
 
         bank_statement_lines_ex = '''
