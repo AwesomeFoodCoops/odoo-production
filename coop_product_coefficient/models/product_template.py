@@ -4,7 +4,8 @@
 # Copyright (C) 2012-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, fields, api, exceptions, _
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 from odoo.addons import decimal_precision as dp
 
 
@@ -511,7 +512,7 @@ class ProductTemplate(models.Model):
             multi = 1
             for tax in template.taxes_id:
                 if tax.amount_type != "percent" or not tax.price_include:
-                    raise exceptions.UserError(
+                    raise ValidationError(
                         _(
                             "Unimplemented Feature\n"
                             "The Tax %s is not correctly set for computing"
@@ -575,8 +576,9 @@ class ProductTemplate(models.Model):
     @api.multi
     def auto_update_theoritical_cost_price(self):
         for obj in self:
-            if obj.has_theoritical_cost_different and \
-                obj.get_auto_update_theorical_cost():
+            if obj.has_theoritical_cost_different and (
+                obj.get_auto_update_theorical_cost()
+            ):
                 obj.use_theoritical_cost()
             if obj.has_theoritical_price_different and \
                obj.get_auto_update_theorical_price():
@@ -584,8 +586,9 @@ class ProductTemplate(models.Model):
 
     @api.multi
     def write(self, vals):
-        if self.has_theoritical_cost_different and \
-            self.get_auto_update_theorical_cost():
+        if self.has_theoritical_cost_different and (
+            self.get_auto_update_theorical_cost()
+        ):
             coeff9_inter_sp = self.coeff9_inter_sp
             if vals and vals.get('coeff9_inter_sp'):
                 coeff9_inter_sp = vals.get('coeff9_inter_sp')
