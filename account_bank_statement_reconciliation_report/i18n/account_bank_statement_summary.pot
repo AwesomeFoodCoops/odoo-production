@@ -1,0 +1,215 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_bank_statement_reconciliation_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_bank_statement_reconciliation_report
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:319
+#, python-format
+msgid "Account "
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:329
+#, python-format
+msgid "Account Balance"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:account_bank_statement_reconciliation_report.field_bank_reconciliation_summary_wizard_analysis_date
+msgid "Analysis Date"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:334
+#, python-format
+msgid "Bank Balance"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:299
+#: model:ir.actions.report,name:account_bank_statement_reconciliation_report.bank_reconciliation_summary_xlsx
+#, python-format
+msgid "Bank Reconciliation Summary"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: model:ir.actions.act_window,name:account_bank_statement_reconciliation_report.action_bank_reconciliation_summary
+#: model:ir.model,name:account_bank_statement_reconciliation_report.model_bank_reconciliation_summary_wizard
+#: model:ir.ui.menu,name:account_bank_statement_reconciliation_report.report_bank_reconciliation_summary
+#: model:ir.ui.view,arch_db:account_bank_statement_reconciliation_report.view_bank_reconciliation_summary_wizard
+msgid "Bank Reconciliation Summary Wizard"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: model:ir.ui.view,arch_db:account_bank_statement_reconciliation_report.view_bank_reconciliation_summary_wizard
+msgid "Cancel"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:339
+#, python-format
+msgid "Control"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:account_bank_statement_reconciliation_report.field_bank_reconciliation_summary_wizard_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:account_bank_statement_reconciliation_report.field_bank_reconciliation_summary_wizard_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:414
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:455
+#, python-format
+msgid "Credit"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:324
+#, python-format
+msgid "Currency"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:384
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:425
+#, python-format
+msgid "Date"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:409
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:450
+#, python-format
+msgid "Debit"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:account_bank_statement_reconciliation_report.field_bank_reconciliation_summary_wizard_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: model:ir.ui.view,arch_db:account_bank_statement_reconciliation_report.view_bank_reconciliation_summary_wizard
+msgid "Generate Report"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:account_bank_statement_reconciliation_report.field_bank_reconciliation_summary_wizard_id
+msgid "ID"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:account_bank_statement_reconciliation_report.field_bank_reconciliation_summary_wizard_journal_id
+msgid "Journal"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:389
+#, python-format
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: code:addons/account_bank_statement_reconciliation_report/report/report_bank_reconciliation_summary.py:404
+#, python-format
+msgid "Label"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:account_bank_statement_reconciliation_report.field_bank_reconciliation_summary_wizard___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:account_bank_statement_reconciliation_report.field_bank_reconciliation_summary_wizard_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: model:ir.model.fields,field_description:account_bank_statement_summary.field_bank_reconciliation_summary_wizard_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:440
+#, python-format
+msgid "Memo"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:421
+#, python-format
+msgid "Outstanding Bank Transactions"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:380
+#, python-format
+msgid "Outstanding Journal Items"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:394
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:435
+#, python-format
+msgid "Partner"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:399
+#, python-format
+msgid "Partner Reference"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:314
+#, python-format
+msgid "Printed Date"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:309
+#, python-format
+msgid "Printed by"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:430
+#, python-format
+msgid "Reference"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:304
+#, python-format
+msgid "Report Date"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:567
+#, python-format
+msgid "Total Bank Transactions"
+msgstr ""
+
+#. module: account_bank_statement_summary
+#: code:addons/account_bank_statement_summary/report/report_bank_reconciliation_summary.py:507
+#, python-format
+msgid "Total Journal Items"
+msgstr ""
+
