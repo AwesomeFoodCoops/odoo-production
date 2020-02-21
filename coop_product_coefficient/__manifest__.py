@@ -10,6 +10,7 @@
     "summary": "Coop Product Coefficients",
     "author": "La Louve,Smile, Druidoo",
     "website": "http://www.lalouve.net",
+    "license": "AGPL-3",
     "category": "Product",
     "depends": ["purchase_discount", "account", "coop_shift"],
     "data": [

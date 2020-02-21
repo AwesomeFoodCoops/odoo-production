@@ -196,13 +196,13 @@ class TestProductTemplate(SavepointCase):
     def tearDownClass(cls):
         return super(TestProductTemplate, cls).tearDownClass()
 
-    def evaluate_values(self, object, expected_output):
+    def evaluate_values(self, product, expected_output):
         for exp_opt in expected_output.items():
-            if type(getattr(object, exp_opt[0])) == bool:
-                self.assertEqual(getattr(object, exp_opt[0]), exp_opt[1])
+            if type(getattr(product, exp_opt[0])) == bool:
+                self.assertEqual(getattr(product, exp_opt[0]), exp_opt[1])
                 continue
             self.assertAlmostEqual(
-                getattr(object, exp_opt[0]), exp_opt[1], places=4
+                getattr(product, exp_opt[0]), exp_opt[1], places=4
             )
 
     def test_checking_first_data(self):
@@ -437,7 +437,6 @@ class TestProductTemplate(SavepointCase):
         # expected output
         expected_ouput_prda = {
             "base_price": 63000.0,
-            "coeff1_inter_sp": 6.3,
             "coeff1_inter": 63010.0,
             "coeff1_inter_sp": 63000,
             "coeff2_inter": 63025.0,
