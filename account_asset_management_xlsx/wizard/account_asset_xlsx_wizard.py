@@ -141,10 +141,6 @@ class AccountAssetXlsxWizard(models.TransientModel):
             profile_asset_depreciation_account = (
                 asset_profile.account_depreciation_id
             )
-            fixed_asset_account_type = self.env.ref(
-                "account.data_account_type_fixed_assets"
-            )
-
             # Calculate history and the selected range account values
             aml_period_domain = [
                 ("asset_id", "=", asset.id),
