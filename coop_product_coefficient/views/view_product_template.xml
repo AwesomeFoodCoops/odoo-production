@@ -147,6 +147,10 @@
                     </group>
                 </page>
             </xpath>
+            <xpath expr="//field[@name='taxes_id']" position="after">
+                <field name="theoritical_warning_label" nolabel="1" colspan="2"
+                    style="color: #856404;background-color: #fff3cd;border-color: #ffeeba;"/>
+            </xpath>
         </field>
     </record>
 

@@ -4,7 +4,7 @@
 # Copyright (C) 2012-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.addons import decimal_precision as dp
 
 
@@ -247,6 +247,11 @@ class ProductTemplate(models.Model):
     has_theoritical_cost_different = fields.Boolean(
         store=True,
         compute="_compute_has_theoritical_cost_different",
+    )
+    theoritical_warning_label = fields.Char(
+        string="Label warning",
+        compute="_compute_theoritical_price",
+        store=True
     )
 
     # Custom Section
@@ -505,24 +510,23 @@ class ProductTemplate(models.Model):
         "taxes_id.amount",
         "taxes_id.price_include",
         "taxes_id.amount_type",
+        "name",
     )
     def _compute_theoritical_price(self):
         for template in self:
             multi = 1
+            theoritical_warning_label = ''
             for tax in template.taxes_id:
                 if tax.amount_type == "percent" or tax.price_include:
                     multi *= 1 + (tax.amount / 100)
-#                 if tax.amount_type != "percent" or not tax.price_include:
-#                     raise ValidationError(
-#                         _(
-#                             "Unimplemented Feature\n"
-#                             "The Tax %s is not correctly set for computing"
-#                             " prices with coefficients for the product %s"
-#                         )
-#                         % (tax.name, template.name)
-#                     )
-#                 multi *= 1 + (tax.amount / 100)
+                if tax.amount_type != "percent" or not tax.price_include:
+                    theoritical_warning_label = _(
+                        "Unimplemented Feature\n"
+                        "The Tax %s is not correctly set for computing"
+                        " prices with coefficients for the product %s"
+                    ) % (tax.name, template.name)
             template.theoritical_price = template.coeff9_inter * multi
+            template.theoritical_warning_label = theoritical_warning_label
 
     @api.multi
     @api.depends("theoritical_price", "list_price")
