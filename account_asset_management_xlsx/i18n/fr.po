@@ -36,8 +36,8 @@ msgid "All moves"
 msgstr "Toutes les écritures"
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_asset_category_ids
-msgid "Asset Categories"
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_asset_profile_ids
+msgid "Asset Profiles"
 msgstr "Catégories"
 
 #. module: account_asset_management_xlsx

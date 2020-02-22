@@ -13,11 +13,11 @@
                     <field name="target_move" widget="radio"/>
                 </group>
                 <group>
-                    <field name="asset_category_ids" options="{'no_create_edit': True, 'no_quick_create': True}"/>
+                    <field name="asset_profile_ids" options="{'no_create_edit': True, 'no_quick_create': True}"/>
                 </group>
                 <footer>
                     <button name="export_report" string="Export" type="object" class="btn btn-primary"/>
-                    <button special="cancel" string="Cancel" class="btn btn-danger"/>
+                    <button special="cancel" string="Cancel" class="btn btn-secondary"/>
                 </footer>
             </form>
         </field>
