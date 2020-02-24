@@ -12,6 +12,8 @@ class StockPackOperation(models.Model):
     vendor_product_code = fields.Char(
         compute="compute_product_code",
         string="Vendor Product Code")
+    picking_id = fields.Many2one(index=True)
+    result_package_id = fields.Many2one(index=True)
 
     @api.multi
     def compute_product_code(self):
