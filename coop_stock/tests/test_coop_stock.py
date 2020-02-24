@@ -11,8 +11,9 @@ class CoopStockTest(TransactionCase):
         self.inventory_line = self.env['stock.inventory.line']
         self.categ_unit = self.env.ref('uom.product_uom_categ_unit')
         self.uom_unit = self.env['uom.uom'].search([
-                        ('category_id', '=', self.categ_unit.id),
-                        ('uom_type', '=', 'reference')], limit=1)
+            ('category_id', '=', self.categ_unit.id),
+            ('uom_type', '=', 'reference')
+        ], limit=1)
         self.stock_location = self.env.ref('stock.stock_location_stock')
         self.partner_3 = self.env.ref('base.res_partner_3')
 
