@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<openerp>
-    <data>
+<odoo>
         <record id="view_coop_stock_product_tree" model="ir.ui.view">
             <field name="name">product.product.coop_stock.tree.inherit</field>
             <field name="model">product.product</field>
@@ -23,5 +22,4 @@
             </field>
         </record>
 
-    </data>
-</openerp>
+</odoo>
