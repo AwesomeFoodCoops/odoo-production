@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Purchase - Package Quantity Module for Odoo
 #    Copyright (C) 2016-Today Akretion (https://www.akretion.com)
 #    @author Julien WESTE
 #    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+#    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import api, models
+from odoo import models, api
 
 
 class StockPicking(models.Model):
@@ -30,6 +30,5 @@ class StockPicking(models.Model):
     @api.multi
     def copy_expected_qtys(self):
         for picking in self:
-            for pack in picking.pack_operation_product_ids:
-                pack.qty_done = pack.product_qty
+            for pack in picking.move_ids_without_package:
                 pack.qty_done_package = pack.product_qty_package
