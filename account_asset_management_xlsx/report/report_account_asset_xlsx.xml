@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <report
+        id="report_account_asset_xlsx"
+        model="account.asset.xlsx.wizard"
+        name="report_account_asset_xlsx"
+        file="report_account_asset_xlsx"
+        report_type="xlsx"
+        string="Account Asset Report"
+    />
+</odoo>
