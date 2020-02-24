@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.actions.act_window" id="stock.quantsact">
+        <field name="domain">[('product_type', '=', 'product')]</field>
+    </record>
+
+</odoo>

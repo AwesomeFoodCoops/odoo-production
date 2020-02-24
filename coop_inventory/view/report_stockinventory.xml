@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <template id="report_inventory" inherit_id="stock.report_inventory">
+
+            <xpath expr="//t[@t-foreach='docs']/t[1]" position="attributes">
+                <attribute name="t-call">coop_inventory.external_layout_inventory</attribute>
+            </xpath>
+
+            <xpath expr="//div[hasclass('page')]/table[1]//tbody/tr//td[1]/span" position="attributes">
+                <attribute name="style">font-size: 20px</attribute>
+            </xpath>
+
+            <xpath expr="//div[hasclass('page')]/table[2]" position="attributes">
+                <attribute name="class" add="table-sm" separator=" "/>
+            </xpath>
+
+            <!-- Add G.F. Qty and UG. Qty fields -->
+            <xpath expr="//div[hasclass('page')]/table[2]/thead/tr/th[5]" position="replace">
+                <th class="text-right"><strong>G.F. Qty</strong></th>
+                <th class="text-right"><strong>UG. Qty</strong></th>
+                <th class="text-center"><strong>Total</strong></th>
+                <th class="text-right"><strong>Theoretical Qty</strong></th>
+            </xpath>
+
+            <xpath expr="//div[hasclass('page')]/table[2]/tbody/t/tr[2]/td[5]" position="replace">
+                <td class="text-right"/>
+                <td class="text-right"/>
+                <td class="text-right"><span t-field="line.product_qty" class="text-right"/> <span t-field="line.product_uom_id" class="text-right" groups="product.group_uom"/></td>
+                <td class="text-right"><span class="text-right" t-field="line.theoretical_qty"/> <span class="text-right" t-field="line.product_uom_id" groups="product.group_uom"/></td>
+            </xpath>
+
+        </template>
+
+        <template id="external_layout_inventory">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <t t-call="coop_inventory.external_layout"/>
+            <t t-raw="0"/>
+        </template>
+
+        <template id="external_layout">
+            <div class="header">
+                <div class="row">
+                    <div class="col-3 mb4">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                    </div>
+                    <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+                </div>
+            </div>
+
+            <div class="footer o_standard_footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul t-if="not company.report_footer" class="list-inline mb4">
+                        <li t-if="company.phone" class="list-inline-item">Phone: <span t-field="company.phone"/></li>
+                        <li t-if="company.email and company.phone" class="list-inline-item">&amp;bull;</li>
+                        <li t-if="company.email" class="list-inline-item">Email: <span t-field="company.email"/></li>
+                        <li t-if="company.website and company.email or company.website and company.phone" class="list-inline-item">&amp;bull;</li>
+                        <li t-if="company.website" class="list-inline-item">Website: <span t-field="company.website"/></li>
+                        <li t-if="company.vat" class="list-inline-item">TIN: <span t-field="company.vat"/></li>
+                    </ul>
+
+                    <div t-if="company.report_footer" name="financial_infos">
+                        <span t-field="company.report_footer"/>
+                    </div>
+
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page: <span class="page"/> / <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+
+        </template>
+
+     <record id="paperformat_inventory_adjust" model="report.paperformat">
+            <field name="name">Stock Inventory Adjust</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <record id="stock.action_report_inventory" model="ir.actions.report">
+            <field name="paperformat_id" ref="paperformat_inventory_adjust"/>
+        </record>
+
+</odoo>
