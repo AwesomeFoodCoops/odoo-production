@@ -1,70 +1,10 @@
 <?xml version="1.0"?>
-<!--
-    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-    @author: La Louve
-    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
 <odoo>
-    <record id="action_invoice_refund" model="ir.actions.act_window">
-        <field name="name">Vendor Refunds</field>
-        <field name="res_model">account.invoice</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form,calendar,pivot,graph</field>
-        <field eval="False" name="view_id"/>
-        <field name="domain">[('type','=','in_refund')]</field>
-        <field name="context">{'default_type': 'in_refund', 'type': 'in_refund', 'journal_type': 'purchase'}</field>
-        <field name="search_view_id" ref="account.view_account_invoice_filter"/>
-    </record>
 
-    <record id="invoice_supplier_form_inherit" model="ir.ui.view">
-        <field name="name">invoice.supplier.form.inherit</field>
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+    <record model="ir.ui.view" id="purchase_order_form">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="attributes">
-                <attribute name="groups">account.group_account_invoice,sale.group_discount_per_so_line</attribute>
-            </xpath>
-            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
-                <field name="base_price"/>
-            </xpath>
-        </field>
-    </record>
-
-    <record id="view_supplierinfo_search" model="ir.ui.view">
-        <field name="name">product.supplierinfo.search</field>
-        <field name="model">product.supplierinfo</field>
-        <field name="arch" type="xml">
-            <search string="Supplierinfo">
-                <field name="name" string="Supplier"/>
-                <field name="product_tmpl_id" string="Product" filter_domain="['|', '|', '|', ('product_tmpl_id.name', 'ilike', self), ('default_code', 'ilike', self), ('product_name', 'ilike', self), ('product_code', 'ilike', self)]"/>
-                <filter string="Product Active" name="is_product_active" domain="[('is_product_active','=',1)]"/>
-                <separator orientation="vertical"/>
-                <filter string="Product can be purchase" name="product_purchase_ok" domain="[('product_purchase_ok','=',1)]"/>
-                <group expand="0" string="Group By">
-                    <filter string="Product" domain="" context="{'group_by':'product_tmpl_id'}"/>
-                    <filter string="Supplier" domain="" context="{'group_by': 'name'}"/>
-                </group>
-            </search>
-        </field>
-    </record>
-
-    <record id="product.product_supplierinfo_type_action" model="ir.actions.act_window">
-        <field name="name">Supplier Pricelist</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">product.supplierinfo</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="context">{
-            'visible_product_tmpl_id': False,
-            'search_default_is_product_active': 1,
-            'search_default_product_purchase_ok': 1
-            }</field>
-    </record>
-    
-    <record model="ir.ui.view" id="coop_purchase_order_form">
-         <field name="model">purchase.order</field>
-         <field name="inherit_id" ref="purchase.purchase_order_form" />
-         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -81,23 +21,16 @@
             <xpath expr="//field[@name='order_line']/tree" position="attributes">
                 <attribute name="decoration-success">product_qty==qty_invoiced</attribute>
             </xpath>
-         </field>
+            <xpath expr="//header/button[@name='button_done']" position="after">
+                <button name="button_update_prices" type="object" string="Upd. Prices" class="btn btn-primary"/>
+            </xpath>
+        </field>
     </record>
-
-    <record id="view_purchase_order_form_inherit" model="ir.ui.view">
-		<field name="model">purchase.order</field>
-		<field name="inherit_id" ref="purchase.purchase_order_form"/>
-		<field name="arch" type="xml">
-		    <xpath expr="//header/button[@name='button_done']" position="after">
-		        <button name="button_update_prices" type="object" string="Upd. Prices" class="btn btn-primary"/>
-		    </xpath>
-		</field>
-	</record>
 
     <record id="view_purchase_order_line_tree" model="ir.ui.view">
         <field name="model">purchase.order.line</field>
         <field name="arch" type="xml">
-            <tree string="Purchase Order Lines" create="false">
+            <tree create="false">
                 <field name="id" invisible="1"/>
                 <field name="order_id" invisible="1"/>
                 <field name="partner_id" invisible="1"/>
@@ -110,8 +43,8 @@
                 <field name="package_qty"/>
                 <field name="indicative_package" invisible="1"/>
                 <field name="product_qty"/>
-                <field name="qty_received" />
-                <field name="qty_invoiced" />
+                <field name="qty_received"/>
+                <field name="qty_invoiced"/>
                 <field name="product_uom" groups="product.group_uom"/>
                 <field name="price_unit"/>
                 <field name="price_unit_tax"/>
@@ -125,12 +58,7 @@
     </record>
 
     <record id="purchase_compute_order.action_purchase_order_line_tree" model="ir.actions.act_window">
-        <field name="name">Purchase Orderlines</field>
-        <field name="res_model">purchase.order.line</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="view_purchase_order_line_tree" />
-        <field name="domain">[('order_id', 'in', active_ids)]</field>
+        <field name="view_id" ref="view_purchase_order_line_tree"/>
     </record>
 
 </odoo>
