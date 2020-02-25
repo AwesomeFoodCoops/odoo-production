@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record model="ir.ui.view" id="purchase_order_form">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_subtotal']" position="after">
+                <field name="price_total"/>
+            </xpath>
+            <xpath expr="//field[@name='price_unit']" position="after">
+                <field name="price_unit_tax"/>
+            </xpath>
+            <field name="taxes_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="account_analytic_id" position="replace"/>
+            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                <attribute name="decoration-success">product_qty==qty_invoiced</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='button_done']" position="after">
+                <button name="button_update_prices" type="object" string="Upd. Prices" class="btn btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_line_tree" model="ir.ui.view">
+        <field name="model">purchase.order.line</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="id" invisible="1"/>
+                <field name="order_id" invisible="1"/>
+                <field name="partner_id" invisible="1"/>
+                <field name="product_id"/>
+                <field name="name"/>
+                <field name="date_planned" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="account_analytic_id" groups="purchase.group_analytic_accounting" invisible="1"/>
+                <field name="product_qty_package"/>
+                <field name="package_qty"/>
+                <field name="indicative_package" invisible="1"/>
+                <field name="product_qty"/>
+                <field name="qty_received"/>
+                <field name="qty_invoiced"/>
+                <field name="product_uom" groups="product.group_uom"/>
+                <field name="price_unit"/>
+                <field name="price_unit_tax"/>
+                <field name="price_policy"/>
+                <field name="discount"/>
+                <field name="taxes_id" widget="many2many_tags" invisible="1"/>
+                <field name="price_subtotal" widget="monetary"/>
+                <field name="price_total"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="purchase_compute_order.action_purchase_order_line_tree" model="ir.actions.act_window">
+        <field name="view_id" ref="view_purchase_order_line_tree"/>
+    </record>
+
+</odoo>

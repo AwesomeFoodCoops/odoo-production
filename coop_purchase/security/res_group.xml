@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="res.groups" id="group_put_in_pack">
+        <field name="name">Put in pack</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+</odoo>
