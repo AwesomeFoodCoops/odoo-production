@@ -128,7 +128,7 @@ class AccountMoveLine(models.Model):
             raise UserError(_('Found no wrong account move lines.'))
         record_values_dict = wrong_move_lines.export_data(read_columns)
         converted_data_rows = [
-            [unicode(cell_data) for cell_data in data_row]
+            [cell_data.encode('utf8') for cell_data in data_row]
             for data_row in record_values_dict['datas']
         ]
         return {
