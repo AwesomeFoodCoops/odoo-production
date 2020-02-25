@@ -2,7 +2,7 @@
 from odoo import api, models, fields, _
 
 
-class account_payment(models.Model):
+class AccountPayment(models.Model):
     _inherit = 'account.payment'
 
     account_move_ids = fields.One2many(
@@ -10,7 +10,7 @@ class account_payment(models.Model):
     state = fields.Selection(selection_add=[('cancelled', 'Cancelled')])
 
     def _create_payment_entry(self, amount):
-        move = super(account_payment, self)._create_payment_entry(amount)
+        move = super(AccountPayment, self)._create_payment_entry(amount)
         move.payment_id = self.id
         return move
 
@@ -37,7 +37,7 @@ class account_payment(models.Model):
     @api.multi
     def re_generate(self, default=None):
         self.ensure_one()
-        new_record = super(account_payment, self).copy(default=default)
+        new_record = super(AccountPayment, self).copy(default=default)
         new_record.invoice_ids = self.invoice_ids
         return {
             'name': _('Draft Payment'),
@@ -45,7 +45,7 @@ class account_payment(models.Model):
             'view_mode': 'form',
             'res_model': 'account.payment',
             'view_id': self.env.ref(
-                'account_payment_transfer_account.view_account_payment_form_extend').id,
+                'AccountPayment_transfer_account.view_AccountPayment_form_extend').id,
             'type': 'ir.actions.act_window',
             'res_id': new_record.id
         }

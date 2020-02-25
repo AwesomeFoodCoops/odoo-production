@@ -38,13 +38,13 @@ class AccountBankStatementLine(models.Model):
             'context': {'line_ids': line_ids}
         }
 
-    """
-    Override native method to check date_month of payment account move line
-    when processing bank statement line
-    """
     @api.multi
     def process_reconciliation(self, counterpart_aml_dicts=None,
                                payment_aml_rec=None, new_aml_dicts=None):
+        """
+        Override native method to check date_month of payment account move line
+        when processing bank statement line
+        """
         self.ensure_one()
         if not self.check_payment_aml_date_month(payment_aml_rec):
             raise UserError(_('You cannot reconcile with an account.move posterior ' +
@@ -53,12 +53,12 @@ class AccountBankStatementLine(models.Model):
         return super(AccountBankStatementLine, self).process_reconciliation(
             counterpart_aml_dicts, payment_aml_rec, new_aml_dicts)
 
-    """
-    Make sure all payment account move lines month
-    less than or equal to the current month of bank statement line
-    """
     @api.multi
     def check_payment_aml_date_month(self, payment_aml_rec):
+        """
+        Make sure all payment account move lines month
+        less than or equal to the current month of bank statement line
+        """
         self.ensure_one()
         result = True
         if payment_aml_rec and len(payment_aml_rec) > 1:

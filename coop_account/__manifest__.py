@@ -14,12 +14,10 @@
             'queue_job'
     ],
     'data': [
-        # "data/update_other_balance_move_line.yml",
         "data/ir_cron.xml",
         "data/ir_config_paramerter.xml",
         "security/res_group.xml",
         "view/assets.xml",
-        "view/view_account_config_setting.xml",
         "view/view_account_bank_statement.xml",
         "view/view_account_move.xml",
         "view/view_account_move_line.xml",

@@ -184,7 +184,7 @@ class AccountMoveLine(models.Model):
         reconcile_pos_account = self.env['account.account'].search(
             [('code', '=', reconcile_pos_account)], limit=1)
         if not reconcile_pos_account:
-            _logger.warn(
+            _logger.warning(
                 "Couldn't find account with code %s,"
                 "please set value for key 'to.reconcile.pos.account'"
                 " in config_parameter",
