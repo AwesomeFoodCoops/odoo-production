@@ -6,17 +6,19 @@
 from odoo import fields, models, api
 
 
-class StockPackOperation(models.Model):
-    _inherit = "stock.pack.operation"
+class StockMoveLine(models.Model):
+    _inherit = "stock.move.line"
 
     vendor_product_code = fields.Char(
         compute="_compute_product_code"
     )
+    picking_id = fields.Many2one(index=True)
+    result_package_id = fields.Many2one(index=True)
 
     @api.multi
     def _compute_product_code(self):
-        for pack in self:
-            sellers = pack.product_id.seller_ids
+        for move_line in self:
+            sellers = move_line.product_id.seller_ids
             for seller in sellers:
-                if seller.name == pack.picking_id.partner_id:
-                    pack.vendor_product_code = seller.product_code
+                if seller.name == move_line.picking_id.partner_id:
+                    move_line.vendor_product_code = seller.product_code
