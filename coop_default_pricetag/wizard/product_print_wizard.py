@@ -20,5 +20,7 @@ class ProductPrintWizard(models.TransientModel):
                 pricetag_model_id.report_model
             if reportname == 'coop_default_pricetag.report_pricetag_barcode':
                 report_name = 'coop_default_pricetag.pricetag_barcode'
+            if reportname == 'coop_default_pricetag.report_pricetag_simple_barcode':
+                report_name = 'coop_default_pricetag.pricetag_simple_barcode'
         return self.env.ref(report_name).report_action(
             self, data=data)

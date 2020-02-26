@@ -20,4 +20,10 @@
         <field name="report_model">coop_default_pricetag.report_pricetag_vegetables</field>
     </record>
 
+    <record id="pricetag_model_simple_barcode" model="pricetag.model">
+        <field name="name">Small Pricetag with Barcode</field>
+        <field name="pricetag_paperformat_id" ref="coop_default_pricetag.paperformat_pricetag"/>
+        <field name="report_model">coop_default_pricetag.report_pricetag_simple_barcode</field>
+    </record>
+
 </odoo>

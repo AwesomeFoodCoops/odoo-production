@@ -45,3 +45,5 @@ class TestProductPrintCategory(TransactionCase):
             _get_report_values(docids=None, data=data.get('data'))
         self.env['report.coop_default_pricetag.report_pricetag_barcode'].\
             _get_report_values(docids=None, data=data.get('data'))
+        self.env['report.coop_default_pricetag.report_pricetag_simple_barcode'].\
+            _get_report_values(docids=None, data=data.get('data'))

@@ -31,7 +31,7 @@
                                         <t t-if="product['product'].weight">
                                             <t t-esc="product['product'].weight" />
                                             kg ---
-                                            <t t-esc="product['product'].price_weight_net" />
+                                            <t t-esc="product['product'].price_weight" />
                                             €/kg
                                             <br />
                                         </t>
@@ -145,6 +145,44 @@
                     </t>
                 </t>
             </div>
+        </t>
+    </template>
+
+    <!--  Simple Barcode -->
+    <template id="report_pricetag_simple_barcode">
+        <t t-call="web.basic_layout">
+        <div class="page">
+            <t t-foreach="Products" t-as="product">
+            <t t-foreach="product['line'].quantity" t-as="q">
+                <div class="sblabel_container">
+                    <div class="pricetag pricetag-barcode">
+                        <div class="sblabel_top">
+                            <div class="product_name">
+                                <t t-esc="product['product'].name"/>
+                            </div>
+                        </div>
+                        <div class="sb_weight_price">
+                            <div class="sblabel_left">
+                                <t t-if="product['product'].weight"><t t-esc="product['product'].weight"/> kg <br/>
+                                <t t-esc="product['product'].price_weight"/> €/kg<br/></t>
+                            </div>
+                            <div class="sblabel_right">
+                                    <t t-esc="'%0.2f' % (product['product'].list_price)"/>€
+                            </div>
+                        </div>
+                        <div class="label_bottom">
+                            <div class="product_shelf_rackinfo_barcode">
+                                <img t-if="product['product'].barcode" class="simple_barcode_image" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', product['product'].barcode, 200, 40)"/>
+                            </div>
+                            <div style="text-align:center;" t-if="product['product'].barcode">
+                                <span t-field="product['product'].barcode" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            </t>
+        </div>
         </t>
     </template>
 

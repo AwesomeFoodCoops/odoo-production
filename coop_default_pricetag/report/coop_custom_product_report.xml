@@ -34,4 +34,15 @@
         paperformat="coop_default_pricetag.paperformat_pricetag_vegetables"
     />
 
+    <report
+        id="pricetag_simple_barcode"
+        model="report.pricetag"
+        string="Pricetags Barcode"
+        report_type="qweb-pdf"
+        name="coop_default_pricetag.report_pricetag_simple_barcode"
+        file="coop_default_pricetag.report_pricetag_simple_barcode"
+        attachment_use="False"
+        paperformat="paperformat_pricetag"
+    />
+
 </odoo>
