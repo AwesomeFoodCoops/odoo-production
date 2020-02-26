@@ -110,7 +110,7 @@
                                 <t t-esc="product['product'].name"/>
                             </div>
                         </div>
-                        <div class=".sb_weight_price">
+                        <div class="sb_weight_price">
                             <div class="sblabel_left">
                                 <t t-if="product['product'].weight_net"><t t-esc="product['product'].weight_net"/> kg <br/>
                                 <t t-esc="product['product'].price_weight_net"/> €/kg<br/></t>

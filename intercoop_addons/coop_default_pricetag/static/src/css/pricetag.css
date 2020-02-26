@@ -116,16 +116,17 @@
     z-index: -9999;
 }
 .sb_weight_price{
-    width:100%; height:45%; float:left;
+    width:100%; height:30%; float:left;
     font-size: 10px;
 }
-.sblabel_left{
+.sb_weight_price .sblabel_left{
     width:45%; height:12%; float:left;
     text-align:left; font-size:11px;
 }
-.sblabel_right{
+.sb_weight_price .sblabel_right{
     width:55%; height:30%; float:right;
     text-align:right; font-size:22px; font-weight:bold;
+    margin-right:0.4cm;
 }
 .sblabel_top{
     width:100%; height:21%; float:left;
