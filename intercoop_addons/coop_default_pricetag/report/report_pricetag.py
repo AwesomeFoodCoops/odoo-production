@@ -53,3 +53,8 @@ class ReportPricetag(models.AbstractModel):
 class ReportPricetagBarcode(models.AbstractModel):
     _name = 'report.coop_default_pricetag.report_pricetag_barcode'
     _inherit = 'report.coop_default_pricetag.report_pricetag_base'
+
+
+class ReportPricetagSimpleBarcode(models.AbstractModel):
+    _name = 'report.coop_default_pricetag.report_pricetag_simple_barcode'
+    _inherit = 'report.coop_default_pricetag.report_pricetag_base'
