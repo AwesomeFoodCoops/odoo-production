@@ -79,6 +79,7 @@ class Website(openerp.addons.website.controllers.main.Website):
     def page_planning(self, **kwargs):
         user = request.env.user
         upcoming_shifts = request.env['shift.shift'].sudo().search([
+            ('shift_template_id.is_technical', '=', False),
             ('date_begin', '>=', datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
             ('state', '=', 'confirm'),
         ], order="date_begin") or []
