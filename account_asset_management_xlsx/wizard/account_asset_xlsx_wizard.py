@@ -38,7 +38,6 @@ class AccountAssetXlsxWizard(models.TransientModel):
     def export_report(self):
         self.ensure_one()
         datas = dict()
-        datas["profile_datas_lst"] = self.get_profile_datas()
         report_name = 'account_asset_management_xlsx.report_account_asset_xlsx'
         return self.env.ref(report_name).report_action(self, data=datas)
 

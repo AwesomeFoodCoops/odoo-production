@@ -82,7 +82,7 @@ class ReportAccountAssetXlsx(models.AbstractModel):
                 "format": self.format_table_number,
             },
         }
-        profile_datas_lst = data.get("profile_datas_lst", [])
+        profile_datas_lst = objects and objects.get_profile_datas() or []
         self.summary_column_info = {
             "value": [],
             "value_residual": [],
