@@ -19,6 +19,9 @@
             <field name="credit" position="after">
                 <field name="other_balance" sum="Total Balance"/>
             </field>
+            <field name="analytic_account_id" position="after">
+                <field name="tax_ids" widget="many2many_tags"/>
+            </field>
         </field>
     </record>
 
