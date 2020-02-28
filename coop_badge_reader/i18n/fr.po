@@ -122,11 +122,6 @@ msgid "Success Status"
 msgstr "Statut OK"
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_user_id
-msgid "User"
-msgstr "Utilisateur"
-
-#. module: coop_badge_reader
 #: model:ir.actions.act_window,name:coop_badge_reader.action_res_users_move
 #: model:ir.ui.menu,name:coop_badge_reader.menu_res_users_move
 msgid "User Moves"
