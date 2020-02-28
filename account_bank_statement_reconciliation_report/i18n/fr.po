@@ -171,11 +171,6 @@ msgid "Bank Reconciliation Summary Wizard"
 msgstr "État de rapprochement"
 
 #. module: account_bank_statement_summary
-#: model:ir.actions.report,name:account_bank_statement_summary.bank_reconciliation_summary_xlsx
-msgid "Bank Reconciliation Summary"
-msgstr "État de rapprochement"
-
-#. module: account_bank_statement_summary
 #: model:ir.ui.view,arch_db:account_bank_statement_summary.view_bank_reconciliation_summary_wizard
 msgid "Generate Report"
 msgstr "Générer rapport"
