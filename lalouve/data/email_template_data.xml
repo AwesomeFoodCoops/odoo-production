@@ -1,13 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <record id="louve_unsubscribe_email" model="mail.template">
-        <field name="name">Unbsubscribed Email</field>
-        <field name="model_id" ref="base.model_res_partner"/>
-        <field name="email_from">${(object.company_id.email or '')|safe}</field>
-        <field name="email_to" >${object.email|safe}</field>
-        <field name="lang">${object.lang}</field>
-        <field name="reply_to">${object.company_id.email|safe}</field>
-        <field name="subject">You have been unsubscribed from your team</field>
+    <record id="coop_membership.unsubscribe_email" model="mail.template">
         <field name="body_html"><![CDATA[
 <p>Dear ${object.name},</p>
 
@@ -27,14 +20,7 @@
 ]]></field>
     </record>
 
-    <record id="louve_abcd_leave_email" model="mail.template">
-        <field name="name">Letter for Classique/ABCD members</field>
-        <field name="model_id" ref="coop_membership.model_shift_leave"/>
-        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
-        <field name="email_to" >${object.partner_id.email|safe}</field>
-        <field name="lang">${object.partner_id.lang}</field>
-        <field name="reply_to">${object.partner_id.company_id.email|safe}</field>
-        <field name="subject">Confirmation de votre demande de congé</field>
+    <record id="coop_membership.coop_abcd_leave_email" model="mail.template">
         <field name="body_html"><![CDATA[
 <p>Bonjour ${object.partner_id.name}</p>
 <br/>
@@ -49,14 +35,7 @@
         </field>
     </record>
 
-    <record id="louve_ftop_leave_email" model="mail.template">
-        <field name="name">Letter for Volant/FTOP members</field>
-        <field name="model_id" ref="coop_membership.model_shift_leave"/>
-        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
-        <field name="email_to" >${object.partner_id.email|safe}</field>
-        <field name="lang">${object.partner_id.lang}</field>
-        <field name="reply_to">${object.partner_id.company_id.email|safe}</field>
-        <field name="subject">Confirmation de votre demande de congé</field>
+    <record id="coop_membership.coop_ftop_leave_email" model="mail.template">
         <field name="body_html"><![CDATA[
 <p>Bonjour ${object.partner_id.name}</p>
 <br/>

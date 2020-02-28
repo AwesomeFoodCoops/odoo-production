@@ -22,3 +22,4 @@ Funders
 The development of this module has been financially supported by:
 
 * La Louve (http://www.lalouve.net)
+* Druidoo (<https://www.druidoo.io>)
