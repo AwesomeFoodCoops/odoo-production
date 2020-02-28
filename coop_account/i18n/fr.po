@@ -21,11 +21,6 @@ msgid "Account"
 msgstr "Compte"
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard_account_id
-msgid "Account"
-msgstr "Compte comptable"
-
-#. module: coop_account
 #: model:ir.model.fields,field_description:coop_account.field_account_account_journal_credit_ids
 msgid "Account Journal Credit"
 msgstr "Account Journal Credit"
@@ -110,7 +105,7 @@ msgstr "Cet assistant n'est disponible que pour les lignes non encore rapproché
 #. module: coop_account
 #: model:ir.model.fields,help:coop_account.field_account_account_reconciled_account
 msgid "If true, account moves will be able to have at most only one account move line linked to this account (or to another account with 'Bank reconciliation' is true)"
-msgstr "Si vrai, une pièce comptable ne pourra tout au plus avoir qu'une seule écriture comptable liée à ce compte comptable (ou à un autre compte comptable où "Rapprochement bancaire" est vrai)"
+msgstr "Si vrai, une pièce comptable ne pourra tout au plus avoir qu'une seule écriture comptable liée à ce compte comptable (ou à un autre compte comptable où 'Rapprochement bancaire' est vrai)"
 
 #. module: coop_account
 #: model:ir.model.fields,field_description:coop_account.field_account_account_reconciled_account
