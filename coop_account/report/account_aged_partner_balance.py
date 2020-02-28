@@ -31,21 +31,25 @@ class ReportAgedPartnerBalance(models.AbstractModel):
             reconciliation_clause = '(l.reconciled IS FALSE OR l.id IN %s)'
             arg_list += (tuple(reconciled_after_date),)
         arg_list += (date_from, user_company)
-        query = '''
-            SELECT DISTINCT res_partner.id AS id, res_partner.barcode_base AS barcode,
+        query = """
+            SELECT DISTINCT
+            res_partner.id AS id,
+            res_partner.barcode_base AS barcode,
             COALESCE(res_partner.barcode_base || ' - ' , ' ')
             || res_partner.name AS name,
             UPPER(res_partner.name) AS uppername
-            FROM res_partner,account_move_line AS l, account_account, account_move am
+            FROM res_partner,account_move_line AS l,
+            account_account, account_move am
             WHERE (l.account_id = account_account.id)
                 AND (l.move_id = am.id)
                 AND (am.state IN %s)
                 AND (account_account.internal_type IN %s)
-                AND ''' + reconciliation_clause + '''
+                AND """ + reconciliation_clause + """
                 AND (l.partner_id = res_partner.id)
                 AND (l.date <= %s)
                 AND l.company_id = %s
-            ORDER BY res_partner.barcode_base ASC,UPPER(res_partner.name) ASC'''
+            ORDER BY res_partner.barcode_base ASC,
+            UPPER(res_partner.name) ASC"""
         cr.execute(query, arg_list)
 
         partners = cr.dictfetchall()

@@ -9,13 +9,12 @@
     'summary': 'Coop Account',
     'author': 'La Louve, Druidoo',
     'website': 'http://www.lalouve.net',
+    'license': 'AGPL-3',
     'depends': [
         'account',
             'queue_job'
     ],
     'data': [
-        "data/ir_cron.xml",
-        "data/ir_config_paramerter.xml",
         "security/res_group.xml",
         "view/assets.xml",
         "view/view_account_bank_statement.xml",
