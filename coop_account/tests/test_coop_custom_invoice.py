@@ -1,10 +1,10 @@
-from .common import LouveCustomAccountTest
+from .common import CoopCustomAccountTest
 
 
-class TestLouveCustomAccount(LouveCustomAccountTest):
-    def test_louve_custom_account01(self):
+class TestCoupCustomAccount(CoopCustomAccountTest):
+    def test_coop_custom_account01(self):
         """
-            Test the Louve Custom Account should merge the same invoice lines
+            Test the Coop Custom Account should merge the same invoice lines
             and make the required changes in memo when make the payment with
             selected operation type.
         """

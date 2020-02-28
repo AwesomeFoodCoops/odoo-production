@@ -1,12 +1,12 @@
 from odoo.tests import common
 
 
-class LouveCustomAccountTest(common.TransactionCase):
-    """ Base class - Test the Louve Custom Account in invoice.
+class CoopCustomAccountTest(common.TransactionCase):
+    """ Base class - Test the Coop Custom Account in invoice.
     """
 
     def setUp(self):
-        super(LouveCustomAccountTest, self).setUp()
+        super(CoopCustomAccountTest, self).setUp()
         # Useful models
         self.AccountInvoice = self.env['account.invoice']
         self.Account = self.env['account.account']
