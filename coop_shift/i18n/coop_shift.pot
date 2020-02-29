@@ -76,29 +76,6 @@ msgid "<p>Hello ${object.name},</p>\n"
 msgstr ""
 
 #. module: coop_shift
-#: model:mail.template,body_html:coop_shift.shift_reminder
-msgid "<p>Hello ${object.name},</p>\n"
-"<p>This is a reminder for ${object.shift_id.name} that you registered for is confirmed and will be held from ${object.shift_id.date_begin_located} to ${object.shift_id.date_end_located}.\n"
-"For any further information please contact our shift department.</p>\n"
-"<p>You can get your next shift on our website : https://membres.cooplalouve.fr/</p>\n"
-"<p>Thank you for your participation!</p>\n"
-"<p>Best regards</p>"
-msgstr ""
-
-#. module: coop_shift
-#: model:mail.template,body_html:coop_shift.shift_thanks
-msgid "<p>Hello ${object.name},</p>\n"
-"<p>We would like to thank you for your presence at our shift ${object.shift_id.name}.\n"
-"<br/><br/>\n"
-"    % if object.shift_id.organizer_id and object.shift_id.organizer_id.is_company:\n"
-"        <strong>The ${object.shift_id.organizer_id.name} Team</strong>\n"
-"    % elif object.shift_id.organizer_id:\n"
-"        <strong>${object.shift_id.organizer_id.name}</strong>\n"
-"    % endif\n"
-"</p>"
-msgstr ""
-
-#. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_template_form
 msgid "<span attrs=\"{'invisible': [('seats_availability', '=', 'unlimited')]}\" class=\"oe_read_only\">\n"
 "                                                to\n"
@@ -2303,11 +2280,6 @@ msgid "Regular workers sign-ups as of<br/>"
 msgstr ""
 
 #. module: coop_shift
-#: model:mail.template,subject:coop_shift.shift_reminder
-msgid "Reminder of shift ${object.shift_id.name}"
-msgstr ""
-
-#. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.report_timesheet
 msgid "Remplacé<br/>??"
 msgstr ""
@@ -3069,11 +3041,6 @@ msgstr ""
 #: code:addons/coop_shift/model/shift_template.py:283
 #, python-format
 msgid "Th"
-msgstr ""
-
-#. module: coop_shift
-#: model:mail.template,subject:coop_shift.shift_thanks
-msgid "Thanks for attending ${object.shift_id.name}"
 msgstr ""
 
 #. module: coop_shift
