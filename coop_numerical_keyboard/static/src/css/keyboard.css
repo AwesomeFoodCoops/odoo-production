@@ -13,7 +13,6 @@
     height: 50px;
     line-height: 49px;
 }
-
 .pos .numeric_keyboard .firstitem[class^='row_']{
     margin-left:55px !important;
 }
