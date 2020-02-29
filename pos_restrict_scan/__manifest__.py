@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 # @author: La Louve
+# Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 {
     'name': 'POS Restrict Scanning Product',
-    'version': '9.0.7.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Point of Sale',
     'description': '''
         Restrict cashier from scanning product in non-product screen
