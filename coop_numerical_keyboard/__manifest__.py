@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2018-Today: La Louve (<https://cooplalouve.fr>)
 # @author: Simon Mas (linkedin.com/in/simon-mas)
 # Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
