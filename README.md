@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/druidoo/FoodCoops.svg?branch=12.0)](https://travis-ci.org/druidoo/FoodCoops)
+[![Build Status](https://travis-ci.com/druidoo/FoodCoops.svg?branch=12.0)](https://travis-ci.com/druidoo/FoodCoops)
 [![codecov](https://codecov.io/gh/druidoo/FoodCoops/branch/12.0/graph/badge.svg)](https://codecov.io/gh/druidoo/FoodCoops)
 
 
