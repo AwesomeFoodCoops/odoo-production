@@ -11,10 +11,12 @@
     "website": "http://www.lalouve.net",
     "license": "AGPL-3",
     "depends": [
+        "mail_template_conditional_attachment",
         "coop_membership"
     ],
     "data": [
-        "data/email_template_data.xml"
+        "data/email_template_data.xml",
+        "data/mail_attachtment_custom_data.xml"
     ],
     "installable": True,
 }
