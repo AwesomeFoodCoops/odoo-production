@@ -4,7 +4,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 from odoo import fields, models, api, _
-from odoo.addons.queue_job.job import job
 
 
 class PosSession(models.Model):
@@ -65,27 +64,3 @@ class PosSession(models.Model):
     def compute_cycle(self):
         for session in self:
             session.cycle = "%s%s" % (session.week_number, session.week_day)
-
-    # Custom Section
-    @api.multi
-    def update_cycle_pos_session(self):
-
-        session_ids = self.ids
-        num_session_per_job = 20
-        splited_session_list = [
-            session_ids[i : i + num_session_per_job]
-            for i in range(0, len(session_ids), num_session_per_job)
-        ]
-        # Create jobs
-        for session_list in splited_session_list:
-            self.update_cycle_pos_session_job("pos.session", session_list)
-        return True
-
-    @job
-    @api.model
-    def update_cycle_pos_session_job(self, model_name, order_list):
-        """ Job for compute cycle """
-        orders = self.env[model_name].with_context({"lang": "fr_FR"}).browse(order_list)
-        orders.with_delay().compute_week_number()
-        orders.with_delay().compute_week_day()
-        orders.with_delay().compute_cycle()

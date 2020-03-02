@@ -21,11 +21,8 @@ class ProductTemplate(models.Model):
             [("state", "in", ["opening_control", "opened"])]
         )
         if pos_sessions:
-            raise Warning(
-                _(
-                    "You cannot unticking Available in the Point of Sale "
-                    "When POS Session are running with ids %s"
-                )
-                % pos_sessions.ids
-            )
+            raise Warning(_(
+                "You cannot untick Available in the Point of Sale "
+                "When POS Session are running.\n"
+                "IDs: %s") % pos_sessions.ids)
         return True

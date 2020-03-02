@@ -4,7 +4,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 from odoo import fields, models, api, _
-from odoo.addons.queue_job.job import job
 
 
 class PosOrder(models.Model):
@@ -66,22 +65,6 @@ class PosOrder(models.Model):
         for order in self:
             order.cycle = "%s%s" % (order.week_number, order.week_day)
 
-    # Custom Section
-    @api.multi
-    def update_cycle_pos_order(self):
-
-        order_ids = self.ids
-        num_order_per_job = 20
-        splited_order_list = [
-            order_ids[i : i + num_order_per_job]
-            for i in range(0, len(order_ids), num_order_per_job)
-        ]
-        # Prepare session for job
-        # Create jobs
-        for order_list in splited_order_list:
-            self.update_cycle_pos_order_job("pos.order", order_list)
-        return True
-
     @api.model
     def _order_fields(self, ui_order):
         order_fields = super(PosOrder, self)._order_fields(ui_order)
@@ -92,12 +75,3 @@ class PosOrder(models.Model):
                 updated_lines_lst.append(line_values)
         order_fields["lines"] = updated_lines_lst
         return order_fields
-
-    @job
-    @api.model
-    def update_cycle_pos_order_job(self, model_name, order_list):
-        """ Job for compute cycle """
-        orders = self.env[model_name].with_context({"lang": "fr_FR"}).browse(order_list)
-        orders.with_delay().compute_week_number()
-        orders.with_delay().compute_week_day()
-        orders.with_delay().compute_cycle()
