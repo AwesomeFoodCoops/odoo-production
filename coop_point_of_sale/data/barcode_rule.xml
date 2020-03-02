@@ -2,10 +2,14 @@
 <!--
 Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
 Copyright (C) 2016-Today: La Louve (<http://www.cooplalouve.fr/>)
+Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>
 @author: La Louve
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 -->
-
+<!--
+Remove  pos_product_barcodes from v12 and Merge :
+pos_product_barcodes module was in v9 add barcode rule data
+-->
 <odoo noupdate='1'>
 	<!-- Default Barcode Rules inserted into Default Nomenclature -->
     <record id="barcode_price_look_up_code" model="barcode.rule">
