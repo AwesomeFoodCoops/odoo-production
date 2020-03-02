@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_model_supplier_price_list_all,access_model_supplier_price_list_all,model_supplier_price_list,base.group_user,1,0,0,0
+,,,,,,,
+access_model_picking_update_all,access_model_picking_update_all,model_picking_update,,1,0,0,0
+access_model_picking_update_manager,access_model_picking_update_manager,model_picking_update,edi_purchase_config.group_manager,1,1,0,0
