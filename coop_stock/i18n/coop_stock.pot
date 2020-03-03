@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,13 +14,23 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_stock
-#: model:ir.actions.act_window,help:coop_stock.stock_picking_type_action_inherit
+#: model_terms:ir.actions.act_window,help:coop_stock.stock_picking_type_action_inherit
 msgid "Click to create a new picking type."
 msgstr ""
 
 #. module: coop_stock
-#: model:ir.ui.view,arch_db:coop_stock.stock_picking_form_view_inherit
+#: model_terms:ir.ui.view,arch_db:coop_stock.stock_picking_form_view_inherit
 msgid "Copy expected qtys"
+msgstr ""
+
+#. module: coop_stock
+#: model:ir.model.fields,field_description:coop_stock.field_stock_move_line__result_package_id
+msgid "Destination Package"
+msgstr ""
+
+#. module: coop_stock
+#: model:ir.model.fields,help:coop_stock.field_stock_move_line__result_package_id
+msgid "If set, the operations are packed into this package"
 msgstr ""
 
 #. module: coop_stock
@@ -35,18 +45,18 @@ msgid "Inventory Line"
 msgstr ""
 
 #. module: coop_stock
-#: model:ir.model,name:coop_stock.model_stock_pack_operation
-msgid "Packing Operation"
-msgstr ""
-
-#. module: coop_stock
 #: model:ir.model,name:coop_stock.model_pos_order
-msgid "Point of Sale"
+msgid "Point of Sale Orders"
 msgstr ""
 
 #. module: coop_stock
 #: model:ir.model,name:coop_stock.model_product_product
 msgid "Product"
+msgstr ""
+
+#. module: coop_stock
+#: model:ir.model,name:coop_stock.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
 msgstr ""
 
 #. module: coop_stock
@@ -60,11 +70,25 @@ msgid "Stock Move"
 msgstr ""
 
 #. module: coop_stock
-#: model:ir.actions.act_window,help:coop_stock.stock_picking_type_action_inherit
+#: model:ir.model.fields,field_description:coop_stock.field_stock_move_line__picking_id
+msgid "Stock Picking"
+msgstr ""
+
+#. module: coop_stock
+#: model_terms:ir.actions.act_window,help:coop_stock.stock_picking_type_action_inherit
 msgid "The picking type system allows you to assign each stock\n"
-"            operation a specific type which will alter its views accordingly.\n"
-"            On the picking type you could e.g. specify if packing is needed by default,\n"
-"            if it should show the customer."
+"                operation a specific type which will alter its views\n"
+"                accordingly.\n"
+"                On the picking type you could e.g. specify\n"
+"                if packing is needed by\n"
+"                default,\n"
+"                if it should show the\n"
+"                customer."
+msgstr ""
+
+#. module: coop_stock
+#: model:ir.model.fields,help:coop_stock.field_stock_move_line__picking_id
+msgid "The stock operation where the packing has been made"
 msgstr ""
 
 #. module: coop_stock
@@ -73,7 +97,8 @@ msgid "Transfer"
 msgstr ""
 
 #. module: coop_stock
-#: model:ir.model.fields,field_description:coop_stock.field_stock_pack_operation_vendor_product_code
+#: model:ir.model.fields,field_description:coop_stock.field_stock_move__vendor_product_code
+#: model:ir.model.fields,field_description:coop_stock.field_stock_move_line__vendor_product_code
 msgid "Vendor Product Code"
 msgstr ""
 
