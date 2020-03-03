@@ -1,29 +1,25 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2017-Today: La Louve (<http://www.lalouve.net/>)
 # @author: Julien Weste (julien.weste@akretion.com)
+# Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from odoo import api, models
 
-from openerp import api, models
 
 class ReportPrintbadge(models.AbstractModel):
     _name = 'report.coop_print_badge.report_printbadge'
+    _description = 'Report Coop Print Badge'
 
     @api.multi
-    def render_html(self, data):
+    def _get_report_values(self, docids, data=None):
         res_partner_env = self.env['res.partner']
-        partners = res_partner_env.search([('id', 'in', self.ids)])
-        images = {}
+        partners = res_partner_env.browse(docids)
         for partner in partners:
             partner.untick_badges_to_print()
             partner.update_badge_print_date()
-            images[partner.id] = partner.image_medium
-
-        docargs = {
-            'doc_ids': self.ids,
-            'partner_id': self.env.user.partner_id,
+            partner.image = partner.image_medium
+        return {
+            'doc_ids': docids,
             'doc_model': 'res.partner',
-            'partners': partners,
-            'images': images,
+            'docs': partners,
+            'data': data,
         }
-        return self.env['report'].render(
-            'coop_print_badge.report_printbadge', docargs)

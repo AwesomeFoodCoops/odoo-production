@@ -1,11 +1,13 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 # @author: La Louve
+# Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-import openerp.tools.image
-from openerp import api, fields, models
-from openerp.tools.image import image_resize_image
-from openerp.tools.safe_eval import safe_eval
+import odoo.tools.image
+
+from odoo import api, fields, models
+from odoo.tools.image import image_resize_image
+from odoo.tools.safe_eval import safe_eval
+
 
 def new_image_resize_image_medium(
         base64_source, size=(315, 417), encoding='base64', filetype=None,
@@ -15,7 +17,7 @@ def new_image_resize_image_medium(
 
 
 # Override native method
-openerp.tools.image.image_resize_image_medium = new_image_resize_image_medium
+odoo.tools.image.image_resize_image_medium = new_image_resize_image_medium
 
 
 class ResPartner(models.Model):
@@ -34,18 +36,16 @@ class ResPartner(models.Model):
     # ########## FIELDS DEFINITION ############
 
     badge_to_print = fields.Boolean(
-        "Badge To Print",
-        default=_get_default_badge_to_print)
-
+        "Badge To Print", default=_get_default_badge_to_print)
     updated_badges_info = fields.Boolean(
-        'Updated Badges Information',
-        compute="_computed_updated_badges_info",
+        "Updated Badges Information",
+        compute="_compute_updated_badges_info",
         store=True)
 
     # ######### COMPUTE FUNCTIONS ############
 
     @api.depends('badge_to_print', 'is_member', 'is_associated_people')
-    def _computed_updated_badges_info(self):
+    def _compute_updated_badges_info(self):
         '''
         @Function to compute the value of field updated_badges_info
         '''
@@ -74,9 +74,7 @@ class ResPartner(models.Model):
                         partner_vals.get(field_name) != partner[field_name]:
                     partner_vals['badge_to_print'] = True
                     break
-
             res = super(ResPartner, partner).write(partner_vals)
-
         return res
 
     # ######## SUPPORTING FUNCTIONS ##########

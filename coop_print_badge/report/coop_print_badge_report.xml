@@ -12,7 +12,7 @@
         groups="coop_membership.group_membership_access_user,coop_membership.group_membership_see_associated_people,coop_print_badge.group_access_badge_report"
     />
 
-    <record id="coop_print_badge.action_report_printbadge" model="ir.actions.report.xml">
+    <record id="action_report_printbadge" model="ir.actions.report">
         <field name="paperformat_id" ref="coop_print_badge.paperformat_CEI_7810"/>
         <field name="attachment_use" eval="0"/>
     </record>
