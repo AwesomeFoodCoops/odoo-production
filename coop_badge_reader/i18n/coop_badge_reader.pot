@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -28,8 +28,8 @@ msgid "Access Alert"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_action
-#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__action
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
 msgid "Action"
 msgstr ""
 
@@ -45,7 +45,7 @@ msgid "Alerte entrée"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_form
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_form
 msgid "Badge Distributed"
 msgstr ""
 
@@ -55,18 +55,18 @@ msgid "Blocked"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_bootstrap_cooperative_state
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_users_bootstrap_cooperative_state
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__bootstrap_cooperative_state
+msgid "Bootstrap Cooperative State"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner__bootstrap_cooperative_state
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_users__bootstrap_cooperative_state
 msgid "Bootstrap State"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_bootstrap_cooperative_state
-msgid "Bootstrap cooperative state"
-msgstr ""
-
-#. module: coop_badge_reader
-#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_alert_form
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_alert_form
 msgid "Close"
 msgstr ""
 
@@ -76,41 +76,42 @@ msgid "Closed"
 msgstr ""
 
 #. module: coop_badge_reader
+#: model:ir.model,name:coop_badge_reader.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: coop_badge_reader
 #: model:ir.module.category,name:coop_badge_reader.category_badge_reader
 msgid "Coop Badge Reader"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__cooperative_state
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
 msgid "Cooperative State"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_cooperative_state
-msgid "Cooperative state"
-msgstr ""
-
-#. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert_create_uid
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_create_uid
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__create_uid
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert_create_date
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_create_date
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__create_date
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_is_danger
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__is_danger
 #: selection:res.partner,bootstrap_cooperative_state:0
 #: selection:res.partner.move,bootstrap_cooperative_state:0
 msgid "Danger"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
 msgid "Danger Status"
 msgstr ""
 
@@ -120,8 +121,8 @@ msgid "Delay"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert_display_name
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_display_name
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__display_name
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -131,8 +132,8 @@ msgid "Exempted"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert_id
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_id
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__id
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__id
 msgid "ID"
 msgstr ""
 
@@ -142,25 +143,25 @@ msgid "In"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_shift_extension_type_is_grace_period
+#: model:ir.model.fields,field_description:coop_badge_reader.field_shift_extension_type__is_grace_period
 msgid "Is Grace Period"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert___last_update
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move___last_update
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert____last_update
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert_write_uid
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_write_uid
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__write_uid
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert_write_date
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_write_date
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__write_date
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -170,13 +171,13 @@ msgid "Manager"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert_expected_member_id
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__expected_member_id
 msgid "Membre attendu"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_next_shift_time
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_users_next_shift_time
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner__next_shift_time
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_users__next_shift_time
 msgid "Next Shift Time"
 msgstr ""
 
@@ -207,8 +208,7 @@ msgid "Out"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model,name:coop_badge_reader.model_res_partner
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_partner_id
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__partner_id
 msgid "Partner"
 msgstr ""
 
@@ -224,19 +224,24 @@ msgid "Res Partner Alert"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert_partner_ids
-#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_alert_form
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__partner_ids
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_alert_form
 msgid "Salarié à alerter"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert_state
+#: model:ir.model,name:coop_badge_reader.model_shift_extension_type
+msgid "Shift Extension Type"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__state
 msgid "State"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
-#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_search
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_search
 msgid "Success Status"
 msgstr ""
 
@@ -276,19 +281,14 @@ msgid "User"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.model,name:coop_badge_reader.model_res_users
-msgid "Users"
-msgstr ""
-
-#. module: coop_badge_reader
 #: selection:res.partner,bootstrap_cooperative_state:0
 #: selection:res.partner.move,bootstrap_cooperative_state:0
 msgid "Warning"
 msgstr ""
 
 #. module: coop_badge_reader
-#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
-#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_search
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_search
 msgid "Warning Status"
 msgstr ""
 
@@ -300,10 +300,5 @@ msgstr ""
 #. module: coop_badge_reader
 #: model:ir.model,name:coop_badge_reader.model_res_partner_move
 msgid "res.partner.move"
-msgstr ""
-
-#. module: coop_badge_reader
-#: model:ir.model,name:coop_badge_reader.model_shift_extension_type
-msgid "shift.extension.type"
 msgstr ""
 
