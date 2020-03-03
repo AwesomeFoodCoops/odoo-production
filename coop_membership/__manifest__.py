@@ -18,7 +18,6 @@
         'mass_mailing',
         'account_export',
         'account_partner_journal',
-        'barcodes_generator_abstract',
         'capital_subscription',
         'coop_shift',
         'purchase_compute_order',
