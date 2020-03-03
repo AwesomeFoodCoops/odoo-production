@@ -162,7 +162,7 @@ msgstr "Vous ne pouvez pas supprimer un produit. Archivez-le en cliquant sur le 
 #: code:addons/coop_point_of_sale/models/product_template.py:29
 #, python-format
 msgid "You cannot unticking Available in the Point of Sale When POS Session are running with ids %s"
-msgstr "Vous ne pouvez pas décocher "Disponible dans le point de vente" car les sessions de caisse suivantes sont toujours ouvertes %s"
+msgstr "Vous ne pouvez pas décocher 'Disponible dans le point de vente' car les sessions de caisse suivantes sont toujours ouvertes %s"
 
 #. module: coop_point_of_sale
 #: code:addons/coop_point_of_sale/models/pos_order.py:49
