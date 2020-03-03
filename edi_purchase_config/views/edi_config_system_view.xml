@@ -2,13 +2,13 @@
 
 <odoo>
 
-    <data>
-
     <record id="view_edi_config_system_form" model="ir.ui.view">
         <field name="model">edi.config.system</field>
         <field name="arch" type="xml">
             <form>
-                <header/>
+                <header>
+                    <button name="test_button" string="Test" type="object" class="oe_highlight" groups="base.group_user"/>
+                </header>
                 <sheet>
                     <group>
                         <div class="oe_title">
@@ -94,5 +94,4 @@
         </field>
     </record>
 
-</data>
 </odoo>
