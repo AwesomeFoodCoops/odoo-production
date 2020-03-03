@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_pos_order_search" model="ir.ui.view">
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="partner_id"/>
+                <field name="pos_reference"/>
+                <field name="week_day"/>
+                <field name="week_number"/>
+                <field name="cycle"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_pos_order_tree_inherit" model="ir.ui.view">
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="partner_id"/>
+                <field name="pos_reference"/>
+            </field>
+            <field name="date_order" position="before">
+                <field name="week_day" invisible="1"/>
+                <field name="week_number" invisible="1"/>
+                <field name="cycle"/>
+            </field>
+
+        </field>
+    </record>
+
+</odoo>

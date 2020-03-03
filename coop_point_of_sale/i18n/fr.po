@@ -1,0 +1,233 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_point_of_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-21 11:10+0000\n"
+"PO-Revision-Date: 2016-12-21 11:10+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:21
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:44
+#, python-format
+msgid "A jour"
+msgstr "A jour"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:25
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:48
+#, python-format
+msgid "Bloqué"
+msgstr "Bloqué"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:8
+#, python-format
+msgid "Cooperative Number"
+msgstr "Numéro de coopérateur"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:9
+#, python-format
+msgid "Cooperative State"
+msgstr "Etat coopératif"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:24
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:47
+#, python-format
+msgid "Délai"
+msgstr "Délai"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:20
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:43
+#, python-format
+msgid "Désinscrit"
+msgstr "Désinscrit"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:22
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:45
+#, python-format
+msgid "En alerte"
+msgstr "En alerte"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:26
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:49
+#, python-format
+msgid "Impayé"
+msgstr "Impayé"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:7
+#, python-format
+msgid "Name"
+msgstr "Nom"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:19
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:42
+#, python-format
+msgid "Non concerné"
+msgstr "Non concerné"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:34
+#, python-format
+msgid "Number"
+msgstr "Numéro"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:40
+#, python-format
+msgid "State"
+msgstr "Etat"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:23
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:46
+#, python-format
+msgid "Suspendu"
+msgstr "Suspendu"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:55
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:59
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:63
+#: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:67
+#, python-format
+msgid "display: none;"
+msgstr "display: none;"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_config_settings_diacritics_insensitive_search
+msgid "Make products searchs insensitive to diacritics (ignore accents)"
+msgstr "Rendre la recherche de produits insensible aux diacritiques (ignorer les accents)"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_config_diacritics_insensitive_search
+#: model:ir.ui.view,arch_db:coop_point_of_sale.view_sale_config_settings_form_pos_inherit
+msgid "Diacritics insensitive search"
+msgstr "Recherche insensible aux diacritiques"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_config_settings_account_journal_ids
+msgid "Cheques Journals"
+msgstr "Journaux chèques"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_config_settings_payable_to
+msgid "Payable to"
+msgstr "Ordre du chèque"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,help:coop_point_of_sale.field_pos_config_settings_account_journal_ids
+msgid "Please indicate here the cheques journals for which you would like to display a message when used in POS"
+msgstr "Veuillez renseigner ici les journaux pour lesquels vous souhaitez afficher un message d'alerte sur le POS."
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/product_product.py:13
+#: code:addons/coop_point_of_sale/models/product_template.py:13
+#, python-format
+msgid "You should not delete product, please archive it by clicking button on the right"
+msgstr "Vous ne pouvez pas supprimer un produit. Archivez-le en cliquant sur le bouton à droite."
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/product_product.py:29
+#: code:addons/coop_point_of_sale/models/product_template.py:29
+#, python-format
+msgid "You cannot unticking Available in the Point of Sale When POS Session are running with ids %s"
+msgstr "Vous ne pouvez pas décocher "Disponible dans le point de vente" car les sessions de caisse suivantes sont toujours ouvertes %s"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:49
+#: code:addons/coop_point_of_sale/models/pos_session.py:49
+#, python-format
+msgid "Mon"
+msgstr "Lun"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:51
+#: code:addons/coop_point_of_sale/models/pos_session.py:51
+#, python-format
+msgid "Tue"
+msgstr "Mar"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:53
+#: code:addons/coop_point_of_sale/models/pos_session.py:53
+#, python-format
+msgid "Wes"
+msgstr "Mer"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:55
+#: code:addons/coop_point_of_sale/models/pos_session.py:55
+#, python-format
+msgid "Thu"
+msgstr "Jeu"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:57
+#: code:addons/coop_point_of_sale/models/pos_session.py:57
+#, python-format
+msgid "Fri"
+msgstr "Ven"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:59
+#: code:addons/coop_point_of_sale/models/pos_session.py:59
+#, python-format
+msgid "Sat"
+msgstr "Sam"
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:61
+#: code:addons/coop_point_of_sale/models/pos_session.py:61
+#, python-format
+msgid "Sun"
+msgstr "Dim"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order_week_day
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session_week_day
+msgid "Day"
+msgstr "Jour"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order_week_number
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session_week_number
+msgid "Week"
+msgstr "Semaine"
+
+#. module: coop_point_of_sale
+#. openerp-web
+#: code:addons/coop_point_of_sale/static/src/xml/popups.xml:16
+#, python-format
+msgid "Cancel"
+msgstr "Annuler"

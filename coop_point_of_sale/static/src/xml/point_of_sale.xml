@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="ClientListScreenWidget">
+        <t t-jquery='thead' t-operation='inner'>
+            <tr>
+                <th>Name</th>
+                <th>Cooperative Number</th>
+                <th>Cooperative State</th>
+            </tr>
+        </t>
+    </t>
+
+    <t t-extend="ClientLine">
+        <t t-jquery='.client-line' t-operation='inner'>
+            <td><t t-esc='partner.name' /></td>
+            <td><t t-esc='partner.barcode_base' /></td>
+            <td>
+                <t t-if="partner.cooperative_state == 'not_concerned'">Non concerné</t>
+                <t t-if="partner.cooperative_state == 'unsubscribed'">Désinscrit</t>
+                <t t-if="partner.cooperative_state == 'up_to_date'">A jour</t>
+                <t t-if="partner.cooperative_state == 'alert'">En alerte</t>
+                <t t-if="partner.cooperative_state == 'suspended'">Suspendu</t>
+                <t t-if="partner.cooperative_state == 'delay'">Délai</t>
+                <t t-if="partner.cooperative_state == 'blocked'">Bloqué</t>
+                <t t-if="partner.cooperative_state == 'unpayed'">Impayé</t>
+            </td>
+        </t>
+    </t>
+
+    <t t-extend="ClientDetails">
+        <t t-jquery='.client-detail:has(.client-id)' t-operation='after'>
+            <div class='client-detail'>
+                <span class='label'>Number</span>
+                <span class='detail cooperative-number'>
+                    <t t-esc='partner.barcode_base' />
+                </span>
+            </div>
+            <div class='client-detail'>
+                <span class='label'>State</span>
+                <span class='detail cooperative-state'>
+                    <t t-if="partner.cooperative_state == 'not_concerned'">Non concerné</t>
+                    <t t-if="partner.cooperative_state == 'unsubscribed'">Désinscrit</t>
+                    <t t-if="partner.cooperative_state == 'up_to_date'">A jour</t>
+                    <t t-if="partner.cooperative_state == 'alert'">En alerte</t>
+                    <t t-if="partner.cooperative_state == 'suspended'">Suspendu</t>
+                    <t t-if="partner.cooperative_state == 'delay'">Délai</t>
+                    <t t-if="partner.cooperative_state == 'blocked'">Bloqué</t>
+                    <t t-if="partner.cooperative_state == 'unpayed'">Impayé</t>
+                </span>
+            </div>
+        </t>
+
+        <t t-jquery='.client-detail:has(.client-address)' t-operation='attributes'>
+            <attribute name="style">display: none;</attribute>
+        </t>
+
+        <t t-jquery='.client-detail:has(.client-email)' t-operation='attributes'>
+            <attribute name="style">display: none;</attribute>
+        </t>
+
+        <t t-jquery='.client-detail:has(.client-phone)' t-operation='attributes'>
+            <attribute name="style">display: none;</attribute>
+        </t>
+
+        <t t-jquery='.client-detail:has(.vat)' t-operation='attributes'>
+            <attribute name="style">display: none;</attribute>
+        </t>
+    </t>
+
+</templates>

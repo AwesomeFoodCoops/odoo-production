@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="pos_config_view_form_pos_inherit" model="ir.ui.view">
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='payment_methods']" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" >
+                    <div class="o_setting_left_pane">
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Cheques Journals</span>
+                        <div class="text-muted">
+                            Please indicate here the cheques journals for which you would like to display a message when used in POS
+                        </div>
+                        <div class="content-group mt16">
+                            <field name="account_journal_ids" colspan="4" nolabel="1" widget="many2many_tags"/>
+                        </div>
+                    </div>
+                    <div class="o_setting_left_pane">
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Payable to</span>
+                        <div class="content-group mt16">
+                            <field name="payable_to" colspan="4" nolabel="1"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            <!-- <xpath expr="//group" position="inside">
+                <field name="account_journal_ids" widget="many2many_tags"/>
+                <field name="payable_to" /> 
+            </xpath> -->
+        </field>
+    </record>
+
+</odoo>
