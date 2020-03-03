@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,12 +14,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_asset_management_xlsx
-#: model:ir.actions.report.xml,name:account_asset_management_xlsx.report_account_asset_xlsx
+#: model:ir.actions.report,name:account_asset_management_xlsx.report_account_asset_xlsx
 msgid "Account Asset Report"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.ui.view,arch_db:account_asset_management_xlsx.view_account_asset_xlsx_wizard
+#: model_terms:ir.ui.view,arch_db:account_asset_management_xlsx.view_account_asset_xlsx_wizard
 msgid "Account Asset Xlsx Wizard"
 msgstr ""
 
@@ -34,7 +34,7 @@ msgid "All moves"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_asset_profile_ids
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard__asset_profile_ids
 msgid "Asset Profiles"
 msgstr ""
 
@@ -44,27 +44,28 @@ msgid "Asset Report Xlsx"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.ui.view,arch_db:account_asset_management_xlsx.view_account_asset_xlsx_wizard
+#: model_terms:ir.ui.view,arch_db:account_asset_management_xlsx.view_account_asset_xlsx_wizard
 msgid "Cancel"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_create_uid
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_create_date
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_display_name
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard__display_name
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_report_report_account_asset_xlsx__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.ui.view,arch_db:account_asset_management_xlsx.view_account_asset_xlsx_wizard
+#: model_terms:ir.ui.view,arch_db:account_asset_management_xlsx.view_account_asset_xlsx_wizard
 msgid "Export"
 msgstr ""
 
@@ -74,27 +75,29 @@ msgid "Export Account Asset Report"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_from_date
-msgid "From date"
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard__from_date
+msgid "From Date"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_id
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard__id
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_report_report_account_asset_xlsx__id
 msgid "ID"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard___last_update
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard____last_update
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_report_report_account_asset_xlsx____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_write_uid
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_write_date
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -109,22 +112,27 @@ msgid "Posted moves"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_asset_state
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard__asset_state
 msgid "Status"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_target_move
-msgid "Target move"
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard__target_move
+msgid "Target Move"
 msgstr ""
 
 #. module: account_asset_management_xlsx
-#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard_to_date
-msgid "To date"
+#: model:ir.model.fields,field_description:account_asset_management_xlsx.field_account_asset_xlsx_wizard__to_date
+msgid "To Date"
 msgstr ""
 
 #. module: account_asset_management_xlsx
 #: model:ir.model,name:account_asset_management_xlsx.model_account_asset_xlsx_wizard
 msgid "account.asset.xlsx.wizard"
+msgstr ""
+
+#. module: account_asset_management_xlsx
+#: model:ir.model,name:account_asset_management_xlsx.model_report_report_account_asset_xlsx
+msgid "report.report_account_asset_xlsx"
 msgstr ""
 
