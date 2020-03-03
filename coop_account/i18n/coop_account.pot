@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,67 +14,61 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_bank_statement_line.py:34
+#: code:addons/coop_account/models/account_bank_statement_line.py:31
 #, python-format
 msgid " Reconcile"
 msgstr ""
 
 #. module: coop_account
 #: model:ir.model,name:coop_account.model_account_account
-#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard_account_id
+#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard__account_id
 msgid "Account"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model,name:coop_account.model_account_move
-msgid "Account Entry"
-msgstr ""
-
-#. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
 msgid "Account Journal"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_account_account_journal_credit_ids
+#: model:ir.model.fields,field_description:coop_account.field_account_account__journal_credit_ids
 msgid "Account Journal Credit"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_account_account_journal_debit_ids
+#: model:ir.model.fields,field_description:coop_account.field_account_account__journal_debit_ids
 msgid "Account Journal Debit"
 msgstr ""
 
 #. module: coop_account
 #: model:ir.model,name:coop_account.model_account_move_reversal
-msgid "Account move reversal"
+msgid "Account Move Reversal"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_payment_tree_extend
+#: model:ir.model,name:coop_account.model_report_account_report_agedpartnerbalance
+msgid "Aged Partner Balance Report"
+msgstr ""
+
+#. module: coop_account
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_tree_extend
 msgid "Amount"
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_move.py:33
-#: code:addons/coop_account/models/account_move_line.py:83
+#: code:addons/coop_account/models/account_move.py:24
+#: code:addons/coop_account/models/account_move_line.py:77
 #, python-format
 msgid "Are you sure you want to unmatch %s transactions?"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model,name:coop_account.model_account_asset_asset
-msgid "Asset/Revenue Recognition"
-msgstr ""
-
-#. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_account_account_reconciled_account
+#: model:ir.model.fields,field_description:coop_account.field_account_account__reconciled_account
 msgid "Bank Reconciliation"
 msgstr ""
 
 #. module: coop_account
 #: model:ir.model,name:coop_account.model_account_bank_statement_line
-#: model:ir.model.fields,field_description:coop_account.field_account_move_line_statement_line_id
 msgid "Bank Statement Line"
 msgstr ""
 
@@ -84,9 +78,35 @@ msgid "Bank Statement Line Reconcile Wizard"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_bank_statement_line_reconcile_wizard_form
-#: model:ir.ui.view,arch_db:coop_account.view_unmatch_bank_statement_wizard_form
+#: model:ir.model.fields,field_description:coop_account.field_account_payment__partner_code
+msgid "Barcode Base"
+msgstr ""
+
+#. module: coop_account
+#: model_terms:ir.ui.view,arch_db:coop_account.view_bank_statement_line_reconcile_wizard_form
+#: model_terms:ir.ui.view,arch_db:coop_account.view_unmatch_bank_statement_wizard_form
 msgid "Cancel"
+msgstr ""
+
+#. module: coop_account
+#: selection:account.payment,state:0
+msgid "Cancelled"
+msgstr ""
+
+#. module: coop_account
+#: selection:account.payment,operation_type:0
+msgid "Check"
+msgstr ""
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_payment__text_check_code
+msgid "Check Code"
+msgstr ""
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_payment.py:57
+#, python-format
+msgid "Check nb "
 msgstr ""
 
 #. module: coop_account
@@ -95,36 +115,52 @@ msgid "Chief Accountant"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
-#: model:ir.ui.view,arch_db:coop_account.view_unmatch_bank_statement_wizard_form
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
+#: model_terms:ir.ui.view,arch_db:coop_account.view_unmatch_bank_statement_wizard_form
 msgid "Confirm"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard_create_uid
-#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard_create_uid
+#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard__create_uid
+#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard_create_date
-#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard_create_date
+#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard__create_date
+#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_payment_tree_extend
+#: code:addons/coop_account/models/account_payment.py:46
+#, python-format
+msgid "Credit Card "
+msgstr ""
+
+#. module: coop_account
+#: selection:account.payment,operation_type:0
+msgid "Credit card"
+msgstr ""
+
+#. module: coop_account
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_tree_extend
 msgid "Customer"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard_display_name
-#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard_display_name
+#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard__display_name
+#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_payment.py:44
+#: selection:account.payment,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_payment.py:91
 #, python-format
 msgid "Draft Payment"
 msgstr ""
@@ -136,17 +172,7 @@ msgid "Export wrong reconciliation move lines"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_config_setting_inherit
-msgid "Fiscal Year"
-msgstr ""
-
-#. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_config_setting_inherit
-msgid "Fiscal Year Last Day"
-msgstr ""
-
-#. module: coop_account
-#: code:addons/coop_account/models/account_move_line.py:126
+#: code:addons/coop_account/models/account_move_line.py:121
 #, python-format
 msgid "Found no wrong account move lines."
 msgstr ""
@@ -157,18 +183,18 @@ msgid "Generate Account Moves"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_bank_statement_line_reconcile_wizard_form
+#: model_terms:ir.ui.view,arch_db:coop_account.view_bank_statement_line_reconcile_wizard_form
 msgid "Generate and reconcille"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard_id
-#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard_id
+#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard__id
+#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard__id
 msgid "ID"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,help:coop_account.field_account_account_reconciled_account
+#: model:ir.model.fields,help:coop_account.field_account_account__reconciled_account
 msgid "If true, account moves will be able to have at most only one account move line linked to this account (or to another account with 'Bank reconciliation' is true)"
 msgstr ""
 
@@ -184,13 +210,13 @@ msgid "Invoice"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model,name:coop_account.model_account_invoice_line
-msgid "Invoice Line"
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
+msgid "Invoices"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
-msgid "Invoices"
+#: model:ir.model,name:coop_account.model_account_move
+msgid "Journal Entries"
 msgstr ""
 
 #. module: coop_account
@@ -199,61 +225,92 @@ msgid "Journal Item"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
 msgid "Journal Items"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_account_payment_account_move_ids
+#: model:ir.model.fields,field_description:coop_account.field_account_payment__account_move_ids
 msgid "Journals Entry"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard___last_update
-#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard___last_update
+#: selection:account.payment,operation_type:0
+msgid "LCR"
+msgstr ""
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_payment__text_lcr_code
+msgid "LCR Code"
+msgstr ""
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_payment.py:61
+#, python-format
+msgid "LCR nb "
+msgstr ""
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard____last_update
+#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard_write_uid
-#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard_write_uid
+#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard__write_uid
+#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard_write_date
-#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard_write_date
+#: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard__write_date
+#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard_mess_confirm
+#: model:ir.actions.server,name:coop_account.action_server_merge_lines
+msgid "Merge Invoice Lines"
+msgstr ""
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard__mess_confirm
 msgid "Message Confirm"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.invoice_supplier_tree_inherit
+#: model_terms:ir.ui.view,arch_db:coop_account.invoice_supplier_tree_inherit
 msgid "Montant HT"
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_move_line.py:57
+#: code:addons/coop_account/models/account_move_line.py:51
 #, python-format
 msgid "Only one journal item on an account requiring bank reconciliation can be booked in this account move. It is impossible to add another one. Please create a distinct account move to registrer this account.move.line and its counterpart."
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_account_move_line_other_balance
+#: model:ir.model.fields,field_description:coop_account.field_account_payment__operation_type
+msgid "Operation Type"
+msgstr ""
+
+#. module: coop_account
+#: selection:account.payment,operation_type:0
+msgid "Other"
+msgstr ""
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_move_line__other_balance
 msgid "Other Balance"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.model.fields,field_description:coop_account.field_account_move_payment_id
+#: model:ir.model.fields,field_description:coop_account.field_account_move__payment_id
 msgid "Payment Entry"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
 msgid "Payment Method"
 msgstr ""
 
@@ -263,38 +320,67 @@ msgid "Payments"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
+#: selection:account.payment,state:0
+msgid "Posted"
+msgstr ""
+
+#. module: coop_account
+#: selection:account.payment,state:0
+msgid "Reconciled"
+msgstr ""
+
+#. module: coop_account
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
 msgid "Register Payment"
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_payment.py:27
+#: code:addons/coop_account/models/account_payment.py:74
 #, python-format
 msgid "Reverse Moves"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_asset_asset_inherit
-msgid "Salvage Value"
-msgstr ""
-
-#. module: coop_account
-#: code:addons/coop_account/models/account_bank_statement_line.py:25
+#: selection:account.payment,operation_type:0
+#: code:addons/coop_account/models/account_payment.py:43
 #, python-format
-msgid "This wizzard is only available on non reconcilled bank statement lines. Please unselect already reconcilled lines."
+msgid "SEPA Direct Credit"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_move_line_tree_inherit
+#: selection:account.payment,operation_type:0
+#: code:addons/coop_account/models/account_payment.py:40
+#, python-format
+msgid "SEPA Direct Debit"
+msgstr ""
+
+#. module: coop_account
+#: selection:account.payment,state:0
+msgid "Sent"
+msgstr ""
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_payment__state
+msgid "Status"
+msgstr ""
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_bank_statement_line.py:22
+#, python-format
+msgid "This wizard is only available on non reconcilled bank statement lines. Please unselect already reconcilled lines."
+msgstr ""
+
+#. module: coop_account
+#: model_terms:ir.ui.view,arch_db:coop_account.view_move_line_tree_inherit
 msgid "Total Balance"
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_move.py:41
-#: code:addons/coop_account/models/account_move_line.py:91
+#: code:addons/coop_account/models/account_move.py:32
+#: code:addons/coop_account/models/account_move_line.py:85
 #: model:ir.actions.server,name:coop_account.action_server_unmatch_bankstatement
 #: model:ir.actions.server,name:coop_account.action_server_unmatch_bankstatement_line
-#: model:ir.ui.view,arch_db:coop_account.view_unmatch_bank_statement_wizard_form
+#: model_terms:ir.ui.view,arch_db:coop_account.view_unmatch_bank_statement_wizard_form
 #, python-format
 msgid "Unmatch Bank Statement"
 msgstr ""
@@ -305,24 +391,30 @@ msgid "Unmatch Bank Statement Wizard"
 msgstr ""
 
 #. module: coop_account
-#: model:ir.ui.view,arch_db:coop_account.view_account_move_line_filter_inherit
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_move_line_filter_inherit
 msgid "Unmatched"
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_move.py:61
+#: model:res.groups,name:coop_account.group_validate_invoice
+msgid "Validate Invoices"
+msgstr ""
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_invoice.py:21
+#, python-format
+msgid "You can only merge draft invoice!"
+msgstr ""
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_move.py:49
 #, python-format
 msgid "You cannot reconcile that account move with a bank statement line that is not related to bank journal."
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_bank_statement_line.py:53
+#: code:addons/coop_account/models/account_bank_statement_line.py:50
 #, python-format
 msgid "You cannot reconcile with an account.move posterior to the transaction date except if you reconcile the transaction with only one account move."
-msgstr ""
-
-#. module: coop_account
-#: model:ir.model,name:coop_account.model_report_account_report_agedpartnerbalance
-msgid "report.account.report_agedpartnerbalance"
 msgstr ""
 
