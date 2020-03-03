@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -15,14 +15,14 @@ msgstr ""
 
 #. module: pos_restrict_scan
 #. openerp-web
-#: code:addons/pos_restrict_scan/static/src/js/screen.js:26
+#: code:addons/pos_restrict_scan/static/src/js/screen.js:27
 #, python-format
 msgid "Action Restricted!"
 msgstr ""
 
 #. module: pos_restrict_scan
 #. openerp-web
-#: code:addons/pos_restrict_scan/static/src/js/screen.js:27
+#: code:addons/pos_restrict_scan/static/src/js/screen.js:28
 #, python-format
 msgid "Product Scanning is only allowed on the products screen"
 msgstr ""
