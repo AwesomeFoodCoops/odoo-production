@@ -60,15 +60,6 @@ msgid "\n"
 msgstr ""
 
 #. module: coop_membership
-#: model:mail.template,body_html:coop_membership.unsubscribe_email
-msgid "\n"
-"            <p>Dear ${object.name},</p>\n"
-"            <p>You missed 2 consecutive programmed shifts and did not come to a make-up in-between. You have been unsubscribed from your team. The &quot;Unsubscribed&quot; status will show when you swipe your badge at the shop. This does not allow you to shop at your favorite co-op.\n"
-"If you think there was a mistake or wish to subscribe to another team please contact us as soon as possible.</p>\n"
-"            "
-msgstr ""
-
-#. module: coop_membership
 #: model:mail.template,body_html:coop_membership.confirmation_anticipated_leave_email
 msgid "\n"
 "<p>\n"
@@ -95,6 +86,103 @@ msgid "\n"
 "<span>The Membership Office</span>\n"
 "<br/>\n"
 "<span>${(object.partner_id.company_id.name or '')|safe}</span>\n"
+""
+msgstr ""
+
+#. module: coop_membership
+#: model:mail.template,body_html:coop_membership.welcome_email
+msgid "\n"
+"<p>Bonjour ${object.name},</p>\n"
+"\n"
+"<p>Votre souscription à La Louve a bien été enregistrée. Bienvenue !</p>\n"
+"\n"
+"\n"
+"% if object.shift_type == 'standard':\n"
+"<p>Votre numéro de membre est ${object.barcode_base} et vous avez été inscrit(e) sur le créneau ${object.current_template_name}.</p>\n"
+"% endif\n"
+"\n"
+"% if object.shift_type == 'ftop':\n"
+"<p>Votre numéro de membre est ${object.barcode_base} et vous avez été inscrit(e) dans l’équipe des volants. Vous trouverez ci-joint un document qui explique le fonctionnement de cette équipe ainsi qu’un calendrier qui vous indique les dates de décompte.</p>\n"
+"% endif\n"
+"\n"
+"<p>Vous recevrez un rappel quelques jours avant votre prochain service.<br/>\n"
+"Vous pouvez dès maintenant venir découvrir le magasin et faire vos courses, sur présentation d'une pièce d'identité.</p>\n"
+"\n"
+"<p>Nous vous invitons à vous connecter sur <a href=\"https://membres.cooplalouve.fr/\">L'Espace Membres de La Louve</a> (en pièce jointe, la procédure pour l'activer). Vous y trouverez de nombreuses informations, en particulier vos prochains services, et un forum qui vous permettra de communiquer entre membres. La version actuelle du site sera amenée à évoluer et de nouvelles fonctionnalités seront ajoutées dans les mois à venir. Une équipe de membres bénévoles travaille à enrichir cet espace pour le rendre utile et convivial.</p>\n"
+"\n"
+"<p>L'accès au magasin se fait ensuite sur présentation du badge de coopérateur. Pour obtenir votre badge, vous devez en premier lieu venir à une séance photo organisée soit au magasin, soit pendant les assemblées générales de La Louve. Les séances photo sont annoncées sur l'Espace Membres et au magasin. Comme pour l'Espace Membres, la confection des badges est assurée par des bénévoles et nécessite plusieurs étapes qui peuvent prendre plusieurs jours. La procédure complète est décrite dans le forum de l'Espace Membres (rubrique FAQ). Dès que votre badge aura été imprimé, vous pourrez le récupérer à l'accueil du supermarché.</p>\n"
+"\n"
+"<p>Vous trouverez ci-jointe une procédure vous permettant d'activer votre espace personnel.</p>\n"
+"\n"
+"<p>Cordialement,<br/>\n"
+"Tom Boothe</p>\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"<hr>\n"
+"<p><b>Activation de votre espace membre</b></p>\n"
+"\n"
+"<p>Afin d'activer votre accès à l'Espace Membres de La Louve, veuillez suivre la procédure suivante :</p>\n"
+"<ol>\n"
+"    <p><li>Cliquez sur le lien ci-dessous afin de renseigner votre adresse mail: https://membres.cooplalouve.fr/selfservice/?action=sendtoken</li>\n"
+"    Attention : utilisez uniquement le mail transmis à La Louve</p>\n"
+"    <li>Vous recevrez alors un mail de l'expéditeur : \"Self Service Password\"</li>\n"
+"    <li>Cliquez sur le lien contenu dans le mail afin d'initialiser votre mot de passe.</li>\n"
+"    <li>Vous pouvez désormais vous connecter à votre Espace Membre : https://membres.cooplalouve.fr</li></p>\n"
+"</ol>\n"
+""
+msgstr ""
+
+#. module: coop_membership
+#: model:mail.template,body_html:coop_membership.coop_ftop_leave_email
+msgid "\n"
+"<p>Bonjour ${object.partner_id.name}</p>\n"
+"<br/>\n"
+"<p>Nous avons enregistré votre congé temporaire du ${object.start_date} au ${object.stop_date}. Pendant cette période vous n’avez pas besoin de venir faire vos services à La Louve, et vous ne pourrez y faire vos courses.</p>\n"
+"<p>Nous avons peut être prolongé la durée de votre congé par rapport à votre demande car votre date de retour proposée était trop proche du jour de décompte de l’équipe volante. N’oubliez pas que vous devez avoir fait un service avant le jeudi de semaine A qui suit votre retour à La Louve${object.shift_date_after_return and (', le ' + str(object.shift_date_after_return)) or ''}.</p>\n"
+"<br/>\n"
+"<p>Bonne journée,</p>\n"
+"<br/>\n"
+"<p>L a  L o u v e, </p>\n"
+"<p>Bureau des membres</p>\n"
+"\n"
+"        "
+msgstr ""
+
+#. module: coop_membership
+#: model:mail.template,body_html:coop_membership.coop_abcd_leave_email
+msgid "\n"
+"<p>Bonjour ${object.partner_id.name}</p>\n"
+"<br/>\n"
+"<p>Nous avons enregistré votre congé temporaire du ${object.start_date} au ${object.stop_date}. Pendant cette période vous n’avez pas besoin de venir faire vos services à La Louve, et vous ne pourrez y faire vos courses.</p>\n"
+"<p>Nous avons peut être prolongé la durée de votre congé par rapport à votre demande. La reprise des achats suite à un congé temporaire est possible lorsque vous reprenez votre participation, c'est-à-dire lorsque vous vous présentez à votre service à La Louve. La date de votre 1er service après le congé est donc le ${object.return_date}.</p>\n"
+"<br/>\n"
+"<p>Bonne journée,</p>\n"
+"<br/>\n"
+"<p>L a  L o u v e, </p>\n"
+"<p>Bureau des membres</p>\n"
+"\n"
+"        "
+msgstr ""
+
+#. module: coop_membership
+#: model:mail.template,body_html:coop_membership.unsubscribe_email
+msgid "\n"
+"<p>Dear ${object.name},</p>\n"
+"\n"
+"<p>You missed 2 consecutive programmed shifts and did not come to a make-up in-between. You have been unsubscribed from your team. The \"Unsubscribed\" status will show when you swipe your badge at the shop. This does not allow you to shop at your favorite co-op.</p>\n"
+"<p>If you think there was a mistake or wish to subscribe to another team please contact us as soon as possible.</p>\n"
+"\n"
+"<p><b>Member Office Opening Times:</b></p>\n"
+"<ol>\n"
+"\n"
+"</ol>\n"
+"<li>Tuesday : 13h30 - 16h</li>\n"
+"<li>From Wednesday to Friday : 13h30 - 20h</li>\n"
+"<li>Saturday: 10h - 16h</li>\n"
+"</ol>\n"
+"\n"
+"<p><b>Phone</b> : 01 86 95 91 90</p>\n"
 ""
 msgstr ""
 
@@ -251,32 +339,6 @@ msgid "\n"
 "<p>Tel: ${(object.partner_id.company_id.phone or '')|safe}</p>\n"
 "<p>Have a nice day,</p>\n"
 "<p>The Membership Office of ${(object.partner_id.company_id.name or '')|safe}</p>\n"
-"\n"
-"        "
-msgstr ""
-
-#. module: coop_membership
-#: model:mail.template,body_html:coop_membership.coop_ftop_leave_email
-msgid "\n"
-"<p>Hello ${object.partner_id.name}</p>\n"
-"<br/>\n"
-"<p>We have registered your temporary leave from ${object.start_date} to ${object.stop_date}. During this period, you do not need to come and you will not be able to go shopping.</p>\n"
-"<p>We may have extended the duration of your requested leave because your proposed return date is too closed to the shift of FTOP team. Remember that you have to be on the shift that follows your return${object.shift_date_after_return and (' on ' + str(object.shift_date_after_return)) or ''}.</p>\n"
-"<br/>\n"
-"<p>Have a good day,</p>\n"
-"\n"
-"        "
-msgstr ""
-
-#. module: coop_membership
-#: model:mail.template,body_html:coop_membership.coop_abcd_leave_email
-msgid "\n"
-"<p>Hello ${object.partner_id.name}</p>\n"
-"<br/>\n"
-"<p>We have registered your temporary leave from ${object.start_date} to ${object.stop_date}. During this period, you do not need to come and you will not be able to go shopping.</p>\n"
-"<p>We may have extended the duration of your requested leave. You will be able to continue shopping when you come for a shift. The date of your first shift after leave is ${object.return_date}.</p>\n"
-"<br/>\n"
-"<p>Have a good day,</p>\n"
 "\n"
 "        "
 msgstr ""
@@ -1278,6 +1340,11 @@ msgstr ""
 #. module: coop_membership
 #: model:ir.model,name:coop_membership.model_barcode_rule
 msgid "Barcode Rule"
+msgstr ""
+
+#. module: coop_membership
+#: model:mail.template,subject:coop_membership.welcome_email
+msgid "Bienvenue à La Louve"
 msgstr ""
 
 #. module: coop_membership
@@ -3859,11 +3926,6 @@ msgstr ""
 #. module: coop_membership
 #: model:mail.template,subject:coop_membership.registration_reminder_meeting_email
 msgid "Welcome meeting reminder email"
-msgstr ""
-
-#. module: coop_membership
-#: model:mail.template,subject:coop_membership.welcome_email
-msgid "Welcome to Coop"
 msgstr ""
 
 #. module: coop_membership
