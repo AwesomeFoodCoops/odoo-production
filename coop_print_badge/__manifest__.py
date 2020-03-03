@@ -10,12 +10,6 @@
     'author': 'La Louve',
     'website': 'http://www.lalouve.net',
     'depends': [
-        'base',
-        'web',
-        'barcodes_generator_abstract',
-        'barcodes_generator_partner',
-        'barcodes_generator_product',
-        'coop_shift',
         'coop_membership',
         'coop_capital_certificate',
     ],
