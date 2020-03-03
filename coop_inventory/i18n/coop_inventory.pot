@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-20 13:06+0000\n"
-"PO-Revision-Date: 2020-02-20 13:06+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,23 +14,28 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_inventory
+#: model_terms:ir.ui.view,arch_db:coop_inventory.external_layout
+msgid "&amp;bull;"
+msgstr ""
+
+#. module: coop_inventory
 #: model_terms:ir.ui.view,arch_db:coop_inventory.report_inventory
 msgid "<strong>G.F. Qty</strong>"
-msgstr "<strong>Qté en Vente</strong>"
+msgstr ""
 
 #. module: coop_inventory
 #: model_terms:ir.ui.view,arch_db:coop_inventory.report_inventory
 msgid "<strong>Theoretical Qty</strong>"
-msgstr "<strong>NB d'unités théorique</strong>"
+msgstr ""
 
 #. module: coop_inventory
 #: model_terms:ir.ui.view,arch_db:coop_inventory.report_inventory
 msgid "<strong>Total</strong>"
-msgstr "<strong>Qté en Stock</strong>"
+msgstr ""
 
 #. module: coop_inventory
 #: model_terms:ir.ui.view,arch_db:coop_inventory.report_inventory
-msgid "UG. Qty"
+msgid "<strong>UG. Qty</strong>"
 msgstr ""
 
 #. module: coop_inventory
@@ -41,18 +44,13 @@ msgid "Email:"
 msgstr ""
 
 #. module: coop_inventory
-#: model:ir.model,name:coop_inventory.model_stock_inventory
-msgid "Inventory"
+#: model_terms:ir.ui.view,arch_db:coop_inventory.external_layout
+msgid "Logo"
 msgstr ""
 
 #. module: coop_inventory
 #: model_terms:ir.ui.view,arch_db:coop_inventory.external_layout
-msgid "Page:"
-msgstr ""
-
-#. module: coop_inventory
-#: model:ir.model.fields,field_description:coop_inventory.field_stock_picking_partner_ref
-msgid "Partner Ref"
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
 msgstr ""
 
 #. module: coop_inventory
@@ -61,17 +59,12 @@ msgid "Phone:"
 msgstr ""
 
 #. module: coop_inventory
-#: model_terms:ir.model,name:coop_inventory.model_purchase_order
+#: model:ir.model,name:coop_inventory.model_purchase_order
 msgid "Purchase Order"
 msgstr ""
 
 #. module: coop_inventory
-#: model:ir.model,name:coop_inventory.model_stock_quant
-msgid "Quants"
-msgstr ""
-
-#. module: coop_inventory
-#: model:ir.model.fields,help:coop_inventory.field_stock_picking_partner_ref
+#: model:ir.model.fields,help:coop_inventory.field_stock_picking__partner_ref
 msgid "Reference of the sales order or bid sent by the vendor. It's used to do the matching when you receive the products as this reference is usually written on the delivery order sent by your vendor."
 msgstr ""
 
@@ -86,6 +79,12 @@ msgid "Transfer"
 msgstr ""
 
 #. module: coop_inventory
+#: model:ir.model.fields,field_description:coop_inventory.field_stock_picking__partner_ref
+msgid "Vendor Reference"
+msgstr ""
+
+#. module: coop_inventory
 #: model_terms:ir.ui.view,arch_db:coop_inventory.external_layout
 msgid "Website:"
 msgstr ""
+
