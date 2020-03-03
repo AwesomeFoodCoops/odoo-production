@@ -139,6 +139,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag__display_name
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_barcode__display_name
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_base__display_name
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_simple_barcode__display_name
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_product_report_pricetag_vegetables__display_name
 msgid "Display Name"
 msgstr ""
@@ -222,6 +223,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag__id
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_barcode__id
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_base__id
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_simple_barcode__id
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_product_report_pricetag_vegetables__id
 msgid "ID"
 msgstr ""
@@ -266,6 +268,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag____last_update
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_barcode____last_update
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_base____last_update
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_default_pricetag_report_pricetag_simple_barcode____last_update
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_report_coop_product_report_pricetag_vegetables____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -398,6 +401,11 @@ msgstr ""
 #. module: coop_default_pricetag
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_product_print_category__pricetag_model_id
 msgid "Pricetag Model"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.actions.report,name:coop_default_pricetag.pricetag_simple_barcode
+msgid "Pricetags Barcode"
 msgstr ""
 
 #. module: coop_default_pricetag
@@ -537,6 +545,11 @@ msgid "kg ---"
 msgstr ""
 
 #. module: coop_default_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_simple_barcode
+msgid "kg <br/>"
+msgstr ""
+
+#. module: coop_default_pricetag
 #: model:ir.model,name:coop_default_pricetag.model_pricetag_model
 msgid "pricetag.model"
 msgstr ""
@@ -577,6 +590,11 @@ msgid "report.coop_default_pricetag.report_pricetag_base"
 msgstr ""
 
 #. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_report_coop_default_pricetag_report_pricetag_simple_barcode
+msgid "report.coop_default_pricetag.report_pricetag_simple_barcode"
+msgstr ""
+
+#. module: coop_default_pricetag
 #: model:ir.model,name:coop_default_pricetag.model_report_coop_product_report_pricetag_vegetables
 msgid "report.coop_product.report_pricetag_vegetables"
 msgstr ""
@@ -589,6 +607,7 @@ msgid "€/kg\n"
 msgstr ""
 
 #. module: coop_default_pricetag
+#: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_simple_barcode
 #: model_terms:ir.ui.view,arch_db:coop_default_pricetag.report_pricetag_vegetables
 msgid "€/kg<br/>"
 msgstr ""
