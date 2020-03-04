@@ -9,6 +9,7 @@ from odoo import fields, models
 
 class ProductPrintWizardLine(models.TransientModel):
     _name = "product.print.wizard.line"
+    _description = "Product Print Wizard Line"
     _rec_name = "product_id"
 
     # Columns Section
