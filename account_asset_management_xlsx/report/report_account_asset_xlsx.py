@@ -13,6 +13,7 @@ from odoo import fields, models, SUPERUSER_ID
 class ReportAccountAssetXlsx(models.AbstractModel):
     _inherit = 'report.report_xlsx.abstract'
     _name = 'report.report_account_asset_xlsx'
+    _description = "Report Account Asset XLSX"
 
     def create_xlsx_report(self, ids, data):
         self.env = Environment(self.env.cr, SUPERUSER_ID, self.env.context)
