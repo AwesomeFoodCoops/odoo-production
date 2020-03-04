@@ -133,6 +133,21 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: product_history
+#: model:ir.model.fields,field_description:product_history.field_product_product__last_history_day
+msgid "Last day history record"
+msgstr ""
+
+#. module: product_history
+#: model:ir.model.fields,field_description:product_history.field_product_product__last_history_month
+msgid "Last month history record"
+msgstr ""
+
+#. module: product_history
+#: model:ir.model.fields,field_description:product_history.field_product_product__last_history_week
+msgid "Last week history record"
+msgstr ""
+
+#. module: product_history
 #: model:ir.model.fields,field_description:product_history.field_product_history__location_id
 msgid "Location"
 msgstr ""
@@ -150,9 +165,17 @@ msgid "Month"
 msgstr ""
 
 #. module: product_history
-#: model:ir.model.fields,field_description:product_history.field_product_product__number_of_periods
 #: model:ir.model.fields,field_description:product_history.field_product_product__number_of_periods_real
+msgid "Number of History Periods"
+msgstr ""
+
+#. module: product_history
 #: model:ir.model.fields,field_description:product_history.field_product_product__number_of_periods_target
+msgid "Number of History Periods (Target)"
+msgstr ""
+
+#. module: product_history
+#: model:ir.model.fields,field_description:product_history.field_product_product__number_of_periods
 #: model:ir.model.fields,field_description:product_history.field_product_template__number_of_periods
 msgid "Number of History periods"
 msgstr ""
@@ -269,13 +292,6 @@ msgstr ""
 #: selection:product.template,history_range:0
 #: selection:res.config.settings,default_history_range:0
 msgid "Week"
-msgstr ""
-
-#. module: product_history
-#: model:ir.model.fields,field_description:product_history.field_product_product__last_history_day
-#: model:ir.model.fields,field_description:product_history.field_product_product__last_history_month
-#: model:ir.model.fields,field_description:product_history.field_product_product__last_history_week
-msgid "last day history record"
 msgstr ""
 
 #. module: product_history
