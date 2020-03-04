@@ -16,6 +16,7 @@
     'data': [
         'security/res_groups.xml',
         'data/report_paperformat.xml',
+        'views/assets.xml',
         'views/view_res_partner.xml',
         'views/badge_to_print_views.xml',
         'views/res_config_settings_view.xml',
