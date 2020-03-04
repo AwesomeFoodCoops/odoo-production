@@ -11,7 +11,7 @@ class PickingEdi(models.Model):
     _name = "picking.edi"
 
     product_id = fields.Many2one(comodel_name="product.product")
-    ordered_quantity = fields.Float(string="Ordered quantity")
+    ordered_quantity = fields.Float()
     product_qty = fields.Float(string="EDI Quantity")
     package_qty = fields.Float(string="Product package")
     line_to_update_id = fields.Many2one(comodel_name="stock.pack.operation")
@@ -22,7 +22,7 @@ class PickingUpdate(models.Model):
     _name = "picking.update"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    done = fields.Boolean(string="Done", readonly=True)
+    done = fields.Boolean(readonly=True)
     name = fields.Many2one(
         comodel_name="stock.picking", string="Order picking", readonly=True
     )

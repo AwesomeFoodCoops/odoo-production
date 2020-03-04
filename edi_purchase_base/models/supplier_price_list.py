@@ -9,7 +9,7 @@ import odoo.addons.decimal_precision as dp
 class SupplierPriceList(models.Model):
     _name = "supplier.price.list"
 
-    import_date = fields.Date(string="Import date", readonly=True)
+    import_date = fields.Date(readonly=True)
     supplier_id = fields.Many2one(
         comodel_name="res.partner",
         string="EDI Supplier",
@@ -20,17 +20,12 @@ class SupplierPriceList(models.Model):
     product_tmpl_id = fields.Many2one(
         comodel_name="product.template", string="Product"
     )
-    product_name = fields.Char(
-        string="Product name", readonly=True, required=True
-    )
-    supplier_code = fields.Char(
-        string="Supplier code", readonly=True, required=True
-    )
+    product_name = fields.Char(readonly=True, required=True)
+    supplier_code = fields.Char(readonly=True, required=True)
     price = fields.Float(
-        "Price",
-        digits_compute=dp.get_precision("Product Price"),
+        digits=dp.get_precision("Product Price"),
         readonly=True,
         required=True,
         help="The price HT to purchase a product",
     )
-    apply_date = fields.Date(string="Apply date", readonly=True, required=True)
+    apply_date = fields.Date(readonly=True, required=True)

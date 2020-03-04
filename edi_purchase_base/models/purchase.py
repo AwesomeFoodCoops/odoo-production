@@ -4,6 +4,7 @@
 
 from odoo import models, api, fields, _, tools
 from odoo.exceptions import ValidationError
+from odoo.tools.safe_eval import safe_eval
 
 
 class PurchaseOrder(models.Model):
@@ -67,7 +68,7 @@ class PurchaseOrder(models.Model):
         data = """"""
         try:
             for line in edi.mapping_ids:
-                data += eval(line.value)
+                data += safe_eval(line.value)
         except Exception as e:
             raise ValidationError(
                 _("Error in python code mapping values:\n %s") % tools.ustr(e)
@@ -110,7 +111,7 @@ class PurchaseOrder(models.Model):
         # Prepare data file
         data_lines = self._prepare_data_lines(lines, edi_system)
         # Params
-        pattern = eval(edi_system.po_text_file_pattern)
+        pattern = safe_eval(edi_system.po_text_file_pattern)
         distant_folder_path = edi_system.csv_relative_in_path
         local_folder_path = config_obj.get_param("edi.local_folder_path")
         # Open FTP
