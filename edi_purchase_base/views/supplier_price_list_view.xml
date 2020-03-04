@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
 
-        <record id="view_product_price_history_search" model="ir.ui.view">
-            <field name="name">product.price.history.search</field>
-            <field name="model">supplier.price.list</field>
-            <field name="arch" type="xml">
-                <search string="Price History">
-                    <field name="product_tmpl_id"/>
-                </search>
-            </field>
-        </record>
+    <record id="view_product_price_history_search" model="ir.ui.view">
+        <field name="name">product.price.history.search</field>
+        <field name="model">supplier.price.list</field>
+        <field name="arch" type="xml">
+            <search string="Price History">
+                <field name="product_tmpl_id"/>
+            </search>
+        </field>
+    </record>
 
-        <record id="view_product_price_history_tree" model="ir.ui.view">
-            <field name="name">product.price.history.tree</field>
-            <field name="model">supplier.price.list</field>
-            <field name="arch" type="xml">
-                <tree create="0" edit="0" delete="0">
-                    <field name="import_date"/>
-                    <field name="supplier_id"/>
-                    <field name="supplier_code"/>
-                    <field name="product_name"/>
-                    <field name="price"/>
-                    <field name="apply_date"/>
-                </tree>
-            </field>
-        </record>
+    <record id="view_product_price_history_tree" model="ir.ui.view">
+        <field name="name">product.price.history.tree</field>
+        <field name="model">supplier.price.list</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="import_date"/>
+                <field name="supplier_id"/>
+                <field name="supplier_code"/>
+                <field name="product_name"/>
+                <field name="price"/>
+                <field name="apply_date"/>
+            </tree>
+        </field>
+    </record>
 
-
-    </data>
 </odoo>

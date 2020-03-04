@@ -8,8 +8,10 @@
         <field name="interval_type">hours</field>
         <field name="numbercall">-1</field>
         <field name="doall" eval="False"/>
-        <field name="model">product.product</field>
-        <field name="function">cron_update_purchase_prices</field>
+        <field name="model_id" ref="model_product_product" />
+        <field name="state">code</field>
+        <field name="code">model.cron_update_purchase_prices()</field>
+        <field name="user_id" ref="base.user_root"/>
         <field name="active" eval="False"/>
     </record>
 
@@ -19,8 +21,10 @@
         <field name="interval_type">hours</field>
         <field name="numbercall">-1</field>
         <field name="doall" eval="False"/>
-        <field name="model">stock.picking</field>
-        <field name="function">cron_update_stock_picking</field>
+        <field name="model_id" ref="model_stock_picking" />
+        <field name="state">code</field>
+        <field name="code">model.cron_update_stock_picking()</field>
+        <field name="user_id" ref="base.user_root"/>
         <field name="active" eval="False"/>
     </record>
 

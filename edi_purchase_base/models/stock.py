@@ -2,9 +2,7 @@
 # @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-import datetime  # Used when eval python codes !!
-
-from odoo import models, api, fields, tools, _
+from odoo import models, api, tools, _
 from odoo.exceptions import ValidationError
 
 import logging
@@ -20,7 +18,7 @@ class StockPicking(models.Model):
         try:
             path_to_file = edi_system.csv_relative_out_path
             ftp.delete("/".join([path_to_file, name]))
-        except Exception, e:
+        except Exception as e:
             raise ValidationError(
                 _("Error when removing file from ftp server : %s")
                 % tools.ustr(e)
@@ -29,8 +27,9 @@ class StockPicking(models.Model):
     @api.model
     def read_stock_picking_file(self, lines, edi_system):
         """
-        This method is reponsible of reading supplier DO file, and integrate data into Odoo database
-        according to fields mappping on the supplier ftp system configuration
+        This method is reponsible of reading supplier DO file, and integrate \
+        data into Odoo database according to fields mappping on the supplier \
+        ftp system configuration
         :param lines: BLE(Electronic Delivery order) file lines (Python list)
                edi_system: EDI configuration system used
         :return: Boolean
@@ -39,11 +38,10 @@ class StockPicking(models.Model):
         product_supp_info = self.env["product.supplierinfo"]
         picking_updated = self.env["picking.update"]
         if not lines:
-            raise ValidationError(
-                _(
-                    "Please configure fields mapping for BLE interface on your EDI system!"
-                )
-            )
+            raise ValidationError(_(
+                "Please configure fields mapping for BLE interface on your \
+                EDI system!"
+            ))
         _logger.info(
             ">>>>>>>>>>>>>>>>>> Reading BLE file >>>>>>>>>>>>>>>>>>>>>"
         )
@@ -54,7 +52,8 @@ class StockPicking(models.Model):
         proposition_vals = dict()
         values_list = []
         for line in lines:
-            # This condition ensures that this job consider only one picking per EDI File
+            # This condition ensures that this job consider only one picking \
+            # per EDI File
             if line[0] == edi_system.header_code and not delivery_date:
                 # Header processing
                 delivery_date_mapp = edi_system.ble_mapping_ids.filtered(
@@ -81,19 +80,22 @@ class StockPicking(models.Model):
                         [("product_code", "=", product_code)], limit=1
                     )
                     supplier_ids = supp_info.mapped("name")
-                    # Look for corresponding purchase order, normally it should be just one even if there is more than one
+                    # Look for corresponding purchase order, normally it \
+                    # should be just one even if there is more than one
                     # supplier associated to product
                     if supplier_ids:
                         cr = self.env.cr
                         cr.execute(
                             "select * from purchase_order where "
-                            "cast (date_planned as date) = %s and partner_id in %s limit 1",
+                            "cast (date_planned as date) = %s and partner_id \
+                            in %s limit 1",
                             (delivery_date, tuple(supplier_ids.ids)),
                         )
                         res_po = cr.fetchone()
                         res_id = res_po and res_po[0] or False
                         po = self.env["purchase.order"].browse(res_id)
-                        # Assuming purchase order has only one picking order associated.
+                        # Assuming purchase order has only one picking order \
+                        # associated.
                         if po:
                             picking_order = po.picking_ids[0]
                 # Look for updated quantity
@@ -112,7 +114,8 @@ class StockPicking(models.Model):
                 )
                 cr = self.env.cr
                 cr.execute(
-                    "select * from stock_pack_operation where picking_id=%s and product_id=%s limit 1",
+                    "select * from stock_pack_operation where picking_id=%s \
+                    and product_id=%s limit 1",
                     (picking_order.id, ordered_product_id.id),
                 )
                 res_stock = cr.fetchone()
@@ -139,7 +142,8 @@ class StockPicking(models.Model):
                 {"name": picking_order.id, "values_proposed_ids": values_list}
             )
             _logger.info(
-                ">>>>>>>>>>>>>>>>>> Creating delivery order update propositions >>>>>>>>>>>>>>>>>>>>>"
+                ">>>>>>>>>>>>>>>> Creating delivery order update propositions \
+                >>>>>>>>>>>>>>>>>>>"
             )
             picking_updated.create(proposition_vals)
             return True
@@ -155,12 +159,11 @@ class StockPicking(models.Model):
         # Check EDI System config
         edi_systems = ecs_obj.search([("supplier_id", "in", partner_ids.ids)])
         if not edi_systems:
-            raise ValidationError(
-                _(
-                    "No Configuration found for EDI suppliers on the whole system!"
-                )
-            )
-        # Prices interface is only for parent suppliers, any segmentation is not considered by the EDI system FTP
+            raise ValidationError(_(
+                "No Configuration found for EDI suppliers on the whole system!"
+            ))
+        # Prices interface is only for parent suppliers, any segmentation is \
+        # not considered by the EDI system FTP
         # operations.
         edi_systems_list = [
             edi_system

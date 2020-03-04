@@ -2,13 +2,10 @@
 # @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-import datetime  # Used when eval python codes !!
-
-from odoo import models, api, fields, tools, _
+import datetime
+from odoo import models, api, tools, _
 from odoo.exceptions import ValidationError
-
 import logging
-
 _logger = logging.getLogger(__name__)
 
 
@@ -41,7 +38,7 @@ class ProductProduct(models.Model):
         try:
             path_to_file = edi_system.csv_relative_out_path
             ftp.delete("/".join([path_to_file, name]))
-        except Exception, e:
+        except Exception as e:
             raise ValidationError(
                 _("Error when removing file from ftp server : %s")
                 % tools.ustr(e)
@@ -50,8 +47,9 @@ class ProductProduct(models.Model):
     @api.model
     def read_prices_file(self, lines, edi_system):
         """
-        This method is reponsible of reading supplier prices file, and integrate data into Odoo database
-        according to fields mappping on the supplier ftp system configuration
+        This method is reponsible of reading supplier prices file, and
+        integrate data into Odoo database according to fields mappping on the
+        supplier ftp system configuration
         :param lines: Prices file lines (Python list)
                edi_system: EDI configuration system used
         :return: Boolean
@@ -60,13 +58,12 @@ class ProductProduct(models.Model):
         price_list_obj = self.env["supplier.price.list"]
         product_supp_info = self.env["product.supplierinfo"]
         if not lines:
-            raise ValidationError(
-                _(
-                    "Please configure fields mapping for prices interface on your EDI system!"
-                )
-            )
+            raise ValidationError(_(
+                "Please configure fields mapping for prices interface on your \
+                EDI system!"
+            ))
         _logger.info(
-            ">>>>>>>>>>>>>>>>>> Reading supplier prices file >>>>>>>>>>>>>>>>>>>>>"
+            ">>>>>>>>>>>>>>>> Reading supplier prices file >>>>>>>>>>>>>>>>>>>"
         )
         prices = []
         value = []
@@ -117,7 +114,7 @@ class ProductProduct(models.Model):
             prices_dict = {k: v for k, v in zip(key, value)}
             prices.append(prices_dict)
         _logger.info(
-            ">>>>>>>>>>>>>>>>>> Creating supplier prices >>>>>>>>>>>>>>>>>>>>>>>>>>>"
+            ">>>>>>>>>>>>>>> Creating supplier prices >>>>>>>>>>>>>>>>>>>>>>>>"
         )
         price_list_obj.bulk_create(prices)
         return True
@@ -131,12 +128,11 @@ class ProductProduct(models.Model):
         # Check EDI System config
         edi_systems = ecs_obj.search([("supplier_id", "in", partner_ids.ids)])
         if not edi_systems:
-            raise ValidationError(
-                _(
-                    "No Configuration found for EDI suppliers on the whole system!"
-                )
-            )
-        # Prices interface is only for parent suppliers, any segmentation is not considered by the EDI system FTP
+            raise ValidationError(_(
+                "No Configuration found for EDI suppliers on the whole system!"
+            ))
+        # Prices interface is only for parent suppliers, any segmentation is \
+        # not considered by the EDI system FTP
         # operations.
         edi_systems_list = [
             edi_system
@@ -190,7 +186,8 @@ class ProductSupplierinfo(models.Model):
     @api.model
     def update_purchase_price(self, vals):
         """
-            Looks for most recent price on purchase table of prices, only for EDI suppliers
+            Looks for most recent price on purchase table of prices, only for
+            EDI suppliers
             :param vals:
             :return: updated values with product price
         """
@@ -203,13 +200,10 @@ class ProductSupplierinfo(models.Model):
                 raise ValidationError(
                     _("Please give a supplier code to create the product!")
                 )
-            price = self.env["supplier.price.list"].search(
-                [
-                    ("supplier_id", "=", edi_supplier.id),
-                    ("supplier_code", "=", supplier_code),
-                ],
-                order="import_date DESC",
-            )
+            price = self.env["supplier.price.list"].search([
+                ("supplier_id", "=", edi_supplier.id),
+                ("supplier_code", "=", supplier_code),
+            ], order="import_date DESC")
             if price:
                 vals.update({"base_price": price[0].price})
         return vals

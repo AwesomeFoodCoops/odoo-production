@@ -3,9 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 from odoo import models, fields, api
-
 import logging
-
 _logger = logging.getLogger(__name__)
 
 
@@ -22,7 +20,7 @@ class PickingEdi(models.Model):
 
 class PickingUpdate(models.Model):
     _name = "picking.update"
-    _inherit = "ir.needaction_mixin"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     done = fields.Boolean(string="Done", readonly=True)
     name = fields.Many2one(
@@ -36,7 +34,7 @@ class PickingUpdate(models.Model):
     )
 
     @api.model
-    def _needaction_count(self, domain=None, context=None):
+    def get_needaction_count(self):
         return len(self.search([("done", "=", False)]))
 
     @api.multi
@@ -44,17 +42,11 @@ class PickingUpdate(models.Model):
         self.ensure_one()
         updated_quantities = []
         for proposition in self.values_proposed_ids:
-            updated_quantities += [
-                (
-                    1,
-                    proposition.line_to_update_id.id,
-                    {
-                        "product_qty_package": proposition.product_qty,
-                        "product_qty": proposition.product_qty
-                        * proposition.package_qty,
-                    },
-                )
-            ]
+            updated_quantities += [(1, proposition.line_to_update_id.id, {
+                "product_qty_package": proposition.product_qty,
+                "product_qty": proposition.product_qty *
+                proposition.package_qty,
+            },)]
         self.done = True
         self.name.write({"pack_operation_product_ids": updated_quantities})
         return True
