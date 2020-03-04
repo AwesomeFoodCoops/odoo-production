@@ -51,8 +51,7 @@ class ShiftTemplateRegistration(models.Model):
     ]
 
     @api.multi
-    @api.constrains(
-        'shift_template_id.shift_type_id', 'shift_ticket_product_id')
+    @api.constrains('shift_template_id', 'shift_ticket_product_id')
     def _check_registration_type(self):
         for rec in self:
             if rec.shift_template_id.shift_type_id == rec.env.ref(
