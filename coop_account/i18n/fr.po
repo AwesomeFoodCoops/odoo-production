@@ -187,11 +187,6 @@ msgid "Day (Search)"
 msgstr "Jour (Recherche)"
 
 #. module: coop_account
-#: model:ir.model,name:coop_account.view_account_move_line_filter_inherit
-msgid "Journal Item"
-msgstr "Écriture comptable"
-
-#. module: coop_account
 #: model:ir.model.fields,field_description:coop_account.field_account_move_line_search_month
 #: model:ir.model.fields,field_description:coop_account.field_account_move_search_month
 #: model:ir.ui.view,arch_db:coop_account.view_account_move_line_filter_inherit
