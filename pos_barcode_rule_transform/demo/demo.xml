@@ -19,7 +19,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="pattern">22.....{NNNDD}</field>
         <field name="sequence">15</field>
         <field name="encoding">ean13</field>
-        <field name="transform">value * 0.15</field>
+        <field name="transform_expr">value * 0.15</field>
     </record>
 
 </odoo>
