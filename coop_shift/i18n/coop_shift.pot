@@ -348,7 +348,7 @@ msgid "Begin Time"
 msgstr ""
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template_registration.py:137
+#: code:addons/coop_shift/model/shift_template_registration.py:136
 #, python-format
 msgid "Begin date is greater than End date: \n"
 " begin: %s    end: %s    state: %s;"
@@ -1329,13 +1329,13 @@ msgid "In Progress"
 msgstr ""
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template_registration.py:62
+#: code:addons/coop_shift/model/shift_template_registration.py:61
 #, python-format
 msgid "Inscriptions on ABCD Templates must be Standard type!"
 msgstr ""
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template_registration.py:68
+#: code:addons/coop_shift/model/shift_template_registration.py:67
 #, python-format
 msgid "Inscriptions on FTOP Templates must be FTOP type!"
 msgstr ""
@@ -3077,7 +3077,7 @@ msgid "The same template cannot be planned several time at the same date !"
 msgstr ""
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template_registration.py:159
+#: code:addons/coop_shift/model/shift_template_registration.py:158
 #, python-format
 msgid "These dates overlap: \n"
 " - Line1: begin: %s    end: %s    state: %s; \n"
