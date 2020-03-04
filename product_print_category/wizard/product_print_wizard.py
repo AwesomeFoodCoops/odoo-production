@@ -10,6 +10,7 @@ from odoo.exceptions import Warning as UserError
 
 class ProductPrintWizard(models.TransientModel):
     _name = "product.print.wizard"
+    _description = "Product Print Wizard"
 
     line_ids = fields.One2many(
         comodel_name="product.print.wizard.line",
