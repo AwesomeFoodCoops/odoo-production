@@ -17,7 +17,7 @@ _logger = logging.getLogger(__name__)
 try:
     import pysftp
 except ImportError:  # pragma: no cover
-    _logger.debug('Cannot import pysftp')
+    _logger.error('Cannot import pysftp')
 
 
 class DbBackup(models.Model):
@@ -283,4 +283,29 @@ class DbBackup(models.Model):
         else:
             params["password"] = self.sftp_password
 
-        return pysftp.Connection(**params)
+        cnopts = pysftp.CnOpts()
+        params['cnopts'] = cnopts
+
+        # If it's the first time we connect to this host
+        # disable hostkey validation, and add to known_hosts
+        hostkeys = None
+        if cnopts.hostkeys.lookup(self.sftp_host) is None:
+            hostkeys = cnopts.hostkeys
+            cnopts.hostkeys = None
+
+        sftp = pysftp.Connection(**params)
+        if sftp and hostkeys is not None:
+            hostkeys.add(
+                self.sftp_host,
+                sftp.remote_server_key.get_name(),
+                sftp.remote_server_key)
+            known_hosts = pysftp.helpers.known_hosts()
+            if not os.path.exists(os.path.dirname(known_hosts)):
+                os.makedirs(os.path.dirname(known_hosts))
+            hostkeys.save(known_hosts)
+            _logger.info(
+                'Permanently added "%s" (%s) to the list of '
+                'known hosts' % (
+                    self.sftp_host,
+                    sftp.remote_server_key.get_name()))
+        return sftp
