@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <record id="view_edi_config_system_form" model="ir.ui.view">
+        <field name="model">edi.config.system</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="test_button" string="Test" type="object" class="oe_highlight" groups="base.group_user"/>
+                </header>
+                <sheet>
+                    <group>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                    </group>
+                    <group>
+                        <group string="EDI Supplier" col="1">
+                            <field name="supplier_id" nolabel="1"/>
+                            <field name="parent_supplier_id"/>
+                        </group>
+                        <group string="FTP Connection">
+                            <field name="ftp_host"/>
+                            <field name="ftp_port"/>
+                            <field name="ftp_login"/>
+                            <field name="ftp_password"/>
+                            <field name="csv_relative_in_path"/>
+                            <field name="csv_relative_out_path"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Purchase order interface">
+                            <group string="File name">
+                                <field name="po_text_file_pattern"/>
+                            </group>
+                            <group string="Constants">
+                                <field name="constant_file_start"/>
+                                <field name="constant_file_end"/>
+                                <field name="vrp_code"/>
+                                <field name="customer_code"/>
+                            </group>
+                            <group string="Fields mapping">
+                                <field name="mapping_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="position"/>
+                                        <field name="value"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Prices update interface">
+                            <group string="Fields mapping">
+                                <field name="price_mapping_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="position"/>
+                                        <field name="name"/>
+                                        <field name="mapping_field_id" options="{'no_create': True, 'no_open': True}"/>
+                                        <field name="sequence_start"/>
+                                        <field name="sequence_end"/>
+                                        <field name="is_numeric"/>
+                                        <field name="is_date"/>
+                                        <field name="decimal_precision"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="BLE update interface">
+                            <group string="General settings">
+                                <field name="days"/>
+                                <field name="header_code"/>
+                                <field name="lines_code"/>
+                                <field name="delivery_sign"/>
+                            </group>
+                            <group string="Fields mapping">
+                                <field name="ble_mapping_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="position"/>
+                                        <field name="name"/>
+                                        <field name="mapping_field_id"/>
+                                        <field name="sequence_start"/>
+                                        <field name="sequence_end"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
