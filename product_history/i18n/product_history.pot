@@ -208,6 +208,7 @@ msgstr ""
 #. module: product_history
 #: model:ir.actions.act_window,name:product_history.action_history_view
 #: model:ir.actions.act_window,name:product_history.view_product_history_action
+#: model:ir.model,name:product_history.model_product_history
 msgid "Product History"
 msgstr ""
 
@@ -292,10 +293,5 @@ msgstr ""
 #: selection:product.template,history_range:0
 #: selection:res.config.settings,default_history_range:0
 msgid "Week"
-msgstr ""
-
-#. module: product_history
-#: model:ir.model,name:product_history.model_product_history
-msgid "product.history"
 msgstr ""
 
