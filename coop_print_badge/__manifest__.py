@@ -15,6 +15,7 @@
     ],
     'data': [
         'security/res_groups.xml',
+        'data/ir_config_parameter_data.xml',
         'data/report_paperformat.xml',
         'views/assets.xml',
         'views/view_res_partner.xml',
