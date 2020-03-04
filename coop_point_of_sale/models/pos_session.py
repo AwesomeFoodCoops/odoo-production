@@ -17,6 +17,18 @@ class PosSession(models.Model):
     )
     cycle = fields.Char(string="Cycle", compute="compute_cycle", store=True)
 
+    search_year = fields.Char(
+        string='Year (Search)', compute='_compute_date_search',
+        multi='_date_search', store=True, index=True)
+
+    search_month = fields.Char(
+        string='Month (Search)', compute='_compute_date_search',
+        multi='_date_search', store=True, index=True)
+
+    search_day = fields.Char(
+        string='Day (Search)', compute='_compute_date_search',
+        multi='_date_search', store=True, index=True)
+
     @api.multi
     @api.depends("start_at")
     def compute_week_number(self):
@@ -64,3 +76,18 @@ class PosSession(models.Model):
     def compute_cycle(self):
         for session in self:
             session.cycle = "%s%s" % (session.week_number, session.week_day)
+
+    @api.multi
+    @api.depends('start_at')
+    def _compute_date_search(self):
+        """ Merge from date_search_extended module from version 9
+        remove date_search_extended module from version 12"""
+        for rec in self:
+            if rec.start_at:
+                rec.search_year = rec.start_at.strftime('%Y')
+                rec.search_month = rec.start_at.strftime('%Y-%m')
+                rec.search_day = rec.start_at.strftime('%Y-%m-%d')
+            else:
+                rec.search_year = False
+                rec.search_month = False
+                rec.search_day = False

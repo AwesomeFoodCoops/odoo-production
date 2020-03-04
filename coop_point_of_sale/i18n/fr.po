@@ -231,3 +231,32 @@ msgstr "Semaine"
 #, python-format
 msgid "Cancel"
 msgstr "Annuler"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order_search_day
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session_search_day
+#: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_order_search
+#: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_search_inherit
+msgid "Day (Search)"
+msgstr "Jour (Recherche)"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order_search_month
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session_search_month
+#: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_order_search
+#: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_search_inherit
+msgid "Month (Search)"
+msgstr "Mois (Recherche)"
+
+#. module: coop_point_of_sale
+#: model:ir.model,name:coop_point_of_sale.model_pos_order
+msgid "Point of Sale"
+msgstr "Point de vente"
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order_search_year
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session_search_year
+#: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_order_search
+#: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_search_inherit
+msgid "Year (Search)"
+msgstr "Année (Recherche)"

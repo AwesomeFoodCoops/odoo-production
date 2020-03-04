@@ -17,6 +17,18 @@ class PosOrder(models.Model):
     )
     cycle = fields.Char(string="Cycle", compute="compute_cycle", store=True)
 
+    search_year = fields.Char(
+        string='Year (Search)', compute='_compute_date_search',
+        multi='_date_search', store=True, index=True)
+
+    search_month = fields.Char(
+        string='Month (Search)', compute='_compute_date_search',
+        multi='_date_search', store=True, index=True)
+
+    search_day = fields.Char(
+        string='Day (Search)', compute='_compute_date_search',
+        multi='_date_search', store=True, index=True)
+
     @api.multi
     @api.depends("date_order")
     def compute_week_number(self):
@@ -75,3 +87,18 @@ class PosOrder(models.Model):
                 updated_lines_lst.append(line_values)
         order_fields["lines"] = updated_lines_lst
         return order_fields
+
+    @api.multi
+    @api.depends('date_order')
+    def _compute_date_search(self):
+        """ Merge from date_search_extended module from version 9
+        remove date_search_extended module from version 12"""
+        for rec in self:
+            if rec.date_order:
+                rec.search_year = rec.date_order.strftime('%Y')
+                rec.search_month = rec.date_order.strftime('%Y-%m')
+                rec.search_day = rec.date_order.strftime('%Y-%m-%d')
+            else:
+                rec.search_year = False
+                rec.search_month = False
+                rec.search_day = False

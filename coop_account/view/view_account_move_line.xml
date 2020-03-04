@@ -9,6 +9,16 @@
                 <separator/>
                 <filter name="statement_line_id" string="Unmatched" domain="[('statement_line_id','=', False)]"/>
             </xpath>
+            <field name="date" position="after">
+                <field name="search_year"/>
+                <field name="search_month"/>
+                <field name="search_day"/>
+            </field>
+            <xpath expr="//group" position="inside">
+                <filter string="Year (Search)" name="year" context="{'group_by':'search_year'}"/>
+                <filter string="Month (Search)" name="month" context="{'group_by':'search_month'}"/>
+                <filter string="Day (Search)" name="day" context="{'group_by':'search_day'}"/>
+            </xpath>
         </field>
     </record>
 
