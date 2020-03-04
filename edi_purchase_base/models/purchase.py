@@ -13,7 +13,7 @@ class PurchaseOrder(models.Model):
     date_planned = fields.Datetime(
         string="Scheduled Date",
         compute="_compute_date_planned",
-        required=True,
+        required=False,
         index=True,
         oldname="minimum_planned_date",
         store=True,
