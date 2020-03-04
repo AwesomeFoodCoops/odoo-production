@@ -14,8 +14,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_print_category
-#: code:addons/product_print_category/wizard/product_print_wizard.py:48
-#: code:addons/product_print_category/wizard/product_print_wizard.py:57
+#: code:addons/product_print_category/wizard/product_print_wizard.py:49
+#: code:addons/product_print_category/wizard/product_print_wizard.py:58
 #, python-format
 msgid "\n"
 "                    The products you selected have different\n"
@@ -333,6 +333,16 @@ msgid "Product Name"
 msgstr ""
 
 #. module: product_print_category
+#: model:ir.model,name:product_print_category.model_product_print_wizard
+msgid "Product Print Wizard"
+msgstr ""
+
+#. module: product_print_category
+#: model:ir.model,name:product_print_category.model_product_print_wizard_line
+msgid "Product Print Wizard Line"
+msgstr ""
+
+#. module: product_print_category
 #: model:ir.model,name:product_print_category.model_product_template
 msgid "Product Template"
 msgstr ""
@@ -370,6 +380,11 @@ msgid "Qweb View"
 msgstr ""
 
 #. module: product_print_category
+#: model:ir.model,name:product_print_category.model_report_product_print_category_report_pricetag
+msgid "Report Price Tag"
+msgstr ""
+
+#. module: product_print_category
 #: model:ir.model.fields,field_description:product_print_category.field_product_print_category__activity_user_id
 msgid "Responsible User"
 msgstr ""
@@ -383,7 +398,7 @@ msgid "Status based on activities\n"
 msgstr ""
 
 #. module: product_print_category
-#: code:addons/product_print_category/wizard/product_print_wizard.py:66
+#: code:addons/product_print_category/wizard/product_print_wizard.py:67
 #, python-format
 msgid "The following products has not print category defined. Please define one before.\n"
 " %s"
@@ -458,20 +473,5 @@ msgstr ""
 #. module: product_print_category
 #: model:ir.model,name:product_print_category.model_product_print_category
 msgid "product.print.category"
-msgstr ""
-
-#. module: product_print_category
-#: model:ir.model,name:product_print_category.model_product_print_wizard
-msgid "product.print.wizard"
-msgstr ""
-
-#. module: product_print_category
-#: model:ir.model,name:product_print_category.model_product_print_wizard_line
-msgid "product.print.wizard.line"
-msgstr ""
-
-#. module: product_print_category
-#: model:ir.model,name:product_print_category.model_report_product_print_category_report_pricetag
-msgid "report.product_print_category.report_pricetag"
 msgstr ""
 
