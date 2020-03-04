@@ -430,6 +430,11 @@ msgid "Product"
 msgstr ""
 
 #. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_product_print_wizard
+msgid "Product Print Wizard"
+msgstr ""
+
+#. module: coop_default_pricetag
 #: model:ir.model,name:coop_default_pricetag.model_product_template
 msgid "Product Template"
 msgstr ""
@@ -567,11 +572,6 @@ msgstr ""
 #. module: coop_default_pricetag
 #: model:ir.model,name:coop_default_pricetag.model_product_print_category
 msgid "product.print.category"
-msgstr ""
-
-#. module: coop_default_pricetag
-#: model:ir.model,name:coop_default_pricetag.model_product_print_wizard
-msgid "product.print.wizard"
 msgstr ""
 
 #. module: coop_default_pricetag
