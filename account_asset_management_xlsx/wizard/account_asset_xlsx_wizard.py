@@ -8,6 +8,7 @@ from odoo import api, fields, models
 
 class AccountAssetXlsxWizard(models.TransientModel):
     _name = "account.asset.xlsx.wizard"
+    _description = "Account Asset XLSX Wizard"
 
     from_date = fields.Date(required=True)
     to_date = fields.Date(required=True)
