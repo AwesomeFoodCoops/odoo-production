@@ -56,8 +56,8 @@ msgid "Amount"
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_move.py:24
-#: code:addons/coop_account/models/account_move_line.py:77
+#: code:addons/coop_account/models/account_move.py:35
+#: code:addons/coop_account/models/account_move_line.py:88
 #, python-format
 msgid "Are you sure you want to unmatch %s transactions?"
 msgstr ""
@@ -149,6 +149,14 @@ msgid "Customer"
 msgstr ""
 
 #. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_move__search_day
+#: model:ir.model.fields,field_description:coop_account.field_account_move_line__search_day
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_move_line_filter_inherit
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_move_search
+msgid "Day (Search)"
+msgstr ""
+
+#. module: coop_account
 #: model:ir.model.fields,field_description:coop_account.field_bank_statement_line_reconcile_wizard__display_name
 #: model:ir.model.fields,field_description:coop_account.field_unmatch_bank_statement_wizard__display_name
 msgid "Display Name"
@@ -172,7 +180,7 @@ msgid "Export wrong reconciliation move lines"
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_move_line.py:121
+#: code:addons/coop_account/models/account_move_line.py:132
 #, python-format
 msgid "Found no wrong account move lines."
 msgstr ""
@@ -284,7 +292,15 @@ msgid "Montant HT"
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_move_line.py:51
+#: model:ir.model.fields,field_description:coop_account.field_account_move__search_month
+#: model:ir.model.fields,field_description:coop_account.field_account_move_line__search_month
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_move_line_filter_inherit
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_move_search
+msgid "Month (Search)"
+msgstr ""
+
+#. module: coop_account
+#: code:addons/coop_account/models/account_move_line.py:62
 #, python-format
 msgid "Only one journal item on an account requiring bank reconciliation can be booked in this account move. It is impossible to add another one. Please create a distinct account move to registrer this account.move.line and its counterpart."
 msgstr ""
@@ -376,8 +392,8 @@ msgid "Total Balance"
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_move.py:32
-#: code:addons/coop_account/models/account_move_line.py:85
+#: code:addons/coop_account/models/account_move.py:43
+#: code:addons/coop_account/models/account_move_line.py:96
 #: model:ir.actions.server,name:coop_account.action_server_unmatch_bankstatement
 #: model:ir.actions.server,name:coop_account.action_server_unmatch_bankstatement_line
 #: model_terms:ir.ui.view,arch_db:coop_account.view_unmatch_bank_statement_wizard_form
@@ -401,13 +417,21 @@ msgid "Validate Invoices"
 msgstr ""
 
 #. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_move__search_year
+#: model:ir.model.fields,field_description:coop_account.field_account_move_line__search_year
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_move_line_filter_inherit
+#: model_terms:ir.ui.view,arch_db:coop_account.view_account_move_search
+msgid "Year (Search)"
+msgstr ""
+
+#. module: coop_account
 #: code:addons/coop_account/models/account_invoice.py:21
 #, python-format
 msgid "You can only merge draft invoice!"
 msgstr ""
 
 #. module: coop_account
-#: code:addons/coop_account/models/account_move.py:49
+#: code:addons/coop_account/models/account_move.py:60
 #, python-format
 msgid "You cannot reconcile that account move with a bank statement line that is not related to bank journal."
 msgstr ""
