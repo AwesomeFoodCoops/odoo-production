@@ -9,6 +9,7 @@ from odoo import models, api
 
 class WizardUseTheoriticalPrice(models.TransientModel):
     _name = "wizard.use.theoritical.price"
+    _description = "Use Theoritical Price Wizard"
 
     # Custom Section
     @api.multi
