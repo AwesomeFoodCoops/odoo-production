@@ -9,6 +9,7 @@ _logger = logging.getLogger(__name__)
 
 class PickingEdi(models.Model):
     _name = "picking.edi"
+    _description = "Picking EDI"
 
     product_id = fields.Many2one(comodel_name="product.product")
     ordered_quantity = fields.Float()
