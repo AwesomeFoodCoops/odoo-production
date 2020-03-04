@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Widget image preview',
-    'summary': """Adds functional preview (open/popup) image in original size 
+    'summary': """Adds functional preview (open/popup) image in original size
     Enlarge image Enlarge images product images preview product images picture
     foto product photo product preview enlarge """,
     'description': """
