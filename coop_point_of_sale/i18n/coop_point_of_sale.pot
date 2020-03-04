@@ -91,6 +91,14 @@ msgid "Day"
 msgstr ""
 
 #. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order__search_day
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session__search_day
+#: model_terms:ir.ui.view,arch_db:coop_point_of_sale.view_pos_order_search
+#: model_terms:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_search_inherit
+msgid "Day (Search)"
+msgstr ""
+
+#. module: coop_point_of_sale
 #: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_config__diacritics_insensitive_search
 msgid "Diacritics insensitive search"
 msgstr ""
@@ -120,8 +128,8 @@ msgid "En alerte"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:56
-#: code:addons/coop_point_of_sale/models/pos_session.py:56
+#: code:addons/coop_point_of_sale/models/pos_order.py:68
+#: code:addons/coop_point_of_sale/models/pos_session.py:68
 #, python-format
 msgid "Fri"
 msgstr ""
@@ -140,10 +148,18 @@ msgid "Make products searchs insensitive to diacritics (ignore accents)"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:48
-#: code:addons/coop_point_of_sale/models/pos_session.py:48
+#: code:addons/coop_point_of_sale/models/pos_order.py:60
+#: code:addons/coop_point_of_sale/models/pos_session.py:60
 #, python-format
 msgid "Mon"
+msgstr ""
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order__search_month
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session__search_month
+#: model_terms:ir.ui.view,arch_db:coop_point_of_sale.view_pos_order_search
+#: model_terms:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_search_inherit
+msgid "Month (Search)"
 msgstr ""
 
 #. module: coop_point_of_sale
@@ -228,8 +244,8 @@ msgid "Product Template"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:58
-#: code:addons/coop_point_of_sale/models/pos_session.py:58
+#: code:addons/coop_point_of_sale/models/pos_order.py:70
+#: code:addons/coop_point_of_sale/models/pos_session.py:70
 #, python-format
 msgid "Sat"
 msgstr ""
@@ -242,8 +258,8 @@ msgid "State"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:60
-#: code:addons/coop_point_of_sale/models/pos_session.py:60
+#: code:addons/coop_point_of_sale/models/pos_order.py:72
+#: code:addons/coop_point_of_sale/models/pos_session.py:72
 #, python-format
 msgid "Sun"
 msgstr ""
@@ -257,15 +273,15 @@ msgid "Suspendu"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:54
-#: code:addons/coop_point_of_sale/models/pos_session.py:54
+#: code:addons/coop_point_of_sale/models/pos_order.py:66
+#: code:addons/coop_point_of_sale/models/pos_session.py:66
 #, python-format
 msgid "Thu"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:50
-#: code:addons/coop_point_of_sale/models/pos_session.py:50
+#: code:addons/coop_point_of_sale/models/pos_order.py:62
+#: code:addons/coop_point_of_sale/models/pos_session.py:62
 #, python-format
 msgid "Tue"
 msgstr ""
@@ -278,10 +294,18 @@ msgid "Week"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:52
-#: code:addons/coop_point_of_sale/models/pos_session.py:52
+#: code:addons/coop_point_of_sale/models/pos_order.py:64
+#: code:addons/coop_point_of_sale/models/pos_session.py:64
 #, python-format
 msgid "Wes"
+msgstr ""
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order__search_year
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session__search_year
+#: model_terms:ir.ui.view,arch_db:coop_point_of_sale.view_pos_order_search
+#: model_terms:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_search_inherit
+msgid "Year (Search)"
 msgstr ""
 
 #. module: coop_point_of_sale
