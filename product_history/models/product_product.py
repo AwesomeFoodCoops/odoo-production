@@ -25,22 +25,36 @@ class ProductProduct(models.Model):
 
     # Column section
     product_tmpl_id = fields.Many2one(comodel_name='product.template')
-    history_range = fields.Selection(related="product_tmpl_id.history_range",
-                                     readonly=True)
+    history_range = fields.Selection(
+        related="product_tmpl_id.history_range",
+        readonly=True,
+    )
     product_history_ids = fields.Many2many(
-        comodel_name='product.history', inverse_name='product_id',
-        string='History', compute="_compute_product_history_ids")
+        comodel_name='product.history',
+        inverse_name='product_id',
+        string='History',
+        compute="_compute_product_history_ids",
+    )
     number_of_periods_real = fields.Integer(
-        'Number of History periods',
-        help="""Number of valid history periods used for the calculation""")
+        'Number of History Periods',
+        help="Number of valid history periods used for the calculation",
+    )
     number_of_periods_target = fields.Integer(
-        related='product_tmpl_id.number_of_periods')
+        string='Number of History Periods (Target)',
+        related='product_tmpl_id.number_of_periods',
+    )
     last_history_day = fields.Many2one(
-        string='last day history record', comodel_name='product.history', )
+        comodel_name='product.history',
+        string='Last day history record',
+    )
     last_history_week = fields.Many2one(
-        string='last day history record', comodel_name='product.history', )
+        comodel_name='product.history',
+        string='Last week history record',
+    )
     last_history_month = fields.Many2one(
-        string='last day history record', comodel_name='product.history', )
+        comodel_name='product.history',
+        string='Last month history record',
+    )
 
     # Private section
     @api.onchange(
