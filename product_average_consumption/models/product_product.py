@@ -34,13 +34,12 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     # Columns Section
-    average_consumption = fields.Float(compute='_compute_average_consumption',
-                                       string='Average Consumption')
+    average_consumption = fields.Float(compute='_compute_average_consumption')
     displayed_average_consumption = fields.Float(
         compute='_compute_displayed_average_consumption',
-        string='Average Consumption')
-    total_consumption = fields.Float(compute='_compute_average_consumption',
-                                     string='Total Consumption')
+        string='Average Consumption (Range)',
+    )
+    total_consumption = fields.Float(compute='_compute_average_consumption')
     nb_days = fields.Integer(
         compute='_compute_average_consumption',
         string='Number of days for the calculation',
