@@ -16,6 +16,7 @@ HISTORY_RANGE = [
 
 class ProductHistory(models.Model):
     _name = "product.history"
+    _description = "Product History"
     _order = 'from_date desc'
 
     # Columns section
