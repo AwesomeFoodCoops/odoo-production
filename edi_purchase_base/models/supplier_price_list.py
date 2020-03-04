@@ -8,6 +8,7 @@ import odoo.addons.decimal_precision as dp
 
 class SupplierPriceList(models.Model):
     _name = "supplier.price.list"
+    _description = "Supplier Price List"
 
     import_date = fields.Date(readonly=True)
     supplier_id = fields.Many2one(
