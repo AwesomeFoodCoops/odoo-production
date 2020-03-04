@@ -26,4 +26,22 @@ action = records.unmatch_bankstatement_wizard()
             <field name="context">{'search_default_misc_filter':0}</field>
         </record>
 
+    <record id="view_account_move_search" model="ir.ui.view">
+        <field name="name">account.move.search.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="search_year"/>
+                <field name="search_month"/>
+                <field name="search_day"/>
+            </field>
+            <xpath expr="//group" position="inside">
+                <filter string="Year (Search)" name="year" context="{'group_by':'search_year'}"/>
+                <filter string="Month (Search)" name="month" context="{'group_by':'search_month'}"/>
+                <filter string="Day (Search)" name="day" context="{'group_by':'search_day'}"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>

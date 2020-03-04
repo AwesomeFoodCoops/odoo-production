@@ -1,25 +1,16 @@
 # -*- coding: utf-8 -*-
+from odoo import fields
 from odoo.addons.point_of_sale.tests.common import TestPointOfSaleCommon
 
 
 class TestCoopPointOfSale(TestPointOfSaleCommon):
-
-    def test_coop_pos_session(self):
-        self.assertEqual(
-            self.pos_order_session0.week_number,
-            'C', "POS session week number should be in paid C.")
-        self.assertEqual(
-            self.pos_order_session0.week_day,
-            'Tue', "POS session week day should be in paid Tue.")
-        self.assertEqual(
-            self.pos_order_session0.cycle,
-            'CTue', "POS session cycle should be in paid CTue.")
 
     def test_coop_pos_order(self):
         order = self.PosOrder.create({
             'company_id': self.company_id,
             'partner_id': self.partner1.id,
             'pricelist_id': self.partner1.property_product_pricelist.id,
+            'date_order': fields.Date.from_string('2015-12-28'),
             'lines': [(0, 0, {
                 'name': "OL/0001",
                 'product_id': self.product3.id,
@@ -46,10 +37,10 @@ class TestCoopPointOfSale(TestPointOfSaleCommon):
         })
         self.assertEqual(
             order.week_number,
-            'C', "POS order week number should be in paid C.")
+            'A', "POS order week number should be in paid A.")
         self.assertEqual(
             order.week_day,
-            'Tue', "POS order week day should be in paid Tue.")
+            'Mon', "POS order week day should be in paid Tue.")
         self.assertEqual(
             order.cycle,
-            'CTue', "POS order cycle should be in paid CTue.")
+            'AMon', "POS order cycle should be in paid AMon.")

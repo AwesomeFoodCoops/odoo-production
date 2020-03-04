@@ -12,6 +12,16 @@
                 <field name="week_number"/>
                 <field name="cycle"/>
             </field>
+            <field name="date_order" position="after">
+                <field name="search_year"/>
+                <field name="search_month"/>
+                <field name="search_day"/>
+            </field>
+            <xpath expr="//group" position="inside">
+                <filter string="Year (Search)" name="year" context="{'group_by':'search_year'}"/>
+                <filter string="Month (Search)" name="month" context="{'group_by':'search_month'}"/>
+                <filter string="Day (Search)" name="day" context="{'group_by':'search_day'}"/>
+            </xpath>
         </field>
     </record>
 

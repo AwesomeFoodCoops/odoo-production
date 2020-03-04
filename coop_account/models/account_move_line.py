@@ -14,6 +14,17 @@ class AccountMoveLine(models.Model):
     other_balance = fields.Monetary(
         string='Other Balance',
         default=0.0)
+    search_year = fields.Char(
+        string='Year (Search)', compute='_compute_date_search',
+        multi='_date_search', store=True, index=True)
+
+    search_month = fields.Char(
+        string='Month (Search)', compute='_compute_date_search',
+        multi='_date_search', store=True, index=True)
+
+    search_day = fields.Char(
+        string='Day (Search)', compute='_compute_date_search',
+        multi='_date_search', store=True, index=True)
 
     @api.model
     def create(self, vals):
@@ -165,3 +176,18 @@ class AccountMoveLine(models.Model):
                 else:
                     wrong_move_lines |= aml
         return wrong_move_lines
+
+    @api.multi
+    @api.depends('date')
+    def _compute_date_search(self):
+        """ Merge from date_search_extended module from version 9
+        remove date_search_extended module from version 12"""
+        for rec in self:
+            if rec.date:
+                rec.search_year = rec.date.strftime('%Y')
+                rec.search_month = rec.date.strftime('%Y-%m')
+                rec.search_day = rec.date.strftime('%Y-%m-%d')
+            else:
+                rec.search_year = False
+                rec.search_month = False
+                rec.search_day = False

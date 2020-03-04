@@ -172,3 +172,42 @@ msgstr "Tranfert interne"
 #, python-format
 msgid "You cannot reconcile with an account.move posterior to the transaction date except if you reconcile the transaction with only one account move."
 msgstr "Vous ne pouvez pas rapprocher une transaction avec une pièce postérieure, sauf si vous ne rapprochez qu'avec une seule écriture."
+
+#. module: coop_account
+#: model:ir.model,name:coop_account.model_account_move
+msgid "Account Entry"
+msgstr "Écriture comptable"
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_move_line_search_day
+#: model:ir.model.fields,field_description:coop_account.field_account_move_search_day
+#: model:ir.ui.view,arch_db:coop_account.view_account_move_line_filter_inherit
+#: model:ir.ui.view,arch_db:coop_account.view_account_move_search
+msgid "Day (Search)"
+msgstr "Jour (Recherche)"
+
+#. module: coop_account
+#: model:ir.model,name:coop_account.view_account_move_line_filter_inherit
+msgid "Journal Item"
+msgstr "Écriture comptable"
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_move_line_search_month
+#: model:ir.model.fields,field_description:coop_account.field_account_move_search_month
+#: model:ir.ui.view,arch_db:coop_account.view_account_move_line_filter_inherit
+#: model:ir.ui.view,arch_db:coop_account.view_account_move_search
+msgid "Month (Search)"
+msgstr "Mois (Recherche)"
+
+#. module: coop_account
+#: model:ir.model,name:coop_account.model_pos_order
+msgid "Point of Sale"
+msgstr "Point de vente"
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_move_line_search_year
+#: model:ir.model.fields,field_description:coop_account.field_account_move_search_year
+#: model:ir.ui.view,arch_db:coop_account.view_account_move_line_filter_inherit
+#: model:ir.ui.view,arch_db:coop_account.view_account_move_search
+msgid "Year (Search)"
+msgstr "Année (Recherche)"
