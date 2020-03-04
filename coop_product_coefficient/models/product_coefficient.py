@@ -9,6 +9,7 @@ from odoo import models, fields, api
 
 class ProductCoefficient(models.Model):
     _name = "product.coefficient"
+    _description = "Product Coefficient"
     _order = "name"
 
     _SELECT_OPERATION_TYPE = [
