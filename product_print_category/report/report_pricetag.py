@@ -5,6 +5,7 @@ from odoo import api, models
 
 class ReportPricetag(models.AbstractModel):
     _name = "report.product_print_category.report_pricetag"
+    _description = "Report Price Tag"
 
     @api.model
     def _get_report_values(self, docids, data=None):
