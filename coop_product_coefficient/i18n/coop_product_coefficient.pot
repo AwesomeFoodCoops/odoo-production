@@ -303,6 +303,11 @@ msgid "Product Category"
 msgstr ""
 
 #. module: coop_product_coefficient
+#: model:ir.model,name:coop_product_coefficient.model_product_coefficient
+msgid "Product Coefficient"
+msgstr ""
+
+#. module: coop_product_coefficient
 #: model:ir.model,name:coop_product_coefficient.model_product_template
 msgid "Product Template"
 msgstr ""
@@ -381,6 +386,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_coefficient_tree
 #: model_terms:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
 msgid "Use Theoritical Price"
+msgstr ""
+
+#. module: coop_product_coefficient
+#: model:ir.model,name:coop_product_coefficient.model_wizard_use_theoritical_price
+msgid "Use Theoritical Price Wizard"
 msgstr ""
 
 #. module: coop_product_coefficient
@@ -485,15 +495,5 @@ msgstr ""
 #. module: coop_product_coefficient
 #: model:product.template,weight_uom_name:coop_product_coefficient.product_categ_5
 msgid "kg"
-msgstr ""
-
-#. module: coop_product_coefficient
-#: model:ir.model,name:coop_product_coefficient.model_product_coefficient
-msgid "product.coefficient"
-msgstr ""
-
-#. module: coop_product_coefficient
-#: model:ir.model,name:coop_product_coefficient.model_wizard_use_theoritical_price
-msgid "wizard.use.theoritical.price"
 msgstr ""
 
