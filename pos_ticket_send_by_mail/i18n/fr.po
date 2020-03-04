@@ -61,11 +61,6 @@ msgid "pos.config"
 msgstr "pos.config"
 
 #. module: pos_ticket_send_by_mail
-#: model:ir.model.fields,field_description:pos_ticket_send_by_mail.field_pos_config_is_print_receipt
-msgid "Print receipt when not sent email"
-msgstr "Ne pas imprimer de ticket s’il est envoyé par par email"
-
-#. module: pos_ticket_send_by_mail
 #: model:ir.model.fields,field_description:pos_ticket_send_by_mail.field_pos_config_settings_receipt_options
 msgid "Receipt"
 msgstr "Reçu"
