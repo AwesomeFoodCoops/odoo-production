@@ -597,7 +597,7 @@ class ProductTemplate(models.Model):
             coeff9_inter_sp = self.coeff9_inter_sp
             if vals and vals.get('coeff9_inter_sp'):
                 coeff9_inter_sp = vals.get('coeff9_inter_sp')
-            vals.update({'price_standard': coeff9_inter_sp})
+            vals.update({'list_price': coeff9_inter_sp})
         if self.has_theoritical_price_different and \
                 self.get_auto_update_theorical_price():
             theoritical_price = self.theoritical_price
