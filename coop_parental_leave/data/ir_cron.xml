@@ -14,7 +14,6 @@
         <field name="code">model.cron_update_member_forced_status()</field>
         <field name="nextcall"
             eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:01:00')" />
-        <field name="args" eval="'()'" />
         <field name="active" eval="False" />
     </record>
 
@@ -31,7 +30,6 @@
         <field name="code">model.cron_send_mail_birth_certificate()</field>
         <field name="nextcall"
             eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:01:00')" />
-        <field name="args" eval="'()'" />
         <field name="active" eval="False" />
     </record>
 

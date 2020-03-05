@@ -51,9 +51,9 @@ class ResPartner(models.Model):
                 state = "alert"
             # Check member force status in shift.leave
             parental_leaves = partner.leave_ids.filtered(
-                lambda l: l.is_parental_leave
-                and l.start_date <= today <= l.stop_date
-                and l.forced_member_status
+                lambda l: l.is_parental_leave and
+                l.start_date <= today <= l.stop_date and
+                l.forced_member_status
             )
             # If member has one parental_leave and does not provide birthday
             #  certificate set member status to exempted
