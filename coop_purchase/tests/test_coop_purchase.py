@@ -35,7 +35,6 @@ class TestPurchase(TransactionCase):
         self.po = self.PurchaseOrder.create(self.po_vals)
 
         self.company_partner_bank = self.env['res.partner.bank'].create({
-            'name': 'Test Bank',
             'partner_id': self.env.user.company_id.partner_id.id,
             'acc_number': '1234567890',
         })
