@@ -1,0 +1,169 @@
+@font-face {
+    font-family: "Intro Pro";
+    src: url("../fonts/Intro-Black.ttf");
+    font-weight: bold
+}
+
+.badge {
+	height: 106mm;
+    width: 68mm;
+    margin-left: -0.4cm;
+    /*background-color: #b5bdc6;*/
+    background-color: white;
+}
+
+.member_photo_div {
+	width: 47mm;
+    height: 61mm;
+    float: left;
+    padding: 0cm;
+    -ms-transform: translate(-2mm, -1mm);
+    -webkit-transform: translate(-2mm, -3px)
+}
+
+.member_photo {
+    width: 100%;
+    height: 100%
+}
+
+.coop_text_small {
+    margin-left: 48mm;
+    margin-top: 1mm;
+    color: #425570;
+    font-family: "Intro Pro";
+    font-size: 0.7em;
+    text-transform: uppercase;
+}
+
+
+.member_number {
+    margin-left: 52mm;
+    margin-top: 4mm;
+    color: #425570;
+    font-family: "Intro Pro";
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+
+.member_number_asociate {
+    margin-left: 52mm;
+    margin-top: 1mm;
+    color: #425570;
+    font-family: "Intro Pro";
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+
+.coop_text {
+    font-family: "Intro Pro";
+    color: #425570;
+    font-size: 13pt;
+    text-transform: uppercase;
+    text-orientation: sideways-left;
+    margin-left: 35mm;
+    margin-right: 0;
+    margin-top: 40mm;
+    margin-bottom: 0;
+    padding: 0;
+    -webkit-transform-origin: 260 85;
+    -ms-transform-origin: 255 85;
+    transform-origin: 255 85;
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg)
+}
+
+.member_name {
+    font-family: "Intro Pro";
+    text-transform: uppercase;
+    color: #425570;
+    float: left;
+    height: 25mm;
+    padding-top: 2mm;
+    font-size: 1.3em;
+    width: 65mm !important;
+    overflow: hidden;
+    word-wrap: break-all;
+    overflow-wrap: break-all;
+    text-align: left;
+    max-width: 65mm !important
+}
+
+.member_name .break_2_lines {
+    float: left;
+    font-size: 1.4em;
+    width: 65mm !important;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal !important;
+    text-align: left;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 1.4em;
+    max-height: 2.8em;
+    max-width: 65mm !important
+}
+
+.member_name .break_1_line {
+    float: left;
+    font-size: 1em;
+    width: 65mm !important;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal !important;
+    text-align: left;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    line-height: 1.7em;
+    max-height: 1.7em;
+    max-width: 65mm !important
+}
+
+.member_name .break_3_lines {
+    float: left;
+    font-size: 1em;
+    width: 65mm !important;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal !important;
+    text-align: left;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    line-height: 1em;
+    max-height: 3em;
+    max-width: 65mm !important;
+    -ms-transform: translate(0mm, -4mm);
+    -webkit-transform: translate(0mm, -4mm)
+}
+
+.barcode_div {
+    width: 40mm;
+    height: 23mm;
+    float: left;
+    padding-bottom: 5px;
+    background-color: white;
+    -ms-transform: translate(0mm, -2mm);
+    -webkit-transform: translate(0mm, -4px)
+}
+
+.barcode_image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: auto;
+    padding-top: 6mm;
+    background-color: white;
+}
+
+.company_address {
+    margin-left: 41mm;
+    margin-top: 83mm;
+    max-width: 26mm;
+    word-wrap: break-word;
+    white-space: normal;
+    width: 26mm;
+    text-align: left
+}

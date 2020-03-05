@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- QWeb Reports -->
+    <report
+        id="action_report_printbadge"
+        model="res.partner"
+        string="Print Badge"
+        report_type="qweb-pdf"
+        name="coop_print_badge.report_printbadge"
+        file="coop_print_badge.report_printbadge"
+        attachment_use="False"
+        groups="coop_membership.group_membership_access_user,coop_membership.group_membership_see_associated_people,coop_print_badge.group_access_badge_report"
+    />
+
+    <record id="action_report_printbadge" model="ir.actions.report">
+        <field name="paperformat_id" ref="coop_print_badge.paperformat_CEI_7810"/>
+        <field name="attachment_use" eval="0"/>
+    </record>
+</odoo>

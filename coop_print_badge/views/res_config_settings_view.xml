@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_form" model="ir.ui.view">
+        <field name="name">res.config.settings.form.print.badge</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="coop_membership.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='coop_membership']/div" position="inside">
+                <div class="col-12 col-lg-12 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <div class="content-group">
+                            <span class="o_form_label">Badge Printing</span>
+                            <div name="config_member_section" class="mt16">
+                                <field name="reprint_change_field_ids" class="oe_inline" widget="many2many_tags"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

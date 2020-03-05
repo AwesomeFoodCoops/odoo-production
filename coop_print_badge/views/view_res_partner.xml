@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.membership.access.form</field>
+        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <field name="is_member" position="before">
+                <field name="badge_to_print" attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}" groups="coop_membership.group_membership_access_photo"/>
+            </field>
+        </field>
+    </record>
+
+     <record id="view_badge_to_distribute_tree" model="ir.ui.view">
+        <field name="name">res.partner.badge.to_distribute.tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree create="false" editable="top">
+                <field name="barcode_base" readonly="1"/>
+                <field name="name" readonly="1"/>
+                <field name="is_associated_people" readonly="1"/>
+                <field name="badge_distribution_date" />
+            </tree>
+        </field>
+    </record>
+</odoo>

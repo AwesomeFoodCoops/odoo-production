@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="minimal_layout_inherit" inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+             <link rel='stylesheet' type="text/css" href="/coop_print_badge/static/src/css/badge.css"/>
+        </xpath>
+    </template>
+</odoo>

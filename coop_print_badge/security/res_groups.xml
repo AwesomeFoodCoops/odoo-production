@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="group_hide" model="res.groups">
+        <field name="name">Group Hide</field>
+    </record>
+
+    <record id="group_access_badge_report" model="res.groups">
+        <field name="name">Imprimeur des badges</field>
+        <field name="category_id" ref="coop_membership.module_membership_access_management"/>
+    </record>
+</odoo>
