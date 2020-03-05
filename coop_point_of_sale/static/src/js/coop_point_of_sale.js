@@ -60,4 +60,12 @@ Overload models.PosModel
         },
     });
 
+    //Merge louve_custom_pos module to coop_point_of_sale
+    //remove louve_custom_pos from version 12
+    screens.ClientListScreenWidget.include({
+        partner_icon_url: function (id)  {
+            return '/web/image?model=res.partner&id='+id+'&field=image';
+        },
+    });
+
 });

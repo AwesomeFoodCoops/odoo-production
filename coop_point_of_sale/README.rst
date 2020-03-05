@@ -14,7 +14,7 @@ soit carré dans son format d'origine, pour éviter les distorsions.
 
 * Stocke le montant total des commandes en bdd pour pouvoir filtrer dessus
 
-.. image:: /louve_custom_pos/static/description/customer_detail.png
+.. image:: ../static/description/customer_detail.png
 
 
 This module is distributed in the hope that it will be useful.
@@ -28,3 +28,4 @@ Contributors
 
 * Sylvain LE GAL <https://twitter.com/legalsylvain>
 * Julien Weste
+* Druidoo <https://www.druidoo.io>

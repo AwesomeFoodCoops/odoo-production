@@ -29,6 +29,8 @@ class PosOrder(models.Model):
         string='Day (Search)', compute='_compute_date_search',
         multi='_date_search', store=True, index=True)
 
+    amount_total = fields.Float(store=True)
+
     @api.multi
     @api.depends("date_order")
     def compute_week_number(self):
