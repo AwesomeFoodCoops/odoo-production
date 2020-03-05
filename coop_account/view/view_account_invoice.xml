@@ -18,7 +18,7 @@
             <field name="arch" type="xml">
                 <button name="action_invoice_open" position="attributes">
                     <attribute name="groups">
-                        louve_custom_account.group_validate_invoice
+                        coop_account.group_validate_invoice
                     </attribute>
                 </button>
                 <field name="date_invoice" position="attributes">
@@ -38,7 +38,7 @@
             <field name="arch" type="xml">
                 <button name="action_invoice_open" states="draft" position="attributes">
                     <attribute name="groups">
-                        louve_custom_account.group_validate_invoice
+                        coop_account.group_validate_invoice
                     </attribute>
                 </button>
             </field>
