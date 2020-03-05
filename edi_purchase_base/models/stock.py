@@ -114,13 +114,13 @@ class StockPicking(models.Model):
                 )
                 cr = self.env.cr
                 cr.execute(
-                    "select * from stock_pack_operation where picking_id=%s \
+                    "select * from stock_move_line where picking_id=%s \
                     and product_id=%s limit 1",
                     (picking_order.id, ordered_product_id.id),
                 )
                 res_stock = cr.fetchone()
                 res_id = res_stock and res_stock[0] or False
-                ordered_operation = self.env["stock.pack.operation"].browse(
+                ordered_operation = self.env["stock.move.line"].browse(
                     res_id
                 )
                 ordered_quantity = ordered_operation.product_qty_package

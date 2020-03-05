@@ -15,7 +15,7 @@ class PickingEdi(models.Model):
     ordered_quantity = fields.Float()
     product_qty = fields.Float(string="EDI Quantity")
     package_qty = fields.Float(string="Product package")
-    line_to_update_id = fields.Many2one(comodel_name="stock.pack.operation")
+    line_to_update_id = fields.Many2one(comodel_name="stock.move.line")
     picking_update_id = fields.Many2one(comodel_name="picking.update")
 
 
