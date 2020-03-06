@@ -10,6 +10,7 @@ class PurchaseEdiLog(models.Model):
     _name = "purchase.edi.log"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = "log_date desc, id desc"
+    _description = "Purchase EDI Log"
 
     log_date = fields.Datetime(required=True)
     user_id = fields.Many2one(comodel_name="res.users", string="User")

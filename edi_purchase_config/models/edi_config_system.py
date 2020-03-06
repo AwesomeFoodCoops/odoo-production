@@ -26,6 +26,7 @@ except ImportError:
 
 class EdiConfigSystem(models.Model):
     _name = "edi.config.system"
+    _description = "EDI Config System"
 
     name = fields.Char(required=True)
     supplier_id = fields.Many2one(

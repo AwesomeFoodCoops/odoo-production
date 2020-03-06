@@ -8,6 +8,7 @@ from odoo import models, fields
 class EdiMappingLines(models.Model):
     _name = "edi.mapping.lines"
     _order = "position"
+    _description = "EDI Mapping Lines"
 
     config_id = fields.Many2one(comodel_name="edi.config.system")
     sequence = fields.Integer(required=True, default=1)
@@ -23,6 +24,7 @@ class EdiMappingLines(models.Model):
 class EdiPriceMapping(models.Model):
     _name = "edi.price.mapping"
     _order = "position"
+    _description = "EDI Price Mapping"
 
     sequence = fields.Integer(default=1)
     position = fields.Integer(required=True)
@@ -43,6 +45,7 @@ class EdiPriceMapping(models.Model):
 class EdiBleMapping(models.Model):
     _name = "edi.ble.mapping"
     _order = "position"
+    _description = "EDI BLE Mapping"
 
     sequence = fields.Integer(default=1)
     position = fields.Integer(required=True)
