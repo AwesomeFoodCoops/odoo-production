@@ -128,7 +128,7 @@ msgid "En alerte"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:68
+#: code:addons/coop_point_of_sale/models/pos_order.py:70
 #: code:addons/coop_point_of_sale/models/pos_session.py:68
 #, python-format
 msgid "Fri"
@@ -148,7 +148,7 @@ msgid "Make products searchs insensitive to diacritics (ignore accents)"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:60
+#: code:addons/coop_point_of_sale/models/pos_order.py:62
 #: code:addons/coop_point_of_sale/models/pos_session.py:60
 #, python-format
 msgid "Mon"
@@ -244,7 +244,7 @@ msgid "Product Template"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:70
+#: code:addons/coop_point_of_sale/models/pos_order.py:72
 #: code:addons/coop_point_of_sale/models/pos_session.py:70
 #, python-format
 msgid "Sat"
@@ -258,7 +258,7 @@ msgid "State"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:72
+#: code:addons/coop_point_of_sale/models/pos_order.py:74
 #: code:addons/coop_point_of_sale/models/pos_session.py:72
 #, python-format
 msgid "Sun"
@@ -273,14 +273,19 @@ msgid "Suspendu"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:66
+#: code:addons/coop_point_of_sale/models/pos_order.py:68
 #: code:addons/coop_point_of_sale/models/pos_session.py:66
 #, python-format
 msgid "Thu"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:62
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order__amount_total
+msgid "Total"
+msgstr ""
+
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/pos_order.py:64
 #: code:addons/coop_point_of_sale/models/pos_session.py:62
 #, python-format
 msgid "Tue"
@@ -294,7 +299,7 @@ msgid "Week"
 msgstr ""
 
 #. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/pos_order.py:64
+#: code:addons/coop_point_of_sale/models/pos_order.py:66
 #: code:addons/coop_point_of_sale/models/pos_session.py:64
 #, python-format
 msgid "Wes"
