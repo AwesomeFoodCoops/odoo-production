@@ -7,17 +7,12 @@ Product - To Print
    !! changes will be overwritten.                   !!
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
-    :target: https://odoo-community.org/page/development-status
-    :alt: Beta
+
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-grap%2Fgrap--odoo--incubator-lightgray.png?logo=github
-    :target: https://github.com/grap/grap-odoo-incubator/tree/8.0/product_print_category
-    :alt: grap/grap-odoo-incubator
 
-|badge1| |badge2| |badge3| 
+|badge2|
 
 This module is designed to extend product printing features. It allows
 user to create new print categories of products depending of the data that are
