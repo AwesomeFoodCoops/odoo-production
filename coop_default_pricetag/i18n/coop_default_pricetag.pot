@@ -399,8 +399,19 @@ msgid "Pricetag Information"
 msgstr ""
 
 #. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_product_label
+msgid "Pricetag Label"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_pricetag_model
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_product_print_category__pricetag_model_id
 msgid "Pricetag Model"
+msgstr ""
+
+#. module: coop_default_pricetag
+#: model:ir.model,name:coop_default_pricetag.model_report_coop_default_pricetag_report_pricetag_base
+msgid "Pricetag Report"
 msgstr ""
 
 #. module: coop_default_pricetag
@@ -555,18 +566,8 @@ msgid "kg <br/>"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model,name:coop_default_pricetag.model_pricetag_model
-msgid "pricetag.model"
-msgstr ""
-
-#. module: coop_default_pricetag
 #: model_terms:ir.ui.view,arch_db:coop_default_pricetag.view_product_label_kanban2
 msgid "product label"
-msgstr ""
-
-#. module: coop_default_pricetag
-#: model:ir.model,name:coop_default_pricetag.model_product_label
-msgid "product.label"
 msgstr ""
 
 #. module: coop_default_pricetag
@@ -582,11 +583,6 @@ msgstr ""
 #. module: coop_default_pricetag
 #: model:ir.model,name:coop_default_pricetag.model_report_coop_default_pricetag_report_pricetag_barcode
 msgid "report.coop_default_pricetag.report_pricetag_barcode"
-msgstr ""
-
-#. module: coop_default_pricetag
-#: model:ir.model,name:coop_default_pricetag.model_report_coop_default_pricetag_report_pricetag_base
-msgid "report.coop_default_pricetag.report_pricetag_base"
 msgstr ""
 
 #. module: coop_default_pricetag
