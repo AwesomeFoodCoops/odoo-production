@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    POS Payment Terminal module for Odoo
@@ -73,62 +72,73 @@ class AccountBankStatement(models.Model):
             if not rec.journal_id.cb_child_ids:
                 raise UserError(_(
                     'The journal %s has no CB journals.'
-                    ) % rec.journal_id.display_name)
+                ) % rec.journal_id.display_name)
 
             if not rec.journal_id.cb_contract_number:
                 raise UserError(_(
                     'The journal %s has no CB Contract number.'
-                    ) % rec.journal_id.display_name)
+                ) % rec.journal_id.display_name)
 
             # Process lines that match the pattern
             line_ids = rec.line_ids.search([
                 ('statement_id', '=', rec.id),
                 ('journal_entry_ids', '=', False),
-                ('name', 'ilike', '%%%s%%' % rec.journal_id.cb_contract_number),
+                ('name', 'ilike',
+                    '%%%s%%' % rec.journal_id.cb_contract_number),
             ])
 
             i = 0
             for line in line_ids:
                 i += 1
-                _logger.debug('Processing line %s (%d/%d)' % (line.name, i, len(line_ids)))
+                _logger.debug('Processing line %s (%d/%d)' %
+                              (line.name, i, len(line_ids)))
 
                 # Try to find a CB statement older than our statement line
                 # but not older than 3 days before
-                limit_date = (
-                    datetime.strptime(line.date, '%Y-%m-%d')
-                    - timedelta(days=rec.journal_id.cb_delta_days))
+                limit_date = (datetime.strptime(
+                    str(line.date), '%Y-%m-%d') -
+                    timedelta(days=rec.journal_id.cb_delta_days))
                 cb_statement_ids = self.env['account.bank.statement'].search([
                     ('date', '<=', line.date),
                     ('date', '>=', limit_date.strftime('%Y-%m-%d')),
-                    ('balance_end_real', '>', round(line.amount-0.01, 2)),
-                    ('balance_end_real', '<', round(line.amount+0.01, 2)),
+                    ('balance_end_real', '>', round(line.amount - 0.01, 2)),
+                    ('balance_end_real', '<', round(line.amount + 0.01, 2)),
                     ('line_ids', '!=', False),
                 ])
 
-                _logger.debug('Possible CB statements: %d' % len(cb_statement_ids))
+                _logger.debug('Possible CB statements: %d' %
+                              len(cb_statement_ids))
 
-                # Only accept statements whose account movements are fully unreconciled
+                # Only accept statements whose
+                # account movements are fully unreconciled
                 ignore_cb_statement_ids = []
                 for cb_statement_id in cb_statement_ids:
                     reconciled_move_lines_count = \
                         len(cb_statement_id.move_line_ids.filtered(lambda l:
-                            l.reconciled and l.account_id.id == \
-                                rec.journal_id.default_debit_account_id.id))
+                            l.reconciled and l.account_id.id ==
+                            rec.journal_id.default_debit_account_id.id))
                     if reconciled_move_lines_count:
                         if len(cb_statement_id) != reconciled_move_lines_count:
-                            _logger.warning('Level 2: POS partially processed by the bank.')
+                            _logger.warning(
+                                'Level 2:POS partially processed by the bank.')
                         else:
-                            _logger.debug('Case 1: There are debits on the journal and they are reconciled.')
+                            _logger.debug('''Case 1: There are debits on
+                                the journal and they are reconciled.''')
                         # In any case, don't use this statement
                         ignore_cb_statement_ids.append(cb_statement_id.id)
-                cb_statement_ids = cb_statement_ids.filtered(lambda s: s.id not in ignore_cb_statement_ids)
+                cb_statement_ids = cb_statement_ids.filtered(
+                    lambda s: s.id not in ignore_cb_statement_ids)
 
                 if not cb_statement_ids:
-                    _logger.debug('Unable to match line "%s" to a CB statement' % line.name)
+                    _logger.debug(
+                        'Unable to match line "%s" to a CB statement' %
+                        line.name)
                     continue
 
-                if len(cb_statement_ids)>1:
-                    _logger.warning('There are multiple possible statements for this line. Unable to process. %s' % line)
+                if len(cb_statement_ids) > 1:
+                    _logger.warning(
+                        '''There are multiple possible statements for this line.
+                            Unable to process. %s''' % line)
                     continue
 
                 # If we got this far, means we have a match!
@@ -143,28 +153,28 @@ class AccountBankStatement(models.Model):
                     'credit': abs(line.amount),
                     'journal_id': rec.journal_id.id,
                     'date': cb_statement_id.date,
-                    'account_id': cb_statement_id.journal_id.default_credit_account_id.id,
+                    'account_id':
+                    cb_statement_id.journal_id.default_credit_account_id.id,
                 }
 
-                _logger.debug('Creating reconciliation line: %s' % move_line_vals)
+                _logger.debug('Creating reconciliation line: %s' %
+                              move_line_vals)
                 line.process_reconciliation([], [], [move_line_vals])
-
                 # Now let's settle this line with the statement lines
                 lines_to_reconcile = []
-
                 for move_line in cb_statement_id.move_line_ids:
-                    if (
-                        move_line.account_id.id == cb_statement_id.journal_id.default_debit_account_id.id
-                        and move_line.id not in lines_to_reconcile
-                    ):
+                    if (move_line.account_id.id ==
+                            cb_statement_id.journal_id.
+                            default_debit_account_id.id and
+                            move_line.id not in lines_to_reconcile):
+                        # move_line.reconcile()
                         lines_to_reconcile.append(move_line.id)
-
-                for move_line in line.journal_entry_ids.mapped('line_ids'):
-                    if (
-                        move_line.account_id.id == cb_statement_id.journal_id.default_credit_account_id.id
-                        and move_line.id not in lines_to_reconcile
-                    ):
+                for move_line in line.journal_entry_ids:
+                    if (move_line.account_id.id ==
+                            cb_statement_id.journal_id.
+                            default_credit_account_id.id and
+                            move_line.id not in lines_to_reconcile):
                         lines_to_reconcile.append(move_line.id)
-
-                # TODO: Also reconcile contactless lines here
-                self.env['account.move.line.reconcile'].with_context(active_ids=lines_to_reconcile).create({}).trans_rec_reconcile_full()
+                move_lines = self.env['account.move.line'].browse(
+                    lines_to_reconcile)
+                move_lines.reconcile()
