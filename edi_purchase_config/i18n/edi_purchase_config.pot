@@ -121,6 +121,16 @@ msgid "Display Name"
 msgstr ""
 
 #. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_edi_ble_mapping
+msgid "EDI BLE Mapping"
+msgstr ""
+
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_edi_config_system
+msgid "EDI Config System"
+msgstr ""
+
+#. module: edi_purchase_config
 #: model:ir.actions.act_window,name:edi_purchase_config.action_edi_config_system
 #: model:ir.ui.menu,name:edi_purchase_config.menu_edi_config_system
 msgid "EDI Config Systems"
@@ -132,8 +142,18 @@ msgid "EDI Manager"
 msgstr ""
 
 #. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_edi_mapping_lines
+msgid "EDI Mapping Lines"
+msgstr ""
+
+#. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__parent_supplier_id
 msgid "EDI Parent supplier"
+msgstr ""
+
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_edi_price_mapping
+msgid "EDI Price Mapping"
 msgstr ""
 
 #. module: edi_purchase_config
@@ -167,35 +187,35 @@ msgid "Electronic data interchange"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:118
+#: code:addons/edi_purchase_config/models/edi_config_system.py:119
 #, python-format
 msgid "Error when closing FTP connection:\n"
 " %s"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:109
+#: code:addons/edi_purchase_config/models/edi_config_system.py:110
 #, python-format
 msgid "Error when opening FTP connection:\n"
 " %s"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:226
+#: code:addons/edi_purchase_config/models/edi_config_system.py:227
 #, python-format
 msgid "Error when pulling BLE update file:\n"
 " %s"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:188
+#: code:addons/edi_purchase_config/models/edi_config_system.py:189
 #, python-format
 msgid "Error when pulling prices update file:\n"
 " %s"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:151
+#: code:addons/edi_purchase_config/models/edi_config_system.py:152
 #, python-format
 msgid "Error when pushing order file:\n"
 " %s"
@@ -227,7 +247,7 @@ msgid "FTP Server Port"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:84
+#: code:addons/edi_purchase_config/models/edi_config_system.py:85
 #, python-format
 msgid "FTP port must be numeric!"
 msgstr ""
@@ -474,6 +494,11 @@ msgid "Pricing File pattern"
 msgstr ""
 
 #. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_purchase_edi_log
+msgid "Purchase EDI Log"
+msgstr ""
+
+#. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__po_text_file_pattern
 msgid "Purchase order File pattern"
 msgstr ""
@@ -590,30 +615,5 @@ msgstr ""
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__name
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__name
 msgid "Zone description"
-msgstr ""
-
-#. module: edi_purchase_config
-#: model:ir.model,name:edi_purchase_config.model_edi_ble_mapping
-msgid "edi.ble.mapping"
-msgstr ""
-
-#. module: edi_purchase_config
-#: model:ir.model,name:edi_purchase_config.model_edi_config_system
-msgid "edi.config.system"
-msgstr ""
-
-#. module: edi_purchase_config
-#: model:ir.model,name:edi_purchase_config.model_edi_mapping_lines
-msgid "edi.mapping.lines"
-msgstr ""
-
-#. module: edi_purchase_config
-#: model:ir.model,name:edi_purchase_config.model_edi_price_mapping
-msgid "edi.price.mapping"
-msgstr ""
-
-#. module: edi_purchase_config
-#: model:ir.model,name:edi_purchase_config.model_purchase_edi_log
-msgid "purchase.edi.log"
 msgstr ""
 
