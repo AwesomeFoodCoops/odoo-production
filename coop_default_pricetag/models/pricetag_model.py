@@ -9,6 +9,7 @@ from odoo import fields, models, api
 
 class PricetagModel(models.Model):
     _name = 'pricetag.model'
+    _description = "Pricetag Model"
 
     name = fields.Char(required=True)
     pricetag_paperformat_id = fields.Many2one(

@@ -9,6 +9,7 @@ from odoo import api, models
 
 class ReportPricetagBase(models.AbstractModel):
     _name = "report.coop_default_pricetag.report_pricetag_base"
+    _description = "Pricetag Report"
 
     @api.model
     def _get_report_values(self, docids, data=None):

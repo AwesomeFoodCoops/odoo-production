@@ -9,6 +9,7 @@ from odoo import tools, fields, models, api
 
 class ProductLabel(models.Model):
     _name = "product.label"
+    _description = "Pricetag Label"
 
     code = fields.Char(required=True)
     name = fields.Char(required=True)

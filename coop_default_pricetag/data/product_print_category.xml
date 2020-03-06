@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 
-<odoo noupdate="0">
+<odoo noupdate="1">
 
-    <record model="product.print.category" id="product_print_category.demo_category">
+    <record model="product.print.category" id="ppc_demo_category">
         <field name="name">Default Category</field>
         <field name="field_ids" eval="[(4, ref('product.field_product_product__name')),(4, ref('product.field_product_product__list_price'))]" />
         <field name="pricetag_model_id" ref="coop_default_pricetag.pricetag_model_default"/>

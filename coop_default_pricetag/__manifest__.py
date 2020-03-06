@@ -36,6 +36,6 @@
         "views/view_product_uom_categ.xml",
     ],
     "demo": [
-        "demo/res_groups.xml"
+        "demo/product_print_category.xml"
     ],
 }
