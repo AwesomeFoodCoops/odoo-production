@@ -22,6 +22,7 @@ class PickingEdi(models.Model):
 class PickingUpdate(models.Model):
     _name = "picking.update"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _description = "Picking Update"
 
     done = fields.Boolean(readonly=True)
     name = fields.Many2one(
