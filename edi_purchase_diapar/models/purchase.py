@@ -2,9 +2,7 @@
 # @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-from datetime import datetime  # Used when eval python codes !!
-
-from odoo import models, api, fields, _, tools
+from odoo import models, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -16,7 +14,8 @@ class PurchaseOrder(models.Model):
         """
             Consolidate order lines by product.
             Raise if Tax or price different.
-            @return: dict {product_id(record):[code_or_ean, qty, price, taxes(records)]}
+            @return: dict {product_id(record):[code_or_ean, qty, price,
+            taxes(records)]}
         """
         self.ensure_one()
         if not self.order_line:

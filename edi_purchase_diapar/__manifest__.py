@@ -17,5 +17,7 @@
         "coop_purchase",
         "coop_membership",
     ],
-    "data": ["views/res_partner_view.xml"],
+    "data": [
+        "views/res_partner_view.xml"
+    ],
 }

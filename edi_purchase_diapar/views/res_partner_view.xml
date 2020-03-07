@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
 
-        <record id="view_partner_form_edi" model="ir.ui.view">
-            <field name="name">res.partner.edi</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="coop_membership.view_partner_form"/>
-            <field name="arch" type="xml">
+    <record id="view_partner_form_edi_diapar" model="ir.ui.view">
+        <field name="name">view.res.partner.edi.diapaar</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group[@name='container_row_2']/group[@name='purchase']/field[@name='supplier']" position="after">
+                <field name="is_edi"/>
+            </xpath>
+        </field>
+    </record>
 
-                <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group[@name='container_row_2']/group[@name='purchase']/field[@name='supplier']" position="after">
-                    <field name="is_edi"/>
-                </xpath>
-
-            </field>
-        </record>
-
-    </data>
 </odoo>

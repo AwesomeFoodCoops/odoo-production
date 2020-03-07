@@ -2,7 +2,7 @@
 # @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-from odoo import api, fields, models, _
+from odoo import api, models, _
 from odoo.exceptions import ValidationError
 
 
@@ -72,40 +72,33 @@ class SupplierInfoUpdate(models.TransientModel):
                     .product_tmpl_id.id
                 )
                 product = self.env["product.template"].browse(product_tmpl_id)
-                selected_seller_id = product.seller_ids.search(
-                    [
-                        ("name", "=", supplier_id),
-                        ("product_tmpl_id", "=", product.id),
-                    ]
-                )
+                selected_seller_id = product.seller_ids.search([
+                    ("name", "=", supplier_id),
+                    ("product_tmpl_id", "=", product.id),
+                ])
                 selected_seller_id = (
                     selected_seller_id and selected_seller_id[0] or False
                 )
                 # Look for product code
                 product_code = selected_seller_id.product_code
                 if not product_code:
-                    raise ValidationError(
-                        _(
-                            "No supplier code given for product: %s for supplier: %s!, please give a "
-                            "supplier code to continue prices operation update"
-                        )
-                        % (product.name, supplier.name)
-                    )
+                    raise ValidationError(_(
+                        "No supplier code given for product: %s for supplier: \
+                        %s!, please give a "
+                        "supplier code to continue prices operation update"
+                    ) % (product.name, supplier.name))
                 # Look for EDI latest price
-                edi_price = self.env["supplier.price.list"].search(
-                    [
-                        ("supplier_id", "=", edi_supplier.id),
-                        ("supplier_code", "=", product_code),
-                    ],
-                    order="import_date DESC",
-                )
+                edi_price = self.env["supplier.price.list"].search([
+                    ("supplier_id", "=", edi_supplier.id),
+                    ("supplier_code", "=", product_code),
+                ], order="import_date DESC")
                 if edi_price:
                     price = edi_price[0]
                     price_dict = {"price_unit": price.price}
                     line_key = (
-                        active_model == "purchase.order"
-                        and "po_line_id"
-                        or "invoice_line_id"
+                        active_model == "purchase.order" and
+                        "po_line_id" or
+                        "invoice_line_id"
                     )
                     line_id = seller_values.get(line_key, False)
                     obj_lines_values.append((1, line_id, price_dict))

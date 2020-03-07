@@ -9,7 +9,6 @@ from odoo.exceptions import ValidationError
 class ProductSupplierInfo(models.Model):
     _inherit = "product.supplierinfo"
 
-    @api.one
     @api.constrains("product_code")
     def _check_product_code(self):
         if self.product_code:
