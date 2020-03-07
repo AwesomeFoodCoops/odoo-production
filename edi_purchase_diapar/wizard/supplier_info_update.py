@@ -105,14 +105,15 @@ class SupplierInfoUpdate(models.TransientModel):
                     seller_values.update(price_dict)
                     # Reconstruct lines variable
                     lines.append((0, 0, seller_values))
-            #### Update order/invoice lines with latest prices ####
+            # Update order/invoice lines with latest prices
             self.update_lines_prices(obj_lines_values)
         return lines
 
     @api.model
     def compute_process_lines(self, active_model, active_obj):
         """
-        Overwritten to update product prices/order line prices based on latest EDI supplier prices (Only for EDI suppliers)
+        Overwritten to update product prices/order line prices based on latest
+        EDI supplier prices (Only for EDI suppliers)
         :param active_model: Current active model
         :param active_obj: Current active object
         :return: computed lines

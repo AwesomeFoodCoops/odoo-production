@@ -10,7 +10,8 @@ class EdiConfigSystem(models.Model):
 
     po_text_file_pattern = fields.Char(
         string="Purchase order File pattern",
-        default="'LD%sH%s.C99' % self.env['edi.config.system'].get_datenow_format_for_file()",
+        default="'LD%sH%s.C99' % self.env['edi.config.system'].\
+        get_datenow_format_for_file()",
         required=True,
     )
     customer_code = fields.Char(default="33513", required=True)
