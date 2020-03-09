@@ -18,4 +18,12 @@
             </ul>
         </t>
     </t>
+    <t t-extend="ProductCategoriesWidget">
+        <t t-jquery="div.searchbox" t-operation="replace">
+            <div class="searchbox numeric_keyboard">
+                <input placeholder="Search Products" />
+                <span class="search-clear"></span>
+            </div>
+        </t>
+    </t>
 </templates>
