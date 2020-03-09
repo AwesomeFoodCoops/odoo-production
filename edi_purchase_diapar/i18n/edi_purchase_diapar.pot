@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,43 +14,78 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: edi_purchase_diapar
-#: code:addons/edi_purchase_diapar/models/purchase.py:31
+#: code:addons/edi_purchase_diapar/models/purchase.py:33
 #, python-format
 msgid "Check price for lines with product %s!"
 msgstr ""
 
 #. module: edi_purchase_diapar
-#: code:addons/edi_purchase_diapar/models/purchase.py:29
+#: code:addons/edi_purchase_diapar/models/purchase.py:28
 #, python-format
 msgid "Check taxes for lines with product %s!"
 msgstr ""
 
 #. module: edi_purchase_diapar
-#: code:addons/edi_purchase_diapar/wizard/supplier_info_update.py:23
+#: model:ir.model.fields,field_description:edi_purchase_diapar.field_edi_config_system__constant_file_end
+msgid "Constant File End"
+msgstr ""
+
+#. module: edi_purchase_diapar
+#: model:ir.model.fields,field_description:edi_purchase_diapar.field_edi_config_system__constant_file_start
+msgid "Constant File Start"
+msgstr ""
+
+#. module: edi_purchase_diapar
+#: model:ir.model.fields,field_description:edi_purchase_diapar.field_edi_config_system__customer_code
+msgid "Customer Code"
+msgstr ""
+
+#. module: edi_purchase_diapar
+#: model:ir.model,name:edi_purchase_diapar.model_edi_config_system
+msgid "EDI Config System"
+msgstr ""
+
+#. module: edi_purchase_diapar
+#: model:ir.model.fields,field_description:edi_purchase_diapar.field_edi_config_system__ftp_login
+msgid "FTP Login"
+msgstr ""
+
+#. module: edi_purchase_diapar
+#: model:ir.model.fields,field_description:edi_purchase_diapar.field_edi_config_system__ftp_password
+msgid "FTP Password"
+msgstr ""
+
+#. module: edi_purchase_diapar
+#: model:ir.model.fields,field_description:edi_purchase_diapar.field_edi_config_system__ftp_host
+msgid "FTP Server Host"
+msgstr ""
+
+#. module: edi_purchase_diapar
+#: code:addons/edi_purchase_diapar/wizard/supplier_info_update.py:25
 #, python-format
 msgid "No Config FTP for this supplier %s!"
 msgstr ""
 
 #. module: edi_purchase_diapar
-#: code:addons/edi_purchase_diapar/models/purchase.py:24
+#: code:addons/edi_purchase_diapar/models/purchase.py:22
 #, python-format
 msgid "No lines in this order %s!"
 msgstr ""
 
 #. module: edi_purchase_diapar
-#: code:addons/edi_purchase_diapar/wizard/supplier_info_update.py:72
+#: code:addons/edi_purchase_diapar/wizard/supplier_info_update.py:85
 #, python-format
-msgid "No supplier code given for product: %s for supplier: %s!, please give a supplier code to continue prices operation update"
+msgid "No supplier code given for product: %s for supplier:                         %s!, please give a supplier code to continue prices operation update"
 msgstr ""
 
 #. module: edi_purchase_diapar
-#: code:addons/edi_purchase_diapar/models/product.py:20
+#: code:addons/edi_purchase_diapar/models/product.py:21
 #, python-format
 msgid "Product code must be 6 digits for %s!"
 msgstr ""
 
 #. module: edi_purchase_diapar
-#: code:addons/edi_purchase_diapar/models/product.py:18
+#: code:addons/edi_purchase_diapar/models/product.py:17
 #, python-format
 msgid "Product code must be numeric for %s!"
 msgstr ""
@@ -61,8 +96,23 @@ msgid "Purchase Order"
 msgstr ""
 
 #. module: edi_purchase_diapar
-#: model:ir.model,name:edi_purchase_diapar.model_edi_config_system
-msgid "edi.config.system"
+#: model:ir.model.fields,field_description:edi_purchase_diapar.field_edi_config_system__po_text_file_pattern
+msgid "Purchase order File pattern"
+msgstr ""
+
+#. module: edi_purchase_diapar
+#: model:ir.model.fields,field_description:edi_purchase_diapar.field_edi_config_system__csv_relative_in_path
+msgid "Relative path for IN interfaces"
+msgstr ""
+
+#. module: edi_purchase_diapar
+#: model:ir.model.fields,field_description:edi_purchase_diapar.field_edi_config_system__csv_relative_out_path
+msgid "Relative path for OUT interfaces"
+msgstr ""
+
+#. module: edi_purchase_diapar
+#: model:ir.model.fields,field_description:edi_purchase_diapar.field_edi_config_system__vrp_code
+msgid "VRP Code"
 msgstr ""
 
 #. module: edi_purchase_diapar
