@@ -27,3 +27,10 @@ msgstr ""
 msgid "Return"
 msgstr ""
 
+#. module: coop_numerical_keyboard
+#. openerp-web
+#: code:addons/coop_numerical_keyboard/static/src/xml/widget.xml:24
+#, python-format
+msgid "Search Products"
+msgstr ""
+
