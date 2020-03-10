@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+        <record id="email_confirm_validate" model="mail.template">
+            <field name="name">Email Confirm Validate</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="email_from">${(object.company_id.email or '')|safe}</field>
+            <field name="email_to">${object.email|safe}</field>
+            <field name="lang">${object.lang}</field>
+            <field name="reply_to">${object.company_id.email and '@' in object.company_id.email and 'no-reply@%s' % object.company_id.email.split('@')[-1] or ''}</field>
+            <field name="subject">Confirm validated email</field>
+            <field name="body_html"><![CDATA[
+                <p>Dear ${object.name},</p>
+                <p>Here is link to confirm your email <a href="${object.validation_url}">here</a></p>
+                <p>Best regards,</p>
+                ]]></field>
+        </record>
+    </data>
+</odoo>
