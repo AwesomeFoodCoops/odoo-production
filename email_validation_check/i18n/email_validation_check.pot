@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -16,28 +16,28 @@ msgstr ""
 #. module: email_validation_check
 #: model:mail.template,body_html:email_validation_check.email_confirm_validate
 msgid "\n"
-"            <p>Dear ${object.name},</p>\n"
-"            <p>Here is link to confirm your email <a href=\"${object.validation_url}\">here</a></p>\n"
-"            <p>Best regards,</p>\n"
-"            "
+"                <p>Dear ${object.name},</p>\n"
+"                <p>Here is link to confirm your email <a href=\"${object.validation_url}\">here</a></p>\n"
+"                <p>Best regards,</p>\n"
+"                "
 msgstr ""
 
 #. module: email_validation_check
-#: model:ir.ui.view,arch_db:email_validation_check.confirm_success
+#: model_terms:ir.ui.view,arch_db:email_validation_check.confirm_success
 msgid "<span class=\"contact100-form-title\">\n"
-"                                Votre email a été confirmé\n"
-"                            </span>"
+"                            Your email has been confirmed\n"
+"                        </span>"
 msgstr ""
 
 #. module: email_validation_check
-#: model:ir.ui.view,arch_db:email_validation_check.confirm_failed
+#: model_terms:ir.ui.view,arch_db:email_validation_check.confirm_failed
 msgid "<span class=\"contact100-form-title\">\n"
-"                                Votre email n'a pas été confirmé\n"
-"                            </span>"
+"                            Your email has not been confirmed\n"
+"                        </span>"
 msgstr ""
 
 #. module: email_validation_check
-#: code:addons/email_validation_check/models/res_partner.py:91
+#: code:addons/email_validation_check/models/res_partner.py:87
 #, python-format
 msgid "Another user is already registered using this email address."
 msgstr ""
@@ -48,43 +48,41 @@ msgid "Confirm validated email"
 msgstr ""
 
 #. module: email_validation_check
-#: model:ir.ui.view,arch_db:email_validation_check.confirm_failed
-#: model:ir.ui.view,arch_db:email_validation_check.confirm_success
-msgid "Confirmation Email Validation"
+#: model:ir.model,name:email_validation_check.model_res_partner
+msgid "Contact"
 msgstr ""
 
 #. module: email_validation_check
-#: model:ir.model.fields,field_description:email_validation_check.field_res_partner_is_checked_email
+#: model:ir.model.fields,field_description:email_validation_check.field_res_partner__is_checked_email
+#: model:ir.model.fields,field_description:email_validation_check.field_res_users__is_checked_email
 msgid "Is Checked Email"
 msgstr ""
 
 #. module: email_validation_check
-#: model:ir.model.fields,field_description:email_validation_check.field_res_partner_validation_url
+#: model:ir.model.fields,field_description:email_validation_check.field_res_partner__validation_url
+#: model:ir.model.fields,field_description:email_validation_check.field_res_users__validation_url
 msgid "Link to validate"
 msgstr ""
 
 #. module: email_validation_check
-#: model:ir.model,name:email_validation_check.model_res_partner
-msgid "Partner"
-msgstr ""
-
-#. module: email_validation_check
-#: model:ir.ui.view,arch_db:email_validation_check.view_res_partner_form
+#: model_terms:ir.ui.view,arch_db:email_validation_check.view_res_partner_form
 msgid "Send New"
 msgstr ""
 
 #. module: email_validation_check
-#: model:ir.model.fields,field_description:email_validation_check.field_res_partner_show_send_email
+#: model:ir.model.fields,field_description:email_validation_check.field_res_partner__show_send_email
+#: model:ir.model.fields,field_description:email_validation_check.field_res_users__show_send_email
 msgid "Show button send email confirm"
 msgstr ""
 
 #. module: email_validation_check
-#: model:ir.model.fields,field_description:email_validation_check.field_res_partner_email_validation_string
+#: model:ir.model.fields,field_description:email_validation_check.field_res_partner__email_validation_string
+#: model:ir.model.fields,field_description:email_validation_check.field_res_users__email_validation_string
 msgid "String Validation Email"
 msgstr ""
 
 #. module: email_validation_check
-#: model:ir.ui.view,arch_db:email_validation_check.view_res_partner_form
+#: model_terms:ir.ui.view,arch_db:email_validation_check.view_res_partner_form
 msgid "The current email address has not be validated. Click here to send a new validation link."
 msgstr ""
 
