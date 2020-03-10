@@ -1,24 +1,20 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.fr/>)
+# Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 # @author: La Louve
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
-
-from openerp import models, fields, api, _
 import logging
 import random
-_logger = logging.getLogger(__name__)
-from openerp.exceptions import ValidationError
 
-try:
-    from validate_email import validate_email
-except ImportError:
-    _logger.debug("Cannot import `validate_email`.")
+from odoo import models, fields, api, _
+
+_logger = logging.getLogger(__name__)
+from odoo.exceptions import ValidationError
 
 
 def random_token():
     # the token has an entropy of about 120 bits (6 bits/char * 20 chars)
     chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    return ''.join(random.SystemRandom().choice(chars) for i in xrange(20))
+    return ''.join(random.SystemRandom().choice(chars) for i in range(20))
 
 
 class ResPartner(models.Model):
@@ -44,7 +40,7 @@ class ResPartner(models.Model):
             for partner in self:
                 if partner.email:
                     partner.check_exist_email()
-                    if partner.validation_url and\
+                    if partner.validation_url and \
                             (partner.is_interested_people or
                              partner.is_member) and not partner.supplier:
                         mail_template = self.env.ref(
@@ -67,7 +63,7 @@ class ResPartner(models.Model):
         no_check_validate_email = self._context.get('no_check_validate_email')
         res = super(ResPartner, self).create(vals)
         res.check_exist_email()
-        if res.validation_url and res.is_interested_people and\
+        if res.validation_url and res.is_interested_people and \
                 res.email and not res.supplier and not no_check_validate_email:
             mail_template = self.env.ref(
                 'email_validation_check.email_confirm_validate')
@@ -100,11 +96,11 @@ class ResPartner(models.Model):
 
     @api.multi
     @api.depends('email', 'is_member', 'is_interested_people', 'supplier',
-        'is_checked_email')
+                 'is_checked_email')
     def compute_show_send_email(self):
         for partner in self:
-            if partner.supplier or not partner.email or\
-                partner.is_checked_email or (
+            if partner.supplier or not partner.email or \
+                    partner.is_checked_email or (
                     not partner.is_member and not partner.is_interested_people):
                 partner.show_send_email = False
             else:
@@ -138,8 +134,6 @@ class ResPartner(models.Model):
         for partner in self:
             base_url = self.env['ir.config_parameter'].get_param(
                 'web.base.url')
-            validation_url = base_url + '/validate' + \
-                '/%s' % (partner.id) + \
+            validation_url = base_url + '/validate' + '/%s' % (partner.id) +\
                 '/%s' % (partner.email_validation_string)
             partner.validation_url = validation_url
-

@@ -13,6 +13,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: fr\n"
 "Plural-Forms: \n"
 
 #. module: email_validation_check
@@ -30,24 +31,6 @@ msgstr "\n"
 "            "
 
 #. module: email_validation_check
-#: model:ir.ui.view,arch_db:email_validation_check.confirm_success
-msgid "<span class=\"contact100-form-title\">\n"
-"                                Your email was confirmed\n"
-"                            </span>"
-msgstr "<span class=\"contact100-form-title\">\n"
-"                                Your email was confirmed\n"
-"                            </span>"
-
-#. module: email_validation_check
-#: model:ir.ui.view,arch_db:email_validation_check.confirm_failed
-msgid "<span class=\"contact100-form-title\">\n"
-"                                Your email wasn't confirm\n"
-"                            </span>"
-msgstr "<span class=\"contact100-form-title\">\n"
-"                                Your email wasn't confirm\n"
-"                            </span>"
-
-#. module: email_validation_check
 #: model:mail.template,subject:email_validation_check.email_confirm_validate
 msgid "Confirm validated email"
 msgstr "Confirmation de votre adresse email"
@@ -55,8 +38,8 @@ msgstr "Confirmation de votre adresse email"
 #. module: email_validation_check
 #: model:ir.ui.view,arch_db:email_validation_check.confirm_failed
 #: model:ir.ui.view,arch_db:email_validation_check.confirm_success
-msgid "Confirmationn Email Validation"
-msgstr "Confirmationn Email Validation"
+msgid "Confirmation Email Validation"
+msgstr "Confirmation Email Validation"
 
 #. module: email_validation_check
 #: model:ir.model.fields,field_description:email_validation_check.field_res_partner_is_checked_email
@@ -87,3 +70,13 @@ msgstr "String Validation Email"
 #: model:ir.ui.view,arch_db:email_validation_check.view_res_partner_form
 msgid "The current email address has not be validated. Click here to send a new validation link."
 msgstr "L'adresse email n'a pas été validée. Cliquez ici pour renvoyer un email avec le lien de validation."
+
+#. module: email_validation_check
+#: model:ir.ui.view,arch_db:email_validation_check.confirm_failed
+msgid "Your email has not been confirmed"
+msgstr "Votre email n'a pas été confirmé"
+
+#. module: email_validation_check
+#: model:ir.ui.view,arch_db:email_validation_check.confirm_success
+msgid "Your email has been confirmed"
+msgstr "Votre email a été confirmé"
