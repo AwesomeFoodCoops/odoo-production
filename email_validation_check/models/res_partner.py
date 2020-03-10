@@ -6,9 +6,9 @@ import logging
 import random
 
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
-from odoo.exceptions import ValidationError
 
 
 def random_token():
