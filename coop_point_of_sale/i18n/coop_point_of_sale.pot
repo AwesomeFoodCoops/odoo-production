@@ -192,6 +192,11 @@ msgid "OK"
 msgstr ""
 
 #. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order_line__order_id
+msgid "Order Ref"
+msgstr ""
+
+#. module: coop_point_of_sale
 #: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_config__payable_to
 #: model:ir.model.fields,field_description:coop_point_of_sale.field_res_company__payable_to
 msgid "Payable to"
