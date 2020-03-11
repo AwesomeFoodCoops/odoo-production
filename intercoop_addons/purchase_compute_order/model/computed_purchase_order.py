@@ -146,6 +146,10 @@ class ComputedPurchaseOrder(models.Model):
     products_updated = fields.Boolean(
         compute='_get_products_updated',
         string='Indicate if there were any products updated in the list')
+    lines_with_qty_count = fields.Integer(
+        'Total Ordered Lines',
+        compute='_compute_lines_with_qty',
+    )
 
     # Fields Function section
     @api.onchange('line_ids')
@@ -177,6 +181,12 @@ class ComputedPurchaseOrder(models.Model):
                     updated = True
                     break
             cpo.products_updated = updated
+
+    @api.depends('line_ids.purchase_qty')
+    def _compute_lines_with_qty(self):
+        for cpo in self:
+            cpo.lines_with_qty_count = len(cpo.line_ids.filtered(
+                lambda line: line.purchase_qty > 0))
 
     # View Section
     @api.onchange('partner_id')
@@ -407,3 +417,13 @@ class ComputedPurchaseOrder(models.Model):
                 'target': 'current',
                 'res_id': po_id.id or False,
             }
+
+    @api.multi
+    def action_view_order_lines(self):
+        self.ensure_one()
+        action = self.env.ref(
+            'purchase_compute_order.action_computed_purchase_order_tree')
+        action = action.read()[0]
+        action['domain'] = [('computed_purchase_order_id', '=', self.id)]
+        action['context'] = {'search_default_ordered_products': 1}
+        return action
