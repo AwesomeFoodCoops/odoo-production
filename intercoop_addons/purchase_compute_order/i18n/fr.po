@@ -701,6 +701,11 @@ msgid "Total Quantity of Packages"
 msgstr "Nb. Colis"
 
 #. module: purchase_compute_order
+#: model:ir.model.fields,field_description:purchase_compute_order.field_computed_purchase_order_lines_with_qty_count
+msgid "Total Ordered Lines"
+msgstr "Total des lignes de commandes"
+
+#. module: purchase_compute_order
 #: model:ir.model.fields,help:purchase_compute_order.field_computed_purchase_order_package_qty_count
 msgid "Total count of packages by the current vendor"
 msgstr "Total count of packages by the current vendor"

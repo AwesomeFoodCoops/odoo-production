@@ -10,12 +10,16 @@
         <field name="model">computed.purchase.order</field>
         <field name="arch" type="xml">
             <form name="Computed Purchase Order" version="7.0">
+                <header>
+                    <button name="make_order" states="draft" string="Make Purchase Order" type="object" class="oe_highlight"/>
+                    <button name="%(action_view_update_products)d" string="Update Products" type="action" class="oe_highlight" attrs="{'invisible':[('products_updated','=',False)]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done,canceled" statusbar_colors='{"canceled":"red","done":"blue"}' readonly="1"/>
+                </header>
                 <sheet>
-                    <header>
-                        <button name="make_order" states="draft" string="Make Purchase Order" type="object" class="oe_highlight"/>
-                        <button name="%(action_view_update_products)d" string="Update Products" type="action" class="oe_highlight" attrs="{'invisible':[('products_updated','=',False)]}"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,done,canceled" statusbar_colors='{"canceled":"red","done":"blue"}' readonly="1"/>
-                    </header>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_inline oe_stat_button" string="Order Lines" type="object" name="action_view_order_lines" icon="fa-book"/>
+                    </div>
+
                     <group colspan="8" col="4">
                         <h1>
                             <field name="name" class="oe_inline" nolabel="1"/>
@@ -55,6 +59,7 @@
                         <group>
                             <field name="computed_amount"/>
                             <field name="package_qty_count"/>
+                            <field name="lines_with_qty_count" readonly="1"/>
                         </group>
                         <group>
                             <field name="computed_duration"/>
@@ -162,6 +167,66 @@
         </field>
     </record>
 
+
+<!-- View : computed.purchase.order.line -->
+    <record id="view_computed_purchase_order_line_tree" model="ir.ui.view">
+        <field name="name">computed.purchase.order.line.tree</field>
+        <field name="model">computed.purchase.order.line</field>
+        <field name="arch" type="xml">
+            <tree string="Computed purchase order lines" colors="brown:state == 'updated';blue:state == 'new'" editable="bottom" create="0" edit="0" delete="0">
+                <field name="computed_purchase_order_id"/>
+                <field name="product_code_inv"/>
+                <field name="product_id"/>
+                <field name="qty_available"/>
+                <field name="incoming_qty"/>
+                <field name="displayed_average_consumption"/>
+                <field name="uom_id"/>
+                <field name="stock_duration"/>
+                <field name="cpo_state" invisible="1"/>
+                <field name="purchase_qty_package"/>
+                <field name="package_qty_inv"/>
+                <field name="purchase_qty"/>
+                <field name="product_price_inv"/>
+                <field name="discount_inv"/>
+                <field name="price_policy"/>
+                <field name="virtual_duration"/>
+                <field name="subtotal"/>
+                <field name="state"/>
+                <button name="unlink_psi" states="up_to_date,updated" type="object" icon="gtk-stop"
+help="If you click this button, it means you don't want to buy this product to this supplier anymore. The supplier will thus be removed from the product form."/>
+                <button name="create_psi" states="new" type="object" icon="terp-personal+"
+help="If you click this button, it means you want to buy this product to this supplier regularly. The supplier will thus be added to the product form."/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_computed_purchase_order_line_search" model="ir.ui.view">
+        <field name="name">computed.purchase.order.line.search</field>
+        <field name="model">computed.purchase.order.line</field>
+        <field name="arch" type="xml">
+            <search string="Search Purchase Order Lines">
+                <field name="product_id"/>
+                <field name="state"/>
+                <field name="purchase_qty"/>
+                <filter name="ordered_products" string="Ordered Products" domain="[('purchase_qty','>',0)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Product" name="grp_product" context="{'group_by':'product_id'}"/>
+                    <filter string="Status" name="grp_state" context="{'group_by':'state'}"/>
+                    <filter string="CPO Status" name="grp_cpo_state" context="{'group_by':'cpo_state'}"/>
+                    <!-- FORWARDPORT UP TO SAAS-10 -->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_computed_purchase_order_tree" model="ir.actions.act_window">
+        <field name="name">Computed Purchase Order Line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">computed.purchase.order.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_computed_purchase_order_line_tree"/>
+    </record>
 
     <!-- View : res.partner -->
     <record id="view_partner_form_cpo" model="ir.ui.view">
