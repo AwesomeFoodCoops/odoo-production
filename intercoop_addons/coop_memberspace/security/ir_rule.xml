@@ -11,5 +11,13 @@
             <field eval="0" name="active"/>
             <field name="groups" eval="[(4, ref('coop_memberspace.group_memberspace'))]"/>
         </record>
+
+        <record id="member_space_my_proposals" model="ir.rule">
+            <field name="name">MemberSpace My Proposals</field>
+            <field name="model_id" ref="coop_memberspace.model_proposal"/>
+            <field name="domain_force">['|', ('src_registration_id.partner_id', '=', user.partner_id.id), ('des_registration_id.partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
     </data>
 </openerp>
