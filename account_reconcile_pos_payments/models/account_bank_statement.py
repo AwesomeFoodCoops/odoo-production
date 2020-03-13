@@ -84,7 +84,7 @@ class AccountBankStatement(models.Model):
                 # Try to find a CB statement older than our statement line
                 # but not older than 3 days before
                 limit_date = line.date - \
-                             timedelta(days=rec.journal_id.cb_delta_days)
+                    timedelta(days=rec.journal_id.cb_delta_days)
                 cb_statement_ids = self.env['account.bank.statement'].search([
                     ('date', '<=', line.date),
                     ('date', '>=', limit_date),
