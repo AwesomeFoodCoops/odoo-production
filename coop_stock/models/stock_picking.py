@@ -32,3 +32,4 @@ class StockPicking(models.Model):
         for picking in self:
             for pack in picking.move_ids_without_package:
                 pack.qty_done_package = pack.product_qty_package
+                pack.quantity_done = pack.product_uom_qty

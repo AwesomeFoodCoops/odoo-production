@@ -139,7 +139,7 @@ class ProductProduct(models.Model):
                 product.average_consumption = \
                     total_consumption/nb/DAYS_IN_RANGE[product.history_range]
                 product.number_of_periods_real = nb
-                self._displayed_average_consumption()
+                self._compute_displayed_average_consumption()
 
     # Action section
     @api.model
