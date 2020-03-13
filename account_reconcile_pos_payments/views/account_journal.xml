@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __manifest__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<odoo>
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="name">account.journal.form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <page name="bank_account" position="inside">
+                <group string="Automatic POS Reconciliation" name="auto_reconciliation">
+                    <group>
+                        <field name="cb_contract_number"/>
+                        <field name="cb_contract_number_contactless" invisible="True"/>
+                        <field name="cb_delta_days"/>
+                    </group>
+                    <group>
+                        <field name="cb_child_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+                </group>
+                <group string="Automatic Charges Reconciliation" name="auto_reconciliation">
+                    <group>
+                        <field name="bank_expense_name_pattern"/>
+                        <field name="bank_expense_ref_pattern"/>
+                        <field name="bank_expense_note_pattern"/>
+                    </group>
+                    <group>
+                        <field name="bank_expense_account_id"/>
+                    </group>
+                </group>
+            </page>
+        </field>
+    </record>  
+</odoo>
