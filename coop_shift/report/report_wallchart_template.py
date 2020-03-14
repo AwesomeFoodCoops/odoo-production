@@ -89,11 +89,11 @@ class ReportWallchartTemplate(models.AbstractModel):
             result = []
             sql = """SELECT start_time, end_time
                 FROM shift_template
-                WHERE %s is True
+                WHERE {} is True
                 GROUP BY start_time, end_time
                 ORDER BY start_time
-            """
-            self.env.cr.execute(sql, week_day)
+            """.format(week_day)
+            self.env.cr.execute(sql)
 
             for t in self.env.cr.fetchall():
                 res = {}
