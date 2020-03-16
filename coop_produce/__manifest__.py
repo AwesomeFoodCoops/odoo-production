@@ -1,16 +1,19 @@
-#-*- coding:utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Coop Produce',
-    'version': '9.0.1',
+    'version': '12.0.1.0.0',
     'category': 'Warehouse',
-    'sequence': 38,
+    'summary': 'Coop Produce',
+    'author': 'La Louve, Druidoo',
+    'website': "http://www.lalouve.net",
+    'license': 'AGPL-3',
     'description': """
 
-    The module belongs the following features : 
-        - Offer a simple form view to do stock inventory for vegetable and fruits. Quantities are based on default packaging of the product. 
-        - An advanced form view to plan orders of the week  to send the supplier per day.
+    The module belongs the following features :
+        - Offer a simple form view to do stock inventory for vegetable and fruits.
+        Quantities are based on default packaging of the product.
+        - An advanced form view to plan orders of the week
+        to send the supplier per day.
 
     """,
     'depends': [
@@ -19,7 +22,6 @@
         'stock',
         'purchase',
         'purchase_package_qty',
-        'l10n_fr_pos_cert_base',
     ],
     'data': [
         # DATA

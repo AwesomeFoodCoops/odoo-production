@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 
-from openerp import api, fields, models, _
-from openerp.exceptions import UserError
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class StockChangeProductQty(models.TransientModel):
@@ -21,7 +20,8 @@ class StockChangeProductQty(models.TransientModel):
             if product_ids:
                 res['product_id'] = product_ids[0].id
             else:
-                raise UserError(_('Found no related product.product with this product.template.'))
+                raise UserError(
+                    _('Found no related product.product with this product.template.'))
         if context.get('active_model') == 'product.product':
             res['product_id'] = context.get('active_id', False)
         return res
