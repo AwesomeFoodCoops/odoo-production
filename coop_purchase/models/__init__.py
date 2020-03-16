@@ -5,4 +5,3 @@ from . import purchase_order_line
 from . import res_config_settings
 from . import product_supplierinfo
 from . import res_partner
-from . import stock_picking

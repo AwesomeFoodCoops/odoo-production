@@ -13,3 +13,4 @@ from . import pos_order
 from . import pos_config_settings
 from . import res_company
 from . import pos_category
+from . import stock_picking
