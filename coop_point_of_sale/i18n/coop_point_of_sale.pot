@@ -341,3 +341,8 @@ msgstr ""
 msgid "display: none;"
 msgstr ""
 
+#. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/stock_picking.py:16
+#, python-format
+msgid "The product {} received should have \"available in pos\""
+msgstr ""

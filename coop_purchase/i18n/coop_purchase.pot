@@ -340,12 +340,6 @@ msgid "The price to purchase a product"
 msgstr ""
 
 #. module: coop_purchase
-#: code:addons/coop_purchase/models/stock_picking.py:15
-#, python-format
-msgid "The product {} received should have \"available in pos\""
-msgstr ""
-
-#. module: coop_purchase
 #: model:ir.model,name:coop_purchase.model_stock_picking
 msgid "Transfer"
 msgstr ""
