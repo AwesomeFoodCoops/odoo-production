@@ -14,7 +14,7 @@ class TestCoopProduce(CoopProduceTest):
         stock_inventory1 = self.StockInventory.create({
             'name': 'Inventory of V&F',
             'date': datetime.today().strftime(
-                        DEFAULT_SERVER_DATETIME_FORMAT),
+                DEFAULT_SERVER_DATETIME_FORMAT),
             'categ_ids': [(6, 0, [self.category_5_id])],
         })
 
@@ -27,13 +27,13 @@ class TestCoopProduce(CoopProduceTest):
         # Reset
         stock_inventory1.action_reset()
 
-        # No Inventory lines after Reset 
+        # No Inventory lines after Reset
         assert not stock_inventory1.line_ids
 
         stock_inventory = self.StockInventory.create({
             'name': 'Inventory of V&F',
             'date': datetime.today().strftime(
-                        DEFAULT_SERVER_DATETIME_FORMAT),
+                DEFAULT_SERVER_DATETIME_FORMAT),
             'supplier_ids': [(6, 0, [self.supplier_id])],
         })
 
@@ -48,11 +48,12 @@ class TestCoopProduce(CoopProduceTest):
 
         # Check Week Date should not set by default
         self.assertFalse(stock_inventory.week_date,
-            "F&V inventory should not have week date set when a new record.")
+                         "F&V inventory should not have week date"
+                         " set when a new record.")
 
         stock_inventory_wizard = self.StockInventoryWizard.create({
             'week_date': datetime.today().strftime(
-                        DEFAULT_SERVER_DATETIME_FORMAT)
+                DEFAULT_SERVER_DATETIME_FORMAT)
         })
 
         ctx = {'active_id': stock_inventory.id}
