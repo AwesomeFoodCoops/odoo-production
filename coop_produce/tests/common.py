@@ -13,7 +13,25 @@ class CoopProduceTest(common.TransactionCase):
         self.StockInventoryWizard = self.env['stock.inventory.wizard']
         self.OrderWeekPlanning = self.env['order.week.planning']
 
-        self.Product5 = self.env.ref('product.product_product_5')
-        self.Product5.default_packaging = 2
-        self.category_5_id = self.ref('product.product_category_5')
-        self.supplier_id = self.ref('base.res_partner_12')
+        self.SupplierCoop = self.env['res.partner'].create({
+            'name': 'Coop Supplier',
+            'supplier': True,
+        })
+        self.CategoryCoop = self.env['product.category'].create({
+            'name': 'Coop Category',
+        })
+        self.ProductCoop = self.env['product.template'].create({
+            'name': 'Coop Product',
+            'list_price': 14.0,
+            'standard_price': 8.0,
+            'type': 'product',
+            'default_code': 'COOP_PRODUCT',
+            'categ_id': self.CategoryCoop.id,
+        })
+        self.SupplierInfo = self.env['product.supplierinfo'].create({
+            'name': self.SupplierCoop.id,
+            'price': 8,
+            'product_tmpl_id': self.ProductCoop.id,
+            'product_id': self.ProductCoop.product_variant_id.id
+        })
+        self.ProductCoop.product_variant_id.default_packaging = 2

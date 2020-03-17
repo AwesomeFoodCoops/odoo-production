@@ -1,6 +1,7 @@
 from .common import CoopProduceTest
 from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+import ast
 
 
 class TestCoopProduce(CoopProduceTest):
@@ -15,7 +16,7 @@ class TestCoopProduce(CoopProduceTest):
             'name': 'Inventory of V&F',
             'date': datetime.today().strftime(
                 DEFAULT_SERVER_DATETIME_FORMAT),
-            'categ_ids': [(6, 0, [self.category_5_id])],
+            'categ_ids': [(6, 0, [self.CategoryCoop.id])]
         })
 
         # Add products using "Add" button of Product categories
@@ -34,9 +35,9 @@ class TestCoopProduce(CoopProduceTest):
             'name': 'Inventory of V&F',
             'date': datetime.today().strftime(
                 DEFAULT_SERVER_DATETIME_FORMAT),
-            'supplier_ids': [(6, 0, [self.supplier_id])],
+            'categ_ids': [(6, 0, [self.CategoryCoop.id])],
+            'supplier_ids': [(6, 0, [self.SupplierCoop.id])]
         })
-
         # Add products using "Add" button of Supplliers
         stock_inventory.action_add_category_supplier()
 
@@ -79,7 +80,10 @@ class TestCoopProduce(CoopProduceTest):
         purchase_orders_domain = purchase_orders_action.get('domain', [])
         assert purchase_orders_domain
 
-        purchase_orders = purchase_orders_domain[0][2]
+        if isinstance(purchase_orders_domain, str):
+            purchase_orders = ast.literal_eval(purchase_orders_domain)[0][2]
+        else:
+            purchase_orders = purchase_orders_domain[0][2]
 
         # Check purchase orders
         assert purchase_orders
