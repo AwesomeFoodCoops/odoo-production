@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
 class AccountInvoiceRefund(models.TransientModel):
@@ -15,14 +13,14 @@ class AccountInvoiceRefund(models.TransientModel):
         selection_add=[('refund_select_product',
                         'Select product(s) for refunding')])
     invoice_line_ids = fields.Many2many(
-        'account.invoice.line',
-        string='Invoice Lines',
+        'account.invoice.line', string='Invoice Lines',
         domain=_get_domain_invoice_line)
 
     @api.multi
     def compute_refund(self, mode='refund'):
         if self.filter_refund == 'refund_select_product':
-            self = self.with_context(invoice_lines=self.invoice_line_ids or [])
+            self = self.with_context(
+                invoice_lines=self.invoice_line_ids or [])
         return super(AccountInvoiceRefund, self).compute_refund(mode=mode)
 
     @api.onchange('filter_refund')

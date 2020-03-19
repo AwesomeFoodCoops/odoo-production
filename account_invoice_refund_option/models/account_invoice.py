@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-
-
-from openerp import models, api
+from odoo import models, api
 
 
 class AccountInvoice(models.Model):
@@ -9,8 +6,8 @@ class AccountInvoice(models.Model):
 
     @api.model
     def _prepare_refund(
-            self, invoice, date_invoice=None,
-            date=None, description=None, journal_id=None):
+            self, invoice, date_invoice=None, date=None,
+            description=None, journal_id=None):
         context = dict(self._context or {})
         res = super(AccountInvoice, self)._prepare_refund(
             invoice, date_invoice=date_invoice,
