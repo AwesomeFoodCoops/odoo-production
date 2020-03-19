@@ -1,17 +1,9 @@
-# -*- coding: utf-8 -*-
-
-from openerp import api, models, _
-from openerp.exceptions import ValidationError
+from odoo import api, models, _
+from odoo.exceptions import ValidationError
 
 
 class AccountPayment(models.Model):
     _inherit = "account.payment"
-
-    @api.multi
-    def check_post(self):
-        new_context = dict(
-            self.env.context, **{'account_payment_confirm': True})
-        self.with_context(new_context).post()
 
     @api.multi
     def post(self):

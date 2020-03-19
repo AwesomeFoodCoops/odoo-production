@@ -1,9 +1,9 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-===================
+=======================
 Account Payment Confirm
-===================
+=======================
 
 This module allows to confirm a selection of payments at the same time.
 In the Payment list view, you can check several lines, then click the Action
@@ -21,3 +21,4 @@ Contributors
 ------------
 
 * Julien Weste
+* Druidoo <https://www.druidoo.io>

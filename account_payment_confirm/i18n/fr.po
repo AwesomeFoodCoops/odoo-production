@@ -1,16 +1,15 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * account_payment_confirm
+#	* account_payment_confirm
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-10 16:49+0000\n"
-"PO-Revision-Date: 2017-01-10 16:49+0000\n"
+"POT-Creation-Date: 2020-03-19 06:24+0000\n"
+"PO-Revision-Date: 2020-03-19 06:24+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -19,7 +18,7 @@ msgstr ""
 #. module: account_payment_confirm
 #: model:ir.actions.server,name:account_payment_confirm.account_payment_action_multiple_confirm
 msgid "Confirm Payments"
-msgstr "Confirmer paiements"
+msgstr "Confirmer les paiements"
 
 #. module: account_payment_confirm
 #: model:ir.model,name:account_payment_confirm.model_account_payment
@@ -29,21 +28,19 @@ msgstr "Paiements"
 #. module: account_payment_confirm
 #: code:addons/account_payment_confirm/models/account_payment.py:28
 #, python-format
-msgid ""
-"The payment cannot be processed because some invoices are not open!\n"
+msgid "The payment cannot be processed because some invoices are not open!\n"
 "%s"
-msgstr ""
-"Le paiement ne peut pas être traité car des factures ne sont pas ouvertes!\n"
+msgstr "Le paiement ne peut pas être traité car certaines factures ne sont pas ouvertes!\n"
 "%s"
 
 #. module: account_payment_confirm
 #: code:addons/account_payment_confirm/models/account_payment.py:25
 #, python-format
 msgid "invoice"
-msgstr "facture"
+msgstr "facture d'achat"
 
 #. module: account_payment_confirm
 #: code:addons/account_payment_confirm/models/account_payment.py:26
 #, python-format
 msgid "payment"
-msgstr "paiement"
+msgstr "Paiement"
