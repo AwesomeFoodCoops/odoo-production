@@ -111,14 +111,6 @@ msgid "Ref charges pattern"
 msgstr "Pattern des frais du champ du relevé de banque “Référence” "
 
 #. module: account_reconcile_pos_payments
-#: code:addons/account_reconcile_pos_payments/models/account_bank_statement_line.py:225
-#: model:ir.actions.act_window,name:account_reconcile_pos_payments.action_view_payment_terminal_reconcil
-#: model:ir.ui.view,arch_db:account_reconcile_pos_payments.view_terminal_reconciliation_report
-#, python-format
-msgid "Payment Terminal auto reconcil"
-msgstr "Réconciliation du TPE automatique"
-
-#. module: account_reconcile_pos_payments
 #: code:addons/account_reconcile_pos_payments/models/account_bank_statement_line.py:201
 msgid "Waiting launch..."
 msgstr "Attente de lancement"
