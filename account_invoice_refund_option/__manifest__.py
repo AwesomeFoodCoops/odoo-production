@@ -8,7 +8,7 @@
     'author': 'La Louve, Druidoo',
     'website': 'http://www.lalouve.net',
     'license': 'AGPL-3',
-    'depends': ['account', 'sale'],
+    'depends': ['account'],
     'data': [
         "view/view_account_invoice_refund.xml",
     ],
