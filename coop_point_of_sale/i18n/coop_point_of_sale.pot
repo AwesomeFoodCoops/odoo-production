@@ -278,6 +278,12 @@ msgid "Suspendu"
 msgstr ""
 
 #. module: coop_point_of_sale
+#: code:addons/coop_point_of_sale/models/stock_picking.py:15
+#, python-format
+msgid "The product {} received should have \"available in pos\""
+msgstr ""
+
+#. module: coop_point_of_sale
 #: code:addons/coop_point_of_sale/models/pos_order.py:68
 #: code:addons/coop_point_of_sale/models/pos_session.py:66
 #, python-format
@@ -287,6 +293,11 @@ msgstr ""
 #. module: coop_point_of_sale
 #: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order__amount_total
 msgid "Total"
+msgstr ""
+
+#. module: coop_point_of_sale
+#: model:ir.model,name:coop_point_of_sale.model_stock_picking
+msgid "Transfer"
 msgstr ""
 
 #. module: coop_point_of_sale
@@ -341,8 +352,3 @@ msgstr ""
 msgid "display: none;"
 msgstr ""
 
-#. module: coop_point_of_sale
-#: code:addons/coop_point_of_sale/models/stock_picking.py:16
-#, python-format
-msgid "The product {} received should have \"available in pos\""
-msgstr ""
