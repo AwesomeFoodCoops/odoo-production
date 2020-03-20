@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="account.action_account_confirm_payments" model="ir.actions.server">
+        <field name="code">records.with_context(account_payment_confirm=True).post()</field>
+    </record>
+
+</odoo>
