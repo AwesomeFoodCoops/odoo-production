@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_checkdeposit" inherit_id="account_check_deposit.report_checkdeposit">
+        <xpath expr="//table/tbody/t/tr/td/span[@t-field='move_line.partner_id.name']" position="attributes">
+            <attribute name="t-field">move_line.check_holder_name</attribute>
+        </xpath>
+    </template>
+</odoo>
