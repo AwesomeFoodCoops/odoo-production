@@ -11,12 +11,24 @@ class TestImprovePaymentConfirmation(ImprovePaymentConfirmationTest):
         """
             Test the account payment confirm improvement.
         """
+        # Create an invoice
+        invoice = self.env['account.invoice'].create(dict(
+            name="Test Customer Invoice",
+            payment_term_id=self.payment_term.id,
+            journal_id=self.journalrec.id,
+            partner_id=self.partner3.id,
+            invoice_line_ids=self.invoice_line_data
+        ))
+
+        # Validate an invoice
+        invoice.action_invoice_open()
+
         # Check invoice and invoice line
-        assert self.Invoice and self.Invoice.invoice_line_ids
+        assert invoice and invoice.invoice_line_ids
 
         # Create payment
         ctx = {'active_model': 'account.invoice',
-               'active_ids': [self.Invoice.id]}
+               'active_ids': [invoice.id]}
         payment = self.register_payments_model.with_context(ctx).create({
             'payment_date': time.strftime('%Y') + '-07-15',
             'journal_id': self.bank_journal_euro.id,
@@ -29,7 +41,7 @@ class TestImprovePaymentConfirmation(ImprovePaymentConfirmationTest):
         # Check payment posted
         self.assertEqual(payment.state, 'posted')
         # Check invoice paid
-        self.assertEqual(self.Invoice.state, 'paid')
+        self.assertEqual(invoice.state, 'paid')
 
         with self.assertRaises(ValidationError):
             payment.with_context(account_payment_confirm=True).post()
