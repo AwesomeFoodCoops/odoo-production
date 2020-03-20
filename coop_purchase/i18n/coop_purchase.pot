@@ -340,11 +340,6 @@ msgid "The price to purchase a product"
 msgstr ""
 
 #. module: coop_purchase
-#: model:ir.model,name:coop_purchase.model_stock_picking
-msgid "Transfer"
-msgstr ""
-
-#. module: coop_purchase
 #: model_terms:ir.ui.view,arch_db:coop_purchase.invoice_supplier_form
 #: model_terms:ir.ui.view,arch_db:coop_purchase.purchase_order_form
 msgid "Upd. Prices"
