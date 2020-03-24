@@ -5,7 +5,7 @@
 
 {
     'name': 'EDI Config',
-    'version': '9.0.1.0.2',
+    'version': '9.0.1.1.0',
     'category': 'Custom',
     'author': 'Druidoo',
     'website': 'http://www.lalouve.net',
