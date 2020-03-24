@@ -123,7 +123,7 @@ class ProductProduct(models.Model):
             # Open FTP
             ftp = ecs_obj.ftp_connection_open(edi_system)
             # Pull
-            line_prices, file_name = ecs_obj.ftp_connection_pull_prices(ftp, distant_folder_path, local_folder_path)
+            line_prices, file_name = ecs_obj.ftp_connection_pull_prices(ftp, distant_folder_path, local_folder_path, edi_system.fnmatch_filter)
             # File Treatment and delete file
             if self.read_prices_file(line_prices, edi_system):
                 self.remove_file(ftp, file_name, edi_system)
