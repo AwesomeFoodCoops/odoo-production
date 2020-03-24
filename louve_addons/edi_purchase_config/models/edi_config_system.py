@@ -52,6 +52,7 @@ class EdiConfigSystem(models.Model):
     days = fields.Integer(string="Frequency check (days)")
     header_code = fields.Char(string="Header code")
     lines_code = fields.Char(string="Lines code")
+    fnmatch_filter = fields.Char(string="Fnmatch Filter", default="CH*")
 
     @api.one
     @api.constrains('ftp_port')
@@ -110,13 +111,13 @@ class EdiConfigSystem(models.Model):
             raise ValidationError(_("Error when pushing order file:\n %s") % tools.ustr(e))
 
     @api.model
-    def ftp_connection_pull_prices(self, ftp, distant_folder_path, local_folder_path):
+    def ftp_connection_pull_prices(self, ftp, distant_folder_path, local_folder_path, fnmatch_filter='CH*'):
         try:
             today = datetime.date.today()
             ftp.cwd(distant_folder_path)
             names = ftp.nlst()
             for name in names:
-                if fnmatch.fnmatch(name, "CH*"):
+                if fnmatch.fnmatch(name, fnmatch_filter):
                     timestamp = ftp.voidcmd("MDTM " + distant_folder_path + "/" + name)[4:].strip()
                     file_date = parser.parse(timestamp)
                     diff = today - file_date.date()
