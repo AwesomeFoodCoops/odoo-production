@@ -187,35 +187,35 @@ msgid "Electronic data interchange"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:119
+#: code:addons/edi_purchase_config/models/edi_config_system.py:120
 #, python-format
 msgid "Error when closing FTP connection:\n"
 " %s"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:110
+#: code:addons/edi_purchase_config/models/edi_config_system.py:111
 #, python-format
 msgid "Error when opening FTP connection:\n"
 " %s"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:227
+#: code:addons/edi_purchase_config/models/edi_config_system.py:228
 #, python-format
 msgid "Error when pulling BLE update file:\n"
 " %s"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:189
+#: code:addons/edi_purchase_config/models/edi_config_system.py:190
 #, python-format
 msgid "Error when pulling prices update file:\n"
 " %s"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:152
+#: code:addons/edi_purchase_config/models/edi_config_system.py:153
 #, python-format
 msgid "Error when pushing order file:\n"
 " %s"
@@ -247,7 +247,7 @@ msgid "FTP Server Port"
 msgstr ""
 
 #. module: edi_purchase_config
-#: code:addons/edi_purchase_config/models/edi_config_system.py:85
+#: code:addons/edi_purchase_config/models/edi_config_system.py:86
 #, python-format
 msgid "FTP port must be numeric!"
 msgstr ""
@@ -260,6 +260,11 @@ msgstr ""
 #. module: edi_purchase_config
 #: model_terms:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
 msgid "File name"
+msgstr ""
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__fnmatch_filter
+msgid "Fnmatch Filter"
 msgstr ""
 
 #. module: edi_purchase_config
