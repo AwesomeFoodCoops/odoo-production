@@ -216,7 +216,7 @@ msgid "Next Activity Type"
 msgstr ""
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/product.py:179
+#: code:addons/edi_purchase_base/models/product.py:180
 #: code:addons/edi_purchase_base/models/purchase.py:107
 #, python-format
 msgid "No Config FTP for this supplier %s!"
@@ -316,7 +316,7 @@ msgid "Please configure fields mapping for prices interface on your             
 msgstr ""
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/product.py:201
+#: code:addons/edi_purchase_base/models/product.py:202
 #, python-format
 msgid "Please give a supplier code to create the product!"
 msgstr ""
@@ -337,7 +337,7 @@ msgid "Price history"
 msgstr ""
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/product.py:157
+#: code:addons/edi_purchase_base/models/product.py:158
 #, python-format
 msgid "Prices interface"
 msgstr ""
