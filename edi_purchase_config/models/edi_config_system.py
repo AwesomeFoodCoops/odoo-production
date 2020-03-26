@@ -78,6 +78,7 @@ class EdiConfigSystem(models.Model):
     days = fields.Integer(string="Frequency check (days)")
     header_code = fields.Char()
     lines_code = fields.Char()
+    fnmatch_filter = fields.Char(string="Fnmatch Filter", default="CH*")
 
     @api.constrains("ftp_port")
     def _check_ftp_port(self):
@@ -154,14 +155,14 @@ class EdiConfigSystem(models.Model):
 
     @api.model
     def ftp_connection_pull_prices(
-        self, ftp, distant_folder_path, local_folder_path
+        self, ftp, distant_folder_path, local_folder_path, fnmatch_filter='CH*'
     ):
         try:
             today = datetime.date.today()
             ftp.cwd(distant_folder_path)
             names = ftp.nlst()
             for name in names:
-                if fnmatch.fnmatch(name, "CH*"):
+                if fnmatch.fnmatch(name, fnmatch_filter):
                     timestamp = ftp.voidcmd(
                         "MDTM " + distant_folder_path + "/" + name
                     )[4:].strip()
