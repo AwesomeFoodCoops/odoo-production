@@ -6,7 +6,7 @@
 from openerp import api, fields, models, _
 from openerp.exceptions import ValidationError
 
-supported_models = [
+SUPPORTED_MODELS = [
     'account.invoice',
 ]
 
@@ -40,7 +40,7 @@ class InvoiceSupplierPriceUpdate(models.TransientModel):
             fields_list=fields_list)
         active_model = self._context.get('active_model', '')
         active_id = self._context.get('active_id', False)
-        if active_model in supported_models and active_id:
+        if active_model in SUPPORTED_MODELS and active_id:
             active_obj = self.env[active_model].browse(active_id)
             processed_lines = self.compute_process_lines(
                 active_model, active_obj)
@@ -66,12 +66,9 @@ class InvoiceSupplierPriceUpdate(models.TransientModel):
         obj_lines = 'order_line' in active_obj and active_obj.order_line \
                     or active_obj.invoice_line_ids
         # For invoice date
-        active_id = self._context.get('active_id', False)
-        invoice_id = self.env['account.invoice'].browse(active_id)
         supplier_price_list_obj = self.env['supplier.price.list']
-        invoice_date = False
-        if invoice_id:
-            invoice_date = invoice_id[0].date_invoice
+        price_date = active_model == 'account.invoice' \
+            and active_obj.date_invoice or False
         # END
         for line in obj_lines:
             product_id = line.product_id
@@ -116,8 +113,8 @@ class InvoiceSupplierPriceUpdate(models.TransientModel):
                     price_domain = []
                     price_domain.append(('supplier_id', '=', partner_id.id))
                     price_domain.append(('supplier_code', '=', product_code))
-                    if invoice_date:
-                        price_domain.append(('apply_date', '<=', invoice_date))
+                    if price_date:
+                        price_domain.append(('apply_date', '<=', price_date))
                     edi_price = supplier_price_list_obj.search(price_domain, order="apply_date desc")
                     if edi_price:
                         line_price_unit = edi_price[0].price
