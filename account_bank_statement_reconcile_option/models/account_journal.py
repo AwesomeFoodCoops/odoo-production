@@ -18,10 +18,10 @@ class AccountJournal(models.Model):
         selection=_SELECTION_RECONCILE_MODE, default='normal', required=True,
         string='Reconciliation Mode',
         help=("Change the reconciliation proposition.\n"
-        " 'Normal': default behaviour of Odoo;\n"
-        " 'Journal Accounts', reconciliation wizard will propose only account"
-        " move lines with accounts defined in debit / credit accounting"
-        " setting of the current journal.")
+              " 'Normal': default behaviour of Odoo;\n"
+              " 'Journal Accounts', reconciliation wizard will propose only account"
+              " move lines with accounts defined in debit / credit accounting"
+              " setting of the current journal."),
     )
     bank_reconcile_account_allowed_ids = fields.Many2many(
         'account.account',
