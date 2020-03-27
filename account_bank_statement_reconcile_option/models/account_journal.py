@@ -31,7 +31,7 @@ class AccountJournal(models.Model):
     )
     search_limit_days = fields.Integer(
         string='Search Limit Days',
-        help="Set here the number of days before and after the bank " +
+        help="Set here the number of days before and after the bank "
         "transaction on which Journal Items can be proposed for reconciliation",
         default=0
     )
