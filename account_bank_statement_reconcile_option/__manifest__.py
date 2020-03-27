@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 # Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 # @author: Sylvain LE GAL

@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 # Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 # @author: Sylvain LE GAL
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api, _
-from odoo.tools import float_round
-from odoo.osv import expression
 from datetime import timedelta
+
+from odoo import models, fields, api
+from odoo.osv import expression
 
 
 class AccountBankStatementLine(models.AbstractModel):
@@ -14,7 +13,10 @@ class AccountBankStatementLine(models.AbstractModel):
 
     # Overload Section
     @api.model
-    def get_move_lines_for_bank_statement_line(self, st_line_id, partner_id=None, excluded_ids=None, search_str=False, offset=0, limit=None):
+    def get_move_lines_for_bank_statement_line(
+        self, st_line_id, partner_id=None,
+        excluded_ids=None, search_str=False, offset=0, limit=None
+    ):
         """ Returns move lines for the bank statement reconciliation widget,
             formatted as a list of dicts
 
@@ -39,13 +41,31 @@ class AccountBankStatementLine(models.AbstractModel):
         domain = False
         if st_line.journal_id.reconcile_mode == 'journal_account':
             additional_domain = self.get_date_additional_domain(st_line)
-            domain = self._domain_move_lines_for_reconciliation(st_line, aml_accounts, partner_id, excluded_ids=excluded_ids, search_str=search_str, additional_domain=additional_domain)
+            domain = self._domain_move_lines_for_reconciliation(
+                st_line, aml_accounts, partner_id,
+                excluded_ids=excluded_ids, search_str=search_str,
+                additional_domain=additional_domain
+            )
         else:
-            domain = self._domain_move_lines_for_reconciliation(st_line, aml_accounts, partner_id, excluded_ids=excluded_ids, search_str=search_str)
+            domain = self._domain_move_lines_for_reconciliation(
+                st_line, aml_accounts, partner_id,
+                excluded_ids=excluded_ids, search_str=search_str
+            )
         recs_count = self.env['account.move.line'].search_count(domain)
-        aml_recs = self.env['account.move.line'].search(domain, offset=offset, limit=limit, order="date_maturity desc, id desc")
-        target_currency = st_line.currency_id or st_line.journal_id.currency_id or st_line.journal_id.company_id.currency_id
-        return self._prepare_move_lines(aml_recs, target_currency=target_currency, target_date=st_line.date, recs_count=recs_count)
+        aml_recs = self.env['account.move.line'].search(
+            domain, offset=offset,
+            limit=limit,
+            order="date_maturity desc, id desc"
+        )
+        target_currency = st_line.currency_id or\
+            st_line.journal_id.currency_id or\
+            st_line.journal_id.company_id.currency_id
+        return self._prepare_move_lines(
+            aml_recs,
+            target_currency=target_currency,
+            target_date=st_line.date,
+            recs_count=recs_count
+        )
 
     @api.model
     def _get_move_line_reconciliation_proposition(self, account_id, partner_id=None):
@@ -66,11 +86,13 @@ class AccountBankStatementLine(models.AbstractModel):
                  account_journal journal_a, account_journal journal_b
             WHERE a.id != b.id
             AND move_a.id = a.move_id
-            AND (move_a.state = 'posted' OR (move_a.state = 'draft' AND journal_a.post_at_bank_rec))
+            AND (move_a.state = 'posted'
+            OR (move_a.state = 'draft' AND journal_a.post_at_bank_rec))
             AND move_a.journal_id = journal_a.id
             AND move_b.id = b.move_id
             AND move_b.journal_id = journal_b.id
-            AND (move_b.state = 'posted' OR (move_b.state = 'draft' AND journal_b.post_at_bank_rec))
+            AND (move_b.state = 'posted'
+            OR (move_b.state = 'draft' AND journal_b.post_at_bank_rec))
             AND a.amount_residual = -b.amount_residual
             AND NOT a.reconciled
             AND a.account_id = %s
@@ -107,8 +129,12 @@ class AccountBankStatementLine(models.AbstractModel):
         return Account_move_line
 
     @api.model
-    def _domain_move_lines_for_reconciliation(self, st_line, aml_accounts, partner_id, excluded_ids=None, search_str=False, additional_domain=None):
-        """ Return the domain for account.move.line records which can be used for bank statement reconciliation.
+    def _domain_move_lines_for_reconciliation(
+        self, st_line, aml_accounts, partner_id,
+        excluded_ids=None, search_str=False, additional_domain=None
+    ):
+        """ Return the domain for account.move.line records
+            which can be used for bank statement reconciliation.
 
             :param aml_accounts:
             :param partner_id:
@@ -159,7 +185,11 @@ class AccountBankStatementLine(models.AbstractModel):
         # filter on account.move.line having the same company as the statement line
         domain = expression.AND([domain, [('company_id', '=', st_line.company_id.id)]])
         if st_line.company_id.account_bank_reconciliation_start:
-            domain = expression.AND([domain, [('date', '>=', st_line.company_id.account_bank_reconciliation_start)]])
+            domain = expression.AND(
+                [domain,
+                    [('date', '>=',
+                        st_line.company_id.account_bank_reconciliation_start)]]
+            )
         # Domain from caller
         if additional_domain is None:
             additional_domain = []
