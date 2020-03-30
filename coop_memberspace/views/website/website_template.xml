@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Invisible Menu if user don't login -->
+    <template id="coop_memberspace.layout" inherit_id="website.layout" name="Main layout">
+        <xpath expr="//ul[@id='top_menu']/t" position="replace">
+            <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                <t t-if="submenu and website.user_id != user_id">
+                    <t t-call="website.submenu" />
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="coop_memberspace.layout" inherit_id="portal.frontend_layout" name="Main layout">
+        <xpath expr="//div[@id='top_menu_collapse']//ul[@id='top_menu']//a[@id='o_logout']" position="before">
+            <a href="/profile" class="dropdown-item" role="menuitem">Profile</a>
+        </xpath>
+    </template>
+
+</odoo>
