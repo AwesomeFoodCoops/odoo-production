@@ -377,21 +377,18 @@ class Website(odoo.addons.website.controllers.main.Website):
                 ]
             )
         )
-
-        try:
-            turnover_year_wo_tax_sql = """
-            SELECT SUM(amount_subtotal) as turnover_year_wo_tax, SUM(total_amount)
-                as turnover_year_tax
-            FROM pos_session
-            WHERE stop_at BETWEEN '%s' AND '%s'
-                AND state = 'closed'
-            """ % (
-                first_day_of_year,
-                end_day_of_year,
-            )
-            request.env.cr.execute(turnover_year_wo_tax_sql)
-            datas = request.env.cr.fetchone()
-        except Exception:
+        pos_session = request.env['pos.session'].sudo().search(
+            [
+                ('stop_at', '>=', first_day_of_year),
+                ('stop_at', '<=', end_day_of_year),
+                ('state', '=', 'closed')
+            ]
+        )
+        if pos_session:
+            total_with_tax = sum(pos_session.mapped('order_ids.amount_total'))
+            total_tax = sum(pos_session.mapped('order_ids.amount_tax'))
+            datas = [(total_with_tax - total_tax), total_with_tax]
+        else:
             datas = [0, 0]
 
         return request.render(

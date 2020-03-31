@@ -119,14 +119,16 @@ class ResUsers(models.Model):
             last_day_of_month = current_date.replace(
                 month=x, day=month_range[1]
             ).strftime("%Y-%m-%d 23:59:59")
-            turnover_month = """
-                SELECT SUM(total_amount) / 1000
-                FROM pos_session
-                WHERE stop_at BETWEEN '%s' AND '%s'
-                    AND state = 'closed'
-            """
-            self.env.cr.execute(turnover_month, (first_day_of_month, last_day_of_month))
-            value = self.env.cr.fetchone()[0] or 0
+            value = 0
+            pos_session = self.env['pos.session'].sudo().search(
+                [
+                    ('stop_at', '>=', first_day_of_month),
+                    ('stop_at', '<=', last_day_of_month),
+                    ('state', '=', 'closed')
+                ]
+            )
+            if pos_session:
+                value = sum(pos_session.mapped('order_ids.amount_total'))
             if x == current_month:
                 datas.append({"value": value, "color": "#b2b7bb"})
                 continue
