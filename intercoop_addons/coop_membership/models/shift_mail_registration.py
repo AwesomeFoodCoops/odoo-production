@@ -12,13 +12,15 @@ class ShiftMailRegistration(models.Model):
 
     @api.one
     def execute(self):
-        shift_holiday = self.registration_id.shift_id.long_holiday_id or \
-                        self.registration_id.shift_id.single_holiday_id
+        shift_id = self.registration_id.shift_id
+        shift_holiday = shift_id.long_holiday_id or shift_id.single_holiday_id
         if shift_holiday and not shift_holiday.send_email_reminder:
             return
         if shift_holiday and shift_holiday.reminder_template_id:
-            if self.registration_id.state in ['open', 'done'] and not \
-                    self.mail_sent:
+            if (
+                self.registration_id.state in ['open', 'done']
+                and not self.mail_sent
+            ):
                 shift_holiday.reminder_template_id.send_mail(
                     self.registration_id.id)
                 self.write({'mail_sent': True})
