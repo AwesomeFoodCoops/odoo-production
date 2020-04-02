@@ -37,6 +37,8 @@
                   		<group>
                             <field name="holiday_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="make_up_type" attrs="{'invisible': [('holiday_type', '!=', 'long_period')], 'required': [('holiday_type', '=', 'long_period')], 'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="send_email_reminder" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="reminder_template_id" attrs="{'invisible': [('send_email_reminder', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
                         <group>
                             <field name="date_begin" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
