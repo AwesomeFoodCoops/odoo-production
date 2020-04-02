@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    POS Payment Terminal module for Odoo
-#    Copyright (C) 2016-Today Julius Network Solutions
+#    Copyright (C) 2014 Aurélien DUMAINE
+#    Copyright (C) 2015 Akretion (www.akretion.com)
+#    Copyright (C) 2020-Today: Druidoo (<https://www.druidoo.io>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,22 +20,12 @@
 #
 ##############################################################################
 
+from odoo import models, fields
 
-{
-    'name': 'POS Payment Terminal Return',
-    'version': '9.0.0.1.0',
-    'category': 'Point Of Sale',
-    'summary': 'Manage Payment Terminal device from POS front end with return',
-    'author': "Julius Network Solutions",
-    'contributors': "Mathieu Vatel <mathieu@julius.fr>",
-    'license': 'AGPL-3',
-    'depends': [
-                'point_of_sale',
-                'pos_payment_terminal',
-                ],
-    'data': [
-             'pos_payment_terminal_view.xml',
-             'static/src/xml/templates.xml',
-             ],
-    'installable': True,
-}
+
+class PosConfig(models.Model):
+    _inherit = "pos.config"
+
+    iface_payment_terminal_return = fields.Boolean(
+        "Wait Payment Terminal Return"
+    )
