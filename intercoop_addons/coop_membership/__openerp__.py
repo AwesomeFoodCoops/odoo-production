@@ -6,7 +6,7 @@
 
 {
     'name': 'Coop - Membership',
-    'version': '9.0.2.0.0',
+    'version': '9.0.2.1.0',
     'category': 'Custom',
     'summary': 'Custom settings for membership',
     'author': 'La Louve',
