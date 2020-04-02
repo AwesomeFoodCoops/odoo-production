@@ -45,8 +45,6 @@ class ShiftMailRegistration(models.Model):
             if self.registration_id.partner_id.working_state in ['exempted',
                                                                  'vacation']:
                 return
-            if self.registration_id.shift_id.is_on_holiday:
-                return
             return super(ShiftMailRegistration, self).execute()
         else:
             # other case which not sending mail, marked ignore=True
