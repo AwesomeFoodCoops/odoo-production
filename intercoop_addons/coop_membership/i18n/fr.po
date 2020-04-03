@@ -858,7 +858,7 @@ msgstr "Envoyer un rappel par e-mail"
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_reminder_template_id
 msgid "Email to Send"
-msgstr "Courriel pour envoyer"
+msgstr "Courriel à envoyer"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/barcode_rule.py:37
