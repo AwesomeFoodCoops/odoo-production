@@ -590,16 +590,6 @@ msgid " Holiday Type"
 msgstr ""
 
 #. module: coop_membership
-#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_send_email_reminder
-msgid "Send Email Reminder"
-msgstr "Envoyer un rappel par e-mail"
-
-#. module: coop_membership
-#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_reminder_template_id
-msgid "Email to Send"
-msgstr "Courriel pour envoyer"
-
-#. module: coop_membership
 #: code:addons/coop_membership/models/barcode_rule.py:36
 #, python-format
 msgid "'For Associated People' field should be unique."
@@ -1325,14 +1315,14 @@ msgid "Balance qty for holiday"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_holiday.py:182
+#: code:addons/coop_membership/models/shift_holiday.py:201
 #, python-format
 msgid "Balance qty for long period holiday"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_holiday.py:271
-#: code:addons/coop_membership/models/shift_holiday.py:289
+#: code:addons/coop_membership/models/shift_holiday.py:288
+#: code:addons/coop_membership/models/shift_holiday.py:306
 #, python-format
 msgid "Balance qty for single holiday"
 msgstr ""
@@ -1725,13 +1715,13 @@ msgid "Date End"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_holiday.py:48
+#: code:addons/coop_membership/models/shift_holiday.py:59
 #, python-format
 msgid "Date End should be equal Date Begin in Single Day."
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_holiday.py:44
+#: code:addons/coop_membership/models/shift_holiday.py:55
 #, python-format
 msgid "Date End should be greater than Date Begin."
 msgstr ""
@@ -1851,6 +1841,11 @@ msgstr ""
 #. module: coop_membership
 #: model:res.groups,name:coop_membership.group_edit_contact_messeage
 msgid "Edit Internal Notes"
+msgstr ""
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday__reminder_template_id
+msgid "Email to Send"
 msgstr ""
 
 #. module: coop_membership
@@ -2093,7 +2088,7 @@ msgid "Has Non Defined"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_holiday.py:99
+#: code:addons/coop_membership/models/shift_holiday.py:118
 #, python-format
 msgid "Here are shifts that weren't marked open or closed\n"
 "                                - %s\n"
@@ -2254,11 +2249,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__is_member
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__is_member
 msgid "Is Member"
-msgstr ""
-
-#. module: coop_membership
-#: model:ir.model.fields,field_description:coop_membership.field_shift_shift__is_on_holiday
-msgid "Is On Holiday"
 msgstr ""
 
 #. module: coop_membership
@@ -2630,6 +2620,11 @@ msgstr ""
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
 msgid "Misc"
+msgstr ""
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
+msgid "Miscellaneous"
 msgstr ""
 
 #. module: coop_membership
@@ -3128,6 +3123,11 @@ msgid "Semaine ASCD ou"
 msgstr ""
 
 #. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday__send_email_reminder
+msgid "Send Email Reminder"
+msgstr ""
+
+#. module: coop_membership
 #: model:ir.actions.server,name:coop_membership.cron_send_notify_mirror_children_email_ir_actions_server
 #: model:ir.cron,cron_name:coop_membership.cron_send_notify_mirror_children_email
 #: model:ir.cron,name:coop_membership.cron_send_notify_mirror_children_email
@@ -3180,7 +3180,7 @@ msgid "Sex"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_shift.py:115
+#: code:addons/coop_membership/models/shift_shift.py:114
 #, python-format
 msgid "Shift Cloture"
 msgstr ""
@@ -3538,7 +3538,7 @@ msgid "There are some processes that were not done,please do it!"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_holiday.py:58
+#: code:addons/coop_membership/models/shift_holiday.py:69
 #, python-format
 msgid "There is a holiday already exist in this period"
 msgstr ""
@@ -3553,6 +3553,12 @@ msgstr ""
 #: code:addons/coop_membership/models/shift_leave.py:305
 #, python-format
 msgid "This event was created to remove point base on anticipated leave."
+msgstr ""
+
+#. module: coop_membership
+#: model:ir.model.fields,help:coop_membership.field_shift_holiday__reminder_template_id
+msgid "This field contains the template of the mail that will be\n"
+"            sent instead of Template set in Shift Mail"
 msgstr ""
 
 #. module: coop_membership
@@ -3891,7 +3897,7 @@ msgid "Warning! You cannot enter make-ups of the following members as they are u
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_shift.py:65
+#: code:addons/coop_membership/models/shift_shift.py:64
 #, python-format
 msgid "Warning! You have not recorded the attendance for: \n"
 "\n"
@@ -4108,6 +4114,11 @@ msgstr ""
 #. module: coop_membership
 #: model:ir.model,name:coop_membership.model_shift_change_team
 msgid "shift.change.team"
+msgstr ""
+
+#. module: coop_membership
+#: model:ir.model,name:coop_membership.model_shift_mail_registration
+msgid "shift.mail.registration"
 msgstr ""
 
 #. module: coop_membership
