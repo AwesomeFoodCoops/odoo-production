@@ -17,7 +17,7 @@ _logger = logging.getLogger(__name__)
 try:
     from ftplib import FTP
 except ImportError:
-    _logger.warning(
+    _logger.error(
         "Cannot import 'ftplib' Python Librairy. 'product_to_scale_bizerba'"
         " module will not work properly."
     )
