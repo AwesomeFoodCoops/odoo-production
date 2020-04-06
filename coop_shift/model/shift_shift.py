@@ -214,7 +214,7 @@ class ShiftShift(models.Model):
     def write(self, vals):
         special = self._context.get('special', False)
         if any(shift.state == "done" for shift in self):
-            ignore_fields = ['state_in_holiday', 'is_on_holiday',
+            ignore_fields = ['state_in_holiday',
                              'single_holiday_id', 'long_holiday_id']
             for field in vals.keys():
                 if field in ignore_fields:

@@ -34,6 +34,17 @@ class ShiftHoliday(models.Model):
     make_up_type = fields.Selection(
         [('1_make_up', '1 Make Up'), ('0_make_up', '0 Make Up')],
         string="Make Up")
+    send_email_reminder = fields.Boolean(
+        default=True,
+    )
+    reminder_template_id = fields.Many2one(
+        'mail.template',
+        string='Email to Send',
+        ondelete='restrict',
+        domain=[('model', '=', 'shift.registration')],
+        help="""This field contains the template of the mail that will be
+            sent instead of Template set in Shift Mail"""
+    )
 
     @api.multi
     @api.constrains('date_begin', 'date_end')
@@ -63,6 +74,14 @@ class ShiftHoliday(models.Model):
         self.ensure_one()
         if self.holiday_type != 'long_period':
             self.make_up_type = False
+            self.send_email_reminder = False
+        else:
+            self.send_email_reminder = True
+
+    @api.onchange('send_email_reminder')
+    def onchange_send_email_reminder(self):
+        if not self.send_email_reminder:
+            self.reminder_template_id = False
 
     @api.multi
     def button_confirm(self):
@@ -216,8 +235,6 @@ class ShiftHoliday(models.Model):
         open_shifts = self.single_day_shift_ids.filtered(
             lambda s: s.state_in_holiday == 'open')
 
-        closed_shifts.write({'is_on_holiday': True})
-
         attendee_in_closed_shifts = closed_shifts.mapped('registration_ids')
         attendee_in_open_shifts = open_shifts.mapped('registration_ids')
 
@@ -334,12 +351,6 @@ class ShiftHoliday(models.Model):
                     '\n Point qty was updated by cancelling holiday.',
                     '(Last qty is %s)' % (last_qty))
             record.state = 'cancel'
-            if record.single_day_shift_ids:
-                for shift in \
-                        record.single_day_shift_ids.filtered(
-                            lambda s: s.state_in_holiday == 'closed'):
-                    if shift.is_on_holiday:
-                        shift.is_on_holiday = False
         return True
 
     @api.multi

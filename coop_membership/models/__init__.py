@@ -30,3 +30,4 @@ from . import shift_template
 from . import shift_template_registration
 from . import shift_template_registration_line
 from . import shift_ticket
+from . import shift_mail_registration

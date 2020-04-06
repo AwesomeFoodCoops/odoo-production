@@ -590,6 +590,16 @@ msgid " Holiday Type"
 msgstr ""
 
 #. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_send_email_reminder
+msgid "Send Email Reminder"
+msgstr "Envoyer un rappel par e-mail"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_reminder_template_id
+msgid "Email to Send"
+msgstr "Courriel pour envoyer"
+
+#. module: coop_membership
 #: code:addons/coop_membership/models/barcode_rule.py:36
 #, python-format
 msgid "'For Associated People' field should be unique."
