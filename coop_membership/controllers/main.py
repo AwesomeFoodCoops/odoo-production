@@ -192,13 +192,11 @@ class WebsiteRegisterMeeting(http.Controller):
             is_event_valid = False
 
         if partner_id:
-            email_meeting_contact = request.env['ir.config_parameter'].sudo(
-            ).get_param('email_meeting_contact')
-            company_name = request.env[
-                'ir.config_parameter'].sudo().get_param('company_name')
+            company = partner_id[0].company_id or request.env.user.company_id
+            company_email = company.email_meeting_contact or company.email
             email_contact = {
-                'email_contact': email_meeting_contact,
-                'company_name': company_name
+                'email_contact': company_email or '',
+                'company_name': company.company_name or company.name,
             }
             return request.render(
                 "coop_membership.register_submit_form_err_email",

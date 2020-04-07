@@ -23,10 +23,10 @@ class EventRegistration(models.Model):
 
     @api.multi
     def get_email_contact_meeting(self):
-        email_contact_meeting = \
-            self.env['ir.config_parameter'].sudo().get_param(
-                'email_meeting_contact')
-        return email_contact_meeting or False
+        self.ensure_one()
+        company = self.partner_id.company_id or self.env.user.company_id
+        company_email = company.email_meeting_contact or company.email
+        return company_email
 
     @api.multi
     def get_time_before(self, number):

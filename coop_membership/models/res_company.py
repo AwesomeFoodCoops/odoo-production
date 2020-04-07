@@ -17,6 +17,8 @@ class ResCompany(models.Model):
     max_registration_per_period = fields.Integer(default=5)
     number_of_days_in_period = fields.Integer(default=28)
     maximum_active_days = fields.Integer(default=180)
+    email_meeting_contact = fields.Char()
+    company_name = fields.Char()
 
     @api.model
     def get_default_message(self):

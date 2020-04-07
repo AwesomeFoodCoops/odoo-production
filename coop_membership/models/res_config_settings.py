@@ -7,6 +7,14 @@ class ResConfigSettings(models.TransientModel):
     seats_max = fields.Integer(string='Maximum Attendees Number')
     description = fields.Html(string='Description', translate=False)
     notice = fields.Html("Notice")
+    email_meeting_contact = fields.Char(
+        related='company_id.email_meeting_contact',
+        readonly=False,
+    )
+    company_name = fields.Char(
+        related='company_id.company_name',
+        readonly=False,
+    )
 
     @api.model
     def get_values(self):

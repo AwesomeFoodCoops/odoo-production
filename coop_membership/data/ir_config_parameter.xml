@@ -46,15 +46,5 @@ Rejoindre la coopérative passe exclusivement par votre présence à une réunio
             <field name="value"></field>
         </record>
 
-        <record id="email_meeting_contact" model="ir.config_parameter">
-            <field name="key">email_meeting_contact</field>
-            <field name="value"></field>
-        </record>
-
-        <record id="company_name" model="ir.config_parameter">
-            <field name="key">company_name</field>
-            <field name="value"></field>
-        </record>
-
     </data>
 </odoo>

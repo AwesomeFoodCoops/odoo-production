@@ -75,6 +75,24 @@
                             </div>
                         </div>
                     </div>
+                    <h2>Message Settings</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Company Name</span>
+                                <div class="text-muted">
+                                    <field name="company_name"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Email Contact</span>
+                                <div class="text-muted">
+                                    <field name="email_meeting_contact"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </xpath>
         </field>
