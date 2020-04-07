@@ -951,6 +951,16 @@ msgstr ""
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Company Name</span>"
+msgstr ""
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Email Contact</span>"
+msgstr ""
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
 msgid "<span class=\"o_form_label\">FTOP Max. Registration per day</span>"
 msgstr ""
 
@@ -1498,6 +1508,12 @@ msgid "Company"
 msgstr ""
 
 #. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_company__company_name
+#: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__company_name
+msgid "Company Name"
+msgstr ""
+
+#. module: coop_membership
 #: model:ir.model.fields,help:coop_membership.field_res_partner__is_unsubscribed
 #: model:ir.model.fields,help:coop_membership.field_res_users__is_unsubscribed
 msgid "Computed field. This box is checked if the user is not linked to a template registration."
@@ -1841,6 +1857,12 @@ msgstr ""
 #. module: coop_membership
 #: model:res.groups,name:coop_membership.group_edit_contact_messeage
 msgid "Edit Internal Notes"
+msgstr ""
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_res_company__email_meeting_contact
+#: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__email_meeting_contact
+msgid "Email Meeting Contact"
 msgstr ""
 
 #. module: coop_membership
@@ -2610,6 +2632,11 @@ msgstr ""
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_leave__proceed_message
 msgid "Message Proceed"
+msgstr ""
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "Message Settings"
 msgstr ""
 
 #. module: coop_membership
