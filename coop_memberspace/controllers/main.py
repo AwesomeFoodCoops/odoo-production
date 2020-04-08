@@ -366,17 +366,11 @@ class Website(odoo.addons.website.controllers.main.Website):
     def page_statistics(self, **kwargs):
         first_day_of_year = datetime.now().strftime("%Y-01-01 00:00:00")
         end_day_of_year = datetime.now().strftime("%Y-12-31 23:59:59")
-        sales_count = (
-            request.env["pos.order"]
-            .sudo()
-            .search_count(
-                [
-                    ("state", "in", ["paid", "done", "invoiced"]),
-                    ("date_order", ">=", first_day_of_year),
-                    ("date_order", "<=", end_day_of_year),
-                ]
-            )
-        )
+        sales_count = request.env["pos.order"].sudo().search_count([
+            ("state", "in", ["paid", "done", "invoiced"]),
+            ("date_order", ">=", first_day_of_year),
+            ("date_order", "<=", end_day_of_year),
+        ])
         pos_session = request.env['pos.session'].sudo().search(
             [
                 ('stop_at', '>=', first_day_of_year),
