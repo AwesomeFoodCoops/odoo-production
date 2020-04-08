@@ -694,6 +694,8 @@ class ShiftTemplate(models.Model):
                     for attendee in ticket.registration_ids:
                         state, strl_id = attendee._get_state(rec_date)
                         if state:
+                            if state == 'done':
+                                state = 'open'
                             vals = {
                                 'partner_id': attendee.partner_id.id,
                                 'user_ids': [(6, 0, template.user_ids.ids)],

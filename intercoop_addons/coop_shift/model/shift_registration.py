@@ -172,7 +172,10 @@ class ShiftRegistration(models.Model):
             # Restore the state
             if reg_id.tmpl_reg_line_id and \
                     reg_id.state != reg_id.tmpl_reg_line_id.state:
-                reg_id.state = reg_id.tmpl_reg_line_id.state
+                if reg_id.tmpl_reg_line_id.state == 'done':
+                    reg_id.state = 'open'
+                else:
+                    reg_id.state = reg_id.tmpl_reg_line_id.state
         return reg_id
 
     @api.multi
