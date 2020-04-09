@@ -53,6 +53,13 @@ class ResPartner(models.Model):
                     user_related = self.env['res.users'].search([
                         ('partner_id', '=', partner.id)
                     ])
+                    if(
+                        user_related
+                        and (user_related[0].login in ('admin', '__system__')
+                             or user_related.name in
+                             ('System', 'Administrator'))
+                    ):
+                        continue
                     user_related.write({
                         'login': partner.email
                     })
@@ -75,7 +82,12 @@ class ResPartner(models.Model):
     @api.multi
     def check_exist_email(self):
         for partner in self:
-            if partner.supplier:
+            if(
+                partner.supplier
+                or (partner.user_ids and partner.user_ids[0].login in
+                    ('admin', '__system__'))
+                or partner.name in ('System', 'Administrator')
+            ):
                 continue
             if partner.email:
                 already_email = self.env['res.partner'].search([
