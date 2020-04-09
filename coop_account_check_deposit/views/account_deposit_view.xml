@@ -4,8 +4,11 @@
         <field name="model">account.check.deposit</field>
         <field name="inherit_id" ref="account_check_deposit.account_check_deposit_view_form"/>
         <field name="arch" type="xml">
-            <field name="journal_id" position="after">
-                <field name="destination_journal_id" widget="selection" required="True"/>
+            <field name="journal_id" position="attributes">
+                <attribute name="widget"/>
+            </field>
+            <field name="bank_journal_id" position="attributes">
+                <attribute name="widget"/>
             </field>
             <field name="check_payment_ids" position="attributes">
                 <field name="context">{'currency': currency_id, 'journal_id': journal_id, 'change_check_holder_name': True}</field>
@@ -18,15 +21,6 @@
             </xpath>
             <xpath expr="//tree/field[@name='partner_id']" position="after">
                 <field name="check_holder_name"/>
-            </xpath>
-            <xpath expr="//tree/field[@name='full_reconcile_id']" position="after">
-                <field name="state_deposit" invisible="1"/>
-                <button name="delete_check_payment"
-                        string="DELETE"
-                        type="object" class="fa fa-trash-o"
-                        icon="fa-trash-o"
-                        confirm="Please confirm you want to delete this record?"
-                        attrs="{'invisible': [('state_deposit', '!=', 'draft')]}"/>
             </xpath>
         </field>
     </record>
