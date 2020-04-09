@@ -32,16 +32,19 @@ msgstr ""
 
 #. module: coop_product_coefficient
 #: model:ir.model.fields,field_description:coop_product_coefficient.field_res_config_settings__auto_update_theorical_cost
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_user_config_settings__auto_update_theorical_cost
 msgid "An update of Theorical Cost updates Cost automatically"
 msgstr ""
 
 #. module: coop_product_coefficient
 #: model:ir.model.fields,field_description:coop_product_coefficient.field_res_config_settings__auto_update_theorical_price
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_user_config_settings__auto_update_theorical_price
 msgid "An update of Theorical Price updates Price automatically"
 msgstr ""
 
 #. module: coop_product_coefficient
 #: model:ir.model.fields,field_description:coop_product_coefficient.field_res_config_settings__auto_update_base_price
+#: model:ir.model.fields,field_description:coop_product_coefficient.field_user_config_settings__auto_update_base_price
 msgid "An update of Vendor Price updates Base Price automatically"
 msgstr ""
 
