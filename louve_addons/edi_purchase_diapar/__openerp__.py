@@ -13,6 +13,8 @@
     'depends': ['product', 'edi_purchase_config', 'edi_purchase_base', 'purchase_package_qty', 'coop_purchase',
                 'coop_membership'
     ],
-    'data': ['views/res_partner_view.xml'
+    'data': [
+        'wizard/invoice_supplier_price_update.xml',
+        'views/res_partner_view.xml',
     ],
 }
