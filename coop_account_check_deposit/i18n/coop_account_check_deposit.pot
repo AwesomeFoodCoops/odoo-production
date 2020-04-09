@@ -14,17 +14,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_account_check_deposit
-#: code:addons/coop_account_check_deposit/models/account_check_deposit.py:46
-#, python-format
-msgid "%s - Ref. Check %s"
-msgstr ""
-
-#. module: coop_account_check_deposit
-#: model:ir.model,name:coop_account_check_deposit.model_account_check_deposit
-msgid "Account Check Deposit"
-msgstr ""
-
-#. module: coop_account_check_deposit
 #: model_terms:ir.ui.view,arch_db:coop_account_check_deposit.account_check_deposit_view_form_inherit
 msgid "Check Payments"
 msgstr ""
@@ -35,66 +24,8 @@ msgid "Cheque Holder"
 msgstr ""
 
 #. module: coop_account_check_deposit
-#: model_terms:ir.ui.view,arch_db:coop_account_check_deposit.account_check_deposit_view_form_inherit
-msgid "DELETE"
-msgstr ""
-
-#. module: coop_account_check_deposit
-#: code:addons/coop_account_check_deposit/models/account_check_deposit.py:43
-#, python-format
-msgid "Debit must have a value"
-msgstr ""
-
-#. module: coop_account_check_deposit
-#: code:addons/coop_account_check_deposit/models/account_check_deposit.py:84
-#, python-format
-msgid "Default Debit Account is not set on journal '%s'"
-msgstr ""
-
-#. module: coop_account_check_deposit
-#: model:ir.model.fields,field_description:coop_account_check_deposit.field_account_check_deposit__destination_journal_id
-msgid "Destination Journal"
-msgstr ""
-
-#. module: coop_account_check_deposit
-#: selection:account.move.line,state_deposit:0
-msgid "Done"
-msgstr ""
-
-#. module: coop_account_check_deposit
-#: selection:account.move.line,state_deposit:0
-msgid "Draft"
-msgstr ""
-
-#. module: coop_account_check_deposit
 #: model:ir.model,name:coop_account_check_deposit.model_account_move_line
 msgid "Journal Item"
-msgstr ""
-
-#. module: coop_account_check_deposit
-#: model:ir.model.fields,field_description:coop_account_check_deposit.field_account_check_deposit__name
-msgid "Name"
-msgstr ""
-
-#. module: coop_account_check_deposit
-#: model_terms:ir.ui.view,arch_db:coop_account_check_deposit.account_check_deposit_view_form_inherit
-msgid "Please confirm you want to delete this record?"
-msgstr ""
-
-#. module: coop_account_check_deposit
-#: code:addons/coop_account_check_deposit/models/account_check_deposit.py:29
-#, python-format
-msgid "Please define a sequence on the destination journal."
-msgstr ""
-
-#. module: coop_account_check_deposit
-#: model:ir.model.fields,field_description:coop_account_check_deposit.field_account_move_line__state_deposit
-msgid "State Deposit"
-msgstr ""
-
-#. module: coop_account_check_deposit
-#: model:ir.model.fields,help:coop_account_check_deposit.field_account_move_line__state_deposit
-msgid "Technical fields use invisible button 'DELETE'if state is draft button visible else button invisible"
 msgstr ""
 
 #. module: coop_account_check_deposit
