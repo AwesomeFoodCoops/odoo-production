@@ -70,6 +70,7 @@ msgstr ""
 
 #. module: coop_print_badge
 #: model:ir.model.fields,field_description:coop_print_badge.field_res_config_settings__reprint_change_field_ids
+#: model:ir.model.fields,field_description:coop_print_badge.field_user_config_settings__reprint_change_field_ids
 msgid "Fields trigger badge reprinting"
 msgstr ""
 
