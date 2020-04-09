@@ -54,6 +54,7 @@ msgstr ""
 
 #. module: product_average_consumption
 #: model:ir.model.fields,field_description:product_average_consumption.field_res_config_settings__default_calculation_range
+#: model:ir.model.fields,field_description:product_average_consumption.field_user_config_settings__default_calculation_range
 msgid "Calculation Range in days"
 msgstr ""
 
@@ -66,6 +67,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_average_consumption.field_product_product__consumption_calculation_method
 #: model:ir.model.fields,field_description:product_average_consumption.field_product_template__consumption_calculation_method
 #: model:ir.model.fields,field_description:product_average_consumption.field_res_config_settings__default_consumption_calculation_method
+#: model:ir.model.fields,field_description:product_average_consumption.field_user_config_settings__default_consumption_calculation_method
 msgid "Consumption Calculation Method"
 msgstr ""
 
@@ -78,11 +80,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_average_consumption.field_product_product__display_range
 #: model:ir.model.fields,field_description:product_average_consumption.field_product_template__display_range
 #: model:ir.model.fields,field_description:product_average_consumption.field_res_config_settings__default_display_range
+#: model:ir.model.fields,field_description:product_average_consumption.field_user_config_settings__default_display_range
 msgid "Display Range in days"
 msgstr ""
 
 #. module: product_average_consumption
 #: model:ir.model.fields,help:product_average_consumption.field_res_config_settings__default_display_range
+#: model:ir.model.fields,help:product_average_consumption.field_user_config_settings__default_display_range
 msgid "Examples:\n"
 "        1 -> Average Consumption per days\n"
 "        7 -> Average Consumption per week\n"
@@ -142,11 +146,13 @@ msgstr ""
 
 #. module: product_average_consumption
 #: model:ir.model.fields,help:product_average_consumption.field_res_config_settings__default_calculation_range
+#: model:ir.model.fields,help:product_average_consumption.field_user_config_settings__default_calculation_range
 msgid "This field is used if the selected method is based on Stock Moves.Number of days used for the calculation of the average consumption. For example: if you put 365, the calculation will be done on last year."
 msgstr ""
 
 #. module: product_average_consumption
 #: model:ir.model.fields,help:product_average_consumption.field_res_config_settings__module_product_history
+#: model:ir.model.fields,help:product_average_consumption.field_user_config_settings__module_product_history
 msgid "This will install product_history module"
 msgstr ""
 
@@ -158,6 +164,7 @@ msgstr ""
 
 #. module: product_average_consumption
 #: model:ir.model.fields,field_description:product_average_consumption.field_res_config_settings__module_product_history
+#: model:ir.model.fields,field_description:product_average_consumption.field_user_config_settings__module_product_history
 msgid "View product History"
 msgstr ""
 
