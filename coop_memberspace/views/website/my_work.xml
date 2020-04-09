@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="coop_memberspace.mywork">
+        <t t-call="website.layout">
+            <t t-set="title">Member area | My participation</t>
+            <div class="container-fluid" t-if="website.user_id != user_id">
+                <!-- Status -->
+                <div contenteditable="false"
+                     style="text-align: center;margin-top: 10px;margin-left: -15px;margin-right: -15px;"
+                     t-att-class="member_status[2]">
+                    <h3 style="margin-bottom: 0px;margin-top: 0px;">
+                        <strong>
+                            <span t-esc="member_status[0] + ' '"/>
+                        </strong>
+                        <span t-esc="member_status[1]"/>
+                    </h3>
+                </div>
+            </div>
+            <div class="container">
+                <t t-if="is_standard_member">
+                    <t t-call="coop_memberspace.mywork_standard"/>
+                </t>
+                <t t-if="is_ftop_member">
+                    <t t-call="coop_memberspace.mywork_ftop"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- MYWORK STANDARD MEMBER -->
+
+    <template id="coop_memberspace.mywork_standard">
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-6">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 242px;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div>
+                                <span class="glyphicon glyphicon-piggy-bank" style="font-size: 4.5em;"/>
+                                <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;"
+                                      t-esc="standard_point"/>
+                            </div>
+                            <div>
+                                <span style="font-size: 25px;font-weight: 600">ABCD counter</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 15px;font-weight: 600">Represent your situation with your
+                                    permanent team. This counter is at "0" when you are up to date, it is negative when
+                                    you need to catch up.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="text-align: right;margin-top:30px;">
+                            <a href="/standard/counter_classic">
+                                <span class="fa fa-caret-right" style="font-size: 4em"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 242px;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div>
+                                <span class="glyphicon glyphicon-piggy-bank" style="font-size: 4.5em;"/>
+                                <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;"
+                                      t-esc="ftop_point"/>
+                            </div>
+                            <div>
+                                <span style="font-size: 25px;font-weight: 600">Advance service counter</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 15px;font-weight: 600">Represents the points accumulated by
+                                    doing services in addition to your usual services. From a total of 2 points, you can
+                                    request early leave.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="text-align: right;margin-top:30px;">
+                            <a href="/standard/counter_extra">
+                                <span class="fa fa-caret-right" style="font-size: 4em"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row exchange-shift" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
+            <p style="font-size: 25px;font-weight: 600">My next services</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Hour</th>
+                            <th>Coordinators</th>
+                            <th style="text-align:center">Exchange</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
+                            <tr>
+                                <t t-set="date_begin"
+                                   t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                <td scope="row">
+                                    <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
+                                </td>
+                                <td>
+                                    <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
+                                </td>
+                                <t t-set="coordinators" t-value="shift.get_coordinators(get_alias_coordinator=True)"/>
+                                <td>
+                                    <span>
+                                        <t t-esc="coordinators[0]"/>
+                                        <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
+                                    #{coordinators[1]} (cliquez pour copier l’adresse)"
+                                           class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i>
+                                    </span>
+                                </td>
+                                <t t-set="shift_ticket_type" t-value="shift.shift_ticket_id.shift_type"/>
+                                <t t-if="shift_ticket_type == 'ftop'">
+                                    <td style="text-align: center;background: greenyellow">
+                                        Extra
+                                    </td>
+                                </t>
+                                <t t-if="shift.state == 'waiting' and shift_ticket_type != 'ftop'">
+                                    <td style="text-align: center;">
+                                        Waiting
+                                    </td>
+                                </t>
+                                <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                    <td style="text-align: center;">
+                                        <button class="material-icons button-icon go-to-market"
+                                                style="margin-right: 10px;"
+                                                t-att-registration-id="shift.id">swap_horiz
+                                        </button>
+                                    </td>
+                                </t>
+                                <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                    <td style="text-align: center;">
+                                        <span>In progress</span>
+                                        <button class="material-icons button-icon remove-proposal"
+                                                t-att-registration-id="shift.id"
+                                                data-toggle="modal" data-target="#modal_confirm_cancel_proposal">
+                                            remove_circle_outline
+                                        </button>
+                                    </td>
+                                </t>
+                                <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                    <td style="text-align: center;background: lightgray">
+                                        Replaced
+                                    </td>
+                                </t>
+                            </tr>
+                            <t t-if="shift.exchange_replacing_reg_id">
+                                <tr>
+                                    <t t-set="date_begin"
+                                       t-value="user.get_time_by_user_lang(shift.exchange_replacing_reg_id.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                    <td scope="row">
+                                        <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
+                                    </td>
+                                    <t t-set="coordinators"
+                                       t-value="shift.exchange_replacing_reg_id.get_coordinators(get_alias_coordinator=True)"/>
+                                    <td>
+                                        <span>
+                                            <t t-esc="coordinators[0]"/>
+                                            <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
+                                        #{coordinators[1]} (cliquez pour copier l’adresse)"
+                                               class="fa fa-question-circle js-copy"
+                                               t-att-data-copy="coordinators[1]"></i>
+                                        </span>
+                                    </td>
+                                    <t t-set="shift_ticket_type"
+                                       t-value="shift.exchange_replacing_reg_id.shift_ticket_id.shift_type"/>
+                                    <t t-if="shift_ticket_type == 'ftop'">
+                                        <td style="text-align: center;background: greenyellow">
+                                            Extra
+                                        </td>
+                                    </t>
+                                    <t t-if="shift_ticket_type != 'ftop'">
+                                        <td style="text-align: center;background: darkorange">
+                                            Substitute
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <div id="modal_confirm_cancel_proposal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p class="text-center">Do you want cancel a proposal ?</p>
+                            <div class="text-center">
+                                <span class="fa fa-times" data-dismiss="modal"
+                                      style="margin-right: 40px;font-size: 3em;"/>
+                                <span class="fa fa-check cancel-proposal" style="font-size: 3em;"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-6">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 205px;">
+                    <p style="font-size: 25px;font-weight: 600">Exchange of services</p>
+                    <p class="text-center">Will you be available to perform your next service? You can try to exchange
+                        it here with another member of the cooperative.
+                    </p>
+                    <div class="text-center">
+                        <a href="/standard/echange_de_services" class="btn btn-default btn-warning">Echange</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;">
+                    <p style="font-size: 25px;font-weight: 600">Schedule an advance service</p>
+                    <p class="text-center">You can do services in addition to your usual services. From 2 accumulated
+                        services, if you do not have to catch up, you can “spend” them by taking an “early leave”…
+                        period during which you do not have to come to work, but while continuing to do your shopping .
+                    </p>
+                    <div class="text-center">
+                        <a href="/standard/programmer_un_extra" class="btn btn-default btn-warning">Programmer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="coop_memberspace.counter">
+        <t t-call="website.layout">
+            <t t-if="classic">
+                <t t-set="title">Member area | Classic counter</t>
+                <t t-call="coop_memberspace.classic_counter"/>
+            </t>
+            <t t-if="extra">
+                <t t-set="title">Member area | Extra counter</t>
+                <t t-call="coop_memberspace.extra_counter"/>
+            </t>
+            <t t-if="programmer_un_extra">
+                <t t-set="title">Member area | Schedule an extra</t>
+                <t t-call="coop_memberspace.programmer_un_extra"/>
+            </t>
+            <t t-if="echange_de_services">
+                <t t-set="title">Member area | My next services</t>
+                <t t-call="coop_memberspace.echange_de_services"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="coop_memberspace.classic_counter">
+        <div class="container">
+            <div class="row" style="padding: 10px;">
+                <h3 style="font-weight: 600;margin-top: 30px;margin-bottom: 10px;">Classic counter</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Description</th>
+                                <th>Points</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="shift_counter_events" t-foreach="shift_counter_events" t-as="item">
+                                <tr>
+                                    <td>
+                                        <span t-esc="item.shift_id and item.shift_id.name_get()[0][1] or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.point_qty"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.sum_current_qty"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="coop_memberspace.extra_counter">
+        <div class="container">
+            <div class="row" style="padding: 10px;">
+                <h3 style="font-weight: 600;margin-top: 30px;margin-bottom: 10px;">Compteur extra</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Description</th>
+                                <th>Points</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="shift_counter_events_extra" t-foreach="shift_counter_events_extra" t-as="item">
+                                <tr>
+                                    <td>
+                                        <span t-esc="item.shift_id and item.shift_id.name_get()[0][1] or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.point_qty"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.sum_current_qty"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="coop_memberspace.programmer_modal">
+        <div id="programmer_modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <!-- <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div> -->
+                    <div class="modal-body">
+                        <p class="text-center">Please confirm your registration for the following service:</p>
+                        <div class="text-center">
+                            <span style="margin-right: 10px" id="modal_time"></span>
+                            <span id="modal_hour"></span>
+                        </div>
+                        <div class="text-center">
+                            <button type="object" class="fa fa-times" data-dismiss="modal"
+                                    style="margin-right: 40px;font-size: 3em;background-color: transparent;border: 0px;"/>
+                            <button type="object" class="fa fa-check"
+                                    style="font-size: 3em;background-color: transparent;border: 0px;"/>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+    <template id="coop_memberspace.modal_error">
+        <div id="error_modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title" id="error_header"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center" id="error_body"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+    <template id="coop_memberspace.programmer_un_extra">
+        <div class="container">
+            <div class="row programmer_un_extra" style="padding: 10px;">
+                <h3 style="font-weight: 600;margin-top: 30px;margin-bottom: 10px;">Programmer un extra</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Week</th>
+                                <th>Hour</th>
+                                <th>Available seats</th>
+                                <th>Inscription</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="shifts_available" t-foreach="shifts_available" t-as="shift">
+                                <t t-set="seats_avail"
+                                   t-value="sum(shift.shift_ticket_ids.filtered(lambda r: r.shift_type == 'ftop').mapped('seats_available'))"/>
+                                <t t-if="seats_avail > 0">
+                                    <tr>
+                                        <t t-set="date_begin"
+                                           t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                        <td scope="row">
+                                            <span t-attf-id="time-{{shift.id}}"
+                                                  t-esc="(date_begin and date_begin[0] or '') + ' '"/>
+                                            <span t-esc="date_begin and date_begin[1] or ''"/>
+                                        </td>
+                                        <td t-attf-id="week-{{shift.id}}">
+                                            <t t-esc="shift.week_number and dict(shift.fields_get(['week_number'])['week_number']['selection'])[shift.week_number] or ''"/>
+                                        </td>
+                                        <td t-attf-id="hour-{{shift.id}}">
+                                            <t t-esc="date_begin and date_begin[1] or ''"/>
+                                        </td>
+                                        <td>
+                                            <span t-attf-id="avalable-seats-{{shift.id}}" t-esc="seats_avail"/>
+                                        </td>
+                                        <td>
+                                            <a>
+                                                <span class="fa fa-user-plus" data-toggle="modal"
+                                                      data-target="#programmer_modal" t-attf-id="btn-add-{{shift.id}}"
+                                                      t-att-data-shift-id="shift.id"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <t t-call="coop_memberspace.programmer_modal"/>
+                <t t-call="coop_memberspace.modal_error"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="coop_memberspace.echange_de_services">
+        <div class="container exchange-shift">
+            <div class="row" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
+                <h3 style="font-weight: 600">My next services</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Hour</th>
+                                <th>Coordinators</th>
+                                <th style="text-align:center">Exchange</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
+                                <tr>
+                                    <t t-set="date_begin"
+                                       t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                    <td scope="row">
+                                        <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
+                                    </td>
+                                    <t t-set="coordinators"
+                                       t-value="shift.get_coordinators(get_alias_coordinator=True)"/>
+                                    <td>
+                                        <span>
+                                            <t t-esc="coordinators[0]"/>
+                                            <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
+                                        #{coordinators[1]} (cliquez pour copier l’adresse)"
+                                               class="fa fa-question-circle js-copy"
+                                               t-att-data-copy="coordinators[1]"></i>
+                                        </span>
+                                    </td>
+                                    <t t-set="shift_ticket_type" t-value="shift.shift_ticket_id.shift_type"/>
+                                    <t t-if="shift_ticket_type == 'ftop'">
+                                        <td style="text-align: center;background: greenyellow">
+                                            Extra
+                                        </td>
+                                    </t>
+                                    <t t-if="shift.state == 'waiting' and shift_ticket_type != 'ftop'">
+                                        <td style="text-align: center;">
+                                            Waiting
+                                        </td>
+                                    </t>
+                                    <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                        <td style="text-align: center;">
+                                            <button class="material-icons button-icon go-to-market"
+                                                    style="margin-right: 10px;"
+                                                    t-att-registration-id="shift.id">swap_horiz
+                                            </button>
+                                        </td>
+                                    </t>
+                                    <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                        <td style="text-align: center;">
+                                            <span>In progress</span>
+                                            <button class="material-icons button-icon remove-proposal"
+                                                    t-att-registration-id="shift.id"
+                                                    data-toggle="modal" data-target="#modal_confirm_cancel_proposal">
+                                                remove_circle_outline
+                                            </button>
+                                        </td>
+                                    </t>
+                                    <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                        <td style="text-align: center;background: lightgray">
+                                            Replaced
+                                        </td>
+                                    </t>
+                                </tr>
+                                <t t-if="shift.exchange_replacing_reg_id">
+                                    <tr>
+                                        <t t-set="date_begin"
+                                           t-value="user.get_time_by_user_lang(shift.exchange_replacing_reg_id.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                        <td scope="row">
+                                            <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
+                                        </td>
+                                        <t t-set="coordinators"
+                                           t-value="shift.exchange_replacing_reg_id.get_coordinators(get_alias_coordinator=True)"/>
+                                        <td>
+                                            <span>
+                                                <t t-esc="coordinators[0]"/>
+                                                <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
+                                            #{coordinators[1]} (cliquez pour copier l’adresse)"
+                                                   class="fa fa-question-circle js-copy"
+                                                   t-att-data-copy="coordinators[1]"></i>
+                                            </span>
+                                        </td>
+                                        <t t-set="shift_ticket_type"
+                                           t-value="shift.exchange_replacing_reg_id.shift_ticket_id.shift_type"/>
+                                        <t t-if="shift_ticket_type == 'ftop'">
+                                            <td style="text-align: center;background: greenyellow">
+                                                Extra
+                                            </td>
+                                        </t>
+                                        <t t-if="shift_ticket_type != 'ftop'">
+                                            <td style="text-align: center;background: darkorange">
+                                                Substitute
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
+                <h3 style="font-weight: 600">Exchange services</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Hour</th>
+                                <th>Coordinators</th>
+                                <th>Exchange</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="shifts_on_market" t-foreach="shifts_on_market" t-as="shift">
+                                <tr>
+                                    <t t-set="date_begin"
+                                       t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                    <td scope="row">
+                                        <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
+                                    </td>
+                                    <t t-set="coordinators"
+                                       t-value="shift.get_coordinators(get_alias_coordinator=True)"/>
+                                    <td>
+                                        <span>
+                                            <t t-esc="coordinators[0]"/>
+                                            <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
+                                        #{coordinators[1]} (cliquez pour copier l’adresse)"
+                                               class="fa fa-question-circle js-copy"
+                                               t-att-data-copy="coordinators[1]"></i>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span data-toggle="modal" data-target="#modal_exchange_shift"
+                                              t-att-registration-id="shift.id"
+                                              class="fa fa-plus-square select-shift-proposal"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="modal_exchange_shift" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p class="text-center">Please select the service to replace:</p>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody class="modal_exchange_shift_body">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center">
+                                    <span class="fa fa-times" data-dismiss="modal"
+                                          style="margin-right: 40px;font-size: 3em;"/>
+                                    <span class="fa fa-check create-proposal" style="font-size: 3em;"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="modal_confirm_cancel_proposal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p class="text-center">Do you want cancel a proposal ?</p>
+                                <div class="text-center">
+                                    <span class="fa fa-times" data-dismiss="modal"
+                                          style="margin-right: 40px;font-size: 3em;"/>
+                                    <span class="fa fa-check cancel-proposal" style="font-size: 3em;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- MYWORK FTOP MEMBER -->
+
+    <template id="coop_memberspace.mywork_ftop">
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-6">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 205px;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div>
+                                <span class="glyphicon glyphicon-piggy-bank" style="font-size: 4.5em;"/>
+                                <span style="font-size: 35px;border: 1px solid green;padding: 0px 31px;margin-left: 15px;"
+                                      t-esc="ftop_point"/>
+                            </div>
+                            <div>
+                                <span style="font-size: 25px;font-weight: 600">My flying counter</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 15px;font-weight: 600">Your status is “up to date” at zero
+                                    points or more. On the other hand, to be in order for the next steering wheel count
+                                    you must be at +1 or more.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="text-align: right;margin-top:30px;">
+                            <a href="/ftop/my_counter">
+                                <span class="fa fa-caret-right" style="font-size: 4em"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;min-height: 205px;">
+                    <p style="font-size: 25px;font-weight: 600">Programmer un service volant</p>
+                    <p class="text-center">
+                        If you are a member of the flying team, go here to see the
+                        services available and schedule your vacation. Cancellation
+                        of a service is only done by direct contact with the members' office.
+                    </p>
+                    <div class="text-center">
+                        <button class="btn btn-default btn-warning toggle-ftop-programmer">
+                            <span class="ftop-programmer-text">Programmer</span>
+                            <i class="toggle-ftop-spinner-icon fa fa-spinner fa-spin hide"></i>
+                            <span class="toggle-ftop-spinner-text hide">Chargement</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding: 10px;">
+            <p style="font-size: 25px;font-weight: 600;margin-top: 30px;margin-bottom: 10px;">My next services</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Hour</th>
+                            <th>Coordinators</th>
+                            <th>Cancellation</th>
+                        </tr>
+                    </thead>
+                    <tbody class="ftop-programmer-une-vacation-body">
+                        <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
+                            <tr>
+                                <t t-set="date_begin"
+                                   t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                <td scope="row">
+                                    <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
+                                </td>
+                                <td>
+                                    <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
+                                </td>
+                                <t t-set="coordinators" t-value="shift.get_coordinators(get_alias_coordinator=True)"/>
+                                <td>
+                                    <span>
+                                        <t t-esc="coordinators[0]"/>
+                                        <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
+                                    #{coordinators[1]} (cliquez pour copier l’adresse)"
+                                           class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    <t t-if="shift.state == 'cancel'">
+                                        Canceled
+                                    </t>
+                                    <t t-else="">
+                                        <a>
+                                            <button type="button" style="border: 0px; background-color: transparent"
+                                                    class="fa fa-times" data-toggle="modal"
+                                                    data-target="#not_cancel_registration_modal"/>
+                                        </a>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="not_cancel_registration_modal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">x</button>
+                        </div>
+                        <div class="modal-body">
+                            Please contact the members' office if you are forced to cancel your participation.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="ftop_programmer_modal" class="modal fade programmer_une_vacation" role="dialog">
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">x</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row" style="padding: 10px;">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Week</th>
+                                                <th>Hour</th>
+                                                <th>Available seats</th>
+                                                <th>Inscription</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="body_ftop_programmer">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <t t-call="coop_memberspace.programmer_modal"/>
+            <t t-call="coop_memberspace.modal_error"/>
+        </div>
+    </template>
+
+    <template id="coop_memberspace.ftop_my_counter">
+        <t t-call="website.layout">
+            <t t-set="title">Member area | My counter</t>
+            <div class="container">
+                <div class="row" style="padding: 10px;">
+                    <p style="font-size: 25px;font-weight: 600;margin-top: 30px;margin-bottom: 10px;">My counter</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Description</th>
+                                    <th>Points</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="shift_counter_events" t-foreach="shift_counter_events" t-as="item">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="item.shift_id and item.shift_id.name_get()[0][1] or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="item.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="item.point_qty"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="item.sum_current_qty"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="parameter_warning_member_state" model="ir.config_parameter">
+        <field name="key">warning_member_state</field>
+        <field name="value">{
+            'none': {
+                'alert': 'Erreur',
+                'message': "A technical problem currently prevents us from knowing your status. Try again later or contact the members office.",
+                'css-class': 'alert trobz-alert-danger'
+            },
+            'alert': {
+                'alert': 'Attention !',
+                'message': "You have one or more remedies to do.",
+                'css-class': 'alert trobz-alert-warning'
+            },
+            'suspended': {
+                'alert': '',
+                'message': "You have been suspended, please contact the members office.",
+                'css-class': 'alert trobz-alert-danger'
+            },
+            'delay': {
+                'alert': 'Attention !',
+                'message': "You have one or more remedies to do.",
+                'css-class': 'alert trobz-alert-warning'
+            },
+            'unpayed': {
+                'alert': '',
+                'message': "An incident has occurred on your account. Please contact the member office.",
+                'css-class': 'alert trobz-alert-info'
+            },
+            'blocked': {
+                'alert': '',
+                'message': "An incident has occurred on your account. Please contact the member office.",
+                'css-class': 'alert trobz-alert-info'
+            },
+            'unsubscribed': {
+                'alert': '',
+                'message': "You have been unsubscribed from your team, please contact the members office.",
+                'css-class': 'alert trobz-alert-danger'
+            },
+            'up_to_date': {
+                'alert': 'Bravo !',
+                'message': "You are up to date.",
+                'css-class': 'alert trobz-alert-success'
+            },
+            'vacation': {
+                'alert': '',
+                'message': "In vacations.",
+                'css-class': 'alert trobz-alert-warning'
+            },
+            'exempted': {
+                'alert': '',
+                'message': "In vacations.",
+                'css-class': 'alert trobz-alert-warning'
+            }
+            }
+        </field>
+    </record>
+
+    <record id="parameter_member_space_user" model="ir.config_parameter">
+        <field name="key">member_space_user</field>
+        <field name="value">1</field>
+    </record>
+
+    <!-- 1. Unit is hour
+         2. Default : 0 (It mean we dont use token expiration) -->
+    <record id="parameter_proposal_token_expiration" model="ir.config_parameter">
+        <field name="key">proposal_token_expiration</field>
+        <field name="value">0</field>
+    </record>
+
+</odoo>
