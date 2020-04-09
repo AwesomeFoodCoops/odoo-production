@@ -57,7 +57,8 @@ class ResPartner(models.Model):
                         user_related
                         and (user_related[0].login in ('admin', '__system__')
                              or user_related.name in
-                             ('System', 'Administrator'))
+                             ('System', 'Administrator')
+                             or self.check_ignore_user(user_related[0]))
                     ):
                         continue
                     user_related.write({
@@ -79,6 +80,17 @@ class ResPartner(models.Model):
             res.is_checked_email = False
         return res
 
+    @api.model
+    def check_ignore_user(self, user):
+        if not user:
+            return False
+        system_user = self.env.ref('base.user_root')
+        if user == system_user:
+            return True
+        admin_user = self.env.ref('base.user_admin')
+        if user == admin_user:
+            return True
+
     @api.multi
     def check_exist_email(self):
         for partner in self:
@@ -87,6 +99,8 @@ class ResPartner(models.Model):
                 or (partner.user_ids and partner.user_ids[0].login in
                     ('admin', '__system__'))
                 or partner.name in ('System', 'Administrator')
+                or self.check_ignore_user(
+                    partner.user_ids and partner.user_ids[0])
             ):
                 continue
             if partner.email:
