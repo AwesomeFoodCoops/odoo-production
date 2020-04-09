@@ -111,9 +111,12 @@ class ResPartner(models.Model):
                  'is_checked_email')
     def compute_show_send_email(self):
         for partner in self:
-            if partner.supplier or not partner.email or \
-                    partner.is_checked_email or (
-                    not partner.is_member and not partner.is_interested_people):
+            if(
+                partner.supplier
+                or not partner.email
+                or partner.is_checked_email
+                or (not partner.is_member and not partner.is_interested_people)
+            ):
                 partner.show_send_email = False
             else:
                 partner.show_send_email = True
