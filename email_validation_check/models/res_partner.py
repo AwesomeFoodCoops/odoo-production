@@ -37,32 +37,27 @@ class ResPartner(models.Model):
         res = super(ResPartner, self).write(vals)
         no_check_validate_email = self._context.get('no_check_validate_email')
         if 'email' in vals and not no_check_validate_email:
-            for partner in self:
-                if partner.email:
-                    partner.check_exist_email()
-                    if partner.validation_url and \
-                            (partner.is_interested_people or
-                             partner.is_member) and not partner.supplier:
-                        mail_template = self.env.ref(
-                            'email_validation_check.email_confirm_validate')
-                        if mail_template:
-                            mail_template.send_mail(self.id)
-                        partner.is_checked_email = False
-
-                    # Update login user which's related partner
-                    user_related = self.env['res.users'].search([
-                        ('partner_id', '=', partner.id)
-                    ])
-                    user_related.write({
-                        'login': partner.email
-                    })
+            for partner in self.filtered('email'):
+                if (
+                    partner.validation_url
+                    and (partner.is_interested_people or partner.is_member)
+                    and not partner.supplier
+                ):
+                    mail_template = self.env.ref(
+                        'email_validation_check.email_confirm_validate')
+                    if mail_template:
+                        mail_template.send_mail(self.id)
+                    partner.is_checked_email = False
+                # Update login user which's related partner
+                user_related = self.env['res.users'].search([
+                    ('partner_id', '=', partner.id)])
+                user_related.write({'login': partner.email})
         return res
 
     @api.model
     def create(self, vals):
         no_check_validate_email = self._context.get('no_check_validate_email')
         res = super(ResPartner, self).create(vals)
-        res.check_exist_email()
         if res.validation_url and res.is_interested_people and \
                 res.email and not res.supplier and not no_check_validate_email:
             mail_template = self.env.ref(
@@ -73,19 +68,28 @@ class ResPartner(models.Model):
         return res
 
     @api.multi
+    @api.constrains('email')
     def check_exist_email(self):
-        for partner in self:
+        ignore_partner_ids = [
+            self.env.ref('base.partner_root').id,
+            self.env.ref('base.partner_admin').id,
+        ]
+        for partner in self.filtered('email'):
             if partner.supplier:
+                continue
+            if partner.id in ignore_partner_ids:
                 continue
             if partner.email:
                 already_email = self.env['res.partner'].search([
                     ('email', '=', partner.email),
-                    ('id', '!=', partner.id)
+                    ('id', '!=', partner.id),
+                    ('id', 'not in', ignore_partner_ids),
+                    ('supplier', '=', False),
                 ])
                 if already_email:
-                    raise ValidationError(
-                        _("Another user is already registered" +
-                          " using this email address."))
+                    raise ValidationError(_(
+                        "Another user is already registered using this "
+                        "email address: %s") % partner.email)
 
     @api.multi
     @api.depends('email')
@@ -95,13 +99,18 @@ class ResPartner(models.Model):
                 partner.email_validation_string = random_token()
 
     @api.multi
-    @api.depends('email', 'is_member', 'is_interested_people', 'supplier',
-                 'is_checked_email')
+    @api.depends(
+        'email', 'is_member', 'is_interested_people',
+        'supplier', 'is_checked_email',
+    )
     def compute_show_send_email(self):
         for partner in self:
-            if partner.supplier or not partner.email or \
-                    partner.is_checked_email or (
-                    not partner.is_member and not partner.is_interested_people):
+            if (
+                partner.supplier
+                or not partner.email
+                or partner.is_checked_email
+                or (not partner.is_member and not partner.is_interested_people)
+            ):
                 partner.show_send_email = False
             else:
                 partner.show_send_email = True
