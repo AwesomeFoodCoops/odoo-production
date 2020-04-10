@@ -37,32 +37,21 @@ class ResPartner(models.Model):
         res = super(ResPartner, self).write(vals)
         no_check_validate_email = self._context.get('no_check_validate_email')
         if 'email' in vals and not no_check_validate_email:
-            for partner in self:
-                if partner.email:
-                    if partner.validation_url and \
-                            (partner.is_interested_people or
-                             partner.is_member) and not partner.supplier:
-                        mail_template = self.env.ref(
-                            'email_validation_check.email_confirm_validate')
-                        if mail_template:
-                            mail_template.send_mail(self.id)
-                        partner.is_checked_email = False
-
-                    # Update login user which's related partner
-                    user_related = self.env['res.users'].search([
-                        ('partner_id', '=', partner.id)
-                    ])
-                    if(
-                        user_related
-                        and (user_related[0].login in ('admin', '__system__')
-                             or user_related.name in
-                             ('System', 'Administrator')
-                             or partner.check_ignore_partner())
-                    ):
-                        continue
-                    user_related.write({
-                        'login': partner.email
-                    })
+            for partner in self.filtered('email'):
+                if (
+                    partner.validation_url
+                    and (partner.is_interested_people or partner.is_member)
+                    and not partner.supplier
+                ):
+                    mail_template = self.env.ref(
+                        'email_validation_check.email_confirm_validate')
+                    if mail_template:
+                        mail_template.send_mail(self.id)
+                    partner.is_checked_email = False
+                # Update login user which's related partner
+                user_related = self.env['res.users'].search([
+                    ('partner_id', '=', partner.id)])
+                user_related.write({'login': partner.email})
         return res
 
     @api.model
@@ -79,36 +68,28 @@ class ResPartner(models.Model):
         return res
 
     @api.multi
-    def check_ignore_partner(self):
-        self.ensure_one()
-        partner_root = self.env.ref('base.partner_root')
-        if self == partner_root:
-            return True
-        partner_admin = self.env.ref('base.partner_admin')
-        if self == partner_admin:
-            return True
-
-    @api.multi
     @api.constrains('email')
     def check_exist_email(self):
-        for partner in self:
-            if(
-                partner.supplier
-                or (partner.user_ids and partner.user_ids[0].login in
-                    ('admin', '__system__'))
-                or partner.name in ('System', 'Administrator')
-                or partner.check_ignore_partner()
-            ):
+        ignore_partner_ids = [
+            self.env.ref('base.partner_root').id,
+            self.env.ref('base.partner_admin').id,
+        ]
+        for partner in self.filtered('email'):
+            if partner.supplier:
+                continue
+            if partner.id in ignore_partner_ids:
                 continue
             if partner.email:
                 already_email = self.env['res.partner'].search([
                     ('email', '=', partner.email),
-                    ('id', '!=', partner.id)
+                    ('id', '!=', partner.id),
+                    ('id', 'not in', ignore_partner_ids),
+                    ('supplier', '=', False),
                 ])
                 if already_email:
-                    raise ValidationError(
-                        _("Another user is already registered" +
-                          " using this email address."))
+                    raise ValidationError(_(
+                        "Another user is already registered using this "
+                        "email address: %s") % partner.email)
 
     @api.multi
     @api.depends('email')
