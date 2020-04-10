@@ -39,7 +39,6 @@ class ResPartner(models.Model):
         if 'email' in vals and not no_check_validate_email:
             for partner in self:
                 if partner.email:
-                    partner.check_exist_email()
                     if partner.validation_url and \
                             (partner.is_interested_people or
                              partner.is_member) and not partner.supplier:
@@ -58,7 +57,7 @@ class ResPartner(models.Model):
                         and (user_related[0].login in ('admin', '__system__')
                              or user_related.name in
                              ('System', 'Administrator')
-                             or self.check_ignore_user(user_related[0]))
+                             or partner.check_ignore_partner())
                     ):
                         continue
                     user_related.write({
@@ -70,7 +69,6 @@ class ResPartner(models.Model):
     def create(self, vals):
         no_check_validate_email = self._context.get('no_check_validate_email')
         res = super(ResPartner, self).create(vals)
-        res.check_exist_email()
         if res.validation_url and res.is_interested_people and \
                 res.email and not res.supplier and not no_check_validate_email:
             mail_template = self.env.ref(
@@ -80,18 +78,18 @@ class ResPartner(models.Model):
             res.is_checked_email = False
         return res
 
-    @api.model
-    def check_ignore_user(self, user):
-        if not user:
-            return False
-        system_user = self.env.ref('base.user_root')
-        if user == system_user:
+    @api.multi
+    def check_ignore_partner(self):
+        self.ensure_one()
+        partner_root = self.env.ref('base.partner_root')
+        if self == partner_root:
             return True
-        admin_user = self.env.ref('base.user_admin')
-        if user == admin_user:
+        partner_admin = self.env.ref('base.partner_admin')
+        if self == partner_admin:
             return True
 
     @api.multi
+    @api.constrains('email')
     def check_exist_email(self):
         for partner in self:
             if(
@@ -99,8 +97,7 @@ class ResPartner(models.Model):
                 or (partner.user_ids and partner.user_ids[0].login in
                     ('admin', '__system__'))
                 or partner.name in ('System', 'Administrator')
-                or self.check_ignore_user(
-                    partner.user_ids and partner.user_ids[0])
+                or partner.check_ignore_partner()
             ):
                 continue
             if partner.email:
