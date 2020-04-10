@@ -18,6 +18,7 @@
         "coop_membership",
     ],
     "data": [
-        "views/res_partner_view.xml"
+        "wizard/invoice_supplier_price_update.xml",
+        "views/res_partner_view.xml",
     ],
 }

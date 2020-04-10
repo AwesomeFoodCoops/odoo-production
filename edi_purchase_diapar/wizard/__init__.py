@@ -1,1 +1,1 @@
-from . import supplier_info_update
+from . import invoice_supplier_price_update

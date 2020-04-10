@@ -12,4 +12,16 @@
         </field>
     </record>
 
+    <record id="invoice_supplier_form_inherit_diapar" model="ir.ui.view">
+        <field name="name">invoice.supplier.form.inherit.diapar</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_invoice_draft']" position="after">
+                <field name="partner_is_edi" invisible="1" />
+                <button name="%(edi_purchase_diapar.invoice_supplier_price_update_act)d" type="action" string="Update Prices from EDI" class="btn btn-primary" attrs="{'invisible':['|',('partner_is_edi','=', False),('state','!=', 'draft')]}"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
