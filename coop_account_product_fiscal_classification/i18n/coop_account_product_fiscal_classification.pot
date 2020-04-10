@@ -1,0 +1,65 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_account_product_fiscal_classification
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_account_product_fiscal_classification
+#: model:ir.model.fields,field_description:coop_account_product_fiscal_classification.field_account_product_fiscal_classification__expense_account_id
+msgid "Expense Account"
+msgstr ""
+
+#. module: coop_account_product_fiscal_classification
+#: model:ir.model,name:coop_account_product_fiscal_classification.model_account_product_fiscal_classification
+msgid "Fiscal Classification"
+msgstr ""
+
+#. module: coop_account_product_fiscal_classification
+#: model:ir.model.fields,field_description:coop_account_product_fiscal_classification.field_account_product_fiscal_classification__income_account_id
+msgid "Income Account"
+msgstr ""
+
+#. module: coop_account_product_fiscal_classification
+#: model:ir.model.fields,field_description:coop_account_product_fiscal_classification.field_product_product__is_expense_account_readonly
+#: model:ir.model.fields,field_description:coop_account_product_fiscal_classification.field_product_template__is_expense_account_readonly
+msgid "Is Expense Account Readonly"
+msgstr ""
+
+#. module: coop_account_product_fiscal_classification
+#: model:ir.model.fields,field_description:coop_account_product_fiscal_classification.field_product_product__is_income_account_readonly
+#: model:ir.model.fields,field_description:coop_account_product_fiscal_classification.field_product_template__is_income_account_readonly
+msgid "Is Income Account Readonly"
+msgstr ""
+
+#. module: coop_account_product_fiscal_classification
+#: model:ir.model,name:coop_account_product_fiscal_classification.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: coop_account_product_fiscal_classification
+#: model:ir.model.fields,field_description:coop_account_product_fiscal_classification.field_account_product_fiscal_classification__purchase_tax_ids
+msgid "Purchase Taxes"
+msgstr ""
+
+#. module: coop_account_product_fiscal_classification
+#: model:ir.model.fields,field_description:coop_account_product_fiscal_classification.field_account_product_fiscal_classification__sale_tax_ids
+msgid "Sale Taxes"
+msgstr ""
+
+#. module: coop_account_product_fiscal_classification
+#: model:ir.model.fields,help:coop_account_product_fiscal_classification.field_product_product__is_expense_account_readonly
+#: model:ir.model.fields,help:coop_account_product_fiscal_classification.field_product_product__is_income_account_readonly
+#: model:ir.model.fields,help:coop_account_product_fiscal_classification.field_product_template__is_expense_account_readonly
+#: model:ir.model.fields,help:coop_account_product_fiscal_classification.field_product_template__is_income_account_readonly
+msgid "Technical field"
+msgstr ""
+
