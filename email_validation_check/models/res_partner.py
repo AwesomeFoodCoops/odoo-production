@@ -99,11 +99,13 @@ class ResPartner(models.Model):
                 partner.email_validation_string = random_token()
 
     @api.multi
-    @api.depends('email', 'is_member', 'is_interested_people', 'supplier',
-                 'is_checked_email')
+    @api.depends(
+        'email', 'is_member', 'is_interested_people',
+        'supplier', 'is_checked_email',
+    )
     def compute_show_send_email(self):
         for partner in self:
-            if(
+            if (
                 partner.supplier
                 or not partner.email
                 or partner.is_checked_email
