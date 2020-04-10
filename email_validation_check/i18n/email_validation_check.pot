@@ -37,9 +37,9 @@ msgid "<span class=\"contact100-form-title\">\n"
 msgstr ""
 
 #. module: email_validation_check
-#: code:addons/email_validation_check/models/res_partner.py:87
+#: code:addons/email_validation_check/models/res_partner.py:90
 #, python-format
-msgid "Another user is already registered using this email address."
+msgid "Another user is already registered using this email address: %s"
 msgstr ""
 
 #. module: email_validation_check
