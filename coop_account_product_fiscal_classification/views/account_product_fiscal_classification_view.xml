@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_product_fiscal_classification_form_inherit" model="ir.ui.view">
+        <field name="model">account.product.fiscal.classification</field>
+        <field name="inherit_id" ref="account_product_fiscal_classification.view_account_product_fiscal_classification_form"/>
+        <field name="arch" type="xml">
+            <field name="sale_tax_ids" position="after">
+                 <field name="expense_account_id" />
+                <field name="income_account_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
