@@ -1,7 +1,7 @@
 /*
     POS Automatic Cashdrawer module for Odoo
-    Copyright (C) 2019 Iván Todorovich (https://www.druidoo.io)
-    The licence is in the file __openerp__.py
+    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
+    The licence is in the file __manifest__.py
 */
 
 odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
@@ -13,7 +13,6 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
     var framework = require('web.framework');
 
     var _t = core._t;
-    var QWeb = core.qweb;
 
     chrome.Chrome.include({
 
@@ -23,12 +22,12 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
             if it doesn't, it will syncrhonize it as long as it's the same amount.
             If it's different, it will ask for a manager and offer to overwrite it
         */
-        init: function() {
+        init: function () {
             var self = this;
             this._super.apply(this, arguments);
-            this.ready.done(function() {
+            this.ready.done(function () {
                 if (self.pos.config.iface_automatic_cashdrawer && self.pos.config.cash_control) {
-                    self.pos.check_opening_balance_missing().then(function(res) {
+                    self.pos.check_opening_balance_missing().then(function (res) {
                         var missing = res['missing'];
                         var balance_start = res['balance_start'];
                         // It's not missing, do nothing
@@ -37,8 +36,8 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
                         framework.blockUI();
                         $.when(
                             self.pos.proxy.automatic_cashdrawer_get_total_amount(),
-                            self.pos.proxy.automatic_cashdrawer_get_inventory(),
-                        ).then(function(totals, inventory) {
+                            self.pos.proxy.automatic_cashdrawer_get_inventory()
+                        ).then(function (totals, inventory) {
                             // Check if the amount is different
                             if (totals.total != balance_start) {
                                 // Check access rights
@@ -51,12 +50,14 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
                                             _t('Do you want to overwrite it with the real amount?') + '\n\n' +
                                             _t('Cashdrawer Inventory: ') + self.format_currency(totals.total) + '\n' +
                                             _t('Session Starting Balance: ') + self.format_currency(balance_start),
-                                        confirm: function() {
+                                        confirm: function () {
                                             framework.blockUI();
                                             self.pos.action_set_balance(inventory.total, 'start')
-                                            .always(function() { framework.unblockUI(); })
+                                            .always(function () { 
+                                                framework.unblockUI(); 
+                                            });
                                         }
-                                    })
+                                    });
                                 // If user does not have enough access rights, we block the POS
                                 } else {
                                     self.gui.show_popup('error', {
@@ -71,16 +72,16 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
                             } else {
                                 framework.blockUI();
                                 self.pos.action_set_balance(inventory.total, 'start')
-                                .always(function() { framework.unblockUI(); });
+                                .always(function () { framework.unblockUI(); });
                             }
-                        }).fail(function(error) {
+                        }).fail(function (error) {
                             self.gui.show_popup('error', {
                                 title: _t('Unable to syncronize inventory'),
                                 body: _t('Check that the Cashdrawer is online before starting the session, and refresh the browser.\n\n') + error.data.message,
                             });
-                        }).always(function() {
+                        }).always(function () {
                             framework.unblockUI();
-                        })
+                        });
                     });
                 }
             });
@@ -94,7 +95,7 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
         /*
             Overload close so that we can synchronize the closing balance
         */
-        close: function() {
+        close: function () {
             var self = this;
             var args = arguments;
             var _super = this._super;
@@ -106,15 +107,15 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
             self.chrome.loading_show();
             self.chrome.loading_message(_t('Synchronizing automatic cashdrawer inventory'));
             self.pos.proxy.automatic_cashdrawer_get_inventory()
-            .then(function(inventory) {
-                self.pos.action_set_balance(inventory.total, 'end').then(function() {
+            .then(function (inventory) {
+                self.pos.action_set_balance(inventory.total, 'end').then(function () {
                     _super.apply(self, args);
                 });
             })
-            .fail(function() {
+            .fail(function () {
                 _super.apply(self, args);
             })
-            .always(function() {
+            .always(function () {
                 self.chrome.loading_hide();
             });
         },
@@ -124,5 +125,5 @@ odoo.define('pos_automatic_cashdrawer.chrome', function (require) {
     return {
         chrome: chrome.Chrome,
         gui: gui.Gui,
-    }
+    };
 });

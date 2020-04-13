@@ -1,9 +1,9 @@
 /*
     POS Automatic Cashdrawer module for Odoo
     Copyright (C) 2016 Aurélien DUMAINE
-    Copyright (C) 2019 Iván Todorovich (https://www.druidoo.io)
+    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
     @author: Aurélien DUMAINE
-    The licence is in the file __openerp__.py
+    The licence is in the file __manifest__.py
 */
 
 odoo.define('pos_automatic_cashdrawer.devices', function (require) {
@@ -14,7 +14,6 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
     var framework = require('web.framework');
 
     var _t = core._t;
-    var QWeb = core.qweb;
 
     devices.ProxyDevice.include({
 
@@ -24,7 +23,7 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
             Normally, it starts a keepalive timer that request /hw_proxy/status_json
             But we're also sending the Cashdrawer connection config here.
         */
-        keepalive: function() {
+        keepalive: function () {
             this._super.apply(this, arguments);
             if (this.pos.config.iface_automatic_cashdrawer) {
                 this.message('cashlogy/connect', {
@@ -50,21 +49,25 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
 
             @returns    {amount: 0.00, amount_in: 0.00, amount_out: 0.00}
         */
-        automatic_cashdrawer_display_transaction_start: function(amount, options) {
+        automatic_cashdrawer_display_transaction_start: function (amount, options) {
             options = options || {};
             var self = this;
             var done = this.message('cashlogy/display_transaction_start', {
                 'amount': amount,
                 'options': options,
             });
-            done.fail(function(error) {
+            done.fail(function (error) {
+                var message = error ? error.data.message : _t('Cashdrawer not connected');
+                var body = error ? error.data.debug : _t('Make sure Cashdrawer connected with IOT Box');
                 self.pos.gui.show_popup('error-traceback', {
-                    'title': _t('Cashdrawer Error: ') + error.data.message,
-                    'body': error.data.debug
+                    'title': _t('Cashdrawer Error: ') + message,
+                    'body': body
                 });
             });
             framework.blockUI();
-            done.always(function() { framework.unblockUI(); });
+            done.always(function () { 
+                framework.unblockUI(); 
+            });
             return done;
         },
 
@@ -73,17 +76,21 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
 
             @returns    {total_before: 0.00, added: 0.00, dispensed: 0.00, total: 0.00}
         */
-        automatic_cashdrawer_display_close_till: function() {
+        automatic_cashdrawer_display_close_till: function () {
             var self = this;
             var done = this.message('cashlogy/display_close_till');
-            done.fail(function(error) {
+            done.fail(function (error) {
+                var message = error ? error.data.message : _t('Cashdrawer not connected');
+                var body = error ? error.data.debug : _t('Make sure Cashdrawer connected with IOT Box'); 
                 self.pos.gui.show_popup('error-traceback', {
-                    'title': _t('Cashdrawer Error: ') + error.data.message,
-                    'body': error.data.debug
+                    'title': _t('Cashdrawer Error: ') + message,
+                    'body': body
                 });
             });
             framework.blockUI();
-            done.always(function() { framework.unblockUI(); });
+            done.always(function () { 
+                framework.unblockUI(); 
+            });
             return done;
         },
 
@@ -91,17 +98,21 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
             Displays the backoffice complete emptying wizard.
             @returns    0.00 - the dispensed amount
         */
-        automatic_cashdrawer_display_complete_emptying: function() {
+        automatic_cashdrawer_display_complete_emptying: function () {
             var self = this;
             var done = this.message('cashlogy/display_complete_emptying');
-            done.fail(function(error) {
+            done.fail(function (error) {
+                var message = error ? error.data.message : _t('Cashdrawer not connected');
+                var body = error ? error.data.debug : _t('Make sure Cashdrawer connected with IOT Box');
                 self.pos.gui.show_popup('error-traceback', {
-                    'title': _t('Cashdrawer Error: ') + error.data.message,
-                    'body': error.data.debug
+                    'title': _t('Cashdrawer Error: ') + message,
+                    'body': body
                 });
             });
             framework.blockUI();
-            done.always(function() { framework.unblockUI(); });
+            done.always(function () { 
+                framework.unblockUI(); 
+            });
             return done;
         },
 
@@ -109,17 +120,21 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
             Displays the backoffice empty stacker wizard.
             @returns    0.00 - the amount removed from stacker
         */
-        automatic_cashdrawer_display_empty_stacker: function() {
+        automatic_cashdrawer_display_empty_stacker: function () {
             var self = this;
             var done = this.message('cashlogy/display_empty_stacker');
-            done.fail(function(error) {
+            done.fail(function (error) {
+                var message = error ? error.data.message : _t('Cashdrawer not connected');
+                var body = error ? error.data.debug : _t('Make sure Cashdrawer connected with IOT Box');
                 self.pos.gui.show_popup('error-traceback', {
-                    'title': _t('Cashdrawer Error: ') + error.data.message,
-                    'body': error.data.debug
+                    'title': _t('Cashdrawer Error: ') + message,
+                    'body': body
                 });
             });
             framework.blockUI();
-            done.always(function() { framework.unblockUI(); });
+            done.always(function () { 
+                framework.unblockUI(); 
+            });
             return done;
         },
 
@@ -130,21 +145,23 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
 
             @returns 0.00
         */
-        automatic_cashdrawer_dispense: function(amount, options) {
+        automatic_cashdrawer_dispense: function (amount, options) {
             options = options || {};
             var self = this;
             var done = this.message('cashlogy/dispense', {
                 'amount': amount,
                 'options': options,
             });
-            done.done(function(res) {
+            done.done(function (res) {
                 if (res !== amount) {
                     console.error('Cashlogy', 'The dispensed amount was different than the requested', amount, res);
                 }
-            }).fail(function(error) {
+            }).fail(function (error) {
+                var message = error ? error.data.message : _t('Cashdrawer not connected');
+                var body = error ? error.data.debug : _t('Make sure Cashdrawer connected with IOT Box');
                 self.pos.gui.show_popup('error-traceback', {
-                    'title': _t('Cashdrawer Error: ') + error.data.message,
-                    'body': error.data.debug
+                    'title': _t('Cashdrawer Error: ') + message,
+                    'body': body
                 });
             });
             return done;
@@ -156,13 +173,15 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
             It has to be stopped using stop_acceptance
             The amount loaded so far can be queried with get_amount_accepted
         */
-        automatic_cashdrawer_start_add_change: function() {
+        automatic_cashdrawer_start_add_change: function () {
             var self = this;
             var done = this.message('cashlogy/start_add_change');
-            done.fail(function(error) {
+            done.fail(function (error) {
+                var message = error ? error.data.message : _t('Cashdrawer not connected');
+                var body = error ? error.data.debug : _t('Make sure Cashdrawer connected with IOT Box');
                 self.pos.gui.show_popup('error-traceback', {
-                    'title': _t('Cashdrawer Error: ') + error.data.message,
-                    'body': error.data.debug
+                    'title': _t('Cashdrawer Error: ') + message,
+                    'body': body
                 });
             });
             return done;
@@ -172,11 +191,12 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
             Returns the money accepted so far
             @returns 0.00
         */
-        automatic_cashdrawer_get_amount_accepted: function() {
-            var self = this;
+        automatic_cashdrawer_get_amount_accepted: function () {
             var done = this.message('cashlogy/get_amount_accepted');
             // Silently fail
-            done.fail(function(error) { console.error(error); });
+            done.fail(function (error) { 
+                console.error(error); 
+            });
             return done;
         },
 
@@ -184,13 +204,15 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
             Stops acceptance of money
             @returns 0.00
         */
-        automatic_cashdrawer_stop_acceptance: function() {
+        automatic_cashdrawer_stop_acceptance: function () {
             var self = this;
             var done = this.message('cashlogy/stop_acceptance');
-            done.fail(function(error) {
+            done.fail(function (error) {
+                var message = error ? error.data.message : _t('Cashdrawer not connected');
+                var body = error ? error.data.debug : _t('Make sure Cashdrawer connected with IOT Box');
                 self.pos.gui.show_popup('error-traceback', {
-                    'title': _t('Cashdrawer Error: ') + error.data.message,
-                    'body': error.data.debug
+                    'title': _t('Cashdrawer Error: ') + message,
+                    'body': body
                 });
             });
             return done;
@@ -200,13 +222,15 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
             Gets the inventory of the machine
             Returns {total: {}, recycler: {}, stacker: {}}
         */
-        automatic_cashdrawer_get_inventory: function() {
+        automatic_cashdrawer_get_inventory: function () {
             var self = this;
             var done = this.message('cashlogy/get_inventory');
-            done.fail(function(error) {
+            done.fail(function (error) {
+                var message = error ? error.data.message : _t('Cashdrawer not connected');
+                var body = error ? error.data.debug : _t('Make sure Cashdrawer connected with IOT Box');
                 self.pos.gui.show_popup('error-traceback', {
-                    'title': _t('Cashdrawer Error: ') + error.data.message,
-                    'body': error.data.debug
+                    'title': _t('Cashdrawer Error: ') + message,
+                    'body': body
                 });
             });
             return done;
@@ -216,13 +240,15 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
             Gets the total amount on the machine
             Returns {total: 0.00, recycler: 0.00, stacker: 0.00}
         */
-        automatic_cashdrawer_get_total_amount: function() {
+        automatic_cashdrawer_get_total_amount: function () {
             var self = this;
             var done = this.message('cashlogy/get_total_amount');
-            done.fail(function(error) {
+            done.fail(function (error) {
+                var message = error ? error.data.message : _t('Cashdrawer not connected');
+                var body = error ? error.data.debug : _t('Make sure Cashdrawer connected with IOT Box');
                 self.pos.gui.show_popup('error-traceback', {
-                    'title': _t('Cashdrawer Error: ') + error.data.message,
-                    'body': error.data.debug
+                    'title': _t('Cashdrawer Error: ') + message,
+                    'body': body
                 });
             });
             return done;
@@ -231,7 +257,7 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
         /*
             Prints the current inventory of the machine
         */
-        automatic_cashdrawer_print_inventory: function() {
+        automatic_cashdrawer_print_inventory: function () {
             this.pos.gui.show_popup('error', {
                 title: _t('Not implemented'),
                 body: _t('Method not implemented yet')
@@ -244,20 +270,26 @@ odoo.define('pos_automatic_cashdrawer.devices', function (require) {
             TODO: Move this to pos_automatic_cashdrawer_cashlogy, or somehow toggle this feature
             depending on a supported feature list.
         */
-        automatic_cashdrawer_display_backoffice: function(){
+        automatic_cashdrawer_display_backoffice: function () {
             // TODO : only managers should  be able to see/clic this button
             // Check for security group of current user
-            if (!true) { return $.Deferred().reject(_t('AccessError')); }
+            // if (!true) { 
+            //     return $.Deferred().reject(_t('AccessError')); 
+            // }
             var self = this;
             var done = this.message('cashlogy/display_backoffice');
-            done.fail(function(error) {
+            done.fail(function (error) {
+                var message = error ? error.data.message : _t('Cashdrawer not connected');
+                var body = error ? error.data.debug : _t('Make sure Cashdrawer connected with IOT Box');
                 self.pos.gui.show_popup('error-traceback', {
-                    'title': _t('Cashdrawer Error: ') + error.data.message,
-                    'body': error.data.debug
+                    'title': _t('Cashdrawer Error: ') + message,
+                    'body': body
                 });
             });
             framework.blockUI();
-            done.always(function() { framework.unblockUI(); });
+            done.always(function () { 
+                framework.unblockUI(); 
+            });
             return done;
         },
 
