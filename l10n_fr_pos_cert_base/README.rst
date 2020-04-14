@@ -31,8 +31,6 @@ Authors
 
 * Druidoo (<https://www.druidoo.io>)
 
-Based on https://github.com/ingadhoc/sale/blob/12.0/pos_voucher/
-
 
 Maintainers
 
