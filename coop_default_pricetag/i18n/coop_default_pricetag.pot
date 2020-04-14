@@ -404,8 +404,10 @@ msgid "Pricetag Label"
 msgstr ""
 
 #. module: coop_default_pricetag
+#: model:ir.actions.act_window,name:coop_default_pricetag.action_pricetag_model
 #: model:ir.model,name:coop_default_pricetag.model_pricetag_model
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_product_print_category__pricetag_model_id
+#: model:ir.ui.menu,name:coop_default_pricetag.menu_pricetag_model
 msgid "Pricetag Model"
 msgstr ""
 
@@ -608,9 +610,3 @@ msgstr ""
 msgid "€/kg<br/>"
 msgstr ""
 
-#. module: coop_default_pricetag
-#: model:ir.actions.act_window,name:coop_default_pricetag.action_pricetag_model
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_print_category_pricetag_model_id
-#: model:ir.ui.menu,name:coop_default_pricetag.menu_pricetag_model
-msgid "Pricetag Model"
-msgstr "Modèle d'étiquette"
