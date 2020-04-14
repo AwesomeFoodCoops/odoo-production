@@ -211,6 +211,7 @@
                             <field name="barcode_base"
                                    placeholder="Member Number"
                                    attrs="{'invisible': [('barcode_rule_id', '=', False)], 'readonly': [('generate_type', '!=', 'manual')]}"/>
+                            <span class="oe_read_only" attrs="{'invisible': [('barcode_rule_id', '=', False)]}"> - </span>
                             <field name="name" default_focus="1"
                                    placeholder="Name"
                                    attrs="{'required' : [('type', '=', 'contact')]}"/>
