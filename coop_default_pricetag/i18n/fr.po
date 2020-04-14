@@ -484,3 +484,9 @@ msgstr "Étiquettes Fruits & Légumes"
 msgid "report.coop_default_pricetag.report_pricetag_vegetables"
 msgstr "report.coop_default_pricetag.report_pricetag_vegetables"
 
+#. module: coop_default_pricetag
+#: model:ir.actions.act_window,name:coop_default_pricetag.action_pricetag_model
+#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_print_category_pricetag_model_id
+#: model:ir.ui.menu,name:coop_default_pricetag.menu_pricetag_model
+msgid "Pricetag Model"
+msgstr "Modèle d'étiquette"

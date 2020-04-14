@@ -30,6 +30,7 @@
         "report/report_pricetag.xml",
         "report/report_pricetag_vegetables.xml",
         "views/view_pricetag_model.xml",
+        "views/view_product_print_category.xml",
         "views/view_product_label.xml",
         "views/view_product_product.xml",
         "views/view_product_template.xml",

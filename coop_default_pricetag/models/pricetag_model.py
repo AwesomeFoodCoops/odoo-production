@@ -4,7 +4,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models, api
+from odoo import fields, models
 
 
 class PricetagModel(models.Model):
@@ -20,18 +20,4 @@ class PricetagModel(models.Model):
     report_model = fields.Char(
         string='ID of the report template',
         required=True
-    )
-
-
-class ProductPrintCategory(models.Model):
-    _inherit = "product.print.category"
-
-    @api.model
-    def _get_default_model(self):
-        return self.env['pricetag.model'].search([], limit=1)
-
-    pricetag_model_id = fields.Many2one(
-        'pricetag.model',
-        string='Pricetag Model',
-        default=lambda s: s._get_default_model()
     )

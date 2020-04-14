@@ -27,14 +27,19 @@
         </field>
     </record>
 
-    <record id="view_product_print_category_inherited_coop_pricetag" model="ir.ui.view">
-        <field name="model">product.print.category</field>
-        <field name="inherit_id" ref="product_print_category.view_product_print_category_form" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='company_id']" position="after">
-                <field name="pricetag_model_id"/>
-            </xpath>
-        </field>
+    <record id="action_pricetag_model" model="ir.actions.act_window">
+        <field name="name">Pricetag Model</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pricetag.model</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_pricetag_model_search"/>
     </record>
+
+    <menuitem id="menu_pricetag_model"
+        name="Pricetag Model"
+        parent="sale.menu_sale_config"
+        action="action_pricetag_model"
+    />
 
 </odoo>
