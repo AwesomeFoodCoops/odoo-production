@@ -33,11 +33,9 @@ class ResUsers(models.Model):
         try:
             user_tz = self.tz or self.env.user.tz or "Europe/Paris"
             local = pytz.timezone(user_tz)
-            date = pytz.utc.localize(
-                datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
-            ).astimezone(local)
+            date = pytz.utc.localize(date).astimezone(local)
             rs = [
-                datetime.strftime(date, item).capitalize().decode("UTF-8")
+                datetime.strftime(date, item).capitalize()
                 for item in formats
             ]
             if obj and obj.get("id", False):

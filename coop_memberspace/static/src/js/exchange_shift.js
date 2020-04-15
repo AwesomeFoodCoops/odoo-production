@@ -22,7 +22,7 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                     self._rpc({
                         model: 'shift.registration',
                         method: 'write',
-                        args: [[registration_id, {'exchange_state': 'in_progress'}]],
+                        args: [registration_id, {'exchange_state': 'in_progress'}],
                     })
                     .then(function(e){
                         let data = `
@@ -65,16 +65,21 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                     })
                     .then(function(shifts){
                         $('.modal_exchange_shift_body').empty();
-                        shifts.forEach(function(shift, idx, array) {
-                            let data = `
-                                <tr>
-                                    <td>${shift.date}</td>
-                                    <td>${shift.hour}</td>
-                                    <td><input name="registration_input" id="${shift.id}" type="radio" value="${shift.id}" /></td>
-                                </tr>
-                            `;
-                            $('.modal_exchange_shift_body').append(data);
-                        })
+                        if(!shifts.length) {
+                            $('.create-proposal').addClass('d-none');
+                            $('.modal_exchange_shift_body').append('<tr class="text-center"> <td>No shift available </td></tr>');
+                        } else {
+                            shifts.forEach(function(shift, idx, array) {
+                                let data = `
+                                    <tr>
+                                        <td>${shift.date}</td>
+                                        <td>${shift.hour}</td>
+                                        <td><input name="registration_input" id="${shift.id}" type="radio" value="${shift.id}" /></td>
+                                    </tr>
+                                `;
+                                $('.modal_exchange_shift_body').append(data);
+                            })
+                        }
                     })
                 });
 
@@ -84,7 +89,7 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                     self._rpc({
                         model: 'shift.registration',
                         method: 'create_proposal',
-                        args: [[src_registration_id, des_registration_id]],
+                        args: [src_registration_id, des_registration_id],
                     })
                     .then(function(){
                         $('#modal_exchange_shift').modal('hide');

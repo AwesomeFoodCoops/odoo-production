@@ -117,7 +117,7 @@ class ShiftRegistration(models.Model):
                 (
                     "date_begin",
                     ">=",
-                    datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    datetime.now(),
                 ),
             ],
             order="date_begin",

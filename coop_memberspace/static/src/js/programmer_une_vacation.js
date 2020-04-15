@@ -86,7 +86,7 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                             self._rpc({
                                 model: 'shift.registration',
                                 method: 'create',
-                                args: [[vals]],
+                                args: [vals],
                              })
                             .then(function(result) {
                                 self._rpc({
