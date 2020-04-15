@@ -39,7 +39,7 @@ class ResPartner(models.Model):
         valid = True
         message = ""
 
-        if tools.single_email_re.match(email_temp):
+        if email_temp and tools.single_email_re.match(email_temp):
             if self._context.get('disable_validate_email', False):
                 return email
             message = _("Email format correct.\n")
