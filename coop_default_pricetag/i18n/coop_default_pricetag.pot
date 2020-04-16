@@ -14,13 +14,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_default_pricetag
-#: code:addons/coop_default_pricetag/models/product_template.py:194
+#: code:addons/coop_default_pricetag/models/product_template.py:191
 #, python-format
 msgid " - Category: "
 msgstr ""
 
 #. module: coop_default_pricetag
-#: code:addons/coop_default_pricetag/models/product_template.py:192
+#: code:addons/coop_default_pricetag/models/product_template.py:189
 #, python-format
 msgid " - Range: "
 msgstr ""
