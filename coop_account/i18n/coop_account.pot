@@ -115,7 +115,6 @@ msgid "Chief Accountant"
 msgstr ""
 
 #. module: coop_account
-#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
 #: model_terms:ir.ui.view,arch_db:coop_account.view_unmatch_bank_statement_wizard_form
 msgid "Confirm"
 msgstr ""
@@ -218,11 +217,6 @@ msgid "Invoice"
 msgstr ""
 
 #. module: coop_account
-#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
-msgid "Invoices"
-msgstr ""
-
-#. module: coop_account
 #: model:ir.model,name:coop_account.model_account_move
 msgid "Journal Entries"
 msgstr ""
@@ -230,11 +224,6 @@ msgstr ""
 #. module: coop_account
 #: model:ir.model,name:coop_account.model_account_move_line
 msgid "Journal Item"
-msgstr ""
-
-#. module: coop_account
-#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
-msgid "Journal Items"
 msgstr ""
 
 #. module: coop_account
@@ -327,7 +316,7 @@ msgstr ""
 
 #. module: coop_account
 #: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
-msgid "Payment Method"
+msgid "Payment Methodd"
 msgstr ""
 
 #. module: coop_account
@@ -343,11 +332,6 @@ msgstr ""
 #. module: coop_account
 #: selection:account.payment,state:0
 msgid "Reconciled"
-msgstr ""
-
-#. module: coop_account
-#: model_terms:ir.ui.view,arch_db:coop_account.view_account_payment_form_extend
-msgid "Register Payment"
 msgstr ""
 
 #. module: coop_account
