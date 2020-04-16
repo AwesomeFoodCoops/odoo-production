@@ -310,6 +310,16 @@ msgid "Supplier Discount"
 msgstr ""
 
 #. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_supplier_info_update
+msgid "Supplier Information Update"
+msgstr ""
+
+#. module: coop_purchase
+#: model:ir.model,name:coop_purchase.model_supplier_info_update_line
+msgid "Supplier Information Update Line"
+msgstr ""
+
+#. module: coop_purchase
 #: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line__supplier_price_unit
 msgid "Supplier Price Unit"
 msgstr ""
@@ -326,6 +336,7 @@ msgstr ""
 
 #. module: coop_purchase
 #: model:ir.model.fields,field_description:coop_purchase.field_res_config_settings__update_main_vendor_on_update_vendor_price
+#: model:ir.model.fields,field_description:coop_purchase.field_user_config_settings__update_main_vendor_on_update_vendor_price
 msgid "The action \"Update Vendors Prices\" defines Vendor as Main Vendor of selected products"
 msgstr ""
 
@@ -385,15 +396,5 @@ msgstr ""
 #. module: coop_purchase
 #: selection:supplier.info.update.line,price_policy:0
 msgid "per UOM"
-msgstr ""
-
-#. module: coop_purchase
-#: model:ir.model,name:coop_purchase.model_supplier_info_update
-msgid "supplier.info.update"
-msgstr ""
-
-#. module: coop_purchase
-#: model:ir.model,name:coop_purchase.model_supplier_info_update_line
-msgid "supplier.info.update.line"
 msgstr ""
 
