@@ -65,12 +65,12 @@ msgid "Product"
 msgstr ""
 
 #. module: pos_search_improvement
-#: model:ir.model.fields,field_description:pos_search_improvement.field_product_product__multi_barcode_ids
-msgid "Product Multiple Barcodes"
+#: model:ir.model,name:pos_search_improvement.model_product_multi_barcode
+msgid "Product Multi Barcode"
 msgstr ""
 
 #. module: pos_search_improvement
-#: model:ir.model,name:pos_search_improvement.model_product_multi_barcode
-msgid "product.multi.barcode"
+#: model:ir.model.fields,field_description:pos_search_improvement.field_product_product__multi_barcode_ids
+msgid "Product Multiple Barcodes"
 msgstr ""
 
