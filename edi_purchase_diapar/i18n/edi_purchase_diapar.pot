@@ -106,6 +106,11 @@ msgid "Invoice"
 msgstr ""
 
 #. module: edi_purchase_diapar
+#: model:ir.model,name:edi_purchase_diapar.model_invoice_supplier_price_update
+msgid "Invoice Supplier Price Update"
+msgstr ""
+
+#. module: edi_purchase_diapar
 #: model:ir.model.fields,field_description:edi_purchase_diapar.field_invoice_supplier_price_update____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -179,6 +184,11 @@ msgid "Show Discount"
 msgstr ""
 
 #. module: edi_purchase_diapar
+#: model:ir.model,name:edi_purchase_diapar.model_supplier_info_update_line
+msgid "Supplier Information Update Line"
+msgstr ""
+
+#. module: edi_purchase_diapar
 #: model:ir.actions.act_window,name:edi_purchase_diapar.invoice_supplier_price_update_act
 msgid "Update Prices From EDI"
 msgstr ""
@@ -196,15 +206,5 @@ msgstr ""
 #. module: edi_purchase_diapar
 #: model_terms:ir.ui.view,arch_db:edi_purchase_diapar.view_invoice_supplier_price_update
 msgid "Validate"
-msgstr ""
-
-#. module: edi_purchase_diapar
-#: model:ir.model,name:edi_purchase_diapar.model_invoice_supplier_price_update
-msgid "invoice.supplier.price.update"
-msgstr ""
-
-#. module: edi_purchase_diapar
-#: model:ir.model,name:edi_purchase_diapar.model_supplier_info_update_line
-msgid "supplier.info.update.line"
 msgstr ""
 
