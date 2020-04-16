@@ -27,7 +27,7 @@ class AccountPayment(models.Model):
 
     @api.onchange('operation_type')
     def onchange_operation_type(self):
-        invoice = self.invoice_ids[0] or False
+        invoice = self.invoice_ids and self.invoice_ids[0] or False
         communication = ''
         if invoice:
             communication = invoice.reference or invoice.name or invoice.number
@@ -49,7 +49,7 @@ class AccountPayment(models.Model):
 
     @api.onchange('text_check_code', 'text_lcr_code')
     def onchange_memo_based_on_operation_type(self):
-        invoice = self.invoice_ids[0] or False
+        invoice = self.invoice_ids and self.invoice_ids[0] or False
         communication = ''
         if invoice:
             communication = invoice.reference or invoice.name or invoice.number
