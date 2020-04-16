@@ -19,6 +19,7 @@ ACTION_SELECTION = [
 class ResPartnerMove(models.Model):
     _name = "res.partner.move"
     _order = "create_date desc, partner_id"
+    _description = 'Partner Move'
 
     partner_id = fields.Many2one(
         comodel_name="res.partner",

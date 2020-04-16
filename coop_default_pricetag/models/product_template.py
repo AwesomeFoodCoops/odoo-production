@@ -145,9 +145,6 @@ class ProductTemplate(models.Model):
     pricetag_coopinfos = fields.Char(
         compute=_compute_pricetag_coopinfos, string="Coop custom fields"
     )
-    category_print_id = fields.Many2one(
-        comodel_name="product.print.category", string="Print Category"
-    )
     scale_logo_code = fields.Char(readonly=True)
     volume = fields.Float(digits=dp.get_precision('Volume'))
 

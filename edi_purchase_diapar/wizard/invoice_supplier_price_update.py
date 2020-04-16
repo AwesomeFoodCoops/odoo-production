@@ -12,6 +12,7 @@ SUPPORTED_MODELS = [
 
 class InvoiceSupplierPriceUpdate(models.TransientModel):
     _name = 'invoice.supplier.price.update'
+    _description = 'Invoice Supplier Price Update'
 
     show_discount = fields.Boolean()
     partner_id = fields.Many2one(comodel_name='res.partner')

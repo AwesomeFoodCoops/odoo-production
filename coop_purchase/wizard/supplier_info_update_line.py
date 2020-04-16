@@ -4,6 +4,7 @@ from odoo.addons import decimal_precision as dp
 
 class SupplierInfoUpdateLine(models.TransientModel):
     _name = "supplier.info.update.line"
+    _description = "Supplier Information Update Line"
 
     product_id = fields.Many2one(comodel_name="product.product")
 

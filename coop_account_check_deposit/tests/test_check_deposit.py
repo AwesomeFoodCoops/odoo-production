@@ -1,5 +1,5 @@
 
-from openerp.addons.account_check_deposit.tests.test_check_deposit\
+from odoo.addons.account_check_deposit.tests.test_check_deposit\
     import TestPayment
 import time
 
@@ -23,7 +23,6 @@ class TestDepositPayment(TestPayment):
             'bank_journal_id': self.bank_journal.id,
             'deposit_date': time.strftime('%Y-%m-%d'),
             'currency_id': self.currency_eur_id,
-            'destination_journal_id': self.destination_journal.id,
         })
         for move_line in move_lines:
             move_line.check_deposit_id = check_deposit

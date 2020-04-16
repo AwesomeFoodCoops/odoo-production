@@ -8,6 +8,7 @@ supported_models = [
 
 class SupplierInfoUpdate(models.TransientModel):
     _name = "supplier.info.update"
+    _description = "Supplier Information Update"
 
     show_discount = fields.Boolean()
     partner_id = fields.Many2one(comodel_name="res.partner")

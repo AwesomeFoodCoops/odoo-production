@@ -427,12 +427,6 @@ msgid "Pricetags with Barcode"
 msgstr ""
 
 #. module: coop_default_pricetag
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_product__category_print_id
-#: model:ir.model.fields,field_description:coop_default_pricetag.field_product_template__category_print_id
-msgid "Print Category"
-msgstr ""
-
-#. module: coop_default_pricetag
 #: model:ir.model.fields,field_description:coop_default_pricetag.field_uom_category__pricetag_printable
 msgid "Print on Price Tag"
 msgstr ""
