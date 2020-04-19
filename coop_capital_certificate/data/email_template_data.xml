@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<odoo>
+<odoo noupdate="1">
     <record id="capital_certificate_mail_template" model="mail.template">
         <field name="name">Capital Certificate</field>
         <field name="model_id" ref="coop_capital_certificate.model_capital_certificate"/>

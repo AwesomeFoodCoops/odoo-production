@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<odoo>
+<odoo noupdate="1">
     <record id="coop_membership.unsubscribe_email" model="mail.template">
         <field name="body_html"><![CDATA[
 <p>Dear ${object.name},</p>
