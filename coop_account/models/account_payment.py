@@ -18,11 +18,6 @@ class AccountPayment(models.Model):
     text_check_code = fields.Text(string='Check Code')
     text_lcr_code = fields.Text(string='LCR Code')
 
-    def _create_payment_entry(self, amount):
-        move = super(AccountPayment, self)._create_payment_entry(amount)
-        move.payment_id = self.id
-        return move
-
     @api.onchange('operation_type')
     def onchange_operation_type(self):
         invoice = self.invoice_ids and self.invoice_ids[0] or False
