@@ -1,26 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
 
-    <record id="view_account_payment_tree_extend" model="ir.ui.view">
-            <field name="name">account.payment.tree</field>
-            <field name="model">account.payment</field>
-            <field name="arch" type="xml">
-                <tree decoration-info="state=='draft'" decoration-muted="state=='reconciled'" edit="false">
-                    <field name="payment_date"/>
-                    <field name="name"/>
-                    <field name="journal_id"/>
-                    <field name="payment_method_id"/>
-                    <field name="partner_id" string="Customer"/>
-                    <field name="amount" sum="Amount"/>
-                    <field name="state"/>
-                    <field name="invoice_ids" />
-                    <field name="company_id" groups="base.group_multi_company"/>
-                    <field name="currency_id" invisible="1"/>
-                    <field name="partner_type" invisible="1"/>
-                </tree>
-            </field>
-        </record>
-
     <record model="ir.ui.view" id="view_account_payment_form_extend">
         <field name="model">account.payment</field>
         <field name="inherit_id" ref="account.view_account_payment_form"/>
@@ -80,8 +60,6 @@
         <field name="res_model">account.payment</field>
         <field name="view_mode">tree,form</field>
         <field name="view_type">form</field>
-        <field name="view_id" ref="view_account_payment_tree_extend" />
-        <field name="search_view_id" ref="account.view_account_payment_search"/>
         <field name="domain">[('payment_type', '=', 'transfer')]</field>
         <field name="context">{'default_payment_type': 'transfer', 'readonly_by_pass': True}</field>
     </record>
