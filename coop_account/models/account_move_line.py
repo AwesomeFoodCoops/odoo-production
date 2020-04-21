@@ -17,11 +17,9 @@ class AccountMoveLine(models.Model):
     search_year = fields.Char(
         string='Year (Search)', compute='_compute_date_search',
         multi='_date_search', store=True, index=True)
-
     search_month = fields.Char(
         string='Month (Search)', compute='_compute_date_search',
         multi='_date_search', store=True, index=True)
-
     search_day = fields.Char(
         string='Day (Search)', compute='_compute_date_search',
         multi='_date_search', store=True, index=True)
@@ -31,7 +29,7 @@ class AccountMoveLine(models.Model):
         debit = vals.get('debit', 0)
         credit = vals.get('credit', 0)
         vals.update({
-            'other_balance': credit - debit
+            'other_balance': credit - debit,
         })
         return super(AccountMoveLine, self).create(vals)
 
@@ -81,17 +79,14 @@ class AccountMoveLine(models.Model):
     def unmatch_bankstatement_wizard(self):
         active_ids = self._context.get('active_ids', [])
         active_model = self._context.get('active_model', [])
-
         view_id = self.env.ref(
             'coop_account.view_unmatch_bank_statement_wizard_form')
-
-        mess_confirm = _('Are you sure you want to unmatch %s transactions?') %\
-            (len(active_ids))
-
+        mess_confirm = _(
+            'Are you sure you want to unmatch %s transactions?'
+            ) % (len(active_ids))
         wizard = self.env['unmatch.bank.statement.wizard'].create({
-            'mess_confirm': mess_confirm
+            'mess_confirm': mess_confirm,
         })
-
         return {
             'name': _('Unmatch Bank Statement'),
             'type': 'ir.actions.act_window',
@@ -160,8 +155,8 @@ class AccountMoveLine(models.Model):
         self.env.cr.execute(bank_statement_line_query)
         results = self.env.cr.fetchall()
         line_ids = [id_tuple[0] for id_tuple in results]
-        bank_statement_line_ids = self.env['account.bank.statement.line']\
-            .browse(line_ids)
+        bank_statement_line_ids = \
+            self.env['account.bank.statement.line'].browse(line_ids)
         for stml in bank_statement_line_ids:
             stml_date = fields.Date.from_string(stml.date)
             move_ids = stml.journal_entry_ids
@@ -170,8 +165,10 @@ class AccountMoveLine(models.Model):
                 continue
             for aml in move_line_ids.filtered(lambda ml: not ml.statement_id):
                 aml_date = fields.Date.from_string(aml.date)
-                if aml_date.year <= stml_date.year and \
-                        aml_date.month <= stml_date.month:
+                if (
+                    aml_date.year <= stml_date.year
+                    and aml_date.month <= stml_date.month
+                ):
                     continue
                 else:
                     wrong_move_lines |= aml

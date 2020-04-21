@@ -1,55 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-        <record id="invoice_supplier_tree_inherit" model="ir.ui.view">
-            <field name="name">account.invoice.supplier.tree.inherit</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
-            <field name="arch" type="xml">
-                <field name="amount_total_signed" position="before">
-                    <field name="amount_untaxed" sum="Montant HT"/>
-                </field>
+    <record id="view_account_invoice_form_supplier" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form" />
+        <field name="arch" type="xml">
+            <field name="date_invoice" position="attributes">
+                <attribute name="required">True</attribute>
             </field>
-        </record>
-
-        <record id="view_account_invoice_form_supplier" model="ir.ui.view">
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_supplier_form" />
-            <field name="arch" type="xml">
-                <button name="action_invoice_open" position="attributes">
-                    <attribute name="groups">
-                        coop_account.group_validate_invoice
-                    </attribute>
-                </button>
-                <field name="date_invoice" position="attributes">
-                    <attribute name="required">True</attribute>
-                </field>
-                <field name="reference" position="attributes">
-                    <attribute name="attrs">{'required': [('state','=','draft')]}
-                    </attribute>
-                </field>
+            <field name="reference" position="attributes">
+                <attribute name="attrs">{'required': [('state','=','draft')]}</attribute>
             </field>
-        </record>
+        </field>
+    </record>
 
-        <record id="account_invoice_inherit_view_form" model="ir.ui.view">
-            <field name="name">account.invoice.inherit.view.form</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_form" />
-            <field name="arch" type="xml">
-                <button name="action_invoice_open" states="draft" position="attributes">
-                    <attribute name="groups">
-                        coop_account.group_validate_invoice
-                    </attribute>
-                </button>
-            </field>
-        </record>
-
-        <record id="action_server_merge_lines" model="ir.actions.server">
-             <field name="name">Merge Invoice Lines</field>
-             <field name="model_id" ref="account.model_account_invoice"/>
-             <field name="binding_model_id" ref="account.model_account_invoice"/>
-             <field name="state">code</field>
-             <field name="code">records.merge_lines()</field>
-         </record>
+    <record id="action_server_merge_lines" model="ir.actions.server">
+        <field name="name">Merge Invoice Lines</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="binding_model_id" ref="account.model_account_invoice"/>
+        <field name="state">code</field>
+        <field name="code">records.merge_lines()</field>
+    </record>
 
 </odoo>

@@ -1,4 +1,3 @@
-
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 
@@ -6,15 +5,12 @@ from odoo.exceptions import UserError
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    payment_id = fields.Many2one('account.payment', 'Payment Entry')
     search_year = fields.Char(
         string='Year (Search)', compute='_compute_date_search',
         multi='_date_search', store=True, index=True)
-
     search_month = fields.Char(
         string='Month (Search)', compute='_compute_date_search',
         multi='_date_search', store=True, index=True)
-
     search_day = fields.Char(
         string='Day (Search)', compute='_compute_date_search',
         multi='_date_search', store=True, index=True)
@@ -28,17 +24,14 @@ class AccountMove(models.Model):
     def unmatch_bankstatement_wizard(self):
         active_ids = self._context.get('active_ids', [])
         active_model = self._context.get('active_model', [])
-
         view_id = self.env.ref(
             'coop_account.view_unmatch_bank_statement_wizard_form')
-
-        mess_confirm = _('Are you sure you want to unmatch %s transactions?') %\
-            (len(active_ids))
-
+        mess_confirm = _(
+            'Are you sure you want to unmatch %s transactions?'
+            ) % (len(active_ids))
         wizard = self.env['unmatch.bank.statement.wizard'].create({
             'mess_confirm': mess_confirm
         })
-
         return {
             'name': _('Unmatch Bank Statement'),
             'type': 'ir.actions.act_window',
@@ -58,8 +51,9 @@ class AccountMove(models.Model):
                 if not line.statement_id.journal_id.bank_account_id and \
                         line.account_id.reconciled_account:
                     raise UserError(_(
-                        'You cannot reconcile that account move with ' +
-                        'a bank statement line that is not related to bank journal.'))
+                        'You cannot reconcile that account move with '
+                        'a bank statement line that is not related to '
+                        'bank journal.'))
 
     @api.multi
     def write(self, vals):

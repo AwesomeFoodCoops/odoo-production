@@ -1,7 +1,6 @@
 # Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
 # Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 
-
 {
     'name': 'Coop Account',
     'version': '12.0.1.0.0',
@@ -17,8 +16,6 @@
         'account_tax_balance',
     ],
     'data': [
-        "security/res_group.xml",
-        "security/ir.model.access.csv",
         "view/assets.xml",
         "view/view_account_bank_statement.xml",
         "view/view_account_move.xml",
