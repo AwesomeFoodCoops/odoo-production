@@ -131,7 +131,7 @@
                             </thead>
                             <tbody>
                                 <tr t-foreach="15" t-as="i">
-                                    <td style="padding: 4px"><font color="white">_</font></td>
+                                    <td style="padding: 2px"><font color="white">_</font></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -152,7 +152,7 @@
                             </thead>
                             <tbody>
                                 <tr t-foreach="11" t-as="i">
-                                    <td style="padding: 4px"><font color="white">_</font></td>
+                                    <td style="padding: 2px"><font color="white">_</font></td>
                                 </tr>
                             </tbody>
                         </table>
