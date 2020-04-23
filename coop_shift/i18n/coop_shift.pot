@@ -3635,13 +3635,13 @@ msgid "You can only repercute changes on draft shifts."
 msgstr ""
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template_registration_line.py:71
+#: code:addons/coop_shift/model/shift_template_registration_line.py:73
 #, python-format
 msgid "You can't register this line because it would create an overlap with another line for this member"
 msgstr ""
 
 #. module: coop_shift
-#: code:addons/coop_shift/model/shift_template_registration_line.py:176
+#: code:addons/coop_shift/model/shift_template_registration_line.py:178
 #, python-format
 msgid "You cannot make changes on this template registration. Please make your changes directly on the leave recorded for this period. You will need to cancel it then set to draft before you can make required changes."
 msgstr ""
