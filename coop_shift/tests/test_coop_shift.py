@@ -1,4 +1,5 @@
 from .common import CoopShiftTest
+from odoo.exceptions import ValidationError
 
 
 class TestCoopShift(CoopShiftTest):
@@ -102,3 +103,22 @@ class TestCoopShift(CoopShiftTest):
             test_std_reg2.state,
             'open',
             'Shift: confirmation of registration failed')
+
+    def test_overlapping_registration(self):
+        shift_template_ticket_id_2 = self.ShiftTemplateTicket.create({
+            'name': 'Standard  2',
+            'product_id': self.standard_member_1,
+            'shift_template_id': self.shift_template2
+        })
+
+        self.ShiftTemplateRegistration.create({
+            'partner_id': self.standard_member_1,
+            'shift_ticket_id': self.shift_template_ticket_id,
+            'shift_template_id': self.shift_template1,
+        })
+        with self.assertRaises(ValidationError):
+            self.ShiftTemplateRegistration.create({
+                'partner_id': self.standard_member_1,
+                'shift_ticket_id': shift_template_ticket_id_2.id,
+                'shift_template_id': self.shift_template2,
+            })

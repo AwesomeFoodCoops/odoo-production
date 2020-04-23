@@ -757,8 +757,7 @@ class ResPartner(models.Model):
 
         # Convert Next Shift Time into Local Time
         if next_shift_time:
-            next_shift_time_obj = datetime.strptime(
-                next_shift_time, '%Y-%m-%d %H:%M:%S')
+            next_shift_time_obj = next_shift_time
             tz_name = self._context.get('tz', self.env.user.tz) or 'utc'
             utc_timestamp = pytz.utc.localize(
                 next_shift_time_obj, is_dst=False)

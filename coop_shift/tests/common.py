@@ -14,7 +14,9 @@ class CoopShiftTest(common.TransactionCase):
         self.ShiftWizard = self.env['create.shifts.wizard']
         self.Shift = self.env['shift.shift']
         self.ShiftRegistration = self.env['shift.registration']
+        self.ShiftTemplateRegistration = self.env['shift.template.registration']
         self.ShiftTicket = self.env['shift.ticket']
+        self.ShiftTemplateTicket = self.env['shift.template.ticket']
         self.ResPartner = self.env['res.partner']
 
         # Standard Template
@@ -48,3 +50,6 @@ class CoopShiftTest(common.TransactionCase):
 
         self.product_product_shift_ftop = ModelData.xmlid_to_res_id(
             'coop_shift.product_product_shift_ftop')
+
+        self.shift_template_ticket_id = ModelData.xmlid_to_res_id(
+            'coop_shift.template_ticket_1_standard')
