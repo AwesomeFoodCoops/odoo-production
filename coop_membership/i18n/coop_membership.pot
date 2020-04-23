@@ -1430,7 +1430,7 @@ msgid "Cette personne a plus de 18 ans et ne peux pas être saisie comme un enfa
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/res_partner.py:801
+#: code:addons/coop_membership/models/res_partner.py:800
 #, python-format
 msgid "Change Team"
 msgstr ""
