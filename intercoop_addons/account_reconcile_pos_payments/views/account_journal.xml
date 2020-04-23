@@ -11,17 +11,25 @@
             <field name="inherit_id" ref="account.view_account_journal_form"/>
             <field name="arch" type="xml">
                 <page name="bank_account" position="inside">
-                    <group string="Automatic POS Reconciliation" name="auto_reconciliation">
+                    <group string="Automatic POS Reconciliation"
+                           name="auto_reconciliation">
                         <group>
                             <field name="cb_contract_number"/>
-                            <field name="cb_contract_number_contactless" invisible="True"/>
                             <field name="cb_delta_days"/>
+                            <field name="cb_rounding"/>
                         </group>
                         <group>
-                            <field name="cb_child_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="cb_child_ids" widget="many2many_tags"
+                                   options="{'no_create': True}"/>
+                            <field name="cb_contactless_matching"/>
+                            <field name="cb_contract_number_contactless"
+                                   attrs="{'invisible': [('cb_contactless_matching','=',False)],'required': [('cb_contactless_matching','=',True)]}"/>
+                            <field name="cb_contactless_delta_days"
+                                   attrs="{'invisible': [('cb_contactless_matching','=',False)],'required': [('cb_contactless_matching','=',True)]}"/>
                         </group>
                     </group>
-                    <group string="Automatic Charges Reconciliation" name="auto_reconciliation">
+                    <group string="Automatic Charges Reconciliation"
+                           name="auto_reconciliation">
                         <group>
                             <field name="bank_expense_name_pattern"/>
                             <field name="bank_expense_ref_pattern"/>

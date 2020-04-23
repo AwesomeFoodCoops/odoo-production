@@ -34,9 +34,12 @@ class AccountJournal(models.Model):
         'account.journal', 'cb_parent_id', string='CB Childs')
 
     cb_contract_number = fields.Char('CB Contact Number')
-    cb_contract_number_contactless = fields.Char('Contactless Contract Number')
 
     cb_delta_days = fields.Integer('CB Delta Days', default=3)
+    cb_rounding = fields.Float("CB Rounding", default=0.01)
+    cb_contactless_matching = fields.Boolean("CB Contactless Matching")
+    cb_contract_number_contactless = fields.Char('Contactless Contract Number')
+    cb_contactless_delta_days = fields.Integer('CB Delta Days', default=0)
 
     # Charges
     bank_expense_name_pattern = fields.Char()
