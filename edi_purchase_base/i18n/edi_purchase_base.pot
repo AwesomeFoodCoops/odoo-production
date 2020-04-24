@@ -57,6 +57,11 @@ msgid "Check taxes for lines with product %s!"
 msgstr ""
 
 #. module: edi_purchase_base
+#: model_terms:ir.ui.view,arch_db:edi_purchase_base.view_product_price_history_form
+msgid "Create product"
+msgstr ""
+
+#. module: edi_purchase_base
 #: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__create_uid
 #: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__create_uid
 #: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__create_uid
@@ -347,6 +352,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__product_id
 #: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__product_tmpl_id
 msgid "Product"
+msgstr ""
+
+#. module: edi_purchase_base
+#: code:addons/edi_purchase_base/models/supplier_price_list.py:64
+#, python-format
+msgid "Product Form"
 msgstr ""
 
 #. module: edi_purchase_base
