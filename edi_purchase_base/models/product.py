@@ -177,7 +177,7 @@ class ProductSupplierinfo(models.Model):
         )
         if not edi_system:
             raise ValidationError(
-                _("No Config FTP for this supplier %s!") % self.partner_id.name
+                _("No Config FTP for this supplier %s!") % partner_id.name
             )
         if edi_system.parent_supplier_id:
             return edi_system.parent_supplier_id

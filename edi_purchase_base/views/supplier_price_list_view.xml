@@ -7,6 +7,8 @@
         <field name="arch" type="xml">
             <search string="Price History">
                 <field name="product_tmpl_id"/>
+                <field name="product_name"/>
+                <field name="supplier_code"/>
             </search>
         </field>
     </record>
@@ -26,4 +28,32 @@
         </field>
     </record>
 
+    <record id="view_product_price_history_form" model="ir.ui.view">
+        <field name="name">product.price.history.form</field>
+        <field name="model">supplier.price.list</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_create_product" type="object"
+                            class="oe_highlight" string="Create product"
+                            attrs="{'invisible': [('product_tmpl_id', '!=', False)]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="supplier_id"/>
+                            <field name="price"/>
+                            <field name="product_tmpl_id"/>
+                            <field name="product_name"/>
+                        </group>
+                        <group>
+                            <field name="supplier_code"/>
+                            <field name="import_date"/>
+                            <field name="apply_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 </odoo>
