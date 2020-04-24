@@ -29,25 +29,48 @@ class PosSession(models.Model):
         string='Day (Search)', compute='_compute_date_search',
         multi='_date_search', store=True, index=True)
 
-    order_qty = fields.Integer(
-        compute='_compute_orders', string='Orders Qty', store=True)
+    order_count = fields.Integer(
+        compute='_compute_orders',
+        string='Orders Count',
+        store=True
+    )
 
-    amount_subtotal = fields.Monetary(
-        compute='_compute_orders', string='Amount Subtotal', store=True)
+    amount_untaxed = fields.Monetary(
+        compute='_compute_orders',
+        string='Amount Untaxed',
+        store=True
+    )
 
-    total_amount = fields.Monetary(
-        compute='_compute_orders', string='Transactions Total', store=True)
+    amount_total = fields.Monetary(
+        compute='_compute_orders',
+        string='Amount Total',
+        store=True
+    )
 
     @api.multi
-    @api.depends('order_ids.lines.price_subtotal_incl',
-                 'order_ids.lines.price_subtotal')
+    @api.depends('order_ids.amount_total', 'order_ids.amount_tax')
     def _compute_orders(self):
+        session_data = self.env['pos.order'].read_group([
+            ('state', '!=', 'cancel'),
+            ('session_id', 'in', self.ids)],
+            ['amount_total', 'amount_tax'],
+            ['session_id']
+        )
+        result = dict((data['session_id'][0], {
+            'order_count': data['session_id_count'],
+            'amount_tax': data['amount_tax'],
+            'amount_total': data['amount_total']
+        }) for data in session_data)
         for session in self:
-            session.order_qty = len(session.order_ids)
-            session.total_amount = sum(
-                session.mapped('order_ids.amount_total'))
-            session.amount_subtotal = session.total_amount - sum(
-                session.mapped('order_ids.amount_tax'))
+            if result.get(session.id, 0):
+                session.order_count = result.get(
+                    session.id, 0).get(
+                    "order_count", 0)
+                session.amount_total = result.get(
+                    session.id, 0).get(
+                    "amount_total", 0.0)
+                session.amount_untaxed = session.amount_total - \
+                    result.get(session.id, 0).get("amount_tax", 0.0)
 
     @api.multi
     @api.depends("start_at")

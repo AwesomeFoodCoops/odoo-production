@@ -32,9 +32,9 @@
                 <field name="cycle"/>
             </field>
             <field name="stop_at" position="after">
-                <field name="order_qty"/>
-                <field name="amount_subtotal"/>
-                <field name="total_amount"/>
+                <field name="order_count" sum="Count"/>
+                <field name="amount_untaxed" sum="Total Untaxed"/>
+                <field name="amount_total" sum="Total"/>
             </field>
         </field>
     </record>
