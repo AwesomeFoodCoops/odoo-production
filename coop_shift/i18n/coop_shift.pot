@@ -2752,7 +2752,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_shift.field_report_timesheet__shift_ids
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template__shift_ids
 #: model:ir.module.category,name:coop_shift.module_category_shift_management
-#: model_terms:ir.ui.view,arch_db:base.user_groups_view
 #: model:ir.ui.menu,name:coop_shift.menu_shift_shift
 #: model:ir.ui.menu,name:coop_shift.shift_menu
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
@@ -2761,7 +2760,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_template_form
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_tree
 msgid "Shifts"
-msgstr "Services"
+msgstr ""
 
 #. module: coop_shift
 #: model:res.groups,name:coop_shift.group_shift_config
