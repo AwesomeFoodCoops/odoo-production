@@ -2584,10 +2584,10 @@ msgid "Membership Edit Photo"
 msgstr ""
 
 #. module: coop_membership
+#: model:ir.module.category,description:coop_membership.module_membership_access_management
 #: model:ir.module.category,name:coop_membership.module_membership_access_management
-#: model_terms:ir.ui.view,arch_db:base.user_groups_view
 msgid "Membership Management"
-msgstr "Management des membres"
+msgstr ""
 
 #. module: coop_membership
 #: model:res.groups,name:coop_membership.group_membership_access_manager
