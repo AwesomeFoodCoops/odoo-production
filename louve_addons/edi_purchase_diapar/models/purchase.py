@@ -41,3 +41,9 @@ class PurchaseOrder(models.Model):
                 }
                 lines.update({line.product_id: values})
         return lines
+
+
+class AccountInvoice(models.Model):
+    _inherit = 'account.invoice'
+
+    partner_is_edi = fields.Boolean(related='partner_id.is_edi', string='Partner (Is Edit)', store=True)
