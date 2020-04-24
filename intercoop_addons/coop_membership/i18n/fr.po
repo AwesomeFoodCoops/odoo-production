@@ -724,35 +724,6 @@ msgstr "\n"
 "        "
 
 #. module: coop_membership
-#: model:mail.template,body_html:coop_membership.registration_confirm_meeting_email
-msgid "\n"
-"<p>Hello,</p>\n"
-"<br/>\n"
-"<p>You have just registered to a welcome meeting that will take place on ${object.convert_event_date_begin()} at ${object.get_time_meeting()}. Thanks for your interest in what we do!</p>\n"
-"<p>The meeting will take place at this address ${object.get_address_meeting()}.</p>\n"
-"<p>You should receive a reminder email three days before the meeting.</p>\n"
-"<p>If you wish to cancel or postpone your attendance, please write to ${object.get_email_contact_meeting()}.</p>\n"
-"<br/>\n"
-"<p>See you soon at the co-op!</p>\n"
-"<br />\n"
-"<img  src=\"/coop_membership/static/description/image_lalouve.png\"/>\n"
-"\n"
-"        "
-msgstr "\n"
-"<p>Hello,</p>\n"
-"<br/>\n"
-"<p>You have just registered to a welcome meeting that will take place on ${object.convert_event_date_begin()} at ${object.get_time_meeting()}. Thanks for your interest in what we do!</p>\n"
-"<p>The meeting will take place at this address ${object.get_address_meeting()}.</p>\n"
-"<p>You should receive a reminder email three days before the meeting.</p>\n"
-"<p>If you wish to cancel or postpone your attendance, please write to ${object.get_email_contact_meeting()}.</p>\n"
-"<br/>\n"
-"<p>See you soon at the co-op!</p>\n"
-"<br />\n"
-"<img  src=\"/coop_membership/static/description/image_lalouve.png\"/>\n"
-"\n"
-"        "
-
-#. module: coop_membership
 #: model:mail.template,body_html:coop_membership.notify_mirror_children_email
 msgid "\n"
 "<style>\n"
@@ -4234,10 +4205,6 @@ msgstr "Vous avez saisi le <b><i>{end_date}</i></b> comme date de fin du congé 
 msgid "You have inputted <b><i>{end_date}</i></b> as the end date of the temporary leave for <b><i>{partner}</i></b>. But a better date would be <b><i>{proposed_date}</i></b> which is one day before the shift <b><i>{shift}</i></b>. Do you accept the proposed date?"
 msgstr "Vous avez saisi le <b><i>{end_date}</i></b> comme date de fin du congé temporaire pour <b><i>{partner}</i></b>. Mais une date plus appropriée serait le <b><i>{proposed_date}</i></b>, soit un jour avant le service <b><i>{shift}</i></b>. Ok?"
 
-#. module: coop_membership
-#: model:mail.template,subject:coop_membership.registration_confirm_meeting_email
-msgid "Your registration to a welcome meeting on ${object.convert_event_date_begin()} at ${object.get_time_meeting()}"
-msgstr "Votre inscription à la réunion d’accueil du ${object.convert_event_date_begin()} at ${object.get_time_meeting()}"
 
 #. module: coop_membership
 #: model:ir.ui.view,arch_db:coop_membership.view_partner_form
