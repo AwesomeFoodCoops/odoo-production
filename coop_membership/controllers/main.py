@@ -268,11 +268,6 @@ class WebsiteRegisterMeeting(http.Controller):
                     #     (6, 0, (contract.ids))]
                     template_email.sudo().send_mail(attendee.id)
 
-                template_email_confirm = request.env.ref(
-                    'coop_membership.registration_confirm_meeting_email')
-                if template_email_confirm:
-                    template_email_confirm.sudo().send_mail(attendee.id)
-
             value = {
                 'website': website
             }

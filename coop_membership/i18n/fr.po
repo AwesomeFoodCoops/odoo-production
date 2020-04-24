@@ -688,33 +688,6 @@ msgstr "\n"
 "        "
 
 #. module: coop_membership
-#: model:mail.template,body_html:coop_membership.registration_confirm_meeting_email
-msgid "\n"
-"<p>Hello,</p>\n"
-"<br/>\n"
-"<p>You have just registered to a welcome meeting that will take place on ${object.event_id.date_begin_located}. Thanks for your interest in what we do!</p>\n"
-"<p>The meeting will take place at this address ${object.get_address_meeting()}.</p>\n"
-"<p>You should receive a reminder email three days before the meeting.</p>\n"
-"<p>If you wish to cancel or postpone your attendance, please write to ${object.get_email_contact_meeting()}.</p>\n"
-"<br/>\n"
-"<p>See you soon at the co-op!</p>\n"
-"<br/>\n"
-"\n"
-"        "
-msgstr "\n"
-"<p>Bonjour,</p>\n"
-"<br/>\n"
-"<p>Vous venez de vous inscrire à la réunion d’accueil de La Louve qui aura lieu le ${object.event_id.date_begin_located}. Merci de votre intérêt pour notre projet !</p>\n"
-"<p>La réunion aura lieu à la coopérative, ${object.get_address_meeting()}.</p>\n"
-"<p>Vous recevrez un mail de rappel accompagné d’informations complémentaires trois jours avant la réunion.</p>\n"
-"<p>Si vous souhaitez annuler ou reporter votre participation à cette réunion, merci d’envoyer un mail à ${object.get_email_contact_meeting()}.</p>\n"
-"<br/>\n"
-"<p>A bientôt à La Louve !</p>\n"
-"<br />\n"
-"\n"
-"        "
-
-#. module: coop_membership
 #: model:mail.template,body_html:coop_membership.abandoned_message_leave_email
 msgid "\n"
 "<p>Hello</p>\n"
@@ -4319,11 +4292,6 @@ msgstr "Vous avez saisi le <b><i>{end_date}</i></b> comme date de fin du congé 
 #: model:mail.template,subject:coop_membership.notify_mirror_children_email
 msgid "Your child attached"
 msgstr ""
-
-#. module: coop_membership
-#: model:mail.template,subject:coop_membership.registration_confirm_meeting_email
-msgid "Your registration to a welcome meeting on ${object.event_id.date_begin_located}"
-msgstr "Votre inscription à une réunion de bienvenue le ${object.event_id.date_begin_located}"
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
