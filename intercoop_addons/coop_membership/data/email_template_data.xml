@@ -268,29 +268,6 @@ If you think there was a mistake or wish to subscribe to another team please con
         </field>
     </record>
 
-    <record id="registration_confirm_meeting_email" model="mail.template">
-        <field name="name">Registration Confirm Meeting Email</field>
-        <field name="model_id" ref="event.model_event_registration"/>
-        <field name="email_from">${(object.company_id.email or '')|safe}</field>
-        <field name="email_to" >${object.email|safe}</field>
-        <field name="lang">${(object.partner_id.lang)|safe}</field>
-        <field name="reply_to">${object.company_id.email|safe}</field>
-        <field name="subject">Your registration to a welcome meeting on ${object.convert_event_date_begin()} at ${object.get_time_meeting()}</field>
-        <field name="body_html"><![CDATA[
-<p>Hello,</p>
-<br/>
-<p>You have just registered to a welcome meeting that will take place on ${object.convert_event_date_begin()} at ${object.get_time_meeting()}. Thanks for your interest in what we do!</p>
-<p>The meeting will take place at this address ${object.get_address_meeting()}.</p>
-<p>You should receive a reminder email three days before the meeting.</p>
-<p>If you wish to cancel or postpone your attendance, please write to ${object.get_email_contact_meeting()}.</p>
-<br/>
-<p>See you soon at the co-op!</p>
-<br />
-<img  src="/coop_membership/static/description/image_lalouve.png"/>
-]]>
-        </field>
-    </record>
-
     <record id="registration_reminder_meeting_email" model="mail.template">
         <field name="name">Registration Reminder Meeting Email</field>
         <field name="model_id" ref="event.model_event_registration"/>
