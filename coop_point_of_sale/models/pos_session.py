@@ -29,6 +29,26 @@ class PosSession(models.Model):
         string='Day (Search)', compute='_compute_date_search',
         multi='_date_search', store=True, index=True)
 
+    order_qty = fields.Integer(
+        compute='_compute_orders', string='Orders Qty', store=True)
+
+    amount_subtotal = fields.Monetary(
+        compute='_compute_orders', string='Amount Subtotal', store=True)
+
+    total_amount = fields.Monetary(
+        compute='_compute_orders', string='Transactions Total', store=True)
+
+
+    @api.multi
+    @api.depends('order_ids.lines.price_subtotal_incl', 'order_ids.lines.price_subtotal')
+    def _compute_orders(self):
+        for session in self:
+            session.order_qty = len(session.order_ids)
+            session.total_amount = sum(
+                session.mapped('order_ids.amount_total'))
+            session.amount_subtotal = session.total_amount - sum(
+                session.mapped('order_ids.amount_tax'))
+
     @api.multi
     @api.depends("start_at")
     def compute_week_number(self):

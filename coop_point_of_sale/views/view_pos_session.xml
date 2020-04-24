@@ -31,6 +31,11 @@
             <field name="start_at" position="before">
                 <field name="cycle"/>
             </field>
+            <field name="stop_at" position="after">
+                <field name="order_qty"/>
+                <field name="amount_subtotal"/>
+                <field name="total_amount"/>
+            </field>
         </field>
     </record>
 
