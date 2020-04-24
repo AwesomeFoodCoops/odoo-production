@@ -38,9 +38,9 @@ class PosSession(models.Model):
     total_amount = fields.Monetary(
         compute='_compute_orders', string='Transactions Total', store=True)
 
-
     @api.multi
-    @api.depends('order_ids.lines.price_subtotal_incl', 'order_ids.lines.price_subtotal')
+    @api.depends('order_ids.lines.price_subtotal_incl',
+                 'order_ids.lines.price_subtotal')
     def _compute_orders(self):
         for session in self:
             session.order_qty = len(session.order_ids)
