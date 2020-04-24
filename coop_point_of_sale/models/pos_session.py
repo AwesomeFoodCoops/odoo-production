@@ -53,8 +53,8 @@ class PosSession(models.Model):
         session_data = self.env['pos.order'].read_group([
             ('state', '!=', 'cancel'),
             ('session_id', 'in', self.ids)],
-            ['amount_total', 'amount_tax'],
-            ['session_id']
+            fields=['amount_total', 'amount_tax'],
+            groupby=['session_id']
         )
         result = dict((data['session_id'][0], {
             'order_count': data['session_id_count'],
@@ -62,15 +62,11 @@ class PosSession(models.Model):
             'amount_total': data['amount_total']
         }) for data in session_data)
         for session in self:
-            if result.get(session.id, 0):
-                session.order_count = result.get(
-                    session.id, 0).get(
-                    "order_count", 0)
-                session.amount_total = result.get(
-                    session.id, 0).get(
-                    "amount_total", 0.0)
-                session.amount_untaxed = session.amount_total - \
-                    result.get(session.id, 0).get("amount_tax", 0.0)
+            vals = result.get(session.id, {})
+            session.order_count = vals.get("order_count", 0)
+            session.amount_total = vals.get("amount_total", 0.0)
+            session.amount_untaxed = session.amount_total - \
+                vals.get("amount_tax", 0.0)
 
     @api.multi
     @api.depends("start_at")
