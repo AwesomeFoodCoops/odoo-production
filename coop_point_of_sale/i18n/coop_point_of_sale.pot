@@ -37,6 +37,16 @@ msgid "Active"
 msgstr ""
 
 #. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session__amount_total
+msgid "Amount Total"
+msgstr ""
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session__amount_untaxed
+msgid "Amount Untaxed"
+msgstr ""
+
+#. module: coop_point_of_sale
 #. openerp-web
 #: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:25
 #: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:48
@@ -74,6 +84,11 @@ msgstr ""
 #: code:addons/coop_point_of_sale/static/src/xml/point_of_sale.xml:9
 #, python-format
 msgid "Cooperative State"
+msgstr ""
+
+#. module: coop_point_of_sale
+#: model_terms:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_tree_inherit
+msgid "Count"
 msgstr ""
 
 #. module: coop_point_of_sale
@@ -129,7 +144,7 @@ msgstr ""
 
 #. module: coop_point_of_sale
 #: code:addons/coop_point_of_sale/models/pos_order.py:70
-#: code:addons/coop_point_of_sale/models/pos_session.py:68
+#: code:addons/coop_point_of_sale/models/pos_session.py:107
 #, python-format
 msgid "Fri"
 msgstr ""
@@ -149,7 +164,7 @@ msgstr ""
 
 #. module: coop_point_of_sale
 #: code:addons/coop_point_of_sale/models/pos_order.py:62
-#: code:addons/coop_point_of_sale/models/pos_session.py:60
+#: code:addons/coop_point_of_sale/models/pos_session.py:99
 #, python-format
 msgid "Mon"
 msgstr ""
@@ -194,6 +209,11 @@ msgstr ""
 #. module: coop_point_of_sale
 #: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order_line__order_id
 msgid "Order Ref"
+msgstr ""
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_session__order_count
+msgid "Orders Count"
 msgstr ""
 
 #. module: coop_point_of_sale
@@ -250,7 +270,7 @@ msgstr ""
 
 #. module: coop_point_of_sale
 #: code:addons/coop_point_of_sale/models/pos_order.py:72
-#: code:addons/coop_point_of_sale/models/pos_session.py:70
+#: code:addons/coop_point_of_sale/models/pos_session.py:109
 #, python-format
 msgid "Sat"
 msgstr ""
@@ -264,7 +284,7 @@ msgstr ""
 
 #. module: coop_point_of_sale
 #: code:addons/coop_point_of_sale/models/pos_order.py:74
-#: code:addons/coop_point_of_sale/models/pos_session.py:72
+#: code:addons/coop_point_of_sale/models/pos_session.py:111
 #, python-format
 msgid "Sun"
 msgstr ""
@@ -285,14 +305,20 @@ msgstr ""
 
 #. module: coop_point_of_sale
 #: code:addons/coop_point_of_sale/models/pos_order.py:68
-#: code:addons/coop_point_of_sale/models/pos_session.py:66
+#: code:addons/coop_point_of_sale/models/pos_session.py:105
 #, python-format
 msgid "Thu"
 msgstr ""
 
 #. module: coop_point_of_sale
 #: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order__amount_total
+#: model_terms:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_tree_inherit
 msgid "Total"
+msgstr ""
+
+#. module: coop_point_of_sale
+#: model_terms:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_tree_inherit
+msgid "Total Untaxed"
 msgstr ""
 
 #. module: coop_point_of_sale
@@ -302,7 +328,7 @@ msgstr ""
 
 #. module: coop_point_of_sale
 #: code:addons/coop_point_of_sale/models/pos_order.py:64
-#: code:addons/coop_point_of_sale/models/pos_session.py:62
+#: code:addons/coop_point_of_sale/models/pos_session.py:101
 #, python-format
 msgid "Tue"
 msgstr ""
@@ -316,7 +342,7 @@ msgstr ""
 
 #. module: coop_point_of_sale
 #: code:addons/coop_point_of_sale/models/pos_order.py:66
-#: code:addons/coop_point_of_sale/models/pos_session.py:64
+#: code:addons/coop_point_of_sale/models/pos_session.py:103
 #, python-format
 msgid "Wes"
 msgstr ""
