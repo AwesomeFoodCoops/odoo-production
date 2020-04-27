@@ -64,10 +64,11 @@ odoo.define('coop_membership.AccessButtons', function(require) {
 
         _renderButton: function(record, node) {
             var self = this;
-            this._super.apply(this, arguments);
+            var res = this._super.apply(this, arguments);
             if (!session.is_admin) {
                 self.check_hide_buttons();
             }
+            return res;
         },
 
         _onSelectRecord: function(event) {
