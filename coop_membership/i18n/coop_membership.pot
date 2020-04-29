@@ -1205,7 +1205,6 @@ msgstr ""
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__associated_people_available
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__associated_people_available
 msgid "Associated People Available"
 msgstr ""
 
@@ -1494,7 +1493,6 @@ msgstr ""
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_company__company_name
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__company_name
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__company_name
 msgid "Company Name"
 msgstr ""
 
@@ -1565,7 +1563,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__contact_us_messages
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__contact_us_message
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__contact_us_message
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__contact_us_messages
 msgid "Contact Us Message"
 msgstr ""
 
@@ -1783,7 +1780,6 @@ msgstr ""
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__description
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__description
 msgid "Description"
 msgstr ""
 
@@ -1849,7 +1845,6 @@ msgstr ""
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_company__email_meeting_contact
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__email_meeting_contact
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__email_meeting_contact
 msgid "Email Meeting Contact"
 msgstr ""
 
@@ -1954,13 +1949,11 @@ msgstr ""
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__max_registrations_per_day
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__max_registrations_per_day
 msgid "FTOP Max. Registration per day"
 msgstr ""
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__max_registration_per_period
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__max_registration_per_period
 msgid "FTOP Max. Registration per period"
 msgstr ""
 
@@ -1971,7 +1964,6 @@ msgstr ""
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__number_of_days_in_period
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__number_of_days_in_period
 msgid "FTOP Registration period"
 msgstr ""
 
@@ -2403,7 +2395,6 @@ msgstr ""
 #: selection:event.event,seats_availability:0
 #: selection:res.config.settings,associated_people_available:0
 #: selection:shift.shift,seats_availability:0
-#: selection:user.config.settings,associated_people_available:0
 msgid "Limited"
 msgstr ""
 
@@ -2487,14 +2478,12 @@ msgstr ""
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_company__maximum_active_days
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__maximum_active_days
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__maximum_active_days
 #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
 msgid "Maximum Active Days"
 msgstr ""
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__max_nb_associated_people
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__max_nb_associated_people
 msgid "Maximum Associated People"
 msgstr ""
 
@@ -2508,7 +2497,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_membership.field_event_event__seats_max
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__seats_max
 #: model:ir.model.fields,field_description:coop_membership.field_shift_shift__seats_max
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__seats_max
 msgid "Maximum Attendees Number"
 msgstr ""
 
@@ -2739,7 +2727,6 @@ msgstr ""
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__notice
-#: model:ir.model.fields,field_description:coop_membership.field_user_config_settings__notice
 msgid "Notice"
 msgstr ""
 
@@ -3658,7 +3645,6 @@ msgstr ""
 #: selection:event.event,seats_availability:0
 #: selection:res.config.settings,associated_people_available:0
 #: selection:shift.shift,seats_availability:0
-#: selection:user.config.settings,associated_people_available:0
 msgid "Unlimited"
 msgstr ""
 
