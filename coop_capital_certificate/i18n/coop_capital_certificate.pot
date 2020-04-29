@@ -75,7 +75,6 @@ msgstr ""
 #. module: coop_capital_certificate
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_res_company__capital_certificate_header
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_res_config_settings__capital_certificate_header
-#: model:ir.model.fields,field_description:coop_capital_certificate.field_user_config_settings__capital_certificate_header
 msgid "Capital Certificate Header"
 msgstr ""
 
@@ -266,7 +265,6 @@ msgstr ""
 #. module: coop_capital_certificate
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_res_company__signature
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_res_config_settings__signature
-#: model:ir.model.fields,field_description:coop_capital_certificate.field_user_config_settings__signature
 #: model_terms:ir.ui.view,arch_db:coop_capital_certificate.report_capital_certificate_document
 msgid "Signature"
 msgstr ""
@@ -315,7 +313,6 @@ msgstr ""
 #. module: coop_capital_certificate
 #: model:ir.model.fields,help:coop_capital_certificate.field_res_company__capital_certificate_header
 #: model:ir.model.fields,help:coop_capital_certificate.field_res_config_settings__capital_certificate_header
-#: model:ir.model.fields,help:coop_capital_certificate.field_user_config_settings__capital_certificate_header
 msgid "example: 'La S.A.S. Coopérative à Capital Variable LA LOUVE'"
 msgstr ""
 
