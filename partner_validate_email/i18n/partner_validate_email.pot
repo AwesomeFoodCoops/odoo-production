@@ -44,7 +44,6 @@ msgstr ""
 
 #. module: partner_validate_email
 #: model:ir.model.fields,field_description:partner_validate_email.field_res_config_settings__validate_email
-#: model:ir.model.fields,field_description:partner_validate_email.field_user_config_settings__validate_email
 msgid "Enable verification of domain when checking an email address"
 msgstr ""
 
