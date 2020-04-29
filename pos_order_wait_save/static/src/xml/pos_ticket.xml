@@ -1,0 +1,21 @@
+<templates id="template" inherit_id="point_of_sale.template">
+
+    <t t-extend="PosTicket">
+        <t t-jquery="t[t-if*='receipt.footer']" t-operation="after">
+            <div class="pos-center-align" t-if="order.is_not_saved_yet == true">
+                <span>
+                    <b>NOT SAVED YET</b>
+                </span>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="XmlReceipt">
+        <t t-jquery="receipt" t-operation="append">
+            <t t-if="receipt.is_not_saved_yet == true">
+                <div>NOT SAVED YET</div>
+            </t>
+        </t>
+    </t>
+
+</templates>

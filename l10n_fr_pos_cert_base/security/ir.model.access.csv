@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_model_res_users,access_model_res_users,base.model_res_users,l10n_fr_pos_cert_base.group_funtional_admin,1,1,1,1
-access_ir_config_parameter_function_admin,ir_config_parameter_function_admin,base.model_ir_config_parameter,l10n_fr_pos_cert_base.group_funtional_admin,1,1,1,0
-access_ir_actions_todo_group_function_admin,ir_actions_todo_function_admin,base.model_ir_actions_todo,l10n_fr_pos_cert_base.group_funtional_admin,1,1,1,0
-

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pos_config_view_form_wait_save" model="ir.ui.view">
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_settings_container')][2]"
+                position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Order Timeout</span>
+                        <div class="text-muted">
+                            Number of seconds to wait for the order to be saved before printing the ticket.<br/>
+                            Set to 0 to disable.
+                        </div>
+                        <div class="content-group mt16">
+                            <field name="order_wait_save_timeout" colspan="4"
+                                nolabel="1"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
