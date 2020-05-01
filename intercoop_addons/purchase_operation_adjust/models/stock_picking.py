@@ -60,7 +60,7 @@ class StockPicking(models.Model):
                 partner_id=self.partner_id,
                 quantity=procurement_uom_po_qty,
                 date=order.date_order and order.date_order[:10],
-                uom_id=self.product_id.uom_po_id)
+                uom_id=diff_pack_op.product_id.uom_po_id)
 
             product_name = seller and seller[0].product_name or\
                 diff_pack_op.product_id.name
