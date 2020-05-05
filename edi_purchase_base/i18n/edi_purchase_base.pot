@@ -355,7 +355,7 @@ msgid "Product"
 msgstr ""
 
 #. module: edi_purchase_base
-#: code:addons/edi_purchase_base/models/supplier_price_list.py:64
+#: code:addons/edi_purchase_base/models/supplier_price_list.py:67
 #, python-format
 msgid "Product Form"
 msgstr ""
