@@ -52,6 +52,9 @@
                             </group>
                         </page>
                         <page string="Prices update interface">
+                            <group>
+                                <field name="fnmatch_filter" required="1"/>
+                            </group>
                             <group string="Fields mapping">
                                 <field name="price_mapping_ids" nolabel="1">
                                     <tree editable="bottom">
