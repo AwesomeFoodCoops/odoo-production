@@ -9,7 +9,7 @@
 <odoo>
 
     <menuitem id="menu_product_print_category"
-              parent="base.menu_users" sequence="110"
+              parent="sale.menu_sale_config" sequence="11"
               action="action_product_print_category"
               groups="product_print_category.user"/>
 
