@@ -40,6 +40,7 @@
         name="Pricetag Model"
         parent="sale.menu_sale_config"
         action="action_pricetag_model"
+        sequence="12"
     />
 
 </odoo>
