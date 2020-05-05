@@ -25,29 +25,33 @@ class SupplierPriceList(models.Model):
     def button_create_product(self):
         self.ensure_one()
         # create new product
-        product_tmpl_id = self.env['product.template'].create({'name': self.product_name,
-                                                               'sale_ok': True,
-                                                               'purchase_ok': True,
-                                                               'type': 'product'
-                                                               })
+        product_tmpl_id = self.env['product.template'].create({
+            'name': self.product_name,
+            'sale_ok': True,
+            'purchase_ok': True,
+            'type': 'product',
+            'default_code': self.supplier_code
+        })
         # link product with current supplier price list
-        self.product_tmpl_id = product_tmpl_id.id
-
+        self.sudo().product_tmpl_id = product_tmpl_id.id
         # create product supplier info
-        self.env['product.supplierinfo'].create({'name': self.supplier_id.id,
-                                                 'price': self.price,
-                                                 'product_code': self.supplier_code,
-                                                 'product_tmpl_id': product_tmpl_id.id})
-
+        self.env['product.supplierinfo'].create({
+            'name': self.supplier_id.id,
+            'price': self.price,
+            'product_code': self.supplier_code,
+            'product_tmpl_id': product_tmpl_id.id
+        })
         # find similar supplier price list
-        supplier_price_list_ids = self.search([('supplier_id', '=', self.supplier_id.id),
-                                               ('product_name', '=', self.product_name),
-                                               ('supplier_code', '=', self.supplier_code),
-                                               ('product_tmpl_id', '=', False)])
-
+        supplier_price_list_ids = self.search([
+            ('supplier_id', '=', self.supplier_id.id),
+            ('product_name', '=', self.product_name),
+            ('supplier_code', '=', self.supplier_code),
+            ('product_tmpl_id', '=', False)]
+        )
         # link product to similar supplier price list
-        supplier_price_list_ids.write({'product_tmpl_id': product_tmpl_id.id})
-
+        supplier_price_list_ids.sudo().write({
+            'product_tmpl_id': product_tmpl_id.id
+        })
         # create action to open newly created product form view
         action = {
             'name': _('Product Form'),
