@@ -40,7 +40,6 @@
         'views/view_shift_counter_event.xml',
         'views/view_res_partner_owned_share.xml',
         'views/view_res_partner.xml',
-        'views/res_users_view.xml',
         'views/view_barcode_rule.xml',
         'views/view_account_invoice.xml',
         'views/view_capital_fundraising_category.xml',
