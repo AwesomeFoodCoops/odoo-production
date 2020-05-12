@@ -238,7 +238,7 @@ class TestProductTemplate(SavepointCase):
             "coeff8_inter_sp": 13.95306,
             "theoritical_price": 13.95,
             "has_theoritical_price_different": False,
-            "has_theoritical_cost_different": True,
+            "has_theoritical_cost_different": False,
         }
         pre_test_prdC = {
             "name": "TEST PRODUCT COEFFICIENT C",
@@ -267,8 +267,7 @@ class TestProductTemplate(SavepointCase):
         """
         # testing
         # case change base_price and discount
-        self.product_a.write({
-            "coeff5_inter_sp": 6.3,
+        self.product_a.with_context(skip_price_update=True).write({
             "seller_ids": [(
                 1,
                 self.product_a.seller_ids[0].id,
@@ -276,7 +275,7 @@ class TestProductTemplate(SavepointCase):
             )]
         })
         # case change only base_price
-        self.product_b.write({
+        self.product_b.with_context(skip_price_update=True).write({
             "seller_ids": [(
                 1,
                 self.product_b.seller_ids[0].id,
@@ -284,7 +283,7 @@ class TestProductTemplate(SavepointCase):
             )]
         })
         # case change only discount
-        self.product_c.write({
+        self.product_c.with_context(skip_price_update=True).write({
             "seller_ids": [(
                 1,
                 self.product_c.seller_ids[0].id,
@@ -324,7 +323,7 @@ class TestProductTemplate(SavepointCase):
             "list_price": 14.87,
             "standard_price": 14.87,
             "has_theoritical_price_different": False,
-            "has_theoritical_cost_different": True,
+            "has_theoritical_cost_different": False,
         })
         expected_ouput_prdC.update({
             "list_price": 67528.5,
@@ -342,7 +341,7 @@ class TestProductTemplate(SavepointCase):
          * and theorical standard price changed.
         """
         # testing
-        self.product_a.write({
+        self.product_a.with_context(skip_price_update=True).write({
             "seller_ids": [
                 (1, self.product_a.seller_ids[0].id, {"discount": 0})
             ],
@@ -375,15 +374,15 @@ class TestProductTemplate(SavepointCase):
             "base_price": 7.5,
             "alternative_base_price_sale": 10.0,
             "alternative_base_price_standard": 10.0,
-            "has_theoritical_price_different": True,
-            "has_theoritical_cost_different": True,
+            "has_theoritical_price_different": False,
+            "has_theoritical_cost_different": False,
         }
         expected_ouput_prdC = {
             "base_price": 50000.0,
             "alternative_base_price_sale": 10.0,
             "alternative_base_price_standard": 10.0,
-            "has_theoritical_price_different": True,
-            "has_theoritical_cost_different": True,
+            "has_theoritical_price_different": False,
+            "has_theoritical_cost_different": False,
         }
         # check change base price
         self.evaluate_values(self.product_a, expected_ouput_prda)
@@ -418,7 +417,7 @@ class TestProductTemplate(SavepointCase):
     def test_no_coefficient_included_in_standard_price(self):
         # testing
         # case change base_price and discount
-        self.product_a.write({
+        self.product_a.with_context(skip_price_update=True).write({
             "seller_ids": [(
                 1,
                 self.product_a.seller_ids[0].id,
@@ -476,7 +475,7 @@ class TestProductTemplate(SavepointCase):
     def test_discount_make_base_price_changed(self):
         # testing
         # case change base_price and discount
-        self.product_a.write({
+        self.product_a.with_context(skip_price_update=True).write({
             "seller_ids": [(
                 1,
                 self.product_a.seller_ids[0].id,
@@ -528,7 +527,7 @@ class TestProductTemplate(SavepointCase):
         # testing
         # case change base_price and discount and discount is 0 (doesn't take
         # effect on base_price)
-        self.product_a.write({
+        self.product_a.with_context(skip_price_update=True).write({
             "seller_ids": [(
                 1,
                 self.product_a.seller_ids[0].id,

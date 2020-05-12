@@ -83,7 +83,8 @@ class ProductTemplate(models.Model):
         the product""",
     )
     coeff8_id = fields.Many2one(
-        comodel_name="product.coefficient", string="Coefficient 8"
+        comodel_name="product.coefficient",
+        string="Coefficient 8"
     )
     incl_in_standard_price_8 = fields.Boolean(
         string="Include in Standard Price",
@@ -262,13 +263,15 @@ class ProductTemplate(models.Model):
     @api.multi
     def use_theoritical_price(self):
         for template in self:
-            template.list_price = template.theoritical_price
+            template.with_context(skip_price_update=True).write({
+                'list_price': template.theoritical_price})
         return True
 
     @api.multi
     def use_theoritical_cost(self):
         for template in self:
-            template.standard_price = template.coeff9_inter_sp
+            template.with_context(skip_price_update=True).write({
+                'standard_price': template.coeff9_inter_sp})
         return True
 
     @api.model
@@ -307,10 +310,9 @@ class ProductTemplate(models.Model):
                         )
                     else:
                         base_price = (
-                            (seller.price / seller.product_uom.factor_inv)
-                            * template.uom_id.factor_inv
-                            * (100 - seller.discount)
-                            / 100
+                            (seller.price / seller.product_uom.factor_inv) *
+                            template.uom_id.factor_inv *
+                            (100 - seller.discount) / 100
                         )
             template.base_price = base_price
 
@@ -546,10 +548,25 @@ class ProductTemplate(models.Model):
     def _compute_has_theoritical_cost_different(self):
         for template in self:
             if template.coeff9_inter_sp and (
+                    template.base_price or
+                    template.alternative_base_price_standard):
+                template.has_theoritical_cost_different = (round(
+                    template.standard_price, 2) != template.coeff9_inter_sp
+                )
+            else:
+                template.has_theoritical_cost_different = False
+
+    @api.multi
+    @api.depends("coeff9_inter_sp", "standard_price")
+    def _compute_has_theoritical_cost_different(self):
+        digits = self.env['decimal.precision'].precision_get('Product Price')
+        for template in self:
+            if template.coeff9_inter_sp and (
                 template.base_price or template.alternative_base_price_standard
             ):
                 template.has_theoritical_cost_different = (
-                    template.standard_price != template.coeff9_inter_sp
+                    round(template.standard_price, digits) !=
+                    template.coeff9_inter_sp
                 )
             else:
                 template.has_theoritical_cost_different = False
@@ -558,7 +575,7 @@ class ProductTemplate(models.Model):
     def get_auto_update_base_price(self):
         # Get Purchase Configuration: Updates Base Price automatically
         param_env = self.env["ir.config_parameter"]
-        val = param_env.get_param(
+        val = param_env.sudo().get_param(
             "coop_product_coefficient.auto_update_base_price")
         return val
 
@@ -566,7 +583,7 @@ class ProductTemplate(models.Model):
     def get_auto_update_theorical_cost(self):
         # Get Purchase Configuration: Updates Theorical Cost automatically
         param_env = self.env["ir.config_parameter"]
-        val = param_env.get_param(
+        val = param_env.sudo().get_param(
             "coop_product_coefficient.auto_update_theorical_cost")
         return val
 
@@ -574,7 +591,7 @@ class ProductTemplate(models.Model):
     def get_auto_update_theorical_price(self):
         # Get Purchase Configuration: Updates Theorical Price automatically
         param_env = self.env["ir.config_parameter"]
-        val = param_env.get_param(
+        val = param_env.sudo().get_param(
             "coop_product_coefficient.auto_update_theorical_price")
         return val
 
@@ -591,20 +608,9 @@ class ProductTemplate(models.Model):
 
     @api.multi
     def write(self, vals):
-        if self.has_theoritical_cost_different and (
-            self.get_auto_update_theorical_cost()
-        ):
-            coeff9_inter_sp = self.coeff9_inter_sp
-            if vals and vals.get('coeff9_inter_sp'):
-                coeff9_inter_sp = vals.get('coeff9_inter_sp')
-            vals.update({'list_price': coeff9_inter_sp})
-        if self.has_theoritical_price_different and \
-                self.get_auto_update_theorical_price():
-            theoritical_price = self.theoritical_price
-            if vals and vals.get('theoritical_price'):
-                theoritical_price = vals.get('theoritical_price')
-            vals.update({'list_price': theoritical_price})
         ret = super(ProductTemplate, self).write(vals)
+        if self._context.get('skip_price_update', False) is False:
+            self.auto_update_theoritical_cost_price()
         return ret
 
     @api.model
