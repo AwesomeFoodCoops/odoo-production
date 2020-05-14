@@ -16,6 +16,7 @@
     'license': 'AGPL-3',
     "depends": [
         "point_of_sale",
+        "pos_price_to_weight",
         "coop_membership",
     ],
     "qweb": [
