@@ -19,11 +19,11 @@
 
     <record id="view_res_partner_form_base" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="coop_membership.view_res_partner_form_base" />
+        <field name="inherit_id" ref="coop_membership.view_partner_form" />
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='coop_data']/group/group[1]/field[@name='is_member']" position="before">
+            <field name="is_member" position="before">
                 <field name="badge_to_print" invisible="1"/>
-            </xpath>
+            </field>
         </field>
     </record>
 </odoo>
