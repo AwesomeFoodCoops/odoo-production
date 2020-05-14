@@ -56,12 +56,6 @@
         <field name="groups_id" eval="[(6, 0, [ref('coop_print_badge.group_hide')])]"/>
     </record>
 
-    <record id="portal.partner_wizard_action" model="ir.actions.act_window">
-        <field name="name">Portal Access Management</field>
-        <field name="res_model">res.partner</field>
-        <field name="groups_id" eval="[(6, 0, [ref('coop_print_badge.group_hide')])]"/>
-    </record>
-    
     <record id="coop_membership.member_contract_report" model="ir.actions.report">
         <field name="groups_id" eval="[(6, 0, [ref('coop_print_badge.group_hide')])]"/>
     </record>
