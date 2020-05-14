@@ -171,17 +171,17 @@ class AccountBankStatement(models.Model):
         _logger.debug('Possible CB/CT/CB+CT statements: %d' % len(pos_statement_ids))
         ignore_cb_statement_ids = []
         for pos_statement_id in pos_statement_ids:
-            reconciled_move_lines_count = \
-                len(pos_statement_id.move_line_ids.filtered(lambda l:
-                                                           l.reconciled and l.account_id.id == \
-                                                           self.journal_id.default_debit_account_id.id))
-            if reconciled_move_lines_count:
-                if len(pos_statement_id) != reconciled_move_lines_count:
-                    _logger.debug('Level 2: POS partially processed by the bank.')
-                else:
-                    _logger.debug('Case 1: There are debits on the journal and they are reconciled.')
-                # In any case, don't use this statement
-                ignore_cb_statement_ids.append(pos_statement_id.id)
+            for l in pos_statement_id.move_line_ids:
+                reconciled_move_lines_count = \
+                    len(pos_statement_id.move_line_ids.filtered(lambda l: l.reconciled and l.account_id.id == \
+                                                                          self.journal_id.default_debit_account_id.id))
+                if reconciled_move_lines_count:
+                    if len(pos_statement_id) != reconciled_move_lines_count:
+                        _logger.debug('Level 2: POS partially processed by the bank.')
+                    else:
+                        _logger.debug('Case 1: There are debits on the journal and they are reconciled.')
+                    # In any case, don't use this statement
+                    ignore_cb_statement_ids.append(pos_statement_id.id)
         pos_statement_ids = pos_statement_ids.filtered(lambda s: s.id not in ignore_cb_statement_ids)
         return pos_statement_ids
 
