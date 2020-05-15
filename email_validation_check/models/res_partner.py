@@ -79,6 +79,8 @@ class ResPartner(models.Model):
                 continue
             if partner.id in ignore_partner_ids:
                 continue
+            if partner.user_ids:
+                continue
             if partner.email:
                 already_email = self.env['res.partner'].search([
                     ('email', '=', partner.email),
