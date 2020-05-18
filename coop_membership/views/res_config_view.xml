@@ -70,7 +70,7 @@
                             <div class="o_setting_right_pane">
                                 <span class="o_form_label">Maximum Active Days</span>
                                 <div class="text-muted">
-                                    <field name="max_registrations_per_day"/>
+                                    <field name="maximum_active_days"/>
                                 </div>
                             </div>
                         </div>
