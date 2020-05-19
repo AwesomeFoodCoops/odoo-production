@@ -59,7 +59,7 @@
                             </span>
                             <br/>
                             <span>Date de naissance
-                                <span t-esc="o.birthdate"></span>
+                                <span t-esc="o.birthdate_date"></span>
                             </span>
                             <br/>
                             <br/>

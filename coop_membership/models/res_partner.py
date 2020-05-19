@@ -47,7 +47,6 @@ class ResPartner(models.Model):
     # Add field in res partner
     payment_method_count = fields.Integer()
     opt_out = fields.Boolean(default=False)
-    birthdate = fields.Date('Birthday')
 
     is_member = fields.Boolean('Is Member',
                                compute="_compute_is_member",
@@ -190,22 +189,22 @@ class ResPartner(models.Model):
 
     event_event_id = fields.Many2one('event.event')
 
-    @api.onchange('birthdate')
-    def _onchange_birthdate(self):
-        if self.birthdate and self.is_minor_child:
-            self.check_minor_child_birthdate(
-                self.birthdate, self.is_minor_child
+    @api.onchange('birthdate_date')
+    def _onchange_birthdate_date(self):
+        if self.birthdate_date and self.is_minor_child:
+            self.check_minor_child_birthdate_date(
+                self.birthdate_date, self.is_minor_child
             )
 
     # Constraint Section
     @api.multi
-    @api.constrains('birthdate')
-    def _check_partner_birthdate(self):
+    @api.constrains('birthdate_date')
+    def _check_partner_birthdate_date(self):
         """ Check minor child's birth date """
         for partner in self:
-            if partner.is_minor_child and partner.birthdate:
-                partner.check_minor_child_birthdate(
-                    partner.birthdate, partner.is_minor_child
+            if partner.is_minor_child and partner.birthdate_date:
+                partner.check_minor_child_birthdate_date(
+                    partner.birthdate_date, partner.is_minor_child
                 )
 
     @api.multi
@@ -288,11 +287,11 @@ class ResPartner(models.Model):
 
     # Compute Section
     @api.multi
-    @api.depends('birthdate')
+    @api.depends('birthdate_date')
     def _compute_age(self):
         for partner in self:
-            if partner.birthdate:
-                d1 = partner.birthdate
+            if partner.birthdate_date:
+                d1 = partner.birthdate_date
                 d2 = date.today()
                 partner.age = relativedelta(d2, d1).years
 
@@ -630,7 +629,7 @@ class ResPartner(models.Model):
         query = """
             SELECT id
             FROM res_partner
-            WHERE to_date(cast(birthdate as TEXT),'YYYY-MM-DD') <= %s
+            WHERE to_date(cast(birthdate_date as TEXT),'YYYY-MM-DD') <= %s
             AND parent_id IS NOT NULL
             AND is_associated_people IS TRUE
             AND is_minor_child IS TRUE
@@ -656,7 +655,7 @@ class ResPartner(models.Model):
         query = """
             SELECT id
             FROM res_partner
-            WHERE to_date(cast(birthdate as TEXT),'YYYY-MM-DD') <= %s
+            WHERE to_date(cast(birthdate_date as TEXT),'YYYY-MM-DD') <= %s
             AND parent_id IS NOT NULL
             AND is_associated_people IS TRUE
             AND is_minor_child IS TRUE
@@ -709,11 +708,11 @@ class ResPartner(models.Model):
             name=name, args=args, operator=operator, limit=limit)
 
     @api.model
-    def check_minor_child_birthdate(self, birthdate, is_minor_child):
-        if birthdate and is_minor_child:
-            birthdate = datetime.strptime(birthdate, "%Y-%m-%d").date()
+    def check_minor_child_birthdate_date(self, birthdate_date, is_minor_child):
+        if birthdate_date and is_minor_child:
+            birthdate_date = datetime.strptime(birthdate_date, "%Y-%m-%d").date()
             past_18_years_dt = date.today() - relativedelta(years=18)
-            if birthdate < past_18_years_dt:
+            if birthdate_date < past_18_years_dt:
                 raise ValidationError(_(
                     "Cette personne a plus de 18 ans et ne peux pas être "
                     "saisie comme un enfant mineur.")

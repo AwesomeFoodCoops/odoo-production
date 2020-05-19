@@ -6,7 +6,7 @@
 
 {
     'name': 'Coop - Membership',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.1.1',
     'category': 'Custom',
     'summary': 'Custom settings for membership',
     'author': 'La Louve, Druidoo',
@@ -23,6 +23,7 @@
         'purchase_compute_order',
         'res_partner_account_move_line',
         'stock',
+        'partner_contact_birthdate',
     ],
     'data': [
 

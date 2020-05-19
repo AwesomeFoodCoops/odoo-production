@@ -7,17 +7,6 @@
 
 <odoo>
 
-    <record model="ir.ui.view" id="view_res_partner_form_subscription_manager">
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="capital_subscription.view_res_partner_form"/>
-        <field name="groups_id"
-               eval="[(6,0,[ref('account.group_account_manager')])]"/>
-        <field name="arch" type="xml">
-            <field name="fundraising_partner_type_ids" position="attributes">
-                <attribute name="readonly">0</attribute>
-            </field>
-        </field>
-    </record>
     <!-- Redefine partner's form view -->
     <record id="view_partner_form" model="ir.ui.view">
         <field name="name">view.res.partner.membership.access.form</field>
@@ -184,7 +173,7 @@
                         <field name="temp_coop_number"
                                groups="coop_membership.group_membership_see_associated_people,
                                coop_membership.group_membership_access_user"/>
-                        <field name="birthdate" widget="date"
+                        <field name="birthdate_date" widget="date"
                                attrs="{'required': [('is_member', '=', True)]}"
                                groups="coop_membership.group_membership_see_associated_people,
                                coop_membership.group_membership_access_user,
@@ -416,7 +405,7 @@
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='name']"
                    position="after">
-                <field name="birthdate"
+                <field name="birthdate_date"
                        widget="date"
                        groups="coop_membership.group_membership_see_associated_people,
                        coop_membership.group_membership_access_user,
@@ -561,6 +550,18 @@
         <field name="view_id" ref="coop_membership.view_partner_form"/>
         <field name="act_window_id" ref="mail.action_contacts"/>
     </record> -->
+
+    <record model="ir.ui.view" id="view_res_partner_form_subscription_manager">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="capital_subscription.view_res_partner_form"/>
+        <field name="groups_id"
+               eval="[(6,0,[ref('account.group_account_manager')])]"/>
+        <field name="arch" type="xml">
+            <field name="fundraising_partner_type_ids" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+        </field>
+    </record>
 
     <record model="ir.ui.view" id="view_res_partner_form">
         <field name="model">res.partner</field>
