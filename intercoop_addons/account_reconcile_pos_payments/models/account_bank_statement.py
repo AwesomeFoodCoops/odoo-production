@@ -188,6 +188,7 @@ class AccountBankStatement(models.Model):
     def process_statement_reconcile(self, lines, statement_id, ct_line=False):
         if ct_line:
             lines |= ct_line
+        lines_to_reconcile = []
         for line in lines:
             move_line_vals = {
                 'name': '%s %s %s %s' % (
@@ -205,8 +206,6 @@ class AccountBankStatement(models.Model):
             _logger.debug('Creating reconciliation line: %s' % move_line_vals)
             line.process_reconciliation([], [], [move_line_vals])
             # Now let's settle this line with the statement lines
-            lines_to_reconcile = []
-
             for move_line in statement_id.move_line_ids:
                 if (
                         move_line.account_id.id == statement_id.journal_id.default_debit_account_id.id
@@ -220,6 +219,5 @@ class AccountBankStatement(models.Model):
                         and move_line.id not in lines_to_reconcile
                 ):
                     lines_to_reconcile.append(move_line.id)
-
-            self.env['account.move.line.reconcile'].with_context(active_ids=lines_to_reconcile).create(
-                {}).trans_rec_reconcile_full()
+        self.env['account.move.line.reconcile'].with_context(active_ids=lines_to_reconcile).create(
+            {}).trans_rec_reconcile_full()
