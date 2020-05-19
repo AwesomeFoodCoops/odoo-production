@@ -24,8 +24,8 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
-            <field name="category_id" position="after">
-                <field name="is_edi" />
+            <field name="supplier" position="after">
+                <field name="is_edi"/>
             </field>
         </field>
     </record>
