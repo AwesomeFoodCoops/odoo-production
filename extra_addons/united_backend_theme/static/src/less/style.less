@@ -1,0 +1,131 @@
+// Put Loading indicator in the right bottom of the screen 
+.o_web_client .openerp .oe_loading {
+    background-color: darken(@brand-primary, 13.5%) !important;
+    top: inherit;
+    bottom: 0;
+    right: 0;
+    padding: 5px 50px;
+    border-radius: 0 !important;
+    opacity: 0.8;
+}
+// Left Menu Bar =========================================
+
+// Toggle left menu bar
+.ul_toggle_leftmenu {
+    padding-left: 0px;
+    list-style: outside none none;
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+    margin-bottom: 0px !important;
+    max-width: 50px;
+}
+.toggle_leftmenu {
+    color: #FFF !important;
+    padding: 14px 14px;
+}
+.toggle_leftmenu:hover {
+    color: #FFF !important;
+    cursor: pointer;
+    background-color: darken(@brand-primary, 13.5%);
+}
+
+// Change font & color leftbar
+.openerp .oe_leftbar .oe_secondary_menus_container {
+    font-family: Ubuntu;
+}
+
+.openerp .oe_secondary_menu_section {
+    color: @brand-primary;
+}
+
+.openerp .oe_secondary_menu_section > .oe_menu_leaf {
+    color: @brand-primary;
+}
+
+.openerp .nav-pills > li.active > a, .openerp a.list-group-item.active > a {
+    background-color: @brand-primary !important;
+}
+
+// White background
+.openerp .oe_leftbar {
+    background: #ffffff none repeat scroll 0 0 !important;
+}
+
+// Leftbar notifications
+.openerp .badge {
+    background-color: @brand-primary;
+}
+
+// Navbar =========================================
+#oe_main_menu_navbar {
+    .box-shadow(0px 0px 8px #666666);
+    border: none;
+    .navbar-collapse {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+}
+
+#oe_main_menu_navbar,
+.navbar-nav {
+    li {
+        a, button {
+            font-size: 14px !important;
+            padding: 14px 10px !important;
+            margin-top: 0 !important;
+            line-height: 21px !important;
+        }
+    }
+    .dropdown-menu {
+        li {
+            a, button {
+                padding: 4px 10px !important;
+                font-size: 14px !important;
+			}
+        }
+    }
+}
+
+// Align green progress indicator
+#oe_main_menu_navbar .o_planner_systray > .progress {
+    margin-top: 18px !important;
+}
+
+// Add some space in button groups
+//.btn-group > .btn, .btn-group-vertical > .btn {
+//    float: left;
+//    margin: 3px;
+//    position: relative;
+//}
+
+// =========================================
+// Make formwidth relative to screen
+.openerp .oe_form_sheet_width {
+    max-width: 90%;
+}
+
+// Explorer 11 fix to use fullscreen
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+	.oe-view-manager-view-kanban, .oe-view-manager-view-form, .oe-view-manager-view-list, .oe-view-manager-view-calendar, .oe-view-manager-view-pivot, .oe-view-manager-view-graph {
+        width: 100% !important;
+	}
+
+	// Fix user preference height	
+	.modal .modal-content .modal-body .oe-view-manager-content {
+		position: static;
+		height: 400px;
+	}
+	
+	// Fix salesboard width
+	.oe-view-manager-view-sales_team_dashboard {
+		width: 100%;
+	}
+
+}
+
+
+
+
