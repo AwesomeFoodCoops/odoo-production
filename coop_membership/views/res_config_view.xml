@@ -92,6 +92,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content">
+                                    <h2>Office Timing</h2>
+                                    <div class="mt16">
+                                        <field name="office_timing"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </xpath>

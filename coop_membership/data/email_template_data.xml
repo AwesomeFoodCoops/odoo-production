@@ -108,9 +108,8 @@ If you think there was a mistake or wish to subscribe to another team please con
 <p>Scheduling a vacation then missing it without first canceling it will result in the withdrawal of a credit from its service savings account. Members of the flying team may cancel their vacations without penalty up to one hour before their start, at the members' office during opening hours.</p>
 <h3>For more information, contact the Membership Office during its opening hours: ${(object.company_id.phone or '')|safe}.</h3>
 <p>Opening hours of the Members' Office:</p>
-Tuesday: 1:30 p.m. - 4 p.m.</p>
-<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
-<p>Saturday: 10 a.m. - 4 p.m.</p>
+<br/>
+<pre>${object.partner_id.company_id.office_timing}</pre>
 <br/>
 <p>Sincerely,</p>
 ]]>
@@ -129,7 +128,10 @@ Tuesday: 1:30 p.m. - 4 p.m.</p>
 <p>Hello ${object.partner_id.name.split(',')[0]}</p>
 <p>The end of your leave at ${(object.partner_id.company_id.name or '')|safe} is approaching. To ensure that you can do your shopping as soon as you return, it is strongly recommended that you contact the Members' Office to reintegrate a new team.</p>
 <p>End date of your leave: ${object.stop_date}</p>
-<p>Opening hours of the Members' Office: Tuesday: 1:30 p.m. - 4 p.m. Wednesday to Friday: 1:30 p.m. - 8 p.m. Saturday: 10 a.m. - 4 p.m.</p>
+<p>Opening hours of the Members' Office:
+<br/>
+<pre>${object.partner_id.company_id.office_timing}</pre>
+<br/>
 <p>Tel: ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>Have a nice day,</p>
 <p>The Membership Office of ${(object.partner_id.company_id.name or '')|safe}</p>
@@ -154,7 +156,9 @@ Tuesday: 1:30 p.m. - 4 p.m.</p>
 <p>Have a nice day,</p>
 <p>Members office ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
-<p>Tuesday: 1:30 p.m. - 4 p.m. Wednesday to Friday: 1:30 p.m. - 8 p.m. Saturday: 10 a.m. - 4 p.m.</p>
+<br/>
+<pre>${object.partner_id.company_id.office_timing}</pre>
+<br/>
 ]]>
         </field>
     </record>
@@ -178,9 +182,9 @@ Tuesday: 1:30 p.m. - 4 p.m.</p>
 <br/>
 ${(object.company_id.phone or '')|safe}</p>
 <p>The members' office does not take any requests by email. For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
-<p>Tuesday: 1:30 p.m. - 4 p.m.</p>
-<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
-<p>Saturday: 10 a.m. - 4 p.m.</p>
+<br/>
+<pre>${object.partner_id.company_id.office_timing}</pre>
+<br/>
 <br/>
 ]]>
         </field>
@@ -204,10 +208,8 @@ ${(object.company_id.phone or '')|safe}</p>
 <br/>
 ${(object.company_id.phone or '')|safe}</p>
 <p>The members' office does not take any requests by email. For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
-<p>Tuesday: 1:30 p.m. - 4 p.m.</p>
-<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
-<p>Saturday: 10 a.m. - 4 p.m.</p>
 <br/>
+<pre>${object.partner_id.company_id.office_timing}</pre><br/>
 ]]>
         </field>
     </record>
@@ -231,10 +233,8 @@ ${(object.company_id.phone or '')|safe}</p>
 <p>You may have been awarded a catch-up if a difference of more than 6 weeks has been noted between the date of your last service with the old team and the date of your first service in the new team. This is to respect the rule of 13 services to be performed over the year.</p>
 <p>For more information, contact the Membership Office during its opening hours: ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>Opening hours of the Members' Office:</p>
-<p>Tuesday: 1:30 p.m. - 4 p.m.<br/>
-   Wednesday to Friday: 1:30 p.m. - 8 p.m.<br/>
-   Saturday: 10 a.m. - 4 p.m.<br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.office_timing}</pre><br/>
 <p>Have a good day,</p>
 <p>${(object.partner_id.company_id.name or '')|safe}</p>
 ]]>
@@ -256,10 +256,8 @@ ${(object.company_id.phone or '')|safe}</p>
 <p>Attached is the calendar of ABCD weeks, as well as the description of the functioning of the flying team. The operation of this team is quite complex, please read this sheet carefully.</p>
 <p>For more information, contact the Membership Office during its opening hours: ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>Opening hours of the Members' Office:</p>
-<p>Tuesday: 1:30 p.m. - 4 p.m.<br/>
-    Wednesday to Friday: 1:30 p.m. - 8 p.m.<br/>
-    Saturday: 10 a.m. - 4 p.m.<br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.office_timing}</pre><br/>
 <p>Have a good day,</p>
 <p>${(object.partner_id.company_id.name or '')|safe}</p>
 ]]>
@@ -347,14 +345,9 @@ Unless we are mistaken, we have not seen this document.
 <p>Your leave was therefore unsuccessful.</p>
 <p>Services missed during your absence are now recorded as missed services.</p>
 <p>To regularize your situation, contact the members' office during its opening hours:</p>
-<p>
-    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
-    <br/>
-    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
-    <br/>
-    <span>Saturday: 10 a.m. - 4 p.m.</span>
-    <br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.office_timing}</pre>
+<br/>
 <p>${(object.partner_id.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
 <br/>
@@ -381,14 +374,9 @@ Unless we are mistaken, we have not seen this document.
 <p>You have 3 weeks from the date of sending this email to show us or send us a medical proof.</p>
 <p>Without this document, your leave will be retroactively canceled.</p>
 <p>For any information, contact the members' office during its opening hours:</p>
-<p>
-    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
-    <br/>
-    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
-    <br/>
-    <span>Saturday: 10 a.m. - 4 p.m.</span>
-    <br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.office_timing}</pre>
+<br/>
 <p>${(object.partner_id.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
 <br/>
@@ -418,14 +406,9 @@ Unless we are mistaken, we have not seen this document.
 <p>${(object.partner_id.company_id.email or '')|safe}.</p>
 <p>Without this document, your leave will be retroactively canceled.</p>
 <p>For any information, contact the members' office during its opening hours:</p>
-<p>
-    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
-    <br/>
-    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
-    <br/>
-    <span>Saturday: 10 a.m. - 4 p.m.</span>
-    <br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.office_timing}</pre>
+<br/>
 <p>${(object.partner_id.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
 <br/>
@@ -455,14 +438,9 @@ During this period you can do your shopping without coming to do your services. 
 <p>
 For any information, contact the members' office during its opening hours:
 </p>
-<p>
-    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
-    <br/>
-    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
-    <br/>
-    <span>Saturday: 10 a.m. - 4 p.m.</span>
-    <br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.office_timing}</pre>
+<br/>
 <p> ${(object.partner_id.company_id.phone or '')|safe}</p>
 <span> Have a nice day,</span>
 <br/>
@@ -554,15 +532,9 @@ Have a good day,
 <p>
     If you want to join a team again, you can contact the members' office during its opening hours:
 </p>
-<p>
-    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
-    <br/>
-    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
-    <br/>
-    <span>Saturday: 10 a.m. - 4 p.m.</span>
-    <br/>
-</p>
-<p>${(object.company_id.phone or '')|safe}</p>
+<br/>
+<pre>${object.company_id.office_timing}</pre>
+<br/><p>${(object.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
 <br/>
 <span>The Membership Office</span>

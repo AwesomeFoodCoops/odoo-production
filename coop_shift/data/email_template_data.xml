@@ -18,11 +18,11 @@
 </p>
 <p>
     Opening hours of the Members Bureau:
-    <br/>- Tuesday: 13h30 - 16h
-    <br/>- Wednesday to Friday: 13h30 - 20h
-    <br/>- Saturday: 10h - 16h
 </p>
-<p>Phone number: 01 86 95 91 90</p>
+<br/>
+<pre>${object.partner_id.company_id.office_timing or ''}</pre>
+<br/>
+<p>${object.partner_id.company_id.phone or ''}</p>
 <p>Thank you for your participation!</p>
 <p>Best regards</p>]]></field>
         </record>

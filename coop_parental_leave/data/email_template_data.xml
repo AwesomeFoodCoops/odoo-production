@@ -10,32 +10,26 @@
         </field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Congé parental</field>
+        <field name="subject">Parental leave</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
+<p>Hello ${object.partner_id.name.split(',')[0]}, </p>
 <br/>
-<p>Votre congé parental du ${object.start_date} au ${object.stop_date} a été enregistré.</p>
-<p>Pour rappel, pendant cette période, vous pouvez faire vos courses, et vous êtes exemptés de services.</p>
-<p>Vous aurez 4 semaines à partir du ${object.expected_birthdate}, date de naissance prévue de votre enfant, pour nous presenter l’acte de naissance.
-Sans ce document, votre congé sera annulé.</p>
-<p>Si vous le souhaitez, pendant le congé, vous pouvez cumuler des services d’avance.
-Il faut programmer ces services en ligne sur votre espace membre, ou sur place ou par téléphone au Bureau des membres.</p>
-<p>Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :</p>
+<p>Your parental leave from ${object.start_date} at ${object.stop_date} has been registered.</p>
+<p>As a reminder, during this period, you can do your shopping, and you are exempt from services.</p>
+<p>You will have 4 weeks from ${object.expected_birthdate}, your child's expected date of birth, to show us the birth certificate.
+Without this document, your leave will be canceled.</p>
+<p>If you wish, during the leave, you can accumulate advance services.
+These services must be programmed online in your member's area, or on site or by phone at the Members' office.</p>
+<p>For any information, contact the members' office during its opening hours:</p>
 <br/>
-<p>
-    <span>Mardi : 13h30 - 16h</span>
-    <br />
-    <span>Mercredi à Vendredi : 13h30 - 20h</span>
-    <br />
-    <span>Samedi : 10h - 16h</span>
-    <br />
-</p>
-<p>01 86 95 91 90</p>
-<span>Bonne journée,</span>
+<pre>${object.partner_id.company_id.office_timing}</pre>
 <br/>
-<span>Le Bureau des membres</span>
+<p>${object.partner_id.company_id.phone}</p>
+<span>Have a good day,</span>
 <br/>
-<span>L A   L O U V E</span>
+<span>Members' office</span>
+<br/>
+<span>${object.partner_id.company_id.name}</span>
 ]]>
         </field>
     </record>
@@ -49,48 +43,44 @@ Il faut programmer ces services en ligne sur votre espace membre, ou sur place o
         </field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Congé parental non-abouti</field>
+        <field name="subject">Unsuccessful parental leave</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
+<p>Hello ${object.partner_id.name.split(',')[0]}, </p>
 <br>
 <div>
-Vous aviez fait la demande d’un congé parental auprès du Bureau des membres.
-Pour que ce congé puisse être validé, vous aviez 4 semaines pour nous presenter l’acte de naissance de votre enfant.
-Sauf erreur de notre part, nous n’avons pas vu ce document.
-Votre congé n’a donc pas abouti.
+You had requested parental leave from the Membership Office.
+In order for this leave to be validated, you had 4 weeks to present your child's birth certificate to us.
+Unless we are mistaken, we have not seen this document.
+Your leave was therefore unsuccessful.
 </div>
 <br>
 <div>
-Si vous aviez choisi de garder votre place dans votre équipe lorsque vous aviez demandé le congé,
-votre statut reflète maintenant votre situation lorsque vous avez posé la demande de congés.
-On vous attend à votre prochaine service.
+If you chose to keep your place on your team when you requested leave,
+your status now reflects your situation when you applied for the leave.
+We are waiting for you at your next service.
 </div>
 <br>
 <div>
-Si vous ne faisiez pas partie d’une équipe ou bien vous aviez décidé de quitter votre équipe lorsque vous avez demandé le congé,
-votre statut est maintenant “désinscrit”.
-Vous n’êtes dans aucune équipe, vous ne pouvez donc pas faire vos courses au magasin.
-Pour rejoinder de nouveau une équipe, vous devez contacter le Bureau des membres.
+If you were not part of a team or you decided to leave your team when you requested leave,
+your status is now “unsubscribed”.
+You are not on a team, so you cannot shop at the store.
+To join a team again, you must contact the Membership Office.
 </div>
 <br>
 <div>
-Merci de consulter votre espace membre pour connaitre votre statut.
-Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :
+
+Please consult your member area to find out your status.
+For any information, contact the members' office during its opening hours:
 </div>
-<p>
-    <span>Mardi : 13h30 - 16h</span>
-    <br>
-    <span>Mercredi à Vendredi : 13h30 - 20h</span>
-    <br>
-    <span>Samedi : 10h - 16h</span>
-    <br>
+<br/>
+    <pre>${object.partner_id.company_id.office_timing}</pre>
+<br/>
+<p>${object.partner_id.company_id.phone}
 </p>
-<p>01 86 95 91 90</p>
-<span>Bonne journée,</span>
 <br>
-<span>Le Bureau des membres</span>
+<span>Members' office</span>
 <br>
-<span>L A   L O U V E</span>
+<span>${object.partner_id.company_id.name}</span>
 ]]>
         </field>
     </record>
@@ -105,58 +95,53 @@ Pour tout renseignement, contactez le bureau des membres pendant ses horaires d�
         </field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Congé parental, acte de naissance</field>
+        <field name="subject">Parental leave, birth certificate</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
+<p>Hello ${object.partner_id.name.split(',')[0]}, </p>
 <br/>
 <div>
-Les 4 semaines suivant la date de naissance prévue de votre bébé sont sur le point de s’écouler et,
-sauf erreur de notre part, nous n’avons pas encore vu l’acte de naissance de votre enfant.
-Merci de le presenter au Bureau des membres pendant ses horaires d’ouverture, ou de nous envoyer un scan à
-l’adresse bureau.membres@cooplalouve.fr.
-La Louve ne garde aucune copie, nous avons juste besoin de voir le certificat.
+The 4 weeks after your baby's expected date of birth are about to go by and,
+Unless we are mistaken, we have not yet seen your child's birth certificate.
+Please present it to the Members' office during its opening hours, or send us a scan to
+the address bureau.membres@cooplalouve.fr.
+La Louve does not keep any copies, we just need to see the certificate.
 </div>
 <br/>
 <div>
-Date limite pour montrer l’acte de naissance :
+Deadline for showing the birth certificate:
 % if object.expected_birthdate:
 <span>${( object.expected_birthdate + datetime.timedelta(days=28) ).strftime('%Y-%m-%d')}</span>
 % endif
 </div>
 <br/>
 <div>
-Sans presentation de l’acte de naissance dans le délai imparti, votre congé parental sera annulé :
+Without presentation of the birth certificate within the time limit, your parental leave will be canceled:
 </div>
 <div style="margin-left: 20px;">
     <p>
-    - Si vous aviez choisi de garder votre place dans votre équipe lorsque vous aviez demandé le congé,
-    votre statut reflétera votre situation lorsque vous avez posé la demande de congés.
-    On vous attendra à votre prochaine service.
+    - If you chose to keep your place on your team when you requested leave,
+    your status will reflect your situation when you applied for the leave.
+    We will wait for you at your next service.
     </p>
     <p>
-    - si vous ne faisiez pas partie d’une équipe ou bien vous aviez décidé de quitter votre équipe lorsque vous avez demandé le congé,
-    votre statut basculera en “désinscrit” et vous ne pourrez pas faire vos courses au magasin.
-    Pour rejoinder de nouveau une équipe, vous devez contacter le Bureau des membres.
+    - if you were not part of a team or you decided to leave your team when you requested leave,
+    your status will change to “unsubscribed” and you will not be able to do your shopping at the store.
+    To join a team again, you must contact the Membership Office.
     </p>
 </div>
 <br/>
 <div>
-Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :
+For any information, contact the members' office during its opening hours:
 </div>
-<p>
-    <span>Mardi : 13h30 - 16h</span>
-    <br />
-    <span>Mercredi à Vendredi : 13h30 - 20h</span>
-    <br />
-    <span>Samedi : 10h - 16h</span>
-    <br />
-</p>
-<p>01 86 95 91 90</p>
-<span>Bonne journée,</span>
 <br/>
-<span>Le Bureau des membres</span>
+<pre>${object.partner_id.company_id.office_timing}</pre>
 <br/>
-<span>L A   L O U V E</span>
+<p>${object.partner_id.company_id.phone}</p>
+<span>Have a good day,</span>
+<br/>
+<span>Members' office</span>
+<br/>
+<span>${object.partner_id.company_id.name}</span>
 ]]>
         </field>
     </record>
@@ -170,35 +155,28 @@ Pour tout renseignement, contactez le bureau des membres pendant ses horaires d�
         </field>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
         <field name="reply_to">no-reply@cooplalouve.fr</field>
-        <field name="subject">Congé parental</field>
+        <field name="subject">Parental leave</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
+<p>Hello ${object.partner_id.name.split(',')[0]}, </p>
 <br/>
-<p>Votre congé parental du ${object.start_date} au ${object.stop_date} a été enregistré.</p>
-<p>Pour rappel, pendant cette période, vous pouvez faire vos courses, et vous êtes exemptés de services.</p>
-<p>Vous aurez 4 semaines à partir du ${object.expected_birthdate}, date de naissance prévue de votre enfant, pour nous presenter l’acte de naissance.
-Sans ce document, votre congé sera annulé.</p>
+<p>Your parental leave from $ {object.start_date} to $ {object.stop_date} has been recorded.</p>
+<p>As a reminder, during this period, you can do your shopping, and you are exempt from services.</p>
+<p>You will have 4 weeks from $ {object.expected_birthdate}, your child's expected date of birth, to present the birth certificate to us.
+Without this document, your leave will be canceled.</p>
 <p>
-A la fin de votre congé, vous devrez contacter le Bureau des membres pour rejoindre une nouvelle équipe,
-et ainsi pouvoir faire vos courses.
+At the end of your leave, you will need to contact the Membership Office to join a new team,
+and thus be able to do your shopping.
 <br/>
-Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :
-</p>
+For any information, contact the members' office during its opening hours:</p>
 <br/>
-<p>
-    <span>Mardi : 13h30 - 16h</span>
-    <br />
-    <span>Mercredi à Vendredi : 13h30 - 20h</span>
-    <br />
-    <span>Samedi : 10h - 16h</span>
-    <br />
-</p>
-<p>01 86 95 91 90</p>
-<span>Bonne journée,</span>
+<pre>${object.partner_id.company_id.office_timing}</pre>
 <br/>
-<span>Le Bureau des membres</span>
+<p>${object.partner_id.company_id.phone}</p>
+<span>Have a good day,</span>
 <br/>
-<span>L A   L O U V E</span>
+<span>Member's Office</span>
+<br/>
+<span>${object.partner_id.company_id.name}</span>
 ]]>
         </field>
     </record>
@@ -215,31 +193,25 @@ Pour tout renseignement, contactez le bureau des membres pendant ses horaires d�
         <field name="reply_to">no-reply@cooplalouve.fr</field>
         <field name="subject">Congé parental</field>
         <field name="body_html"><![CDATA[
-<p>Bonjour ${object.partner_id.name.split(',')[0]}, </p>
+<p>Hello ${object.partner_id.name.split(',')[0]}, </p>
 <br/>
-<p>Votre congé parental du ${object.start_date} au ${object.stop_date} a été enregistré.</p>
-<p>Pour rappel, pendant cette période, vous pouvez faire vos courses, et vous êtes exemptés de services.</p>
+<p>Your parental leave from $ {object.start_date} to $ {object.stop_date} has been recorded.</p>
+<p>As a reminder, during this period, you can do your shopping, and you are exempt from services.</p>
 <p>
-A la fin de votre congé, vous devrez contacter le Bureau des membres pour rejoinder une équipe,
-et ainsi pouvoir faire vos courses.
+At the end of your leave, you will need to contact the Membership Office to join a team,
+and thus be able to do your shopping.
 <br/>
-Pour tout renseignement, contactez le bureau des membres pendant ses horaires d’ouverture :
+For any information, contact the members' office during its opening hours:
 </p>
 <br/>
-<p>
-    <span>Mardi : 13h30 - 16h</span>
-    <br />
-    <span>Mercredi à Vendredi : 13h30 - 20h</span>
-    <br />
-    <span>Samedi : 10h - 16h</span>
-    <br />
-</p>
-<p>01 86 95 91 90</p>
-<span>Bonne journée,</span>
+<pre>${object.partner_id.company_id.office_timing}</pre>
 <br/>
-<span>Le Bureau des membres</span>
+<p>${object.partner_id.company_id.phone}</p>
+<span>Have a good day,</span>
 <br/>
-<span>L A   L O U V E</span>
+<span>Members' office</span>
+<br/>
+<span>${object.partner_id.company_id.name}</span>
 ]]>
         </field>
     </record>
