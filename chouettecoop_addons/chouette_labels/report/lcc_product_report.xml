@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="pricetag_lcc"
+        model="report.pricetag_lcc"
+        string="Chouette Pricetags"
+        report_type="qweb-pdf"
+        name="chouette_labels.report_pricetag_lcc"
+        file="chouette_labels.report_pricetag_lcc"
+        attachment_use="False"
+    />
+
+    <record id="chouette_labels.pricetag_lcc" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="chouette_labels.paperformat_pricetag_lcc"/>
+        <field name="attachment_use" eval="0"/>
+    </record>
+</odoo>
+

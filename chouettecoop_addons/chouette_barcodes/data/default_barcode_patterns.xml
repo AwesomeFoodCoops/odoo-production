@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+         <record id="stock.barcode_rule_weight_three_dec" model="barcode.rule">
+            <field name="pattern">26.....{NNDDD}</field>
+        </record>
+
+         <record id="point_of_sale.barcode_rule_client" model="barcode.rule">
+            <field name="pattern">24</field>
+        </record>
+    </data>
+</odoo>
+
