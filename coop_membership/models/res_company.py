@@ -19,8 +19,8 @@ class ResCompany(models.Model):
     maximum_active_days = fields.Integer(default=180)
     email_meeting_contact = fields.Char()
     company_name = fields.Char()
-    office_timing = fields.Text(
-        string='Office Timing',
+    members_office_open_hours = fields.Text(
+        string="Members Office Open Hours",
         translate=True,
         default=lambda self: self.get_default_timing())
 

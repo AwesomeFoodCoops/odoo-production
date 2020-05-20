@@ -34,9 +34,9 @@ class ResConfigSettings(models.TransientModel):
         string='FTOP Registration period', readonly=False)
     maximum_active_days = fields.Integer(
         related="company_id.maximum_active_days", readonly=False)
-    office_timing = fields.Text(
-        related='company_id.office_timing',
-        string='Office Timing', translate=True, readonly=False)
+    members_office_open_hours = fields.Text(
+        related='company_id.members_office_open_hours',
+        string="Members Office Open Hours", translate=True, readonly=False)
 
     @api.model
     def get_values(self):

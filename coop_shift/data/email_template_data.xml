@@ -20,7 +20,7 @@
     Opening hours of the Members Bureau:
 </p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing or ''}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours or ''}</pre>
 <br/>
 <p>${object.partner_id.company_id.phone or ''}</p>
 <p>Thank you for your participation!</p>

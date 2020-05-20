@@ -22,7 +22,7 @@ Without this document, your leave will be canceled.</p>
 These services must be programmed online in your member's area, or on site or by phone at the Members' office.</p>
 <p>For any information, contact the members' office during its opening hours:</p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p>${object.partner_id.company_id.phone}</p>
 <span>Have a good day,</span>
@@ -73,7 +73,7 @@ Please consult your member area to find out your status.
 For any information, contact the members' office during its opening hours:
 </div>
 <br/>
-    <pre>${object.partner_id.company_id.office_timing}</pre>
+    <pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p>${object.partner_id.company_id.phone}
 </p>
@@ -134,7 +134,7 @@ Without presentation of the birth certificate within the time limit, your parent
 For any information, contact the members' office during its opening hours:
 </div>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p>${object.partner_id.company_id.phone}</p>
 <span>Have a good day,</span>
@@ -169,7 +169,7 @@ and thus be able to do your shopping.
 <br/>
 For any information, contact the members' office during its opening hours:</p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p>${object.partner_id.company_id.phone}</p>
 <span>Have a good day,</span>
@@ -204,7 +204,7 @@ and thus be able to do your shopping.
 For any information, contact the members' office during its opening hours:
 </p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p>${object.partner_id.company_id.phone}</p>
 <span>Have a good day,</span>

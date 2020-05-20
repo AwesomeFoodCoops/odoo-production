@@ -109,7 +109,7 @@ If you think there was a mistake or wish to subscribe to another team please con
 <h3>For more information, contact the Membership Office during its opening hours: ${(object.company_id.phone or '')|safe}.</h3>
 <p>Opening hours of the Members' Office:</p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p>Sincerely,</p>
 ]]>
@@ -130,7 +130,7 @@ If you think there was a mistake or wish to subscribe to another team please con
 <p>End date of your leave: ${object.stop_date}</p>
 <p>Opening hours of the Members' Office:
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p>Tel: ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>Have a nice day,</p>
@@ -157,7 +157,7 @@ If you think there was a mistake or wish to subscribe to another team please con
 <p>Members office ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 ]]>
         </field>
@@ -183,7 +183,7 @@ If you think there was a mistake or wish to subscribe to another team please con
 ${(object.company_id.phone or '')|safe}</p>
 <p>The members' office does not take any requests by email. For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <br/>
 ]]>
@@ -209,7 +209,7 @@ ${(object.company_id.phone or '')|safe}</p>
 ${(object.company_id.phone or '')|safe}</p>
 <p>The members' office does not take any requests by email. For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre><br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre><br/>
 ]]>
         </field>
     </record>
@@ -234,7 +234,7 @@ ${(object.company_id.phone or '')|safe}</p>
 <p>For more information, contact the Membership Office during its opening hours: ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>Opening hours of the Members' Office:</p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre><br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre><br/>
 <p>Have a good day,</p>
 <p>${(object.partner_id.company_id.name or '')|safe}</p>
 ]]>
@@ -257,7 +257,7 @@ ${(object.company_id.phone or '')|safe}</p>
 <p>For more information, contact the Membership Office during its opening hours: ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>Opening hours of the Members' Office:</p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre><br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre><br/>
 <p>Have a good day,</p>
 <p>${(object.partner_id.company_id.name or '')|safe}</p>
 ]]>
@@ -346,7 +346,7 @@ Unless we are mistaken, we have not seen this document.
 <p>Services missed during your absence are now recorded as missed services.</p>
 <p>To regularize your situation, contact the members' office during its opening hours:</p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p>${(object.partner_id.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
@@ -375,7 +375,7 @@ Unless we are mistaken, we have not seen this document.
 <p>Without this document, your leave will be retroactively canceled.</p>
 <p>For any information, contact the members' office during its opening hours:</p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p>${(object.partner_id.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
@@ -407,7 +407,7 @@ Unless we are mistaken, we have not seen this document.
 <p>Without this document, your leave will be retroactively canceled.</p>
 <p>For any information, contact the members' office during its opening hours:</p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p>${(object.partner_id.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
@@ -439,7 +439,7 @@ During this period you can do your shopping without coming to do your services. 
 For any information, contact the members' office during its opening hours:
 </p>
 <br/>
-<pre>${object.partner_id.company_id.office_timing}</pre>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p> ${(object.partner_id.company_id.phone or '')|safe}</p>
 <span> Have a nice day,</span>
@@ -533,7 +533,7 @@ Have a good day,
     If you want to join a team again, you can contact the members' office during its opening hours:
 </p>
 <br/>
-<pre>${object.company_id.office_timing}</pre>
+<pre>${object.company_id.members_office_open_hours}</pre>
 <br/><p>${(object.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
 <br/>
