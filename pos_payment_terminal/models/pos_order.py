@@ -35,6 +35,6 @@ class PosOrder(models.Model):
         self = self.with_context(
             dict(self.env.context,
                  **{'default_payment_terminal_return_message':
-                        data.get('payment_terminal_return_message')})
+                    data.get('payment_terminal_return_message')})
         )
         return super(PosOrder, self).add_payment(data)

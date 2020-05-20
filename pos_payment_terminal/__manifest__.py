@@ -26,7 +26,7 @@
     'author': "Aurélien DUMAINE,Akretion,Odoo Community "
               "sdfsdfsdfdsfsdfsAssociation (OCA)",
     'license': 'AGPL-3',
-    'depends': ['point_of_sale','account'],
+    'depends': ['point_of_sale', 'account'],
     'data': [
         'views/pos_config.xml',
         'views/account_journal.xml',

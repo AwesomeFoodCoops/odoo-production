@@ -27,4 +27,5 @@ class AccountJournal(models.Model):
     pos_terminal_payment_mode = fields.Selection(
         selection=[('card', 'Card'), ('check', 'Check')],
         string='Terminal Payment Mode',
-        help="Select the payment mode sent to the payment terminal")
+        help="Select the payment mode sent to the payment terminal"
+    )
