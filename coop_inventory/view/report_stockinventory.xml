@@ -3,7 +3,7 @@
         <template id="report_inventory" inherit_id="stock.report_inventory">
 
             <xpath expr="//t[@t-foreach='docs']/t[1]" position="attributes">
-                <attribute name="t-call">coop_inventory.external_layout_standard_inventory</attribute>
+                <attribute name="t-call">coop_inventory.external_layout_inventory</attribute>
             </xpath>
 
             <xpath expr="//div[hasclass('page')]/table[1]//tbody/tr//td[1]/span" position="attributes">
@@ -11,37 +11,29 @@
             </xpath>
 
             <xpath expr="//div[hasclass('page')]/table[2]" position="attributes">
-                <attribute name="class" add="table-bordered" separator=" "/>
+                <attribute name="class" add="table-sm" separator=" "/>
             </xpath>
 
             <!-- Add G.F. Qty and UG. Qty fields -->
-            <xpath expr="//div[hasclass('page')]/table[2]/thead/tr" position="replace">
-                <tr>
-                  <th class="text-right"><strong>Package Qty</strong></th>
-                  <th><strong>Product</strong></th>
-                  <th class="text-right"><strong>G.F. Qty</strong></th>
-                  <th class="text-right"><strong>UG. Qty</strong></th>
-                  <th class="text-center"><strong>Total</strong></th>
-                  <th class="text-right"><strong>Theoretical Qty</strong></th>
-                </tr>
+            <xpath expr="//div[hasclass('page')]/table[2]/thead/tr/th[5]" position="replace">
+                <th class="text-right"><strong>G.F. Qty</strong></th>
+                <th class="text-right"><strong>UG. Qty</strong></th>
+                <th class="text-center"><strong>Total</strong></th>
+                <th class="text-right"><strong>Theoretical Qty</strong></th>
             </xpath>
 
-            <xpath expr="//div[hasclass('page')]/table[2]/tbody/t/tr[2]" position="replace">
-               <tr t-foreach="o.line_ids.filtered(lambda line: line.location_id.id == location.id)" t-as="line">
-                <td class="text-right"><span t-field="line.package_qty"/></td>
-                <td><span t-field="line.product_id"/></td>
+            <xpath expr="//div[hasclass('page')]/table[2]/tbody/t/tr[2]/td[5]" position="replace">
                 <td class="text-right"/>
                 <td class="text-right"/>
                 <td class="text-right"><span t-field="line.product_qty" class="text-right"/> <span t-field="line.product_uom_id" class="text-right" groups="product.group_uom"/></td>
                 <td class="text-right"><span class="text-right" t-field="line.theoretical_qty"/> <span class="text-right" t-field="line.product_uom_id" groups="product.group_uom"/></td>
-              </tr>
             </xpath>
-            <xpath expr="//div[hasclass('page')]/table[2]/tbody/t/tr[1]" position="replace">
-            </xpath>
+
         </template>
 
-        <template id="external_layout_standard_inventory">
+        <template id="external_layout_inventory">
             <t t-if="not o" t-set="o" t-value="doc"/>
+
             <t t-if="not company">
                 <!-- Multicompany -->
                 <t t-if="company_id">
@@ -54,6 +46,12 @@
                     <t t-set="company" t-value="res_company"/>
                 </t>
             </t>
+
+            <t t-call="coop_inventory.external_layout"/>
+            <t t-raw="0"/>
+        </template>
+
+        <template id="external_layout">
             <div class="header">
                 <div class="row">
                     <div class="col-3 mb4">
@@ -62,20 +60,19 @@
                     <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
                 </div>
             </div>
-            <div class="article o_report_layout_standard"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
-                <t t-call="web.address_layout"/>
-                <t t-raw="0"/>
-            </div>
+
             <div class="footer o_standard_footer">
                 <div class="text-center" style="border-top: 1px solid black;">
-                    <ul class="list-inline mb4">
+                    <ul t-if="not company.report_footer" class="list-inline mb4">
                         <li t-if="company.phone" class="list-inline-item">Phone: <span t-field="company.phone"/></li>
+                        <li t-if="company.email and company.phone" class="list-inline-item">&amp;bull;</li>
                         <li t-if="company.email" class="list-inline-item">Email: <span t-field="company.email"/></li>
-                        <li t-if="company.website" class="list-inline-item">Web: <span t-field="company.website"/></li>
-                        <li t-if="company.vat" class="list-inline-item"><t t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"/>: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')"/></li>
+                        <li t-if="company.website and company.email or company.website and company.phone" class="list-inline-item">&amp;bull;</li>
+                        <li t-if="company.website" class="list-inline-item">Website: <span t-field="company.website"/></li>
+                        <li t-if="company.vat" class="list-inline-item">TIN: <span t-field="company.vat"/></li>
                     </ul>
 
-                    <div name="financial_infos">
+                    <div t-if="company.report_footer" name="financial_infos">
                         <span t-field="company.report_footer"/>
                     </div>
 
@@ -84,6 +81,7 @@
                     </div>
                 </div>
             </div>
+
         </template>
 
      <record id="paperformat_inventory_adjust" model="report.paperformat">
