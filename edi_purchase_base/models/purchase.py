@@ -111,7 +111,7 @@ class PurchaseOrder(models.Model):
         # Params
         pattern = safe_eval(edi_system.po_text_file_pattern)
         distant_folder_path = edi_system.csv_relative_in_path
-        local_folder_path = config_obj.get_param("edi.local_folder_path")
+        local_folder_path = config_obj.sudo().get_param("edi.local_folder_path")
         # Open FTP
         ftp = ecs_obj.ftp_connection_open(edi_system)
         # Send

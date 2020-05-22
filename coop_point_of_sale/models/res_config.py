@@ -21,13 +21,13 @@ class PosConfiguration(models.Model):
         self.ensure_one()
         ir_config_env = self.env["ir.config_parameter"]
         value = getattr(self, "diacritics_insensitive_search", False)
-        ir_config_env.set_param("diacritics_insensitive_search", repr(value))
+        ir_config_env.sudo().set_param("diacritics_insensitive_search", repr(value))
 
     @api.multi
     def get_default_params(self):
         res = {}
         ir_config_env = self.env["ir.config_parameter"]
         res["diacritics_insensitive_search"] = safe_eval(
-            ir_config_env.get_param("diacritics_insensitive_search", "False")
+            ir_config_env.sudo().get_param("diacritics_insensitive_search", "False")
         )
         return res

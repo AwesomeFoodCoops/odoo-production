@@ -291,7 +291,7 @@ class ProductScaleLog(models.Model):
     @api.multi
     def send_log(self):
         config_obj = self.env['ir.config_parameter']
-        folder_path = config_obj.get_param('bizerba.local_folder_path')
+        folder_path = config_obj.sudo().get_param('bizerba.local_folder_path')
 
         system_map = {}
         for log in self:

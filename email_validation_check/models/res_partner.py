@@ -143,7 +143,7 @@ class ResPartner(models.Model):
     @api.depends('email_validation_string')
     def compute_url_validation_email(self):
         for partner in self:
-            base_url = self.env['ir.config_parameter'].get_param(
+            base_url = self.env['ir.config_parameter'].sudo().get_param(
                 'web.base.url')
             validation_url = base_url + '/validate' + '/%s' % (partner.id) +\
                 '/%s' % (partner.email_validation_string)

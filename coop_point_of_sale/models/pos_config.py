@@ -30,7 +30,7 @@ class PosConfig(models.Model):
     def _compute_diacritics_insensitive_search(self):
         ir_config_env = self.env["ir.config_parameter"]
         value = safe_eval(
-            ir_config_env.get_param("diacritics_insensitive_search", "False")
+            ir_config_env.sudo().get_param("diacritics_insensitive_search", "False")
         )
         for record in self:
             record.diacritics_insensitive_search = value
