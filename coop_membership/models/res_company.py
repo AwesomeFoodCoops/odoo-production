@@ -19,9 +19,19 @@ class ResCompany(models.Model):
     maximum_active_days = fields.Integer(default=180)
     email_meeting_contact = fields.Char()
     company_name = fields.Char()
+    members_office_open_hours = fields.Text(
+        string="Members Office Open Hours",
+        translate=True,
+        default=lambda self: self.get_default_timing())
 
     @api.model
     def get_default_message(self):
         return u"""Hello,<br/>Please contact an employee or go at the members\'
         office for administrative reasons.<br/>
         Cordially, {} team""".format(self.env.user.company_id.name)
+
+    @api.model
+    def get_default_timing(self):
+        return u"""Tuesday: 1:30 p.m. - 4 p.m. \n
+        Wednesday to Friday: 1:30 p.m. - 8 p.m.
+        \n Saturday: 10 a.m. - 4 p.m."""

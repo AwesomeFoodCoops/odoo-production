@@ -463,11 +463,9 @@ class ShiftRegistration(models.Model):
     @api.multi
     def convert_format_datatime(self):
         for record in self:
-            date = record.shift_id.date_begin_tz[0:10].split('-')[2] + '/' + \
-                record.shift_id.date_begin_tz[0:10].split('-')[1] + '/' + \
-                record.shift_id.date_begin_tz[0:10].split('-')[0]
-            hour = record.shift_id.date_begin_tz[11:].split(':')[0]
-            minute = record.shift_id.date_begin_tz[11:].split(':')[1]
+            date = datetime.strftime(record.shift_id.date_begin_tz, '%d/%m/%Y')
+            hour = datetime.strftime(record.shift_id.date_begin_tz, '%H')
+            minute = datetime.strftime(record.shift_id.date_begin_tz, '%M')
             res = '%s à %sh%s' % (date, hour, minute)
             return res.encode('utf-8')
 

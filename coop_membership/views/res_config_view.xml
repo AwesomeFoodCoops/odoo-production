@@ -92,6 +92,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content">
+                                    <h2>Members Office Open Hours</h2>
+                                    <span>Configure Members Office Open Hours Here. This Text will appear in email templates.</span>
+                                    <div class="mt16">
+                                        <field name="members_office_open_hours"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </xpath>

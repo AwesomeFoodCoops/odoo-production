@@ -8,7 +8,47 @@
         <field name="lang">${object.lang}</field>
         <field name="reply_to">${(object.company_id.email or '')|safe}</field>
         <field name="subject">Welcome to Coop</field>
-        <field name="body_html"><![CDATA[]]></field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.name},</p>
+
+<p>Your subscription to ${object.partner_id.company_id.name} has been registered. Welcome !</p>
+
+
+% if object.shift_type == 'standard':
+<p>Your member number is $ {object.barcode_base} and you have been registered on the niche ${object.current_template_name}.</p>
+% endif
+
+% if object.shift_type == 'ftop':
+<p>Your membership number is $ {object.barcode_base} and you have been enrolled in the steering wheel team. You will find attached a document which explains the functioning of this team as well as a calendar which indicates the settlement dates.</p>
+% endif
+
+<p>You will receive a reminder a few days before your next service. <br/>
+You can now come and discover the store and do your shopping, upon presentation of an identity document.</p>
+
+<p>We invite you to connect to <a href="${(object.company_id.website or '')|safe}"> The Members Area </a> (in attachment, the procedure to activate it). You will find there a lot of information, in particular your next services, and a forum which will allow you to communicate between members. The current version of the site will evolve and new functionalities will be added in the coming months. A team of volunteer members works to enrich this space to make it useful and convivial.</p>
+
+<p>Access to the store is then on presentation of the cooperator badge. To obtain your badge, you must first come to a photo session organized either at the store or during the general meetings of La Louve. The photo sessions are announced on the Members Area and at the store. As with the Members' Area, the making of badges is carried out by volunteers and requires several stages which can take several days. The complete procedure is described in the Members Area forum (FAQ section). As soon as your badge has been printed, you can collect it at the supermarket reception.</p>
+
+<p>You will find attached a procedure allowing you to activate your personal space.</p>
+
+<p>Regards,<br/>
+Tom Boothe</p>
+<br/>
+<br/>
+
+<hr>
+<p><b>Activation of your member area</b></p>
+
+<p>
+In order to activate your access to the Member Area, please follow the following procedure :</p>
+<ol>
+    <p><li> Click on the link below to enter your email address: ${(object.company_id.website or '')|safe}/selfservice/?action=sendtoken </li>
+    Please note: use only the email sent to ${object.partner_id.company_id.name} </p>
+    <li> You will then receive an email from the sender: "Self Service Password" </li>
+    <li> Click on the link in the email to initialize your password. </li>
+    <li> You can now connect to your Member Area: ${(object.company_id.website or '')|safe} </li></p>
+</ol>
+]]></field>
     </record>
     <record id="unsubscribe_email" model="mail.template">
         <field name="name">Unbsubscribed Email</field>
@@ -19,10 +59,17 @@
         <field name="reply_to">${(object.company_id.email or '')|safe}</field>
         <field name="subject">You have been unsubscribed from your team</field>
         <field name="body_html"><![CDATA[
-            <p>Dear ${object.name},</p>
-            <p>You missed 2 consecutive programmed shifts and did not come to a make-up in-between. You have been unsubscribed from your team. The &quot;Unsubscribed&quot; status will show when you swipe your badge at the shop. This does not allow you to shop at your favorite co-op.
-If you think there was a mistake or wish to subscribe to another team please contact us as soon as possible.</p>
-            ]]></field>
+<p>Dear ${object.name},</p>
+
+<p>You missed 2 consecutive programmed shifts and did not come to a make-up in-between. You have been unsubscribed from your team. The "Unsubscribed" status will show when you swipe your badge at the shop. This does not allow you to shop at your favorite co-op.</p>
+<p>If you think there was a mistake or wish to subscribe to another team please contact us as soon as possible.</p>
+
+<p><b>Member Office Opening Times:</b></p>
+<br/>
+<pre>${object.company_id.members_office_open_hours}</pre>
+<br/>
+<p><b>Phone</b> : ${(object.company_id.phone or '')|safe}</p>
+]]></field>
     </record>
 
     <record id="coop_abcd_leave_email" model="mail.template">
@@ -40,6 +87,9 @@ If you think there was a mistake or wish to subscribe to another team please con
 <p>We may have extended the duration of your requested leave. You will be able to continue shopping when you come for a shift. The date of your first shift after leave is ${object.return_date}.</p>
 <br/>
 <p>Have a good day,</p>
+<br/>
+<p>${object.partner_id.company_id.name}</p>
+<p>Members office</p>
 ]]>
         </field>
     </record>
@@ -59,6 +109,9 @@ If you think there was a mistake or wish to subscribe to another team please con
 <p>We may have extended the duration of your requested leave because your proposed return date is too closed to the shift of FTOP team. Remember that you have to be on the shift that follows your return${object.shift_date_after_return and (' on ' + str(object.shift_date_after_return)) or ''}.</p>
 <br/>
 <p>Have a good day,</p>
+<br/>
+<p>${object.partner_id.company_id.name}</p>
+<p>Members office</p>
 ]]>
         </field>
     </record>
@@ -108,9 +161,8 @@ If you think there was a mistake or wish to subscribe to another team please con
 <p>Scheduling a vacation then missing it without first canceling it will result in the withdrawal of a credit from its service savings account. Members of the flying team may cancel their vacations without penalty up to one hour before their start, at the members' office during opening hours.</p>
 <h3>For more information, contact the Membership Office during its opening hours: ${(object.company_id.phone or '')|safe}.</h3>
 <p>Opening hours of the Members' Office:</p>
-Tuesday: 1:30 p.m. - 4 p.m.</p>
-<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
-<p>Saturday: 10 a.m. - 4 p.m.</p>
+<br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
 <br/>
 <p>Sincerely,</p>
 ]]>
@@ -129,7 +181,10 @@ Tuesday: 1:30 p.m. - 4 p.m.</p>
 <p>Hello ${object.partner_id.name.split(',')[0]}</p>
 <p>The end of your leave at ${(object.partner_id.company_id.name or '')|safe} is approaching. To ensure that you can do your shopping as soon as you return, it is strongly recommended that you contact the Members' Office to reintegrate a new team.</p>
 <p>End date of your leave: ${object.stop_date}</p>
-<p>Opening hours of the Members' Office: Tuesday: 1:30 p.m. - 4 p.m. Wednesday to Friday: 1:30 p.m. - 8 p.m. Saturday: 10 a.m. - 4 p.m.</p>
+<p>Opening hours of the Members' Office:
+<br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
+<br/>
 <p>Tel: ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>Have a nice day,</p>
 <p>The Membership Office of ${(object.partner_id.company_id.name or '')|safe}</p>
@@ -154,7 +209,9 @@ Tuesday: 1:30 p.m. - 4 p.m.</p>
 <p>Have a nice day,</p>
 <p>Members office ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
-<p>Tuesday: 1:30 p.m. - 4 p.m. Wednesday to Friday: 1:30 p.m. - 8 p.m. Saturday: 10 a.m. - 4 p.m.</p>
+<br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
+<br/>
 ]]>
         </field>
     </record>
@@ -178,9 +235,9 @@ Tuesday: 1:30 p.m. - 4 p.m.</p>
 <br/>
 ${(object.company_id.phone or '')|safe}</p>
 <p>The members' office does not take any requests by email. For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
-<p>Tuesday: 1:30 p.m. - 4 p.m.</p>
-<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
-<p>Saturday: 10 a.m. - 4 p.m.</p>
+<br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
+<br/>
 <br/>
 ]]>
         </field>
@@ -204,10 +261,8 @@ ${(object.company_id.phone or '')|safe}</p>
 <br/>
 ${(object.company_id.phone or '')|safe}</p>
 <p>The members' office does not take any requests by email. For any questions or requests, please call or drop by the Membership Office during regular business hours.</p>
-<p>Tuesday: 1:30 p.m. - 4 p.m.</p>
-<p>Wednesday to Friday: 1:30 p.m. - 8 p.m.</p>
-<p>Saturday: 10 a.m. - 4 p.m.</p>
 <br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre><br/>
 ]]>
         </field>
     </record>
@@ -231,10 +286,8 @@ ${(object.company_id.phone or '')|safe}</p>
 <p>You may have been awarded a catch-up if a difference of more than 6 weeks has been noted between the date of your last service with the old team and the date of your first service in the new team. This is to respect the rule of 13 services to be performed over the year.</p>
 <p>For more information, contact the Membership Office during its opening hours: ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>Opening hours of the Members' Office:</p>
-<p>Tuesday: 1:30 p.m. - 4 p.m.<br/>
-   Wednesday to Friday: 1:30 p.m. - 8 p.m.<br/>
-   Saturday: 10 a.m. - 4 p.m.<br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre><br/>
 <p>Have a good day,</p>
 <p>${(object.partner_id.company_id.name or '')|safe}</p>
 ]]>
@@ -256,10 +309,8 @@ ${(object.company_id.phone or '')|safe}</p>
 <p>Attached is the calendar of ABCD weeks, as well as the description of the functioning of the flying team. The operation of this team is quite complex, please read this sheet carefully.</p>
 <p>For more information, contact the Membership Office during its opening hours: ${(object.partner_id.company_id.phone or '')|safe}</p>
 <p>Opening hours of the Members' Office:</p>
-<p>Tuesday: 1:30 p.m. - 4 p.m.<br/>
-    Wednesday to Friday: 1:30 p.m. - 8 p.m.<br/>
-    Saturday: 10 a.m. - 4 p.m.<br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre><br/>
 <p>Have a good day,</p>
 <p>${(object.partner_id.company_id.name or '')|safe}</p>
 ]]>
@@ -347,14 +398,9 @@ Unless we are mistaken, we have not seen this document.
 <p>Your leave was therefore unsuccessful.</p>
 <p>Services missed during your absence are now recorded as missed services.</p>
 <p>To regularize your situation, contact the members' office during its opening hours:</p>
-<p>
-    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
-    <br/>
-    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
-    <br/>
-    <span>Saturday: 10 a.m. - 4 p.m.</span>
-    <br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
+<br/>
 <p>${(object.partner_id.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
 <br/>
@@ -381,14 +427,9 @@ Unless we are mistaken, we have not seen this document.
 <p>You have 3 weeks from the date of sending this email to show us or send us a medical proof.</p>
 <p>Without this document, your leave will be retroactively canceled.</p>
 <p>For any information, contact the members' office during its opening hours:</p>
-<p>
-    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
-    <br/>
-    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
-    <br/>
-    <span>Saturday: 10 a.m. - 4 p.m.</span>
-    <br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
+<br/>
 <p>${(object.partner_id.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
 <br/>
@@ -418,14 +459,9 @@ Unless we are mistaken, we have not seen this document.
 <p>${(object.partner_id.company_id.email or '')|safe}.</p>
 <p>Without this document, your leave will be retroactively canceled.</p>
 <p>For any information, contact the members' office during its opening hours:</p>
-<p>
-    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
-    <br/>
-    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
-    <br/>
-    <span>Saturday: 10 a.m. - 4 p.m.</span>
-    <br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
+<br/>
 <p>${(object.partner_id.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
 <br/>
@@ -455,14 +491,9 @@ During this period you can do your shopping without coming to do your services. 
 <p>
 For any information, contact the members' office during its opening hours:
 </p>
-<p>
-    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
-    <br/>
-    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
-    <br/>
-    <span>Saturday: 10 a.m. - 4 p.m.</span>
-    <br/>
-</p>
+<br/>
+<pre>${object.partner_id.company_id.members_office_open_hours}</pre>
+<br/>
 <p> ${(object.partner_id.company_id.phone or '')|safe}</p>
 <span> Have a nice day,</span>
 <br/>
@@ -554,15 +585,9 @@ Have a good day,
 <p>
     If you want to join a team again, you can contact the members' office during its opening hours:
 </p>
-<p>
-    <span>Tuesday: 1:30 p.m. - 4 p.m.</span>
-    <br/>
-    <span>Wednesday to Friday: 1:30 p.m. - 8 p.m.</span>
-    <br/>
-    <span>Saturday: 10 a.m. - 4 p.m.</span>
-    <br/>
-</p>
-<p>${(object.company_id.phone or '')|safe}</p>
+<br/>
+<pre>${object.company_id.members_office_open_hours}</pre>
+<br/><p>${(object.company_id.phone or '')|safe}</p>
 <span>Have a nice day,</span>
 <br/>
 <span>The Membership Office</span>

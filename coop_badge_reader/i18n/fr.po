@@ -31,6 +31,11 @@ msgid "Time Clock"
 msgstr "Pointeuse"
 
 #. module: coop_badge_reader
+#: model:mail.template,subject:coop_badge_reader.email_template_partner_alert
+msgid "An expected member entered"
+msgstr "Un membre attendu est entré"
+
+#. module: coop_badge_reader
 #: model:res.groups,name:coop_badge_reader.group_user
 msgid "User"
 msgstr "Utilisateur"
@@ -154,3 +159,14 @@ msgstr "Problème de Shift"
 #: model:res.groups,name:coop_badge_reader.group_alert_entry_manager
 msgid "Access Alert"
 msgstr "Alerte entrée"
+
+#. module: coop_badge_reader
+#: model:mail.template,body_html:coop_badge_reader.email_template_partner_alert
+msgid "\n"
+"<p>Hello, </p>\n"
+"${object.expected_member_id.name.split(',')[0]} ${object.expected_member_id.barcode_base} just entered the store.\n"
+"<br/>\n"
+""
+msgstr "\n"
+"<p>Bonjour, </p>\n"
+"${object.expected_member_id.name.split(',')[0]} ${object.expected_member_id.barcode_base} vient d’entrer le magasin.\n""
