@@ -7,11 +7,10 @@
 
 <odoo>
 
-    <!-- Redefine partner's form view -->
     <record id="view_partner_form" model="ir.ui.view">
         <field name="name">view.res.partner.membership.access.form</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
             <xpath expr="//sheet/div[@name='button_box']/button[@name='toggle_active']"
                    position="attributes">
@@ -205,15 +204,12 @@
                                coop_membership.group_membership_bdm_saisie"/>
                         <field name="date_of_death"
                                attrs="{'invisible': [('is_deceased', '=', False)]}"/>
-                        <!-- Remove The Field -->
-                        <!-- <field name="email_pos_receipt"/> -->
                         <field name="deactivated_date" readonly="1"
                                groups="coop_membership.group_membership_access_manager"/>
                     </group>
                 </group>
                 </page>
             </page>
-            <!-- </xpath> -->
             <xpath expr="//div[hasclass('oe_title')]" position="after">
                 <group>
                     <group>
@@ -541,17 +537,6 @@
             </xpath>
         </field>
     </record>
-
-    <!-- Default: Contacts menu will use native form view of res.partner
-    We should override form view action of Contacts menu in "mail" module as well to make Odoo open same res_partner form  -->
-
-    <!--  # remove the action replace -->
-    <!-- <record id="action_contacts_view_form" model="ir.actions.act_window.view">
-        <field eval="2" name="sequence"/>
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="coop_membership.view_partner_form"/>
-        <field name="act_window_id" ref="mail.action_contacts"/>
-    </record> -->
 
     <record model="ir.ui.view" id="view_res_partner_form_subscription_manager">
         <field name="model">res.partner</field>
