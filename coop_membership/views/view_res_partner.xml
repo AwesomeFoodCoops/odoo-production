@@ -124,9 +124,11 @@
                 <attributes name="groups">base.group_no_one</attributes>
             </xpath>
             <xpath expr="//h1/field[@name='name']" position="before">
+                <h1>
                 <field name="barcode_base" placeholder="Member Number"
                        attrs="{'invisible': [('barcode_rule_id', '=', False)],
                        'readonly': [('generate_type', '!=', 'manual')]}"/>
+                </h1>
             </xpath>
             <xpath expr="//div/field[@name='parent_id']" position="attributes">
                 <attribute name="groups">
