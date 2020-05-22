@@ -46,7 +46,6 @@
         'views/shift_type_view.xml',
         'views/shift_ticket_view.xml',
         'views/view_shift_counter_event.xml',
-        'views/res_partner_view.xml',
         'views/view_res_partner.xml',
         'views/view_shift_extension.xml',
         'views/view_shift_extension_type.xml',
