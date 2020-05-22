@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<odoo noupdate="1">
+<odoo noupdate="0">
     <record id="welcome_email" model="mail.template">
         <field name="name">Welcome Email</field>
         <field name="model_id" ref="base.model_res_partner"/>
@@ -8,7 +8,47 @@
         <field name="lang">${object.lang}</field>
         <field name="reply_to">${(object.company_id.email or '')|safe}</field>
         <field name="subject">Welcome to Coop</field>
-        <field name="body_html"><![CDATA[]]></field>
+        <field name="body_html"><![CDATA[
+<p>Hello ${object.name},</p>
+
+<p>Your subscription to La Louve has been registered. Welcome !</p>
+
+
+% if object.shift_type == 'standard':
+<p>Your member number is $ {object.barcode_base} and you have been registered on the niche ${object.current_template_name}.</p>
+% endif
+
+% if object.shift_type == 'ftop':
+<p>Your membership number is $ {object.barcode_base} and you have been enrolled in the steering wheel team. You will find attached a document which explains the functioning of this team as well as a calendar which indicates the settlement dates.</p>
+% endif
+
+<p>You will receive a reminder a few days before your next service. <br/>
+You can now come and discover the store and do your shopping, upon presentation of an identity document.</p>
+
+<p>We invite you to connect to <a href="https://membres.cooplalouve.fr/"> The Members Area of ​​La Louve </a> (in attachment, the procedure to activate it). You will find there a lot of information, in particular your next services, and a forum which will allow you to communicate between members. The current version of the site will evolve and new functionalities will be added in the coming months. A team of volunteer members works to enrich this space to make it useful and convivial.</p>
+
+<p>Access to the store is then on presentation of the cooperator badge. To obtain your badge, you must first come to a photo session organized either at the store or during the general meetings of La Louve. The photo sessions are announced on the Members Area and at the store. As with the Members' Area, the making of badges is carried out by volunteers and requires several stages which can take several days. The complete procedure is described in the Members Area forum (FAQ section). As soon as your badge has been printed, you can collect it at the supermarket reception.</p>
+
+<p>You will find attached a procedure allowing you to activate your personal space.</p>
+
+<p>Regards,<br/>
+Tom Boothe</p>
+<br/>
+<br/>
+
+<hr>
+<p><b>Activation of your member area</b></p>
+
+<p>
+In order to activate your access to the La Louve Member Area, please follow the following procedure :</p>
+<ol>
+    <p><li> Click on the link below to enter your email address: https://membres.cooplalouve.fr/selfservice/?action=sendtoken </li>
+    Please note: use only the email sent to La Louve </p>
+    <li> You will then receive an email from the sender: "Self Service Password" </li>
+    <li> Click on the link in the email to initialize your password. </li>
+    <li> You can now connect to your Member Area: https://membres.cooplalouve.fr </li></p>
+</ol>
+]]></field>
     </record>
     <record id="unsubscribe_email" model="mail.template">
         <field name="name">Unbsubscribed Email</field>
@@ -19,10 +59,17 @@
         <field name="reply_to">${(object.company_id.email or '')|safe}</field>
         <field name="subject">You have been unsubscribed from your team</field>
         <field name="body_html"><![CDATA[
-            <p>Dear ${object.name},</p>
-            <p>You missed 2 consecutive programmed shifts and did not come to a make-up in-between. You have been unsubscribed from your team. The &quot;Unsubscribed&quot; status will show when you swipe your badge at the shop. This does not allow you to shop at your favorite co-op.
-If you think there was a mistake or wish to subscribe to another team please contact us as soon as possible.</p>
-            ]]></field>
+<p>Dear ${object.name},</p>
+
+<p>You missed 2 consecutive programmed shifts and did not come to a make-up in-between. You have been unsubscribed from your team. The "Unsubscribed" status will show when you swipe your badge at the shop. This does not allow you to shop at your favorite co-op.</p>
+<p>If you think there was a mistake or wish to subscribe to another team please contact us as soon as possible.</p>
+
+<p><b>Member Office Opening Times:</b></p>
+<br/>
+<pre>${object.company_id.members_office_open_hours}</pre>
+<br/>
+<p><b>Phone</b> : ${(object.company_id.phone or '')|safe}</p>
+]]></field>
     </record>
 
     <record id="coop_abcd_leave_email" model="mail.template">
@@ -40,6 +87,9 @@ If you think there was a mistake or wish to subscribe to another team please con
 <p>We may have extended the duration of your requested leave. You will be able to continue shopping when you come for a shift. The date of your first shift after leave is ${object.return_date}.</p>
 <br/>
 <p>Have a good day,</p>
+<br/>
+<p>${object.partner_id.company_id.name}</p>
+<p>Members office</p>
 ]]>
         </field>
     </record>
@@ -59,6 +109,9 @@ If you think there was a mistake or wish to subscribe to another team please con
 <p>We may have extended the duration of your requested leave because your proposed return date is too closed to the shift of FTOP team. Remember that you have to be on the shift that follows your return${object.shift_date_after_return and (' on ' + str(object.shift_date_after_return)) or ''}.</p>
 <br/>
 <p>Have a good day,</p>
+<br/>
+<p>${object.partner_id.company_id.name}</p>
+<p>Members office</p>
 ]]>
         </field>
     </record>
