@@ -23,7 +23,7 @@ class PurchaseOrderLine(models.Model):
         """
         @Function for the action of updating vendor price
         """
-        update_main_vendor = self.env["ir.config_parameter"].get_param(
+        update_main_vendor = self.env["ir.config_parameter"].sudo().get_param(
             "update_main_vendor_on_update_vendor_price", "False"
         )
         update_main_vendor = safe_eval(update_main_vendor)

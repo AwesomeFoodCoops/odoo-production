@@ -21,9 +21,9 @@ class ResConfigSettings(models.TransientModel):
         res = super(ResConfigSettings, self).get_values()
         # seats_max = self.env["ir.config_parameter"].get_param(
         #     "account_export.seats_max")
-        description = self.env["ir.config_parameter"].get_param(
+        description = self.env["ir.config_parameter"].sudo().get_param(
             "account_export.description", default=None)
-        notice = self.env["ir.config_parameter"].get_param(
+        notice = self.env["ir.config_parameter"].sudo().get_param(
             "account_export.notice", default=None)
         # res.update(seats_max=seats_max or False)
         res.update(description=description or False)
@@ -34,9 +34,9 @@ class ResConfigSettings(models.TransientModel):
         super(ResConfigSettings, self).set_values()
         # self.env['ir.config_parameter'].set_param(
         #     "account_export.seats_max", self.seats_max)
-        self.env['ir.config_parameter'].set_param(
+        self.env['ir.config_parameter'].sudo().set_param(
             "account_export.description", self.description or '')
-        self.env['ir.config_parameter'].set_param(
+        self.env['ir.config_parameter'].sudo().set_param(
             "account_export.notice", self.notice or '')
 
     @api.multi

@@ -23,7 +23,7 @@ class ResConfigSettings(models.TransientModel):
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
-        field_str = self.env['ir.config_parameter'].get_param(
+        field_str = self.env['ir.config_parameter'].sudo().get_param(
             'reprint_change_field_ids', '[]')
         field_ids = safe_eval(field_str)
         res.update(reprint_change_field_ids=field_ids)

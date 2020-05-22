@@ -42,7 +42,7 @@ class ResConfigSettings(models.TransientModel):
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
         config_obj = self.env["ir.config_parameter"]
-        max_nb_associated_people = config_obj.get_param(
+        max_nb_associated_people = config_obj.sudo().get_param(
             "coop_membership.max_nb_associated_people", default=0)
         associated_people_available = config_obj.get_param(
             "coop_membership.associated_people_available")
@@ -55,8 +55,10 @@ class ResConfigSettings(models.TransientModel):
     def set_values(self):
         super(ResConfigSettings, self).set_values()
         config_obj = self.env["ir.config_parameter"]
-        config_obj.set_param("coop_membership.max_nb_associated_people",
-                             self.max_nb_associated_people)
+        config_obj.sudo().set_param(
+            "coop_membership.max_nb_associated_people",
+            self.max_nb_associated_people
+        )
         config_obj.set_param(
             "coop_membership.associated_people_available",
             self.associated_people_available)

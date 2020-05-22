@@ -173,7 +173,7 @@ class StockPicking(models.Model):
         # Prepare parameters
         for edi_system in edi_systems_list:
             distant_folder_path = edi_system.csv_relative_out_path
-            local_folder_path = config_obj.get_param("edi.local_folder_path")
+            local_folder_path = config_obj.sudo().get_param("edi.local_folder_path")
             # Open FTP
             ftp = ecs_obj.ftp_connection_open(edi_system)
             # Pull
