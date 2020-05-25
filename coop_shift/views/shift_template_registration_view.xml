@@ -144,15 +144,6 @@
             <field name="context">{'search_default_shift_template_id': active_id, 'default_shift_template_id': active_id}</field>
         </record>
 
-        <act_window
-            id="act_register_template_partner"
-            name="Subscribe"
-            res_model="shift.template.registration"
-            src_model="res.partner"
-            view_mode="tree,form,calendar,graph"
-            context="{'search_default_partner_id': [active_id], 'default_partner_id': active_id}"
-            view_type="form"/>
-
         <record model="ir.actions.act_window" id="action_template_registration">
           <field name="name">Attendees</field>
           <field name="res_model">shift.template.registration</field>

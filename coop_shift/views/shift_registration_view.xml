@@ -283,15 +283,6 @@
             <field name="search_view_id" ref="view_registration_search1"/>
         </record>
 
-        <act_window
-                id="act_register_shift_partner"
-                name="Subscribe"
-                res_model="shift.registration"
-                src_model="res.partner"
-                view_mode="tree,form,calendar,graph"
-                context="{'search_default_partner_id': [active_id], 'default_partner_id': active_id}"
-                view_type="form"/>
-
         <menuitem
                 name="Attendees"
                 id="menu_action_registration"
