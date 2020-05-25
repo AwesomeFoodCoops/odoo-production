@@ -12,6 +12,7 @@
     "license": "AGPL-3",
     "depends": [
         "purchase_stock",
+        "purchase_package_qty",
     ],
     "data": [
         "view/report_stockinventory.xml",
