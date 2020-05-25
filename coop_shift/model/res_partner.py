@@ -261,7 +261,7 @@ class ResPartner(models.Model):
                         current_tmpl_reg_line[0].shift_template_id.name
                 else:
                     partner.current_tmpl_reg_line =\
-                        current_tmpl_reg_line[0].shift_template_id.name[:14]
+                        current_tmpl_reg_line[0].shift_template_id.name
 
     @api.multi
     def _compute_current_template_name(self):
