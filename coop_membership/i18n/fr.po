@@ -1286,14 +1286,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:coop_membership.register_again_form
 #: model_terms:ir.ui.view,arch_db:coop_membership.register_form
 #: model_terms:ir.ui.view,arch_db:coop_membership.register_submit_form_err_event
-msgid "<span class=\"label-input100\">Sexe</span>\n"
-"                                <br/>"
-msgstr ""
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.register_again_form
-#: model_terms:ir.ui.view,arch_db:coop_membership.register_form
-#: model_terms:ir.ui.view,arch_db:coop_membership.register_submit_form_err_event
 msgid "<span class=\"label-input100\">Téléphone</span>"
 msgstr ""
 
@@ -3517,12 +3509,6 @@ msgid "Settings"
 msgstr "Configuration"
 
 #. module: coop_membership
-#: model:ir.model.fields,field_description:coop_membership.field_res_partner__sex
-#: model:ir.model.fields,field_description:coop_membership.field_res_users__sex
-msgid "Sex"
-msgstr "Sexe"
-
-#. module: coop_membership
 #: code:addons/coop_membership/models/shift_shift.py:117
 #, python-format
 msgid "Shift Cloture"
@@ -4401,11 +4387,6 @@ msgid "event_sale.view_event_form_inherit_ticket"
 msgstr ""
 
 #. module: coop_membership
-#: selection:res.partner,sex:0
-msgid "female"
-msgstr "Femme"
-
-#. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.register_again_form
 msgid "https://cooplalouve.fr/minimas-sociaux."
 msgstr ""
@@ -4421,20 +4402,11 @@ msgstr "note interne..."
 msgid "is Underclass Population"
 msgstr "est la population de sous-classe"
 
-#. module: coop_membership
-#: selection:res.partner,sex:0
-msgid "male"
-msgstr "Homme"
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.member_contract_template
 msgid "minima sociaux"
 msgstr ""
-
-#. module: coop_membership
-#: selection:res.partner,sex:0
-msgid "other"
-msgstr "Autre"
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.member_contract_template

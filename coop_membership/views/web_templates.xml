@@ -56,11 +56,11 @@
                             <div class="wrap-input100 bg1 input_radio">
                                 <span class="label-input100">Sexe</span>
                                 <br/>
-                                <input type="radio" name="sex" value="m">Homme</input>
+                                <input type="radio" name="gender" value="male">Homme</input>
                                 <br/>
-                                <input type="radio" name="sex" value="f">Femme</input>
+                                <input type="radio" name="gender" value="female">Femme</input>
                                 <br/>
-                                <input type="radio" name="sex" value="o">Autre</input>
+                                <input type="radio" name="gender" value="other">Autre</input>
                                 <br/>
                             </div>
                             <div class="wrap-input100 bg1">
@@ -221,16 +221,16 @@
                             <div class="wrap-input100 bg1 input_radio content-hidden">
                                 <span class="label-input100">Sexe</span>
                                 <br/>
-                                <t t-if="sex == 'm'">
-                                    <input type="radio" name="sex" checked="checked" value="m">Homme</input>
+                                <t t-if="gender == 'male'">
+                                    <input type="radio" name="gender" checked="checked" value="male">Homme</input>
                                     <br/>
                                 </t>
-                                <t t-if="sex == 'f'">
-                                    <input type="radio" name="sex" checked="checked" value="f">Femme</input>
+                                <t t-if="gender == 'female'">
+                                    <input type="radio" name="gender" checked="checked" value="female">Femme</input>
                                     <br/>
                                 </t>
-                                <t t-if="sex == '0'">
-                                    <input type="radio" name="sex" checked="checked" value="o">Autre</input>
+                                <t t-if="gender == 'other'">
+                                    <input type="radio" name="gender" checked="checked" value="other">Autre</input>
                                     <br/>
                                 </t>
                             </div>
@@ -436,28 +436,28 @@
                             <div class="wrap-input100 bg1 input_radio">
                                 <span class="label-input100">Sexe</span>
                                 <br/>
-                                <t t-if="sex == 'm'">
-                                    <input type="radio" name="sex" checked="checked" value="m">Homme</input>
+                                <t t-if="gender == 'male'">
+                                    <input type="radio" name="gender" checked="checked" value="male">Homme</input>
                                     <br/>
-                                    <input type="radio" name="sex" value="f">Femme</input>
+                                    <input type="radio" name="gender" value="female">Femme</input>
                                     <br/>
-                                    <input type="radio" name="sex" value="o">Autre</input>
-                                    <br/>
-                                </t>
-                                <t t-if="sex == 'f'">
-                                    <input type="radio" name="sex" value="m">Homme</input>
-                                    <br/>
-                                    <input type="radio" name="sex" checked="checked" value="f">Femme</input>
-                                    <br/>
-                                    <input type="radio" name="sex" value="o">Autre</input>
+                                    <input type="radio" name="gender" value="other">Autre</input>
                                     <br/>
                                 </t>
-                                <t t-if="sex == '0'">
-                                    <input type="radio" name="sex" value="m">Homme</input>
+                                <t t-if="gender == 'female'">
+                                    <input type="radio" name="gender" value="male">Homme</input>
+                                    <br/>
+                                    <input type="radio" name="gender" checked="checked" value="female">Femme</input>
+                                    <br/>
+                                    <input type="radio" name="gender" value="other">Autre</input>
+                                    <br/>
+                                </t>
+                                <t t-if="gender == 'other'">
+                                    <input type="radio" name="gender" value="male">Homme</input>
                                     <br/>s
-                                    <input type="radio" name="sex" value="f">Femme</input>
+                                    <input type="radio" name="gender" value="female">Femme</input>
                                     <br/>
-                                    <input type="radio" name="sex" checked="checked" value="o">Autre</input>
+                                    <input type="radio" name="gender" checked="checked" value="other">Autre</input>
                                     <br/>
                                 </t>
                             </div>

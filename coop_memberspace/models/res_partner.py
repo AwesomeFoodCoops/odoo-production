@@ -131,9 +131,9 @@ class ResPartner(models.Model):
         members.create_memberspace_user()
 
     @api.model
-    def get_partner_sex_website(self):
-        if self.sex == "m":
+    def get_partner_gender_website(self):
+        if self.gender == "male":
             return _("Man")
-        elif self.sex == "f":
+        elif self.gender == "female":
             return _("Female")
         return _("Other")

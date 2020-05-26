@@ -40,12 +40,12 @@
                     </div>
                     <div class="content-box" style="padding-top: 10px; margin-top: 30px;">
                         <div class="left-column" style="width: 45%;float: left !important;  height: 500px; padding-top: 55px; padding-left: 5px;">
-                            <t t-if="o.sex == 'm'">
+                            <t t-if="o.gender == 'male'">
                                 <input type="checkbox" checked="True">Male&#032;&#032;&#032;</input>
                                 <input type="checkbox">Female</input>
                                 <br/>
                             </t>
-                            <t t-if="o.sex == 'f'">
+                            <t t-if="o.gender == 'female'">
                                 <input type="checkbox">Male&#032;&#032;&#032;</input>
                                 <input type="checkbox" checked="True">Female</input>
                                 <br/>

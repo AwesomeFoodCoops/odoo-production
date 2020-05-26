@@ -99,7 +99,7 @@ class WebsiteRegisterMeeting(http.Controller):
         name = post.get('name', False)
         email = post.get('email', False)
         first_name = post.get('first_name', False)
-        sex = post.get('sex', False)
+        gender = post.get('gender', False)
         mobile = post.get('mobile', False)
         phone = post.get('phone', False)
         street1 = post.get('street1', False)
@@ -113,7 +113,7 @@ class WebsiteRegisterMeeting(http.Controller):
             'name': name,
             'email': email,
             'first_name': first_name,
-            'sex': sex,
+            'gender': gender,
             'mobile': mobile,
             'phone': phone,
             'street1': street1,
@@ -153,7 +153,7 @@ class WebsiteRegisterMeeting(http.Controller):
         name = post.get('name', False)
         email = post.get('email', False)
         first_name = post.get('first_name', False)
-        sex = post.get('sex', False)
+        gender = post.get('gender', False)
         mobile = post.get('mobile', False)
         phone = post.get('phone', False)
         street1 = post.get('street1', False)
@@ -206,7 +206,7 @@ class WebsiteRegisterMeeting(http.Controller):
                 'name': name,
                 'email': email,
                 'first_name': first_name,
-                'sex': sex,
+                'gender': gender,
                 'mobile': mobile,
                 'phone': phone,
                 'street1': street1,
@@ -232,7 +232,7 @@ class WebsiteRegisterMeeting(http.Controller):
 
             partner_val = {
                 'name': name + ', ' + first_name,
-                'sex': sex,
+                'gender': gender,
                 'email': email,
                 'street': street1,
                 'street2': street2,

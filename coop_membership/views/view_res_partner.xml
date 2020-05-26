@@ -8,7 +8,6 @@
 <odoo>
 
     <record id="view_partner_form" model="ir.ui.view">
-        <field name="name">view.res.partner.membership.access.form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
@@ -195,8 +194,6 @@
                             </tree>
                         </field>
     
-                        <field name="sex"
-                               attrs="{'required': ['&amp;', ('company_type', '=', 'person'), ('is_member', '=', True)], 'invisible' : [('company_type', '=', 'company')]}"/>
                         <field name="is_deceased"
                                groups="coop_membership.group_membership_see_associated_people,
                                coop_membership.group_membership_access_user,
@@ -450,14 +447,6 @@
                     coop_membership.group_membership_bdm_saisie
                 </attribute>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='mobile']"
-                   position="after">
-                <field name="sex"
-                       groups="coop_membership.group_membership_see_associated_people,
-                       coop_membership.group_membership_access_user,
-                       coop_membership.group_membership_bdm_saisie"
-                       attrs="{'required': True}"/>
-            </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='comment']"
                    position="attributes">
                 <attribute name="attrs">
@@ -538,6 +527,20 @@
         </field>
     </record>
 
+    <!-- Manager view -->
+    <record id="view_membership_access_form_manager" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="priority" eval="1"/>
+        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
+        <field name="groups_id"
+               eval="[(4, ref('group_membership_access_manager'))]"/>
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute name="readonly" eval="False"/>
+            </field>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="view_res_partner_form_subscription_manager">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="capital_subscription.view_res_partner_form"/>
@@ -550,7 +553,38 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="view_res_partner_form">
+    <!--- partner_contact_gender views -->
+    <record model="ir.ui.view" id="view_manager_partner_contact_gender_view_personal_information_gender">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="partner_contact_gender.view_personal_information_gender"/>
+        <field name="groups_id"
+               eval="[(6,0,[ref('coop_membership.group_membership_access_manager')
+        ])]"/>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <field name="gender" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_lecture_partner_contact_gender_view_personal_information_gender">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="partner_contact_gender.view_personal_information_gender"/>
+        <field name="groups_id"
+               eval="[(6,0,[ref('coop_membership.group_membership_bdm_lecture'),
+                            ref('coop_membership.group_membership_access_edit'),
+                            ref('coop_membership.group_membership_bdm_saisie')
+               ])]"/>
+        <field name="arch" type="xml">
+            <field name="gender" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+        </field>
+    </record>
+
+    <!-- barcodes_generator_partner views -->
+    <record model="ir.ui.view" id="view_res_partner_form_barcodes_generator_partner">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="barcodes_generator_partner.view_res_partner_form"/>
         <field name="active" eval="True"/>
@@ -570,46 +604,35 @@
                         string="New Barcode (Card Lost)" class="oe_highlight"
                         attrs="{'invisible': ['|', ('barcode', '=', False), ('barcode_rule_id', '=', False)]}" />
             </button>
-            <xpath expr="//notebook/page[1]/field/form/sheet/group//field[@name='title']"
-                   position="after">
-                <field name="sex" attrs="{'required': True}"/>
-            </xpath>
         </field>
     </record>
 
-    <!-- Search View -->
-    <record model="ir.ui.view" id="view_res_partner_search">
+    <record id="view_membership_access_form_manager" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="priority" eval="1"/>
+        <field name="inherit_id" ref="coop_membership.view_res_partner_form_barcodes_generator_partner"/>
+        <field name="groups_id"
+               eval="[(4, ref('group_membership_access_manager'))]"/>
         <field name="arch" type="xml">
-            <field name="parent_id" position="after">
-                <field name="barcode_base" string="Member Number"
-                       filter_domain="[('barcode_base', '=', self), ('is_member', '=', True)]"/>
-                <field name="is_member"/>
-                <field name="is_associated_people"/>
-                <field name="is_worker_member"/>
-                <field name="is_former_member"/>
-                <field name="is_former_associated_people"/>
-                <field name="is_unpayed"/>
-                <field name="is_unsubscribed"/>
-                <field name="temp_coop_number"/>
+            <field name="barcode_base" position="attributes">
+                <attribute name="readonly" eval="False"/>
             </field>
         </field>
     </record>
 
+    <!-- BDM lecture views -->
     <record model="ir.ui.view" id="view_res_partner_form_membership">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
+        <field name="inherit_id" ref="partner_contact_gender.view_personal_information_gender"/>
         <field name="groups_id"
                eval="[(6,0,[ref('coop_membership.group_membership_bdm_lecture'),
                             ref('coop_membership.group_membership_access_edit'),
                             ref('coop_membership.group_membership_bdm_saisie')
                ])]"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='sex']"
-                   position="attributes">
+            <field name="gender" position="attributes">
                 <attribute name="readonly">True</attribute>
-            </xpath>
+            </field>
         </field>
     </record>
 
@@ -620,42 +643,20 @@
                eval="[(6,0,[ref('coop_membership.group_membership_bdm_saisie')
                ])]"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']"
-                   position="attributes">
+            <field name="name" position="attributes">
                 <attribute name="readonly">True</attribute>
-            </xpath>
-            <xpath expr="//field[@name='opt_out']" position="attributes">
+            </field>
+            <field name="opt_out" position="attributes">
                 <attribute name="readonly">True</attribute>
-            </xpath>
-            <xpath expr="//field[@name='lang']"
-                   position="attributes">
+            </field>
+            <field name="lang" position="attributes">
                 <attribute name="readonly">True</attribute>
-            </xpath>
-            <xpath expr="//field[@name='category_id']"
-                   position="attributes">
+            </field>
+            <field name="category_id" position="attributes">
                 <attribute name="readonly">True</attribute>
-            </xpath>
+            </field>
         </field>
     </record>
-
-    <record model="ir.ui.view" id="view_res_partner_form_membership_manager">
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
-        <field name="groups_id"
-               eval="[(6,0,[ref('coop_membership.group_membership_access_manager')
-        ])]"/>
-        <field name="priority">20</field>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='sex']" position="attributes">
-                <attribute name="readonly">False</attribute>
-            </xpath>
-            <xpath expr="//field[@name='name']"
-                   position="attributes">
-                <attribute name="readonly">False</attribute>
-            </xpath>
-        </field>
-    </record>
-
 
     <record model="ir.ui.view" id="view_res_partner_form_edit_photo">
         <field name="model">res.partner</field>
@@ -663,32 +664,14 @@
         <field name="groups_id"
                eval="[(6,0,[ref('coop_membership.group_membership_access_photo')])]"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet/field[@name='image']" position="attributes">
+            <field name="image" position="attributes">
                 <attribute name="readonly">0</attribute>
-            </xpath>
-        </field>
-    </record>
-
-    <record id="view_membership_access_form_manager" model="ir.ui.view">
-        <field name="name">res.partner.membership.access.manager.form</field>
-        <field name="model">res.partner</field>
-        <field name="priority" eval="1"/>
-        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
-        <field name="groups_id"
-               eval="[(4, ref('group_membership_access_manager'))]"/>
-        <field name="arch" type="xml">
-            <field name="barcode_base" position="attributes">
-                <attribute name="readonly" eval="False"/>
-            </field>
-            <field name="name" position="attributes">
-                <attribute name="readonly" eval="False"/>
             </field>
         </field>
     </record>
 
     <!-- Search View -->
-    <record id="view_bdm_search" model="ir.ui.view">
-        <field name="name">res.partner.membership.access.search</field>
+    <record model="ir.ui.view" id="view_bdm_search">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
@@ -703,6 +686,15 @@
                 <field name="ref"/>
             </field>
             <field name="parent_id" position="after">
+                <field name="barcode_base" string="Member Number" filter_domain="[('barcode_base', '=', self), ('is_member', '=', True)]"/>
+                <field name="is_member"/>
+                <field name="is_associated_people"/>
+                <field name="is_worker_member"/>
+                <field name="is_former_member"/>
+                <field name="is_former_associated_people"/>
+                <field name="is_unpayed"/>
+                <field name="is_unsubscribed"/>
+                <field name="temp_coop_number"/>
                 <separator/>
                 <filter name="sleeping" string="Sleeping"
                         domain="[('unsubscription_date', '&lt;', (context_today()-datetime.timedelta(weeks=12)).strftime('%Y-%m-%d'))]"/>
@@ -720,7 +712,6 @@
 
     <!-- Tree View -->
     <record id="view_bdm_tree" model="ir.ui.view">
-        <field name="name">res.partner.membership.access.tree</field>
         <field name="model">res.partner</field>
         <field eval="8" name="priority"/>
         <field name="arch" type="xml">

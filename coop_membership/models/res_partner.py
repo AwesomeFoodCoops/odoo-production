@@ -36,12 +36,6 @@ class ResPartner(models.Model):
 
     COOPERATIVE_STATE_CUSTOMER = ['up_to_date', 'alert', 'delay', 'exempted']
 
-    SEX_SELECTION = [
-        ('m', 'male'),
-        ('f', 'female'),
-        ('o', 'other'),
-    ]
-
     # New Column Section
 
     # Add field in res partner
@@ -82,9 +76,6 @@ class ResPartner(models.Model):
         string='Unsubscribed', store=True, help="Computed field."
         " This box is checked if the user is not linked"
         " to a template registration.", compute="_compute_is_unsubscribed")
-
-    sex = fields.Selection(
-        selection=SEX_SELECTION, string='Sex')
 
     temp_coop_number = fields.Char('Temporary number')
 
@@ -188,6 +179,8 @@ class ResPartner(models.Model):
     )
 
     event_event_id = fields.Many2one('event.event')
+    # TODO: remove when migrate to version 13
+    sex = fields.Selection(related='gender', string='Sex')
 
     @api.onchange('birthdate_date')
     def _onchange_birthdate_date(self):

@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
                                     <p style="margin-top:10px;margin-bottom:10px;font-size:17px;"
-                                       t-esc="user.partner_id and user.partner_id.get_partner_sex_website() or ''"/>
+                                       t-esc="user.partner_id and user.partner_id.get_partner_gender_website() or ''"/>
                                 </div>
                             </div>
                             <div class="row">
