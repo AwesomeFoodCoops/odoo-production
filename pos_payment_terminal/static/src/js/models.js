@@ -6,8 +6,6 @@ odoo.define('pos_payment_terminal.models', function (require) {
 
     models.Paymentline = models.Paymentline.extend({
         get_automatic_payment_terminal: function() {
-        .cashregister.journal.pos_terminal_payment_mode,this.pos.config
-        .iface_payment_terminal);
             if (this.cashregister.journal.pos_terminal_payment_mode == 'card' && this.pos.config.iface_payment_terminal) {
                 return true;
             }
