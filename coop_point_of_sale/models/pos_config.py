@@ -17,6 +17,40 @@ class PosConfig(models.Model):
         string="Diacritics insensitive search",
     )
 
+    account_journal_ids = fields.Many2many(
+        "account.journal",
+        "rel_pos_config_journal",
+        "rel_account_journal_pos",
+        string="Cheques Journals",
+        help="Please indicate here the cheques journals for which you "
+        + "would like to display a message when used in POS",
+    )
+
+    payable_to = fields.Char(string="Payable to")
+
+    @api.model
+    def default_get(self, fields):
+        res = super(PosConfig, self).default_get(fields)
+        journal_ids = self.env.user.company_id.journal_config_ids
+        payable_to = self.env.user.company_id.payable_to
+        res.update(
+            {
+                "account_journal_ids": [(6, 0, journal_ids.ids)],
+                "payable_to": payable_to,
+            }
+        )
+        return res
+
+    @api.multi
+    def execute(self):
+        for record in self:
+            self.env.user.company_id.journal_config_ids = [
+                (6, 0, record.account_journal_ids.ids)
+            ]
+            self.env.user.company_id.payable_to = record.payable_to
+
+        return super(PosConfig, self).execute()
+
     @api.multi
     def _set_diacritics_insensitive_search(self):
         ir_config_env = self.env["ir.config_parameter"]
