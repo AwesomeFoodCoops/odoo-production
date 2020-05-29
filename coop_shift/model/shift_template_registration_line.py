@@ -195,7 +195,9 @@ class ShiftTemplateRegistrationLine(models.Model):
 
                 # Convert the datetime in shift to local date
                 shift_date_begin = self.convert_local_date(shift.date_begin)
+                shift_date_begin = fields.Date.from_string(shift_date_begin)
                 shift_date_end = self.convert_local_date(shift.date_end)
+                shift_date_end = fields.Date.from_string(shift_date_end)
 
                 # if shift is done, pass
                 if shift.state == "done":

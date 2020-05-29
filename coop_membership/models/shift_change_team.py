@@ -164,7 +164,6 @@ class ShiftChangeTeam(models.Model):
         # Remove ALL Attendee on this template to create new Attendee on
         # the new team
         # If doesn't have any templates in the future, create a new one
-
         if future_registrations:
             future_registrations[0].date_begin = self.new_next_shift_date
             for registration in future_registrations:
@@ -186,10 +185,10 @@ class ShiftChangeTeam(models.Model):
             })
 
         # Set days of two next shifts
+        new_shifts = self.new_shift_template_id.shift_ids.ids
         date_next_shifts = self.partner_id.registration_ids.filtered(
-            lambda r: r.date_begin >=
-            fields.Date.context_today(self)).mapped('date_begin')
-
+            lambda r: r.date_begin >= fields.Datetime.now() and
+            r.shift_id.id in new_shifts).mapped('date_begin')
         self.set_date_future_shifts(date_next_shifts)
 
         return True
@@ -199,10 +198,10 @@ class ShiftChangeTeam(models.Model):
         self.ensure_one()
         range_dates, list_dates = self.compute_range_day()
         if len(date_next_shifts) >= 2:
-            self.first_next_shift_date = date_next_shifts[0]
-            self.second_next_shift_date = date_next_shifts[1]
+            self.first_next_shift_date = date_next_shifts[0].date()
+            self.second_next_shift_date = date_next_shifts[1].date()
         elif len(date_next_shifts) == 1:
-            self.first_next_shift_date = date_next_shifts[0]
+            self.first_next_shift_date = date_next_shifts[0].date()
             if list_dates:
                 self.second_next_shift_date = fields.Date.to_string(
                     list_dates[0])
@@ -381,13 +380,14 @@ class ShiftChangeTeam(models.Model):
 
     @api.multi
     def convert_format_datatime(self, date_change):
-        for record in self:
-            if date_change:
-                date = date_change.split('-')[2] + '/' + \
-                    date_change.split('-')[1] + '/' + date_change.split('-')[0]
-                return date.encode('utf-8')
-            else:
-                return ''.encode('utf-8')
+        if date_change:
+            if isinstance(date_change, fields.Date()):
+                date_change = fields.Date.to_string(date_change)
+            date = date_change.split('-')[2] + '/' + \
+                date_change.split('-')[1] + '/' + date_change.split('-')[0]
+            return date.encode('utf-8')
+        else:
+            return ''.encode('utf-8')
 
     @api.multi
     def compute_current_shift_template(self):
@@ -412,7 +412,7 @@ class ShiftChangeTeam(models.Model):
                         lambda s: s.date_begin >= fields.Datetime.now())
 
                 self.next_current_shift_date = next_shifts and \
-                    next_shifts[0].date_begin or False
+                    next_shifts[0].date_begin.date() or False
 
     @api.multi
     def check_num_week(self, new_next_shift_date):
