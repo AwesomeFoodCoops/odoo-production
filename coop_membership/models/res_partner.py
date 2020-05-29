@@ -179,8 +179,6 @@ class ResPartner(models.Model):
     )
 
     event_event_id = fields.Many2one('event.event')
-    # TODO: remove when migrate to version 13
-    sex = fields.Selection(related='gender', string='Sex')
 
     @api.onchange('birthdate_date')
     def _onchange_birthdate_date(self):

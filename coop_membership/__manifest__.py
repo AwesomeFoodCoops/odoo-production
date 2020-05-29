@@ -3,31 +3,29 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-
 {
     'name': 'Coop - Membership',
-    'version': '12.0.1.1.2',
+    'version': '12.0.2.0.0',
     'category': 'Custom',
     'summary': 'Custom settings for membership',
     'author': 'La Louve, Druidoo',
     'website': 'http://www.lalouve.net',
     'license': 'AGPL-3',
     'depends': [
-        'hr_maintenance',
         'project',
+        'stock',
+        'hr_maintenance',
         'mass_mailing',
-        'account_export',
-        'account_partner_journal',
         'capital_subscription',
         'coop_shift',
         'purchase_compute_order',
+        'account_export',
+        'account_partner_journal',
         'res_partner_account_move_line',
-        'stock',
         'partner_contact_birthdate',
         'partner_contact_gender',
     ],
     'data': [
-
         # Security
         'security/ir_module_category.xml',
         'security/res_group.xml',
@@ -78,7 +76,6 @@
         'data/barcode_rule.xml',
         'data/res_partner_inform.xml',
         'data/shift_extension_type_data.xml',
-        'data/function.xml',
     ],
     'demo': [
         'demo/capital_fundraising_category.xml',
