@@ -12,7 +12,7 @@
             <th class="text-right"><strong>Package qty</strong></th>
             <th class="text-right"><strong>Qty</strong></th>
         </xpath>
-        <xpath expr="//div[hasclass('page')]/table[1]/tbody/tr" position="inside">
+        <xpath expr="//div[hasclass('page')]/table[1]/tbody/tr//td[5]" position="after">
             <td class="text-right">
                 <span t-field="line.package_price"/>
             </td>
