@@ -4,4 +4,8 @@
     <menuitem id="picking_edi_update_menu" name="Delivery order update" action="picking_update_edi_action"
               parent="edi_purchase_config.menu_edi_config_root" sequence="3"/>
 
+    <menuitem id="menu_action_supplier_price_list" name="Price History"
+        parent="edi_purchase_config.menu_edi_config_root" sequence="10"
+        action="action_supplier_price_list"/>
+
 </odoo>

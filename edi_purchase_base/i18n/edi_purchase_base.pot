@@ -82,6 +82,11 @@ msgid "Delivery order update"
 msgstr ""
 
 #. module: edi_purchase_base
+#: model:ir.ui.menu,name:edi_purchase_base.menu_action_supplier_price_list
+msgid "Price History"
+msgstr "Historique des prix"
+
+#. module: edi_purchase_base
 #: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__display_name
 #: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__display_name
 #: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__display_name
