@@ -42,10 +42,12 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td style="padding: 4px"><!-- <span t-esc="registration['registration'].partner_id.barcode_base"/> --></td>
+                                    <td style="padding: 4px">
+                                        <span t-esc="registration['registration'].partner_id.barcode_base"/>
+                                    </td>
                                     <td style="font-size:11px;padding: 4px">
                                         <span t-if="registration['registration'].name" t-esc="registration['registration'].name"/>
-                                        <span t-else="" t-field="registration['registration'].partner_id"/>
+                                        <span t-else="" t-esc="registration['registration'].partner_id.name"/>
                                     </td>
                                     <td></td>
                                     <td></td>
@@ -74,7 +76,9 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td style="padding: 4px"><!-- <span t-esc="ftop.partner_id.barcode_base"/> --></td>
+                                    <td style="padding: 4px">
+                                         <span t-esc="ftop.partner_id.barcode_base"/>
+                                    </td>
                                     <td style="font-size:11px;padding: 1px"><span t-esc="ftop.name"/></td>
                                     <td></td>
                                     <td></td>
