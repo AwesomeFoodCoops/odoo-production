@@ -78,7 +78,7 @@ class ProductProduct(models.Model):
             product_code = line[pos_from:pos_to]
             if product_code in value:
                 continue
-            key = ["supplier_id", "import_date"]
+            key = ["supplier_id", "import_date", "barcode"]
             value = [edi_system.supplier_id.id, today]
             for mapping in edi_system.price_mapping_ids:
                 slice_from = mapping.sequence_start

@@ -50,6 +50,7 @@
                             <field name="supplier_code"/>
                             <field name="import_date"/>
                             <field name="apply_date"/>
+                            <field name="barcode"/>
                         </group>
                     </group>
                 </sheet>

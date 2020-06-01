@@ -30,6 +30,7 @@ class SupplierPriceList(models.Model):
         help="The price HT to purchase a product",
     )
     apply_date = fields.Date(readonly=True, required=True)
+    barcode = fields.Char(string="Ean")
 
     @api.multi
     def button_create_product(self):
@@ -40,7 +41,8 @@ class SupplierPriceList(models.Model):
             'sale_ok': True,
             'purchase_ok': True,
             'type': 'product',
-            'default_code': self.supplier_code
+            'default_code': self.supplier_code,
+            'barcode': self.barcode,
         })
         # link product with current supplier price list
         self.sudo().product_tmpl_id = product_tmpl_id.id
