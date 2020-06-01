@@ -102,7 +102,7 @@ class ShiftTemplate(models.Model):
         store=True, readonly=True, compute='_compute_seats_template')
     seats_expected = fields.Integer(
         string='Number of Expected Attendees',
-        readonly=True, compute='_compute_seats')
+        readonly=True, compute='_compute_seats_template')
     registration_ids = fields.One2many(
         'shift.template.registration', 'shift_template_id', string='Attendees')
     registration_qty = fields.Integer(

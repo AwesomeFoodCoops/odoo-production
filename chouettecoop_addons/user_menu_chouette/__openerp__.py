@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Require User Login, Odoo addon
 #    Copyright La Chouette Coop
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -40,3 +39,4 @@
         'static/src/xml/base.xml',
     ],
 }
+
