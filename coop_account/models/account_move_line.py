@@ -138,12 +138,10 @@ class AccountMoveLine(models.Model):
     @api.model
     def get_wrong_reconciliation_ml(self):
         wrong_move_lines = self
-        selected_journals = self.env['account.journal'].search([
-            ('name', 'not like', '%Chèques%'),
-            '|',
-            ('name', 'like', 'CCOOP - compte courant'),
-            ('name', 'ilike', '%cep%'),
-        ])
+        selected_journals = self.env['account.journal'].search(
+            [('export_wrong_reconciliation', '=', True)]
+        )
+
         bank_statement_line_query = """
             select statement_line_id
             from account_move_line
@@ -159,8 +157,8 @@ class AccountMoveLine(models.Model):
             self.env['account.bank.statement.line'].browse(line_ids)
         for stml in bank_statement_line_ids:
             stml_date = fields.Date.from_string(stml.date)
-            move_ids = stml.journal_entry_ids
-            move_line_ids = move_ids.mapped('line_ids')
+            move_line_ids = stml.journal_entry_ids
+            move_ids = move_line_ids.mapped('move_id')
             if len(move_ids) == 1 and len(move_line_ids) == 2:
                 continue
             for aml in move_line_ids.filtered(lambda ml: not ml.statement_id):

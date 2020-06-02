@@ -3,7 +3,7 @@
 
 {
     'name': 'Coop Account',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'category': 'Accounting',
     'summary': 'Coop Account',
     'author': 'La Louve, Druidoo',
@@ -26,6 +26,7 @@
         "wizard/view_bank_statement_line_reconcile_wizard.xml",
         "wizard/view_unmatch_bank_statement_wizard.xml",
         "view/menu.xml",
+        "view/account_journal_view.xml"
     ],
     'installable': True,
 }
