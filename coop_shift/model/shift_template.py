@@ -554,7 +554,7 @@ class ShiftTemplate(models.Model):
                 if len(record.shift_ids):
                     shifts = record.shift_ids.filtered(
                         lambda s: s.date_end >=
-                        fields.Date.context_today(self))
+                        fields.Datetime.today())
 
                     # update directly to shifts
                     shifts.with_context(

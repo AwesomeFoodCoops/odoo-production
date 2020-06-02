@@ -22,8 +22,8 @@ class UpdateShiftsWizard(models.TransientModel):
             return None
         line_ids = []
         for shift in template.shift_ids:
-            if (not date_from or shift.date_begin >= date_from) and\
-                    (not date_to or shift.date_end <= date_to) and\
+            if (not date_from or shift.date_begin.date() >= date_from) and\
+                    (not date_to or shift.date_end.date() <= date_to) and\
                     shift.state == "draft":
                 line_ids.append((0, 0, {
                     'wizard_id': self.id,
