@@ -50,6 +50,7 @@ class UpdateShiftsWizard(models.TransientModel):
         template_id = self.env.context.get('active_id', False)
         if template_id:
             template = self.env['shift.template'].browse(template_id)
+            self.line_ids = [(5, 0, 0)]
             self.line_ids = self._get_line_ids(
                 template, date_from=self.date_from, date_to=self.date_to)
 
@@ -65,6 +66,7 @@ class UpdateShiftsWizard(models.TransientModel):
     @api.multi
     def update_lines(self, date_from=None, date_to=None):
         for wizard in self:
+            wizard.line_ids = [(5, 0, 0)]
             wizard.line_ids = self._get_line_ids(
                 wizard.template_id, date_from=wizard.date_from,
                 date_to=wizard.date_to)
