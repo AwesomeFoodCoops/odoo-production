@@ -153,9 +153,9 @@ class TestCoopShift(common.TransactionCase):
             'Shift: confirmation of registration failed')
 
     def test_overlapping_registration(self):
-        self.ShiftTemplateTicket.create({
+        shift_template_ticket_id_2 = self.ShiftTemplateTicket.create({
             'name': 'Standard  2',
-            'partner_id': self.standard_member_1,
+            'product_id': self.product_product_shift_standard,
             'shift_template_id': self.shift_template2
         })
         self.ShiftTemplateRegistration.create({
