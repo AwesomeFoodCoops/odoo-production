@@ -11,7 +11,7 @@ from odoo import models, fields, api, _
 from odoo.addons.queue_job.job import job
 from odoo.exceptions import ValidationError
 
-from .date_tools import conflict_period
+from ..date_tools import conflict_period
 
 
 class ResPartner(models.Model):

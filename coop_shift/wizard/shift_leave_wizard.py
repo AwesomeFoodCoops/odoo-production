@@ -5,7 +5,7 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
-from .date_tools import conflict_period
+from ..date_tools import conflict_period
 
 
 class ShiftLeaveWizard(models.TransientModel):

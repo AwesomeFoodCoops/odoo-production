@@ -10,3 +10,4 @@ from . import add_template_registration
 from . import replace_registration
 from . import report_timesheet_wizard
 from . import report_wallchart_wizard
+from . import shift_leave_wizard
