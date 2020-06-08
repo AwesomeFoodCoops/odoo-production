@@ -73,10 +73,10 @@ class ShiftMailScheduler(models.Model):
                     date, sign = rec.shift_id.date_begin, -1
                 else:
                     date, sign = rec.shift_id.date_end, 1
-                rec.scheduled_date = datetime.strptime(
-                    fields.Datetime.to_string(date),
-                    tools.DEFAULT_SERVER_DATETIME_FORMAT) +\
-                    _INTERVALS[rec.interval_unit](sign * rec.interval_nbr)
+                rec.scheduled_date = (
+                    date
+                    + _INTERVALS[rec.interval_unit](sign * rec.interval_nbr)
+                )
 
     @api.multi
     def execute(self):
