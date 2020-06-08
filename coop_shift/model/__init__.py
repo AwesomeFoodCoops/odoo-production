@@ -18,4 +18,3 @@ from . import shift_leave_type
 from . import shift_leave_wizard
 from . import shift_counter_event
 from . import date_tools
-from . import ir_ui_menu

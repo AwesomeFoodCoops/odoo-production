@@ -60,7 +60,6 @@
         'views/report_timesheet.xml',
         'views/report_timesheet_inherited.xml',
         'views/report_wallchart.xml',
-        'views/ir_ui_menu_view.xml',
         'data/cron.xml',
         'data/ir_cron.xml',
     ],
