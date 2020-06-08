@@ -25,6 +25,7 @@
         'security/ir.model.access.csv',
         'data/ir_sequence.xml',
         'data/ir_config_parameter.xml',
+        'data/ir_cron.xml',
         'data/coop_shift_data.xml',
         'views/action.xml',
         'wizard/create_shifts_wizard_view.xml',
@@ -60,8 +61,6 @@
         'views/report_timesheet.xml',
         'views/report_timesheet_inherited.xml',
         'views/report_wallchart.xml',
-        'data/cron.xml',
-        'data/ir_cron.xml',
     ],
     'demo': [
         'demo/res_groups.xml',
