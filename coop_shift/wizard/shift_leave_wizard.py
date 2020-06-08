@@ -4,7 +4,7 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
-
+from dateutil.relativedelta import relativedelta
 from ..date_tools import conflict_period
 
 
@@ -82,7 +82,7 @@ class ShiftLeaveWizard(models.TransientModel):
             elif leave_s_date >= work_s_date:
                 # Otherwise, Reduce current registration line stop date
                 if leave_s_date > work_s_date:
-                    line.date_end = leave_s_date + timedelta(days=-1)
+                    line.date_end = leave_s_date + relativedelta(days=-1)
                 else:
                     line.date_end = leave_e_date
 
@@ -90,13 +90,13 @@ class ShiftLeaveWizard(models.TransientModel):
                                      previous_date_end > leave_e_date):
                     # Create a new registration line, if leave has stop date
                     line.copy(default={
-                        'date_begin': leave_e_date + timedelta(days=1),
+                        'date_begin': leave_e_date + relativedelta(days=1),
                         'date_end': previous_date_end,
                     })
             elif leave_e_date and work_e_date and work_e_date <= leave_e_date:
                 line.unlink()
             else:
-                line.date_begin = leave_e_date + timedelta(days=1)
+                line.date_begin = leave_e_date + relativedelta(days=1)
 
         line_obj = self.env['shift.template.registration.line']
         for registration_id in registration_ids:
