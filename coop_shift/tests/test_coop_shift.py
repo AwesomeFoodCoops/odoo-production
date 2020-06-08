@@ -7,7 +7,7 @@ from odoo import fields
 class TestCoopShift(common.TransactionCase):
 
     def setUp(self):
-        super(CoopShiftTest, self).setUp()
+        super().setUp()
 
         ModelData = self.env['ir.model.data']
         self.ShiftWizard = self.env['create.shifts.wizard']
