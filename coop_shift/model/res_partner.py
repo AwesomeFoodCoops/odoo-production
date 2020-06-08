@@ -10,6 +10,7 @@ from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, _
 from odoo.addons.queue_job.job import job
 from odoo.exceptions import ValidationError
+from odoo.tools.misc import format_date
 
 from ..date_tools import conflict_period
 
@@ -203,12 +204,13 @@ class ResPartner(models.Model):
                 lambda l: l.stop_date >= today and l.start_date <= today
                 and l.state != 'cancel')
             if current_leave:
-                partner.current_leave_info = "".join(
-                    e[0].upper()
-                    for e in current_leave[0].type_id.name.split())\
-                    + "-" + current_leave[0].stop_date.split('-')[2] + '/' +\
-                    current_leave[0].stop_date.split('-')[1] + '/' +\
-                    current_leave[0].stop_date.split('-')[0]
+                partner.current_leave_info = "%s-%s" (
+                    "".join(
+                        e[0].upper()
+                        for e in current_leave[0].type_id.name.split()
+                    ),
+                    format_date(self.env, current_leave[0].stop_date)
+                )
             else:
                 partner.current_leave_info = False
 
@@ -293,17 +295,12 @@ class ResPartner(models.Model):
     def _compute_extension_qty(self):
         for partner in self:
             partner.extension_qty = len(partner.sudo().extension_ids)
-            today = fields.Date.context_today(self)
+            today = fields.Date.today()
             current_extension = partner.extension_ids.filtered(
                 lambda e: e.date_start <= today and e.date_stop >= today)
             if current_extension:
-                partner.current_extension_day_end =\
-                    fields.Date.to_string(
-                        current_extension[0].date_stop).split('-')[2] + '/' +\
-                    fields.Date.to_string(
-                        current_extension[0].date_stop).split('-')[1] + '/' +\
-                    fields.Date.to_string(
-                        current_extension[0].date_stop).split('-')[0]
+                partner.current_extension_day_end = format_date(
+                    self.env, current_extension[0].date_stop)
             else:
                 partner.current_extension_day_end = False
 
