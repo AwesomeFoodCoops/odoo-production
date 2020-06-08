@@ -619,8 +619,6 @@ class ShiftTemplate(models.Model):
                     relativedelta(months=diff_month) +
                     relativedelta(years=diff_year),
                     tools.DEFAULT_SERVER_DATETIME_FORMAT)
-                rec_date = datetime.strftime(
-                    rec_date, tools.DEFAULT_SERVER_DATE_FORMAT)
                 vals = {
                     'shift_template_id': template.id,
                     'name': template.name,

@@ -4,7 +4,6 @@
 # @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-import datetime
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
@@ -116,10 +115,11 @@ class ShiftTemplateRegistration(models.Model):
 
     @api.model
     def _get_state(self, date_check):
-        date_check = datetime.datetime.strptime(date_check, '%Y-%m-%d').date()
         for line in self.line_ids:
-            if (not line.date_begin or date_check >= line.date_begin) and\
-                    (not line.date_end or date_check <= line.date_end):
+            if (
+                (not line.date_begin or date_check >= line.date_begin)
+                and (not line.date_end or date_check <= line.date_end)
+            ):
                 return line.state, line.id
         return False, False
 

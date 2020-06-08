@@ -15,7 +15,6 @@
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="view_id" ref="coop_shift.view_add_template_registration_wizard_form"/>
     </record>
 
     <record id="view_res_partner_shift_form" model="ir.ui.view">

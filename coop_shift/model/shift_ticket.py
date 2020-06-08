@@ -28,8 +28,8 @@ class ShiftTicket(models.Model):
     event_id = fields.Many2one(required=False)
 
     product_id = fields.Many2one(
-        default=lambda self: self._default_product_id(),
-        domain=[("shift_type_id", "!=", False)],)
+        domain=[("shift_type_id", "!=", False)],
+    )
 
     registration_ids = fields.One2many(
         'shift.registration', 'shift_ticket_id', 'Registrations')
@@ -72,15 +72,6 @@ class ShiftTicket(models.Model):
                 fields.Datetime.to_string(
                     ticket.date_begin + timedelta(hours=2)
                 ) or False
-
-    @api.model
-    def _default_product_id(self):
-        try:
-            product = self.env['ir.model.data'].get_object(
-                'coop_shift', 'product_product_event')
-            return product.id
-        except ValueError:
-            return False
 
     seats_availability = fields.Selection(
         compute='_compute_seats', store=False, required=False)

@@ -11,7 +11,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
-            <field name="view_id" ref="view_replace_registration_wizard_form"/>
         </record>
 
         <!-- SHIFT.REGISTRATION VIEWS -->
