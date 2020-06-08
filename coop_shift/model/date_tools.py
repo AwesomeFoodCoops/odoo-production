@@ -2,14 +2,6 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime, timedelta
-
-
-def add_days(date_string, days):
-    return (
-        datetime.strptime(date_string, '%Y-%m-%d').date() +
-        timedelta(days=days)).strftime('%Y-%m-%d')
-
 
 def conflict_period(
         obj1_date_start, obj1_date_stop, obj2_date_start, obj2_date_stop,
