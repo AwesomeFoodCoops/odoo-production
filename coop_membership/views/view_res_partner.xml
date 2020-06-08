@@ -59,19 +59,6 @@
                            attrs="{'invisible':[('current_tmpl_reg_line', '=', False)]}"/>
                     <span attrs="{'invisible':[('current_tmpl_reg_line', '!=', False)]}">Tmpl. Registr.</span>
                 </button>
-                <button name="%(coop_shift.act_shift_leave_from_partner)d"
-                        type="action"
-                        class="oe_stat_button oe_event_attendee_button"
-                        icon="fa-sign-out" help="View partner Leaves"
-                        groups="coop_shift.group_shift_see_leave,
-                        coop_membership.group_membership_bdm_lecture,
-                        coop_membership.group_membership_bdm_saisie"
-                        id="view_shift_leaves"
-                        attrs="{'invisible': [('is_member', '!=', True)]}">
-                    <field name="current_leave_info"
-                           attrs="{'invisible':[('current_leave_info', '=', False)]}"/>
-                    <span attrs="{'invisible':[('current_leave_info', '!=', False)]}">Leaves</span>
-                </button>
                 <button name="%(coop_shift.action_res_partner_point_counter_view_standard)d"
                         type="action"
                         class="oe_stat_button"
@@ -110,6 +97,14 @@
                     <field name="total_partner_owned_share"
                            widget="statinfo" string="Owned Shares"/>
                 </button>
+            </xpath>
+            <xpath expr="//button[@id='view_shift_leaves']" position="attributes">
+                <attribute name="groups">
+                    coop_shift.group_shift_see_leave,
+                    coop_membership.group_membership_bdm_lecture,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
+                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
             </xpath>
             <xpath expr="//sheet/field[@name='image']" position="attributes">
                 <attribute name="readonly">1</attribute>
@@ -173,13 +168,9 @@
                         <field name="temp_coop_number"
                                groups="coop_membership.group_membership_see_associated_people,
                                coop_membership.group_membership_access_user"/>
-                        <field name="birthdate_date" widget="date"
-                               attrs="{'required': [('is_member', '=', True)]}"
-                               groups="coop_membership.group_membership_see_associated_people,
-                               coop_membership.group_membership_access_user,
-                               coop_membership.group_membership_bdm_saisie"/>
                         <field name="age" attrs="{'invisible': [('age', '=', 0)]}"
                                groups="coop_membership.group_membership_see_associated_people,
+                               coop_membership.group_membership_bdm_lecture,
                                coop_membership.group_membership_access_user,
                                coop_membership.group_membership_bdm_saisie"/>
                         <field name="contact_origin_id"
@@ -283,6 +274,9 @@
                        groups="coop_membership.group_membership_see_associated_people,
                        coop_membership.group_membership_access_user"/>
             </xpath>
+            <xpath expr="//group/field[@name='vat']" position="attributes">
+                <attribute name="groups">account.group_account_invoice</attribute>
+            </xpath>
             <xpath expr="//group/field[@name='function']" position="attributes">
                 <attribute name="groups">
                     coop_membership.group_membership_see_associated_people,
@@ -309,23 +303,14 @@
                        groups="coop_membership.group_membership_bdm_lecture,
                        coop_membership.group_membership_bdm_saisie"/>
             </xpath>
-            <xpath expr="//group/field[@name='email']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
             <xpath expr="//group/field[@name='title']" position="attributes">
                 <attribute name="groups">
-                    coop_membership.group_membership_bdm_lecture,
                     coop_membership.group_membership_bdm_saisie
                 </attribute>
             </xpath>
             <xpath expr="//group/field[@name='lang']" position="attributes">
                 <attribute name="groups">
                     coop_membership.group_membership_access_manager,
-                    coop_membership.group_membership_bdm_lecture,
                     coop_membership.group_membership_bdm_saisie
                 </attribute>
             </xpath>
@@ -334,6 +319,14 @@
                     coop_membership.group_membership_access_manager,
                     coop_membership.group_membership_bdm_saisie
                 </attribute>
+            </xpath>
+            <xpath expr="//group/field[@name='birthdate_date']" position="attributes">
+                <attribute name="groups">
+                    coop_membership.group_membership_see_associated_people,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
+                <attributes name="attrs">{'required': [('is_member', '=', True)]}</attributes>
             </xpath>
             <xpath expr="//notebook/page[@autofocus='autofocus']" position="attributes">
                 <attribute name="attrs">
@@ -409,6 +402,7 @@
                 <field name="age"
                        attrs="{'invisible': [('age', '=', 0)]}"
                        groups="coop_membership.group_membership_see_associated_people,
+                       coop_membership.group_membership_bdm_lecture,
                        coop_membership.group_membership_access_user,
                        coop_membership.group_membership_bdm_saisie"/>
             </xpath>
@@ -466,6 +460,7 @@
             <xpath expr="//page[@name='internal_notes']" position="attributes">
                 <attribute name="groups">
                     coop_membership.group_membership_see_associated_people,
+                    coop_membership.group_membership_bdm_lecture,
                     coop_membership.group_membership_access_user,
                     coop_membership.group_membership_bdm_saisie
                 </attribute>
@@ -526,6 +521,29 @@
             </xpath>
         </field>
     </record>
+
+    <record id="res_partner_view_form_inherit_mail" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="priority" eval="1"/>
+        <field name="inherit_id" ref="mail.res_partner_view_form_inherit_mail"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_row_readonly')]" position="attributes">
+                <attribute name="groups">
+                    coop_membership.group_membership_see_associated_people,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
+            </xpath>
+            <xpath expr="//label[@for='email']" position="attributes">
+                <attribute name="groups">
+                    coop_membership.group_membership_see_associated_people,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
 
     <!-- Manager view -->
     <record id="view_membership_access_form_manager" model="ir.ui.view">

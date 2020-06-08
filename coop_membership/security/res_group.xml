@@ -76,11 +76,17 @@
         <field name="sequence">10</field>
     </record>
 
+    <record model="ir.module.category" id="bdm_users">
+        <field name="name">BDM Users</field>
+        <field name="description">BDM Users</field>
+        <field name="sequence">10</field>
+    </record>
+
     <!-- Bdm lecture - Read-only profile -->
     <record model="res.groups" id="group_membership_bdm_lecture">
-        <field name="name">Membership Read</field>
-        <field name="category_id" ref="module_membership_access_management"/>
-        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="name">BDM Lecture</field>
+        <field name="category_id" ref="bdm_users"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('coop_shift.group_shift_see_leave')), (4, ref('coop_shift.group_shift_see_counter'))]"/>
     </record>
 
     <record model="res.groups"
@@ -188,8 +194,8 @@
 
     <!-- Bdm presence - Attendance-only data entry profile -->
     <record model="res.groups" id="group_membership_bdm_presence">
-        <field name="name">Membership Attendances</field>
-        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="name">BDM Présences</field>
+        <field name="category_id" ref="bdm_users"/>
         <field name="menu_access" eval="[(4, ref('coop_shift.shift_menu'))]"/>
         <field name="implied_ids"
                eval="[(4, ref('group_membership_bdm_lecture')), (4, ref('coop_membership.group_shift_create_extension_from_attendance'))]"/>
@@ -202,10 +208,10 @@
     </record>
 
     <record model="res.groups" id="group_membership_bdm_saisie">
-        <field name="name">Membership Data Entry</field>
-        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="name">BDM Saisie</field>
+        <field name="category_id" ref="bdm_users"/>
         <field name="menu_access" eval="[(4, ref('coop_shift.shift_menu'))]"/>
-        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('coop_group_access_res_partner_image'))]"/>
+        <field name="implied_ids" eval="[(4, ref('coop_membership.group_membership_bdm_presence')), (4, ref('coop_group_access_res_partner_image'))]"/>
     </record>
 
     <record model="res.groups" id="group_clean_up">

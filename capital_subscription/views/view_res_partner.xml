@@ -12,7 +12,7 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <notebook position="inside">
-                <page name="page_capital_fundraising" string="Capital Subscriptions">
+                <page name="page_capital_fundraising" string="Capital Subscriptions" groups="capital_subscription.manage_fundraising_partner_type">
                     <group >
                         <group string="Partner Type">
                             <field name="fundraising_partner_type_ids" widget="many2many_tags"/>

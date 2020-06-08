@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
             <page name="shifts" position="after">
-                <page name="website" string="Website">
+                <page name="website" string="Website" groups="coop_memberspace.group_memberspace">
                     <group>
                         <field name="public_avatar"/>
                         <field name="public_mobile"/>
