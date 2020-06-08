@@ -5,10 +5,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import logging
-from datetime import datetime
-
 from dateutil.relativedelta import relativedelta
-from odoo import api, fields, models, tools
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
