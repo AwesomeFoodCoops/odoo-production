@@ -1,8 +1,56 @@
-from .common import CoopShiftTest
+from odoo.tests import common
 from odoo.exceptions import ValidationError
+from datetime import timedelta
+from odoo import fields
 
 
-class TestCoopShift(CoopShiftTest):
+class TestCoopShift(common.TransactionCase):
+
+    def setUp(self):
+        super(CoopShiftTest, self).setUp()
+
+        ModelData = self.env['ir.model.data']
+        self.ShiftWizard = self.env['create.shifts.wizard']
+        self.Shift = self.env['shift.shift']
+        self.ShiftRegistration = self.env['shift.registration']
+        self.ShiftTemplateRegistration = self.env['shift.template.registration']
+        self.ShiftTicket = self.env['shift.ticket']
+        self.ShiftTemplateTicket = self.env['shift.template.ticket']
+        self.ResPartner = self.env['res.partner']
+
+        # Standard Template
+        self.shift_template1 = ModelData.xmlid_to_res_id(
+            'coop_shift.standard_template_1')
+
+        self.shift_template2 = ModelData.xmlid_to_res_id(
+            'coop_shift.standard_template_2')
+
+        self.ftop_template_2 = ModelData.xmlid_to_res_id(
+            'coop_shift.ftop_template_2')
+
+        self.standard_member_1 = ModelData.xmlid_to_res_id(
+            'coop_shift.standard_member_1')
+
+        self.ftop_member_1 = ModelData.xmlid_to_res_id(
+            'coop_shift.ftop_member')
+
+        self.date_from = fields.Date.today()
+        self.date_to = fields.Date.today() + timedelta(days=1)
+
+        self.shift_type_id = ModelData.xmlid_to_res_id(
+            'coop_shift.shift_type')
+
+        self.shift_type_ftop_id = ModelData.xmlid_to_res_id(
+            'coop_shift.shift_type_ftop')
+
+        self.product_product_shift_standard = ModelData.xmlid_to_res_id(
+            'coop_shift.product_product_shift_standard')
+
+        self.product_product_shift_ftop = ModelData.xmlid_to_res_id(
+            'coop_shift.product_product_shift_ftop')
+
+        self.shift_template_ticket_id = ModelData.xmlid_to_res_id(
+            'coop_shift.template_ticket_1_standard')
 
     def test_standard_member_event_registration(self):
         """ Test the it should create Shift Type """
@@ -105,12 +153,11 @@ class TestCoopShift(CoopShiftTest):
             'Shift: confirmation of registration failed')
 
     def test_overlapping_registration(self):
-        shift_template_ticket_id_2 = self.ShiftTemplateTicket.create({
+        self.ShiftTemplateTicket.create({
             'name': 'Standard  2',
-            'product_id': self.standard_member_1,
+            'partner_id': self.standard_member_1,
             'shift_template_id': self.shift_template2
         })
-
         self.ShiftTemplateRegistration.create({
             'partner_id': self.standard_member_1,
             'shift_ticket_id': self.shift_template_ticket_id,
