@@ -235,6 +235,7 @@ class AccountBankStatement(models.Model):
                         move_line.account_id.id ==
                         statement_id.journal_id.default_credit_account_id.id
                         and move_line.id not in lines_to_reconcile
+                        and not move_line.reconciled
                 ):
                     lines_to_reconcile.append(move_line.id)
 
