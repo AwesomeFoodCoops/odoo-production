@@ -35,12 +35,12 @@ class ResUsers(models.Model):
         if self._is_admin():
             return False
         elif res_model == 'res.partner':
+            if saisie_group:
+                return 'saisie_group_partner'
             if presence_group and not (manager_group and writer_group):
                 return 'presence_group_partner'
             if lecture_group and not deceased_group:
                 return 'lecture_group_partner'
-            if saisie_group:
-                return 'saisie_group_partner'
         elif res_model == 'shift.shift':
             if presence_group and not (manager_group and writer_group):
                 return 'presence_group_shift'

@@ -86,7 +86,7 @@
     <record model="res.groups" id="group_membership_bdm_lecture">
         <field name="name">BDM Lecture</field>
         <field name="category_id" ref="bdm_users"/>
-        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('coop_shift.group_shift_see_leave')), (4, ref('coop_shift.group_shift_see_counter'))]"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('coop_shift.group_shift_see_leave'))]"/>
     </record>
 
     <record model="res.groups"

@@ -68,7 +68,6 @@ bdm_presence_shift_template_registration_user,bdm.presence.shift.template.regist
 bdm_presence_shift_extension_user,bdm.presence.shift.extension.user,coop_shift.model_shift_extension,coop_membership.group_membership_bdm_presence,1,1,1,0
 bdm_presence_shift_extension_type_user,bdm.presence.shift.extension.type.user,coop_shift.model_shift_extension_type,coop_membership.group_membership_bdm_presence,1,0,0,0
 bdm_presence_mail_message,bdm.presence.mail.message,mail.model_mail_message,coop_membership.group_membership_bdm_presence,1,1,1,1
-bdm_presence_shift_counter_event,bdm.presence.shift.counter.event,coop_membership.model_shift_counter_event,coop_membership.group_membership_bdm_presence,1,1,1,0
 bdm_saisie_res_partner_group_partner_manager,bdm.saisie.res.partner.group.partner.manager,base.model_res_partner,coop_membership.group_membership_bdm_saisie,1,1,1,0
 bdm_saisie_shift_template_registration_line_user,bdm.saisie.shift.template.registration.line.user,coop_shift.model_shift_template_registration_line,coop_membership.group_membership_bdm_saisie,1,1,1,1
 bdm_saisie_shift_leave_manager,bdm.saisie.shift.leave.manager,coop_shift.model_shift_leave,coop_membership.group_membership_bdm_saisie,1,1,1,0
@@ -87,11 +86,11 @@ bdm_saisie_shift_ticket_access,bdm.saisie.shift.ticket.access,coop_shift.model_s
 bdm_saisie_shift_type_access,bdm.saisie.shift.type.access,coop_shift.model_shift_type,coop_membership.group_membership_bdm_saisie,0,1,0,0
 bdm_saisie_shift_mail_reg_access,bdm.saisie.shift.mail.reg.access,coop_shift.model_shift_mail_registration,coop_membership.group_membership_bdm_saisie,1,1,1,1
 bdm_saisie_shift_template_ticket_user,bdm.saisie.shift.template.ticket.user,coop_shift.model_shift_template_ticket,coop_membership.group_membership_bdm_saisie,0,1,0,0
+bdm_saisie_shift_template_registration_user,bdm.saisie.shift.template.registration.user,coop_shift.model_shift_template_registration,coop_membership.group_membership_bdm_lecture,1,0,0,0
 bdm_saisie_shift_template_registration_user,bdm.saisie.shift.template.registration.user,coop_shift.model_shift_template_registration,coop_membership.group_membership_bdm_saisie,0,1,0,0
 bdm_saisie_shift_extension_user,bdm.saisie.shift.extension.user,coop_shift.model_shift_extension,coop_membership.group_membership_bdm_saisie,1,1,1,0
 bdm_saisie_shift_extension_type_user,bdm.saisie.shift.extension.type.user,coop_shift.model_shift_extension_type,coop_membership.group_membership_bdm_saisie,0,1,0,0
 bdm_saisie_mail_message,bdm.saisie.mail.message,mail.model_mail_message,coop_membership.group_membership_bdm_saisie,1,1,1,1
-bdm_saisie_shift_counter_event,bdm.saisie.shift.counter.event,coop_membership.model_shift_counter_event,coop_membership.group_membership_bdm_saisie,1,1,1,0
 bdm_saisie_shift_change_team_user,bdm.saisie.shift.change_team.user,coop_membership.model_shift_change_team,coop_membership.group_membership_bdm_saisie,1,1,1,1
 access_res_partner_inform_group,access.res.partner.inform,coop_membership.model_res_partner_inform,coop_membership.coop_group_access_res_partner_inform,1,1,1,1
 access_shift_counter_event_reason_group,access.shift.counter.event.reason,coop_membership.model_shift_counter_event_reason,coop_membership.coop_group_access_res_partner_inform,1,1,1,1

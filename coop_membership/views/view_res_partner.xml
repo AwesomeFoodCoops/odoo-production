@@ -15,78 +15,16 @@
                    position="attributes">
                 <attribute name="groups">coop_membership.group_clean_up</attribute>
             </xpath>
+            <page name="shifts" position="attributes">
+                <attribute name="groups">
+                    coop_shift.group_shift_manager,
+                    coop_membership.group_membership_bdm_lecture
+                </attribute>
+            </page>
+            <field name="template_ids" position="after">
+                <field name="leader_ids" widget="many2many_tags"/>
+            </field>
             <xpath expr="//sheet/div[@name='button_box']" position="inside">
-                <button name="%(coop_shift.action_shift_extension_from_partner)d"
-                        type="action"
-                        class="oe_stat_button oe_event_attendee_button"
-                        icon="fa-calendar"
-                        help="View partner Extensions"
-                        groups="coop_shift.group_shift_manager,
-                        coop_membership.group_membership_access_user,
-                        coop_membership.group_membership_bdm_lecture,
-                        coop_membership.group_membership_bdm_saisie"
-                        attrs="{'invisible': [('is_member', '!=', True)]}">
-                    <field name="current_extension_day_end"
-                           attrs="{'invisible':[('current_extension_day_end', '=', False)]}"/>
-                    <span attrs="{'invisible':[('current_extension_day_end', '!=', False)]}">Ext.</span>
-                </button>
-                <button name="%(coop_shift.act_shift_registration_from_partner)d"
-                        type="action"
-                        class="oe_stat_button oe_event_attendee_button"
-                        icon="fa-calendar"
-                        help="View partner Registrations"
-                        groups="coop_shift.group_shift_user,
-                        coop_membership.group_membership_access_user,
-                        coop_membership.group_membership_bdm_lecture,
-                        coop_membership.group_membership_bdm_saisie"
-                        id="view_partner_registrations"
-                        attrs="{'invisible':[('is_worker_member', '=', False)]}">
-                    <field name="upcoming_registration_count"
-                           widget="statinfo" string="Upc. Registr."/>
-                </button>
-                <button name="%(coop_shift.act_template_registration_line_from_partner)d"
-                        type="action"
-                        class="oe_stat_button oe_event_attendee_button"
-                        icon="fa-calendar-plus-o"
-                        help="View partner Template Registrations"
-                        groups="coop_shift.group_shift_manager,
-                        coop_membership.group_membership_access_user,
-                        coop_membership.group_membership_bdm_lecture,
-                        coop_membership.group_membership_bdm_saisie"
-                        id="view_partner_template_registrations"
-                        attrs="{'invisible':[('is_worker_member', '=', False)]}">
-                    <field name="current_tmpl_reg_line"
-                           attrs="{'invisible':[('current_tmpl_reg_line', '=', False)]}"/>
-                    <span attrs="{'invisible':[('current_tmpl_reg_line', '!=', False)]}">Tmpl. Registr.</span>
-                </button>
-                <button name="%(coop_shift.action_res_partner_point_counter_view_standard)d"
-                        type="action"
-                        class="oe_stat_button"
-                        icon="fa-star-o"
-                        help="View Partner Points Standard Counter"
-                        groups="coop_shift.group_shift_see_counter,
-                        coop_membership.group_membership_access_user,
-                        coop_membership.group_membership_bdm_lecture,
-                        coop_membership.group_membership_bdm_saisie"
-                        id="view_res_partner_point_counter_standard"
-                        attrs="{'invisible': [('is_member', '!=', True)]}">
-                    <field name="display_std_points" widget="statinfo"
-                           string="ABCD"/>
-                </button>
-                <button name="%(coop_shift.action_res_partner_point_counter_view_ftop)d"
-                        type="action"
-                        class="oe_stat_button"
-                        icon="fa-star-o"
-                        help="View Partner Points FTOP Counter"
-                        groups="coop_shift.group_shift_see_counter,
-                        coop_membership.group_membership_access_user,
-                        coop_membership.group_membership_bdm_lecture,
-                        coop_membership.group_membership_bdm_saisie"
-                        id="view_res_partner_point_counter_ftop"
-                        attrs="{'invisible': [('is_member', '!=', True)]}">
-                    <field name="display_ftop_points" widget="statinfo"
-                           string="Vacations"/>
-                </button>
                 <button name="%(coop_membership.action_res_partner_owned_share)d"
                         type="action"
                         class="oe_stat_button"
@@ -101,8 +39,39 @@
             <xpath expr="//button[@id='view_shift_leaves']" position="attributes">
                 <attribute name="groups">
                     coop_shift.group_shift_see_leave,
-                    coop_membership.group_membership_bdm_lecture,
-                    coop_membership.group_membership_bdm_saisie
+                    coop_membership.group_membership_bdm_lecture
+                </attribute>
+                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@id='view_partner_registrations']" position="attributes">
+                <attribute name="groups">
+                    coop_shift.group_shift_user,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_lecture
+                </attribute>
+                <attribute name="attrs">{'invisible': [('is_worker_member', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@id='view_partner_template_registrations']" position="attributes">
+                <attribute name="groups">
+                    coop_shift.group_shift_manager,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_lecture
+                </attribute>
+                <attribute name="attrs">{'invisible': [('is_worker_member', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@id='view_res_partner_point_counter_standard']" position="attributes">
+                <attribute name="groups">
+                    coop_shift.group_shift_see_counter,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_lecture
+                </attribute>
+                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@id='view_res_partner_point_counter_ftop']" position="attributes">
+                <attribute name="groups">
+                    coop_shift.group_shift_see_counter,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_lecture
                 </attribute>
                 <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
             </xpath>
@@ -805,6 +774,30 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
                eval="[(6, 0, [ref('account.group_account_invoice')])]"/>
     </record>
 
+    <record id="coop_shift.view_res_partner_form_header" model="ir.ui.view">
+        <field name="groups_id" eval="[(4, ref('coop_membership.group_membership_bdm_lecture')), (4, ref('coop_membership.group_membership_access_user'))]"/>
+    </record>
+
+    <record id="view_res_partner_form_header" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_shift.view_res_partner_form_header"/>
+        <field name="arch" type="xml">
+            <field name="cooperative_state" position="attributes">
+                <attribute name="groups">
+                    coop_shift.group_shift_manager,
+                    coop_membership.group_membership_bdm_lecture
+                </attribute>
+            </field>
+            <xpath expr="//button[@name='%(coop_shift.action_shift_extension_from_partner)d']" position="attributes">
+                <attribute name="groups">
+                    coop_shift.group_shift_manager,
+                    coop_membership.group_membership_bdm_lecture,
+                    coop_membership.group_membership_access_user
+                </attribute>
+                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
     <!-- Actions on Members -->
     <record id="action_coop_membership_access_rights"
             model="ir.actions.act_window">

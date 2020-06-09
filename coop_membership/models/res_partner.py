@@ -927,13 +927,6 @@ class ResPartner(models.Model):
             'coop_membership.group_membership_access_edit')
         if view_type == 'form':
             if lecture_group and not writer_group:
-                shift_ext_from_partner_id = self.env.ref(
-                    'coop_shift.act_shift_registration_from_partner').id
-                shift_ext_from_partner_tree_id = \
-                    self.env.ref(
-                        'coop_shift.'
-                        'act_shift_registration_from_partner_tree_mode'
-                    ).id
                 tpl_reg_line_fr_partner_id = \
                     self.env.ref(
                         'coop_shift.'
@@ -946,10 +939,6 @@ class ResPartner(models.Model):
                     ).id
 
                 for node in doc.xpath("//button"):
-                    if node.get('name') == str(shift_ext_from_partner_id):
-                        node.set(
-                            'name',
-                            str(shift_ext_from_partner_tree_id))
                     if node.get('name') == str(tpl_reg_line_fr_partner_id):
                         node.set(
                             'name',
