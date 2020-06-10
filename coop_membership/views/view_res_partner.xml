@@ -609,7 +609,7 @@
         </field>
     </record>
 
-    <record id="view_membership_access_form_manager" model="ir.ui.view">
+    <record id="view_membership_access_form_barcode_manager" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="priority" eval="1"/>
         <field name="inherit_id" ref="coop_membership.view_res_partner_form_barcodes_generator_partner"/>

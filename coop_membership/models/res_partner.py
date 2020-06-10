@@ -10,11 +10,9 @@ from datetime import datetime, date, timedelta
 
 import pytz
 from dateutil.relativedelta import relativedelta
-from lxml import etree
 from odoo import models, fields, api, _
 from odoo.addons.queue_job.job import job
 from odoo.exceptions import ValidationError
-from odoo.osv.orm import setup_modifiers
 from odoo.tools.safe_eval import safe_eval
 
 EXTRA_COOPERATIVE_STATE_SELECTION = [
