@@ -188,6 +188,10 @@ class ShiftTemplateRegistrationLine(models.Model):
             state = vals.get('state', line.state)
             begin = vals.get('date_begin', line.date_begin)
             end = vals.get('date_end', line.date_end)
+            if isinstance(end, str):
+                end = fields.Date.from_string(end)
+            if isinstance(begin, str):
+                begin = fields.Date.from_string(begin)
 
             # for linked registrations
             for sr in line.shift_registration_ids:

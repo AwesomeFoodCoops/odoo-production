@@ -1035,11 +1035,6 @@ msgid "Accept"
 msgstr "Accepter"
 
 #. module: coop_membership
-#: model:res.groups,name:coop_membership.coop_group_access_res_partner_image
-msgid "Access Res Partner Image"
-msgstr "Accéder à l'image du coopérateur"
-
-#. module: coop_membership
 #: model:res.groups,name:coop_membership.coop_group_access_res_partner_inform
 msgid "Access Res Partner Inform"
 msgstr "Accéder aux informations du coopérateur"

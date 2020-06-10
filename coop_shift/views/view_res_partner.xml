@@ -54,7 +54,6 @@
                     <span attrs="{'invisible':[('current_leave_info', '!=', False)]}">Leaves</span>
                 </button>
                 <button name="%(coop_shift.act_template_registration_line_from_partner)d"
-
                         type="action"
                         class="oe_stat_button oe_event_attendee_button"
                         icon="fa-calendar-plus-o"

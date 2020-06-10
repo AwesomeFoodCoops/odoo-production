@@ -201,17 +201,11 @@
                eval="[(4, ref('group_membership_bdm_lecture')), (4, ref('coop_membership.group_shift_create_extension_from_attendance'))]"/>
     </record>
 
-    <!-- Bdm saisie - Comprehensive data entry profile -->
-    <record model="res.groups" id="coop_group_access_res_partner_image">
-        <field name="name">Access Res Partner Image</field>
-        <field name="category_id" ref="module_membership_access_management"/>
-    </record>
-
     <record model="res.groups" id="group_membership_bdm_saisie">
         <field name="name">BDM Saisie</field>
         <field name="category_id" ref="bdm_users"/>
         <field name="menu_access" eval="[(4, ref('coop_shift.shift_menu'))]"/>
-        <field name="implied_ids" eval="[(4, ref('coop_membership.group_membership_bdm_presence')), (4, ref('coop_group_access_res_partner_image'))]"/>
+        <field name="implied_ids" eval="[(4, ref('coop_membership.group_membership_bdm_presence'))]"/>
     </record>
 
     <record model="res.groups" id="group_clean_up">

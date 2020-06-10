@@ -262,4 +262,16 @@
         <field name="sequence">10</field>
     </record>
 
+    <record model="ir.ui.menu" id="contacts.menu_contacts">
+        <field name="groups_id" eval="[(3, ref('base.group_user'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="website.menu_website_configuration">
+        <field name="groups_id" eval="[(3, ref('base.group_user')), (4, ref('website.group_website_publisher'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="maintenance.menu_maintenance_title">
+        <field name="groups_id" eval="[(4, ref('maintenance.group_equipment_manager'))]"/>
+    </record>
+
 </odoo>

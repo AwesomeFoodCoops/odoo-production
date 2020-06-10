@@ -1090,11 +1090,6 @@ msgid "Accept"
 msgstr ""
 
 #. module: coop_membership
-#: model:res.groups,name:coop_membership.coop_group_access_res_partner_image
-msgid "Access Res Partner Image"
-msgstr ""
-
-#. module: coop_membership
 #: model:res.groups,name:coop_membership.coop_group_access_res_partner_inform
 msgid "Access Res Partner Inform"
 msgstr ""

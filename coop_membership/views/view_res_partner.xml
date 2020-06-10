@@ -484,10 +484,25 @@
                 <page name="contact_us_message" string="Comment"
                       groups="coop_membership.group_see_contact_messeage">
                     <button style="margin-top: 5px;" string="Contact Us" type="object"
-                            name="set_messages_contact" class="oe_highlight"/>
-                    <field style="margin-top: 5px;" name="contact_us_message"/>
+                            name="set_messages_contact" class="oe_highlight"
+                            groups="coop_membership.group_edit_contact_messeage"
+                    />
+                    <field style="margin-top: 5px;" name="contact_us_message" readonly="1"/>
                 </page>
             </xpath>
+        </field>
+    </record>
+
+    <!-- Edit contact us message in 'Comments' Tab -->
+    <record id="view_partner_form_message" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="priority" eval="1"/>
+        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
+        <field name="groups_id" eval="[(4, ref('coop_membership.group_edit_contact_messeage'))]"/>
+        <field name="arch" type="xml">
+            <field name="contact_us_message" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
         </field>
     </record>
 
