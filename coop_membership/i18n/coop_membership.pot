@@ -2532,7 +2532,7 @@ msgstr ""
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_res_partner_form_base
-msgid "MemberShip"
+msgid "Membership"
 msgstr ""
 
 #. module: coop_membership

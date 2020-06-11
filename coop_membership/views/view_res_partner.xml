@@ -101,7 +101,7 @@
                 <page name="membership" string="Membership"
                     attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False)]}">
                 <group>
-                    <group string="MemberShip"
+                    <group string="Membership"
                            groups="coop_membership.group_membership_see_associated_people,
                            coop_membership.group_membership_access_user,
                            coop_membership.group_membership_bdm_saisie"
@@ -130,38 +130,6 @@
                                groups="coop_membership.group_membership_access_manager"/>
                         <field name="is_designated_buyer"
                                readonly="1"
-                               groups="coop_membership.group_membership_access_manager"/>
-                    </group>
-                    <group string="Extra Data"
-                           attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
-                        <field name="temp_coop_number"
-                               groups="coop_membership.group_membership_see_associated_people,
-                               coop_membership.group_membership_access_user"/>
-                        <field name="age" attrs="{'invisible': [('age', '=', 0)]}"
-                               groups="coop_membership.group_membership_see_associated_people,
-                               coop_membership.group_membership_bdm_lecture,
-                               coop_membership.group_membership_access_user,
-                               coop_membership.group_membership_bdm_saisie"/>
-                        <field name="contact_origin_id"
-                               widget="many2many_tags"
-                               groups="coop_membership.group_membership_see_associated_people,
-                               coop_membership.group_membership_access_user">
-                            <tree>
-                                <field name="event_id"/>
-                                <field name="state" invisible="1"/>
-                                <field name="date_open"/>
-                                <field name="date_closed"/>
-                            </tree>
-                        </field>
-    
-                        <field name="is_deceased"
-                               groups="coop_membership.group_membership_see_associated_people,
-                               coop_membership.group_membership_access_user,
-                               coop_membership.group_membership_bdm_lecture,
-                               coop_membership.group_membership_bdm_saisie"/>
-                        <field name="date_of_death"
-                               attrs="{'invisible': [('is_deceased', '=', False)]}"/>
-                        <field name="deactivated_date" readonly="1"
                                groups="coop_membership.group_membership_access_manager"/>
                     </group>
                 </group>
@@ -493,6 +461,49 @@
         </field>
     </record>
 
+    <record id="personal_information" model="ir.ui.view">
+        <field name="name">Personal information page for contacts form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="partner_contact_personal_information_page.personal_information"/>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <group name="personal_information_group" position="after">
+                <group string="Extra Data"
+                       attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
+                    <field name="temp_coop_number"
+                           groups="coop_membership.group_membership_see_associated_people,
+                           coop_membership.group_membership_access_user"/>
+                    <field name="age" attrs="{'invisible': [('age', '=', 0)]}"
+                           groups="coop_membership.group_membership_see_associated_people,
+                           coop_membership.group_membership_bdm_lecture,
+                           coop_membership.group_membership_access_user,
+                           coop_membership.group_membership_bdm_saisie"/>
+                    <field name="contact_origin_id"
+                           widget="many2many_tags"
+                           groups="coop_membership.group_membership_see_associated_people,
+                           coop_membership.group_membership_access_user">
+                        <tree>
+                            <field name="event_id"/>
+                            <field name="state" invisible="1"/>
+                            <field name="date_open"/>
+                            <field name="date_closed"/>
+                        </tree>
+                    </field>
+                    <field name="is_deceased"
+                           groups="coop_membership.group_membership_see_associated_people,
+                           coop_membership.group_membership_access_user,
+                           coop_membership.group_membership_bdm_lecture,
+                           coop_membership.group_membership_bdm_saisie"/>
+                    <field name="date_of_death"
+                           attrs="{'invisible': [('is_deceased', '=', False)]}"/>
+                    <field name="deactivated_date" readonly="1"
+                           groups="coop_membership.group_membership_access_manager"/>
+                </group>
+                <group/>
+            </group>
+        </field>
+    </record>
+
     <!-- Edit contact us message in 'Comments' Tab -->
     <record id="view_partner_form_message" model="ir.ui.view">
         <field name="model">res.partner</field>
@@ -618,22 +629,6 @@
         <field name="arch" type="xml">
             <field name="barcode_base" position="attributes">
                 <attribute name="readonly" eval="False"/>
-            </field>
-        </field>
-    </record>
-
-    <!-- BDM lecture views -->
-    <record model="ir.ui.view" id="view_res_partner_form_membership">
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="partner_contact_gender.view_personal_information_gender"/>
-        <field name="groups_id"
-               eval="[(6,0,[ref('coop_membership.group_membership_bdm_lecture'),
-                            ref('coop_membership.group_membership_access_edit'),
-                            ref('coop_membership.group_membership_bdm_saisie')
-               ])]"/>
-        <field name="arch" type="xml">
-            <field name="gender" position="attributes">
-                <attribute name="readonly">True</attribute>
             </field>
         </field>
     </record>
