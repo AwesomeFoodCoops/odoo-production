@@ -418,7 +418,7 @@ class ShiftChangeTeam(models.Model):
     def check_num_week(self, new_next_shift_date):
         self.ensure_one()
         weekA_date = fields.Datetime.from_string(
-            self.env.ref('coop_shift.config_parameter_weekA').value)
+            self.env.ref('coop_shift.config_parameter_weekA').sudo().value)
 
         week_number = 1 + (((fields.Datetime.from_string(
             new_next_shift_date) - weekA_date).days // 7) % 4)

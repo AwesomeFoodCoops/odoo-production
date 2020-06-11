@@ -114,7 +114,7 @@ class ShiftShift(models.Model):
                 shift.week_number = False
             else:
                 weekA_date = fields.Date.from_string(
-                    self.env.ref('coop_shift.config_parameter_weekA').value)
+                    self.env.ref('coop_shift.config_parameter_weekA').sudo().value)
                 start_date = fields.Date.from_string(shift.date_without_time)
                 shift.week_number =\
                     1 + (((start_date - weekA_date).days // 7) % 4)

@@ -19,7 +19,7 @@ class ReportWallchartCommon(models.AbstractModel):
         if not test_date:
             return False
         weekA_date = fields.Date.from_string(
-            self.env.ref('coop_shift.config_parameter_weekA').value)
+            self.env.ref('coop_shift.config_parameter_weekA').sudo().value)
         week_number = 1 + (((test_date - weekA_date).days // 7) % 4)
         return (week_number, WEEK_LETTER[week_number - 1])
 

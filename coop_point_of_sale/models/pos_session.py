@@ -76,7 +76,7 @@ class PosSession(models.Model):
                 session.week_number = False
             else:
                 weekA_date = fields.Date.from_string(
-                    self.env.ref("coop_shift.config_parameter_weekA").value
+                    self.env.ref("coop_shift.config_parameter_weekA").sudo().value
                 )
                 start_at = fields.Date.from_string(session.start_at)
                 week_number = 1 + (((start_at - weekA_date).days // 7) % 4)
