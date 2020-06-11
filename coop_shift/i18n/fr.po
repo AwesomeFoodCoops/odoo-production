@@ -2526,16 +2526,6 @@ msgid "Second"
 msgstr "Deuxième"
 
 #. module: coop_shift
-#: model:res.groups,name:coop_shift.group_shift_see_counter_event
-msgid "See Counter Events"
-msgstr "Voir le détail des compteurs"
-
-#. module: coop_shift
-#: model:res.groups,name:coop_shift.group_shift_see_counter
-msgid "See Counters"
-msgstr "Voir les compteurs"
-
-#. module: coop_shift
 #: model:res.groups,name:coop_shift.group_shift_see_leave
 msgid "See Leaves"
 msgstr "Voir les congés"

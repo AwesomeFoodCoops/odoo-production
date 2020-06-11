@@ -98,7 +98,7 @@
                        groups="coop_shift.group_shift_see_default_setting_address"/>
             </field>
             <group name="button" position="before">
-                <group name="state" groups="coop_shift.group_shift_see_counter">
+                <group name="state">
                     <field name="shift_type"/>
                     <field name="is_blocked"/>
                     <field name="is_exempted"/>
