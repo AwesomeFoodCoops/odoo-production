@@ -417,7 +417,7 @@ class ShiftTemplate(models.Model):
                 template.week_number = False
             else:
                 weekA_date = fields.Date.from_string(
-                    self.env.ref('coop_shift.config_parameter_weekA').value)
+                    self.env.ref('coop_shift.config_parameter_weekA').sudo().value)
                 start_date = fields.Date.from_string(template.start_date)
                 template.week_number =\
                     1 + (((start_date - weekA_date).days // 7) % 4)
@@ -748,7 +748,7 @@ class ShiftTemplate(models.Model):
         if not test_date:
             return False
         weekA_date = fields.Datetime.from_string(
-            self.env.ref('coop_shift.config_parameter_weekA').value)
+            self.env.ref('coop_shift.config_parameter_weekA').sudo().value)
         week_number = 1 + (((test_date - weekA_date).days // 7) % 4)
         return week_number
 

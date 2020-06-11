@@ -39,7 +39,7 @@ class PosOrder(models.Model):
                 order.week_number = False
             else:
                 weekA_date = fields.Date.from_string(
-                    self.env.ref("coop_shift.config_parameter_weekA").value
+                    self.env.ref("coop_shift.config_parameter_weekA").sudo().value
                 )
                 date_order = fields.Date.from_string(order.date_order)
                 week_number = 1 + (((date_order - weekA_date).days // 7) % 4)
