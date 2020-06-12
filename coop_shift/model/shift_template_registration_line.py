@@ -204,8 +204,10 @@ class ShiftTemplateRegistrationLine(models.Model):
                     continue
                 # if dates ok, just update state
                 if sr.state in ['draft', 'open', 'waiting']:
-                    if (shift_date_begin >= begin or not begin) and\
-                            (shift_date_end <= end or not end):
+                    if (
+                        (not begin or shift_date_begin >= begin)
+                        and (not end or shift_date_end <= end)
+                    ):
                         sr.state = state
                     # if dates not ok, unlink the shift_registration
                     else:
@@ -215,8 +217,8 @@ class ShiftTemplateRegistrationLine(models.Model):
             # it
             shifts = st_reg.shift_template_id.shift_ids.filtered(
                 lambda s, b=begin, e=end: (
-                    s.date_begin.date() >= b or not b) and (
-                    s.date_end.date() <= e or not e) and (
+                    not b or s.date_begin.date() >= b) and (
+                    not e or s.date_end.date() <= e) and (
                     s.state != 'done'))
 
             for shift in shifts:
