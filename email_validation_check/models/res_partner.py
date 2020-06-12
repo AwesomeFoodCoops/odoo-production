@@ -22,15 +22,20 @@ class ResPartner(models.Model):
 
     email_validation_string = fields.Char(
         string="String Validation Email",
-        compute="compute_hash_validation_email",
-        store=True)
-    is_checked_email = fields.Boolean('Is Checked Email', default=True)
-    validation_url = fields.Char('Link to validate',
-                                 compute="compute_url_validation_email",
-                                 store=True)
-    show_send_email = fields.Boolean(compute="compute_show_send_email",
-                                     string="Show button send email confirm",
-                                     store=True)
+        compute="_compute_email_validation_string",
+        store=True,
+    )
+    is_checked_email = fields.Boolean(default=True)
+    validation_url = fields.Char(
+        'Link to validate',
+        compute="_compute_validation_url",
+        store=True,
+    )
+    show_send_email = fields.Boolean(
+        compute="_compute_show_send_email",
+        string="Show button send email confirm",
+        store=True,
+    )
 
     @api.multi
     def write(self, vals):
@@ -49,7 +54,7 @@ class ResPartner(models.Model):
                         mail_template.send_mail(self.id)
                     partner.is_checked_email = False
                 # Update login user which's related partner
-                user_related = self.env['res.users'].search([
+                user_related = self.env['res.users'].sudo().search([
                     ('partner_id', '=', partner.id)])
                 user_related.write({'login': partner.email})
         return res
@@ -93,19 +98,17 @@ class ResPartner(models.Model):
                         "Another user is already registered using this "
                         "email address: %s") % partner.email)
 
-    @api.multi
     @api.depends('email')
-    def compute_hash_validation_email(self):
-        for partner in self:
-            if partner.email:
-                partner.email_validation_string = random_token()
+    def _compute_email_validation_string(self):
+        for partner in self.filtered('email'):
+            partner.email_validation_string = random_token()
 
     @api.multi
     @api.depends(
         'email', 'is_member', 'is_interested_people',
         'supplier', 'is_checked_email',
     )
-    def compute_show_send_email(self):
+    def _compute_show_send_email(self):
         for partner in self:
             if (
                 partner.supplier
@@ -129,22 +132,23 @@ class ResPartner(models.Model):
 
     @api.multi
     def recompute_hash_confirm_email(self):
+        mail_template = self.env.ref(
+            'email_validation_check.email_confirm_validate')
         for partner in self:
             curr_hash = partner.email_validation_string
             partner.email_validation_string = random_token()
             if partner.email_validation_string != curr_hash:
-                mail_template = self.env.ref(
-                    'email_validation_check.email_confirm_validate')
                 if mail_template:
                     mail_template.send_mail(self.id)
         return True
 
-    @api.multi
     @api.depends('email_validation_string')
-    def compute_url_validation_email(self):
+    def _compute_validation_url(self):
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        base_url = get_param('web.base.url')
         for partner in self:
-            base_url = self.env['ir.config_parameter'].sudo().get_param(
-                'web.base.url')
-            validation_url = base_url + '/validate' + '/%s' % (partner.id) +\
-                '/%s' % (partner.email_validation_string)
-            partner.validation_url = validation_url
+            partner.validation_url = '%s/validate/%s/%s' % (
+                    base_url,
+                    partner.id,
+                    partner.email_validation_string,
+                )
