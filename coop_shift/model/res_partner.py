@@ -109,10 +109,14 @@ class ResPartner(models.Model):
         default='standard')
 
     working_state = fields.Selection(
-        selection=WORKING_STATE_SELECTION, string='Working State', store=True,
-        compute='_compute_working_state', help="This state depends on the"
-        " shifts realized by the partner.")
-
+        selection=WORKING_STATE_SELECTION,
+        string='Working State',
+        help="This state depends on the"
+             " shifts realized by the partner.",
+        compute='_compute_working_state',
+        compute_sudo=True,
+        store=True,
+    )
     cooperative_state = fields.Selection(
         selection=WORKING_STATE_SELECTION, string='Cooperative State',
         store=True, compute='_compute_cooperative_state', help="This state"
@@ -159,20 +163,21 @@ class ResPartner(models.Model):
         store=True)
 
     current_extension_day_end = fields.Char(
-        string='Current Extension Day End', compute='_compute_extension_qty',
+        string='Current Extension Day End',
+        compute='_compute_extension_qty',
     )
-
     counter_event_ids = fields.One2many(
-        comodel_name='shift.counter.event', inverse_name='partner_id',
-        string='Counter Events')
-
-    default_addess_for_shifts = fields.Boolean(
-        string="Use as default for Shifts")
-
+        string='Counter Events',
+        comodel_name='shift.counter.event',
+        inverse_name='partner_id',
+    )
+    default_addess_for_shifts = fields.Boolean("Use as default for Shifts")
     in_ftop_team = fields.Boolean(
         string="In FTOP Team",
         compute="_compute_in_ftop_team",
-        store=False)
+        compute_sudo=True,
+        store=False,
+    )
 
     # Constrains section
     @api.multi

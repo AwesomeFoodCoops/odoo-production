@@ -9,28 +9,36 @@ class ResPartnerOwnedShare(models.Model):
     _name = 'res.partner.owned.share'
     _description = 'Res Partner Owned Share'
 
-    name = fields.Char('Name',
-                       compute="_compute_partner_owned_share_name",
-                       store=True)
+    name = fields.Char(
+        compute="_compute_partner_owned_share_name",
+        compute_sudo=True,
+        store=True,
+    )
+    partner_id = fields.Many2one(
+        'res.partner',
+        string="Partner",
+        required=True,
+        readonly=True,
+    )
+    category_id = fields.Many2one(
+        'capital.fundraising.category',
+        string="Category",
+        required=True,
+        readonly=True,
+    )
+    owned_share = fields.Integer(
+        compute="_compute_owned_share",
+        compute_sudo=True,
+        readonly=True,
+        store=True,
+    )
+    related_invoice_ids = fields.One2many(
+        'account.invoice',
+        'partner_owned_share_id',
+        string="Related Invoices",
+    )
 
-    partner_id = fields.Many2one('res.partner',
-                                 string="Partner",
-                                 required=True,
-                                 readonly=True)
-    category_id = fields.Many2one('capital.fundraising.category',
-                                  string="Category", required=True,
-                                  readonly=True)
-    owned_share = fields.Integer(string='Owned Share',
-                                 compute="_compute_owned_share",
-                                 readonly=True,
-                                 store=True)
-    related_invoice_ids = fields.One2many('account.invoice',
-                                          'partner_owned_share_id',
-                                          string="Related Invoices")
-
-    @api.multi
-    @api.depends('related_invoice_ids',
-                 'related_invoice_ids.state')
+    @api.depends('related_invoice_ids', 'related_invoice_ids.state')
     def _compute_owned_share(self):
         '''
         @Function to compute the owned share based on related Invoice
@@ -53,9 +61,7 @@ class ResPartnerOwnedShare(models.Model):
                              inv_line.product_id.is_capital_fundraising])
             partner_share.owned_share = owned_share
 
-    @api.multi
-    @api.depends('partner_id', 'partner_id.name',
-                 'category_id', 'category_id.name')
+    @api.depends('partner_id.name', 'category_id.name')
     def _compute_partner_owned_share_name(self):
         '''
         @Function to compute the name for partner owned share
