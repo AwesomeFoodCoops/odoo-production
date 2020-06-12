@@ -231,7 +231,6 @@ class ResPartner(models.Model):
             - If a partner has shares, he cannot be an associated member
         '''
         for partner in self:
-            partner_parent = partner.parent_id
             if (
                 partner.parent_id
                 and partner.parent_id.is_member
