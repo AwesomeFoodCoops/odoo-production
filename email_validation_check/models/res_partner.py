@@ -148,7 +148,7 @@ class ResPartner(models.Model):
         base_url = get_param('web.base.url')
         for partner in self:
             partner.validation_url = '%s/validate/%s/%s' % (
-                    base_url,
-                    partner.id,
-                    partner.email_validation_string,
+                base_url,
+                partner.id,
+                partner.email_validation_string,
                 )
