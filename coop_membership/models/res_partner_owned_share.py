@@ -11,6 +11,7 @@ class ResPartnerOwnedShare(models.Model):
 
     name = fields.Char(
         compute="_compute_partner_owned_share_name",
+        compute_sudo=True,
         store=True,
     )
     partner_id = fields.Many2one(
@@ -27,6 +28,7 @@ class ResPartnerOwnedShare(models.Model):
     )
     owned_share = fields.Integer(
         compute="_compute_owned_share",
+        compute_sudo=True,
         readonly=True,
         store=True,
     )
