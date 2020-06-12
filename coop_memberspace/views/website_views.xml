@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.ui.menu" id="website.menu_website_configuration">
+        <field name="groups_id" eval="[(3, ref('base.group_user')), (4, ref('website.group_website_publisher'))]"/>
+    </record>
+
+</odoo>
