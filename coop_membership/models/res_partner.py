@@ -524,23 +524,26 @@ class ResPartner(models.Model):
 
     @api.multi
     def write(self, vals):
-        asscociated_member_ids = self.filtered(
-            lambda p: p.is_associated_people).ids
-        res = super(ResPartner, self).write(vals)
+        res = super().write(vals)
         for partner in self:
             self._generate_associated_barcode(partner)
         # Recompute display_name if needed
-        if ('barcode_base' in vals or 'is_member' in vals) \
-                and ('name' not in vals):
+        if (
+            'name' not in vals
+            and (
+                'barcode_base' in vals
+                or 'is_member' in vals
+            )
+        ):
             for partner in self:
                 partner.name = partner.name
-
         if 'parent_id' in vals:
             # Update is_former_associated_people to true
             # if an associated member had been removed from its parent
             if not vals.get('parent_id'):
+                asscociated_member_ids = self.filtered('is_associated_people')
                 for partner in self:
-                    if partner.id in asscociated_member_ids:
+                    if partner in asscociated_member_ids:
                         partner.is_former_associated_people = True
         return res
 
