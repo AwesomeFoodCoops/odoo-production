@@ -42,56 +42,84 @@ class ResPartner(models.Model):
     payment_method_count = fields.Integer()
     opt_out = fields.Boolean(default=False)
 
-    is_member = fields.Boolean('Is Member',
-                               compute="_compute_is_member",
-                               store=True,
-                               readonly=True)
-
-    is_former_member = fields.Boolean("Is Former Member",
-                                      compute="_compute_is_former_member",
-                                      store=True, readonly=True)
-
+    is_member = fields.Boolean(
+        'Is Member',
+        compute="_compute_is_member",
+        compute_sudo=True,
+        store=True,
+        readonly=True,
+    )
+    is_former_member = fields.Boolean(
+        "Is Former Member",
+        compute="_compute_is_former_member",
+        compute_sudo=True,
+        store=True,
+        readonly=True,
+    )
     is_former_associated_people = fields.Boolean(
         "Is Former Associated People",
         compute="_compute_is_former_associated_people",
-        store=True, readonly=True)
-
+        compute_sudo=True,
+        store=True,
+        readonly=True,
+    )
     is_interested_people = fields.Boolean(
         "Is Interested People",
         compute="_compute_is_interested_people",
-        readonly=True, store=True)
-
+        compute_sudo=True,
+        readonly=True,
+        store=True,
+    )
     is_worker_member = fields.Boolean(
         "Is Worker Member",
         compute="_compute_is_worker_member",
-        readonly=True, store=True)
-
+        compute_sudo=True,
+        readonly=True,
+        store=True,
+    )
     is_unpayed = fields.Boolean(
         string='Unpayed',
         help="Check this box, if the partner has late"
-        " payments for him capital subscriptions. this will prevent him"
-        " to buy.")
-
+             " payments for him capital subscriptions. this will prevent him"
+             " to buy.",
+    )
     is_unsubscribed = fields.Boolean(
-        string='Unsubscribed', store=True, help="Computed field."
-        " This box is checked if the user is not linked"
-        " to a template registration.", compute="_compute_is_unsubscribed")
-
-    temp_coop_number = fields.Char('Temporary number')
-
+        string='Unsubscribed',
+        help="Computed field."
+             " This box is checked if the user is not linked"
+             " to a template registration.",
+        compute="_compute_is_unsubscribed",
+        compute_sudo=True,
+        store=True,
+    )
+    unsubscription_date = fields.Date(
+        string='Unsubscription Date',
+        compute='_compute_is_unsubscribed',
+        compute_sudo=True,
+        store=True,
+    )
     is_underclass_population = fields.Boolean(
         'is Underclass Population',
-        compute='_compute_is_underclass_population')
-
+        compute='_compute_is_underclass_population',
+        compute_sudo=True,
+    )
+    is_associated_people = fields.Boolean(
+        string='Is Associated People',
+        compute='_compute_is_associated_people',
+        store=True,
+    )
+    is_designated_buyer = fields.Boolean(
+        string='Designated buyer'
+    )
+    temp_coop_number = fields.Char('Temporary number')
     contact_origin_id = fields.One2many(
-        'event.registration', 'partner_id', string='Contact Origin')
-
+        'event.registration',
+        'partner_id',
+        string='Contact Origin',
+    )
     is_deceased = fields.Boolean(string='Is Deceased')
-
     date_of_death = fields.Date(string="Date of Death")
-
-    age = fields.Integer(
-        string="Age", compute='_compute_age')
+    age = fields.Integer("Age", compute='_compute_age')
 
     partner_owned_share_ids = fields.One2many(
         'res.partner.owned.share',
@@ -101,14 +129,7 @@ class ResPartner(models.Model):
     total_partner_owned_share = fields.Integer(
         string="Total Owned Shares",
         compute="_compute_total_partner_owned_share",
-        store=True)
-
-    is_associated_people = fields.Boolean(
-        string='Is Associated People', store=True,
-        compute='_compute_is_associated_people')
-
-    is_designated_buyer = fields.Boolean(
-        string='Designated buyer'
+        store=True,
     )
 
     deactivated_date = fields.Date()
@@ -118,7 +139,10 @@ class ResPartner(models.Model):
 
     # Important : Overloaded Field Section
     customer = fields.Boolean(
-        compute='_compute_customer', store=True, readonly=True)
+        compute='_compute_customer',
+        store=True,
+        readonly=True,
+    )
 
     # Note we use selection instead of selection_add, to have a correct
     # order in the status widget
@@ -133,49 +157,48 @@ class ResPartner(models.Model):
         compute="_compute_number_of_associated_people",
         store=True)
 
-    parent_member_num = fields.Integer(string="Parent Number",
-                                       related='parent_id.barcode_base',
-                                       store=True)
-    badge_distribution_date = fields.Date(string="Badge Distribution")
-    badge_to_distribute = fields.Boolean(string="Badge to distribute",
-                                         store=True,
-                                         compute="_compute_badge_to_distribute"
-                                         )
-    badge_print_date = fields.Date(string="Badge Print Date")
+    parent_member_num = fields.Integer(
+        string="Parent Number",
+        related='parent_id.barcode_base',
+        store=True,
+    )
+    badge_distribution_date = fields.Date("Badge Distribution")
+    badge_to_distribute = fields.Boolean(
+        "Badge to distribute",
+        store=True,
+        compute="_compute_badge_to_distribute",
+    )
+    badge_print_date = fields.Date("Badge Print Date")
     contact_us_message = fields.Html(
-        string="Contact Us Message", translate=True)
-
-    force_customer = fields.Boolean(string="Force Customer", default=False)
-
+        string="Contact Us Message",
+        translate=True,
+    )
+    force_customer = fields.Boolean(
+        "Force Customer",
+        default=False,
+    )
     inform_ids = fields.Many2many(
-        comodel_name='res.partner.inform', string='Informé que')
-
+        'res.partner.inform',
+        string='Informé que',
+    )
     shift_type = fields.Selection(
         string='Shift type',
         compute='_compute_shift_type',
-        store=True
+        store=True,
     )
-
     current_template_name = fields.Char(
         string='Current Template',
         compute='_compute_current_template',
-        store=True
+        store=True,
     )
-
     is_minor_child = fields.Boolean(string='Enfant mineur')
-    unsubscription_date = fields.Date(
-        string='Unsubscription Date',
-        compute='_compute_is_unsubscribed',
-        store=True
-    )
-
     leader_ids = fields.Many2many(
+        string='Shift Leaders',
         comodel_name='res.partner',
         relation='partner_leader_rel',
         column1='leader_id',
         column2='partner_id',
         compute='_compute_current_template',
-        string='Shift Leaders'
     )
 
     event_event_id = fields.Many2one('event.event')
@@ -198,11 +221,10 @@ class ResPartner(models.Model):
                     partner.birthdate_date, partner.is_minor_child
                 )
 
-    @api.multi
-    @api.constrains('is_member',
-                    'parent_id',
-                    'is_associated_people',
-                    'total_partner_owned_share')
+    @api.constrains(
+        'is_member', 'parent_id',
+        'is_associated_people', 'total_partner_owned_share',
+    )
     def _check_partner_type(self):
         '''
         @Function to add a constraint on partner type
@@ -210,13 +232,15 @@ class ResPartner(models.Model):
         '''
         for partner in self:
             partner_parent = partner.parent_id
-            if partner_parent and partner_parent.is_member and \
-                    partner.total_partner_owned_share > 0:
-                raise ValidationError(
-                    _("You can't be an " +
-                      "associated people if you have shares ! " +
-                      "Empty the parent_id field to be allowed " +
-                      "to write others changes"))
+            if (
+                partner.parent_id
+                and partner.parent_id.is_member
+                and partner.total_partner_owned_share > 0
+            ):
+                raise ValidationError(_(
+                    "You can't be an associated people if you have shares ! "
+                    "Empty the parent_id field to be allowed to write others "
+                    "changes"))
 
     @api.multi
     @api.constrains('nb_associated_people')
@@ -234,9 +258,9 @@ class ResPartner(models.Model):
         for rec in self:
             if avail_check == 'limited' and rec.is_member and \
                     rec.nb_associated_people > max_nb:
-                raise ValidationError(_("The maximum number of " +
-                                        "associated people has been exceeded.")
-                                      )
+                raise ValidationError(_(
+                    "The maximum number of associated people has "
+                    "been exceeded."))
 
     @api.multi
     @api.depends('is_associated_people', 'parent_id.shift_type')
@@ -460,25 +484,27 @@ class ResPartner(models.Model):
                 partner.cooperative_state = 'not_concerned'
 
     @api.depends('cooperative_state', 'force_customer')
-    @api.multi
     def _compute_customer(self):
         for partner in self:
-            if partner.cooperative_state in \
-                    self.COOPERATIVE_STATE_CUSTOMER or partner.force_customer:
-                partner.customer = True
-            else:
-                partner.customer = False
+            partner.customer = (
+                partner.cooperative_state in self.COOPERATIVE_STATE_CUSTOMER
+                or partner.force_customer
+            )
 
     @api.depends('child_ids')
-    @api.multi
     def _compute_number_of_associated_people(self):
         for partner in self:
-            if (partner.is_member or partner.is_former_member) and \
-                    partner.child_ids:
-                partner.nb_associated_people = \
-                    sum([(p.is_associated_people or
-                          p.is_former_associated_people) and 1 or 0
-                         for p in partner.child_ids])
+            if (
+                (partner.is_member or partner.is_former_member)
+                and partner.child_ids
+            ):
+                partner.nb_associated_people = sum([
+                    (
+                        p.is_associated_people
+                        or p.is_former_associated_people
+                    ) and 1 or 0
+                    for p in partner.child_ids
+                ])
             else:
                 partner.nb_associated_people = 0
 
