@@ -124,21 +124,6 @@
                eval="[(4, ref('group_membership_access_user'))]"/>
     </record>
 
-    <record model="res.groups" id="group_membership_access_edit">
-        <field name="name">Membership Writer</field>
-        <field name="category_id" ref="module_membership_access_management"/>
-        <field name="implied_ids"
-               eval="[(4, ref('group_membership_access_photo'))]"/>
-    </record>
-
-    <record model="res.groups" id="group_membership_access_manager">
-        <field name="name">Membership Manager</field>
-        <field name="category_id" ref="module_membership_access_management"/>
-        <field name="implied_ids"
-               eval="[(4, ref('group_membership_access_edit'))]"/>
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
-    </record>
-
     <record model="res.groups" id="group_see_all_capital_subscription">
         <field name="name">See All Capital Subscriptions</field>
         <field name="category_id" ref="module_membership_access_management"/>
@@ -226,16 +211,34 @@
                eval="[(4, ref('coop_membership.group_see_contact_messeage'))]"/>
     </record>
 
-    <record model="res.groups" id="coop_partner_action">
-        <field name="name">Partner Actions</field>
-        <field name="category_id" ref="base.module_category_extra"/>
-        <field name="implied_ids"
-               eval="[(3, ref('purchase.group_purchase_manager')), (3, ref('coop_membership.group_membership_access_manager'))]"/>
-    </record>
-
     <record model="res.groups" id="coop_group_access_res_partner_inform">
         <field name="name">Access Res Partner Inform</field>
         <field name="category_id" ref="base.module_category_extra"/>
+    </record>
+
+    <record model="res.groups" id="group_membership_advance_user">
+        <field name="name">Advance User</field>
+        <field name="category_id" ref="coop_shift.module_category_membership"/>
+        <field name="implied_ids"
+               eval="[
+                        (4, ref('coop_shift.group_shift_user')),
+                        (4, ref('group_edit_contact_messeage')),
+                        (4, ref('group_refund_capital_subscription')),
+                     ]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record id="coop_shift.group_shift_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_membership_advance_user'))]"/>
+    </record>
+
+    <record id="coop_shift.group_shift_user" model="res.groups">
+        <field name="implied_ids" eval="[
+        (4, ref('group_shift_create_extension_from_attendance')),
+        (4, ref('group_membership_see_all_members')),
+        (4, ref('group_see_contact_messeage')),
+        (4, ref('group_membership_access_photo')),
+        ]"/>
     </record>
 
 </odoo>
