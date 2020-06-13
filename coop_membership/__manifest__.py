@@ -24,6 +24,7 @@
         'res_partner_account_move_line',
         'partner_contact_birthdate',
         'partner_contact_gender',
+        'sms',
     ],
     'data': [
         # Security

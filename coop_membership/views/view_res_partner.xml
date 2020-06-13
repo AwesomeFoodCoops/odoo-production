@@ -97,12 +97,13 @@
             </xpath>
             <page name="sales_purchases" position="after">
                 <page name="membership" string="Membership"
-                    attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False)]}">
+                      attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False)]}"
+                      groups="coop_membership.group_membership_see_associated_people,
+                              coop_membership.group_membership_access_user">
                 <group>
                     <group string="Membership"
                            groups="coop_membership.group_membership_see_associated_people,
-                           coop_membership.group_membership_access_user,
-                           coop_membership.group_membership_bdm_saisie"
+                           coop_membership.group_membership_access_user"
                            attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
                         <field name="nb_associated_people"
                                string="Number of Associated People"
@@ -455,6 +456,56 @@
                     />
                     <field style="margin-top: 5px;" name="contact_us_message" readonly="1"/>
                 </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="partner_form_send_sms_form_view" model="ir.ui.view">
+        <field name="name">res.partner.form.send.sms</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="sms.partner_form_send_sms_form_view"/>
+        <field name="arch" type="xml">
+            <label for="phone" position="attributes">
+                <attribute name="groups">
+                    coop_membership.group_membership_see_associated_people,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
+            </label>
+            <field name="phone" position="attributes">
+                <attribute name="groups">
+                    coop_membership.group_membership_see_associated_people,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
+            </field>
+            <xpath expr="//div[hasclass('o_row')][1]/button[@name='%(sms.send_sms_form_action)d']" position="attributes">
+                <attribute name="groups">
+                    coop_membership.group_membership_see_associated_people,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
+            </xpath>
+            <label for="mobile" position="attributes">
+                <attribute name="groups">
+                    coop_membership.group_membership_see_associated_people,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
+            </label>
+            <field name="mobile" position="attributes">
+                <attribute name="groups">
+                    coop_membership.group_membership_see_associated_people,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
+            </field>
+            <xpath expr="//div[hasclass('o_row')][2]/button[@name='%(sms.send_sms_form_action)d']" position="attributes">
+                <attribute name="groups">
+                    coop_membership.group_membership_see_associated_people,
+                    coop_membership.group_membership_access_user,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
             </xpath>
         </field>
     </record>

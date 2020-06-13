@@ -18,6 +18,7 @@ ir_model_access_shift_registration_user,shift_registration user,coop_shift.model
 ir_model_access_shift_shift_user,shift_shift user,coop_shift.model_shift_shift,coop_shift.group_shift_user,1,1,0,0
 ir_model_access_shift_shift_manager,shift_shift manager,coop_shift.model_shift_shift,coop_shift.group_shift_manager,1,1,1,1
 ir_model_access_shift_template,shift_template user,coop_shift.model_shift_template,coop_shift.group_shift_manager,1,1,1,1
+ir_model_access_shift_template_mail_user,shift_template_mail manager,coop_shift.model_shift_template_mail,base.group_user,1,0,0,0
 ir_model_access_shift_template_mail,shift_template_mail manager,coop_shift.model_shift_template_mail,coop_shift.group_shift_manager,1,1,1,1
 ir_model_access_shift_type,shift_type manager,coop_shift.model_shift_type,coop_shift.group_shift_manager,1,1,1,1
 ir_model_access_shift_ticket_manager,shift_ticket manager,coop_shift.model_shift_ticket,coop_shift.group_shift_manager,1,1,1,1
