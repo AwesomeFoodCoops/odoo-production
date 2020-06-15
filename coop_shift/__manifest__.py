@@ -49,7 +49,6 @@
         'report/report_layout_custom.xml',
         'report/report_data.xml',
         'report/report_timesheet.xml',
-        'report/report_timesheet_inherited.xml',
         'report/report_wallchart.xml',
         'wizard/create_shifts_wizard_view.xml',
         'wizard/update_shifts_wizard_view.xml',
