@@ -78,10 +78,10 @@
             <field name="model">shift.template</field>
             <field name="arch" type="xml">
                 <form string="Shift Template">
+                    <header>
+                        <button name="%(coop_shift.action_create_shift_shifts)d" type="action" class="oe_highlight" icon="fa-cogs" string="Create shifts" groups="coop_shift.group_shift_user"/>
+                    </header>
                     <sheet>
-                        <header>
-                            <button name="%(coop_shift.action_create_shift_shifts)d" type="action" class="oe_highlight" icon="fa-cogs" string="Create shifts"/>
-                        </header>
                         <div class="oe_button_box" name="button_box" groups="base.group_user">
                             <button name="toggle_active" type="object"
                                     class="oe_stat_button" icon="fa-archive">

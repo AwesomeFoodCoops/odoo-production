@@ -10,6 +10,18 @@
                     <field name='warning_leader_unsubscribed' nolabel='1'/>
                 </p>
             </xpath>
+            <xpath expr="//p[@role='alert']" position="attributes">
+                <attribute name="groups">
+                    coop_shift.group_shift_manager,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
+            </xpath>
+            <button name="toggle_active" position="attributes">
+                <attribute name="groups">
+                    coop_shift.group_shift_manager,
+                    coop_membership.group_membership_bdm_saisie
+                </attribute>
+            </button>
         </field>
     </record>
 

@@ -551,8 +551,8 @@ class ShiftRegistration(models.Model):
                            ) and l.stop_date and l.state == 'done')
 
             for leave in leaves:
-                if reg.date_end >= leave.start_date and \
-                        reg.date_begin <= leave.stop_date:
+                if reg.date_end.date() >= leave.start_date and \
+                        reg.date_begin.date() <= leave.stop_date:
                     if reg.shift_id.shift_type_id.is_ftop:
 
                         # Check attendee be crated from template

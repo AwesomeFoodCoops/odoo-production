@@ -244,7 +244,7 @@ class ResPartner(models.Model):
                 lambda r, d=d: r.date_begin >= d and not r.is_technical)
 
             # Set 4 next shifts
-            partner.set_next_registration(next_registrations)
+            partner.sudo().set_next_registration(next_registrations)
 
             partner.upcoming_registration_count = len(next_registrations)
             next_registrations = next_registrations.sorted(
