@@ -88,7 +88,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="9" class="text-center" style="font-size: 18px;">
-                                        <b>**---VACATIONS---**</b>
+                                        <b>**--- Vacations ---**</b>
                                     </td>
                                 </tr>
                                 <tr t-foreach="shift['ftop']" t-as="ftop_data" style="font-size:13px">
