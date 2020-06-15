@@ -170,7 +170,7 @@ class ShiftTemplateRegistrationLine(models.Model):
     @api.multi
     def write(self, vals):
         res = super(ShiftTemplateRegistrationLine, self).write(vals)
-        self.mapped(lambda s: s.partner_id)._compute_registration_counts()
+        self.mapped(lambda s: s.partner_id).sudo()._compute_registration_counts()
         for line in self:
             bypass_leave_change_check = self._context.get(
                 'bypass_leave_change_check', False)

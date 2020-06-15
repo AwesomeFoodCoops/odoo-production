@@ -7,7 +7,7 @@
             <xpath expr="//div[hasclass('oe_title')]" position="after">
                 <field name="show_send_email" invisible="True"/>
                 <p class="alert alert-warning oe_read_only" role="alert"
-                   attrs="{'invisible':[('show_send_email', '=', False)]}">
+                   attrs="{'invisible':[('show_send_email', '=', False)]}" groups="base.group_partner_manager">
                     The current email address has not be validated. Click here to send a new validation link.
                     <button class="oe_highlight" name="recompute_hash_confirm_email" type="object"
                             string="Send New"></button>
