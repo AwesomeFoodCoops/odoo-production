@@ -7,6 +7,9 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+import logging
+_logger = logging.getLogger(__name__)
+
 STATES = [
     ('cancel', 'Cancelled'),
     ('draft', 'Unconfirmed'),
@@ -44,7 +47,8 @@ class ShiftRegistration(models.Model):
         'shift.shift',
         string='Shift',
         required=True,
-        ondelete='cascade')
+        ondelete='cascade',
+    )
     email = fields.Char(readonly=True, related='partner_id.email')
     phone = fields.Char(readonly=True, related='partner_id.phone')
     name = fields.Char(readonly=True, related='partner_id.name', store=True)
@@ -98,16 +102,22 @@ class ShiftRegistration(models.Model):
         """ Close Registration """
         self.ensure_one()
         today = fields.Datetime.now()
-        if self.date_begin <= today and self.shift_id.state == 'confirm':
-            self.write({'state': 'done', 'date_closed': today})
+        if (
+            self.date_begin <= today
+            and self.shift_id.state in ['confirm', 'entry']
+        ):
+            self.write({
+                'state': 'done',
+                'date_closed': today,
+            })
         elif self.shift_id.state == 'draft':
-            raise UserError(
-                _("You must wait the event confirmation"
-                    "before doing this action."))
+            raise UserError(_(
+                "You must wait the event confirmation "
+                "before doing this action."))
         else:
-            raise UserError(
-                _("You must wait the event starting"
-                    "day before doing this action."))
+            raise UserError(_(
+                "You must wait the event starting "
+                "day before doing this action."))
 
     @api.multi
     @api.depends('shift_id.shift_template_id.is_technical')
