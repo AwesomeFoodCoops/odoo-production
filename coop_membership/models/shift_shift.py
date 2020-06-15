@@ -13,20 +13,22 @@ class ShiftShift(models.Model):
     standard_registration_ids = fields.One2many(
         "shift.registration", "shift_id",
         string="Standard Attendances",
-        domain=[('shift_type', '=', 'standard')])
-
+        domain=[('shift_type', '=', 'standard')],
+    )
     ftop_registration_ids = fields.One2many(
         "shift.registration", "shift_id",
         string="FTOP Attendances",
-        domain=[('shift_type', '=', 'ftop')])
-
-    state = fields.Selection([('draft', 'Unconfirmed'),
-                              ('cancel', 'Cancelled'),
-                              ('confirm', 'Confirmed'), ('entry', 'Entry'),
-                              ('done', 'Done')])
+        domain=[('shift_type', '=', 'ftop')],
+    )
+    state = fields.Selection([
+        ('draft', 'Unconfirmed'),
+        ('cancel', 'Cancelled'),
+        ('confirm', 'Confirmed'), ('entry', 'Entry'),
+        ('done', 'Done'),
+        ],
+    )
 
     shift_name_read = fields.Char(related='name', string="Shift Name Read")
-
     is_send_reminder = fields.Boolean("Send Reminder", default=False)
 
     long_holiday_id = fields.Many2one('shift.holiday', string="Long Holiday")
@@ -36,9 +38,12 @@ class ShiftShift(models.Model):
         [('open', 'Open'), ('closed', 'Closed')],
         string="State in holiday",
     )
-    holiday_single_state = fields.Selection(
-        [('draft', 'Draft'), ('confirmed', 'Confirmed'), ('done', 'Done'),
-         ('cancel', 'Canceled')],
+    holiday_single_state = fields.Selection([
+        ('draft', 'Draft'),
+        ('confirmed', 'Confirmed'),
+        ('done', 'Done'),
+        ('cancel', 'Canceled'),
+        ],
         related="single_holiday_id.state",
         string="Single Holiday Status",
     )
@@ -129,9 +134,11 @@ class ShiftShift(models.Model):
             # Automatically mark attendance as "Attended" for
             # makeup (ABCD Member)
             for reg in shift.registration_ids:
-                if not reg.partner_id.in_ftop_team and \
-                    not reg.tmpl_reg_line_id and \
-                        reg.state != 'replacing':
+                if (
+                    not reg.partner_id.in_ftop_team
+                    and not reg.tmpl_reg_line_id
+                    and reg.state != 'replacing'
+                ):
                     reg.button_reg_close()
 
     @api.multi
