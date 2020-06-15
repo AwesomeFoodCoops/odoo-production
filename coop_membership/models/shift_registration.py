@@ -14,17 +14,26 @@ from odoo.exceptions import UserError, ValidationError
 class ShiftRegistration(models.Model):
     _inherit = 'shift.registration'
 
-    partner_id = fields.Many2one(domain=[('is_worker_member', '=', True)])
-
-    related_extension_id = fields.Many2one('shift.extension',
-                                           string="Related Shift Extensions")
-
-    related_shift_state = fields.Selection(related="shift_id.state",
-                                           store=False,
-                                           string="Shift State")
-    is_changed_team = fields.Boolean(string="Changed Team", default=False)
-    reduce_extension_id = fields.Many2one('shift.extension',
-                                          string="Reduced Extension")
+    partner_id = fields.Many2one(
+        domain=[('is_worker_member', '=', True)],
+    )
+    related_extension_id = fields.Many2one(
+        'shift.extension',
+        string="Related Shift Extensions",
+    )
+    related_shift_state = fields.Selection(
+        string="Shift State",
+        related="shift_id.state",
+        store=False,
+    )
+    is_changed_team = fields.Boolean(
+        string="Changed Team",
+        default=False,
+    )
+    reduce_extension_id = fields.Many2one(
+        'shift.extension',
+        string="Reduced Extension",
+    )
 
     @api.multi
     @api.constrains('shift_id')
