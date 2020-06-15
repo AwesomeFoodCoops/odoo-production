@@ -198,7 +198,6 @@ class ResPartner(models.Model):
                     "need to change its type to FTOP.") % partner_name)
 
     # Compute section
-    @api.multi
     @api.depends('leave_ids')
     def _compute_leave_qty(self):
         for partner in self:
@@ -209,7 +208,7 @@ class ResPartner(models.Model):
                 lambda l: l.stop_date >= today and l.start_date <= today
                 and l.state != 'cancel')
             if current_leave:
-                partner.current_leave_info = "%s-%s" (
+                partner.current_leave_info = "%s-%s" % (
                     "".join(
                         e[0].upper()
                         for e in current_leave[0].type_id.name.split()
