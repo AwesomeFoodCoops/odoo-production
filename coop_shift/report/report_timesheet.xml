@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<data>
+
     <template id="report_timesheet">
         <t t-call="web.html_container">
             <tr t-foreach="Shifts" t-as="shift">
@@ -16,83 +16,119 @@
 
                         <table class="table table-bordered">
                             <thead>
-                                <tr>
-                                    <th style="text-align:center" width="52.33%">Membre Programmé</th>
-                                    <th style="text-align:center" width="47.67%">Membre Présent</th>
-                                </tr>
-                            </thead>
-                        </table>
-
-                        <table class="table table-bordered">
-                            <thead>
                                 <tr style="font-size:9px;background:#DDDDDD">
                                     <th width="6%">Statut</th>
-                                    <th width="6%">Services<br/>Dus</th>
+                                    <th width="6%">Rattrapages</th>
                                     <th width="8%">Qualité</th>
                                     <th width="8%">Numéro</th>
                                     <th width="22%">Nom</th>
-                                    <th width="6%" style="text-align:center">Remplacé<br/>??</th>
+                                    <th width="6%" class="text-center">Échange</th>
                                     <th width="8%">Numéro</th>
                                     <th width="28%">Nom</th>
                                     <th width="8%">Signature<br/>départ</th>
                                 </tr>
+                                <tr>
+                                    <th style="text-align:center" colspan="5">MEMBRE PROGRAMMÉ</th>
+                                    <th class="text-center" style="border-left: 4px solid #ddd;" colspan="4">MEMBRE PRÉSENT</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr t-foreach="shift['registrations']" t-as="registration" style="font-size:13px">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                        <t t-if="registration['is_on_leave']">CONG</t>
+                                        <t t-if="not registration['is_on_leave']">
+                                            <t t-if="registration['registration'].partner_id.cooperative_state=='alert'">A</t>
+                                            <t t-if="registration['registration'].partner_id.cooperative_state=='suspended'">S</t>
+                                            <t t-if="registration['registration'].partner_id.cooperative_state=='delay'">E</t>
+                                            <t t-if="registration['registration'].partner_id.cooperative_state=='unpayed'">I</t>
+                                            <t t-if="registration['registration'].partner_id.cooperative_state=='blocked'">B</t>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <span t-if="registration['registration'].partner_id.final_standard_point &lt; 0" t-esc="-1 * registration['registration'].partner_id.final_standard_point"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="registration['registration'].partner_id.is_squadleader">CRDO</t>
+                                    </td>
                                     <td style="padding: 4px">
                                         <span t-esc="registration['registration'].partner_id.barcode_base"/>
                                     </td>
-                                    <td style="font-size:11px;padding: 4px">
+                                    <td style="font-size:11px; padding: 4px">
                                         <span t-if="registration['registration'].name" t-esc="registration['registration'].name"/>
                                         <span t-else="" t-esc="registration['registration'].partner_id.name"/>
                                     </td>
+                                    <td style="border-left: 4px solid #ddd"></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                        <t t-if="registration['is_on_leave']">CONG</t>
+                                    </td>
                                     <td></td>
                                 </tr>
+
+                                <!-- Helpers -->
                                 <t t-set="nb_lines" t-value="(((shift['registration_number']+shift['ftop_number'])*3/2)//33+1)*33"/>
                                 <t t-set="nb_free_lines" t-value="nb_lines-shift['registration_number']-shift['ftop_number']-1"/>
-                                <tr t-foreach="int(nb_free_lines*2/3)" t-as="i" style="font-size:13px">
+                                <t t-set="no_lines_before_vacation" t-value="4"/>
+                                <t t-set="lines_per_page" t-value="36"/>
+                                <t t-set="total_lines" t-value="shift['registration_number'] + shift['ftop_number']"/>
+                                <t t-set="no_pages" t-value="total_lines // lines_per_page + 1"/>
+                                <t t-set="no_empty_lines" t-value="no_pages * lines_per_page - total_lines - no_lines_before_vacation"/>
+                                <!-- Helpers -->
+
+                                <tr t-foreach="no_lines_before_vacation - 1" t-as="i" style="font-size:13px">
                                     <td style="padding: 4px"><font color="white">_</font></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
+                                    <td style="border-left: 4px solid #ddd"></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="9" style="text-align:center;font-size:12px"><bold>**---VACATIONS---**</bold></td>
+                                    <td colspan="9" class="text-center" style="font-size: 18px;">
+                                        <b>**--- Vacations ---**</b>
+                                    </td>
                                 </tr>
                                 <tr t-foreach="shift['ftop']" t-as="ftop_data" style="font-size:13px">
                                     <t t-value="ftop_data[0]" t-set="ftop"/>
                                     <t t-value="ftop_data[1]" t-set="is_on_leave"/>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                        <t t-if="is_on_leave">CONG</t>
+                                        <t t-if="not is_on_leave">
+                                            <t t-if="ftop.partner_id.cooperative_state=='alert'">A</t>
+                                            <t t-if="ftop.partner_id.cooperative_state=='suspended'">S</t>
+                                            <t t-if="ftop.partner_id.cooperative_state=='delay'">E</t>
+                                            <t t-if="ftop.partner_id.cooperative_state=='unpayed'">I</t>
+                                            <t t-if="ftop.partner_id.cooperative_state=='blocked'">B</t>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <span t-if="ftop.partner_id.final_standard_point &lt; 0" t-esc="-1 * ftop.partner_id.final_ftop_point"/>
+                                    </td>
                                     <td></td>
                                     <td style="padding: 4px">
                                          <span t-esc="ftop.partner_id.barcode_base"/>
                                     </td>
-                                    <td style="font-size:11px;padding: 1px"><span t-esc="ftop.name"/></td>
+                                    <td style="font-size:11px; padding: 4px">
+                                        <span t-esc="ftop.partner_id.name"/>
+                                    </td>
+                                    <td style="border-left: 4px solid #ddd"></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                        <t t-if="is_on_leave">CONG</t>
+                                    </td>
                                     <td></td>
                                 </tr>
                                 <t t-set="nb_lines_ftop" t-value="int(nb_lines*1/3)"/>
-                                <tr t-foreach="int(nb_free_lines*1/3)" t-as="i" style="font-size:13px">
+                                <tr t-foreach="no_empty_lines" t-as="i" style="font-size:13px">
                                     <td style="padding: 4px"><font color="white">_</font></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
+                                    <td style="border-left: 4px solid #ddd"></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -110,40 +146,31 @@
                             </div>
                         </div>
                         <div class="row mt0 mb0">
-                            <div class="col-xs-12" style="text-align:center;background:#DDDDDD"><h2>RATTRAPAGES</h2></div>
+                            <h2 class="text-center" style="background:#DDDDDD;margin-left:15px;margin-right:15px;padding:20px">
+                                <strong>RATTRAPAGES</strong>
+                            </h2>
                         </div>
 
                         <table class="table table-bordered">
                             <thead>
-                                <tr>
-                                    <th style="text-align:center" width="58.33%">Membre Crédité</th>
-                                    <th style="text-align:center" width="41.67%">Membre Présent</th>
-                                </tr>
-                            </thead>
-                        </table>
-
-                        <table class="table table-bordered">
-                            <thead>
                                 <tr style="font-size:9px;background:#DDDDDD">
-                                    <th width="27.53%">Nom</th>
-                                    <th width="7.7%">Numéro</th>
-                                    <th width="7.7%">Jour</th>
-                                    <th width="7.7%">ABCD</th>
-                                    <th width="7.7%">Heure</th>
-                                    <th width="7%" style="text-align:center">Remplacé<br/>??</th>
-                                    <th width="7%">Numéro</th>
-                                    <th width="20.67%">Nom</th>
+                                    <th width="15%">Numéro</th>
+                                    <th width="35%">Nom</th>
+                                    <th width="6%" class="text-center">Échange</th>
+                                    <th width="8%">Numéro</th>
+                                    <th width="28%">Nom</th>
                                     <th width="7%">Signature<br/>départ</th>
+                                </tr>
+                                <tr>
+                                    <th style="text-align:center" colspan="2">MEMBRE CRÉDITÉ</th>
+                                    <th class="text-center" style="border-left: 4px solid #ddd;" colspan="4">MEMBRE PRÉSENT</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr t-foreach="15" t-as="i">
                                     <td style="padding: 2px"><font color="white">_</font></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td style="border-left: 4px solid #ddd"></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -168,5 +195,5 @@
             </tr>
         </t>
     </template>
-</data>
+
 </odoo>
