@@ -47,7 +47,7 @@ class ShiftRegistration(models.Model):
         ondelete='cascade')
     email = fields.Char(readonly=True, related='partner_id.email')
     phone = fields.Char(readonly=True, related='partner_id.phone')
-    # name = fields.Char(readonly=True, related='partner_id.name', store=True)
+    name = fields.Char(readonly=True, related='partner_id.name', store=True)
     partner_id = fields.Many2one(required=True)
     user_ids = fields.Many2many(related="shift_id.user_ids")
     shift_ticket_id = fields.Many2one(

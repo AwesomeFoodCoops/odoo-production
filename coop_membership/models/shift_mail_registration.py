@@ -10,15 +10,18 @@ class ShiftMailRegistration(models.Model):
 
     @api.multi
     def execute(self):
-        records_to_send_email = self.filtered(
-            lambda rec:
-            not rec.mail_sent and
-            rec.registration_id.state in ['open', 'done']
+        records_to_execute = self.filtered(
+            lambda rec: (
+                not rec.mail_sent
+                and rec.registration_id.state in ['open', 'done']
+            )
         )
-        records_to_ignore = self - records_to_send_email
-        for rec in records_to_send_email:
-            shift_holiday = rec.registration_id.shift_id.long_holiday_id \
-                or rec.registration_id.shift_id.single_holiday_id
+        records_to_ignore = self - records_to_execute
+
+        # Send holiday reminder
+        for rec in records_to_execute:
+            shift = rec.registration_id.shift_id
+            shift_holiday = shift.long_holiday_id or shift.single_holiday_id
             if (
                 shift_holiday
                 and shift_holiday.send_email_reminder
@@ -26,8 +29,9 @@ class ShiftMailRegistration(models.Model):
             ):
                 shift_holiday.reminder_template_id.send_mail(
                     rec.registration_id.id)
-        if records_to_send_email:
-            records_to_send_email.write({'mail_sent': True})
+                records_to_execute -= rec
+                rec.write({'mail_sent': True})
+
         if records_to_ignore:
             records_to_ignore.write({'mail_ignored': True})
-        return super(ShiftMailRegistration, records_to_send_email).execute()
+        return super(ShiftMailRegistration, records_to_execute).execute()
