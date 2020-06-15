@@ -39,7 +39,6 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
             <field name="domain">[]</field>
-            <field name="view_id" ref="shift_report_timesheet_view"/>
         </record>
 
         <menuitem
