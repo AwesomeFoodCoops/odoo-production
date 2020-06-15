@@ -7,7 +7,7 @@
 
 {
     'name': 'Coop Shift',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'category': 'Tools',
     'author': 'Julien WESTE, Sylvain LE GAL, Cyril Gaspard, La Louve, Druidoo',
     'website': 'http://www.lalouve.net',
