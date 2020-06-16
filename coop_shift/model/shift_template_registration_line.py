@@ -5,6 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import pytz
+import datetime
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import ValidationError
 
@@ -189,15 +190,21 @@ class ShiftTemplateRegistrationLine(models.Model):
             begin = vals.get('date_begin', line.date_begin)
             end = vals.get('date_end', line.date_end)
 
+            # Convert datetime to date
+            if isinstance(begin, datetime.datetime):
+                begin = begin.date()
+            if isinstance(end, datetime.datetime):
+                end = end.date()
+
+            # Convert string to date (if coming from vals)
+            if isinstance(begin, str):
+                begin = fields.Date.from_string(begin)
+            if isinstance(end, str):
+                end = fields.Date.from_string(end)
+
             # for linked registrations
             for sr in line.shift_registration_ids:
                 shift = sr.shift_id
-
-                # Convert the datetime in shift to local date
-                shift_date_begin = self.convert_local_date(shift.date_begin)
-                shift_date_begin = fields.Date.from_string(shift_date_begin)
-                shift_date_end = self.convert_local_date(shift.date_end)
-                shift_date_end = fields.Date.from_string(shift_date_end)
 
                 # if shift is done, pass
                 if shift.state == "done":
@@ -205,8 +212,8 @@ class ShiftTemplateRegistrationLine(models.Model):
                 # if dates ok, just update state
                 if sr.state in ['draft', 'open', 'waiting']:
                     if (
-                        (not begin or shift_date_begin >= begin)
-                        and (not end or shift_date_end <= end)
+                        (not begin or shift.date_begin.date() >= begin)
+                        and (not end or shift.date_end.date() <= end)
                     ):
                         sr.state = state
                     # if dates not ok, unlink the shift_registration
@@ -255,17 +262,3 @@ class ShiftTemplateRegistrationLine(models.Model):
             for reg in strl.shift_registration_ids:
                 reg.unlink()
         return super(ShiftTemplateRegistrationLine, self).unlink()
-
-    @api.model
-    def convert_local_date(self, timeutc):
-        '''
-        @Function to convert UTC time to Local Time and return the local date
-        '''
-        if not timeutc:
-            return False
-        tz_name = self._context.get('tz') or self.env.user.tz
-        utc_timestamp = pytz.utc.localize(
-            timeutc, is_dst=False)
-        context_tz = pytz.timezone(tz_name)
-        datelocal_obj = utc_timestamp.astimezone(context_tz)
-        return datelocal_obj.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
