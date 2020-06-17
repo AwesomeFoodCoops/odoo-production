@@ -7,4 +7,9 @@
         <field name="sequence">10</field>
     </record>
 
+    <record model="ir.module.category" id="module_category_membership">
+        <field name="name">Membership</field>
+        <field name="description">Helps you manage your Membership.</field>
+    </record>
+
 </odoo>

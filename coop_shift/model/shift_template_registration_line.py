@@ -171,7 +171,7 @@ class ShiftTemplateRegistrationLine(models.Model):
     @api.multi
     def write(self, vals):
         res = super(ShiftTemplateRegistrationLine, self).write(vals)
-        self.mapped(lambda s: s.partner_id)._compute_registration_counts()
+        self.mapped(lambda s: s.partner_id).sudo()._compute_registration_counts()
         for line in self:
             bypass_leave_change_check = self._context.get(
                 'bypass_leave_change_check', False)
@@ -189,6 +189,10 @@ class ShiftTemplateRegistrationLine(models.Model):
             state = vals.get('state', line.state)
             begin = vals.get('date_begin', line.date_begin)
             end = vals.get('date_end', line.date_end)
+            if isinstance(end, str):
+                end = fields.Date.from_string(end)
+            if isinstance(begin, str):
+                begin = fields.Date.from_string(begin)
 
             # Convert datetime to date
             if isinstance(begin, datetime.datetime):

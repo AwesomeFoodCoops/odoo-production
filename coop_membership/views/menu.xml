@@ -72,7 +72,7 @@
         <field name="parent_id" ref="menu_coop_member_submain"/>
         <field name="sequence">3</field>
         <field name="groups_id"
-               eval="[(4, ref('coop_membership.group_membership_see_associated_people'))]"/>
+               eval="[(4, ref('coop_membership.group_membership_see_associated_people')), (4, ref('coop_membership.group_membership_bdm_lecture'))]"/>
     </record>
 
     <!-- Former Members -->
@@ -83,7 +83,7 @@
         <field name="sequence">4</field>
         <field name="groups_id" eval="[
             (4, ref('coop_membership.group_membership_access_user')),
-            (4, ref('coop_membership.group_membership_access_manager'))]"
+            (4, ref('coop_shift.group_shift_manager'))]"
         />
     </record>
 
@@ -94,7 +94,7 @@
         <field name="parent_id" ref="menu_coop_member_submain"/>
         <field name="sequence">5</field>
         <field name="groups_id"
-               eval="[(4, ref('coop_membership.group_membership_access_manager'))]"/>
+               eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
     </record>
 
     <!-- Former Associated People -->
@@ -153,12 +153,12 @@
 
     <record model="ir.ui.menu" id="coop_shift.shift_menu">
         <field name="groups_id"
-               eval="[(4, ref('coop_membership.group_membership_access_edit'))]"/>
+               eval="[(6, 0, [ref('coop_shift.group_shift_user'), ref('coop_membership.group_membership_bdm_presence')])]"/>
     </record>
 
     <record model="ir.ui.menu" id="coop_shift.menu_action_registration">
         <field name="groups_id"
-               eval="[(4, ref('coop_membership.group_membership_access_edit'))]"/>
+               eval="[(4, ref('coop_shift.group_shift_user'))]"/>
     </record>
 
     <record model="ir.ui.menu" id="mass_mailing.mass_mailing_menu_root">
@@ -193,26 +193,19 @@
     <menuitem action="coop_membership.action_shift_seats_available_tree_view"
               id="menu_shift_seats_available" name="FTOP Seats"
               parent="coop_shift.shift_menu" sequence="9"
-              groups="coop_shift.group_shift_user,coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_lecture,coop_membership.group_membership_bdm_saisie"
+              groups="coop_shift.group_shift_user,coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_presence"
     />
-
-    <!--  <record id="mail.menu_contacts" model="ir.ui.menu">
-         <field name="groups_id" eval="[(6, 0,[ref('base.group_partner_manager')])]"/>
-     </record> -->
-
-    <menuitem
-            name="Shifts"
-            parent="coop_shift.shift_main_menu"
-            id="coop_shift.shift_menu"
-            sequence="11"
-            groups="coop_shift.group_shift_user,coop_membership.group_membership_bdm_lecture"/>
 
     <menuitem
             name="Templates"
             parent="coop_shift.shift_main_menu"
             id="coop_shift.template_menu"
             sequence="22"
-            groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie"/>
+            groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_presence"/>
+
+    <record model="ir.ui.menu" id="coop_shift.menu_shift_template">
+        <field name="groups_id" eval="[(4, ref('coop_membership.group_membership_bdm_presence'))]"/>
+    </record>
 
     <record model="ir.ui.menu" id="menu_action_shift_change_team">
         <field name="name">Change Teams</field>
@@ -220,7 +213,7 @@
         <field name="parent_id" ref="coop_shift.template_menu"/>
         <field name="groups_id" eval="[
             (4, ref('coop_shift.group_shift_manager')),
-            (4, ref('coop_membership.group_membership_bdm_saisie'))
+            (4, ref('coop_membership.group_membership_bdm_presence'))
             ]"
         />
         <field name="sequence">50</field>
@@ -256,6 +249,14 @@
         <field name="action" ref="action_incite_o_matic"/>
         <field name="parent_id" ref="coop_shift.menu_shift_configuration"/>
         <field name="sequence">10</field>
+    </record>
+
+    <record model="ir.ui.menu" id="contacts.menu_contacts">
+        <field name="groups_id" eval="[(3, ref('base.group_user'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="maintenance.menu_maintenance_title">
+        <field name="groups_id" eval="[(4, ref('maintenance.group_equipment_manager'))]"/>
     </record>
 
 </odoo>

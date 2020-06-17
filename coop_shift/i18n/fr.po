@@ -275,7 +275,6 @@ msgstr "Nom du participant"
 #: model:ir.actions.act_window,name:coop_shift.act_shift_registration_from_shift
 #: model:ir.actions.act_window,name:coop_shift.act_template_registration_from_template
 #: model:ir.actions.act_window,name:coop_shift.act_template_registration_line_from_partner
-#: model:ir.actions.act_window,name:coop_shift.act_template_registration_line_from_partner_tree_mode
 #: model:ir.actions.act_window,name:coop_shift.action_registration
 #: model:ir.actions.act_window,name:coop_shift.action_template_registration
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift__registration_ids
@@ -2525,16 +2524,6 @@ msgstr "Sièges occupés"
 #: selection:shift.template,byday:0
 msgid "Second"
 msgstr "Deuxième"
-
-#. module: coop_shift
-#: model:res.groups,name:coop_shift.group_shift_see_counter_event
-msgid "See Counter Events"
-msgstr "Voir le détail des compteurs"
-
-#. module: coop_shift
-#: model:res.groups,name:coop_shift.group_shift_see_counter
-msgid "See Counters"
-msgstr "Voir les compteurs"
 
 #. module: coop_shift
 #: model:res.groups,name:coop_shift.group_shift_see_leave

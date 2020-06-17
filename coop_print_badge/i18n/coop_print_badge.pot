@@ -84,11 +84,6 @@ msgid "ID"
 msgstr ""
 
 #. module: coop_print_badge
-#: model:res.groups,name:coop_print_badge.group_access_badge_report
-msgid "Imprimeur des badges"
-msgstr ""
-
-#. module: coop_print_badge
 #: model:ir.model.fields,field_description:coop_print_badge.field_report_coop_print_badge_report_printbadge____last_update
 msgid "Last Modified on"
 msgstr ""

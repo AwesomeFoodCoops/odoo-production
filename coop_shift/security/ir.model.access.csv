@@ -1,6 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_shift_counter_event_reader,access_shift_counter_event_reader,coop_shift.model_shift_counter_event,base.group_user,1,0,0,0
-access_shift_counter_event_user,access_shift_counter_event_user,coop_shift.model_shift_counter_event,coop_shift.group_shift_see_counter_event,1,0,0,0
 access_shift_counter_event_manager,access_shift_counter_event_manager,coop_shift.model_shift_counter_event,coop_shift.group_shift_manage_counter_event,1,1,1,1
 access_shift_counter_event_creator,access_shift_counter_event_creator,coop_shift.model_shift_counter_event,coop_shift.group_shift_create_counter_event,1,0,1,0
 access_shift_leave_reader,access_shift_leave_reader,coop_shift.model_shift_leave,base.group_user,1,0,0,0
@@ -19,6 +18,7 @@ ir_model_access_shift_registration_user,shift_registration user,coop_shift.model
 ir_model_access_shift_shift_user,shift_shift user,coop_shift.model_shift_shift,coop_shift.group_shift_user,1,1,0,0
 ir_model_access_shift_shift_manager,shift_shift manager,coop_shift.model_shift_shift,coop_shift.group_shift_manager,1,1,1,1
 ir_model_access_shift_template,shift_template user,coop_shift.model_shift_template,coop_shift.group_shift_manager,1,1,1,1
+ir_model_access_shift_template_mail_user,shift_template_mail manager,coop_shift.model_shift_template_mail,base.group_user,1,0,0,0
 ir_model_access_shift_template_mail,shift_template_mail manager,coop_shift.model_shift_template_mail,coop_shift.group_shift_manager,1,1,1,1
 ir_model_access_shift_type,shift_type manager,coop_shift.model_shift_type,coop_shift.group_shift_manager,1,1,1,1
 ir_model_access_shift_ticket_manager,shift_ticket manager,coop_shift.model_shift_ticket,coop_shift.group_shift_manager,1,1,1,1

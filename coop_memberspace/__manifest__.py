@@ -31,6 +31,7 @@
         "views/memberspace_conversation_view.xml",
         "views/assets.xml",
         "views/view_pos_config_settings.xml",
+        "views/website_views.xml",
         "views/website/proposal_confirm.xml",
         "views/website/my_work.xml",
         "views/website/my_team.xml",

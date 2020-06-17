@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
             <page name="shifts" position="after">
-                <page name="website" string="Website">
+                <page name="website" string="Website" groups="coop_memberspace.group_memberspace">
                     <group>
                         <field name="public_avatar"/>
                         <field name="public_mobile"/>
@@ -25,7 +25,7 @@
         <field name="inherit_id" ref="pos_ticket_send_by_mail.view_partner_form_inherit"/>
         <field name="arch" type="xml">
             <field name="email_pos_receipt" position="attributes">
-                <attribute name="groups">coop_memberspace.group_memberspace</attribute>
+                <attribute name="groups">point_of_sale.group_pos_user,coop_memberspace.group_memberspace</attribute>
             </field>
         </field>
     </record>

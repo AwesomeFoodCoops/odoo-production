@@ -208,11 +208,9 @@ class ResPartner(models.Model):
                 lambda l: l.stop_date >= today and l.start_date <= today
                 and l.state != 'cancel')
             if current_leave:
+                leave_type_name = current_leave[0].type_id.name.split()
                 partner.current_leave_info = "%s-%s" % (
-                    "".join(
-                        e[0].upper()
-                        for e in current_leave[0].type_id.name.split()
-                    ),
+                    "".join(word[0] for word in leave_type_name).upper(),
                     format_date(self.env, current_leave[0].stop_date)
                 )
             else:
@@ -246,7 +244,7 @@ class ResPartner(models.Model):
                 lambda r, d=d: r.date_begin >= d and not r.is_technical)
 
             # Set 4 next shifts
-            partner.set_next_registration(next_registrations)
+            partner.sudo().set_next_registration(next_registrations)
 
             partner.upcoming_registration_count = len(next_registrations)
             next_registrations = next_registrations.sorted(

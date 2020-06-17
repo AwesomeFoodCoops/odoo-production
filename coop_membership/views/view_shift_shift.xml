@@ -14,7 +14,7 @@
             </button>
             <button name="button_done" position="after">
                 <button name="button_makeupok" type="object" states="confirm"
-                        class="oe_highlight" string="Make-ups OK"/>
+                        class="oe_highlight" string="Make-ups OK" groups="coop_shift.group_shift_user,coop_membership.group_membership_bdm_saisie"/>
             </button>
             <field name="date_end" position="after">
                 <field name="is_send_reminder" group="base.group_no_one" readonly="1"/>

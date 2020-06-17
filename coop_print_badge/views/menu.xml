@@ -14,7 +14,7 @@
         <field name="action" ref="action_badge_to_print" />
         <field name="parent_id" ref="coop_shift.menu_reporting_shifts" />
         <field name="sequence">20</field>
-        <field name="groups_id" eval="[(6, 0, [ref('coop_print_badge.group_access_badge_report')])]" />
+        <field name="groups_id" eval="[(6, 0, [ref('coop_shift.group_shift_manager')])]" />
     </record>
 
     <record id="menu_badge_to_distribute" model="ir.ui.menu">

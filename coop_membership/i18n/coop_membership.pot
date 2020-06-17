@@ -1090,11 +1090,6 @@ msgid "Accept"
 msgstr ""
 
 #. module: coop_membership
-#: model:res.groups,name:coop_membership.coop_group_access_res_partner_image
-msgid "Access Res Partner Image"
-msgstr ""
-
-#. module: coop_membership
 #: model:res.groups,name:coop_membership.coop_group_access_res_partner_inform
 msgid "Access Res Partner Inform"
 msgstr ""
@@ -2537,7 +2532,7 @@ msgstr ""
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_res_partner_form_base
-msgid "MemberShip"
+msgid "Membership"
 msgstr ""
 
 #. module: coop_membership
@@ -2578,11 +2573,6 @@ msgid "Membership Management"
 msgstr ""
 
 #. module: coop_membership
-#: model:res.groups,name:coop_membership.group_membership_access_manager
-msgid "Membership Manager"
-msgstr ""
-
-#. module: coop_membership
 #: model:res.groups,name:coop_membership.group_membership_bdm_lecture
 msgid "Membership Read"
 msgstr ""
@@ -2590,11 +2580,6 @@ msgstr ""
 #. module: coop_membership
 #: model:res.groups,name:coop_membership.group_membership_access_user
 msgid "Membership Viewer"
-msgstr ""
-
-#. module: coop_membership
-#: model:res.groups,name:coop_membership.group_membership_access_edit
-msgid "Membership Writer"
 msgstr ""
 
 #. module: coop_membership
@@ -2872,11 +2857,6 @@ msgstr ""
 #: model:ir.cron,cron_name:coop_membership.cron_update_partner_is_unsubscribed
 #: model:ir.cron,name:coop_membership.cron_update_partner_is_unsubscribed
 msgid "Partner : Update Is Unsubscribed State"
-msgstr ""
-
-#. module: coop_membership
-#: model:res.groups,name:coop_membership.coop_partner_action
-msgid "Partner Actions"
 msgstr ""
 
 #. module: coop_membership
