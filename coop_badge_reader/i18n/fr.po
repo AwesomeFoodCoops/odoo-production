@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-22 17:12+0000\n"
-"PO-Revision-Date: 2016-04-22 17:12+0000\n"
+"POT-Creation-Date: 2020-06-16 15:03+0000\n"
+"PO-Revision-Date: 2020-06-16 15:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,14 +16,246 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_badge_reader
-#: model:res.groups,name:coop_badge_reader.category_badge_reader
-msgid "Badge Reader"
-msgstr "Badgeuse"
+#: model:mail.template,body_html:coop_badge_reader.email_template_partner_alert
+msgid "\n"
+"<p>Bonjour, </p>\n"
+"${object.expected_member_id.name.split(',')[0]} ${object.expected_member_id.barcode_base} vient d’entrer le magasin.\n"
+"<br/>\n"
+""
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:res.groups,name:coop_badge_reader.group_alert_entry_manager
+msgid "Access Alert"
+msgstr "Alerte entrée"
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_action
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
+msgid "Action"
+msgstr ""
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,cooperative_state:0
+msgid "Alert"
+msgstr "Alerte"
+
+#. module: coop_badge_reader
+#: model:ir.actions.act_window,name:coop_badge_reader.action_alert_entry
+#: model:ir.ui.menu,name:coop_badge_reader.menu_alert_entry
+msgid "Alerte entrée"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_form
+msgid "Badge Distributed"
+msgstr "Badge distribué"
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,cooperative_state:0
+msgid "Blocked"
+msgstr "Bloqué(e)"
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__bootstrap_cooperative_state
+msgid "Bootstrap Cooperative State"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner__bootstrap_cooperative_state
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_users__bootstrap_cooperative_state
+msgid "Bootstrap State"
+msgstr "Etat Bootstrap"
+
+#. module: coop_badge_reader
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_alert_form
+msgid "Close"
+msgstr "Clôturer"
+
+#. module: coop_badge_reader
+#: selection:res.partner.alert,state:0
+msgid "Closed"
+msgstr "Fermé"
+
+#. module: coop_badge_reader
+#: model:ir.model,name:coop_badge_reader.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.module.category,name:coop_badge_reader.category_badge_reader
+msgid "Coop Badge Reader"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__cooperative_state
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
+msgid "Cooperative State"
+msgstr "Statut du Coopérateur"
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__create_uid
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__create_date
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__is_danger
+#: selection:res.partner,bootstrap_cooperative_state:0
+#: selection:res.partner.move,bootstrap_cooperative_state:0
+msgid "Danger"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
+msgid "Danger Status"
+msgstr ""
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,cooperative_state:0
+msgid "Delay"
+msgstr "Délai"
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__display_name
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,cooperative_state:0
+msgid "Exempted"
+msgstr "Exempté"
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert_id
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move_id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,action:0
+msgid "In"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_shift_extension_type__is_grace_period
+msgid "Is Grace Period"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert____last_update
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__write_uid
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__write_date
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
 
 #. module: coop_badge_reader
 #: model:res.groups,name:coop_badge_reader.group_manager
 msgid "Manager"
 msgstr "Responsable"
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__expected_member_id
+msgid "Membre attendu"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner__next_shift_time
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_users__next_shift_time
+msgid "Next Shift Time"
+msgstr ""
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,cooperative_state:0
+msgid "Not Concerned"
+msgstr "Non concerné"
+
+#. module: coop_badge_reader
+#: selection:res.partner,bootstrap_cooperative_state:0
+#: selection:res.partner.move,bootstrap_cooperative_state:0
+msgid "OK"
+msgstr ""
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,cooperative_state:0
+msgid "On Vacation"
+msgstr "En congés"
+
+#. module: coop_badge_reader
+#: selection:res.partner.alert,state:0
+msgid "Open"
+msgstr "Ouvert"
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,action:0
+msgid "Out"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_move__partner_id
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: coop_badge_reader
+#: model:ir.model,name:coop_badge_reader.model_res_partner_move
+msgid "Partner Move"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.actions.act_window,name:coop_badge_reader.action_res_partner_move
+#: model:ir.ui.menu,name:coop_badge_reader.menu_res_partner_move
+msgid "Partner Moves"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.model,name:coop_badge_reader.model_res_partner_alert
+msgid "Res Partner Alert"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert__partner_ids
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_alert_form
+msgid "Salarié à alerter"
+msgstr ""
+
+#. module: coop_badge_reader
+#: model:ir.model,name:coop_badge_reader.model_shift_extension_type
+msgid "Shift Extension Type"
+msgstr "Type d'extension"
+
+#. module: coop_badge_reader
+#: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner_alert_state
+msgid "State"
+msgstr "État"
+
+#. module: coop_badge_reader
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_search
+msgid "Success Status"
+msgstr "A Jour"
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,cooperative_state:0
+msgid "Suspended"
+msgstr "Suspendu(e)"
 
 #. module: coop_badge_reader
 #: model:res.groups,name:coop_badge_reader.group_time_clock
@@ -32,8 +264,23 @@ msgstr "Pointeuse"
 
 #. module: coop_badge_reader
 #: model:mail.template,subject:coop_badge_reader.email_template_partner_alert
-msgid "An expected member entered"
-msgstr "Un membre attendu est entré"
+msgid "Un membre attendu est entré"
+msgstr ""
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,cooperative_state:0
+msgid "Unpayed"
+msgstr "Impayé"
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,cooperative_state:0
+msgid "Unsubscribed"
+msgstr "Désinscrit"
+
+#. module: coop_badge_reader
+#: selection:res.partner.move,cooperative_state:0
+msgid "Up to date"
+msgstr "A jour"
 
 #. module: coop_badge_reader
 #: model:res.groups,name:coop_badge_reader.group_user
@@ -41,132 +288,24 @@ msgid "User"
 msgstr "Utilisateur"
 
 #. module: coop_badge_reader
-#: model:ir.model.fields,name:coop_badge_reader.field_res_partner_bootstrap_state
-#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_bootstrap_state
-msgid "Bootstrap State"
-msgstr "Etat Bootstrap"
-
-#. module: coop_badge_reader
-#: model:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_form
-msgid "Badge Distributed"
-msgstr "Badge distribué"
-
-#. module: coop_badge_reader
-#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_create_uid
-msgid "Created by"
-msgstr "Créé par"
-
-#. module: coop_badge_reader
-#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_create_date
-msgid "Created on"
-msgstr "Créé le"
-
-#. module: coop_badge_reader
-#: selection:res.partner,bootstrap_state:0
-#: selection:res.users.move,bootstrap_state:0
-msgid "Danger"
-msgstr "Danger"
-
-#. module: coop_badge_reader
-#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_display_name
-msgid "Display Name"
-msgstr "Nom affiché"
-
-#. module: coop_badge_reader
-#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_id
-msgid "ID"
-msgstr "ID"
-
-#. module: coop_badge_reader
-#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move___last_update
-msgid "Last Modified on"
-msgstr "Dernière modification le"
-
-#. module: coop_badge_reader
-#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_write_uid
-msgid "Last Updated by"
-msgstr "Mis à jour par"
-
-#. module: coop_badge_reader
-#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_write_date
-msgid "Last Updated on"
-msgstr "Mis à jour le"
-
-#. module: coop_badge_reader
-#: selection:res.partner,state:0
-#: selection:res.users.move,state:0
-msgid "Membership Problem"
-msgstr "Problème d'adhésion"
-
-#. module: coop_badge_reader
-#: selection:res.partner,bootstrap_state:0
-#: selection:res.partner,state:0
-#: selection:res.users.move,bootstrap_state:0
-#: selection:res.users.move,state:0
-msgid "OK"
-msgstr "OK"
-
-#. module: coop_badge_reader
-#: model:ir.model,name:coop_badge_reader.model_res_partner
-msgid "Partner"
-msgstr "Partenaire"
-
-
-#. module: coop_badge_reader
-#: model:ir.model.fields,name:coop_badge_reader.field_res_partner_state
-#: model:ir.model.fields,name:coop_badge_reader.field_res_users_move_state
-#: model:ir.ui.view,name:coop_badge_reader.view_res_partner_search
-#: model:ir.ui.view,name:coop_badge_reader.view_res_users_move_search
-msgid "State"
-msgstr "État"
-
-#. module: coop_badge_reader
-#: model:ir.ui.view,name:coop_badge_reader.view_res_partner_search
-#: model:ir.ui.view,name:coop_badge_reader.view_res_users_move_search
-msgid "Success Status"
-msgstr "Statut OK"
-
-#. module: coop_badge_reader
-#: model:ir.actions.act_window,name:coop_badge_reader.action_res_users_move
-#: model:ir.ui.menu,name:coop_badge_reader.menu_res_users_move
-msgid "User Moves"
-msgstr "Mouvements Utilisateur"
-
-#. module: coop_badge_reader
 #: model:ir.model,name:coop_badge_reader.model_res_users
 msgid "Users"
 msgstr "Utilisateurs"
 
 #. module: coop_badge_reader
-#: selection:res.partner,bootstrap_state:0
-#: selection:res.users.move,bootstrap_state:0
+#: selection:res.partner,bootstrap_cooperative_state:0
+#: selection:res.partner.move,bootstrap_cooperative_state:0
 msgid "Warning"
 msgstr "Attention"
 
 #. module: coop_badge_reader
-#: model:ir.ui.view,name:coop_badge_reader.view_res_partner_search
-#: model:ir.ui.view,name:coop_badge_reader.view_res_users_move_search
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_search
+#: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_search
 msgid "Warning Status"
 msgstr "Statut Avec Problème"
 
 #. module: coop_badge_reader
-#: selection:res.partner,state:0
-#: selection:res.users.move,state:0
-msgid "Work Problem"
-msgstr "Problème de Shift"
+#: selection:res.partner.move,action:0
+msgid "Wrong Partner"
+msgstr ""
 
-#. module: coop_badge_reader
-#: model:res.groups,name:coop_badge_reader.group_alert_entry_manager
-msgid "Access Alert"
-msgstr "Alerte entrée"
-
-#. module: coop_badge_reader
-#: model:mail.template,body_html:coop_badge_reader.email_template_partner_alert
-msgid "\n"
-"<p>Hello, </p>\n"
-"${object.expected_member_id.name.split(',')[0]} ${object.expected_member_id.barcode_base} just entered the store.\n"
-"<br/>\n"
-""
-msgstr "\n"
-"<p>Bonjour, </p>\n"
-"${object.expected_member_id.name.split(',')[0]} ${object.expected_member_id.barcode_base} vient d’entrer le magasin.\n""
