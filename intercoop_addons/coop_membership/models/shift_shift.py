@@ -46,6 +46,10 @@ class ShiftShift(models.Model):
         related="single_holiday_id.state",
         string="Single Holiday Status",
     )
+    required_skill_ids = fields.Many2many(
+        related="shift_template_id.required_skill_ids",
+        readonly=True,
+    )
 
     @api.multi
     def button_done(self):

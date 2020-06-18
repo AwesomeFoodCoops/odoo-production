@@ -38,3 +38,6 @@ access_model_res_users_bdm_saisie_group,access_model_res_users_bdm_saisie,base.m
 access_model_res_partner_bdm_presence_group,access_model_res_partner_bdm_presence_group,base.model_res_partner,coop_membership.group_membership_bdm_presence,1,1,0,0
 ,,,,,,,
 ir_model_access_shift_template_registration_membership_read,shift.template.registration membership read access,coop_shift.model_shift_template_registration,coop_membership.group_membership_bdm_lecture,1,0,0,0
+,,,,,,,
+access_shift_hr_skill,hr.skill read,hr_skill.model_hr_skill,coop_shift.group_shift_user,1,0,0,0
+access_shift_hr_skill_manager,hr.skill write,hr_skill.model_hr_skill,coop_shift.group_shift_manager,1,1,1,1
