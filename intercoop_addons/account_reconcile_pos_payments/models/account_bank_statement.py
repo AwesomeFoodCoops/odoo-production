@@ -171,17 +171,16 @@ class AccountBankStatement(models.Model):
         _logger.debug('Possible CB/CT/CB+CT statements: %d' % len(pos_statement_ids))
         ignore_cb_statement_ids = []
         for pos_statement_id in pos_statement_ids:
-            for l in pos_statement_id.move_line_ids:
-                reconciled_move_lines_count = \
-                    len(pos_statement_id.move_line_ids.filtered(lambda l: l.reconciled and l.account_id.id == \
-                                                                          self.journal_id.default_debit_account_id.id))
-                if reconciled_move_lines_count:
-                    if len(pos_statement_id) != reconciled_move_lines_count:
-                        _logger.debug('Level 2: POS partially processed by the bank.')
-                    else:
-                        _logger.debug('Case 1: There are debits on the journal and they are reconciled.')
-                    # In any case, don't use this statement
-                    ignore_cb_statement_ids.append(pos_statement_id.id)
+            reconciled_move_lines_count = \
+                len(pos_statement_id.move_line_ids.filtered(lambda l: l.reconciled and l.account_id.id == \
+-                                                                          self.journal_id.default_debit_account_id.id))
+            if reconciled_move_lines_count:
+                if len(pos_statement_id) != reconciled_move_lines_count:
+                    _logger.debug('Level 2: POS partially processed by the bank.')
+                else:
+                    _logger.debug('Case 1: There are debits on the journal and they are reconciled.')
+                # In any case, don't use this statement
+                ignore_cb_statement_ids.append(pos_statement_id.id)
         pos_statement_ids = pos_statement_ids.filtered(lambda s: s.id not in ignore_cb_statement_ids)
         return pos_statement_ids
 
@@ -209,10 +208,9 @@ class AccountBankStatement(models.Model):
             for move_line in statement_id.move_line_ids:
                 if (
                         move_line.account_id.id == statement_id.journal_id.default_debit_account_id.id
-                        and move_line.id not in lines_to_reconcile
+                        and move_line.id not in lines_to_reconcile and not move_line.reconciled
                 ):
                     lines_to_reconcile.append(move_line.id)
-
             for move_line in line.journal_entry_ids.mapped('line_ids'):
                 if (
                         move_line.account_id.id == statement_id.journal_id.default_credit_account_id.id
