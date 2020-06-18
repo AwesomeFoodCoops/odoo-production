@@ -22,6 +22,11 @@ class ShiftTemplate(models.Model):
         string='Number of Attendees', compute='_compute_registration_qty',
         store=True
     )
+    required_skill_ids = fields.Many2many(
+        'hr.skill',
+        string="Required Skills",
+        domain=[('child_ids', '=', False)],
+    )
 
     # This field help to re-add member as a leader after his/her leave
     removed_user_ids = fields.Many2many(

@@ -4086,3 +4086,8 @@ msgstr ""
 msgid "équipe VOLANTE"
 msgstr ""
 
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_shift_required_skill_ids
+#: model:ir.model.fields,field_description:coop_membership.field_shift_template_required_skill_ids
+msgid "Required Skills"
+msgstr "Compétences requises"

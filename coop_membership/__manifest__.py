@@ -5,7 +5,7 @@
 
 {
     'name': 'Coop - Membership',
-    'version': '12.0.2.0.0',
+    'version': '12.0.3.0.0',
     'category': 'Custom',
     'summary': 'Custom settings for membership',
     'author': 'La Louve, Druidoo',
@@ -15,6 +15,7 @@
         'project',
         'stock',
         'hr_maintenance',
+        'hr_skill',
         'mass_mailing',
         'capital_subscription',
         'coop_shift',

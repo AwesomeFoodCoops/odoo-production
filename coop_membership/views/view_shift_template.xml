@@ -4,18 +4,18 @@
         <field name="model">shift.template</field>
         <field name="inherit_id" ref="coop_shift.view_shift_template_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='main_field_group']" position="after">
+            <group name="main_field_group" position="inside">
+                <group name="other_info">
+                    <field name="required_skill_ids" widget="many2many_tags" groups="coop_shift.group_shift_manager"/>
+                </group>
+            </group>
+            <group name="main_field_group" position="after">
                 <p class="alert alert-warning col-md-6"
-                   attrs="{'invisible': [('warning_leader_unsubscribed', '=', False)]}" role="alert">
+                   attrs="{'invisible': [('warning_leader_unsubscribed', '=', False)]}" role="alert"
+                   groups="coop_shift.group_shift_manager, coop_membership.group_membership_bdm_saisie">
                     <field name='warning_leader_unsubscribed' nolabel='1'/>
                 </p>
-            </xpath>
-            <xpath expr="//p[@role='alert']" position="attributes">
-                <attribute name="groups">
-                    coop_shift.group_shift_manager,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
+            </group>
             <button name="toggle_active" position="attributes">
                 <attribute name="groups">
                     coop_shift.group_shift_manager,
