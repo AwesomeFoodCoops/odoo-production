@@ -3,10 +3,9 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-
 {
     'name': 'Coop - Membership',
-    'version': '9.0.2.1.0',
+    'version': '9.0.3.0.0',
     'category': 'Custom',
     'summary': 'Custom settings for membership',
     'author': 'La Louve',
@@ -28,6 +27,7 @@
         'create_users_partners',
         'l10n_fr_pos_cert_base',
         'purchase_discount',
+        'hr_skill',
     ],
     'data': [
         'data/update_template_name_ftop.yml',

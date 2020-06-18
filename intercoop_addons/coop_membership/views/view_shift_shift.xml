@@ -19,6 +19,11 @@
             <field name="date_end" position="after">
                 <field name="is_send_reminder" group="base.group_no_one" readonly="1" />
             </field>
+            <group name="datetime" position="after">
+                <group name="other_info">
+                    <field name="required_skill_ids" widget="many2many_tags" groups="coop_shift.group_shift_manager" attrs="{'invisible': [('required_skill_ids', '=', False)]}"/>
+                </group>
+            </group>
         </field>
     </record>
 
