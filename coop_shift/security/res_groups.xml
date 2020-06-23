@@ -12,7 +12,6 @@
         <field name="name">Manage Counter Events</field>
         <field name="category_id" ref="module_category_shift_management"/>
         <field name="implied_ids" eval="[(4, ref('group_shift_create_counter_event'))]"/>
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
     <record id="group_shift_see_leave" model="res.groups">
@@ -24,31 +23,26 @@
         <field name="name">Manage Leaves</field>
         <field name="category_id" ref="module_category_shift_management"/>
         <field name="implied_ids" eval="[(4, ref('group_shift_see_leave'))]"/>
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
     <record id="group_shift_future_changes" model="res.groups">
         <field name="name">Manage Future Changes</field>
         <field name="category_id" ref="module_category_shift_management"/>
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
     <record id="group_shift_cancel_shifts" model="res.groups">
         <field name="name">Cancel Shifts</field>
         <field name="category_id" ref="module_category_shift_management"/>
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
     <record id="group_shift_config" model="res.groups">
         <field name="name">Shifts Configuration</field>
         <field name="category_id" ref="module_category_shift_management"/>
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
     <record id="group_shift_see_default_setting_address" model="res.groups">
         <field name="name">Setting Default Address For Shift</field>
         <field name="category_id" ref="module_category_shift_management"/>
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
     <record id="group_recurrency" model="res.groups">
@@ -74,7 +68,6 @@
         <field name="name">Manager</field>
         <field name="category_id" ref="module_category_membership"/>
         <field name="implied_ids" eval="[
-            (4, ref('group_shift_create_counter_event')),
             (4, ref('group_shift_config')),
             (4, ref('group_shift_manage_counter_event')),
             (4, ref('group_shift_see_default_setting_address')),
