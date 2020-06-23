@@ -19,17 +19,18 @@ def _safe_remove_view(env, xmlid):
 
 
 def migrate(cr, version):
-    env = api.Environment(cr, SUPERUSER_ID, {})
-    # Migrate old sex field to new gender field
-    env.cr.execute("update res_partner set gender='male' where sex='m' ")
-    env.cr.execute("update res_partner set gender='female' where sex='f' ")
-    env.cr.execute("update res_partner set gender='other' where sex='o' ")
-    # Remove views that somehow are conflicting on module install (weird error)
-    views_to_remove = [
-        'coop_membership.view_res_partner_form',
-        'coop_membership.view_bdm_search',
-        'coop_membership.view_res_partner_form_membership',
-        'coop_membership.view_res_partner_form_membership_manager',
-    ]
-    for view in views_to_remove:
-        _safe_remove_view(env, view)
+    with api.Environment.manage():
+        env = api.Environment(cr, SUPERUSER_ID, {})
+        # Migrate old sex field to new gender field
+        env.cr.execute("update res_partner set gender='male' where sex='m' ")
+        env.cr.execute("update res_partner set gender='female' where sex='f' ")
+        env.cr.execute("update res_partner set gender='other' where sex='o' ")
+        # Remove views that somehow are conflicting on module install (weird)
+        views_to_remove = [
+            'coop_membership.view_res_partner_form',
+            'coop_membership.view_bdm_search',
+            'coop_membership.view_res_partner_form_membership',
+            'coop_membership.view_res_partner_form_membership_manager',
+        ]
+        for view in views_to_remove:
+            _safe_remove_view(env, view)
