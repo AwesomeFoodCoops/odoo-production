@@ -25,26 +25,20 @@ class ResUsers(models.Model):
             'coop_membership.group_membership_bdm_lecture')
         saisie_group = self.has_group(
             'coop_membership.group_membership_bdm_saisie')
-        deceased_group = self.has_group(
-            'coop_membership.group_membership_view_partner_deceased')
-        manager_group = self.has_group(
-            'coop_shift.group_shift_manager')
-        user_group = self.has_group(
-            'coop_shift.group_shift_user')
 
         if self._is_admin():
             return False
         elif res_model == 'res.partner':
             if saisie_group:
                 return 'saisie_group_partner'
-            if presence_group and not (manager_group and user_group):
+            if presence_group:
                 return 'presence_group_partner'
-            if lecture_group and not deceased_group:
+            if lecture_group:
                 return 'lecture_group_partner'
         elif res_model == 'shift.shift':
-            if presence_group and not (manager_group and user_group):
+            if presence_group:
                 return 'presence_group_shift'
-            if lecture_group and not deceased_group:
+            if lecture_group:
                 return 'lecture_group_shift'
             if saisie_group:
                 return 'saisie_group_shift'
