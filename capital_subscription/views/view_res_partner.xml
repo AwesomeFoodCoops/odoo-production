@@ -14,13 +14,16 @@
             <notebook position="inside">
                 <page name="page_capital_fundraising" string="Capital Subscriptions" groups="capital_subscription.manage_fundraising_partner_type">
                     <group >
-                        <group string="Partner Type">
+                        <group name="fundraising_partner_type" string="Partner Type">
                             <field name="fundraising_partner_type_ids" widget="many2many_tags"/>
                         </group>
-                        <group string="Subscriptions">
+                        <group name="fundraising_subscriptions" string="Subscriptions">
                             <field name="amount_subscription"/>
-                            <button id="new_subscription" name="%(action_capital_fundraising_wizard)d" type="action"
-                                string="New Capital Subscription" class="oe_highlight"/>
+                            <button id="new_subscription"
+                                name="%(action_capital_fundraising_wizard)d"
+                                type="action"
+                                string="New Capital Subscription"
+                                class="oe_highlight"/>
                         </group>
                     </group>
                 </page>
