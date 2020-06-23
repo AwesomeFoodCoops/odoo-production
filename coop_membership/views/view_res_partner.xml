@@ -73,7 +73,7 @@
                 </attribute>
                 <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
             </xpath>
-            <button id="button_act_template_registration_line" position="attributes">
+            <button id="view_partner_template_registrations" position="attributes">
                 <attribute name="attrs">{'invisible': [('is_member', '=', False)]}</attribute>
             </button>
             <xpath expr="//sheet/field[@name='image']" position="attributes">
