@@ -5,7 +5,7 @@
 
 {
     'name': 'Coop - Membership',
-    'version': '12.0.3.2.0',
+    'version': '12.0.3.3.0',
     'category': 'Custom',
     'summary': 'Custom settings for membership',
     'author': 'La Louve, Druidoo',
@@ -30,7 +30,7 @@
     'data': [
         # Security
         'security/ir_module_category.xml',
-        'security/res_group.xml',
+        'security/res_groups.xml',
         'security/ir.model.access.csv',
         'data/report_paperformat_data.xml',
         'data/ir_attachment.xml',

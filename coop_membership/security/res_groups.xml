@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Julien Weste
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+
+    <!-- Refactor Employe group -->
+    <!-- Move all current Employee's menus to the new group -->
+    <record model="res.groups" id="group_employee_native_menu">
+        <field name="name">Employee Limit</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="menu_access" eval="[
+            (4, ref('mail.menu_root_discuss')),
+            (4, ref('maintenance.menu_equipment_form')),
+            (4, ref('maintenance.menu_m_request_form')),
+            (4, ref('hr.menu_hr_root'))
+        ]"/>
+        <field name="implied_ids" eval="[(4, ref('group_membership_see_associated_people'))]"/>
+    </record>
+
+    <!-- All current groups which are inherited from Employee should be added to Native Employee Menus -->
+    <record model="res.groups" id="coop_shift.group_event_without_menu">
+        <field name="implied_ids" eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="account.group_account_invoice">
+        <field name="implied_ids" eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="maintenance.group_equipment_manager">
+        <field name="implied_ids" eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="hr.group_hr_user">
+        <field name="implied_ids" eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="sales_team.group_sale_salesman">
+        <field name="implied_ids" eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="stock.group_stock_user">
+        <field name="implied_ids" eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="purchase.group_purchase_user">
+        <field name="implied_ids" eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="project.group_project_user">
+        <field name="implied_ids" eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <record model="res.groups" id="event.group_event_user">
+        <field name="implied_ids" eval="[(4, ref('group_employee_native_menu'))]"/>
+    </record>
+    <!-- End of refactoring Employe group -->
+
+    <record model="res.groups" id="group_clean_up">
+        <field name="name">View Member SmartButton (Account Analytic, Archive)</field>
+    </record>
+
+    <!-- Technical Coop Shift Groups -->
+
+    <record model="res.groups" id="group_shift_create_extension_from_attendance">
+        <field name="name">Create Extension from Attendance</field>
+        <field name="category_id" ref="coop_shift.module_category_shift_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <!-- Technical Membership Groups -->
+
+    <record model="res.groups" id="group_membership_see_associated_people">
+        <field name="name">See Associated People</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+    </record>
+
+    <record model="res.groups" id="group_membership_access_user">
+        <field name="name">Membership Viewer</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('coop_membership.group_employee_native_menu'))]"/>
+    </record>
+
+    <record model="res.groups" id="group_membership_access_photo">
+        <field name="name">Membership Edit Photo</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+    </record>
+
+    <record model="res.groups" id="group_refund_capital_subscription">
+        <field name="name">Refund Capital Subscriptions</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record model="res.groups" id="subscriptions_can_change_fundraising_category">
+        <field name="name">Can Change Fundraising Category (in Wizard)</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+    </record>
+
+    <record model="res.groups" id="group_membership_see_all_members">
+        <field name="name">See All Members</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+    </record>
+
+    <record id="group_see_contact_messeage" model="res.groups">
+        <field name="name">See Internal Notes</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+    </record>
+
+    <record id="group_edit_contact_messeage" model="res.groups">
+        <field name="name">Edit Internal Notes</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+        <field name="implied_ids" eval="[(4, ref('coop_membership.group_see_contact_messeage'))]"/>
+    </record>
+
+    <record model="res.groups" id="coop_group_access_res_partner_inform">
+        <field name="name">Access Res Partner Inform</field>
+        <field name="category_id" ref="module_membership_access_management"/>
+    </record>
+
+
+    <!-- Membership Profiles -->
+
+    <record id="coop_shift.group_shift_user" model="res.groups">
+        <field name="implied_ids" eval="[
+            (4, ref('group_shift_create_extension_from_attendance')),
+            (4, ref('group_membership_see_all_members')),
+            (4, ref('group_see_contact_messeage')),
+            (4, ref('group_membership_access_user')),
+            (4, ref('group_membership_access_photo')),
+        ]"/>
+    </record>
+
+    <record model="res.groups" id="group_membership_advance_user">
+        <field name="name">Advance User</field>
+        <field name="category_id" ref="coop_shift.module_category_membership"/>
+        <field name="implied_ids" eval="[
+            (4, ref('coop_shift.group_shift_user')),
+            (4, ref('group_edit_contact_messeage')),
+            (4, ref('group_refund_capital_subscription')),
+            (4, ref('group_membership_see_associated_people')),
+        ]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record id="coop_shift.group_shift_manager" model="res.groups">
+        <field name="implied_ids" eval="[
+            (4, ref('group_membership_advance_user')),
+        ]"/>
+    </record>
+
+
+    <!-- Subscription Groups -->
+
+    <record model="res.groups" id="subscriptions_reader">
+        <field name="name">See Subscriptions</field>
+        <field name="category_id" ref="category_subscriptions"/>
+    </record>
+
+    <record model="res.groups" id="subscriptions_creator">
+        <field name="name">Create Subscriptions</field>
+        <field name="category_id" ref="category_subscriptions"/>
+        <field name="implied_ids" eval="[(4, ref('subscriptions_reader'))]"/>
+    </record>
+
+    <record model="res.groups" id="subscriptions_creator_payment">
+        <field name="name">Create Subscriptions and payment</field>
+        <field name="category_id" ref="category_subscriptions"/>
+        <field name="implied_ids" eval="[(4, ref('subscriptions_creator'))]"/>
+    </record>
+
+    <!-- BDM Groups -->
+
+    <!-- Bdm lecture - Read-only profile -->
+    <record model="res.groups" id="group_membership_bdm_lecture">
+        <field name="name">BDM Lecture</field>
+        <field name="category_id" ref="bdm_users"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('coop_shift.group_shift_see_leave'))]"/>
+    </record>
+
+    <!-- Bdm presence - Attendance-only data entry profile -->
+    <record model="res.groups" id="group_membership_bdm_presence">
+        <field name="name">BDM Présences</field>
+        <field name="category_id" ref="bdm_users"/>
+        <field name="menu_access" eval="[(4, ref('coop_shift.shift_menu'))]"/>
+        <field name="implied_ids"
+               eval="[(4, ref('group_membership_bdm_lecture')), (4, ref('coop_membership.group_shift_create_extension_from_attendance'))]"/>
+    </record>
+
+    <record model="res.groups" id="group_membership_bdm_saisie">
+        <field name="name">BDM Saisie</field>
+        <field name="category_id" ref="bdm_users"/>
+        <field name="menu_access" eval="[(4, ref('coop_shift.shift_menu'))]"/>
+        <field name="implied_ids" eval="[(4, ref('coop_membership.group_membership_bdm_presence'))]"/>
+    </record>
+
+</odoo>
