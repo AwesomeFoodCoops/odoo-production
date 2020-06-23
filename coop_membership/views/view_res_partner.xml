@@ -460,6 +460,61 @@
         </field>
     </record>
 
+    <record id="view_res_partner_form_subscription_reader" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="capital_subscription.view_res_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Set groups on tab -->
+            <page name="page_capital_fundraising" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.subscriptions_reader"/>
+                <attribute name="attrs">
+                    {
+                        'invisible': [
+                            ('is_member', '=', False),
+                            ('is_former_member', '=', False),
+                            ('is_former_associated_people', '=', False),
+                            ('is_associated_people', '=', False),
+                            ('is_interested_people', '=', False),
+                        ]
+                    }
+                </attribute>
+            </page>
+            <!-- Set to readonly (overloaded in manager view) -->
+            <field name="fundraising_partner_type_ids" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+            <!-- Add buttons -->
+            <field name="fundraising_partner_type_ids" position="after">
+                <button name="set_underclass_population"
+                        type="object"
+                        string="Set 'Underclass Population'"
+                        colspan="2" class="oe_highlight"
+                        attrs="{'invisible': [('is_underclass_population', '=', True)]}"/>
+                <button name="remove_underclass_population"
+                        type="object"
+                        string="Remove 'Underclass Population'"
+                        colspan="2" class="oe_highlight"
+                        attrs="{'invisible': [('is_underclass_population', '=', False)]}"/>
+                <field name="is_underclass_population" invisible="1"/>
+            </field>
+            <!-- Add groups to capital subscription button -->
+            <button id="new_subscription" position="attributes">
+                <attribute name="groups">coop_membership.subscriptions_creator</attribute>
+            </button>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_form_subscription_manager">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_membership.view_res_partner_form_subscription_reader"/>
+        <field name="groups_id" eval="[(6,0,[ref('account.group_account_manager')])]"/>
+        <field name="arch" type="xml">
+            <field name="fundraising_partner_type_ids" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+        </field>
+    </record>
+
     <record id="partner_form_send_sms_form_view" model="ir.ui.view">
         <field name="name">res.partner.form.send.sms</field>
         <field name="model">res.partner</field>
@@ -599,18 +654,6 @@
         <field name="arch" type="xml">
             <field name="name" position="attributes">
                 <attribute name="readonly" eval="False"/>
-            </field>
-        </field>
-    </record>
-
-    <record model="ir.ui.view" id="view_res_partner_form_subscription_manager">
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="capital_subscription.view_res_partner_form"/>
-        <field name="groups_id"
-               eval="[(6,0,[ref('account.group_account_manager')])]"/>
-        <field name="arch" type="xml">
-            <field name="fundraising_partner_type_ids" position="attributes">
-                <attribute name="readonly">0</attribute>
             </field>
         </field>
     </record>

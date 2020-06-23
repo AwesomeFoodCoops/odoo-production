@@ -97,24 +97,10 @@
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
-    <!-- This group is just to show the field 'Is Deceased'
-    because it can be viewed by Bdm lecture, but Bdm saisie
-    -->
-    <record model="res.groups" id="group_membership_view_partner_deceased">
-        <field name="name">Group View Partner Deceased</field>
-        <field name="category_id" ref="module_membership_access_management"/>
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
-        <field name="implied_ids" eval="[(4, ref('group_membership_bdm_lecture')),
-            (4, ref('coop_membership.group_shift_create_extension_from_attendance'))]"/>
-    </record>
-
     <record model="res.groups" id="group_membership_access_user">
         <field name="name">Membership Viewer</field>
         <field name="category_id" ref="module_membership_access_management"/>
-        <field name="implied_ids" eval="[(4, ref('base.group_user')),
-            (4, ref('coop_membership.group_employee_native_menu')),
-            (4, ref('coop_membership.group_membership_view_partner_deceased'))
-            ]"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('coop_membership.group_employee_native_menu'))]"/>
     </record>
 
     <record model="res.groups" id="group_membership_access_photo">
