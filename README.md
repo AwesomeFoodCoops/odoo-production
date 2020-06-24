@@ -36,7 +36,7 @@ addon | version | summary
 [coop_default_pricetag](coop_default_pricetag/) | 12.0.1.0.1 | Coop Default Price Tag
 [coop_disable_product](coop_disable_product/) | 12.0.1.0.0 | Coop Limit Creation of Product
 [coop_inventory](coop_inventory/) | 12.0.1.0.0 | Coop - Inventory
-[coop_membership](coop_membership/) | 12.0.3.2.0 | Custom settings for membership
+[coop_membership](coop_membership/) | 12.0.3.3.0 | Custom settings for membership
 [coop_memberspace](coop_memberspace/) | 12.0.1.0.0 | Coop Memberspace
 [coop_numerical_keyboard](coop_numerical_keyboard/) | 12.0.1.0.0 | Create a new POS numerical keyboard
 [coop_parental_leave](coop_parental_leave/) | 12.0.1.0.0 | Custom settings for Parental Leave
