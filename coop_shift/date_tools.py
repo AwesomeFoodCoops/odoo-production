@@ -18,6 +18,10 @@ def conflict_period(
     allowed or not.
     """
     def _conflict(date_start, date_stop):
+        if not date_start:
+            return True
+        if not date_stop:
+            return False
         if not limit_allowed:
             return date_start < date_stop
         else:

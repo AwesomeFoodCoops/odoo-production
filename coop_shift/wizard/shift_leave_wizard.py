@@ -20,7 +20,10 @@ class ShiftLeaveWizard(models.TransientModel):
     @api.model
     def _default_shift_template_registration_line_ids(self):
         line_ids = []
-        leave_id = self.env.context.get('active_id', False)
+        leave_id = (
+            self.env.context.get('active_model') == 'shift.leave'
+            and self.env.context.get('active_id', False)
+        )
         if leave_id:
             leave = self.env['shift.leave'].browse(leave_id)
             for line in leave.partner_id.tmpl_reg_line_ids:
@@ -32,27 +35,26 @@ class ShiftLeaveWizard(models.TransientModel):
 
     # Column Section
     leave_id = fields.Many2one(
-        string='Leave', required=True, comodel_name='shift.leave',
-        default=_default_leave_id, readonly=True)
+        comodel_name='shift.leave',
+        string='Leave',
+        default=_default_leave_id,
+        required=True,
+        readonly=True,
+        ondelete='cascade',
+    )
 
-    type_id = fields.Many2one(
-        comodel_name='shift.leave.type', string='Type',
-        related='leave_id.type_id', readonly=True)
+    type_id = fields.Many2one(related='leave_id.type_id')
+    partner_id = fields.Many2one(related='leave_id.partner_id')
 
-    partner_id = fields.Many2one(
-        string='Partner', comodel_name='res.partner',
-        related='leave_id.partner_id', readonly=True)
-
-    start_date = fields.Date(
-        string='Begin Date', related='leave_id.start_date', readonly=True)
-
-    stop_date = fields.Date(
-        string='Stop Date', related='leave_id.stop_date', readonly=True)
+    start_date = fields.Date(related='leave_id.start_date')
+    stop_date = fields.Date(related='leave_id.stop_date')
 
     shift_template_registration_line_ids = fields.Many2many(
-        comodel_name='shift.template.registration.line', readonly=True,
+        comodel_name='shift.template.registration.line',
+        readonly=True,
         string='Template Attendees',
-        default=_default_shift_template_registration_line_ids)
+        default=_default_shift_template_registration_line_ids,
+    )
 
     # View Section
     @api.multi
