@@ -203,21 +203,19 @@ class ResPartner(models.Model):
 
     @api.onchange('birthdate_date')
     def _onchange_birthdate_date(self):
-        if self.birthdate_date and self.is_minor_child:
-            self.check_minor_child_birthdate_date(
-                self.birthdate_date, self.is_minor_child
-            )
+        self._check_partner_birthdate_date()
 
     # Constraint Section
-    @api.multi
     @api.constrains('birthdate_date')
     def _check_partner_birthdate_date(self):
         """ Check minor child's birth date """
         for partner in self:
             if partner.is_minor_child and partner.birthdate_date:
-                partner.check_minor_child_birthdate_date(
-                    partner.birthdate_date, partner.is_minor_child
-                )
+                if partner.age < 18:
+                    raise ValidationError(_(
+                        "Cette personne a plus de 18 ans et ne peux pas être "
+                        "saisie comme un enfant mineur.")
+                    )
 
     @api.constrains(
         'is_member', 'parent_id',
@@ -723,17 +721,6 @@ class ResPartner(models.Model):
                 return partners.name_get()
         return super(ResPartner, self).name_search(
             name=name, args=args, operator=operator, limit=limit)
-
-    @api.model
-    def check_minor_child_birthdate_date(self, birthdate_date, is_minor_child):
-        if birthdate_date and is_minor_child:
-            birthdate_date = datetime.strptime(birthdate_date, "%Y-%m-%d").date()
-            past_18_years_dt = date.today() - relativedelta(years=18)
-            if birthdate_date < past_18_years_dt:
-                raise ValidationError(_(
-                    "Cette personne a plus de 18 ans et ne peux pas être "
-                    "saisie comme un enfant mineur.")
-                )
 
     @api.multi
     def name_get(self):
