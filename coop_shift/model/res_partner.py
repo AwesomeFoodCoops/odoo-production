@@ -234,10 +234,12 @@ class ResPartner(models.Model):
         for partner in self:
             today = fields.Date.context_today(self)
             partner.leave_qty = len(partner.leave_ids.filtered(
-                lambda l: l.stop_date >= today))
+                lambda l: l.stop_date and l.stop_date >= today))
             current_leave = partner.leave_ids.filtered(
-                lambda l: l.stop_date >= today and l.start_date <= today
-                and l.state != 'cancel')
+                lambda l: (
+                    l.stop_date and l.stop_date >= today
+                    and (not l.start_date or l.start_date <= today)
+                    and l.state != 'cancel'))
             if current_leave:
                 leave_type_name = current_leave[0].type_id.name.split()
                 partner.current_leave_info = "%s-%s" % (
