@@ -21,48 +21,6 @@
         </field>
     </record>
 
-    <!-- Changes in coop shift user view -->
-    <record id="view_partner_form_coop_shift" model="ir.ui.view">
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
-        <field name="arch" type="xml">
-
-            <!-- Changes in existing buttons -->
-            <button id="view_shift_leaves" position="attributes">
-                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
-            </button>
-
-            <button id="view_partner_registrations" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
-                <attribute name="attrs">{'invisible': [('is_member', '=', False)]}</attribute>
-            </button>
-
-            <button id="view_partner_template_registrations" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
-                <attribute name="attrs">{'invisible': [('is_member', '=', False)]}</attribute>
-            </button>
-
-            <button id="view_res_partner_point_counter_standard" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
-                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
-            </button>
-
-            <button id="view_res_partner_point_counter_ftop" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
-                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
-            </button>
-
-            <button id="view_res_partner_shift_extension_from_partner" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
-                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
-            </button>
-
-            <field name="template_ids" position="after">
-                <field name="leader_ids" widget="many2many_tags"/>
-            </field>
-        </field>
-    </record>
-
     <!--
         Main Res partner view for membership
 
@@ -386,6 +344,50 @@
             </xpath>
         </field>
     </record>
+
+
+    <!-- Changes in coop shift user view -->
+    <record id="view_partner_form_coop_shift" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Changes in existing buttons -->
+            <button id="view_shift_leaves" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
+            </button>
+
+            <button id="view_partner_registrations" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="attrs">{'invisible': [('is_member', '=', False)]}</attribute>
+            </button>
+
+            <button id="view_partner_template_registrations" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="attrs">{'invisible': [('is_member', '=', False)]}</attribute>
+            </button>
+
+            <button id="view_res_partner_point_counter_standard" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
+            </button>
+
+            <button id="view_res_partner_point_counter_ftop" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
+            </button>
+
+            <button id="view_res_partner_shift_extension_from_partner" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
+            </button>
+
+            <field name="template_ids" position="after">
+                <field name="leader_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+
 
     <record id="view_res_partner_form_subscription_reader" model="ir.ui.view">
         <field name="model">res.partner</field>
