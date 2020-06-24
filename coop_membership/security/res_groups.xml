@@ -162,7 +162,7 @@
     <record model="res.groups" id="subscriptions_creator_payment">
         <field name="name">Create Subscriptions and payment</field>
         <field name="category_id" ref="category_subscriptions"/>
-        <field name="implied_ids" eval="[(4, ref('subscriptions_creator'))]"/>
+        <field name="implied_ids" eval="[(4, ref('subscriptions_creator')),(4, ref('capital_subscription.manage_fundraising_partner_type'))]"/>
     </record>
 
     <!-- BDM Groups -->
