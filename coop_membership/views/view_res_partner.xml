@@ -65,6 +65,11 @@
 
     <!--
         Main Res partner view for membership
+
+        We give priority=100 so that:
+            - it's after base and OCA modules views
+            - it's before coop_shift view
+
         TODO:
             - move all bdm profiles related stuff to bdm views
                 - view_partner_form_bdm
@@ -72,6 +77,7 @@
             - do not completely replace groups attributes:
                 use separator="," add="group.name" instead
             - avoid using xpath when a simple field name="" is enough
+
     -->
     <record id="view_partner_form" model="ir.ui.view">
         <field name="model">res.partner</field>

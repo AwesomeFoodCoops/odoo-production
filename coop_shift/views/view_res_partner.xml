@@ -17,10 +17,15 @@
         <field name="target">new</field>
     </record>
 
+    <!--
+        We give it priority = 200 so that:
+            - it's after coop_membership base view
+    -->
     <record id="view_res_partner_shift_form" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="groups_id" eval="[(6, 0, [ref('coop_shift.group_shift_user')])]"/>
+        <field name="priority">200</field>
         <field name="arch" type="xml">
 
             <!-- Add header -->
