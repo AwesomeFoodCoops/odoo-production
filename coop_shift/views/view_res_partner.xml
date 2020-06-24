@@ -76,8 +76,8 @@
                         help="View partner Leaves"
                         groups="coop_shift.group_shift_see_leave"
                         id="view_shift_leaves">
-                    <field name="current_leave_info" string="Leaves"/>
-                    <span>Leaves</span>
+                    <field name="current_leave_info" string="Leaves" attrs="{'invisible':[('current_leave_info', '=', False)]}"/>
+                    <span attrs="{'invisible':[('current_leave_info', '!=', False)]}">Leaves</span>
                 </button>
 
                 <button name="%(coop_shift.act_template_registration_line_from_partner)d"
