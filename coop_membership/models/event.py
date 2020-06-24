@@ -1,5 +1,4 @@
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 
 class Event(models.Model):
@@ -42,15 +41,3 @@ class Event(models.Model):
     def _get_default_seats_max(self):
         event_confg = self.env['res.config.settings'].sudo().get_values()
         return event_confg and event_confg.get('seats_max') or 0
-
-    @api.multi
-    def button_done(self):
-        self.ensure_one()
-        registration_pending = self.registration_ids.filtered(
-            lambda r: r.state not in ['cancel', 'done'])
-        if registration_pending:
-            raise UserError(_("You cannot close this event."
-                              "Please review attendances and"
-                              "mark all attendees as absent or present."))
-        res = super(Event, self).button_done()
-        return res
