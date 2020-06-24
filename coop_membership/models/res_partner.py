@@ -99,8 +99,6 @@ class ResPartner(models.Model):
     is_underclass_population = fields.Boolean(
         'is Underclass Population',
         compute='_compute_is_underclass_population',
-        compute_sudo=True,
-        store=True,
     )
     is_associated_people = fields.Boolean(
         string='Is Associated People',
