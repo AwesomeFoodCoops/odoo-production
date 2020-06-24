@@ -22,6 +22,7 @@
         'purchase_compute_order',
         'account_export',
         'account_partner_journal',
+        'account_asset_management',
         'res_partner_account_move_line',
         'partner_contact_birthdate',
         'partner_contact_gender',
