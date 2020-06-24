@@ -6,7 +6,6 @@
 # Copyright (C) Sythil
 
 import base64
-from datetime import datetime, date, timedelta
 
 import pytz
 from dateutil.relativedelta import relativedelta
@@ -302,7 +301,7 @@ class ResPartner(models.Model):
         for partner in self:
             if partner.birthdate_date:
                 d1 = partner.birthdate_date
-                d2 = date.today()
+                d2 = fields.Date.today()
                 partner.age = relativedelta(d2, d1).years
 
     @api.multi
@@ -576,7 +575,7 @@ class ResPartner(models.Model):
         today = fields.Date.from_string(fields.Date.today())
         if partner.is_designated_buyer:
             partner.deactivated_date = \
-                today + timedelta(days=maximum_active_days)
+                today + relativedelta(days=maximum_active_days)
 
     @api.model
     def _generate_associated_barcode(self, partner):
@@ -760,10 +759,9 @@ class ResPartner(models.Model):
 
         # Convert Next Shift Time into Local Time
         if next_shift_time:
-            next_shift_time_obj = next_shift_time
             tz_name = self._context.get('tz', self.env.user.tz) or 'utc'
             utc_timestamp = pytz.utc.localize(
-                next_shift_time_obj, is_dst=False)
+                next_shift_time, is_dst=False)
             context_tz = pytz.timezone(tz_name)
             start_date_object_tz = utc_timestamp.astimezone(context_tz)
             next_shift_date = start_date_object_tz.strftime('%Y-%m-%d')
