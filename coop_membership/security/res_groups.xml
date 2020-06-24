@@ -19,7 +19,6 @@
             (4, ref('maintenance.menu_m_request_form')),
             (4, ref('hr.menu_hr_root'))
         ]"/>
-        <field name="implied_ids" eval="[(4, ref('group_membership_see_associated_people'))]"/>
     </record>
 
     <!-- All current groups which are inherited from Employee should be added to Native Employee Menus -->
@@ -112,6 +111,12 @@
     <record model="res.groups" id="coop_group_access_res_partner_inform">
         <field name="name">Access Res Partner Inform</field>
         <field name="category_id" ref="module_membership_access_management"/>
+    </record>
+
+    <!-- Add associated people to employee native menu group -->
+
+    <record model="res.groups" id="group_employee_native_menu">
+        <field name="implied_ids" eval="[(4, ref('group_membership_see_associated_people'))]"/>
     </record>
 
 
