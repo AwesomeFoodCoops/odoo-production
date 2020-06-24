@@ -21,37 +21,11 @@
         </field>
     </record>
 
-    <!--
-        Main Res partner view for membership
-        TODO:
-            - move all bdm profiles related stuff to bdm views
-                - view_partner_form_bdm
-                - view_partner_form_bdm_saisie
-            - do not completely replace groups attributes:
-                use separator="," add="group.name" instead
-            - avoid using xpath when a simple field name="" is enough
-    -->
-    <record id="view_partner_form" model="ir.ui.view">
+    <!-- Changes in coop shift user view -->
+    <record id="view_partner_form_coop_shift" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
-
-            <field name="template_ids" position="after">
-                <field name="leader_ids" widget="many2many_tags"/>
-            </field>
-
-            <!-- Add buttons -->
-            <div name="button_box" position="inside">
-                <button name="%(coop_membership.action_res_partner_owned_share)d"
-                        type="action"
-                        class="oe_stat_button"
-                        icon="fa-calendar"
-                        help="View Partner Owned Shares"
-                        groups="coop_shift.group_shift_manager"
-                        attrs="{'invisible': [('is_member', '!=', True)]}">
-                    <field name="total_partner_owned_share" widget="statinfo" string="Owned Shares"/>
-                </button>
-            </div>
 
             <!-- Changes in existing buttons -->
             <button id="view_shift_leaves" position="attributes">
@@ -82,6 +56,41 @@
                 <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
                 <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
             </button>
+
+            <field name="template_ids" position="after">
+                <field name="leader_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+
+    <!--
+        Main Res partner view for membership
+        TODO:
+            - move all bdm profiles related stuff to bdm views
+                - view_partner_form_bdm
+                - view_partner_form_bdm_saisie
+            - do not completely replace groups attributes:
+                use separator="," add="group.name" instead
+            - avoid using xpath when a simple field name="" is enough
+    -->
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+
+            <!-- Add buttons -->
+            <div name="button_box" position="inside">
+                <button name="%(coop_membership.action_res_partner_owned_share)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-calendar"
+                        help="View Partner Owned Shares"
+                        groups="coop_shift.group_shift_manager"
+                        attrs="{'invisible': [('is_member', '!=', True)]}">
+                    <field name="total_partner_owned_share" widget="statinfo" string="Owned Shares"/>
+                </button>
+            </div>
 
             <!-- Changes in fields -->
             <field name="image" position="attributes">
@@ -461,41 +470,6 @@
         </field>
     </record>
 
-    <record id="personal_information" model="ir.ui.view">
-        <field name="name">Personal information page for contacts form</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="partner_contact_personal_information_page.personal_information"/>
-        <field name="priority">2</field>
-        <field name="arch" type="xml">
-            <group name="personal_information_group" position="after">
-                <group string="Extra Data"
-                       attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
-                    <field name="temp_coop_number"
-                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user"/>
-                    <field name="age" attrs="{'invisible': [('age', '=', 0)]}"
-                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_bdm_lecture,coop_membership.group_membership_access_user"/>
-                    <field name="contact_origin_id"
-                           widget="many2many_tags"
-                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
-                        <tree>
-                            <field name="event_id"/>
-                            <field name="state" invisible="1"/>
-                            <field name="date_open"/>
-                            <field name="date_closed"/>
-                        </tree>
-                    </field>
-                    <field name="is_deceased"
-                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_lecture"/>
-                    <field name="date_of_death"
-                           attrs="{'invisible': [('is_deceased', '=', False)]}"/>
-                    <field name="deactivated_date" readonly="1"
-                           groups="coop_shift.group_shift_manager"/>
-                </group>
-                <group/>
-            </group>
-        </field>
-    </record>
-
     <!-- Edit contact us message in 'Comments' Tab -->
     <record id="view_partner_form_message" model="ir.ui.view">
         <field name="model">res.partner</field>
@@ -541,12 +515,45 @@
         </field>
     </record>
 
+    <!-- Partner Contact personal informaation page -->
+    <record id="personal_information" model="ir.ui.view">
+        <field name="name">Personal information page for contacts form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="partner_contact_personal_information_page.personal_information"/>
+        <field name="arch" type="xml">
+            <group name="personal_information_group" position="after">
+                <group string="Extra Data"
+                       attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
+                    <field name="temp_coop_number"
+                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user"/>
+                    <field name="age" attrs="{'invisible': [('age', '=', 0)]}"
+                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_bdm_lecture,coop_membership.group_membership_access_user"/>
+                    <field name="contact_origin_id"
+                           widget="many2many_tags"
+                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
+                        <tree>
+                            <field name="event_id"/>
+                            <field name="state" invisible="1"/>
+                            <field name="date_open"/>
+                            <field name="date_closed"/>
+                        </tree>
+                    </field>
+                    <field name="is_deceased"
+                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_lecture"/>
+                    <field name="date_of_death"
+                           attrs="{'invisible': [('is_deceased', '=', False)]}"/>
+                    <field name="deactivated_date" readonly="1"
+                           groups="coop_shift.group_shift_manager"/>
+                </group>
+                <group/>
+            </group>
+        </field>
+    </record>
+
     <!--- partner_contact_gender views -->
-    <record model="ir.ui.view" id="view_lecture_partner_contact_gender_view_personal_information_gender">
+    <record model="ir.ui.view" id="view_personal_information_gender">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="partner_contact_gender.view_personal_information_gender"/>
-        <field name="groups_id"
-               eval="[(6,0,[ref('coop_membership.group_membership_bdm_lecture'),ref('coop_shift.group_shift_user')])]"/>
         <field name="arch" type="xml">
             <field name="gender" position="attributes">
                 <attribute name="readonly">True</attribute>
@@ -556,10 +563,8 @@
 
     <record model="ir.ui.view" id="view_manager_partner_contact_gender_view_personal_information_gender">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="view_lecture_partner_contact_gender_view_personal_information_gender"/>
-        <field name="groups_id"
-               eval="[(6,0,[ref('coop_shift.group_shift_manager')])]"/>
-        <field name="priority">20</field>
+        <field name="inherit_id" ref="view_personal_information_gender"/>
+        <field name="groups_id" eval="[(6,0,[ref('coop_shift.group_shift_manager')])]"/>
         <field name="arch" type="xml">
             <field name="gender" position="attributes">
                 <attribute name="readonly">False</attribute>
@@ -605,36 +610,21 @@
 
     <!-- BDM Profiles views -->
 
+    <!-- Access to coop_shift view -->
+    <record id="coop_shift.view_res_partner_shift_form" model="ir.ui.view">
+        <field name="groups_id" eval="[(4, ref('coop_membership.group_membership_bdm_lecture'))]"/>
+    </record>
 
     <!--
-        This view adds / removes permissions for BDM groups 
+        This  view adds / remove permissions for BDM groups
+        on base/membership partner view
     -->
     <record id="view_partner_form_bdm" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="view_partner_form"/>
         <field name="groups_id" eval="[(6,0,[ref('coop_membership.group_membership_bdm_lecture')])]"/>
         <field name="arch" type="xml">
-            <!-- Pages -->
-            <page name="shifts" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
-            </page>
-            <!-- Changess in buttons -->
-            <button id="view_shift_leaves" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
-            </button>
-            <button id="view_partner_registrations" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
-            </button>
-            <button id="view_partner_template_registrations" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
-            </button>
-            <button id="view_res_partner_point_counter_standard" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
-            </button>
-            <button id="view_res_partner_point_counter_ftop" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
-            </button>
-            <!-- Fields -->
+             <!-- Fields -->
             <field name="street" position="attributes">
                 <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </field>
@@ -686,13 +676,45 @@
                 <field name="opt_out" string="Mailing Opt-Out" groups="coop_membership.group_membership_bdm_lecture"/>
             </field>
 
-            <field name="cooperative_state" position="attributes">
-                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
-            </field>
+        </field>
+    </record>
 
+    <!--
+        This view adds / removes permissions for BDM groups 
+        on coop_shift partner view
+    -->
+    <record id="view_partner_form_shift_bdm" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="view_partner_form_coop_shift"/>
+        <field name="groups_id" eval="[(6,0,[ref('coop_membership.group_membership_bdm_lecture')])]"/>
+        <field name="arch" type="xml">
+            <!-- Pages -->
+            <page name="shifts" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </page>
+            <!-- Changess in buttons -->
+            <button id="view_shift_leaves" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </button>
+            <button id="view_partner_registrations" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </button>
+            <button id="view_partner_template_registrations" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </button>
+            <button id="view_res_partner_point_counter_standard" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </button>
+            <button id="view_res_partner_point_counter_ftop" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </button>
             <button id="view_res_partner_shift_extension_from_partner" position="attributes">
                 <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
             </button>
+            <!-- Fields -->
+            <field name="cooperative_state" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </field>
 
         </field>
     </record>
