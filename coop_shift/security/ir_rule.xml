@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <!--
+        This rule is apparently not used
+        and it's causing issues if not Manager
+
+        TODO: Remove this block after production validation
+
     <record id="shift_registration_user" model="ir.rule">
         <field name="name">Access to shift_registration User</field>
         <field name="model_id" ref="model_shift_registration"/>
         <field name="domain_force">[('partner_id', '=', user.partner_id.id)]</field>
         <field name="groups" eval="[(4, ref('coop_shift.group_shift_user'))]"/>
     </record>
+    -->
 
     <record id="shift_registration_manager" model="ir.rule">
         <field name="name">Access to shift_registration Manager</field>
