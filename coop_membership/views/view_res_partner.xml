@@ -7,24 +7,41 @@
 
 <odoo>
 
+    <!--
+        This view adds the cleanup group to some base elements,
+        so we can hide them from common users
+    -->
+    <record id="view_partner_form_cleanup" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <button name="toggle_active" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_clean_up"/>
+            </button>
+        </field>
+    </record>
+
+    <!--
+        Main Res partner view for membership
+        TODO:
+            - move all bdm profiles related stuff to bdm views
+                - view_partner_form_bdm
+                - view_partner_form_bdm_saisie
+            - do not completely replace groups attributes:
+                use separator="," add="group.name" instead
+            - avoid using xpath when a simple field name="" is enough
+    -->
     <record id="view_partner_form" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet/div[@name='button_box']/button[@name='toggle_active']"
-                   position="attributes">
-                <attribute name="groups">coop_membership.group_clean_up</attribute>
-            </xpath>
-            <page name="shifts" position="attributes">
-                <attribute name="groups">
-                    coop_shift.group_shift_manager,
-                    coop_membership.group_membership_bdm_lecture
-                </attribute>
-            </page>
+
             <field name="template_ids" position="after">
                 <field name="leader_ids" widget="many2many_tags"/>
             </field>
-            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+
+            <!-- Add buttons -->
+            <div name="button_box" position="inside">
                 <button name="%(coop_membership.action_res_partner_owned_share)d"
                         type="action"
                         class="oe_stat_button"
@@ -32,275 +49,186 @@
                         help="View Partner Owned Shares"
                         groups="coop_shift.group_shift_manager"
                         attrs="{'invisible': [('is_member', '!=', True)]}">
-                    <field name="total_partner_owned_share"
-                           widget="statinfo" string="Owned Shares"/>
+                    <field name="total_partner_owned_share" widget="statinfo" string="Owned Shares"/>
                 </button>
-            </xpath>
-            <xpath expr="//button[@id='view_shift_leaves']" position="attributes">
-                <attribute name="groups">
-                    coop_shift.group_shift_see_leave,
-                    coop_membership.group_membership_bdm_lecture
-                </attribute>
+            </div>
+
+            <!-- Changes in existing buttons -->
+            <button id="view_shift_leaves" position="attributes">
                 <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
-            </xpath>
-            <xpath expr="//button[@id='view_partner_registrations']" position="attributes">
-                <attribute name="groups">
-                    coop_shift.group_shift_user,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_lecture
-                </attribute>
-                <attribute name="attrs">{'invisible': [('is_worker_member', '=', False)]}</attribute>
-            </xpath>
-            <xpath expr="//button[@id='view_partner_template_registrations']" position="attributes">
-                <attribute name="groups">
-                    coop_shift.group_shift_manager,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_lecture
-                </attribute>
-                <attribute name="attrs">{'invisible': [('is_worker_member', '=', False)]}</attribute>
-            </xpath>
-            <xpath expr="//button[@id='view_res_partner_point_counter_standard']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_lecture
-                </attribute>
-                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
-            </xpath>
-            <xpath expr="//button[@id='view_res_partner_point_counter_ftop']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_lecture
-                </attribute>
-                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
-            </xpath>
-            <button id="view_partner_template_registrations" position="attributes">
+            </button>
+
+            <button id="view_partner_registrations" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
                 <attribute name="attrs">{'invisible': [('is_member', '=', False)]}</attribute>
             </button>
-            <xpath expr="//sheet/field[@name='image']" position="attributes">
+
+            <button id="view_partner_template_registrations" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="attrs">{'invisible': [('is_member', '=', False)]}</attribute>
+            </button>
+
+            <button id="view_res_partner_point_counter_standard" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
+            </button>
+
+            <button id="view_res_partner_point_counter_ftop" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
+            </button>
+
+            <button id="view_res_partner_shift_extension_from_partner" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
+            </button>
+
+            <!-- Changes in fields -->
+            <field name="image" position="attributes">
                 <attribute name="readonly">1</attribute>
+            </field>
+
+            <field name="company_type" position="attributes">
+                <attributes name="groups">base.group_no_one</attributes>
+            </field>
+
+            <xpath expr="//h1/field[@name='name']" position="before">
+                <h1>
+                    <field name="barcode_base" placeholder="Member Number"
+                           attrs="{'invisible': [('barcode_rule_id', '=', False)], 'readonly': [('generate_type', '!=', 'manual')]}"/>
+                </h1>
             </xpath>
+
+            <!-- Other changes -->
             <xpath expr="//div[hasclass('oe_title')]" position="attributes">
                 <attributes name="name">genaral_info</attributes>
             </xpath>
-            <xpath expr="//div[hasclass('oe_title')]/field[@name='company_type']"
-                   position="attributes">
-                <attributes name="groups">base.group_no_one</attributes>
-            </xpath>
-            <xpath expr="//h1/field[@name='name']" position="before">
-                <h1>
-                <field name="barcode_base" placeholder="Member Number"
-                       attrs="{'invisible': [('barcode_rule_id', '=', False)],
-                       'readonly': [('generate_type', '!=', 'manual')]}"/>
-                </h1>
-            </xpath>
-            <xpath expr="//div/field[@name='parent_id']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people
-                </attribute>
-            </xpath>
-            <page name="sales_purchases" position="after">
-                <page name="membership" string="Membership"
-                      attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False)]}"
-                      groups="coop_membership.group_membership_see_associated_people,
-                              coop_membership.group_membership_access_user">
-                <group>
-                    <group string="Membership"
-                           groups="coop_membership.group_membership_see_associated_people,
-                           coop_membership.group_membership_access_user"
-                           attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
-                        <field name="nb_associated_people"
-                               string="Number of Associated People"
-                               attrs="{'readonly': True, 'invisible': [('is_member','=',False),('is_former_member','=',False)]}"
-                               groups="coop_membership.group_membership_see_associated_people"/>
-                        <field name="is_member"
-                               groups="coop_shift.group_shift_manager"/>
-                        <field name="badge_distribution_date" attrs="{'invisible': [('is_member', '=', False)]}"/>
-                        <field name="badge_to_distribute"/>
-                        <field name="is_worker_member"
-                               groups="coop_shift.group_shift_manager"/>
-                        <field name="is_associated_people" readonly="1"
-                               groups="coop_shift.group_shift_manager"/>
-                        <field name="is_interested_people"
-                               groups="coop_shift.group_shift_manager"/>
-                        <field name="is_former_member"
-                               groups="coop_shift.group_shift_manager"/>
-                        <field name="is_former_associated_people"
-                               groups="coop_shift.group_shift_manager"/>
-                        <field name="is_unpayed"
-                               groups="coop_shift.group_shift_manager"/>
-                        <field name="is_unsubscribed"
-                               groups="coop_shift.group_shift_manager"/>
-                        <field name="is_designated_buyer"
-                               readonly="1"
-                               groups="coop_shift.group_shift_manager"/>
-                    </group>
-                </group>
-                </page>
-            </page>
             <xpath expr="//div[hasclass('oe_title')]" position="after">
                 <group>
-                    <group>
-                        <field name="inform_ids" widget="many2many_tags"
-                               attrs="{'invisible': [('is_member', '!=', True)]}"/>
-                    </group>
-                    <group>
-                        <field name="next_ftop_registration_date" class="bold_type"
-                               attrs="{'invisible': [('shift_type','=', 'standard')]}"
-                               groups="coop_membership.group_membership_bdm_presence,
-                               coop_membership.group_membership_bdm_lecture,
-                               coop_membership.group_membership_bdm_saisie"/>
-                        <field name="next_abcd_registrations"
-                               widget="many2many_tags"
-                               groups="coop_membership.group_membership_bdm_presence,
-                               coop_membership.group_membership_bdm_lecture,
-                               coop_membership.group_membership_bdm_saisie"
-                               attrs="{'invisible': [('is_member', '!=', True)]}">
-                            <tree>
-                                <field name="shift_id"/>
-                            </tree>
-                        </field>
+                    <group name="group_inform_ids">
+                        <field name="inform_ids" widget="many2many_tags" attrs="{'invisible': [('is_member', '!=', True)]}"/>
                     </group>
                 </group>
             </xpath>
-            <xpath expr="//field[@name='street']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+
+            <xpath expr="//div/field[@name='parent_id']" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
             </xpath>
-            <xpath expr="//field[@name='street2']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
-            <xpath expr="//field[@name='city']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
-            <xpath expr="//field[@name='state_id']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
-            <xpath expr="//field[@name='zip']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_lecture,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
-            <xpath expr="//field[@name='country_id']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
-            <xpath expr="//group/field[@name='website']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='vat']" position="before">
-                <field name="website" widget="url" placeholder="e.g. www.odoo.com"
-                       groups="coop_membership.group_membership_see_associated_people,
-                       coop_membership.group_membership_access_user"/>
-            </xpath>
-            <xpath expr="//group/field[@name='vat']" position="attributes">
-                <attribute name="groups">account.group_account_invoice</attribute>
-            </xpath>
-            <xpath expr="//group/field[@name='function']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
-            <xpath expr="//group/field[@name='phone']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
-            <xpath expr="//group/field[@name='mobile']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
-            <xpath expr="//field[@name='user_ids']" position="after">
-                <field name="opt_out" string="Mailing Opt-Out"
-                       groups="coop_membership.group_membership_bdm_lecture,
-                       coop_membership.group_membership_bdm_saisie"/>
-            </xpath>
+
+            <!-- Add membership page -->
+            <page name="sales_purchases" position="after">
+                <page name="membership" string="Membership"
+                      attrs="{'invisible': [('is_member','=',False), ('is_former_member','=',False)]}"
+                      groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
+                    <group>
+                        <group name="membership" string="Membership">
+                            <field name="nb_associated_people" readonly="1" groups="coop_membership.group_membership_see_associated_people"/>
+                            <field name="is_member" groups="coop_shift.group_shift_manager"/>
+                            <field name="badge_distribution_date" attrs="{'invisible': [('is_member', '=', False)]}"/>
+                            <field name="badge_to_distribute"/>
+                            <field name="is_worker_member" groups="coop_shift.group_shift_manager"/>
+                            <field name="is_associated_people" readonly="1" groups="coop_shift.group_shift_manager"/>
+                            <field name="is_interested_people" groups="coop_shift.group_shift_manager"/>
+                            <field name="is_former_member" groups="coop_shift.group_shift_manager"/>
+                            <field name="is_former_associated_people" groups="coop_shift.group_shift_manager"/>
+                            <field name="is_unpayed" groups="coop_shift.group_shift_manager"/>
+                            <field name="is_unsubscribed" groups="coop_shift.group_shift_manager"/>
+                            <field name="is_designated_buyer" readonly="1" groups="coop_shift.group_shift_manager"/>
+                        </group>
+                    </group>
+                </page>
+            </page>
+
+            <field name="street" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+            </field>
+            <field name="street2" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+            </field>
+            <field name="state_id" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+            </field>
+            <field name="zip" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+            </field>
+            <field name="country_id" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+            </field>
+            <field name="function" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+            </field>
+            <field name="phone" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+            </field>
+            <field name="mobile" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+            </field>
+
+            <field name="website" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+            </field>
+            <field name="vat" position="before">
+                <field name="website" position="move"/>
+            </field>
+
+            <field name="vat" position="attributes">
+                <attribute name="groups" separator="," add="account.group_account_invoice"/>
+            </field>
+
+            <field name="birthdate_date" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attributes name="attrs">{'required': [('is_member', '=', True)]}</attributes>
+            </field>
+            
+
             <xpath expr="//group/field[@name='title']" position="attributes">
                 <attribute name="groups">
                     coop_membership.group_membership_bdm_saisie
                 </attribute>
             </xpath>
-            <xpath expr="//group/field[@name='lang']" position="attributes">
-                <attribute name="groups">
-                    coop_shift.group_shift_manager,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
+
             <xpath expr="//group/field[@name='category_id']" position="attributes">
-                <attribute name="groups">
-                    coop_shift.group_shift_manager,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+                <attribute name="groups" separator="," add="coop_shift.group_shift_manager"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
-            <xpath expr="//group/field[@name='birthdate_date']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-                <attributes name="attrs">{'required': [('is_member', '=', True)]}</attributes>
-            </xpath>
+
             <xpath expr="//notebook/page[@autofocus='autofocus']" position="attributes">
-                <attribute name="attrs">
-                    {'invisible': [('is_member', '=', False)]}
-                </attribute>
+                <attribute name="attrs">{'invisible': [('is_member', '=', False)]}</attribute>
             </xpath>
+
             <xpath expr="//field[@name='child_ids']/kanban" position="attributes">
                 <attribute name="create">false</attribute>
             </xpath>
-            <xpath expr="//div[hasclass('oe_kanban_details')]/div/field[@name='email']"
-                   position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+            <xpath expr="//div[hasclass('oe_kanban_details')]/div/field[@name='email']" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
-            <xpath expr="//div[hasclass('oe_kanban_details')]/div[@t-if='record.phone.raw_value']"
-                   position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+            <xpath expr="//div[hasclass('oe_kanban_details')]/div[@t-if='record.phone.raw_value']" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
-            <xpath expr="//div[hasclass('oe_kanban_details')]/div[@t-if='record.mobile.raw_value']"
-                   position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+            <xpath expr="//div[hasclass('oe_kanban_details')]/div[@t-if='record.mobile.raw_value']" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']"
-                   position="attributes">
+            <xpath expr="//field[@name='child_ids']/form/sheet/field[@name='type']" position="attributes">
                 <attribute name="attrs">
                     {'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}
                 </attribute>
@@ -322,13 +250,10 @@
                     {'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}
                 </attribute>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[1]"
-                   position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[1]" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
             <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='name']"
                    position="after">
@@ -345,74 +270,54 @@
                        coop_membership.group_membership_access_user,
                        coop_membership.group_membership_bdm_saisie"/>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='function']"
-                   position="attributes">
+            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='function']" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
                 <attribute name="attrs">
                     {'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}
                 </attribute>
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='email']"
-                   position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='email']" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='phone']"
-                   position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='phone']" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='mobile']"
-                   position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='mobile']" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='comment']"
-                   position="attributes">
+            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='comment']" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
                 <attribute name="attrs">
                     {'invisible': ['|', ('is_member', '=', True), ('is_associated_people', '=', True)]}
                 </attribute>
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='comment']"
-                   position="after">
+            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='comment']" position="after">
                 <field name="is_designated_buyer"/>
                 <field name="is_minor_child"/>
             </xpath>
-            <xpath expr="//page[@name='internal_notes']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_bdm_lecture,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
-            </xpath>
-            <xpath expr="//page[@name='sales_purchases']" position="attributes">
-                <attribute name="groups">
-                    coop_shift.group_shift_manager,
-                    sales_team.group_sale_salesman,
-                    purchase.group_purchase_user
-                </attribute>
-            </xpath>
-            <xpath expr="//page[@name='sales_purchases']/group/group[@name='sale']/field[@name='customer']"
-                   position="before">
+
+            <page name="internal_notes" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </page>
+            <page name="sales_purchases" position="attributes">
+                <attribute name="groups" separator="," add="coop_shift.group_shift_manager"/>
+                <attribute name="groups" separator="," add="sales_team.group_sale_salesman"/>
+                <attribute name="groups" separator="," add="purchase.group_purchase_user"/>
+            </page>
+
+            <xpath expr="//page[@name='sales_purchases']/group/group[@name='sale']/field[@name='customer']" position="before">
                 <button name="force_customer_button" type="object" class="oe_highlight"
                         string="Force to Customer" attrs="{'invisible': [('customer','=',True)]}"/>
                 <button name="force_supplier_button" type="object" class="oe_highlight"
@@ -524,46 +429,34 @@
         <field name="inherit_id" ref="sms.partner_form_send_sms_form_view"/>
         <field name="arch" type="xml">
             <label for="phone" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </label>
             <field name="phone" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </field>
             <xpath expr="//div[hasclass('o_row')][1]/button[@name='%(sms.send_sms_form_action)d']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
             <label for="mobile" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </label>
             <field name="mobile" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </field>
             <xpath expr="//div[hasclass('o_row')][2]/button[@name='%(sms.send_sms_form_action)d']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
         </field>
     </record>
@@ -578,17 +471,12 @@
                 <group string="Extra Data"
                        attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}">
                     <field name="temp_coop_number"
-                           groups="coop_membership.group_membership_see_associated_people,
-                           coop_membership.group_membership_access_user"/>
+                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user"/>
                     <field name="age" attrs="{'invisible': [('age', '=', 0)]}"
-                           groups="coop_membership.group_membership_see_associated_people,
-                           coop_membership.group_membership_bdm_lecture,
-                           coop_membership.group_membership_access_user,
-                           coop_membership.group_membership_bdm_saisie"/>
+                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_bdm_lecture,coop_membership.group_membership_access_user"/>
                     <field name="contact_origin_id"
                            widget="many2many_tags"
-                           groups="coop_membership.group_membership_see_associated_people,
-                           coop_membership.group_membership_access_user">
+                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
                         <tree>
                             <field name="event_id"/>
                             <field name="state" invisible="1"/>
@@ -597,10 +485,7 @@
                         </tree>
                     </field>
                     <field name="is_deceased"
-                           groups="coop_membership.group_membership_see_associated_people,
-                           coop_membership.group_membership_access_user,
-                           coop_membership.group_membership_bdm_lecture,
-                           coop_membership.group_membership_bdm_saisie"/>
+                           groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user,coop_membership.group_membership_bdm_lecture"/>
                     <field name="date_of_death"
                            attrs="{'invisible': [('is_deceased', '=', False)]}"/>
                     <field name="deactivated_date" readonly="1"
@@ -630,18 +515,14 @@
         <field name="inherit_id" ref="mail.res_partner_view_form_inherit_mail"/>
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('o_row_readonly')]" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
             <xpath expr="//label[@for='email']" position="attributes">
-                <attribute name="groups">
-                    coop_membership.group_membership_see_associated_people,
-                    coop_membership.group_membership_access_user,
-                    coop_membership.group_membership_bdm_saisie
-                </attribute>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_see_associated_people"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_access_user"/>
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
             </xpath>
         </field>
     </record>
@@ -652,8 +533,7 @@
         <field name="model">res.partner</field>
         <field name="priority" eval="1"/>
         <field name="inherit_id" ref="coop_membership.view_partner_form"/>
-        <field name="groups_id"
-               eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
+        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
         <field name="arch" type="xml">
             <field name="name" position="attributes">
                 <attribute name="readonly" eval="False"/>
@@ -662,31 +542,27 @@
     </record>
 
     <!--- partner_contact_gender views -->
-    <record model="ir.ui.view" id="view_manager_partner_contact_gender_view_personal_information_gender">
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="partner_contact_gender.view_personal_information_gender"/>
-        <field name="groups_id"
-               eval="[(6,0,[ref('coop_shift.group_shift_manager')
-        ])]"/>
-        <field name="priority">20</field>
-        <field name="arch" type="xml">
-            <field name="gender" position="attributes">
-                <attribute name="readonly">False</attribute>
-            </field>
-        </field>
-    </record>
-
     <record model="ir.ui.view" id="view_lecture_partner_contact_gender_view_personal_information_gender">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="partner_contact_gender.view_personal_information_gender"/>
         <field name="groups_id"
-               eval="[(6,0,[ref('coop_membership.group_membership_bdm_lecture'),
-                            ref('coop_shift.group_shift_user'),
-                            ref('coop_membership.group_membership_bdm_saisie')
-               ])]"/>
+               eval="[(6,0,[ref('coop_membership.group_membership_bdm_lecture'),ref('coop_shift.group_shift_user')])]"/>
         <field name="arch" type="xml">
             <field name="gender" position="attributes">
                 <attribute name="readonly">True</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_manager_partner_contact_gender_view_personal_information_gender">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="view_lecture_partner_contact_gender_view_personal_information_gender"/>
+        <field name="groups_id"
+               eval="[(6,0,[ref('coop_shift.group_shift_manager')])]"/>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <field name="gender" position="attributes">
+                <attribute name="readonly">False</attribute>
             </field>
         </field>
     </record>
@@ -719,8 +595,7 @@
         <field name="model">res.partner</field>
         <field name="priority" eval="1"/>
         <field name="inherit_id" ref="coop_membership.view_res_partner_form_barcodes_generator_partner"/>
-        <field name="groups_id"
-               eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
+        <field name="groups_id" eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
         <field name="arch" type="xml">
             <field name="barcode_base" position="attributes">
                 <attribute name="readonly" eval="False"/>
@@ -728,12 +603,105 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="view_res_partner_form_membership_entry">
+    <!-- BDM Profiles views -->
+
+
+    <!--
+        This view adds / removes permissions for BDM groups 
+    -->
+    <record id="view_partner_form_bdm" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="coop_membership.view_partner_form"/>
-        <field name="groups_id"
-               eval="[(6,0,[ref('coop_membership.group_membership_bdm_saisie')
-               ])]"/>
+        <field name="inherit_id" ref="view_partner_form"/>
+        <field name="groups_id" eval="[(6,0,[ref('coop_membership.group_membership_bdm_lecture')])]"/>
+        <field name="arch" type="xml">
+            <!-- Pages -->
+            <page name="shifts" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </page>
+            <!-- Changess in buttons -->
+            <button id="view_shift_leaves" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </button>
+            <button id="view_partner_registrations" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </button>
+            <button id="view_partner_template_registrations" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </button>
+            <button id="view_res_partner_point_counter_standard" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </button>
+            <button id="view_res_partner_point_counter_ftop" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </button>
+            <!-- Fields -->
+            <field name="street" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
+            </field>
+            <field name="street2" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
+            </field>
+            <field name="state_id" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
+            </field>
+            <field name="zip" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
+            </field>
+            <field name="country_id" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
+            </field>
+            <field name="function" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
+            </field>
+            <field name="phone" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
+            </field>
+            <field name="mobile" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
+            </field>
+            <field name="birthdate_date" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_saisie"/>
+            </field>
+            <!-- Other changes -->
+            <group name="group_inform_ids" position="after">
+                <group>
+                    <field name="next_ftop_registration_date" class="bold_type"
+                           attrs="{'invisible': [('shift_type','=', 'standard')]}"
+                           groups="coop_membership.group_membership_bdm_lecture"/>
+                    <field name="next_abcd_registrations"
+                           widget="many2many_tags"
+                           groups="coop_membership.group_membership_bdm_lecture"
+                           attrs="{'invisible': [('is_member', '!=', True)]}">
+                        <tree>
+                            <field name="shift_id"/>
+                        </tree>
+                    </field>
+                </group>
+            </group>
+
+            <field name="user_ids" position="after">
+                <field name="opt_out" string="Mailing Opt-Out" groups="coop_membership.group_membership_bdm_lecture"/>
+            </field>
+
+            <field name="cooperative_state" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </field>
+
+            <button id="view_res_partner_shift_extension_from_partner" position="attributes">
+                <attribute name="groups" separator="," add="coop_membership.group_membership_bdm_lecture"/>
+            </button>
+
+        </field>
+    </record>
+
+    <!-- Extended permissions for saisie -->
+    <record model="ir.ui.view" id="view_partner_form_bdm_saisie">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="view_partner_form_bdm"/>
+        <field name="groups_id" eval="[(6,0,[ref('coop_membership.group_membership_bdm_saisie')])]"/>
         <field name="arch" type="xml">
             <field name="name" position="attributes">
                 <attribute name="readonly">True</attribute>
@@ -756,8 +724,7 @@
     <record model="ir.ui.view" id="view_res_partner_form_edit_photo">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_membership.view_partner_form"/>
-        <field name="groups_id"
-               eval="[(6,0,[ref('coop_membership.group_membership_access_photo')])]"/>
+        <field name="groups_id" eval="[(6,0,[ref('coop_membership.group_membership_access_photo')])]"/>
         <field name="arch" type="xml">
             <field name="image" position="attributes">
                 <attribute name="readonly">0</attribute>
@@ -876,36 +843,10 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
         </field>
     </record>
 
-    <record id="account.partner_view_button_contracts_count"
-            model="ir.ui.view">
-        <field name="groups_id"
-               eval="[(6, 0, [ref('account.group_account_invoice')])]"/>
+    <record id="account.partner_view_button_contracts_count" model="ir.ui.view">
+        <field name="groups_id" eval="[(6, 0, [ref('account.group_account_invoice')])]"/>
     </record>
 
-    <record id="coop_shift.view_res_partner_form_header" model="ir.ui.view">
-        <field name="groups_id" eval="[(4, ref('coop_membership.group_membership_bdm_lecture')), (4, ref('coop_membership.group_membership_access_user'))]"/>
-    </record>
-
-    <record id="view_res_partner_form_header" model="ir.ui.view">
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="coop_shift.view_res_partner_form_header"/>
-        <field name="arch" type="xml">
-            <field name="cooperative_state" position="attributes">
-                <attribute name="groups">
-                    coop_shift.group_shift_manager,
-                    coop_membership.group_membership_bdm_lecture
-                </attribute>
-            </field>
-            <xpath expr="//button[@name='%(coop_shift.action_shift_extension_from_partner)d']" position="attributes">
-                <attribute name="groups">
-                    coop_shift.group_shift_manager,
-                    coop_membership.group_membership_bdm_lecture,
-                    coop_membership.group_membership_access_user
-                </attribute>
-                <attribute name="attrs">{'invisible': [('is_member', '!=', True)]}</attribute>
-            </xpath>
-        </field>
-    </record>
     <!-- Actions on Members -->
     <record id="action_coop_membership_access_rights"
             model="ir.actions.act_window">

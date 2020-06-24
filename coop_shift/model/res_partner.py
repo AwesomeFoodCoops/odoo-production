@@ -51,18 +51,27 @@ class ResPartner(models.Model):
         'shift.registration', "partner_id", 'Registrations')
 
     upcoming_registration_count = fields.Integer(
-        "Number of registrations", compute="_compute_registration_counts")
+        "Number of registrations",
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
     next_registration_id = fields.One2many(
         'shift.registration', "partner_id", 'Next Registration',
-        compute="_compute_registration_counts")
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
 
     next_abcd_registrations = fields.One2many(
         'shift.registration', "partner_id", 'Prochains Services',
-        compute="_compute_registration_counts")
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
 
     next_ftop_registration_date = fields.Datetime(
         string='Prochain Décompte Volant',
-        compute="_compute_registration_counts")
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
 
     tmpl_reg_ids = fields.One2many(
         'shift.template.registration', "partner_id",
@@ -74,15 +83,20 @@ class ResPartner(models.Model):
 
     tmpl_registration_count = fields.Integer(
         "Number of Template registrations",
-        compute="_compute_registration_counts")
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
 
     active_tmpl_reg_line_count = fields.Integer(
         "Number of active registration lines",
-        compute="_compute_registration_counts")
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
 
     current_tmpl_reg_line = fields.Char(
         string="Current Template Registration Lines",
-        compute="_compute_registration_counts"
+        compute="_compute_registration_counts",
+        compute_sudo=True,
     )
 
     current_template_name = fields.Char(
@@ -125,21 +139,29 @@ class ResPartner(models.Model):
     # Fields for final standard and ftop points
     final_standard_point = fields.Float(
         string='Final Standard points',
-        compute='_compute_final_standard_point', store=True)
+        compute='_compute_final_standard_point',
+        compute_sudo=True,
+        store=True,
+    )
 
     final_ftop_point = fields.Float(
-        string='Final FTOP points', compute='_compute_final_ftop_point',
-        store=True)
+        string='Final FTOP points',
+        compute='_compute_final_ftop_point',
+        compute_sudo=True,
+        store=True,
+    )
 
     display_std_points = fields.Float(
         string="Actual Current Standard Points",
         compute="_compute_display_counter_point",
+        compute_sudo=True,
         store=True
     )
 
     display_ftop_points = fields.Float(
         string="Actual Current FTOP Points",
         compute="_compute_display_counter_point",
+        compute_sudo=True,
         store=True
     )
 
@@ -165,6 +187,7 @@ class ResPartner(models.Model):
     current_extension_day_end = fields.Char(
         string='Current Extension Day End',
         compute='_compute_extension_qty',
+        compute_sudo=True,
     )
     counter_event_ids = fields.One2many(
         string='Counter Events',
