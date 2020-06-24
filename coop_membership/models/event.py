@@ -53,9 +53,4 @@ class Event(models.Model):
                               "Please review attendances and"
                               "mark all attendees as absent or present."))
         res = super(Event, self).button_done()
-        registration_absent = self.registration_ids.filtered(
-            lambda r: r.state == 'cancel')
-        partner_absent = registration_absent.mapped('partner_id')
-        partner_absent.unlink()
-        registration_absent.unlink()
         return res
