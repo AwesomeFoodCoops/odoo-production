@@ -4,8 +4,6 @@
 # @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime
-
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, _
 from odoo.addons.queue_job.job import job
@@ -166,14 +164,22 @@ class ResPartner(models.Model):
     )
 
     date_alert_stop = fields.Date(
-        string='End Alert Date', compute='_compute_date_alert_stop',
-        store=True, help="This date mention the date when"
-        " the 'alert' state stops and when the partner will be suspended.")
+        string='End Alert Date',
+        compute='_compute_date_alert_stop',
+        compute_sudo=True,
+        store=True,
+        help="This date mention the date when the 'alert' state stops "
+             "and when the partner will be suspended.",
+    )
 
     date_delay_stop = fields.Date(
-        string='End Delay Date', compute='_compute_date_delay_stop',
-        store=True, help="This date mention the date when"
-        " the 'delay' state stops and when the partner will be suspended.")
+        string='End Delay Date',
+        compute='_compute_date_delay_stop',
+        compute_sudo=True,
+        store=True,
+        help="This date mention the date when the 'delay' state stops "
+             " and when the partner will be suspended.",
+    )
 
     extension_ids = fields.One2many(
         'shift.extension',
@@ -435,9 +441,8 @@ class ResPartner(models.Model):
             if point >= 0:
                 partner.date_alert_stop = False
             elif not current_partner_alert_date.get(partner.id):
-                partner.date_alert_stop =\
-                    datetime.today() + relativedelta(days=alert_duration)
-                partner.date_alert_stop = partner.date_alert_stop
+                partner.date_alert_stop = \
+                    fields.Date.today() + relativedelta(days=alert_duration)
 
     @api.model
     def compute_working_state_manually(self, member_ids):
@@ -456,7 +461,7 @@ class ResPartner(models.Model):
     @api.multi
     def _compute_working_state(self):
         """@This function should be called in a daily CRON."""
-        current_datetime = fields.Datetime.now()
+        current_datetime = fields.Date.today()
         for partner in self:
             state = 'up_to_date'
             if partner.is_blocked:
@@ -472,7 +477,10 @@ class ResPartner(models.Model):
 
                 if point < 0:
                     if partner.date_alert_stop:
-                        if partner.date_delay_stop > current_datetime:
+                        if (
+                            partner.date_delay_stop
+                            and partner.date_delay_stop > current_datetime
+                        ):
                             # There is Delay
                             state = 'delay'
                         elif partner.date_alert_stop > current_datetime:
