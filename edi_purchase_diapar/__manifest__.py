@@ -15,7 +15,6 @@
         "edi_purchase_base",
         "purchase_package_qty",
         "coop_purchase",
-        "coop_membership",
     ],
     "data": [
         "wizard/invoice_supplier_price_update.xml",
