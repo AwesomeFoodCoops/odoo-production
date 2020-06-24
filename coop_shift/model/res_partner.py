@@ -178,12 +178,14 @@ class ResPartner(models.Model):
     extension_ids = fields.One2many(
         'shift.extension',
         inverse_name='partner_id',
-        string='Extensions')
-
+        string='Extensions',
+    )
     extension_qty = fields.Integer(
-        string='Extensions Quantity', compute='_compute_extension_qty',
-        store=True)
-
+        string='Extensions Quantity',
+        compute='_compute_extension_qty',
+        compute_sudo=True,
+        store=True,
+    )
     current_extension_day_end = fields.Char(
         string='Current Extension Day End',
         compute='_compute_extension_qty',
