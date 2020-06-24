@@ -87,8 +87,8 @@
                         help="View partner Template Registrations"
                         groups="coop_shift.group_shift_manager"
                         id="view_partner_template_registrations">
-                    <field name="current_tmpl_reg_line"/>
-                    <span>Tmpl. Registr.</span>
+                    <field name="current_tmpl_reg_line" attrs="{'invisible':[('current_tmpl_reg_line', '=', False)]}"/>
+                    <span attrs="{'invisible':[('current_tmpl_reg_line', '!=', False)]}">Tmpl. Registr.</span>
                 </button>
 
                 <button name="%(coop_shift.action_res_partner_point_counter_view_standard)d"
