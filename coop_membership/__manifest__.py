@@ -32,9 +32,17 @@
         'security/ir_module_category.xml',
         'security/res_groups.xml',
         'security/ir.model.access.csv',
+        # Custom Data
         'data/report_paperformat_data.xml',
         'data/ir_attachment.xml',
         'data/ir_config_parameter.xml',
+        'data/ir_sequences.xml',
+        'data/ir_cron.xml',
+        'data/capital_fundraising_partner_type.xml',
+        'data/barcode_rule.xml',
+        'data/res_partner_inform.xml',
+        'data/shift_extension_type_data.xml',
+        'data/email_template_data.xml',
         # Wizard
         'wizard/view_capital_fundraising_wizard.xml',
         'wizard/res_partner_generate_barcode_wizard.xml',
@@ -70,14 +78,6 @@
         'report/member_contract.xml',
         'report/member_contract_template.xml',
 
-        # Custom Data
-        'data/ir_cron.xml',
-        'data/capital_fundraising_partner_type.xml',
-        'data/email_template_data.xml',
-        'data/ir_sequences.xml',
-        'data/barcode_rule.xml',
-        'data/res_partner_inform.xml',
-        'data/shift_extension_type_data.xml',
     ],
     'demo': [
         'demo/capital_fundraising_category.xml',
