@@ -31,7 +31,7 @@
             <!-- Add header -->
             <sheet position="before">
                 <header>
-                    <field name="cooperative_state" widget="statusbar" groups="coop_shift.group_shift_manager"/>
+                    <field name="cooperative_state" widget="statusbar"/>
                 </header>
             </sheet>
 
