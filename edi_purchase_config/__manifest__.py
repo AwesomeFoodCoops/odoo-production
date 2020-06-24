@@ -16,7 +16,6 @@
         "views/menus.xml",
         "views/edi_config_system_view.xml",
         "views/purchase_edi_log_view.xml",
-        "views/res_partner_view.xml",
         "security/ir_module_category.xml",
         "security/res_groups.xml",
         "security/ir.model.access.csv",

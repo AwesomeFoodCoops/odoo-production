@@ -140,15 +140,7 @@ class ShiftRegistration(models.Model):
             partner = registration.partner_id
             extension_type = self.env.ref(
                 'coop_membership.shift_extension_type_extension')
-
-            date_begin_obj = datetime.strptime(fields.Datetime.now(),
-                                               '%Y-%m-%d %H:%M:%S')
-            tz_name = self._context.get('tz') or self.env.user.tz
-            utc_timestamp = pytz.utc.localize(date_begin_obj, is_dst=False)
-            context_tz = pytz.timezone(tz_name)
-            date_begin_object_tz = utc_timestamp.astimezone(context_tz)
-            date_begin_date = date_begin_object_tz.strftime('%Y-%m-%d')
-
+            date_begin_date = fields.Date.context_today(self)
             ext_vals = {
                 'partner_id':
                 partner.id,

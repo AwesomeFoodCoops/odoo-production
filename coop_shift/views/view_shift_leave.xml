@@ -55,15 +55,15 @@
                     <field name="state" widget="statusbar" nolabel="1" readonly="1"/>
                     <button name="%(action_shift_leave_wizard)d" type="action" class="oe_highlight" string="Validate"
                         attrs="{'invisible': [('state', '!=', 'draft')]}"
-                        groups="coop_shift.group_shift_future_changes,coop_membership.group_membership_bdm_saisie"
+                        groups="coop_shift.group_shift_future_changes"
                     />
                     <button name="button_cancel" type="object" string="Cancel"
                         attrs="{'invisible': [('state', '!=', 'done')]}"
-                        groups="coop_shift.group_shift_future_changes,coop_membership.group_membership_bdm_saisie"
+                        groups="coop_shift.group_shift_future_changes"
                     />
                     <button name="button_draft" type="object" string="Set in a draft state"
                         attrs="{'invisible': [('state', '!=', 'cancel')]}"
-                        groups="coop_shift.group_shift_future_changes,coop_membership.group_membership_bdm_saisie"
+                        groups="coop_shift.group_shift_future_changes"
                     />
                 </header>
                 <sheet>

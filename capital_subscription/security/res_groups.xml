@@ -9,7 +9,7 @@
 
     <record model="res.groups" id="manage_fundraising_partner_type">
         <field name="name">Manage Fundraising Partner Type</field>
-        <field name="category_id" ref="base.module_category_extra" />
+        <field name="category_id" ref="base.module_category_usability" />
     </record>
 
 </odoo>

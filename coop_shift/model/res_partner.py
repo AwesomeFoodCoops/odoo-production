@@ -4,8 +4,6 @@
 # @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime
-
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, _
 from odoo.addons.queue_job.job import job
@@ -51,18 +49,27 @@ class ResPartner(models.Model):
         'shift.registration', "partner_id", 'Registrations')
 
     upcoming_registration_count = fields.Integer(
-        "Number of registrations", compute="_compute_registration_counts")
+        "Number of registrations",
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
     next_registration_id = fields.One2many(
         'shift.registration', "partner_id", 'Next Registration',
-        compute="_compute_registration_counts")
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
 
     next_abcd_registrations = fields.One2many(
         'shift.registration', "partner_id", 'Prochains Services',
-        compute="_compute_registration_counts")
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
 
     next_ftop_registration_date = fields.Datetime(
         string='Prochain Décompte Volant',
-        compute="_compute_registration_counts")
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
 
     tmpl_reg_ids = fields.One2many(
         'shift.template.registration', "partner_id",
@@ -74,15 +81,20 @@ class ResPartner(models.Model):
 
     tmpl_registration_count = fields.Integer(
         "Number of Template registrations",
-        compute="_compute_registration_counts")
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
 
     active_tmpl_reg_line_count = fields.Integer(
         "Number of active registration lines",
-        compute="_compute_registration_counts")
+        compute="_compute_registration_counts",
+        compute_sudo=True,
+    )
 
     current_tmpl_reg_line = fields.Char(
         string="Current Template Registration Lines",
-        compute="_compute_registration_counts"
+        compute="_compute_registration_counts",
+        compute_sudo=True,
     )
 
     current_template_name = fields.Char(
@@ -125,46 +137,65 @@ class ResPartner(models.Model):
     # Fields for final standard and ftop points
     final_standard_point = fields.Float(
         string='Final Standard points',
-        compute='_compute_final_standard_point', store=True)
+        compute='_compute_final_standard_point',
+        compute_sudo=True,
+        store=True,
+    )
 
     final_ftop_point = fields.Float(
-        string='Final FTOP points', compute='_compute_final_ftop_point',
-        store=True)
+        string='Final FTOP points',
+        compute='_compute_final_ftop_point',
+        compute_sudo=True,
+        store=True,
+    )
 
     display_std_points = fields.Float(
         string="Actual Current Standard Points",
         compute="_compute_display_counter_point",
+        compute_sudo=True,
         store=True
     )
 
     display_ftop_points = fields.Float(
         string="Actual Current FTOP Points",
         compute="_compute_display_counter_point",
+        compute_sudo=True,
         store=True
     )
 
     date_alert_stop = fields.Date(
-        string='End Alert Date', compute='_compute_date_alert_stop',
-        store=True, help="This date mention the date when"
-        " the 'alert' state stops and when the partner will be suspended.")
+        string='End Alert Date',
+        compute='_compute_date_alert_stop',
+        compute_sudo=True,
+        store=True,
+        help="This date mention the date when the 'alert' state stops "
+             "and when the partner will be suspended.",
+    )
 
     date_delay_stop = fields.Date(
-        string='End Delay Date', compute='_compute_date_delay_stop',
-        store=True, help="This date mention the date when"
-        " the 'delay' state stops and when the partner will be suspended.")
+        string='End Delay Date',
+        compute='_compute_date_delay_stop',
+        compute_sudo=True,
+        store=True,
+        help="This date mention the date when the 'delay' state stops "
+             " and when the partner will be suspended.",
+    )
 
     extension_ids = fields.One2many(
         'shift.extension',
         inverse_name='partner_id',
-        string='Extensions')
-
+        string='Extensions',
+    )
     extension_qty = fields.Integer(
-        string='Extensions Quantity', compute='_compute_extension_qty',
-        store=True)
-
+        string='Extensions Quantity',
+        compute='_compute_extension_qty',
+        compute_sudo=True,
+        store=True,
+    )
     current_extension_day_end = fields.Char(
         string='Current Extension Day End',
         compute='_compute_extension_qty',
+        compute_sudo=True,
     )
     counter_event_ids = fields.One2many(
         string='Counter Events',
@@ -410,9 +441,8 @@ class ResPartner(models.Model):
             if point >= 0:
                 partner.date_alert_stop = False
             elif not current_partner_alert_date.get(partner.id):
-                partner.date_alert_stop =\
-                    datetime.today() + relativedelta(days=alert_duration)
-                partner.date_alert_stop = partner.date_alert_stop
+                partner.date_alert_stop = \
+                    fields.Date.today() + relativedelta(days=alert_duration)
 
     @api.model
     def compute_working_state_manually(self, member_ids):
@@ -431,7 +461,7 @@ class ResPartner(models.Model):
     @api.multi
     def _compute_working_state(self):
         """@This function should be called in a daily CRON."""
-        current_datetime = fields.Datetime.now()
+        current_datetime = fields.Date.today()
         for partner in self:
             state = 'up_to_date'
             if partner.is_blocked:
@@ -447,7 +477,10 @@ class ResPartner(models.Model):
 
                 if point < 0:
                     if partner.date_alert_stop:
-                        if partner.date_delay_stop > current_datetime:
+                        if (
+                            partner.date_delay_stop
+                            and partner.date_delay_stop > current_datetime
+                        ):
                             # There is Delay
                             state = 'delay'
                         elif partner.date_alert_stop > current_datetime:
