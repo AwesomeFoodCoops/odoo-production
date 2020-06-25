@@ -31,9 +31,20 @@ class ShiftShift(models.Model):
     shift_name_read = fields.Char(related='name', string="Shift Name Read")
     is_send_reminder = fields.Boolean("Send Reminder", default=False)
 
-    long_holiday_id = fields.Many2one('shift.holiday', string="Long Holiday")
-    single_holiday_id = fields.Many2one('shift.holiday',
-                                        string="Single Holiday")
+    long_holiday_id = fields.Many2one(
+        'shift.holiday',
+        string="Long Holiday",
+    )
+    single_holiday_id = fields.Many2one(
+        'shift.holiday',
+        string="Single Holiday",
+    )
+    holiday_id = fields.Many2one(
+        'shift.holiday',
+        string="Holiday",
+        compute="_compute_holiday_id",
+        help="Technical field",
+    )
     state_in_holiday = fields.Selection(
         [('open', 'Open'), ('closed', 'Closed')],
         string="State in holiday",
@@ -51,6 +62,11 @@ class ShiftShift(models.Model):
         related="shift_template_id.required_skill_ids",
         readonly=True,
     )
+
+    @api.depends('long_holiday_id', 'single_holiday_id')
+    def _compute_holiday_id(self):
+        for rec in self:
+            rec.holiday_id = rec.long_holiday_id or rec.single_holiday_id
 
     @api.multi
     def button_done(self):
