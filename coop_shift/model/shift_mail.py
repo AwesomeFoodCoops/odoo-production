@@ -110,9 +110,10 @@ class ShiftMailScheduler(models.Model):
     @api.model
     def run(self, autocommit=False):
         today = fields.Datetime.to_string(fields.Datetime.now())
-        schedulers = self.search([('done', '=', False),
-                                  ('scheduled_date', '<=', today)])
-
+        schedulers = self.search([
+            ('done', '=', False),
+            ('scheduled_date', '<=', today),
+        ])
         for scheduler in schedulers:
             try:
                 with self.env.cr.savepoint():
