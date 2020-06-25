@@ -10,28 +10,25 @@ class ShiftMailRegistration(models.Model):
 
     @api.multi
     def execute(self):
-        records_to_execute = self.filtered(
-            lambda rec: (
-                not rec.mail_sent
-                and rec.registration_id.state in ['open', 'done']
-            )
-        )
-        records_to_ignore = self - records_to_execute
-
+        # Records with holidays
+        records_with_holiday = self.filtered(
+            'registration_id.shift_id.holiday_id')
+        records_with_holiday_reminder = records_with_holiday.filtered(
+            'registration_id.shift_id.holiday_id.send_email_reminder')
+        # We don't send emails here, we just skip them
+        records_to_skip = records_with_holiday - records_with_holiday_reminder
+        # Records to send holiday reminder
+        records_to_send = records_with_holiday_reminder.filtered(
+            'registration_id.shift_id.holiday_id.reminder_template_id')
         # Send holiday reminder
-        for rec in records_to_execute:
-            shift = rec.registration_id.shift_id
-            shift_holiday = shift.long_holiday_id or shift.single_holiday_id
+        for rec in records_to_send:
             if (
-                shift_holiday
-                and shift_holiday.send_email_reminder
-                and shift_holiday.reminder_template_id
+                rec.registration_id.state in ['open', 'done']
+                and not rec.mail_sent
             ):
-                shift_holiday.reminder_template_id.send_mail(
-                    rec.registration_id.id)
-                records_to_execute -= rec
+                holiday = rec.registration_id.shift_id.holiday_id
+                holiday.reminder_template_id.send_mail(rec.registration_id.id)
                 rec.write({'mail_sent': True})
-
-        if records_to_ignore:
-            records_to_ignore.write({'mail_ignored': True})
+        # We don't process them, they are processed by super()
+        records_to_execute = self - records_to_send - records_to_skip
         return super(ShiftMailRegistration, records_to_execute).execute()

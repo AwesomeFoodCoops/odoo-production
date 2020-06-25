@@ -27,7 +27,6 @@ class ShiftMailRegistration(models.Model):
             lambda rec: rec.registration_id.partner_id.working_state
             in ['exempted', 'vacation'])
         records_to_execute -= records_to_skip
-
         if records_to_ignore:
             records_to_ignore.write({'mail_ignored': True})
         return super(ShiftMailRegistration, records_to_execute).execute()
