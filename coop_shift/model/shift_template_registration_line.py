@@ -27,8 +27,11 @@ class ShiftTemplateRegistrationLine(models.Model):
     _order = 'date_begin desc'
 
     registration_id = fields.Many2one(
-        'shift.template.registration', string='Registration', required=True,
-        ondelete='cascade')
+        'shift.template.registration',
+        string='Registration',
+        required=True,
+        ondelete='cascade',
+    )
     date_begin = fields.Date("Begin Date", required=True)
     date_end = fields.Date("End Date")
     state = fields.Selection(STATES, string="State", default="open")
@@ -100,39 +103,40 @@ class ShiftTemplateRegistrationLine(models.Model):
 
         st_reg_id = vals.get('registration_id', False)
         if not st_reg_id:
-            shift_template_id = vals.get('shift_template_id', False)
-            partner_id = vals.get('partner_id', False)
-            reg_ids = self.env['shift.template'].browse(shift_template_id).\
-                registration_ids.filtered(
-                    lambda r: r.partner_id.id == partner_id)
-            st_reg_id = reg_ids and reg_ids[0].id or False
+            registration_id = self.env['shift.template.registration'].search(
+                [
+                    ('partner_id', '=', vals.get('partner_id')),
+                    ('shift_template_id', '=', vals.get('shift_template_id')),
+                ], limit=1)
+            st_reg_id = registration_id and registration_id.id or False
             vals['registration_id'] = st_reg_id
         if not st_reg_id:
-            st_reg_id = self.env['shift.template.registration'].with_context({
-                'no_default_line': True}).create(
-                {
-                    'shift_template_id': shift_template_id,
-                    'partner_id': partner_id,
+            registration_id = \
+                self.env['shift.template.registration'].with_context({
+                    'no_default_line': True,
+                }).create({
+                    'shift_template_id': vals.get('shift_template_id'),
+                    'partner_id': vals.get('partner_id'),
                     'shift_ticket_id': vals.get('shift_ticket_id', False),
-
-                }).id
+                })
+            st_reg_id = registration_id.id
             vals['registration_id'] = st_reg_id
 
         st_reg = self.env['shift.template.registration'].browse(st_reg_id)
         partner = st_reg.partner_id
 
+        # Get shifts affected by this registratation line
+        shift_domain = [
+            ('shift_template_id', '=', st_reg.shift_template_id.id),
+            ('state', '!=', 'done')
+        ]
+        if begin:
+            shift_domain.append(('date_begin', '>', begin))
         if end:
-            shifts = st_reg.shift_template_id.shift_ids.filtered(
-                lambda s, b=begin, e=end: (
-                    s.date_begin.date() > b or not b) and (
-                    s.date_end.date() < e or not e) and (
-                    s.state != 'done'))
-        else:
-            shifts = st_reg.shift_template_id.shift_ids.filtered(
-                lambda s, b=begin, e=end: (
-                    s.date_begin.date() > b or not b) and (
-                    s.state != 'done'))
+            shift_domain.append(('date_end', '<', end))
+        shifts = self.env['shift.shift'].search(shift_domain)
 
+        # Compute registrations to create
         v = {
             'partner_id': partner.id,
             'state': vals.get('state', 'open')
@@ -153,8 +157,8 @@ class ShiftTemplateRegistrationLine(models.Model):
                     })]
                 })
                 ticket_id = shift.shift_ticket_ids.filtered(
-                    lambda t: t.product_id ==
-                    st_reg.shift_ticket_id.product_id)[0]
+                    lambda t: t.product_id == st_reg.shift_ticket_id.product_id
+                )[0]
             values = dict(v, **{
                 'shift_id': shift.id,
                 'shift_ticket_id': ticket_id.id,
@@ -163,9 +167,10 @@ class ShiftTemplateRegistrationLine(models.Model):
             created_registrations.append((0, 0, values))
 
         vals['shift_registration_ids'] = created_registrations
-        return super(ShiftTemplateRegistrationLine, self.with_context(
-            dict(self.env.context, **{'creation_in_progress': True}))).create(
-            vals)
+        return super(
+            ShiftTemplateRegistrationLine,
+            self.with_context(creation_in_progress=True)
+        ).create(vals)
 
     @api.multi
     def write(self, vals):

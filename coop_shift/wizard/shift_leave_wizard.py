@@ -62,17 +62,19 @@ class ShiftLeaveWizard(models.TransientModel):
         self.ensure_one()
 
         leave = self.leave_id
-        if not self._context.get('bypass_non_draft_confirm', False) and \
-                leave.state != 'draft':
+        if (
+            not self._context.get('bypass_non_draft_confirm', False)
+            and leave.state != 'draft'
+        ):
             raise ValidationError(_(
                 "You can not confirm a leave in a non draft state."))
 
-        registration_ids = self.shift_template_registration_line_ids\
-            .mapped('registration_id').ids
+        registration_line_ids = self.shift_template_registration_line_ids
+        registration_ids = registration_line_ids.mapped('registration_id')
         leave_s_date = leave.start_date
         leave_e_date = leave.stop_date
 
-        for line in self.shift_template_registration_line_ids:
+        for line in registration_line_ids:
             previous_date_end = line.date_end
             work_s_date = line.date_begin
             work_e_date = line.date_end
@@ -88,10 +90,12 @@ class ShiftLeaveWizard(models.TransientModel):
                 else:
                     line.date_end = leave_e_date
 
-                if leave_e_date and (not previous_date_end or
-                                     previous_date_end > leave_e_date):
+                if (
+                    leave_e_date and
+                    (not previous_date_end or previous_date_end > leave_e_date)
+                ):
                     # Create a new registration line, if leave has stop date
-                    line.copy(default={
+                    line.copy({
                         'date_begin': leave_e_date + relativedelta(days=1),
                         'date_end': previous_date_end,
                     })
@@ -104,7 +108,7 @@ class ShiftLeaveWizard(models.TransientModel):
         for registration_id in registration_ids:
             # Update state of existing registration lines
             existed_line = line_obj.search([
-                ('registration_id', '=', registration_id),
+                ('registration_id', '=', registration_id.id),
                 ('date_begin', '=', leave_s_date),
                 ('state', '!=', 'waiting'),
             ])
@@ -114,7 +118,7 @@ class ShiftLeaveWizard(models.TransientModel):
             else:
                 # Create new registration lines (type 'waiting')
                 line_obj.create({
-                    'registration_id': registration_id,
+                    'registration_id': registration_id.id,
                     'date_begin': leave_s_date,
                     'date_end': leave_e_date,
                     'state': 'waiting',

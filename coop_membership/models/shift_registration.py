@@ -46,19 +46,19 @@ class ShiftRegistration(models.Model):
 
     @api.model
     def create(self, vals):
-        partner_id = vals.get('partner_id', False)
-        partner = self.env['res.partner'].browse(partner_id)
-        if partner.is_unsubscribed and not self.env.context.get(
-                'creation_in_progress', False):
-            raise UserError(
-                _("""You can't register {} on a shift because """
-                  """he isn't registered on a template""".format(
-                      partner.name)))
-        res = super(ShiftRegistration, self).create(vals)
+        partner = self.env['res.partner'].browse(vals.get('partner_id'))
+        if (
+            partner.is_unsubscribed
+            and not self.env.context.get('creation_in_progress')
+        ):
+            raise UserError(_(
+                "You can't register %s on a shift because "
+                "he isn't registered on a template"
+                ) % partner.name)
+        res = super().create(vals)
         # Do not allow member with Up to date status register make up
         # in a ABCD shift on a ABCD tickets
         res.checking_shift_attendance()
-
         # Don't allow member register in leaving time
         res.check_leave_time()
         return res

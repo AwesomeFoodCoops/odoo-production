@@ -7,9 +7,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
-import logging
-_logger = logging.getLogger(__name__)
-
 STATES = [
     ('cancel', 'Cancelled'),
     ('draft', 'Unconfirmed'),
@@ -134,12 +131,11 @@ class ShiftRegistration(models.Model):
             otherwise
         '''
         for registration in self:
-            if registration.shift_id and \
-                    registration.shift_id.shift_type_id and \
-                    registration.shift_id.shift_type_id.is_ftop:
-                registration.is_related_shift_ftop = True
-            else:
-                registration.is_related_shift_ftop = False
+            registration.is_related_shift_ftop = (
+                registration.shift_id
+                and registration.shift_id.shift_type_id
+                and registration.shift_id.shift_type_id.is_ftop
+            )
 
     @api.multi
     def button_reg_absent(self):
@@ -147,8 +143,9 @@ class ShiftRegistration(models.Model):
             if reg.shift_id.date_begin <= fields.Datetime.now():
                 reg.state = 'absent'
             else:
-                raise UserError(_("You must wait for the starting day of the\
-                    shift to do this action."))
+                raise UserError(_(
+                    "You must wait for the starting day of the "
+                    "shift to do this action."))
 
     @api.multi
     def button_reg_excused(self):
@@ -156,8 +153,9 @@ class ShiftRegistration(models.Model):
             if reg.shift_id.date_begin <= fields.Datetime.now():
                 reg.state = 'excused'
             else:
-                raise UserError(_("You must wait for the starting day of the\
-                    shift to do this action."))
+                raise UserError(_(
+                    "You must wait for the starting day of the "
+                    "shift to do this action."))
 
     @api.multi
     @api.onchange("shift_id")
@@ -172,22 +170,27 @@ class ShiftRegistration(models.Model):
         if not vals.get('template_created', False):
             shift_ticket_id = vals.get('shift_ticket_id', False)
             shift_ticket = self.env['shift.ticket'].browse(shift_ticket_id)
-            if shift_ticket and shift_ticket.shift_type != 'standard' \
-                    and shift_ticket.seats_max \
-                    and shift_ticket.seats_available <= 0:
+            if (
+                shift_ticket
+                and shift_ticket.shift_type != 'standard'
+                and shift_ticket.seats_max
+                and shift_ticket.seats_available <= 0
+            ):
                 raise UserError(_('No more available seats for this ticket'))
-        reg_id = super(ShiftRegistration, self).create(vals)
+        reg_id = super().create(vals)
         if reg_id.shift_id.state == "confirm":
             reg_id.confirm_registration()
             # Restore the state
-            if reg_id.tmpl_reg_line_id and \
-                    reg_id.state != reg_id.tmpl_reg_line_id.state:
+            if (
+                reg_id.tmpl_reg_line_id
+                and reg_id.state != reg_id.tmpl_reg_line_id.state
+            ):
                 reg_id.state = reg_id.tmpl_reg_line_id.state
         return reg_id
 
     @api.multi
     def confirm_registration(self):
-        super(ShiftRegistration, self).confirm_registration()
+        super().confirm_registration()
         for reg in self:
             onsubscribe_schedulers = reg.shift_id.shift_mail_ids.filtered(
                 lambda s: s.interval_type == 'after_sub')

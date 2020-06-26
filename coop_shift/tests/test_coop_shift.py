@@ -1,7 +1,8 @@
 from odoo.tests import common
 from odoo.exceptions import ValidationError
-from datetime import timedelta
+from datetime import timedelta, date
 from odoo import fields
+from ..date_tools import conflict_period
 
 
 class TestCoopShift(common.TransactionCase):
@@ -169,3 +170,12 @@ class TestCoopShift(common.TransactionCase):
                 'shift_ticket_id': shift_template_ticket_id_2.id,
                 'shift_template_id': self.shift_template2,
             })
+
+    def test_conflict_period(self):
+        self.assertEqual(
+            conflict_period(
+                date(2020, 1, 1),
+                date(2020, 2, 1),
+                date(2020, 1, 15),
+                date(2020, 1, 20),
+            ).get('conflict'), True)
