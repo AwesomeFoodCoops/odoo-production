@@ -2,8 +2,7 @@
 # @author: La Louve
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-from datetime import datetime, timedelta
-
+from datetime import date, datetime, timedelta
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
@@ -98,48 +97,37 @@ class ShiftChangeTeam(models.Model):
 
     @api.multi
     def button_close(self):
+        mail_template_ftop = self.env.ref(
+            'coop_membership.change_team_ftop_email')
+        mail_template_abcd = self.env.ref(
+            'coop_membership.change_team_abcd_email')
         for record in self:
             if not record.partner_id.is_member:
-                raise UserError(
-                    _('A person you want to change team must be a member'))
-            # elif record.current_shift_template_id.shift_type_id.is_ftop and\
-            #         not record.new_shift_template_id.shift_type_id.is_ftop:
-            #     raise UserError(
-            #         _('Can not change from FTOP to ABCD team'))
-            elif record.is_mess_change_team or record.is_full_seats_mess:
+                raise UserError(_(
+                    'A person you want to change team must be a member'))
+            if record.is_mess_change_team or record.is_full_seats_mess:
                 raise UserError(_(
                     'There are some processes that were not done,'
                     'please do it!'))
-            else:
-                record.set_in_new_team()
-                if record.new_shift_template_id.shift_type_id.is_ftop:
-                    mail_template_ftop = self.env.ref(
-                        'coop_membership.change_team_ftop_email')
-                    if mail_template_ftop:
-                        mail_template_ftop.attachment_ids = [
-                            (6, 0, [self.env.ref(
-                                'coop_membership.volant_sheet_attachment').id,
-                                self.env.ref(
-                                'coop_membership.volant_calendar_attachment'
-                            ).id])]
-                        mail_template_ftop.send_mail(record.id)
-                else:
-                    mail_template_abcd = self.env.ref(
-                        'coop_membership.change_team_abcd_email')
-                    if mail_template_abcd:
-                        mail_template_abcd.send_mail(record.id)
-                        if record.is_catch_up:
-                            point_counter_env = self.env['shift.counter.event']
-                            point_counter_env.sudo().with_context(
-                                {'automatic': True}).create({
-                                    'name': _("""Subtracted 1 point
-                                            for changing team"""),
-                                    'type': 'standard',
-                                    'partner_id': record.partner_id.id,
-                                    'point_qty': -1,
-                                })
+            # Set in new team
+            record.set_in_new_team()
 
-                record.state = 'closed'
+            if record.new_shift_template_id.shift_type_id.is_ftop:
+                if mail_template_ftop:
+                    mail_template_ftop.send_mail(record.id)
+            else:
+                if mail_template_abcd:
+                    mail_template_abcd.send_mail(record.id, raise_exception=True)
+                    if record.is_catch_up:
+                        self.env['shift.counter.event'].sudo().with_context(
+                            automatic=True
+                        ).create({
+                            'name': _("Subtracted 1 point for changing team"),
+                            'type': 'standard',
+                            'partner_id': record.partner_id.id,
+                            'point_qty': -1,
+                        })
+            record.state = 'closed'
         return True
 
     @api.multi
@@ -381,13 +369,12 @@ class ShiftChangeTeam(models.Model):
     @api.multi
     def convert_format_datatime(self, date_change):
         if date_change:
-            if isinstance(date_change, fields.Date()):
-                date_change = fields.Date.to_string(date_change)
-            date = date_change.split('-')[2] + '/' + \
-                date_change.split('-')[1] + '/' + date_change.split('-')[0]
-            return date.encode('utf-8')
+            if isinstance(date_change, str):
+                date_change = fields.Date.from_string(date_change)
+            if isinstance(date_change, date):
+                return date_change.strftime('%d/%m/%Y')
         else:
-            return ''.encode('utf-8')
+            return ''
 
     @api.multi
     def compute_current_shift_template(self):
@@ -482,10 +469,10 @@ class ShiftChangeTeam(models.Model):
             self.new_shift_template_id.get_recurrent_dates(
                 new_next_shift_date, next_shift_mounth)
 
-        for date in rec_new_template_dates:
-            if date < datetime.combine(
+        for d in rec_new_template_dates:
+            if d < datetime.combine(
                     self.new_next_shift_date, datetime.min.time()):
-                rec_new_template_dates.remove(date)
+                rec_new_template_dates.remove(d)
 
         if rec_new_template_dates and last_shift_date:
             date_to_cal = last_shift_date

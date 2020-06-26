@@ -302,6 +302,10 @@ ${(object.company_id.phone or '')|safe}</p>
         <field name="lang">${(object.partner_id.lang)|safe}</field>
         <field name="reply_to">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="subject">Change Team by Flying Messages</field>
+        <field name="attachment_ids" eval="[(6, 0, [
+            ref('coop_membership.volant_sheet_attachment'),
+            ref('coop_membership.volant_calendar_attachment'),
+        ])]"/>
         <field name="body_html"><![CDATA[
 <p>Hello ${object.partner_id.name}</p>
 <p>You are registered from the ${object.new_next_shift_date} in the flying team.</p>
