@@ -20,6 +20,10 @@ class ShiftTicket(models.Model):
         string="Available Seats FTOP",
         compute="_compute_seats_ticket",
         store=True)
+    required_skill_ids = fields.Many2many(
+        related="shift_id.required_skill_ids",
+        readonly=True,
+    )
 
     @api.multi
     @api.depends('shift_id', 'shift_id.shift_ticket_ids',
