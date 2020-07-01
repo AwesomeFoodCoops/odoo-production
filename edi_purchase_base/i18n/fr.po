@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-10 22:50+0000\n"
-"PO-Revision-Date: 2019-03-10 22:50+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
-"Language: \n"
+"PO-Revision-Date: 2020-07-01 10:27+0000\n"
+"Last-Translator: Simon Mas <simon.mas@druidoo.io>\n"
+"Language-Team: French <https://translate.druidoo.io/projects/foodcoops-12-0/"
+"foodcoops-12-0-edi_purchase_base/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: edi_purchase_base
 #: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_apply_date
@@ -108,7 +110,7 @@ msgstr "Erreur dans la suppression du fichier du serveur FTP : %s"
 #: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update_id
 #: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_id
 msgid "ID"
-msgstr "Identifiant"
+msgstr "ID"
 
 #. module: edi_purchase_base
 #: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list_import_date
@@ -118,7 +120,7 @@ msgstr "Date d'importation"
 #. module: edi_purchase_base
 #: model:ir.model,name:edi_purchase_base.model_product_supplierinfo
 msgid "Information about a product vendor"
-msgstr "Information sur le vendeur de l'article"
+msgstr "Informations du fournisseur"
 
 #. module: edi_purchase_base
 #: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi___last_update
@@ -267,7 +269,7 @@ msgstr "Colisage"
 #. module: edi_purchase_base
 #: model:ir.model,name:edi_purchase_base.model_purchase_order
 msgid "Purchase Order"
-msgstr "Commande fournisseur"
+msgstr "Bon de commande"
 
 #. module: edi_purchase_base
 #: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update_values_proposed_ids
