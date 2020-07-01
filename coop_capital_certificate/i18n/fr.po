@@ -7,13 +7,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-23 04:43+0000\n"
-"PO-Revision-Date: 2019-09-23 04:43+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2020-07-01 10:27+0000\n"
+"Last-Translator: Simon Mas <simon.mas@druidoo.io>\n"
+"Language-Team: French <https://translate.druidoo.io/projects/foodcoops-12-0/"
+"foodcoops-12-0-coop_capital_certificate/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: coop_capital_certificate
 #: model:mail.template,report_name:coop_capital_certificate.capital_certificate_mail_template
@@ -204,7 +207,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line__id
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: coop_capital_certificate
 #: model:ir.model.fields,help:coop_capital_certificate.field_capital_certificate_wizard__send_mail
@@ -228,14 +231,14 @@ msgstr "Dernière modification le"
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line__write_uid
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard__write_uid
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr "Mis à jour par"
 
 #. module: coop_capital_certificate
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate__write_date
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_line__write_date
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate_wizard__write_date
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr "Mis à jour le"
 
 #. module: coop_capital_certificate
 #: model:ir.model.fields,field_description:coop_capital_certificate.field_capital_certificate__partner_id
@@ -340,4 +343,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:coop_capital_certificate.report_capital_certificate_document
 msgid "subscribed:"
 msgstr ""
-
