@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-10 22:51+0000\n"
-"PO-Revision-Date: 2019-03-10 22:51+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
-"Language: \n"
+"PO-Revision-Date: 2020-07-01 10:27+0000\n"
+"Last-Translator: Simon Mas <simon.mas@druidoo.io>\n"
+"Language-Team: French <https://translate.druidoo.io/projects/foodcoops-12-0/"
+"foodcoops-12-0-edi_purchase_config/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: edi_purchase_config
 #: model:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
@@ -262,7 +264,7 @@ msgstr "Code entête"
 #: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping_id
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_id
 msgid "ID"
-msgstr "Identifiant"
+msgstr "ID"
 
 #. module: edi_purchase_config
 #: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log_name
