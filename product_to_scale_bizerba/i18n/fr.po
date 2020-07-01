@@ -7,13 +7,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-02 10:00+0000\n"
-"PO-Revision-Date: 2020-04-02 10:00+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2020-07-01 10:27+0000\n"
+"Last-Translator: Simon Mas <simon.mas@druidoo.io>\n"
+"Language-Team: French <https://translate.druidoo.io/projects/foodcoops-12-0/"
+"foodcoops-12-0-product_to_scale_bizerba/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: product_to_scale_bizerba
 #: model:ir.model.fields,field_description:product_to_scale_bizerba.field_product_scale_log__action
@@ -106,7 +109,6 @@ msgstr "Créé le"
 #: selection:product.scale.log,action:0
 msgid "Creation"
 msgstr "Création"
-
 
 #. module: product_to_scale_bizerba
 #: selection:product.scale.log,action:0
@@ -307,11 +309,9 @@ msgstr "Coefficient Numérique"
 msgid "Next Activity Summary"
 msgstr "Champ numérique"
 
-
-
 #. module: product_to_scale_bizerba
 #: model:ir.model.fields,help:product_to_scale_bizerba.field_product_scale_system__external_text_file_pattern
-msgid "" 
+msgid ""
 "Pattern of the External Text file. Use % to include dated information.\n"
 " Ref: https://docs.python.org/2/library/time.html#time.strftime"
 msgstr ""
@@ -319,10 +319,9 @@ msgstr ""
 "fichier.\n"
 " Réf: https://docs.python.org/2/library/time.html#time.strftime"
 
-
 #. module: product_to_scale_bizerba
 #: model:ir.model.fields,help:product_to_scale_bizerba.field_product_scale_system__product_text_file_pattern
-msgid "" 
+msgid ""
 "Pattern of the Product file. Use % to include dated information.\n"
 " Ref: https://docs.python.org/2/library/time.html#time.strftime"
 msgstr ""
@@ -355,11 +354,10 @@ msgstr "Image de l'article"
 msgid "Product Lines"
 msgstr "Lignes d'articles"
 
-
 #. module: product_to_scale_bizerba
 #: model:ir.model,name:product_to_scale_bizerba.model_product_template
 msgid "Product Template"
-msgstr "Texte de l'article"
+msgstr "Modèle d'article"
 
 #. module: product_to_scale_bizerba
 #: model:ir.model.fields,field_description:product_to_scale_bizerba.field_product_scale_log__product_text
@@ -533,7 +531,7 @@ msgstr "Update"
 
 #. module: product_to_scale_bizerba
 #: model:ir.model.fields,help:product_to_scale_bizerba.field_product_scale_system_product_line__suffix
-msgid "" 
+msgid ""
 "Used if type is 'External Text Field', to indicate how to suffix the field.\n"
 " Make sure to have a uniq value by Scale System, and all with the same size.\n"
 "\n"
@@ -549,7 +547,7 @@ msgstr ""
 
 #. module: product_to_scale_bizerba
 #: model:ir.model.fields,help:product_to_scale_bizerba.field_product_scale_system_product_line__x2many_range
-msgid""
+msgid ""
 "Used if type is 'Many2Many Field', to mention the range of the field  to send. Begin by 0. (used for exemple for product logos)"
 msgstr ""
 "Utilisé si le champ est de type Many2Many, pour mentionner l'index du champ "
@@ -576,7 +574,7 @@ msgstr ""
 
 #. module: product_to_scale_bizerba
 #: model:ir.model.fields,help:product_to_scale_bizerba.field_product_scale_system_product_line__multiline_length
-msgid "" 
+msgid ""
 "Used if type is 'Text Field' or 'External Text Constant', to indicate the max length of a line. Set 0 to avoid to split the value."
 msgstr ""
 "Utilisé si le champ est de type Texte, ou Texte Constant externe, pour "
@@ -604,7 +602,6 @@ msgid "Used only for the x2x fields. Set here the field of the related model tha
 msgstr ""
 "Utilisé pour les champs M2x. mettre le nom du champ dans le modèle lié que "
 "vous voulez envoyer la balance. Laisser vide si vous souhaitez envoyer l'ID."
-
 
 #. module: product_to_scale_bizerba
 #: model:ir.model.fields,help:product_to_scale_bizerba.field_product_scale_system_product_line__delimiter
