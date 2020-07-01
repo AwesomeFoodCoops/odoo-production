@@ -7,13 +7,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-21 11:10+0000\n"
-"PO-Revision-Date: 2016-12-21 11:10+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2020-07-01 10:27+0000\n"
+"Last-Translator: Simon Mas <simon.mas@druidoo.io>\n"
+"Language-Team: French <https://translate.druidoo.io/projects/foodcoops-12-0/"
+"foodcoops-12-0-coop_point_of_sale/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: coop_point_of_sale
 #. openerp-web
@@ -238,7 +241,7 @@ msgstr "Annuler"
 #: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_order_search
 #: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_search_inherit
 msgid "Day (Search)"
-msgstr "Jour (Recherche)"
+msgstr "Jour (recherche)"
 
 #. module: coop_point_of_sale
 #: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order_search_month
@@ -246,7 +249,7 @@ msgstr "Jour (Recherche)"
 #: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_order_search
 #: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_search_inherit
 msgid "Month (Search)"
-msgstr "Mois (Recherche)"
+msgstr "Mois (recherche)"
 
 #. module: coop_point_of_sale
 #: model:ir.model,name:coop_point_of_sale.model_pos_order
@@ -259,7 +262,7 @@ msgstr "Point de vente"
 #: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_order_search
 #: model:ir.ui.view,arch_db:coop_point_of_sale.view_pos_session_search_inherit
 msgid "Year (Search)"
-msgstr "Année (Recherche)"
+msgstr "Année (recherche)"
 
 #. module: coop_point_of_sale
 #: code:addons/coop_point_of_sale/models/stock_picking.py:16
