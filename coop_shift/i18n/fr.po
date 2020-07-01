@@ -7,13 +7,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-10 18:06+0000\n"
-"PO-Revision-Date: 2020-02-10 18:06+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2020-07-01 10:27+0000\n"
+"Last-Translator: Simon Mas <simon.mas@druidoo.io>\n"
+"Language-Team: French <https://translate.druidoo.io/projects/foodcoops-12-0/"
+"foodcoops-12-0-coop_shift/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: coop_shift
 #: model:ir.model.fields,help:coop_shift.field_shift_leave__partner_state
@@ -1302,7 +1305,7 @@ msgstr "Heure(s)"
 #: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard__id
 #: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: coop_shift
 #: model:ir.model.fields,help:coop_shift.field_shift_registration__message_unread
@@ -1527,7 +1530,7 @@ msgstr "Dernier service programmé"
 #: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard__write_uid
 #: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line__write_uid
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr "Mis à jour par"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_add_template_registration_wizard__write_date
@@ -1555,7 +1558,7 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard__write_date
 #: model:ir.model.fields,field_description:coop_shift.field_update_shifts_wizard_line__write_date
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr "Mis à jour le"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_create_shifts_wizard__last_shift_date
@@ -2906,7 +2909,7 @@ msgstr "État"
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_search
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_template_registration_line_search
 msgid "Status"
-msgstr "État"
+msgstr "Statut"
 
 #. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.report_timesheet
@@ -2962,7 +2965,7 @@ msgstr "Suspendu(e)"
 #. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.custom_external_layout_footer
 msgid "TIN:"
-msgstr "TVA :"
+msgstr "TIN :"
 
 #. module: coop_shift
 #: model:ir.model.fields,help:coop_shift.field_shift_template__start_date
@@ -3797,4 +3800,3 @@ msgstr "Équipe :"
 #: model_terms:ir.ui.view,arch_db:coop_shift.report_timesheet_state
 msgid "échange"
 msgstr "échange"
-
