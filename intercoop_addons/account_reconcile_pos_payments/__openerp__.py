@@ -6,7 +6,7 @@
 
 {
     'name': 'Bank auto reconcille',
-    'version': '9.0.1',
+    'version': '9.0.2.0.0',
     'category': 'Custom',
     'author': 'La Louve',
     'license': 'AGPL-3',

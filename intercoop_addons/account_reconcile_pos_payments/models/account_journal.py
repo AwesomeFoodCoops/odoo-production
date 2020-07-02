@@ -1,26 +1,7 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    POS Payment Terminal module for Odoo
-#    Copyright (C) 2014 Aurélien DUMAINE
-#    Copyright (C) 2015 Akretion (www.akretion.com)
-#    Copyright (C) 2017 Iván Todorovich <ivan.todorovich@druidoo.io>
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp import models, fields
+from openerp import api, models, fields
+from openerp.exceptions import Warning as UserError
+from openerp.tools.safe_eval import safe_eval
 
 
 class AccountJournal(models.Model):
@@ -33,13 +14,24 @@ class AccountJournal(models.Model):
     cb_child_ids = fields.One2many(
         'account.journal', 'cb_parent_id', string='CB Childs')
 
-    cb_contract_number = fields.Char('CB Contact Number')
+    cb_lines_domain = fields.Char(
+        "CB Lines Domain",
+        help="Domain that identifies the credit card lines",
+    )
 
     cb_delta_days = fields.Integer('CB Delta Days', default=3)
     cb_rounding = fields.Float("CB Rounding", default=0.01)
     cb_contactless_matching = fields.Boolean("CB Contactless Matching")
-    cb_contract_number_contactless = fields.Char('Contactless Contract Number')
-    cb_contactless_delta_days = fields.Integer('CB Delta Days', default=0)
+    cb_contactless_lines_domain = fields.Char(
+        "Contactless Lines Domain",
+        help="Domain that identifies the contactless lines",
+    )
+    cb_contactless_delta_days = fields.Integer(
+        'Contactless Delta Days',
+        help='Delta days between the regular line date '
+             'and the contactless line date.',
+        default=0,
+    )
 
     # Charges
     bank_expense_name_pattern = fields.Char()
@@ -48,3 +40,22 @@ class AccountJournal(models.Model):
 
     bank_expense_account_id = fields.Many2one(
         'account.account', 'Bank Expense Account')
+
+    @api.constrains('cb_lines_domain')
+    def _check_cb_lines_domain(self):
+        for rec in self:
+            try:
+                domain = safe_eval(rec.cb_lines_domain)
+                self.env['account.bank.statement.line'].search(domain, limit=1)
+            except Exception as e:
+                raise UserError(str(e))
+
+
+    @api.constrains('cb_contactless_lines_domain')
+    def _check_cb_contactless_lines_domain(self):
+        for rec in self:
+            try:
+                domain = safe_eval(rec.cb_contactless_lines_domain)
+                self.env['account.bank.statement.line'].search(domain, limit=1)
+            except Exception as e:
+                raise UserError(str(e))
