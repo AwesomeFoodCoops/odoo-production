@@ -2,6 +2,7 @@
 
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning as UserError
+from openerp.tools.safe_eval import safe_eval
 from datetime import datetime, timedelta
 import time
 
@@ -59,41 +60,40 @@ class AccountBankStatement(models.Model):
 
             if not rec.journal_id.cb_child_ids:
                 raise UserError(_(
-                    'The journal %s has no CB journals.'
+                    'The journal %s has no CB Child Journals.'
                     ) % rec.journal_id.display_name)
 
-            if not rec.journal_id.cb_contract_number:
+            if not rec.journal_id.cb_lines_domain:
                 raise UserError(_(
-                    'The journal %s has no CB Contract number.'
+                    'The journal %s has no CB Lines Domain.'
                     ) % rec.journal_id.display_name)
 
             if (
                 rec.journal_id.cb_contactless_matching
-                and not rec.journal_id.cb_contactless_contract_number
+                and not rec.journal_id.cb_contactless_lines_domain
             ):
                 raise UserError(_(
-                    'The journal %s has no CT Contract number.'
+                    'The journal %s has no CB Contactless Lines Domain.'
                     ) % rec.journal_id.display_name)
 
             # Lines that match the standard pattern
-            cb_contract_number = rec.journal_id.cb_contract_number
-            lines = rec.line_ids.search([
+            domain = [
                 ('statement_id', '=', rec.id),
                 ('journal_entry_ids', '=', False),
-                ('name', 'ilike', '%%%s%%' % cb_contract_number),
-            ])
+            ]
+            domain += safe_eval(rec.journal_id.cb_lines_domain)
+            lines = rec.line_ids.search(domain)
             # Process regular 1-line matching first
             not_reconciled_lines = rec._pos_reconcile_lines(lines)
 
             # Manage contact-less matching
-            cb_contactless_contract_number = \
-                rec.journal_id.cb_contactless_contract_number
             if rec.journal_id.cb_contactless_matching:
-                alt_lines = rec.line_ids.search([
+                domain = [
                     ('statement_id', '=', rec.id),
                     ('journal_entry_ids', '=', False),
-                    ('name', 'ilike', '%%%s%%' % cb_contactless_contract_number),
-                ])
+                ]
+                domain += safe_eval(rec.journal_id.cb_contactless_lines_domain)
+                alt_lines = rec.line_ids.search(domain)
                 # Process alt lines 1-line matching first
                 not_reconciled_alt_lines = rec._pos_reconcile_lines(alt_lines)
 
@@ -224,8 +224,7 @@ class AccountBankStatement(models.Model):
         lines_to_reconcile = []
         for line in lines:
             move_line_vals = {
-                'name': '%s %s %s %s' % (
-                    self.journal_id.cb_contract_number,
+                'name': '%s %s %s' % (
                     statement.journal_id.name,
                     statement.date,
                     statement.name),
