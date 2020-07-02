@@ -17,13 +17,24 @@ class AccountJournal(models.Model):
     cb_child_ids = fields.One2many(
         'account.journal', 'cb_parent_id', string='CB Childs')
 
-    cb_contract_number = fields.Char('CB Contact Number')
+    cb_lines_domain = fields.Char(
+        "CB Lines Domain",
+        help="Domain that identifies the credit card lines",
+    )
 
     cb_delta_days = fields.Integer('CB Delta Days', default=3)
     cb_rounding = fields.Float("CB Rounding", default=0.01)
     cb_contactless_matching = fields.Boolean("CB Contactless Matching")
-    cb_contract_number_contactless = fields.Char('Contactless Contract Number')
-    cb_contactless_delta_days = fields.Integer('CB Delta Days', default=0)
+    cb_contactless_lines_domain = fields.Char(
+        "Contactless Lines Domain",
+        help="Domain that identifies the contactless lines",
+    )
+    cb_contactless_delta_days = fields.Integer(
+        'Contactless Delta Days',
+        help='Delta days between the regular line date '
+             'and the contactless line date.',
+        default=0,
+    )
 
     # Charges
     bank_expense_name_pattern = fields.Char()

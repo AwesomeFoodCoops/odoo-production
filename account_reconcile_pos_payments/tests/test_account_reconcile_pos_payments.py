@@ -62,7 +62,7 @@ class TestBankStatementReconciliation(AccountingTestCase):
         journal = self.bs_model.with_context(journal_type='bank')\
             ._default_journal()
         journal.cb_child_ids = [(6, 0, [journal.id])]
-        journal.cb_contract_number = 'CB/CONT/01'
+        journal.cb_lines_domain = "[('name', 'ilike', '%CB/CONT/01%')]"
 
         bank_stmt = self.bs_model.create({
             'journal_id': journal.id,
