@@ -123,9 +123,8 @@ class AccountBankStatement(models.Model):
                 continue
             # Reconcile lines
             self._pos_reconcile_statement_with_lines(
-                lines=(line | alt_line), statement=res)
+                lines=line, statement=statement)
             reconciled_lines |= line
-            reconciled_alt_line_ids |= alt_line
 
     def _pos_reconcile_lines_combined(self, lines, alt_lines):
         '''
@@ -167,7 +166,7 @@ class AccountBankStatement(models.Model):
                     continue
                 # Reconcile lines
                 self._pos_reconcile_statement_with_lines(
-                    lines=(line | alt_line), statement=res)
+                    lines=(line | alt_line), statement=statement)
                 reconciled_lines |= line
                 reconciled_alt_lines |= alt_line
         # Return tuple
