@@ -15,6 +15,7 @@
         "product",
         "purchase",
         "purchase_compute_order",
+        "purchase_package_qty",
         "stock",
         "coop_product_coefficient",
     ],
