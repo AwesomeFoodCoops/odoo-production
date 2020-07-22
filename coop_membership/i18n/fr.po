@@ -2554,12 +2554,6 @@ msgid "Members Office Open Hours"
 msgstr ""
 
 #. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "Membership"
-msgstr "Adhésion"
-
-#. module: coop_membership
 #: model:res.groups,name:coop_membership.group_membership_bdm_presence
 msgid "Membership Attendances"
 msgstr "Bdm Présences"
