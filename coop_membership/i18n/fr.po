@@ -6,21 +6,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-15 12:38+0000\n"
-"PO-Revision-Date: 2020-07-01 10:27+0000\n"
-"Last-Translator: Simon Mas <simon.mas@druidoo.io>\n"
-"Language-Team: French <https://translate.druidoo.io/projects/foodcoops-12-0/"
-"foodcoops-12-0-coop_membership/fr/>\n"
-"Language: fr\n"
+"POT-Creation-Date: 2020-07-22 09:38+0000\n"
+"PO-Revision-Date: 2020-07-22 09:38+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.8\n"
+"Plural-Forms: \n"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:563
-#: code:addons/coop_membership/models/shift_registration.py:585
+#: code:addons/coop_membership/models/shift_registration.py:564
+#: code:addons/coop_membership/models/shift_registration.py:586
 #, python-format
 msgid "\n"
 "                                You can't register the shift (%s - %s)\n"
@@ -32,7 +29,7 @@ msgstr "\n"
 "                                quitter (%s -%s)"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:522
+#: code:addons/coop_membership/models/shift_change_team.py:509
 #, python-format
 msgid "\n"
 "                            Il y a un écart de plus de 6\n"
@@ -42,7 +39,7 @@ msgid "\n"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:531
+#: code:addons/coop_membership/models/shift_change_team.py:518
 #, python-format
 msgid "\n"
 "                            La date de démarrage est inférieure à 15 jours\n"
@@ -714,21 +711,6 @@ msgid "<br/>\n"
 msgstr ""
 
 #. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "<span attrs=\"{'invisible':[('current_extension_day_end', '!=', False)]}\">Ext.</span>"
-msgstr "<span attrs=\"{'invisible':[('current_extension_day_end', '!=', False)]}\">Extensions</span>"
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "<span attrs=\"{'invisible':[('current_leave_info', '!=', False)]}\">Leaves</span>"
-msgstr "<span attrs=\"{'invisible':[('current_leave_info', '!=', False)]}\">Congés</span>"
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "<span attrs=\"{'invisible':[('current_tmpl_reg_line', '!=', False)]}\">Tmpl. Registr.</span>"
-msgstr "<span attrs=\"{'invisible':[('current_tmpl_reg_line', '!=', False)]}\">Inscript. Créneau</span>"
-
-#. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.register_form
 msgid "<span class=\"contact100-form-title\">\n"
 "                                Inscription - Réunions d'accueil\n"
@@ -990,15 +972,10 @@ msgid "<span>N° temporaire</span>"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:104
+#: code:addons/coop_membership/models/shift_change_team.py:106
 #, python-format
 msgid "A person you want to change team must be a member"
 msgstr "Une personne que vous souhaitez changer d'équipe doit être membre"
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "ABCD"
-msgstr ""
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_credit_config__apply_for_abcd
@@ -1026,8 +1003,8 @@ msgid "Absence pour incapacité non-aboutie"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:239
-#: code:addons/coop_membership/models/shift_registration.py:258
+#: code:addons/coop_membership/models/shift_registration.py:240
+#: code:addons/coop_membership/models/shift_registration.py:259
 #, python-format
 msgid "Absent"
 msgstr ""
@@ -1045,7 +1022,7 @@ msgstr "Accéder aux informations du coopérateur"
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_change_team__message_needaction
 msgid "Action Needed"
-msgstr "Nécessite une action"
+msgstr "A besoin d'une action"
 
 #. module: coop_membership
 #: selection:shift.credit.config,state:0
@@ -1055,7 +1032,7 @@ msgstr "Actif"
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_users_display_ftop_points
 msgid "Actual Current FTOP Points"
-msgstr "Points Volants actuels réels"
+msgstr "Points FTOP actuels réels"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_users_display_std_points
@@ -1066,6 +1043,11 @@ msgstr "Points standard actuels réels"
 #: model:ir.model.fields,field_description:coop_membership.field_shift_change_team__is_catch_up
 msgid "Add a catch-up?"
 msgstr "Ajouter un rattrapage?"
+
+#. module: coop_membership
+#: model:res.groups,name:coop_membership.group_membership_advance_user
+msgid "Advance User"
+msgstr ""
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.member_contract_template
@@ -1079,7 +1061,7 @@ msgid "Age"
 msgstr "Âge"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:252
+#: code:addons/coop_membership/models/shift_change_team.py:240
 #: selection:res.partner,cooperative_state:0
 #: selection:res.partner,working_state:0
 #, python-format
@@ -1127,6 +1109,7 @@ msgstr "avril"
 #. module: coop_membership
 #: model:ir.actions.act_window,name:coop_membership.action_res_partner_associated
 #: model:ir.ui.menu,name:coop_membership.menu_res_partner_associated
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
 msgid "Associated People"
 msgstr "Rattachés"
 
@@ -1152,8 +1135,8 @@ msgid "Attendance Entry"
 msgstr "Saisie des présences"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:231
-#: code:addons/coop_membership/models/shift_registration.py:265
+#: code:addons/coop_membership/models/shift_registration.py:232
+#: code:addons/coop_membership/models/shift_registration.py:266
 #, python-format
 msgid "Attended"
 msgstr "Présent"
@@ -1205,6 +1188,27 @@ msgid "Available Seats Standard"
 msgstr "Sièges disponibles en standard"
 
 #. module: coop_membership
+#: model:res.groups,name:coop_membership.group_membership_bdm_lecture
+msgid "BDM Lecture"
+msgstr ""
+
+#. module: coop_membership
+#: model:res.groups,name:coop_membership.group_membership_bdm_presence
+msgid "BDM Présences"
+msgstr ""
+
+#. module: coop_membership
+#: model:res.groups,name:coop_membership.group_membership_bdm_saisie
+msgid "BDM Saisie"
+msgstr ""
+
+#. module: coop_membership
+#: model:ir.module.category,description:coop_membership.bdm_users
+#: model:ir.module.category,name:coop_membership.bdm_users
+msgid "BDM Users"
+msgstr ""
+
+#. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__badge_distribution_date
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__badge_distribution_date
 msgid "Badge Distribution"
@@ -1223,13 +1227,18 @@ msgid "Badge to distribute"
 msgstr "Badge à distribuer"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:455
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
+msgid "Badges"
+msgstr ""
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/shift_registration.py:456
 #, python-format
 msgid "Balance Qty For Shift Cloture"
 msgstr "Équilibrer la quantité pour la fermeture de poste"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:426
+#: code:addons/coop_membership/models/shift_registration.py:427
 #, python-format
 msgid "Balance qty for holiday"
 msgstr "Quantité de solde pour les vacances"
@@ -1284,7 +1293,7 @@ msgid "Bienvenue à Coop"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:258
+#: code:addons/coop_membership/models/shift_change_team.py:246
 #: model:ir.model.fields,field_description:coop_membership.field_res_users_is_blocked
 #: selection:res.partner,cooperative_state:0
 #: selection:res.partner,working_state:0
@@ -1349,24 +1358,24 @@ msgid "Category"
 msgstr "Catégorie"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/res_partner.py:735
+#: code:addons/coop_membership/models/res_partner.py:214
 #, python-format
 msgid "Cette personne a plus de 18 ans et ne peux pas être saisie comme un enfant mineur."
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/res_partner.py:818
+#: code:addons/coop_membership/models/res_partner.py:801
 #, python-format
 msgid "Change Team"
 msgstr "Changement d’équipe"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:270
+#: code:addons/coop_membership/models/shift_change_team.py:258
+#: code:addons/coop_membership/models/shift_change_team.py:285
 #: code:addons/coop_membership/models/shift_change_team.py:297
-#: code:addons/coop_membership/models/shift_change_team.py:309
-#: code:addons/coop_membership/models/shift_change_team.py:334
+#: code:addons/coop_membership/models/shift_change_team.py:322
+#: code:addons/coop_membership/models/shift_change_team.py:346
 #: code:addons/coop_membership/models/shift_change_team.py:358
-#: code:addons/coop_membership/models/shift_change_team.py:370
 #: model:ir.actions.act_window,name:coop_membership.action_shift_change_teams
 #: model:ir.ui.menu,name:coop_membership.menu_action_shift_change_team
 #, python-format
@@ -1389,7 +1398,7 @@ msgid "Changer d'équipe en Volant messages"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:87
+#: code:addons/coop_membership/models/shift_change_team.py:86
 #, python-format
 msgid "Changes Team"
 msgstr "Changement d’équipe"
@@ -1700,7 +1709,7 @@ msgid "Default duration (in days)"
 msgstr "Durée par défaut (en jours)"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:256
+#: code:addons/coop_membership/models/shift_change_team.py:244
 #: selection:res.partner,cooperative_state:0
 #: selection:res.partner,working_state:0
 #, python-format
@@ -1861,14 +1870,14 @@ msgid "Exception rules for minimum qty"
 msgstr "Règles d'exception pour quantité minimale"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:249
-#: code:addons/coop_membership/models/shift_registration.py:262
+#: code:addons/coop_membership/models/shift_registration.py:250
+#: code:addons/coop_membership/models/shift_registration.py:263
 #, python-format
 msgid "Excused"
 msgstr "Rattrapage"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:246
+#: code:addons/coop_membership/models/shift_change_team.py:234
 #: selection:res.partner,cooperative_state:0
 #: selection:res.partner,working_state:0
 #, python-format
@@ -1896,7 +1905,7 @@ msgid "Extensions Quantity"
 msgstr "Nombre d'extensions"
 
 #. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
+#: model_terms:ir.ui.view,arch_db:coop_membership.personal_information
 msgid "Extra Data"
 msgstr "Données supplémentaires"
 
@@ -2046,11 +2055,6 @@ msgid "Generate Type"
 msgstr "Type de génération"
 
 #. module: coop_membership
-#: model:res.groups,name:coop_membership.group_membership_view_partner_deceased
-msgid "Group View Partner Deceased"
-msgstr "Décès du partenaire Group View"
-
-#. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_leave__non_defined_type
 msgid "Has Non Defined"
 msgstr "A non défini"
@@ -2069,6 +2073,7 @@ msgstr "Voici les services qui n'ont pas été marqués comme ouverts or fermés
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_counter_event__holiday_id
+#: model:ir.model.fields,field_description:coop_membership.field_shift_shift__holiday_id
 msgid "Holiday"
 msgstr "Vacances"
 
@@ -2094,7 +2099,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_membership.field_shift_credit_config_id
 #: model:ir.model.fields,field_description:coop_membership.field_shift_holiday_id
 msgid "ID"
-msgstr "ID"
+msgstr "Identifiant"
 
 #. module: coop_membership
 #: model:ir.model.fields,help:coop_membership.field_shift_change_team__message_unread
@@ -2114,7 +2119,7 @@ msgstr "Si cochée, les personnes qui ont souscrit des parts A vont avoir cette 
 #. module: coop_membership
 #: model:ir.model.fields,help:coop_membership.field_shift_change_team__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Si coché, de nouveaux messages requièrent votre attention."
+msgstr "Si coché, de nouveaux messages demandent votre attention."
 
 #. module: coop_membership
 #: model:ir.model.fields,help:coop_membership.field_shift_change_team__message_has_error
@@ -2141,7 +2146,7 @@ msgstr "Pas possible. Le membre a déjà bénéficié de 2 décomptes allégés 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_users_in_ftop_team
 msgid "In FTOP Team"
-msgstr "Dans l'équipe Volants"
+msgstr "Dans l'équipe FTOP"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_leave_type__is_incapacity
@@ -2332,7 +2337,7 @@ msgstr "Dernière modification le"
 #: model:ir.model.fields,field_description:coop_membership.field_shift_credit_config__write_uid
 #: model:ir.model.fields,field_description:coop_membership.field_shift_holiday__write_uid
 msgid "Last Updated by"
-msgstr "Mis à jour par"
+msgstr "Dernière mise à jour par"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner_generate_barcode_wizard__write_date
@@ -2343,7 +2348,7 @@ msgstr "Mis à jour par"
 #: model:ir.model.fields,field_description:coop_membership.field_shift_credit_config__write_date
 #: model:ir.model.fields,field_description:coop_membership.field_shift_holiday__write_date
 msgid "Last Updated on"
-msgstr "Mis à jour le"
+msgstr "Dernière mise à jour le"
 
 #. module: coop_membership
 #: model:mail.template,subject:coop_membership.anounce_close_on_holiday_email
@@ -2410,7 +2415,7 @@ msgid "Long Period Shift"
 msgstr "Décalage de longue période"
 
 #. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form_bdm
 msgid "Mailing Opt-Out"
 msgstr ""
 
@@ -2433,11 +2438,6 @@ msgstr "Rattrapages OK"
 #: model_terms:ir.ui.view,arch_db:coop_membership.member_contract_template
 msgid "Male"
 msgstr "Masculin"
-
-#. module: coop_membership
-#: model:res.groups,name:coop_membership.coop_membership_manager
-msgid "Manage Coop Membership (Full)"
-msgstr "Gérer l'adhésion à la Coop (complète)"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/event_registration.py:75
@@ -2530,12 +2530,6 @@ msgid "Member Number"
 msgstr "Numéro de membre"
 
 #. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_res_partner_form_base
-msgid "Membership"
-msgstr "Adhésion"
-
-#. module: coop_membership
 #: model:ir.actions.act_window,name:coop_membership.action_coop_membership_access_rights
 #: model:ir.actions.act_window,name:coop_membership.action_res_partner_subscriptions
 #: model:ir.ui.menu,name:coop_membership.menu_coop_member_submain
@@ -2554,14 +2548,10 @@ msgid "Members Office Open Hours"
 msgstr ""
 
 #. module: coop_membership
-#: model:res.groups,name:coop_membership.group_membership_bdm_presence
-msgid "Membership Attendances"
-msgstr "Bdm Présences"
-
-#. module: coop_membership
-#: model:res.groups,name:coop_membership.group_membership_bdm_saisie
-msgid "Membership Data Entry"
-msgstr "Saisie des données d'adhésion"
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
+msgid "Membership"
+msgstr "Adhésion"
 
 #. module: coop_membership
 #: model:res.groups,name:coop_membership.group_membership_access_photo
@@ -2573,11 +2563,6 @@ msgstr "Editer la photo de membre"
 #: model:ir.module.category,name:coop_membership.module_membership_access_management
 msgid "Membership Management"
 msgstr "Management des membres"
-
-#. module: coop_membership
-#: model:res.groups,name:coop_membership.group_membership_bdm_lecture
-msgid "Membership Read"
-msgstr "Bdm Lecture"
 
 #. module: coop_membership
 #: model:res.groups,name:coop_membership.group_membership_access_user
@@ -2683,7 +2668,7 @@ msgid "Normally, this member is not eligible for early leave because he has to c
 msgstr "Normalement, ce membre n’est pas éligible pour un congé anticipé car il doit des rattrapages"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:262
+#: code:addons/coop_membership/models/shift_change_team.py:250
 #: selection:res.partner,cooperative_state:0
 #: selection:res.partner,working_state:0
 #, python-format
@@ -2724,12 +2709,11 @@ msgstr "Nombre de jours dans la période"
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_change_team__message_needaction_counter
 msgid "Number of Actions"
-msgstr "Nombre d'Actions"
+msgstr "Nombre d'actions"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__nb_associated_people
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__nb_associated_people
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
 msgid "Number of Associated People"
 msgstr "Nombre de personnes associées"
 
@@ -2761,7 +2745,7 @@ msgstr "Nombre d'erreurs"
 #. module: coop_membership
 #: model:ir.model.fields,help:coop_membership.field_shift_change_team__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr "Nombre de messages demandant une action"
+msgstr "Nombre de messages exigeant une action"
 
 #. module: coop_membership
 #: model:ir.model.fields,help:coop_membership.field_shift_change_team__message_has_error_counter
@@ -2901,7 +2885,7 @@ msgid "Payments"
 msgstr "Paiements"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_template.py:52
+#: code:addons/coop_membership/models/shift_template.py:57
 #, python-format
 msgid "Please choose another leader because the current leader is unsubscribed"
 msgstr "S'il vous plaît choisissez un autre coordinateur parce que l'actuel est désabonné"
@@ -2999,12 +2983,17 @@ msgid "Reminder Non Define Leave Email"
 msgstr "Rappel non défini laisser un e-mail"
 
 #. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_res_partner_form_subscription_reader
+msgid "Remove 'Underclass Population'"
+msgstr "Supprimer 'Personnes aux minima sociaux'"
+
+#. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_template__removed_user_ids
 msgid "Removed Leaders"
 msgstr "Leaders supprimés"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:232
+#: code:addons/coop_membership/models/shift_registration.py:233
 #, python-format
 msgid "Replaced"
 msgstr "Remplacé"
@@ -3013,6 +3002,14 @@ msgstr "Remplacé"
 #: model:ir.model,name:coop_membership.model_report_coop_membership_member_contract_template
 msgid "Report Coop Membership Contract Template"
 msgstr "Modèle de contrat de rapport d'adhésion à Coop"
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_shift__required_skill_ids
+#: model:ir.model.fields,field_description:coop_membership.field_shift_template__required_skill_ids
+#: model:ir.model.fields,field_description:coop_membership.field_shift_template_ticket__required_skill_ids
+#: model:ir.model.fields,field_description:coop_membership.field_shift_ticket__required_skill_ids
+msgid "Required Skills"
+msgstr ""
 
 #. module: coop_membership
 #: model:ir.model,name:coop_membership.model_res_partner_inform
@@ -3060,11 +3057,6 @@ msgstr ""
 #, python-format
 msgid "Saturday"
 msgstr "Samedi"
-
-#. module: coop_membership
-#: model:res.groups,name:coop_membership.group_see_all_capital_subscription
-msgid "See All Capital Subscriptions"
-msgstr "Voir les souscriptions"
 
 #. module: coop_membership
 #: model:res.groups,name:coop_membership.group_membership_see_all_members
@@ -3122,6 +3114,11 @@ msgid "September"
 msgstr "septembre"
 
 #. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_res_partner_form_subscription_reader
+msgid "Set 'Underclass Population'"
+msgstr "Mettre 'Minima Sociaux'"
+
+#. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
 msgid "Set To Draft"
 msgstr "Marquer comme brouillon"
@@ -3134,7 +3131,7 @@ msgid "Settings"
 msgstr "Configuration"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_shift.py:114
+#: code:addons/coop_membership/models/shift_shift.py:139
 #, python-format
 msgid "Shift Cloture"
 msgstr "Décompte"
@@ -3316,7 +3313,7 @@ msgstr "Etat en vacances"
 #: model:ir.model.fields,field_description:coop_membership.field_shift_change_team_state
 #: model:ir.model.fields,field_description:coop_membership.field_shift_shift__state
 msgid "Status"
-msgstr "Statut"
+msgstr "État"
 
 #. module: coop_membership
 #: model:ir.model.fields,help:coop_membership.field_shift_leave__return_date
@@ -3348,12 +3345,10 @@ msgid "Subscriptions"
 msgstr "Souscriptions"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:135
+#: code:addons/coop_membership/models/shift_change_team.py:125
 #, python-format
-msgid "Subtracted 1 point\n"
-"                                            for changing team"
-msgstr "Soustrait 1 point\n"
-"                                            pour changer d'équipe"
+msgid "Subtracted 1 point for changing team"
+msgstr "1 point soustrait pour changement d'équipe"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_counter_event__sum_current_qty
@@ -3367,7 +3362,7 @@ msgid "Sunday"
 msgstr "Dimanche"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:254
+#: code:addons/coop_membership/models/shift_change_team.py:242
 #: selection:res.partner,cooperative_state:0
 #: selection:res.partner,working_state:0
 #, python-format
@@ -3385,6 +3380,11 @@ msgid "Team/Template"
 msgstr "Équipe / Créneau"
 
 #. module: coop_membership
+#: model:ir.model.fields,help:coop_membership.field_shift_shift__holiday_id
+msgid "Technical field"
+msgstr ""
+
+#. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_users_tmpl_reg_line_ids
 msgid "Template Registration Lines"
 msgstr "Lignes d'inscription aux créneaux"
@@ -3397,7 +3397,7 @@ msgstr "Inscriptions"
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_credit_config_form
 msgid "Templates"
-msgstr "Créneaux"
+msgstr "Modèles"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_leave_type__is_temp_leave
@@ -3444,7 +3444,7 @@ msgid "The field used to sort the CPO lines"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/res_partner.py:260
+#: code:addons/coop_membership/models/res_partner.py:255
 #, python-format
 msgid "The maximum number of associated people has been exceeded."
 msgstr "Le nombre maximal de personnes rattachées a été dépassé."
@@ -3457,7 +3457,7 @@ msgid "The member does not have enough credits to cover the proposed period."
 msgstr "Le membre n’a pas assez de crédits pour couvrir la période proposée."
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:97
+#: code:addons/coop_membership/models/shift_change_team.py:96
 #, python-format
 msgid "The new team should be different the current team"
 msgstr "La nouvelle équipe doit être différente de l'équipe actuelle"
@@ -3469,7 +3469,7 @@ msgid "The period of leave must include TWO minimum missed services."
 msgstr "La période du congé doit inclure DEUX services manqués minimum."
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:110
+#: code:addons/coop_membership/models/shift_change_team.py:109
 #, python-format
 msgid "There are some processes that were not done,please do it!"
 msgstr "Certains processus n'ont pas été effectués, veuillez le faire!"
@@ -3481,7 +3481,7 @@ msgid "There is a holiday already exist in this period"
 msgstr "Il y a déjà des vacances dans cette période"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:226
+#: code:addons/coop_membership/models/shift_change_team.py:214
 #, python-format
 msgid "There is no more seat in this  team, would you like to continue?"
 msgstr "Il n’y a plus de place dans cette équipe, souhaitez-vous continuer?"
@@ -3493,8 +3493,8 @@ msgstr "Ce champ mentionne la date à laquelle l'état 'en alerte' se termine et
 
 #. module: coop_membership
 #: model:ir.model.fields,help:coop_membership.field_res_users_date_delay_stop
-msgid "This date mention the date when the 'delay' state stops and when the partner will be suspended."
-msgstr "Ce champ mentionne la date à laquelle l'état 'délai' se termine et à partir du moment ou le partenaire est 'suspendu'."
+msgid "This date mention the date when the 'delay' state stops  and when the partner will be suspended."
+msgstr ""
 
 #. module: coop_membership
 #: model:ir.model.fields,help:coop_membership.field_res_users_target_type
@@ -3519,13 +3519,13 @@ msgid "This field contains the template of the mail that will be\n"
 msgstr ""
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:116
+#: code:addons/coop_membership/models/shift_registration.py:125
 #, python-format
 msgid "This member already has %s registrations in the preceding %s days. You can't program more."
 msgstr "Attention ! Ce membre a déjà atteint son quota de %s inscriptions sur la période de %s jours, cette inscription ne peut être enregistrée."
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:80
+#: code:addons/coop_membership/models/shift_registration.py:89
 #, python-format
 msgid "This member already has %s registrations in the same day. You can't program more."
 msgstr "Attention ! Ce membre s'est déjà inscrit %s fois sur cette journée, cette inscription ne peut être enregistrée."
@@ -3596,7 +3596,7 @@ msgid "Unlimited"
 msgstr "Illimité"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:260
+#: code:addons/coop_membership/models/shift_change_team.py:248
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__is_unpayed
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__is_unpayed
 #: selection:res.partner,cooperative_state:0
@@ -3616,7 +3616,7 @@ msgid "Unread Messages Counter"
 msgstr "Compteur de messages non lus"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:244
+#: code:addons/coop_membership/models/shift_change_team.py:232
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__is_unsubscribed
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__is_unsubscribed
 #: selection:res.partner,cooperative_state:0
@@ -3633,17 +3633,12 @@ msgid "Unsubscription Date"
 msgstr "Date de décinscription"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:250
+#: code:addons/coop_membership/models/shift_change_team.py:238
 #: selection:res.partner,cooperative_state:0
 #: selection:res.partner,working_state:0
 #, python-format
 msgid "Up to date"
 msgstr "A jour"
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "Upc. Registr."
-msgstr "Services à venir"
 
 #. module: coop_membership
 #: model:ir.cron,name:coop_membership.cron_update_mirror_children
@@ -3676,15 +3671,10 @@ msgid "Users"
 msgstr "Utilisateurs"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_change_team.py:248
+#: code:addons/coop_membership/models/shift_change_team.py:236
 #, python-format
 msgid "Vacation"
 msgstr "En congés"
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "Vacations"
-msgstr "Les vacances"
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.register_again_form
@@ -3774,36 +3764,6 @@ msgid "View Partner Owned Shares"
 msgstr "Afficher les partages détenus par les partenaires"
 
 #. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "View Partner Points FTOP Counter"
-msgstr "Consulter le détail du compteur volants"
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "View Partner Points Standard Counter"
-msgstr "Consulter le détail du compteur standard"
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "View partner Extensions"
-msgstr "Voir les inscriptions"
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "View partner Leaves"
-msgstr "Voir les congés des coopérateurs"
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "View partner Registrations"
-msgstr "Voir les inscriptions"
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "View partner Template Registrations"
-msgstr "Inscriptions à des créneaux"
-
-#. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.member_contract_template
 msgid "Ville"
 msgstr ""
@@ -3829,7 +3789,7 @@ msgid "Warning unsubscribed leader"
 msgstr "Avertissement du leader non inscrit"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:526
+#: code:addons/coop_membership/models/shift_registration.py:527
 #, python-format
 msgid "Warning! You cannot enter make-ups of the following members as they are up-to-date: \n"
 "\n"
@@ -3839,7 +3799,7 @@ msgstr "Attention ! Vous ne pouvez saisir les rattrapages de ces membres car ils
 "%s"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_shift.py:64
+#: code:addons/coop_membership/models/shift_shift.py:89
 #, python-format
 msgid "Warning! You have not recorded the attendance for: \n"
 "\n"
@@ -3906,22 +3866,16 @@ msgid "You can not confirm a leave in a non draft state."
 msgstr "Vous ne pouvez pas confirmer un congé dans un état non provisoire."
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/res_partner.py:239
+#: code:addons/coop_membership/models/res_partner.py:234
 #, python-format
 msgid "You can't be an associated people if you have shares ! Empty the parent_id field to be allowed to write others changes"
 msgstr "Vous ne pouvez pas être une personne associée si vous avez des actions! Videz le champ parent_id pour être autorisé à écrire d'autres modifications"
 
 #. module: coop_membership
-#: code:addons/coop_membership/models/shift_registration.py:46
+#: code:addons/coop_membership/models/shift_registration.py:54
 #, python-format
-msgid "You can't register {} on a shift because he isn't registered on a template"
-msgstr "Vous ne pouvez pas inscrire {}, parce qu'elle n'est pas inscrite à un créneau."
-
-#. module: coop_membership
-#: code:addons/coop_membership/models/event.py:52
-#, python-format
-msgid "You cannot close this event.Please review attendances andmark all attendees as absent or present."
-msgstr "Vous ne pouvez pas clôturer cet événement. Veuillez vérifier les présences et marquer tous les participants comme absents ou présents."
+msgid "You can't register %s on a shift because he isn't registered on a template"
+msgstr ""
 
 #. module: coop_membership
 #: model:mail.template,subject:coop_membership.unsubscribe_email
@@ -3968,11 +3922,6 @@ msgstr ""
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.member_contract_template
 msgid "de 10€, soit 1 part à 10€ (ustificatif - 6mols)"
-msgstr ""
-
-#. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-msgid "e.g. www.odoo.com"
 msgstr ""
 
 #. module: coop_membership
@@ -4048,6 +3997,11 @@ msgid "un montant de.............€, soit......part à 10€"
 msgstr ""
 
 #. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
+msgid "{'required': [('is_member', '=', True)]}"
+msgstr ""
+
+#. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.member_contract_template
 msgid "ÉQUIPE"
 msgstr ""
@@ -4083,8 +4037,3 @@ msgstr ""
 msgid "équipe VOLANTE"
 msgstr ""
 
-#. module: coop_membership
-#: model:ir.model.fields,field_description:coop_membership.field_shift_shift_required_skill_ids
-#: model:ir.model.fields,field_description:coop_membership.field_shift_template_required_skill_ids
-msgid "Required Skills"
-msgstr "Compétences requises"
