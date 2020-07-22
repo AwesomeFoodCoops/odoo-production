@@ -829,17 +829,19 @@ class ResPartner(models.Model):
 
             # Set date and for shift template
             for tmpl_reg in self.tmpl_reg_line_ids:
-                if not tmpl_reg.date_end or tmpl_reg.date_end > \
-                        fields.Datetime.now():
+                if (
+                    not tmpl_reg.date_end
+                    or tmpl_reg.date_end > fields.Date.today()
+                ):
                     tmpl_reg.write({
-                        'date_end': fields.Datetime.now()
+                        'date_end': fields.Date.today()
                     })
 
             # Set date begin for shift ticket
             for reg in self.registration_ids:
-                if reg.date_begin > fields.Datetime.now():
+                if reg.date_begin > fields.Date.today():
                     reg.write({
-                        'date_begin': fields.Datetime.now()
+                        'date_begin': fields.Date.today()
                     })
 
             # Update Mailling opt out
