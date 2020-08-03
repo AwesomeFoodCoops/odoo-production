@@ -7,6 +7,7 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from datetime import datetime
 
 
 class ShiftTemplateRegistration(models.Model):
@@ -115,10 +116,19 @@ class ShiftTemplateRegistration(models.Model):
 
     @api.model
     def _get_state(self, date_check):
+        # If it's datetime, convert to date
+        if isinstance(date_check, datetime):
+            date_check = date_check.date()
+        # Get the first line that matches the dates
         for line in self.line_ids:
             if (
-                (not line.date_begin or date_check >= line.date_begin)
-                and (not line.date_end or date_check <= line.date_end)
+                (
+                    not line.date_begin
+                    or date_check >= line.date_begin
+                ) and (
+                    not line.date_end
+                    or date_check <= line.date_end
+                )
             ):
                 return line.state, line.id
         return False, False
@@ -129,12 +139,15 @@ class ShiftTemplateRegistration(models.Model):
         for reg in self:
             ok = True
             for line in reg.line_ids:
-                if line.date_begin and line.date_end and\
-                        line.date_begin > line.date_end:
+                if (
+                    line.date_begin
+                    and line.date_end
+                    and line.date_begin > line.date_end
+                ):
                     raise ValidationError(_(
-                        """Begin date is greater than End date:"""
-                        """ \n begin: %s    end: %s    state: %s;""" % (
-                            line.date_begin, line.date_end, line.state)))
+                        "Begin date is greater than End date.\n\n"
+                        "begin: %s\nend: %s\nstate: %s") % (
+                            line.date_begin, line.date_end, line.state))
                 for line2 in reg.line_ids:
                     if line2 == line:
                         continue
@@ -153,11 +166,11 @@ class ShiftTemplateRegistration(models.Model):
                     break
             if not ok:
                 raise ValidationError(_(
-                    """These dates overlap:"""
-                    """ \n - Line1: begin: %s    end: %s    state: %s;"""
-                    """ \n - Line2: begin: %s    end: %s    state: %s;""" % (
+                    "These dates overlap:\n"
+                    "- Line1: begin: %s    end: %s    state: %s\n"
+                    "- Line2: begin: %s    end: %s    state: %s") % (
                         line.date_begin, line.date_end, line.state,
-                        line2.date_begin, line2.date_end, line2.state)))
+                        line2.date_begin, line2.date_end, line2.state))
 
     @api.multi
     @api.onchange("shift_template_id")
