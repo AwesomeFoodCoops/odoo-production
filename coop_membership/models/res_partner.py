@@ -823,27 +823,23 @@ class ResPartner(models.Model):
             ]
         # all invoice states != 'draft'
         invoice_states = all(invoice_states)
-        if self.partner_owned_share_ids \
-                and self.partner_owned_share_ids[0].related_invoice_ids \
-                and invoice_states and self.total_partner_owned_share == 0:
-
+        if (
+            self.partner_owned_share_ids
+            and self.partner_owned_share_ids[0].related_invoice_ids
+            and invoice_states
+            and self.total_partner_owned_share == 0
+        ):
             # Set date and for shift template
             for tmpl_reg in self.tmpl_reg_line_ids:
                 if (
                     not tmpl_reg.date_end
                     or tmpl_reg.date_end > fields.Date.today()
                 ):
-                    tmpl_reg.write({
-                        'date_end': fields.Date.today()
-                    })
-
+                    tmpl_reg.write({'date_end': fields.Date.today()})
             # Set date begin for shift ticket
             for reg in self.registration_ids:
-                if reg.date_begin > fields.Date.today():
-                    reg.write({
-                        'date_begin': fields.Date.today()
-                    })
-
+                if reg.date_begin > fields.Datetime.now():
+                    reg.write({'date_begin': fields.Datetime.now()})
             # Update Mailling opt out
             # issue: disappear property_account_payable/recievable_id
             # when creating a child partner
@@ -856,21 +852,15 @@ class ResPartner(models.Model):
             # ==> add a check partner_owned_shared_ids to only apply
             # for partner
             # which already has partner_owned_share
-            self.write({
-                'opt_out': True
-            })
+            self.write({'opt_out': True})
         return True
 
     @api.multi
     def generate_pdf(self, report_name):
-        context = dict(self._context or {})
-        active_ids = self.ids
-        context.update({
-            'active_model': self._name,
-            'active_ids': active_ids,
-        })
-        return self.env['report'].with_context(context). \
-            get_pdf(self, report_name)
+        return self.env['report'].with_context(
+            active_model=self._name,
+            active_ids=self.ids,
+        ).get_pdf(self, report_name)
 
     @api.multi
     def attach_report_in_mail(self):
@@ -879,7 +869,6 @@ class ResPartner(models.Model):
         report = self.generate_pdf(report_name)
         encoded_report = base64.encodestring(report)
         filename = 'Member Contract'
-
         # create the new ir_attachment
         attachment_value = {
             'name': filename,
