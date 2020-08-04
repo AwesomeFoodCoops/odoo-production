@@ -124,7 +124,7 @@ class AccountMoveLine(models.Model):
         read_columns = ['id'] + read_columns
         wrong_move_lines = self.get_wrong_reconciliation_ml()
         if not wrong_move_lines:
-            raise UserError(_('Found no wrong account move lines.'))
+            raise UserError(_("Everything is ok. There's nothing to export."))
         record_values_dict = wrong_move_lines.export_data(read_columns)
         converted_data_rows = [
             [cell_data.encode('utf8') for cell_data in data_row]
@@ -141,31 +141,30 @@ class AccountMoveLine(models.Model):
         selected_journals = self.env['account.journal'].search(
             [('export_wrong_reconciliation', '=', True)]
         )
-
-        bank_statement_line_query = """
-            select statement_line_id
-            from account_move_line
-            where statement_line_id is not null and journal_id in {}
-            group by statement_line_id
-            having count(statement_line_id) > 1
-        """.format(tuple(selected_journals.ids))
-
-        self.env.cr.execute(bank_statement_line_query)
-        results = self.env.cr.fetchall()
-        line_ids = [id_tuple[0] for id_tuple in results]
+        if not selected_journals:
+            raise UserError(_(
+                "Before using this feature, please select a few journals "
+                "to analyze.\nGo to 'Accounting > Configuration > Journals' "
+                "and enable the 'Export Wrong Reconciliation' checkbox."))
+        self.env.cr.execute("""
+            SELECT statement_line_id
+            FROM account_move_line
+            WHERE statement_line_id IS NOT NULL AND journal_id IN %s
+            GROUP BY statement_line_id
+            HAVING COUNT(statement_line_id) > 1
+        """, (tuple(selected_journals.ids),))
+        line_ids = [id_tuple[0] for id_tuple in self.env.cr.fetchall()]
         bank_statement_line_ids = \
             self.env['account.bank.statement.line'].browse(line_ids)
         for stml in bank_statement_line_ids:
-            stml_date = fields.Date.from_string(stml.date)
             move_line_ids = stml.journal_entry_ids
             move_ids = move_line_ids.mapped('move_id')
             if len(move_ids) == 1 and len(move_line_ids) == 2:
                 continue
             for aml in move_line_ids.filtered(lambda ml: not ml.statement_id):
-                aml_date = fields.Date.from_string(aml.date)
                 if (
-                    aml_date.year <= stml_date.year
-                    and aml_date.month <= stml_date.month
+                    aml.date.year <= stml.date.year
+                    and aml.date.month <= stml.date.month
                 ):
                     continue
                 else:
