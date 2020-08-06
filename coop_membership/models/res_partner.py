@@ -14,6 +14,8 @@ from odoo.addons.queue_job.job import job
 from odoo.exceptions import ValidationError
 from odoo.tools.safe_eval import safe_eval
 
+NUMBER_OF_PARTNERS_PER_JOB = 100
+
 EXTRA_COOPERATIVE_STATE_SELECTION = [
     ('not_concerned', 'Not Concerned'),
     ('unsubscribed', 'Unsubscribed'),
@@ -882,30 +884,26 @@ class ResPartner(models.Model):
 
     @api.multi
     def update_shift_type(self):
-        partners = self.ids
-        num_partner_per_job = 100
-        splited_partner_list = \
-            [partners[i: i + num_partner_per_job]
-             for i in range(0, len(partners), num_partner_per_job)]
-        # Prepare session for job
+        partners_ids = self.ids
+        chunks = [
+            partners_ids[i: i + NUMBER_OF_PARTNERS_PER_JOB]
+            for i in range(0, len(partners_ids), NUMBER_OF_PARTNERS_PER_JOB)
+        ]
         # Create jobs
-        for partner_list in splited_partner_list:
-            self.with_delay().update_shift_type_res_partner_session_job(
-                partner_list)
+        for chunk in chunks:
+            self.with_delay().update_shift_type_res_partner_session_job(chunk)
         return True
 
     @api.multi
     def create_job_to_compute_current_template(self):
-        partners = self.ids
-        num_partner_per_job = 100
-        splited_partner_list = \
-            [partners[i: i + num_partner_per_job]
-             for i in range(0, len(partners), num_partner_per_job)]
-        # Prepare session for job
+        partners_ids = self.ids
+        chunks = [
+            partners_ids[i: i + NUMBER_OF_PARTNERS_PER_JOB]
+            for i in range(0, len(partners_ids), NUMBER_OF_PARTNERS_PER_JOB)
+        ]
         # Create jobs
-        for partner_list in splited_partner_list:
-            self.with_delay().update_member_current_template_name(
-                partner_list)
+        for chunk in chunks:
+            self.with_delay().update_member_current_template_name(chunk)
         return True
 
     @job
