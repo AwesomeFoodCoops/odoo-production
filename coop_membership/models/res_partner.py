@@ -890,7 +890,7 @@ class ResPartner(models.Model):
         # Prepare session for job
         # Create jobs
         for partner_list in splited_partner_list:
-            self.update_shift_type_res_partner_session_job.with_delay(
+            self.with_delay().update_shift_type_res_partner_session_job(
                 partner_list)
         return True
 
@@ -904,7 +904,7 @@ class ResPartner(models.Model):
         # Prepare session for job
         # Create jobs
         for partner_list in splited_partner_list:
-            self.update_member_current_template_name.with_delay(
+            self.with_delay().update_member_current_template_name(
                 partner_list)
         return True
 
