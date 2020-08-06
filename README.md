@@ -68,7 +68,7 @@ addon | version | summary
 [pos_search_improvement](pos_search_improvement/) | 12.0.1.0.0 | Search Exactly Products
 [pos_ticket_send_by_mail](pos_ticket_send_by_mail/) | 12.0.1.0.0 | POS Receipt By Email
 [product_average_consumption](product_average_consumption/) | 12.0.1.0.0 | Product - Average Consumption
-[product_history](product_history/) | 12.0.1.0.0 | Product - History
+[product_history](product_history/) | 12.0.2.0.0 | Product - History
 [product_history_for_cpo](product_history_for_cpo/) | 12.0.1.0.0 | Product History for CPO
 [product_print_category](product_print_category/) | 12.0.1.0.0 | Automate products print, when data has changed
 [product_to_scale_bizerba](product_to_scale_bizerba/) | 12.0.1.0.0 | Synchronize Odoo database with Scales
