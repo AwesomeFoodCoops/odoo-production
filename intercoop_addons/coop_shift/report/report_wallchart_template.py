@@ -1,26 +1,4 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Purchase - Computed Purchase Order Module for Odoo
-#    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-#    @author Julien WESTE
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
 from openerp import api, models, fields, _
 from datetime import timedelta, date, datetime
 
@@ -98,6 +76,8 @@ class ReportWallchartTemplate(models.AbstractModel):
     @api.model
     def _get_templates(self, data):
         final_result = []
+        n_weeks_cycle = self._get_number_weeks_per_cycle()
+        number_to_letters = self.env['shift.template']._number_to_letters
         for week_day in data.keys():
             if week_day == "id" or not data.get(week_day, False):
                 continue
@@ -121,37 +101,42 @@ class ReportWallchartTemplate(models.AbstractModel):
                     ('end_time', '<=', t[1] + rounding_limit),
                     ('week_list', '=', week_day.upper()),
                 ]
-                week_letters = ['A', 'B', 'C', 'D']
-                for week in [1, 2, 3, 4]:
+                for week in range(1, n_weeks_cycle + 1):
                     template = self.env['shift.template'].search(
                         base_search + [('week_number', '=', week)])
                     if not template:
-                        res['partners' + week_letters[week - 1]] = []
-                        res['free_seats' + week_letters[week - 1]] = 0
+                        res['partners' + number_to_letters(week)] = []
+                        res['free_seats' + number_to_letters(week)] = 0
                         continue
                     template = template[0]
-                    partners, seats_max, future_seats =\
+                    partners, seats_max, future_seats = \
                         self._get_template_info(template)
-                    res['partners' + week_letters[week - 1]] = partners
-                    res['free_seats' + week_letters[week - 1]] =\
-                        max(0, seats_max - len(partners))
+                    res['partners' + number_to_letters(week)] = partners
+                    res['free_seats' + number_to_letters(week)] = max(
+                        0, seats_max - len(partners))
 
                 contain_data_in_period = any(
-                    len(res.get('partners' + week_letter, [])) > 0 and
-                    any(
+                    len(res.get('partners' + number_to_letters(week), [])) > 0
+                    and any(
                         partner['dates'] != ''
-                        for partner in res.get('partners' + week_letter, [])
+                        for partner
+                        in res.get('partners' + number_to_letters(week), [])
                     )
-                    for week_letter in week_letters
+                    for week in range(1, n_weeks_cycle + 1)
                 )
                 if contain_data_in_period:
                     result.append(res)
             if result:
+                weeks = [
+                    (n, self.env['shift.template']._number_to_letters(n))
+                    for n in range(1, self._get_number_weeks_per_cycle() + 1)
+                ]
                 final_result.append({
                     'day': WEEK_DAYS[week_day],
+                    'weeks': weeks,
                     'next_dates': self._get_next_dates(
                         weekday_list.index(week_day)),
-                    'times': result
+                    'times': result,
                 })
         return final_result
 
@@ -159,26 +144,35 @@ class ReportWallchartTemplate(models.AbstractModel):
     def _get_next_dates(self, weekday):
         result = {}
         today = date.today()
+        n_weeks_cycle = self._get_number_weeks_per_cycle()
         next_date = today + timedelta(days=(weekday - today.weekday()) % 7)
         week_number = self._get_week_number(next_date)
-        for i in range(4):
-            delta = (i + 1 - week_number[0]) % 4
-            result["week" + ["A", "B", "C", "D"][i]] =\
-                "(%s, %s, %s, %s, %s, %s, %s, ...)" % (
-                    datetime.strftime(
-                        next_date + timedelta(weeks=delta), "%d/%m"),
-                    datetime.strftime(
-                        next_date + timedelta(weeks=delta + 4), "%d/%m"),
-                    datetime.strftime(
-                        next_date + timedelta(weeks=delta + 8), "%d/%m"),
-                    datetime.strftime(
-                        next_date + timedelta(weeks=delta + 12), "%d/%m"),
-                    datetime.strftime(
-                        next_date + timedelta(weeks=delta + 16), "%d/%m"),
-                    datetime.strftime(
-                        next_date + timedelta(weeks=delta + 20), "%d/%m"),
-                    datetime.strftime(
-                        next_date + timedelta(weeks=delta + 24), "%d/%m"),)
+        for i in range(1, n_weeks_cycle + 1):
+            delta = (i - week_number[0]) % n_weeks_cycle
+            key = "week" + self.env['shift.template']._number_to_letters(i)
+            result[key] = "(%s, %s, %s, %s, %s, %s, %s, ...)" % (
+                datetime.strftime(
+                    next_date + timedelta(weeks=delta + (n_weeks_cycle * 0)),
+                    "%d/%m"),
+                datetime.strftime(
+                    next_date + timedelta(weeks=delta + (n_weeks_cycle * 1)),
+                    "%d/%m"),
+                datetime.strftime(
+                    next_date + timedelta(weeks=delta + (n_weeks_cycle * 2)),
+                    "%d/%m"),
+                datetime.strftime(
+                    next_date + timedelta(weeks=delta + (n_weeks_cycle * 3)),
+                    "%d/%m"),
+                datetime.strftime(
+                    next_date + timedelta(weeks=delta + (n_weeks_cycle * 4)),
+                    "%d/%m"),
+                datetime.strftime(
+                    next_date + timedelta(weeks=delta + (n_weeks_cycle * 5)),
+                    "%d/%m"),
+                datetime.strftime(
+                    next_date + timedelta(weeks=delta + (n_weeks_cycle * 6)),
+                    "%d/%m"),
+            )
         return result
 
     @api.multi
