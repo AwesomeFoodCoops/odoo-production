@@ -143,7 +143,7 @@ class ShiftChangeTeam(models.Model):
     @api.multi
     def set_in_new_team(self):
         '''
-            This method set partner on new team and the date of shifts 
+            This method set partner on new team and the date of shifts
         '''
         self.ensure_one()
         current_registrations = self.partner_id.tmpl_reg_line_ids.filtered(
@@ -412,21 +412,23 @@ class ShiftChangeTeam(models.Model):
 
     @api.multi
     def check_num_week(self, new_next_shift_date):
+        """
+        Gets the number of weeks that need to be substracted
+        to synchronize with the new shift date
+        """
         self.ensure_one()
-        weekA_date = fields.Datetime.from_string(
-            self.env.ref('coop_shift.config_parameter_weekA').value)
-
-        week_number = 1 + (((fields.Datetime.from_string(
-            new_next_shift_date) - weekA_date).days // 7) % 4)
-
-        num_week = (self.new_shift_template_id.week_number - (week_number)) % 4
-        return num_week
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        n_weeks_cycle = int(get_param('coop_shift.number_of_weeks_per_cycle'))
+        week_number = self.env['shift.template']._get_week_number(
+            fields.Datetime.from_string(new_next_shift_date).date())
+        week_difference = week_number - self.new_shift_template_id.week_number
+        return week_difference % n_weeks_cycle
 
     @api.multi
     def compute_range_day(self):
         '''
         Compute range day base on next shift
-            Range day is range of the last shift current team and the date of first shift on new team 
+            Range day is range of the last shift current team and the date of first shift on new team
         '''
         self.ensure_one()
 
@@ -454,24 +456,19 @@ class ShiftChangeTeam(models.Model):
         # the start  date of new shift
 
         if not self.new_shift_template_id.shift_type_id.is_ftop:
-            if self.check_num_week(new_next_shift_date) == 1:
-                new_next_shift_date = (fields.Datetime.from_string(
-                    new_next_shift_date) - timedelta(
-                    days=21)).strftime('%Y-%m-%d')
-            elif self.check_num_week(new_next_shift_date) == 2:
-                new_next_shift_date = (fields.Datetime.from_string(
-                    new_next_shift_date) - timedelta(
-                    days=14)).strftime('%Y-%m-%d')
-            elif self.check_num_week(new_next_shift_date) == 3:
-                new_next_shift_date = (fields.Datetime.from_string(
-                    new_next_shift_date) - timedelta(
-                    days=7)).strftime('%Y-%m-%d')
+            n_weeks_to_sync = self.check_num_week(new_next_shift_date)
+            if n_weeks_to_sync != 0:
+                new_next_shift_date = (
+                    fields.Datetime.from_string(new_next_shift_date)
+                    - timedelta(days=7 * n_weeks_to_sync)
+                ).strftime('%Y-%m-%d')
 
-        next_shift_mounth = (fields.Datetime.from_string(
-            new_next_shift_date) +
-            timedelta(days=90)).strftime('%Y-%m-%d')
+        next_shift_mounth = (
+            fields.Datetime.from_string(new_next_shift_date)
+            + timedelta(days=90)
+        ).strftime('%Y-%m-%d')
 
-        rec_new_template_dates =\
+        rec_new_template_dates = \
             self.new_shift_template_id.get_recurrent_dates(
                 new_next_shift_date, next_shift_mounth)
 

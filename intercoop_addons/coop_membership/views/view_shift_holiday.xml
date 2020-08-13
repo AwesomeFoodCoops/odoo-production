@@ -50,7 +50,7 @@
                                 <field name="single_day_shift_ids" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')] , 'invisible' : [('holiday_type', '!=', 'single_day')]}">
                                     <tree create="false">
                                         <field name="name"/>
-					                    <field name="week_number"/>
+					                    <field name="week_name"/>
 					                    <field name="shift_type_id"/>
 					                    <field name="date_begin"/>
 					                    <field name="date_end"/>
@@ -63,13 +63,13 @@
                                         <field name="state_in_holiday"/>
 					                    <field name="holiday_single_state" invisible="1"/>
 					                    <button name="open_in_holiday" string="Open" type="object" attrs="{'invisible': ['|',('state_in_holiday', '=', 'open'), ('holiday_single_state', 'in', ['done', 'cancel'])]}" icon="fa-check"/>
-                    					<button name="close_in_holiday" string="Closed" attrs="{'invisible': ['|', ('state_in_holiday', '=', 'closed'), ('holiday_single_state', 'in', ['done', 'cancel'])]}" type="object" icon="fa-times" /> 
+                    					<button name="close_in_holiday" string="Closed" attrs="{'invisible': ['|', ('state_in_holiday', '=', 'closed'), ('holiday_single_state', 'in', ['done', 'cancel'])]}" type="object" icon="fa-times" />
                                     </tree>
                                 </field>
                                 <field name="long_period_shift_ids" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')], 'invisible' : [('holiday_type', '!=', 'long_period')]}">
                                     <tree create="false">
                                         <field name="name"/>
-                                        <field name="week_number"/>
+                                        <field name="week_name"/>
                                         <field name="shift_type_id"/>
                                         <field name="date_begin"/>
                                         <field name="date_end"/>
