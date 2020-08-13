@@ -5,16 +5,8 @@ from openerp import models, fields, api, _
 from datetime import datetime, timedelta
 from dateutil import rrule
 from dateutil.relativedelta import relativedelta
-from openerp.exceptions import UserError
+from openerp.exceptions import UserError, ValidationError
 import unicodedata as udd
-
-
-WEEK_NUMBERS = [
-    (1, 'A'),
-    (2, 'B'),
-    (3, 'C'),
-    (4, 'D')
-]
 
 # this variable is used for shift creation. It tells until when we want to
 # create the shifts
@@ -46,9 +38,15 @@ class ShiftTemplate(models.Model):
     shift_type_id = fields.Many2one(
         'shift.type', string='Category', required=True,
         default=lambda self: self._default_shift_type())
-    week_number = fields.Selection(
-        WEEK_NUMBERS, string='Week', compute="_compute_week_number",
-        store=True)
+    week_number = fields.Integer(
+        compute="_compute_week_number",
+        store=True,
+    )
+    week_name = fields.Char(
+        string="Week",
+        compute="_compute_week_name",
+        store=True,
+    )
     color = fields.Integer('Kanban Color Index')
     shift_mail_ids = fields.One2many(
         'shift.template.mail', 'shift_template_id', string='Mail Schedule',
@@ -204,6 +202,41 @@ class ShiftTemplate(models.Model):
                 if child.type == 'other' and child.default_addess_for_shifts:
                     return child
             return comp_id.partner_id
+
+    @api.model
+    def _get_week_number(self, date):
+        if not date:
+            return False
+        # Week numbers are based on configuration
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        weekA_date = fields.Date.from_string(
+            get_param('coop_shift.week_a_date'))
+        n_weeks_cycle = int(get_param('coop_shift.number_of_weeks_per_cycle'))
+        return 1 + (((date - weekA_date).days // 7) % n_weeks_cycle)
+
+    @api.model
+    def _number_to_letters(self, num):
+        """
+        Convert a number into a letters (3 -> 'C')
+
+        Right shift the number by 26 to find letters in reverse
+        order. These numbers are 1-based, and can be converted to ASCII
+        ordinals by adding 64.
+        """
+        # these indicies corrospond to A -> ZZZ and include all allowed letters
+        if not 1 <= num <= 18278:
+            raise ValidationError(_(
+                "Can't convert %s to letters") % num)
+        letters = []
+        while num > 0:
+            num, remainder = divmod(num, 26)
+            # check for exact division and borrow if needed
+            if remainder == 0:
+                remainder = 26
+                num -= 1
+            letters.append(chr(remainder+64))
+        return ''.join(reversed(letters))
+
     # Compute Section
 
     @api.multi
@@ -251,7 +284,7 @@ class ShiftTemplate(models.Model):
 
     @api.multi
     @api.depends(
-        'shift_type_id.prefix_name', 'week_number',
+        'shift_type_id.prefix_name', 'week_name',
         'mo', 'tu', 'we', 'th', 'fr', 'sa', 'su',
         'start_time', 'address_id', 'address_id.name')
     def _compute_template_name(self):
@@ -259,8 +292,7 @@ class ShiftTemplate(models.Model):
             name = ""
             if template.shift_type_id and template.shift_type_id.prefix_name:
                 name = "%s - %s" % (template.shift_type_id.prefix_name, name)
-            name += template.week_number and (
-                WEEK_NUMBERS[template.week_number - 1][1]) or ""
+            name += template.week_name or ""
             name += _("Mo") if template.mo else ""
             name += _("Tu") if template.tu else ""
             name += _("We") if template.we else ""
@@ -407,14 +439,18 @@ class ShiftTemplate(models.Model):
     @api.depends('start_date')
     def _compute_week_number(self):
         for template in self:
-            if not template.start_date:
-                template.week_number = False
+            template.week_number = template._get_week_number(
+                fields.Date.from_string(template.start_date))
+
+    @api.multi
+    @api.depends('week_number')
+    def _compute_week_name(self):
+        for template in self:
+            if template.week_number:
+                template.week_name = self._number_to_letters(
+                    template.week_number)
             else:
-                weekA_date = fields.Date.from_string(
-                    self.env.ref('coop_shift.config_parameter_weekA').value)
-                start_date = fields.Date.from_string(template.start_date)
-                template.week_number =\
-                    1 + (((start_date - weekA_date).days // 7) % 4)
+                template.week_name = False
 
     @api.multi
     @api.depends('shift_ids')
@@ -643,7 +679,6 @@ class ShiftTemplate(models.Model):
                     'address_id': template.address_id.id,
                     'description': template.description,
                     'shift_type_id': template.shift_type_id.id,
-                    'week_number': template.week_number,
                     'week_list': template.week_list,
                     'shift_ticket_ids': None,
                 }
@@ -750,21 +785,15 @@ class ShiftTemplate(models.Model):
                 datetime.today() + timedelta(days=SHIFT_CREATION_DAYS)))
 
     # Custom Private Section
-    @api.model
-    def _get_week_number(self, test_date):
-        if not test_date:
-            return False
-        weekA_date = fields.Datetime.from_string(
-            self.env.ref('coop_shift.config_parameter_weekA').value)
-        week_number = 1 + (((test_date - weekA_date).days // 7) % 4)
-        return week_number
 
     @api.multi
     def get_recurrent_dates(self, after=None, before=None):
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        n_weeks_cycle = int(get_param('coop_shift.number_of_weeks_per_cycle'))
         for template in self:
             start = fields.Datetime.from_string(after or template.start_date)
             stop = fields.Datetime.from_string(before or template.final_date)
-            delta = (template.week_number - self._get_week_number(start)) % 4
+            delta = (template.week_number - self._get_week_number(start)) % n_weeks_cycle
             start += timedelta(weeks=delta)
             return rrule.rrulestr(str(template.rrule), dtstart=start, ignoretz=True).between(
                 after=start, before=stop, inc=True)

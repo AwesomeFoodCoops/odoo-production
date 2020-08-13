@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
-        <record id="config_parameter_weekA" model="ir.config_parameter">
-            <!-- Here we store the date of a Monday of WeekA -->
-            <field name="key">coop_shift.week_a_date</field>
-            <field name="value">2015-12-28</field>
-        </record>
-
-    </data>
 
     <data noupdate="1">
         <record id="shift_type" model="shift.type">

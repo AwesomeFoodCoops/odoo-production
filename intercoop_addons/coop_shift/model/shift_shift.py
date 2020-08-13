@@ -10,14 +10,6 @@ from openerp.osv import expression
 SHIFT_CONFIRMATION_DAYS = 5
 
 
-WEEK_NUMBERS = [
-    (1, 'A'),
-    (2, 'B'),
-    (3, 'C'),
-    (4, 'D')
-]
-
-
 class ShiftShift(models.Model):
     _inherit = 'event.event'
     _name = 'shift.shift'
@@ -39,9 +31,15 @@ class ShiftShift(models.Model):
     shift_type_id = fields.Many2one(
         'shift.type', string='Category', required=False,
         readonly=False, states={'done': [('readonly', True)]})
-    week_number = fields.Selection(
-        WEEK_NUMBERS, string='Week', compute="_compute_week_number",
-        store=True)
+    week_number = fields.Integer(
+        compute="_compute_week_number",
+        store=True,
+    )
+    week_name = fields.Char(
+        string="Week",
+        compute="_compute_week_name",
+        store=True,
+    )
     week_list = fields.Selection([
         ('MO', 'Monday'), ('TU', 'Tuesday'), ('WE', 'Wednesday'),
         ('TH', 'Thursday'), ('FR', 'Friday'), ('SA', 'Saturday'),
@@ -107,17 +105,24 @@ class ShiftShift(models.Model):
     ]
 
     @api.multi
-    @api.depends('date_without_time')
+    @api.depends('shift_template_id', 'date_without_time')
     def _compute_week_number(self):
         for shift in self:
             if not shift.date_without_time:
                 shift.week_number = False
             else:
-                weekA_date = fields.Date.from_string(
-                    self.env.ref('coop_shift.config_parameter_weekA').value)
-                start_date = fields.Date.from_string(shift.date_without_time)
-                shift.week_number =\
-                    1 + (((start_date - weekA_date).days // 7) % 4)
+                shift.week_number = shift.shift_template_id._get_week_number(
+                    fields.Date.from_string(shift.date_without_time))
+
+    @api.multi
+    @api.depends('week_number')
+    def _compute_week_name(self):
+        for shift in self:
+            if shift.week_number:
+                shift.week_name = shift.shift_template_id._number_to_letters(
+                    shift.week_number)
+            else:
+                shift.week_name = False
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
@@ -210,12 +215,19 @@ class ShiftShift(models.Model):
             shift.seats_expected = shift.seats_unconfirmed +\
                 shift.seats_reserved + shift.seats_used
 
+    @api.model
+    def _done_writable_fields(self):
+        """ List of fields that can be written on if confirmed """
+        return [
+            'state_in_holiday', 'single_holiday_id', 'long_holiday_id',
+            'week_number', 'week_name',
+        ]
+
     @api.multi
     def write(self, vals):
         special = self._context.get('special', False)
         if any(shift.state == "done" for shift in self):
-            ignore_fields = ['state_in_holiday',
-                             'single_holiday_id', 'long_holiday_id']
+            ignore_fields = self._done_writable_fields()
             for field in vals.keys():
                 if field in ignore_fields:
                     break
@@ -231,10 +243,10 @@ class ShiftShift(models.Model):
                             lambda t: t.shift_type == 'ftop')
                         standard_ticket = template.shift_ticket_ids.filtered(
                             lambda t: t.shift_type == 'standard')
-                        ftop_seats_max = ftop_ticket and\
-                            ftop_ticket[0].seats_max or False
-                        standard_seats_max = standard_ticket and\
-                            standard_ticket[0].seats_max or False
+                        ftop_seats_max = \
+                            ftop_ticket and ftop_ticket[0].seats_max
+                        standard_seats_max = \
+                            standard_ticket and standard_ticket[0].seats_max
                         for ticket in shift.shift_ticket_ids:
                             if ticket.shift_type == 'ftop':
                                 ticket.seats_max = ftop_seats_max
