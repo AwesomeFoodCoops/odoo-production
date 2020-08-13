@@ -627,7 +627,10 @@ class ShiftTemplate(models.Model):
             before = fields.Datetime.to_string(
                 datetime.today() + timedelta(days=SHIFT_CREATION_DAYS))
         for template in self:
-            after = template.last_shift_date
+            after = max(
+                template.last_shift_date,
+                template.start_datetime[0:10],
+            )
             rec_dates = template.get_recurrent_dates(
                 after=after, before=before)
             for rec_date in rec_dates:
