@@ -279,17 +279,14 @@ class ShiftTemplate(models.Model):
 
     @api.multi
     @api.depends(
-        'shift_type_id', 'week_number', 'mo', 'tu', 'we', 'th', 'fr', 'sa',
-        'su', 'start_time', 'address_id', 'address_id.name')
+        'shift_type_id.prefix_name', 'week_number',
+        'mo', 'tu', 'we', 'th', 'fr', 'sa', 'su',
+        'start_time', 'address_id', 'address_id.name')
     def _compute_template_name(self):
         for template in self:
-            if template.shift_type_id == template.env.ref(
-                    'coop_shift.shift_type'):
-                name = ""
-            else:
-                prefix_name = template.shift_type_id and \
-                    template.shift_type_id.prefix_name or ''
-                name = prefix_name + ' - ' or ''
+            name = ""
+            if template.shift_type_id and template.shift_type_id.prefix_name:
+                name = "%s - %s" % (template.shift_type_id.prefix_name, name)
             name += template.week_number and (
                 WEEK_NUMBERS[template.week_number - 1][1]) or ""
             name += _("Mo") if template.mo else ""
@@ -586,7 +583,7 @@ class ShiftTemplate(models.Model):
     @api.multi
     def update_shift(self, vals):
         """
-        Update shift directly for changing only shift 
+        Update shift directly for changing only shift
         leader on shift template
         """
         user_ids = vals.get('user_ids', False)
@@ -600,8 +597,8 @@ class ShiftTemplate(models.Model):
                     # update directly to shifts
                     shifts.with_context(
                         tracking_disable=True).write(vals)
-                    
-                    # remove user_ids from update_fields, 
+
+                    # remove user_ids from update_fields,
                     # keep remain values of other fields
                     vals.update({
                         'updated_fields': ''
