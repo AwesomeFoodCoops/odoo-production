@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_res_config_settings" model="ir.ui.view">
+            <field name="model">coop_shift.config.settings</field>
+            <field name="arch" type="xml">
+                <form class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <group string="Shifts Configuration" name="shifts_config">
+                        <field name="shift_weeks_per_cycle"/>
+                        <field name="shift_week_a_date"/>
+                        <label for="action_recompute_shift_weeks" string=" "/>
+                        <button type="object" name="action_recompute_shift_weeks"
+                                string="Recompute shifts' week names"
+                                confirm="This will recompute all week numbers and names based on your new configuration. It will affect all existing shifts (past and future). Are you sure you want to continue?"
+                                class="oe_link"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_res_config_settings" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="res_model">coop_shift.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <record model="ir.ui.menu" id="menu_res_config_settings">
+            <field name="name">Settings</field>
+            <field name="action" ref="action_res_config_settings"/>
+            <field name="parent_id" ref="menu_shift_configuration"/>
+            <field name="sequence">1</field>
+        </record>
+
+    </data>
+</openerp>

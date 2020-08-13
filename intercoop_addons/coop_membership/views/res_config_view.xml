@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="view_members_config_settings_form" model="ir.ui.view">
-            <field name="name">members.config.settings.form</field>
-            <field name="model">members.config.settings</field>
+        <record id="view_res_config_settings" model="ir.ui.view">
+            <field name="model">coop_shift.config.settings</field>
+            <field name="inherit_id" ref="coop_shift.view_res_config_settings"/>
             <field name="arch" type="xml">
-                <form class="oe_form_configuration">
-                    <header>
-                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
-                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
-                    </header>
-                    <group string="Membership Configuration" name="config_member_section">
-                    	<label for="max_number_settings" class="oe_inline" string="Maximum Associated People"/>
-                    	<div name="max_number_settings">
-							<field name="associated_people_available" widget="radio"/>
-							<field name="max_nb_associated_people" nolabel="1" attrs="{'invisible':[('associated_people_available','=','unlimited')], 'required':[('associated_people_available', '=', 'limited')]}"/>
-                    	</div>
-                        <field name="contact_us_messages"/>
-                    </group>
-
+                <form position="inside">
                     <group string="FTOP Registration Limits" name="config_ftop_registration_limits_section">
                         <field name="max_registrations_per_day"/>
                         <field name="max_registration_per_period"/>
@@ -26,6 +13,14 @@
                     </group>
                     <group string="Designated buyer" name="config_designated_buyer_section">
                         <field name="maximum_active_days" />
+                    </group>
+                    <group string="Membership Configuration" name="config_member_section">
+                    	<label for="max_number_settings" class="oe_inline" string="Maximum Associated People"/>
+                    	<div name="max_number_settings">
+							<field name="associated_people_available" widget="radio"/>
+							<field name="max_nb_associated_people" nolabel="1" attrs="{'invisible':[('associated_people_available','=','unlimited')], 'required':[('associated_people_available', '=', 'limited')]}"/>
+                    	</div>
+                        <field name="contact_us_messages"/>
                     </group>
                 </form>
             </field>

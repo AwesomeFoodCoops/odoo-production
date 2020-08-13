@@ -141,14 +141,6 @@
                eval="[(4, ref('coop_membership.subscriptions_creator_payment'))]"/>
     </record>
 
-    <!-- Add new menu Settings -->
-    <record model="ir.ui.menu" id="menu_membership_global_settings">
-        <field name="name">Settings</field>
-        <field name="action" ref="action_membership_configuration"/>
-        <field name="parent_id" ref="coop_shift.menu_shift_configuration"/>
-        <field name="sequence">1</field>
-    </record>
-
     <record model="ir.ui.menu" id="menu_shift_holiday">
         <field name="name">Assouplissement Présence</field>
         <field name="action" ref="action_shift_holiday"/>
@@ -236,7 +228,7 @@
         id="coop_shift.template_menu"
         sequence="22"
         groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie"/>
-    
+
     <record model="ir.ui.menu" id="coop_shift.menu_shift_template">
         <field name="groups_id" eval="[
             (4, ref('coop_membership.group_membership_bdm_saisie'))

@@ -15,9 +15,8 @@ PARAMS = [
 ]
 
 
-class MembersConfiguration(models.TransientModel):
-    _inherit = 'res.config.settings'
-    _name = 'members.config.settings'
+class ResConfigSettings(models.TransientModel):
+    _inherit = 'coop_shift.config.settings'
 
     max_nb_associated_people = fields.Integer('Maximum Associated People')
     associated_people_available = fields.Selection([
@@ -62,32 +61,32 @@ class MembersConfiguration(models.TransientModel):
 
     @api.multi
     def set_params(self):
-        self.ensure_one()
+        super(ResConfigSettings, self).set_params()
         for field_name, key_name in PARAMS:
             value = getattr(self, field_name, False)
             self.env['ir.config_parameter'].set_param(key_name, value)
 
     @api.multi
     def get_default_params(self):
-        config_param_env = self.env['ir.config_parameter']
-        key_max_nb = 'coop_membership.max_nb_associated_people'
-        max_nb = eval(config_param_env.get_param(key_max_nb, '0'))
-        key_avail_check = 'coop_membership.associated_people_available'
-        avail_check = config_param_env.get_param(key_avail_check, 'unlimited')
-        return {'max_nb_associated_people': max_nb,
-                'associated_people_available': avail_check
-                }
+        res = super(ResConfigSettings, self).get_default_params()
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        res.update({
+            'max_nb_associated_people': eval(get_param(
+                'coop_membership.max_nb_associated_people', '0')),
+            'associated_people_available': get_param(
+                'coop_membership.associated_people_available', 'unlimited')
+        })
+        return res
 
     @api.model
     def default_get(self, fields):
-        res = super(MembersConfiguration, self).default_get(fields)
+        res = super(ResConfigSettings, self).default_get(fields)
         company = self.env.user.company_id
         message = company.contact_us_message
         max_registrations_per_day = company.max_registrations_per_day
         max_registration_per_period = company.max_registration_per_period
         number_of_days_in_period = company.number_of_days_in_period
         maximum_active_days = company.maximum_active_days
-
         if 'contact_us_messages' in fields:
             res.update({
                 'contact_us_messages': message,
@@ -101,15 +100,15 @@ class MembersConfiguration(models.TransientModel):
     @api.multi
     def execute(self):
         company = self.env.user.company_id
-        for record in self:
-            company.contact_us_message = record.contact_us_messages
+        for rec in self:
+            company.contact_us_message = \
+                rec.contact_us_messages
             company.max_registrations_per_day = \
-                record.max_registrations_per_day
+                rec.max_registrations_per_day
             company.max_registration_per_period = \
-                record.max_registration_per_period
+                rec.max_registration_per_period
             company.number_of_days_in_period = \
-                record.number_of_days_in_period
-
-            company.maximum_active_days = record.maximum_active_days
-
-        return super(MembersConfiguration, self).execute()
+                rec.number_of_days_in_period
+            company.maximum_active_days = \
+                rec.maximum_active_days
+        return super(ResConfigSettings, self).execute()
