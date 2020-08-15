@@ -8,6 +8,9 @@ from dateutil.relativedelta import relativedelta
 from openerp.exceptions import UserError, ValidationError
 import unicodedata as udd
 
+from openerp.addons.connector.queue.job import job
+from openerp.addons.connector.session import ConnectorSession
+
 # this variable is used for shift creation. It tells until when we want to
 # create the shifts
 SHIFT_CREATION_DAYS = 90
@@ -830,3 +833,24 @@ class ShiftTemplate(models.Model):
         return ['byday', 'recurrency', 'final_date', 'rrule_type', 'month_by',
                 'interval', 'count', 'end_type', 'mo', 'tu', 'we', 'th', 'fr',
                 'sa', 'su', 'day', 'week_list']
+
+    @api.multi
+    def _recompute_week_number_async(self):
+        NUM_RECORDS_PER_JOB = 200
+        record_ids = self.ids
+        chunked = [
+            record_ids[i: i + NUM_RECORDS_PER_JOB]
+            for i in range(0, len(record_ids), NUM_RECORDS_PER_JOB)
+        ]
+        # Prepare session for job
+        session = ConnectorSession(self._cr, self._uid)
+        # Create jobs
+        for chunk in chunked:
+            _job_recompute_week_number_async.delay(session, chunk)
+        return True
+
+
+@job
+def _job_recompute_week_number_async(session, record_ids):
+    records = session.env['shift.template'].browse(record_ids)
+    records._compute_week_number()

@@ -6,8 +6,8 @@
         <field name="arch" type="xml">
             <search string="Pos order line">
                 <field name="cycle"/>
-                <field name="week_number"/>
-                <field name="week_day"/>        
+                <field name="week_name"/>
+                <field name="week_day"/>
             </search>
         </field>
     </record>

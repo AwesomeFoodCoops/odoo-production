@@ -8,89 +8,100 @@ from datetime import datetime, timedelta
 from openerp.addons.connector.queue.job import job
 from openerp.addons.connector.session import ConnectorSession
 
+WEEK_DAY_MAP = {
+    0: "Mon",
+    1: "Tue",
+    2: "Wes",
+    3: "Thu",
+    4: "Fri",
+    5: "Sat",
+    6: "Sun",
+}
+
 
 class PosSession(models.Model):
     _inherit = 'pos.session'
 
-    week_number = fields.Char(string='Week', compute="compute_week_number",
-                              store=True)
+    week_number = fields.Integer(
+        string='Week',
+        compute="_compute_week_number",
+        store=True,
+    )
+    week_name = fields.Char(
+        string='Week',
+        compute="_compute_week_name",
+        store=True,
+    )
     week_day = fields.Char(
-        string="Day", compute="compute_week_day", store=True)
-    cycle = fields.Char(string="Cycle", compute="compute_cycle", store=True)
+        string="Day",
+        compute="_compute_week_day",
+        store=True,
+    )
+    cycle = fields.Char(
+        string="Cycle",
+        compute="_compute_cycle",
+        store=True,
+    )
 
     @api.multi
     @api.depends('start_at')
-    def compute_week_number(self):
-        for session in self:
-            if not session.start_at:
-                session.week_number = False
+    def _compute_week_number(self):
+        for rec in self:
+            rec.week_number = self.env['shift.template']._get_week_number(
+                fields.Date.from_string(rec.start_at))
+
+    @api.multi
+    @api.depends('week_number')
+    def _compute_week_name(self):
+        for rec in self:
+            if rec.week_number:
+                rec.week_name = self.env['shift.template']._number_to_letters(
+                    rec.week_number)
             else:
-                weekA_date = fields.Date.from_string(
-                    self.env.ref('coop_shift.config_parameter_weekA').value)
-                start_at = fields.Date.from_string(session.start_at)
-                week_number =\
-                    1 + (((start_at - weekA_date).days // 7) % 4)
-                if week_number == 1:
-                    session.week_number = 'A'
-                elif week_number == 2:
-                    session.week_number = 'B'
-                elif week_number == 3:
-                    session.week_number = 'C'
-                elif week_number == 4:
-                    session.week_number = 'D'
+                rec.week_name = False
 
     @api.multi
     @api.depends('start_at')
-    def compute_week_day(self):
-        for session in self:
-            if session.start_at:
-                start_at_object = datetime.strptime(
-                    session.start_at, '%Y-%m-%d %H:%M:%S')
-                wd = start_at_object.weekday()
-                if wd == 0:
-                    session.week_day = _("Mon")
-                elif wd == 1:
-                    session.week_day = _("Tue")
-                elif wd == 2:
-                    session.week_day = _("Wes")
-                elif wd == 3:
-                    session.week_day = _("Thu")
-                elif wd == 4:
-                    session.week_day = _("Fri")
-                elif wd == 5:
-                    session.week_day = _("Sat")
-                elif wd == 6:
-                    session.week_day = _("Sun")
+    def _compute_week_day(self):
+        for rec in self:
+            if rec.start_at:
+                wd = fields.Date.from_string(rec.start_at).weekday()
+                rec.week_day = _(WEEK_DAY_MAP.get(wd))
 
     @api.multi
     @api.depends('week_number', 'week_day')
-    def compute_cycle(self):
-        for session in self:
-            session.cycle = "%s%s" % (session.week_number, session.week_day)
+    def _compute_cycle(self):
+        for rec in self:
+            rec.cycle = "%s%s" % (rec.week_name, rec.week_day)
 
     # Custom Section
-    @api.multi
-    def update_cycle_pos_session(self):
 
-        session_ids = self.ids
-        num_session_per_job = 20
-        splited_session_list = \
-            [session_ids[i: i + num_session_per_job]
-             for i in range(0, len(session_ids), num_session_per_job)]
+    @api.multi
+    def _recompute_week_fields_async(self):
+        NUM_RECORDS_PER_JOB = 200
+        record_ids = self.ids
+        chunked = [
+            record_ids[i: i + NUM_RECORDS_PER_JOB]
+            for i in range(0, len(record_ids), NUM_RECORDS_PER_JOB)
+        ]
         # Prepare session for job
-        session = ConnectorSession(self._cr, self._uid,
-                                   {'lang': 'fr_FR'})
+        session = ConnectorSession(self._cr, self._uid, {'lang': 'fr_FR'})
         # Create jobs
-        for session_list in splited_session_list:
-            update_cycle_pos_session_job.delay(
-                session, 'pos.session', session_list)
+        for chunk in chunked:
+            _job_recompute_week_fields_async.delay(session, chunk)
         return True
+
+    @api.multi
+    def _recompute_week_fields(self):
+        self._compute_week_number()
+        self._compute_week_name()
+        self._compute_week_day()
+        self._compute_cycle()
 
 
 @job
-def update_cycle_pos_session_job(session, model_name, session_list):
+def _job_recompute_week_fields_async(session, record_ids):
     ''' Job for compute cycle '''
-    orders = session.env[model_name].with_context({'lang': 'fr_FR'}).browse(session_list)
-    orders.compute_week_number()
-    orders.compute_week_day()
-    orders.compute_cycle()
+    records = session.env['pos.session'].with_context(
+        lang='fr_FR').browse(record_ids)
+    records._recompute_week_fields()

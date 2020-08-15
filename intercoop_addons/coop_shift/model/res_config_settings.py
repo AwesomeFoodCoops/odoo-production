@@ -66,22 +66,25 @@ class ResConfigSettings(models.TransientModel):
     @api.multi
     def action_recompute_shift_weeks(self):
         self.ensure_one()
+        self.execute()
         # do recompute
-        _logger.warning('Recomputing shift.template week names..')
+        _logger.info("Creating jobs to recompute week_name in shift.template.")
         self.env['shift.template'].with_context(
             active_test=False
-        ).search([])._compute_week_number()
-        _logger.warning('Recomputing shift.shift week names..')
+        ).search([])._recompute_week_number_async()
+        _logger.info("Creating jobs to recompute week_name in shift.shift..")
         self.env['shift.shift'].with_context(
             active_test=False
-        ).search([])._compute_week_number()
-        _logger.warning('Recomputed all shift and templates week names!')
+        ).search([])._recompute_week_number_async()
         # return alert
         return {
             'warning': {
-                'title': _('Success'),
+                'title': _('In progress'),
                 'message': _(
-                    'Week numbers and names recomputed for all shifts.'
+                    'They will be recomputed in the backend.\n'
+                    'It may take several minutes to finish, you can view the '
+                    'progress by checking the active queue jobs in '
+                    'Conector > Jobs.'
                 ),
             }
         }

@@ -5,6 +5,9 @@ from openerp.exceptions import UserError
 from datetime import datetime, timedelta
 from openerp.osv import expression
 
+from openerp.addons.connector.queue.job import job
+from openerp.addons.connector.session import ConnectorSession
+
 # this variable is used for shift confirmation. It tells how many days before
 # its date_begin a shift is confirmed
 SHIFT_CONFIRMATION_DAYS = 5
@@ -414,3 +417,24 @@ class ShiftShift(models.Model):
     @api.constrains('seats_max', 'seats_available')
     def _check_seats_limit(self):
         return True
+
+    @api.multi
+    def _recompute_week_number_async(self):
+        NUM_RECORDS_PER_JOB = 200
+        record_ids = self.ids
+        chunked = [
+            record_ids[i: i + NUM_RECORDS_PER_JOB]
+            for i in range(0, len(record_ids), NUM_RECORDS_PER_JOB)
+        ]
+        # Prepare session for job
+        session = ConnectorSession(self._cr, self._uid)
+        # Create jobs
+        for chunk in chunked:
+            _job_recompute_week_number_async.delay(session, chunk)
+        return True
+
+
+@job
+def _job_recompute_week_number_async(session, record_ids):
+    records = session.env['shift.shift'].browse(record_ids)
+    records._compute_week_number()
