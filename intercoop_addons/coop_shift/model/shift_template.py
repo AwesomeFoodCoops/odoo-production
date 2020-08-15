@@ -441,9 +441,11 @@ class ShiftTemplate(models.Model):
     @api.multi
     @api.depends('start_date')
     def _compute_week_number(self):
-        for template in self:
-            template.week_number = template._get_week_number(
-                fields.Date.from_string(template.start_date))
+        for rec in self:
+            week_number = rec._get_week_number(
+                fields.Date.from_string(rec.start_date))
+            if rec.week_number != week_number:
+                rec.week_number = week_number
 
     @api.multi
     @api.depends('week_number')

@@ -110,12 +110,13 @@ class ShiftShift(models.Model):
     @api.multi
     @api.depends('shift_template_id', 'date_without_time')
     def _compute_week_number(self):
-        for shift in self:
-            if not shift.date_without_time:
-                shift.week_number = False
-            else:
-                shift.week_number = shift.shift_template_id._get_week_number(
-                    fields.Date.from_string(shift.date_without_time))
+        for rec in self:
+            week_number = False
+            if rec.date_without_time:
+                week_number = rec.shift_template_id._get_week_number(
+                    fields.Date.from_string(rec.date_without_time))
+            if rec.week_number != week_number:
+                rec.week_number = week_number
 
     @api.multi
     @api.depends('week_number')

@@ -9,7 +9,7 @@
                         <button string="Apply" type="object" name="execute" class="oe_highlight"/>
                         <button string="Cancel" type="object" name="cancel" class="oe_link"/>
                     </header>
-                    <group string="Shifts Configuration" name="shifts_config">
+                    <group string="Shifts Configuration" name="shifts_config" groups="base.group_system">
                         <field name="shift_weeks_per_cycle"/>
                         <field name="shift_week_a_date"/>
                         <label for="action_recompute_shift_weeks" string=" "/>

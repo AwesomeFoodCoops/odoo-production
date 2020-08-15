@@ -47,8 +47,10 @@ class PosOrder(models.Model):
     @api.depends('date_order')
     def _compute_week_number(self):
         for rec in self:
-            rec.week_number = self.env['shift.template']._get_week_number(
+            week_number = self.env['shift.template']._get_week_number(
                 fields.Date.from_string(rec.date_order))
+            if rec.week_number != week_number:
+                rec.week_number = week_number
 
     @api.multi
     @api.depends('week_number')
@@ -104,9 +106,6 @@ class PosOrder(models.Model):
     @api.multi
     def _recompute_week_fields(self):
         self._compute_week_number()
-        self._compute_week_name()
-        self._compute_week_day()
-        self._compute_cycle()
 
 
 @job
