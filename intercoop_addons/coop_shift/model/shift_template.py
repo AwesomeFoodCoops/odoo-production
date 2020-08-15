@@ -15,6 +15,9 @@ from openerp.addons.connector.session import ConnectorSession
 # create the shifts
 SHIFT_CREATION_DAYS = 90
 
+# Cache for numbers to letters conversion
+NUMBER_TO_LETTERS_CACHE = dict()
+
 
 class ShiftTemplate(models.Model):
     _name = 'shift.template'
@@ -208,6 +211,7 @@ class ShiftTemplate(models.Model):
 
     @api.model
     def _get_week_number(self, date):
+        ''' Computes the date number for a given date '''
         if not date:
             return False
         # Week numbers are based on configuration
@@ -218,6 +222,33 @@ class ShiftTemplate(models.Model):
         return 1 + (((date - weekA_date).days // 7) % n_weeks_cycle)
 
     @api.model
+    def _get_week_number_multi(self, records, field_name):
+        '''
+        Computes the date number on multiple records using SQL
+        This is particularly usefull for computed fields
+        '''
+        # Week numbers are based on configuration
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        weekA_date = get_param('coop_shift.week_a_date')
+        n_weeks_cycle = int(get_param('coop_shift.number_of_weeks_per_cycle'))
+        # Performs SQL to compute the week_number
+        self.env.cr.execute("""
+            SELECT
+                id,
+                (   1 +
+                    MOD(DIV(ABS(
+                        DATE_PART('day', AGE(%s, {field_name}))
+                    )::integer, 7), %s)
+                )::integer AS week_number
+            FROM {table}
+        """.format(
+            table=records._table,
+            field_name=field_name,
+        ), (weekA_date, n_weeks_cycle))
+        # Return computation
+        return dict(self.env.cr.fetchall())
+
+    @api.model
     def _number_to_letters(self, num):
         """
         Convert a number into a letters (3 -> 'C')
@@ -225,7 +256,12 @@ class ShiftTemplate(models.Model):
         Right shift the number by 26 to find letters in reverse
         order. These numbers are 1-based, and can be converted to ASCII
         ordinals by adding 64.
+
+        It uses NUMBER_TO_LETTERS_CACHE as cache
         """
+        # Return from cache, if available
+        if NUMBER_TO_LETTERS_CACHE.get(num):
+            return NUMBER_TO_LETTERS_CACHE.get(num)
         # these indicies corrospond to A -> ZZZ and include all allowed letters
         if not 1 <= num <= 18278:
             raise ValidationError(_(
@@ -238,7 +274,10 @@ class ShiftTemplate(models.Model):
                 remainder = 26
                 num -= 1
             letters.append(chr(remainder+64))
-        return ''.join(reversed(letters))
+        result = ''.join(reversed(letters))
+        # Add to cache
+        NUMBER_TO_LETTERS_CACHE[num] = result
+        return result
 
     # Compute Section
 
@@ -441,10 +480,13 @@ class ShiftTemplate(models.Model):
     @api.multi
     @api.depends('start_date')
     def _compute_week_number(self):
+        data = self._get_week_number_multi(
+            records=self, field_name='start_date')
         for rec in self:
-            week_number = rec._get_week_number(
-                fields.Date.from_string(rec.start_date))
-            if rec.week_number != week_number:
+            week_number = data.get(rec.id)
+            if not week_number:
+                rec.week_number = False
+            else:
                 rec.week_number = week_number
 
     @api.multi

@@ -68,23 +68,42 @@ class ResConfigSettings(models.TransientModel):
         self.ensure_one()
         self.execute()
         # do recompute
-        _logger.info("Creating jobs to recompute week_name in shift.template.")
-        self.env['shift.template'].with_context(
-            active_test=False
-        ).search([])._recompute_week_number_async()
-        _logger.info("Creating jobs to recompute week_name in shift.shift..")
-        self.env['shift.shift'].with_context(
-            active_test=False
-        ).search([])._recompute_week_number_async()
-        # return alert
-        return {
-            'warning': {
-                'title': _('In progress'),
-                'message': _(
-                    'They will be recomputed in the backend.\n'
-                    'It may take several minutes to finish, you can view the '
-                    'progress by checking the active queue jobs in '
-                    'Conector > Jobs.'
-                ),
-            }
-        }
+        self._recompute_week_number(
+            'shift_template', 'start_date', 'week_number', 'week_name')
+        self._recompute_week_number(
+            'shift_shift', 'date_without_time', 'week_number', 'week_name')
+
+    @api.model
+    def _recompute_week_number(
+        self, table, field_date, field_week_number, field_week_name=None
+    ):
+        _logger.info(
+            'Recomputing week_number and week_name for table %s', table)
+        # Update week_number
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        weekA_date = get_param('coop_shift.week_a_date')
+        n_weeks_cycle = int(get_param('coop_shift.number_of_weeks_per_cycle'))
+        self.env.cr.execute("""
+            UPDATE {table}
+            SET {field_week_number} = (
+                1 +
+                MOD(DIV(ABS(
+                    DATE_PART('day', AGE(%s, {field_date}))
+                )::integer, 7), %s))::integer
+            WHERE {field_date} IS NOT NULL
+        """.format(
+            table=table,
+            field_date=field_date,
+            field_week_number=field_week_number,
+        ), (weekA_date, n_weeks_cycle))
+        # Update week_name
+        if field_week_name:
+            self.env.cr.execute("""
+                UPDATE {table}
+                SET {field_week_name} = CHR(64 + {field_week_number})
+                WHERE {field_week_number} IS NOT NULL
+            """.format(
+                table=table,
+                field_week_name=field_week_name,
+                field_week_number=field_week_number,
+            ))
