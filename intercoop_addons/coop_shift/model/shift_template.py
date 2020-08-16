@@ -31,7 +31,7 @@ class ShiftTemplate(models.Model):
     shift_ids = fields.One2many(
         'shift.shift', 'shift_template_id', string='Shifts', readonly=True)
     shift_qty = fields.Integer(
-        string='Number of shifts', compute='_compute_shift_qty', store=True)
+        string='Number of shifts', compute='_compute_shift_qty')
     user_id = fields.Many2one(
         'res.partner', string='Shift Leader')
     user_ids = fields.Many2many(
