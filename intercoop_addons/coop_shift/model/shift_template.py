@@ -666,15 +666,7 @@ class ShiftTemplate(models.Model):
     def act_template_shift_from_template(self):
         action = self.env.ref('coop_shift.action_shift_view')
         result = action.read()[0]
-        shift_ids = sum([template.shift_ids.ids for template in self], [])
-        # choose the view_mode accordingly
-        if len(shift_ids) > 1:
-            result['domain'] = "[('id','in',[" + ','.join(
-                map(str, shift_ids)) + "])]"
-        elif len(shift_ids) == 1:
-            res = self.env.ref('coop_shift.view_shift_form', False)
-            result['views'] = [(res and res.id or False, 'form')]
-            result['res_id'] = shift_ids and shift_ids[0] or False
+        result['domain'] = [('shift_template_id', 'in', self.ids)]
         result['context'] = unicode({'search_default_upcoming': 1})
         return result
 
