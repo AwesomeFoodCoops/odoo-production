@@ -8,6 +8,9 @@ from openerp.exceptions import UserError
 from datetime import datetime, timedelta
 from dateutil import rrule
 
+from openerp.addons.connector.queue.job import job
+from openerp.addons.connector.session import ConnectorSession
+
 
 class ShiftChangeTeam(models.Model):
     _name = "shift.change.team"
@@ -98,46 +101,56 @@ class ShiftChangeTeam(models.Model):
                     _('The new team should be different the current team'))
 
     @api.multi
+    def _send_notification_email(self):
+        mail_template_abcd = self.env.ref(
+            'coop_membership.change_team_abcd_email')
+        mail_template_ftop = self.env.ref(
+            'coop_membership.change_team_ftop_email')
+        # Hack to add attachments to the ftop email template
+        # It should really be added in a data xml.. don't know why it's here
+        if not mail_template_ftop.attachment_ids:
+            mail_template_ftop.attachment_ids = [(6, 0, [
+                self.env.ref('coop_membership.volant_sheet_attachment').id,
+                self.env.ref('coop_membership.volant_calendar_attachment').id,
+            ])]
+        for rec in self:
+            if rec.new_shift_template_id.shift_type_id.is_ftop:
+                mail_template_ftop.send_mail(rec.id)
+            else:
+                mail_template_abcd.send_mail(rec.id)
+
+    @api.multi
     def button_close(self):
         for record in self:
-            if not record.partner_id.is_member:
-                raise UserError(
-                    _('A person you want to change team must be a member'))
-            # elif record.current_shift_template_id.shift_type_id.is_ftop and\
-            #         not record.new_shift_template_id.shift_type_id.is_ftop:
-            #     raise UserError(
-            #         _('Can not change from FTOP to ABCD team'))
-            elif record.is_mess_change_team or record.is_full_seats_mess:
-                raise UserError(_(
-                    'There are some processes that were not done, please do it!'))
-            else:
-                record.set_in_new_team()
-                if record.new_shift_template_id.shift_type_id.is_ftop:
-                    mail_template_ftop = self.env.ref(
-                        'coop_membership.change_team_ftop_email')
-                    if mail_template_ftop:
-                        mail_template_ftop.attachment_ids = [
-                            (6, 0, [self.env.ref(
-                                'coop_membership.volant_sheet_attachment').id,
-                                self.env.ref(
-                                'coop_membership.volant_calendar_attachment').id])]
-                        mail_template_ftop.send_mail(record.id)
-                else:
-                    mail_template_abcd = self.env.ref(
-                        'coop_membership.change_team_abcd_email')
-                    if mail_template_abcd:
-                        mail_template_abcd.send_mail(record.id)
-                        if record.is_catch_up:
-                            point_counter_env = self.env['shift.counter.event']
-                            point_counter_env.sudo().with_context({'automatic': True})\
-                                .create({
-                                    'name': _('Subtracted 1 point for changing team'),
-                                    'type': 'standard',
-                                    'partner_id': record.partner_id.id,
-                                    'point_qty': -1,
-                                })
-
-                record.state = 'closed'
+            if not self.env.context.get('skip_sanity_checks'):
+                if not record.partner_id.is_member:
+                    raise UserError(_(
+                        'A person you want to change team must be a member'))
+                if record.is_mess_change_team or record.is_full_seats_mess:
+                    raise UserError(_(
+                        'There are some processes that were not done, '
+                        'please do it!'))
+            # Do actual change
+            record.set_in_new_team()
+            record.state = 'closed'
+            # Handle Catch up mechanism
+            if not record.new_shift_template_id.shift_type_id.is_ftop:
+                if record.is_catch_up:
+                    self.env['shift.counter.event'].sudo().with_context(
+                        automatic=True,
+                    ).create({
+                        'name': _('Subtracted 1 point for changing team'),
+                        'type': 'standard',
+                        'partner_id': record.partner_id.id,
+                        'point_qty': -1,
+                    })
+            # Handle delayed email notification
+            if not self.env.context.get('delay_email'):
+                record._send_notification_email()
+        # Handle delayed email notifications using queue job
+        if self.env.context.get('delay_email'):
+            session = ConnectorSession(self._cr, self._uid)
+            _job_send_notification_email.delay(session, self.ids)
         return True
 
     @api.multi
@@ -529,3 +542,8 @@ class ShiftChangeTeam(models.Model):
         return {
             "type": "ir.actions.do_nothing",
         }
+
+
+@job
+def _job_send_notification_email(session, rec_ids):
+    session.env['shift.change.team'].browse(rec_ids)._send_notification_email()
