@@ -184,7 +184,9 @@ class ShiftTemplateRegistrationLine(models.Model):
                     "You cannot make changes on this template registration. "
                     "Please make your changes directly on the leave recorded "
                     "for this period. You will need to cancel it then set to "
-                    "draft before you can make required changes."))
+                    "draft before you can make required changes.\n\n"
+                    "Registration: (ID: %s) - %s") % (
+                        line, line.partner_id.name))
 
             sr_obj = self.env['shift.registration']
             st_reg = line.registration_id

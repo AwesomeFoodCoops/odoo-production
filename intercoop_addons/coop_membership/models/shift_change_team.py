@@ -154,6 +154,30 @@ class ShiftChangeTeam(models.Model):
         return True
 
     @api.multi
+    def _create_registration_in_new_template(self, vals):
+        """
+        Helper method to create a new registration in the new template
+        Automatically chooses the correct ticket.
+        """
+        self.ensure_one()
+        # We use _search for performance
+        shift_type = (
+            self.new_shift_template_id.shift_type_id.is_ftop
+            and 'ftop' or 'standard')
+        shift_ticket_id = self.env['shift.template.ticket']._search([
+            ('shift_template_id', '=', self.new_shift_template_id.id),
+            ('shift_type', '=', shift_type),
+            ], limit=1)[0]
+        # Vals we know
+        create_vals = {
+            'partner_id': self.partner_id.id,
+            'shift_template_id': self.new_shift_template_id.id,
+            'shift_ticket_id': shift_ticket_id,
+        }
+        create_vals.update(vals)
+        return self.env['shift.template.registration.line'].create(create_vals)
+
+    @api.multi
     def set_in_new_team(self):
         '''
             This method set partner on new team and the date of shifts
@@ -165,42 +189,92 @@ class ShiftChangeTeam(models.Model):
         future_registrations = self.partner_id.tmpl_reg_line_ids.filtered(
             lambda r: r.date_begin > self.new_next_shift_date and
             r.date_begin >= fields.Date.context_today(self))
+
+        new_leave_reg = None
         if current_registrations:
-            current_registrations[0].date_end = fields.Date.to_string(
-                fields.Date.from_string(
-                    self.new_next_shift_date) - timedelta(days=1))
+            previous_date_end = current_registrations[0].date_end
+            # Finish the current line abruptely
+            current_registrations[0].with_context(
+                bypass_leave_change_check=True,
+            ).write({
+                'date_end': fields.Date.to_string(
+                    fields.Date.from_string(self.new_next_shift_date)
+                    - timedelta(days=1)
+                ),
+            })
+            # If our current registration is a leave,
+            # we want to split it in two based on the date of next shift
+            if current_registrations[0].leave_id:
+                # Create a new one
+                new_leave_reg = self._create_registration_in_new_template({
+                    'date_begin': self.new_next_shift_date,
+                    'date_end': previous_date_end,
+                    'leave_id': current_registrations[0].leave_id.id,
+                    'state': current_registrations[0].state,
+                })
 
         # Add date begin into the first registration template in the future
-        # Remove ALL Attendee on this template to create new Attendee on the new team
+        # Remove ALL Attendee on this template to create new Attendee on the
+        # new team.
         # If doesn't have any templates in the future, create a new one
 
         if future_registrations:
-            future_registrations[0].date_begin = self.new_next_shift_date
+            # If future registration is after a leave, we don't want to change
+            # the registration date begin. Or if it's a future date.
+            # we just want to remove it and create a new registration in
+            # the new shift template
+            if not new_leave_reg:
+                future_registrations[0].with_context(
+                    bypass_leave_change_check=True,
+                ).write({'date_begin': self.new_next_shift_date})
             for registration in future_registrations:
+                # Remove shift registrations
                 registration.shift_registration_ids.unlink()
-                registration.shift_template_id = self.new_shift_template_id
+                # Store values that want to use to create the new one
+                vals = registration.read([
+                    'date_begin', 'date_end', 'leave_id', 'state'
+                ])[0]
+                # Use same registration as the new leave reg
+                # Copying the behaviour before this patch
+                if (
+                    new_leave_reg
+                    and registration.registration_id ==
+                        current_registrations[0].registration_id
+                ):
+                    vals['registration_id'] = new_leave_reg.registration_id.id
+                # We remove the registration line.
+                # if there aren't any more registration lines in this reg,
+                # also remove it
+                reg_id = registration.registration_id
+                registration.unlink()
+                if not reg_id.line_ids:
+                    reg_id.unlink()
+                # Create a new registration in the new template
+                self._create_registration_in_new_template(vals)
         else:
-            if self.new_shift_template_id.shift_type_id.is_ftop:
-                shift_type = 'ftop'
-            else:
-                shift_type = 'standard'
-            shift_ticket =\
-                self.new_shift_template_id.shift_ticket_ids.filtered(
-                    lambda t: t.shift_type == shift_type)
-            self.env['shift.template.registration.line'].create({
-                'shift_template_id': self.new_shift_template_id.id,
-                'partner_id': self.partner_id.id,
-                'shift_ticket_id': shift_ticket[0].id,
+            self._create_registration_in_new_template({
                 'date_begin': self.new_next_shift_date,
             })
 
         # Set days of two next shifts
-        date_next_shifts = self.partner_id.registration_ids.filtered(
-            lambda r: r.date_begin >=
-            fields.Date.context_today(self)).mapped('date_begin')
+        date_future_shifts = self.env['shift.registration'].search([
+                ('state', '=', 'open'),
+                ('partner_id', '=', self.partner_id.id),
+                ('date_begin', '>=', fields.Date.context_today(self)),
+        ], limit=2).mapped('date_begin')
 
-        self.set_date_future_shifts(date_next_shifts)
+        # If we're in holidays and we didin't find next shifts
+        # (not created yet) - Computed after the member returns
+        if not date_future_shifts and new_leave_reg:
+            rec_dates = self.new_shift_template_id.get_recurrent_dates(
+                after=new_leave_reg.date_end,
+                before=(
+                    fields.Datetime.from_string(new_leave_reg.date_end)
+                    + timedelta(days=90)).strftime('%Y-%m-%d'))
+            _logger.warning(rec_dates)
+            date_future_shifts = rec_dates[:2]
 
+        self.set_date_future_shifts(date_future_shifts)
         return True
 
     @api.multi
