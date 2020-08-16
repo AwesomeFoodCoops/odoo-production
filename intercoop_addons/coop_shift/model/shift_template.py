@@ -214,6 +214,8 @@ class ShiftTemplate(models.Model):
         ''' Computes the date number for a given date '''
         if not date:
             return False
+        if isinstance(date, datetime):
+            date = date.date()
         # Week numbers are based on configuration
         get_param = self.env['ir.config_parameter'].sudo().get_param
         weekA_date = fields.Date.from_string(
