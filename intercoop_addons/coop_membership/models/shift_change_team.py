@@ -86,6 +86,13 @@ class ShiftChangeTeam(models.Model):
         string="Status",
         default="draft",
     )
+    mail_template_id = fields.Many2one(
+        "mail.template",
+        string="Notification Email Template",
+        help="If not set, the default change team notification will be sent",
+        domain=[('model', '=', 'shift.change.team')],
+        required=False,
+    )
 
     @api.multi
     @api.depends('partner_id')
@@ -104,7 +111,9 @@ class ShiftChangeTeam(models.Model):
                     _('The new team should be different the current team'))
 
     @api.multi
-    def _send_notification_email(self):
+    def _send_notification_email(self, mail_template_id=None):
+        if mail_template_id:
+            mail_template = self.env['mail.template'].browse(mail_template_id)
         mail_template_abcd = self.env.ref(
             'coop_membership.change_team_abcd_email')
         mail_template_ftop = self.env.ref(
@@ -117,10 +126,13 @@ class ShiftChangeTeam(models.Model):
                 self.env.ref('coop_membership.volant_calendar_attachment').id,
             ])]
         for rec in self:
-            if rec.new_shift_template_id.shift_type_id.is_ftop:
-                mail_template_ftop.send_mail(rec.id)
+            if mail_template_id:
+                mail_template.send_mail(rec.id)
             else:
-                mail_template_abcd.send_mail(rec.id)
+                if rec.new_shift_template_id.shift_type_id.is_ftop:
+                    mail_template_ftop.send_mail(rec.id)
+                else:
+                    mail_template_abcd.send_mail(rec.id)
 
     @api.multi
     def button_close(self):
@@ -151,7 +163,7 @@ class ShiftChangeTeam(models.Model):
             if not self.env.context.get('delay_email'):
                 record._send_notification_email()
         # Handle delayed email notifications using queue job
-        if self.env.context.get('delay_email'):
+        if self.env.context.get('delay_email') and self:
             session = ConnectorSession(self._cr, self._uid)
             _job_send_notification_email.delay(session, self.ids)
         return True
@@ -302,10 +314,12 @@ class ShiftChangeTeam(models.Model):
                     list_dates[0])
         else:
             if list_dates:
-                self.first_next_shift_date = fields.Date.to_string(
-                    list_dates[0])
-                self.second_next_shift_date = fields.Date.to_string(
-                    list_dates[1])
+                if len(list_dates) >= 1:
+                    self.first_next_shift_date = \
+                        fields.Date.to_string(list_dates[0])
+                if len(list_dates) >= 2:
+                    self.second_next_shift_date = \
+                        fields.Date.to_string(list_dates[1])
 
     @api.multi
     @api.depends('new_shift_template_id')
@@ -630,5 +644,9 @@ class ShiftChangeTeam(models.Model):
 
 
 @job
-def _job_send_notification_email(session, rec_ids):
-    session.env['shift.change.team'].browse(rec_ids)._send_notification_email()
+def _job_send_notification_email(session, rec_ids, mail_template_id=None):
+    session.env['shift.change.team'].browse(
+        rec_ids
+    )._send_notification_email(
+        mail_template_id=mail_template_id,
+    )

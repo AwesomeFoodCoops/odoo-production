@@ -24,7 +24,7 @@
                     <button string="SAVE AND NEW" name="button_save_new" class="oe_highlight" type="object" attrs="{'invisible': [('state', '=', 'closed')]}" invisible="context.get('not_show_button_next_member',False)"/>
                     <button string="SAVE AND CLOSE" name="button_save_close" class="oe_highlight" type="object" attrs="{'invisible': [('state', '=', 'closed')]}"/>
                     <button string="NEXT MEMBER" name="button_next_member" class="oe_highlight" type="object" attrs="{'invisible': ['|',('state', '=', 'closed'),'|',('partner_id', '=', False), '|',('new_shift_template_id', '=', False), ('new_next_shift_date', '=', False)]}" invisible="context.get('not_show_button_next_member',False)"/>
-                    <field name="state" widget="statusbar" nolabel="1" readonly="1"/> 
+                    <field name="state" widget="statusbar" nolabel="1" readonly="1"/>
                 </header>
                 <sheet>
                     <group>
@@ -40,6 +40,9 @@
                             <field name="new_next_shift_date" attrs="{'readonly' : [('state', '=', 'closed')]}"/>
                             <field name="is_abcd_to_abcd" invisible="1"/>
                             <field name="is_catch_up" attrs="{'invisible': ['|', ('partner_state', '=', 'usubscribed'), ('is_abcd_to_abcd', '=', False)], 'readonly' : [('state', '=', 'closed')]}"/>
+                        </group>
+                        <group>
+                            <field name="mail_template_id"/>
                         </group>
                     </group>
                     <group>
