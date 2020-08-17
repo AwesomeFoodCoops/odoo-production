@@ -162,16 +162,21 @@ class ShiftRegistration(models.Model):
         if not vals.get('template_created', False):
             shift_ticket_id = vals.get('shift_ticket_id', False)
             shift_ticket = self.env['shift.ticket'].browse(shift_ticket_id)
-            if shift_ticket and shift_ticket.shift_type != 'standard' \
-                    and shift_ticket.seats_max \
-                    and shift_ticket.seats_available <= 0:
+            if (
+                shift_ticket
+                and shift_ticket.shift_type != 'standard'
+                and shift_ticket.seats_max
+                and shift_ticket.seats_available <= 0
+            ):
                 raise UserError(_('No more available seats for this ticket'))
         reg_id = super(ShiftRegistration, self).create(vals)
         if reg_id.shift_id.state == "confirm":
             reg_id.confirm_registration()
             # Restore the state
-            if reg_id.tmpl_reg_line_id and \
-                    reg_id.state != reg_id.tmpl_reg_line_id.state:
+            if (
+                reg_id.tmpl_reg_line_id
+                and reg_id.state != reg_id.tmpl_reg_line_id.state
+            ):
                 reg_id.state = reg_id.tmpl_reg_line_id.state
         return reg_id
 

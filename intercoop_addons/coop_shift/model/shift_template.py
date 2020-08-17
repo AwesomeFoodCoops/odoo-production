@@ -88,8 +88,7 @@ class ShiftTemplate(models.Model):
     registration_ids = fields.One2many(
         'shift.template.registration', 'shift_template_id', string='Attendees')
     registration_qty = fields.Integer(
-        string='Number of Attendees', compute='_compute_registration_qty',
-        store=True)
+        string='Number of Attendees', compute='_compute_registration_qty')
     shift_ticket_ids = fields.One2many(
         'shift.template.ticket', 'shift_template_id', string='Shift Ticket',
         default=lambda rec: rec._default_tickets(), copy=True)
