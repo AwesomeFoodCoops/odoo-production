@@ -47,7 +47,6 @@
         # Wizard
         'wizard/view_capital_fundraising_wizard.xml',
         'wizard/res_partner_generate_barcode_wizard.xml',
-        'wizard/shift_template_evacuate_wizard.xml',
 
         # Classical Data
         'views/view_shift_counter_event.xml',
@@ -81,6 +80,7 @@
         'views/view_shift_credit_config.xml',
         'views/action.xml',
         'views/menu.xml',
+        'views/shift_template_operation.xml',
 
         'report/member_contract_template.xml',
 

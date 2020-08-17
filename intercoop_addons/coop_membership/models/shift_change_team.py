@@ -93,6 +93,12 @@ class ShiftChangeTeam(models.Model):
         domain=[('model', '=', 'shift.change.team')],
         required=False,
     )
+    shift_template_operation_id = fields.Many2one(
+        "shift.template.operation",
+        string="Template Operation",
+        readonly=True,
+        ondelete="set null",
+    )
 
     @api.multi
     @api.depends('partner_id')
