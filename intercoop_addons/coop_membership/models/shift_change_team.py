@@ -11,6 +11,9 @@ from dateutil import rrule
 from openerp.addons.connector.queue.job import job
 from openerp.addons.connector.session import ConnectorSession
 
+import logging
+_logger = logging.getLogger(__name__)
+
 
 class ShiftChangeTeam(models.Model):
     _name = "shift.change.team"
@@ -175,7 +178,8 @@ class ShiftChangeTeam(models.Model):
             'shift_ticket_id': shift_ticket_id,
         }
         create_vals.update(vals)
-        return self.env['shift.template.registration.line'].create(create_vals)
+        res = self.env['shift.template.registration.line'].create(create_vals)
+        return res
 
     @api.multi
     def set_in_new_team(self):
@@ -183,12 +187,21 @@ class ShiftChangeTeam(models.Model):
             This method set partner on new team and the date of shifts
         '''
         self.ensure_one()
-        current_registrations = self.partner_id.tmpl_reg_line_ids.filtered(
-            lambda r: r.date_begin <= self.new_next_shift_date and (
-                not r.date_end or r.date_end >= fields.Date.context_today(self)))
-        future_registrations = self.partner_id.tmpl_reg_line_ids.filtered(
-            lambda r: r.date_begin > self.new_next_shift_date and
-            r.date_begin >= fields.Date.context_today(self))
+
+        current_registrations = \
+            self.env['shift.template.registration.line'].search([
+                ('partner_id', '=', self.partner_id.id),
+                ('date_begin', '<=', self.new_next_shift_date),
+                '|',
+                ('date_end', '=', False),
+                ('date_end', '>=', fields.Date.context_today(self)),
+            ])
+        future_registrations = \
+            self.env['shift.template.registration.line'].search([
+                ('partner_id', '=', self.partner_id.id),
+                ('date_begin', '>', self.new_next_shift_date),
+                ('date_begin', '>=', fields.Date.context_today(self)),
+            ])
 
         new_leave_reg = None
         if current_registrations:
@@ -271,9 +284,7 @@ class ShiftChangeTeam(models.Model):
                 before=(
                     fields.Datetime.from_string(new_leave_reg.date_end)
                     + timedelta(days=90)).strftime('%Y-%m-%d'))
-            _logger.warning(rec_dates)
             date_future_shifts = rec_dates[:2]
-
         self.set_date_future_shifts(date_future_shifts)
         return True
 
