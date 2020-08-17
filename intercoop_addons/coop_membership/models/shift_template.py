@@ -44,6 +44,13 @@ class ShiftTemplate(models.Model):
         string="Required Skills",
         domain=[('child_ids', '=', False)],
     )
+    original_shift_template_id = fields.Many2one(
+        "shift.template",
+        string="Original Template",
+        help="The template from which this template was created, using "
+             "the Shift Template Evacuate Wizard.\n\n"
+             "It's used to execute the 'move back' strategy",
+    )
 
     # This field help to re-add member as a leader after his/her leave
     removed_user_ids = fields.Many2many(
