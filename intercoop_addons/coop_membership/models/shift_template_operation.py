@@ -33,6 +33,7 @@ class ShiftTemplateOperation(models.Model):
         ('draft', 'Draft'),
         ('in progress', 'In progress'),
         ('done', 'Done'),
+        ('cance', 'Cancel'),
         ],
         default='draft',
         required=True,
@@ -44,11 +45,15 @@ class ShiftTemplateOperation(models.Model):
         default="/",
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         },
     )
     description = fields.Text(
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         },
     )
     template_ids = fields.Many2many(
@@ -57,6 +62,8 @@ class ShiftTemplateOperation(models.Model):
         ondelete="set null",
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         },
         copy=False,
     )
@@ -98,6 +105,8 @@ class ShiftTemplateOperation(models.Model):
         required=True,
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         }
     )
     strategy = fields.Selection(
@@ -113,12 +122,16 @@ class ShiftTemplateOperation(models.Model):
         default='cancel',
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         }
     )
     validate_team_change = fields.Boolean(
         help="If not, the change teams will be created, but not executed",
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         }
     )
     mail_template_id = fields.Many2one(
@@ -129,6 +142,8 @@ class ShiftTemplateOperation(models.Model):
         required=False,
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         }
     )
 
@@ -140,6 +155,8 @@ class ShiftTemplateOperation(models.Model):
         copy=False,
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         },
     )
 
@@ -156,6 +173,8 @@ class ShiftTemplateOperation(models.Model):
         default='weekly',
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         }
     )
     interval = fields.Integer(
@@ -165,6 +184,8 @@ class ShiftTemplateOperation(models.Model):
         required=True,
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         }
     )
     quantity = fields.Integer(
@@ -174,6 +195,8 @@ class ShiftTemplateOperation(models.Model):
         required=True,
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         }
     )
     offset = fields.Integer(
@@ -187,6 +210,8 @@ class ShiftTemplateOperation(models.Model):
         default=0,
         states={
             'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
         }
     )
 
@@ -293,6 +318,9 @@ class ShiftTemplateOperation(models.Model):
                     next_date +
                     relativedelta(**{delay: mult * (self.offset * i)})
                 )
+                _logger.debug(
+                    "Creating child template for %s: %s",
+                    next_date, start_date)
                 # Creates a new one
                 child_template_ids += template.copy({
                     'start_datetime': fields.Datetime.to_string(
@@ -407,9 +435,8 @@ class ShiftTemplateOperation(models.Model):
 
     @api.multi
     def unlink(self):
-        if any([rec.state == 'done' for rec in self]):
-            raise ValidationError(_(
-                "You can't delete a validated operation."))
+        if any([rec.state != 'draft' for rec in self]):
+            raise ValidationError(_("You only delete draft operations."))
 
     @api.multi
     def action_close(self):
@@ -418,6 +445,16 @@ class ShiftTemplateOperation(models.Model):
                 "You can't close an operation that has pending change teams. "
                 "Please process them first!"))
         self.write({'state': 'done'})
+
+    @api.multi
+    def action_cancel(self):
+        self.mapped('change_team_ids').unlink()
+        self.mapped('generated_template_ids').unlink()
+        self.write({'state': 'cancel'})
+
+    @api.multi
+    def action_draft(self):
+        self.write({'state': 'draft'})
 
 
 @job

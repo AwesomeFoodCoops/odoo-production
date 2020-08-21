@@ -15,8 +15,9 @@
                     <button name="execute" string="Execute" type="object" class="btn-primary"
                             confirm="After confirmation, the operation will be executed in the background, and it will take several minutes to finish."
                             states="draft"/>
-                    <button name="action_close" string="Close" type="object" class="btn-primary"
-                            states="in progress"/>
+                    <button name="action_close" string="Close" type="object" class="btn-primary" states="in progress"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="in progress" confirm="Cancelling will delete all generated templates and change teams. Are you sure you want to continue?"/>
+                    <button name="action_draft" string="Back to Draft" type="object" states="cancel"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -95,7 +96,7 @@
     <record model="ir.ui.view" id="view_shift_template_operation_tree">
         <field name="model">shift.template.operation</field>
         <field name="arch" type="xml">
-            <tree decoration-info="state == 'draft'" decoration-warning="state == 'in progress'">
+            <tree decoration-info="state == 'draft'" decoration-warning="state == 'in progress'" decoration-muted="state == 'cancel'">
                 <field name="create_date"/>
                 <field name="create_uid"/>
                 <field name="template_count"/>
