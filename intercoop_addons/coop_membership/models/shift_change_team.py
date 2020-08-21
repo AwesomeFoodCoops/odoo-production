@@ -18,6 +18,7 @@ _logger = logging.getLogger(__name__)
 class ShiftChangeTeam(models.Model):
     _name = "shift.change.team"
     _inherit = ['mail.thread']
+    _order = "id desc"
 
     name = fields.Char(string="Name", compute="_compute_name_change_team",
                        store="True")
@@ -647,6 +648,12 @@ class ShiftChangeTeam(models.Model):
         return {
             "type": "ir.actions.do_nothing",
         }
+
+    @api.multi
+    def unlink(self):
+        if any([rec.state == 'closed' for rec in self]):
+            raise ValidationError(_(
+                "You can't delete a validated operation."))
 
 
 @job

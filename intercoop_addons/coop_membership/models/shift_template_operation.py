@@ -31,12 +31,20 @@ class ShiftTemplateOperation(models.Model):
 
     state = fields.Selection([
         ('draft', 'Draft'),
+        ('in progress', 'In progress'),
         ('done', 'Done'),
         ],
         default='draft',
         required=True,
         track_visibility="onchange",
         copy=False,
+    )
+    name = fields.Char(
+        required=True,
+        default="/",
+        states={
+            'done': [('readonly', True)],
+        },
     )
     description = fields.Text(
         states={
@@ -60,10 +68,10 @@ class ShiftTemplateOperation(models.Model):
         copy=False,
         ondelete="set null",
     )
-    generated_change_team_ids = fields.One2many(
+    change_team_ids = fields.One2many(
         "shift.change.team",
         "shift_template_operation_id",
-        string="Generated Change Teams",
+        string="Change Teams",
         readonly=True,
         copy=False,
         ondelete="set null",
@@ -73,11 +81,15 @@ class ShiftTemplateOperation(models.Model):
         compute="_compute_counts",
     )
     generated_template_count = fields.Integer(
-        "Selected Templates",
+        "Generated Templates",
         compute="_compute_counts",
     )
-    generated_change_team_count = fields.Integer(
-        "Selected Templates",
+    change_team_count = fields.Integer(
+        "Change Teams",
+        compute="_compute_counts",
+    )
+    change_team_draft_count = fields.Integer(
+        "Pending Change Teams",
         compute="_compute_counts",
     )
     date = fields.Date(
@@ -165,7 +177,7 @@ class ShiftTemplateOperation(models.Model):
         }
     )
     offset = fields.Integer(
-        string="Reccurrence Offset",
+        string="Recurrence Offset",
         help="Number of (interval type) to offset the created templates.\n"
              "Only used when quantity > 1.\n\n"
              "* If it's 0: The created templates will be on the same week "
@@ -178,19 +190,26 @@ class ShiftTemplateOperation(models.Model):
         }
     )
 
+    @api.model
+    def create(self, vals):
+        if vals.get('name') == '/':
+            vals['name'] = fields.Date.context_today(self)
+        return super(ShiftTemplateOperation, self).create(vals)
+
     @api.onchange('interval', 'quantity')
     def _onchange_interval_quantity(self):
         if not self.offset:
             if self.interval and self.quantity:
                 self.offset = self.interval // self.quantity
 
-    @api.depends('template_ids')
+    @api.depends('template_ids', 'generated_template_ids', 'change_team_ids')
     def _compute_counts(self):
         for rec in self:
             rec.template_count = len(rec.template_ids)
             rec.generated_template_count = len(rec.generated_template_ids)
-            rec.generated_change_team_count = \
-                len(rec.generated_change_team_ids)
+            rec.change_team_count = len(rec.change_team_ids)
+            rec.change_team_draft_count = \
+                len(rec.change_team_ids.filtered(lambda r: r.state == 'draft'))
 
     @api.multi
     def action_view_templates(self):
@@ -205,7 +224,7 @@ class ShiftTemplateOperation(models.Model):
         return res
 
     @api.multi
-    def action_view_generated_change_teams(self):
+    def action_view_change_teams(self):
         res = self.env.ref(
             'coop_membership.action_shift_change_teams').read()[0]
         res['domain'] = [('shift_template_operation_id', 'in', self.ids)]
@@ -364,7 +383,8 @@ class ShiftTemplateOperation(models.Model):
     @api.multi
     def execute(self):
         self.ensure_one()
-        self.state = 'done'
+        if not self.template_ids:
+            raise UserError(_("You need to select a few templates first!"))
         # We always delay operations, they're too intensive
         self = self.with_context(delay_shift_change_validation=True)
         # Strategy picker
@@ -382,12 +402,23 @@ class ShiftTemplateOperation(models.Model):
         else:
             raise UserError(_(
                 "Strategy '%s' not implemented!") % self.strategy)
+        # Update state
+        self.state = 'in progress'
 
     @api.multi
     def unlink(self):
         if any([rec.state == 'done' for rec in self]):
             raise ValidationError(_(
                 "You can't delete a validated operation."))
+
+    @api.multi
+    def action_close(self):
+        if any(rec.change_team_draft_count > 0 for rec in self):
+            raise UserError(_(
+                "You can't close an operation that has pending change teams. "
+                "Please process them first!"))
+        self.write({'state': 'done'})
+
 
 @job
 def _job_validate_change_team(session, change_team_ids):

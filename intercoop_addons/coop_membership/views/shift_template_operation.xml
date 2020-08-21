@@ -15,6 +15,8 @@
                     <button name="execute" string="Execute" type="object" class="btn-primary"
                             confirm="After confirmation, the operation will be executed in the background, and it will take several minutes to finish."
                             states="draft"/>
+                    <button name="action_close" string="Close" type="object" class="btn-primary"
+                            states="in progress"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -26,17 +28,33 @@
                                 help="View Generated Templates"
                                 attrs="{'invisible': [('generated_template_count', '=', 0)]}"
                                 >
-                                <field name="generated_template_count" string="Generated Templates" widget="statinfo"/>
+                                <field name="generated_template_count" string="Templates" widget="statinfo"/>
                         </button>
-                        <button name="action_view_generated_change_teams"
+                        <button name="action_view_change_teams"
                                 type="object"
                                 class="oe_stat_button"
                                 icon="fa-exchange"
                                 help="View Change Teams"
-                                attrs="{'invisible': [('generated_change_team_count', '=', 0)]}"
+                                attrs="{'invisible': ['|', ('change_team_count', '=', 0), ('change_team_draft_count', '>', 0)]}"
                                 >
-                                <field name="generated_change_team_count" string="Change Teams" widget="statinfo"/>
+                                <field name="change_team_count" string="Changes" widget="statinfo"/>
                         </button>
+                        <button name="action_view_change_teams"
+                                context="{'search_default_pending': True}"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-exchange"
+                                help="View Change Teams"
+                                attrs="{'invisible': [('change_team_draft_count', '=', 0)]}"
+                                >
+                                <field name="change_team_draft_count" string="Pending" class="text-warning" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name"/>
+                        </h1>
                     </div>
                     <group>
                         <group>
@@ -77,7 +95,7 @@
     <record model="ir.ui.view" id="view_shift_template_operation_tree">
         <field name="model">shift.template.operation</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-info="state == 'draft'" decoration-warning="state == 'in progress'">
                 <field name="create_date"/>
                 <field name="create_uid"/>
                 <field name="template_count"/>
@@ -87,8 +105,24 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="view_shift_template_operation_search">
+        <field name="model">shift.template.operation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+                <field name="strategy"/>
+                <field name="change_team_draft_count" invisible="1"/>
+                <separator/>
+                <filter name="pending" string="Pending" domain="[('state', 'in', ['draft', 'in progress'])]"/>
+            </search>
+        </field>
+    </record>
+
     <record id="action_shift_template_operation" model="ir.actions.act_window">
-        <field name="name">Shift Template Operation</field>
+        <field name="name">Shift Template Mass Operation</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">shift.template.operation</field>
         <field name="view_type">form</field>
@@ -96,7 +130,7 @@
     </record>
 
     <record model="ir.ui.menu" id="menu_shift_template_operation">
-        <field name="name">Operations</field>
+        <field name="name">Mass Operations</field>
         <field name="action" ref="action_shift_template_operation"/>
         <field name="parent_id" ref="coop_shift.template_menu"/>
         <field name="sequence">90</field>
@@ -105,7 +139,7 @@
 
     <!-- Create from templates action -->
     <record id="action_create_shift_template_operation_from_template" model="ir.actions.act_window">
-        <field name="name">Shift Template Operation</field>
+        <field name="name">Shift Template Mass Operation</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">shift.template.operation</field>
         <field name="view_type">form</field>
@@ -113,7 +147,7 @@
     </record>
 
     <record id="ir_value_create_shift_template_operation_from_template" model="ir.values">
-        <field name="name">Create template operation..</field>
+        <field name="name">Template mass operation..</field>
         <field name="model_id" ref="coop_shift.model_shift_template"/>
         <field name="model">shift.template</field>
         <field name="key">action</field>
