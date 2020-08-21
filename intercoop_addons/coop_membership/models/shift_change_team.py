@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 from openerp import api, fields, models, _
-from openerp.exceptions import UserError
+from openerp.exceptions import UserError, ValidationError
 from datetime import datetime, timedelta
 from dateutil import rrule
 

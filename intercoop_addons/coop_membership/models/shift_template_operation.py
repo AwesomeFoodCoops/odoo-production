@@ -33,7 +33,7 @@ class ShiftTemplateOperation(models.Model):
         ('draft', 'Draft'),
         ('in progress', 'In progress'),
         ('done', 'Done'),
-        ('cance', 'Cancel'),
+        ('cancel', 'Cancel'),
         ],
         default='draft',
         required=True,
@@ -318,9 +318,6 @@ class ShiftTemplateOperation(models.Model):
                     next_date +
                     relativedelta(**{delay: mult * (self.offset * i)})
                 )
-                _logger.debug(
-                    "Creating child template for %s: %s",
-                    next_date, start_date)
                 # Creates a new one
                 child_template_ids += template.copy({
                     'start_datetime': fields.Datetime.to_string(

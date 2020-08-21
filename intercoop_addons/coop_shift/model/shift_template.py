@@ -237,15 +237,20 @@ class ShiftTemplate(models.Model):
             SELECT
                 id,
                 (   1 +
-                    MOD(DIV(ABS(
-                        DATE_PART('day', AGE(%s, {field_name}))
-                    )::integer, 7), %s)
+                    MOD(
+                        DIV(
+                            ABS({field_name}::date - %s::date)::integer,
+                            7
+                        ),
+                        %s
+                    )
                 )::integer AS week_number
             FROM {table}
+            WHERE id IN %s
         """.format(
             table=records._table,
             field_name=field_name,
-        ), (weekA_date, n_weeks_cycle))
+        ), (weekA_date, n_weeks_cycle, tuple(records.ids)))
         # Return computation
         return dict(self.env.cr.fetchall())
 
@@ -676,8 +681,9 @@ class ShiftTemplate(models.Model):
                 datetime.today() + timedelta(days=SHIFT_CREATION_DAYS))
         for template in self:
             after = max(
+                after,
                 template.last_shift_date,
-                template.start_datetime[0:10],
+                template.start_date,
             )
             rec_dates = template.get_recurrent_dates(
                 after=after, before=before)
@@ -833,6 +839,7 @@ class ShiftTemplate(models.Model):
         for template in self:
             start = fields.Datetime.from_string(after or template.start_date)
             stop = fields.Datetime.from_string(before or template.final_date)
+            # Compensate start to synchronize weeks with our cycles
             delta = (template.week_number - self._get_week_number(start)) % n_weeks_cycle
             start += timedelta(weeks=delta)
             return rrule.rrulestr(

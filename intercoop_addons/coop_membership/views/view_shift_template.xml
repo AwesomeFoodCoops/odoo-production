@@ -16,6 +16,11 @@
                     <field name='warning_leader_unsubscribed' nolabel='1'/>
                 </p>
             </group>
+            <page name="technical_fields" position="inside">
+                <group>
+                    <field name="original_shift_template_id" groups="coop_membership.group_shift_template_operations" attrs="{'invisible': [('original_shift_template_id', '=', False)]}"/>
+                </group>
+            </page>
         </field>
     </record>
 

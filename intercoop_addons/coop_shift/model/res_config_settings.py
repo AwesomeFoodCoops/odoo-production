@@ -83,13 +83,13 @@ class ResConfigSettings(models.TransientModel):
         get_param = self.env['ir.config_parameter'].sudo().get_param
         weekA_date = get_param('coop_shift.week_a_date')
         n_weeks_cycle = int(get_param('coop_shift.number_of_weeks_per_cycle'))
+
         self.env.cr.execute("""
             UPDATE {table}
             SET {field_week_number} = (
                 1 +
-                MOD(DIV(ABS(
-                    DATE_PART('day', AGE(%s, {field_date}))
-                )::integer, 7), %s))::integer
+                MOD(DIV(ABS({field_date}::date - %s::date)::integer, 7), %s)
+            )::integer
             WHERE {field_date} IS NOT NULL
         """.format(
             table=table,

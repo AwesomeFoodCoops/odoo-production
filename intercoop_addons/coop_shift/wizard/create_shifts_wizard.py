@@ -44,7 +44,7 @@ class CreateShifts(models.TransientModel):
     @api.multi
     def create_shifts(self):
         for wizard in self:
-            if wizard.date_from <= wizard.last_shift_date:
+            if wizard.date_from < wizard.last_shift_date:
                 raise ValidationError(_(
                     "'From date' can't be before 'Last shift date'"))
             for template in wizard.template_ids:

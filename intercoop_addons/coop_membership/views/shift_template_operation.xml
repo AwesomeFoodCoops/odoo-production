@@ -72,8 +72,8 @@
                         </group>
                         <group>
                             <field name="template_count" invisible="1"/>
-                            <field name="validate_team_change" attrs="{'invisible': [('strategy', 'in', ['cancel'])]}"/>
-                            <field name="mail_template_id" attrs="{'invisible': [('strategy', 'in', ['cancel'])]}"/>
+                            <field name="validate_team_change" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
+                            <field name="mail_template_id" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
                         </group>
                     </group>
                     <notebook>
