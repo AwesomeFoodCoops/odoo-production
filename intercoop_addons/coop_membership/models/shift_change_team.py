@@ -118,9 +118,7 @@ class ShiftChangeTeam(models.Model):
                     _('The new team should be different the current team'))
 
     @api.multi
-    def _send_notification_email(self, mail_template_id=None):
-        if mail_template_id:
-            mail_template = self.env['mail.template'].browse(mail_template_id)
+    def _send_notification_email(self):
         mail_template_abcd = self.env.ref(
             'coop_membership.change_team_abcd_email')
         mail_template_ftop = self.env.ref(
@@ -133,8 +131,8 @@ class ShiftChangeTeam(models.Model):
                 self.env.ref('coop_membership.volant_calendar_attachment').id,
             ])]
         for rec in self:
-            if mail_template_id:
-                mail_template.send_mail(rec.id)
+            if self.mail_template_id:
+                self.mail_template_id.send_mail(rec.id)
             else:
                 if rec.new_shift_template_id.shift_type_id.is_ftop:
                     mail_template_ftop.send_mail(rec.id)
@@ -143,7 +141,7 @@ class ShiftChangeTeam(models.Model):
 
     @api.multi
     def button_close(self):
-        for record in self:
+        for record in self.filtered(lambda rec: rec.state == 'draft'):
             if not self.env.context.get('skip_sanity_checks'):
                 if not record.partner_id.is_member:
                     raise UserError(_(
@@ -657,9 +655,5 @@ class ShiftChangeTeam(models.Model):
 
 
 @job
-def _job_send_notification_email(session, rec_ids, mail_template_id=None):
-    session.env['shift.change.team'].browse(
-        rec_ids
-    )._send_notification_email(
-        mail_template_id=mail_template_id,
-    )
+def _job_send_notification_email(session, rec_ids):
+    session.env['shift.change.team'].browse(rec_ids)._send_notification_email()

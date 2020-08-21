@@ -70,7 +70,7 @@
                             <field name="offset" attrs="{'invisible': ['|', ('strategy', 'not in', ['create', 'create and move']), ('quantity', '&lt;', 2)]}"/>
                         </group>
                         <group>
-                            <field name="template_count"/>
+                            <field name="template_count" invisible="1"/>
                             <field name="validate_team_change" attrs="{'invisible': [('strategy', 'in', ['cancel'])]}"/>
                             <field name="mail_template_id" attrs="{'invisible': [('strategy', 'in', ['cancel'])]}"/>
                         </group>
