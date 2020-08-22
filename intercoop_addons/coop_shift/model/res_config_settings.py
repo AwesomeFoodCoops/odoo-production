@@ -77,6 +77,16 @@ class ResConfigSettings(models.TransientModel):
     def _recompute_week_number(
         self, table, field_date, field_week_number, field_week_name=None
     ):
+        """
+            Updates week_number and week_name using SQL.
+            Beware that, even though this is blazing fast, it bypasses the ORM.
+            So computed fields that depend on these fields,
+            will not be recomputed.
+
+            In any case, we prefer performance here.
+            All recomputations should be managed manually by overloading this
+            method.
+        """
         _logger.info(
             'Recomputing week_number and week_name for table %s', table)
         # Update week_number
