@@ -85,12 +85,18 @@ class ShiftTemplateRegistrationLine(models.Model):
         self.ensure_one()
         lines = self.partner_id.tmpl_reg_line_ids
         for line in lines:
-            if (line.date_begin <= self.date_end or not self.date_end) and\
-                (line.date_end >= self.date_begin or not line.date_end) and\
-                    line.id != self.id:
+            if (
+                (line.date_begin <= self.date_end or not self.date_end)
+                and (line.date_end >= self.date_begin or not line.date_end)
+                and line.id != self.id
+            ):
                 raise ValidationError(_(
-                    "You can't register this line because it would " +
-                    "create an overlap with another line for this member"))
+                    "You can't register this line because it would "
+                    "create an overlap with another line for this member.\n\n"
+                    "Line: %s - %s\n"
+                    "Overlap: %s - %s") % (
+                        self.date_begin, self.date_end,
+                        line.date_begin, line.date_end))
 
     @api.multi
     def _compute_current(self):
