@@ -1,5 +1,5 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp import SUPERUSER_ID, api
+from openerp import api, SUPERUSER_ID
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -10,29 +10,23 @@ def migrate(cr, version):
     cr.execute("""
         SELECT column_name
         FROM information_schema.columns
-        WHERE table_name = 'pos_order'
+        WHERE table_name = 'shift_template'
         AND column_name = 'week_name'
     """)
     if cr.fetchall():
         return
 
     # Avoids recomputation of new field week_name
-    cr.execute("ALTER TABLE pos_session     DROP COLUMN week_number")
-    cr.execute("ALTER TABLE pos_session     ADD COLUMN week_number INTEGER")
-    cr.execute("ALTER TABLE pos_session     ADD COLUMN week_name VARCHAR")
+    cr.execute("ALTER TABLE shift_template     DROP COLUMN week_number")
+    cr.execute("ALTER TABLE shift_template     ADD COLUMN week_name VARCHAR")
+    cr.execute("ALTER TABLE shift_template     ADD COLUMN week_number INTEGER")
 
-    cr.execute("ALTER TABLE pos_order       DROP COLUMN week_number")
-    cr.execute("ALTER TABLE pos_order       ADD COLUMN week_number INTEGER")
-    cr.execute("ALTER TABLE pos_order       ADD COLUMN week_name VARCHAR")
+    cr.execute("ALTER TABLE shift_shift     DROP COLUMN week_number")
+    cr.execute("ALTER TABLE shift_shift     ADD COLUMN week_name VARCHAR")
+    cr.execute("ALTER TABLE shift_shift     ADD COLUMN week_number INTEGER")
 
-    cr.execute("ALTER TABLE pos_order_line  DROP COLUMN week_number")
-    cr.execute("ALTER TABLE pos_order_line  ADD COLUMN week_number INTEGER")
-    cr.execute("ALTER TABLE pos_order_line  ADD COLUMN week_name VARCHAR")
-
-    # populates week number
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-
         # Get parameters
         get_param = env['ir.config_parameter'].sudo().get_param
         weekA_date = get_param('coop_shift.week_a_date')
@@ -76,19 +70,7 @@ def migrate(cr, version):
                     field_week_number=field_week_number,
                 ))
 
-        # Update pos_session
         _recompute_week_number(
-            'pos_session', 'start_at', 'week_number', 'week_name')
-        # Update pos_order
+            'shift_template', 'start_date', 'week_number', 'week_name')
         _recompute_week_number(
-            'pos_order', 'date_order', 'week_number', 'week_name')
-        # Update pos_order_line
-        env.cr.execute("""
-            UPDATE pos_order_line pol
-            SET
-                week_number = po.week_number,
-                week_name = po.week_name,
-                cycle = po.cycle
-            FROM pos_order po
-            WHERE pol.order_id = po.id
-        """)
+            'shift_shift', 'date_without_time', 'week_number', 'week_name')
