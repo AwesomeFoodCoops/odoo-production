@@ -20,25 +20,41 @@ class ShiftChangeTeam(models.Model):
     _inherit = ['mail.thread']
     _order = "id desc"
 
-    name = fields.Char(string="Name", compute="_compute_name_change_team",
-                       store="True")
-    partner_id = fields.Many2one('res.partner', string="Member", required=True)
+    name = fields.Char(
+        string="Name",
+        compute="_compute_name_change_team",
+        store=True,
+        copy=False,
+    )
+    partner_id = fields.Many2one(
+        'res.partner',
+        string="Member",
+        required=True,
+    )
     current_shift_template_id = fields.Many2one(
         'shift.template',
         compute="compute_mess_change_team",
         string="Current Team",
-        store=True)
+        store=True,
+        copy=False,
+    )
     next_current_shift_date = fields.Date(
         compute="compute_mess_change_team",
         string='Next Shift with the Current Team',
-        store=True)
+        store=True,
+    )
     new_shift_template_id = fields.Many2one(
-        'shift.template', string="New Team", required=True)
+        'shift.template',
+        string="New Team",
+        required=True,
+    )
     is_abcd_to_abcd = fields.Boolean(
         compute="compute_mess_change_team",
         string="Is ABCD to ABCD ?",
         store=True,
-        default=False)
+        default=False,
+        copy=False,
+    )
     first_next_shift_date = fields.Date(
         string="The date of first shift in new team",
     )
@@ -48,36 +64,47 @@ class ShiftChangeTeam(models.Model):
     full_seats_mess = fields.Html(
         compute="compute_full_seats_massagess",
         string="Full Seats Messagess",
-        store=True
+        store=True,
+        copy=False,
     )
     is_full_seats_mess = fields.Boolean(
         compute="compute_full_seats_massagess",
         string="Show full seats warning",
-        store=True)
+        store=True,
+        copy=False,
+    )
     new_next_shift_date = fields.Date(
         string="Start Date with the New Team",
-        required=True)
+        required=True,
+    )
     mess_change_team = fields.Html(
         string='Message Change Team',
         compute='compute_mess_change_team',
-        store=True)
+        store=True,
+        copy=False,
+    )
     is_mess_change_team = fields.Boolean(
         compute="compute_mess_change_team",
         string="Show changing team messages",
         default=False,
-        store=True)
-    partner_state = fields.Selection([
-        ('subscribed', 'Subscribed'), ('unsubscribed', 'Unsubscribed')],
+        store=True,
+        copy=False,
+    )
+    partner_state = fields.Selection(
+        [('subscribed', 'Subscribed'), ('unsubscribed', 'Unsubscribed')],
         compute="compute_mess_change_team",
         string="Current Team",
         default='subscribed',
-        store=True
+        store=True,
+        copy=False,
     )
     show_partner_state = fields.Boolean(
         compute="compute_mess_change_team",
         string="Show partner state",
         default=False,
-        store=True)
+        store=True,
+        copy=False,
+    )
     is_catch_up = fields.Boolean(
         string="Add a catch-up?",
         default=False,
@@ -86,6 +113,7 @@ class ShiftChangeTeam(models.Model):
         [('draft', 'Draft'), ('closed', 'Closed')],
         string="Status",
         default="draft",
+        copy=False,
     )
     mail_template_id = fields.Many2one(
         "mail.template",
@@ -99,6 +127,7 @@ class ShiftChangeTeam(models.Model):
         string="Template Operation",
         readonly=True,
         ondelete="set null",
+        copy=False,
     )
     has_delayed_execution_errors = fields.Boolean(
         default=False,
@@ -106,6 +135,7 @@ class ShiftChangeTeam(models.Model):
              "Instead of having the queue.job to stay in a failed state, "
              "we fail silently and check this box.\n\n"
              "This is used by the shift.template.operation model.",
+        copy=False,
     )
 
     @api.multi
@@ -241,6 +271,7 @@ class ShiftChangeTeam(models.Model):
             # Finish the current line abruptely
             current_registrations[0].with_context(
                 bypass_leave_change_check=True,
+                creation_in_progress=True,
             ).write({
                 'date_end': fields.Date.to_string(
                     fields.Date.from_string(self.new_next_shift_date)
@@ -296,7 +327,10 @@ class ShiftChangeTeam(models.Model):
                     reg_id.unlink()
                 # Create a new registration in the new template
                 self._create_registration_in_new_template(vals)
-        else:
+        elif not new_leave_reg:
+            # We only create a new reg if it's not after a leave
+            # because we might be dealing with a permanent leave,
+            # and -in any case- we've already moved part of it.
             self._create_registration_in_new_template({
                 'date_begin': self.new_next_shift_date,
             })
@@ -311,11 +345,15 @@ class ShiftChangeTeam(models.Model):
         # If we're in holidays and we didin't find next shifts
         # (not created yet) - Computed after the member returns
         if not date_future_shifts and new_leave_reg:
-            rec_dates = self.new_shift_template_id.get_recurrent_dates(
-                after=new_leave_reg.date_end,
-                before=(
-                    fields.Datetime.from_string(new_leave_reg.date_end)
-                    + timedelta(days=90)).strftime('%Y-%m-%d'))
+            if new_leave_reg.date_end:
+                rec_dates = self.new_shift_template_id.get_recurrent_dates(
+                    after=new_leave_reg.date_end,
+                    before=(
+                        fields.Datetime.from_string(new_leave_reg.date_end)
+                        + timedelta(days=90)).strftime('%Y-%m-%d'))
+            else:
+                # We're probably dealing with a permanent leave
+                rec_dates = [False, False]
             date_future_shifts = rec_dates[:2]
         self.set_date_future_shifts(date_future_shifts)
         return True
