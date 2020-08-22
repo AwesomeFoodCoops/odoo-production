@@ -20,6 +20,12 @@ class ResConfigSettings(models.TransientModel):
         'Week A start date',
         required=True,
     )
+    shift_state_delay_duration = fields.Integer(
+        "Alert State Duration",
+        required=True,
+    )
+
+    # Constraints
 
     @api.multi
     @api.constrains('shift_weeks_per_cycle')
@@ -38,6 +44,16 @@ class ResConfigSettings(models.TransientModel):
                     "The Week A start date can't be a future date."))
 
     @api.multi
+    @api.constrains('shift_state_delay_duration')
+    def _check_shift_state_delay_duration(self):
+        for res in self:
+            if res.shift_state_delay_duration <= 0:
+                raise ValidationError(_(
+                    "Alert State Duration has to be bigger than 0."))
+
+    # Read / Write
+
+    @api.multi
     def set_shift_weeks_per_cycle(self):
         self.env['ir.config_parameter'].sudo().set_param(
             'coop_shift.number_of_weeks_per_cycle', self.shift_weeks_per_cycle)
@@ -46,6 +62,11 @@ class ResConfigSettings(models.TransientModel):
     def set_shift_shift_week_a_date(self):
         self.env['ir.config_parameter'].sudo().set_param(
             'coop_shift.week_a_date', self.shift_week_a_date)
+
+    @api.multi
+    def set_shift_state_delay_duration(self):
+        self.env['ir.config_parameter'].sudo().set_param(
+            'coop.shift.state.delay.duration', self.shift_state_delay_duration)
 
     @api.multi
     def get_default_shift_weeks_per_cycle(self):
@@ -62,6 +83,16 @@ class ResConfigSettings(models.TransientModel):
                 self.env['ir.config_parameter'].sudo().get_param(
                     'coop_shift.week_a_date')
         }
+
+    @api.multi
+    def get_default_shift_state_delay_duration(self):
+        return {
+            'shift_state_delay_duration':
+                int(self.env['ir.config_parameter'].sudo().get_param(
+                    'coop.shift.state.delay.duration'))
+        }
+
+    # Actions
 
     @api.multi
     def action_recompute_shift_weeks(self):

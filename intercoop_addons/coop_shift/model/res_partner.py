@@ -398,14 +398,14 @@ class ResPartner(models.Model):
         """This function should be called in a daily CRON"""
         alert_duration = int(self.env['ir.config_parameter'].sudo().get_param(
             'coop.shift.state.delay.duration'))
-
         # Read the current value of Date alert stop using read method as
         # partner.date_alert_stop will not work in a compute function
         current_partner_alert_date = {
             d['id']: d['date_alert_stop']
-            for d in self.search_read([('id', 'in', self.ids)],
-                                      ['date_alert_stop'])}
-
+            for d in self.search_read(
+                [('id', 'in', self.ids)],
+                ['date_alert_stop'])
+        }
         for partner in self:
             # If all is OK, the date is deleted
             point = 0
