@@ -49,13 +49,7 @@ class ShiftTemplateOperation(models.Model):
             'cancel': [('readonly', True)],
         },
     )
-    description = fields.Text(
-        states={
-            'done': [('readonly', True)],
-            'in progress': [('readonly', True)],
-            'cancel': [('readonly', True)],
-        },
-    )
+    description = fields.Text()
     template_ids = fields.Many2many(
         "shift.template",
         string="Templates",
