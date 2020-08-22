@@ -141,15 +141,22 @@ class ShiftChangeTeam(models.Model):
 
     @api.multi
     def button_close(self):
-        for record in self.filtered(lambda rec: rec.state == 'draft'):
+        # Only draft records
+        self = self.filtered(lambda rec: rec.state == 'draft')
+        # Only allow changes in members
+        if any(not partner.is_member for partner in self.mapped('partner_id')):
+            not_members = self.mapped('partner_id').filtered(
+                lambda r: not r.is_member)
+            raise UserError(_(
+                "A person you want to change team must be a member:\n\n"
+                "%s") % "\n".join(["* %s" % p.name for p in not_members]))
+        # Process
+        for record in self:
             if not self.env.context.get('skip_sanity_checks'):
-                if not record.partner_id.is_member:
-                    raise UserError(_(
-                        'A person you want to change team must be a member'))
                 if record.is_mess_change_team or record.is_full_seats_mess:
                     raise UserError(_(
                         'There are some processes that were not done, '
-                        'please do it!'))
+                        'please do them first!'))
             # Do actual change
             record.set_in_new_team()
             record.state = 'closed'

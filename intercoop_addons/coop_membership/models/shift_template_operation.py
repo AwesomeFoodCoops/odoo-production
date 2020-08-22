@@ -99,6 +99,10 @@ class ShiftTemplateOperation(models.Model):
         "Pending Change Teams",
         compute="_compute_counts",
     )
+    change_team_done_percent = fields.Integer(
+        "Completed Change Teams (%)",
+        compute="_compute_counts",
+    )
     date = fields.Date(
         help="The date where the changes are applied",
         default=fields.Date.today,
@@ -111,15 +115,12 @@ class ShiftTemplateOperation(models.Model):
     )
     strategy = fields.Selection(
         [
-            ('create',    'Create new templates'),
-            ('create and move',
-                'Create new templates and move participants to the childs'),
+            ('create',    'Split templates'),
+            ('create and move', 'Split templates and move participants'),
             ('move back', 'Move back to the original template'),
             ('move to',   'Move to another template'),
             ('cancel',    'Cancel registrations'),
         ],
-        required=True,
-        default='cancel',
         states={
             'done': [('readonly', True)],
             'in progress': [('readonly', True)],
@@ -128,6 +129,24 @@ class ShiftTemplateOperation(models.Model):
     )
     validate_team_change = fields.Boolean(
         help="If not, the change teams will be created, but not executed",
+        states={
+            'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
+        }
+    )
+    confirm_if_full_seats_mess = fields.Boolean(
+        string="Confirm full seats warnings",
+        help="Automatically ignore full seats warnings on change teams",
+        states={
+            'done': [('readonly', True)],
+            'in progress': [('readonly', True)],
+            'cancel': [('readonly', True)],
+        }
+    )
+    confirm_if_change_team_mess = fields.Boolean(
+        string="Confirm date difference warnings",
+        help="Automatically ignore date-related warnings on change teams",
         states={
             'done': [('readonly', True)],
             'in progress': [('readonly', True)],
@@ -189,7 +208,7 @@ class ShiftTemplateOperation(models.Model):
         }
     )
     quantity = fields.Integer(
-        'Template Quantity',
+        'Split Quantity',
         help="Number of templates to create",
         default=2,
         required=True,
@@ -200,7 +219,7 @@ class ShiftTemplateOperation(models.Model):
         }
     )
     offset = fields.Integer(
-        string="Recurrence Offset",
+        string="Split Recurrence Offset",
         help="Number of (interval type) to offset the created templates.\n"
              "Only used when quantity > 1.\n\n"
              "* If it's 0: The created templates will be on the same week "
@@ -235,6 +254,10 @@ class ShiftTemplateOperation(models.Model):
             rec.change_team_count = len(rec.change_team_ids)
             rec.change_team_draft_count = \
                 len(rec.change_team_ids.filtered(lambda r: r.state == 'draft'))
+            if rec.change_team_count:
+                rec.change_team_done_percent = int((
+                    float(rec.change_team_count - rec.change_team_draft_count)
+                    / rec.change_team_count) * 100)
 
     @api.multi
     def action_view_templates(self):
@@ -269,13 +292,23 @@ class ShiftTemplateOperation(models.Model):
                 'shift_template_operation_id': self.id,
                 'mail_template_id': self.mail_template_id.id,
             })
-            if self.validate_team_change:
+            # Automatically confirm change team warnings
+            if self.confirm_if_change_team_mess:
+                change_team.btn_change_team_process()
+            if self.confirm_if_full_seats_mess:
+                change_team.btn_full_seats_process()
+            # Automatically validate
+            # We skip auto validation on records that have warnings
+            if (
+                self.validate_team_change
+                and not change_team.is_full_seats_mess
+                and not change_team.is_mess_change_team
+            ):
                 if self.env.context.get('delay_shift_change_validation'):
                     session = ConnectorSession(self._cr, self._uid)
                     _job_validate_change_team.delay(session, change_team.ids)
                 else:
                     change_team.with_context(
-                        skip_sanity_checks=True,
                         delay_email=True,
                     ).button_close()
 
@@ -408,6 +441,8 @@ class ShiftTemplateOperation(models.Model):
     @api.multi
     def execute(self):
         self.ensure_one()
+        if not self.strategy:
+            raise UserError(_("Please select a strategy."))
         if not self.template_ids:
             raise UserError(_("You need to select a few templates first!"))
         # We always delay operations, they're too intensive
@@ -456,6 +491,4 @@ class ShiftTemplateOperation(models.Model):
 
 @job
 def _job_validate_change_team(session, change_team_ids):
-    session.env['shift.change.team'].browse(change_team_ids).with_context(
-        skip_sanity_checks=True,
-    ).button_close()
+    session.env['shift.change.team'].browse(change_team_ids).button_close()

@@ -44,12 +44,12 @@
                                 context="{'search_default_pending': True}"
                                 type="object"
                                 class="oe_stat_button"
-                                icon="fa-exchange"
-                                help="View Change Teams"
+                                help="View pending Change Teams"
                                 attrs="{'invisible': [('change_team_draft_count', '=', 0)]}"
                                 >
-                                <field name="change_team_draft_count" string="Pending" class="text-warning" widget="statinfo"/>
+                                <field name="change_team_done_percent" string="Changes" class="text-warning" widget="percentpie"/>
                         </button>
+                        <field name="change_team_draft_count" invisible="1"/>
                     </div>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
@@ -73,17 +73,17 @@
                         <group>
                             <field name="template_count" invisible="1"/>
                             <field name="validate_team_change" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
+                            <field name="confirm_if_full_seats_mess" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
+                            <field name="confirm_if_change_team_mess" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
                             <field name="mail_template_id" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
                         </group>
                     </group>
-                    <notebook>
-                        <page string="Templates" name="templates">
-                            <field name="template_ids" options="{'no_create': True}"/>
-                        </page>
-                        <page string="Description" name="description">
-                            <field name="description"/>
-                        </page>
-                    </notebook>
+                    <group name="templates" string="Selected templates">
+                        <field name="template_ids" widget="many2many_tags" options="{'no_create': True}" nolabel="1"/>
+                    </group>
+                    <group name="notes" string="Notes">
+                        <field name="description" nolabel="1"/>
+                    </group>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
