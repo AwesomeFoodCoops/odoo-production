@@ -49,6 +49,16 @@
                                 >
                                 <field name="change_team_done_percent" string="Changes" class="text-warning" widget="percentpie"/>
                         </button>
+                        <button name="action_view_change_teams"
+                                context="{'search_default_delayed_errors': True}"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-warning"
+                                help="View Change Teams"
+                                attrs="{'invisible': [('change_team_error_count', '=', 0)]}"
+                                >
+                                <field name="change_team_error_count" class="text-danger" string="Errors" widget="statinfo"/>
+                        </button>
                         <field name="change_team_draft_count" invisible="1"/>
                     </div>
                     <div class="oe_title">

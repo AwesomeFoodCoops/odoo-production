@@ -99,6 +99,10 @@ class ShiftTemplateOperation(models.Model):
         "Pending Change Teams",
         compute="_compute_counts",
     )
+    change_team_error_count = fields.Integer(
+        "Change Teams with errors",
+        compute="_compute_counts",
+    )
     change_team_done_percent = fields.Integer(
         "Completed Change Teams (%)",
         compute="_compute_counts",
@@ -252,8 +256,10 @@ class ShiftTemplateOperation(models.Model):
             rec.template_count = len(rec.template_ids)
             rec.generated_template_count = len(rec.generated_template_ids)
             rec.change_team_count = len(rec.change_team_ids)
-            rec.change_team_draft_count = \
-                len(rec.change_team_ids.filtered(lambda r: r.state == 'draft'))
+            rec.change_team_draft_count = len(
+                rec.change_team_ids.filtered(lambda r: r.state == 'draft'))
+            rec.change_team_error_count = len(
+                rec.change_team_ids.filtered('has_delayed_execution_errors'))
             if rec.change_team_count:
                 rec.change_team_done_percent = int((
                     float(rec.change_team_count - rec.change_team_draft_count)
@@ -491,4 +497,14 @@ class ShiftTemplateOperation(models.Model):
 
 @job
 def _job_validate_change_team(session, change_team_ids):
-    session.env['shift.change.team'].browse(change_team_ids).button_close()
+    """
+    We do it in a savepoint to avoid having the job stay in a failed state
+    In change, we set the has_delayed_execution_errors field to inform the user
+    as this job will never really fail.
+    """
+    change_team = session.env['shift.change.team'].browse(change_team_ids)
+    try:
+        with session.env.cr.savepoint():
+            change_team.button_close()
+    except Exception as e:
+        change_team.has_delayed_execution_errors = True

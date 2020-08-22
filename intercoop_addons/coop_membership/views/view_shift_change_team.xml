@@ -4,13 +4,14 @@
 	<record id="view_shift_change_team_tree" model="ir.ui.view">
         <field name="model">shift.change.team</field>
         <field name="arch" type="xml">
-            <tree decoration-info="state == 'draft'">
+            <tree decoration-info="state == 'draft'" decoration-danger="has_delayed_execution_errors == True">
                 <field name="partner_id" />
                 <field name="current_shift_template_id"/>
                 <field name="next_current_shift_date" />
                 <field name="new_shift_template_id" />
                 <field name="new_next_shift_date" />
                 <field name="is_abcd_to_abcd" invisible="1"/>
+                <field name="has_delayed_execution_errors" invisible="1"/>
                 <field name="state"/>
             </tree>
         </field>
@@ -26,6 +27,9 @@
                 <field name="create_uid"/>
                 <separator/>
                 <filter name="pending" string="Pending" domain="[('state', '=', 'draft')]"/>
+                <filter name="done"    string="Done"    domain="[('state', '=', 'closed')]"/>
+                <separator/>
+                <filter name="delayed_errors" string="Errors" domain="[('has_delayed_execution_errors', '=', True)]"/>
             </search>
         </field>
     </record>

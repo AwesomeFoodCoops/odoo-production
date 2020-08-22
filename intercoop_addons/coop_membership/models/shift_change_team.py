@@ -100,6 +100,13 @@ class ShiftChangeTeam(models.Model):
         readonly=True,
         ondelete="set null",
     )
+    has_delayed_execution_errors = fields.Boolean(
+        default=False,
+        help="Technical field used by delayed execution.\n"
+             "Instead of having the queue.job to stay in a failed state, "
+             "we fail silently and check this box.\n\n"
+             "This is used by the shift.template.operation model.",
+    )
 
     @api.multi
     @api.depends('partner_id')
@@ -160,6 +167,7 @@ class ShiftChangeTeam(models.Model):
             # Do actual change
             record.set_in_new_team()
             record.state = 'closed'
+            record.has_delayed_execution_errors = False
             # Handle Catch up mechanism
             if not record.new_shift_template_id.shift_type_id.is_ftop:
                 if record.is_catch_up:
