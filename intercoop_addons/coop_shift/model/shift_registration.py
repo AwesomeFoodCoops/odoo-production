@@ -38,10 +38,6 @@ STATES = [
     ('replacing', 'Replacing'),
 ]
 
-MAX_REGISTRATIONS_PER_DAY = 2
-MAX_REGISTRATION_PER_PERIOD = 5
-NUMBER_OF_DAYS_IN_PERIOD = 28
-
 
 class ShiftRegistration(models.Model):
     _inherit = 'event.registration'
