@@ -103,6 +103,12 @@ class ResConfigSettings(models.TransientModel):
             'shift_template', 'start_date', 'week_number', 'week_name')
         self._recompute_week_number(
             'shift_shift', 'date_without_time', 'week_number', 'week_name')
+        # recompute name, should also trigger the update on shifts
+        # because it's related
+        _logger.info('Recomputing shifts names..')
+        self.with_context(
+            active_check=False,
+        ).env['shift.template'].search([])._compute_template_name()
 
     @api.model
     def _recompute_week_number(
