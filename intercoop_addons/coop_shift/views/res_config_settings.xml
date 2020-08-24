@@ -19,9 +19,6 @@
                                     This will recompute all week numbers and names based on your new configuration.
                                     It will affect all existing shifts (past and future).
 
-                                    The process will be executed in the background, and it may several minutes to finish.
-                                    You can check its progress by going to Connector > Jobs.
-
                                     Are you sure you want to continue?"
                                 class="oe_link"/>
                     </group>
