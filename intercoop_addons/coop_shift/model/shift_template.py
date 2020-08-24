@@ -139,19 +139,37 @@ class ShiftTemplate(models.Model):
 
     # RECURRENCE FIELD
     rrule_type = fields.Selection([
-        ('daily', 'Day(s)'), ('weekly', 'Week(s)'), ('monthly', 'Month(s)'),
-        ('yearly', 'Year(s)')], 'Recurrency', default='weekly',
-        help="Let the shift automatically repeat at that interval")
+        ('daily', 'Day(s)'),
+        ('weekly', 'Week(s)'),
+        ('monthly', 'Month(s)'),
+        ('yearly', 'Year(s)')
+        ],
+        string='Recurrency',
+        help="Let the shift automatically repeat at that interval",
+        default='weekly',
+    )
     recurrency = fields.Boolean(
-        'Recurrent', help="Recurrent Meeting", default=True)
+        'Recurrent',
+        help="Recurrent Meeting",
+        default=True,
+    )
     recurrent_id = fields.Integer('Recurrent ID')
     recurrent_id_date = fields.Datetime('Recurrent ID date')
     end_type = fields.Selection([
-        ('count', 'Number of repetitions'), ('end_date', 'End date'),
-        ('no_end', 'No end')], string='Recurrence Termination',
-        default='no_end',)
+        ('count', 'Number of repetitions'),
+        ('end_date', 'End date'),
+        ('no_end', 'No end')
+        ],
+        string='Recurrence Termination',
+        default='no_end',
+    )
     interval = fields.Integer(
-        'Repeat Every', help="Repeat every (Days/Week/Month/Year)", default=4)
+        string='Repeat Every',
+        help="Repeat every (Days/Week/Month/Year)",
+        default=lambda self:
+            int(self.env['ir.config_parameter'].sudo().get_param(
+                'coop_shift.number_of_weeks_per_cycle')),
+    )
     count = fields.Integer('Repeat', help="Repeat x times")
     mo = fields.Boolean('Mon', compute="_compute_week_day", store=True)
     tu = fields.Boolean('Tue', compute="_compute_week_day", store=True)
