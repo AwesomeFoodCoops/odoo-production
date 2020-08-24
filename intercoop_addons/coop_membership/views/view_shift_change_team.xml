@@ -95,7 +95,7 @@
     <!-- Actions -->
 
     <record id="action_shift_change_team_confirm" model="ir.actions.server">
-        <field name="name">Validate shift change team"</field>
+        <field name="name">Validate</field>
         <field name="model_id" ref="model_shift_change_team"/>
         <field name="state">code</field>
         <field name="code">
@@ -103,6 +103,16 @@
                 ctx = dict(context)
                 ctx.update(delay_email=True)
                 self.button_close(cr, uid, context.get('active_ids'), context=ctx)
+        </field>
+    </record>
+
+    <record id="action_shift_change_team_confirm_delayed" model="ir.actions.server">
+        <field name="name">Validate (asynchronously)</field>
+        <field name="model_id" ref="model_shift_change_team"/>
+        <field name="state">code</field>
+        <field name="code">
+            if context.get('active_ids'):
+                self.close_delayed(cr, uid, context.get('active_ids'), context=context)
         </field>
     </record>
 
@@ -133,6 +143,15 @@
         <field name="key">action</field>
         <field name="key2">client_action_multi</field>
         <field name="value" eval="'ir.actions.server,%d' % ref('action_shift_change_team_confirm')"/>
+    </record>
+
+    <record id="ir_value_shift_change_team_confirm_delayed" model="ir.values">
+        <field name="name">Validate (asynchronously)</field>
+        <field name="model_id" ref="model_shift_change_team"/>
+        <field name="model">shift.change.team</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value" eval="'ir.actions.server,%d' % ref('action_shift_change_team_confirm_delayed')"/>
     </record>
 
     <record id="ir_value_shift_change_team_confirm_warning_date" model="ir.values">

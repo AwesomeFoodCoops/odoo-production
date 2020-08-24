@@ -219,6 +219,15 @@ class ShiftChangeTeam(models.Model):
         return True
 
     @api.multi
+    def close_delayed(self):
+        """
+        Schedules a queue job to close it
+        """
+        session = ConnectorSession(self._cr, self._uid)
+        for rec_id in self.ids:
+            _job_validate_change_team.delay(session, rec_id)
+
+    @api.multi
     def _create_registration_in_new_template(self, vals):
         """
         Helper method to create a new registration in the new template
@@ -705,6 +714,21 @@ class ShiftChangeTeam(models.Model):
         if any([rec.state == 'closed' for rec in self]):
             raise ValidationError(_(
                 "You can't delete a validated operation."))
+
+
+@job
+def _job_validate_change_team(session, change_team_ids):
+    """
+    We do it in a savepoint to avoid having the job stay in a failed state
+    In change, we set the has_delayed_execution_errors field to inform the user
+    as this job will never really fail.
+    """
+    change_team = session.env['shift.change.team'].browse(change_team_ids)
+    try:
+        with session.env.cr.savepoint():
+            change_team.button_close()
+    except Exception as e:
+        change_team.has_delayed_execution_errors = True
 
 
 @job

@@ -7,9 +7,6 @@ from openerp import api, models, fields, _
 from openerp.exceptions import UserError, ValidationError
 from dateutil.relativedelta import relativedelta
 
-from openerp.addons.connector.queue.job import job
-from openerp.addons.connector.session import ConnectorSession
-
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -307,8 +304,7 @@ class ShiftTemplateOperation(models.Model):
                 and not change_team.is_mess_change_team
             ):
                 if self.env.context.get('delay_shift_change_validation'):
-                    session = ConnectorSession(self._cr, self._uid)
-                    _job_validate_change_team.delay(session, change_team.ids)
+                    change_team.close_delayed()
                 else:
                     change_team.with_context(
                         delay_email=True,
@@ -489,18 +485,3 @@ class ShiftTemplateOperation(models.Model):
     @api.multi
     def action_draft(self):
         self.write({'state': 'draft'})
-
-
-@job
-def _job_validate_change_team(session, change_team_ids):
-    """
-    We do it in a savepoint to avoid having the job stay in a failed state
-    In change, we set the has_delayed_execution_errors field to inform the user
-    as this job will never really fail.
-    """
-    change_team = session.env['shift.change.team'].browse(change_team_ids)
-    try:
-        with session.env.cr.savepoint():
-            change_team.button_close()
-    except Exception as e:
-        change_team.has_delayed_execution_errors = True
