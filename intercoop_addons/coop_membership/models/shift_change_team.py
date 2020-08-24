@@ -725,7 +725,7 @@ def _job_validate_change_team(session, change_team_ids):
     change_team = session.env['shift.change.team'].browse(change_team_ids)
     try:
         with session.env.cr.savepoint():
-            change_team.button_close()
+            change_team.with_context(delay_email=True).button_close()
     except Exception as e:
         change_team.has_delayed_execution_errors = True
 
