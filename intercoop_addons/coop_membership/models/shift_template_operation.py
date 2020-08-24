@@ -195,15 +195,17 @@ class ShiftTemplateOperation(models.Model):
         }
     )
     interval = fields.Integer(
-        'Repeat Every',
+        string='Repeat Every',
         help="Repeat every (Days/Week/Month/Year)",
-        default=4,
-        required=True,
         states={
             'done': [('readonly', True)],
             'in progress': [('readonly', True)],
             'cancel': [('readonly', True)],
-        }
+        },
+        required=True,
+        default=lambda self:
+            int(self.env['ir.config_parameter'].sudo().get_param(
+                'coop_shift.number_of_weeks_per_cycle')),
     )
     quantity = fields.Integer(
         'Split Quantity',
