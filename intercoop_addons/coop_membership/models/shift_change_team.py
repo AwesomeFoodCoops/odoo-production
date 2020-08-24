@@ -718,11 +718,10 @@ class ShiftChangeTeam(models.Model):
 
 @job
 def _job_validate_change_team(session, change_team_ids):
-    """
-    We do it in a savepoint to avoid having the job stay in a failed state
-    In change, we set the has_delayed_execution_errors field to inform the user
-    as this job will never really fail.
-    """
+    """ Validate Shift Change Team """
+    # We do it in a savepoint to avoid having the job stay in a failed state
+    # In change, we set the has_delayed_execution_errors field to inform the
+    # user as this job will never really fail.
     change_team = session.env['shift.change.team'].browse(change_team_ids)
     try:
         with session.env.cr.savepoint():
@@ -733,4 +732,5 @@ def _job_validate_change_team(session, change_team_ids):
 
 @job
 def _job_send_notification_email(session, rec_ids):
+    """ Shift Change Team: Send notification email """
     session.env['shift.change.team'].browse(rec_ids)._send_notification_email()
