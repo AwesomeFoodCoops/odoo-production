@@ -304,11 +304,9 @@ class ShiftTemplateOperation(models.Model):
                 and not change_team.is_mess_change_team
             ):
                 if self.env.context.get('delay_shift_change_validation'):
-                    change_team.close_delayed()
+                    change_team.with_context(delay_email=True).close_delayed()
                 else:
-                    change_team.with_context(
-                        delay_email=True,
-                    ).button_close()
+                    change_team.with_context(delay_email=True).button_close()
 
     @api.multi
     def _execute_move(self, templates, target_template):
