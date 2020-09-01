@@ -3,9 +3,11 @@
 # @author: Iván Todorovich (https://twitter.com/ivantodorovich)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import pytz
 from openerp import api, models, fields, _
 from openerp.exceptions import UserError, ValidationError
 from dateutil.relativedelta import relativedelta
+from datetime import timedelta
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -277,6 +279,27 @@ class ShiftTemplateOperation(models.Model):
         res['domain'] = [('shift_template_operation_id', 'in', self.ids)]
         return res
 
+    @api.model
+    def _datetime_as_in_tz(self, datetime):
+        """ Returns a naive datetime object as in tz """
+        tz_name = self._context.get('tz') or self.env.user.tz
+        if not tz_name:
+            raise UserError(_(
+                "You can not create Shift Template if your timezone "
+                "is not defined."))
+        utc_timestamp = pytz.utc.localize(datetime, is_dst=False)
+        datetime_tz = utc_timestamp.astimezone(pytz.timezone(tz_name))
+        return fields.Datetime.from_string(
+            "%s-%02d-%02d %02d:%02d:%02d" % (
+                datetime_tz.year,
+                datetime_tz.month,
+                datetime_tz.day,
+                datetime_tz.hour,
+                datetime_tz.minute,
+                datetime_tz.second,
+            )
+        )
+
     @api.multi
     def _mass_change_team(self, registrations, target_template):
         """ Mass create and confirm change team objects """
@@ -343,28 +366,48 @@ class ShiftTemplateOperation(models.Model):
                     'monthly': ('months', 1),
                     'yearly': ('years', 1),
                 }[self.rrule_type]
+                _logger.warning(
+                    'Create original start_date: %s, offset: %s, delay: %s, mult: %s',
+                    next_date, self.offset, delay, mult)
                 start_date = (
                     next_date +
                     relativedelta(**{delay: mult * (self.offset * i)})
                 )
+                # New start/end datetimes
+                start_datetime = fields.Datetime.from_string(
+                    template.start_datetime).replace(
+                        year=start_date.year,
+                        month=start_date.month,
+                        day=start_date.day,
+                )
+                end_datetime = fields.Datetime.from_string(
+                    template.end_datetime).replace(
+                        year=start_date.year,
+                        month=start_date.month,
+                        day=start_date.day,
+                    )
+                # Adjust UTC with daytime savings
+                # To do this, we have to identify if there's a timezone
+                # difference between the original template date and the new one
+                # by using naive-localized datetimes
+                original_start_dt_tz = self._datetime_as_in_tz(
+                    fields.Datetime.from_string(template.start_datetime))
+                new_start_dt_tz = self._datetime_as_in_tz(start_datetime)
+                fake_original_dt_tz = original_start_dt_tz.replace(
+                    year=new_start_dt_tz.year,
+                    month=new_start_dt_tz.month,
+                    day=new_start_dt_tz.day,
+                )
+                tz_delta = fake_original_dt_tz - new_start_dt_tz
+                start_datetime += tz_delta
+                end_datetime += tz_delta
+
                 # Creates a new one
                 child_template_ids += template.copy({
                     'start_datetime': fields.Datetime.to_string(
-                        fields.Datetime.from_string(
-                            template.start_datetime).replace(
-                                year=start_date.year,
-                                month=start_date.month,
-                                day=start_date.day,
-                            )
-                        ),
+                        start_datetime),
                     'end_datetime': fields.Datetime.to_string(
-                        fields.Datetime.from_string(
-                            template.end_datetime).replace(
-                                year=start_date.year,
-                                month=start_date.month,
-                                day=start_date.day,
-                            )
-                        ),
+                        end_datetime),
                     'interval': self.interval,
                     'rrule_type': self.rrule_type,
                     'original_shift_template_id': template.id,
