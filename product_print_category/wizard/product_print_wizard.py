@@ -70,6 +70,8 @@ class ProductPrintWizard(models.TransientModel):
     def print_report(self):
         self.ensure_one()
         data = self._prepare_data()
+        # Mark products as printed
+        self.line_ids.mapped('product_id').write({'to_print': False})
         return self.env.ref('product_print_category.pricetag').report_action(
             self, data=data)
 
