@@ -852,14 +852,23 @@ class ShiftTemplate(models.Model):
 
     @api.multi
     def get_recurrent_dates(self, after=None, before=None):
-        get_param = self.env['ir.config_parameter'].sudo().get_param
-        n_weeks_cycle = int(get_param('coop_shift.number_of_weeks_per_cycle'))
+        # TODO: this should ensure_one. Do it in 12 to avoid breaking features
         for template in self:
             start = fields.Datetime.from_string(after or template.start_date)
             stop = fields.Datetime.from_string(before or template.final_date)
-            # Compensate start to synchronize weeks with our cycles
-            delta = (template.week_number - self._get_week_number(start)) % n_weeks_cycle
-            start += timedelta(weeks=delta)
+            # Compensate start to synchronize weeks with our interval
+            # The rrule doesn't have a interval start date, and we want to
+            # make sure the new dates will be aligned with our cycles
+            # If we are adjusting weeks, we also adjust the week day
+            # so that we make sure it matches exactly the next date
+            delta_weeks = (
+                    template.week_number - self._get_week_number(start)
+                ) % template.interval
+            delta_days = (
+                    fields.Datetime.from_string(template.start_date).weekday()
+                    - start.weekday()
+                ) if delta_weeks else 0
+            start += timedelta(weeks=delta_weeks, days=delta_days)
             return rrule.rrulestr(
                 str(template.rrule),
                 dtstart=start,
