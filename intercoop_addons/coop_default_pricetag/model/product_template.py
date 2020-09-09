@@ -23,6 +23,7 @@
 
 from openerp import api, fields, models, _
 from openerp.exceptions import UserError
+import openerp.addons.decimal_precision as dp
 
 
 class ProductTemplate(models.Model):
@@ -101,7 +102,11 @@ class ProductTemplate(models.Model):
         'Mercuriale Product', help="A product in mercuriale has price"
         " that changes very regularly.")
 
-    weight_net = fields.Float('Net Weight', default=0)
+    weight_net = fields.Float(
+        'Net Weight',
+        digits=dp.get_precision('Stock Weight'),
+        default=0,
+    )
 
     price_volume = fields.Char(
         compute='_compute_price_volume', string='Price by liter')
