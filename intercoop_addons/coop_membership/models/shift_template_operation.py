@@ -348,7 +348,6 @@ class ShiftTemplateOperation(models.Model):
         res = {}
         for template in self.template_ids:
             # Create destination templates
-            _logger.debug('Creating destination templates for: %s', template)
             child_template_ids = self.env['shift.template']
             # Get date of next shift, starting from date
             next_date = template.get_recurrent_dates(
@@ -366,9 +365,6 @@ class ShiftTemplateOperation(models.Model):
                     'monthly': ('months', 1),
                     'yearly': ('years', 1),
                 }[self.rrule_type]
-                _logger.warning(
-                    'Create original start_date: %s, offset: %s, delay: %s, mult: %s',
-                    next_date, self.offset, delay, mult)
                 start_date = (
                     next_date +
                     relativedelta(**{delay: mult * (self.offset * i)})
@@ -508,6 +504,7 @@ class ShiftTemplateOperation(models.Model):
     def unlink(self):
         if any([rec.state != 'draft' for rec in self]):
             raise ValidationError(_("You only delete draft operations."))
+        return super(ShiftTemplateOperation, self).unlink()
 
     @api.multi
     def action_close(self):
