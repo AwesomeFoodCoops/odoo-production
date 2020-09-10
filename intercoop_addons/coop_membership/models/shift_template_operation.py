@@ -150,6 +150,10 @@ class ShiftTemplateOperation(models.Model):
             'cancel': [('readonly', True)],
         }
     )
+    send_mail = fields.Boolean(
+        string="Send Email Notification",
+        default=True,
+    )
     mail_template_id = fields.Many2one(
         "mail.template",
         string="Notification Email Template",
@@ -312,6 +316,7 @@ class ShiftTemplateOperation(models.Model):
                 'new_shift_template_id': target_template.id,
                 'new_next_shift_date': self.date,
                 'shift_template_operation_id': self.id,
+                'send_mail': self.send_mail,
                 'mail_template_id': self.mail_template_id.id,
             })
             # Automatically confirm change team warnings

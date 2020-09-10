@@ -85,7 +85,8 @@
                             <field name="validate_team_change" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
                             <field name="confirm_if_full_seats_mess" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
                             <field name="confirm_if_change_team_mess" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
-                            <field name="mail_template_id" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
+                            <field name="send_mail" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
+                            <field name="mail_template_id" attrs="{'invisible': ['|', ('send_mail', '=', False), ('strategy', 'in', ['cancel', 'create'])]}"/>
                         </group>
                     </group>
                     <group name="templates" string="Selected templates">

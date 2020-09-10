@@ -115,6 +115,10 @@ class ShiftChangeTeam(models.Model):
         default="draft",
         copy=False,
     )
+    send_mail = fields.Boolean(
+        string="Send Email Notification",
+        default=True,
+    )
     mail_template_id = fields.Many2one(
         "mail.template",
         string="Notification Email Template",
@@ -167,7 +171,7 @@ class ShiftChangeTeam(models.Model):
                 self.env.ref('coop_membership.volant_sheet_attachment').id,
                 self.env.ref('coop_membership.volant_calendar_attachment').id,
             ])]
-        for rec in self:
+        for rec in self.filtered('send_mail'):
             if self.mail_template_id:
                 self.mail_template_id.send_mail(rec.id)
             else:
@@ -210,12 +214,14 @@ class ShiftChangeTeam(models.Model):
                         'point_qty': -1,
                     })
             # Handle delayed email notification
-            if not self.env.context.get('delay_email'):
+            if record.send_mail and not self.env.context.get('delay_email'):
                 record._send_notification_email()
         # Handle delayed email notifications using queue job
-        if self.env.context.get('delay_email') and self:
-            session = ConnectorSession(self._cr, self._uid)
-            _job_send_notification_email.delay(session, self.ids)
+        if self.env.context.get('delay_email'):
+            records = self.filtered('send_mail')
+            if records:
+                session = ConnectorSession(self._cr, self._uid)
+                _job_send_notification_email.delay(session, records.ids)
         return True
 
     @api.multi

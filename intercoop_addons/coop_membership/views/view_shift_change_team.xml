@@ -61,7 +61,8 @@
                             <field name="is_catch_up" attrs="{'invisible': ['|', ('partner_state', '=', 'usubscribed'), ('is_abcd_to_abcd', '=', False)], 'readonly' : [('state', '=', 'closed')]}"/>
                         </group>
                         <group>
-                            <field name="mail_template_id" attrs="{'readonly' : [('state', '=', 'closed')]}"/>
+                            <field name="send_mail" attrs="{'readonly' : [('state', '=', 'closed')]}"/>
+                            <field name="mail_template_id" attrs="{'invisible': [('send_mail', '=', False)], 'readonly' : [('state', '=', 'closed')]}"/>
                         </group>
                         <group>
                             <field name="shift_template_operation_id"
