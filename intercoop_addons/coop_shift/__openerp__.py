@@ -7,7 +7,7 @@
 
 {
     'name': 'Coop Shift',
-    'version': '9.0.7.0.0',
+    'version': '9.0.9.0.0',
     'category': 'Tools',
     'author': 'Julien WESTE, Sylvain LE GAL, Cyril Gaspard, La Louve',
     'website': 'http://www.lalouve.net',
@@ -66,6 +66,7 @@
         'views/report_timesheet_inherited.xml',
         'views/report_wallchart.xml',
         'views/ir_ui_menu_view.xml',
+        'views/res_config_settings.xml',
         'data/cron.xml',
         'data/ir_cron.xml',
     ],

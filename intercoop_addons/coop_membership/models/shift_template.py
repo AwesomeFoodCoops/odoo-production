@@ -1,26 +1,4 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Purchase - Computed Purchase Order Module for Odoo
-#    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-#    @author Julien WESTE
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
 from openerp import models, fields, api, _
 
 
@@ -28,21 +6,39 @@ class ShiftTemplate(models.Model):
     _inherit = 'shift.template'
 
     user_ids = fields.Many2many(
-        domain=[('is_worker_member', '=', True)])
-
+        domain=[('is_worker_member', '=', True)],
+    )
     warning_leader_unsubscribed = fields.Html(
         compute="_compute_warning_leader_unsubscribed",
         string="Warning unsubscribed leader",
         store=True,
     )
+    current_registration_ids = fields.Many2many(
+        "shift.template.registration",
+        compute="_compute_current_registration_ids",
+    )
     registration_qty = fields.Integer(
-        string='Number of Attendees', compute='_compute_registration_qty',
-        store=True
+        string='Number of Attendees',
+        compute='_compute_registration_qty',
     )
     required_skill_ids = fields.Many2many(
         'hr.skill',
         string="Required Skills",
         domain=[('child_ids', '=', False)],
+    )
+    original_shift_template_id = fields.Many2one(
+        "shift.template",
+        string="Original Template",
+        help="The template from which this template was created, using "
+             "the Shift Template Evacuate Wizard.\n\n"
+             "It's used to execute the 'move back' strategy",
+        ondelete="set null",
+    )
+    shift_template_operation_id = fields.Many2one(
+        "shift.template.operation",
+        string="Template Operation",
+        readonly=True,
+        ondelete="set null",
     )
 
     # This field help to re-add member as a leader after his/her leave
@@ -56,14 +52,16 @@ class ShiftTemplate(models.Model):
 
     @api.multi
     @api.depends('registration_ids')
+    def _compute_current_registration_ids(self):
+        for rec in self:
+            rec.current_registration_ids = \
+                rec.registration_ids.filtered('is_current_participant')
+
+    @api.multi
+    @api.depends('current_registration_ids')
     def _compute_registration_qty(self):
         for template in self:
-            current_regs = template.env['shift.template.registration']\
-                .with_context(active_id=template.id).search([
-                    ('shift_template_id', '=', template.id),
-                    ('is_current_participant', '=', True),
-                ])
-            template.registration_qty = len(current_regs)
+            template.registration_qty = len(template.current_registration_ids)
 
     @api.multi
     @api.depends('user_ids', 'user_ids.is_unsubscribed')

@@ -9,7 +9,8 @@
                 <field name="partner_id"/>
                 <field name="pos_reference"/>
                 <field name="week_day"/>
-                <field name="week_number"/>
+                <field name="week_number" invisible="1"/>
+                <field name="week_name"/>
                 <field name="cycle"/>
             </field>
         </field>

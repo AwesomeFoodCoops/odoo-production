@@ -5,6 +5,7 @@
 from openerp import fields, models, api, _
 from openerp.exceptions import Warning
 
+
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 

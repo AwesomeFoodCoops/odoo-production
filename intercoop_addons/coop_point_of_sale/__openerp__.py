@@ -5,7 +5,7 @@
 
 {
     'name': 'Coop - Point of Sale Custom views',
-    'version': '9.0.2.0.0',
+    'version': '9.0.5.0.0',
     'category': 'Custom',
     'summary': 'Customize Point of Sale Display',
     'author': 'La Louve',

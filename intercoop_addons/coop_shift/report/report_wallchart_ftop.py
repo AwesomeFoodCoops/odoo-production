@@ -1,26 +1,4 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Purchase - Computed Purchase Order Module for Odoo
-#    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-#    @author Julien WESTE
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
 from openerp import api, models, fields, _
 from datetime import datetime, timedelta, date
 
@@ -70,19 +48,21 @@ class ReportWallchartFTOP(models.AbstractModel):
     @api.model
     def _get_report_info(self, data):
         final_result = []
-
+        n_weeks_cycle = self._get_number_weeks_per_cycle()
         for week_day in data.keys():
             if week_day == "id" or not data.get(week_day, False):
                 continue
-
             header = []
             weekday_number = self._get_weekday_number(week_day)
             today_weekday_number = date.today().weekday()
 
-            for week in range(4):
-                next_weekday_date = date.today() + timedelta(
-                    days=(weekday_number - today_weekday_number) % 7) +\
-                    timedelta(weeks=week)
+            for week in range(1, n_weeks_cycle + 1):
+                next_weekday_date = (
+                    date.today()
+                    + timedelta(
+                        days=(weekday_number - today_weekday_number) % 7)
+                    + timedelta(weeks=week)
+                )
                 week_number = self._get_week_number(next_weekday_date)
                 header.append({
                     'date': next_weekday_date,

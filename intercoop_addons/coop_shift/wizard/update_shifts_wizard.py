@@ -120,17 +120,35 @@ class UpdateShiftsWizardLine(models.TransientModel):
     _description = 'Update Shifts Wizard Line'
 
     wizard_id = fields.Many2one(
-        'update.shifts.wizard', 'Wizard Reference', required=True)
+        'update.shifts.wizard',
+        'Wizard Reference',
+        required=True,
+        ondelete="cascade",
+    )
     shift_id = fields.Many2one(
-        'shift.shift', 'Shift Reference', required=True)
+        'shift.shift',
+        'Shift Reference',
+        required=True,
+        ondelete="cascade",
+    )
     name = fields.Char('Name')
     user_ids = fields.Many2many(
-        'res.partner', 'res_partner_shift_uswl_rel', 'shift_template_id',
-        'partner_id', string='Shift Leader')
-    shift_type_id = fields.Many2one('shift.type', string='Category')
+        'res.partner',
+        string='Shift Leader',
+        ondelete="set null",
+    )
+    shift_type_id = fields.Many2one(
+        'shift.type',
+        string='Category',
+        ondelete="cascade",
+    )
     date_begin = fields.Datetime(string='Start Date')
     date_end = fields.Datetime(string='Start Date')
     state = fields.Selection([
-        ('draft', 'Unconfirmed'), ('cancel', 'Cancelled'),
-        ('confirm', 'Confirmed'), ('done', 'Done')],
-        string='Status')
+        ('draft', 'Unconfirmed'),
+        ('cancel', 'Cancelled'),
+        ('confirm', 'Confirmed'),
+        ('done', 'Done'),
+        ],
+        string='Status',
+    )

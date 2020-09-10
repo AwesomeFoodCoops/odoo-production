@@ -77,7 +77,7 @@ class ShiftLeave(models.Model):
                 leave.absence_less_than_15days = True
             else:
                 leave.absence_less_than_15days = False
-                
+
     @api.multi
     @api.depends('partner_id', 'type_id', 'stop_date', 'non_defined_leave')
     def _compute_proposed_date(self):
@@ -443,7 +443,7 @@ class ShiftLeave(models.Model):
     @api.multi
     def update_registration_template_based_non_define_leave(self):
         '''
-        This method is remove such members from their teams 
+        This method is remove such members from their teams
         immediately by putting the end day for the templates closest the leave
         of current partner. Apply for non-define leave
         '''
