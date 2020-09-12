@@ -53,7 +53,7 @@ class PosOrder(models.Model):
             records=self, field_name='date_order')
         for rec in self:
             if not rec.date_order:
-                rec.write({
+                rec.update({
                     'week_number': False,
                     'week_name': False,
                     'week_day': False,
@@ -69,7 +69,7 @@ class PosOrder(models.Model):
                         fields.Date.from_string(rec.date_order).weekday()
                     )
                 )
-                rec.write({
+                rec.update({
                     'week_number': week_number,
                     'week_name': week_name,
                     'week_day': week_day,
