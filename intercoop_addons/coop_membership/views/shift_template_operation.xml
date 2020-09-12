@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2020-Today: La Louve (<http://www.lalouve.net/>)
+    @author: Iván Todorovich (https://twitter.com/ivantodorovich)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record model="ir.ui.view" id="view_shift_template_operation_form">
+        <field name="model">shift.template.operation</field>
+        <field name="arch" type="xml">
+            <form string="Evacuate Shift Template">
+                <header>
+                    <button name="execute" string="Execute" type="object" class="btn-primary"
+                            confirm="After confirmation, the operation will be executed in the background, and it will take several minutes to finish."
+                            states="draft"/>
+                    <button name="action_close" string="Close" type="object" class="btn-primary" states="in progress"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="in progress" confirm="Cancelling will delete all generated templates and change teams. Are you sure you want to continue?"/>
+                    <button name="action_draft" string="Back to Draft" type="object" states="cancel"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_generated_templates"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-calendar"
+                                help="View Generated Templates"
+                                attrs="{'invisible': [('generated_template_count', '=', 0)]}"
+                                >
+                                <field name="generated_template_count" string="Templates" widget="statinfo"/>
+                        </button>
+                        <button name="action_view_change_teams"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-exchange"
+                                help="View Change Teams"
+                                attrs="{'invisible': ['|', ('change_team_count', '=', 0), ('change_team_draft_count', '>', 0)]}"
+                                >
+                                <field name="change_team_count" string="Changes" widget="statinfo"/>
+                        </button>
+                        <button name="action_view_change_teams"
+                                context="{'search_default_pending': True}"
+                                type="object"
+                                class="oe_stat_button"
+                                help="View pending Change Teams"
+                                attrs="{'invisible': [('change_team_draft_count', '=', 0)]}"
+                                >
+                                <field name="change_team_done_percent" string="Changes" class="text-warning" widget="percentpie"/>
+                        </button>
+                        <button name="action_view_change_teams"
+                                context="{'search_default_delayed_errors': True}"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-warning"
+                                help="View Change Teams"
+                                attrs="{'invisible': [('change_team_error_count', '=', 0)]}"
+                                >
+                                <field name="change_team_error_count" class="text-danger" string="Errors" widget="statinfo"/>
+                        </button>
+                        <field name="change_team_draft_count" invisible="1"/>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="strategy"/>
+                            <field name="target_template_id" attrs="{'required': [('strategy', '=', 'move to')], 'invisible': [('strategy', '!=', 'move to')]}"/>
+                            <label for="interval" onchange="_onchange_interval_quantity(interval)" attrs="{'invisible': [('strategy', 'not in', ['create', 'create and move'])]}"/>
+                            <div class="o_row" attrs="{'invisible': [('strategy', 'not in', ['create', 'create and move'])]}">
+                                <field name="interval" attrs="{'required': [('strategy', 'in', ['create', 'create and move'])]}"/>
+                                <field name="rrule_type" attrs="{'required': [('strategy', 'in', ['create', 'create and move'])]}"/>
+                            </div>
+                            <field name="quantity" onchange="_onchange_interval_quantity(quantity)" attrs="{'required': [('strategy', 'in', ['create', 'create and move'])], 'invisible': [('strategy', 'not in', ['create', 'create and move'])]}"/>
+                            <field name="offset" attrs="{'invisible': ['|', ('strategy', 'not in', ['create', 'create and move']), ('quantity', '&lt;', 2)]}"/>
+                        </group>
+                        <group>
+                            <field name="template_count" invisible="1"/>
+                            <field name="validate_team_change" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
+                            <field name="confirm_if_full_seats_mess" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
+                            <field name="confirm_if_change_team_mess" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
+                            <field name="send_mail" attrs="{'invisible': [('strategy', 'in', ['cancel', 'create'])]}"/>
+                            <field name="mail_template_id" attrs="{'invisible': ['|', ('send_mail', '=', False), ('strategy', 'in', ['cancel', 'create'])]}"/>
+                        </group>
+                    </group>
+                    <group name="templates" string="Selected templates">
+                        <field name="template_ids" widget="many2many_tags" options="{'no_create': True}" nolabel="1"/>
+                    </group>
+                    <group name="notes" string="Notes">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_shift_template_operation_tree">
+        <field name="model">shift.template.operation</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'" decoration-warning="state == 'in progress'" decoration-muted="state == 'cancel'">
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+                <field name="template_count"/>
+                <field name="strategy"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_shift_template_operation_search">
+        <field name="model">shift.template.operation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+                <field name="strategy"/>
+                <field name="change_team_draft_count" invisible="1"/>
+                <separator/>
+                <filter name="pending" string="Pending" domain="[('state', 'in', ['draft', 'in progress'])]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_shift_template_operation" model="ir.actions.act_window">
+        <field name="name">Shift Template Mass Operation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shift.template.operation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.menu" id="menu_shift_template_operation">
+        <field name="name">Mass Operations</field>
+        <field name="action" ref="action_shift_template_operation"/>
+        <field name="parent_id" ref="coop_shift.template_menu"/>
+        <field name="sequence">90</field>
+        <field name="groups_id" eval="[(4, ref('coop_membership.group_shift_template_operations'))]"/>
+    </record>
+
+    <!-- Create from templates action -->
+    <record id="action_create_shift_template_operation_from_template" model="ir.actions.act_window">
+        <field name="name">Shift Template Mass Operation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shift.template.operation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <record id="ir_value_create_shift_template_operation_from_template" model="ir.values">
+        <field name="name">Template mass operation..</field>
+        <field name="model_id" ref="coop_shift.model_shift_template"/>
+        <field name="model">shift.template</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value" eval="'ir.actions.act_window,%d' % ref('action_create_shift_template_operation_from_template')"/>
+    </record>
+
+</odoo>

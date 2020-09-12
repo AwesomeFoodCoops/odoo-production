@@ -80,6 +80,7 @@
         'views/view_shift_credit_config.xml',
         'views/action.xml',
         'views/menu.xml',
+        'views/shift_template_operation.xml',
 
         'report/member_contract_template.xml',
 

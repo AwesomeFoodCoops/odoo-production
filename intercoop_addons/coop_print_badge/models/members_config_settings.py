@@ -8,8 +8,8 @@ from openerp import models, fields, api
 from openerp.tools.safe_eval import safe_eval
 
 
-class MemberConfigSettings(models.TransientModel):
-    _inherit = 'members.config.settings'
+class ResConfigSettings(models.TransientModel):
+    _inherit = 'coop_shift.config.settings'
 
     reprint_change_field_ids = fields.Many2many(
         'ir.model.fields', string="Fields trigger badge reprinting",

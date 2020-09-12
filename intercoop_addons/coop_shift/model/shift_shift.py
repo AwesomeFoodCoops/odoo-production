@@ -1,43 +1,16 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Purchase - Computed Purchase Order Module for Odoo
-#    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-#    @author Julien WESTE
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
 import pytz
 from openerp import models, fields, api, _
 from openerp.exceptions import UserError
 from datetime import datetime, timedelta
 from openerp.osv import expression
 
+from openerp.addons.connector.queue.job import job
+from openerp.addons.connector.session import ConnectorSession
+
 # this variable is used for shift confirmation. It tells how many days before
 # its date_begin a shift is confirmed
 SHIFT_CONFIRMATION_DAYS = 5
-
-
-WEEK_NUMBERS = [
-    (1, 'A'),
-    (2, 'B'),
-    (3, 'C'),
-    (4, 'D')
-]
 
 
 class ShiftShift(models.Model):
@@ -53,7 +26,11 @@ class ShiftShift(models.Model):
             'template_id': self.env.ref('coop_shift.shift_subscription')
         })]
 
-    name = fields.Char(string="Shift Name")
+    name = fields.Char(
+        string="Shift Name",
+        related="shift_template_id.name",
+        store=True,
+    )
     event_mail_ids = fields.One2many(default=None)
     shift_mail_ids = fields.One2many(
         'shift.mail', 'shift_id', string='Mail Schedule',
@@ -61,9 +38,15 @@ class ShiftShift(models.Model):
     shift_type_id = fields.Many2one(
         'shift.type', string='Category', required=False,
         readonly=False, states={'done': [('readonly', True)]})
-    week_number = fields.Selection(
-        WEEK_NUMBERS, string='Week', compute="_compute_week_number",
-        store=True)
+    week_number = fields.Integer(
+        compute="_compute_week_number",
+        store=True,
+    )
+    week_name = fields.Char(
+        string="Week",
+        compute="_compute_week_name",
+        store=True,
+    )
     week_list = fields.Selection([
         ('MO', 'Monday'), ('TU', 'Tuesday'), ('WE', 'Wednesday'),
         ('TH', 'Thursday'), ('FR', 'Friday'), ('SA', 'Saturday'),
@@ -129,17 +112,33 @@ class ShiftShift(models.Model):
     ]
 
     @api.multi
-    @api.depends('date_without_time')
+    @api.depends('shift_template_id', 'date_without_time')
     def _compute_week_number(self):
-        for shift in self:
-            if not shift.date_without_time:
-                shift.week_number = False
+        records_with_date = self.filtered('date_without_time')
+        records_without_date = self - records_with_date
+        # Records without date have no week_number
+        records_without_date.write({'week_number': False})
+        # Records with date get computed week number
+        data = self.env['shift.template']._get_week_number_multi(
+            records=records_with_date,
+            field_name='date_without_time',
+        )
+        for rec in self:
+            week_number = data.get(rec.id)
+            if not week_number:
+                rec.week_number = False
             else:
-                weekA_date = fields.Date.from_string(
-                    self.env.ref('coop_shift.config_parameter_weekA').value)
-                start_date = fields.Date.from_string(shift.date_without_time)
-                shift.week_number =\
-                    1 + (((start_date - weekA_date).days // 7) % 4)
+                rec.week_number = week_number
+
+    @api.multi
+    @api.depends('week_number')
+    def _compute_week_name(self):
+        for shift in self:
+            if shift.week_number:
+                shift.week_name = shift.shift_template_id._number_to_letters(
+                    shift.week_number)
+            else:
+                shift.week_name = False
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
@@ -232,12 +231,19 @@ class ShiftShift(models.Model):
             shift.seats_expected = shift.seats_unconfirmed +\
                 shift.seats_reserved + shift.seats_used
 
+    @api.model
+    def _done_writable_fields(self):
+        """ List of fields that can be written on if confirmed """
+        return [
+            'state_in_holiday', 'single_holiday_id', 'long_holiday_id',
+            'week_number', 'week_name',
+        ]
+
     @api.multi
     def write(self, vals):
         special = self._context.get('special', False)
         if any(shift.state == "done" for shift in self):
-            ignore_fields = ['state_in_holiday',
-                             'single_holiday_id', 'long_holiday_id']
+            ignore_fields = self._done_writable_fields()
             for field in vals.keys():
                 if field in ignore_fields:
                     break
@@ -253,10 +259,10 @@ class ShiftShift(models.Model):
                             lambda t: t.shift_type == 'ftop')
                         standard_ticket = template.shift_ticket_ids.filtered(
                             lambda t: t.shift_type == 'standard')
-                        ftop_seats_max = ftop_ticket and\
-                            ftop_ticket[0].seats_max or False
-                        standard_seats_max = standard_ticket and\
-                            standard_ticket[0].seats_max or False
+                        ftop_seats_max = \
+                            ftop_ticket and ftop_ticket[0].seats_max
+                        standard_seats_max = \
+                            standard_ticket and standard_ticket[0].seats_max
                         for ticket in shift.shift_ticket_ids:
                             if ticket.shift_type == 'ftop':
                                 ticket.seats_max = ftop_seats_max
@@ -424,3 +430,24 @@ class ShiftShift(models.Model):
     @api.constrains('seats_max', 'seats_available')
     def _check_seats_limit(self):
         return True
+
+    @api.multi
+    def _recompute_week_number_async(self):
+        NUM_RECORDS_PER_JOB = 200
+        record_ids = self.ids
+        chunked = [
+            record_ids[i: i + NUM_RECORDS_PER_JOB]
+            for i in range(0, len(record_ids), NUM_RECORDS_PER_JOB)
+        ]
+        # Prepare session for job
+        session = ConnectorSession(self._cr, self._uid)
+        # Create jobs
+        for chunk in chunked:
+            _job_recompute_week_number_async.delay(session, chunk)
+        return True
+
+
+@job
+def _job_recompute_week_number_async(session, record_ids):
+    records = session.env['shift.shift'].browse(record_ids)
+    records._compute_week_number()

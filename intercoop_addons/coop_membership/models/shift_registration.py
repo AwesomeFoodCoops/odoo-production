@@ -1,25 +1,4 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Purchase - Computed Purchase Order Module for Odoo
-#    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-#    @author Julien WESTE
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
 
 from openerp import api, models, fields, _
 from openerp.exceptions import UserError, ValidationError
@@ -56,11 +35,13 @@ class ShiftRegistration(models.Model):
     def create(self, vals):
         partner_id = vals.get('partner_id', False)
         partner = self.env['res.partner'].browse(partner_id)
-        if partner.is_unsubscribed and not self.env.context.get(
-                'creation_in_progress', False):
+        if (
+            partner.is_unsubscribed
+            and not self.env.context.get('creation_in_progress')
+        ):
             raise UserError(_(
-                """You can't register {} on a shift because """
-                """he isn't registered on a template""".format(partner.name)))
+                "You can't register %s on a shift because "
+                "he isn't registered on a template") % (partner.name))
         res = super(ShiftRegistration, self).create(vals)
         # Do not allow member with Up to date status register make up
         # in a ABCD shift on a ABCD tickets
@@ -87,15 +68,21 @@ class ShiftRegistration(models.Model):
             if date_reg:
                 date_reg = fields.Date.from_string(date_reg)
                 regs = partner.registration_ids.filtered(
-                    lambda r, d=date_reg:
-                    fields.Date.from_string(r.date_begin) == d and
-                    r.state != 'cancel' and r.shift_type == 'ftop')
-                if max_registrations_per_day and \
-                        len(regs) > max_registrations_per_day:
+                    lambda r, d=date_reg: (
+                        fields.Date.from_string(r.date_begin) == d
+                        and r.state != 'cancel'
+                        and r.shift_type == 'ftop'
+                        and not r.is_related_shift_ftop
+                    ))
+                if (
+                    max_registrations_per_day
+                    and len(regs) > max_registrations_per_day
+                ):
                     raise ValidationError(_(
-                        """This member already has %s registrations """
-                        """in the same day. You can't program more.""") %
-                                    (len(regs) -1))
+                        "The member %s already has %s registrations "
+                        "in the same day. You can't program more.") % (
+                            partner.name,
+                            len(regs) - 1))
                 # Check pass registration
                 self.check_registration_period(date_reg, partner)
                 limit = max_registration_per_period + 1
@@ -119,21 +106,26 @@ class ShiftRegistration(models.Model):
     @api.multi
     def check_registration_period(self, date_reg, partner):
         company_id = self.env.user.company_id
-        max_registration_per_period = company_id.max_registration_per_period
-        number_of_days_in_period = company_id.number_of_days_in_period
         check_begin_date = date_reg - timedelta(
-            days=number_of_days_in_period - 1)
+            days=company_id.number_of_days_in_period - 1)
         regs = partner.registration_ids.filtered(
-            lambda r, d1=check_begin_date, d2=date_reg:
-            fields.Date.from_string(r.date_begin) >= d1 and
-            fields.Date.from_string(r.date_begin) <= d2 and
-            r.state != 'cancel' and r.shift_type == 'ftop')
-        if max_registration_per_period and \
-                len(regs) > max_registration_per_period:
+            lambda r, d1=check_begin_date, d2=date_reg: (
+                fields.Date.from_string(r.date_begin) >= d1
+                and fields.Date.from_string(r.date_begin) <= d2
+                and r.state != 'cancel'
+                and r.shift_type == 'ftop'
+                and not r.is_related_shift_ftop
+            ))
+        if (
+            company_id.max_registration_per_period
+            and len(regs) > company_id.max_registration_per_period
+        ):
             raise ValidationError(_(
-                """This member already has %s registrations in the """
-                """preceding %s days. You can't program more.""") % (
-                                      len(regs) - 1, number_of_days_in_period))
+                "The member %s already has %s registrations in the "
+                "preceding %s days. You can't program more.") % (
+                    partner.name,
+                    len(regs) - 1,
+                    company_id.number_of_days_in_period))
 
     @api.multi
     def action_create_extension(self):
@@ -378,8 +370,8 @@ class ShiftRegistration(models.Model):
             Plus 2 in holiday type 0 make up and shift closed state
             with shift type standard and attendees was absent
             Plus 1 in holiday type 1 make up and shift open state
-            for (shift type standard and attendees were exscued) or (shift 
-            type volant and attendees were absent or excused) 
+            for (shift type standard and attendees were exscued) or (shift
+            type volant and attendees were absent or excused)
         '''
         self.ensure_one()
         point_counter_env = self.env['shift.counter.event']

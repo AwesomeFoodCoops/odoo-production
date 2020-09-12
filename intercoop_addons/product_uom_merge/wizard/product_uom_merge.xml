@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_product_uom_merge_form" model="ir.ui.view">
+            <field name="model">product.uom.merge</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <separator string="Merge the following units of measure"/>
+                        <group col="1">
+                            <p class="oe_grey">
+                                Selected unit of measure will be merged together.
+                                All documents and moves linked to one of these uoms
+                                will be redirected to the destination unit of measure.
+                                You can remove uoms from this list to avoid merging them.
+                            </p>
+                            <group col="2">
+                                <field name="target_uom_id" domain="[('id', 'in', uom_ids and uom_ids[0] and uom_ids[0][2] or False)]"/>
+                            </group>
+                            <field name="uom_ids" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="merge" type="object" string="Merge" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Actions -->
+        <record model="ir.actions.act_window" id="action_product_uom_merge">
+            <field name="name">Merge UoMs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.uom.merge</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="groups_id" eval="[(4, ref('base.group_system'))]"/>
+        </record>
+
+        <record id="action_product_uom_merge_multi" model="ir.values">
+            <field name="model_id" ref="product.model_product_uom"/>
+            <field name="name">Merge UoMs</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' +str(ref('action_product_uom_merge'))" />
+            <field name="key">action</field>
+            <field name="model">product.uom</field>
+        </record>
+
+    </data>
+</openerp>

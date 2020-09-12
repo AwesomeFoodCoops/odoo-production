@@ -335,7 +335,7 @@
                                             <span t-attf-id="time-{{shift.id}}" t-esc="(date_begin and date_begin[0] or '') + ' '" />
                                             <span t-esc="date_begin and date_begin[1] or ''" />
                                         </td>
-                                        <td t-attf-id="week-{{shift.id}}"><t t-esc="shift.week_number and dict(shift.fields_get(['week_number'])['week_number']['selection'])[shift.week_number] or ''"/></td>
+                                        <td t-attf-id="week-{{shift.id}}"><t t-esc="shift.week_name or ''"/></td>
                                         <td t-attf-id="hour-{{shift.id}}"><t t-esc="date_begin and date_begin[1] or ''" /></td>
                                         <td><span t-attf-id="avalable-seats-{{shift.id}}" t-esc="seats_avail" /></td>
                                         <td><a><span class="fa fa-user-plus" data-toggle="modal" data-target="#programmer_modal" t-attf-id="btn-add-{{shift.id}}" t-att-data-shift-id="shift.id" /></a></td>

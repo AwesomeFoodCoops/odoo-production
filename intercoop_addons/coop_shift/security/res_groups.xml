@@ -76,6 +76,8 @@
 
     <record id="group_recurrency" model="res.groups">
         <field name="name">Handle Recurrency</field>
+        <field name="category_id" ref="coop_shift.module_category_shift_management"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
     <record id="group_shift_see_default_setting_address" model="res.groups">
         <field name="name">Setting Default Address For Shift</field>

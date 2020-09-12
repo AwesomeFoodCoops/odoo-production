@@ -31,7 +31,6 @@ class Website(openerp.addons.website.controllers.main.Website):
 
         # Get next shift
         shift_registration_env = request.env['shift.registration']
-        today = date.today()
         shift_registration = shift_registration_env.sudo().search([
             ('shift_id.shift_template_id.is_technical', '=', False),
             ('partner_id', '=', user.partner_id.id),
@@ -54,14 +53,13 @@ class Website(openerp.addons.website.controllers.main.Website):
                 shift_registration.date_begin, "%Y-%m-%d %H:%M:%S")).astimezone(
                 local), "%A, %d %B %Hh%M") or False
 
-        weekA_date = fields.Date.from_string(
-            request.env.ref('coop_shift.config_parameter_weekA').value)
-        week_number = 1 + (((today - weekA_date).days // 7) % 4)
-        week_number_chr = chr(week_number + 64)
-
+        today = date.today()
+        week_number = env['shift.template']._get_week_number(date.today())
+        week_name = env['shift.template']._number_to_letters(week_number)
         values = {
             'date_begin': date_begin and date_begin.capitalize() or False,
-            'week_number': week_number_chr,
+            'week_number': week_number,
+            'week_name': week_name,
             'num_of_members': len(members),
             'member_status': member_status
         }

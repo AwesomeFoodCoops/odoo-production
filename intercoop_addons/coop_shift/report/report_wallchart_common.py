@@ -1,44 +1,26 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Purchase - Computed Purchase Order Module for Odoo
-#    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
-#    @author Julien WESTE
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
 from openerp import api, models, fields, _
-from datetime import date
+import datetime
 
 rounding_limit = 0.00000000001
-WEEK_LETTER = ['A', 'B', 'C', 'D']
 
 
 class ReportWallchartCommon(models.AbstractModel):
     _name = 'report.coop_shift.report_wallchart_common'
 
     @api.model
-    def _get_week_number(self, test_date):
-        if not test_date:
-            return False
-        weekA_date = fields.Date.from_string(
-            self.env.ref('coop_shift.config_parameter_weekA').value)
-        week_number = 1 + (((test_date - weekA_date).days // 7) % 4)
-        return (week_number, WEEK_LETTER[week_number - 1])
+    def _get_number_weeks_per_cycle(self):
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        return int(get_param('coop_shift.number_of_weeks_per_cycle'))
+
+    @api.model
+    def _get_week_number(self, date):
+        week_number = self.env['shift.template']._get_week_number(date)
+        week_name = (
+            week_number
+            and self.env['shift.template']._number_to_letters(week_number)
+        )
+        return (week_number, week_name)
 
     @api.model
     def format_float_time(self, time):
@@ -56,15 +38,14 @@ class ReportWallchartCommon(models.AbstractModel):
     def prerender_html(self, data):
         self.model = self.env.context.get('active_model')
         docs = self.env[self.model].browse(self.env.context.get('active_id'))
-
         docargs = {
+            '_': _,
             'doc_ids': self.ids,
             'partner_id': self.env.user.partner_id,
             'doc_model': self.model,
             'data': data['form'],
             'docs': docs,
-            'date': date,
-            '_': _,
+            'date': datetime.date,
         }
         return docargs
 

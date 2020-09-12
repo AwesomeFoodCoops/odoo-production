@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from . import shift_mail
 from . import shift_template_mail
 from . import shift_registration
@@ -19,6 +17,6 @@ from . import shift_leave
 from . import shift_leave_type
 from . import shift_leave_wizard
 from . import shift_counter_event
-
+from . import res_config_settings
 from . import date_tools
 from . import ir_ui_menu

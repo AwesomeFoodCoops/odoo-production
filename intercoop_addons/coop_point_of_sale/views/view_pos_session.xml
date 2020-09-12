@@ -9,7 +9,7 @@
             <field name="user_id" position="after">
                 <field name="cycle"/>
                 <field name="week_day"/>
-                <field name="week_number"/>
+                <field name="week_name"/>
             </field>
         </field>
     </record>

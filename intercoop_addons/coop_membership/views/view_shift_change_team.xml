@@ -4,14 +4,33 @@
 	<record id="view_shift_change_team_tree" model="ir.ui.view">
         <field name="model">shift.change.team</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-info="state == 'draft'" decoration-danger="has_delayed_execution_errors == True">
                 <field name="partner_id" />
                 <field name="current_shift_template_id"/>
                 <field name="next_current_shift_date" />
                 <field name="new_shift_template_id" />
                 <field name="new_next_shift_date" />
                 <field name="is_abcd_to_abcd" invisible="1"/>
+                <field name="has_delayed_execution_errors" invisible="1"/>
+                <field name="state"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="view_shift_change_team_search" model="ir.ui.view">
+        <field name="model">shift.change.team</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="new_next_shift_date"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+                <separator/>
+                <filter name="pending" string="Pending" domain="[('state', '=', 'draft')]"/>
+                <filter name="done"    string="Done"    domain="[('state', '=', 'closed')]"/>
+                <separator/>
+                <filter name="delayed_errors" string="Errors" domain="[('has_delayed_execution_errors', '=', True)]"/>
+            </search>
         </field>
     </record>
 
@@ -24,7 +43,7 @@
                     <button string="SAVE AND NEW" name="button_save_new" class="oe_highlight" type="object" attrs="{'invisible': [('state', '=', 'closed')]}" invisible="context.get('not_show_button_next_member',False)"/>
                     <button string="SAVE AND CLOSE" name="button_save_close" class="oe_highlight" type="object" attrs="{'invisible': [('state', '=', 'closed')]}"/>
                     <button string="NEXT MEMBER" name="button_next_member" class="oe_highlight" type="object" attrs="{'invisible': ['|',('state', '=', 'closed'),'|',('partner_id', '=', False), '|',('new_shift_template_id', '=', False), ('new_next_shift_date', '=', False)]}" invisible="context.get('not_show_button_next_member',False)"/>
-                    <field name="state" widget="statusbar" nolabel="1" readonly="1"/> 
+                    <field name="state" widget="statusbar" nolabel="1" readonly="1"/>
                 </header>
                 <sheet>
                     <group>
@@ -41,6 +60,15 @@
                             <field name="is_abcd_to_abcd" invisible="1"/>
                             <field name="is_catch_up" attrs="{'invisible': ['|', ('partner_state', '=', 'usubscribed'), ('is_abcd_to_abcd', '=', False)], 'readonly' : [('state', '=', 'closed')]}"/>
                         </group>
+                        <group>
+                            <field name="send_mail" attrs="{'readonly' : [('state', '=', 'closed')]}"/>
+                            <field name="mail_template_id" attrs="{'invisible': [('send_mail', '=', False)], 'readonly' : [('state', '=', 'closed')]}"/>
+                        </group>
+                        <group>
+                            <field name="shift_template_operation_id"
+                                   groups="coop_membership.group_shift_template_operations"
+                                   attrs="{'invisible': [('shift_template_operation_id', '=', False)]}"/>
+                        </group>
                     </group>
                     <group>
                         <field name="is_full_seats_mess" invisible="True"/>
@@ -55,14 +83,94 @@
                         </p>
                     </group>
                 </sheet>
-                <!-- <div class="oe_chatter">
-                    <field name="message_follower_ids"
-                           widget="mail_followers"/>
-                    <field name="message_ids" widget="mail_thread"
-                           options="{&quot;thread_level&quot;: 1}"/>
-                </div> -->
+                <!--
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread" options="{&quot;thread_level&quot;: 1}"/>
+                </div>
+                -->
             </form>
         </field>
+    </record>
+
+    <!-- Actions -->
+
+    <record id="action_shift_change_team_confirm" model="ir.actions.server">
+        <field name="name">Validate</field>
+        <field name="model_id" ref="model_shift_change_team"/>
+        <field name="state">code</field>
+        <field name="code">
+            if context.get('active_ids'):
+                ctx = dict(context)
+                ctx.update(delay_email=True)
+                self.button_close(cr, uid, context.get('active_ids'), context=ctx)
+        </field>
+    </record>
+
+    <record id="action_shift_change_team_confirm_delayed" model="ir.actions.server">
+        <field name="name">Validate (asynchronously)</field>
+        <field name="model_id" ref="model_shift_change_team"/>
+        <field name="state">code</field>
+        <field name="code">
+            if context.get('active_ids'):
+                self.close_delayed(cr, uid, context.get('active_ids'), context=context)
+        </field>
+    </record>
+
+    <record id="action_shift_change_team_confirm_warning_date" model="ir.actions.server">
+        <field name="name">Confirm date related warnings</field>
+        <field name="model_id" ref="model_shift_change_team"/>
+        <field name="state">code</field>
+        <field name="code">
+            if context.get('active_ids'):
+                self.btn_change_team_process(cr, uid, context.get('active_ids'), context=context)
+        </field>
+    </record>
+
+    <record id="action_shift_change_team_confirm_warning_full_seats" model="ir.actions.server">
+        <field name="name">Confirm seats related warnings</field>
+        <field name="model_id" ref="model_shift_change_team"/>
+        <field name="state">code</field>
+        <field name="code">
+            if context.get('active_ids'):
+                self.btn_full_seats_process(cr, uid, context.get('active_ids'), context=context)
+        </field>
+    </record>
+
+    <record id="ir_value_shift_change_team_confirm" model="ir.values">
+        <field name="name">Validate</field>
+        <field name="model_id" ref="model_shift_change_team"/>
+        <field name="model">shift.change.team</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value" eval="'ir.actions.server,%d' % ref('action_shift_change_team_confirm')"/>
+    </record>
+
+    <record id="ir_value_shift_change_team_confirm_delayed" model="ir.values">
+        <field name="name">Validate (asynchronously)</field>
+        <field name="model_id" ref="model_shift_change_team"/>
+        <field name="model">shift.change.team</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value" eval="'ir.actions.server,%d' % ref('action_shift_change_team_confirm_delayed')"/>
+    </record>
+
+    <record id="ir_value_shift_change_team_confirm_warning_date" model="ir.values">
+        <field name="name">Confirm date related warnings</field>
+        <field name="model_id" ref="model_shift_change_team"/>
+        <field name="model">shift.change.team</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value" eval="'ir.actions.server,%d' % ref('action_shift_change_team_confirm_warning_date')"/>
+    </record>
+
+    <record id="ir_value_shift_change_team_confirm_warning_full_seats" model="ir.values">
+        <field name="name">Confirm seats related warnings</field>
+        <field name="model_id" ref="model_shift_change_team"/>
+        <field name="model">shift.change.team</field>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value" eval="'ir.actions.server,%d' % ref('action_shift_change_team_confirm_warning_full_seats')"/>
     </record>
 
 </odoo>

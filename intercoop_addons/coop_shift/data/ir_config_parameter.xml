@@ -11,4 +11,15 @@
             <field name="value">28</field>
         </record>
 
+        <!-- Here we store the date of a Monday of WeekA -->
+        <record id="config_parameter_weekA" model="ir.config_parameter">
+            <field name="key">coop_shift.week_a_date</field>
+            <field name="value">2015-12-28</field>
+        </record>
+
+        <record id="config_parameter_nweeks_cycle" model="ir.config_parameter">
+            <field name="key">coop_shift.number_of_weeks_per_cycle</field>
+            <field name="value">4</field>
+        </record>
+
 </odoo>
