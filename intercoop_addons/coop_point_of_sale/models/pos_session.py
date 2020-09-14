@@ -52,7 +52,7 @@ class PosSession(models.Model):
             records=self, field_name='start_at')
         for rec in self:
             if not rec.start_at:
-                rec.write({
+                rec.update({
                     'week_number': False,
                     'week_name': False,
                     'week_day': False,
@@ -68,7 +68,7 @@ class PosSession(models.Model):
                         fields.Date.from_string(rec.start_at).weekday()
                     )
                 )
-                rec.write({
+                rec.update({
                     'week_number': week_number,
                     'week_name': week_name,
                     'week_day': week_day,
