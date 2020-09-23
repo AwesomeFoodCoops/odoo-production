@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.com/druidoo/FoodCoops.svg?branch=12.0)](https://travis-ci.com/druidoo/FoodCoops)
-[![codecov](https://codecov.io/gh/druidoo/FoodCoops/branch/12.0/graph/badge.svg)](https://codecov.io/gh/druidoo/FoodCoops)
-[![weblate](https://translate.druidoo.io/widgets/foodcoops-12-0/-/svg-badge.svg)](https://translate.druidoo.io/projects/foodcoops-12-0)
+[![Build Status](https://travis-ci.com/AwesomeFoodCoops/odoo-production.svg?branch=12.0)](https://travis-ci.com/AwesomeFoodCoops/odoo-production)
+[![codecov](https://codecov.io/gh/AwesomeFoodCoops/odoo-production/branch/12.0/graph/badge.svg)](https://codecov.io/gh/AwesomeFoodCoops/odoo-production)
 
 FoodCoops
 =========
