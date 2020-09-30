@@ -54,8 +54,8 @@ class Website(openerp.addons.website.controllers.main.Website):
                 local), "%A, %d %B %Hh%M") or False
 
         today = date.today()
-        week_number = env['shift.template']._get_week_number(date.today())
-        week_name = env['shift.template']._number_to_letters(week_number)
+        week_number = request.env['shift.template']._get_week_number(date.today())
+        week_name = request.env['shift.template']._number_to_letters(week_number)
         values = {
             'date_begin': date_begin and date_begin.capitalize() or False,
             'week_number': week_number,
