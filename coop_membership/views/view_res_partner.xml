@@ -748,9 +748,11 @@
             <field name="category_id" position="attributes">
                 <attribute name="readonly">True</attribute>
             </field>
+            <!-- is_blocked is only existed in coop_shift.view_res_partner_shift_form
             <field name="is_blocked" position="attributes">
                 <attribute name="readonly">1</attribute>
             </field>
+            -->
         </field>
     </record>
 
