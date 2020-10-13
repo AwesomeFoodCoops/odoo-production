@@ -84,15 +84,21 @@
                   <group colspan="4" col="6">
                      <table style="width:100%;margin:1">
                         <!-- Table css -->
-                        <style type="text/css">.coeff_th_td {border: none; height:30px;}
-                    .coeff_th_td_price {border: none; height:30px;background-color:#DDFFFF;border-right:10px solid white;}
-                    .coeff_price {padding : 0 60px 0 0;}</style>
+                        <style type="text/css">
+                        .coeff_th_td {border: none; height:30px;}
+                        .coeff_th_td_price {border: none; height:30px;background-color:#DDFFFF;border-right:10px solid white;}
+                        .coeff_price {padding : 0 60px 0 0;}
+                        .coeff_title {border: none; height:30px;font-size:20px;color:#7C7BAD;padding:0 0 10px 0;}
+                        .coeff_theorical_price {border-right:10px solid white;}
+                        </style>
+                      
+
                         <tr>
-                           <th class="coeff_th_td">Coefficients</th>
+                           <th class="coeff_title">Coefficients</th>
                            <th class="coeff_th_td" />
-                           <th class="coeff_th_td">Sale Price</th>
-                           <th class="coeff_th_td">Incl. in S. Price</th>
-                           <th class="coeff_th_td">Standard Price</th>
+                           <th class="coeff_title">Sale Price</th>
+                           <th class="coeff_title">Incl. in S. Price</th>
+                           <th class="coeff_title">Standard Price</th>
                         </tr>
                         <tr>
                            <td class="coeff_th_td">Coefficient 1</td>
@@ -232,11 +238,21 @@
                      </table>
                   </group>
                   <group col="4">
-                     <group>
-                        <field name="theoritical_price" style="background-color: #D0EED0" />
-                        <field name="has_theoritical_price_different" />
-                        <field name="has_theoritical_cost_different" />
-                     </group>
+                  <table style="width:100%;">
+                        <tr>
+                            <th class="coeff_theorical_price">Theoritical Price VAT Incl. </th>
+                            <td><field name="theoritical_price" style="background-color: #D0EED0; width:200px;" /></td>
+                        </tr>
+                        <tr>
+                            <th class="coeff_theorical_price">Has Theoritical Price Different</th>
+                            <td><field name="has_theoritical_price_different"/></td>
+                        </tr>
+                        <tr>
+                            <th class="coeff_theorical_price">Has Theoritical Cost Different</th>
+                            <td><field name="has_theoritical_cost_different"/></td>
+                        </tr>
+    
+                    </table>
                      <group />
                   </group>
                </group>
