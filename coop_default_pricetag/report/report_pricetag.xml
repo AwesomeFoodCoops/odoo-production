@@ -8,7 +8,8 @@
                 href="/coop_default_pricetag/static/src/scss/report_coop_pricetag.scss" />
         </xpath>
     </template>
-
+<data noupdate="1">
+    <!-- S#24716-->
     <template id="report_pricetag">
         <t t-call="web.basic_layout">
             <div class="page">
@@ -81,7 +82,7 @@
             </div>
         </t>
     </template>
-
+</data>
     <template id="report_pricetag_barcode">
         <t t-call="web.basic_layout">
             <div class="page">
