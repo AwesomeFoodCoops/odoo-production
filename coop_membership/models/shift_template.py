@@ -11,21 +11,39 @@ class ShiftTemplate(models.Model):
     _inherit = 'shift.template'
 
     user_ids = fields.Many2many(
-        domain=[('is_worker_member', '=', True)])
-
+        domain=[('is_worker_member', '=', True)],
+    )
     warning_leader_unsubscribed = fields.Html(
         compute="_compute_warning_leader_unsubscribed",
         string="Warning unsubscribed leader",
         store=True,
     )
+    current_registration_ids = fields.Many2many(
+        "shift.template.registration",
+        compute="_compute_current_registration_ids",
+    )
     registration_qty = fields.Integer(
-        string='Number of Attendees', compute='_compute_registration_qty',
-        store=True
+        string='Number of Attendees',
+        compute='_compute_registration_qty',
     )
     required_skill_ids = fields.Many2many(
         'hr.skill',
         string="Required Skills",
         domain=[('child_ids', '=', False)],
+    )
+    original_shift_template_id = fields.Many2one(
+        "shift.template",
+        string="Original Template",
+        help="The template from which this template was created, using "
+             "the Shift Template Evacuate Wizard.\n\n"
+             "It's used to execute the 'move back' strategy",
+        ondelete="set null",
+    )
+    shift_template_operation_id = fields.Many2one(
+        "shift.template.operation",
+        string="Template Operation",
+        readonly=True,
+        ondelete="set null",
     )
 
     # This field help to re-add member as a leader after his/her leave
@@ -39,14 +57,16 @@ class ShiftTemplate(models.Model):
 
     @api.multi
     @api.depends('registration_ids')
+    def _compute_current_registration_ids(self):
+        for rec in self:
+            rec.current_registration_ids = \
+                rec.registration_ids.filtered('is_current_participant')
+
+    @api.multi
+    @api.depends('current_registration_ids')
     def _compute_registration_qty(self):
-        for template in self:
-            current_regs = template.env['shift.template.registration'] \
-                .with_context(active_id=template.id).search([
-                    ('shift_template_id', '=', template.id),
-                    ('is_current_participant', '=', True),
-                ])
-            template.registration_qty = len(current_regs)
+        for rec in self:
+            rec.registration_qty = len(rec.current_registration_ids)
 
     @api.multi
     @api.depends('user_ids', 'user_ids.is_unsubscribed')

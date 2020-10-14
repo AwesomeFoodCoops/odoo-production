@@ -58,7 +58,7 @@
                                 <div style="border: 1px solid #b2b7bb;padding: 10px;min-height: 115px;">
                                     <div class="row">
                                         <div class="col-md-4 col-xs-6" style="text-align: center">
-                                            <span style="font-size: 3em;font-weight: 600;" t-esc="week_number"/>
+                                            <span style="font-size: 3em;font-weight: 600;" t-esc="week_name"/>
                                         </div>
                                         <div class="col-md-4 col-xs-6">
                                         </div>

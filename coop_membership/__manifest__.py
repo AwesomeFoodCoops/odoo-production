@@ -74,6 +74,7 @@
         'views/view_shift_template.xml',
         'views/view_mass_mailling.xml',
         'views/view_shift_credit_config.xml',
+        'views/shift_template_operation.xml',
         'views/action.xml',
         'views/menu.xml',
         'report/member_contract.xml',

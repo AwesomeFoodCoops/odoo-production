@@ -7,7 +7,7 @@
 
 {
     'name': 'Coop Shift',
-    'version': '12.0.2.0.0',
+    'version': '12.0.3.0.0',
     'category': 'Tools',
     'author': 'Julien WESTE, Sylvain LE GAL, Cyril Gaspard, La Louve, Druidoo',
     'website': 'http://www.lalouve.net',
@@ -55,7 +55,6 @@
         'wizard/add_template_registration_view.xml',
         'wizard/replace_registration_view.xml',
         'wizard/view_shift_leave_wizard.xml',
-        'wizard/create_shifts_wizard_view2.xml',
         'wizard/report_timesheet_wizard_view.xml',
         'wizard/report_wallchart_wizard_view.xml',
     ],

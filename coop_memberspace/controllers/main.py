@@ -1,21 +1,19 @@
 import locale
-import logging
 import pytz
 import werkzeug
 from datetime import date, datetime, timedelta
-
-import odoo
-from odoo import http, fields, _
+from odoo import http, _
 from odoo.http import request
+from odoo.addons.website.controllers.main import Website as WebsiteController
 
+import logging
 _logger = logging.getLogger(__name__)
 
 
-class Website(odoo.addons.website.controllers.main.Website):
+class Website(WebsiteController):
     @http.route("/", type="http", auth="public", website=True)
     def index(self, **kw):
         user = request.env.user
-
         # Get members
         members = (
             request.env["res.partner"]
@@ -36,13 +34,10 @@ class Website(odoo.addons.website.controllers.main.Website):
                 ]
             )
         )
-
         # Get member status
         member_status = user.partner_id.get_warning_member_state()
-
         # Get next shift
         shift_registration_env = request.env["shift.registration"]
-        today = date.today()
         shift_registration = shift_registration_env.sudo().search(
             [
                 ("shift_id.shift_template_id.is_technical", "=", False),
@@ -64,7 +59,6 @@ class Website(odoo.addons.website.controllers.main.Website):
             locale.setlocale(locale.LC_TIME, lang)
         except Exception as e:
             _logger.debug("Can't set locale: %s", e)
-
         user_tz = user.tz or "Europe/Paris"
         local = pytz.timezone(user_tz)
         date_begin = (
@@ -75,16 +69,12 @@ class Website(odoo.addons.website.controllers.main.Website):
             )
             or False
         )
-
-        weekA_date = fields.Date.from_string(
-            request.env.ref("coop_shift.config_parameter_weekA").sudo().value
-        )
-        week_number = 1 + (((today - weekA_date).days // 7) % 4)
-        week_number_chr = chr(week_number + 64)
-
+        week_number = request.env['shift.template']._get_week_number(date.today())
+        week_name = request.env['shift.template']._number_to_letters(week_number)
         values = {
             "date_begin": date_begin and date_begin.capitalize() or False,
-            "week_number": week_number_chr,
+            'week_number': week_number,
+            'week_name': week_name,
             "num_of_members": len(members),
             "member_status": member_status,
         }
@@ -92,7 +82,7 @@ class Website(odoo.addons.website.controllers.main.Website):
 
     @http.route(website=True, auth="public")
     def web_login(self, redirect=None, *args, **kw):
-        r = super(Website, self).web_login(redirect=redirect, *args, **kw)
+        r = super().web_login(redirect=redirect, *args, **kw)
         if not redirect and request.params["login_success"]:
             redirect = "/"
             return http.redirect_with_hash(redirect)

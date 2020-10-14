@@ -91,6 +91,7 @@ class ResUsers(models.Model):
                     {
                         "id": shift.id,
                         "week_number": shift.week_number,
+                        'week_name': shift.week_name,
                         "seats_avail": seats_avail,
                         "date_begin": user.get_time_by_user_lang(
                             shift.date_begin,

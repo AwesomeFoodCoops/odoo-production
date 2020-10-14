@@ -41,7 +41,8 @@
             <field name="arch" type="xml">
                 <tree string="Templates">
                     <field name="name"/>
-                    <field name="week_number"/>
+                    <field name="week_number" invisible="1"/>
+                    <field name="week_name"/>
                     <field name="week_list" invisible="1"/>
                     <field name="user_ids"/>
                     <field name="start_datetime"/>
@@ -60,15 +61,15 @@
             <field name="model">shift.template</field>
             <field name="arch" type="xml">
                 <search string="Templates">
-                    <field name="name" string="Template" filter_domain="[('name','ilike', self)]"/>
-                    <field name="week_number" filter_domain="[('week_number','ilike', self)]"/>
-                    <field name="shift_type_id" filter_domain="[('shift_type_id','ilike', self)]"/>
-                    <field name="user_ids" filter_domain="[('user_ids','ilike', self)]"/>
+                    <field name="name" string="Template"/>
+                    <field name="week_name"/>
+                    <field name="shift_type_id"/>
+                    <field name="user_ids"/>
                     <separator/>
                     <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
                     <group string="Group By">
                         <filter name="group_by_shift_type_id" string="Shift Type" context="{'group_by':'shift_type_id'}"/>
-                        <filter name="group_by_week_number" string="Week" context="{'group_by':'week_number'}"/>
+                        <filter name="group_by_week_name" string="Week" context="{'group_by':'week_name'}"/>
                     </group>
                 </search>
             </field>
@@ -126,7 +127,7 @@
                             </group>
                             <group name="other">
                                 <field name="user_ids" options="{'no_create': True}" widget="many2many_tags" domain="[('is_member', '=', True),('is_unsubscribed', '=', False)]" context="{'member_unsubscribed': True}"/>
-                                <field name="week_number"/>
+                                <field name="week_name"/>
                                 <field name="shift_type_id" options="{'no_create': True}" groups="coop_shift.group_shift_config"/>
                             </group>
                         </group>

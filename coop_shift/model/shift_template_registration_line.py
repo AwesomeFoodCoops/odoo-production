@@ -74,8 +74,12 @@ class ShiftTemplateRegistrationLine(models.Model):
                 and (not line.date_end or line.date_end >= self.date_begin)
             ):
                 raise ValidationError(_(
-                    "You can't register this line because it would " +
-                    "create an overlap with another line for this member"))
+                    "You can't register this line because it would "
+                    "create an overlap with another line for this member.\n\n"
+                    "Line: %s - %s\n"
+                    "Overlap: %s - %s") % (
+                        self.date_begin, self.date_end,
+                        line.date_begin, line.date_end))
 
     @api.multi
     def _compute_current(self):
@@ -184,7 +188,9 @@ class ShiftTemplateRegistrationLine(models.Model):
                     "You cannot make changes on this template registration. "
                     "Please make your changes directly on the leave recorded "
                     "for this period. You will need to cancel it then set to "
-                    "draft before you can make required changes."))
+                    "draft before you can make required changes.\n\n"
+                    "Registration: (ID: %s) - %s") % (
+                        line, line.partner_id.name))
 
             sr_obj = self.env['shift.registration']
             st_reg = line.registration_id

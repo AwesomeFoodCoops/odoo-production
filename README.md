@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/AwesomeFoodCoops/odoo-production.svg?branch=12.0)](https://travis-ci.com/AwesomeFoodCoops/odoo-production)
-[![codecov](https://codecov.io/gh/AwesomeFoodCoops/odoo-production/branch/12.0/graph/badge.svg)](https://codecov.io/gh/AwesomeFoodCoops/odoo-production)
+[![codecov](https://codecov.io/gh/AwesomeFoodCoops/odoo-production/branch/12.0/graph/badge.svg)](https://codecov.io/gh/AwesomeFoodCoops/odoo-production/branch/12.0)
 
 FoodCoops
 =========
