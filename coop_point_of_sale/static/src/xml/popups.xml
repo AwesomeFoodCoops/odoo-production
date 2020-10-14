@@ -5,7 +5,7 @@
         <div class="modal-dialog">
             <div class="popup popup-confirm">
                 <p class="title"><t t-esc=" widget.options.title || 'Confirm ?' " /></p>
-                <p><t t-esc="  widget.options.thanks_message || '' "/></p>
+                <span><t t-esc="  widget.options.thanks_message || '' "/></span>
                 <ul style="padding-left: 30%;">
                     <li style="list-style-type: disc;text-align: left;"><t t-esc="  widget.options.lemon || '' "/></li>
                     <li style="list-style-type: disc;text-align: left;"><t t-esc="  widget.options.la_date || '' "/></li>
