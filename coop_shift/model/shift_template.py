@@ -8,23 +8,18 @@ import re
 import unicodedata as udd
 from datetime import datetime, timedelta
 from ast import literal_eval
-
 import pytz
 from dateutil import rrule
 from dateutil.relativedelta import relativedelta
-from odoo import models, fields, api, tools, _
-from odoo.exceptions import UserError
-
-WEEK_NUMBERS = [
-    (1, 'A'),
-    (2, 'B'),
-    (3, 'C'),
-    (4, 'D')
-]
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError, ValidationError
+from odoo.addons.queue_job.job import job
 
 # this variable is used for shift creation. It tells until when we want to
 # create the shifts
 SHIFT_CREATION_DAYS = 90
+# Cache for numbers to letters conversion
+NUMBER_TO_LETTERS_CACHE = dict()
 
 
 class ShiftTemplate(models.Model):
@@ -39,7 +34,7 @@ class ShiftTemplate(models.Model):
     shift_ids = fields.One2many(
         'shift.shift', 'shift_template_id', string='Shifts', readonly=True)
     shift_qty = fields.Integer(
-        string='Number of shifts', compute='_compute_shift_qty', store=True)
+        string='Number of shifts', compute='_compute_shift_qty')
     user_id = fields.Many2one(
         'res.partner', string='Shift Leader')
     user_ids = fields.Many2many(
@@ -52,9 +47,15 @@ class ShiftTemplate(models.Model):
     shift_type_id = fields.Many2one(
         'shift.type', string='Category', required=True,
         default=lambda self: self._default_shift_type())
-    week_number = fields.Selection(
-        WEEK_NUMBERS, string='Week', compute="_compute_week_number",
-        store=True)
+    week_number = fields.Integer(
+        compute="_compute_week_number",
+        store=True,
+    )
+    week_name = fields.Char(
+        string="Week",
+        compute="_compute_week_name",
+        store=True,
+    )
     color = fields.Integer('Kanban Color Index')
     shift_mail_ids = fields.One2many(
         'shift.template.mail', 'shift_template_id', string='Mail Schedule',
@@ -90,8 +91,9 @@ class ShiftTemplate(models.Model):
     registration_ids = fields.One2many(
         'shift.template.registration', 'shift_template_id', string='Attendees')
     registration_qty = fields.Integer(
-        string='Number of Attendees', compute='_compute_registration_qty',
-        store=True)
+        string='Number of Attendees',
+        compute='_compute_registration_qty',
+    )
     shift_ticket_ids = fields.One2many(
         'shift.template.ticket', 'shift_template_id', string='Shift Ticket',
         default=lambda rec: rec._default_tickets(), copy=True)
@@ -144,19 +146,37 @@ class ShiftTemplate(models.Model):
 
     # RECURRENCE FIELD
     rrule_type = fields.Selection([
-        ('daily', 'Day(s)'), ('weekly', 'Week(s)'), ('monthly', 'Month(s)'),
-        ('yearly', 'Year(s)')], 'Recurrency', default='weekly',
-        help="Let the shift automatically repeat at that interval")
+        ('daily', 'Day(s)'),
+        ('weekly', 'Week(s)'),
+        ('monthly', 'Month(s)'),
+        ('yearly', 'Year(s)'),
+        ],
+        string='Recurrency',
+        default='weekly',
+        help="Let the shift automatically repeat at that interval",
+    )
     recurrency = fields.Boolean(
-        'Recurrent', help="Recurrent Meeting", default=True)
+        'Recurrent',
+        help="Recurrent Meeting",
+        default=True,
+    )
     recurrent_id = fields.Integer('Recurrent ID')
     recurrent_id_date = fields.Datetime('Recurrent ID date')
     end_type = fields.Selection([
-        ('count', 'Number of repetitions'), ('end_date', 'End date'),
-        ('no_end', 'No end')], string='Recurrence Termination',
-        default='no_end',)
+        ('count', 'Number of repetitions'),
+        ('end_date', 'End date'),
+        ('no_end', 'No end'),
+        ],
+        string='Recurrence Termination',
+        default='no_end',
+    )
     interval = fields.Integer(
-        'Repeat Every', help="Repeat every (Days/Week/Month/Year)", default=4)
+        'Repeat Every',
+        help="Repeat every (Days/Week/Month/Year)",
+        default=lambda self:
+            int(self.env['ir.config_parameter'].sudo().get_param(
+                'coop_shift.number_of_weeks_per_cycle')),
+    )
     count = fields.Integer('Repeat', help="Repeat x times")
     mo = fields.Boolean('Mon', compute="_compute_week_day", store=True)
     tu = fields.Boolean('Tue', compute="_compute_week_day", store=True)
@@ -181,7 +201,7 @@ class ShiftTemplate(models.Model):
 
     is_technical = fields.Boolean(default=False)
     is_ftop = fields.Boolean(
-        compute='_compute_is_ftop',
+        related='shift_type_id.is_ftop',
         store=True
     )
 
@@ -212,13 +232,81 @@ class ShiftTemplate(models.Model):
                 if child.type == 'other' and child.default_addess_for_shifts:
                     return child
             return comp_id.partner_id
-    # Compute Section
 
-    @api.multi
-    @api.depends('shift_type_id')
-    def _compute_is_ftop(self):
-        for template in self:
-            template.is_ftop = template.shift_type_id.is_ftop
+    @api.model
+    def _get_week_number(self, date):
+        ''' Computes the date number for a given date '''
+        if not date:
+            return False
+        if isinstance(date, datetime):
+            date = date.date()
+        # Week numbers are based on configuration
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        weekA_date = fields.Date.from_string(
+            get_param('coop_shift.week_a_date'))
+        n_weeks_cycle = int(get_param('coop_shift.number_of_weeks_per_cycle'))
+        return 1 + (((date - weekA_date).days // 7) % n_weeks_cycle)
+
+    @api.model
+    def _get_week_number_multi(self, records, field_name):
+        '''
+        Computes the date number on multiple records using SQL
+        This is particularly usefull for computed fields
+        '''
+        # Week numbers are based on configuration
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        weekA_date = get_param('coop_shift.week_a_date')
+        n_weeks_cycle = int(get_param('coop_shift.number_of_weeks_per_cycle'))
+        # Performs SQL to compute the week_number
+        self.env.cr.execute("""
+            SELECT
+                id,
+                (   1 +
+                    MOD(
+                        DIV(
+                            ABS({field_name}::date - %s::date)::integer,
+                            7
+                        ),
+                        %s
+                    )
+                )::integer AS week_number
+            FROM {table}
+            WHERE id IN %s
+        """.format(
+            table=records._table,
+            field_name=field_name,
+        ), (weekA_date, n_weeks_cycle, tuple(records.ids)))
+        # Return computation
+        return dict(self.env.cr.fetchall())
+
+    @api.model
+    def _number_to_letters(self, num):
+        """
+        Convert a number into a letters (3 -> 'C')
+        Right shift the number by 26 to find letters in reverse
+        order. These numbers are 1-based, and can be converted to ASCII
+        ordinals by adding 64.
+        It uses NUMBER_TO_LETTERS_CACHE as cache
+        """
+        # Return from cache, if available
+        if NUMBER_TO_LETTERS_CACHE.get(num):
+            return NUMBER_TO_LETTERS_CACHE.get(num)
+        # these indicies corrospond to A -> ZZZ and include all allowed letters
+        if not 1 <= num <= 18278:
+            raise ValidationError(_(
+                "Can't convert %s to letters") % num)
+        letters = []
+        while num > 0:
+            num, remainder = divmod(num, 26)
+            # check for exact division and borrow if needed
+            if remainder == 0:
+                remainder = 26
+                num -= 1
+            letters.append(chr(remainder+64))
+        result = ''.join(reversed(letters))
+        # Add to cache
+        NUMBER_TO_LETTERS_CACHE[num] = result
+        return result
 
     @api.multi
     @api.depends('shift_ids')
@@ -264,19 +352,15 @@ class ShiftTemplate(models.Model):
 
     @api.multi
     @api.depends(
-        'shift_type_id', 'week_number', 'mo', 'tu', 'we', 'th', 'fr', 'sa',
-        'su', 'start_time', 'address_id', 'address_id.name')
+        'shift_type_id.prefix_name', 'week_name',
+        'mo', 'tu', 'we', 'th', 'fr', 'sa', 'su',
+        'start_time', 'address_id', 'address_id.name')
     def _compute_template_name(self):
         for template in self:
-            if template.shift_type_id == template.env.ref(
-                    'coop_shift.shift_type'):
-                name = ""
-            else:
-                prefix_name = template.shift_type_id and \
-                    template.shift_type_id.prefix_name or ''
-                name = prefix_name + ' - ' or ''
-            name += template.week_number and (
-                WEEK_NUMBERS[template.week_number - 1][1]) or ""
+            name = ""
+            if template.shift_type_id and template.shift_type_id.prefix_name:
+                name = "%s - %s" % (template.shift_type_id.prefix_name, name)
+            name += template.week_name or ""
             name += _("Mo") if template.mo else ""
             name += _("Tu") if template.tu else ""
             name += _("We") if template.we else ""
@@ -412,15 +496,24 @@ class ShiftTemplate(models.Model):
     @api.multi
     @api.depends('start_date')
     def _compute_week_number(self):
-        for template in self:
-            if not template.start_date:
-                template.week_number = False
+        data = self._get_week_number_multi(
+            records=self, field_name='start_date')
+        for rec in self:
+            week_number = data.get(rec.id)
+            if not week_number:
+                rec.week_number = False
             else:
-                weekA_date = fields.Date.from_string(
-                    self.env.ref('coop_shift.config_parameter_weekA').sudo().value)
-                start_date = fields.Date.from_string(template.start_date)
-                template.week_number =\
-                    1 + (((start_date - weekA_date).days // 7) % 4)
+                rec.week_number = week_number
+
+    @api.multi
+    @api.depends('week_number')
+    def _compute_week_name(self):
+        for template in self:
+            if template.week_number:
+                template.week_name = self._number_to_letters(
+                    template.week_number)
+            else:
+                template.week_name = False
 
     @api.multi
     @api.depends('shift_ids')
@@ -569,31 +662,26 @@ class ShiftTemplate(models.Model):
 
     @api.multi
     def act_template_shift_from_template(self):
-        action = self.env.ref('coop_shift.action_shift_view')
-        result = action.read()[0]
-        shift_ids = sum([template.shift_ids.ids for template in self], [])
-        # choose the view_mode accordingly
-        if len(shift_ids) > 1:
-            result['domain'] = "[('id','in',[" + ','.join(
-                map(str, shift_ids)) + "])]"
-        elif len(shift_ids) == 1:
-            res = self.env.ref('coop_shift.view_shift_form', False)
-            result['views'] = [(res and res.id or False, 'form')]
-            result['res_id'] = shift_ids and shift_ids[0] or False
-
-        context = {'search_default_upcoming': 1}
-        action_context = literal_eval(result['context'])
-        context = {**action_context, **context}
-        result['context'] = context
+        result = self.env.ref('coop_shift.action_shift_view').read()[0]
+        result['context'] = literal_eval(result['context'])
+        result['context'].update({'search_default_upcoming': 1})
+        result['domain'] = [('shift_template_id', 'in', self.ids)]
         return result
 
     @api.multi
     def create_shifts_from_template(self, after=False, before=False):
         if not before:
-            before = fields.Datetime.to_string(
-                datetime.today() + timedelta(days=SHIFT_CREATION_DAYS))
+            before = \
+                datetime.today() + timedelta(days=SHIFT_CREATION_DAYS)
         for template in self:
-            after = template.last_shift_date
+            after = max(
+                d for d in [
+                    after,
+                    template.last_shift_date,
+                    template.start_date,
+                ]
+                if d
+            )
             rec_dates = template.get_recurrent_dates(
                 after=after, before=before)
             for rec_date in rec_dates:
@@ -610,15 +698,14 @@ class ShiftTemplate(models.Model):
                 diff_month = end_date_object_tz.month -\
                     start_date_object_tz.month
                 diff_year = end_date_object_tz.year - start_date_object_tz.year
-                date_end = datetime.strftime(
-                    rec_date + timedelta(
-                        hours=(end_date_object_tz.hour)
-                    ) +
-                    timedelta(minutes=(end_date_object_tz.minute)) +
-                    relativedelta(days=diff_day) +
-                    relativedelta(months=diff_month) +
-                    relativedelta(years=diff_year),
-                    tools.DEFAULT_SERVER_DATETIME_FORMAT)
+                date_end = (
+                    rec_date
+                    + timedelta(hours=(end_date_object_tz.hour))
+                    + timedelta(minutes=(end_date_object_tz.minute))
+                    + relativedelta(days=diff_day)
+                    + relativedelta(months=diff_month)
+                    + relativedelta(years=diff_year)
+                )
                 vals = {
                     'shift_template_id': template.id,
                     'name': template.name,
@@ -634,7 +721,6 @@ class ShiftTemplate(models.Model):
                     'address_id': template.address_id.id,
                     'description': template.description,
                     'shift_type_id': template.shift_type_id.id,
-                    'week_number': template.week_number,
                     'week_list': template.week_list,
                     'shift_ticket_ids': None,
                 }
@@ -741,25 +827,36 @@ class ShiftTemplate(models.Model):
                 datetime.today() + timedelta(days=SHIFT_CREATION_DAYS)))
 
     # Custom Private Section
-    @api.model
-    def _get_week_number(self, test_date):
-        if not test_date:
-            return False
-        weekA_date = fields.Datetime.from_string(
-            self.env.ref('coop_shift.config_parameter_weekA').sudo().value)
-        week_number = 1 + (((test_date - weekA_date).days // 7) % 4)
-        return week_number
 
     @api.multi
     def get_recurrent_dates(self, after=None, before=None):
+        # TODO: this should ensure_one.
         for template in self:
             start = fields.Datetime.from_string(after or template.start_date)
             stop = fields.Datetime.from_string(before or template.final_date)
-            delta = (template.week_number - self._get_week_number(start)) % 4
-            start += timedelta(weeks=delta)
-            return rrule.rrulestr(str(template.rrule),
-                                  dtstart=start, ignoretz=True).between(
-                after=start, before=stop, inc=True)
+            # Compensate start to synchronize weeks with our interval
+            # The rrule doesn't have a interval start date, and we want to
+            # make sure the new dates will be aligned with our cycles
+            # If we are adjusting weeks, we also adjust the week day
+            # so that we make sure it matches exactly the next date
+            delta_weeks = (
+                (template.week_number - self._get_week_number(start))
+                % template.interval
+            )
+            delta_days = (
+                (template.start_date.weekday() - start.weekday())
+                if delta_weeks else 0
+            )
+            start += timedelta(weeks=delta_weeks, days=delta_days)
+            return rrule.rrulestr(
+                str(template.rrule),
+                dtstart=start,
+                ignoretz=True,
+            ).between(
+                after=start,
+                before=stop,
+                inc=True,
+            )
 
     def _get_empty_rrule_data(self):
         return {
@@ -786,3 +883,19 @@ class ShiftTemplate(models.Model):
         return ['byday', 'recurrency', 'final_date', 'rrule_type', 'month_by',
                 'interval', 'count', 'end_type', 'mo', 'tu', 'we', 'th', 'fr',
                 'sa', 'su', 'day', 'week_list']
+
+    @api.multi
+    def _recompute_week_number_async(self):
+        NUM_RECORDS_PER_JOB = 200
+        chunked = [
+            self[i: i + NUM_RECORDS_PER_JOB]
+            for i in range(0, len(self), NUM_RECORDS_PER_JOB)
+        ]
+        # Create jobs
+        for chunk in chunked:
+            chunk.with_delay()._job_recompute_week_number_async()
+        return True
+
+    @job
+    def _job_recompute_week_number_async(self):
+        self._compute_week_number()

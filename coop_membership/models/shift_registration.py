@@ -68,63 +68,69 @@ class ShiftRegistration(models.Model):
         """
         Limit a number of registration for shift type FTOP per partner
         """
-        for reg in self:
-            partner = reg.partner_id
-            shift = reg.shift_id
-            date_reg = shift.date_begin or False
-
-            company_id = self.env.user.company_id
-            max_registrations_per_day = company_id.max_registrations_per_day
-            max_registration_per_period = \
-                company_id.max_registration_per_period
-
-            if date_reg:
-                date_reg = fields.Date.from_string(date_reg)
-                regs = partner.registration_ids.filtered(
-                    lambda r, d=date_reg: fields.Date.from_string(r.date_begin)
-                    == d and r.state != 'cancel' and r.shift_type == 'ftop')
-                if max_registrations_per_day and \
-                        len(regs) > max_registrations_per_day:
-                    raise ValidationError(
-                        _("""This member already has %s registrations """
-                          """in the same day. You can't program more.""") %
-                        (len(regs) - 1))
+        company = self.env.user.company_id
+        for rec in self:
+            if rec.shift_id.date_begin:
+                registrations = rec.partner_id.registration_ids.filtered(
+                    lambda r, d=rec.shift_id.date_begin: (
+                        r.date_begin
+                        and r.date_begin.date() == d.date()
+                        and r.state != 'cancel'
+                        and r.shift_type == 'ftop'
+                        and not r.is_related_shift_ftop
+                    )
+                )
+                if (
+                    company.max_registrations_per_day
+                    and len(registrations) > company.max_registrations_per_day
+                ):
+                    raise ValidationError(_(
+                        "The member %s already has %s registrations "
+                        "in the same day. You can't program more.") % (
+                            rec.partner_id.name,
+                            len(registrations) - 1))
                 # Check pass registration
-                self.check_registration_period(date_reg, partner)
-                limit = max_registration_per_period + 1
-                next_regs = partner.registration_ids.filtered(
-                    lambda r, d=date_reg: fields.Date.from_string(
-                        r.date_begin) > d and r.state != 'cancel' and r.
-                    shift_type == 'ftop')[:limit]
-
-                next_sorted_regs = next_regs.sorted(
-                    key=lambda r: fields.Date.from_string(r.date_begin))
-
+                self.check_registration_period(
+                    rec.shift_id.date_begin, rec.partner_id)
+                limit = company.max_registration_per_period + 1
+                next_regs = rec.partner_id.registration_ids.filtered(
+                    lambda r, d=rec.shift_id.date_begin: (
+                        r.date_begin
+                        and r.date_begin.date() > d.date()
+                        and r.state != 'cancel'
+                        and r.shift_type == 'ftop'
+                    )
+                )[:limit]
                 # Check next 10 days registration
-                for next_reg in next_sorted_regs:
-                    check_next_date_reg = fields.Date.from_string(
-                        next_reg.date_begin)
-                    self.check_registration_period(check_next_date_reg,
-                                                   partner)
+                for next_reg in next_regs.sorted('date_begin'):
+                    self.check_registration_period(
+                        next_reg.date_begin, rec.partner_id)
 
-    @api.multi
+    @api.model
     def check_registration_period(self, date_reg, partner):
-        company_id = self.env.user.company_id
-        max_registration_per_period = company_id.max_registration_per_period
-        number_of_days_in_period = company_id.number_of_days_in_period
-        check_begin_date = date_reg - timedelta(days=number_of_days_in_period -
-                                                1)
-        regs = partner.registration_ids.filtered(
-            lambda r, d1=check_begin_date, d2=date_reg: fields.Date.
-            from_string(r.date_begin) >= d1 and fields.Date.from_string(
+        company = self.env.user.company_id
+        check_begin_date = date_reg - timedelta(
+            days=company.number_of_days_in_period - 1)
+        registrations = partner.registration_ids.filtered(
+            lambda r, d1=check_begin_date.date(), d2=date_reg.date(): (
                 r.date_begin
-            ) <= d2 and r.state != 'cancel' and r.shift_type == 'ftop')
-        if max_registration_per_period and \
-                len(regs) > max_registration_per_period:
-            raise ValidationError(
-                _("""This member already has %s registrations in the """
-                  """preceding %s days. You can't program more.""") %
-                (len(regs) - 1, number_of_days_in_period))
+                and r.date_begin.date() >= d1
+                and r.date_begin.date() <= d2
+                and r.state != 'cancel'
+                and r.shift_type == 'ftop'
+                and not r.is_related_shift_ftop
+            )
+        )
+        if (
+            company.max_registration_per_period
+            and len(registrations) > company.max_registration_per_period
+        ):
+            raise ValidationError(_(
+                "The member %s already has %s registrations in the "
+                "preceding %s days. You can't program more.") % (
+                    partner.name,
+                    len(registrations) - 1,
+                    company.number_of_days_in_period))
 
     @api.multi
     def action_create_extension(self):

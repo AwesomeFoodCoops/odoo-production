@@ -92,3 +92,4 @@ access_res_partner_inform_group,access.res.partner.inform,coop_membership.model_
 access_shift_counter_event_reason_group,access.shift.counter.event.reason,coop_membership.model_shift_counter_event_reason,coop_membership.coop_group_access_res_partner_inform,1,1,1,1
 access_shift_hr_skill,hr.skill read,hr_skill.model_hr_skill,coop_shift.group_shift_user,1,0,0,0
 access_shift_hr_skill_manager,hr.skill write,hr_skill.model_hr_skill,coop_shift.group_shift_manager,1,1,1,1
+ir_model_access_shift_template_operation,shift.template.operation access,model_shift_template_operation,group_shift_template_operations,1,1,1,1

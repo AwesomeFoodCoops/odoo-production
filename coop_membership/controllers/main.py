@@ -25,7 +25,6 @@ class WebsiteRegisterMeeting(http.Controller):
             zip_code = event_address_obj and event_address_obj.zip or ''
             city = event_address_obj and event_address_obj.city or ''
             address = u"{} {} {}".format(street, zip_code, city)
-
             # Get correct time
             date_tz = user.tz
             self_in_tz = event.with_context(tz=(date_tz or 'UTC'))
@@ -33,7 +32,6 @@ class WebsiteRegisterMeeting(http.Controller):
             date_begin = fields.Datetime.context_timestamp(
                 self_in_tz, date_begin)
             date_begin = date_begin.strftime('%d/%m/%Y %H:%M:%S')
-
             data.append([event.id, address, date_begin])
         return data
 

@@ -13,63 +13,23 @@
                         <thead>
                             <tr>
                                 <th width="8%">Time</th>
-                                <th width="23%">Week A <span t-esc="wallchart['next_dates']['weekA']"/></th>
-                                <th width="23%">Week B <span t-esc="wallchart['next_dates']['weekB']"/></th>
-                                <th width="23%">Week C <span t-esc="wallchart['next_dates']['weekC']"/></th>
-                                <th width="23%">Week D <span t-esc="wallchart['next_dates']['weekD']"/></th>
+                                <th t-foreach="wallchart['weeks']" t-as="week">
+                                    Week <t t-esc="week[1]"/> <span t-esc="wallchart['next_dates']['week%s' % week[1]]"/>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr t-foreach="wallchart['times']" t-as="time" style="page-break-inside:avoid; page-break-after:auto">
                                 <td><span t-esc="time['start_time']"/> - <span t-esc="time['end_time']"/></td>
-                                <td>
+                                <td t-foreach="wallchart['weeks']" t-as="week">
                                     <t t-set="num" t-value="1"/>
-                                    <t t-foreach="time['partnersA']" t-as="partner">
+                                    <t t-foreach="time['partners%s' % week[1]]" t-as="partner">
                                         <t t-if="partner['dates']">
                                             <span t-esc="num"/> - <span t-esc="partner['dates']"/><br/><br/>
                                             <t t-set="num" t-value="num + 1"/>
                                         </t>
                                     </t>
-                                    <t t-foreach="time['free_seatsA']" t-as="free_seat">
-                                        <t t-set="number" t-value="free_seat_index + num"/>
-                                        <span t-esc="number"/> - <br/><br/>
-                                    </t>
-                                </td>
-                                <td>
-                                    <t t-set="num" t-value="1"/>
-                                    <t t-foreach="time['partnersB']" t-as="partner">
-                                        <t t-if="partner['dates']">
-                                            <span t-esc="num"/> - <span t-esc="partner['dates']"/><br/><br/>
-                                            <t t-set="num" t-value="num + 1"/>
-                                        </t>
-                                    </t>
-                                    <t t-foreach="time['free_seatsB']" t-as="free_seat">
-                                        <t t-set="number" t-value="free_seat_index + num"/>
-                                        <span t-esc="number"/> - <br/><br/>
-                                    </t>
-                                </td>
-                                <td>
-                                    <t t-set="num" t-value="1"/>
-                                    <t t-foreach="time['partnersC']" t-as="partner">
-                                        <t t-if="partner['dates']">
-                                            <span t-esc="num"/> - <span t-esc="partner['dates']"/><br/><br/>
-                                            <t t-set="num" t-value="num + 1"/>
-                                        </t>
-                                    </t>
-                                    <t t-foreach="time['free_seatsC']" t-as="free_seat">
-                                        <t t-set="number" t-value="free_seat_index + num"/>
-                                        <span t-esc="number"/> - <br/><br/>
-                                    </t>
-                                </td>
-                                <td>
-                                    <t t-set="num" t-value="1"/>
-                                    <t t-foreach="time['partnersD']" t-as="partner">
-                                        <t t-if="partner['dates']">
-                                            <span t-esc="num"/> - <span t-esc="partner['dates']"/><br/><br/>
-                                            <t t-set="num" t-value="num + 1"/>
-                                        </t>
-                                    </t>
-                                    <t t-foreach="time['free_seatsD']" t-as="free_seat">
+                                    <t t-foreach="time['free_seats%s' % week[1]]" t-as="free_seat">
                                         <t t-set="number" t-value="free_seat_index + num"/>
                                         <span t-esc="number"/> - <br/><br/>
                                     </t>
@@ -96,7 +56,7 @@
                             <tr>
                                 <th width="8%">Time</th>
                                 <t t-foreach="wallchart['header']" t-as="header">
-                                <th width="23%">Week <span t-esc="header['week_letter']"/> - <span t-esc="date.strftime(header['date'],'%d/%m/%Y')"/></th>
+                                    <th>Week <span t-esc="header['week_letter']"/> - <span t-esc="date.strftime(header['date'],'%d/%m/%Y')"/></th>
                                 </t>
                             </tr>
                         </thead>

@@ -5,7 +5,7 @@
 
 {
     "name": "Coop - Point of Sale Custom views",
-    "version": "12.0.1.0.1",
+    "version": "12.0.5.0.0",
     "category": "Custom",
     "summary": """
         Customize Point of Sale Display

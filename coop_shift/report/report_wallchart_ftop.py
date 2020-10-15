@@ -5,9 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from datetime import datetime, timedelta, date
-
 from odoo import api, models, fields, _
-
 from .report_wallchart_common import rounding_limit
 
 WEEK_DAYS = {
@@ -54,7 +52,7 @@ class ReportWallchartFTOP(models.AbstractModel):
     @api.model
     def _get_report_info(self, data):
         final_result = []
-
+        n_weeks_cycle = self._get_number_weeks_per_cycle()
         for week_day in data.keys():
             if week_day == "id" or not data.get(week_day, False):
                 continue
@@ -63,10 +61,13 @@ class ReportWallchartFTOP(models.AbstractModel):
             weekday_number = self._get_weekday_number(week_day)
             today_weekday_number = date.today().weekday()
 
-            for week in range(4):
-                next_weekday_date = date.today() + timedelta(
-                    days=(weekday_number - today_weekday_number) % 7) +\
-                    timedelta(weeks=week)
+            for week in range(1, n_weeks_cycle + 1):
+                next_weekday_date = (
+                    date.today()
+                    + timedelta(
+                        days=(weekday_number - today_weekday_number) % 7)
+                    + timedelta(weeks=week)
+                )
                 week_number = self._get_week_number(next_weekday_date)
                 header.append({
                     'date': next_weekday_date,

@@ -120,15 +120,6 @@
                ref="coop_membership.action_account_invoice_customer_subscriptions"/>
     </record>
 
-    <!-- Define views for the actions Members > Configuration > Settings -->
-    <record id="action_membership_configuration" model="ir.actions.act_window">
-        <field name="name">Settings</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">res.config.settings</field>
-        <field name="view_mode">form</field>
-        <field name="target">inline</field>
-    </record>
-
     <!-- Member -->
     <record id="bdm_action1" model="ir.actions.act_window.view">
         <field eval="1" name="sequence"/>

@@ -36,7 +36,7 @@ class TestCoopPointOfSale(TestPointOfSaleCommon):
             'amount_return': 0.0,
         })
         self.assertEqual(
-            order.week_number,
+            order.week_name,
             'A', "POS order week number should be in paid A.")
         self.assertEqual(
             order.week_day,

@@ -29,12 +29,7 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                     .then(function(shifts) {
                         shifts.forEach(function(shift, idx, array) {
                             var week_number = shift.week_number;
-                            var dict_week_number = {
-                                1: 'A', 2: 'B', 3: 'C', 4: 'D'
-                            };
-                            if (week_number && dict_week_number[week_number]){
-                                week_number = dict_week_number[week_number];
-                            }
+                            var week_name = shift.week_name;
                             $('.body_ftop_programmer').append(
                                 `<tr>
                                     <td scope="row">
@@ -42,7 +37,7 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                                         <span>${shift.date_begin[1]}</span>
                                     </td>
                                     <td t-attf-id="week-${shift.id}">
-                                        ${week_number || ''}
+                                        ${week_name || ''}
                                     </td>
                                     <td id="hour-${shift.id}">${shift.date_begin[1]}</td>
                                     <td id="avalable-seats-${shift.id}"><span>${shift.seats_avail}</span></td>
@@ -115,7 +110,7 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                                         copyToClipboard(text, el);
                                     });
                                 });
-                                
+
                                 $('#btn-add-' + self.shift_id).removeAttr("data-toggle").removeAttr("data-target").css({'color': 'grey'});
                                 let no_available_seats = '#avalable-seats-' + self.shift_id;
                                 $(no_available_seats).text(parseInt($(no_available_seats).text()) - 1);

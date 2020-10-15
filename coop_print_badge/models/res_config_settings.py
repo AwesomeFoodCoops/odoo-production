@@ -10,8 +10,10 @@ class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     reprint_change_field_ids = fields.Many2many(
-        'ir.model.fields', string="Fields trigger badge reprinting",
-        domain=[('model_id.model', '=', 'res.partner')])
+        'ir.model.fields',
+        string="Fields trigger badge reprinting",
+        domain=[('model_id.model', '=', 'res.partner')],
+    )
 
     @api.multi
     def set_values(self):

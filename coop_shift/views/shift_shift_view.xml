@@ -55,7 +55,7 @@
                                 <!-- <field name="date_tz" /> -->
                             </group>
                             <group name="datetime">
-                                <field name="week_number"/>
+                                <field name="week_name"/>
                                 <field name="date_begin" string="Start"/>
                                 <field name="date_end" string="End"/>
                             </group>
@@ -120,6 +120,7 @@
                       decoration-muted="state=='cancel'" create="false">
                     <field name="name"/>
                     <field name="week_number" invisible="1"/>
+                    <field name="week_name" invisible="1"/>
                     <field name="shift_type_id" invisible="1"/>
                     <field name="date_begin"/>
                     <field name="date_end" invisible="1"/>
@@ -235,7 +236,7 @@
                     <filter string="Upcoming" name="upcoming"
                             domain="['&amp;', ('state', '!=', 'cancel'), ('date_begin','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]"
                             help="Upcoming shifts from today"/>
-                    <field name="week_number"/>
+                    <field name="week_name"/>
                     <field name="week_list"/>
                     <field name="shift_type_id"/>
                     <field name="user_ids"/>
@@ -244,7 +245,7 @@
                     <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
                     <group expand="0" string="Group By">
                         <filter string="Shift Type" name="group_by_shift_type" context="{'group_by':'shift_type_id'}"/>
-                        <filter string="Week" name="group_by_week" context="{'group_by':'week_number'}"/>
+                        <filter string="Week" name="group_by_week" context="{'group_by':'week_name'}"/>
                         <filter string="Status" name="group_by_status" context="{'group_by':'state'}"/>
                         <filter string="Start Month" domain="[]" name="group_by_month"
                                 context="{'group_by':'date_begin'}"/>
