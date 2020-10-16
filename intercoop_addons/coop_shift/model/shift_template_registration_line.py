@@ -228,7 +228,7 @@ class ShiftTemplateRegistrationLine(models.Model):
                 lambda s, b=begin, e=end: (
                     self.convert_local_date(s.date_begin) >= b or not b) and (
                     self.convert_local_date(s.date_end) <= e or not e) and (
-                    s.state != 'done'))
+                    s.state not in ('done', 'cancel')))
 
             for shift in shifts:
                 found = partner_found = False
@@ -246,16 +246,18 @@ class ShiftTemplateRegistrationLine(models.Model):
                     else:
                         ticket_id = shift.shift_ticket_ids.filtered(
                             lambda t: t.product_id ==
-                            st_reg.shift_ticket_id.product_id)[0]
-                        values = {
-                            'partner_id': partner.id,
-                            'state': state,
-                            'shift_id': shift.id,
-                            'shift_ticket_id': ticket_id.id,
-                            'tmpl_reg_line_id': line.id,
-                            'template_created': True,
-                        }
-                        sr_obj.create(values)
+                            st_reg.shift_ticket_id.product_id)
+                        if ticket_id:
+                            ticket_id = ticket_id[0]
+                            values = {
+                                'partner_id': partner.id,
+                                'state': state,
+                                'shift_id': shift.id,
+                                'shift_ticket_id': ticket_id.id,
+                                'tmpl_reg_line_id': line.id,
+                                'template_created': True,
+                            }
+                            sr_obj.create(values)
         return res
 
     @api.multi
