@@ -2,13 +2,7 @@
 <odoo noupdate="1">
     <record id="config_reprint_change_field_ids" model="ir.config_parameter">
         <field name="key">reprint_change_field_ids</field>
-        <field name="value" eval="[ref('base.field_res_partner__image'), ref('base.field_res_partner__name'), ref('barcodes_generator_partner.partner_generated_barcode')]" />
+        <field name="value" eval="[ref('base.field_res_partner__image'), ref('base.field_res_partner__name')]" />
         
-        <!-- Option 3 -->
-        <!-- barcodes_generator_partner.partner_generated_barcode -->
-        <!-- Option 2 -->
-        <!-- base.field_res_partner__barcode' -->
-        <!-- Option 1 -->
-        <!-- barcodes_generator_partner.res_partner_barcode -->
     </record>
 </odoo>
