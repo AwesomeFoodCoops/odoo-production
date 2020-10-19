@@ -45,17 +45,16 @@ class AccountJournal(models.Model):
     def _check_cb_lines_domain(self):
         for rec in self:
             try:
-                domain = safe_eval(rec.cb_lines_domain)
+                domain = safe_eval(rec.cb_lines_domain or '[]')
                 self.env['account.bank.statement.line'].search(domain, limit=1)
             except Exception as e:
                 raise UserError(str(e))
-
 
     @api.constrains('cb_contactless_lines_domain')
     def _check_cb_contactless_lines_domain(self):
         for rec in self:
             try:
-                domain = safe_eval(rec.cb_contactless_lines_domain)
+                domain = safe_eval(rec.cb_contactless_lines_domain or '[]')
                 self.env['account.bank.statement.line'].search(domain, limit=1)
             except Exception as e:
                 raise UserError(str(e))
