@@ -90,7 +90,7 @@
 
             <!-- Add membership page -->
             <page name="sales_purchases" position="after">
-                <page name="membership" string="Membership" invisible="1"
+                <page name="membership" string="Membership" invisible="0"
                       groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
                     <group>
                         <group name="membership" string="Membership" groups="coop_shift.group_shift_manager">
@@ -748,9 +748,11 @@
             <field name="category_id" position="attributes">
                 <attribute name="readonly">True</attribute>
             </field>
+            <!-- is_blocked is only existed in coop_shift.view_res_partner_shift_form
             <field name="is_blocked" position="attributes">
                 <attribute name="readonly">1</attribute>
             </field>
+            -->
         </field>
     </record>
 
