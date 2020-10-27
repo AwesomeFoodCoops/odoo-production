@@ -253,6 +253,9 @@ class ShiftTemplate(models.Model):
         Computes the date number on multiple records using SQL
         This is particularly usefull for computed fields
         '''
+        # Fix error when records is null
+        if not records.ids:
+            return {}
         # Week numbers are based on configuration
         get_param = self.env['ir.config_parameter'].sudo().get_param
         weekA_date = get_param('coop_shift.week_a_date')
