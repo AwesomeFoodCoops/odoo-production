@@ -90,8 +90,9 @@
 
             <!-- Add membership page -->
             <page name="sales_purchases" position="after">
-                <page name="membership" string="Membership" invisible="0"
-                      groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
+                <page name="membership" string="Membership"
+                        attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}"
+                        groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
                     <group>
                         <group name="membership" string="Membership" groups="coop_shift.group_shift_manager">
                             <field name="is_member"/>
@@ -350,6 +351,9 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//page[@name='shifts']" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}</attribute>
+            </xpath>
 
             <!-- Changes in existing buttons -->
             <button id="view_shift_leaves" position="attributes">
@@ -774,8 +778,8 @@
         <field name="arch" type="xml">
             <field name="name" position="attributes">
                 <attribute name="context">{'allow_to_search_barcode_base': True}</attribute>
-                <attribute name="filter_domain">['|', '|', '|',
-                    ('display_name','ilike',self),('ref','=',self),('email','ilike',self), ('barcode_base','=',self)]
+                <attribute name="filter_domain">['|', '|', 
+                    ('display_name','ilike',self),('ref','=',self),('email','ilike',self)]
                 </attribute>
             </field>
             <field name="name" position="after">

@@ -87,11 +87,13 @@
                             icon="fa-thumbs-o-up fa-lg"
                             attrs="{'invisible': ['|', ('state', '!=', 'open'),('is_related_shift_ftop', '=', True)]}"/>
                     <button name="confirm_registration" string="Confirm Registration" type="object"
+                            icon="fa-check fa-lg"
                             groups="coop_shift.group_shift_manager"
                             attrs="{'invisible': ['|', ('state', '!=', 'draft'),('is_related_shift_ftop', '=', True)]}"/>
                     <button name="button_reg_absent" string="Absent" type="object" icon="fa-user-secret fa-lg"
                             attrs="{'invisible': ['|', ('state', '!=', 'open'),('is_related_shift_ftop', '=', True)]}"/>
                     <button name="button_reg_cancel" string="Cancel Registration" type="object"
+                            icon="fa-times-circle fa-lg"
                             groups="coop_shift.group_shift_manager"
                             attrs="{'invisible': ['|', ('state', '!=', 'draft'),('is_related_shift_ftop', '=', True)]}"/>
                     <button name="button_reg_excused" string="Excused" type="object" icon="fa-hand-o-right fa-lg"

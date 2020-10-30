@@ -187,7 +187,7 @@
                                     </div>
                                     <h4>
                                         <a name="%(act_shift_registration_from_shift)d" type="action">
-                                            <t t-esc="record.seats_reserved.raw_value">Expected attendees</t>
+                                            <t t-esc="record.seats_reserved.raw_value"/> Expected attendees
                                         </a>
                                         <br/>
                                         <t t-esc="record.seats_available.raw_value"/>
