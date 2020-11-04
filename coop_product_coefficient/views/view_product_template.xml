@@ -74,10 +74,10 @@
             <page name="coefficient" string="Coefficients" groups="sales_team.group_sale_manager">
                <group>
                   <group>
-                     <group>
+                     <group col="5">
                         <field name="base_price" />
-                        <field name="alternative_base_price_sale" />
-                        <field name="alternative_base_price_standard" />
+                        <field name="alternative_base_price_sale" colspan="5"/>
+                        <field name="alternative_base_price_standard" colspan="5"/>
                      </group>
                      <group />
                   </group>
@@ -88,14 +88,13 @@
                         .coeff_th_td {border: none; height:30px;}
                         .coeff_th_td_price {border: none; height:30px;background-color:#DDFFFF;border-right:10px solid white;}
                         .coeff_price {padding : 0 60px 0 0;}
-                        .coeff_title {border: none; height:30px;font-size:20px;color:#7C7BAD;padding:0 0 10px 0;}
+                        .coeff_title {border: none; height:30px;font-size:20px;color:#7C7BAD;padding:0 0 10px 0; width: 24.8%}
                         .coeff_theorical_price {border-right:10px solid white;}
                         </style>
                       
 
                         <tr>
-                           <th class="coeff_title">Coefficients</th>
-                           <th class="coeff_th_td" />
+                           <th class="coeff_title" colspan="2">Coefficients</th>
                            <th class="coeff_title">Sale Price</th>
                            <th class="coeff_title">Incl. in S. Price</th>
                            <th class="coeff_title">Standard Price</th>
