@@ -3060,7 +3060,7 @@ msgstr "Tableau des créneaux"
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_template_search
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_template_tree
 msgid "Templates"
-msgstr "Modèles"
+msgstr "Créneaux"
 
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_template.py:283
@@ -3524,7 +3524,7 @@ msgstr "Tableau des créneaux"
 #: model:ir.actions.act_window,name:coop_shift.action_wallchart_wizard
 #: model:ir.ui.menu,name:coop_shift.menu_wallchart_template
 msgid "WallChart"
-msgstr "Tableau"
+msgstr "Impression places dispo"
 
 #. module: coop_shift
 #: code:addons/coop_shift/model/shift_template.py:282
