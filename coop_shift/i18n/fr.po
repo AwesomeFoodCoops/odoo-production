@@ -3800,3 +3800,30 @@ msgstr "Équipe :"
 #: model_terms:ir.ui.view,arch_db:coop_shift.report_timesheet_state
 msgid "échange"
 msgstr "échange"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_res_config_settings__shift_weeks_per_cycle
+msgid "Number of Weeks per Cycle"
+msgstr "Nombre de semaines du cycle"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/res_config_settings.py:35
+#, python-format
+msgid "Number of Weeks per Cycle has to be bigger than 0."
+msgstr "Nombre de semaines du cycle doit être supérieur à 0."
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_res_config_settings__shift_week_a_date
+msgid "Week A start date"
+msgstr "Semaine A originelle"
+
+#. module: coop_shift
+#: model:ir.model.fields,field_description:coop_shift.field_res_config_settings__shift_state_delay_duration
+msgid "Alert State Duration"
+msgstr "Durée Statut d’Alerte"
+
+#. module: coop_shift
+#: code:addons/coop_shift/model/res_config_settings.py:51
+#, python-format
+msgid "Alert State Duration has to be bigger than 0."
+msgstr "Durée Statut d’Alerte doit être supérieur à 0."

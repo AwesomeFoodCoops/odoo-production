@@ -966,6 +966,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
 msgid "<span class=\"o_form_label\">Maximum Associated People</span>"
 msgstr ""
+ 
+ #. module: coop_membership
+ #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+ msgid "<span>Configure Members Office Open Hours Here. This Text will appear in email templates.</span>"
+msgstr ""
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
@@ -976,6 +981,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:coop_membership.member_contract_template
 msgid "<span style=\"float: right; position: absolute; margin-left: 390px; margin-top: 30px;\">v5.1\n"
 "                            </span>"
+msgstr ""
+
+#. module: coop_membership
+ #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__members_office_open_hours
+ #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+ msgid "Members Office Open Hours"
 msgstr ""
 
 #. module: coop_membership
@@ -4156,3 +4167,23 @@ msgstr ""
 msgid "équipe VOLANTE"
 msgstr ""
 
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "Shift Cycles"
+msgstr ""
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "Control how weeks are named, and your cycles.<br/>\n"
+"                                    Changes on this settings could have undesireable results. Do it with caution."
+msgstr ""
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "Recompute shifts' week names"
+msgstr ""
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "days."
+msgstr ""
