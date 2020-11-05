@@ -114,12 +114,12 @@ msgstr ""
 #. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
 msgid "<span attrs=\"{'invisible':[('current_leave_info', '!=', False)]}\">Leaves</span>"
-msgstr "<span attrs=\"{'invisible':[('current_leave_info', '!=', False)]}\">Feuilles</span>"
+msgstr "<span attrs=\"{'invisible':[('current_leave_info', '!=', False)]}\">Congés</span>"
 
 #. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
 msgid "<span attrs=\"{'invisible':[('current_tmpl_reg_line', '!=', False)]}\">Tmpl. Registr.</span>"
-msgstr ""
+msgstr "<span attrs=\"{'invisible':[('current_tmpl_reg_line', '!=', False)]}\">Créneau.</span>"
 
 #. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.report_timesheet_state
@@ -3380,7 +3380,7 @@ msgstr "A jour"
 #. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
 msgid "Upc. Registr."
-msgstr "Présences"
+msgstr "Services"
 
 #. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_registration_search1
@@ -3461,7 +3461,7 @@ msgstr "Utilisateur"
 #. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_res_partner_shift_form
 msgid "Vacations"
-msgstr "Les vacances"
+msgstr "Vacations"
 
 #. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_leave_form
