@@ -96,8 +96,8 @@
                         <tr>
                            <th class="coeff_title" colspan="2">Coefficients</th>
                            <th class="coeff_title">Sale Price</th>
-                           <th class="coeff_title">Incl. in S. Price</th>
-                           <th class="coeff_title">Standard Price</th>
+                           <th class="coeff_title">Include in Cost</th>
+                           <th class="coeff_title">Cost</th>
                         </tr>
                         <tr>
                            <td class="coeff_th_td">Coefficient 1</td>
