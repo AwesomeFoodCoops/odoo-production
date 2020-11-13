@@ -101,7 +101,7 @@
                         attrs="{'invisible': ['|',('related_extension_id', '!=', False),('related_shift_state', '!=', 'entry')]}"
                         groups="coop_membership.group_shift_create_extension_from_attendance"
                 />
-                <field name="replacing_reg_id" readonly="1"/>
+                <field name="replacing_partner_id" readonly="1"/>
             </xpath>
         </field>
     </record>

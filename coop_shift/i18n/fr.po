@@ -250,7 +250,7 @@ msgstr "Date de présence"
 #. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree_confirm
 msgid "Attended the Shift"
-msgstr "Présents"
+msgstr "Présent"
 
 #. module: coop_shift
 #: model:ir.model,name:coop_shift.model_shift_registration
@@ -959,7 +959,7 @@ msgstr "La date de fin doit être après la date de début"
 #. module: coop_shift
 #: selection:shift.shift,state:0
 msgid "Entry"
-msgstr "Entrée"
+msgstr "Saisi"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_shift__event_mail_ids
@@ -1030,11 +1030,15 @@ msgstr "Échanges"
 #. module: coop_shift
 #: selection:add.template.registration.wizard,state:0
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_registration_form
-#: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree_confirm
 #: selection:shift.registration,state:0
 #: selection:shift.template.registration.line,state:0
 msgid "Excused"
 msgstr "Rattrapage"
+
+#. module: coop_shift
+#: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree_confirm
+msgid "Excused"
+msgstr "1 Rattrapage"
 
 #. module: coop_shift
 #: selection:res.partner,cooperative_state:0
@@ -2569,7 +2573,7 @@ msgstr "Marquer comme brouillon"
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree_program
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_registration_tree_program_readonly
 msgid "Set To Unconfirmed"
-msgstr "Marquer comme non confirmé"
+msgstr "Revenir en arrière"
 
 #. module: coop_shift
 #: model_terms:ir.ui.view,arch_db:coop_shift.view_shift_leave_form
@@ -2645,7 +2649,7 @@ msgstr "Responsable d'équipe"
 #: model:ir.model.fields,field_description:coop_shift.field_shift_template_ticket__user_ids
 #: model:ir.model.fields,field_description:coop_shift.field_shift_ticket__user_ids
 msgid "Shift Leaders"
-msgstr "Responsables d'équipes"
+msgstr "Coordinateurs d’équipe"
 
 #. module: coop_shift
 #: model:ir.model,name:coop_shift.model_shift_leave

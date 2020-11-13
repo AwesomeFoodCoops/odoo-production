@@ -967,9 +967,11 @@ msgstr ""
 msgid "<span class=\"o_form_label\">Maximum Associated People</span>"
 msgstr ""
  
- #. module: coop_membership
- #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
- msgid "<span>Configure Members Office Open Hours Here. This Text will appear in email templates.</span>"
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "<span class=\"text-muted\">\n"
+"                                        Configure Members Office Open Hours Here. This Text will appear in email templates.\n"
+"                                    </span>"
 msgstr ""
 
 #. module: coop_membership
@@ -3278,6 +3280,7 @@ msgstr ""
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_holiday__single_day_shift_ids
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
 msgid "Shifts"
@@ -4186,4 +4189,9 @@ msgstr ""
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
 msgid "days."
+msgstr ""
+
+#. module: coop_membership
+#: model:ir.ui.menu,name:coop_membership.menu_shift_template_operation
+msgid "Mass Operations"
 msgstr ""

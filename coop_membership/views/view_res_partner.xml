@@ -779,8 +779,8 @@
         <field name="arch" type="xml">
             <field name="name" position="attributes">
                 <attribute name="context">{'allow_to_search_barcode_base': True}</attribute>
-                <attribute name="filter_domain">['|', '|', 
-                    ('display_name','ilike',self),('ref','=',self),('email','ilike',self)]
+                <attribute name="filter_domain">['|', '|', '|', 
+                    ('name','ilike',self),('ref','=',self),('email','ilike',self), ('barcode_base','=',self)]
                 </attribute>
             </field>
             <field name="name" position="after">
