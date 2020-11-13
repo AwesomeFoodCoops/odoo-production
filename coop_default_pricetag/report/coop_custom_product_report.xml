@@ -25,7 +25,7 @@
 
     <report
         id="pricetag_vegetables"
-        model="report.pricetag_vegetables"
+        model="report.pricetag"
         string="Vegetable Pricetags"
         report_type="qweb-pdf"
         name="coop_default_pricetag.report_pricetag_vegetables"

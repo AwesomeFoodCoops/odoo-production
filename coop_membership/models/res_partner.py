@@ -201,6 +201,16 @@ class ResPartner(models.Model):
     )
 
     event_event_id = fields.Many2one('event.event')
+    display_name = fields.Char(
+        compute='_compute_display_name', store=True, index=True)
+
+    @api.depends('is_company', 'name', 'parent_id.name', 'type',
+        'company_name', 'barcode_base')
+    def _compute_display_name(self):
+        '''
+        Override this function to add dependency to barcode_base 
+        '''
+        super(ResPartner, self)._compute_display_name()
 
     @api.onchange('birthdate_date')
     def _onchange_birthdate_date(self):
@@ -325,7 +335,7 @@ class ResPartner(models.Model):
             # useless triger for state
             today = fields.Date.context_today(self)
             leave_none_defined = partner.leave_ids.filtered(
-                lambda l: l.start_date <= today <= l.stop_date
+                lambda l: (l.start_date or today) <= today <= (l.stop_date or today)
                 and l.non_defined_leave and l.state == 'done')
             no_reg_line = partner.active_tmpl_reg_line_count == 0
             is_unsubscribed = (no_reg_line and not leave_none_defined)
@@ -538,6 +548,20 @@ class ResPartner(models.Model):
             args=args, offset=offset, limit=limit, order=order, count=count)
 
     @api.model
+    def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
+        if self._context.get('allow_to_search_barcode_base', False):
+            barcode_base_clauses = filter(
+                lambda clause: clause[0] == 'barcode_base'
+                and not clause[-1].isdigit(),
+                domain
+            )
+            for barcode_base_clause in barcode_base_clauses:
+                barcode_base_clause[0] = u'display_name'
+                barcode_base_clause[1] = u'ilike'
+        return super(ResPartner, self).read_group(domain, fields, groupby,
+            offset=offset, limit=limit, orderby=orderby, lazy=lazy)
+
+    @api.model
     def create(self, vals):
         partner = super(ResPartner, self).create(vals)
         self._generate_associated_barcode(partner)
@@ -733,8 +757,13 @@ class ResPartner(models.Model):
 
         for partner in self:
             original_value = original_res[i][1]
+            # S#24956:
+            # 2) In the list of membres in the potentially present for the
+            # shift, in the “Contact” column, some members have their numbers
+            # next to their name, others do not. We want all members to have
+            # their numbers next to their names. See attached screenshot.
             name_get_values = (partner.id, original_value)
-            if partner.is_member:
+            if partner.barcode_base:
                 name_get_values = (
                     partner.id,
                     '%s - %s' % (partner.barcode_base, original_value)

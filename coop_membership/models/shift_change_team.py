@@ -351,7 +351,7 @@ class ShiftChangeTeam(models.Model):
                 )
             else:
                 # We're probably dealing with a permanent leave
-                rec_dates = [False, False]
+                rec_dates = []
             date_future_shifts = rec_dates[:2]
         self.set_date_future_shifts(date_future_shifts)
         return True
@@ -366,15 +366,13 @@ class ShiftChangeTeam(models.Model):
         elif len(date_next_shifts) == 1:
             self.first_next_shift_date = date_next_shifts[0].date()
             if list_dates:
-                self.second_next_shift_date = list_dates[0]
+                self.second_next_shift_date = list_dates[0].date()
         else:
             if list_dates:
                 if len(list_dates) >= 1:
-                    self.first_next_shift_date = list_dates[0]
+                    self.first_next_shift_date = list_dates[0].date()
                 if len(list_dates) >= 2:
-                    self.second_next_shift_date = list_dates[1]
-                self.first_next_shift_date = list_dates[0]
-                self.second_next_shift_date = list_dates[1]
+                    self.second_next_shift_date = list_dates[1].date()
 
     @api.multi
     @api.depends('new_shift_template_id')

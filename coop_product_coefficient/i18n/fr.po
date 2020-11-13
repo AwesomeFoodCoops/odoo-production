@@ -213,8 +213,8 @@ msgstr "Si vous cochez cette\n"
 "        ce produit"
 
 #. module: coop_product_coefficient
-#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
-msgid "Incl. in S. Price"
+#: model_terms:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
+msgid "Include in Cost"
 msgstr "Incl. dans Coût"
 
 #. module: coop_product_coefficient
@@ -315,7 +315,7 @@ msgid "Recompute Base price"
 msgstr "Recalculer le Prix de Base"
 
 #. module: coop_product_coefficient
-#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
+#: model_terms:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
 msgid "Sale Price"
 msgstr "Prix de vente"
 
@@ -325,8 +325,8 @@ msgid "Settings"
 msgstr "Configuration"
 
 #. module: coop_product_coefficient
-#: model:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
-msgid "Standard Price"
+#: model_terms:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
+msgid "Cost"
 msgstr "Coût"
 
 #. module: coop_product_coefficient

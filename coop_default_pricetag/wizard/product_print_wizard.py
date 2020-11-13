@@ -21,8 +21,10 @@ class ProductPrintWizard(models.TransientModel):
             model = print_category.pricetag_model_id.report_model
             if model == 'coop_default_pricetag.report_pricetag_barcode':
                 report_name = 'coop_default_pricetag.pricetag_barcode'
-            if model == 'coop_default_pricetag.report_pricetag_simple_barcode':
+            elif model == 'coop_default_pricetag.report_pricetag_simple_barcode':
                 report_name = 'coop_default_pricetag.pricetag_simple_barcode'
+            elif model and model[-26:] == 'report_pricetag_vegetables':
+                report_name = 'coop_default_pricetag.pricetag_vegetables'
         # Mark products as printed
         self.line_ids.mapped('product_id').write({'to_print': False})
         return self.env.ref(report_name).report_action(self, data=data)

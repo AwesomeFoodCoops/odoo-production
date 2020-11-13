@@ -140,14 +140,17 @@ class ResPartner(models.Model):
         return True
 
     @api.model
-    def cron_create_user_for_members(self):
+    def cron_create_user_for_members(self, limit=100):
         sql = '''
             SELECT rp.id
             FROM res_partner rp
             LEFT JOIN res_users ru ON ru.partner_id = rp.id
             WHERE ru.partner_id ISNULL
+                AND rp.is_member IS True
+                AND rp.email NOTNULL
+            LIMIT %s
         '''
-        self.env.cr.execute(sql)
+        self.env.cr.execute(sql, (limit,))
         partner_ids = [p[0] for p in self.env.cr.fetchall()]
         if not partner_ids:
             return False

@@ -946,8 +946,12 @@ msgstr ""
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
-msgid "<span>Configure Members Office Open Hours Here. This Text will appear in email templates.</span>"
-msgstr ""
+msgid "<span class=\"text-muted\">\n"
+"                                        Configure Members Office Open Hours Here. This Text will appear in email templates.\n"
+"                                    </span>"
+msgstr "<span class=\"text-muted\">\n"
+"                                        Saisir les horaires du Bureau des membres. Ce texte apparaîtra dans les modèles de mail.\n"
+"                                    </span>"
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.member_contract_template
@@ -1553,7 +1557,7 @@ msgstr "Créer une extension à partir d'une présence"
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_registration_tree_confirm_one2many
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_registration_tree_inherit
 msgid "Create Extension until next regular shift"
-msgstr "Créer une extension jusqu'au prochain service régulier"
+msgstr "Donner une extension"
 
 #. module: coop_membership
 #: model:res.groups,name:coop_membership.subscriptions_creator
@@ -1761,7 +1765,7 @@ msgstr "Nom affiché"
 #: selection:shift.leave,state:0
 #: selection:shift.shift,state:0
 msgid "Done"
-msgstr "Terminé"
+msgstr "Effectué"
 
 #. module: coop_membership
 #: selection:shift.change.team,state:0
@@ -1831,7 +1835,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_search_inherit
 #: selection:shift.shift,state:0
 msgid "Entry"
-msgstr "Entrée"
+msgstr "Saisi"
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_search_inherit
@@ -1922,22 +1926,22 @@ msgstr "Participations Volants"
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__max_registrations_per_day
 msgid "FTOP Max. Registration per day"
-msgstr "Volants Max. Inscription par jour"
+msgstr "Vacations Max. Inscription par jour"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__max_registration_per_period
 msgid "FTOP Max. Registration per period"
-msgstr "Volants Max. Inscription par période"
+msgstr "Vacations Max. Inscription par période"
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
 msgid "FTOP Registration Limits"
-msgstr "Limites d'enregistrement Volants"
+msgstr "Limites d’enregistrement vacations"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__number_of_days_in_period
 msgid "FTOP Registration period"
-msgstr "Période d'enregistrement Volants"
+msgstr "Période d'enregistrement Vacations"
 
 #. module: coop_membership
 #: model:ir.actions.act_window,name:coop_membership.action_shift_seats_available_tree_view
@@ -2545,7 +2549,7 @@ msgstr "Membres"
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__members_office_open_hours
 #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
 msgid "Members Office Open Hours"
-msgstr ""
+msgstr "Horaires d’ouverture du Bureau des membres"
 
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
@@ -3009,7 +3013,7 @@ msgstr "Modèle de contrat de rapport d'adhésion à Coop"
 #: model:ir.model.fields,field_description:coop_membership.field_shift_template_ticket__required_skill_ids
 #: model:ir.model.fields,field_description:coop_membership.field_shift_ticket__required_skill_ids
 msgid "Required Skills"
-msgstr ""
+msgstr "Compétences requises"
 
 #. module: coop_membership
 #: model:ir.model,name:coop_membership.model_res_partner_inform
@@ -3171,7 +3175,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__leader_ids
 #: model:ir.model.fields,field_description:coop_membership.field_shift_template__user_ids
 msgid "Shift Leaders"
-msgstr "Responsables d'équipes"
+msgstr "Coordinateurs d’équipe"
 
 #. module: coop_membership
 #: model:ir.model,name:coop_membership.model_shift_leave
@@ -3228,6 +3232,8 @@ msgstr "Type de service"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_holiday__single_day_shift_ids
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
 msgid "Shifts"
 msgstr "Services"
@@ -3380,6 +3386,11 @@ msgid "Team/Template"
 msgstr "Équipe / Créneau"
 
 #. module: coop_membership
+#: model:ir.ui.menu,name:coop_membership.menu_shift_template_operation
+msgid "Mass Operations"
+msgstr "Opérations en lot"
+
+#. module: coop_membership
 #: model:ir.model.fields,help:coop_membership.field_shift_shift__holiday_id
 msgid "Technical field"
 msgstr ""
@@ -3397,7 +3408,7 @@ msgstr "Inscriptions"
 #. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_credit_config_form
 msgid "Templates"
-msgstr "Modèles"
+msgstr "Créneaux"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_leave_type__is_temp_leave
@@ -4037,3 +4048,24 @@ msgstr ""
 msgid "équipe VOLANTE"
 msgstr ""
 
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "Shift Cycles"
+msgstr "Durée du Cycle"
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "Control how weeks are named, and your cycles.<br/>\n"
+"                                    Changes on this settings could have undesireable results. Do it with caution."
+msgstr "Fixer la durée du cycle des services.<br/>\n"
+"                                    Changer ces paramètres déclenchera des effets radicaux sur l’organisation de participation des membres, y compris un changement de nomination des semaines. Consultez un expert avant de modifier ces champs."
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "Recompute shifts' week names"
+msgstr "Recalculer les noms des semaines"
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
+msgid "days."
+msgstr "jours"

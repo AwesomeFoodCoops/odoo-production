@@ -15,7 +15,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="arch" type="xml">
             <xpath expr="//field[@name='type']" position="after">
                 <field name="print_category_id"/>
-                <field name="to_print"/>
+                <field name="to_print" invisible="1"/>
                 <p colspan="2" class='alert alert-warning' role="status"
                    attrs="{'invisible':[('to_print', '=', False)]}">Product to print!
                 </p>

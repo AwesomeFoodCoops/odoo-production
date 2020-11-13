@@ -86,7 +86,7 @@
                                     </tree>
                                 </field>
                             </page>
-                            <page string="Email Schedule"> <!-- groups="event.group_email_scheduling"> -->
+                            <page string="Email Schedule" invisible="1"> <!-- groups="event.group_email_scheduling"> -->
                                 <!-- <group>
                                     <field name="reply_to"/>
                                 </group> -->

@@ -50,7 +50,12 @@ msgstr "Badges à imprimer"
 #: model:ir.actions.act_window,name:coop_print_badge.action_badge_to_print
 #: model:ir.ui.view,arch_db:coop_print_badge.view_res_partner_badge_to_print_tree
 msgid "Badges"
-msgstr "Badges"
+msgstr "Badges à imprimer"
+
+#. module: coop_print_badge
+#: model:ir.ui.menu,name:coop_print_badge.menu_badge_to_distribute
+msgid "Badges"
+msgstr "Badges à distribuer"
 
 #. module: coop_print_badge
 #: model:ir.model.fields,field_description:coop_print_badge.field_members_config_settings_reprint_change_field_ids
@@ -66,3 +71,8 @@ msgstr "Impression du badge"
 #: model:ir.model.fields,field_description:coop_print_badge.field_res_partner_badge_to_print
 msgid "Badge To Print"
 msgstr "Badge à imprimer"
+
+#. module: coop_print_badge
+#: model_terms:ir.ui.view,arch_db:coop_print_badge.view_res_config_settings_form
+msgid "<span class=\"o_form_label\">Badge Printing</span>"
+msgstr "<span class=\"o_form_label\">Impression des Badges</span>"

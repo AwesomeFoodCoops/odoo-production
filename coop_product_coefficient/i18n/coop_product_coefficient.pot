@@ -218,7 +218,7 @@ msgstr ""
 
 #. module: coop_product_coefficient
 #: model_terms:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
-msgid "Incl. in S. Price"
+msgid "Include in Cost"
 msgstr ""
 
 #. module: coop_product_coefficient
@@ -348,7 +348,7 @@ msgstr ""
 
 #. module: coop_product_coefficient
 #: model_terms:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
-msgid "Standard Price"
+msgid "Cost"
 msgstr ""
 
 #. module: coop_product_coefficient
