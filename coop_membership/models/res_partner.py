@@ -335,7 +335,7 @@ class ResPartner(models.Model):
             # useless triger for state
             today = fields.Date.context_today(self)
             leave_none_defined = partner.leave_ids.filtered(
-                lambda l: l.start_date <= today <= l.stop_date
+                lambda l: (l.start_date or today) <= today <= (l.stop_date or today)
                 and l.non_defined_leave and l.state == 'done')
             no_reg_line = partner.active_tmpl_reg_line_count == 0
             is_unsubscribed = (no_reg_line and not leave_none_defined)

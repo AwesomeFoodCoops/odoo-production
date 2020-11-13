@@ -4195,3 +4195,12 @@ msgstr ""
 #: model:ir.ui.menu,name:coop_membership.menu_shift_template_operation
 msgid "Mass Operations"
 msgstr ""
+
+#. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_shift__required_skill_ids
+#: model:ir.model.fields,field_description:coop_membership.field_shift_template__required_skill_ids
+#: model:ir.model.fields,field_description:coop_membership.field_shift_template_ticket__required_skill_ids
+#: model:ir.model.fields,field_description:coop_membership.field_shift_ticket__required_skill_ids
+msgid "Required Skills"
+msgstr ""
+

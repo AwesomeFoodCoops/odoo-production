@@ -3388,7 +3388,7 @@ msgstr "Équipe / Créneau"
 #. module: coop_membership
 #: model:ir.ui.menu,name:coop_membership.menu_shift_template_operation
 msgid "Mass Operations"
-msgstr "Opérations par lot"
+msgstr "Opérations en lot"
 
 #. module: coop_membership
 #: model:ir.model.fields,help:coop_membership.field_shift_shift__holiday_id
