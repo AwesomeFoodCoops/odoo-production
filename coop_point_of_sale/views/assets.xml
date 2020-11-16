@@ -19,4 +19,9 @@
             <link rel="stylesheet" href="/coop_point_of_sale/static/src/css/coop_point_of_sale.css"/>
         </xpath>
     </template>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/coop_point_of_sale/static/src/css/coop_point_of_sale.scss"/>
+        </xpath>
+    </template>
 </odoo>

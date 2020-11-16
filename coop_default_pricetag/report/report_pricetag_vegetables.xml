@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-     <template id="minimal_layout_vegetables" inherit_id="web.minimal_layout">
-          <xpath expr="//head" position="inside">
-                 <link rel='stylesheet' href="/coop_default_pricetag/static/src/css/pricetag_vegetables.scss"/>
-          </xpath>
+    <template id="minimal_layout_vegetables" name="report_coop_pricetag layout_vegetables"
+        inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss"
+                href="/coop_default_pricetag/static/src/scss/pricetag_vegetables.scss" />
+        </xpath>
     </template>
     <template id="report_pricetag_vegetables">
-        <t t-call="web.html_container">
+        <t t-call="web.basic_layout">
             <div class="page">
                 <t t-foreach="Products" t-as="product">
                     <t t-foreach="product['line'].quantity" t-as="q">

@@ -3,9 +3,9 @@
 
     <t t-name="OKPopupWidget">
         <div class="modal-dialog">
-            <div class="popup popup-confirm">
+            <div class="popup popup-confirm" style="height: 300px;">
                 <p class="title"><t t-esc=" widget.options.title || 'Confirm ?' " /></p>
-                <p><t t-esc="  widget.options.thanks_message || '' "/></p>
+                <div style="margin-top:10px;"><t t-esc="  widget.options.thanks_message || '' "/></div>
                 <ul style="padding-left: 30%;">
                     <li style="list-style-type: disc;text-align: left;"><t t-esc="  widget.options.lemon || '' "/></li>
                     <li style="list-style-type: disc;text-align: left;"><t t-esc="  widget.options.la_date || '' "/></li>

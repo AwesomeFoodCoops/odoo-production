@@ -20,4 +20,13 @@
             </form>
         </field>
     </record>
+
+    <act_window id="action_createshifts_multi"
+        name="Create Shifts"
+        src_model="create.shifts.wizard"
+        res_model="shift.template"
+        view_type="form"
+        view_mode="form"
+        key2="client_action_multi"
+        target="new"/>
 </odoo>

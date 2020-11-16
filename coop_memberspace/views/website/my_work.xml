@@ -412,7 +412,7 @@
                                             <span t-esc="date_begin and date_begin[1] or ''"/>
                                         </td>
                                         <td t-attf-id="week-{{shift.id}}">
-                                            <t t-esc="shift.week_number and dict(shift.fields_get(['week_number'])['week_number']['selection'])[shift.week_number] or ''"/>
+                                            <t t-esc="shift.week_name or ''"/>
                                         </td>
                                         <td t-attf-id="hour-{{shift.id}}">
                                             <t t-esc="date_begin and date_begin[1] or ''"/>

@@ -1,157 +1,265 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
     @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
     Copyright (C) 2012-Today: Druidoo (<https://www.druidoo.io>)
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
-
 <odoo>
+   <record id="view_product_template_coefficient_tree" model="ir.ui.view">
+      <field name="model">product.template</field>
+      <field name="priority">100</field>
+      <field name="arch" type="xml">
+         <tree editable="bottom">
+            <field name="name" readonly="1" />
+            <field name="base_price" />
+            <field name="alternative_base_price_sale" />
+            <field name="alternative_base_price_standard" />
+            <field name="coeff1_id" />
+            <field name="incl_in_standard_price_1" />
+            <field name="coeff2_id" />
+            <field name="incl_in_standard_price_2" />
+            <field name="coeff3_id" />
+            <field name="incl_in_standard_price_3" />
+            <field name="coeff4_id" />
+            <field name="incl_in_standard_price_4" />
+            <field name="coeff5_id" />
+            <field name="incl_in_standard_price_5" />
+            <field name="coeff6_id" />
+            <field name="incl_in_standard_price_6" />
+            <field name="coeff7_id" />
+            <field name="incl_in_standard_price_7" />
+            <field name="coeff8_id" />
+            <field name="incl_in_standard_price_8" />
+            <field name="coeff9_id" />
+            <field name="incl_in_standard_price_9" />
+            <field name="theoritical_price" />
+            <field name="list_price" />
+            <field name="has_theoritical_price_different" invisible="1" />
+            <button name="use_theoritical_price" type="object" string="Use Theoritical Price" attrs="{'invisible': [('has_theoritical_price_different', '=', False)]}" icon="gtk-convert" />
+         </tree>
+      </field>
+   </record>
+   <record id="view_product_template_tree" model="ir.ui.view">
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_tree_view" />
+      <field name="arch" type="xml">
+         <field name="name" position="after">
+            <field name="theoritical_price" />
+         </field>
+      </field>
+   </record>
+   <record id="view_product_template_search" model="ir.ui.view">
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_search_view" />
+      <field name="arch" type="xml">
+         <filter name="inactive" position="after">
+            <filter string="Has Theoritical Price Different" name="filter_has_theoritical_price_different" domain="[('has_theoritical_price_different', '=', True)]" />
+         </filter>
+         <field name="attribute_line_ids" position="after">
+            <field name="categ_id" />
+         </field>
+      </field>
+   </record>
+   <record id="view_product_template_form" model="ir.ui.view">
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_form_view" />
+      <field name="arch" type="xml">
+         <div name="button_box" position="inside">
+            <button name="recompute_base_price" type="object" icon="fa-calculator" class="oe_stat_button" string="Recompute Base price" groups="sales_team.group_sale_manager" />
+            <button name="use_theoritical_cost" type="object" icon="fa-rotate-left" class="oe_stat_button" string="Use Theoritical Cost" attrs="{'invisible': [('has_theoritical_cost_different', '=', False)]}" groups="sales_team.group_sale_manager" />
+            <button name="use_theoritical_price" type="object" icon="fa-rotate-left" class="oe_stat_button" string="Use Theoritical Price" attrs="{'invisible': [('has_theoritical_price_different', '=', False)]}" groups="sales_team.group_sale_manager" />
+         </div>
+         <xpath expr="//notebook" position="inside">
+            <page name="coefficient" string="Coefficients" groups="sales_team.group_sale_manager">
+               <group>
+                  <group>
+                     <group col="5">
+                        <field name="base_price" />
+                        <field name="alternative_base_price_sale" colspan="5"/>
+                        <field name="alternative_base_price_standard" colspan="5"/>
+                     </group>
+                     <group />
+                  </group>
+                  <group colspan="4" col="6">
+                     <table style="width:100%;margin:1">
+                        <!-- Table css -->
+                        <style type="text/css">
+                        .coeff_th_td {border: none; height:30px;}
+                        .coeff_th_td_price {border: none; height:30px;background-color:#DDFFFF;border-right:10px solid white;}
+                        .coeff_price {padding : 0 60px 0 0;}
+                        .coeff_title {border: none; height:30px;font-size:20px;color:#7C7BAD;padding:0 0 10px 0; width: 24.8%}
+                        .coeff_theorical_price {border-right:10px solid white;}
+                        </style>
+                      
 
-    <record id="view_product_template_coefficient_tree" model="ir.ui.view">
-        <field name="model">product.template</field>
-        <field name="priority">100</field>
-        <field name="arch" type="xml">
-            <tree editable="bottom">
-                <field name="name" readonly="1"/>
-                <field name="base_price" />
-                <field name="alternative_base_price_sale" />
-                <field name="alternative_base_price_standard" />
-                <field name="coeff1_id" />
-                <field name="incl_in_standard_price_1" />
-                <field name="coeff2_id" />
-                <field name="incl_in_standard_price_2" />
-                <field name="coeff3_id" />
-                <field name="incl_in_standard_price_3" />
-                <field name="coeff4_id" />
-                <field name="incl_in_standard_price_4" />
-                <field name="coeff5_id" />
-                <field name="incl_in_standard_price_5" />
-                <field name="coeff6_id" />
-                <field name="incl_in_standard_price_6" />
-                <field name="coeff7_id" />
-                <field name="incl_in_standard_price_7" />
-                <field name="coeff8_id" />
-                <field name="incl_in_standard_price_8" />
-                <field name="coeff9_id" />
-                <field name="incl_in_standard_price_9" />
-                <field name="theoritical_price" />
-                <field name="list_price" />
-                <field name="has_theoritical_price_different" invisible="1" />
-                <button name="use_theoritical_price" type="object" string="Use Theoritical Price"
-                    attrs="{'invisible': [('has_theoritical_price_different', '=', False)]}" icon="gtk-convert"/>
-            </tree>
-        </field>
-    </record>
-
-    <record id="view_product_template_tree" model="ir.ui.view">
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_tree_view"/>
-        <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="theoritical_price"/> 
-            </field>
-        </field>
-    </record>
-
-    <record id="view_product_template_search" model="ir.ui.view">
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_search_view"/>
-        <field name="arch" type="xml">
-            <filter name="inactive" position="after">
-                <filter string="Has Theoritical Price Different" name="filter_has_theoritical_price_different" domain="[('has_theoritical_price_different', '=', True)]"/>
-            </filter>
-            <field name="attribute_line_ids" position="after">
-                <field name="categ_id"/> 
-            </field>
-        </field>
-    </record>
-
-    <record id="view_product_template_form" model="ir.ui.view">
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_form_view"/>
-        <field name="arch" type="xml">
-            <div name="button_box" position="inside">
-                <button name="recompute_base_price" type="object" icon="fa-calculator" class="oe_stat_button" string="Recompute Base price"
-                    groups="sales_team.group_sale_manager"/>
-                <button name="use_theoritical_cost" type="object" icon="fa-rotate-left" class="oe_stat_button" string="Use Theoritical Cost"
-                    attrs="{'invisible': [('has_theoritical_cost_different', '=', False)]}" groups="sales_team.group_sale_manager"/>
-                <button name="use_theoritical_price" type="object" icon="fa-rotate-left" class="oe_stat_button" string="Use Theoritical Price"
-                    attrs="{'invisible': [('has_theoritical_price_different', '=', False)]}" groups="sales_team.group_sale_manager"/>
-            </div>
-            <xpath expr="//notebook" position="inside">
-                <page name="coefficient" string="Coefficients" groups="sales_team.group_sale_manager">
-                    <group>
-                        <group>
-                            <group>
-                                <field name="base_price" />
-                                <field name="alternative_base_price_sale" />
-                                <field name="alternative_base_price_standard" />
-                            </group>
-                            <group />
-                        </group>
-                        <group colspan="4" col="6">
-                            <group string="Coefficients">
-                                <field name="coeff1_id" style="height:27px"/>
-                                <field name="coeff2_id" style="height:27px"/>
-                                <field name="coeff3_id" style="height:27px"/>
-                                <field name="coeff4_id" style="height:27px"/>
-                                <field name="coeff5_id" style="height:27px"/>
-                                <field name="coeff6_id" style="height:27px"/>
-                                <field name="coeff7_id" style="height:27px"/>
-                                <field name="coeff8_id" style="height:27px"/>
-                                <field name="coeff9_id" style="height:27px"/>
-                            </group>
-                            <group string="Sale Price" col="1">
-                                <field name="coeff1_inter" style="background-color:#DDFFFF;height:30px" nolabel="1"/>
-                                <field name="coeff2_inter" style="background-color:#DDFFFF;height:30px" nolabel="1"/>
-                                <field name="coeff3_inter" style="background-color:#DDFFFF;height:30px" nolabel="1"/>
-                                <field name="coeff4_inter" style="background-color:#DDFFFF;height:30px" nolabel="1"/>
-                                <field name="coeff5_inter" style="background-color:#DDFFFF;height:30px" nolabel="1"/>
-                                <field name="coeff6_inter" style="background-color:#DDFFFF;height:30px" nolabel="1"/>
-                                <field name="coeff7_inter" style="background-color:#DDFFFF;height:30px" nolabel="1"/>
-                                <field name="coeff8_inter" style="background-color:#DDFFFF;height:30px" nolabel="1"/>
-                                <field name="coeff9_inter" style="background-color:#DDFFFF;height:30px" nolabel="1"/>
-                            </group>
-                            <group string="Incl. in S. Price" col="1">
-                                <field name="incl_in_standard_price_1" nolabel="1" style="height:30px"/>
-                                <field name="incl_in_standard_price_2" nolabel="1" style="height:30px"/>
-                                <field name="incl_in_standard_price_3" nolabel="1" style="height:30px"/>
-                                <field name="incl_in_standard_price_4" nolabel="1" style="height:30px"/>
-                                <field name="incl_in_standard_price_5" nolabel="1" style="height:30px"/>
-                                <field name="incl_in_standard_price_6" nolabel="1" style="height:30px"/>
-                                <field name="incl_in_standard_price_7" nolabel="1" style="height:30px"/>
-                                <field name="incl_in_standard_price_8" nolabel="1" style="height:30px"/>
-                                <field name="incl_in_standard_price_9" nolabel="1" style="height:30px"/>
-                            </group>
-                            <group string="Standard Price" col="1">
-                                <field name="coeff1_inter_sp" style="background-color:#DDFFFF;height:30px"  nolabel="1"/>
-                                <field name="coeff2_inter_sp" style="background-color:#DDFFFF;height:30px"  nolabel="1"/>
-                                <field name="coeff3_inter_sp" style="background-color:#DDFFFF;height:30px"  nolabel="1"/>
-                                <field name="coeff4_inter_sp" style="background-color:#DDFFFF;height:30px"  nolabel="1"/>
-                                <field name="coeff5_inter_sp" style="background-color:#DDFFFF;height:30px"  nolabel="1"/>
-                                <field name="coeff6_inter_sp" style="background-color:#DDFFFF;height:30px"  nolabel="1"/>
-                                <field name="coeff7_inter_sp" style="background-color:#DDFFFF;height:30px"  nolabel="1"/>
-                                <field name="coeff8_inter_sp" style="background-color:#DDFFFF;height:30px"  nolabel="1"/>
-                                <field name="coeff9_inter_sp" style="background-color:#DDFFFF;height:30px"  nolabel="1"/>
-                            </group>
-                        </group>
-                        <group col="4">
-                            <group>
-                                <field name="theoritical_price" style="background-color: #D0EED0"/>
-                                <field name="has_theoritical_price_different"/>
-                                <field name="has_theoritical_cost_different"/>
-                            </group>
-                            <group />
-                        </group>
-                    </group>
-                </page>
-            </xpath>
-            <xpath expr="//field[@name='taxes_id']" position="after">
-                <field name="theoritical_warning_label" nolabel="1" colspan="2"
-                    style="color: #856404;background-color: #fff3cd;border-color: #ffeeba;"/>
-            </xpath>
-        </field>
-    </record>
-
+                        <tr>
+                           <th class="coeff_title" colspan="2">Coefficients</th>
+                           <th class="coeff_title">Sale Price</th>
+                           <th class="coeff_title">Include in Cost</th>
+                           <th class="coeff_title">Cost</th>
+                        </tr>
+                        <tr>
+                           <td class="coeff_th_td">Coefficient 1</td>
+                           <td class="coeff_th_td">
+                              <field class="coeff_price" name="coeff1_id" />
+                           </td>
+                           <th class="coeff_th_td_price">
+                              <field name="coeff1_inter" nolabel="1" />
+                           </th>
+                           <td class="coeff_th_td">
+                              <field name="incl_in_standard_price_1" nolabel="1" />
+                           </td>
+                           <td class="coeff_th_td_price">
+                              <field name="coeff1_inter_sp" nolabel="1" />
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="coeff_th_td">Coefficient 2</td>
+                           <td class="coeff_th_td">
+                              <field class="coeff_price" name="coeff2_id" />
+                           </td>
+                           <th class="coeff_th_td_price">
+                              <field name="coeff2_inter" nolabel="1" />
+                           </th>
+                           <td class="coeff_th_td">
+                              <field name="incl_in_standard_price_2" nolabel="1" />
+                           </td>
+                           <td class="coeff_th_td_price">
+                              <field name="coeff2_inter_sp" nolabel="1" />
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="coeff_th_td">Coefficient 3</td>
+                           <td class="coeff_th_td ">
+                              <field class="coeff_price" name="coeff3_id" />
+                           </td>
+                           <th class="coeff_th_td_price">
+                              <field name="coeff3_inter" nolabel="1" />
+                           </th>
+                           <td class="coeff_th_td">
+                              <field name="incl_in_standard_price_3" nolabel="1" />
+                           </td>
+                           <td class="coeff_th_td_price">
+                              <field name="coeff3_inter_sp" nolabel="1" />
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="coeff_th_td">Coefficient 4</td>
+                           <td class="coeff_th_td">
+                              <field class="coeff_price" name="coeff4_id" />
+                           </td>
+                           <th class="coeff_th_td_price">
+                              <field name="coeff4_inter" nolabel="1" />
+                           </th>
+                           <td class="coeff_th_td">
+                              <field name="incl_in_standard_price_4" nolabel="1" />
+                           </td>
+                           <td class="coeff_th_td_price">
+                              <field name="coeff4_inter_sp" nolabel="1" />
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="coeff_th_td">Coefficient 5</td>
+                           <td class="coeff_th_td">
+                              <field class="coeff_price" name="coeff5_id" />
+                           </td>
+                           <th class="coeff_th_td_price">
+                              <field name="coeff5_inter" nolabel="1" />
+                           </th>
+                           <td class="coeff_th_td">
+                              <field name="incl_in_standard_price_5" nolabel="1" />
+                           </td>
+                           <td class="coeff_th_td_price">
+                              <field name="coeff5_inter_sp" nolabel="1" />
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>Coefficient 6</td>
+                           <td class="coeff_th_td">
+                              <field class="coeff_price" name="coeff6_id" />
+                           </td>
+                           <th class="coeff_th_td_price">
+                              <field name="coeff6_inter" nolabel="1" />
+                           </th>
+                           <td class="coeff_th_td">
+                              <field name="incl_in_standard_price_6" nolabel="1" />
+                           </td>
+                           <td class="coeff_th_td_price">
+                              <field name="coeff6_inter_sp" nolabel="1" />
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="coeff_th_td">Coefficient 7</td>
+                           <td class="coeff_th_td">
+                              <field class="coeff_price" name="coeff7_id" />
+                           </td>
+                           <th class="coeff_th_td_price">
+                              <field name="coeff7_inter" nolabel="1" />
+                           </th>
+                           <td class="coeff_th_td">
+                              <field name="incl_in_standard_price_7" nolabel="1" />
+                           </td>
+                           <td class="coeff_th_td_price">
+                              <field name="coeff7_inter_sp" nolabel="1" />
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="coeff_th_td">Coefficient 8</td>
+                           <td class="coeff_th_td">
+                              <field class="coeff_price" name="coeff8_id" />
+                           </td>
+                           <th class="coeff_th_td_price">
+                              <field name="coeff8_inter" nolabel="1" />
+                           </th>
+                           <td class="coeff_th_td">
+                              <field name="incl_in_standard_price_8" nolabel="1" />
+                           </td>
+                           <td class="coeff_th_td_price">
+                              <field name="coeff8_inter_sp" nolabel="1" />
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="coeff_th_td">Coefficient 9</td>
+                           <td class="coeff_th_td">
+                              <field class="coeff_price" name="coeff9_id" />
+                           </td>
+                           <th class="coeff_th_td_price">
+                              <field name="coeff9_inter" nolabel="1" />
+                           </th>
+                           <td class="coeff_th_td">
+                              <field name="incl_in_standard_price_9" nolabel="1" />
+                           </td>
+                           <td class="coeff_th_td_price">
+                              <field name="coeff9_inter_sp" nolabel="1" />
+                           </td>
+                        </tr>
+                     </table>
+                  </group>
+                  <group col="4">
+                  <table style="width:100%;">
+                        <tr>
+                            <th class="coeff_theorical_price">Theoritical Price VAT Incl. </th>
+                            <td><field name="theoritical_price" style="background-color: #D0EED0; width:200px;" /></td>
+                        </tr>
+                        <tr>
+                            <th class="coeff_theorical_price">Has Theoritical Price Different</th>
+                            <td><field name="has_theoritical_price_different"/></td>
+                        </tr>
+                        <tr>
+                            <th class="coeff_theorical_price">Has Theoritical Cost Different</th>
+                            <td><field name="has_theoritical_cost_different"/></td>
+                        </tr>
+    
+                    </table>
+                     <group />
+                  </group>
+               </group>
+            </page>
+         </xpath>
+         <xpath expr="//field[@name='taxes_id']" position="after">
+            <field name="theoritical_warning_label" nolabel="1" colspan="2" style="color: #856404;background-color: #fff3cd;border-color: #ffeeba;" />
+         </xpath>
+      </field>
+   </record>
 </odoo>

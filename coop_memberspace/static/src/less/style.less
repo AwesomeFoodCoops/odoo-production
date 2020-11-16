@@ -1,13 +1,13 @@
 @font-face {
 	font-family: 'Glyphicons Halflings';
-	src: url('/web/static/lib/bootstrap/fonts/glyphicons-halflings-regular.eot');
-	src: url('/web/static/lib/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix')
-		format('embedded-opentype'), url('/web/static/lib/bootstrap/fonts/glyphicons-halflings-regular.woff2')
+	src: url('../fonts/glyphicon/glyphicons-halflings-regular.eot');
+	src: url('../fonts/glyphicon/glyphicons-halflings-regular.eot?#iefix')
+		format('embedded-opentype'), url('../fonts/glyphicon/glyphicons-halflings-regular.woff2')
 		format('woff2'),
-		url('/web/static/lib/bootstrap/fonts/glyphicons-halflings-regular.woff')
+		url('../fonts/glyphicon/glyphicons-halflings-regular.woff')
 		format('woff'),
-		url('/web/static/lib/bootstrap/fonts/glyphicons-halflings-regular.ttf')
-		format('truetype'), url('/web/static/lib/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular')
+		url('../fonts/glyphicon/glyphicons-halflings-regular.ttf')
+		format('truetype'), url('../fonts/glyphicon/glyphicons-halflings-regular.svg#glyphicons_halflingsregular')
 		format('svg');
 }
 
@@ -180,4 +180,19 @@
     h3{
         color: #3c763d !important;
     }
+}
+// Catchall baseclass
+.glyphicon {
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-piggy-bank:before {
+	content: "\e225";
 }

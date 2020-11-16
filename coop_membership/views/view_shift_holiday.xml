@@ -55,7 +55,7 @@
                                        attrs="{'readonly': [('state', '!=', 'draft')] , 'invisible' : [('holiday_type', '!=', 'single_day')]}">
                                     <tree create="false">
                                         <field name="name"/>
-                                        <field name="week_number"/>
+                                        <field name="week_name"/>
                                         <field name="shift_type_id"/>
                                         <field name="date_begin"/>
                                         <field name="date_end"/>
@@ -79,7 +79,7 @@
                                        attrs="{'readonly': [('state', '!=', 'draft')], 'invisible' : [('holiday_type', '!=', 'long_period')]}">
                                     <tree create="false">
                                         <field name="name"/>
-                                        <field name="week_number"/>
+                                        <field name="week_name"/>
                                         <field name="shift_type_id"/>
                                         <field name="date_begin"/>
                                         <field name="date_end"/>

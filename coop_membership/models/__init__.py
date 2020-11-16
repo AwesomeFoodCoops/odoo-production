@@ -8,7 +8,6 @@ from . import event_event_ticket
 from . import event_registration
 from . import mail_mass_mailing_contact
 from . import res_company
-from . import res_config
 from . import res_partner
 from . import res_partner_generate_barcode_wizard
 from . import res_partner_inform
@@ -31,3 +30,4 @@ from . import shift_template_registration
 from . import shift_template_registration_line
 from . import shift_ticket
 from . import shift_mail_registration
+from . import shift_template_operation

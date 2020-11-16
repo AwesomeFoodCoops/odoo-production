@@ -5,7 +5,7 @@
 
 {
     'name': 'Coop - Membership',
-    'version': '12.0.4.0.0',
+    'version': '12.0.5.0.0',
     'category': 'Custom',
     'summary': 'Custom settings for membership',
     'author': 'La Louve, Druidoo',
@@ -74,6 +74,7 @@
         'views/view_shift_template.xml',
         'views/view_mass_mailling.xml',
         'views/view_shift_credit_config.xml',
+        'views/shift_template_operation.xml',
         'views/action.xml',
         'views/menu.xml',
         'report/member_contract.xml',

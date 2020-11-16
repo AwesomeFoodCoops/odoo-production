@@ -49,7 +49,7 @@ class ShiftTemplateRegistrationLine(models.Model):
 
     @api.model
     def cron_update_partner_shift_type(self):
-        today = fields.Date.context_today(self)
+        today = fields.Date.to_string(fields.Date.context_today(self))
         template_env = self.env['shift.template.registration.line']
 
         # Use SQL here to filter only record
@@ -64,12 +64,12 @@ class ShiftTemplateRegistrationLine(models.Model):
             LEFT JOIN shift_template_ticket STT
             ON STR.shift_ticket_id=STT.id
             WHERE
-            (STRL.date_begin <= '%s')
-            AND (STRL.date_end >= '%s' OR STRL.date_end is NULL)
+            (STRL.date_begin <= %s)
+            AND (STRL.date_end >= %s OR STRL.date_end is NULL)
             AND RP.shift_type != STT.shift_type
         """
         _logger.info(">>>>> START cron_update_partner_shift_type:")
-        self.env.cr.execute(SQL, today, today)
+        self.env.cr.execute(SQL, (today, today))
         line_ids = [x[0] for x in self.env.cr.fetchall()]
         _logger.debug(
             ">>>>> cron_update_partner_shift_type - total: %s - line ids: %s",

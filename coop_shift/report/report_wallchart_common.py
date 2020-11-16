@@ -4,7 +4,7 @@
 # @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, models, fields
+from odoo import api, models
 
 rounding_limit = 0.00000000001
 WEEK_LETTER = ['A', 'B', 'C', 'D']
@@ -14,14 +14,18 @@ class ReportWallchartCommon(models.AbstractModel):
     _name = 'report.coop_shift.report_wallchart_common'
     _description = 'Report Coop Shift Report Wallchart Common'
 
+    def _get_number_weeks_per_cycle(self):
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        return int(get_param('coop_shift.number_of_weeks_per_cycle'))
+
     @api.model
-    def _get_week_number(self, test_date):
-        if not test_date:
-            return False
-        weekA_date = fields.Date.from_string(
-            self.env.ref('coop_shift.config_parameter_weekA').sudo().value)
-        week_number = 1 + (((test_date - weekA_date).days // 7) % 4)
-        return (week_number, WEEK_LETTER[week_number - 1])
+    def _get_week_number(self, date):
+        week_number = self.env['shift.template']._get_week_number(date)
+        week_name = (
+            week_number
+            and self.env['shift.template']._number_to_letters(week_number)
+        )
+        return (week_number, week_name)
 
     @api.model
     def format_float_time(self, time):

@@ -51,7 +51,8 @@
                         icon="fa-calendar"
                         help="View Partner Owned Shares"
                         groups="coop_shift.group_shift_manager"
-                        attrs="{'invisible': [('is_member', '!=', True)]}">
+                        attrs="{'invisible': [('is_member', '!=', True)]}"
+                        invisible="1">
                     <field name="total_partner_owned_share" widget="statinfo" string="Owned Shares"/>
                 </button>
             </div>
@@ -90,8 +91,9 @@
 
             <!-- Add membership page -->
             <page name="sales_purchases" position="after">
-                <page name="membership" string="Membership" invisible="1"
-                      groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
+                <page name="membership" string="Membership"
+                        attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}"
+                        groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
                     <group>
                         <group name="membership" string="Membership" groups="coop_shift.group_shift_manager">
                             <field name="is_member"/>
@@ -350,6 +352,9 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//page[@name='shifts']" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}</attribute>
+            </xpath>
 
             <!-- Changes in existing buttons -->
             <button id="view_shift_leaves" position="attributes">
@@ -748,9 +753,11 @@
             <field name="category_id" position="attributes">
                 <attribute name="readonly">True</attribute>
             </field>
+            <!-- is_blocked is only existed in coop_shift.view_res_partner_shift_form
             <field name="is_blocked" position="attributes">
                 <attribute name="readonly">1</attribute>
             </field>
+            -->
         </field>
     </record>
 
@@ -772,8 +779,8 @@
         <field name="arch" type="xml">
             <field name="name" position="attributes">
                 <attribute name="context">{'allow_to_search_barcode_base': True}</attribute>
-                <attribute name="filter_domain">['|', '|', '|',
-                    ('display_name','ilike',self),('ref','=',self),('email','ilike',self), ('barcode_base','=',self)]
+                <attribute name="filter_domain">['|', '|', '|', 
+                    ('name','ilike',self),('ref','=',self),('email','ilike',self), ('barcode_base','=',self)]
                 </attribute>
             </field>
             <field name="name" position="after">
@@ -893,4 +900,45 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
         <field name="search_view_id" ref="view_bdm_search"/>
     </record>
 
+    <!-- Hide some smart buttons on the form view of Member -->
+    <record id="sale_res_partner_view_buttons_inherit" model="ir.ui.view">
+        <field name="name">account.res.partner.view.buttons.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="sale.res_partner_view_buttons"/>
+        <field name="arch" type="xml">
+            <button name="%(sale.act_res_partner_2_sale_order)d" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+        </field>
+    </record>
+    <record id="account_res_partner_view_buttons_inherit" model="ir.ui.view">
+        <field name="name">account.res.partner.view.buttons.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.partner_view_buttons"/>
+        <field name="arch" type="xml">
+            <button name="action_view_partner_invoices" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+        </field>
+    </record>
+    <record id="account_partner_view_button_contracts_count_inherit" model="ir.ui.view">
+        <field name="name">account_partner_view_button_contracts_count_inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.partner_view_button_contracts_count"/>
+        <field name="arch" type="xml">
+            <button name="%(account.action_open_partner_analytic_accounts)d" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+        </field>
+    </record>
+    <record id="account_res_partner_account_move_line_view_inherit" model="ir.ui.view">
+        <field name="name">account_res_partner_account_move_line_view_inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="res_partner_account_move_line.res_partner_account_move_line_view"/>
+        <field name="arch" type="xml">
+            <button name="%(res_partner_account_move_line.action_open_partner_move_lines)d" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+        </field>
+    </record>
 </odoo>

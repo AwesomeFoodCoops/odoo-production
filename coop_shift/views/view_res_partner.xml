@@ -62,7 +62,16 @@
             </page>
             <!-- Add buttons -->
             <div name="button_box" position="inside">
-
+                <button name="%(coop_shift.act_template_registration_line_from_partner)d"
+                        type="action"
+                        class="oe_stat_button oe_event_attendee_button"
+                        icon="fa-calendar-plus-o"
+                        help="View partner Template Registrations"
+                        groups="coop_shift.group_shift_manager"
+                        id="view_partner_template_registrations">
+                    <field name="current_tmpl_reg_line" attrs="{'invisible':[('current_tmpl_reg_line', '=', False)]}"/>
+                    <span attrs="{'invisible':[('current_tmpl_reg_line', '!=', False)]}">Tmpl. Registr.</span>
+                </button>
                 <button name="%(coop_shift.act_shift_registration_from_partner)d"
                         type="action"
                         class="oe_stat_button oe_event_attendee_button"
@@ -85,17 +94,16 @@
                     <span attrs="{'invisible':[('current_leave_info', '!=', False)]}">Leaves</span>
                 </button>
 
-                <button name="%(coop_shift.act_template_registration_line_from_partner)d"
+                <button name="%(coop_shift.action_shift_extension_from_partner)d"
                         type="action"
                         class="oe_stat_button oe_event_attendee_button"
-                        icon="fa-calendar-plus-o"
-                        help="View partner Template Registrations"
+                        icon="fa-calendar"
+                        help="View partner Extensions"
                         groups="coop_shift.group_shift_manager"
-                        id="view_partner_template_registrations">
-                    <field name="current_tmpl_reg_line" attrs="{'invisible':[('current_tmpl_reg_line', '=', False)]}"/>
-                    <span attrs="{'invisible':[('current_tmpl_reg_line', '!=', False)]}">Tmpl. Registr.</span>
+                        id="view_res_partner_shift_extension_from_partner">
+                    <field name="current_extension_day_end" attrs="{'invisible':[('current_extension_day_end', '=', False)]}"/>
+                    <span attrs="{'invisible':[('current_extension_day_end', '!=', False)]}">Ext.</span>
                 </button>
-
                 <button name="%(coop_shift.action_res_partner_point_counter_view_standard)d"
                         type="action"
                         class="oe_stat_button"
@@ -114,17 +122,6 @@
                         groups="coop_shift.group_shift_manager"
                         id="view_res_partner_point_counter_ftop">
                     <field name="display_ftop_points" widget="statinfo" string="Vacations"/>
-                </button>
-
-                <button name="%(coop_shift.action_shift_extension_from_partner)d"
-                        type="action"
-                        class="oe_stat_button oe_event_attendee_button"
-                        icon="fa-calendar"
-                        help="View partner Extensions"
-                        groups="coop_shift.group_shift_manager"
-                        id="view_res_partner_shift_extension_from_partner">
-                    <field name="current_extension_day_end" attrs="{'invisible':[('current_extension_day_end', '=', False)]}"/>
-                    <span attrs="{'invisible':[('current_extension_day_end', '!=', False)]}">Ext.</span>
                 </button>
 
             </div>

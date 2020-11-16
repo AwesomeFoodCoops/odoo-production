@@ -8,14 +8,26 @@ from odoo import models, api, fields
 class PosOrderLine(models.Model):
     _inherit = "pos.order.line"
 
-    week_number = fields.Char(
-        string="Week", related="order_id.week_number", store=True
+    week_number = fields.Integer(
+        string='Week Number',
+        related="order_id.week_number",
+        store=True
+    )
+    week_name = fields.Char(
+        string='Week',
+        related='order_id.week_name',
+        store=True,
     )
     week_day = fields.Char(
-        string="Day", related="order_id.week_day", store=True
+        string="Day",
+        related="order_id.week_day",
+        store=True,
     )
-
-    cycle = fields.Char(string="Cycle", related="order_id.cycle", store=True)
+    cycle = fields.Char(
+        string="Cycle",
+        related="order_id.cycle",
+        store=True,
+    )
     order_id = fields.Many2one(index=True)
 
     @api.multi

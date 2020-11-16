@@ -9,6 +9,23 @@ _logger = logging.getLogger(__name__)
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    related_user_id = fields.Many2one(
+        comodel_name='res.users',
+        compute="_compute_related_user",
+        string="Related User")
+
+    @api.multi
+    def _compute_related_user(self):
+        """
+        Function to compute the related user of the partner
+        """
+        ResUsers = self.env["res.users"]
+        for partner in self:
+            related_users = ResUsers.search(
+                [('partner_id', '=', partner.id)], limit=1)
+            partner.related_user_id = \
+                related_users and related_users[0] or False
+
     @api.model
     def get_warning_member_state(self):
         IrConfig = self.env["ir.config_parameter"]
@@ -68,7 +85,6 @@ class ResPartner(models.Model):
         This function is used to create user for existing partner when installing
         module coop_memberspace
         """
-        members_dont_have_user = self.filtered(lambda r: not r.related_user_id)
         # portal group
         portal_group = self.env.ref("base.group_portal")
         # memberspace group
@@ -85,7 +101,7 @@ class ResPartner(models.Model):
             }
         )
         vals = Users.with_context(context).default_get(list(Users._fields.keys()))
-        for member in members_dont_have_user:
+        for member in self:
             already_email = self.env["res.partner"].search(
                 [("email", "=", member.email), ("id", "!=", member.id)]
             )
@@ -100,10 +116,10 @@ class ResPartner(models.Model):
             sql = """
                 SELECT id
                 FROM res_users
-                WHERE login = '%s'
+                WHERE login = %s
                 LIMIT 1
             """
-            self.env.cr.execute(sql, member.email)
+            self.env.cr.execute(sql, (member.email,))
             user = self.env.cr.fetchone()
             if user:
                 user = Users.browse(user[0])
@@ -124,10 +140,21 @@ class ResPartner(models.Model):
         return True
 
     @api.model
-    def cron_create_user_for_members(self):
-        members = self.search(
-            [("is_member", "=", True), ("email", "!=", False)]
-        )
+    def cron_create_user_for_members(self, limit=100):
+        sql = '''
+            SELECT rp.id
+            FROM res_partner rp
+            LEFT JOIN res_users ru ON ru.partner_id = rp.id
+            WHERE ru.partner_id ISNULL
+                AND rp.is_member IS True
+                AND rp.email NOTNULL
+            LIMIT %s
+        '''
+        self.env.cr.execute(sql, (limit,))
+        partner_ids = [p[0] for p in self.env.cr.fetchall()]
+        if not partner_ids:
+            return False
+        members = self.browse(partner_ids)
         members.create_memberspace_user()
 
     @api.model
