@@ -1311,3 +1311,14 @@ msgstr ""
 msgid "swap_horiz"
 msgstr ""
 
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "You are up to date."
+msgstr ""
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "You have one or more remedies to do."
+msgstr ""
