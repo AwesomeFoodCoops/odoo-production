@@ -171,12 +171,14 @@ msgstr ""
 #. module: coop_product_coefficient
 #: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product__has_theoritical_cost_different
 #: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template__has_theoritical_cost_different
+#: model_terms:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
 msgid "Has Theoritical Cost Different"
 msgstr ""
 
 #. module: coop_product_coefficient
 #: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product__has_theoritical_price_different
 #: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template__has_theoritical_price_different
+#: model_terms:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
 #: model_terms:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_search
 msgid "Has Theoritical Price Different"
 msgstr ""
@@ -354,6 +356,7 @@ msgstr ""
 #. module: coop_product_coefficient
 #: model:ir.model.fields,field_description:coop_product_coefficient.field_product_product__theoritical_price
 #: model:ir.model.fields,field_description:coop_product_coefficient.field_product_template__theoritical_price
+#: model_terms:ir.ui.view,arch_db:coop_product_coefficient.view_product_template_form
 msgid "Theoritical Price VAT Incl."
 msgstr ""
 
