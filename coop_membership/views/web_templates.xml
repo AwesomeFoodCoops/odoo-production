@@ -4,7 +4,7 @@
         <html>
             <head id="website_register_header" name="website_register_header">
                 <title>Inscription - Réunions d'accueil</title>
-                <link rel="stylesheet" href="/coop_membership/static/lib/scss/main.scss"/>
+                <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
                 <link rel="stylesheet" href="/coop_membership/static/lib/css/tempusdominus.css"/>
             </head>
             <body>
@@ -162,7 +162,7 @@
         <html>
             <head id="website_register_header" name="website_register_header">
                 <title>Inscription - Réunions d'accueil</title>
-                <link rel="stylesheet" href="/coop_membership/static/lib/scss/main.scss"/>
+                <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
             </head>
             <body>
                 <div class="container-contact100">
@@ -190,7 +190,7 @@
         <html>
             <head id="website_register_header" name="website_register_header">
                 <title>Inscription - Réunions d'accueil</title>
-                <link rel="stylesheet" href="/coop_membership/static/lib/scss/main.scss"/>
+                <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
                 <link rel="stylesheet" href="/coop_membership/static/lib/css/tempusdominus.css"/>
             </head>
             <body>
@@ -309,7 +309,7 @@
         <html>
             <head id="website_register_header" name="website_register_header">
                 <title>Inscription - Réunions d'accueil</title>
-                <link rel="stylesheet" href="/coop_membership/static/lib/scss/main.scss"/>
+                <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
             </head>
             <body>
                 <div class="container-contact100">
@@ -348,7 +348,7 @@
         <html>
             <head id="website_register_header" name="website_register_header">
                 <title>Inscription - Discovery back</title>
-                <link rel="stylesheet" href="/coop_membership/static/lib/scss/main.scss"/>
+                <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
             </head>
             <body>
                 <div class="container-contact100">
@@ -376,7 +376,7 @@
         <html>
             <head id="website_form_register_header" name="website_form_register_header">
                 <title>Inscription - Réunions d'accueil</title>
-                <link rel="stylesheet" href="/coop_membership/static/lib/scss/main.scss"/>
+                <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
                 <link rel="stylesheet" href="/coop_membership/static/lib/css/tempusdominus.css"/>
             </head>
             <body>
