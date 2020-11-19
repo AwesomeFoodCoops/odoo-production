@@ -31,8 +31,10 @@
                            options="{'no_create_edit': True, 'no_create': True}"/>
                     <field name="state"/>
                     <field name="message_needaction" invisible="1"/>
-                    <button name="confirm_registration" string="Confirm Registration" states="draft" type="object"/>
-                    <button name="button_reg_cancel" string="Cancel Registration" states="draft" type="object"/>
+                    <button name="confirm_registration" string="Confirm Registration" states="draft" type="object"
+                        icon="fa-check fa-lg"/>
+                    <button name="button_reg_cancel" string="Cancel Registration" states="draft" type="object"
+                        icon="fa-times-circle fa-lg"/>
                     <button name="do_draft" string="Set To Unconfirmed"
                             states="cancel,done,absent,excused,replaced,replacing,open" type="object" icon="fa-backward"
                             groups="coop_shift.group_shift_manager"/><!-- ,coop_membership.group_membership_bdm_saisie"/> -->
