@@ -41,8 +41,8 @@ class ResPartner(models.Model):
         else:
             member_state = warning_member_state.get(self.cooperative_state, {})
         return (
-            member_state.get("alert", ""),
-            member_state.get("message", ""),
+            _(member_state.get("alert", "")),
+            _(member_state.get("message", "")),
             member_state.get("css-class", ""),
         )
 

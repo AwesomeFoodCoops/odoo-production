@@ -401,7 +401,8 @@ class Website(WebsiteController):
             [("token", "=", token), ("state", "=", "in_progress")], limit=1
         )
         values = {}
-        request.context.update({"lang": request.env.user.lang})
+        request.context = dict(request.context,
+                                       lang=request.env.user.lang)
         if not (proposal and proposal.token_valid):
             values["bootstrap_class"] = "alert alert-danger"
             values["message"] = _(

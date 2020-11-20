@@ -1311,3 +1311,44 @@ msgstr ""
 msgid "swap_horiz"
 msgstr ""
 
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "You are up to date."
+msgstr ""
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "You have one or more remedies to do."
+msgstr ""
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "You have been unsubscribed from your team, please contact the members office."
+msgstr ""
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "You have been suspended, please contact the members office."
+msgstr ""
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "An incident has occurred on your account. Please contact the member office."
+msgstr ""
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "In vacations."
+msgstr ""
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "A technical problem currently prevents us from knowing your status. Try again later or contact the members office."
+msgstr ""

@@ -122,6 +122,7 @@ class ResPartner(models.Model):
         if next_shift_date:
             # Set the next shift date as the end date if the end date exceed
             # the next shift date
+            next_shift_date = fields.Date.from_string(next_shift_date)
             next_shift_date += timedelta(days=1)
             if date_stop_str > next_shift_date:
                 date_stop_str = next_shift_date
