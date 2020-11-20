@@ -962,7 +962,7 @@ msgstr "Mon compteur"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.homepage
 msgid "My next service"
-msgstr "Mes prochain service"
+msgstr "Mon prochain service"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services

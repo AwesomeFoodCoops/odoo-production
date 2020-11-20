@@ -217,7 +217,7 @@
                             domain="[('state', 'in', ['draft', 'open', 'done', 'replacing'])]"/>
 
                     <filter string="Upcoming" name="upcoming"
-                            domain="[('is_technical', '=', False), ('state', '!=', 'cancel'), ('date_begin','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]"
+                            domain="[('is_technical', '=', False), ('date_begin','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]"
                             help="Upcoming registrations from today"/>
 
                     <separator/>

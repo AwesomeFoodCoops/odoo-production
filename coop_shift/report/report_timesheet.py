@@ -37,14 +37,17 @@ class ReportTimesheet(models.AbstractModel):
                 datetime.datetime.strptime(date_report, "%Y-%m-%d") +
                 timedelta(days=1), "%Y-%m-%d")
             shifts = self.env['shift.shift'].search([
-                '&', ('date_begin', '>=', date_report),
-                ('date_begin', '<', date2)])
+                ('date_begin', '>=', date_report),
+                ('date_begin', '<', date2),
+                ('state', '!=', 'cancel')])
 
         result = []
         for shift in shifts:
             registrations = []
             ftops = []
             for reg in shift.registration_ids:
+                if reg.state == 'cancel':
+                    continue
                 # Check if a partner is on leave on a report date
                 is_on_leave = self.check_partner_on_leave(
                     reg.partner_id, date_report)
