@@ -331,33 +331,25 @@ msgstr ""
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
-#, fuzzy
-msgid ""
-"<span style=\"font-size: 15px;font-weight: 600\">Represent your situation "
-"with your\n"
-"                                    permanent team. This counter is at \"0\" "
-"when you are up to date, it is negative when\n"
+msgid "<span style=\"font-size: 15px;font-weight: 600\">Represent your situation with your\n"
+"                                    permanent team. This counter is at \"0\" when you are up to date, it is negative when\n"
 "                                    you need to catch up.\n"
 "                                </span>"
-msgstr ""
-"<span style=\"font-size: 15px;font-weight: 600\">Représentez votre situation "
-"auprès de votre équipe permanente. Ce compteur est à \"0\" lorsque vous êtes "
-"à jour, il est négatif lorsque vous avez besoin de vous rattraper.</span>"
+msgstr "<span style=\"font-size: 15px;font-weight: 600\">Représente votre situation auprès de\n"
+"                                    votre équipe permanente. Ce compteur est à \"0\" lorsque vous êtes à jour, il est négatif quand\n"
+"                                    vous devez des rattrapages.\n"
+"                                </span>"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
-#, fuzzy
-msgid ""
-"<span style=\"font-size: 15px;font-weight: 600\">Represents the points "
-"accumulated by\n"
-"                                    doing services in addition to your usual "
-"services. From a total of 2 points, you can\n"
+msgid "<span style=\"font-size: 15px;font-weight: 600\">Represents the points accumulated by\n"
+"                                    doing services in addition to your usual services. From a total of 2 points, you can\n"
 "                                    request early leave.\n"
 "                                </span>"
-msgstr ""
-"<span style=\"font-size: 15px;font-weight: 600\">Représente les points "
-"accumulés en faisant des services en plus de vos services habituels. Sur un "
-"total de 2 points, vous pouvez demander un congé anticipé.</span>"
+msgstr "<span style=\"font-size: 15px;font-weight: 600\">Représente les points accumulés en\n"
+"                                    faisant des services en plus de vos services habituels. A partir d’un cumul de 2 points, vous pouvez\n"
+"                                     demander un congé anticipé.\n"
+"                                </span>"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_ftop
@@ -385,7 +377,7 @@ msgid ""
 "<span style=\"font-size: 25px;font-weight: 600\">Advance service counter</"
 "span>"
 msgstr ""
-"<span style=\"font-size: 25px;font-weight: 600\">Comptoir de service avancé</"
+"<span style=\"font-size: 25px;font-weight: 600\">Compteur des services anticipés</"
 "span>"
 
 #. module: coop_memberspace
@@ -553,7 +545,7 @@ msgstr "Contact"
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
 #: selection:memberspace.alias,type:0
 msgid "Coordinators"
-msgstr "Coordinators"
+msgstr "Coordinateurs"
 
 #. module: coop_memberspace
 #: model:ir.model.fields,field_description:coop_memberspace.field_memberspace_alias__create_uid
@@ -572,7 +564,7 @@ msgstr "Créé le"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.homepage
 msgid "Current week"
-msgstr "Cette semaine"
+msgstr "Semaine actuelle"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
@@ -730,7 +722,7 @@ msgstr "HT"
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.programmer_un_extra
 msgid "Hour"
-msgstr "Hour"
+msgstr "Heure"
 
 #. module: coop_memberspace
 #: model:ir.model.fields,field_description:coop_memberspace.field_memberspace_alias__id
@@ -949,9 +941,8 @@ msgstr "Modifier"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.statistics
-#, fuzzy
 msgid "Monthly turnover (k € including tax)"
-msgstr "chiffre d'affaires mensuel (k€ TTC)"
+msgstr "Chiffre d’affaires mensuel (k€ TTC)"
 
 #. module: coop_memberspace
 #: model:website.menu,name:coop_memberspace.menu_my_team
@@ -978,7 +969,7 @@ msgstr "Mon prochain service"
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_ftop
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
 msgid "My next services"
-msgstr "Mon prochain service"
+msgstr "Mes prochains services"
 
 #. module: coop_memberspace
 #: model:website.menu,name:coop_memberspace.menu_my_work
@@ -1227,7 +1218,7 @@ msgstr "Rue :"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
 msgid "Schedule an advance service"
-msgstr "Planifiez un service à l'avance"
+msgstr "Programmer un service anticipé"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.classic_counter
@@ -1485,13 +1476,10 @@ msgstr "Semaine"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
-#, fuzzy
-msgid ""
-"Will you be available to perform your next service? You can try to exchange\n"
+msgid "Will you be available to perform your next service? You can try to exchange\n"
 "                        it here with another member of the cooperative."
-msgstr ""
-"Serez-vous disponible pour effectuer votre prochain service? Vous pouvez "
-"essayer de l'échanger ici avec un autre membre de la coopérative."
+msgstr "Vous serez indisponible pour effectuer votre prochain service ? Vous pouvez tenter de l'échanger\n"
+"                        ici avec un autre membre de la coopérative."
 
 #. module: coop_memberspace
 #: code:addons/coop_memberspace/models/proposal.py:72
@@ -1545,19 +1533,12 @@ msgstr ""
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
-#, fuzzy
-msgid ""
-"You can do services in addition to your usual services. From 2 accumulated\n"
-"                        services, if you do not have to catch up, you can "
-"“spend” them by taking an “early leave”…\n"
-"                        period during which you do not have to come to work, "
-"but while continuing to do your shopping ."
-msgstr ""
-"Vous pouvez faire des services en plus de vos services habituels. A partir "
-"de 2 services cumulés, si vous n'avez pas à rattraper votre retard, vous "
-"pouvez les «dépenser» en prenant un «congé anticipé»… période pendant "
-"laquelle vous n'avez pas à venir travailler, mais tout en continuant à faire "
-"vos courses."
+msgid "You can do services in addition to your usual services. From 2 accumulated\n"
+"                        services, if you do not have to catch up, you can “spend” them by taking an “early leave”…\n"
+"                        period during which you do not have to come to work, but while continuing to do your shopping ."
+msgstr "Vous pouvez faire des services en plus de vos services habituels. A partir de 2 services\n"
+"                        accumulés, si vous ne devez pas des rattrapages, vous pouvez les “dépenser” en prenant un “congé anticipé”…\n"
+"                        période pendant laquelle, vous n’avez pas à venir travailler, mais tout en continuant à faire vos courses."
 
 #. module: coop_memberspace
 #: code:addons/coop_memberspace/controllers/main.py:425
@@ -1621,3 +1602,45 @@ msgstr "remove_circle_outline"
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
 msgid "swap_horiz"
 msgstr "swap_horiz"
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "You are up to date."
+msgstr "Vous êtes à jour."
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "You have one or more remedies to do."
+msgstr "Vous avez un ou plusieurs rattrapages à faire."
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "You have been unsubscribed from your team, please contact the members office."
+msgstr "Vous avez été désinscrit de votre équipe, merci de contacter le bureau des membres."
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "You have been suspended, please contact the members office."
+msgstr "Vous avez été suspendu, merci de contacter le bureau des membres."
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "An incident has occurred on your account. Please contact the member office."
+msgstr "Un incident s'est présenté sur votre compte. Veuillez contacter le bureau des membres."
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "In vacations."
+msgstr "En congé."
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/res_partner.py:45
+#, python-format
+msgid "A technical problem currently prevents us from knowing your status. Try again later or contact the members office."
+msgstr "Un problème technique nous empêche actuellement de connaître votre statut. Réessayez plus tard ou contactez le bureau des membres."

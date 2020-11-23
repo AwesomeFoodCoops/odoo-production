@@ -15,7 +15,7 @@
                                 email
                             </button>
                         </h3>
-                        <div class="row">
+                        <div class="row" style="width: 100%;">
                             <t t-if="coordinators" t-foreach="coordinators" t-as="coordinator">
                                 <div class="col-sm-6 col-md-4 member_kanban">
                                     <div class="member_kanban_content">
@@ -23,7 +23,7 @@
                                             <img t-if="coordinator.image and coordinator.public_avatar"
                                                  t-attf-src="data:image/*;base64,{{coordinator.image}}"/>
                                             <img t-if="not (coordinator.image and coordinator.public_avatar)"
-                                                 src="/base/static/src/img/avatar.png"/>
+                                                 src="/base/static/img/avatar.png"/>
                                         </div>
                                         <div class="member_detail">
                                             <h5 class="member_heading">
@@ -59,7 +59,7 @@
                                 email
                             </button>
                         </h3>
-                        <div class="row">
+                        <div class="row" style="width: 100%;">
                             <t t-foreach="members" t-as="member">
                                 <div class="col-sm-6 col-md-4 member_kanban">
                                     <div class="member_kanban_content">
@@ -67,7 +67,7 @@
                                             <img t-if="member.image and member.public_avatar"
                                                  t-attf-src="data:image/*;base64,{{member.image}}"/>
                                             <img t-if="not (member.image and member.public_avatar)"
-                                                 src="/base/static/src/img/avatar.png"/>
+                                                 src="/base/static/img/avatar.png"/>
                                         </div>
                                         <div class="member_detail">
                                             <h5 class="member_heading">

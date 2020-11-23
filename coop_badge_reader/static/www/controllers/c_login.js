@@ -22,7 +22,7 @@ angular.module('starter').controller('LoginCtrl', ['$scope', 'jsonRpc', '$state'
 
     $scope.submit = function () {
         jsonRpc.login($scope.login.db, $scope.login.username, $scope.login.password).then(function (user) {
-            jsonRpc.call('res.users', 'user_has_groups', ['coop_badge_reader.group_time_clock']).then(function (res) {
+            jsonRpc.call('res.users', 'user_has_groups', [user.id, 'coop_badge_reader.group_time_clock']).then(function (res) {
                 if (res){
                     $scope.login.css_class = 'authentication-ok';
                     $scope.errorMessage = "";

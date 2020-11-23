@@ -1948,7 +1948,7 @@ msgstr "Période d'enregistrement Vacations"
 #: model:ir.ui.menu,name:coop_membership.menu_shift_seats_available
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_ticket_seats_tree
 msgid "FTOP Seats"
-msgstr "Places Vacations Volants"
+msgstr "Places Vacations"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/event_registration.py:73

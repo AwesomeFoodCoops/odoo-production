@@ -274,7 +274,8 @@ class ResPartner(models.Model):
         d = fields.Datetime.now()
         for partner in self:
             next_registrations = partner.sudo().registration_ids.filtered(
-                lambda r, d=d: r.date_begin >= d and not r.is_technical)
+                lambda r, d=d: r.date_begin >= d and not r.is_technical and \
+                    r.state != 'cancel')
 
             # Set 4 next shifts
             partner.sudo().set_next_registration(next_registrations)
