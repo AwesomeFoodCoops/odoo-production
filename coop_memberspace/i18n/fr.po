@@ -225,7 +225,7 @@ msgid ""
 "get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])"
 "[0].lower()}"
 msgstr ""
-"${'Acceptation de votre offre d'échange de votre service ' + user."
+"${'Acceptation de votre offre d’échange de votre service ' + user."
 "get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])"
 "[0].lower()}"
 
@@ -253,14 +253,8 @@ msgstr ""
 
 #. module: coop_memberspace
 #: model:mail.template,subject:coop_memberspace.proposal_cancelled
-msgid ""
-"${'Refusal of your offer to exchange your service from ' + user."
-"get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])"
-"[0].lower()}"
-msgstr ""
-"${'Refus de votre offre d'échange de votre service ' + user."
-"get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])"
-"[0].lower()}"
+msgid "${'Refusal of your offer to exchange your service from ' + user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()}"
+msgstr "${'Refus de votre offre d’échange de votre service ' + user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()}"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.homepage
@@ -668,7 +662,7 @@ msgstr "Échange de services"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 msgid "Exchange services"
-msgstr "Services d'échange"
+msgstr "Services d’échange"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
