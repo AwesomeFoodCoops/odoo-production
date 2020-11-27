@@ -768,9 +768,9 @@ msgstr "Si actif, certains messages ont une erreur de livraison."
 msgid "If you are a member of the flying team, go here to see the\n"
 "                        services available and schedule your vacation. Cancellation\n"
 "                        of a service is only done by direct contact with the members' office."
-msgstr "Si vous êtes membre de l'équipe volante, allez ici pour voir le \n"
-"                        services disponibles et programmez vos vacances. Annulation \n"
-"                        d'un service ne se fait que par contact direct avec le bureau des membres."
+msgstr "Si vous êtes membre de l’équipe volante, passez par ici pour voir les \n"
+"                        services disponibles et programmer votre vacation. L’annulation \n"
+"                        d’un service se fait uniquement par contact direct avec le bureau des membres."
 
 #. module: coop_memberspace
 #: selection:proposal,state:0
