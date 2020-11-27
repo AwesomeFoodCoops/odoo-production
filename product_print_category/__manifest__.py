@@ -11,7 +11,7 @@
     "category": "Product",
     "license": "AGPL-3",
     "author": "GRAP, Druidoo",
-    "depends": ["product"],
+    "depends": ["product", "sale"],
     "demo": [
         "demo/res_groups.xml",
         "demo/qweb_template.xml",
