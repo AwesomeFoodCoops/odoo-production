@@ -37,8 +37,8 @@
 
 
 .member_number {
-    margin-left: 52mm;
-    margin-top: 4mm;
+    margin-left: 48mm;
+    margin-top: 11mm;
     color: #425570;
     font-family: "Intro Pro";
     font-size: 1.5em;
@@ -60,9 +60,9 @@
     font-size: 13pt;
     text-transform: uppercase;
     text-orientation: sideways-left;
-    margin-left: 35mm;
+    margin-left: 40mm;
     margin-right: 0;
-    margin-top: 40mm;
+    margin-top: 32mm;
     margin-bottom: 0;
     padding: 0;
     -webkit-transform-origin: 260 85;

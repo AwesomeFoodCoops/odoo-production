@@ -238,7 +238,7 @@ class WebsiteRegisterMeeting(http.Controller):
                 'zip': zipcode,
                 'phone': phone,
                 'mobile': mobile,
-                'birthdate_date': dob,
+                'birthdate_date': dob or False,
             }
             # Create contact partner
             partner = self.create_contact_partner(

@@ -243,6 +243,23 @@ msgid "\n"
 msgstr ""
 
 #. module: coop_membership
+#: model:mail.template,body_html:coop_membership.register_confirm_email
+msgid "\n"
+"<p>Hello ${object.name}</p>\n"
+"<br/>\n"
+"<p>We confirm your registration for the La Louve meeting scheduled on ${object.event_id.date_begin}. IF YOU ARE NOT A CO-OPERATOR AND WISH TO SUBSCRIBE ON THE DAY OF THE MEETING, YOU SHOULD HAVE:<br/>\n"
+"- Your check book or bank card<br/>\n"
+"- An ID</p>\n"
+"<p>Proof of reduced subscription: social minimums (document of less than 3 months attesting the payment of the RSA, the ASS, the AER-R, the ATS, the ATA, the ADA, the AAH, the 'ASI, AV, ASV or ASPA) or scholarship students 6 or 7 (scholarship certificate).</p>\n"
+"<br/>\n"
+"<p>You will find attached the contract which you will have to sign at the end of the meeting if you accept the conditions of operation which will be presented to you. If possible, please print and bring this form to the welcome meeting. In case of forgetfulness, you will be forced to fill a blank copy on the spot. If an error is present on this form, thank you to correct it with the pen in a visible way visible.</p>\n"
+"<br />\n"
+"<p>Cordially.</p>\n"
+"\n"
+"        "
+msgstr ""
+
+#. module: coop_membership
 #: model:mail.template,body_html:coop_membership.cancellation_message_absence_leave_email
 msgid "\n"
 "<p>Hello ${object.partner_id.name.split(',')[0]},</p>\n"
