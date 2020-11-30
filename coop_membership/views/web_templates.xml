@@ -4,6 +4,7 @@
         <html>
             <head id="website_register_header" name="website_register_header">
                 <title>Inscription - Réunions d'accueil</title>
+                <link rel="stylesheet" href="/web/static/lib/fontawesome/css/font-awesome.css"/>
                 <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
                 <link rel="stylesheet" href="/coop_membership/static/lib/css/tempusdominus.css"/>
             </head>
@@ -56,11 +57,11 @@
                             <div class="wrap-input100 bg1 input_radio">
                                 <span class="label-input100">Sexe</span>
                                 <br/>
-                                <input type="radio" name="gender" value="male">Homme</input>
+                                <input type="radio" name="gender" value="male"> Homme</input>
                                 <br/>
-                                <input type="radio" name="gender" value="female">Femme</input>
+                                <input type="radio" name="gender" value="female"> Femme</input>
                                 <br/>
-                                <input type="radio" name="gender" value="other">Autre</input>
+                                <input type="radio" name="gender" value="other"> Autre</input>
                                 <br/>
                             </div>
                             <div class="wrap-input100 bg1">
@@ -190,6 +191,7 @@
         <html>
             <head id="website_register_header" name="website_register_header">
                 <title>Inscription - Réunions d'accueil</title>
+                <link rel="stylesheet" href="/web/static/lib/fontawesome/css/font-awesome.css"/>
                 <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
                 <link rel="stylesheet" href="/coop_membership/static/lib/css/tempusdominus.css"/>
             </head>
@@ -222,15 +224,15 @@
                                 <span class="label-input100">Sexe</span>
                                 <br/>
                                 <t t-if="gender == 'male'">
-                                    <input type="radio" name="gender" checked="checked" value="male">Homme</input>
+                                    <input type="radio" name="gender" checked="checked" value="male"> Homme</input>
                                     <br/>
                                 </t>
                                 <t t-if="gender == 'female'">
-                                    <input type="radio" name="gender" checked="checked" value="female">Femme</input>
+                                    <input type="radio" name="gender" checked="checked" value="female"> Femme</input>
                                     <br/>
                                 </t>
                                 <t t-if="gender == 'other'">
-                                    <input type="radio" name="gender" checked="checked" value="other">Autre</input>
+                                    <input type="radio" name="gender" checked="checked" value="other"> Autre</input>
                                     <br/>
                                 </t>
                             </div>
@@ -376,6 +378,7 @@
         <html>
             <head id="website_form_register_header" name="website_form_register_header">
                 <title>Inscription - Réunions d'accueil</title>
+                <link rel="stylesheet" href="/web/static/lib/fontawesome/css/font-awesome.css"/>
                 <link rel="stylesheet" href="/coop_membership/static/lib/css/main.css"/>
                 <link rel="stylesheet" href="/coop_membership/static/lib/css/tempusdominus.css"/>
             </head>
@@ -437,27 +440,27 @@
                                 <span class="label-input100">Sexe</span>
                                 <br/>
                                 <t t-if="gender == 'male'">
-                                    <input type="radio" name="gender" checked="checked" value="male">Homme</input>
+                                    <input type="radio" name="gender" checked="checked" value="male"> Homme</input>
                                     <br/>
-                                    <input type="radio" name="gender" value="female">Femme</input>
+                                    <input type="radio" name="gender" value="female"> Femme</input>
                                     <br/>
-                                    <input type="radio" name="gender" value="other">Autre</input>
+                                    <input type="radio" name="gender" value="other"> Autre</input>
                                     <br/>
                                 </t>
                                 <t t-if="gender == 'female'">
-                                    <input type="radio" name="gender" value="male">Homme</input>
+                                    <input type="radio" name="gender" value="male"> Homme</input>
                                     <br/>
-                                    <input type="radio" name="gender" checked="checked" value="female">Femme</input>
+                                    <input type="radio" name="gender" checked="checked" value="female"> Femme</input>
                                     <br/>
-                                    <input type="radio" name="gender" value="other">Autre</input>
+                                    <input type="radio" name="gender" value="other"> Autre</input>
                                     <br/>
                                 </t>
                                 <t t-if="gender == 'other'">
-                                    <input type="radio" name="gender" value="male">Homme</input>
+                                    <input type="radio" name="gender" value="male"> Homme</input>
                                     <br/>s
-                                    <input type="radio" name="gender" value="female">Femme</input>
+                                    <input type="radio" name="gender" value="female"> Femme</input>
                                     <br/>
-                                    <input type="radio" name="gender" checked="checked" value="other">Autre</input>
+                                    <input type="radio" name="gender" checked="checked" value="other"> Autre</input>
                                     <br/>
                                 </t>
                             </div>

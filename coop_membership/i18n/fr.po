@@ -440,7 +440,18 @@ msgid "\n"
 "<p>Cordially.</p>\n"
 "\n"
 "        "
-msgstr ""
+msgstr "\n"
+"<p>Bonjour ${object.name}</p>"
+"<br/>"
+"<p>Nous vous confirmons votre inscription pour la réunion d'accueil de ${object.company_id.name or ''} prévue le  ${object.event_id.date_begin}. SI VOUS N'ETES PAS ENCORE COOPÉRATEUR ET QUE VOUS SOUHAITEZ SOUSCRIRE LE JOUR DE LA RÉUNION, IL FAUDRA VOUS MUNIR DE :<br/>"
+"- Votre carnet de chèque or votre carte bancaire<br/>"
+"- Une pièce d’identité</p>"
+"<p>Un justificatif pour une souscription réduite : minimas sociaux (document de moins de 3 mois attestant du versement du RSA, de l'ASS, l'AER-R, l'ATS, l'ATA, l'ADA, l'AAH, l'ASI, l'AV, l'ASV or l’ASPA) or étudiants boursiers 6 or 7 (attestation de bourse).</p>"
+"<br/>"
+"<p>Vous trouverez ci-joint le contrat que vous devrez signer en fin de réunion si vous acceptez les conditions de fonctionnement qui vous seront présentée. Dans la mesure du possible, merci d'imprimer et d'apporter ce formulaire à la réunion d'accueil. En cas d'oubli, vous serez contraint de remplir un exemplaire vierge sur place. Si une erreur est présente sur ce formulaire, merci de la corriger au stylo de manière visible visible.</p>"
+"<br />"
+"<p>Cordialement.</p>"
+
 
 #. module: coop_membership
 #: model:mail.template,body_html:coop_membership.coop_ftop_leave_email

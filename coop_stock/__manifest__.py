@@ -1,6 +1,6 @@
 {
     "name": "Coop - Stock",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "category": "Custom",
     "summary": "Custom settings for stock",
     "author": "La Louve, Druidoo",

@@ -225,7 +225,7 @@ msgid ""
 "get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])"
 "[0].lower()}"
 msgstr ""
-"${'Acceptation de votre offre d'échange de votre service ' + user."
+"${'Acceptation de votre offre d’échange de votre service ' + user."
 "get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])"
 "[0].lower()}"
 
@@ -253,14 +253,8 @@ msgstr ""
 
 #. module: coop_memberspace
 #: model:mail.template,subject:coop_memberspace.proposal_cancelled
-msgid ""
-"${'Refusal of your offer to exchange your service from ' + user."
-"get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])"
-"[0].lower()}"
-msgstr ""
-"${'Refus de votre offre d'échange de votre service ' + user."
-"get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])"
-"[0].lower()}"
+msgid "${'Refusal of your offer to exchange your service from ' + user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()}"
+msgstr "${'Refus de votre offre d’échange de votre service ' + user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()}"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.homepage
@@ -349,6 +343,17 @@ msgid "<span style=\"font-size: 15px;font-weight: 600\">Represents the points ac
 msgstr "<span style=\"font-size: 15px;font-weight: 600\">Représente les points accumulés en\n"
 "                                    faisant des services en plus de vos services habituels. A partir d’un cumul de 2 points, vous pouvez\n"
 "                                     demander un congé anticipé.\n"
+"                                </span>"
+
+#. module: coop_memberspace
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_ftop
+msgid "<span style=\"font-size: 15px;font-weight: 600\">Your status is “up to date” at zero\n"
+"                                    points or more. On the other hand, to be in order for the next steering wheel count\n"
+"                                    you must be at +1 or more.\n"
+"                                </span>"
+msgstr "<span style=\"font-size: 15px;font-weight: 600\">Votre statut est “à jour” à zéro\n"
+"                                    points ou plus. Par contre, pour être en règle pour le prochain décompte volants\n"
+"                                    vous devez être à +1 ou plus.\n"
 "                                </span>"
 
 #. module: coop_memberspace
@@ -668,7 +673,7 @@ msgstr "Échange de services"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 msgid "Exchange services"
-msgstr "Services d'échange"
+msgstr "Services d’échange"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
@@ -760,17 +765,12 @@ msgstr "Si actif, certains messages ont une erreur de livraison."
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_ftop
-#, fuzzy
-msgid ""
-"If you are a member of the flying team, go here to see the\n"
-"                        services available and schedule your vacation. "
-"Cancellation\n"
-"                        of a service is only done by direct contact with the "
-"members' office."
-msgstr ""
-"Si vous êtes membre de l'équipe volante, allez ici pour voir le \n"
-"services disponibles et programmez vos vacances. Annulation \n"
-"d'un service ne se fait que par contact direct avec le bureau des membres."
+msgid "If you are a member of the flying team, go here to see the\n"
+"                        services available and schedule your vacation. Cancellation\n"
+"                        of a service is only done by direct contact with the members' office."
+msgstr "Si vous êtes membre de l’équipe volante, passez par ici pour voir les \n"
+"                        services disponibles et programmer votre vacation. L’annulation \n"
+"                        d’un service se fait uniquement par contact direct avec le bureau des membres."
 
 #. module: coop_memberspace
 #: selection:proposal,state:0

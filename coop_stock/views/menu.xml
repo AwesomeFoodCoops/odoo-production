@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <odoo>
 
-    <menuitem id="stock_account.menu_action_wizard_valuation_history"
+    <menuitem id="stock.menu_valuation"
         action="stock.action_stock_quantity_history" parent="stock.menu_warehouse_report"
         sequence="1" groups="base.group_no_one,stock.group_stock_manager" />
 
