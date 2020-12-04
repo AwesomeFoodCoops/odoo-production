@@ -473,8 +473,8 @@ class ShiftRegistration(models.Model):
             date = datetime.strftime(record.shift_id.date_begin_tz, '%d/%m/%Y')
             hour = datetime.strftime(record.shift_id.date_begin_tz, '%H')
             minute = datetime.strftime(record.shift_id.date_begin_tz, '%M')
-            res = '%s à %sh%s' % (date, hour, minute)
-            return res.encode('utf-8')
+            res = u'%s à %sh%s' % (date, hour, minute)
+            return res
 
     @api.multi
     @api.onchange("shift_id")
