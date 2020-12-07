@@ -18,7 +18,7 @@
                     <div class="coop_text">
 	                      <t t-if="partner.sex=='m'">Coopérateur</t>
 	                      <t t-if="partner.sex=='f'">Coopératrice</t>
-	                      <t t-if="partner.sex=='o'">Coopérateur/trice</t>
+	                      <t t-if="partner.sex=='o'">Coop</t>
                     </div>
                     <div class="member_name">
                         <t t-if="partner.name.find(',')&gt;0"><span t-esc="partner.name.split(',')[1]" class="break_2_lines"/></t><br/>
