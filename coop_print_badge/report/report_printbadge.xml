@@ -15,7 +15,7 @@
                             <div class="coop_text">
                                 <t t-if="partner.gender=='male'">Coopérateur</t>
                                 <t t-if="partner.gender=='female'">Coopératrice</t>
-                                <t t-if="partner.gender=='other'">Coopérateur/trice</t>
+                                <t t-if="partner.gender=='other'">Coop</t>
                             </div>
                             <div class="member_name">
                                 <t t-if="partner.name.find(',')&gt;0"><span t-esc="partner.name.split(',')[1]" class="break_2_lines"/></t><br/>
@@ -42,7 +42,7 @@
                                 <!--N°--> <span t-field="partner.parent_id.barcode_base"/>
                             </div>
 
-                            <div class="coop_text">
+                            <div class="coop_text coop_text_associated">
                                 <t t-if="partner.gender=='male'">Rattaché n°</t>
                                 <t t-if="partner.gender=='female'">Rattachée n°</t>
                                 <t t-if="partner.gender=='other'">Rattaché(e) n°</t>

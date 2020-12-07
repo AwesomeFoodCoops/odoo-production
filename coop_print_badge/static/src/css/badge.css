@@ -38,11 +38,12 @@
 
 .member_number {
     margin-left: 48mm;
-    margin-top: 11mm;
+    margin-top: 12mm;
     color: #425570;
     font-family: "Intro Pro";
     font-size: 1.5em;
     text-transform: uppercase;
+    text-align: left;
 }
 
 .member_number_asociate {
@@ -60,7 +61,7 @@
     font-size: 13pt;
     text-transform: uppercase;
     text-orientation: sideways-left;
-    margin-left: 40mm;
+    margin-left: 35mm;
     margin-right: 0;
     margin-top: 32mm;
     margin-bottom: 0;
@@ -71,6 +72,9 @@
     -webkit-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
     transform: rotate(-90deg)
+}
+.coop_text_associated {
+    margin-top: 40mm !important;
 }
 
 .member_name {
