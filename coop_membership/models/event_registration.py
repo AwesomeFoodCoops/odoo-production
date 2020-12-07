@@ -31,10 +31,12 @@ class EventRegistration(models.Model):
     @api.multi
     def get_time_before(self, number):
         for record in self:
-            date_begin = datetime.strptime(record.event_id.date_begin_located,
-                                           '%Y-%m-%d %H:%M:%S')
+            if record.event_id.date_tz:
+                record = record.with_context(tz=record.event_id.date_tz)
+            date_begin = record.event_id.date_begin
             time_ago = date_begin - timedelta(minutes=number)
-            time_ago = fields.Datetime.to_string(time_ago)
+            time_ago = fields.Datetime.to_string(
+                fields.Datetime.context_timestamp(record, time_ago))
             time = self.convert_meeting_time(time_ago)
             return time.encode('utf-8')
 

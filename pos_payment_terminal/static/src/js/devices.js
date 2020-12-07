@@ -14,7 +14,7 @@ odoo.define('pos_payment_terminal.devices', function (require) {
             var data = {
                     'amount' : order.get_due(line),
                     'currency_iso' : currency_iso,
-                    'payment_mode' : line.cashregister.journal.payment_mode,
+                    'payment_mode' : line.cashregister.journal.pos_terminal_payment_mode,
                     'wait_terminal_answer' : this.wait_terminal_answer(),
                     };
             return data;
