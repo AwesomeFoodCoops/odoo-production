@@ -334,7 +334,7 @@ msgid "Never"
 msgstr "Jamais"
 
 #. module: capital_subscription
-#: model:ir.ui.view,arch_db:capital_subscription.view_res_partner_form
+#: model_terms:ir.ui.view,arch_db:capital_subscription.view_res_partner_form
 msgid "New Capital Subscription"
 msgstr "Nouvelle souscription de capital"
 
@@ -373,7 +373,7 @@ msgid "Partner Account"
 msgstr "Compte comptable partenaire"
 
 #. module: capital_subscription
-#: model:ir.ui.view,arch_db:capital_subscription.view_res_partner_form
+#: model_terms:ir.ui.view,arch_db:capital_subscription.view_res_partner_form
 msgid "Partner Type"
 msgstr "Type de partenaire"
 
@@ -479,9 +479,9 @@ msgid "Start Date"
 msgstr "Date de début"
 
 #. module: capital_subscription
-#: model:ir.ui.view,arch_db:capital_subscription.view_res_partner_form
+#: model_terms:ir.ui.view,arch_db:capital_subscription.view_res_partner_form
 msgid "Subscriptions"
-msgstr "Abonnements"
+msgstr "Souscriptions"
 
 #. module: capital_subscription
 #: model:ir.model.fields,help:capital_subscription.field_capital_fundraising_category_partner_account_id

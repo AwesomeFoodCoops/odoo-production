@@ -96,22 +96,22 @@
                         groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
                     <group>
                         <group name="membership" string="Membership" groups="coop_shift.group_shift_manager">
-                            <field name="is_member"/>
-                            <field name="is_worker_member"/>
-                            <field name="is_associated_people" readonly="1"/>
-                            <field name="is_interested_people"/>
-                            <field name="is_former_member"/>
-                            <field name="is_former_associated_people"/>
-                            <field name="is_unpayed"/>
-                            <field name="is_unsubscribed"/>
-                            <field name="is_designated_buyer" readonly="1"/>
+                            <field name="is_member" colspan="4"/>
+                            <field name="is_worker_member" colspan="4"/>
+                            <field name="is_associated_people" readonly="1" colspan="4"/>
+                            <field name="is_interested_people" colspan="4"/>
+                            <field name="is_former_member" colspan="4"/>
+                            <field name="is_former_associated_people" colspan="4"/>
+                            <field name="is_unpayed" colspan="4"/>
+                            <field name="is_unsubscribed" colspan="4"/>
+                            <field name="is_designated_buyer" readonly="1" colspan="4"/>
                         </group>
                         <group name="badges" string="Badges">
                             <field name="badge_distribution_date" attrs="{'invisible': [('is_member', '=', False)]}"/>
                             <field name="badge_to_distribute"/>
                         </group>
                         <group name="associated_people" string="Associated People" groups="coop_membership.group_membership_see_associated_people">
-                            <field name="nb_associated_people" readonly="1"/>
+                            <field name="nb_associated_people" readonly="1" colspan="4"/>
                         </group>
                     </group>
                 </page>
