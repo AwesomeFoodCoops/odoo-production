@@ -421,7 +421,7 @@ msgstr "Nécessite une action"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.myprofile
 msgid "Activate :"
-msgstr ""
+msgstr "Activer"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.homepage
@@ -685,7 +685,7 @@ msgstr "Supplémentaire"
 #: code:addons/coop_memberspace/models/res_partner.py:138
 #, python-format
 msgid "Female"
-msgstr "Femelle"
+msgstr "Femme"
 
 #. module: coop_memberspace
 #: model:ir.model.fields,field_description:coop_memberspace.field_memberspace_alias__message_follower_ids
@@ -818,7 +818,7 @@ msgstr "Mis à jour le"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.myprofile
 msgid "Last name :"
-msgstr "Nom de famille :"
+msgstr "Nom :"
 
 #. module: coop_memberspace
 #: model:ir.model.fields,field_description:coop_memberspace.field_memberspace_alias__message_main_attachment_id
@@ -830,7 +830,7 @@ msgstr "Pièce jointe principale"
 #: code:addons/coop_memberspace/models/res_partner.py:136
 #, python-format
 msgid "Man"
-msgstr "Man"
+msgstr "Homme"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.counter
