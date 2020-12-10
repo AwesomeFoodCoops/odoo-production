@@ -2,6 +2,8 @@ odoo.define('pos_payment_terminal.devices', function (require) {
     "use strict";
 
     var devices = require('point_of_sale.devices');
+    var utils = require('web.utils');
+    var round_pr = utils.round_precision;
 
     devices.ProxyDevice.include({
         wait_terminal_answer: function(cashregister) {
