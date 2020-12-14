@@ -184,7 +184,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_badge_reader.field_res_partner__next_shift_time
 #: model:ir.model.fields,field_description:coop_badge_reader.field_res_users__next_shift_time
 msgid "Next Shift Time"
-msgstr ""
+msgstr "Prochain service"
 
 #. module: coop_badge_reader
 #: selection:res.partner.move,cooperative_state:0

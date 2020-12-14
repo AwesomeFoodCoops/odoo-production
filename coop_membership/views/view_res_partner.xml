@@ -94,7 +94,7 @@
                 <page name="membership" string="Membership"
                         attrs="{'invisible': [('is_member','=',False),('is_former_member','=',False), ('is_former_associated_people','=',False), ('is_associated_people','=',False),('is_interested_people','=',False)]}"
                         groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
-                    <group>
+                    <group class="o_label_nowrap">
                         <group name="membership" string="Membership" groups="coop_shift.group_shift_manager">
                             <field name="is_member"/>
                             <field name="is_worker_member"/>
@@ -342,6 +342,9 @@
                     />
                     <field style="margin-top: 5px;" name="contact_us_message" readonly="1"/>
                 </page>
+            </xpath>
+            <xpath expr="//group[@name='container_row_2']" position="attributes">
+                <attribute name="class">o_label_nowrap</attribute>
             </xpath>
         </field>
     </record>
@@ -939,6 +942,24 @@ coop_membership.group_membership_access_user,coop_membership.group_membership_bd
             <button name="%(res_partner_account_move_line.action_open_partner_move_lines)d" position="attributes">
                 <attribute name="invisible">1</attribute>
             </button>
+        </field>
+    </record>
+    <record id="view_partner_property_form_coop_shift" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='accounting']/group[1]" position="attributes">
+                <attribute name="class">o_label_nowrap</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_res_partner_form_capital_subscription_coop_shift" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="capital_subscription.view_res_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='page_capital_fundraising']/group[1]" position="attributes">
+                <attribute name="class">o_label_nowrap</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>

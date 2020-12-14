@@ -38,7 +38,7 @@
             <!-- Add Shifts page -->
             <page name="sales_purchases" position="after">
                 <page name="shifts" string="Shifts" groups="coop_shift.group_shift_manager">
-                    <group>
+                    <group class="o_label_nowrap">
                         <group name="shift_squedleader">
                             <field name="is_squadleader"/>
                             <field name="template_ids" invisible="1"/>

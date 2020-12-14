@@ -189,9 +189,7 @@ class ShiftRegistration(models.Model):
                     # If no markup reg found, set date end for the reg shift
                     if not markup_shift_reg_count:
                         tz_name = self._context.get('tz') or self.env.user.tz
-                        date_end_obj = datetime.strptime(
-                            reg.date_end, '%Y-%m-%d %H:%M:%S')
-                        utc_timestamp = pytz.utc.localize(date_end_obj,
+                        utc_timestamp = pytz.utc.localize(reg.date_end,
                                                           is_dst=False)
                         context_tz = pytz.timezone(tz_name)
                         reg_date_end_tz = utc_timestamp.astimezone(context_tz)
