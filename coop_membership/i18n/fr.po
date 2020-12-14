@@ -1126,7 +1126,7 @@ msgstr "avril"
 #: model:ir.ui.menu,name:coop_membership.menu_res_partner_associated
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
 msgid "Associated People"
-msgstr "Rattachés"
+msgstr "Personnes rattachées"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__associated_people_available
@@ -1227,7 +1227,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__badge_distribution_date
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__badge_distribution_date
 msgid "Badge Distribution"
-msgstr "Distribution des badges"
+msgstr "Badge distribué le"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__badge_print_date
@@ -2227,7 +2227,7 @@ msgstr "Est un abonné"
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__is_former_associated_people
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__is_former_associated_people
 msgid "Is Former Associated People"
-msgstr "Est d'anciens associés"
+msgstr "Est une ancienne personne rattachée"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__is_former_member
@@ -2239,7 +2239,7 @@ msgstr "Est ancien membre"
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__is_interested_people
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__is_interested_people
 msgid "Is Interested People"
-msgstr "Est des personnes intéressées"
+msgstr "Est intéressé"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__is_member
@@ -2730,7 +2730,7 @@ msgstr "Nombre d'actions"
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__nb_associated_people
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__nb_associated_people
 msgid "Number of Associated People"
-msgstr "Nombre de personnes associées"
+msgstr "Nombre de personnes rattachées"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_template__registration_qty
@@ -3879,7 +3879,7 @@ msgstr "Assistant"
 #: model:ir.model.fields,field_description:coop_membership.field_res_partner__working_state
 #: model:ir.model.fields,field_description:coop_membership.field_res_users__working_state
 msgid "Working State"
-msgstr "État de travail"
+msgstr "Statut de travail"
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_leave_wizard.py:19

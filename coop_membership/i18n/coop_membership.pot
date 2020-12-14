@@ -1225,6 +1225,7 @@ msgstr ""
 #. module: coop_membership
 #: model:ir.actions.act_window,name:coop_membership.action_res_partner_associated
 #: model:ir.ui.menu,name:coop_membership.menu_res_partner_associated
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
 msgid "Associated People"
 msgstr ""
 
@@ -2680,8 +2681,7 @@ msgid "Name"
 msgstr ""
 
 #. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_res_partner_form
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_res_partner_form_barcodes_generator_partner
 msgid "New Barcode (Card Lost)"
 msgstr ""
 
@@ -3177,7 +3177,7 @@ msgid "September"
 msgstr ""
 
 #. module: coop_membership
-#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_res_partner_form_subscription_reader
 msgid "Set 'Underclass Population'"
 msgstr ""
 
