@@ -48,7 +48,7 @@ odoo.define('pos_payment_terminal.devices', function (require) {
                                     line.set_payment_terminal_return_message(answer.payment_terminal_return_message);
                                 }
                                 screen.order_changes();
-                                screen.render_paymentlines();
+                                // screen.render_paymentlines();
                                 var amount_in_formatted = screen.format_currency_no_symbol(amount_in);
                                 screen.$('.paymentline.selected .edit').text(amount_in_formatted);
                                 screen.$('.delete-button').css('display', 'none');
