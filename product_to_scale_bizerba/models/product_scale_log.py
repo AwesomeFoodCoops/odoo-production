@@ -170,8 +170,8 @@ class ProductScaleLog(models.Model):
                 if product_line.delimiter:
                     product_text += product_line.delimiter
             break_line = self._ENCODING_MAPPING[log.scale_system_id.encoding]
-            log.product_text = product_text + break_line,
-            log.external_text = break_line.join(external_texts) + break_line,
+            log.product_text = product_text + break_line
+            log.external_text = break_line.join(external_texts) + break_line
             log.external_text_display = '\n'.join(
                 [x.replace('\n', '') for x in external_texts]
             )
@@ -214,7 +214,7 @@ class ProductScaleLog(models.Model):
             scale_system.ftp_login, scale_system.ftp_host,
             scale_system.ftp_port))
         try:
-            ftp = FTP()
+            ftp = FTP(timeout=10)
             ftp.connect(scale_system.ftp_host, scale_system.ftp_port)
             if scale_system.ftp_login:
                 ftp.login(
@@ -244,7 +244,7 @@ class ProductScaleLog(models.Model):
             f_name = datetime.now().strftime(pattern)
             local_path = os.path.join(local_folder_path, f_name)
             distant_path = os.path.join(distant_folder_path, f_name)
-            f = open(local_path, 'w')
+            f = open(local_path, 'wb')
             for line in lines:
                 raw_text = line
                 if encoding != 'utf-8':
@@ -253,7 +253,7 @@ class ProductScaleLog(models.Model):
             f.close()
 
             # Send File by FTP
-            f = open(local_path, 'r')
+            f = open(local_path, 'rb')
             ftp.storbinary('STOR ' + distant_path, f)
             f.close()
             # Delete temporary file
@@ -348,7 +348,8 @@ class ProductScaleLog(models.Model):
             self.ftp_connection_close(ftp)
 
             # Mark logs as sent
-            logs.write({'sent': True, 'last_send_date': fields.Datetime.now()})
+            for log in logs:
+                log.write({'sent': True, 'last_send_date': fields.Datetime.now()})
         return True
 
     @api.multi
