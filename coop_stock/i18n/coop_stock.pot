@@ -102,3 +102,7 @@ msgstr ""
 msgid "Vendor Product Code"
 msgstr ""
 
+#. module: coop_stock
+#: model_terms:ir.ui.view,arch_db:coop_stock.stock_picking_form_view_inherit
+msgid "Quantity"
+msgstr ""
