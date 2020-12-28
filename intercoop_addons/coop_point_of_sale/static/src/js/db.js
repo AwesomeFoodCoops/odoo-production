@@ -29,7 +29,56 @@ odoo.define('coop_point_of_sale.db', function (require) {
             } else {
                 return this._super(category_id, query);
             }
-        }
+        },
+        // allow searching by barcode_base
+        _partner_search_string: function(partner){
+            var str =  partner.name;
+            var split_str = '___';
+
+            if(partner.barcode){
+                str += split_str + partner.barcode;
+            }
+            if(partner.barcode_base){
+                str += split_str + partner.barcode_base;
+            }
+            if(partner.phone){
+                str += split_str + partner.phone.split(' ').join('');
+            }
+            if(partner.mobile){
+                str += split_str + partner.mobile.split(' ').join('');
+            }
+            if(partner.email){
+                str += split_str + partner.email;
+            }
+            str = '' + partner.id + ':' + str.replace(':','') + split_str + '\n';
+            return str;
+        },
+        // apply the equal search
+        search_partner: function(query){
+            var split_str = '___';
+            try {
+                query = query.replace(/[\[\]\(\)\+\*\?\.\-\!\&\^\$\|\~\_\{\}\:\,\\\/]/g,'.');
+                query = query.replace(/ /g,'.+');
+                if (!isNaN(query)){
+                    query = split_str + query + split_str;
+                }
+                var re = RegExp("([0-9]+):.*?"+query,"gi");
+
+            }catch(e){
+                return [];
+            }
+            var results = [];
+            for(var i = 0; i < this.limit; i++){
+                var r = re.exec(this.partner_search_string);
+                if(r){
+                    var id = Number(r[1]);
+                    results.push(this.get_partner_by_id(id));
+                }else{
+                    break;
+                }
+            }
+            return results;
+        },
     });
 
 });
