@@ -7,12 +7,13 @@ from odoo import models
 _logger = logging.getLogger(__name__)
 
 
-class ReportStockInventoryValuationReportXlsx(models.TransientModel):
-    _inherit = 'report.s_i_v_r.report_stock_inventory_valuation_report_xlsx'
+class ReportStockScrapProductReportXlsx(models.TransientModel):
+    _name = 'report.report_stock_scrap_product_report_xlsx'
+    _inherit = 'report.report_xlsx.abstract'
 
     def _get_ws_params(self, wb, data, objects):
 
-        stock_inventory_valuation_template = {
+        stock_scrap_product_template = {
             '1_number': {
                 'header': {
                     'value': '#',
@@ -68,7 +69,17 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
                 },
                 'width': 18,
             },
-            '7_standard_price': {
+            '7_date': {
+                'header': {
+                    'value': 'Date',
+                },
+                'data': {
+                    'value': self._render('date'),
+                    'format': self.format_tcell_date_left,
+                },
+                'width': 15,
+            },
+            '8_standard_price': {
                 'header': {
                     'value': 'Cost',
                 },
@@ -78,7 +89,7 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
                 },
                 'width': 18,
             },
-            '8_stock_value': {
+            '9_stock_value': {
                 'header': {
                     'value': 'Value',
                 },
@@ -91,16 +102,16 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
         }
 
         ws_params = {
-            'ws_name': 'Inventory Valuation Report',
-            'generate_ws_method': '_inventory_valuation_report',
-            'title': 'Inventory Valuation Report',
+            'ws_name': 'Scrap Report',
+            'generate_ws_method': '_scrap_product_report',
+            'title': 'Scrap Report',
             'wanted_list': [k for k in sorted(
-                stock_inventory_valuation_template.keys())],
-            'col_specs': stock_inventory_valuation_template,
+                stock_scrap_product_template.keys())],
+            'col_specs': stock_scrap_product_template,
         }
         return [ws_params]
 
-    def _inventory_valuation_report(self, wb, ws, ws_params, data, objects):
+    def _scrap_product_report(self, wb, ws, ws_params, data, objects):
 
         ws.set_portrait()
         ws.fit_to_pages(1, 0)
@@ -114,12 +125,13 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
 
         for o in objects:
             ws.write_row(
-                row_pos, 0, ['Date', 'Partner', 'Tax ID'],
+                row_pos, 0, ['Start Date', 'End Date', 'Partner', 'Tax ID'],
                 self.format_theader_blue_center)
             ws.write_row(
-                row_pos+1, 0, [o.date or ''], self.format_tcell_date_center)
+                row_pos+1, 0, [o.start_date or '', o.end_date or ''],
+                self.format_tcell_date_center)
             ws.write_row(
-                row_pos+1, 1,
+                row_pos+1, 2,
                 [o.company_id.name or '', o.company_id.vat or ''],
                 self.format_tcell_center)
 
@@ -141,9 +153,10 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
                         'qty_at_date': line.qty_at_date or 0.000,
                         'standard_price': line.standard_price or 0.00,
                         'stock_value': line.stock_value or 0.00,
-                        'categ_name': line.categ_name
+                        'categ_name': line.categ_name,
+                        'date': line.date
                     },
                     default_format=self.format_tcell_left)
                 total += line.stock_value
 
-            ws.write(row_pos, 7, total, self.format_theader_blue_amount_right)
+            ws.write(row_pos, 8, total, self.format_theader_blue_amount_right)

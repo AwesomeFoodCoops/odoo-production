@@ -10,6 +10,7 @@
         "stock",
         "stock_account",
         "stock_inventory_valuation_report",
+        "stock_scrap_product_report",
         "point_of_sale",
         "purchase_package_qty",
         "queue_job",
