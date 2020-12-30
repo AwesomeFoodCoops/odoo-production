@@ -33,5 +33,14 @@
             </xpath>
         </field>
     </record>
-
+    <record id="view_stock_product_tree2_inherit" model="ir.ui.view">
+        <field name="name">product.stock.tree.2.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock_account.view_stock_product_tree2" />
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="categ_id"/>
+            </field>
+        </field>
+    </record>
 </odoo>
