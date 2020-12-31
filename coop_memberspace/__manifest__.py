@@ -16,6 +16,7 @@
         "coop_shift",
         "coop_membership",
         "pos_ticket_send_by_mail",
+        "mail_template_conditional_attachment",
     ],
     "data": [
         "security/res_group_data.xml",
