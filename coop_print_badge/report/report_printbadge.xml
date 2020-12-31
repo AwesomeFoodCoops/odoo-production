@@ -7,7 +7,7 @@
                     <div class="page">
                         <div class="badge" t-if="partner.is_member">
                             <div class="member_photo_div">
-                                <img t-attf-src="data:image/png;base64,{{partner.image}}" class="member_photo"/>
+                                <img t-attf-src="data:image/png;base64,{{partner.image_badge}}" class="member_photo"/>
                             </div>
                             <div class="member_number">
                                 <!--N°--> <span t-field="partner.barcode_base"/>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="badge" t-if="not partner.is_member and partner.is_associated_people">
                             <div class="member_photo_div">
-                                <img t-attf-src="data:image/png;base64,{{partner.image}}" class="member_photo"/>
+                                <img t-attf-src="data:image/png;base64,{{partner.image_badge}}" class="member_photo"/>
                             </div>
                             <div class="coop_text_small">
                                 <span>Rattaché à</span>

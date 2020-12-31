@@ -5,23 +5,16 @@
 import odoo.tools.image
 
 from odoo import api, fields, models
-from odoo.tools.image import image_resize_image
+from odoo.tools.image import image_get_resized_images
 from odoo.tools.safe_eval import safe_eval
-
-
-def new_image_resize_image_medium(
-        base64_source, size=(315, 417), encoding='base64', filetype=None,
-        avoid_if_small=False):
-    return image_resize_image(
-        base64_source, size, encoding, filetype, avoid_if_small)
-
-
-# Override native method
-odoo.tools.image.image_resize_image_medium = new_image_resize_image_medium
 
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
+    image_badge = fields.Binary("Badge-sized image", attachment=True,
+        help="Badge-sized image of this contact. It is automatically "\
+             "resized as a 315x417px image, with aspect ratio preserved. "\
+             "Use this field in badge printing.")
 
     # ### FUNCTIONS FOR DEFINING DEFAULT VALUES #########
 
@@ -69,6 +62,11 @@ class ResPartner(models.Model):
             self.env['res.partner']._get_field_names_trigger_badge_reprint()
         for partner in self:
             partner_vals = vals.copy()
+            # Update Badge Image
+            if partner_vals.get('image'):
+                partner_vals.update({
+                    'image_badge': self.get_badge_image(partner_vals['image'])
+                })
             for field_name in fields_trigger_badge_reprint:
                 if field_name in partner_vals and \
                         partner_vals.get(field_name) != partner[field_name]:
@@ -90,3 +88,24 @@ class ResPartner(models.Model):
         field_ids = safe_eval(field_str)
         fields_recs = self.env['ir.model.fields'].sudo().browse(field_ids)
         return [field_item.name for field_item in fields_recs]
+
+    @api.model
+    def create(self, vals):
+        # Update Badge Image
+        if vals.get('image'):
+            vals.update({
+                'image_badge': self.get_badge_image(vals['image'])
+            })
+        res = super(ResPartner, self).create(vals)
+        return res
+
+    @api.model
+    def get_badge_image(self, src_image):
+        medium_name='image_badge'
+        sizes={
+            medium_name: (315, 417)
+        }
+        vals = image_get_resized_images(
+            src_image, return_small=False, medium_name=medium_name,
+            sizes=sizes)
+        return vals.get(medium_name)
