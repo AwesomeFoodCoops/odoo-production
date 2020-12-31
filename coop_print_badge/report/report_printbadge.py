@@ -18,7 +18,7 @@ class ReportPrintbadge(models.AbstractModel):
             partner.update_badge_print_date()
             # partner.image = partner.image_medium 
             if not partner.image_badge and partner.image:
-                partner.image_badge = partner.get_badge_image(partner.image)
+                partner.image_badge = partner.image
         return {
             'doc_ids': docids,
             'doc_model': 'res.partner',
