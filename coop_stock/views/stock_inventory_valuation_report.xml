@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="stock_inventory_valuation_report.report_stock_inventory_valuation_lines_header">
+        <div class="act_as_thead">
+            <div class="act_as_row labels">
+                <div class="act_as_cell">#</div>
+                <div class="act_as_cell">Reference</div>
+                <div class="act_as_cell">Name</div>
+                <div class="act_as_cell">Internal Category</div>
+                <div class="act_as_cell">Barcode</div>
+                <div class="act_as_cell">Quantity</div>
+                <div class="act_as_cell">Cost</div>
+                <div class="act_as_cell">Value</div>
+            </div>
+        </div>
+    </template>
+
+    <template id="stock_inventory_valuation_report.report_stock_inventory_valuation_lines">
+        <div class="act_as_row lines">
+            <div class="act_as_cell left">
+                <t t-esc="n"/>
+            </div>
+            <div class="act_as_cell left">
+                <t t-esc="line.reference"/>
+            </div>
+            <div class="act_as_cell left">
+                <t t-esc="line.name"/>
+            </div>
+            <div class="act_as_cell left">
+                <t t-esc="line.categ_name"/>
+            </div>
+            <div class="act_as_cell left">
+                <t t-esc="line.barcode"/>
+            </div>
+            <div class="act_as_cell right">
+                <t t-esc="'{0:,.3f}'.format(line.qty_at_date)"/>
+            </div>
+            <div class="act_as_cell amount">
+                <t t-esc="line.standard_price" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+            </div>
+            <div class="act_as_cell amount">
+                <t t-esc="line.stock_value" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+            </div>
+        </div>
+    </template>
+</odoo>
