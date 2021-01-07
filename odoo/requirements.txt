@@ -14,7 +14,7 @@ gdata==2.0.18
 gevent==1.0.2
 greenlet==0.4.7
 jcconv==0.2.3
-lxml==3.4.1
+lxml==4.6.2
 mock==1.0.1
 ofxparse==0.14
 passlib==1.6.2
