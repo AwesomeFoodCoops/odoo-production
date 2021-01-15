@@ -38,14 +38,8 @@
                     <div class="member_photo_div">
                         <img t-attf-src="data:image/png;base64,{{images[partner.id]}}" class="member_photo"/>
                     </div>
-                    <div class="coop_text_small">
-                        <span>Rattaché à</span>
-                    </div>
-                    <div class="member_number_asociate">
-                        <!--N°--> <span t-field="partner.parent_id.barcode_base"/>
-                    </div>
 
-                    <div class="coop_text">
+                    <div class="coop_text_asociate">
                         <t t-if="partner.sex=='m'">Rattaché n°</t>
                       	<t t-if="partner.sex=='f'">Rattachée n°</t>
                       	<t t-if="partner.sex=='o'">Rattaché(e) n°</t>
