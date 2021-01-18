@@ -26,28 +26,9 @@
     height: 100%
 }
 
-.coop_text_small {
-    margin-left: 48mm;
-    margin-top: 1mm;
-    color: #425570;
-    font-family: "Intro Pro";
-    font-size: 0.7em;
-    text-transform: uppercase;
-}
-
-
 .member_number {
     margin-left: 45mm;
     margin-top: 12mm;
-    color: #425570;
-    font-family: "Intro Pro";
-    font-size: 1.5em;
-    text-transform: uppercase;
-}
-
-.member_number_asociate {
-    margin-left: 45mm;
-    margin-top: 1mm;
     color: #425570;
     font-family: "Intro Pro";
     font-size: 1.5em;
@@ -63,6 +44,24 @@
     margin-left: 2mm;
     margin-right: 0;
     margin-top: -5mm;
+    margin-bottom: 0;
+    padding: 0;
+    -webkit-transform-origin: 260 85;
+    -ms-transform-origin: 255 85;
+    transform-origin: 255 85;
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg)
+}
+.coop_text_asociate {
+    font-family: "Intro Pro";
+    color: #425570;
+    font-size: 13pt;
+    text-transform: uppercase;
+    text-orientation: sideways-left;
+    margin-left: 2mm;
+    margin-right: 0;
+    margin-top: 2mm;
     margin-bottom: 0;
     padding: 0;
     -webkit-transform-origin: 260 85;
