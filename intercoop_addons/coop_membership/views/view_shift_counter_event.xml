@@ -9,9 +9,9 @@
                 <field name="shift_id"/>
                 <field name="name"/>
                 <field name="partner_id" invisible="1"/>
-                <field name="reason_ids" widget="many2many_tags"/>
                 <field name="is_changed" invisible="1"/>
                 <field name="point_qty" sum="Total Points"/>
+                <field name="reason_ids" widget="many2many_tags"/>
                 <field name="sum_current_qty"/>
                 <field name="notes"/>
             </tree>
@@ -35,7 +35,7 @@
         <field name="model">shift.counter.event</field>
         <field name="inherit_id" ref="coop_shift.view_shift_counter_event_tree"/>
         <field name="arch" type="xml">
-            <field name="create_uid" position="before">
+            <field name="point_qty" position="after">
                 <field name="reason_ids" widget="many2many_tags"/>
             </field>
             <field name="create_uid" position="attributes">
