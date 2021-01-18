@@ -155,3 +155,8 @@ msgstr "Lignes"
 #: model:res.groups,name:coop_purchase.group_put_in_pack
 msgid "Put in pack"
 msgstr "Mettre en colis"
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_purchase_order_line__price_discounted
+msgid "Discounted Price"
+msgstr "Prix réduit"

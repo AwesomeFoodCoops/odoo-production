@@ -26,16 +26,6 @@
     height: 100%
 }
 
-.coop_text_small {
-    margin-left: 48mm;
-    margin-top: 1mm;
-    color: #425570;
-    font-family: "Intro Pro";
-    font-size: 0.7em;
-    text-transform: uppercase;
-}
-
-
 .member_number {
     margin-left: 48mm;
     margin-top: 12mm;
@@ -44,15 +34,6 @@
     font-size: 1.5em;
     text-transform: uppercase;
     text-align: left;
-}
-
-.member_number_asociate {
-    margin-left: 52mm;
-    margin-top: 1mm;
-    color: #425570;
-    font-family: "Intro Pro";
-    font-size: 1.5em;
-    text-transform: uppercase;
 }
 
 .coop_text {

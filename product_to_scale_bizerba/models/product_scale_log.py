@@ -355,8 +355,7 @@ class ProductScaleLog(models.Model):
     @api.multi
     def cron_send_to_scale(self):
         log_ids = self.search([('sent', '=', False)], order='log_date')
-        for log in log_ids:
-            log.send_log()
+        log_ids.send_log()
 
     @api.multi
     def _generate_image_file_name(self, obj, field, extension):

@@ -12,7 +12,7 @@
                 <field name="price_total"/>
             </xpath>
             <xpath expr="//field[@name='price_unit']" position="after">
-                <field name="price_unit_tax"/>
+                <field name="price_discounted"/>
             </xpath>
             <field name="taxes_id" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -47,7 +47,7 @@
                 <field name="qty_invoiced"/>
                 <field name="product_uom" groups="uom.group_uom"/>
                 <field name="price_unit"/>
-                <field name="price_unit_tax"/>
+                <field name="price_discounted"/>
                 <field name="price_policy"/>
                 <field name="discount"/>
                 <field name="taxes_id" widget="many2many_tags" invisible="1"/>

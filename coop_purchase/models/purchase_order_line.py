@@ -10,6 +10,11 @@ class PurchaseOrderLine(models.Model):
         string="Price Unit Tax Included",
         store=True,
     )
+    price_discounted = fields.Monetary(
+        compute="_compute_price_discounted",
+        string="Discounted Price",
+        store=True,
+    )
 
     @api.multi
     @api.depends("price_total", "product_qty")
@@ -17,6 +22,12 @@ class PurchaseOrderLine(models.Model):
         for pol in self:
             if pol.product_qty:
                 pol.price_unit_tax = pol.price_total / pol.product_qty
+
+    @api.multi
+    @api.depends("price_unit", "discount")
+    def _compute_price_discounted(self):
+        for pol in self:
+            pol.price_discounted = pol._get_discounted_price_unit()
 
     @api.multi
     def update_po_price_to_vendor_price(self):
