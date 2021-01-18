@@ -236,6 +236,11 @@ msgid "Price Unit Tax Included"
 msgstr ""
 
 #. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_purchase_order_line__price_discounted
+msgid "Discounted Price"
+msgstr ""
+
+#. module: coop_purchase
 #: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line__product_id
 #: model_terms:ir.ui.view,arch_db:coop_purchase.view_supplierinfo_search
 msgid "Product"
