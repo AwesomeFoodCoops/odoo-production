@@ -2846,6 +2846,12 @@ msgid "The owner of records created upon receiving emails on this alias. If this
 msgstr ""
 
 #. module: mail
+#: code:addons/mail/models/mail_channel.py:0
+#, python-format
+msgid "The partner can not join this channel"
+msgstr ""
+
+#. module: mail
 #: code:addons/mail/models/mail_message.py:642
 #: code:addons/mail/models/mail_message.py:731
 #, python-format
@@ -3167,6 +3173,24 @@ msgid "You can mark any message as 'starred', and it shows up in this channel."
 msgstr ""
 
 #. module: mail
+#: code:addons/mail/models/mail_channel.py:0
+#, python-format
+msgid "You can not remove this partner from this channel"
+msgstr ""
+
+#. module: mail
+#: code:addons/mail/models/mail_channel.py:0
+#, python-format
+msgid "You can not write on the record of other users"
+msgstr ""
+
+#. module: mail
+#: code:addons/mail/models/mail_channel.py:0
+#, python-format
+msgid "You can not write on this field"
+msgstr ""
+
+#. module: mail
 #: code:addons/mail/models/res_users.py:47
 #, python-format
 msgid "You cannot create a new user from here.\n"
@@ -3189,7 +3213,7 @@ msgstr ""
 #. openerp-web
 #: code:addons/mail/static/src/js/chat_manager.js:478
 #, python-format
-msgid "You have been invited to: "
+msgid "You have been invited to: %s"
 msgstr ""
 
 #. module: mail
