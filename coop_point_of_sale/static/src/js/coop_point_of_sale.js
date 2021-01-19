@@ -68,4 +68,27 @@ Overload models.PosModel
         },
     });
 
+    // Product to weight
+    screens.ProductCategoriesWidget.include({
+        perform_search: function(category, query, buy_result){
+            var products;
+            if(query){
+                products = this.pos.db.search_product_in_category(category.id,query);
+                if(buy_result && products.length === 1){
+                        this.pos.get_order().add_product(products[0]);
+                        this.clear_search();
+                }
+                else if (buy_result && products.length === 0){
+                    this.pos.barcode_reader.scan(query);
+                }
+                else{
+                    this.product_list_widget.set_product_list(products);
+                }
+            }else{
+                products = this.pos.db.get_product_by_category(this.category.id);
+                this.product_list_widget.set_product_list(products);
+            }
+        },
+    
+    });
 });
