@@ -46,8 +46,8 @@ msgstr "Alerte"
 #. module: coop_badge_reader
 #: model:ir.actions.act_window,name:coop_badge_reader.action_alert_entry
 #: model:ir.ui.menu,name:coop_badge_reader.menu_alert_entry
-msgid "Alerte entrée"
-msgstr ""
+msgid "Alert entries"
+msgstr "Alerte entrées"
 
 #. module: coop_badge_reader
 #: model_terms:ir.ui.view,arch_db:coop_badge_reader.view_res_partner_move_form
