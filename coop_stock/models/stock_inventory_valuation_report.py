@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
-from odoo import models
+from odoo import models, _
 
 _logger = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
             },
             '2_reference': {
                 'header': {
-                    'value': 'Reference',
+                    'value': _('Reference'),
                 },
                 'data': {
                     'value': self._render('reference'),
@@ -33,7 +33,7 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
             },
             '3_name': {
                 'header': {
-                    'value': 'Name',
+                    'value': _('Name'),
                 },
                 'data': {
                     'value': self._render('name'),
@@ -42,7 +42,7 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
             },
             '4_categ_name': {
                 'header': {
-                    'value': 'Internal Category',
+                    'value': _('Internal Category'),
                 },
                 'data': {
                     'value': self._render('categ_name'),
@@ -51,7 +51,7 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
             },
             '5_barcode': {
                 'header': {
-                    'value': 'Barcode',
+                    'value': _('Barcode'),
                 },
                 'data': {
                     'value': self._render('barcode'),
@@ -60,7 +60,7 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
             },
             '6_qty_at_date': {
                 'header': {
-                    'value': 'Quantity',
+                    'value': _('Quantity'),
                 },
                 'data': {
                     'value': self._render('qty_at_date'),
@@ -70,7 +70,7 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
             },
             '7_standard_price': {
                 'header': {
-                    'value': 'Cost',
+                    'value': _('Cost'),
                 },
                 'data': {
                     'value': self._render('standard_price'),
@@ -80,7 +80,7 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
             },
             '8_stock_value': {
                 'header': {
-                    'value': 'Value',
+                    'value': _('Value'),
                 },
                 'data': {
                     'value': self._render('stock_value'),
@@ -91,7 +91,7 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
         }
 
         ws_params = {
-            'ws_name': 'Inventory Valuation Report',
+            'ws_name': _('Inventory Valuation Report'),
             'generate_ws_method': '_inventory_valuation_report',
             'title': 'Inventory Valuation Report',
             'wanted_list': [k for k in sorted(
@@ -114,7 +114,7 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
 
         for o in objects:
             ws.write_row(
-                row_pos, 0, ['Date', 'Partner', 'Tax ID'],
+                row_pos, 0, [_('Date'), _('Partner'), _('Tax ID')],
                 self.format_theader_blue_center)
             ws.write_row(
                 row_pos+1, 0, [o.date or ''], self.format_tcell_date_center)
