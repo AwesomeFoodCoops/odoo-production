@@ -14,12 +14,21 @@ class ProductProduct(models.Model):
 
     scale_group_id = fields.Many2one(
         'product.scale.group',
-        string='Scale Group'
+        string='Scale Group',
+        related="product_tmpl_id.scale_group_id",
+        store=True,
+        readonly=False
     )
-    scale_sequence = fields.Integer('Scale Sequence')
+    scale_sequence = fields.Integer('Scale Sequence',
+        related="product_tmpl_id.scale_sequence",
+        readonly=False,
+        store=True)
     scale_tare_weight = fields.Float(
         digits=dp.get_precision('Stock Weight'),
         string='Scale Tare Weight',
+        related="product_tmpl_id.scale_tare_weight",
+        readonly=False,
+        store=True,
         help="Set here Constant tare weight"
         " for the given product. This tare will be substracted when"
         " the product is weighted. Usefull only for weightable product.\n"
