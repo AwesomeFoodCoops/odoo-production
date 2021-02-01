@@ -100,7 +100,7 @@ class ShiftMailScheduler(models.Model):
                     lambda reg: reg.scheduled_date and
                     reg.scheduled_date <= today and
                     not reg.mail_ignored
-                ).execute()
+                ).sudo().execute()
             else:
                 if not sm.mail_sent:
                     sm.shift_id.mail_attendees(sm.template_id.id)
