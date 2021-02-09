@@ -8,11 +8,11 @@ class ProductProduct(models.Model):
     def search(self, args, offset=0, limit=None, order=None, count=False):
         allow_inactive_search_fields = ["barcode"]
         allow_inactive_search_field_domain = filter(
-            lambda arg: not isinstance(arg)
+            lambda arg: isinstance(arg, (list, tuple))
             and arg[0] in allow_inactive_search_fields,
             args,
         )
-        if allow_inactive_search_field_domain:
+        if list(allow_inactive_search_field_domain):
             args.append("|")
             args.append(("active", "=", True))
             args.append(("active", "=", False))
@@ -28,11 +28,11 @@ class ProductTemplate(models.Model):
     def search(self, args, offset=0, limit=None, order=None, count=False):
         allow_inactive_search_fields = ["barcode"]
         allow_inactive_search_field_domain = filter(
-            lambda arg: not isinstance(arg)
+            lambda arg: isinstance(arg, (list, tuple))
             and arg[0] in allow_inactive_search_fields,
             args,
         )
-        if allow_inactive_search_field_domain:
+        if list(allow_inactive_search_field_domain):
             args.append("|")
             args.append(("active", "=", True))
             args.append(("active", "=", False))

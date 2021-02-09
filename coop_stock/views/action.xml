@@ -27,5 +27,7 @@
             </p>
         </field>
     </record>
-
+    <record id="stock_account.product_valuation_action" model="ir.actions.act_window">
+        <field name="domain">[('type', '=', 'product')]</field>
+    </record>
 </odoo>
