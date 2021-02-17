@@ -244,5 +244,5 @@ class ReportStockInventoryXlsx(ReportXlsx):
 
 ReportStockInventoryXlsx(
     'report.stock_inventory_xlsx',
-    'account.asset.xlsx.wizard',
+    'wizard.valuation.history',
 )
