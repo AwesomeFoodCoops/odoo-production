@@ -102,7 +102,7 @@ class ResPartner(models.Model):
         current_extension = self.extension_ids.filtered('current_extension')
 
         if current_extension:
-            return current_extension.date_stop
+            return current_extension[0].date_stop
 
         # Only grace extensions for suspended user with no extension
         if self.cooperative_state != 'suspended':
