@@ -42,9 +42,9 @@ def check_access_buttons(self):
     elif self._name == "shift.leave":
         if saisie_group:
             return 'saisie_group_leave'
-    elif self._name == "shift.registration":
-        if saisie_group:
-            return 'saisie_group_registration'
+    # elif self._name == "shift.registration":
+    #     if saisie_group:
+    #         return 'saisie_group_registration'
     elif self._name == "shift.template.registration.line":
         if saisie_group:
             return 'saisie_group_template_registration_line'
