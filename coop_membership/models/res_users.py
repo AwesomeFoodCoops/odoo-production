@@ -45,9 +45,9 @@ class ResUsers(models.Model):
         elif res_model == "shift.leave":
             if saisie_group:
                 return 'saisie_group_leave'
-        elif res_model == "shift.registration":
-            if saisie_group:
-                return 'saisie_group_registration'
+        # elif res_model == "shift.registration":
+        #     if saisie_group:
+        #         return 'saisie_group_registration'
         elif res_model == "shift.template.registration.line":
             if saisie_group:
                 return 'saisie_group_template_registration_line'
