@@ -2,9 +2,12 @@
 # @author: La Louve
 # Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+import base64
+import threading
+from odoo.modules import get_module_resource
 import odoo.tools.image
 
-from odoo import api, fields, models
+from odoo import api, fields, models, tools
 from odoo.tools.image import image_get_resized_images
 from odoo.tools.safe_eval import safe_eval
 
@@ -72,6 +75,9 @@ class ResPartner(models.Model):
                         partner_vals.get(field_name) != partner[field_name]:
                     partner_vals['badge_to_print'] = True
                     break
+            if partner_vals.get('badge_to_print') and \
+                    not partner._check_badge_to_print(vals):
+                partner_vals['badge_to_print'] = False
             res = super(ResPartner, partner).write(partner_vals)
         return res
 
@@ -109,3 +115,52 @@ class ResPartner(models.Model):
             src_image, return_small=False, medium_name=medium_name,
             sizes=sizes)
         return vals.get(medium_name)
+
+    @api.multi
+    def _check_badge_to_print(self, vals={}):
+        self.ensure_one()
+        trigger_fields = self._get_field_names_trigger_badge_reprint()
+        fields_has_value = trigger_fields and \
+            all([field_item in vals and vals[field_item] or self[field_item]
+                for field_item in trigger_fields]) or False
+        #  S#25849: make sure the image is not the default one
+        img_field = 'image'
+        if img_field in trigger_fields and fields_has_value:
+            default_img = self._get_default_image(
+                self.type, self.is_company, self.parent_id.id)
+            if img_field in vals:
+                partner_img = vals[img_field]
+            else:
+                partner_img = self[img_field]
+            if not partner_img or default_img == partner_img:
+                return False
+        return fields_has_value
+
+    @api.model
+    def _get_default_image(self, partner_type, is_company, parent_id):
+        if getattr(threading.currentThread(), 'testing', False) or self._context.get('install_mode'):
+            return False
+
+        colorize, img_path, image = False, False, False
+
+        if partner_type in ['other'] and parent_id:
+            parent_image = self.browse(parent_id).image
+            image = parent_image and base64.b64decode(parent_image) or None
+
+        if not image and partner_type == 'invoice':
+            img_path = get_module_resource('base', 'static/img', 'money.png')
+        elif not image and partner_type == 'delivery':
+            img_path = get_module_resource('base', 'static/img', 'truck.png')
+        elif not image and is_company:
+            img_path = get_module_resource('base', 'static/img', 'company_image.png')
+        elif not image:
+            img_path = get_module_resource('base', 'static/img', 'avatar.png')
+            # colorize = True
+
+        if img_path:
+            with open(img_path, 'rb') as f:
+                image = f.read()
+        if image and colorize:
+            image = tools.image_colorize(image)
+
+        return tools.image_resize_image_big(base64.b64encode(image))
