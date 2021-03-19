@@ -43,7 +43,7 @@ msgstr "RATTACHÉ(E)"
 #. module: coop_print_badge
 #: model:ir.model,name:coop_print_badge.model_res_partner
 msgid "Badges To Print"
-msgstr "Badges à distribuer"
+msgstr "Badges à imprimer"
 
 #. module: coop_print_badge
 #: model:ir.ui.menu,name:coop_print_badge.menu_badge_to_print
@@ -71,4 +71,4 @@ msgstr "Badge à imprimer"
 #: model:ir.ui.menu,name:coop_print_badge.menu_badge_to_distribute
 #: model:ir.actions.act_window,name:coop_print_badge.action_badge_to_distribute
 msgid "Badges"
-msgstr "Badges à récupérer"
+msgstr "Badges à distribuer"
