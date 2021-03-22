@@ -199,8 +199,10 @@ class AccountMoveLine(models.Model):
         ]
         # Create jobs
         lines = self.search(debit_moves_domain, order='id')
-        line_ids = lines.mapped('id')
-        total_lines = len(line_ids)
+
+        # Reconcile the journal items by partner
+        partner_ids = list(set(lines.mapped('partner_id.id')))
+        total_lines = len(partner_ids)
         job_lines = nb_lines_per_job
 
         number_of_jobs = int(total_lines / job_lines) + \
@@ -209,15 +211,48 @@ class AccountMoveLine(models.Model):
         for i in range(1, number_of_jobs + 1):
             start_line = i * job_lines - job_lines
             end_line = i * job_lines
-            chunk_ids = line_ids[start_line:end_line]
+            chunk_ids = partner_ids[start_line:end_line]
             if i == number_of_jobs:
-                chunk_ids = line_ids[start_line:]
+                chunk_ids = partner_ids[start_line:]
 
             session = ConnectorSession(self._cr, self._uid,
                                        context=self.env.context)
-            job_reconcile_411_pos.delay(session, 'account.move.line',
-                                        chunk_ids, reconcile_pos_account.id)
+            job_reconcile_411_pos_by_ref.delay(
+                session, 'res.partner', chunk_ids, reconcile_pos_account.id)
 
+@job
+def job_reconcile_411_pos_by_ref(
+    session, model_name, partner_ids, reconcile_pos_account_id):
+    ''' Reconcile account 411100 by partner reference (Pos Session)'''
+    AccountMoveLine = session.env['account.move.line']
+    domains = [
+        ('reconciled', '=', False),
+        ('account_id', '=', reconcile_pos_account_id),
+        ('partner_id', 'in', partner_ids)
+    ]
+    lines = AccountMoveLine.search(domains)
+    data_dict = {}  # {partner_id-ref: [move_line_ids]}
+    for line in lines:
+        k = "{partner_id}-{ref}".format(
+            partner_id=line.partner_id.id,
+            ref=line.ref or ''
+        )
+        if k not in data_dict:
+            data_dict.update({
+                k: [line.id]
+            })
+        else:
+            data_dict[k].append(line.id)
+
+    for move_line_ids in data_dict.values():
+        _logger.info(
+            ">>>> there are %s lines to reconciled : %s",
+            len(move_line_ids), move_line_ids)
+        reconcil_obj = session.env[
+            'account.move.line.reconcile'].with_context(
+            active_ids=move_line_ids)
+        reconcil_obj.trans_rec_reconcile_full()
+        _logger.info(">>>> reconciled object: %s", reconcil_obj)
 
 @job
 def job_reconcile_411_pos(
