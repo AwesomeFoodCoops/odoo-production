@@ -18,6 +18,8 @@
             <td>
                 <t t-if="partner.cooperative_state == 'not_concerned'">Non concerné</t>
                 <t t-if="partner.cooperative_state == 'unsubscribed'">Désinscrit</t>
+                <t t-if="partner.cooperative_state == 'exempted'">Exempté</t>
+                <t t-if="partner.cooperative_state == 'vacation'">En congés</t>
                 <t t-if="partner.cooperative_state == 'up_to_date'">A jour</t>
                 <t t-if="partner.cooperative_state == 'alert'">En alerte</t>
                 <t t-if="partner.cooperative_state == 'suspended'">Suspendu</t>

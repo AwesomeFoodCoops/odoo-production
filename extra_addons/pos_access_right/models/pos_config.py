@@ -47,29 +47,29 @@ class PosConfig(models.Model):
     @api.multi
     def _compute_group_pos_negative_qty(self):
         for config in self:
-            self.group_pos_negative_qty = \
+            config.group_pos_negative_qty = \
                 self.env.ref('pos_access_right.group_pos_negative_qty')
 
     @api.multi
     def _compute_group_pos_discount(self):
         for config in self:
-            self.group_pos_discount = \
+            config.group_pos_discount = \
                 self.env.ref('pos_access_right.group_pos_discount')
 
     @api.multi
     def _compute_group_pos_change_unit_price(self):
         for config in self:
-            self.group_pos_change_unit_price = \
+            config.group_pos_change_unit_price = \
                 self.env.ref('pos_access_right.group_pos_change_unit_price')
 
     @api.multi
     def _compute_group_pos_multi_order(self):
         for config in self:
-            self.group_pos_multi_order = \
+            config.group_pos_multi_order = \
                 self.env.ref('pos_access_right.group_pos_multi_order')
 
     @api.multi
     def _compute_group_pos_delete_order(self):
         for config in self:
-            self.group_pos_delete_order = \
+            config.group_pos_delete_order = \
                 self.env.ref('pos_access_right.group_pos_delete_order')
