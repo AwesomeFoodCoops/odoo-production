@@ -74,7 +74,9 @@ class ResPartner(models.Model):
                         partner_vals.get(field_name) != partner[field_name]:
                     partner_vals['badge_to_print'] = True
                     break
-
+            if partner_vals.get('badge_to_print') and \
+                    not partner._check_badge_to_print(vals):
+                partner_vals['badge_to_print'] = False
             res = super(ResPartner, partner).write(partner_vals)
 
         return res
@@ -92,3 +94,28 @@ class ResPartner(models.Model):
         field_ids = safe_eval(field_str)
         fields_recs = self.env['ir.model.fields'].sudo().browse(field_ids)
         return [field_item.name for field_item in fields_recs]
+
+    @api.multi
+    def _check_badge_to_print(self, vals={}):
+        self.ensure_one()
+        trigger_fields = self._get_field_names_trigger_badge_reprint()
+        fields_has_value = trigger_fields and \
+            all([field_item in vals and vals[field_item] or self[field_item]
+                for field_item in trigger_fields]) or False
+        #  S#25849: make sure the image is not the default one
+        img_field = 'image'
+        if img_field in trigger_fields and fields_has_value:
+            default_img = self._get_default_image(False)
+            if img_field in vals:
+                partner_img = vals[img_field]
+            else:
+                partner_img = self[img_field]
+            if not partner_img or default_img == partner_img:
+                return False
+        return fields_has_value
+
+    @api.model
+    def _get_default_image(self, is_company, colorize=False):
+        colorize = False
+        return super(ResPartner, self)._get_default_image(is_company, colorize)
+

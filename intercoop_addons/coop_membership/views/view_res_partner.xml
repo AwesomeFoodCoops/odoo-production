@@ -426,7 +426,7 @@
                                     colspan="2"/>
                             <field name="is_member"
                                    groups="coop_membership.group_membership_access_manager"/>
-                            <field name="badge_distribution_date" attrs="{'invisible': [('is_member', '=', False)]}"/>
+                            <field name="badge_distribution_date" attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}"/>
                             <field name="badge_to_distribute"/>
                             <field name="is_worker_member"
                                    groups="coop_membership.group_membership_access_manager"/>
