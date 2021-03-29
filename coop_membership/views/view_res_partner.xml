@@ -107,7 +107,7 @@
                             <field name="is_designated_buyer" readonly="1"/>
                         </group>
                         <group name="badges" string="Badges">
-                            <field name="badge_distribution_date" attrs="{'invisible': [('is_member', '=', False)]}"/>
+                            <field name="badge_distribution_date" attrs="{'invisible': [('is_member', '=', False), ('is_associated_people', '=', False)]}"/>
                             <field name="badge_to_distribute"/>
                         </group>
                         <group name="associated_people" string="Associated People" groups="coop_membership.group_membership_see_associated_people">
