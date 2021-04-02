@@ -93,8 +93,6 @@ class InvoiceSupplierPriceUpdate(models.TransientModel):
                     linked_line_key: line.id,
                     'seller_id': selected_seller_id.id,
                 }
-                # Observe discount value
-                observable_discount = seller_discount
                 line_price_unit = line.price_unit
                 line_discount = 'discount' in line and line.discount \
                                 or seller_discount
@@ -103,10 +101,6 @@ class InvoiceSupplierPriceUpdate(models.TransientModel):
                     line_price_unit or 0
                 line_discount = \
                     line_discount != seller_discount and line_discount or 0
-                # If line discount is difference from seller_discount,
-                # then assign line_discount value to it
-                observable_discount = \
-                    line_discount and line_discount or observable_discount
                 # Only for EDI suppliers
                 if partner_id.is_edi:
                     product_code = selected_seller_id.product_code
@@ -123,7 +117,6 @@ class InvoiceSupplierPriceUpdate(models.TransientModel):
                 seller_values.update({
                     'price_unit': line_price_unit,
                     'discount': line_discount,
-                    'observable_discount': observable_discount,
                 })
                 lines.append((0, 0, seller_values))
         return lines
@@ -143,7 +136,7 @@ class InvoiceSupplierPriceUpdate(models.TransientModel):
             if updated_price_unit > 0 and updated_price_unit != supplier_price_unit:
                 update_values['base_price'] = updated_price_unit
             supplier_discount = line.supplier_discount
-            updated_discount = line.observable_discount
+            updated_discount = line.discount
             if updated_discount != supplier_discount:
                 update_values['discount'] = updated_discount
             if update_values:
