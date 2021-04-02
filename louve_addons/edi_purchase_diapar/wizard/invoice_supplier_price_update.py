@@ -47,7 +47,7 @@ class InvoiceSupplierPriceUpdate(models.TransientModel):
             show_discount = active_obj.partner_id.show_discount
             res.update({
                 'edi_line_ids': processed_lines,
-                'edi_line_ids': processed_lines,
+                'edi_line2_ids': processed_lines,
                 'partner_id': active_obj.partner_id.id,
                 'show_discount': show_discount,
             })
@@ -96,11 +96,7 @@ class InvoiceSupplierPriceUpdate(models.TransientModel):
                 line_price_unit = line.price_unit
                 line_discount = 'discount' in line and line.discount \
                                 or seller_discount
-                line_price_unit = \
-                    line_price_unit != seller_price_unit and \
-                    line_price_unit or 0
-                line_discount = \
-                    line_discount != seller_discount and line_discount or 0
+
                 # Only for EDI suppliers
                 if partner_id.is_edi:
                     product_code = selected_seller_id.product_code
