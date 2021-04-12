@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
-from odoo import models
+from odoo import models, _
 
 _logger = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ class ReportStockScrapProductReportXlsx(models.TransientModel):
             },
             '2_reference': {
                 'header': {
-                    'value': 'Reference',
+                    'value': _('Reference'),
                 },
                 'data': {
                     'value': self._render('reference'),
@@ -34,7 +34,7 @@ class ReportStockScrapProductReportXlsx(models.TransientModel):
             },
             '3_name': {
                 'header': {
-                    'value': 'Name',
+                    'value': _('Name'),
                 },
                 'data': {
                     'value': self._render('name'),
@@ -43,7 +43,7 @@ class ReportStockScrapProductReportXlsx(models.TransientModel):
             },
             '4_categ_name': {
                 'header': {
-                    'value': 'Internal Category',
+                    'value': _('Internal Category'),
                 },
                 'data': {
                     'value': self._render('categ_name'),
@@ -52,7 +52,7 @@ class ReportStockScrapProductReportXlsx(models.TransientModel):
             },
             '5_barcode': {
                 'header': {
-                    'value': 'Barcode',
+                    'value': _('Barcode'),
                 },
                 'data': {
                     'value': self._render('barcode'),
@@ -61,7 +61,7 @@ class ReportStockScrapProductReportXlsx(models.TransientModel):
             },
             '6_qty_at_date': {
                 'header': {
-                    'value': 'Quantity',
+                    'value': _('Quantity'),
                 },
                 'data': {
                     'value': self._render('qty_at_date'),
@@ -71,7 +71,7 @@ class ReportStockScrapProductReportXlsx(models.TransientModel):
             },
             '7_date': {
                 'header': {
-                    'value': 'Date',
+                    'value': _('Date'),
                 },
                 'data': {
                     'value': self._render('date'),
@@ -81,7 +81,7 @@ class ReportStockScrapProductReportXlsx(models.TransientModel):
             },
             '8_standard_price': {
                 'header': {
-                    'value': 'Cost',
+                    'value': _('Cost'),
                 },
                 'data': {
                     'value': self._render('standard_price'),
@@ -91,7 +91,7 @@ class ReportStockScrapProductReportXlsx(models.TransientModel):
             },
             '9_stock_value': {
                 'header': {
-                    'value': 'Value',
+                    'value': _('Value'),
                 },
                 'data': {
                     'value': self._render('stock_value'),
@@ -102,7 +102,7 @@ class ReportStockScrapProductReportXlsx(models.TransientModel):
         }
 
         ws_params = {
-            'ws_name': 'Scrap Report',
+            'ws_name': _('Scrap Report'),
             'generate_ws_method': '_scrap_product_report',
             'title': 'Scrap Report',
             'wanted_list': [k for k in sorted(
@@ -125,7 +125,7 @@ class ReportStockScrapProductReportXlsx(models.TransientModel):
 
         for o in objects:
             ws.write_row(
-                row_pos, 0, ['Start Date', 'End Date', 'Partner', 'Tax ID'],
+                row_pos, 0, [_('Start Date'), _('End Date'), _('Partner'), _('Tax ID')],
                 self.format_theader_blue_center)
             ws.write_row(
                 row_pos+1, 0, [o.start_date or '', o.end_date or ''],

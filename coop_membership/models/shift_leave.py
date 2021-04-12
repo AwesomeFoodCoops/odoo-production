@@ -249,9 +249,11 @@ class ShiftLeave(models.Model):
     def _check_leave_for_ABCD_member(self):
         for record in self:
             today = fields.Date.context_today(self)
+            start_date = fields.Date.from_string(record.start_date)    
+            stop_date = fields.Date.from_string(record.stop_date)
             abcd_lines_in_leave = record.partner_id.registration_ids.filtered(
-                lambda l: l.date_begin.date() >= record.start_date and
-                l.date_end.date() <= record.stop_date and
+                lambda l: l.date_begin.date() >= start_date and
+                l.date_end.date() <= stop_date and
                 l.date_begin.date() >=
                 today and l.state != 'cancel' and
                 l.shift_ticket_id.shift_type == 'standard')
@@ -334,8 +336,7 @@ class ShiftLeave(models.Model):
             rec_dates = template.get_recurrent_dates(
                 last_shift_date, self.stop_date)
             for rec in rec_dates:
-                date_rec_str = fields.Datetime.to_string(rec)
-                if self.start_date < date_rec_str < self.stop_date:
+                if self.start_date < rec.date() < self.stop_date:
                     num_shift_guess += 1
         return num_shift_guess
 
@@ -416,8 +417,11 @@ class ShiftLeave(models.Model):
             partner_id = vals.get('partner_id', self.partner_id.id)
             partner = self.env['res.partner'].browse(partner_id)
             stop_date = vals.get('stop_date', False)
+            d_stop_date = stop_date
+            if stop_date:
+                d_stop_date = fields.Date.from_string(stop_date)
             future_lines = partner.registration_ids.filtered(
-                lambda l: l.date_begin.date() >= stop_date)
+                lambda l: l.date_begin.date() >= d_stop_date)
 
             date_shift_guess = res.guess_future_date_shift(stop_date)
 

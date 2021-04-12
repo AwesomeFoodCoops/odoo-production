@@ -103,6 +103,73 @@ msgid "Vendor Product Code"
 msgstr ""
 
 #. module: coop_stock
+#: code:addons/coop_stock/models/stock_inventory_valuation_report.py:63
 #: model_terms:ir.ui.view,arch_db:coop_stock.stock_picking_form_view_inherit
 msgid "Quantity"
 msgstr ""
+
+#. module: coop_stock
+#: code:addons/coop_stock/models/stock_inventory_valuation_report.py:54
+#, python-format
+msgid "Barcode"
+msgstr ""
+
+#. module: coop_stock
+#: code:addons/coop_stock/models/stock_inventory_valuation_report.py:73
+#, python-format
+msgid "Cost"
+msgstr ""
+
+#. module: coop_stock
+#: code:addons/coop_stock/models/stock_inventory_valuation_report.py:117
+#, python-format
+msgid "Date"
+msgstr ""
+
+#. module: coop_stock
+#: code:addons/coop_stock/models/stock_inventory_valuation_report.py:45
+#, python-format
+msgid "Internal Category"
+msgstr ""
+
+#. module: coop_stock
+#: code:addons/coop_stock/models/stock_inventory_valuation_report.py:94
+#, python-format
+msgid "Inventory Valuation Report"
+msgstr ""
+
+#. module: coop_stock
+#: code:addons/coop_stock/models/stock_inventory_valuation_report.py:36
+#, python-format
+msgid "Name"
+msgstr ""
+
+#. module: coop_stock
+#: code:addons/coop_stock/models/stock_inventory_valuation_report.py:117
+#, python-format
+msgid "Partner"
+msgstr ""
+
+#. module: coop_stock
+#: code:addons/coop_stock/models/stock_inventory_valuation_report.py:27
+#, python-format
+msgid "Reference"
+msgstr ""
+
+#. module: coop_stock
+#: model:ir.model,name:coop_stock.model_report_stock_inventory_valuation_report
+msgid "Stock Inventory Valuation Report"
+msgstr ""
+
+#. module: coop_stock
+#: code:addons/coop_stock/models/stock_inventory_valuation_report.py:117
+#, python-format
+msgid "Tax ID"
+msgstr ""
+
+#. module: coop_stock
+#: code:addons/coop_stock/models/stock_inventory_valuation_report.py:83
+#, python-format
+msgid "Value"
+msgstr ""
+
