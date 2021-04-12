@@ -554,8 +554,9 @@ class ResPartner(models.Model):
         return super(ResPartner, self).write(vals)
 
     @job
-    def update_member_working_state(self, model_name, partner_ids):
+    def update_member_working_state(self, partner_ids):
         """Job for Updating Member Working State."""
+        model_name = 'res.partner'
         partners = self.env[model_name].browse(partner_ids)
         partners._compute_date_alert_stop()
         partners._compute_date_delay_stop()

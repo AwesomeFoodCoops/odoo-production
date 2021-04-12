@@ -110,7 +110,7 @@ class Proposal(models.Model):
         mail_tmpl = self.env.ref("coop_memberspace.request_confirm_proposal")
         if mail_tmpl:
             for record in self:
-                mail_tmpl.send_mail(record.id)
+                mail_tmpl.sudo().send_mail(record.id)
                 record.send_email_request_confirm = True
 
     @api.multi
@@ -192,11 +192,11 @@ class Proposal(models.Model):
             )
             # Send email to member A to inform exchange done.
             if confirm_exchange_done_mail_tmpl:
-                confirm_exchange_done_mail_tmpl.send_mail(record.id)
+                confirm_exchange_done_mail_tmpl.sudo().send_mail(record.id)
                 record.send_email_confirm_accept_done = True
             # Send email to member B to inform exchange was acceted.
             if proposal_accepted_mail_tmpl:
-                proposal_accepted_mail_tmpl.send_mail(record.id)
+                proposal_accepted_mail_tmpl.sudo().send_mail(record.id)
                 record.send_email_accept = True
             # Send email to others member B to inform exchange was refuse.
             others_b = self.search(
@@ -268,5 +268,5 @@ class Proposal(models.Model):
         if proposal_cancelled_mail_tmpl:
             for record in self:
                 # Send email to member B to inform exchange was refused.
-                proposal_cancelled_mail_tmpl.send_mail(record.id)
+                proposal_cancelled_mail_tmpl.sudo().send_mail(record.id)
                 record.send_email_refuse = True
