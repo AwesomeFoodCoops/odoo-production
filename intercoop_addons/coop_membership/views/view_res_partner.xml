@@ -934,9 +934,10 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
-            <field name="parent_id" position="after">
+            <field name="name" position="after">
                 <field name="barcode_base" string="Member Number"
                        filter_domain="[('barcode_base', '=', self), ('is_member', '=', True)]"/>
+                <!--  S#25994
                 <field name="is_member"/>
                 <field name="is_associated_people"/>
                 <field name="is_worker_member"/>
@@ -945,6 +946,16 @@
                 <field name="is_unpayed"/>
                 <field name="is_unsubscribed"/>
                 <field name="temp_coop_number" groups="coop_membership.group_membership_access_user"/>
+                -->
+            </field>
+            <field name="category_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="parent_id" position="attributes">
+                <attribute name="invisible">1</attribute>
             </field>
         </field>
     </record>
@@ -1129,10 +1140,12 @@
                 <attribute name="context">{'allow_to_search_barcode_base': True}</attribute>
                 <attribute name="filter_domain">['|', '|', '|', ('display_name','ilike',self),('ref','=',self),('email','ilike',self), ('barcode_base','=',self)]</attribute>
             </field>
+            <!--  S#25994
             <field name="name" position="after">
                 <field name="barcode_base"/>
                 <field name="ref"/>
             </field>
+            -->
             <field name="parent_id" position="after">
                 <separator/>
                 <filter name="sleeping" string="Sleeping"
