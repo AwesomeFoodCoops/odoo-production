@@ -586,7 +586,7 @@ msgstr "Coop custom fields"
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_res_partner_cooperative_state
 msgid "Cooperative State"
-msgstr "Cooperative State"
+msgstr "Statut"
 
 #. module: coop_shift
 #: model:ir.ui.view,arch_db:coop_shift.report_timesheet
@@ -2922,7 +2922,7 @@ msgstr "Champs techniques"
 #: model:ir.ui.view,arch_db:coop_shift.view_shift_template_search
 #: model:ir.ui.view,arch_db:coop_shift.view_template_registration_search
 msgid "Template"
-msgstr "Modèle"
+msgstr "Créneau"
 
 #. module: coop_shift
 #: model:ir.model.fields,field_description:coop_shift.field_shift_leave_wizard_shift_template_registration_line_ids

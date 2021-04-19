@@ -18,6 +18,7 @@ odoo.define('pos_barcode_rule_force.models', function (require) {
     var _super_PosModel = models.PosModel.prototype;
     models.PosModel = models.PosModel.extend({
         scan_product: function (parsed_code) {
+            var barcode = parsed_code.base_code;
             var product = this.db.get_product_by_barcode(parsed_code.base_code);
             if (product && product.force_barcode_rule_id) {
                 var rule_ids = this.barcode_reader.barcode_parser.nomenclature.rule_ids;
@@ -28,6 +29,16 @@ odoo.define('pos_barcode_rule_force.models', function (require) {
                 }
                 var rule = rules[i];
                 parsed_code = this.barcode_reader.barcode_parser.try_rule(parsed_code, parsed_code.code, rule);
+                if (!parsed_code){
+                    // S#25874: there is an error when the barcode doesn't match the rule
+                    parsed_code = {
+                        encoding: '',
+                        type:'error',  
+                        code: barcode,
+                        base_code: barcode,
+                        value: 0,
+                    };
+                }
                 return _super_PosModel.scan_product.apply(this, [parsed_code]);
             }
             // normal behaviour
