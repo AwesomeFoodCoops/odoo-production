@@ -11,7 +11,6 @@ class SupplierInfoUpdateLine(models.TransientModel):
     # get from current document fields
     price_unit = fields.Float(digits=dp.get_precision("Product Price"))
     discount = fields.Float()
-    observable_discount = fields.Float()
 
     # get from product.supplier.info
     supplier_price_unit = fields.Float(
@@ -29,7 +28,3 @@ class SupplierInfoUpdateLine(models.TransientModel):
     show_discount = fields.Boolean(
         related="update_id.show_discount", related_sudo=False
     )
-
-    @api.onchange("discount")
-    def _onchange_discount(self):
-        self.observable_discount = self.discount

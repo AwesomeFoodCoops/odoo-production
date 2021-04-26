@@ -71,11 +71,6 @@ msgid "Edi Line"
 msgstr ""
 
 #. module: edi_purchase_diapar
-#: model:ir.model.fields,field_description:edi_purchase_diapar.field_invoice_supplier_price_update__edi_line2_ids
-msgid "Edi Line2"
-msgstr ""
-
-#. module: edi_purchase_diapar
 #: model:ir.model.fields,field_description:edi_purchase_diapar.field_edi_config_system__ftp_login
 msgid "FTP Login"
 msgstr ""

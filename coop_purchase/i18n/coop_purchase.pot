@@ -180,18 +180,8 @@ msgid "Line"
 msgstr ""
 
 #. module: coop_purchase
-#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update__line2_ids
-msgid "Line2"
-msgstr ""
-
-#. module: coop_purchase
 #: model_terms:ir.ui.view,arch_db:coop_purchase.view_supplier_info_update
 msgid "Lines"
-msgstr ""
-
-#. module: coop_purchase
-#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line__observable_discount
-msgid "Observable Discount"
 msgstr ""
 
 #. module: coop_purchase
