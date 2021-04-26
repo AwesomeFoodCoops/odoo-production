@@ -94,8 +94,10 @@ class InvoiceSupplierPriceUpdate(models.TransientModel):
                     'seller_id': selected_seller_id.id,
                 }
                 line_price_unit = line.price_unit
-                line_discount = 'discount' in line and line.discount \
-                                or seller_discount
+                if 'discount' in line:
+                    line_discount = line.discount
+                else:
+                    seller_discount
 
                 # Only for EDI suppliers
                 if partner_id.is_edi:

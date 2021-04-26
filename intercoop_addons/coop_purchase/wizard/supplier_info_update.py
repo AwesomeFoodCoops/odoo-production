@@ -87,8 +87,10 @@ class SupplierInfoUpdate(models.TransientModel):
                 }
 
                 line_price_unit = line.price_unit
-                line_discount = 'discount' in line and line.discount \
-                                or seller_discount
+                if 'discount' in line:
+                    line_discount = line.discount
+                else:
+                    seller_discount
 
                 # Prepare values in current document line
                 seller_values.update({
