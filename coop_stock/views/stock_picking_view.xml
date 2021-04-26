@@ -53,5 +53,37 @@
             </field>
         </field>
     </record>
-    
+    <record id="product_category_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.category.form.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view" />
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="type"/>
+            </field>
+        </field>
+    </record>
+    <record id="product_category_list_view_inherit" model="ir.ui.view">
+        <field name="name">product.category.list.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_list_view" />
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="type"/>
+            </field>
+        </field>
+    </record>
+    <record id="product_category_search_view_inherit" model="ir.ui.view">
+        <field name="name">product.category.search.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_search_view" />
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="type"/>
+                <group string="Group By">
+                    <filter string="Type" name="gtype" domain="[]" context="{'group_by':'type'}"/>
+                </group>
+            </field>
+        </field>
+    </record>
 </odoo>

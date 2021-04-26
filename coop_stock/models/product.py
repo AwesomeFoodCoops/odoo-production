@@ -1,4 +1,4 @@
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class ProductProduct(models.Model):
@@ -39,3 +39,14 @@ class ProductTemplate(models.Model):
         return super(ProductTemplate, self).search(
             args=args, offset=offset, limit=limit, order=order, count=count
         )
+
+
+class ProductCategory(models.Model):
+    _inherit = "product.category"
+
+    type = fields.Selection([
+        ('view','View'),
+        ('normal','Normal')],
+        string='Category Type',
+        default='normal'
+    )

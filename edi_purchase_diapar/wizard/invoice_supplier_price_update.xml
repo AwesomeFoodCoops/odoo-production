@@ -23,34 +23,16 @@
                         <page string="Lines">
                             <group>
                                 <field name="edi_line_ids" view_mode="tree" nolabel="1"
-                                    context="{'form_view_ref': False}" attrs="{'invisible': [('show_discount', '=', False)]}">
+                                    context="{'form_view_ref': False}">
                                     <tree create="false" delete="false" editable="bottom">
                                         <field name="product_id" readonly="1" />
-                                        <field name="supplier_price_unit" readonly="1" />
-                                        <field name="supplier_discount" readonly="1" />
+                                        <field name="supplier_price_unit" readonly="1" force_save="1"/>
+                                        <field name="supplier_discount" readonly="1" force_save="1"/>
                                         <field name="price_policy" readonly="1" />
                                         <field name="price_unit" class="auto_select" />
-                                        <field name="discount" class="auto_select" />
+                                        <field name="discount" class="auto_select" attrs="{'column_invisible': [('parent.show_discount', '=', False)]}"/>
                                         <field name="show_discount" invisible="1" />
                                         <field name="seller_id" invisible="1" />
-                                        <field name="observable_discount" invisible="1" />
-                                        <field name="invoice_line_id" invisible="1" />
-                                    </tree>
-                                </field>
-                            </group>
-                            <group>
-                                <field name="edi_line2_ids" view_mode="tree" nolabel="1"
-                                    context="{'form_view_ref': False}" attrs="{'invisible': [('show_discount', '=', True)]}">
-                                    <tree create="false" delete="false" editable="bottom">
-                                        <field name="product_id" readonly="1" />
-                                        <field name="supplier_price_unit" readonly="1" />
-                                        <field name="supplier_discount" readonly="1" />
-                                        <field name="price_policy" readonly="1" />
-                                        <field name="price_unit" class="auto_select" />
-                                        <field name="discount" invisible="1" />
-                                        <field name="show_discount" invisible="1" />
-                                        <field name="seller_id" invisible="1" />
-                                        <field name="observable_discount" invisible="1" />
                                         <field name="invoice_line_id" invisible="1" />
                                     </tree>
                                 </field>
