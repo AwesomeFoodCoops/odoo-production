@@ -32,7 +32,6 @@
                                         <field name="discount" class="auto_select" />
                                         <field name="show_discount"  invisible="1"/>
                                         <field name="seller_id"  invisible="1"/>
-                                        <field name="observable_discount"  invisible="1"/>
                                         <field name="invoice_line_id"  invisible="1"/>
                                     </tree>
                                 </field>
@@ -46,7 +45,6 @@
                                         <field name="discount" invisible="1"/>
                                         <field name="show_discount"  invisible="1"/>
                                         <field name="seller_id"  invisible="1"/>
-                                        <field name="observable_discount"  invisible="1"/>
                                         <field name="invoice_line_id"  invisible="1"/>
                                     </tree>
                                 </field>

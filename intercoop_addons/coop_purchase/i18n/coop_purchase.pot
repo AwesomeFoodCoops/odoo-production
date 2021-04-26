@@ -204,11 +204,6 @@ msgid "Lines"
 msgstr ""
 
 #. module: coop_purchase
-#: model:ir.model.fields,field_description:coop_purchase.field_supplier_info_update_line_observable_discount
-msgid "Observable discount"
-msgstr ""
-
-#. module: coop_purchase
 #: model:ir.model,name:coop_purchase.model_res_partner
 msgid "Partner"
 msgstr ""
