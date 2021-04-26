@@ -15,19 +15,6 @@ class SupplierInfoUpdate(models.TransientModel):
     line_ids = fields.One2many(
         comodel_name="supplier.info.update.line", inverse_name="update_id"
     )
-    line2_ids = fields.One2many(
-        comodel_name="supplier.info.update.line", inverse_name="update_id"
-    )
-
-    @api.onchange("show_discount")
-    def _onchange_show_discount(self):
-        self.ensure_one()
-        if self.show_discount:
-            self.line_ids = self.line2_ids
-            self.line2_ids = self.env["supplier.info.update.line"]
-        else:
-            self.line2_ids = self.line_ids
-            self.line_ids = self.env["supplier.info.update.line"]
 
     @api.model
     def default_get(self, fields_list):
@@ -45,7 +32,6 @@ class SupplierInfoUpdate(models.TransientModel):
             res.update(
                 {
                     "line_ids": processed_lines,
-                    "line2_ids": processed_lines,
                     "partner_id": active_obj.partner_id.id,
                     "show_discount": show_discount,
                 }
@@ -94,35 +80,18 @@ class SupplierInfoUpdate(models.TransientModel):
                     linked_line_key: line.id,
                     "seller_id": selected_seller_id.id,
                 }
-                # Observe discount value
-                observable_discount = seller_discount
 
                 line_price_unit = line.price_unit
-                line_discount = (
-                    "discount" in line and line.discount or seller_discount
-                )
-
-                line_price_unit = (
-                    line_price_unit != seller_price_unit
-                    and line_price_unit
-                    or 0
-                )
-                line_discount = (
-                    line_discount != seller_discount and line_discount or 0
-                )
-
-                # If line discount is difference from seller_discount,
-                # then assign line_discount value to it
-                observable_discount = (
-                    line_discount and line_discount or observable_discount
-                )
+                if "discount" in line:
+                    line_discount = line.discount
+                else:
+                    seller_discount
 
                 # Prepare values in current document line
                 seller_values.update(
                     {
                         "price_unit": line_price_unit,
                         "discount": line_discount,
-                        "observable_discount": observable_discount,
                     }
                 )
                 lines.append((0, 0, seller_values))
@@ -143,7 +112,7 @@ class SupplierInfoUpdate(models.TransientModel):
                 update_values["base_price"] = updated_price_unit
 
             supplier_discount = line.supplier_discount
-            updated_discount = line.observable_discount
+            updated_discount = line.discount
             if updated_discount != supplier_discount:
                 update_values["discount"] = updated_discount
             if update_values:
