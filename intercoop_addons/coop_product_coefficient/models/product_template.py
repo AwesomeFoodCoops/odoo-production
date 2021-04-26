@@ -6,6 +6,7 @@
 
 from openerp import models, fields, api, exceptions, _
 from openerp.tools.safe_eval import safe_eval
+from openerp.tools import float_compare
 import openerp.addons.decimal_precision as dp
 
 
@@ -393,8 +394,11 @@ class ProductTemplate(models.Model):
             if template.coeff9_inter_sp and (
                     template.base_price or
                     template.alternative_base_price_standard):
+                prec = self.env['decimal.precision'].precision_get('Product Price')
                 template.has_theoritical_cost_different =\
-                    template.standard_price != template.coeff9_inter_sp
+                    float_compare(template.standard_price, template.coeff9_inter_sp,
+                        precision_digits=prec) != 0
+                    
             else:
                 template.has_theoritical_cost_different = False
 

@@ -30,7 +30,6 @@
                                         <field name="discount" class="auto_select" />
                                         <field name="show_discount"  invisible="1"/>
                                         <field name="seller_id"  invisible="1"/>
-                                        <field name="observable_discount"  invisible="1"/>
                                     </tree>
                                 </field>
                                 <field name="line2_ids" view_mode="tree" nolabel="1" context="{'form_view_ref': False}" attrs="{'invisible': [('show_discount', '=', True)]}">
@@ -43,7 +42,6 @@
                                         <field name="discount" invisible="1"/>
                                         <field name="show_discount"  invisible="1"/>
                                         <field name="seller_id"  invisible="1"/>
-                                        <field name="observable_discount"  invisible="1"/>
                                     </tree>
                                 </field>
                             </group>
