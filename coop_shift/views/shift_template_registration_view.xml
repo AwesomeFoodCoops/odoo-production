@@ -161,5 +161,8 @@
             action="action_template_registration"
             groups="coop_shift.group_shift_manager"
             sequence="20"/>
+        <record model="ir.ui.menu" id="menu_action_template_registration">
+            <field name="active" eval="False"/>
+        </record>
     </data>
 </odoo>

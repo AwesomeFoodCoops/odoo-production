@@ -11,12 +11,12 @@
     <record model="ir.ui.menu" id="menu_res_partner_move">
         <field name="name">Partner Moves</field>
         <field name="action" ref="action_res_partner_move"/>
-        <field name="parent_id" ref="base.menu_users"/>
+        <field name="parent_id" ref="coop_shift.menu_shift_configuration"/>
         <field name="sequence">2</field>
     </record>
 
     <menuitem
-            name="Alerte entrée"
+            name="Alert entries"
             id="menu_alert_entry"
             action="action_alert_entry"
             groups="coop_badge_reader.group_alert_entry_manager"

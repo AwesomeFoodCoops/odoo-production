@@ -41,7 +41,7 @@ msgstr ""
 #. module: coop_badge_reader
 #: model:ir.actions.act_window,name:coop_badge_reader.action_alert_entry
 #: model:ir.ui.menu,name:coop_badge_reader.menu_alert_entry
-msgid "Alerte entrée"
+msgid "Alert entries"
 msgstr ""
 
 #. module: coop_badge_reader

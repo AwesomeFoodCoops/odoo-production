@@ -43,6 +43,7 @@
             name="Shifts Types"
             id="menu_shift_type"
             action="action_shift_type"
+            sequence="1"
             parent="menu_shift_configuration"/>
     </data>
 </openerp>
