@@ -293,7 +293,9 @@
                 action="action_registration"
                 sequence="20"
                 groups="coop_shift.group_shift_user"/>
-
+        <record model="ir.ui.menu" id="menu_action_registration">
+            <field name="active" eval="False"/>
+        </record>
         <record model="ir.ui.view" id="view_shift_registration_tree_exchanges">
             <field name="name">shift.registration.tree.exchanges</field>
             <field name="model">shift.registration</field>

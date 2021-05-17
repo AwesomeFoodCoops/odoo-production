@@ -42,9 +42,9 @@
         <field name="sequence">1</field>
     </record>
 
-    <!--  Add new menu `All` that it shows the list of all partner who links to coop -->
+    <!--  Add new menu `Contacts` that it shows the list of all partner who links to coop -->
     <record model="ir.ui.menu" id="menu_res_partner_all_partners">
-        <field name="name">All</field>
+        <field name="name">Contacts</field>
         <field name="action" ref="action_coop_all_partner_view"/>
         <field name="parent_id" ref="menu_coop_member_submain"/>
         <field name="sequence">7</field>
@@ -93,6 +93,7 @@
         <field name="action" ref="action_res_partner_interested_people"/>
         <field name="parent_id" ref="menu_coop_member_submain"/>
         <field name="sequence">5</field>
+        <field name="active" eval="False"/>
         <field name="groups_id"
                eval="[(4, ref('coop_shift.group_shift_manager'))]"/>
     </record>

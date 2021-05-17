@@ -6,6 +6,15 @@
 from odoo import fields, models, api
 
 
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+
+    multi_barcode_ids = fields.One2many(
+        "product.multi.barcode",
+        "product_tmpl_id",
+        string="Product Multiple Barcodes",
+    )
+
 class ProductProduct(models.Model):
     _inherit = "product.product"
 

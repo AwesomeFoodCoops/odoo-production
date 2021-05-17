@@ -79,4 +79,7 @@
         action="action_shift_ticket"
         parent="shift_menu"
         groups="coop_shift.group_shift_config"/>
+    <record model="ir.ui.menu" id="menu_shift_ticket">
+        <field name="active" eval="False"/>
+    </record>
 </odoo>
