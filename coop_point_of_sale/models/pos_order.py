@@ -5,6 +5,10 @@
 
 from odoo import fields, models, api, _
 from odoo.addons.queue_job.job import job
+import logging
+from odoo.addons import decimal_precision as dp
+
+_logger = logging.getLogger(__name__)
 
 WEEK_DAY_MAP = {
     0: "Mon",
@@ -137,3 +141,35 @@ class PosOrder(models.Model):
     @job
     def _job_recompute_week_fields_async(self):
         self._compute_week_number()
+
+    def _reconcile_payments(self):
+        """
+        When refunding the order, its receivable journal item
+        could not be reconciled
+        - Reconcile for the returned one first
+        """
+        for order in self:
+            aml = order.statement_ids.mapped('journal_entry_ids')
+            aml = aml.filtered(
+                lambda r: not r.reconciled and
+                    r.account_id.internal_type == 'receivable' and
+                    r.partner_id == order.partner_id.commercial_partner_id and
+                    r.debit > 0)  # debit > 0
+
+            if not aml:
+                continue
+
+            aml2 = order.account_move.line_ids
+            aml2 |= order.invoice_id.move_id.line_ids
+            aml2 = aml2.filtered(
+                lambda r: not r.reconciled and
+                    r.account_id.internal_type == 'receivable' and
+                    r.partner_id == order.partner_id.commercial_partner_id and
+                    r.credit > 0)  # credit > 0
+
+            if aml2:
+                try:
+                    (aml | aml2).reconcile()
+                except Exception:
+                    _logger.exception('Reconciliation did not work for order %s', order.name)
+        super(PosOrder, self)._reconcile_payments()
