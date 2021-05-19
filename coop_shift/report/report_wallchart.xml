@@ -2,11 +2,11 @@
 <odoo>
     <template id="report_wallchart_template">
         <t t-call="web.html_container">
-        <tr t-foreach="doc" t-as="wallchart">
+        <tr t-foreach="docs['Wallcharts']" t-as="wallchart">
             <t t-call="web.basic_layout">
                 <div class="page" style="page-break-after:always">
                     <div class="row mt8 mb8 ">
-                        <div class="col-xs-7" style="text-align:center"><h2>Template Inscriptions: <span t-esc="_(wallchart['day'])" t-lang="o.partner_id.lang"/></h2></div>
+                        <div class="col-xs-7" style="text-align:center"><h2>Template Inscriptions: <span t-esc="wallchart['day']" t-lang="o.partner_id.lang"/></h2></div>
                         <div class="col-xs-5 col-xs-push-1"><h4>Regular workers sign-ups as of<br/><span t-esc="date.strftime(date.today(),'%d/%m/%Y')"/></h4></div>
                     </div>
                     <table class="table table-bordered">

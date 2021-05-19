@@ -66,7 +66,11 @@ class PurchaseOrder(models.Model):
         data = """"""
         try:
             for line in edi.mapping_ids:
-                data += safe_eval(line.value)
+                data += safe_eval(line.value, {
+                    'self': self,
+                    'order_lines': order_lines,
+                    'edi': edi
+                    })
         except Exception as e:
             raise ValidationError(
                 _("Error in python code mapping values:\n %s") % tools.ustr(e)
@@ -109,7 +113,7 @@ class PurchaseOrder(models.Model):
         # Prepare data file
         data_lines = self._prepare_data_lines(lines, edi_system)
         # Params
-        pattern = safe_eval(edi_system.po_text_file_pattern)
+        pattern = safe_eval(edi_system.po_text_file_pattern, {'self': self})
         distant_folder_path = edi_system.csv_relative_in_path
         local_folder_path = config_obj.sudo().get_param("edi.local_folder_path")
         # Open FTP
