@@ -100,7 +100,7 @@ class EdiConfigSystem(models.Model):
         )
         try:
             ftp = FTP()
-            ftp.connect(edi_system.ftp_host)
+            ftp.connect(edi_system.ftp_host, int(edi_system.ftp_port))
             if edi_system.ftp_login:
                 ftp.login(edi_system.ftp_login, edi_system.ftp_password)
             else:
@@ -136,10 +136,10 @@ class EdiConfigSystem(models.Model):
                 f_name = datetime.datetime.now().strftime(pattern)
                 local_path = os.path.join(local_folder_path, f_name)
                 distant_path = os.path.join(distant_folder_path, f_name)
-                f = open(local_path, "w")
+                f = open(local_path, "wb")
                 for line in lines:
                     raw_text = line
-                    f.write(str(raw_text.encode(encoding, errors="ignore")))
+                    f.write(raw_text.encode(encoding, errors="ignore"))
                 f.close()
                 # Send File by FTP
                 ftp.cwd(distant_folder_path)
@@ -236,8 +236,9 @@ class EdiConfigSystem(models.Model):
         return date, hour
 
     @api.model
-    def get_datetime_format_ddmmyyyy(self, date):
-        do_date = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+    def get_datetime_format_ddmmyyyy(self, do_date):
+        if not isinstance(do_date, datetime.datetime):
+            do_date = datetime.datetime.strptime(do_date, "%Y-%m-%d %H:%M:%S")
         return "%02d%02d%s" % (
             do_date.day,
             do_date.month,
