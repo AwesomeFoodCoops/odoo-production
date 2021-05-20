@@ -70,6 +70,21 @@
               parent="account.menu_finance_entries"
               sequence="25"/>
 
+
+    <record id="view_account_payment_invoice_form" model="ir.ui.view">
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="communication" position="before">
+                <field name="operation_type" />
+                <field name="text_check_code" attrs="{'invisible': [('operation_type', '!=', 'check')],
+                    'required': [('operation_type', '=', 'check')]}"/>
+                <field name="text_lcr_code" attrs="{'invisible': [('operation_type', '!=', 'lcr')],
+                    'required': [('operation_type', '=', 'lcr')]}"/>
+            </field>
+        </field>
+    </record>
+
     <record id="view_account_payment_form" model="ir.ui.view">
         <field name="model">account.payment</field>
         <field name="inherit_id" ref="account.view_account_payment_form"/>
