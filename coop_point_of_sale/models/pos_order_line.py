@@ -29,6 +29,7 @@ class PosOrderLine(models.Model):
         store=True,
     )
     order_id = fields.Many2one(index=True)
+    product_id = fields.Many2one(index=True)
 
     @api.multi
     def compute_amount_line_all(self):
