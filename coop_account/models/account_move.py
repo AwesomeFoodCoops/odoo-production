@@ -48,7 +48,8 @@ class AccountMove(models.Model):
     def check_bank_statement_journal(self):
         for move in self:
             for line in move.line_ids:
-                if not line.statement_id.journal_id.bank_account_id and \
+                if line.statement_id and not \
+                        line.statement_id.journal_id.bank_account_id and \
                         line.account_id.reconciled_account:
                     raise UserError(_(
                         'You cannot reconcile that account move with '
