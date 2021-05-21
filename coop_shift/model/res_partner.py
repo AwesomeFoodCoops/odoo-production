@@ -250,24 +250,23 @@ class ResPartner(models.Model):
                 partner.current_leave_info = False
 
     @api.multi
-    def set_next_registration(self, next_registrations):
+    def get_next_registration(self, next_registrations):
         self.ensure_one()
+        rturn_vals = [False, [(6, 0, [])]]
         num_abcd = 0
         ftop_next_registrations = next_registrations.filtered(
             lambda r: r.state == 'open' and
             r.shift_id.shift_type_id.is_ftop)
         if ftop_next_registrations:
-            self.next_ftop_registration_date =\
-                ftop_next_registrations[0].date_begin
-        else:
-            self.next_ftop_registration_date = False
+            rturn_vals[0] = ftop_next_registrations[0].date_begin
 
         for registration in next_registrations.filtered(
             lambda r: r.state == 'open' and not
                 r.shift_id.shift_type_id.is_ftop):
             if num_abcd < 4:
-                self.next_abcd_registrations = [(4, registration.id)]
+                rturn_vals[1][0][2].append(registration.id)
                 num_abcd += 1
+        return rturn_vals
 
     @api.multi
     def _compute_registration_counts(self):
@@ -278,7 +277,10 @@ class ResPartner(models.Model):
                     r.state != 'cancel')
 
             # Set 4 next shifts
-            partner.sudo().set_next_registration(next_registrations)
+            next_vals = partner.sudo().get_next_registration(
+                next_registrations)
+            self.next_ftop_registration_date = next_vals[0]
+            self.next_abcd_registrations = next_vals[1]
 
             partner.upcoming_registration_count = len(next_registrations)
             next_registrations = next_registrations.sorted(
