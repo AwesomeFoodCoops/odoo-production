@@ -71,5 +71,10 @@
             <attribute name="style">display: none;</attribute>
         </t>
     </t>
+    <t t-extend="SaleDetailsButton">
+        <t t-jquery='.oe_status' t-operation='attributes'>
+            <attribute name="style">display: none;</attribute>
+        </t>
+    </t>
 
 </templates>
