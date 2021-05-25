@@ -18,6 +18,9 @@
             <xpath expr="//header/button[@name='action_invoice_draft']" position="after">
                 <button name="button_update_prices" type="object" string="Upd. Prices" class="btn btn-primary"/>
             </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree" position="attributes">
+                <attribute name="limit">500</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -37,5 +40,14 @@
         parent="purchase.menu_purchase_control"
         sequence="15"
         action="action_invoice_refund"/>
-
+    <record id="invoice_form_inherit" model="ir.ui.view">
+        <field name="name">invoice.customer.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree" position="attributes">
+                <attribute name="limit">500</attribute>
+            </xpath>
+        </field>
+    </record>
 </odoo>
