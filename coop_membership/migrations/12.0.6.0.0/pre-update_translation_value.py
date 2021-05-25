@@ -4,13 +4,13 @@
 def migrate(cr, installed_version):
     cr.execute("""
     update ir_translation set value='Rattachées'
-    where value='Personnes rattachées'
+    where value='Personnes rattachées' and lang='fr_FR'
     """)
     cr.execute("""
     update ir_translation set value='Alerte entrée'
-    where value='Alerte entrées'
+    where value='Alerte entrées' and lang='fr_FR'
     """)
     cr.execute("""
     update ir_translation set value='Opérations par lot'
-    where value='Opérations en lot'
+    where value='Opérations en lot' and lang='fr_FR'
     """)
