@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<odoo>
+    <record id="view_partner_property_form_inherit" model="ir.ui.view">
+        <field name="name">view_partner_property_form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/group/group[@name='banks']" position="before">
+                <group string="Purchase" name="accounting_purchase">
+                    <field name="show_discount"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
