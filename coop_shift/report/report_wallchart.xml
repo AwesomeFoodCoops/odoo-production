@@ -6,10 +6,10 @@
             <t t-call="web.external_layout">
                 <div class="page" style="page-break-after:always">
                     <div class="row mt8 mb8 ">
-                        <div class=""><h2>Template Inscriptions: <span t-esc="wallchart['day']" t-lang="o.partner_id.lang"/></h2></div>
+                        <div class="col-6"><h3>Template Inscriptions: <span t-esc="wallchart['day']" t-lang="o.partner_id.lang"/></h3></div>
                         <div class="col-6 text-right"><h4>Regular workers sign-ups as of<br/><span t-esc="date.strftime(date.today(),'%d/%m/%Y')"/></h4></div>
                     </div>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" style="font-size: 11px;">
                         <thead>
                             <tr>
                                 <th width="8%">Time</th>
@@ -48,10 +48,10 @@
             <t t-call="web.external_layout">
                 <div class="page" style="page-break-after:always">
                     <div class="row mt8 mb8 ">
-                        <div class="col-6"><h2>Shift Inscriptions: <span t-esc="wallchart['day']"/></h2></div><br/>
+                        <div class="col-6"><h3>Shift Inscriptions: <span t-esc="wallchart['day']"/></h3></div><br/>
                         <div class="col-6 text-right"><h4>FTOP Workers sign-ups as of<br/><span t-esc="date.strftime(date.today(),'%d/%m/%Y')"/></h4></div>
                     </div>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" style="font-size: 11px;">
                         <thead>
                             <tr>
                                 <th width="8%">Time</th>
