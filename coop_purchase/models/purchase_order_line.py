@@ -79,23 +79,12 @@ class PurchaseOrderLine(models.Model):
                     selected_vendor=main_vendor
                 )._compute_base_price()
 
-    @api.depends('product_qty', 'price_unit', 'taxes_id')
-    def _compute_amount(self):
-        prices = {}
-        for line in self:
-            if line.discount:
-                prices[line.id] = line.price_unit
-                line.price_unit *= (1 - line.discount / 100.0)
-
-                # Rounding the Price Unit based on the Partner's Discount
-                # computation
-                partner_disc_computation = \
-                    line.order_id.partner_id.discount_computation
-                currency = line.order_id.currency_id
-                if partner_disc_computation == 'unit_price':
-                    line.price_unit = currency.round(line.price_unit)
-
-            super(PurchaseOrderLine, line)._compute_amount()
-            # restore prices
-            if line.discount:
-                line.price_unit = prices[line.id]
+    def _get_discounted_price_unit(self):
+        price = super(PurchaseOrderLine, self)._get_discounted_price_unit()
+        if self.discount:
+            partner_disc_computation = \
+                    self.order_id.partner_id.discount_computation
+            currency = self.order_id.currency_id
+            if partner_disc_computation == 'unit_price':
+                price = currency.round(price)
+        return price
