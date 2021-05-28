@@ -19,15 +19,14 @@
             <xpath expr="//field[@name='price']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='base_price']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
             <xpath expr="//field[@name='min_qty']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='price_policy']" position="after">
+            <xpath expr="//field[@name='price']" position="before">
                 <field name="price_taxes_excluded"/>
                 <field name="price_taxes_included"/>
+            </xpath>
+            <xpath expr="//field[@name='price_policy']" position="after">
                 <field name="taxes_id" widget="many2many_tags"/>
                 <field name="supplier_taxes_id" widget="many2many_tags"/>
             </xpath>
