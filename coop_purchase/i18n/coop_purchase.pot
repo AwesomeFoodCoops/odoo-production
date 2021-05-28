@@ -392,3 +392,17 @@ msgstr ""
 msgid "per UOM"
 msgstr ""
 
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_res_partner_discount_computation
+msgid "Discount Computation"
+msgstr ""
+
+#. module: coop_purchase
+#: selection:res.partner,discount_computation:0
+msgid "Total"
+msgstr ""
+
+#. module: coop_purchase
+#: selection:res.partner,discount_computation:0
+msgid "Unit Price"
+msgstr ""

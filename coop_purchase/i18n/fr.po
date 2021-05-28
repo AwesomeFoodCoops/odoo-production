@@ -170,4 +170,19 @@ msgstr "Prix de vente HT"
 #. module: coop_purchase
 #: model:ir.model.fields,field_description:coop_purchase.field_product_supplierinfo__price_taxes_included
 msgid "Sale Price Taxes Included"
-msgstr "Prix unitaire HT"
+msgstr "Prix de vente TTC"
+
+#. module: purchase_discount
+#: model:ir.model.fields,field_description:purchase_discount.field_res_partner_discount_computation
+msgid "Discount Computation"
+msgstr "Application des remises"
+
+#. module: purchase_discount
+#: selection:res.partner,discount_computation:0
+msgid "Total"
+msgstr "Total"
+
+#. module: purchase_discount
+#: selection:res.partner,discount_computation:0
+msgid "Unit Price"
+msgstr "Prix Unitaire"

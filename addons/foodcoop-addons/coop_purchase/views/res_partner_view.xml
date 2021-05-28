@@ -7,6 +7,8 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='purchase']" position="inside">
+                <field name="discount_computation"
+                    attrs="{'required': [('supplier', '=', True), ('company_type', '=', 'company')]}"/>
                 <field name="show_discount"/>
             </xpath>
         </field>
