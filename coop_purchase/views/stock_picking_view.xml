@@ -9,6 +9,12 @@
             <xpath expr="//form/sheet/notebook/page/button[@name='put_in_pack']" position="attributes">
                 <attribute name="groups">coop_purchase.group_put_in_pack</attribute>
             </xpath>
+            <xpath expr="//field[@name='move_line_ids_without_package']/tree" position="attributes">
+                <attribute name="limit">500</attribute>
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']/tree" position="attributes">
+                <attribute name="limit">500</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>

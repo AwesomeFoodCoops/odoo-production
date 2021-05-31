@@ -78,3 +78,13 @@ class PurchaseOrderLine(models.Model):
                 product_template.with_context(
                     selected_vendor=main_vendor
                 )._compute_base_price()
+
+    def _get_discounted_price_unit(self):
+        price = super(PurchaseOrderLine, self)._get_discounted_price_unit()
+        if self.discount:
+            partner_disc_computation = \
+                    self.order_id.partner_id.discount_computation
+            currency = self.order_id.currency_id
+            if partner_disc_computation == 'unit_price':
+                price = currency.round(price)
+        return price

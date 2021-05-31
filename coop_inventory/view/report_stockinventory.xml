@@ -32,7 +32,7 @@
                 <td><span t-field="line.product_id"/></td>
                 <td class="text-right"/>
                 <td class="text-right"/>
-                <td class="text-right"><span t-field="line.product_qty" class="text-right"/> <span t-field="line.product_uom_id" class="text-right" groups="product.group_uom"/></td>
+                <td class="text-right"></td>
                 <td class="text-right"><span class="text-right" t-field="line.theoretical_qty"/> <span class="text-right" t-field="line.product_uom_id" groups="product.group_uom"/></td>
               </tr>
             </xpath>

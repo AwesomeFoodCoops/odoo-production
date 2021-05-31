@@ -4,7 +4,7 @@
 
 {
     'name': 'Coop Account Check Deposit',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.1.1',
     'category': 'Accounting',
     'license': 'AGPL-3',
     'summary': 'Manage deposit of checks to the bank',

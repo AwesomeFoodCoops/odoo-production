@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 {
     "name": "Coop Purchase",
-    "version": "12.0.1.0.0",
+    "version": "12.0.2.0.0",
     "category": "Purchase",
     "summary": "Coop Purchase",
     "author": "La Louve",
@@ -31,6 +31,7 @@
         "views/account_invoice_view.xml",
         "views/product_supplierinfo_view.xml",
         "views/stock_picking_view.xml",
+        "views/res_partner_view.xml",
     ],
     "installable": True,
 }

@@ -43,7 +43,7 @@
         </record>
 
         <record id="wallchart_ftop" model="ir.actions.report">
-            <field name="paperformat_id" ref="coop_shift.paperformat_wallchart_ftop"/>
+            <field name="paperformat_id" ref="base.paperformat_euro"/>
             <field name="attachment_use" eval="0"/>
         </record>
 
