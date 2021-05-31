@@ -3,13 +3,13 @@
     <template id="report_wallchart_template">
         <t t-call="web.html_container">
         <tr t-foreach="docs['Wallcharts']" t-as="wallchart">
-            <t t-call="web.basic_layout">
+            <t t-call="web.external_layout">
                 <div class="page" style="page-break-after:always">
                     <div class="row mt8 mb8 ">
-                        <div class="col-xs-7" style="text-align:center"><h2>Template Inscriptions: <span t-esc="wallchart['day']" t-lang="o.partner_id.lang"/></h2></div>
-                        <div class="col-xs-5 col-xs-push-1"><h4>Regular workers sign-ups as of<br/><span t-esc="date.strftime(date.today(),'%d/%m/%Y')"/></h4></div>
+                        <div class="col-6"><h3>Template Inscriptions: <span t-esc="wallchart['day']" t-lang="o.partner_id.lang"/></h3></div>
+                        <div class="col-6 text-right"><h4>Regular workers sign-ups as of<br/><span t-esc="date.strftime(date.today(),'%d/%m/%Y')"/></h4></div>
                     </div>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" style="font-size: 11px;">
                         <thead>
                             <tr>
                                 <th width="8%">Time</th>
@@ -45,13 +45,13 @@
     <template id="report_wallchart_ftop">
         <t t-call="web.html_container">
         <tr t-foreach="Wallcharts" t-as="wallchart">
-            <t t-call="web.basic_layout">
+            <t t-call="web.external_layout">
                 <div class="page" style="page-break-after:always">
                     <div class="row mt8 mb8 ">
-                        <div class="col-7 text-left"><h2>Shift Inscriptions: <span t-esc="wallchart['day']"/></h2></div><br/>
-                        <div class="col-5 text-right"><h4>FTOP Workers sign-ups as of<br/><span t-esc="date.strftime(date.today(),'%d/%m/%Y')"/></h4></div>
+                        <div class="col-6"><h3>Shift Inscriptions: <span t-esc="wallchart['day']"/></h3></div><br/>
+                        <div class="col-6 text-right"><h4>FTOP Workers sign-ups as of<br/><span t-esc="date.strftime(date.today(),'%d/%m/%Y')"/></h4></div>
                     </div>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" style="font-size: 11px;">
                         <thead>
                             <tr>
                                 <th width="8%">Time</th>

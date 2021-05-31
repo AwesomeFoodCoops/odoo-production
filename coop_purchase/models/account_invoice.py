@@ -11,7 +11,12 @@ class AccountInvoice(models.Model):
     def purchase_order_change(self):
         if self.purchase_id:
             self.check_received_product(self.purchase_id)
+        no_reference = False
+        if not self.reference:
+            no_reference = True
         res = super().purchase_order_change()
+        if no_reference:
+            self.reference = False
         for line in self.invoice_line_ids:
             suppliers = line.product_id.seller_ids.filtered(
                 lambda x: x.name == self.partner_id

@@ -1,6 +1,12 @@
 from odoo import models, fields, api
 
 
+class AccountCheckDeposit(models.Model):
+    _inherit = "account.check.deposit"
+
+    name = fields.Char(copy=False)
+
+
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
