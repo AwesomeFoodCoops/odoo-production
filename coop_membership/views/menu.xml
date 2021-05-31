@@ -58,6 +58,7 @@
         <field name="parent_id" ref="menu_coop_member_submain"/>
         <field name="sequence">2</field>
         <field name="action" ref="action_coop_membership_access_rights"/>
+        <field name="active" eval="False"/>
         <field name="groups_id"
                eval="[(4, ref('coop_membership.group_membership_access_user')),
                (4, ref('group_membership_bdm_lecture')),

@@ -1126,7 +1126,7 @@ msgstr "avril"
 #: model:ir.ui.menu,name:coop_membership.menu_res_partner_associated
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form
 msgid "Associated People"
-msgstr "Personnes rattachées"
+msgstr "Rattachées"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_res_config_settings__associated_people_available
