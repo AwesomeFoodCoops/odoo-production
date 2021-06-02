@@ -1,4 +1,4 @@
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class PurchaseOrder(models.Model):
@@ -16,3 +16,6 @@ class PurchaseOrder(models.Model):
                 result['context'].get('default_reference'):
             del result['context']['default_reference']
         return result
+
+    picking_count = fields.Integer(compute_sudo=True)
+    picking_ids = fields.Many2many(compute_sudo=True)
