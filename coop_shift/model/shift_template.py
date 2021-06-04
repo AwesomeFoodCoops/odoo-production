@@ -691,7 +691,7 @@ class ShiftTemplate(models.Model):
             for rec_date in rec_dates:
                 start_date_object_tz = template.start_datetime_tz
                 date_begin = rec_date + \
-                    timedelta(hours=start_date_object_tz.hour) + \ 
+                    timedelta(hours=start_date_object_tz.hour) + \
                     timedelta(minutes=start_date_object_tz.minute)
                 # Convert to utc before comparing
                 # date_check = date_begin.date()
