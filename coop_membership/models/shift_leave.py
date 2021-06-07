@@ -249,11 +249,11 @@ class ShiftLeave(models.Model):
     def _check_leave_for_ABCD_member(self):
         for record in self:
             today = fields.Date.context_today(self)
-            start_date = fields.Date.from_string(record.start_date)    
-            stop_date = fields.Date.from_string(record.stop_date)
+            start_date = record.start_date
+            stop_date = record.stop_date
             abcd_lines_in_leave = record.partner_id.registration_ids.filtered(
                 lambda l: l.date_begin.date() >= start_date and
-                l.date_end.date() <= stop_date and
+                (not stop_date or l.date_end.date() <= stop_date) and
                 l.date_begin.date() >=
                 today and l.state != 'cancel' and
                 l.shift_ticket_id.shift_type == 'standard')
