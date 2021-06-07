@@ -279,8 +279,8 @@ class ResPartner(models.Model):
             # Set 4 next shifts
             next_vals = partner.sudo().get_next_registration(
                 next_registrations)
-            self.next_ftop_registration_date = next_vals[0]
-            self.next_abcd_registrations = next_vals[1]
+            partner.next_ftop_registration_date = next_vals[0]
+            partner.next_abcd_registrations = next_vals[1]
 
             partner.upcoming_registration_count = len(next_registrations)
             next_registrations = next_registrations.sorted(

@@ -215,7 +215,7 @@ class ComputedPurchaseOrder(models.Model):
     def write(self, vals):
         cpo_id = super(ComputedPurchaseOrder, self).write(vals)
         if self.update_sorting(vals):
-            self._sort_lines()
+            self.sort_lines()
         return cpo_id
 
     @api.multi
@@ -245,6 +245,7 @@ class ComputedPurchaseOrder(models.Model):
                     'computed_qty',
                     'stock_duration',
                     'manual_input_output_qty',
+                    'product_id',
                 ]
             for value in line_ids:
                 if len(value) > 2 and value[2] and isinstance(

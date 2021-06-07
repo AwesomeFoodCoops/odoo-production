@@ -99,7 +99,8 @@ class ShiftLeaveWizard(models.TransientModel):
                         'date_begin': leave_e_date + relativedelta(days=1),
                         'date_end': previous_date_end,
                     })
-            elif leave_e_date and work_e_date and work_e_date <= leave_e_date:
+            elif not leave_e_date or (
+                    leave_e_date and work_e_date and work_e_date <= leave_e_date):
                 line.unlink()
             else:
                 line.date_begin = leave_e_date + relativedelta(days=1)

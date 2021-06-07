@@ -25,10 +25,7 @@ class AccountInvoiceLine(models.Model):
         return ret
 
     @api.one
-    @api.depends('price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
-        'product_id', 'invoice_id.partner_id', 'invoice_id.currency_id', 'invoice_id.company_id',
-        'invoice_id.date_invoice', 'invoice_id.date')
-    def _compute_price(self):
+    def _compute_price_super(self):
         currency = self.invoice_id and self.invoice_id.currency_id or None
         price = self.price_unit * (1 - (self.discount or 0.0) / 100.0)
 
@@ -57,3 +54,19 @@ class AccountInvoiceLine(models.Model):
                 self.company_id or self.env.user.company_id, date or fields.Date.today())
         sign = self.invoice_id.type in ['in_refund', 'out_refund'] and -1 or 1
         self.price_subtotal_signed = price_subtotal_signed * sign
+
+    @api.one
+    @api.depends(
+        'price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
+        'product_id', 'invoice_id.partner_id', 'invoice_id.currency_id',
+        'invoice_id.company_id', 'invoice_id.date_invoice', 'invoice_id.date',
+        'product_qty_package', 'price_policy')
+    def _compute_price(self):
+        if self.price_policy == 'package':
+            origin_quantiy = self.quantity
+            self.quantity = self.product_qty_package
+            res = self._compute_price_super()
+            self.quantity = origin_quantiy
+            return res
+        else:
+            return self._compute_price_super()
