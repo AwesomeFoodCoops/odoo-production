@@ -27,6 +27,8 @@ from odoo import fields, models, api
 class StockMove(models.Model):
     _inherit = "stock.move"
 
+    created_purchase_line_id = fields.Many2one(index=True)
+
     is_quantity_done_editable = fields.Boolean(
         compute='_compute_is_quantity_done_editable')
 

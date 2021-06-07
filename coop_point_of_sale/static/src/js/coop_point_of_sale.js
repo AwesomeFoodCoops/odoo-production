@@ -37,6 +37,15 @@ Overload models.PosModel
         },
     });
 
+    // Orderline
+    var _super_orderline = models.Orderline.prototype;
+    models.Orderline = models.Orderline.extend({
+        generate_wrapped_product_name: function() {
+            // keep only the first line in long product names
+            return _super_orderline.generate_wrapped_product_name.call(this).slice(0, 1);
+        },
+    });
+
     // Custom OrderWidget to remove order line when setting quantity equal to 0
     screens.OrderWidget.include({
         set_value: function(val) {

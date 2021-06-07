@@ -121,3 +121,40 @@ class AccountInvoice(models.Model):
     def button_update_prices(self):
         self.ensure_one()
         return self.env.ref("coop_purchase.supplier_info_update_act").read()[0]
+
+    @api.multi
+    def get_taxes_values(self):
+        tax_grouped = {}
+        round_curr = self.currency_id.round
+        for line in self.invoice_line_ids:
+            if not line.account_id:
+                continue
+            price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
+            # discount computation
+            # Rounding the price based on the partner discount computation
+            # for supplier invoice or supplier refund
+            if self.type in ['in_invoice', 'in_refund'] and \
+                line.discount and \
+                    self.partner_id.discount_computation == \
+                    'unit_price':
+                price_unit = round_curr(price_unit)
+
+            if line.price_policy == 'package':
+                quantity = line.product_qty_package
+            else:
+                quantity = line.quantity
+            taxes = line.invoice_line_tax_ids.compute_all(
+                price_unit, self.currency_id, quantity, line.product_id,
+                self.partner_id)['taxes']
+            for tax in taxes:
+                val = self._prepare_tax_line_vals(line, tax)
+                key = self.env['account.tax'].browse(
+                    tax['id']).get_grouping_key(val)
+
+                if key not in tax_grouped:
+                    tax_grouped[key] = val
+                    tax_grouped[key]['base'] = round_curr(val['base'])
+                else:
+                    tax_grouped[key]['amount'] += val['amount']
+                    tax_grouped[key]['base'] += round_curr(val['base'])
+        return tax_grouped

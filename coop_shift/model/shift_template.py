@@ -682,6 +682,7 @@ class ShiftTemplate(models.Model):
                     after,
                     template.last_shift_date,
                     template.start_date,
+                    fields.Date.today()
                 ]
                 if d
             )
@@ -692,7 +693,12 @@ class ShiftTemplate(models.Model):
                 date_begin = rec_date + \
                     timedelta(hours=start_date_object_tz.hour) + \
                     timedelta(minutes=start_date_object_tz.minute)
-                date_check = date_begin.date()
+                # Convert to utc before comparing
+                # date_check = date_begin.date()
+                date_check = self.env['ir.fields.converter']._str_to_datetime(
+                    None, None, fields.Datetime.to_string(date_begin))[0]
+                date_check = fields.Datetime.from_string(date_check).date()
+
                 if template.last_shift_date and \
                         date_check <= template.last_shift_date:
                     continue
