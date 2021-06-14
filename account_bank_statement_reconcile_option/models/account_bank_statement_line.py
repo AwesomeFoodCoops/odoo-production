@@ -136,7 +136,7 @@ class AccountReconciliation(models.AbstractModel):
     @api.model
     def _domain_move_lines_for_reconciliation(
         self, st_line, aml_accounts, partner_id,
-        excluded_ids=None, search_str=False, additional_domain=None
+        excluded_ids=None, search_str=False
     ):
         """ Return the domain for account.move.line records
             which can be used for bank statement reconciliation.
@@ -146,58 +146,24 @@ class AccountReconciliation(models.AbstractModel):
             :param excluded_ids:
             :param search_str:
         """
-        bank_reconcile_account_allowed_ids = \
-            st_line.journal_id.bank_reconcile_account_allowed_ids.ids or []
-        reconciliation_account_all = aml_accounts + \
-            bank_reconcile_account_allowed_ids
-
-        domain_reconciliation = [
-            '&', '&',
-            ('statement_line_id', '=', False),
-            ('account_id', 'in', reconciliation_account_all),
-            ('balance', '!=', 0.0),
-        ]
-
-        # default domain matching
-        domain_matching = [
-            '&', '&',
-            ('reconciled', '=', False),
-            ('account_id.reconcile', '=', True),
-            ('balance', '!=', 0.0),
-        ]
-
-        domain = expression.OR([domain_reconciliation, domain_matching])
-        if partner_id:
-            domain = expression.AND(
-                [domain, [('partner_id', '=', partner_id)]])
-
-        # Domain factorized for all reconciliation use cases
-        if search_str:
-            str_domain = self._domain_move_lines(search_str=search_str)
-            str_domain = expression.OR([
-                str_domain,
-                [('partner_id.name', 'ilike', search_str)]
-            ])
-            domain = expression.AND([
-                domain,
-                str_domain
-            ])
-
-        if excluded_ids:
-            domain = expression.AND([
-                [('id', 'not in', excluded_ids)],
-                domain
-            ])
-        # filter on account.move.line having the same company
-        # as the statement line
-        domain = expression.AND(
-            [domain, [('company_id', '=', st_line.company_id.id)]])
-        if st_line.company_id.account_bank_reconciliation_start:
-            domain = expression.AND(
-                [domain,
-                    [('date', '>=',
-                        st_line.company_id.account_bank_reconciliation_start)]]
-            )
+        domain = super(AccountReconciliation, self)._domain_move_lines_for_reconciliation(
+            st_line, aml_accounts, partner_id,
+            excluded_ids=excluded_ids, search_str=search_str)
+        if st_line.journal_id.reconcile_mode == 'journal_account':
+            bank_reconcile_account_allowed_ids = \
+                st_line.journal_id.bank_reconcile_account_allowed_ids.ids
+            args = [
+                ('statement_line_id', '=', False),
+                ('reconciled', '=', False),
+                ('account_id.reconcile', '=', True),
+            ]
+            if bank_reconcile_account_allowed_ids:
+                reconciliation_account_all = aml_accounts + \
+                    bank_reconcile_account_allowed_ids
+                args += [
+                    ('account_id', 'in', reconciliation_account_all),
+                ]
+            domain = expression.AND([domain, args])
         return domain
 
     @api.multi

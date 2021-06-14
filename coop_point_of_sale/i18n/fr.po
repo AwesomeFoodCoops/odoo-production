@@ -269,3 +269,8 @@ msgstr "Année (recherche)"
 #, python-format
 msgid "The product {} received should have \"available in pos\""
 msgstr "The product {} received should have \"available in pos\""
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_report_pos_order__price_wo_tax
+msgid "Subtotal w/o tax"
+msgstr "Sous-total hors taxes"
