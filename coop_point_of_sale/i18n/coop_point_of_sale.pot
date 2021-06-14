@@ -378,3 +378,8 @@ msgstr ""
 msgid "display: none;"
 msgstr ""
 
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_report_pos_order__price_wo_tax
+msgid "Subtotal w/o tax"
+msgstr ""

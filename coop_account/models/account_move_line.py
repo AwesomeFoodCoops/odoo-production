@@ -11,6 +11,8 @@ _logger = logging.getLogger(__name__)
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
+    # added in odoo v13+ https://github.com/odoo/odoo/pull/28206
+    full_reconcile_id = fields.Many2one(index=True)
     other_balance = fields.Monetary(
         string='Other Balance',
         default=0.0)
