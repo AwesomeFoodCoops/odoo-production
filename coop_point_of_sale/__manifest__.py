@@ -18,6 +18,7 @@
         "point_of_sale",
         "pos_price_to_weight",
         "coop_membership",
+        'pos_transfer_account'
     ],
     "qweb": [
         "static/src/xml/point_of_sale.xml",

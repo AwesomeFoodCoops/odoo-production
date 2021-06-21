@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="pos_config_view_form" model="ir.ui.view">
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="row" groups="account.group_account_user" title="Get one journal item per product rather than one journal item per receipt line. This works for any anonymous order. If the customer is set on the order, one journal item is created for each receipt line. This option is recommended for an easy review of your journal entries when managing lots of orders.">
+                                    <label for="transfer_account_id" class="col-lg-3 o_light_label"/>
+                                    <field name="transfer_account_id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
