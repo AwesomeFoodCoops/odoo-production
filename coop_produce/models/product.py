@@ -7,6 +7,29 @@ from odoo.exceptions import UserError
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
+    _sql_constraints = [
+        #  S#26461: change to python constraint
+        ('barcode_uniq', 'unique(barcode, id)',
+        "A barcode can only be assigned to one product !"),
+    ]
+
+    @api.multi
+    @api.constrains('barcode')
+    def _check_barcode_uniq(self):
+        for rec in self:
+            if not rec.barcode:
+                continue
+            one = self.search([
+                ('barcode', '=', rec.barcode),
+                ('id', '!=', rec.id)
+            ], limit=1)
+            if one:
+                raise UserError(_(
+                    'Barcode "{}" has been assigned to the product "{}"!'.format(
+                        one.barcode,
+                        one.name
+                    )))
+
     def name_get(self):
         """Return the product name without ref when the
         name_get is called from order planning form

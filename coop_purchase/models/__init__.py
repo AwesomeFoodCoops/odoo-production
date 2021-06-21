@@ -6,3 +6,4 @@ from . import res_config_settings
 from . import product_supplierinfo
 from . import res_partner
 from . import stock_picking
+from . import purchase_bill

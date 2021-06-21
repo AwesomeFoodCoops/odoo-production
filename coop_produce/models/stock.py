@@ -8,6 +8,8 @@ from odoo.exceptions import UserError
 class StockInventory(models.Model):
     _inherit = "stock.inventory"
 
+    exhausted = fields.Boolean(default=True)
+
     @api.depends('date')
     def _get_week_number(self):
         for inventory in self:

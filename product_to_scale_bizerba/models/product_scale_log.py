@@ -282,7 +282,7 @@ class ProductScaleLog(models.Model):
         f.close()
 
         # Send File by FTP
-        f = open(local_path, 'r')
+        f = open(local_path, 'rb')
         ftp.storbinary('STOR ' + distant_path, f)
         f.close()
         # Delete temporary file

@@ -9,6 +9,11 @@ from odoo import models, fields, api
 from odoo.osv import expression
 
 
+class AccountBankStatementLine(models.Model):
+    _inherit = "account.bank.statement.line"
+    _order = "statement_id desc, sequence, id desc"
+
+
 class AccountReconciliation(models.AbstractModel):
     _inherit = 'account.reconciliation.widget'
 
