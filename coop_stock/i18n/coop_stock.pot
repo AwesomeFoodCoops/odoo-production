@@ -173,3 +173,7 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
+#. module: coop_stock
+#: model_terms:ir.ui.view,arch_db:coop_stock.product_template_kanban_stock_view_inherit
+msgid "Forecasted:"
+msgstr ""
