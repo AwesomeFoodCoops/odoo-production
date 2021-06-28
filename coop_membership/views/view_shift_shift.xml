@@ -27,13 +27,18 @@
         </field>
     </record>
 
-    <!-- Partner form view -->
+    <!-- Shift form view -->
     <record id="view_shift_form_attendance_entry" model="ir.ui.view">
         <field name="name">view.shift.shift.form.inherit</field>
         <field name="model">shift.shift</field>
         <field name="inherit_id" ref="coop_shift.view_shift_form"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
+
+            <!-- Disable auto focus -->
+            <xpath expr="//form" position="attributes">
+                <attribute name="disable_autofocus">true</attribute>
+            </xpath>
 
             <!-- Hiding header fields -->
             <field name="shift_template_id" position="attributes">
