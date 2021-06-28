@@ -152,6 +152,15 @@ class ComputedPurchaseOrder(models.Model):
         compute='_compute_lines_with_qty',
     )
 
+    @api.multi
+    def onchange(self, values, field_name, field_onchange):
+        # we don't need to recompute the whole CPO after changing a line
+        if field_name == "line_ids":
+            return {}
+        return super().onchange(
+            values, field_name, field_onchange,
+        )
+
     # Fields Function section
     @api.onchange('line_ids')
     @api.multi
