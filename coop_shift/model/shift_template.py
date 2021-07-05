@@ -672,14 +672,14 @@ class ShiftTemplate(models.Model):
         return result
 
     @api.multi
-    def create_shifts_from_template(self, after=False, before=False):
+    def create_shifts_from_template(self, after_init=False, before=False):
         if not before:
             before = \
                 datetime.today() + timedelta(days=SHIFT_CREATION_DAYS)
         for template in self:
             after = max(
                 d for d in [
-                    after,
+                    after_init,
                     template.last_shift_date,
                     template.start_date,
                     fields.Date.today()
