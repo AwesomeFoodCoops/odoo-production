@@ -87,3 +87,7 @@ ENV/
 
 # Pycharm project settings
 .idea
+
+# Trobz environment
+.trobz/
+config/
