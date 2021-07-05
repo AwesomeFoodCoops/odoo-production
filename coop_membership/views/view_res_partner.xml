@@ -744,9 +744,11 @@
         <field name="inherit_id" ref="view_partner_form_bdm"/>
         <field name="groups_id" eval="[(6,0,[ref('coop_membership.group_membership_bdm_saisie')])]"/>
         <field name="arch" type="xml">
+            <!--
             <field name="name" position="attributes">
                 <attribute name="readonly">True</attribute>
             </field>
+            -->
             <field name="opt_out" position="attributes">
                 <attribute name="readonly">True</attribute>
             </field>

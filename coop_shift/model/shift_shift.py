@@ -310,8 +310,15 @@ class ShiftShift(models.Model):
                 utc_timestamp = pytz.utc.localize(
                     start_date_object_tz, is_dst=False)
                 start_date_object = utc_timestamp.astimezone(context_tz)
-                start_date = start_date_object_tz + timedelta(
-                    hours=start_date_object_tz.hour - start_date_object.hour)
+                # Replace code hour after tz - hour
+                # start_date = start_date_object_tz + timedelta(
+                #     hours=start_date_object_tz.hour - start_date_object.hour)
+                # By date after tz - date
+                delta = start_date_object_tz.replace(tzinfo=None) -\
+                    start_date_object.replace(tzinfo=None)
+                hours = delta.days * 24 + delta.seconds / 3600
+                start_date = start_date_object_tz + timedelta(hours=hours)
+                # ===========================
                 shift.date_begin = "%s-%02d-%02d %02d:%02d:%02d" % (
                     start_date.year,
                     start_date.month,
@@ -336,8 +343,15 @@ class ShiftShift(models.Model):
                 utc_timestamp = pytz.utc.localize(
                     end_date_object_tz, is_dst=False)
                 end_date_object = utc_timestamp.astimezone(context_tz)
-                end_date = end_date_object_tz + timedelta(
-                    hours=end_date_object_tz.hour - end_date_object.hour)
+                # Replace code hour after tz - hour
+                # end_date = end_date_object_tz + timedelta(
+                #     hours=end_date_object_tz.hour - end_date_object.hour)
+                # By date after tz - date
+                delta = end_date_object_tz.replace(tzinfo=None) -\
+                    end_date_object.replace(tzinfo=None)
+                hours = delta.days * 24 + delta.seconds / 3600
+                end_date = end_date_object_tz + timedelta(hours=hours)
+                # ===========================
                 shift.date_end = "%s-%02d-%02d %02d:%02d:%02d" % (
                     end_date.year,
                     end_date.month,
