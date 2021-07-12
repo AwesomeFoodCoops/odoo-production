@@ -100,7 +100,7 @@ class Website(WebsiteController):
                 ("shift_id.shift_template_id.is_technical", "=", False),
                 ("partner_id", "=", user.partner_id.id),
                 ("state", "!=", "cancel"),
-                ("exchange_state", "!=", "replacing"),
+                #("exchange_state", "!=", "replacing"),
                 (
                     "date_begin",
                     ">=",
@@ -232,7 +232,7 @@ class Website(WebsiteController):
             [
                 ("partner_id", "=", user.partner_id.id),
                 ("state", "not in", ["cancel"]),
-                ("exchange_state", "!=", "replacing"),
+                # ("exchange_state", "!=", "replacing"),
                 (
                     "date_begin",
                     ">=",
