@@ -153,6 +153,11 @@
                                         Replaced
                                     </td>
                                 </t>
+                                <t t-if="shift.exchange_state == 'replacing' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                    <td style="text-align: center;">
+                                        Remplaçant
+                                    </td>
+                                </t>
                             </tr>
                             <t t-if="shift.exchange_replacing_reg_id">
                                 <tr>
@@ -507,6 +512,11 @@
                                     <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                         <td style="text-align: center;background: lightgray">
                                             Replaced
+                                        </td>
+                                    </t>
+                                    <t t-if="shift.exchange_state == 'replacing' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                        <td style="text-align: center;">
+                                            Remplaçant
                                         </td>
                                     </t>
                                 </tr>
