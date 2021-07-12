@@ -68,7 +68,7 @@ class EdiConfigSystem(models.Model):
             edi_system.ftp_port))
         try:
             ftp = FTP()
-            ftp.connect(edi_system.ftp_host)
+            ftp.connect(edi_system.ftp_host, int(edi_system.ftp_port))
             if edi_system.ftp_login:
                 ftp.login(
                     edi_system.ftp_login,
