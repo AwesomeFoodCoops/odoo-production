@@ -207,7 +207,8 @@ class Website(WebsiteController):
                             ),
                         ),
                         ('registration_ids.partner_id', 'not in', user.partner_id.ids),
-                        ('shift_template_id.shift_type_id.is_ftop', '=', False)
+                        ('shift_template_id.shift_type_id.is_ftop', '=', False),
+                        ('state', '!=', 'cancel')
                     ],
                     order='date_begin'
                 )
