@@ -32,13 +32,7 @@ odoo.define('pos_payment_terminal.devices', function (require) {
                 this.message('payment_terminal_transaction_start_with_return', {'payment_info' : JSON.stringify(data)}, { timeout: 240000 }).then(function (answer) {
                     if (answer) {
                         var transaction_result = answer['transaction_result'];
-                        if (transaction_result == '7') {
-                            // This means that the operation was not finished
-                            // TODO : check what to do here. But I think this should do nothing.
-                            screen.transaction_error();
-                            screen.$('.delete-button').css('display', 'block');
-                            //$('.back').show();
-                        } else if (transaction_result == '0') {
+                        if (transaction_result == '0') {
                             // This means that the operation was a success
                             // We get amount and set the amount in this line
                             var rounding = self.pos.currency.rounding;
@@ -59,9 +53,14 @@ odoo.define('pos_payment_terminal.devices', function (require) {
                                 screen.$('.delete-button').css('display', 'none');
                                 //screen.$('.automatic-cashdrawer-transaction-start').css('display', 'none');
                             }
+                        } else {
+                            screen.transaction_error();
+                            screen.$('.delete-button').css('display', 'block');
+                            //$('.back').show();
                         }
                     } else {
                         screen.transaction_error();
+                        screen.$('.delete-button').css('display', 'block');
                     }
                 });
             } else {
