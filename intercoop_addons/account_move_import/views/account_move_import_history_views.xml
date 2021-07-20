@@ -1,0 +1,48 @@
+<openerp>
+  <data>
+    <record id="account_move_import_history_view_form" model="ir.ui.view">
+      <field name="name">account.move.import.history.form</field>
+      <field name="model">account.move.import.history</field>
+      <field name="arch" type="xml">
+        <form string="Account Moves Import History" create="false" edit="false">
+          <sheet>
+            <div class="oe_title">
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div>
+            <group col="4">
+              <field name="date"/>
+              <field name="created_moves"/>
+              <field name="filename"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="account_move_import_history_view_tree" model="ir.ui.view">
+      <field name="name">account.move.import.history.tree</field>
+      <field name="model">account.move.import.history</field>
+      <field name="arch" type="xml">
+        <tree string="Account Moves Import History" create="false" edit="false">
+          <field name="name"/>
+          <field name="filename"/>
+          <field name="date"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="account_move_import_history_action" model="ir.actions.act_window">
+      <field name="name">History</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">account.move.import.history</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="account_move_import_history_action"
+              id="menu_account_move_import_history_action"
+              name="Hisotry"
+              parent="menu_import"/>
+  </data>
+</openerp>

@@ -1,0 +1,27 @@
+<openerp>
+  <data>
+    <record id="to_new_journal" model="account.journal">
+      <field name="name">A NOUVEAUX</field>
+      <field name="code">ANO</field>
+      <field name="type">general</field>
+    </record>
+
+    <record id="close_journal" model="account.journal">
+      <field name="name">CLOTURE</field>
+      <field name="code">CLO</field>
+      <field name="type">general</field>
+    </record>
+
+    <record id="ode_journal" model="account.journal">
+      <field name="name">O.D. DE REGULARISATION</field>
+      <field name="code">ODR</field>
+      <field name="type">general</field>
+    </record>
+
+    <record id="rb_journal" model="account.journal">
+      <field name="name">REPRISE DE BALANCE</field>
+      <field name="code">RB</field>
+      <field name="type">general</field>
+    </record>
+  </data>
+</openerp>
