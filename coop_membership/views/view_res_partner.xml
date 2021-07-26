@@ -346,6 +346,12 @@
             <xpath expr="//group[@name='container_row_2']" position="attributes">
                 <attribute name="class">o_label_nowrap</attribute>
             </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='title']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='title']" position="after">
+                <field name="gender"/>
+            </xpath>
         </field>
     </record>
 
