@@ -7,11 +7,12 @@
             </xpath>
 
             <xpath expr="//div[hasclass('page')]/table[1]//tbody/tr//td[1]/span" position="attributes">
-                <attribute name="style">font-size: 20px</attribute>
+                <attribute name="style">font-size: 15px</attribute>
             </xpath>
 
             <xpath expr="//div[hasclass('page')]/table[2]" position="attributes">
                 <attribute name="class" add="table-bordered" separator=" "/>
+                <attribute name="style">font-size: 12px</attribute>
             </xpath>
 
             <!-- Add G.F. Qty and UG. Qty fields -->
@@ -64,8 +65,10 @@
                 <t t-call="web.address_layout"/>
                 <t t-raw="0"/>
             </div>
+            
             <div class="footer o_standard_footer">
                 <div class="text-center" style="border-top: 1px solid black;">
+                    <!-- S#26460:  Minor Changes to Inventory Adjustment PDF
                     <ul class="list-inline mb4">
                         <li t-if="company.phone" class="list-inline-item">Phone: <span t-field="company.phone"/></li>
                         <li t-if="company.email" class="list-inline-item">Email: <span t-field="company.email"/></li>
@@ -76,7 +79,7 @@
                     <div name="financial_infos">
                         <span t-field="company.report_footer"/>
                     </div>
-
+                    -->
                     <div t-if="report_type == 'pdf'" class="text-muted">
                         Page: <span class="page"/> / <span class="topage"/>
                     </div>

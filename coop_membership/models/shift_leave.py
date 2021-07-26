@@ -283,8 +283,8 @@ class ShiftLeave(models.Model):
         today = fields.Date.context_today(self)
         lines = self.partner_id.registration_ids
         abcd_lines_in_leave = lines.filtered(
-            lambda l: l.date_begin >= self.start_date and
-            l.date_end <= self.stop_date and l.date_begin >=
+            lambda l: l.date_begin.date() >= self.start_date and
+            l.date_end.date() <= self.stop_date and l.date_begin.date() >=
             today and l.state != 'cancel' and
             l.shift_ticket_id.shift_type == 'standard')
 
@@ -376,6 +376,7 @@ class ShiftLeave(models.Model):
                     stop_date, next_shift_month)
 
                 for rec in rec_dates:
+                    stop_date = fields.Date.from_string(stop_date)
                     if rec.date() > stop_date:
                         shift_after_leave.append(rec)
             if shift_after_leave:
@@ -389,7 +390,7 @@ class ShiftLeave(models.Model):
             stop_date = vals.get('stop_date', False)
             partner = self.env['res.partner'].browse(partner_id)
             future_lines = partner.registration_ids.filtered(
-                lambda l: l.date_begin >= stop_date)
+                lambda l: l.date_begin.date() >= stop_date)
 
             # Suggest date end of leave before the registration after leave a
             # day
