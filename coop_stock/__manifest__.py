@@ -14,12 +14,14 @@
         "point_of_sale",
         "purchase_package_qty",
         "queue_job",
+        "sale_stock",
     ],
     "data": [
         "views/action.xml",
         "views/menu.xml",
         "views/stock_picking_view.xml",
         "views/stock_inventory_valuation_report.xml",
+        "views/product_views.xml",
     ],
     "installable": True,
 }
