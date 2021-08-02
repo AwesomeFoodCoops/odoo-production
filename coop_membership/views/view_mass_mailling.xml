@@ -19,6 +19,6 @@
         <field name="res_model">mail.mass_mailing.contact</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,graph</field>
-        <field name="context">{'search_default_not_opt_out': 1, 'only_show_barcode_base': True}</field>
+        <field name="context">{'only_show_barcode_base': True}</field>
     </record>
 </odoo>
