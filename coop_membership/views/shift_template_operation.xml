@@ -158,5 +158,13 @@
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
     </record>
-
+    <act_window id="action_create_shift_template_operation_from_template_multi"
+        name="Shift Template Mass Operation"
+        res_model="shift.template.operation"
+        src_model="shift.template"
+        view_type="form"
+        view_mode="form"
+        key2="client_action_multi"
+        multi="True"
+        target="current"/>
 </odoo>
