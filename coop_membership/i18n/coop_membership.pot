@@ -3474,6 +3474,11 @@ msgid "Team/Template"
 msgstr ""
 
 #. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_bdm_search
+msgid "Team/Template Week"
+msgstr ""
+
+#. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_credit_config_form
 msgid "Templates"
 msgstr ""

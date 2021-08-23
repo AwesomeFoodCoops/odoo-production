@@ -147,5 +147,17 @@
                    eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:01:00')"/>
             <field name="active" eval="True"/>
         </record>
+        <record model="ir.cron" id="cron_update_current_template_name">
+            <field name="name">Update Current Template Name</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_compute_current_template()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="nextcall"
+                   eval="(DateTime.now()).strftime('%Y-%m-%d 20:01:00')"/>
+            <field name="doall" eval="False"/>
+        </record>
     </data>
 </odoo>

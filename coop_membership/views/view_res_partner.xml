@@ -815,6 +815,8 @@
 
             <field name="parent_id" position="after">
                 <field name="barcode_base" string="Member Number" filter_domain="[('barcode_base', '=', self), ('is_member', '=', True)]"/>
+                <field name="current_template_name" string="Team/Template"/>
+                <field name="current_template_week_name" string="Team/Template Week"/>
                 <!-- S#25994
                 <field name="is_member"/>
                 <field name="is_associated_people"/>
@@ -836,6 +838,9 @@
                 <filter name="team_template" string="Team/Template"
                         domain="[]"
                         context="{'group_by' : 'current_template_name'}"/>
+                <filter name="team_template_week" string="Team/Template Week"
+                        domain="[]"
+                        context="{'group_by' : 'current_template_week_name'}"/>
             </xpath>
         </field>
     </record>

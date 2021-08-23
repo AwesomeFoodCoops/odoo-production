@@ -3397,6 +3397,11 @@ msgid "Team/Template"
 msgstr "Équipe / Créneau"
 
 #. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_bdm_search
+msgid "Team/Template Week"
+msgstr "Équipe / Semaine"
+
+#. module: coop_membership
 #: model:ir.ui.menu,name:coop_membership.menu_shift_template_operation
 msgid "Mass Operations"
 msgstr "Opérations en lot"
