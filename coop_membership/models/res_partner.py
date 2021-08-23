@@ -188,8 +188,13 @@ class ResPartner(models.Model):
     current_template_name = fields.Char(
         string='Current Template',
         compute='_compute_current_template',
-        store=True,
+        store=True
     )
+    current_template_week_name = fields.Char(
+        string='Current Template Week',
+        compute='_compute_current_template',
+        store=True
+    ) 
     is_minor_child = fields.Boolean(string='Enfant mineur')
     leader_ids = fields.Many2many(
         string='Shift Leaders',
@@ -515,7 +520,7 @@ class ResPartner(models.Model):
                 partner.nb_associated_people = 0
 
     @api.multi
-    @api.depends('tmpl_reg_ids.is_current')
+    @api.depends('tmpl_reg_ids', 'tmpl_reg_ids.is_current')
     def _compute_current_template(self):
         for partner in self:
             current_template = False
@@ -531,6 +536,11 @@ class ResPartner(models.Model):
             if current_template:
                 partner.leader_ids = current_template.user_ids
                 partner.current_template_name = current_template.name
+                partner.current_template_week_name = current_template.week_name
+            else:
+                partner.leader_ids = False
+                partner.current_template_name = False
+                partner.current_template_week_name = False
 
     # Overload Section
     @api.model
@@ -934,6 +944,27 @@ class ResPartner(models.Model):
         for chunk in chunks:
             self.with_delay().update_member_current_template_name(chunk)
         return True
+
+    @api.model
+    def cron_compute_current_template(self, offset=0, partner_limit=1000):
+        partner_count = self.env['res.partner'].search_count([])
+        while offset < partner_count:
+            description = "Update current template name from {start} to {end}".format(
+                start=offset,
+                end=offset+partner_limit
+            )
+            if partner_count < partner_limit:
+                self.update_member_current_template_name_limit(offset, partner_limit)
+            else:
+                self.with_delay(description=description).update_member_current_template_name_limit(
+                    offset, partner_limit)
+            offset += partner_limit
+
+    @job
+    def update_member_current_template_name_limit(self, offset, limit):
+        """ Job for Updating Current Shift Template Name """
+        partners = self.env['res.partner'].search([], offset, limit)
+        partners._compute_current_template()
 
     @job
     def update_shift_type_res_partner_session_job(
