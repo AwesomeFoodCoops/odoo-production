@@ -26,7 +26,7 @@
 
 {
     'name': 'Computed Purchase Order',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.1',
     'category': 'Purchase',
     'author': 'GRAP, Druidoo',
     'website': 'https://cooplalouve.fr/',
