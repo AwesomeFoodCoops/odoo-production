@@ -951,7 +951,7 @@ class ResPartner(models.Model):
         while offset < partner_count:
             description = "Update current template name from {start} to {end}".format(
                 start=offset,
-                end=offset+partner_limit
+                end=offset+partner_limit-1
             )
             if partner_count < partner_limit:
                 self.update_member_current_template_name_limit(offset, partner_limit)
