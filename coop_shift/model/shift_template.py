@@ -630,7 +630,7 @@ class ShiftTemplate(models.Model):
         for record in self:
             if len(record.shift_ids):
                 shifts = record.shift_ids.filtered(
-                    lambda s: s.date_end >= fields.Date.context_today(self)
+                    lambda s: s.date_end >= fields.Datetime.now()
                     and s.state != 'cancel'
                 )
                 shifts.with_context(tracking_disable=True).write({

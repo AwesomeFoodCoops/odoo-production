@@ -758,9 +758,11 @@
             <field name="opt_out" position="attributes">
                 <attribute name="readonly">True</attribute>
             </field>
+            <!--  S#26696
             <field name="lang" position="attributes">
                 <attribute name="readonly">True</attribute>
             </field>
+            -->
             <field name="category_id" position="attributes">
                 <attribute name="readonly">True</attribute>
             </field>
