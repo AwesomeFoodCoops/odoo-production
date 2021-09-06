@@ -156,7 +156,7 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field name="nextcall"
-                   eval="(DateTime.now()).strftime('%Y-%m-%d 20:01:00')"/>
+                   eval="(DateTime.now()).strftime('%Y-%m-%d 23:59:59')"/>
             <field name="doall" eval="False"/>
         </record>
     </data>

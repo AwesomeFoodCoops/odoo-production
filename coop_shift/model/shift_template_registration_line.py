@@ -84,13 +84,13 @@ class ShiftTemplateRegistrationLine(models.Model):
     @api.multi
     def _compute_current(self):
         for line in self:
-            now = fields.Datetime.now()
+            now = fields.Date.context_today(self)
             line.is_current = False
             line.is_past = False
             line.is_future = False
-            if (line.date_begin and line.date_begin > now.date()):
+            if (line.date_begin and line.date_begin > now):
                 line.is_future = True
-            elif (line.date_end and line.date_end < now.date()):
+            elif (line.date_end and line.date_end < now):
                 line.is_past = True
             else:
                 line.is_current = True
