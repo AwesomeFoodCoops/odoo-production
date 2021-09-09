@@ -22,6 +22,7 @@
             <script src="/coop_memberspace/static/src/js/style.js" type="text/javascript"/>
             <script src="/coop_memberspace/static/src/js/programmer_un_extra.js" type="text/javascript"/>
             <script src="/coop_memberspace/static/src/js/programmer_une_vacation.js" type="text/javascript"/>
+            <script src="/coop_memberspace/static/src/js/programmer_un_service.js" type="text/javascript"/>
             <script src="/coop_memberspace/static/src/js/my_profile.js" type="text/javascript"/>
             <script src="/coop_memberspace/static/src/js/statistics.js" type="text/javascript"/>
             <script src="/coop_memberspace/static/src/js/exchange_shift.js" type="text/javascript"/>

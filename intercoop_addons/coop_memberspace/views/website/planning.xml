@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+	<template id="coop_memberspace.planning">
+		<t t-call="website.layout">
+            <t t-set="title">Espace Membre | Planning</t>
+            <div class="container">
+                <div class="row">
+                    <h1>Planning du magasin</h1>
+                    <p>Manque de coopérateurs·trices sur les services à venir : choisir en priorité les créneaux <span style="color: #ee2c2c;">rouges</span>, puis <span style="color: #ffa500;">oranges</span>, puis <span style="color: #ffd700;">jaunes</span>, puis <span style="color: #ffe4c4;">beiges</span>...</p>
+                    <div class="row programmer_un_service">
+                        <t t-if="upcoming_shifts">
+                            <t t-set="week_number" t-value="dict(upcoming_shifts[0]._fields['week_number'].selection).get(upcoming_shifts[0].week_number)" />
+                            <t t-set="date" t-value="upcoming_shifts[0].date_without_time" />
+                            <div class="col-md-12"><h3>Semaine <span t-esc="week_number" /></h3></div>
+                            <div class="col-md-12"><h4><span t-esc="user.get_time_by_user_lang(upcoming_shifts[0].date_begin, ['%A %d %B %Y'])[0]" /></h4></div>
+                        </t>
+                        <t t-if="upcoming_shifts" t-foreach="upcoming_shifts" t-as="shift">
+                            <t t-if="dict(shift._fields['week_number'].selection).get(shift.week_number) != week_number">
+                                <t t-set="week_number" t-value="dict(shift._fields['week_number'].selection).get(shift.week_number)" />
+                                <div class="col-md-12"><h3>Semaine <span t-esc="week_number" /></h3></div>
+                            </t>
+                            <t t-if="shift.date_without_time != date">
+                                <t t-set="date" t-value="shift.date_without_time" />
+                                <div class="col-md-12"><h4><span t-esc="user.get_time_by_user_lang(shift.date_begin, ['%A %d %B %Y'])[0]" /></h4></div>
+                            </t>
+                            <t t-set="present" t-value="datetime.datetime.now()" />
+                            <t t-set="availability_rate" t-value="float(shift.seats_available) / shift.seats_max" />
+                            <t t-set="user_is_registered" t-value="user.partner_id in shift.registration_ids.mapped('partner_id')" />
+
+                            <t t-set="css_color_style" t-value="''"/>
+                            <t t-if="availability_rate >= 0.25">
+                                <t t-set="css_color_style" t-value="'color: #665b4e; background-color: #ffe4c4'"/>
+                            </t>
+                            <t t-if="availability_rate >= 0.5">
+                                <t t-set="css_color_style" t-value="'color: #665600; background-color: #ffd700'"/>
+                            </t>
+                            <t t-if="availability_rate >= 0.75">
+                                <t t-set="css_color_style" t-value="'color: #664200; background-color: #ffa500;'"/>
+                            </t>
+                            <t t-if="shift.seats_available > 0 and present > (datetime.datetime.strptime(shift.date_begin_tz, '%Y-%m-%d %H:%M:%S') - datetime.timedelta(days=3))">
+                                <t t-set="css_color_style" t-value="'color: #fbd4d4; background-color: #ee2c2c;'"/>
+                            </t>
+                            <t t-if="user_is_registered">
+                                <t t-set="css_color_style" t-value="'color: grey; background-color: #e7e7e7;'"/>
+                            </t>
+
+                            <div t-attf-id="shift-{{shift.id}}" t-attf-class="col-md-3" t-attf-style="border: 1px solid; margin: 10px; {{ css_color_style }}">
+                                <h5><span t-esc="shift.name" /></h5>
+                                <t t-set="date_begin" t-value="user.get_time_by_user_lang(shift.date_begin, ['%A %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')" />
+                                <t t-set="date_end" t-value="user.get_time_by_user_lang(shift.date_end, ['%A %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')" />
+                                <div><span t-attf-id="time-{{shift.id}}" t-esc="date_begin and date_begin[0] or ''" /> - <span t-esc="date_end and date_end[1] or ''" /></div>
+                                <div><span t-esc="shift.seats_reserved" /> participants attendus</div>
+                                <div>
+                                    <strong><span t-attf-id="avalable-seats-{{shift.id}}" t-esc="shift.seats_available" /> places disponibles</strong>
+                                    <t t-if="shift.seats_available > 0 and not user_is_registered">
+                                        <a><span class="fa fa-user-plus" data-toggle="modal" data-target="#programmer_modal" t-attf-id="btn-add-{{shift.id}}" t-att-data-shift-id="shift.id" t-att-data-shift-type="shift_type" /></a>
+                                    </t>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-call="coop_memberspace.programmer_modal" />
+                        <t t-call="coop_memberspace.modal_error" />
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</data></openerp>
