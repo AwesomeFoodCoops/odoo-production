@@ -653,13 +653,24 @@ class ResPartner(models.Model):
         partners._compute_is_unsubscribed()
 
     @api.model
-    def send_welcome_emails(self):
+    def send_welcome_emails(self, limit=None):
         partners = self.search([
             ('welcome_email', '=', False),
             ('is_worker_member', '=', True),
             ('is_unsubscribed', '=', False),
-        ])
+        ], limit=limit)
         partners.send_welcome_email()
+
+    @api.model
+    def update_welcome_email_manually(self, limit=None):
+        partners = self.search([
+            ('welcome_email', '=', False),
+            ('is_worker_member', '=', True),
+            ('is_unsubscribed', '=', False),
+        ], limit=limit)
+        partners.write({
+            'welcome_email': True
+        })
 
     @api.model
     def deactivate_designated_buyer(self):
