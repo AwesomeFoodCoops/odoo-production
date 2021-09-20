@@ -11,7 +11,7 @@ import pytz
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, _
 from odoo.addons.queue_job.job import job
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 from odoo.tools.safe_eval import safe_eval
 
 NUMBER_OF_PARTNERS_PER_JOB = 100
@@ -653,13 +653,24 @@ class ResPartner(models.Model):
         partners._compute_is_unsubscribed()
 
     @api.model
-    def send_welcome_emails(self):
+    def send_welcome_emails(self, limit=None):
         partners = self.search([
             ('welcome_email', '=', False),
             ('is_worker_member', '=', True),
             ('is_unsubscribed', '=', False),
-        ])
+        ], limit=limit)
         partners.send_welcome_email()
+
+    @api.model
+    def update_welcome_email_manually(self, limit=None):
+        partners = self.search([
+            ('welcome_email', '=', False),
+            ('is_worker_member', '=', True),
+            ('is_unsubscribed', '=', False),
+        ], limit=limit)
+        partners.write({
+            'welcome_email': True
+        })
 
     @api.model
     def deactivate_designated_buyer(self):
@@ -932,6 +943,40 @@ class ResPartner(models.Model):
         for chunk in chunks:
             self.with_delay().update_shift_type_res_partner_session_job(chunk)
         return True
+
+    def create_related_users(self):
+        users = self.env['res.users']
+        for partner in self:
+            users |= partner.create_related_user()
+        view = self.env.ref('base.view_users_form')
+        return {
+            'name': _('Users'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_model': 'res.users',
+            'target': 'current',
+            'view_id': view.id,
+            'res_id': users and users[0].id
+        }
+
+    def create_related_user(self):
+        self.ensure_one()
+        partner = self
+        user = ResUsers = self.env['res.users']
+        if partner.email and not partner.user_ids:
+            existed = ResUsers.search([
+                ('login', '=', partner.email),
+                '|', ('active', '=', False), ('active', '=', True)
+            ], limit=1)
+            if existed:
+                raise UserError(_("Another user is already registered using this email address."))
+            vals = {
+                'login': partner.email,
+                'partner_id': partner.id
+            }
+            user = ResUsers.create(vals)
+        return user
 
     @api.multi
     def create_job_to_compute_current_template(self):

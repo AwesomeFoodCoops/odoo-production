@@ -9,3 +9,4 @@ from . import pos_category
 from . import stock_picking
 from . import res_config_settings
 from . import report_pos_order
+from . import account_bank_statement

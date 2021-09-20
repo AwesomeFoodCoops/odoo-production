@@ -11,15 +11,15 @@
         <field name="body_html"><![CDATA[
 <p>Hello ${object.name},</p>
 
-<p>Your subscription to ${object.partner_id.company_id.name} has been registered. Welcome !</p>
+<p>Your subscription to ${object..company_id.name} has been registered. Welcome !</p>
 
 
 % if object.shift_type == 'standard':
-<p>Your member number is $ {object.barcode_base} and you have been registered on the niche ${object.current_template_name}.</p>
+<p>Your member number is ${object.barcode_base} and you have been registered on the niche ${object.current_template_name}.</p>
 % endif
 
 % if object.shift_type == 'ftop':
-<p>Your membership number is $ {object.barcode_base} and you have been enrolled in the steering wheel team. You will find attached a document which explains the functioning of this team as well as a calendar which indicates the settlement dates.</p>
+<p>Your membership number is ${object.barcode_base} and you have been enrolled in the steering wheel team. You will find attached a document which explains the functioning of this team as well as a calendar which indicates the settlement dates.</p>
 % endif
 
 <p>You will receive a reminder a few days before your next service. <br/>
@@ -43,7 +43,7 @@ Tom Boothe</p>
 In order to activate your access to the Member Area, please follow the following procedure :</p>
 <ol>
     <p><li> Click on the link below to enter your email address: ${(object.company_id.website or '')|safe}/selfservice/?action=sendtoken </li>
-    Please note: use only the email sent to ${object.partner_id.company_id.name} </p>
+    Please note: use only the email sent to ${object..company_id.name} </p>
     <li> You will then receive an email from the sender: "Self Service Password" </li>
     <li> Click on the link in the email to initialize your password. </li>
     <li> You can now connect to your Member Area: ${(object.company_id.website or '')|safe} </li></p>

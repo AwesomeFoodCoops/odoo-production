@@ -27,6 +27,9 @@
         <field name="inherit_id" ref="coop_membership.view_shift_registration_tree_inherit"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="limit">10000</attribute>
+            </xpath>
             <xpath expr="//tree[@name='registration_list']" position="attributes">
                 <attribute name="editable">bottom</attribute>
                 <attribute name="decoration-bf" eval="False"/>

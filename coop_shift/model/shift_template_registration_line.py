@@ -240,7 +240,7 @@ class ShiftTemplateRegistrationLine(models.Model):
                 lambda s, b=begin, e=end: (
                     not b or s.date_begin.date() >= b) and (
                     not e or s.date_end.date() <= e) and (
-                    s.state != 'done'))
+                    s.state not in ('done', 'cancel')))
 
             for shift in shifts:
                 found = partner_found = False
