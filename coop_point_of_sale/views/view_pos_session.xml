@@ -38,5 +38,15 @@
             </field>
         </field>
     </record>
+    <record model="ir.ui.view" id="view_pos_session_form">
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <field name="total_entry_encoding" position="replace">
+                <field name="total_entry_encoding_sales" />
+                <field name="total_entry_encoding_cash" />
+            </field>
+        </field>
+    </record>
 
 </odoo>

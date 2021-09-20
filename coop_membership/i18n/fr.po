@@ -3693,7 +3693,9 @@ msgid "Use as default for Shifts"
 msgstr "Utiliser par défaut pour les quarts"
 
 #. module: coop_membership
+#: code:addons/coop_membership/models/res_partner.py:946
 #: model:ir.model,name:coop_membership.model_res_users
+#, python-format
 msgid "Users"
 msgstr "Utilisateurs"
 
@@ -4085,3 +4087,19 @@ msgstr "Recalculer les noms des semaines"
 #: model_terms:ir.ui.view,arch_db:coop_membership.res_config_settings_view_form
 msgid "days."
 msgstr "jours"
+
+#. module: coop_membership
+#: code:addons/coop_membership/models/res_partner.py:966
+#, python-format
+msgid "Another user is already registered using this email address."
+msgstr "Un autre utilisateur est déjà enregistré avec cette adresse courriel."
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form_coop_shift
+msgid "Create Related User"
+msgstr "Créer un utilisateur"
+
+#. module: coop_membership
+#: model_terms:ir.ui.view,arch_db:coop_membership.view_partner_form_coop_shift
+msgid "Are you sure you want to create a new user?"
+msgstr "Êtes-vous sûr de vouloir créer un nouvel utilisateur?"
