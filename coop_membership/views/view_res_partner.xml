@@ -398,6 +398,14 @@
             <field name="template_ids" position="after">
                 <field name="leader_ids" widget="many2many_tags"/>
             </field>
+            <field name="cooperative_state" position="before">
+                <button name="create_related_users" type="object"
+                    string="Create Related User"
+                    groups="base.group_erp_manager"
+                    confirm="Are you sure you want to create a new user?"
+                    attrs="{'invisible': ['|', ('email', '=', False), ('user_ids', '!=', [])]}"
+                    />
+            </field>
         </field>
     </record>
 
