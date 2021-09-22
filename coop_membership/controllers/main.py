@@ -276,6 +276,7 @@ class WebsiteRegisterMeeting(http.Controller):
     def create_event_registration(self, val, user):
         event_reg_obj = request.env['event.registration'].sudo(user)
         event_registration = event_reg_obj.create(val)
+        event_registration.confirm_registration()
         return event_registration
 
     def create_contact_partner(self, partner_val, user):
