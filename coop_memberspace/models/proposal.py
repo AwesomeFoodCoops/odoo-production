@@ -17,10 +17,12 @@ class Proposal(models.Model):
     _description = "Proposal exchange the shift"
 
     src_registration_id = fields.Many2one(
-        "shift.registration", "Source Registration", required=True
+        "shift.registration", "Source Registration", required=True,
+        ondelete='cascade',
     )
     des_registration_id = fields.Many2one(
-        "shift.registration", "Destination Registration", required=True
+        "shift.registration", "Destination Registration", required=True,
+        ondelete='cascade',
     )
     state = fields.Selection(
         [
