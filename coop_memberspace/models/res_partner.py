@@ -140,16 +140,26 @@ class ResPartner(models.Model):
         return True
 
     @api.model
-    def cron_create_user_for_members(self, limit=100):
+    def cron_create_user_for_members(self, limit=100,
+            check_welcome_email=False,
+            welcome_email=False):
+        welcome_email_domain = check_welcome_email and \
+                'AND welcome_email is {welcome_email}'.format(
+                welcome_email=welcome_email and 'True' or 'False'
+        ) or ''
         sql = '''
             SELECT rp.id
             FROM res_partner rp
             LEFT JOIN res_users ru ON ru.partner_id = rp.id
             WHERE ru.partner_id ISNULL
                 AND rp.is_member IS True
+                AND rp.is_worker_member IS True
                 AND rp.email NOTNULL
+                {welcome_email_domain}
             LIMIT %s
-        '''
+        '''.format(
+            welcome_email_domain=welcome_email_domain
+        )
         self.env.cr.execute(sql, (limit,))
         partner_ids = [p[0] for p in self.env.cr.fetchall()]
         if not partner_ids:
