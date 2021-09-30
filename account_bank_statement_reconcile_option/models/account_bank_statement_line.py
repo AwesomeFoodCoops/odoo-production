@@ -81,8 +81,6 @@ class AccountReconciliation(models.AbstractModel):
     ):
         """ Returns two lines whose amount are opposite """
         Account_move_line = self.env['account.move.line']
-        search_limit_days = self.journal_id.search_limit_days or 0
-        date_line = fields.Date.from_string(self.date)
         ir_rules_query = Account_move_line._where_calc([])
         Account_move_line._apply_ir_rules(ir_rules_query, 'read')
         from_clause, where_clause, where_clause_params = ir_rules_query.get_sql()
@@ -121,16 +119,6 @@ class AccountReconciliation(models.AbstractModel):
             move_line_id, move_line_id,
             partner_id, partner_id, partner_id,
         ] + where_clause_params + where_clause_params
-        if date_line and search_limit_days:
-            limit_days_after = date_line + timedelta(
-                days=search_limit_days)
-            limit_days_before = date_line - timedelta(
-                days=search_limit_days)
-            params.extend([limit_days_after, limit_days_before])
-            query += """AND a.date_maturity < %(limit_days_after)s \
-                        AND a.date_maturity > %(limit_days_before)s
-                        AND b.date_maturity < %(limit_days_after)s \
-                        AND b.date_maturity > %(limit_days_before)s"""
         self.env.cr.execute(query, params)
         pairs = self.env.cr.fetchall()
 
