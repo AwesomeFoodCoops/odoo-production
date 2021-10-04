@@ -20,7 +20,7 @@ SHIFT_CONFIRMATION_DAYS = 5
 class ShiftShift(models.Model):
     _inherit = 'event.event'
     _name = 'shift.shift'
-    _description = 'Shift Template'
+    _description = 'Shift'
 
     @api.model
     def _default_shift_mail_ids(self):

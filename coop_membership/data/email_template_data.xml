@@ -11,8 +11,7 @@
         <field name="body_html"><![CDATA[
 <p>Hello ${object.name},</p>
 
-<p>Your subscription to ${object..company_id.name} has been registered. Welcome !</p>
-
+<p>Your subscription to ${object.company_id.name} has been registered. Welcome !</p>
 
 % if object.shift_type == 'standard':
 <p>Your member number is ${object.barcode_base} and you have been registered on the niche ${object.current_template_name}.</p>
@@ -25,7 +24,7 @@
 <p>You will receive a reminder a few days before your next service. <br/>
 You can now come and discover the store and do your shopping, upon presentation of an identity document.</p>
 
-<p>We invite you to connect to <a href="${(object.company_id.website or '')|safe}"> The Members Area </a> (in attachment, the procedure to activate it). You will find there a lot of information, in particular your next services, and a forum which will allow you to communicate between members. The current version of the site will evolve and new functionalities will be added in the coming months. A team of volunteer members works to enrich this space to make it useful and convivial.</p>
+<p>We invite you to connect to <a href="${(object.company_id.website or '')|safe}" style="background-color:transparent;text-decoration-thickness:auto;color:rgb(124, 123, 173);"> The Members Area </a> (in attachment, the procedure to activate it). You will find there a lot of information, in particular your next services, and a forum which will allow you to communicate between members. The current version of the site will evolve and new functionalities will be added in the coming months. A team of volunteer members works to enrich this space to make it useful and convivial.</p>
 
 <p>Access to the store is then on presentation of the cooperator badge. To obtain your badge, you must first come to a photo session organized either at the store or during the general meetings of La Louve. The photo sessions are announced on the Members Area and at the store. As with the Members' Area, the making of badges is carried out by volunteers and requires several stages which can take several days. The complete procedure is described in the Members Area forum (FAQ section). As soon as your badge has been printed, you can collect it at the supermarket reception.</p>
 
@@ -35,19 +34,6 @@ You can now come and discover the store and do your shopping, upon presentation 
 Tom Boothe</p>
 <br/>
 <br/>
-
-<hr>
-<p><b>Activation of your member area</b></p>
-
-<p>
-In order to activate your access to the Member Area, please follow the following procedure :</p>
-<ol>
-    <p><li> Click on the link below to enter your email address: ${(object.company_id.website or '')|safe}/selfservice/?action=sendtoken </li>
-    Please note: use only the email sent to ${object..company_id.name} </p>
-    <li> You will then receive an email from the sender: "Self Service Password" </li>
-    <li> Click on the link in the email to initialize your password. </li>
-    <li> You can now connect to your Member Area: ${(object.company_id.website or '')|safe} </li></p>
-</ol>
 ]]></field>
     </record>
     <record id="unsubscribe_email" model="mail.template">
