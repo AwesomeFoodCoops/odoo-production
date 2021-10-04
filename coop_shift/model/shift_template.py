@@ -6,7 +6,7 @@
 
 import re
 import unicodedata as udd
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from ast import literal_eval
 import pytz
 from dateutil import rrule
@@ -807,8 +807,12 @@ class ShiftTemplate(models.Model):
 
         def get_end_date(data):
             if data.get('final_date'):
+                final_date = data.get('final_date')
+                if isinstance(final_date, date):
+                    final_date = fields.Date.to_string(
+                        final_date)
                 data['end_date_new'] = ''.join((re.compile(r'\d')).findall(
-                    data.get('final_date'))) + 'T235959Z'
+                    final_date)) + 'T235959Z'
             return (
                 data.get('end_type') == 'count' and
                 (';COUNT=' + str(data.get('count'))) or ''
