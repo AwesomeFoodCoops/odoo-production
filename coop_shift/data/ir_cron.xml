@@ -40,8 +40,8 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False"/>
-            <field name="model_id" ref="model_shift_template"/>
-            <field name="code">model.run_shift_creation()</field>
+            <field name="model_id" ref="model_shift_shift"/>
+            <field name="code">model.run_shift_confirmation()</field>
             <field name="state">code</field>
         </record>
 
