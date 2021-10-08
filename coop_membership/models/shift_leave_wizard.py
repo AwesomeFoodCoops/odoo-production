@@ -22,6 +22,6 @@ class ShiftLeaveWizard(models.TransientModel):
         if leave.non_defined_type and leave.non_defined_leave:
             leave.update_registration_template_based_non_define_leave()
         else:
-            super(ShiftLeaveWizard, self).button_confirm()
             if leave.type_id.is_anticipated:
                 leave.update_info_anticipated_leave()
+            super(ShiftLeaveWizard, self).button_confirm()
