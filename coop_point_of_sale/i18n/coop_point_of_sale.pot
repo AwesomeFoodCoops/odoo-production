@@ -383,3 +383,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_point_of_sale.field_report_pos_order__price_wo_tax
 msgid "Subtotal w/o tax"
 msgstr ""
+
+#. module: coop_point_of_sale
+#: model:ir.model.fields,field_description:coop_point_of_sale.field_pos_order_line__product_default_code
+msgid "Internal Reference"
+msgstr ""
+
+#. module: coop_point_of_sale
+#: model_terms:ir.ui.view,arch_db:coop_point_of_sale.product_template_form_view_inherit
+msgid "You cannot untick Available in the Point of Sale When POS Session are running. Do you want to force this action?"
+msgstr ""
