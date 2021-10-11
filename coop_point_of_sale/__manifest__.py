@@ -34,6 +34,7 @@
         "views/view_pos_order_line.xml",
         "views/view_pos_config_settings.xml",
         "views/view_pos_category.xml",
+        "views/view_product_template.xml",
     ],
     "installable": True,
 }
