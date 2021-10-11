@@ -123,11 +123,6 @@ class ReportWallchartTemplate(models.AbstractModel):
 
                 contain_data_in_period = any(
                     len(res.get('partners' + number_to_letters(week), [])) > 0
-                    and any(
-                        partner['dates'] != ''
-                        for partner
-                        in res.get('partners' + number_to_letters(week), [])
-                    )
                     for week in range(1, n_weeks_cycle + 1)
                 )
                 if contain_data_in_period:
