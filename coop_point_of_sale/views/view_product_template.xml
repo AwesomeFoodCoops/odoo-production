@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="product_template_form_view_inherit" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-danger" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('force_unavailable_in_pos', '=', False)]}">
+                    You cannot untick Available in the Point of Sale When POS Session are running. Do you want to force this action?
+                    <button name="confirm_unavailable_in_pos" type="object" string="Yes" context="{'confirm': 1}"/>
+                    <button name="confirm_unavailable_in_pos" type="object" string="No"/>
+                </div>
+                <field name="force_unavailable_in_pos" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
