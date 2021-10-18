@@ -6,6 +6,11 @@ class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
     base_price = fields.Monetary(digits=dp.get_precision("Product Price"))
+    product_default_code = fields.Char(
+        string="Internal Reference",
+        related="product_id.default_code",
+        store=True
+    )
 
     @api.onchange("product_id")
     def _onchange_product_id(self):

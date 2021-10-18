@@ -24,6 +24,12 @@
             <xpath expr="//header/button[@name='button_done']" position="after">
                 <button name="button_update_prices" type="object" string="Upd. Prices" class="btn btn-primary"/>
             </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                <field name="product_default_code"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']" position="attributes">
+                <attribute name="context">{'display_default_code': False}</attribute>
+            </xpath>
         </field>
     </record>
 

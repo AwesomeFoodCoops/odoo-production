@@ -19,6 +19,7 @@
             <xpath expr="//div[hasclass('page')]/table[2]/thead/tr" position="replace">
                 <tr>
                   <th class="text-right"><strong>Package Qty</strong></th>
+                  <th><strong>Internal Reference</strong></th>
                   <th><strong>Product</strong></th>
                   <th class="text-right"><strong>G.F. Qty</strong></th>
                   <th class="text-right"><strong>UG. Qty</strong></th>
@@ -28,9 +29,10 @@
             </xpath>
 
             <xpath expr="//div[hasclass('page')]/table[2]/tbody/t" position="replace">
-               <tr t-foreach="o.line_ids" t-as="line">
+               <tr t-foreach="o.line_ids.sorted(key=lambda l: l.product_id.name.strip())" t-as="line">
                 <td class="text-right"><span t-field="line.package_qty"/></td>
-                <td><span t-field="line.product_id"/></td>
+                <td><span t-field="line.product_id.default_code"/></td>
+                <td><span t-field="line.product_id.name"/></td>
                 <td class="text-right"/>
                 <td class="text-right"/>
                 <td class="text-right"></td>

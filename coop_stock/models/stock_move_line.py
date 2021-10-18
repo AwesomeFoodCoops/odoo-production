@@ -12,6 +12,10 @@ class StockMoveLine(models.Model):
     vendor_product_code = fields.Char(
         compute="_compute_product_code"
     )
+    product_default_code = fields.Char(
+        string="Internal Reference",
+        related="product_id.default_code"
+    )
     picking_id = fields.Many2one(index=True)
     result_package_id = fields.Many2one(index=True)
 

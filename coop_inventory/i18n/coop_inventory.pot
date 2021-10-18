@@ -88,3 +88,7 @@ msgstr ""
 msgid "Website:"
 msgstr ""
 
+#. module: coop_inventory
+#: model_terms:ir.ui.view,arch_db:coop_inventory.report_inventory
+msgid "<strong>Internal Reference</strong>"
+msgstr ""
