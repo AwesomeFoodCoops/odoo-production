@@ -217,17 +217,13 @@ class ResPartner(models.Model):
         '''
         super(ResPartner, self)._compute_display_name()
 
-    @api.onchange('birthdate_date')
-    def _onchange_birthdate_date(self):
-        self._check_partner_birthdate_date()
-
     # Constraint Section
-    @api.constrains('birthdate_date')
+    @api.constrains('birthdate_date', 'is_minor_child')
     def _check_partner_birthdate_date(self):
         """ Check minor child's birth date """
         for partner in self:
             if partner.is_minor_child and partner.birthdate_date:
-                if partner.age < 18:
+                if partner.age >= 18:
                     raise ValidationError(_(
                         "Cette personne a plus de 18 ans et ne peux pas être "
                         "saisie comme un enfant mineur.")
@@ -581,8 +577,11 @@ class ResPartner(models.Model):
     @api.multi
     def write(self, vals):
         res = super().write(vals)
-        for partner in self:
-            self._generate_associated_barcode(partner)
+        if not ('barcode_base' in vals or 'barcode' in vals or \
+                'barcode_rule_id' in vals or \
+                'property_account_payable_id' in vals):
+            for partner in self:
+                self._generate_associated_barcode(partner)
         # Recompute display_name if needed
         if (
             'name' not in vals
@@ -615,8 +614,13 @@ class ResPartner(models.Model):
 
     @api.model
     def _generate_associated_barcode(self, partner):
+        """
+        Need to check the condition partner.is_member first.
+        Otherwise, will face the issue 4th in the ticket F#44067
+        """
         barcode_rule_obj = self.env['barcode.rule']
-        if partner.is_associated_people and not partner.barcode_rule_id \
+        if not partner.is_member and partner.is_associated_people and \
+                not partner.barcode_rule_id \
                 and not partner.barcode:
             # Generate Associated Barcode
             barcode_rule_id = barcode_rule_obj.search(

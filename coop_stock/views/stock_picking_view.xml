@@ -16,6 +16,7 @@
                 position="before">
                 <field name="vendor_product_code"
                     attrs="{'column_invisible': [('parent.state', 'not in', ('assigned', 'done'))]}"/>
+                <field name="product_default_code"/>
             </xpath>
             <xpath
                 expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']"
@@ -30,6 +31,21 @@
             <xpath expr="//field[@name='origin']" position="after">
                 <button name="copy_expected_qtys" string="Copy expected qtys"
                     type="object" />
+            </xpath>
+            <xpath
+                expr="//field[@name='move_line_ids_without_package']/tree/field[@name='product_id']"
+                position="before">
+                <field name="product_default_code"/>
+            </xpath>
+            <xpath
+                expr="//field[@name='move_line_ids_without_package']"
+                    position="attributes">
+                <attribute name="context">{'display_default_code': False}</attribute>
+            </xpath>
+            <xpath
+                expr="//field[@name='move_ids_without_package']"
+                    position="attributes">
+                <attribute name="context">{'display_default_code': False}</attribute>
             </xpath>
         </field>
     </record>

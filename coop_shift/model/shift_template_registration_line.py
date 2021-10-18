@@ -233,6 +233,34 @@ class ShiftTemplateRegistrationLine(models.Model):
                     # if dates not ok, unlink the shift_registration
                     else:
                         sr.unlink()
+                elif not (
+                        (not begin or shift.date_begin.date() >= begin)
+                        and (not end or shift.date_end.date() <= end)
+                ):
+                    if sr.state == 'cancel':
+                        sr.unlink()
+                    else:
+                        state_dict = {
+                            'cancel': 'Cancelled',
+                            'draft': 'Unconfirmed',
+                            'open': 'Confirmed',
+                            'done': 'Attended',
+                            'absent': 'Absent',
+                            'waiting': 'Waiting',
+                            'excused': 'Excused',
+                            'replaced': 'Replaced',
+                            'replacing': 'Replacing',
+                        }
+                        raise ValidationError(_(
+                            "Cannot process because of the attendance: \n"
+                            "- Registration: (ID: %s, State: %s) %s\n"
+                            "- Shift: %s \n"
+                            "- Partner: %s") % (
+                                sr.id, state_dict.get(sr.state),
+                                sr.display_name,
+                                sr.shift_id.display_name,
+                                sr.partner_id.display_name))
+
 
             # for shifts within dates: if partner has no registration, create
             # it

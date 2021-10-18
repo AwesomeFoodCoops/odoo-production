@@ -186,3 +186,11 @@ msgstr "Total"
 #: selection:res.partner,discount_computation:0
 msgid "Unit Price"
 msgstr "Prix Unitaire"
+
+#. module: coop_purchase
+#: model:ir.model.fields,field_description:coop_purchase.field_product_supplierinfo__default_code
+#: model:ir.model.fields,field_description:coop_purchase.field_purchase_order_line__product_default_code
+#: model:ir.model.fields,field_description:coop_purchase.field_stock_inventory_line__product_default_code
+#: model:ir.model.fields,field_description:coop_purchase.field_account_invoice_line__product_default_code
+msgid "Internal Reference"
+msgstr "Référence interne"

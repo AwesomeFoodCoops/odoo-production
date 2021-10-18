@@ -177,3 +177,9 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:coop_stock.product_template_kanban_stock_view_inherit
 msgid "Forecasted:"
 msgstr ""
+
+#. module: coop_stock
+#: model:ir.model.fields,field_description:coop_stock.field_stock_move__product_default_code
+#: model:ir.model.fields,field_description:coop_stock.field_stock_move_line__product_default_code
+msgid "Internal Reference"
+msgstr ""
