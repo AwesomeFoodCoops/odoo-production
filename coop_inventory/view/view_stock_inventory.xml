@@ -14,6 +14,9 @@
             <xpath expr="//field[@name='line_ids']//tree" position="attributes">
                 <attribute name="decoration-danger">theoretical_qty != product_qty</attribute>
             </xpath>
+            <xpath expr="//field[@name='line_ids']" position="attributes">
+                <attribute name="context">{'default_location_id': location_id,  'default_product_id': product_id, 'default_prod_lot_id': lot_id, 'default_package_id': package_id, 'default_partner_id': partner_id, 'display_default_code': False}</attribute>
+            </xpath>
         </field>
     </record>
     

@@ -100,3 +100,8 @@ msgstr "Site Web :"
 
 #~ msgid "Current Quantity"
 #~ msgstr "Quantité actuelle"
+
+#. module: coop_inventory
+#: model_terms:ir.ui.view,arch_db:coop_inventory.report_inventory
+msgid "<strong>Internal Reference</strong>"
+msgstr "<strong>Référence interne</strong>"
