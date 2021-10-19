@@ -125,7 +125,10 @@ class ProductProduct(models.Model):
         res = super(ProductProduct, self).write(vals)
 
         for product_id, action in defered.items():
-            self._send_to_scale_bizerba(action, self)
+            product = self.filtered(lambda p: p.id == product_id)
+            if not product:
+                continue
+            self._send_to_scale_bizerba(action, product)
 
         return res
 
