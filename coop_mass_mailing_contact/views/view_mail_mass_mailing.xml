@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2016-Today: La Louve (<http://www.lalouve.net/>)
+    Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="view_mail_mass_mailing_list_form_inherit" model="ir.ui.view">
+        <field name="model">mail.mass_mailing.list</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_list_form"/>
+        <field name="arch" type="xml">
+            <field name="is_public" position="after">
+                <field name="is_member_contact"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_mail_mass_mailing_list_form_simplified_inherit" model="ir.ui.view">
+        <field name="model">mail.mass_mailing.list</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_list_form_simplified"/>
+        <field name="arch" type="xml">
+            <field name="is_public" position="after">
+                <field name="is_member_contact"/>
+            </field>
+        </field>
+    </record>
+</odoo>

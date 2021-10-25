@@ -12,6 +12,11 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     # Column Section
+    list_price = fields.Float(
+        digits=dp.get_precision('Product Sale Price'))
+    standard_price = fields.Float(
+        digits=dp.get_precision('Product Sale Price'))
+
     coeff1_id = fields.Many2one(
         comodel_name="product.coefficient", string="Coefficient 1"
     )
@@ -176,8 +181,7 @@ class ProductTemplate(models.Model):
         string="With Coefficient 9",
         compute="_compute_coeff9_inter",
         store=True,
-        multi="coeff_inter_9",
-        digits=dp.get_precision("Product Price"),
+        multi="coeff_inter_9"
     )
 
     coeff1_inter_sp = fields.Float(
@@ -233,13 +237,11 @@ class ProductTemplate(models.Model):
         compute="_compute_coeff9_inter",
         store=True,
         multi="coeff_inter_9",
-        digits=dp.get_precision("Product Price"),
     )
     theoritical_price = fields.Float(
         string="Theoritical Price VAT Incl.",
         compute="_compute_theoritical_price",
         store=True,
-        digits=dp.get_precision("Product Price"),
     )
     has_theoritical_price_different = fields.Boolean(
         store=True,
