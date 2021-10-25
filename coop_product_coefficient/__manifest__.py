@@ -24,6 +24,7 @@
         "views/menu.xml",
         "data/ir_cron.xml",
         "data/sale_config_settings.xml",
+        "data/product_data.xml",
     ],
     "demo": [
         "demo/res_groups.xml",
