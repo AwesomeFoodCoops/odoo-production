@@ -44,6 +44,8 @@ class ShiftExtension(models.Model):
     @api.depends('partner_id.shift_type', 'type_id.extension_method')
     def _compute_show_reduce_deduction(self):
         for record in self:
+            # important, it reads from the database
+            record.partner_id.read(['shift_type'])
             if record.type_id.extension_method \
                 == 'to_next_regular_shift' and \
                     record.partner_id.shift_type == 'ftop':
