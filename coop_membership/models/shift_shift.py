@@ -5,6 +5,7 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from datetime import datetime, timedelta
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 
 class ShiftShift(models.Model):
@@ -216,18 +217,19 @@ class ShiftShift(models.Model):
         # get all attendences's leaves
         leaves = partners.mapped('leave_ids')
 
-        # get leaves on shift
-        leave_on_shift_ids = []
-        for shift in shifts:
-            leave_on_shift_id = leaves.filtered(
-                lambda l: l.state == 'done' and l.stop_date >= shift.date_begin
-                and l.start_date <= shift.date_end).ids
-            leave_on_shift_ids += leave_on_shift_id
-
-        leave_on_shifts = self.env['shift.leave'].browse(leave_on_shift_ids)
-
         # get partner on leaves
-        partner_on_leaves = leave_on_shifts.mapped("partner_id")
+        partner_on_leaves = self.env['res.partner']
+
+        for shift in shifts:
+            for leave in leaves:
+                shift_begin = fields.Date.from_string(fields.Datetime.context_timestamp(
+                    shift, shift.date_begin).strftime(DF))
+                shift_end = fields.Date.from_string(fields.Datetime.context_timestamp(
+                    shift, shift.date_end).strftime(DF))
+                if leave.state == 'done' and (
+                        not leave.stop_date or leave.stop_date >= shift_begin)  and \
+                        leave.start_date <= shift_end:
+                    partner_on_leaves |= leave.partner_id
 
         # remove partner on leaves
         partner_can_join = partners - partner_on_leaves
