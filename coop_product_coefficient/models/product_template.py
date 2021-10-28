@@ -540,7 +540,7 @@ class ProductTemplate(models.Model):
                 template.base_price or template.alternative_base_price_sale
             ):
                 template.has_theoritical_price_different = (
-                    template.list_price != template.theoritical_price
+                    round(template.list_price, 2) != round(template.theoritical_price, 2)
                 )
             else:
                 template.has_theoritical_price_different = False
