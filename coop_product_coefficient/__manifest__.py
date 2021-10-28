@@ -6,7 +6,7 @@
 
 {
     "name": "Coop Product Coefficient",
-    "version": "12.0.1.1.0",
+    "version": "12.0.2.1.0",
     "summary": "Coop Product Coefficients",
     "author": "La Louve,Smile, Druidoo",
     "website": "http://www.lalouve.net",
