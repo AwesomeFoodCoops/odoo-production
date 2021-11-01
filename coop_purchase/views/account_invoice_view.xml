@@ -25,7 +25,7 @@
                 <field name="product_default_code"/>
             </xpath>
             <xpath expr="//field[@name='invoice_line_ids']" position="attributes">
-                <attribute name="context">{'display_default_code': False}</attribute>
+                <attribute name="context">{'type': type, 'journal_id': journal_id, 'display_default_code': False}</attribute>
             </xpath>
         </field>
     </record>
@@ -55,7 +55,7 @@
                 <attribute name="limit">500</attribute>
             </xpath>
             <xpath expr="//field[@name='invoice_line_ids']" position="attributes">
-                <attribute name="context">{'display_default_code': False}</attribute>
+                <attribute name="context">{'type': type, 'journal_id': journal_id, 'default_invoice_id': id, 'display_default_code': False}</attribute>
             </xpath>
         </field>
     </record>
