@@ -7,6 +7,7 @@
 import datetime
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 STATES = [
     ('cancel', 'Cancelled'),
@@ -100,10 +101,16 @@ class ShiftTemplateRegistrationLine(models.Model):
         begin = vals.get('date_begin', False)
         end = vals.get('date_end', False)
         if begin:
-            begin = fields.Date.from_string(begin)
+            # convert to datetime
+            begin = fields.Date.from_string(begin).strftime(DF) + ' 00:00:00'
+            begin = self.env['ir.fields.converter']._str_to_datetime(
+                None, None, begin)[0]
 
         if end:
-            end = fields.Date.from_string(end)
+            # convert to datetime
+            end = fields.Date.from_string(end).strftime(DF) + ' 00:00:00'
+            end = self.env['ir.fields.converter']._str_to_datetime(
+                None, None, begin)[0]
 
         st_reg_id = vals.get('registration_id', False)
         if not st_reg_id:

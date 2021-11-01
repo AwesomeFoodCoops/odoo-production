@@ -15,7 +15,7 @@
         <field name="doall" eval="False"/>
         <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 02:00:00')" />
         <field name="model_id" ref="product.model_product_template"/>
-        <field name="code">model.cron_recompute_base_price()</field>
+        <field name="code">model.with_context(user.context_get()).cron_recompute_base_price()</field>
         <field name="state">code</field>
         <field name="active" eval="False"/>
     </record>

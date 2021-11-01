@@ -40,12 +40,12 @@
             <xpath
                 expr="//field[@name='move_line_ids_without_package']"
                     position="attributes">
-                <attribute name="context">{'display_default_code': False}</attribute>
+                <attribute name="context">{'default_picking_id': id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'display_default_code': False}</attribute>
             </xpath>
             <xpath
                 expr="//field[@name='move_ids_without_package']"
                     position="attributes">
-                <attribute name="context">{'display_default_code': False}</attribute>
+                <attribute name="context">{'picking_type_code': picking_type_code, 'default_picking_id': id, 'form_view_ref':'stock.view_move_picking_form', 'address_in_id': partner_id, 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'display_default_code': False}</attribute>
             </xpath>
         </field>
     </record>
