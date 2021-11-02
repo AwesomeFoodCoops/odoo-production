@@ -110,7 +110,7 @@ class ShiftTemplateRegistrationLine(models.Model):
             # convert to datetime
             end = fields.Date.from_string(end).strftime(DF) + ' 00:00:00'
             end = self.env['ir.fields.converter']._str_to_datetime(
-                None, None, begin)[0]
+                None, None, end)[0]
 
         st_reg_id = vals.get('registration_id', False)
         if not st_reg_id:
