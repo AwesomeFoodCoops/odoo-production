@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_journal_pos_user_form_inherit" model="ir.ui.view">
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="point_of_sale.view_account_journal_pos_user_form"/>
+        <field name="arch" type="xml">
+            <field name="amount_authorized_diff" position="after">
+                <field name="change_account_id" attrs="{'invisible': [('type', '!=', 'cash')]}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
