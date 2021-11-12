@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from odoo import models, api, fields, _
 from odoo.exceptions import UserError
@@ -62,8 +62,8 @@ class ShiftRegistration(models.Model):
         return coordinators
 
     @api.model
-    def create_proposal(self, src_registration_id, des_registration_id):
-        if not (src_registration_id and des_registration_id):
+    def create_proposal(self, src_registration_id, des_registration_id, src_shift_id):
+        if not ((src_registration_id or src_shift_id) and des_registration_id):
             raise UserError(
                 _(
                     "Source Shift Registration and "
@@ -77,13 +77,15 @@ class ShiftRegistration(models.Model):
                     + "Destination Shift Registration must be different."
                 )
             )
-        self.env["proposal"].create(
+        proposal = self.env["proposal"].create(
             {
+                "src_shift_id": src_shift_id,
                 "src_registration_id": src_registration_id,
                 "des_registration_id": des_registration_id,
                 "state": "in_progress",
             }
         )
+        proposal.sudo().do_proposal()
 
     @api.multi
     def remove_shift_regis_from_market(self):
@@ -105,6 +107,24 @@ class ShiftRegistration(models.Model):
             record.write({"exchange_state": "draft"})
 
     @api.multi
+    def add_shift_regis_to_market(self):
+        for record in self:
+            if not record.check_exchangable():
+                icp_sudo = self.env['ir.config_parameter'].sudo()
+                shift_exchange_duration = int(icp_sudo.get_param(
+                    'coop.shift.shift_exchange_duration', 24))
+                return {
+                    'code': 0,
+                    'msg': _(
+                        'You cannot propose to change the shift within {} hours before the beginning of the shift.'
+                    ).format(shift_exchange_duration)
+                }
+            record.write({"exchange_state": "in_progress"})
+        return {
+            'code': 1,
+        }
+
+    @api.multi
     def shifts_to_proposal(self):
         user = self.env.user
         partner = user.partner_id
@@ -114,6 +134,7 @@ class ShiftRegistration(models.Model):
                 ("partner_id", "=", partner.id),
                 ("state", "!=", "cancel"),
                 ("exchange_state", "=", "in_progress"),
+                ("exchange_replacing_reg_id", '=', False),
                 (
                     "date_begin",
                     ">=",
@@ -151,3 +172,14 @@ class ShiftRegistration(models.Model):
                     }
                 )
         return rs
+
+    def check_exchangable(self):
+        self.ensure_one()
+        icp_sudo = self.env['ir.config_parameter'].sudo()
+        shift_exchange_duration = int(icp_sudo.get_param(
+            'coop.shift.shift_exchange_duration', 24))
+        date_begin = self.date_begin - timedelta(
+            hours=shift_exchange_duration)
+        if date_begin < fields.Datetime.now():
+            return False
+        return True

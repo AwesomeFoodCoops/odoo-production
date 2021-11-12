@@ -229,6 +229,12 @@ class Website(WebsiteController):
     )
     def page_echange_de_services(self, **kwargs):
         user = request.env.user
+        icp_sudo = request.env['ir.config_parameter'].sudo()
+        shift_replacement_duration = int(icp_sudo.get_param(
+            'coop.shift.shift_replacement_duration', 90))
+        today = datetime.now()
+        tomorrow = today + timedelta(days=shift_replacement_duration)
+
         # Get next shift
         shift_registration_env = request.env["shift.registration"]
         shift_upcomming = shift_registration_env.sudo().search(
@@ -236,11 +242,7 @@ class Website(WebsiteController):
                 ("partner_id", "=", user.partner_id.id),
                 ("state", "not in", ["cancel"]),
                 # ("exchange_state", "!=", "replacing"),
-                (
-                    "date_begin",
-                    ">=",
-                    datetime.now(),
-                ),
+                ("date_begin", ">=", today),
                 ("shift_id.shift_type_id.is_ftop", "=", False),
             ],
             order="date_begin",
@@ -250,20 +252,29 @@ class Website(WebsiteController):
                 ("partner_id", "!=", user.partner_id.id),
                 ("state", "!=", "cancel"),
                 ("exchange_state", "=", "in_progress"),
-                (
-                    "date_begin",
-                    ">=",
-                    datetime.now(),
-                ),
+                ("exchange_replacing_reg_id", '!=', False),
+                ("date_begin", ">=", today),
+                ("date_begin", "<=", tomorrow),
             ],
             order="date_begin",
         )
+        counted_shift_ids = (shift_upcomming | shifts_on_market).mapped('shift_id.id')
+        avaible_shifts = request.env["shift.shift"].search([
+            ("id", "not in", counted_shift_ids),
+            ("date_begin", ">=", today),
+            ("date_begin", "<=", tomorrow),
+            ("shift_type_id.is_ftop", "=", False),
+            ("state", "not in", ("cancel", "done"))
+        ], order="date_begin",)
+        avaible_shifts = avaible_shifts.filtered(
+            lambda t: t.ticket_seats_available > 0)
         return request.render(
             "coop_memberspace.counter",
             {
                 "echange_de_services": True,
                 "shift_upcomming": shift_upcomming,
                 "shifts_on_market": shifts_on_market,
+                "avaible_shifts": avaible_shifts,
                 "user": user,
             },
         )

@@ -502,7 +502,7 @@
                                     <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                         <td style="text-align: center;">
                                             <span>In progress</span>
-                                            <button class="material-icons button-icon remove-proposal"
+                                            <button t-if="not shift.exchange_replacing_reg_id" class="material-icons button-icon remove-proposal"
                                                     t-att-registration-id="shift.id"
                                                     data-toggle="modal" data-target="#modal_confirm_cancel_proposal">
                                                 remove_circle_outline
@@ -574,7 +574,7 @@
                         </thead>
                         <tbody>
                             <t t-if="shifts_on_market" t-foreach="shifts_on_market" t-as="shift">
-                                <tr>
+                                <tr t-attf-style="{{ shift.shift_id.css_color_style }}">
                                     <t t-set="date_begin"
                                        t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
                                     <td scope="row">
@@ -597,6 +597,35 @@
                                     <td>
                                         <span data-toggle="modal" data-target="#modal_exchange_shift"
                                               t-att-registration-id="shift.id"
+                                              class="fa fa-plus-square select-shift-proposal"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="avaible_shifts" t-foreach="avaible_shifts" t-as="shift">
+                                <tr t-attf-style="{{ shift.css_color_style }}">
+                                    <t t-set="date_begin"
+                                       t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                    <td scope="row">
+                                        <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
+                                    </td>
+                                    <t t-set="coordinators"
+                                       t-value="shift.get_coordinators(get_alias_coordinator=True)"/>
+                                    <td>
+                                        <span>
+                                            <t t-esc="coordinators[0]"/>
+                                            <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
+                                        #{coordinators[1]} (cliquez pour copier l’adresse)"
+                                               class="fa fa-question-circle js-copy"
+                                               t-att-data-copy="coordinators[1]"></i>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span data-toggle="modal" data-target="#modal_exchange_shift"
+                                              t-att-registration-id="0"
+                                              t-att-shift-id="shift.id"
                                               class="fa fa-plus-square select-shift-proposal"/>
                                     </td>
                                 </tr>

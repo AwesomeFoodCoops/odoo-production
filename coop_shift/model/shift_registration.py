@@ -188,6 +188,8 @@ class ShiftRegistration(models.Model):
     def confirm_registration(self):
         super().confirm_registration()
         for reg in self:
+            if reg.exchange_state == 'replacing':
+                continue
             onsubscribe_schedulers = reg.shift_id.shift_mail_ids.filtered(
                 lambda s: s.interval_type == 'after_sub')
             onsubscribe_schedulers.execute()

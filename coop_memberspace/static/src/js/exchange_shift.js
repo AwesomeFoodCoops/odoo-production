@@ -21,18 +21,23 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                     let registration_id = parseInt($(this).attr('registration-id'));
                     self._rpc({
                         model: 'shift.registration',
-                        method: 'write',
-                        args: [registration_id, {'exchange_state': 'in_progress'}],
+                        method: 'add_shift_regis_to_market',
+                        args: [[registration_id]],
                     })
-                    .then(function(e){
-                        let data = `
-                            <span>En cours </span>
-                            <button class="material-icons button-icon remove-proposal"
-                                registration-id="${registration_id}"
-                                data-toggle="modal" data-target="#modal_confirm_cancel_proposal">remove_circle_outline</button>
-                        `;
-                        $(btn_go_to_market).parent().append(data);
-                        $(btn_go_to_market).remove();
+                    .then(function(res){
+                        if (res.code === 0){
+                            alert(res.msg);
+                        }
+                        else {
+                            let data = `
+                                <span>En cours </span>
+                                <button class="material-icons button-icon remove-proposal"
+                                    registration-id="${registration_id}"
+                                    data-toggle="modal" data-target="#modal_confirm_cancel_proposal">remove_circle_outline</button>
+                            `;
+                            $(btn_go_to_market).parent().append(data);
+                            $(btn_go_to_market).remove();
+                        }
                     })
                 });
 
@@ -58,6 +63,7 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
 
                 $('.exchange-shift').on('click', '.select-shift-proposal', function(e) {
                     self.shift_on_market = parseInt($(this).attr('registration-id'));
+                    self.shift_available = parseInt($(this).attr('shift-id'));
                     self._rpc({
                         model: 'shift.registration',
                         method: 'shifts_to_proposal',
@@ -86,12 +92,14 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                 $('#modal_exchange_shift').on('click', '.create-proposal', function(e) {
                     let src_registration_id = self.shift_on_market;
                     let des_registration_id = parseInt($('input[name=registration_input]:checked').val());
+                    let src_shift = self.shift_available;
                     self._rpc({
                         model: 'shift.registration',
                         method: 'create_proposal',
-                        args: [src_registration_id, des_registration_id],
+                        args: [src_registration_id, des_registration_id, src_shift],
                     })
                     .then(function(){
+                        window.location.reload();
                         $('#modal_exchange_shift').modal('hide');
                     })
                     .fail(function(error, event) {

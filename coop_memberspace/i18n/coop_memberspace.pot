@@ -1265,6 +1265,12 @@ msgid "Your exchange was done, you cannot remove it."
 msgstr ""
 
 #. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:117
+#, python-format
+msgid "You cannot propose to change the shift within {} hours before the beginning of the shift."
+msgstr ""
+
+#. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.myprofile
 msgid "Your identity"
 msgstr ""
