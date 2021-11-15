@@ -54,4 +54,10 @@ class AccountBankStatement(models.Model):
 
                 if neg_st_lines:
                     statement.confirm_bank_cash_change()
+
+                cashdraw_lines = statement.line_ids.filtered(
+                    lambda l: not l.pos_statement_id)
+                if cashdraw_lines:
+                    cashdraw_lines.cash_draw_statement_line()
+
         super(AccountBankStatement, self).button_confirm_bank()
