@@ -26,6 +26,45 @@ class AccountBankStatementLine(models.Model):
     _inherit = 'account.bank.statement.line'
 
     @api.multi
+    def cash_draw_statement_line(self):
+        move_list = []
+        already_done_stmt_line_ids = [a['statement_line_id'][0] for a in self.env['account.move.line'].read_group([('statement_line_id', 'in', self.ids)], ['statement_line_id'], ['statement_line_id'])]
+        managed_st_line = []
+        for st_line in self:
+            # Technical functionality to automatically reconcile by creating a new move line
+            if st_line.account_id and not st_line.id in already_done_stmt_line_ids:
+                managed_st_line.append(st_line.id)
+                # Create move and move line vals
+                move_vals = st_line._prepare_reconciliation_move(st_line.statement_id.name)
+                aml_dict = {
+                    'name': st_line.name,
+                    'debit': st_line.amount < 0 and -st_line.amount or 0.0,
+                    'credit': st_line.amount > 0 and st_line.amount or 0.0,
+                    'account_id': st_line.account_id.id,
+                    'partner_id': st_line.partner_id.id,
+                    'statement_line_id': st_line.id,
+                }
+                st_line._prepare_move_line_for_currency(aml_dict, st_line.date or fields.Date.context_today())
+                move_vals['line_ids'] = [(0, 0, aml_dict)]
+                balance_line = st_line._prepare_reconciliation_move_line(
+                    move_vals, -aml_dict['debit'] if st_line.amount < 0 else aml_dict['credit'])
+                # Replace the account
+                if st_line.journal_id.type == 'cash' and st_line.journal_id.change_account_id:
+                    balance_line.update({
+                        'account_id': st_line.journal_id.change_account_id.id
+                    })
+
+                move_vals['line_ids'].append((0, 0, balance_line))
+                move_list.append(move_vals)
+
+        # Creates
+        move_ids = self.env['account.move'].create(move_list)
+        move_ids.post()
+
+        for move, st_line in pycompat.izip(move_ids, self.browse(managed_st_line)):
+            st_line.write({'move_name': move.name})
+
+    @api.multi
     def cash_change_statement_line(self):
         self.ensure_one()
         st_line = self
