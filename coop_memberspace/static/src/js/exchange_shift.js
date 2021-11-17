@@ -60,7 +60,27 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                         $('#modal_confirm_cancel_proposal').modal('hide');
                     })
                 });
-
+                $('.exchange-shift').on('click', '.browse-expected-attendee', function(e) {
+                    let shift_id = parseInt($(this).attr('shift-id'));
+                    self._rpc({
+                        model: 'shift.shift',
+                        method: 'get_expected_attendee',
+                        args: [[shift_id]],
+                    })
+                    .then(function(partners){
+                        $('.modal_list_expected_attendee_body').empty();
+                        if(partners.length) {
+                            partners.forEach(function(partner, idx, array) {
+                                let data = `
+                                    <tr>
+                                        <td>${partner}</td>
+                                    </tr>
+                                `;
+                                $('.modal_list_expected_attendee_body').append(data);
+                            })
+                        }
+                    })
+                });
                 $('.exchange-shift').on('click', '.select-shift-proposal', function(e) {
                     self.shift_on_market = parseInt($(this).attr('registration-id'));
                     self.shift_available = parseInt($(this).attr('shift-id'));

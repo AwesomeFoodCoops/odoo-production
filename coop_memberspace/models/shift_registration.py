@@ -121,7 +121,6 @@ class ShiftRegistration(models.Model):
                 }
             record.write({
                 "exchange_state": "in_progress",
-                "state": "waiting",
             })
         return {
             'code': 1,

@@ -80,3 +80,11 @@ class ShiftShift(models.Model):
             )
             return coordinators, alias_coordinator
         return coordinators
+
+    @api.multi
+    def get_expected_attendee(self):
+        self.ensure_one()
+        registrations = self.sudo().registration_ids.filtered(
+            lambda r: r.state in ('draft', 'open', 'replacing'))
+        partners = registrations.mapped('name')
+        return partners
