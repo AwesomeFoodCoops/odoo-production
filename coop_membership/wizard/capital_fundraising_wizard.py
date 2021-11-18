@@ -33,6 +33,9 @@ class CapitalFundraisingWizard(models.TransientModel):
     category_id = fields.Many2one(
         comodel_name='capital.fundraising.category',
         default=default_category_id)
+    keep_partner_barcode = fields.Boolean(
+        default=True,
+        string="Keep existing barcode on Partner")
 
     # Action Section
     @api.multi
@@ -40,14 +43,16 @@ class CapitalFundraisingWizard(models.TransientModel):
         self.ensure_one()
         if (
             self.category_id.is_worker_capital_category
-            and self.partner_id.is_associated_people
         ):
-            # If the partner is currently associated, make him cooperator
-            self.partner_id.parent_id = False
-            # Remove number
-            self.partner_id.barcode_rule_id = False
-            self.partner_id.barcode_base = False
-            self.partner_id.barcode = False
+            if self.partner_id.is_associated_people:
+                # If the partner is currently associated, make him cooperator
+                self.partner_id.parent_id = False
+                if not self.keep_partner_barcode:
+                    self.partner_id.barcode_rule_id = False
+            if not self.keep_partner_barcode:
+                # Remove number
+                self.partner_id.barcode_base = False
+                self.partner_id.barcode = False
         res = super().button_confirm()
         # Add the barcode rule
         # We do it after calling super so that the sequence is assigned
@@ -55,13 +60,16 @@ class CapitalFundraisingWizard(models.TransientModel):
         # case of exception.
         if (
             self.category_id.is_worker_capital_category
-            and not self.partner_id.barcode_rule_id
-            and not self.partner_id.barcode_base
+            and not self.partner_id.barcode
+            and (not self.keep_partner_barcode or self.partner_id.is_member or \
+                self.partner_id.is_associated_people)
         ):
-            barcode_rule_id = self.env['barcode.rule'].search(
-                [('for_type_A_capital_subscriptor', '=', True)], limit=1)
-            if barcode_rule_id and barcode_rule_id.generate_type == 'sequence':
-                self.partner_id.barcode_rule_id = barcode_rule_id.id
+            if not self.partner_id.barcode_rule_id:
+                barcode_rule_id = self.env['barcode.rule'].search(
+                    [('for_type_A_capital_subscriptor', '=', True)], limit=1)
+                if barcode_rule_id and barcode_rule_id.generate_type == 'sequence':
+                    self.partner_id.barcode_rule_id = barcode_rule_id.id
+            if self.partner_id.barcode_rule_id:
                 self.partner_id.generate_base()
                 self.partner_id.generate_barcode()
         return res

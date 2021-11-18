@@ -16,6 +16,9 @@
             <field name="category_id" position="attributes">
                 <attribute name="attrs">{'readonly': [('can_change_fundraising_category', '=', False)]}</attribute>
             </field>
+            <field name="partner_id" position="after">
+                <field name="keep_partner_barcode" />
+            </field>
         </field>
     </record>
 </odoo>

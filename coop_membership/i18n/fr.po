@@ -1337,6 +1337,11 @@ msgid "Can Change fundraising Category"
 msgstr "Peut changer de catégorie de collecte de fonds"
 
 #. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_capital_fundraising_wizard__keep_partner_barcode
+msgid "Keep existing barcode on Partner"
+msgstr "Conserver le code-barres existant sur Partner"
+
+#. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_res_partner_generate_barcode_wizard_form
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_credit_config_form
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_holiday_form
