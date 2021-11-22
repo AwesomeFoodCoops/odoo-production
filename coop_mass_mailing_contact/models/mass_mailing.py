@@ -38,7 +38,7 @@ class MassMailingList(models.Model):
         if not self:
             return
         sql = """
-            SELECT rp.id, rp.name, rp.email
+            SELECT rp.id, rp.name, rp.email, rp.opt_out
             FROM res_partner rp
             LEFT JOIN mail_mass_mailing_contact ct
                 ON rp.email = ct.email
@@ -60,7 +60,8 @@ class MassMailingList(models.Model):
             }
             for list in self:
                 vals['subscription_list_ids'].append((0, 0, {
-                    'list_id': list.id
+                    'list_id': list.id,
+                    'opt_out': data[3]
                 }))
             contact = self.env['mail.mass_mailing.contact'].create(vals)
 
