@@ -3317,7 +3317,7 @@ msgstr "Présences standard"
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_change_team__new_next_shift_date
 msgid "Start Date with the New Team"
-msgstr "Date de début avec la nouvelle équipe"
+msgstr "Date du changement d'équipe"
 
 #. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_shift_credit_config_state

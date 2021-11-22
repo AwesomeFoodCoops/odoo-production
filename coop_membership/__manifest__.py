@@ -5,7 +5,7 @@
 
 {
     'name': 'Coop - Membership',
-    'version': '12.0.7.0.0',
+    'version': '12.0.8.0.0',
     'category': 'Custom',
     'summary': 'Custom settings for membership',
     'author': 'La Louve, Druidoo',
