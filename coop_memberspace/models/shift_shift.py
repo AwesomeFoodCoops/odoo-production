@@ -44,13 +44,21 @@ class ShiftShift(models.Model):
     @api.multi
     @api.depends('shift_ticket_ids')
     def _compute_ticket_seats_shift(self):
+        ctx = self._context
         for shift in self:
             ticket_seats_available = ticket_seats_max = 0
             if shift.shift_ticket_ids:
+                shift_tickets = shift.shift_ticket_ids
+                shift_exchange_policy = ctx.get('shift_exchange_policy')
+                if shift_exchange_policy == 'registraion':
+                    shift_tickets = self.env['shift.ticket']
+                elif shift_exchange_policy == 'registraion_standard':
+                    shift_tickets = shift_tickets.filtered(
+                        lambda t: not t.product_id.shift_type_id.is_ftop)
                 ticket_seats_available = sum(
-                    shift.shift_ticket_ids.mapped('seats_available'))
+                    shift_tickets.mapped('seats_available'))
                 ticket_seats_max = sum(
-                    shift.shift_ticket_ids.mapped('seats_max'))
+                    shift_tickets.mapped('seats_max'))
             shift.ticket_seats_available = ticket_seats_available
             shift.ticket_seats_max = ticket_seats_max
 

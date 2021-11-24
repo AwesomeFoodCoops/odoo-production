@@ -1379,3 +1379,38 @@ msgstr ""
 #, python-format
 msgid "You are about to cancel your participation to shift {des_date} and replace it with a participation to shift {src_date}. Are you sure that you want to do them?"
 msgstr ""
+
+#. module: coop_memberspace
+#: selection:res.config.settings,shift_exchange_policy:0
+msgid "Participations put into exchange"
+msgstr ""
+
+#. module: coop_memberspace
+#: selection:res.config.settings,shift_exchange_policy:0
+msgid "Participations put into exchange plus available standard seats"
+msgstr ""
+
+#. module: coop_memberspace
+#: selection:res.config.settings,shift_exchange_policy:0
+msgid "Participations put into exchange plus available standard seats plus available ftop seats"
+msgstr ""
+
+#. module: coop_memberspace
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__shift_exchange_policy
+msgid "Shift replacement list contains"
+msgstr ""
+
+#. module: coop_memberspace
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.res_config_settings_view_form_inherit
+msgid "Shift Exchange"
+msgstr ""
+
+#. module: coop_memberspace
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__shift_exchange_duration
+msgid "Shift exchange duration (hour)"
+msgstr ""
+
+#. module: coop_memberspace
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__shift_replacement_duration
+msgid "Shift replacement duration (day)"
+msgstr ""

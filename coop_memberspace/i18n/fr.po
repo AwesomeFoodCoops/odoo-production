@@ -1678,3 +1678,23 @@ msgstr "Participation en échange"
 #, python-format
 msgid "You are about to cancel your participation to shift {des_date} and replace it with a participation to shift {src_date}. Are you sure that you want to do them?"
 msgstr "Vous êtes sur le point d'annuler votre participation au service {des_date} et de la remplacer par une participation au service {src_date}. Êtes-vous certain de vouloir faire cela ?"
+
+#. module: coop_memberspace
+#: selection:res.config.settings,shift_exchange_policy:0
+msgid "Participations put into exchange"
+msgstr "Les participations mises à l'échange"
+
+#. module: coop_memberspace
+#: selection:res.config.settings,shift_exchange_policy:0
+msgid "Participations put into exchange plus available standard seats"
+msgstr "Les participations mises à l'échange plus les places ABCD disponibles"
+
+#. module: coop_memberspace
+#: selection:res.config.settings,shift_exchange_policy:0
+msgid "Participations put into exchange plus available standard seats plus available ftop seats"
+msgstr "Les participations mises à l'échange plus les places ABCD disponibles plus les places volant disponibles"
+
+#. module: coop_memberspace
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__shift_exchange_policy
+msgid "Shift replacement list contains"
+msgstr "La liste des services en remplacement contient"

@@ -166,6 +166,7 @@ class Proposal(models.Model):
                     # "replacing_reg_id": new_des_reg_id.id,
                     # New shift that member B must be working on.
                     "exchange_replacing_reg_id": new_src_reg_id.id,
+                    "state": "waiting",
                 }
             )
             # Send email to member A to inform exchange done.
@@ -224,6 +225,7 @@ class Proposal(models.Model):
                     # "replacing_reg_id": new_des_reg_id.id,
                     # New shift that member B must be working on.
                     "exchange_replacing_reg_id": new_src_reg_id.id,
+                    "state": "waiting",
                 }
             )
             # Send email to member A to inform exchange done.

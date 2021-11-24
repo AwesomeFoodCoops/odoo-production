@@ -259,7 +259,11 @@ class Website(WebsiteController):
             order="date_begin",
         )
         counted_shift_ids = (shift_upcomming | shifts_on_market).mapped('shift_id.id')
-        avaible_shifts = request.env["shift.shift"].search([
+        shift_exchange_policy = icp_sudo.get_param(
+            'coop.shift.shift_exchange_policy', 'registraion')
+        avaible_shifts = request.env["shift.shift"].with_context(
+                    shift_exchange_policy=shift_exchange_policy
+                ).search([
             ("id", "not in", counted_shift_ids),
             ("date_begin", ">=", today),
             ("date_begin", "<=", tomorrow),
