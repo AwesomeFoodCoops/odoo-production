@@ -258,7 +258,7 @@ class Website(WebsiteController):
             ],
             order="date_begin",
         )
-        counted_shift_ids = (shift_upcomming | shifts_on_market).mapped('shift_id.id')
+        counted_shift_ids = shifts_on_market.mapped('shift_id.id')
         shift_exchange_policy = icp_sudo.get_param(
             'coop.shift.shift_exchange_policy', 'registraion')
         avaible_shifts = request.env["shift.shift"].with_context(
