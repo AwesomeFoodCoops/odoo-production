@@ -258,18 +258,21 @@ class Website(WebsiteController):
             ],
             order="date_begin",
         )
-        counted_shift_ids = shifts_on_market.mapped('shift_id.id')
+        counted_shift_ids = (shift_upcomming | shifts_on_market).mapped('shift_id.id')
         shift_exchange_policy = icp_sudo.get_param(
             'coop.shift.shift_exchange_policy', 'registraion')
-        avaible_shifts = request.env["shift.shift"].with_context(
-                    shift_exchange_policy=shift_exchange_policy
-                ).search([
+        args = [
             ("id", "not in", counted_shift_ids),
             ("date_begin", ">=", today),
             ("date_begin", "<=", tomorrow),
-            ("shift_type_id.is_ftop", "=", False),
             ("state", "not in", ("cancel", "done"))
-        ], order="date_begin",)
+        ]
+        if shift_exchange_policy != 'registraion_standard_ftop':
+            args.append(("shift_type_id.is_ftop", "=", False))
+
+        avaible_shifts = request.env["shift.shift"].with_context(
+            shift_exchange_policy=shift_exchange_policy
+        ).search(args, order="date_begin",)
         avaible_shifts = avaible_shifts.filtered(
             lambda t: t.ticket_seats_available > 0)
         return request.render(
