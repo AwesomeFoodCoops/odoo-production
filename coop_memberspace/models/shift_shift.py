@@ -1,4 +1,3 @@
-
 from datetime import timedelta
 from odoo import models, api, fields
 
@@ -54,7 +53,7 @@ class ShiftShift(models.Model):
                     shift_tickets = self.env['shift.ticket']
                 elif shift_exchange_policy == 'registraion_standard':
                     shift_tickets = shift_tickets.filtered(
-                        lambda t: not t.product_id.shift_type_id.is_ftop)
+                        lambda t: not t.sudo().product_id.shift_type_id.is_ftop)
                 ticket_seats_available = sum(
                     shift_tickets.mapped('seats_available'))
                 ticket_seats_max = sum(
