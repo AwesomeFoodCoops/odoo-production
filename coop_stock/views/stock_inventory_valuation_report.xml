@@ -44,4 +44,10 @@
             </div>
         </div>
     </template>
+
+    <template id="report_stock_inventory_valuation_report_filters" inherit_id="stock_inventory_valuation_report.report_stock_inventory_valuation_report_filters">
+        <xpath expr="//div/div[2]/div[1]/span" position="replace">
+            <span t-esc="o.get_date_context()"/>
+        </xpath>
+    </template>
 </odoo>
