@@ -5,7 +5,7 @@ angular.module('starter').factory('ResPartnerModel', ['$q', 'jsonRpc', function 
 
     return {
         GetByBarcode: function(barcode) {
-            return jsonRpc.searchRead('res.partner', [['barcode', '=', barcode], '|', ['is_associated_people', '=', true], ['is_member', '=', true]], ['id']).then(function (partner_res) {
+            return jsonRpc.searchRead('res.partner', [['is_deceased', '=', false], ['barcode', '=', barcode], '|', ['is_associated_people', '=', true], ['is_member', '=', true]], ['id']).then(function (partner_res) {
                 var partner_ids = [];
                 partner_res.records.forEach(function(partner) {
                     partner_ids.push(partner.id);
@@ -15,7 +15,7 @@ angular.module('starter').factory('ResPartnerModel', ['$q', 'jsonRpc', function 
         },
 
         GetByBarcodeBase: function(barcode_base) {
-            return jsonRpc.searchRead('res.partner', [['barcode_base', '=', barcode_base], '|', ['is_associated_people', '=', true], ['is_member', '=', true]], ['id']).then(function (partner_res) {
+            return jsonRpc.searchRead('res.partner', [['is_deceased', '=', false], ['barcode_base', '=', barcode_base], '|', ['is_associated_people', '=', true], ['is_member', '=', true]], ['id']).then(function (partner_res) {
                 var partner_ids = [];
                 partner_res.records.forEach(function(partner) {
                     partner_ids.push(partner.id);
@@ -25,7 +25,7 @@ angular.module('starter').factory('ResPartnerModel', ['$q', 'jsonRpc', function 
         },
 
         GetByName: function(name) {
-            return jsonRpc.call('res.partner', 'name_search', [name, ['|', ['is_associated_people', '=', true], ['is_member', '=', true]]]).then(function (partner_res) {
+            return jsonRpc.call('res.partner', 'name_search', [name, [['is_deceased', '=', false], '|', ['is_associated_people', '=', true], ['is_member', '=', true]]]).then(function (partner_res) {
                 var partner_ids = [];
                 partner_res.forEach(function(partner) {
                     partner_ids.push(partner[0]);
