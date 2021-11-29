@@ -2,10 +2,22 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
-from odoo import models, _
+from odoo import api, fields, models, _
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+
 
 _logger = logging.getLogger(__name__)
 
+class StockInventoryValuationReport(models.TransientModel):
+    _inherit = 'report.stock.inventory.valuation.report'
+
+    @api.multi
+    def get_date_context(self):
+        self.ensure_one()
+        res = self.date
+        if res:
+            res = fields.Datetime.context_timestamp(self, res).strftime(DTF)
+        return res
 
 class ReportStockInventoryValuationReportXlsx(models.TransientModel):
     _inherit = 'report.s_i_v_r.report_stock_inventory_valuation_report_xlsx'
@@ -20,7 +32,7 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
                 'data': {
                     'value': self._render('n'),
                 },
-                'width': 12,
+                'width': 20,
             },
             '2_reference': {
                 'header': {
@@ -106,6 +118,9 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
         ws.fit_to_pages(1, 0)
         ws.set_header(self.xls_headers['standard'])
         ws.set_footer(self.xls_footers['standard'])
+        format_tcell_datetime_center = wb.add_format(
+            dict({'border': True, 'border_color': '#D3D3D3'},
+            num_format='YYYY-MM-DD HH:mm:SS', align='center'))
 
         self._set_column_width(ws, ws_params)
 
@@ -116,8 +131,9 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
             ws.write_row(
                 row_pos, 0, [_('Date'), _('Partner'), _('Tax ID')],
                 self.format_theader_blue_center)
+            report_date = o.get_date_context()
             ws.write_row(
-                row_pos+1, 0, [o.date or ''], self.format_tcell_date_center)
+                row_pos+1, 0, [report_date or ''])
             ws.write_row(
                 row_pos+1, 1,
                 [o.company_id.name or '', o.company_id.vat or ''],
