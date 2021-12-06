@@ -103,12 +103,6 @@ class ShiftShift(models.Model):
     user_id = fields.Many2one('res.partner', default=False)
     seats_max = fields.Integer()
 
-    _sql_constraints = [(
-        'template_date_uniq',
-        'unique (id))',
-        'The same template cannot be planned several time at the same date !'),
-    ]
-
     @api.constrains('shift_template_id', 'date_begin', 'company_id')
     def _check_uniq_date_shift(self):
         for shift in self:
