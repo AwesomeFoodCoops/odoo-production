@@ -105,9 +105,22 @@ class ShiftShift(models.Model):
 
     _sql_constraints = [(
         'template_date_uniq',
-        'unique (shift_template_id, date_begin, company_id)',
+        'unique (id))',
         'The same template cannot be planned several time at the same date !'),
     ]
+
+    @api.constrains('shift_template_id', 'date_begin', 'company_id')
+    def _check_uniq_date_shift(self):
+        for shift in self:
+            args = [
+                ('shift_template_id', '=', shift.shift_template_id.id),
+                ('date_begin', '=', shift.date_begin),
+                ('company_id', '=', shift.company_id.id),
+            ]
+            existed = self.env['shift.shift'].search(args, limit=2)
+            if len(existed) >= 2:
+                raise UserError(
+                    _('The same template cannot be planned several time at the same date !'))
 
     @api.multi
     @api.depends('shift_template_id', 'date_without_time')
