@@ -103,7 +103,7 @@
                         <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
                             <tr>
                                 <t t-set="date_begin"
-                                   t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                   t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
                                 <td scope="row">
                                     <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
                                 </td>
@@ -127,7 +127,7 @@
                                 </t>
                                 <t t-if="shift.state == 'waiting' and shift_ticket_type != 'ftop'">
                                     <td style="text-align: center;">
-                                        Waiting
+                                        Canceled
                                     </td>
                                 </t>
                                 <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
@@ -159,41 +159,6 @@
                                     </td>
                                 </t>
                             </tr>
-                            <t t-if="shift.exchange_replacing_reg_id">
-                                <tr>
-                                    <t t-set="date_begin"
-                                       t-value="user.get_time_by_user_lang(shift.exchange_replacing_reg_id.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
-                                    <td scope="row">
-                                        <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
-                                    </td>
-                                    <td>
-                                        <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
-                                    </td>
-                                    <t t-set="coordinators"
-                                       t-value="shift.exchange_replacing_reg_id.get_coordinators(get_alias_coordinator=True)"/>
-                                    <td>
-                                        <span>
-                                            <t t-esc="coordinators[0]"/>
-                                            <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
-                                        #{coordinators[1]} (cliquez pour copier l’adresse)"
-                                               class="fa fa-question-circle js-copy"
-                                               t-att-data-copy="coordinators[1]"></i>
-                                        </span>
-                                    </td>
-                                    <t t-set="shift_ticket_type"
-                                       t-value="shift.exchange_replacing_reg_id.shift_ticket_id.shift_type"/>
-                                    <t t-if="shift_ticket_type == 'ftop'">
-                                        <td style="text-align: center;background: greenyellow">
-                                            Extra
-                                        </td>
-                                    </t>
-                                    <t t-if="shift_ticket_type != 'ftop'">
-                                        <td style="text-align: center;background: darkorange">
-                                            Substitute
-                                        </td>
-                                    </t>
-                                </tr>
-                            </t>
                         </t>
                     </tbody>
                 </table>
@@ -454,31 +419,19 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Hour</th>
-                                <th>Coordinators</th>
                                 <th style="text-align:center">Exchange</th>
                             </tr>
                         </thead>
                         <tbody>
                             <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
-                                <tr>
+                                <tr t-att-style="'-webkit-text-decoration-line: line-through;text-decoration-line: line-through;' if shift.state == 'waiting' else ''">
                                     <t t-set="date_begin"
-                                       t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                       t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
                                     <td scope="row">
                                         <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
                                     </td>
                                     <td>
                                         <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
-                                    </td>
-                                    <t t-set="coordinators"
-                                       t-value="shift.get_coordinators(get_alias_coordinator=True)"/>
-                                    <td>
-                                        <span>
-                                            <t t-esc="coordinators[0]"/>
-                                            <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
-                                        #{coordinators[1]} (cliquez pour copier l’adresse)"
-                                               class="fa fa-question-circle js-copy"
-                                               t-att-data-copy="coordinators[1]"></i>
-                                        </span>
                                     </td>
                                     <t t-set="shift_ticket_type" t-value="shift.shift_ticket_id.shift_type"/>
                                     <t t-if="shift_ticket_type == 'ftop'">
@@ -488,7 +441,7 @@
                                     </t>
                                     <t t-elif="shift.state == 'waiting'">
                                         <td style="text-align: center;">
-                                            Waiting
+                                            Canceled
                                         </td>
                                     </t>
                                     <t t-elif="shift.exchange_state == 'draft'">
@@ -520,41 +473,6 @@
                                         </td>
                                     </t>
                                 </tr>
-                                <t t-if="shift.exchange_replacing_reg_id">
-                                    <tr>
-                                        <t t-set="date_begin"
-                                           t-value="user.get_time_by_user_lang(shift.exchange_replacing_reg_id.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
-                                        <td scope="row">
-                                            <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
-                                        </td>
-                                        <td>
-                                            <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
-                                        </td>
-                                        <t t-set="coordinators"
-                                           t-value="shift.exchange_replacing_reg_id.get_coordinators(get_alias_coordinator=True)"/>
-                                        <td>
-                                            <span>
-                                                <t t-esc="coordinators[0]"/>
-                                                <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
-                                            #{coordinators[1]} (cliquez pour copier l’adresse)"
-                                                   class="fa fa-question-circle js-copy"
-                                                   t-att-data-copy="coordinators[1]"></i>
-                                            </span>
-                                        </td>
-                                        <t t-set="shift_ticket_type"
-                                           t-value="shift.exchange_replacing_reg_id.shift_ticket_id.shift_type"/>
-                                        <t t-if="shift_ticket_type == 'ftop'">
-                                            <td style="text-align: center;background: greenyellow">
-                                                Extra
-                                            </td>
-                                        </t>
-                                        <t t-if="shift_ticket_type != 'ftop'">
-                                            <td style="text-align: center;background: darkorange">
-                                                Substitute
-                                            </td>
-                                        </t>
-                                    </tr>
-                                </t>
                             </t>
                         </tbody>
                     </table>
@@ -568,7 +486,6 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Hour</th>
-                                <th>Coordinators</th>
                                 <th>Expected attendees</th>
                                 <th>Available seats</th>
                                 <th>Participation in exchange</th>
@@ -579,23 +496,12 @@
                             <t t-if="shifts_on_market" t-foreach="shifts_on_market" t-as="shift">
                                 <tr t-attf-style="{{ shift.shift_id.css_color_style }}">
                                     <t t-set="date_begin"
-                                       t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                       t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
                                     <td scope="row">
                                         <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
                                     </td>
                                     <td>
                                         <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
-                                    </td>
-                                    <t t-set="coordinators"
-                                       t-value="shift.get_coordinators(get_alias_coordinator=True)"/>
-                                    <td>
-                                        <span>
-                                            <t t-esc="coordinators[0]"/>
-                                            <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
-                                        #{coordinators[1]} (cliquez pour copier l’adresse)"
-                                               class="fa fa-question-circle js-copy"
-                                               t-att-data-copy="coordinators[1]"></i>
-                                        </span>
                                     </td>
                                     <!-- new column -->
                                     <td>
@@ -622,23 +528,12 @@
                             <t t-if="avaible_shifts" t-foreach="avaible_shifts" t-as="shift">
                                 <tr t-attf-style="{{ shift.css_color_style }}">
                                     <t t-set="date_begin"
-                                       t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                       t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
                                     <td scope="row">
                                         <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
                                     </td>
                                     <td>
                                         <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
-                                    </td>
-                                    <t t-set="coordinators"
-                                       t-value="shift.get_coordinators(get_alias_coordinator=True)"/>
-                                    <td>
-                                        <span>
-                                            <t t-esc="coordinators[0]"/>
-                                            <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
-                                        #{coordinators[1]} (cliquez pour copier l’adresse)"
-                                               class="fa fa-question-circle js-copy"
-                                               t-att-data-copy="coordinators[1]"></i>
-                                        </span>
                                     </td>
                                     <!-- new column -->
                                     <td>
@@ -805,7 +700,7 @@
                         <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
                             <tr>
                                 <t t-set="date_begin"
-                                   t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B %Hh%M', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                   t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
                                 <td scope="row">
                                     <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
                                 </td>
