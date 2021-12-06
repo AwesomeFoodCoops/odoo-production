@@ -29,7 +29,7 @@
             </xpath>
 
             <xpath expr="//div[hasclass('page')]/table[2]/tbody/t" position="replace">
-               <tr t-foreach="o.line_ids.sorted(key=lambda l: l.product_id.name.strip())" t-as="line">
+               <tr t-foreach="o.line_ids.sorted(key=lambda l: l.product_name)" t-as="line">
                 <td class="text-right"><span t-field="line.package_qty"/></td>
                 <td><span t-field="line.product_id.default_code"/></td>
                 <td><span t-field="line.product_id.name"/></td>
