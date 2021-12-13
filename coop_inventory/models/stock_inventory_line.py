@@ -13,6 +13,8 @@ class StockInventory(models.Model):
 class StockInventoryLine(models.Model):
     _inherit = 'stock.inventory.line'
 
+    product_name = fields.Char(related="product_id.name")
+
     @api.one
     @api.depends('location_id', 'product_id', 'package_id', 'product_uom_id',
         'company_id', 'prod_lot_id', 'partner_id', 'inventory_id.date')
