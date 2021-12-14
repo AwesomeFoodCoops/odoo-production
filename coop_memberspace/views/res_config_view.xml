@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="coop_membership.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='coop_membership']/div[1]/div[1]" position="after">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="shift_exchange_duration" string="Shift Exchange"/>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <label for="shift_exchange_duration" class="o_light_label"/>
+                                <field name="shift_exchange_duration" class="oe_inline"/>
+                            </div>
+                            <div class="mt8">
+                                <label for="shift_replacement_duration" class="o_light_label"/>
+                                <field name="shift_replacement_duration" class="oe_inline"/>
+                            </div>
+                            <div class="mt8">
+                                <label for="shift_exchange_policy" class="o_light_label"/>
+                                <field name="shift_exchange_policy" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//div[@data-key='coop_membership']/div[last()]" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <label for="force_message_route"/>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <field name="force_message_route" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

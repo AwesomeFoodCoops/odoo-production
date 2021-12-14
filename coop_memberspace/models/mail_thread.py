@@ -96,6 +96,17 @@ class MailThread(models.AbstractModel):
             raise TypeError(
                 "message must be an email.message.Message at this point"
             )
+        icp_sudo = self.env['ir.config_parameter'].sudo()
+        force_message_route = bool(icp_sudo.get_param(
+            'coop_memberspace.force.message_route', False))
+        if force_message_route:
+            return super(MailThread, self).message_route(
+                message,
+                message_dict,
+                model=model,
+                thread_id=thread_id,
+                custom_values=custom_values,
+            )
         email_from = decode_message_header(message, "From")
         # Memberspace workflow
         if "<" in email_from:
