@@ -41,6 +41,7 @@
         "views/website/statistics.xml",
         "views/website/website_homepage.xml",
         "views/website/website_template.xml",
+        "views/res_config_view.xml",
     ],
     "installable": True,
 }

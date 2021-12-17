@@ -6,3 +6,4 @@ from . import memberspace_conversation
 from . import memberspace_alias
 from . import shift_template
 from . import proposal
+from . import res_config_settings
