@@ -102,17 +102,6 @@ class ResPartner(models.Model):
         )
         vals = Users.with_context(context).default_get(list(Users._fields.keys()))
         for member in self:
-            already_email = self.env["res.partner"].search(
-                [("email", "=", member.email), ("id", "!=", member.id)]
-            )
-            if already_email:
-                _logger.error(
-                    _(
-                        "Another user is already registered"
-                        + " using this email address."
-                    )
-                )
-                continue
             sql = """
                 SELECT id
                 FROM res_users
@@ -150,7 +139,8 @@ class ResPartner(models.Model):
         sql = '''
             SELECT rp.id
             FROM res_partner rp
-            LEFT JOIN res_users ru ON ru.partner_id = rp.id
+            LEFT JOIN res_users ru ON
+                (ru.partner_id = rp.id OR rp.email = ru.login)
             WHERE ru.partner_id ISNULL
                 AND rp.is_member IS True
                 AND rp.is_worker_member IS True
