@@ -38,9 +38,9 @@ class StockInventory(models.Model):
     def check_duplex(self):
         self.ensure_one()
         res = False
-        first_page_nb = 33
+        first_page_nb = 40
         page_nb = 1
-        est_line_nb = 39
+        est_line_nb = 44
         line_nb = len(self.line_ids) - first_page_nb
         if line_nb > 0:
             page_nb += int(line_nb/est_line_nb)

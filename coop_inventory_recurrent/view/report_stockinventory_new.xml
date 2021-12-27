@@ -8,10 +8,8 @@
                     <t t-set="o" t-value="variant['obj']"/>
                     <t t-call="coop_inventory.external_layout_standard_inventory">
                         <div class="page">
-                            <br/>
                             <t t-set="style" t-value="variant.get('color') and 'color: ' + variant['color'] + ';' or ''"/>
                             <h3 t-att-style="style"><span t-field="o.name"/><span t-esc="variant.get('extra_title') and ': ' + variant['extra_title'] or ''"/></h3>
-
                             <table class="table table-sm" style="font-size: 14px" >
                                 <thead>
                                     <tr>
