@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_inventory_category_group_user,stock.inventory.category.group user,model_stock_inventory_category_group,stock.group_stock_user,1,0,0,0
+access_stock_inventory_category_group_manager,stock.inventory.category.group manager,model_stock_inventory_category_group,stock.group_stock_manager,1,1,1,1
+access_stock_inventory_category_group_line_user,stock.inventory.category.group.line user,model_stock_inventory_category_group_line,stock.group_stock_user,1,0,0,0
+access_stock_inventory_category_group_line_manager,stock.inventory.category.group.line manager,model_stock_inventory_category_group_line,stock.group_stock_manager,1,1,1,1
