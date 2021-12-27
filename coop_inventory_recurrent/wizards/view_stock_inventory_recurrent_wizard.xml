@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_inventory_wizard_form" model="ir.ui.view">
+        <field name="name">stock.inventory.recurrent.wizard.form</field>
+        <field name="model">stock.inventory.recurrent.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="category_group_ids"/>
+                </group>
+                <footer>
+                    <button name="action_execute" type="object" string="Execute" class="oe_highlight"/>
+                    <button string="Discard" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_inventory_wizard" model="ir.actions.act_window">
+        <field name="name">Recurrent Inventories</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.inventory.recurrent.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        name="Recurrent Inventories"
+        id="menu_stock_inventory_wizard"
+        sequence="29"
+        action="action_stock_inventory_wizard"
+        parent="stock.menu_stock_warehouse_mgmt"/>
+
+</odoo>
