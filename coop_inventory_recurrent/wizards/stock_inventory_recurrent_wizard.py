@@ -29,6 +29,7 @@ class StockInventoryRecurrentWizard(models.TransientModel):
 
         if vals:
             inventories = self.env['stock.inventory'].create(vals)
+        inventories.action_start()
         return inventories
 
     @api.multi
