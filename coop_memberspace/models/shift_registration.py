@@ -226,3 +226,47 @@ class ShiftRegistration(models.Model):
         if date_begin < fields.Datetime.now():
             return False
         return True
+
+    def check_cancellable_ftop_shift(self):
+        self.ensure_one()
+        if self.shift_type != 'ftop':
+            return False
+        icp_sudo = self.env['ir.config_parameter'].sudo()
+        duration = int(icp_sudo.get_param(
+            'coop_memberspace.ftop_shift_cancellation_duration', 24))
+        date_begin = self.date_begin - timedelta(
+            hours=duration)
+        if date_begin < fields.Datetime.now():
+            return False
+        return True
+
+    @api.multi
+    def check_cancel_ftop_shift(self):
+        for record in self:
+            if not record.check_cancellable_ftop_shift():
+                icp_sudo = self.env['ir.config_parameter'].sudo()
+                duration = int(icp_sudo.get_param(
+                    'coop_memberspace.ftop_shift_cancellation_duration', 24))
+                return {
+                    'code': 0,
+                    'msg': _(
+                        'You cannot cancel the shift within {} hours before the beginning of the shift.'
+                    ).format(duration)
+                }
+        return {
+            'code': 1,
+            'data': {
+                'msg': _("You are about to cancel your participation to shift"),
+                'confirm_msg': _("Are you sure that you want to do it?"),
+            }
+        }
+
+    @api.multi
+    def do_cancel_ftop_shift(self):
+        mail_template = self.env.ref(
+            "coop_memberspace.shift_registration_cancel_email")
+        for registration in self:
+            if registration.check_cancellable_ftop_shift():
+                registration.button_reg_cancel()
+                mail_template.send_mail(registration.id)
+        return True

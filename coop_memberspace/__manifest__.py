@@ -6,7 +6,7 @@
 
 {
     "name": "Coop Memberspace",
-    "version": "12.0.1.1.4",
+    "version": "12.0.1.1.6",
     "category": "Custom",
     "author": "La Louve, Druidoo",
     "website": "http://www.lalouve.net",
@@ -26,6 +26,7 @@
         "data/email/email_proposal.xml",
         "data/ir_config_parameter.xml",
         "data/ir_cron.xml",
+        "data/email_template_data.xml",
         "data/website_menu.xml",
         "views/res_partner_view.xml",
         "views/memberspace_alias_view.xml",
@@ -42,6 +43,9 @@
         "views/website/website_homepage.xml",
         "views/website/website_template.xml",
         "views/res_config_view.xml",
+    ],
+    'qweb': [
+        "static/src/xml/*.xml",
     ],
     "installable": True,
 }

@@ -28,6 +28,7 @@
             <script src="/coop_memberspace/static/src/js/my_profile.js" type="text/javascript"/>
             <script src="/coop_memberspace/static/src/js/statistics.js" type="text/javascript"/>
             <script src="/coop_memberspace/static/src/js/exchange_shift.js" type="text/javascript"/>
+            <script src="/coop_memberspace/static/src/js/mywork_ftop.js" type="text/javascript"/>
         </xpath>
     </template>
 </odoo>

@@ -1415,3 +1415,60 @@ msgstr ""
 #: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__shift_replacement_duration
 msgid "Shift replacement duration (day)"
 msgstr ""
+
+#. module: coop_memberspace
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.res_config_settings_view_form_inherit
+msgid "Shift Cancellation"
+msgstr ""
+
+#. module: coop_memberspace
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__ftop_shift_cancellation_duration
+msgid "FTOP shift cancellation duration (hour)"
+msgstr ""
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:251
+#, python-format
+msgid "You cannot cancel the shift within {} hours before the beginning of the shift."
+msgstr ""
+
+#. module: coop_memberspace
+#. openerp-web
+#: code:addons/coop_memberspace/static/src/js/mywork_ftop.js:32
+#, python-format
+msgid "Confirmation"
+msgstr ""
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:257
+#, python-format
+msgid "You are about to cancel your participation to shift"
+msgstr ""
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:258
+#, python-format
+msgid "Are you sure that you want to do it?"
+msgstr ""
+
+#. module: coop_memberspace
+#: model:mail.template,subject:coop_memberspace.shift_registration_cancel_email
+msgid "Shift registration cancellation"
+msgstr ""
+
+#. module: coop_memberspace
+#: model:mail.template,body_html:coop_memberspace.shift_registration_cancel_email
+msgid "\n"
+"<p>Dear ${object.name},</p>\n"
+"\n"
+"<p>You were registered has a participant to the shift ${object.shift_id.display_name} and you asked to cancel this participation.</p>\n"
+"<p>This is a confirmation that the cancellation was taken into account and you are no longer registered to that shift.</p>\n"
+"\n"
+"<p>Kind regards,\n"
+"<br/>\n"
+"The member management team\n"
+"</p>\n"
+"<br/>\n"
+"<br/>\n"
+""
+msgstr ""

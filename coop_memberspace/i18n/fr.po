@@ -794,7 +794,7 @@ msgstr "En cours"
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_ftop
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.programmer_un_extra
 msgid "Inscription"
-msgstr "Une inscription"
+msgstr "Inscription"
 
 #. module: coop_memberspace
 #: model:ir.model.fields,field_description:coop_memberspace.field_memberspace_alias__message_is_follower
@@ -1714,3 +1714,72 @@ msgstr "Un service ne peut plus être échangé s'il débute dans moins de (heur
 #: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__shift_replacement_duration
 msgid "Shift replacement duration (day)"
 msgstr "Un service est affiché sur la place d'échange lorsqu'il débute dans moins de (jours)"
+
+#. module: coop_memberspace
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.res_config_settings_view_form_inherit
+msgid "Shift Cancellation"
+msgstr "Annulation de service"
+
+#. module: coop_memberspace
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__ftop_shift_cancellation_duration
+msgid "FTOP shift cancellation duration (hour)"
+msgstr "Un service FTOP ne peut plus être annuler s'il débute dans moins de (heures)"
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:251
+#, python-format
+msgid "You cannot cancel the shift within {} hours before the beginning of the shift."
+msgstr "Vous ne pouvez pas annuler de quart de travail dans les {} heures précédant le début du quart de travail."
+
+#. module: coop_memberspace
+#. openerp-web
+#: code:addons/coop_memberspace/static/src/js/mywork_ftop.js:32
+#, python-format
+msgid "Confirmation"
+msgstr "Confirmer"
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:257
+#, python-format
+msgid "You are about to cancel your participation to shift"
+msgstr "Vous êtes sur le point d'annuler votre participation à service"
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:258
+#, python-format
+msgid "Are you sure that you want to do it?"
+msgstr "Êtes-vous sûr de vouloir le faire ?"
+
+#. module: coop_memberspace
+#: model:mail.template,subject:coop_memberspace.shift_registration_cancel_email
+msgid "Shift registration cancellation"
+msgstr "Annulation de votre participation à un service"
+
+#. module: coop_memberspace
+#: model:mail.template,body_html:coop_memberspace.shift_registration_cancel_email
+msgid "\n"
+"<p>Dear ${object.name},</p>\n"
+"\n"
+"<p>You were registered has a participant to the shift ${object.shift_id.display_name} and you asked to cancel this participation.</p>\n"
+"<p>This is a confirmation that the cancellation was taken into account and you are no longer registered to that shift.</p>\n"
+"\n"
+"<p>Kind regards,\n"
+"<br/>\n"
+"The member management team\n"
+"</p>\n"
+"<br/>\n"
+"<br/>\n"
+""
+msgstr "\n"
+"<p>Bonjour ${object.name},</p>\n"
+"\n"
+"<p>Vous étiez enregistré comme participant au service ${object.shift_id.display_name} et vous avez demandé à annuler cette participation.</p>\n"
+"<p>Nous vous confirmons que cette annulation a bien été prise en compte et que vous n'êtes plus attendu à ce service.</p>\n"
+"\n"
+"<p>Cordialement,\n"
+"<br/>\n"
+"Le bureau des membres\n"
+"</p>\n"
+"<br/>\n"
+"<br/>\n"
+""

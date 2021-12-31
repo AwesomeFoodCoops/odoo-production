@@ -31,13 +31,12 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                             var week_number = shift.week_number;
                             var week_name = shift.week_name;
                             $('.body_ftop_programmer').append(
-                                `<tr>
-                                    <td scope="row">
-                                        <span id="time-${shift.id}">${shift.date_begin[0] + ' '}</span>
-                                        <span>${shift.date_begin[1]}</span>
-                                    </td>
+                                `<tr style="${shift.css_style}">
                                     <td t-attf-id="week-${shift.id}">
                                         ${week_name || ''}
+                                    </td>
+                                    <td scope="row">
+                                        <span id="time-${shift.id}">${shift.date_begin[0] + ' '}</span>
                                     </td>
                                     <td id="hour-${shift.id}">${shift.date_begin[1]}</td>
                                     <td id="avalable-seats-${shift.id}"><span>${shift.seats_avail}</span></td>

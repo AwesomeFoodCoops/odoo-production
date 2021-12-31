@@ -18,3 +18,14 @@ def migrate(cr, version):
             'key': 'coop_memberspace.echange_de_services_obsolete',
             'active': False
         })
+        base_view = env.ref('coop_memberspace.mywork_ftop', False)
+        args = [
+            ('key', '=', 'coop_memberspace.mywork_ftop'),
+            ('id', '!=', base_view.id)
+        ]
+        views = env['ir.ui.view'].search(args)
+        views.write({
+            'name': 'coop_memberspace.mywork_ftop_obsolete',
+            'key': 'coop_memberspace.mywork_ftop_obsolete',
+            'active': False
+        })

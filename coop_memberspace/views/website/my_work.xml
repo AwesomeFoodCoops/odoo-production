@@ -684,7 +684,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="padding: 10px;">
+        <div class="row mywork_ftop" style="padding: 10px;">
             <p style="font-size: 25px;font-weight: 600;margin-top: 30px;margin-bottom: 10px;">My next services</p>
             <div class="table-responsive">
                 <table class="table">
@@ -723,8 +723,10 @@
                                     <t t-else="">
                                         <a>
                                             <button type="button" style="border: 0px; background-color: transparent"
-                                                    class="fa fa-times" data-toggle="modal"
-                                                    data-target="#not_cancel_registration_modal"/>
+                                                class="fa fa-times cancel-ftop-shift" data-toggle="modal"
+                                                t-att-registration-id="shift.id"
+                                                t-att-registration-name="date_begin and date_begin[0] or ''"
+                                                />
                                         </a>
                                     </t>
                                 </td>
@@ -762,8 +764,8 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Date</th>
                                                 <th>Week</th>
+                                                <th>Date</th>
                                                 <th>Hour</th>
                                                 <th>Available seats</th>
                                                 <th>Inscription</th>

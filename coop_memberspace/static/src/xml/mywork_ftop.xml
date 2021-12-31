@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="coop_memberspace.ftop_shift_cancel_confirmation">
+        <div class="">
+            <t t-esc="msg"/> <strong><t t-esc="shift_name"/></strong>. <t t-esc="confirm_msg"/>
+        </div>
+    </t>
+
+</templates>

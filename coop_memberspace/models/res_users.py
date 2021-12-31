@@ -99,6 +99,7 @@ class ResUsers(models.Model):
                             ["%A, %d %B", "%HH%M"],
                             lang=user.lang + ".utf8",
                         ),
+                        "css_style": shift.css_color_style
                     }
                 )
         return shifts
