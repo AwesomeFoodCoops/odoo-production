@@ -361,8 +361,8 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Date</th>
                                 <th>Week</th>
+                                <th>Date</th>
                                 <th>Hour</th>
                                 <th>Available seats</th>
                                 <th>Inscription</th>
@@ -373,16 +373,15 @@
                                 <t t-set="seats_avail"
                                    t-value="sum(shift.shift_ticket_ids.filtered(lambda r: r.shift_type == 'ftop').mapped('seats_available'))"/>
                                 <t t-if="seats_avail > 0">
-                                    <tr>
+                                    <tr t-attf-style="{{ shift.css_color_style }}">
                                         <t t-set="date_begin"
                                            t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
+                                        <td t-attf-id="week-{{shift.id}}">
+                                            <t t-esc="shift.week_name or ''"/>
+                                        </td>
                                         <td scope="row">
                                             <span t-attf-id="time-{{shift.id}}"
                                                   t-esc="(date_begin and date_begin[0] or '') + ' '"/>
-                                            <span t-esc="date_begin and date_begin[1] or ''"/>
-                                        </td>
-                                        <td t-attf-id="week-{{shift.id}}">
-                                            <t t-esc="shift.week_name or ''"/>
                                         </td>
                                         <td t-attf-id="hour-{{shift.id}}">
                                             <t t-esc="date_begin and date_begin[1] or ''"/>
