@@ -356,8 +356,8 @@ ${(object.company_id.phone or '')|safe}</p>
     <record id="abandoned_message_leave_email" model="mail.template">
         <field name="name">Abandoned Message Absence Leave Email</field>
         <field name="model_id" ref="coop_membership.model_shift_leave"/>
-        <field name="email_from">${(object.partner_id.company_id.email or '')|safe}</field>
-        <field name="email_to">bureau.membres@cooplalouve.fr</field>
+        <field name="email_from">${(user.email or '')|safe}</field>
+        <field name="email_to">${(object.partner_id.company_id.email or '')|safe}</field>
         <field name="subject">API failed</field>
         <field name="body_html"><![CDATA[
 <p>Hello</p>
