@@ -2,7 +2,7 @@ odoo.define('coop_memberspace.mywork_ftop', function (require) {
     "use strict";
     var core = require('web.core');
     var sAnimations = require('website.content.snippets.animation');
-    var Dialog = require('web_editor.widget').Dialog;
+    var Dialog = require('web.Dialog');
 
     var _t = core._t;
 
@@ -27,7 +27,7 @@ odoo.define('coop_memberspace.mywork_ftop', function (require) {
                         }
                         else {
                             //$(btn_cancel).remove();
-                            this.dialog = new Dialog(this, {
+                            this.dialog = new Dialog(self, {
                                 size: 'medium',
                                 title: _t("Confirmation"),
                                 buttons: [
