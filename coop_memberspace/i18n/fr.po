@@ -1728,8 +1728,8 @@ msgstr "Un service FTOP ne peut plus être annuler s'il débute dans moins de (h
 #. module: coop_memberspace
 #: code:addons/coop_memberspace/models/shift_registration.py:251
 #, python-format
-msgid "You cannot cancel the shift within {} hours before the beginning of the shift."
-msgstr "Vous ne pouvez pas annuler de quart de travail dans les {} heures précédant le début du quart de travail."
+msgid "You cannot cancel the shift within {} hours before the beginning of the shift"
+msgstr "Vous ne pouvez plus annuler votre participation dans les {} heures précédant le début du service."
 
 #. module: coop_memberspace
 #. openerp-web
@@ -1741,8 +1741,8 @@ msgstr "Confirmer"
 #. module: coop_memberspace
 #: code:addons/coop_memberspace/models/shift_registration.py:257
 #, python-format
-msgid "You are about to cancel your participation to shift"
-msgstr "Vous êtes sur le point d'annuler votre participation à service"
+msgid "You are about to cancel your participation to the shift"
+msgstr "Vous êtes sur le point d'annuler votre participation au service du"
 
 #. module: coop_memberspace
 #: code:addons/coop_memberspace/models/shift_registration.py:258

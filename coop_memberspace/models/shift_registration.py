@@ -250,14 +250,15 @@ class ShiftRegistration(models.Model):
                 return {
                     'code': 0,
                     'msg': _(
-                        'You cannot cancel the shift within {} hours before the beginning of the shift.'
+                        'You cannot cancel the shift within {} hours before the beginning of the shift'
                     ).format(duration)
                 }
         return {
             'code': 1,
             'data': {
-                'msg': _("You are about to cancel your participation to shift"),
+                'msg': _("You are about to cancel your participation to the shift"),
                 'confirm_msg': _("Are you sure that you want to do it?"),
+                'confirm_btn_label': _("Confirm")
             }
         }
 

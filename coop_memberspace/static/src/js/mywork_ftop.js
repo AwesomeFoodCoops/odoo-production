@@ -32,7 +32,7 @@ odoo.define('coop_memberspace.mywork_ftop', function (require) {
                                 title: _t("Confirmation"),
                                 buttons: [
                                     {
-                                        text: _t("Save"),
+                                        text: res.data.confirm_btn_label,
                                         classes: 'btn-primary',
                                         close: true,
                                         click: function () {

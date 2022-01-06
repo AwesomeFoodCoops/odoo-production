@@ -1429,7 +1429,7 @@ msgstr ""
 #. module: coop_memberspace
 #: code:addons/coop_memberspace/models/shift_registration.py:251
 #, python-format
-msgid "You cannot cancel the shift within {} hours before the beginning of the shift."
+msgid "You cannot cancel the shift within {} hours before the beginning of the shift"
 msgstr ""
 
 #. module: coop_memberspace
@@ -1442,7 +1442,7 @@ msgstr ""
 #. module: coop_memberspace
 #: code:addons/coop_memberspace/models/shift_registration.py:257
 #, python-format
-msgid "You are about to cancel your participation to shift"
+msgid "You are about to cancel your participation to the shift"
 msgstr ""
 
 #. module: coop_memberspace
