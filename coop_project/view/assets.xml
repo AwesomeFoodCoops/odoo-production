@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="lalouve customs assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/coop_project/static/src/scss/style.scss"/>
+            <script type="text/javascript" src="/coop_project/static/src/js/calendar_renderer.js"></script>
+
+            <script type="text/javascript" src="/coop_project/static/src/js/kanban_project_renderer.js"></script>
+            <script type="text/javascript" src="/coop_project/static/src/js/kanban_project_controller.js"></script>
+            <script type="text/javascript" src="/coop_project/static/src/js/kanban_project_view.js"></script>
+
+        </xpath>
+    </template>
+
+</odoo>

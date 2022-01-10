@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record id="view_task_comment_form" model="ir.ui.view">
+    <field name="model">mail.message</field>
+    <field name="priority" eval="1000"/>
+    <field name="arch" type="xml">
+        <form>
+            <group>
+                <group>
+                    <field name="date" readonly="1"/>
+                    <field name="author_id" readonly="1" string="Created by"/>
+                    <field name="needaction_partner_ids" required="1"
+                        widget="many2many_tags"
+                        string="Assigned To"/>
+                    <field name="model" invisible="1"/>
+                    <field name="res_id" invisible="1"/>
+                    <field name="message_type" invisible="1"/>
+                    <field name="subtype_id" invisible="1"/>
+                </group>
+            </group>
+            <group string="Description">
+                <field name="body" nolabel="1" required="1"/>
+            </group>
+            <footer>
+                <button string="Save" special="save" default_focus="1" class="oe_highlight"/>
+                or
+                <button string="Discard" special="cancel" />
+            </footer>
+        </form>
+    </field>
+</record>
+
+</odoo>

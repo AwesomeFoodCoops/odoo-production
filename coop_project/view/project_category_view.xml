@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Categories -->
+    <record model="ir.ui.view" id="project_category_search_view">
+        <field name="name">Categories</field>
+        <field name="model">project.category</field>
+        <field name="arch" type="xml">
+            <search string="Categories">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="project_category_tree_view">
+        <field name="name">Categories</field>
+        <field name="model">project.category</field>
+        <field name="arch" type="xml">
+            <tree string="Categories" editable="top">
+                <field name="name"/>
+                <field name="project_ids" widget="many2many_tags"/>
+                <field name="color"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="project_category_form_view">
+        <field name="name">Categories</field>
+        <field name="model">project.category</field>
+        <field name="arch" type="xml">
+            <form string="Categories">
+                <group>
+                    <field name="name"/>
+                    <field name="project_ids" widget="many2many_tags"/>
+                    <field name="color"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="project_category_action" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">project.category</field>
+        <field name="view_type">form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create a new category
+            </p>
+        </field>
+    </record>
+    <menuitem action="project_category_action" id="menu_project_category_act" parent="project.menu_project_config"/>
+</odoo>
