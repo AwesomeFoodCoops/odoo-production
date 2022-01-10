@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="view_project_kanban_inherit" model="ir.ui.view">
+    <field name="model">project.project</field>
+    <field name="inherit_id" ref="project.view_project_kanban"/>
+    <field name="arch" type="xml">
+        <xpath expr="//a[@name='%(portal.portal_share_action)d']" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+    </field>
+</record>
+<record id="project_project_view_form_simplified_inherit" model="ir.ui.view">
+    <field name="model">project.project</field>
+    <field name="inherit_id" ref="project.project_project_view_form_simplified"/>
+    <field name="arch" type="xml">
+        <label for="alias_name" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </label>
+        <div name="alias_def" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </div>
+    </field>
+</record>
+<record id="edit_project_inherit" model="ir.ui.view">
+    <field name="model">project.project</field>
+    <field name="inherit_id" ref="project.edit_project"/>
+    <field name="arch" type="xml">
+        <button name="%(portal.portal_share_action)d" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </button>
+        <field name="partner_id" position="after">
+            <field name="project_categ_ids" widget="many2many_tags"
+                options="{'color_field': 'color'}"/>
+        </field>
+    </field>
+</record>
+<record id="view_task_search_form_inherit" model="ir.ui.view">
+    <field name="model">project.task</field>
+    <field name="inherit_id" ref="project.view_task_search_form"/>
+    <field name="arch" type="xml">
+        <field name="stage_id" position="after">
+            <field name="project_categ_id"/>
+        </field>
+    </field>
+</record>
+<record id="view_task_kanban_inherit" model="ir.ui.view">
+    <field name="model">project.task</field>
+    <field name="inherit_id" ref="project.view_task_kanban"/>
+    <field name="arch" type="xml">
+        <xpath expr="//kanban" position="attributes">
+            <attribute name="on_create"/>
+            <attribute name="quick_create">0</attribute>
+            <attribute name="js_class">project_legend_kanban</attribute>
+        </xpath>
+        <xpath expr="//ul[hasclass('oe_kanban_colorpicker')]" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <field name="rating_ids" position="after">
+            <field name="project_category_name"/>
+        </field>
+        <field name="tag_ids" position="before">
+            <t t-if="record.project_category_name.raw_value">
+                <span style="font-size: 11px;"><t t-raw="record.project_category_name.raw_value"/></span>
+            </t>
+        </field>
+        <xpath expr="//a[@type='set_cover']" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+        <xpath expr="//a[@name='%(portal.portal_share_action)d']" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+    </field>
+</record>
+<record id="view_task_form2_inherit" model="ir.ui.view">
+    <field name="model">project.task</field>
+    <field name="inherit_id" ref="project.view_task_form2"/>
+    <field name="arch" type="xml">
+        <button name="%(portal.portal_share_action)d" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </button>
+        <button name="action_assign_to_me" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </button>
+        <xpath expr="//div[2]" position="replace">
+            <div class="oe_title pr-0">
+                <h1>
+                    <field name="priority" widget="priority" class="mr-3"/>
+                </h1>
+                <h1 class="d-flex flex-row justify-content-between">
+                    <field name="name" class="o_task_name text-truncate" placeholder="Task Title..."/>
+                    <field name="kanban_state" widget="state_selection" class="ml-auto"/>
+                </h1>
+            </div>
+        </xpath>
+        <field name="date_deadline" position="after">
+            <field name="show_dealine_in_calendar"/>
+        </field>
+        <field name="date_deadline" position="attributes">
+            <attribute name="attrs">{'required': [('show_dealine_in_calendar', '=', True)]}</attribute>
+        </field>
+        <field name="user_id" position="after">
+            <field name="assignee_ids" widget="many2many_tags"/>
+            <field name="create_user_id"/>
+        </field>
+        <field name="user_id" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </field>
+        
+        <xpath expr="//notebook/page[@name='description_page']" position="replace">
+            <page name="comments" string="Comments">
+                <field name="show_comment_type" invisible="1"/>
+                <button name="btn_show_comment_only" type="object" attrs="{'invisible': [('show_comment_type', '=', 'comment')]}">
+                    <i class="fa fa-minus"/> Only comments
+                </button>
+                <button name="btn_show_comment_only" type="object" attrs="{'invisible': [('show_comment_type', '!=', 'comment')]}" class="oe_highlight">
+                    <i class="fa fa-minus"/> Only comments
+                </button>
+                <button name="btn_show_comment_history" type="object" attrs="{'invisible': [('show_comment_type', '!=', 'comment')]}">
+                    <i class="fa fa-plus"/> Full History
+                </button>
+                <button name="btn_show_comment_history" type="object" attrs="{'invisible': [('show_comment_type', '=', 'comment')]}" class="oe_highlight">
+                    <i class="fa fa-plus"/> Full History
+                </button>
+                <button name="btn_add_comment" type="object">
+                    <i class="fa fa-edit"/> Add comment
+                </button>
+                <field name="comment_ids">
+                    <tree>
+                        <field name="date"/>
+                        <field name="author_id" string="Created by"/>
+                        <field name="task_description"/>
+                        <field name="needaction_partner_ids" string="Assigned to"
+                            widget="many2many_tags"/>
+                    </tree>
+                    <form>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                                <field name="author_id" string="Created by"/>
+                                <field name="needaction_partner_ids"
+                                    widget="many2many_tags"
+                                    string="Assigned To"/>
+                            </group>
+                        </group>
+                        <group string="Description">
+                            <field name="body" nolabel="1"/>
+                        </group>
+                    </form>
+                </field>
+            </page>
+        </xpath>
+        <xpath expr="//div[hasclass('oe_chatter')]" position="replace">
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+            </div>
+        </xpath>
+        <field name="partner_id" position="before">
+            <field name="estimated_cost"/>
+        </field>
+        <field name="partner_id" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </field>
+        
+        <field name="email_from" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </field>
+        <field name="email_cc" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </field>
+        <field name="displayed_image_id" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </field>
+        <xpath expr="//notebook" position="before">
+            <notebook>
+                <page string="Description">
+                    <field name="description" type="html" nolabel="1" colspan="4"/>
+                </page>
+                <page name="ticket" string="Ticket">
+                    <group>
+                        <group>
+                            <field name="ticket_number"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="ticket_description" nolabel="1"/>
+                    </group>
+                </page>
+            </notebook>
+        </xpath>
+        <field name="tag_ids" position="before">
+            <field name="project_categ_ids" invisible="1"/>
+            <field name="project_categ_id" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"
+                domain="[('id', 'in', project_categ_ids)]"/>
+        </field>
+    </field>
+</record>
+<record id="view_task_tree2_inherit" model="ir.ui.view">
+    <field name="model">project.task</field>
+    <field name="inherit_id" ref="project.view_task_tree2"/>
+    <field name="arch" type="xml">
+        <field name="user_id" position="after">
+            <field name="estimated_cost"/>
+        </field>
+    </field>
+</record>
+<record id="project.menu_project_management" model="ir.ui.menu">
+    <field name="name">All Tasks</field>
+</record>
+</odoo>

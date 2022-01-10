@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_calendar_event_calendar_inherit" model="ir.ui.view">
+        <field name="name">calendar.event.calendar</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+        <field name="arch" type="xml">
+            <field name="is_highlighted" position="after">
+                <field name="from_task" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>
