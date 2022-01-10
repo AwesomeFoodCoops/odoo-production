@@ -1,0 +1,345 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_project
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-05 01:41+0000\n"
+"PO-Revision-Date: 2022-01-05 01:41+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_project
+#: model:mail.template,body_html:coop_project.email_notify_assignee
+msgid "\n"
+"<p>Hello ${object.get_partner_assignee_names()}, </p>\n"
+"<p>\n"
+"    ${user.name} has assigned to you a new task:\n"
+"</p>\n"
+"<ul>\n"
+"    <li>\n"
+"        ${object.name}\n"
+"    </li>\n"
+"</ul>\n"
+"\n"
+"<p>Thank you, </p>\n"
+"            "
+msgstr "\n"
+"<p>Bonjour ${object.get_partner_assignee_names()}, </p>\n"
+"<p>\n"
+"    ${user.name} vous a confié une nouvelle tâche:\n"
+"</p>\n"
+"<ul>\n"
+"    <li>\n"
+"        ${object.name}\n"
+"    </li>\n"
+"</ul>\n"
+"\n"
+"<p>Merci, </p>\n"
+"            "
+
+#. module: coop_project
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_form2_inherit
+msgid "<i class=\"fa fa-edit\"/> Add comment"
+msgstr "<i class=\"fa fa-edit\"/> Ajouter un commentaire"
+
+#. module: coop_project
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_form2_inherit
+msgid "<i class=\"fa fa-minus\"/> Only comments"
+msgstr "<i class=\"fa fa-minus\"/> Commentaires uniquement"
+
+#. module: coop_project
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_form2_inherit
+msgid "<i class=\"fa fa-plus\"/> Full History"
+msgstr "<i class=\"fa fa-plus\"/> Historique complet"
+
+#. module: coop_project
+#: selection:project.task,show_comment_type:0
+msgid "All"
+msgstr ""
+
+#. module: coop_project
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_comment_form
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_form2_inherit
+msgid "Assigned To"
+msgstr "Assigné à"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_task__assignee_ids
+#: model:ir.model.fields,field_description:coop_project.field_project_task__user_id
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_form2_inherit
+msgid "Assigned to"
+msgstr "Assigné à"
+
+#. module: coop_project
+#: model:mail.template,subject:coop_project.email_notify_assignee
+msgid "Assignment of task: ${object.name}"
+msgstr "Attribution de la tâche: ${object.name}"
+
+#. module: coop_project
+#: code:addons/coop_project/model/mail_message.py:22
+#, python-format
+msgid "CHANGES: <ul>"
+msgstr "CHANGEMENTS: <ul>"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_task__calendar_event_id
+msgid "Calendar Event"
+msgstr ""
+
+#. module: coop_project
+#: model:ir.actions.act_window,name:coop_project.project_category_action
+#: model:ir.model.fields,field_description:coop_project.field_project_project__project_categ_ids
+#: model:ir.model.fields,field_description:coop_project.field_project_task__project_categ_ids
+#: model:ir.ui.menu,name:coop_project.menu_project_category_act
+#: model_terms:ir.ui.view,arch_db:coop_project.project_category_form_view
+#: model_terms:ir.ui.view,arch_db:coop_project.project_category_search_view
+#: model_terms:ir.ui.view,arch_db:coop_project.project_category_tree_view
+msgid "Categories"
+msgstr "Catégorie"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_task__project_categ_id
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_category__color_code
+msgid "Color Code"
+msgstr "Couleur Code"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_category__color
+#: model:ir.model.fields,field_description:coop_project.field_project_task__color
+msgid "Color Index"
+msgstr "Couleur"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_task__comment_ids
+msgid "Comment"
+msgstr "Commentaires"
+
+#. module: coop_project
+#: selection:project.task,show_comment_type:0
+msgid "Comment Only"
+msgstr ""
+
+#. module: coop_project
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_form2_inherit
+msgid "Comments"
+msgstr "Commentaires"
+
+#. module: coop_project
+#: model_terms:ir.actions.act_window,help:coop_project.project_category_action
+msgid "Create a new category"
+msgstr ""
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_task__create_user_id
+msgid "Created By"
+msgstr "Créé par"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_category__create_uid
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_comment_form
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_form2_inherit
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_category__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_account_invoice_send__task_description
+#: model:ir.model.fields,field_description:coop_project.field_mail_compose_message__task_description
+#: model:ir.model.fields,field_description:coop_project.field_mail_mail__task_description
+#: model:ir.model.fields,field_description:coop_project.field_mail_message__task_description
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_comment_form
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_form2_inherit
+msgid "Description"
+msgstr ""
+
+#. module: coop_project
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_comment_form
+msgid "Discard"
+msgstr "Annuler"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_category__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_task__estimated_cost
+msgid "Estimated Cost"
+msgstr "Budget Estimé"
+
+#. module: coop_project
+#: model:ir.model,name:coop_project.model_calendar_event
+msgid "Event"
+msgstr "Évènement"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_calendar_event__from_task
+msgid "From Task"
+msgstr ""
+
+#. module: coop_project
+#: selection:project.task,priority:0
+msgid "High Priority"
+msgstr ""
+
+#. module: coop_project
+#: model:ir.model.fields,help:coop_project.field_project_project__privacy_visibility
+msgid "Holds visibility of the tasks or issues that belong to the current project:\n"
+"- On invitation only: Employees may only see the followed project, tasks or issues\n"
+"- Visible by all employees: Employees may see all project, tasks or issues\n"
+"- Visible by following customers: employees see everything;\n"
+"   if website is activated, portal users may see project, tasks or issues followed by\n"
+"   them or by someone of their company\n"
+""
+msgstr "Détermine la visibilité des tâches ou anomalies qui dépendent du projet courant.\n"
+"- Sur invitation uniquement : les employés ne voient que les projets, tâches et anomalies qu'ils suivent ;\n"
+"- Visible par tous les salariés : les employés peuvent voir tous les projets, tâches et anomalies ;\n"
+"- Visible par les clients suivants : les employés voient tout ; si le site web est activé, les utilisateur du portail peuvent voir les projets, tâches et anomalies qu'eux ou un utilisateur appartenant à leur société, suivent.\n"
+""
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_category__id
+msgid "ID"
+msgstr ""
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_category____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_category__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_category__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: coop_project
+#: selection:project.task,priority:0
+msgid "Low"
+msgstr "Faible"
+
+#. module: coop_project
+#: model:ir.model,name:coop_project.model_mail_message
+msgid "Message"
+msgstr ""
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_category__name
+#: model:ir.model.fields,field_description:coop_project.field_project_task__project_category_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: coop_project
+#: selection:project.task,priority:0
+msgid "No Priority"
+msgstr ""
+
+#. module: coop_project
+#: selection:project.task,priority:0
+msgid "Normal"
+msgstr "Normale"
+
+#. module: coop_project
+#: selection:project.project,privacy_visibility:0
+msgid "On invitation only"
+msgstr "Sur invitation uniquement"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_task__priority
+msgid "Priority"
+msgstr "Priorité"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_project__privacy_visibility
+msgid "Privacy"
+msgstr "Confidentialité"
+
+#. module: coop_project
+#: model:ir.model,name:coop_project.model_project_project
+#: model:ir.model.fields,field_description:coop_project.field_project_category__project_ids
+msgid "Project"
+msgstr "Projet"
+
+#. module: coop_project
+#: model:ir.model,name:coop_project.model_project_category
+msgid "Project Category"
+msgstr ""
+
+#. module: coop_project
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_comment_form
+msgid "Save"
+msgstr "Sauvegarder"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_task__show_comment_type
+msgid "Show Comment Type"
+msgstr ""
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_task__show_dealine_in_calendar
+msgid "Show deadline on common calendar"
+msgstr "Afficher l’échéance dans le calendrier commun"
+
+#. module: coop_project
+#: model:ir.model,name:coop_project.model_project_task
+msgid "Task"
+msgstr "Tâche"
+
+#. module: coop_project
+#: model:mail.message.subtype,name:coop_project.mt_task_assign
+msgid "Task Assigned"
+msgstr ""
+
+#. module: coop_project
+#: model:mail.message.subtype,name:coop_project.mt_task_comment
+msgid "Task Commented"
+msgstr ""
+
+#. module: coop_project
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_form2_inherit
+msgid "Task Title..."
+msgstr "Titre de la tâche..."
+
+#. module: coop_project
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_form2_inherit
+msgid "Ticket"
+msgstr "Place"
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_task__ticket_description
+msgid "Ticket Description"
+msgstr ""
+
+#. module: coop_project
+#: model:ir.model.fields,field_description:coop_project.field_project_task__ticket_number
+msgid "Ticket Number"
+msgstr "Numéro de ticket"
+
+#. module: coop_project
+#: selection:project.project,privacy_visibility:0
+msgid "Visible by all employees"
+msgstr "Visible par tous les employés"
+
+#. module: coop_project
+#: model_terms:ir.ui.view,arch_db:coop_project.view_task_comment_form
+msgid "or"
+msgstr "ou"

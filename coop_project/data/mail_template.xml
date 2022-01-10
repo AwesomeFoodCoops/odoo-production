@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="0">
+        <!--Email template -->
+        <record id="email_notify_assignee" model="mail.template">
+            <field name="name">Task: Notify the Assignee</field>
+            <field name="email_from">${(object.company_id.email or '')|safe}</field>
+            <field name="partner_to">${object.get_partner_assignee_ids()}</field>
+            <field name="subject">Assignment of task: ${object.name}</field>
+            <field name="model_id" ref="project.model_project_task" />
+            <field name="auto_delete" eval="False" />
+            <field name="lang">${object.get_lang()}</field>
+            <field name="body_html"><![CDATA[
+<p>Hello ${object.get_partner_assignee_names()}, </p>
+<p>
+    ${user.name} has assigned to you a new task:
+</p>
+<ul>
+    <li>
+        ${object.name}
+    </li>
+</ul>
+
+<p>Thank you, </p>
+            ]]></field>
+        </record>
+
+    </data>
+</odoo>
