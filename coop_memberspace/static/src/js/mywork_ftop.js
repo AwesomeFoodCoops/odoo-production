@@ -6,7 +6,7 @@ odoo.define('coop_memberspace.mywork_ftop', function (require) {
 
     var _t = core._t;
 
-    sAnimations.registry.exchange_shift =
+    sAnimations.registry.mywork_ftop =
         sAnimations.Class.extend({
             xmlDependencies: ['/coop_memberspace/static/src/xml/mywork_ftop.xml'],
             selector: '.mywork_ftop',
