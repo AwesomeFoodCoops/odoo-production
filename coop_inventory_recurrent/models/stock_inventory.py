@@ -27,7 +27,7 @@ class StockInventory(models.Model):
                 res2.append({
                     'obj': inventory,
                     'extra_title': _('Second List'),
-                    'color': 'blue'
+                    'color': 'green'
                 })
             if not inventory.category_group_line_id.copies:
                 res0.append({'obj': inventory})
