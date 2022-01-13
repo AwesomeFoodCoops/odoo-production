@@ -322,7 +322,7 @@ msgstr "Titre de la tâche..."
 #. module: coop_project
 #: model_terms:ir.ui.view,arch_db:coop_project.view_task_form2_inherit
 msgid "Ticket"
-msgstr "Place"
+msgstr "Ticket"
 
 #. module: coop_project
 #: model:ir.model.fields,field_description:coop_project.field_project_task__ticket_description
