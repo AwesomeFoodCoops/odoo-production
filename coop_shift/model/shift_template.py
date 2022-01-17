@@ -745,9 +745,9 @@ class ShiftTemplate(models.Model):
                         'seats_availability': ticket.seats_availability,
                         'seats_max': ticket.seats_max,
                     }
-                    if ticket.product_id.shift_type_id.is_ftop:
-                        vals['seats_availability'] = 'limited'
-                        vals['seats_max'] = 0
+                    #if ticket.product_id.shift_type_id.is_ftop:
+                    #    vals['seats_availability'] = 'limited'
+                    #    vals['seats_max'] = 0
                     ticket_id = self.env['shift.ticket'].create(vals)
 
                     for attendee in ticket.registration_ids:
