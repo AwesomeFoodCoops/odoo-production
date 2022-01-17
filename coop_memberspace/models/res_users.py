@@ -59,6 +59,7 @@ class ResUsers(models.Model):
                 shift_env.sudo()
                 .search(
                     [
+                        ('state', '!=', 'cancel'),
                         (
                             "shift_template_id",
                             "!=",
