@@ -9,7 +9,7 @@
                     <t t-call="coop_inventory.external_layout_standard_inventory">
                         <div class="page">
                             <t t-set="style" t-value="variant.get('color') and 'color: ' + variant['color'] + ';' or ''"/>
-                            <h3 t-att-style="style"><span t-field="o.name"/><span t-esc="variant.get('extra_title') and ': ' + variant['extra_title'] or ''"/></h3>
+                            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 18px;"><span t-att-style="style"><span t-field="o.name"/><span t-esc="variant.get('extra_title') and ': ' + variant['extra_title'] or ''"/></span></div>
                             <table class="table table-sm" style="font-size: 14px" >
                                 <thead>
                                     <tr>
@@ -43,7 +43,7 @@
                                     <tr t-foreach="o.line_ids.sorted(key=lambda l: l.product_name)" t-as="line">
                                         <td class="text-right"><span t-field="line.package_qty"/></td>
                                         <td><span t-field="line.product_id.default_code"/></td>
-                                        <td style="">
+                                        <td style="white-space: nowrap; max-width: 150px; overflow: hidden; text-overflow: ellipsis;">
                                             <span t-field="line.product_id.name"/>
                                         </td>
                                         <td class="text-right"/>
