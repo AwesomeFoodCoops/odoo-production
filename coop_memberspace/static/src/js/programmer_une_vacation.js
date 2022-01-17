@@ -94,7 +94,7 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                                     let hour = $('#hour-' + self.shift_id).text();
                                     let new_shift = `
                                         <tr>
-                                            <td scope="row">${time + ' '} ${hour}</td>
+                                            <td scope="row">${time + ' '}</td>
                                             <td>${hour}</td>
                                             <td><span><span>${coordinators[0] + ' '}</span> <i data-toggle="tooltip" data-container="body" title="You can contact your coordinators by writing to
                                                 ${coordinators[1] + ' '} (cliquez pour copier l’adresse)" class="fa fa-question-circle js-copy" data-copy="${coordinators[1]}"></i></span></td>
