@@ -6,7 +6,7 @@
 
 {
     "name": "Coop Memberspace",
-    "version": "12.0.1.1.7",
+    "version": "12.0.1.1.8",
     "category": "Custom",
     "author": "La Louve, Druidoo",
     "website": "http://www.lalouve.net",

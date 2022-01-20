@@ -1,5 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="coop_memberspace.my_next_shift">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Hour</th>
+                        <th style="text-align:center">Exchange</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
+                        <tr t-att-style="'-webkit-text-decoration-line: line-through;text-decoration-line: line-through;' if shift.state == 'waiting' else ''">
+                            <t t-set="date_begin"
+                                t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
+                            <td scope="row">
+                                <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
+                            </td>
+                            <td>
+                                <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
+                            </td>
+                            <t t-set="shift_ticket_type" t-value="shift.shift_ticket_id.shift_type"/>
+                            <t t-if="shift_ticket_type == 'ftop'">
+                                <td style="text-align: center;background: greenyellow">
+                                    Extra
+                                </td>
+                            </t>
+                            <t t-elif="shift.state == 'waiting'">
+                                <td style="text-align: center;">
+                                    Canceled
+                                </td>
+                            </t>
+                            <t t-elif="shift.exchange_state == 'draft'">
+                                <td style="text-align: center;">
+                                    <button class="material-icons button-icon go-to-market"
+                                            style="margin-right: 10px;"
+                                            t-att-registration-id="shift.id">swap_horiz
+                                    </button>
+                                </td>
+                            </t>
+                            <t t-elif="shift.exchange_state == 'in_progress'">
+                                <td style="text-align: center;">
+                                    <span>In progress</span>
+                                    <button t-if="not shift.exchange_replacing_reg_id" class="material-icons button-icon remove-proposal"
+                                            t-att-registration-id="shift.id"
+                                            data-toggle="modal" data-target="#modal_confirm_cancel_proposal">
+                                        remove_circle_outline
+                                    </button>
+                                </td>
+                            </t>
+                            <t t-elif="shift.exchange_state == 'replaced'">
+                                <td style="text-align: center;background: lightgray">
+                                    Replaced
+                                </td>
+                            </t>
+                            <t t-elif="shift.exchange_state == 'replacing'">
+                                <td style="text-align: center;">
+                                    Remplaçant
+                                </td>
+                            </t>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
     <template id="coop_memberspace.mywork">
         <t t-call="website.layout">
             <t t-set="title">Member area | My participation</t>
@@ -89,80 +155,7 @@
 
         <div class="row exchange-shift" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
             <p style="font-size: 25px;font-weight: 600">My next services</p>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Hour</th>
-                            <th>Coordinators</th>
-                            <th style="text-align:center">Exchange</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
-                            <tr>
-                                <t t-set="date_begin"
-                                   t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
-                                <td scope="row">
-                                    <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
-                                </td>
-                                <td>
-                                    <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
-                                </td>
-                                <t t-set="coordinators" t-value="shift.get_coordinators(get_alias_coordinator=True)"/>
-                                <td>
-                                    <span>
-                                        <t t-esc="coordinators[0]"/>
-                                        <i data-toggle="tooltip" data-container="body" t-attf-title="You can contact your coordinators by writing to
-                                    #{coordinators[1]} (cliquez pour copier l’adresse)"
-                                           class="fa fa-question-circle js-copy" t-att-data-copy="coordinators[1]"></i>
-                                    </span>
-                                </td>
-                                <t t-set="shift_ticket_type" t-value="shift.shift_ticket_id.shift_type"/>
-                                <t t-if="shift_ticket_type == 'ftop'">
-                                    <td style="text-align: center;background: greenyellow">
-                                        Extra
-                                    </td>
-                                </t>
-                                <t t-if="shift.state == 'waiting' and shift_ticket_type != 'ftop'">
-                                    <td style="text-align: center;">
-                                        Canceled
-                                    </td>
-                                </t>
-                                <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
-                                    <td style="text-align: center;">
-                                        <button class="material-icons button-icon go-to-market"
-                                                style="margin-right: 10px;"
-                                                t-att-registration-id="shift.id">swap_horiz
-                                        </button>
-                                    </td>
-                                </t>
-                                <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
-                                    <td style="text-align: center;">
-                                        <span>In progress</span>
-                                        <button class="material-icons button-icon remove-proposal"
-                                                t-att-registration-id="shift.id"
-                                                data-toggle="modal" data-target="#modal_confirm_cancel_proposal">
-                                            remove_circle_outline
-                                        </button>
-                                    </td>
-                                </t>
-                                <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
-                                    <td style="text-align: center;background: lightgray">
-                                        Replaced
-                                    </td>
-                                </t>
-                                <t t-if="shift.exchange_state == 'replacing' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
-                                    <td style="text-align: center;">
-                                        Remplaçant
-                                    </td>
-                                </t>
-                            </tr>
-                        </t>
-                    </tbody>
-                </table>
-            </div>
+            <t t-call="coop_memberspace.my_next_shift"/>
             <div id="modal_confirm_cancel_proposal" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -412,70 +405,7 @@
         <div class="container exchange-shift">
             <div class="row" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
                 <h3 style="font-weight: 600">My next services</h3>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Hour</th>
-                                <th style="text-align:center">Exchange</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
-                                <tr t-att-style="'-webkit-text-decoration-line: line-through;text-decoration-line: line-through;' if shift.state == 'waiting' else ''">
-                                    <t t-set="date_begin"
-                                       t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
-                                    <td scope="row">
-                                        <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
-                                    </td>
-                                    <td>
-                                        <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
-                                    </td>
-                                    <t t-set="shift_ticket_type" t-value="shift.shift_ticket_id.shift_type"/>
-                                    <t t-if="shift_ticket_type == 'ftop'">
-                                        <td style="text-align: center;background: greenyellow">
-                                            Extra
-                                        </td>
-                                    </t>
-                                    <t t-elif="shift.state == 'waiting'">
-                                        <td style="text-align: center;">
-                                            Canceled
-                                        </td>
-                                    </t>
-                                    <t t-elif="shift.exchange_state == 'draft'">
-                                        <td style="text-align: center;">
-                                            <button class="material-icons button-icon go-to-market"
-                                                    style="margin-right: 10px;"
-                                                    t-att-registration-id="shift.id">swap_horiz
-                                            </button>
-                                        </td>
-                                    </t>
-                                    <t t-elif="shift.exchange_state == 'in_progress'">
-                                        <td style="text-align: center;">
-                                            <span>In progress</span>
-                                            <button t-if="not shift.exchange_replacing_reg_id" class="material-icons button-icon remove-proposal"
-                                                    t-att-registration-id="shift.id"
-                                                    data-toggle="modal" data-target="#modal_confirm_cancel_proposal">
-                                                remove_circle_outline
-                                            </button>
-                                        </td>
-                                    </t>
-                                    <t t-elif="shift.exchange_state == 'replaced'">
-                                        <td style="text-align: center;background: lightgray">
-                                            Replaced
-                                        </td>
-                                    </t>
-                                    <t t-elif="shift.exchange_state == 'replacing'">
-                                        <td style="text-align: center;">
-                                            Remplaçant
-                                        </td>
-                                    </t>
-                                </tr>
-                            </t>
-                        </tbody>
-                    </table>
-                </div>
+                <t t-call="coop_memberspace.my_next_shift"/>
             </div>
             <div class="row" style="padding-left: 15px;padding-right:15px;margin-top: 30px">
                 <h3 style="font-weight: 600">Exchange services</h3>
@@ -492,39 +422,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <t t-if="shifts_on_market" t-foreach="shifts_on_market" t-as="shift">
-                                <tr t-attf-style="{{ shift.shift_id.css_color_style }}">
-                                    <t t-set="date_begin"
-                                       t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
-                                    <td scope="row">
-                                        <t t-if="date_begin" t-esc="date_begin and date_begin[0] or ''"/>
-                                    </td>
-                                    <td>
-                                        <t t-if="date_begin" t-esc="date_begin and date_begin[1] or ''"/>
-                                    </td>
-                                    <!-- new column -->
-                                    <td>
-                                        <t t-esc="shift.shift_id.seats_reserved"/>
-                                        <span t-if="shift.shift_id.seats_reserved > 0"
-                                            data-toggle="modal" data-target="#modal_list_expected_attendee"
-                                            t-att-shift-id="shift.shift_id.id"
-                                            class="fa fa-external-link browse-expected-attendee"/>
-                                    </td>
-                                    <td>
-                                        <t t-esc="shift.shift_id.ticket_seats_available"/>
-                                    </td>
-                                    <td>
-                                        <t t-esc="shift.name"/>
-                                    </td>
-                                    <!-- end -->
-                                    <td>
-                                        <span data-toggle="modal" data-target="#modal_exchange_shift"
-                                              t-att-registration-id="shift.id"
-                                              class="fa fa-plus-square select-shift-proposal"/>
-                                    </td>
-                                </tr>
-                            </t>
                             <t t-if="avaible_shifts" t-foreach="avaible_shifts" t-as="shift">
+                                <t t-set="shift_reg" t-value="shifts_on_market_dict.get(shift)"/>
                                 <tr t-attf-style="{{ shift.css_color_style }}">
                                     <t t-set="date_begin"
                                        t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
@@ -545,11 +444,13 @@
                                     <td>
                                         <t t-esc="shift.ticket_seats_available"/>
                                     </td>
-                                    <td/>
+                                    <td>
+                                        <t t-esc="shift_reg and shift_reg.name or ''"/>
+                                    </td>
                                     <!-- end -->
                                     <td>
                                         <span data-toggle="modal" data-target="#modal_exchange_shift"
-                                              t-att-registration-id="0"
+                                              t-att-registration-id="shift_reg and shift_reg.id or 0"
                                               t-att-shift-id="shift.id"
                                               class="fa fa-plus-square select-shift-proposal"/>
                                     </td>

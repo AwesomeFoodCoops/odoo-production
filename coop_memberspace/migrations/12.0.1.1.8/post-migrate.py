@@ -10,7 +10,8 @@ def migrate(cr, version):
         to_deactivate = [
             'coop_memberspace.echange_de_services',
             'coop_memberspace.mywork_ftop',
-            'coop_memberspace.programmer_un_extra'
+            'coop_memberspace.programmer_un_extra',
+            'coop_memberspace.mywork_standard'
         ]
         for view_name in to_deactivate:
             base_view = env.ref(view_name, False)

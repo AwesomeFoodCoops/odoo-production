@@ -275,12 +275,20 @@ class Website(WebsiteController):
         ).search(args, order="date_begin",)
         avaible_shifts = avaible_shifts.filtered(
             lambda t: t.ticket_seats_available > 0)
+        avaible_shifts |= shifts_on_market.mapped('shift_id')
+        avaible_shifts = avaible_shifts.sorted(lambda s: s.date_begin)
+        shifts_on_market_dict = {}  # {shift_id: shift_registration_object}
+        for registration in shifts_on_market:
+            shifts_on_market_dict.update({
+                registration.shift_id: registration
+            })
         return request.render(
             "coop_memberspace.counter",
             {
                 "echange_de_services": True,
                 "shift_upcomming": shift_upcomming,
                 "shifts_on_market": shifts_on_market,
+                "shifts_on_market_dict": shifts_on_market_dict,
                 "avaible_shifts": avaible_shifts,
                 "user": user,
             },
