@@ -119,10 +119,10 @@ class Proposal(models.Model):
     @api.multi
     def do_proposal(self):
         for rec in self:
-            if rec.src_shift_id:
-                rec.do_proposal_shift()
-            else:
+            if rec.src_registration_id:
                 rec.do_proposal_registration()
+            elif rec.src_shift_id:
+                rec.do_proposal_shift()
 
     @api.multi
     def do_proposal_shift(self):
