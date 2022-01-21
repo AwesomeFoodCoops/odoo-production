@@ -406,6 +406,7 @@ msgstr ""
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.my_next_shift
 msgid "<span>In progress</span>"
 msgstr "<span>En cours</span>"
 
@@ -666,6 +667,7 @@ msgstr "E-mail envoyé pour demander une confirmation."
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.my_next_shift
 msgid "Exchange"
 msgstr "Échange"
 
@@ -692,6 +694,7 @@ msgstr "Services d’échange"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.my_next_shift
 msgid "Extra"
 msgstr "Supplémentaire"
 
@@ -740,6 +743,7 @@ msgstr "HT"
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_ftop
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.programmer_un_extra
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.my_next_shift
 msgid "Hour"
 msgstr "Heure"
 
@@ -1221,6 +1225,7 @@ msgstr "Refusé"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.my_next_shift
 msgid "Replaced"
 msgstr "Remplacé"
 
