@@ -486,12 +486,12 @@
                                             Extra
                                         </td>
                                     </t>
-                                    <t t-if="shift.state == 'waiting' and shift_ticket_type != 'ftop'">
+                                    <t t-elif="shift.state == 'waiting' and shift.exchange_state != 'in_progress' and shift_ticket_type != 'ftop'">
                                         <td style="text-align: center;">
                                             Waiting
                                         </td>
                                     </t>
-                                    <t t-if="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                    <t t-elif="shift.exchange_state == 'draft' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
                                         <td style="text-align: center;">
                                             <button class="material-icons button-icon go-to-market"
                                                     style="margin-right: 10px;"
@@ -499,7 +499,7 @@
                                             </button>
                                         </td>
                                     </t>
-                                    <t t-if="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                    <t t-elif="shift.exchange_state == 'in_progress' and shift_ticket_type != 'ftop'">
                                         <td style="text-align: center;">
                                             <span>In progress</span>
                                             <button t-if="not shift.exchange_replacing_reg_id" class="material-icons button-icon remove-proposal"
@@ -509,12 +509,12 @@
                                             </button>
                                         </td>
                                     </t>
-                                    <t t-if="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                    <t t-elif="shift.exchange_state == 'replaced' and shift_ticket_type != 'ftop'">
                                         <td style="text-align: center;background: lightgray">
                                             Replaced
                                         </td>
                                     </t>
-                                    <t t-if="shift.exchange_state == 'replacing' and shift_ticket_type != 'ftop' and shift.state != 'waiting'">
+                                    <t t-elif="shift.exchange_state == 'replacing' and shift_ticket_type != 'ftop'">
                                         <td style="text-align: center;">
                                             Remplaçant
                                         </td>
@@ -569,6 +569,9 @@
                                 <th>Date</th>
                                 <th>Hour</th>
                                 <th>Coordinators</th>
+                                <th>Expected attendees</th>
+                                <th>Available Seats</th>
+                                <th>Participation in exchange</th>
                                 <th>Exchange</th>
                             </tr>
                         </thead>
@@ -594,6 +597,17 @@
                                                t-att-data-copy="coordinators[1]"></i>
                                         </span>
                                     </td>
+                                    <!-- new column -->
+                                    <td>
+                                        <t t-esc="shift.shift_id.seats_reserved"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="shift.shift_id.ticket_seats_available"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="shift.name"/>
+                                    </td>
+                                    <!-- end -->
                                     <td>
                                         <span data-toggle="modal" data-target="#modal_exchange_shift"
                                               t-att-registration-id="shift.id"
@@ -622,6 +636,15 @@
                                                t-att-data-copy="coordinators[1]"></i>
                                         </span>
                                     </td>
+                                    <!-- new column -->
+                                    <td>
+                                        <t t-esc="shift.seats_reserved"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="shift.ticket_seats_available"/>
+                                    </td>
+                                    <td/>
+                                    <!-- end -->
                                     <td>
                                         <span data-toggle="modal" data-target="#modal_exchange_shift"
                                               t-att-registration-id="0"
@@ -648,11 +671,28 @@
                                 <div class="text-center">
                                     <span class="fa fa-times" data-dismiss="modal"
                                           style="margin-right: 40px;font-size: 3em;"/>
-                                    <span class="fa fa-check create-proposal" style="font-size: 3em;"/>
+                                    <span data-toggle="modal" data-target="#modal_confirm_exchange_shift"
+                                              class="fa fa-check confirm-shift-proposal" style="font-size: 3em;"/>
+                                    
                                 </div>
                             </div>
                         </div>
 
+                    </div>
+                </div>
+
+                <div id="modal_confirm_exchange_shift" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p class="text-center modal_confirm_shift_body"></p>
+                                <div class="text-center">
+                                    <span class="fa fa-times" data-dismiss="modal"
+                                          style="margin-right: 40px;font-size: 3em;"/>
+                                    <span class="fa fa-check create-proposal" style="font-size: 3em;"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

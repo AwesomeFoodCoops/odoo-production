@@ -89,7 +89,28 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                     })
                 });
 
-                $('#modal_exchange_shift').on('click', '.create-proposal', function(e) {
+                $('.exchange-shift').on('click', '.confirm-shift-proposal', function(e) {
+                    let src_registration_id = self.shift_on_market;
+                    let des_registration_id = parseInt($('input[name=registration_input]:checked').val());
+                    let src_shift = self.shift_available;
+                    self._rpc({
+                        model: 'shift.registration',
+                        method: 'shifts_to_confirm',
+                        args: [src_registration_id, des_registration_id, src_shift],
+                    })
+                    .then(function(mesg){
+                        $('#modal_exchange_shift').modal('hide');
+                        $('.modal_confirm_shift_body').empty();
+                        $('.modal_confirm_shift_body').append('<span>' + mesg + ' </span>');
+                        if(!des_registration_id) {
+                            $('.create-proposal').addClass('d-none');
+                        }
+                        else {
+                            $('.create-proposal').removeClass('d-none');
+                        }
+                    })
+                });
+                $('#modal_confirm_exchange_shift').on('click', '.create-proposal', function(e) {
                     let src_registration_id = self.shift_on_market;
                     let des_registration_id = parseInt($('input[name=registration_input]:checked').val());
                     let src_shift = self.shift_available;
@@ -100,10 +121,10 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                     })
                     .then(function(){
                         window.location.reload();
-                        $('#modal_exchange_shift').modal('hide');
+                        $('#modal_confirm_exchange_shift').modal('hide');
                     })
                     .fail(function(error, event) {
-                        $('#modal_exchange_shift').modal('hide');
+                        $('#modal_confirm_exchange_shift').modal('hide');
                     });
                 });
             }

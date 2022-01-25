@@ -126,6 +126,9 @@ class Proposal(models.Model):
 
     @api.multi
     def do_proposal_shift(self):
+        confirm_exchange_done_mail_tmpl = self.env.ref(
+            "coop_memberspace.inform_exchange_done"
+        )
         for record in self:
             if record.state != "in_progress":
                 continue
@@ -165,12 +168,16 @@ class Proposal(models.Model):
                     "exchange_replacing_reg_id": new_src_reg_id.id,
                 }
             )
-        self.write({"state": "accept", "send_email_confirm_accept_done": True})
+            # Send email to member A to inform exchange done.
+            if confirm_exchange_done_mail_tmpl:
+                confirm_exchange_done_mail_tmpl.sudo().send_mail(record.id)
+                record.send_email_confirm_accept_done = True
+        self.write({"state": "accept"})
 
     @api.multi
     def do_proposal_registration(self):
         confirm_exchange_done_mail_tmpl = self.env.ref(
-            "coop_memberspace.confirm_exchange_done"
+            "coop_memberspace.inform_exchange_done"
         )
 
         for record in self:

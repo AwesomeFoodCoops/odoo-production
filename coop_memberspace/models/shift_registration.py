@@ -119,7 +119,10 @@ class ShiftRegistration(models.Model):
                         'You cannot propose to change the shift within {} hours before the beginning of the shift.'
                     ).format(shift_exchange_duration)
                 }
-            record.write({"exchange_state": "in_progress"})
+            record.write({
+                "exchange_state": "in_progress",
+                "state": "waiting",
+            })
         return {
             'code': 1,
         }
@@ -172,6 +175,47 @@ class ShiftRegistration(models.Model):
                     }
                 )
         return rs
+
+    @api.model
+    def shifts_to_confirm(self, src_registration_id, des_registration_id,
+            src_shift_id):
+        user = self.env.user
+        src_shift = dest_shift = {}
+        datas = []
+        if src_shift_id:
+            src_shift = self.env['shift.shift'].browse(src_shift_id)
+        if not src_shift and src_registration_id:
+            src_registration = self.env['shift.registration'].browse(
+                src_registration_id)
+            if src_registration:
+                src_shift = src_registration.shift_id
+        if des_registration_id:
+            des_registration = self.env['shift.registration'].browse(
+                des_registration_id)
+            if des_registration:
+                dest_shift = des_registration.shift_id
+        if src_shift and dest_shift:
+            for shift in [src_shift, dest_shift]:
+                date_begin = user.get_time_by_user_lang(
+                    shift.date_begin,
+                    ["%A, %d %B %Hh%M", "%HH%M"],
+                    lang=user.lang + ".utf8",
+                )
+                datas.append({
+                    "id": shift.id,
+                    "date": date_begin[0],
+                    "hour": date_begin[1],
+                })
+        if datas:
+            msg = _('You are about to cancel your participation to shift {des_date} '
+                    'and replace it with a participation to shift {src_date}. '
+                    'Are you sure that you want to do them?').format(
+                        src_date=datas[0]['date'],
+                        des_date=datas[1]['date'],
+                    )
+        else:
+            msg = _('No shift is selected')
+        return msg
 
     def check_exchangable(self):
         self.ensure_one()
