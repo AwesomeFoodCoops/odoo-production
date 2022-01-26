@@ -30,6 +30,27 @@
         </field>
     </record>
 
+    <record id="inform_exchange_done" model="mail.template">
+        <field name="name">Inform Exchange Done</field>
+        <field name="model_id" ref="coop_memberspace.model_proposal"/>
+        <field name="email_from">${(object.des_registration_id.partner_id.company_id.email or '')|safe}</field>
+        <field name="email_to" >${object.des_registration_id.partner_id.email|safe}</field>
+        <field name="lang">${(object.des_registration_id.partner_id.lang)|safe}</field>
+        <field name="reply_to">no-reply@cooplalouve.fr</field>
+        <field name="subject">${'Confirmation of exchange of your service from ' + user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()}</field>
+        <field name="body_html"><![CDATA[
+<p>Cher ${object.des_registration_id.partner_id.name}</p>
+<p>Nous avons le plaisir de vous confirmer que votre service du ${user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])[0].lower()} à ${user.get_time_by_user_lang(object.des_registration_id.date_begin, ['%Hh%M'])[0].lower()} remplacé par :</p>
+<p style="margin-left: 50px;">
+    <span style="margin-right: 20px;">${user.get_time_by_user_lang(object.src_registration_id.date_begin or object.src_shift_id.date_begin, ['%A %d %B %Y'])[0]}</span>
+    <span>${user.get_time_by_user_lang(object.src_registration_id.date_begin or object.src_shift_id.date_begin, ['%Hh%M'])[0].lower()}</span>
+</p>
+<p>Amicalement,</p>
+<p>L’équipe [La Louve]</p>
+]]>
+        </field>
+    </record>
+
     <record id="confirm_exchange_done" model="mail.template">
         <field name="name">Exchange Done</field>
         <field name="model_id" ref="coop_memberspace.model_proposal"/>

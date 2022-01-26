@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<odoo noupdate="0">
+    <record id="shift_registration_cancel_email" model="mail.template">
+        <field name="name">Shift registration cancellation</field>
+        <field name="model_id" ref="coop_shift.model_shift_registration"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.email|safe}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="reply_to">${(object.company_id.email or '')|safe}</field>
+        <field name="subject">Shift registration cancellation</field>
+        <field name="body_html"><![CDATA[
+<p>Dear ${object.name},</p>
+
+<p>You were registered has a participant to the shift ${object.shift_id.display_name} and you asked to cancel this participation.</p>
+<p>This is a confirmation that the cancellation was taken into account and you are no longer registered to that shift.</p>
+
+<p>Kind regards,
+<br/>
+The member management team
+</p>
+<br/>
+<br/>
+]]></field>
+    </record>
+    
+</odoo>

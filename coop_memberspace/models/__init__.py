@@ -7,3 +7,4 @@ from . import memberspace_alias
 from . import shift_template
 from . import proposal
 from . import res_config_settings
+from . import shift_shift
