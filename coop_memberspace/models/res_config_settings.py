@@ -35,6 +35,11 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="coop_memberspace.force.message_route",
         default=False
     )
+    ftop_shift_cancellation_duration = fields.Integer(
+        string="FTOP shift cancellation duration (hour)",
+        config_parameter="coop_memberspace.ftop_shift_cancellation_duration",
+        default=24
+    )
 
     # Constraints
     @api.multi

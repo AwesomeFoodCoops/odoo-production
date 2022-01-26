@@ -26,6 +26,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="shift_exchange_duration" string="Shift Cancellation"/>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <label for="ftop_shift_cancellation_duration" class="o_light_label"/>
+                                <field name="ftop_shift_cancellation_duration" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </xpath>
             <xpath expr="//div[@data-key='coop_membership']/div[last()]" position="inside">
                 <div class="col-12 col-lg-6 o_setting_box">

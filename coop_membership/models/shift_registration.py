@@ -69,7 +69,7 @@ class ShiftRegistration(models.Model):
         Limit a number of registration for shift type FTOP per partner
         """
         company = self.env.user.company_id
-        for rec in self:
+        for rec in self.sudo():
             if rec.shift_id.date_begin:
                 registrations = rec.partner_id.registration_ids.filtered(
                     lambda r, d=rec.shift_id.date_begin: (
@@ -540,7 +540,7 @@ class ShiftRegistration(models.Model):
         falls within the period of the leave
         """
         is_from_template = self._context.get('from_shift_template', False)
-        for reg in self:
+        for reg in self.sudo():
             # Get leave
             leaves = reg.partner_id.leave_ids.filtered(
                 lambda l: (l.type_id.is_temp_leave or l.type_id.is_incapacity

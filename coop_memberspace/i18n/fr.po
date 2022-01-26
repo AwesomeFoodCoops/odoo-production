@@ -241,6 +241,17 @@ msgstr ""
 "[0].lower()}"
 
 #. module: coop_memberspace
+#: model:mail.template,subject:coop_memberspace.inform_exchange_done
+msgid ""
+"${'Confirmation of exchange of your service from ' + user."
+"get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])"
+"[0].lower()}"
+msgstr ""
+"${'Confirmation de l’échange de votre service auprès de ' + user."
+"get_time_by_user_lang(object.des_registration_id.date_begin, ['%A %d %B %Y'])"
+"[0].lower()}"
+
+#. module: coop_memberspace
 #: model:mail.template,subject:coop_memberspace.request_confirm_proposal
 msgid ""
 "${'Proposition d’échange de votre service du ' + user."
@@ -395,6 +406,7 @@ msgstr ""
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.my_next_shift
 msgid "<span>In progress</span>"
 msgstr "<span>En cours</span>"
 
@@ -477,6 +489,7 @@ msgid "Attendee"
 msgstr "Participant"
 
 #. module: coop_memberspace
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_ftop
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.programmer_un_extra
 msgid "Available seats"
@@ -500,7 +513,9 @@ msgid "Calendar"
 msgstr "Calendrier"
 
 #. module: coop_memberspace
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_ftop
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.my_next_shift
 msgid "Canceled"
 msgstr "Annulé"
 
@@ -652,6 +667,7 @@ msgstr "E-mail envoyé pour demander une confirmation."
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.my_next_shift
 msgid "Exchange"
 msgstr "Échange"
 
@@ -678,6 +694,7 @@ msgstr "Services d’échange"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.my_next_shift
 msgid "Extra"
 msgstr "Supplémentaire"
 
@@ -726,6 +743,7 @@ msgstr "HT"
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_ftop
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.programmer_un_extra
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.my_next_shift
 msgid "Hour"
 msgstr "Heure"
 
@@ -781,7 +799,7 @@ msgstr "En cours"
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_ftop
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.programmer_un_extra
 msgid "Inscription"
-msgstr "Une inscription"
+msgstr "Inscription"
 
 #. module: coop_memberspace
 #: model:ir.model.fields,field_description:coop_memberspace.field_memberspace_alias__message_is_follower
@@ -1207,6 +1225,7 @@ msgstr "Refusé"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_standard
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.my_next_shift
 msgid "Replaced"
 msgstr "Remplacé"
 
@@ -1557,6 +1576,12 @@ msgid "Your exchange was done, you cannot remove it."
 msgstr "Votre échange a été fait, vous ne pouvez pas le supprimer."
 
 #. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:117
+#, python-format
+msgid "You cannot propose to change the shift within {} hours before the beginning of the shift."
+msgstr "Vous ne pouvez pas proposer de changer de service moins de {}h avant le début du service."
+
+#. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.myprofile
 msgid "Your identity"
 msgstr "Votre identité"
@@ -1644,3 +1669,123 @@ msgstr "En congé."
 #, python-format
 msgid "A technical problem currently prevents us from knowing your status. Try again later or contact the members office."
 msgstr "Un problème technique nous empêche actuellement de connaître votre statut. Réessayez plus tard ou contactez le bureau des membres."
+
+#. module: coop_shift
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
+msgid "Expected attendees"
+msgstr "Participant(s) attendu(s)"
+
+#. module: coop_shift
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.echange_de_services
+msgid "Participation in exchange"
+msgstr "Participation en échange"
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:210
+#, python-format
+msgid "You are about to cancel your participation to shift {des_date} and replace it with a participation to shift {src_date}. Are you sure that you want to do them?"
+msgstr "Vous êtes sur le point d'annuler votre participation au service {des_date} et de la remplacer par une participation au service {src_date}. Êtes-vous certain de vouloir faire cela ?"
+
+#. module: coop_memberspace
+#: selection:res.config.settings,shift_exchange_policy:0
+msgid "Participations put into exchange"
+msgstr "Les participations mises à l'échange"
+
+#. module: coop_memberspace
+#: selection:res.config.settings,shift_exchange_policy:0
+msgid "Participations put into exchange plus available standard seats"
+msgstr "Les participations mises à l'échange plus les places ABCD disponibles"
+
+#. module: coop_memberspace
+#: selection:res.config.settings,shift_exchange_policy:0
+msgid "Participations put into exchange plus available standard seats plus available ftop seats"
+msgstr "Les participations mises à l'échange plus les places ABCD disponibles plus les places volant disponibles"
+
+#. module: coop_memberspace
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__shift_exchange_policy
+msgid "Shift replacement list contains"
+msgstr "La liste des services en remplacement contient"
+
+#. module: coop_memberspace
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.res_config_settings_view_form_inherit
+msgid "Shift Exchange"
+msgstr "Échange de service"
+
+#. module: coop_memberspace
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__shift_exchange_duration
+msgid "Shift exchange duration (hour)"
+msgstr "Un service ne peut plus être échangé s'il débute dans moins de (heures)"
+
+#. module: coop_memberspace
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__shift_replacement_duration
+msgid "Shift replacement duration (day)"
+msgstr "Un service est affiché sur la place d'échange lorsqu'il débute dans moins de (jours)"
+
+#. module: coop_memberspace
+#: model_terms:ir.ui.view,arch_db:coop_memberspace.res_config_settings_view_form_inherit
+msgid "Shift Cancellation"
+msgstr "Annulation de service"
+
+#. module: coop_memberspace
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__ftop_shift_cancellation_duration
+msgid "FTOP shift cancellation duration (hour)"
+msgstr "Un service FTOP ne peut plus être annuler s'il débute dans moins de (heures)"
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:251
+#, python-format
+msgid "You cannot cancel the shift within {} hours before the beginning of the shift"
+msgstr "Vous ne pouvez plus annuler votre participation dans les {} heures précédant le début du service."
+
+#. module: coop_memberspace
+#. openerp-web
+#: code:addons/coop_memberspace/static/src/js/mywork_ftop.js:32
+#, python-format
+msgid "Confirmation"
+msgstr "Confirmer"
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:257
+#, python-format
+msgid "You are about to cancel your participation to the shift"
+msgstr "Vous êtes sur le point d'annuler votre participation au service du"
+
+#. module: coop_memberspace
+#: code:addons/coop_memberspace/models/shift_registration.py:258
+#, python-format
+msgid "Are you sure that you want to do it?"
+msgstr "Êtes-vous sûr de vouloir le faire ?"
+
+#. module: coop_memberspace
+#: model:mail.template,subject:coop_memberspace.shift_registration_cancel_email
+msgid "Shift registration cancellation"
+msgstr "Annulation de votre participation à un service"
+
+#. module: coop_memberspace
+#: model:mail.template,body_html:coop_memberspace.shift_registration_cancel_email
+msgid "\n"
+"<p>Dear ${object.name},</p>\n"
+"\n"
+"<p>You were registered has a participant to the shift ${object.shift_id.display_name} and you asked to cancel this participation.</p>\n"
+"<p>This is a confirmation that the cancellation was taken into account and you are no longer registered to that shift.</p>\n"
+"\n"
+"<p>Kind regards,\n"
+"<br/>\n"
+"The member management team\n"
+"</p>\n"
+"<br/>\n"
+"<br/>\n"
+""
+msgstr "\n"
+"<p>Bonjour ${object.name},</p>\n"
+"\n"
+"<p>Vous étiez enregistré comme participant au service ${object.shift_id.display_name} et vous avez demandé à annuler cette participation.</p>\n"
+"<p>Nous vous confirmons que cette annulation a bien été prise en compte et que vous n'êtes plus attendu à ce service.</p>\n"
+"\n"
+"<p>Cordialement,\n"
+"<br/>\n"
+"Le bureau des membres\n"
+"</p>\n"
+"<br/>\n"
+"<br/>\n"
+""
