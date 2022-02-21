@@ -27,6 +27,19 @@ class ProductProduct(models.Model):
             args=args, offset=offset, limit=limit, order=order, count=count
         )
 
+    @api.multi
+    def toggle_active(self):
+        super(ProductProduct, self).toggle_active()
+        for variant in self:
+            if variant.active:
+                if not variant.product_tmpl_id.active:
+                    variant.product_tmpl_id.active = True
+            elif variant.product_tmpl_id.active:
+                other_variants = variant.product_tmpl_id.mapped(
+                    'product_variant_ids').filtered(lambda v: v.active)
+                if not other_variants:
+                    variant.product_tmpl_id.active = False
+
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
