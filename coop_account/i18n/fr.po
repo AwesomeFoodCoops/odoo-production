@@ -211,3 +211,13 @@ msgstr "Point de vente"
 #: model:ir.ui.view,arch_db:coop_account.view_account_move_search
 msgid "Year (Search)"
 msgstr "Année (recherche)"
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_invoice_line__date_invoice
+msgid "Invoice Date"
+msgstr "Date de facturation"
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_invoice_line__product_categ_id
+msgid "Product Category"
+msgstr "Catégorie d'articles"
