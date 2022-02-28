@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <report
+        id="report_gross_margin_xlsx"
+        model="gross.margin.xlsx.wizard"
+        name="report_gross_margin_xlsx"
+        file="report_gross_margin_xlsx"
+        report_type="xlsx"
+        string="Gross Margin Report"
+    />
+</odoo>

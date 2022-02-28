@@ -374,3 +374,12 @@ msgstr ""
 msgid "You cannot reconcile with an account.move posterior to the transaction date except if you reconcile the transaction with only one account move."
 msgstr ""
 
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_invoice_line__date_invoice
+msgid "Invoice Date"
+msgstr ""
+
+#. module: coop_account
+#: model:ir.model.fields,field_description:coop_account.field_account_invoice_line__product_categ_id
+msgid "Product Category"
+msgstr ""
