@@ -88,6 +88,9 @@ class ResUsers(models.Model):
                 seats_avail = sum(tickets.mapped("seats_available"))
                 if seats_avail < 1:
                     continue
+                if shift.seats_availability == 'limited' and \
+                    shift.seats_reserved >= shift.seats_max:
+                    continue
                 shifts.append(
                     {
                         "id": shift.id,

@@ -215,6 +215,9 @@ class Website(WebsiteController):
                     order='date_begin'
                 )
             )
+            shifts_available = shifts_available.filtered(
+                lambda t: t.seats_availability == 'unlimited' or \
+                    t.seats_reserved < t.seats_max)
         return request.render(
             "coop_memberspace.counter",
             {
@@ -276,6 +279,9 @@ class Website(WebsiteController):
         avaible_shifts = avaible_shifts.filtered(
             lambda t: t.ticket_seats_available > 0)
         avaible_shifts |= shifts_on_market.mapped('shift_id')
+        avaible_shifts = avaible_shifts.filtered(
+            lambda t: t.seats_availability == 'unlimited' or \
+                    t.seats_reserved < t.seats_max)
         avaible_shifts = avaible_shifts.sorted(lambda s: s.date_begin)
         shifts_on_market_dict = {}  # {shift_id: shift_registration_object}
         for registration in shifts_on_market:
