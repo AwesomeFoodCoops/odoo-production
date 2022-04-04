@@ -7,3 +7,5 @@ class CalendarEvent(models.Model):
     _inherit = 'calendar.event'
 
     from_task = fields.Boolean()
+    description = fields.Html(
+        'Description', states={'done': [('readonly', True)]})
