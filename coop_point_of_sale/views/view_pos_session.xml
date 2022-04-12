@@ -17,9 +17,7 @@
                 <field name="search_day"/>
             </field>
             <xpath expr="//group" position="inside">
-                <filter string="Year (Search)" name="year" context="{'group_by':'search_year'}"/>
-                <filter string="Month (Search)" name="month" context="{'group_by':'search_month'}"/>
-                <filter string="Day (Search)" name="day" context="{'group_by':'search_day'}"/>
+                <filter string="Date" name="week" context="{'group_by':'start_at'}"/>
             </xpath>
         </field>
     </record>

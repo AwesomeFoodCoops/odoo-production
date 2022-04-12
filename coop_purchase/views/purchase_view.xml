@@ -77,5 +77,7 @@
         </field>
     </record>
 
-
+    <record id="purchase.menu_purchase_rfq" model="ir.ui.menu">
+        <field name="sequence" eval="2"/>
+    </record>
 </odoo>
