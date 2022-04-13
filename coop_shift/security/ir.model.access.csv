@@ -38,3 +38,5 @@ ir_model_access_event_registration_access,event.registration access,event.model_
 ir_model_access_event_mail_access,event.mail access,event.model_event_mail,coop_shift.group_shift_user,1,1,1,1
 ir_model_access_event_ticket_access,event.ticket access,event_sale.model_event_event_ticket,coop_shift.group_shift_user,1,1,1,1
 ir_model_access_event_mail_registration,event.mail.registration access,event.model_event_mail_registration,coop_shift.group_shift_user,1,1,1,1
+access_shift_type_mail_event_user,shift.type.mail.event.user,model_shift_type_mail,coop_shift.group_shift_user,1,0,0,0
+access_shift_type_mail_event_manager,shift.type.mail.event.manager,model_shift_type_mail,coop_shift.group_shift_manager,1,1,1,1
