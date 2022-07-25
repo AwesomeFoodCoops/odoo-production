@@ -94,6 +94,8 @@ class ShiftRegistration(models.Model):
     def button_reg_close(self):
         """ Close Registration """
         self.ensure_one()
+        if self.state in ("cancel", "absent"):
+            return
         today = fields.Datetime.now()
         if (
             self.date_begin <= today
