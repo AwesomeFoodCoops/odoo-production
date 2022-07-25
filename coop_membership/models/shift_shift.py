@@ -154,6 +154,7 @@ class ShiftShift(models.Model):
 
             # Automatically mark attendance as "Attended" for
             # makeup (ABCD Member)
+            """
             for reg in shift.registration_ids:
                 if (
                     not reg.partner_id.in_ftop_team
@@ -161,6 +162,7 @@ class ShiftShift(models.Model):
                     and reg.state != 'replacing'
                 ):
                     reg.button_reg_close()
+            """
 
     @api.multi
     def write(self, vals):
