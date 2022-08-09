@@ -83,7 +83,7 @@ class ShiftMailScheduler(models.Model):
                 continue
             if sm.shift_id.state != 'confirm':
                 continue
-            if self.interval_type in ['after_sub', 'before_event']:
+            if sm.interval_type in ['after_sub', 'before_event']:
                 # update registration lines
                 lines = []
                 for registration in filter(lambda item: item not in [
