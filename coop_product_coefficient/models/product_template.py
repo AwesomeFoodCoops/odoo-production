@@ -242,6 +242,7 @@ class ProductTemplate(models.Model):
         string="Theoritical Price VAT Incl.",
         compute="_compute_theoritical_price",
         store=True,
+        digits=dp.get_precision('Product Sale Price')
     )
     has_theoritical_price_different = fields.Boolean(
         store=True,
