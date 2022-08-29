@@ -2631,6 +2631,12 @@ msgid "Monday"
 msgstr "Lundi"
 
 #. module: coop_membership
+#: model:ir.model.fields,field_description:coop_membership.field_shift_leave_type__anticipated_month
+#, python-format
+msgid "Month"
+msgstr "Mois"
+
+#. module: coop_membership
 #: model_terms:ir.ui.view,arch_db:coop_membership.view_shift_change_team_form
 msgid "NEXT MEMBER"
 msgstr "Membre suivant"
@@ -3497,8 +3503,8 @@ msgstr "La nouvelle équipe doit être différente de l'équipe actuelle"
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_leave.py:270
 #, python-format
-msgid "The period of leave must include TWO minimum missed services."
-msgstr "La période du congé doit inclure DEUX services manqués minimum."
+msgid "The period of leave must include %s minimum missed services."
+msgstr "La période du congé doit inclure %s services manqués minimum."
 
 #. module: coop_membership
 #: code:addons/coop_membership/models/shift_change_team.py:109

@@ -268,10 +268,10 @@ class ShiftLeave(models.Model):
                     raise ValidationError(_(
                         "Normally, this member is not eligible for early" +
                         " leave because he has to catch up"))
-                elif total_line < 2:
+                elif total_line < record.type_id.anticipated_month:
                     raise ValidationError(_(
-                        "The period of leave must include TWO" +
-                        " minimum missed services."))
+                        "The period of leave must include %s" +
+                        " minimum missed services.")%(record.type_id.anticipated_month))
                 elif record.partner_id.final_ftop_point < total_line:
                     raise ValidationError(_(
                         "The member does not have enough" +
@@ -388,6 +388,8 @@ class ShiftLeave(models.Model):
         for leave in self:
             partner_id = vals.get('partner_id', leave.partner_id.id)
             stop_date = vals.get('stop_date', False)
+            if isinstance(stop_date, str):
+                stop_date = fields.Date.from_string(stop_date)
             partner = self.env['res.partner'].browse(partner_id)
             future_lines = partner.registration_ids.filtered(
                 lambda l: l.date_begin.date() >= stop_date)
