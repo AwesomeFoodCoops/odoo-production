@@ -173,6 +173,11 @@
 
     <!-- BDM Groups -->
 
+    <record model="res.groups" id="group_membership_chatter_topbar">
+        <field name="name">Show Chatter Topbar</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
     <!-- Bdm lecture - Read-only profile -->
     <record model="res.groups" id="group_membership_bdm_lecture">
         <field name="name">BDM Lecture</field>

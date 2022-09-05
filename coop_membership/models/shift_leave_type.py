@@ -8,3 +8,4 @@ class ShiftLeaveType(models.Model):
     is_incapacity = fields.Boolean(string='Incapacity', default=False)
     is_non_defined = fields.Boolean(string="Non Defined Type", default=False)
     is_anticipated = fields.Boolean(string='Anticipated Leave', default=False)
+    anticipated_month = fields.Integer(string="Month", default=2)
