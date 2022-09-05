@@ -9,6 +9,7 @@
                 <field name="is_incapacity"/>
                 <field name="is_non_defined"/>
                 <field name="is_anticipated"/>
+                <field name="anticipated_month" attrs="{'invisible': [('is_anticipated', '=', False)]}"/>
             </field>
         </field>
     </record>

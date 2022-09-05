@@ -26,6 +26,13 @@ odoo.define('coop_membership.AccessButtons', function(require) {
                 context: context,
             }).then(function(result) {
                 self.hide_button(result);
+                session.user_has_group(
+                    'coop_membership.group_membership_chatter_topbar'
+                ).then(function (data) {
+                    if (data) {
+                        self.$('.o_chatter_topbar').show();
+                    }
+                });
             });
         },
 
