@@ -179,6 +179,38 @@ class ShiftShift(models.Model):
                         reg.confirm_registration()
         return res
 
+    @api.model
+    def create(self, vals):
+        self.update_create_vals(vals)
+        res = super(ShiftShift, self).create(vals)
+        return res
+
+    @api.model
+    def update_create_vals(self, vals):
+        date_begin = vals.get("date_begin_tz")
+        date_end = vals.get("date_end_tz")
+        state = vals.get("state")
+        if isinstance(date_begin, datetime):
+            date_begin = date_begin.strftime(DF)
+        if isinstance(date_end, datetime):
+            date_end = date_end.strftime(DF)
+        if state != "cancel" and date_begin and date_end:
+            # find the holiday
+            holidays = self.env["shift.holiday"].search([
+                ("date_begin", "<=", date_begin),
+                ("date_end", ">=", date_end),
+                ("state", "not in", ("done", "cancel"))
+            ])
+            for holiday in holidays:
+                if holiday.holiday_type == "long_period":
+                    vals.update({
+                        "long_holiday_id": holiday.id
+                    })
+                else:
+                    vals.update({
+                        "single_holiday_id": holiday.id
+                    })
+
     @api.multi
     def open_in_holiday(self):
         for shift in self:
