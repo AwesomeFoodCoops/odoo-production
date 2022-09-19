@@ -199,7 +199,7 @@ class ShiftShift(models.Model):
             holidays = self.env["shift.holiday"].search([
                 ("date_begin", "<=", date_begin),
                 ("date_end", ">=", date_end),
-                ("state", "not in", ("done", "cancel"))
+                ("state", "not in", ("draft", "cancel"))
             ])
             for holiday in holidays:
                 if holiday.holiday_type == "long_period":
