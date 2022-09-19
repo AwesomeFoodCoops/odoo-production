@@ -5,6 +5,9 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
+import logging
+_logger = logging.getLogger(__name__)
+
 
 class ShiftHoliday(models.Model):
     _name = "shift.holiday"
@@ -366,3 +369,29 @@ class ShiftHoliday(models.Model):
                 record.single_day_shift_ids = False
             record.state = 'draft'
         return True
+
+    @api.model
+    def cron_update_shifts(self):
+        records = self.search([
+            ("state", "not in", ("draft", "cancel"))
+        ])
+        for record in records:
+            args = [
+                ('date_begin', '>=', record.date_begin),
+                ('date_end', '<=', record.date_end),
+                ('state', '!=', 'cancel'),
+            ]
+            if record.holiday_type == 'long_period':
+                args.append(("long_holiday_id", "=", False))
+            else:
+                args.append(("single_holiday_id", "=", False))
+            # Get shifts base on holiday type ensure that shift weren't
+            # on any holiday
+            shifts = self.env['shift.shift'].search(args)
+            _logger.info("============================")
+            _logger.info("Update shift.holiday for shifts: %s", shifts.ids)
+            _logger.info("============================")
+            if record.holiday_type == 'long_period':
+                shifts.write({"long_holiday_id": record.id})
+            else:
+                shifts.write({"single_holiday_id": record.id})
