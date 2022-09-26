@@ -10,6 +10,18 @@ class StockInventory(models.Model):
     line_ids = fields.One2many(
         copy=False)
 
+    def _get_exhausted_inventory_line(self, products, quant_products):
+        '''
+        This function return inventory lines for exausted products
+        :param products: products With Selected Filter.
+        :param quant_products: products available in stock_quants
+        '''
+        if not products:
+            return []
+        return super(StockInventory, self)._get_exhausted_inventory_line(
+            products, quant_products)
+
+
 class StockInventoryLine(models.Model):
     _inherit = 'stock.inventory.line'
 
