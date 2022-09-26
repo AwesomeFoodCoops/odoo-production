@@ -784,11 +784,9 @@ msgstr "Si actif, certains messages ont une erreur de livraison."
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.mywork_ftop
 msgid "If you are a member of the flying team, go here to see the\n"
-"                        services available and schedule your vacation. Cancellation\n"
-"                        of a service is only done by direct contact with the members' office."
-msgstr "Si vous êtes membre de l’équipe volante, passez par ici pour voir les \n"
-"                        services disponibles et programmer votre vacation. L’annulation \n"
-"                        d’un service se fait uniquement par contact direct avec le bureau des membres."
+"                        services available and schedule your vacation."
+msgstr "Si vous êtes membre de l’équipe volante, passez par ici pour voir les\n"
+"                        services disponibles et programmer votre participation."
 
 #. module: coop_memberspace
 #: selection:proposal,state:0
