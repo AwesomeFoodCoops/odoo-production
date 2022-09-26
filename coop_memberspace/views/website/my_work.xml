@@ -571,8 +571,7 @@
                     <p style="font-size: 25px;font-weight: 600">Programmer un service volant</p>
                     <p class="text-center">
                         If you are a member of the flying team, go here to see the
-                        services available and schedule your vacation. Cancellation
-                        of a service is only done by direct contact with the members' office.
+                        services available and schedule your vacation.
                     </p>
                     <div class="text-center">
                         <button class="btn btn-default btn-warning toggle-ftop-programmer">
