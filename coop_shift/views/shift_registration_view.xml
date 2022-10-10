@@ -41,6 +41,18 @@
                 </tree>
             </field>
         </record>
+        <record model="ir.ui.view" id="view_shift_registration_tree_program_upcoming">
+            <field name="name">shift.registration.tree.program.upcoming</field>
+            <field name="model">shift.registration</field>
+            <field name="priority" eval="100"/>
+            <field name="inherit_id" ref="view_shift_registration_tree_program"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <tree position="attributes">
+                    <attribute name="default_order">date_begin desc</attribute>
+                </tree>
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="view_shift_registration_tree_program_readonly">
             <field name="name">shift.registration.tree.program</field>
@@ -258,7 +270,7 @@
             <field name="view_type">form</field>
             <field name="name">Attendees</field>
             <field name="view_mode">tree,form,calendar,graph</field>
-            <field name="view_id" ref="view_shift_registration_tree_program"/>
+            <field name="view_id" ref="view_shift_registration_tree_program_upcoming"/>
             <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id,
                 'search_default_upcoming': True}
             </field>
