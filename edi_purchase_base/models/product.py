@@ -78,7 +78,7 @@ class ProductProduct(models.Model):
             product_code = line[pos_from:pos_to]
             if product_code in value:
                 continue
-            key = ["supplier_id", "import_date", "barcode"]
+            key = ["supplier_id", "import_date"]
             value = [edi_system.supplier_id.id, today]
             for mapping in edi_system.price_mapping_ids:
                 slice_from = mapping.sequence_start
@@ -150,6 +150,8 @@ class ProductProduct(models.Model):
                 ftp, distant_folder_path, local_folder_path,
                 edi_system.fnmatch_filter
             )
+            if not line_prices:
+                continue
             # File Treatment and delete file
             if self.read_prices_file(line_prices, edi_system):
                 self.remove_file(ftp, file_name, edi_system)
