@@ -180,6 +180,8 @@ class StockPicking(models.Model):
             line_picking, file_name = ecs_obj.ftp_connection_pull_ble(
                 ftp, edi_system, distant_folder_path, local_folder_path
             )
+            if not line_picking:
+                continue
             # File Treatment and delete file
             if self.read_stock_picking_file(line_picking, edi_system):
                 self.remove_file(ftp, file_name, edi_system)
