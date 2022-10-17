@@ -180,11 +180,20 @@ class EdiConfigSystem(models.Model):
                         zf.extractall(local_folder_path)
                         zf.close()
                         name_without_zip = name[:-4]
-                        file = open(
-                            os.path.join(local_folder_path, name_without_zip),
-                            "r",
-                        )
-                        return file.readlines(), name
+                        file_name = os.path.join(local_folder_path, name_without_zip)
+                        datas = open(file_name, 'rb')
+                        res = []
+                        for line in datas:
+                            line2 = line.decode('ISO-8859-1').strip()
+                            if line2:
+                                res.append(line2)
+                        return res, name
+                        #file = open(
+                        #    os.path.join(local_folder_path, name_without_zip),
+                        #    "r",
+                        #)
+                        #return file.readlines(), name
+            return [], ''
         except Exception as e:
             raise ValidationError(
                 _("Error when pulling prices update file:\n %s")
@@ -218,11 +227,20 @@ class EdiConfigSystem(models.Model):
                         zf.extractall(local_folder_path)
                         zf.close()
                         name_without_zip = name[:-4]
-                        file = open(
-                            os.path.join(local_folder_path, name_without_zip),
-                            "r",
-                        )
-                        return file.readlines(), name
+                        file_name = os.path.join(local_folder_path, name_without_zip)
+                        datas = open(file_name, 'rb')
+                        res = []
+                        for line in datas:
+                            line2 = line.decode('ISO-8859-1').strip()
+                            if line2:
+                                res.append(line2)
+                        return res, name
+                        #file = open(
+                        #    os.path.join(local_folder_path, name_without_zip),
+                        #    "r",
+                        #)
+                        #return file.readlines(), name
+            return [], ''
         except Exception as e:
             raise ValidationError(
                 _("Error when pulling BLE update file:\n %s") % tools.ustr(e)
