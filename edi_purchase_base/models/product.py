@@ -116,7 +116,7 @@ class ProductProduct(models.Model):
         _logger.info(
             ">>>>>>>>>>>>>>> Creating supplier prices >>>>>>>>>>>>>>>>>>>>>>>>"
         )
-        price_list_obj.bulk_create(prices)
+        price_list_obj.create(prices)
         return True
 
     @api.model
