@@ -26,7 +26,7 @@ class ResUsers(models.Model):
         saisie_group = self.has_group(
             'coop_membership.group_membership_bdm_saisie')
 
-        if self._is_admin():
+        if not self or self._is_admin():
             return False
         elif res_model == 'res.partner':
             if saisie_group:
