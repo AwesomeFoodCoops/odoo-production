@@ -50,6 +50,20 @@ class ProjectTask(models.Model):
     color = fields.Integer(related="project_categ_id.color", store=True)
 
     @api.multi
+    def _track_subtype(self, init_values):
+        self.ensure_one()
+        if 'kanban_state_label' in init_values and self.kanban_state == 'blocked':
+            return 'project.mt_task_blocked'
+        elif 'kanban_state_label' in init_values and self.kanban_state == 'done':
+            return 'project.mt_task_ready'
+        elif 'stage_id' in init_values:
+            if len(init_values.keys()) > 1:
+                return 'project.mt_task_new'
+            else:
+                return 'project.mt_task_stage'
+        return super(ProjectTask, self)._track_subtype(init_values)
+
+    @api.multi
     def get_partner_assignee_ids(self):
         partner_ids = self.mapped('assignee_ids.partner_id.id')
         if not partner_ids:
