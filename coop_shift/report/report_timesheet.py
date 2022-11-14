@@ -56,7 +56,7 @@ class ReportTimesheet(models.AbstractModel):
                         'coop_shift.product_product_shift_ftop'):
                     ftops.append([reg, is_on_leave])
                 else:
-                    if reg.state != 'replacing':
+                    if reg.state not in ('replacing', 'replaced') and reg.exchange_state != "in_progress":
                         registrations.append({
                             'registration': reg,
                             'is_on_leave': is_on_leave,
