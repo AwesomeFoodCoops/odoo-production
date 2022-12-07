@@ -42,7 +42,7 @@ class Website(WebsiteController):
             [
                 ("shift_id.shift_template_id.is_technical", "=", False),
                 ("partner_id", "=", user.partner_id.id),
-                ("state", "!=", "cancel"),
+                ("state", "not in", ("cancel", "waiting", "replaced")),  # F#T59459
                 (
                     "date_begin",
                     ">=",
