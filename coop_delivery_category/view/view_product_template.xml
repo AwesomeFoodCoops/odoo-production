@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_template_property_form_inherit" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="purchase.view_product_supplier_inherit" />
+        <field name="arch" type="xml">
+            <group name="variant_vendors" position="after">
+                <group name="delivery_categ">
+                    <field name="delivery_categ_ids" widget="many2many_tags" />
+                </group>
+            </group>
+        </field>
+    </record>
+    <record id="product_template_delivery_category_tree_view" model="ir.ui.view">
+        <field name="name">product.template.delivery.category.tree</field>
+        <field name="model">product.template</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <tree string="Product" editable="top">
+                <field name="sequence" widget="handle"/>
+                <field name="default_code" readonly="1"/>
+                <field name="name" readonly="1"/>
+                <field name="delivery_categ_ids" widget="many2many_tags" />
+                <field name="list_price" string="Sales Price" readonly="1"/>
+                <field name="standard_price" readonly="1"/>
+                <field name="categ_id" readonly="1"/>
+                <field name="type" readonly="1"/>
+                <field name="uom_id" options="{'no_open': True, 'no_create': True}" groups="uom.group_uom" readonly="1"/>
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_template_action_product_delivery_category" model="ir.actions.act_window">
+        <field name="name">Products (Delivery Categories)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>
+        <field name="view_id" ref="product_template_delivery_category_tree_view"/>
+        <field name="context">{"search_default_consumable": 1, 'default_type': 'product'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new product
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_product_config_stock" name="Products"
+        parent="stock.menu_stock_root" sequence="0"/>
+    <menuitem id="stock.menu_product_variant_config_stock"
+        name="Products"
+        action="stock.product_template_action_product"
+        parent="menu_product_config_stock" sequence="1"/>
+    <menuitem id="menu_product_delivery_category"
+        name="Products (Delivery Categories)"
+        action="product_template_action_product_delivery_category"
+        parent="menu_product_config_stock" sequence="10"/>
+</odoo>

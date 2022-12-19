@@ -390,6 +390,12 @@ class ComputedPurchaseOrder(models.Model):
             total += field_list[key] * qty_tmp[key]
         return total >= target
 
+    @api.multi
+    def get_psi_domain(self):
+        self.ensure_one()
+        args = [('name', '=', self.partner_id.id)]
+        return args
+
     # Action section
     @api.multi
     def compute_active_product_stock(self):
@@ -401,7 +407,7 @@ class ComputedPurchaseOrder(models.Model):
             cpo.line_ids.unlink()
 
             # Get product_product and compute stock
-            for psi in psi_obj.search([('name', '=', cpo.partner_id.id)]):
+            for psi in psi_obj.search(cpo.get_psi_domain()):
                 for pp in psi.product_tmpl_id.filtered(
                         lambda pt: pt.purchase_ok).product_variant_ids:
                     valid_psi = pp._valid_psi(cpo.valid_psi)

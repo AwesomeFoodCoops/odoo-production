@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_delivery_category_internal_user,access_delivery_category_internal_user,model_delivery_category,base.group_user,1,0,0,0
+access_delivery_category_group_user,access_delivery_category_group_user,model_delivery_category,stock.group_stock_user,1,1,1,1
+access_delivery_category_group_purchase_user,access_delivery_category_group_purchase_user,model_delivery_category,purchase.group_purchase_user,1,1,1,1
