@@ -542,7 +542,7 @@ msgstr "Civilité:"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.classic_counter
 msgid "Classic counter"
-msgstr "Comptoir classique"
+msgstr "Compteur classique"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.myprofile
@@ -851,7 +851,7 @@ msgstr "Homme"
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.counter
 msgid "Member area | Classic counter"
-msgstr "Espace membre | Comptoir classique"
+msgstr "Espace membre | Compteur classique"
 
 #. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.documents

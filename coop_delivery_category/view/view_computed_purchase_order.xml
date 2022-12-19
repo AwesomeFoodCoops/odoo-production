@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_computed_purchase_order_form_inherit" model="ir.ui.view">
+        <field name="model">computed.purchase.order</field>
+        <field name="inherit_id" ref="purchase_compute_order.view_computed_purchase_order_form" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="delivery_categ_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+
+</odoo>
