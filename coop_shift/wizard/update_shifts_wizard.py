@@ -85,6 +85,22 @@ class UpdateShiftsWizard(models.TransientModel):
                 if 'shift_ticket_ids' in vals.keys():
                     special = ['shift_ticket_ids']
                     del vals['shift_ticket_ids']
+                # S#T34357 - Chaudron : reminder email before suscribed shift
+                # Issue: when vals contains shift_mail_ids, like
+                # {'shift_mail_ids': [[1, 10, {'interval_nbr': 7, 'interval_type': 'after_shift'}]]}
+                # 10 here is the id if shift.template.mail, but we need id of shift.mail instead
+                # Fix value for shift_mail_ids
+                if vals.get("shift_mail_ids"):
+                    shift_mail_vals = [(6, 0, [])]
+                    for stmail in wizard.template_id.shift_mail_ids:
+                        shift_mail_vals.append((0, 0, {
+                            "interval_unit": stmail.interval_unit,
+                            "interval_nbr": stmail.interval_nbr,
+                            "interval_type": stmail.interval_type,
+                            "sequence": stmail.sequence,
+                            "template_id": stmail.template_id.id
+                        }))
+                    vals["shift_mail_ids"] = shift_mail_vals
                 shift_obj.browse(shift_ids).with_context(
                     tracking_disable=True, special=special).write(vals)
                 wizard.template_id.updated_fields = ""

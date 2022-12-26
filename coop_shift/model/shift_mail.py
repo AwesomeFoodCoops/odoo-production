@@ -123,3 +123,21 @@ class ShiftMailScheduler(models.Model):
                 self.invalidate_cache()
                 self._warn_template_error(scheduler, e)
         return True
+
+    def update_interval_type(self, vals):
+        if vals.get("interval_type"):
+            # Replace the value something likes "before_shift", "after_shift"
+            # by "before_event", "after_event"
+            vals["interval_type"] = vals["interval_type"].replace("shift", "event")
+        return vals
+
+    @api.model
+    def create(self, vals):
+        self.update_interval_type(vals)
+        res = super(ShiftMailScheduler, self).create(vals)
+        return res
+
+    @api.multi
+    def write(self, vals):
+        self.update_interval_type(vals)
+        return super(ShiftMailScheduler, self).write(vals)
