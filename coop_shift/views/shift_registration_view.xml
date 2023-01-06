@@ -37,7 +37,7 @@
                         icon="fa-times-circle fa-lg"/>
                     <button name="do_draft" string="Set To Unconfirmed"
                             states="cancel,done,absent,excused,replaced,replacing,open" type="object" icon="fa-backward"
-                            groups="coop_shift.group_shift_manager"/><!-- ,coop_membership.group_membership_bdm_saisie"/> -->
+                            groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie"/><!-- ,coop_membership.group_membership_bdm_saisie"/> -->
                 </tree>
             </field>
         </record>
@@ -76,7 +76,7 @@
                     <button name="button_reg_cancel" string="Cancel Registration" states="draft" type="object"/>
                     <button name="do_draft" string="Set To Unconfirmed"
                             states="cancel,done,absent,excused,replaced,replacing,open" type="object" icon="fa-backward"
-                            groups="coop_shift.group_shift_manager"/>
+                            groups="coop_shift.group_shift_manager,coop_membership.group_membership_bdm_saisie"/>
                 </tree>
             </field>
         </record>
