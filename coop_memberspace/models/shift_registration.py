@@ -212,9 +212,10 @@ class ShiftRegistration(models.Model):
                         src_date=datas[0]['date'],
                         des_date=datas[1]['date'],
                     )
+            return 1, msg
         else:
             msg = _('No shift is selected')
-        return msg
+        return 0, msg
 
     def check_exchangable(self):
         self.ensure_one()

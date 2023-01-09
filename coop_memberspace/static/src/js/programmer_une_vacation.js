@@ -8,6 +8,21 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
     sAnimations.registry.programmer_une_vacation =
         sAnimations.Class.extend({
             selector: '.programmer_une_vacation',
+            parse_body_ftop_programmer: function(shift){
+                var body_ftop_programmer = `
+                <tr style="${shift.css_style}">
+                    <td t-attf-id="week-${shift.id}">
+                        ${shift.week_name || ''}
+                    </td>
+                    <td scope="row">
+                        <span id="time-${shift.id}">${shift.date_begin[0] + ' '}</span>
+                    </td>
+                    <td id="hour-${shift.id}">${shift.date_begin[1]}</td>
+                    <td id="avalable-seats-${shift.id}"><span>${shift.seats_avail}</span></td>
+                    <td><a><span class="fa fa-user-plus" data-toggle="modal" data-target="#programmer_modal" id="btn-add-${shift.id}" shift-id="${shift.id}" /></a></td>
+                </tr>`;
+                return body_ftop_programmer;
+            },
             start: function () {
                 var self = this;
                 ajax.jsonRpc("/web/session/get_session_info", "call").then(function (sessiondata) {
@@ -31,17 +46,7 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                             var week_number = shift.week_number;
                             var week_name = shift.week_name;
                             $('.body_ftop_programmer').append(
-                                `<tr style="${shift.css_style}">
-                                    <td t-attf-id="week-${shift.id}">
-                                        ${week_name || ''}
-                                    </td>
-                                    <td scope="row">
-                                        <span id="time-${shift.id}">${shift.date_begin[0] + ' '}</span>
-                                    </td>
-                                    <td id="hour-${shift.id}">${shift.date_begin[1]}</td>
-                                    <td id="avalable-seats-${shift.id}"><span>${shift.seats_avail}</span></td>
-                                    <td><a><span class="fa fa-user-plus" data-toggle="modal" data-target="#programmer_modal" id="btn-add-${shift.id}" shift-id="${shift.id}" /></a></td>
-                                </tr>`
+                                self.parse_body_ftop_programmer(shift)
                             );
                             $('.fa.fa-user-plus').on('click', function() {
                                 let shift_id = $(this).attr('shift-id');
@@ -64,11 +69,13 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                     let btn_check = this;
                     $(btn_check).attr("disabled", "disabled");
                     self._rpc({
-                        model: 'shift.ticket',
-                        method: 'search',
-                        args: [[['shift_id', '=', parseInt(self.shift_id)], ['shift_type', '=', 'ftop']]],
+                        model: 'shift.shift',
+                        method: 'fetch_ftop_ticket',
+                        args: [parseInt(self.shift_id)],
                     })
-                    .then(function(data) {
+                    .then(function(resp) {
+                        var data = resp[0];
+                        var msg = resp[1];
                         if (data.length > 0) {
                             let vals = {
                                 'state': 'draft',
@@ -126,6 +133,12 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                         }
                         else {
                             $(btn_check).removeAttr("disabled");
+                            if (msg !== "")
+                            {
+                                $('#error_body').text(msg);
+                                $('#programmer_modal').modal('hide');
+                                $('#error_modal').modal('show');
+                            }
                         }
                     })
                 });

@@ -95,3 +95,13 @@ class ShiftShift(models.Model):
             lambda r: r.state in ('draft', 'open', 'replacing'))
         partners = registrations.mapped('name')
         return partners
+
+    @api.model
+    def fetch_ftop_ticket(self, shift_id):
+        msg = ""
+        args = [
+            ('shift_id', '=', shift_id),
+            ('shift_type', '=', 'ftop')
+        ]
+        ticket = self.env["shift.ticket"].search(args, limit=1)
+        return ticket.ids, msg
