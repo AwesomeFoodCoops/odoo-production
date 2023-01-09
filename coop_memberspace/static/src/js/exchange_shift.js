@@ -118,11 +118,13 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                         method: 'shifts_to_confirm',
                         args: [src_registration_id, des_registration_id, src_shift],
                     })
-                    .then(function(mesg){
+                    .then(function(resp){
+                        var code = resp[0];
+                        var mesg = resp[1];
                         $('#modal_exchange_shift').modal('hide');
                         $('.modal_confirm_shift_body').empty();
                         $('.modal_confirm_shift_body').append('<span>' + mesg + ' </span>');
-                        if(!des_registration_id) {
+                        if(!des_registration_id || code === 0) {
                             $('.create-proposal').addClass('d-none');
                         }
                         else {
