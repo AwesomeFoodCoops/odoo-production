@@ -67,14 +67,11 @@ class ShiftLeave(models.Model):
             if self.expected_birthdate:
                 if self.expected_birthdate >= today:
                     self.provided_birth_certificate = False
-                    self.non_defined_leave = False
-                else:
-                    self.non_defined_leave = True
             if self.start_date and self.expected_birthdate:
                 if self.expected_birthdate >= today:
                     regular_stop_date = self.start_date + relativedelta(
                         years=1
-                    )
+                    ) - relativedelta(days=1)
                     self.regular_stop_date = regular_stop_date
                     self.stop_date = regular_stop_date
                 else:
@@ -89,7 +86,7 @@ class ShiftLeave(models.Model):
                     ))
                     if not baby_age:
                         regular_stop_date = self.expected_birthdate + \
-                            relativedelta(years=1)
+                            relativedelta(years=1) - relativedelta(days=1)
                         self.regular_stop_date = regular_stop_date
                         self.stop_date = regular_stop_date
                     else:

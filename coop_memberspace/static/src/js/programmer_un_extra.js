@@ -27,11 +27,13 @@ odoo.define('coop_memberspace.programmer_un_extra', function (require) {
                     let btn_check = this;
                     $(btn_check).attr("disabled", "disabled");
                     self._rpc({
-                        model: 'shift.ticket',
-                        method: 'search',
-                        args: [[['shift_id', '=', parseInt(self.shift_id)], ['shift_type', '=', 'ftop']]],
+                        model: 'shift.shift',
+                        method: 'fetch_ftop_ticket',
+                        args: [parseInt(self.shift_id)],
                     })
-                    .then(function(data) {
+                    .then(function(resp) {
+                        var data = resp[0];
+                        var msg = resp[1];
                         if (data.length > 0) {
                             let vals = {
                                 'state': 'draft',
@@ -62,6 +64,12 @@ odoo.define('coop_memberspace.programmer_un_extra', function (require) {
                         }
                         else {
                             $(btn_check).removeAttr("disabled");
+                            if (msg !== "")
+                            {
+                                $('#error_body').text(msg);
+                                $('#programmer_modal').modal('hide');
+                                $('#error_modal').modal('show');
+                            }
                         }
                     })
                 });
