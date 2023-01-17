@@ -313,26 +313,34 @@ class ComputedPurchaseOrder(models.Model):
                 all_lines.append((0, 0, line_values),)
         return all_lines
 
+    def parse_qty(self, cpo_line, days):
+        if cpo_line.average_consumption:
+            quantity = max(
+                days * cpo_line.average_consumption *
+                cpo_line.uom_po_id.factor / cpo_line.uom_id.factor -
+                cpo_line.computed_qty, 0)
+            if cpo_line.package_qty \
+                    and quantity % cpo_line.package_qty:
+                quantity = ceil(quantity / cpo_line.package_qty) *\
+                    cpo_line.package_qty
+        elif cpo_line.computed_qty == 0:
+            quantity = cpo_line.package_qty or 0
+        else:
+            quantity = 0
+        return quantity, cpo_line.product_price, cpo_line.psi_id, cpo_line.package_qty
+
     @api.multi
     def _compute_purchase_quantities_days(self):
         for cpo in self:
             days = cpo.purchase_target
             for line in cpo.line_ids:
-                if line.average_consumption:
-                    quantity = max(
-                        days * line.average_consumption *
-                        line.uom_po_id.factor / line.uom_id.factor -
-                        line.computed_qty, 0)
-                    if line.package_qty \
-                            and quantity % line.package_qty:
-                        quantity = ceil(quantity / line.package_qty) *\
-                            line.package_qty
-                elif line.computed_qty == 0:
-                    quantity = line.package_qty or 0
-                else:
-                    quantity = 0
+                line = line.with_context(update_price=True)
+                quantity, product_price, psi, package_qty = self.parse_qty(line, days)
+                line.psi_id = psi
                 line.purchase_qty = quantity
-                line.purchase_qty_package = quantity / line.package_qty
+                line.purchase_qty_package = quantity / package_qty
+                line.package_qty = package_qty
+                line.product_price = product_price
 
     @api.multi
     @api.depends('line_ids.purchase_qty_package')
@@ -340,6 +348,18 @@ class ComputedPurchaseOrder(models.Model):
         for rec in self:
             rec.package_qty_count = sum(rec.mapped(
                 'line_ids.purchase_qty_package'))
+
+    def _update_field_list_dict_price(self, field_list_dict, line, line_qty_tmp):
+        product_price_inv_eq = 0
+        quantity, product_price, psi, package_qty = line_qty_tmp
+        if line.price_policy == 'package':
+            purchase_qty_package = quantity / package_qty
+            if purchase_qty_package:
+                product_price_inv_eq = product_price /\
+                    purchase_qty_package
+        else:
+            product_price_inv_eq = product_price
+        field_list_dict[line.id] = product_price_inv_eq
 
     @api.multi
     def _compute_purchase_quantities_other(self, field):
@@ -359,27 +379,22 @@ class ComputedPurchaseOrder(models.Model):
             while not ok:
                 days += 1
                 qty_tmp = {}
+                qty_tmp_tocheck = {}
                 for line in cpo.line_ids:
-                    if line.average_consumption:
-                        quantity = max(
-                            days * line.average_consumption *
-                            line.uom_po_id.factor / line.uom_id.factor -
-                            line.computed_qty, 0)
-                        if line.package_qty and\
-                                quantity % line.package_qty:
-                            quantity = ceil(quantity / line.package_qty)\
-                                * line.package_qty
-                    elif line.computed_qty == 0:
-                        quantity = line.package_qty or 0
-                    else:
-                        quantity = 0
-                    qty_tmp[line.id] = quantity
-
-                ok = cpo._check_purchase_qty(target, field_list_dict, qty_tmp)
+                    qty_tmp[line.id] = self.parse_qty(line, days)
+                    qty_tmp_tocheck[line.id] = qty_tmp[line.id][0]
+                    if field == 'product_price_inv_eq':
+                        self._update_field_list_dict_price(
+                            field_list_dict, line, qty_tmp[line.id])
+                ok = cpo._check_purchase_qty(target, field_list_dict, qty_tmp_tocheck)
 
             for line in cpo.line_ids:
-                line.purchase_qty = qty_tmp[line.id]
-                line.purchase_qty_package = qty_tmp[line.id] / line.package_qty
+                quantity, product_price, psi, package_qty = qty_tmp[line.id]
+                line.psi_id = psi
+                line.purchase_qty = quantity
+                line.purchase_qty_package = quantity / package_qty
+                line.package_qty = package_qty
+                line.product_price = product_price
 
     @api.model
     def _check_purchase_qty(self, target=0, field_list=None, qty_tmp=None):
@@ -388,6 +403,9 @@ class ComputedPurchaseOrder(models.Model):
         total = 0
         for key in list(field_list.keys()):
             total += field_list[key] * qty_tmp[key]
+        if total <= 0 and qty_tmp[key] > 0:
+            # in case product's weight is 0
+            return True
         return total >= target
 
     @api.multi
@@ -395,6 +413,23 @@ class ComputedPurchaseOrder(models.Model):
         self.ensure_one()
         args = [('name', '=', self.partner_id.id)]
         return args
+
+    def parse_cpol_vals(self, psi, product):
+        res = {
+            'product_id': product.id,
+            'state': 'up_to_date',
+            'product_code': psi.product_code,
+            'product_name': psi.product_name,
+            'product_price': psi.base_price,
+            'price_policy': psi.price_policy,
+            'package_qty': psi.package_qty or psi.min_qty,
+            'displayed_average_consumption': \
+                product.displayed_average_consumption,
+            'consumption_range': product.display_range,
+            'uom_po_id': psi.product_uom.id,
+            'psi_id': psi.id,
+        }
+        return res
 
     # Action section
     @api.multi
@@ -412,19 +447,9 @@ class ComputedPurchaseOrder(models.Model):
                         lambda pt: pt.purchase_ok).product_variant_ids:
                     valid_psi = pp._valid_psi(cpo.valid_psi)
                     if valid_psi and psi in valid_psi[0]:
-                        cpol_list.append((0, 0, {
-                            'product_id': pp.id,
-                            'state': 'up_to_date',
-                            'product_code': psi.product_code,
-                            'product_name': psi.product_name,
-                            'product_price': psi.base_price,
-                            'price_policy': psi.price_policy,
-                            'package_qty': psi.package_qty or psi.min_qty,
-                            'displayed_average_consumption':
-                            pp.displayed_average_consumption,
-                            'consumption_range': pp.display_range,
-                            'uom_po_id': psi.product_uom.id,
-                        }))
+                        cpol_list.append((0, 0,
+                            self.parse_cpol_vals(psi, pp)
+                        ))
             # update line_ids
             self.line_ids = cpol_list
 
