@@ -2,8 +2,11 @@
 # @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _, tools
 import odoo.addons.decimal_precision as dp
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class SupplierPriceList(models.Model):
@@ -31,6 +34,7 @@ class SupplierPriceList(models.Model):
     )
     apply_date = fields.Date(readonly=True, required=True)
     barcode = fields.Char(string="Ean")
+    price_updated = fields.Boolean()
 
     @api.multi
     def button_create_product(self):
@@ -53,6 +57,7 @@ class SupplierPriceList(models.Model):
             'product_code': self.supplier_code,
             'product_tmpl_id': product_tmpl_id.id,
         })
+        self.sudo().price_updated = True
         # find similar supplier price list
         supplier_price_list_ids = self.search([
             ('supplier_id', '=', self.supplier_id.id),
@@ -74,3 +79,43 @@ class SupplierPriceList(models.Model):
             'res_id': product_tmpl_id.id,
         }
         return action
+
+    @api.model
+    def update_product_price_list(self, product, splists):
+        splists = splists.sorted('apply_date')
+        splist = splists[-1]
+        price = splist.price
+        args = [
+            ("product_code", "=", splist.supplier_code),
+            ("product_tmpl_id", "=", product.id)
+        ]
+        supplierinfos = self.env["product.supplierinfo"].search(
+            args, limit=1)
+        if supplierinfos:
+            if supplierinfos.base_price != price:
+                supplierinfos.base_price = price
+        else:
+            self.env['product.supplierinfo'].create({
+                'name': splist.supplier_id.id,
+                'price': price,
+                'product_code': splist.supplier_code,
+                'product_tmpl_id': product.id,
+            })
+        splists.sudo().write({"price_updated": True})
+
+    @api.model
+    def cron_update_product_price_list(self):
+        args = [
+            ("product_tmpl_id", "!=", False),
+            ("price_updated", "=", False),
+            ("supplier_id", "!=", False)
+        ]
+        recs = self.search(args)
+        products = recs.mapped("product_tmpl_id")
+        for product in products:
+            splists = recs.filtered(lambda r: r.product_tmpl_id == product)
+            try:
+                self.update_product_price_list(product, splists)
+            except Exception as e:
+                _logger.error(
+                    'Could not update price list for the product %s: %s', product, tools.ustr(e))
