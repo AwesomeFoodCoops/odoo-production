@@ -206,9 +206,10 @@ class ProductSupplierinfo(models.Model):
             price = self.env["supplier.price.list"].search([
                 ("supplier_id", "=", edi_supplier.id),
                 ("supplier_code", "=", supplier_code),
-            ], order="import_date DESC")
+            ], order="apply_date DESC")
             if price:
                 vals.update({"base_price": price[0].price})
+                price.sudo().write({"price_updated": True})
         return vals
 
     @api.model
