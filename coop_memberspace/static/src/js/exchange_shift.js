@@ -35,8 +35,12 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                                     registration-id="${registration_id}"
                                     data-toggle="modal" data-target="#modal_confirm_cancel_proposal">remove_circle_outline</button>
                             `;
-                            $(btn_go_to_market).parent().append(data);
-                            $(btn_go_to_market).remove();
+                            let parent = $(btn_go_to_market).parent();
+                            while(parent.children(":first").length > 0) {
+                                parent.children(":first").remove();
+                            }
+                            parent.append(data);
+                            //$(btn_go_to_market).remove();
                         }
                     })
                 });

@@ -85,7 +85,8 @@ class ShiftRegistration(models.Model):
                 "state": "in_progress",
             }
         )
-        proposal.sudo().do_proposal()
+        user_partner = self.env.user.partner_id
+        proposal.sudo().with_context(user_partner=user_partner).do_proposal()
 
     @api.multi
     def remove_shift_regis_from_market(self):
@@ -104,7 +105,10 @@ class ShiftRegistration(models.Model):
             proposals.filtered(lambda r: r.state == "in_progress").write(
                 {"state": "cancel"}
             )
-            record.write({"exchange_state": "draft"})
+            exchange_state = "draft"
+            if record.exchange_replaced_reg_id:
+                exchange_state = "replacing"
+            record.write({"exchange_state": exchange_state})
 
     @api.multi
     def add_shift_regis_to_market(self):
