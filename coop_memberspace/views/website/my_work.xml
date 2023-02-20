@@ -58,8 +58,13 @@
                             <t t-elif="shift.exchange_state == 'replacing'">
                                 <td style="text-align: center;">
                                     Remplaçant
+                                    <button class="material-icons button-icon go-to-market"
+                                            style="margin-right: 10px;"
+                                            t-att-registration-id="shift.id">swap_horiz
+                                    </button>
                                 </td>
                             </t>
+                            
                         </tr>
                     </t>
                 </tbody>

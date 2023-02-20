@@ -180,39 +180,54 @@ class Proposal(models.Model):
         confirm_exchange_done_mail_tmpl = self.env.ref(
             "coop_memberspace.inform_exchange_done"
         )
+        user_partner = self._context.get("user_partner")
 
         for record in self:
             if record.state != "in_progress":
                 continue
             # Create new shift registration for member B
             # base on the shift registration of the member A
-            new_src_reg_id = record.src_registration_id.copy(
-                {
-                    "partner_id": record.des_registration_id.partner_id.id,
-                    "replaced_reg_id":
-                        record.src_registration_id.id,  # The old shift of member A
-                    "exchange_replaced_reg_id":
-                        record.des_registration_id.id,  # The old shift of member B
-                    "tmpl_reg_line_id": record.des_registration_id.tmpl_reg_line_id.id,
-                    "template_created": True,
-                    "state": "open",
-                    "exchange_state": "replacing",
-                }
-            )
+            if user_partner == record.src_registration_id.partner_id:
+                # Partner exchanges his own shift (which exchanged by mistake before)
+                record.src_registration_id.write(
+                    {
+                        "replaced_reg_id":
+                            record.src_registration_id.id,  # The old shift of member A
+                        "exchange_replaced_reg_id":
+                            record.des_registration_id.id,  # The old shift of member B
+                        "state": "open",
+                        "exchange_state": "replacing",
+                    }
+                )
+                new_src_reg_id = record.src_registration_id
+            else:
+                new_src_reg_id = record.src_registration_id.copy(
+                    {
+                        "partner_id": record.des_registration_id.partner_id.id,
+                        "replaced_reg_id":
+                            record.src_registration_id.id,  # The old shift of member A
+                        "exchange_replaced_reg_id":
+                            record.des_registration_id.id,  # The old shift of member B
+                        "tmpl_reg_line_id": record.des_registration_id.tmpl_reg_line_id.id,
+                        "template_created": True,
+                        "state": "open",
+                        "exchange_state": "replacing",
+                    }
+                )
 
-            # Deactive shift registration
-            # to not update point counter for member A
-            record.src_registration_id.write(
-                {
-                    "state": "replaced",
-                    "exchange_state": "replaced",
-                    # This field use to track the new shift
-                    # registration that member A replaced by member B.
-                    "replacing_reg_id": new_src_reg_id.id,
-                    # New shift that member A must be working on.
-                    # "exchange_replacing_reg_id": new_des_reg_id.id,
-                }
-            )
+                # Deactive shift registration
+                # to not update point counter for member A
+                record.src_registration_id.write(
+                    {
+                        "state": "replaced",
+                        "exchange_state": "replaced",
+                        # This field use to track the new shift
+                        # registration that member A replaced by member B.
+                        "replacing_reg_id": new_src_reg_id.id,
+                        # New shift that member A must be working on.
+                        # "exchange_replacing_reg_id": new_des_reg_id.id,
+                    }
+                )
 
             # Deactive shift registration
             # to not update point counter for member B

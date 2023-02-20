@@ -261,6 +261,19 @@ class Website(WebsiteController):
             ],
             order="date_begin",
         )
+        # Shifts of my own but cancel by mistake
+        shifts_on_market2 = shift_registration_env.sudo().search(
+            [
+                ("partner_id", "=", user.partner_id.id),
+                ("state", "=", "waiting"),
+                ("exchange_state", "=", "in_progress"),
+                ("exchange_replacing_reg_id", '!=', False),
+                ("date_begin", ">=", today),
+                ("date_begin", "<=", tomorrow),
+            ],
+            order="date_begin",
+        )
+        shifts_on_market |= shifts_on_market2
         counted_shift_ids = (shift_upcomming | shifts_on_market).mapped('shift_id.id')
         shift_exchange_policy = icp_sudo.get_param(
             'coop.shift.shift_exchange_policy', 'registraion')
