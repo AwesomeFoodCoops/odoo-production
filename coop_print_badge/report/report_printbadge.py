@@ -3,7 +3,10 @@
 # Copyright (C) 2019-Today: Druidoo (<https://www.druidoo.io>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import api, models
+import logging
 
+
+_logger = logging.getLogger(__name__)
 
 class ReportPrintbadge(models.AbstractModel):
     _name = 'report.coop_print_badge.report_printbadge'
@@ -13,6 +16,8 @@ class ReportPrintbadge(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         res_partner_env = self.env['res.partner']
         partners = res_partner_env.browse(docids)
+        if not self.env['res.users'].check_access_rights('write', False):
+            partners = partners.sudo()
         for partner in partners:
             partner.untick_badges_to_print()
             partner.update_badge_print_date()
