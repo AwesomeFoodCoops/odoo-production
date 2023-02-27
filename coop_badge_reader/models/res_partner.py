@@ -115,6 +115,17 @@ class ResPartner(models.Model):
         )
         if not grace_ext_type:
             return False
+
+        # No add extension when previous state is Delay (Delay -> Suspended)
+        # Condition: Last extension date > Alert date (Alert date must be set)
+        if self.date_alert_stop:
+            last_extension_date = False
+            if self.extension_ids:
+                exts = self.extension_ids.sorted("date_stop", True)
+                last_extension_date = exts[0].date_stop
+                if last_extension_date > self.date_alert_stop:
+                    return False
+
         date_stop_str = date_start_str + timedelta(
             days=grace_ext_type.duration
         )
