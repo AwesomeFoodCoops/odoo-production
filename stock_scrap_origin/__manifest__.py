@@ -18,22 +18,19 @@
 ##############################################################################
 
 {
-    'name': 'Scrap Report',
-    'summary': 'Display scrap products.',
+    'name': 'Stock Scrap Origin',
+    'summary': 'Add the origin of the scrap.',
     'version': '12.0.1.0.0',
     'category': 'Warehouse',
-    'website': 'https://github.com/OCA/stock-logistics-reporting',
+    'website': 'https://trobz.com',
     'author': 'Trobz',
     'license': 'AGPL-3',
     'depends': [
-        'stock_account',
-        'stock_scrap_origin',
-        'report_xlsx_helper',
+        'stock',
     ],
     'data': [
-        'report_data.xml',
-        'scrap_report_menu.xml',
-        'stock_scrap_product_wizard_view.xml',
+        'security/ir.model.access.csv',
+        'views/stock_scrap_origin_view.xml',
     ],
     'installable': True,
 }

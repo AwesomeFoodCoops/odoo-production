@@ -85,7 +85,13 @@ odoo.define('coop_membership.AccessButtons', function(require) {
                 self.check_hide_buttons_select()
             }
         },
-
+        _onToggleSelection: function(event) {
+            var self = this;
+            this._super.apply(this, arguments);
+            if (!session.is_admin) {
+                self.check_hide_buttons_select()
+            }
+        },
         check_hide_buttons: function() {
             var self = this;
             var context = this.state.context;
