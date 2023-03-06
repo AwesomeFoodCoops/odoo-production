@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+stock_scrap_origin_user,stock_scrap_origin_user,model_stock_scrap_origin,stock.group_stock_user,1,0,0,0
+stock_scrap_origin_manager,stock_scrap_origin_manager,model_stock_scrap_origin,stock.group_stock_manager,1,1,1,1

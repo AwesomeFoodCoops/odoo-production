@@ -17,23 +17,14 @@
 #
 ##############################################################################
 
-{
-    'name': 'Scrap Report',
-    'summary': 'Display scrap products.',
-    'version': '12.0.1.0.0',
-    'category': 'Warehouse',
-    'website': 'https://github.com/OCA/stock-logistics-reporting',
-    'author': 'Trobz',
-    'license': 'AGPL-3',
-    'depends': [
-        'stock_account',
-        'stock_scrap_origin',
-        'report_xlsx_helper',
-    ],
-    'data': [
-        'report_data.xml',
-        'scrap_report_menu.xml',
-        'stock_scrap_product_wizard_view.xml',
-    ],
-    'installable': True,
-}
+from odoo import api, fields, models
+
+
+class StockScrap(models.Model):
+    _inherit = 'stock.scrap'
+
+    scrap_origin_id = fields.Many2one(
+        comodel_name="stock.scrap.origin",
+        string="Origin",
+        states={'done': [('readonly', True)]}
+    )
