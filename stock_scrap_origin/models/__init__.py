@@ -17,23 +17,5 @@
 #
 ##############################################################################
 
-{
-    'name': 'Scrap Report',
-    'summary': 'Display scrap products.',
-    'version': '12.0.1.0.0',
-    'category': 'Warehouse',
-    'website': 'https://github.com/OCA/stock-logistics-reporting',
-    'author': 'Trobz',
-    'license': 'AGPL-3',
-    'depends': [
-        'stock_account',
-        'stock_scrap_origin',
-        'report_xlsx_helper',
-    ],
-    'data': [
-        'report_data.xml',
-        'scrap_report_menu.xml',
-        'stock_scrap_product_wizard_view.xml',
-    ],
-    'installable': True,
-}
+from . import stock_scrap_origin
+from . import stock_scrap
