@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="my_next_shift_inherit" inherit_id="coop_memberspace.my_next_shift">
+        <xpath expr="//thead//tr//th[3]" position="after">
+            <th style="text-align:center">Cancelation</th>
+        </xpath>
+        <xpath expr="//tbody//t//tr" position="inside">
+            <t t-if="shift.state not in ('waiting', 'cancel')">
+                <td style="text-align: center;">
+                    <button class="fa fa-times button-icon confirm-cancel-registration"
+                            t-att-registration-id="shift.id"
+                            t-att-registration-name="date_begin and ' '.join(date_begin) or ''"
+                            data-toggle="modal"
+                            t-attf-data-target="#modal_confirm_cancel_registration_{{shift.shift_type or 'standard'}}">
+                    </button>
+                </td>
+            </t>
+            <t t-else="">
+                <td/>
+            </t>
+        </xpath>
+
+        <xpath expr="//div[1]" position="inside">
+            <div id="modal_confirm_cancel_registration_standard" class="modal fade modal_confirm_cancel_registration" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Participation Cancellation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>You are going to cancel your participation in the service <b><span class="service_name"/></b>. 
+                            Following this cancellation, <b>your participation will be released on the schedule, thank you.</b>
+                            </p>
+
+                            <p t-if="user.partner_id.final_ftop_point > 0">As your service vacation counter is positive, 
+                                your service vacation counter will be decreased 1 to compensate for your absence.  </p>
+                            <p t-else="">
+                                As you do not have service vacation counter, your service ABCD counter will be decreased by 1 to compensate for your absence. 
+                                You will therefore have to catch up, it would be preferable for you to make, if possible, an exchange of service.
+                            </p>
+                            <p>Are you sure that you want to cancel your participation in this service?</p>
+                            <div class="text-center">
+                                <span class="fa fa-times" data-dismiss="modal"
+                                      style="margin-right: 40px;font-size: 3em;"/>
+                                <span class="fa fa-check cancel-registration" style="font-size: 3em;"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="modal_confirm_cancel_registration_ftop" class="modal fade modal_confirm_cancel_registration" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Participation Cancellation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>You are going to cancel your participation in the service <b><span class="service_name"/></b>. 
+                            Following this cancellation, <b>your participation will be released on the schedule, thank you.</b>
+                            </p>
+                            <p>This cancellation will have no impact on your service counter. </p>
+                            <p>Are you sure that you want to cancel your participation in this service?</p>
+                            <div class="text-center">
+                                <span class="fa fa-times" data-dismiss="modal"
+                                      style="margin-right: 40px;font-size: 3em;"/>
+                                <span class="fa fa-check cancel-registration" style="font-size: 3em;"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
