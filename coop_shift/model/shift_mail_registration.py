@@ -16,6 +16,8 @@ class ShiftMailRegistration(models.Model):
     registration_id = fields.Many2one(
         'shift.registration', 'Attendee', required=True, ondelete='cascade')
     mail_ignored = fields.Boolean('Ignored', default=False)
+    scheduled_date = fields.Datetime(
+        'Scheduled Time', related="scheduler_id.scheduled_date", store=True)
 
     @api.multi
     def execute(self):

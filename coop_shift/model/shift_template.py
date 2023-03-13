@@ -672,6 +672,20 @@ class ShiftTemplate(models.Model):
         return result
 
     @api.multi
+    def _get_default_shift_mail_ids(self):
+        self.ensure_one()
+        res = []
+        for shift_mail in self.shift_mail_ids:
+            res.append((0, 0, {
+                'interval_unit': shift_mail.interval_unit,
+                'interval_type': shift_mail.interval_type and \
+                    shift_mail.interval_type.replace("shift", "event"),
+                'interval_nbr': shift_mail.interval_nbr,
+                'template_id': shift_mail.template_id.id
+            }))
+        return res
+
+    @api.multi
     def create_shifts_from_template(self, after=False, before=False):
         if not before:
             before = \
@@ -733,6 +747,7 @@ class ShiftTemplate(models.Model):
                     'shift_type_id': template.shift_type_id.id,
                     'week_list': template.week_list,
                     'shift_ticket_ids': None,
+                    'shift_mail_ids': template._get_default_shift_mail_ids()
                 }
                 shift_id = self.env['shift.shift'].create(vals)
                 for ticket in template.shift_ticket_ids:
