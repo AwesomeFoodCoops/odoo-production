@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="coop_memberspace_cancelation.assets_frontend" inherit_id="website.assets_frontend" name="Metasource">
+        <xpath expr="." position="inside">
+            <script src="/coop_memberspace_cancelation/static/src/js/exchange_shift.js" type="text/javascript"/>
+        </xpath>
+    </template>
+</odoo>

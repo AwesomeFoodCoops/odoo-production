@@ -12,7 +12,7 @@
                 </thead>
                 <tbody>
                     <t t-if="shift_upcomming" t-foreach="shift_upcomming" t-as="shift">
-                        <tr t-att-style="'-webkit-text-decoration-line: line-through;text-decoration-line: line-through;' if shift.state == 'waiting' else ''">
+                        <tr t-att-style="'-webkit-text-decoration-line: line-through;text-decoration-line: line-through;' if shift.state in ('waiting', 'cancel') else ''">
                             <t t-set="date_begin"
                                 t-value="user.get_time_by_user_lang(shift.date_begin, ['%A, %d %B', '%HH%M'], lang=user.lang + '.utf8')"/>
                             <td scope="row">
@@ -27,7 +27,7 @@
                                     Extra
                                 </td>
                             </t>
-                            <t t-elif="shift.state == 'waiting'">
+                            <t t-elif="shift.state in ('waiting', 'cancel')">
                                 <td style="text-align: center;">
                                     Canceled
                                 </td>

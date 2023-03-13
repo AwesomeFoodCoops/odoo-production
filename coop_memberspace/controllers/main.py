@@ -95,19 +95,10 @@ class Website(WebsiteController):
         # Get next shift
         shift_registration_env = request.env["shift.registration"]
         member_status = partner.get_warning_member_state()
-        shift_upcomming = shift_registration_env.sudo().search(
-            [
+        shift_upcomming = shift_registration_env.sudo().get_upcoming(
+            user.partner_id, [
                 ("shift_id.shift_template_id.is_technical", "=", False),
-                ("partner_id", "=", user.partner_id.id),
-                ("state", "!=", "cancel"),
-                #("exchange_state", "!=", "replacing"),
-                (
-                    "date_begin",
-                    ">=",
-                    datetime.now(),
-                ),
-            ],
-            order="date_begin",
+            ]
         )
         # check standard member or ftop member
         datas = {
@@ -240,15 +231,10 @@ class Website(WebsiteController):
 
         # Get next shift
         shift_registration_env = request.env["shift.registration"]
-        shift_upcomming = shift_registration_env.sudo().search(
-            [
-                ("partner_id", "=", user.partner_id.id),
-                ("state", "not in", ["cancel"]),
-                # ("exchange_state", "!=", "replacing"),
-                ("date_begin", ">=", today),
+        shift_upcomming = shift_registration_env.sudo().get_upcoming(
+            user.partner_id, [
                 ("shift_id.shift_type_id.is_ftop", "=", False),
-            ],
-            order="date_begin",
+            ]
         )
         shifts_on_market = shift_registration_env.sudo().search(
             [
@@ -274,7 +260,9 @@ class Website(WebsiteController):
             order="date_begin",
         )
         shifts_on_market |= shifts_on_market2
-        counted_shift_ids = (shift_upcomming | shifts_on_market).mapped('shift_id.id')
+        counted_shift_ids = (
+            shift_upcomming.filtered(lambda s: s.state != "cancel"
+        ) | shifts_on_market).mapped('shift_id.id')
         shift_exchange_policy = icp_sudo.get_param(
             'coop.shift.shift_exchange_policy', 'registraion')
         args = [

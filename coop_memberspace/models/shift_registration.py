@@ -276,3 +276,21 @@ class ShiftRegistration(models.Model):
                 registration.button_reg_cancel()
                 mail_template.send_mail(registration.id)
         return True
+
+    @api.model
+    def get_upcoming(self, partner, args=[]):
+        args += [
+            ("partner_id", "=", partner.id),
+            ("state", "not in", ["cancel"]),
+            #("exchange_state", "!=", "replacing"),
+            (
+                "date_begin",
+                ">=",
+                datetime.now(),
+            ),
+        ]
+
+        shift_upcomming = self.sudo().search(args,
+            order="date_begin",
+        )
+        return shift_upcomming
