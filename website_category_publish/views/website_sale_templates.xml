@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+
+<odoo>
+
+    <template inherit_id="website_sale.categories_recursive"
+              id="website_category_publish_recursive">
+        <xpath expr="//t[@t-if='not search or c.id in search_categories_ids']"
+               position="attributes">
+            <attribute name="t-if">(not search or c.id in search_categories_ids) and c.is_published</attribute>
+        </xpath>
+    </template>
+    <template inherit_id="website_sale.option_collapse_categories_recursive"
+              id="website_category_option_collapse_publish_recursive">
+        <xpath expr="//t[@t-if='not search or categ.id in search_categories_ids']"
+               position="attributes">
+            <attribute name="t-if">(not search or categ.id in search_categories_ids) and categ.is_published</attribute>
+        </xpath>
+    </template>
+</odoo>
