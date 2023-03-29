@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_require_product_scale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-29 10:41+0000\n"
+"PO-Revision-Date: 2023-03-29 10:41+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_require_product_scale
+#. openerp-web
+#: code:addons/pos_require_product_scale/static/src/js/screens.js:35
+#, python-format
+msgid "Are you sure that you want to continue the payment?"
+msgstr "Sinon voulez-vous poursuivre le paiement ?"
+
+#. module: pos_require_product_scale
+#: model:ir.model,name:pos_require_product_scale.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Paramétrage du point de vente"
+
+#. module: pos_require_product_scale
+#: model:ir.model.fields,field_description:pos_require_product_scale.field_pos_config__require_product_scale
+msgid "Require product to weight in POS"
+msgstr ""
+
+#. module: pos_require_product_scale
+#. openerp-web
+#: code:addons/pos_require_product_scale/static/src/js/screens.js:32
+#, python-format
+msgid "The product(s) may need to be weighted with scale: "
+msgstr "Il est peut-être nécessaire de vérifier ce poids pour: "
+
+#. module: pos_require_product_scale
+#. openerp-web
+#: code:addons/pos_require_product_scale/static/src/js/screens.js:30
+#: model_terms:ir.ui.view,arch_db:pos_require_product_scale.view_pos_config_form
+#, python-format
+msgid "Warning the product quantity 1kg for the products to weight with scale"
+msgstr "Attention il y a un/des articles à peser dont le poids indiqué est 1 kg exactement"
