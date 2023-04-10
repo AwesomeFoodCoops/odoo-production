@@ -120,6 +120,7 @@
                                            readonly="1"/>
                                     <field name="subtotal" readonly="1"/>
                                     <field name="state" readonly="1"/>
+                                    <field name="psi_id" invisible="1"/>
                                     <button
                                         name="unlink_psi"
                                         states="up_to_date,updated"
