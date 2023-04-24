@@ -105,7 +105,7 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                                             <td>${hour}</td>
                                             <td><span><span>${coordinators[0] + ' '}</span> <i data-toggle="tooltip" data-container="body" title="You can contact your coordinators by writing to
                                                 ${coordinators[1] + ' '} (cliquez pour copier l’adresse)" class="fa fa-question-circle js-copy" data-copy="${coordinators[1]}"></i></span></td>
-                                            <td><a><button type="button" style="border: 0px; background-color: transparent" class="fa fa-times" data-toggle="modal" data-target="#not_cancel_registration_modal"/></a></td>
+                                            <td><a><button type="button" style="border: 0px; background-color: transparent" class="fa fa-times cancel-ftop-shift" data-toggle="modal" registration-id="${result}" registration-name="${time + ' ' + hour}"/></a></td>
                                         </tr>
                                     `;
                                     $('.ftop-programmer-une-vacation-body').append(new_shift);
