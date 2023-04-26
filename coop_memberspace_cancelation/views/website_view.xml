@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <odoo>
     <template id="my_next_shift_inherit" inherit_id="coop_memberspace.my_next_shift">
-        <xpath expr="//thead//tr//th[3]" position="after">
+        <xpath expr="//thead//tr" position="inside">
             <th style="text-align:center">Cancelation</th>
         </xpath>
         <xpath expr="//tbody//t//tr" position="inside">
