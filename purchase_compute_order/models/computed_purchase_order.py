@@ -376,17 +376,29 @@ class ComputedPurchaseOrder(models.Model):
             for i in field_list:
                 field_list_dict[i['id']] = i[field]
 
+            last_total_qty = 0
+            same_qty = 0
             while not ok:
                 days += 1
                 qty_tmp = {}
                 qty_tmp_tocheck = {}
+                total_qty = 0
                 for line in cpo.line_ids:
                     qty_tmp[line.id] = self.parse_qty(line, days)
                     qty_tmp_tocheck[line.id] = qty_tmp[line.id][0]
+                    total_qty += qty_tmp[line.id][0]
                     if field == 'product_price_inv_eq':
                         self._update_field_list_dict_price(
                             field_list_dict, line, qty_tmp[line.id])
+                if last_total_qty and last_total_qty == total_qty:
+                    # This break condition helps to avoid looping
+                    same_qty += 1
+                    if same_qty > 100:
+                        break
+                else:
+                    same_qty = 0
                 ok = cpo._check_purchase_qty(target, field_list_dict, qty_tmp_tocheck)
+                last_total_qty = total_qty
 
             for line in cpo.line_ids:
                 quantity, product_price, psi, package_qty = qty_tmp[line.id]

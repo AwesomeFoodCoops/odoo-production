@@ -17,6 +17,7 @@
 
 from odoo import models, fields, api, _
 from odoo.addons import decimal_precision as dp
+from odoo.exceptions import ValidationError
 
 
 class ProductSupplierinfo(models.Model):
@@ -28,7 +29,18 @@ class ProductSupplierinfo(models.Model):
         help="""The minimum number of package you have to buy to get"""
         """ the lowest price.""",
         default=0)
+    max_nb_of_package = fields.Float(
+        'Max. Nb of Package', digits=dp.get_precision('Product UoM'),
+        help="""The maximum number of package you can buy.""")
 
     @api.onchange("min_nb_of_package")
     def onchange_min_nb_of_package(self):
         self.min_qty = self.min_nb_of_package * self.package_qty
+
+    @api.constrains('max_nb_of_package', 'min_nb_of_package')
+    def _check_nb_of_package_limit(self):
+        if self.max_nb_of_package > 0 and \
+                self.max_nb_of_package < self.min_nb_of_package:
+            raise ValidationError(_(
+                "Max. Nb of Package must be greater than Min. Nb of Package"
+            ))
