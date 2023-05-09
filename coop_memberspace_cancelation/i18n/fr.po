@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-24 10:32+0000\n"
-"PO-Revision-Date: 2023-02-24 10:32+0000\n"
+"POT-Creation-Date: 2023-05-17 10:34+0000\n"
+"PO-Revision-Date: 2023-05-17 10:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: coop_memberspace_cancelation
-#: code:addons/coop_memberspace_cancelation/model/shift_registration.py:27
+#: code:addons/coop_memberspace_cancelation/model/shift_shift.py:22
 #, python-format
 msgid "Annuler votre participation"
 msgstr ""
@@ -25,19 +25,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:coop_memberspace_cancelation.my_next_shift_inherit
 msgid "Are you sure that you want to cancel your participation in this service?"
 msgstr "Etes-vous sûr.e de vouloir annuler votre participation à ce service?"
-
-#. module: coop_memberspace_cancelation
-#: model_terms:ir.ui.view,arch_db:coop_memberspace_cancelation.my_next_shift_inherit
-msgid "As you do not have service vacation counter, your service ABCD counter will be decreased by 1 to compensate for your absence. \n"
-"                                You will therefore have to catch up, it would be preferable for you to make, if possible, an exchange of service."
-msgstr "Comme vous n'avez pas de service d'avance votre compteur de services fixes sera diminué de 1 pour compenser votre absence. \n"
-"                                Vous aurez donc un rattrapage à faire, il serait préférable pour vous de faire, si possible, un échange de service."
-
-#. module: coop_memberspace_cancelation
-#: model_terms:ir.ui.view,arch_db:coop_memberspace_cancelation.my_next_shift_inherit
-msgid "As your service vacation counter is positive, \n"
-"                                your service vacation counter will be decreased 1 to compensate for your absence."
-msgstr "Comme votre compteur de services d'avances est positif il sera diminué de 1 pour compenser votre absence"
 
 #. module: coop_memberspace_cancelation
 #: model:ir.model,name:coop_memberspace_cancelation.model_shift_registration
@@ -55,13 +42,32 @@ msgid "Participation Cancellation"
 msgstr "Annuler Votre Participation"
 
 #. module: coop_memberspace_cancelation
+#: model:ir.model,name:coop_memberspace_cancelation.model_shift_shift
+msgid "Shift"
+msgstr ""
+
+#. module: coop_memberspace_cancelation
 #: model_terms:ir.ui.view,arch_db:coop_memberspace_cancelation.my_next_shift_inherit
 msgid "This cancellation will have no impact on your service counter."
 msgstr "Cette annulation n'aura pas d'impact sur votre compteur de services."
 
 #. module: coop_memberspace_cancelation
 #: model_terms:ir.ui.view,arch_db:coop_memberspace_cancelation.my_next_shift_inherit
-msgid "You are going to cancel your participation in the service <b><span class=\"service_name\"/></b>. \n"
-"                            Following this cancellation, <b>your participation will be released on the schedule, thank you.</b>"
-msgstr "Vous allez annuler votre participation au service de <b><span class=\"service_name\"/></b>. "
-"Suite à cette annulation <b>votre place sera libérée sur le planning, merci.</b> "
+msgid "When the service will be over, as you do not have service vacation counter, your service ABCD counter will be decreased by 1 to compensate for                     your absence.\n"
+"                                You will therefore have to catch up, it would be preferable for you to make, if possible, an exchange of service."
+msgstr "A la date du service, comme vous n'avez pas de service d'avance votre compteur de services fixes sera diminué de 1 pour compenser votre absence. \n"
+"                 Vous aurez donc un rattrapage à faire, il serait préférable pour vous de faire, si possible, un échange de service."
+
+#. module: coop_memberspace_cancelation
+#: model_terms:ir.ui.view,arch_db:coop_memberspace_cancelation.my_next_shift_inherit
+msgid "When the service will be over, as your service vacation counter is positive,\n"
+"                                your service vacation counter will be decreased 1 to compensate for your absence."
+msgstr "A la date du service, comme votre compteur de services d'avance est positif, il sera diminué de 1 pour compenser votre absence.  "
+
+#. module: coop_memberspace_cancelation
+#: model_terms:ir.ui.view,arch_db:coop_memberspace_cancelation.my_next_shift_inherit
+msgid "You are going to cancel your participation in the service <b><span class=\"service_name\"/></b>.\n"
+"                            <b> Thank you for warning us.</b> Following this cancellation, <b>your participation will be released on the schedule.</b>"
+msgstr "<p>Vous allez annuler votre participation au service de <b><span class=\"service_name\"/></b>.\n"
+"                  <b> Merci de nous prévenir.</b> Suite à cette annulation, <b>votre place sera libérée sur le planning.</b>\n"
+"         </p>"
