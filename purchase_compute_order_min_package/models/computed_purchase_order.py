@@ -33,7 +33,8 @@ class ComputedPurchaseOrder(models.Model):
             parse_qty(cpo_line, days)
         
         purchase_qty_package = quantity / package_qty
-        if purchase_qty_package != cpo_line.purchase_qty_package:
+        max_qty = 0
+        if purchase_qty_package > 0 and purchase_qty_package != cpo_line.purchase_qty_package:
             psi_obj = cpo_line.get_psi(purchase_qty_package, operator='>=',
                 order='min_nb_of_package')
             if psi_obj:
@@ -46,4 +47,7 @@ class ComputedPurchaseOrder(models.Model):
                 package_qty = psi_obj.package_qty
                 #quantity = psi_obj.min_nb_of_package * package_qty
                 product_price = psi_obj.base_price
+                max_qty = psi_obj.max_nb_of_package * package_qty
+        if max_qty > 0 and quantity > max_qty:
+            quantity = max_qty
         return quantity, product_price, psi_obj0, package_qty

@@ -16,6 +16,7 @@
 ##############################################################################
 
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class ComputedPurchaseOrderLine(models.Model):
@@ -33,3 +34,26 @@ class ComputedPurchaseOrderLine(models.Model):
         ]
         psi = self.env["product.supplierinfo"].sudo().search(args, order=order, limit=1)
         return psi
+
+    @api.onchange('purchase_qty_package')
+    def onchange_purchase_qty_package(self):
+        psi = self.get_psi()
+        if psi:
+            max_nb_of_package = psi.max_nb_of_package
+        else:
+            max_nb_of_package = self.psi_id.max_nb_of_package
+        if not max_nb_of_package:
+            return
+        if self.purchase_qty_package > max_nb_of_package:
+            product_disp_format = "[{supplier_code}] {product_name}"
+            if not self.product_code_inv:
+                product_disp_format = "{product_name}"
+            
+            raise ValidationError(_("Don't allow to change the number of package for "
+                "the product {product} is greater than Max. Nb of Package configured: {max_nb}"
+            ).format(product=product_disp_format.format(
+                supplier_code=self.product_code_inv,
+                product_name=self.product_id.name
+                ),
+                max_nb=max_nb_of_package
+            ))
