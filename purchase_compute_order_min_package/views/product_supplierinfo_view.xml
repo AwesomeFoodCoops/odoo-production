@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <field name="package_qty" position="before">
                 <field name="min_nb_of_package"/>
+                <field name="max_nb_of_package"/>
             </field>
         </field>
     </record>
@@ -20,6 +21,7 @@
         <field name="arch" type="xml">
             <field name="package_qty" position="before">
                 <field name="min_nb_of_package"/>
+                <field name="max_nb_of_package"/>
             </field>
         </field>
     </record>
