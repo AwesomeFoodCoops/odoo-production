@@ -41,6 +41,7 @@ class PosOrder(models.Model):
         receipt_options = icp_sudo.get_param('point_of_sale.receipt_options')
         receipt_options = receipt_options and int(receipt_options) or False
         for order in self:
-            if receipt_options in [2, 3] and order.partner_id.email:
+            if receipt_options in [2, 3, 4] and order.partner_id.email and \
+                    not order.partner_id.no_email_pos_receipt:
                 order.email_status = 'to_send'
         return res
