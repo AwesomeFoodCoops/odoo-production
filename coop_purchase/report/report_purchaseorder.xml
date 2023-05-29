@@ -38,7 +38,7 @@
         </xpath>
         <xpath expr="//div[@id='informations']" position="inside">
             <div t-if="o.date_planned" class="col-3 bm-2">
-                <strong>Scheduled Date:</strong>
+                <strong>Delivery Date:</strong>
                 <p t-field="o.date_planned"/>
             </div>
             <div t-if="o.create_uid" class="col-3 bm-2">
