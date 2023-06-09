@@ -33,11 +33,16 @@ class StockPicking(models.Model):
     def button_validate(self):
         self.ensure_one()
         if self.purchase_id:
+            # S#T35388 - Server Error when receiving Order PO18251
+            # Stock move is deleted by merging
+            todo_moves = self.env["stock.move"]
             for move_line in self.move_lines:
                 if not move_line.purchase_line_id:
                     self.prepare_vals_order_line(move_line)
-                    move_line._action_confirm()
-                    move_line._action_assign()
+                    todo_moves |= move_line
+            if todo_moves:
+                todo_moves._action_confirm()
+                todo_moves._action_assign()
         return super().button_validate()
 
     @api.multi
