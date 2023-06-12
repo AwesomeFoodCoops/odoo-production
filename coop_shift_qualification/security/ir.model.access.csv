@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+res_partner_qualification_view,res_partner_qualification_view,model_res_partner_qualification,base.group_user,1,0,0,0
+res_partner_qualification_user,res_partner_qualification_user,model_res_partner_qualification,coop_shift.group_shift_user,1,1,1,0
+res_partner_qualification_manager,res_partner_qualification_manager,model_res_partner_qualification,coop_shift.group_shift_manager,1,1,1,1

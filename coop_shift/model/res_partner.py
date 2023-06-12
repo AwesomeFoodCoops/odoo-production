@@ -475,7 +475,7 @@ class ResPartner(models.Model):
                 state = 'vacation'
             else:
                 point = 0
-                if partner.in_ftop_team:
+                if partner.in_ftop_team or partner.shift_type == "ftop":
                     point = partner.final_ftop_point
                 else:
                     point = partner.final_standard_point

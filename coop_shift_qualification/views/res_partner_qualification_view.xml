@@ -1,0 +1,46 @@
+<odoo>
+    <record id="res_partner_qualification_tree_view_inherit" model="ir.ui.view">
+        <field name="name">res_partner_qualification_tree_view_inherit</field>
+        <field name="model">res.partner.qualification</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="seq" widget="handle"/>
+                <field name="name"/>
+                <field name="is_leader"/>
+            </tree>
+        </field>
+    </record>
+    <record id="res_partner_qualification_form_view_inherit" model="ir.ui.view">
+        <field name="model">res.partner.qualification</field>
+        <field name="name">res_partner_qualification_form_view_inherit</field>
+        <field name="arch" type="xml">
+            <form name="Qualification">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="is_leader"
+                                attrs="{'readonly': [('can_be_leader', '=', False)]}"/>
+                            <field name="can_be_leader" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_res_partner_qualification" model="ir.actions.act_window">
+        <field name="name">Qualifications</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.qualification</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        name="Qualifications"
+        id="menu_res_partner_qualification"
+        sequence="10"
+        action="action_res_partner_qualification"
+        parent="coop_shift.menu_shift_configuration"/>
+
+</odoo>
