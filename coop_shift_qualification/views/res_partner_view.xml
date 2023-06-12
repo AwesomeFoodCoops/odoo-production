@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_res_partner_shift_form_inherit" model="ir.ui.view">
+        <field name="name">view_res_partner_shift_form_inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="coop_shift.view_res_partner_shift_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div/h1" position="after">
+                <div class="o_row">
+                    <field name="qualification_ids" widget="many2many_tags"
+                        placeholder="Qualifications"
+                        attrs="{'invisible': [('is_member', '!=', True)]}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="partner_qualification_crdo" model="res.partner.qualification">
+        <field name="name">CRDO</field>
+        <field name="is_leader">1</field>
+    </record>
+
+</odoo>
