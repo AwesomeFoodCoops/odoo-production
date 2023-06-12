@@ -116,6 +116,7 @@
                                            readonly="1"/>
                                     <field name="discount_inv" readonly="1"/>
                                     <field name="price_policy" readonly="1"/>
+                                    <field name="shelf_life"/>
                                     <field name="virtual_duration"
                                            readonly="1"/>
                                     <field name="subtotal" readonly="1"/>
