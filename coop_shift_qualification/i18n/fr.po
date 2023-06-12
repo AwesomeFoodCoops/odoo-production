@@ -1,0 +1,145 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_shift_qualification
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-05 04:43+0000\n"
+"PO-Revision-Date: 2023-06-05 04:43+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_shift_qualification
+#: code:addons/coop_shift_qualification/models/res_partner_qualification.py:66
+#, python-format
+msgid "'Nb of Leader' of Qualification must be limited to {l}"
+msgstr "Le 'Nombre de Super-coopérateur' de Qualité doit être limité à {l}"
+
+#. module: coop_shift_qualification
+#: code:addons/coop_shift_qualification/models/res_partner.py:44
+#, python-format
+msgid "A coordinator must already be assigned to an ABCD team"
+msgstr "Un coordinateur doit déjà être affecté à une équipe ABCD"
+
+#. module: coop_shift_qualification
+#: model:ir.model,name:coop_shift_qualification.model_shift_template_registration
+msgid "Attendee"
+msgstr "Participant"
+
+#. module: coop_shift_qualification
+#: model:ir.model,name:coop_shift_qualification.model_shift_template_registration_line
+msgid "Attendee Line"
+msgstr "Présences"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner_qualification__can_be_leader
+msgid "Can Be Leader"
+msgstr "Peut être Super-coopérateur"
+
+#. module: coop_shift_qualification
+#: model:ir.model,name:coop_shift_qualification.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de config"
+
+#. module: coop_shift_qualification
+#: model:ir.model,name:coop_shift_qualification.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner_qualification__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner_qualification__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner_qualification__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner_qualification__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner_qualification__is_leader
+msgid "Is Leader"
+msgstr "Super-coopérateur?"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner__is_qual_leader
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_users__is_qual_leader
+msgid "Is Qual Leader"
+msgstr "Super-coopérateur?"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner_qualification____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner_qualification__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner_qualification__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner_qualification__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_config_settings__nb_of_leader
+msgid "Number of Leader"
+msgstr "Nombre de Super-coopérateur"
+
+#. module: coop_shift_qualification
+#: model:ir.model,name:coop_shift_qualification.model_res_partner_qualification
+msgid "Partner Quailification"
+msgstr "Qualité"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner__qualification_ids
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_users__qualification_ids
+msgid "Qualification"
+msgstr "Qualité"
+
+#. module: coop_shift_qualification
+#: code:addons/coop_shift_qualification/models/res_partner_qualification.py:40
+#, python-format
+msgid "Qualification must be limited to {limit} characters"
+msgstr "Qualité doit être limité à {limit} caractères"
+
+#. module: coop_shift_qualification
+#: model:ir.actions.act_window,name:coop_shift_qualification.action_res_partner_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner__qualifications
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_users__qualifications
+#: model:ir.ui.menu,name:coop_shift_qualification.menu_res_partner_qualification
+#: model_terms:ir.ui.view,arch_db:coop_shift_qualification.view_res_partner_shift_form_inherit
+msgid "Qualifications"
+msgstr "Qualité"
+
+#. module: coop_shift_qualification
+#: model:ir.model.fields,field_description:coop_shift_qualification.field_res_partner_qualification__seq
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: coop_shift_qualification
+#: model:ir.model,name:coop_shift_qualification.model_shift_template
+msgid "Shift Template"
+msgstr "Créneau"

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_timesheet" inherit_id="coop_shift.report_timesheet">
+        <t t-if="registration['registration'].partner_id.is_squadleader" position="replace">
+            <span t-esc="registration['registration'].partner_id.qualifications or ''"/>
+        </t>
+    </template>
+
+</odoo>
