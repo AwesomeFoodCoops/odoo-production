@@ -24,6 +24,9 @@ class ShiftRegistration(models.Model):
             automatic=True,
         )
         for record in self:
+            """
+            F#T60472 - [TMT] Fix for malus points when cancelling a shift
+            ==> Add point counter when closing a shift
             if record.shift_type == "standard":
                 vals = {
                     'name': _('Annuler votre participation'),
@@ -35,6 +38,7 @@ class ShiftRegistration(models.Model):
                 if record.partner_id.final_ftop_point > 0:
                     vals["type"] = "ftop"
                 SCEvent.create(vals)
+            """
             # Cancel registration
             record.with_context(bypass_reason=1).button_reg_cancel()
             mail_template.send_mail(record.id)
