@@ -158,12 +158,22 @@ class ComputedPurchaseOrderLine(models.Model):
         comodel_name="product.supplierinfo",
         ondelete="set null"
     )
+    shelf_life = fields.Integer(
+        string="Shelf life (days)",
+        compute="compute_shelf_life",
+        store=True
+    )
 
     # Constraints section
     _sql_constraints = [(
         'product_id_uniq', 'unique(computed_purchase_order_id,product_id)',
         'Product must be unique by computed purchase order!'),
     ]
+
+    @api.depends("psi_id")
+    def compute_shelf_life(self):
+        for line in self:
+            line.shelf_life = line.psi_id.shelf_life
 
     # Columns section
     @api.multi

@@ -21,6 +21,7 @@
                 <field name="product_price_inv"/>
                 <field name="discount_inv"/>
                 <field name="price_policy"/>
+                <field name="shelf_life"/>
                 <field name="virtual_duration"/>
                 <field name="subtotal"/>
                 <field name="state"/>
