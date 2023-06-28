@@ -9,7 +9,7 @@
         <field name="name">computed.purchase.order.form</field>
         <field name="model">computed.purchase.order</field>
         <field name="arch" type="xml">
-            <form name="Computed Purchase Order">
+            <form name="Computed Purchase Order" disable_autofocus="1">
                 <header>
                     <button name="make_order" states="draft"
                             string="Make Purchase Order"
