@@ -7,6 +7,7 @@ import base64
 import logging
 import os
 from datetime import datetime
+import socket
 
 from odoo import api, fields, models
 from odoo import tools
@@ -214,7 +215,7 @@ class ProductScaleLog(models.Model):
             scale_system.ftp_login, scale_system.ftp_host,
             scale_system.ftp_port))
         try:
-            ftp = FTP(timeout=10)
+            ftp = FTP(timeout=30)
             ftp.connect(scale_system.ftp_host, scale_system.ftp_port)
             if scale_system.ftp_login:
                 ftp.login(
@@ -355,7 +356,10 @@ class ProductScaleLog(models.Model):
     @api.multi
     def cron_send_to_scale(self):
         log_ids = self.search([('sent', '=', False)], order='log_date')
-        log_ids.send_log()
+        try:
+            log_ids.send_log()
+        except socket.timeout:
+            _logger.debug("Timed out while sending logs to scale. Will try again at next run.")
 
     @api.multi
     def _generate_image_file_name(self, obj, field, extension):
