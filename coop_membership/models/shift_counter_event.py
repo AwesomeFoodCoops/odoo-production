@@ -26,7 +26,8 @@ class ShiftCounterEvent(models.Model):
             if record.partner_id and record.type == 'ftop':
                 counter_event_before = \
                     record.partner_id.counter_event_ids.filtered(
-                        lambda c: c.create_date < record.create_date
+                        # lambda c: c.create_date < record.create_date
+                        lambda c: c.id < record.id
                         and c.type == 'ftop')
                 record.sum_current_qty = record.point_qty
                 for event in counter_event_before:
