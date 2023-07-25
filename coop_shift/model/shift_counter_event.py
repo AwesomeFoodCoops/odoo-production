@@ -8,7 +8,7 @@ from odoo import api, fields, models
 class ShiftCounterEvent(models.Model):
     _name = 'shift.counter.event'
     _description = 'Shift Counter Event'
-    _order = 'create_date desc, partner_id asc'
+    _order = 'create_date desc, partner_id asc, id desc'
 
     TYPE_SELECTION = [
         ('standard', 'Standard'),
