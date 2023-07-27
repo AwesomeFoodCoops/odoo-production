@@ -95,7 +95,6 @@ class ShiftShift(models.Model):
         # - Create Point for FTOP shift on cloturing
         #     + Deduct 1 if current point > 1
         #     + Deduct 2 if current point < 1
-        point_counter_env = self.env['shift.counter.event']
         for shift in self:
             if shift.shift_type_id.is_ftop:
                 long_holiday = shift.long_holiday_id
@@ -134,15 +133,23 @@ class ShiftShift(models.Model):
                         else:
                             point = -2
                     # Create Point Counter
-                    point_counter_env.sudo().with_context({
-                        'automatic': True
-                    }).create({
-                        'name': _('Shift Cloture'),
-                        'shift_id': shift.id,
-                        'type': 'ftop',
-                        'partner_id': partner.id,
-                        'point_qty': point
-                    })
+                    shift.add_closing_shift_point(partner, point)
+
+    @api.multi
+    def add_closing_shift_point(self, partner, point):
+        counters = point_counter_env = self.env['shift.counter.event']
+        for shift in self:
+            # Create Point Counter
+            counters |= point_counter_env.sudo().with_context({
+                'automatic': True
+            }).create({
+                'name': _('Shift Cloture'),
+                'shift_id': shift.id,
+                'type': 'ftop',
+                'partner_id': partner.id,
+                'point_qty': point
+            })
+        return counters
 
     @api.multi
     def button_makeupok(self):
