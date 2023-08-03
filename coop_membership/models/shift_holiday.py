@@ -65,7 +65,8 @@ class ShiftHoliday(models.Model):
                     ('date_begin', '<=', record.date_end),
                     ('date_end', '>=', record.date_begin),
                     ('id', '!=', record.id),
-                    ('holiday_type', '=', record.holiday_type)
+                    ('holiday_type', '=', record.holiday_type),
+                    ('state', '!=', 'cancel'),
                 ])
                 if holidays:
                     raise ValidationError(
@@ -98,10 +99,12 @@ class ShiftHoliday(models.Model):
             # on any holiday
 
             if record.holiday_type == 'long_period':
-                shifts = shifts.filtered(lambda s: not s.long_holiday_id)
+                shifts = shifts.filtered(lambda s: not s.long_holiday_id or \
+                                         s.long_holiday_id.state == "cancel")
                 record.long_period_shift_ids = [[6, 0, shifts.ids]]
             else:
-                shifts = shifts.filtered(lambda s: not s.single_holiday_id)
+                shifts = shifts.filtered(lambda s: not s.single_holiday_id or \
+                                         s.single_holiday_id.state == "cancel")
                 record.single_day_shift_ids = [[6, 0, shifts.ids]]
         record.state = 'confirmed'
         return True
