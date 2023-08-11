@@ -92,6 +92,7 @@ class ResPartner(models.Model):
         Users = self.env["res.users"].with_context(
             no_check_validate_email=True
         )
+        new_users = self.env["res.users"]
         context = self.env.context.copy()
         context.update(
             {
@@ -123,10 +124,10 @@ class ResPartner(models.Model):
                     }
                 )
                 # Users.with_context(no_reset_password=True).create(vals)
-                Users.create(vals)
+                new_users |= Users.create(vals)
             elif user.active:
                 user.partner_id = member.id
-        return True
+        return new_users
 
     @api.model
     def cron_create_user_for_members(self, limit=100,
