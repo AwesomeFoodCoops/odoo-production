@@ -96,7 +96,7 @@
                         groups="coop_membership.group_membership_see_associated_people,coop_membership.group_membership_access_user">
                     <button name="create_related_users" type="object"
                         string="Create Related User"
-                        groups="base.group_erp_manager"
+                        groups="base.group_erp_manager,coop_membership.group_create_related_user"
                         confirm="Are you sure you want to create a new user?"
                         attrs="{'invisible': ['|', ('email', '=', False), ('user_ids', '!=', [])]}"
                         />
