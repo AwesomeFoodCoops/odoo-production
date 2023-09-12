@@ -165,6 +165,10 @@ class ShiftRegistration(models.Model):
 
     @api.multi
     def button_reg_absent(self):
+        # Store state before absent
+        partner_cooperative_states = {}
+        for reg in self:
+            partner_cooperative_states[reg.partner_id] = reg.partner_id.cooperative_state
         res = super(ShiftRegistration, self).button_reg_absent()
         for reg in self:
             # Terminate the shift member
@@ -188,6 +192,10 @@ class ShiftRegistration(models.Model):
                     ])
                     # If no markup reg found, set date end for the reg shift
                     if not markup_shift_reg_count:
+                        # F#T61476 - [SQQ] Members going straight to unsubscribed after 2 consecutive absences
+                        if partner_cooperative_states.get(
+                                reg.partner_id, reg.partner_id.cooperative_state) == "up_to_date":
+                            continue
                         tz_name = self._context.get('tz') or self.env.user.tz
                         utc_timestamp = pytz.utc.localize(reg.date_end,
                                                           is_dst=False)
