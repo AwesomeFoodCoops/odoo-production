@@ -32,7 +32,7 @@ class ShiftTemplateRegistration(models.Model):
         for reg in self:
             today = fields.Date.context_today(self)
             reg.is_current_participant = \
-                any(line.date_begin <= today and
+                any(line.date_begin and line.date_begin <= today and
                     (not line.date_end or line.date_end >= today)
                     for line in reg.line_ids)
 
