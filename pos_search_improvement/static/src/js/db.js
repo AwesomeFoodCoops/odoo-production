@@ -9,24 +9,36 @@ odoo.define('pos_search_improvement.db', function (require) {
             this._super(options);
             this.multi_barcode_by_id = {};
         },
+        _check_search_by_barcode_only: function(){
+            return true;
+        },
 
         // Overide _product_search_string to allow searching product by
         // Internal Reference and Barcode Only
         _product_search_string: function (product) {
-            var str = '';
-            if (product.barcode) {
-                str += '|' + product.barcode;
-            }
-            // Set Multi barcode for product
+            var str = "";
+            var multi_barcode_str = "";
             var multi_barcode_ids = product.multi_barcode_ids;
             if (multi_barcode_ids) {
                 var multi_barcodes = this.get_multi_barcodes()
                 for (var index in multi_barcode_ids) {
                     var barcode_id = multi_barcode_ids[index];
                     var multi_barcode = multi_barcodes[barcode_id];
-                    str += '|' + multi_barcode.barcode;
+                    multi_barcode_str += '|' + multi_barcode.barcode;
                 }
             }
+            if (!this._check_search_by_barcode_only()){
+                str = this._super(product);
+                str = str.replace('\n', '') + multi_barcode_str + '\n';
+                return str;
+            }
+
+            if (product.barcode) {
+                str += '|' + product.barcode;
+            }
+            // Set Multi barcode for product
+            str += multi_barcode_str;
+
             if (product.default_code) {
                 str += '|' + product.default_code;
             }
@@ -61,7 +73,9 @@ odoo.define('pos_search_improvement.db', function (require) {
         },
 
         search_product_in_category: function (category_id, query) {
-
+            if (!this._check_search_by_barcode_only()){
+                return this._super(category_id, query);
+            }
             try {
                 query = query.replace(/[\[\]\(\)\+\*\?\.\-\!\&\^\$\|\~\_\{\}\:\,\\\/]/g, '.');
                 query = query.replace(/ /g, '.+');
