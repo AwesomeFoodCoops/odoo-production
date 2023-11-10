@@ -56,3 +56,68 @@ class ResUsers(models.Model):
                 return 'saisie_group_extension'
         else:
             return False
+
+    @api.multi
+    def check_access_ui(self, res_model):
+        """
+        Check group current user to hide buttons / bars
+        @return: dict({
+            # For Form
+            "o_cp_sidebar": True / False,
+            "o_chatter_topbar": True / False,
+            "o_cp_buttons": True / False,
+
+            # For list
+            "o_button_import": True / False,
+            # For list: when select the checkbox
+            "o_cp_sidebar": True / False,
+        })
+
+        """
+        result = self.check_access_buttons(res_model)
+        resp = {
+            "o_cp_sidebar": True,
+            "o_chatter_topbar": True,
+            "o_cp_buttons": True,
+            "o_button_import": True,
+            # "o_cp_sidebar": True
+            "result": result
+        }
+        if result == 'lecture_group_partner':
+            resp["o_cp_sidebar"] = False
+            resp["o_chatter_topbar"] = False
+            resp["o_cp_buttons"] = False
+        elif result == 'presence_group_partner':
+            resp["o_cp_sidebar"] = False
+            resp["o_chatter_topbar"] = False
+            resp["o_cp_buttons"] = False
+        elif result == 'saisie_group_partner':
+            resp["o_cp_sidebar"] = False
+            resp["o_chatter_topbar"] = False
+        elif result == 'presence_group_shift':
+            resp["o_cp_sidebar"] = False
+            resp["o_chatter_topbar"] = False
+            resp["o_cp_buttons"] = True
+        elif result == 'saisie_group_shift':
+            resp["o_cp_sidebar"] = False
+            resp["o_chatter_topbar"] = False
+        elif result == 'saisie_group_leave':
+            resp["o_cp_sidebar"] = False
+            resp["o_chatter_topbar"] = False
+        # else:
+        #     resp["o_cp_sidebar"] = True
+        #     resp["o_chatter_topbar"] = True
+        #     resp["o_cp_buttons"] = True
+        if result:
+            resp["o_button_import"] = False
+        self.check_access_ui_super_groups(resp)
+        return resp
+
+    @api.multi
+    def check_access_ui_super_groups(self, resp):
+        if self.has_group(
+            'coop_membership.group_membership_chatter_topbar'):
+            resp["o_chatter_topbar"] = True
+        if self.has_group(
+            'coop_membership.group_membership_action_sidebar'):
+            resp["o_cp_sidebar"] = True

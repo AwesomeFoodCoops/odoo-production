@@ -178,6 +178,10 @@
         <field name="name">Show Chatter Topbar</field>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
+    <record model="res.groups" id="group_membership_action_sidebar">
+        <field name="name">Show Action Sidebar</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
 
     <!-- Bdm lecture - Read-only profile -->
     <record model="res.groups" id="group_membership_bdm_lecture">
