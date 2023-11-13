@@ -21,47 +21,30 @@ odoo.define('coop_membership.AccessButtons', function(require) {
             var res_model = this.state.model;
             this._rpc({
                 model: 'res.users',
-                method: 'check_access_buttons',
+                method: 'check_access_ui',
                 args: [context.uid, res_model],
                 context: context,
             }).then(function(result) {
                 self.hide_button(result);
-                session.user_has_group(
-                    'coop_membership.group_membership_chatter_topbar'
-                ).then(function (data) {
-                    if (data) {
-                        self.$('.o_chatter_topbar').show();
-                    }
-                });
+                // session.user_has_group(
+                //     'coop_membership.group_membership_chatter_topbar'
+                // ).then(function (data) {
+                //     if (data) {
+                //         self.$('.o_chatter_topbar').show();
+                //     }
+                // });
             });
         },
 
         hide_button: function(result) {
-            if (result == 'lecture_group_partner') {
+            if (!result.o_cp_sidebar){
                 self.$('.o_cp_sidebar').hide();
+            }
+            if (!result.o_chatter_topbar){
                 self.$('.o_chatter_topbar').hide();
+            }
+            if (!result.o_cp_buttons){
                 self.$('.o_cp_buttons').hide();
-            } else if (result == 'presence_group_partner') {
-                self.$('.o_cp_sidebar').hide();
-                self.$('.o_chatter_topbar').hide();
-                self.$('.o_cp_buttons').hide();
-            } else if (result == 'saisie_group_partner') {
-                self.$('.o_cp_sidebar').hide();
-                self.$('.o_chatter_topbar').hide();
-            } else if (result == 'presence_group_shift') {
-                self.$('.o_cp_sidebar').hide();
-                self.$('.o_chatter_topbar').hide();
-                self.$('.o_cp_buttons').show();
-            } else if (result == 'saisie_group_shift') {
-                self.$('.o_cp_sidebar').hide();
-                self.$('.o_chatter_topbar').hide();
-            } else if (result == 'saisie_group_leave') {
-                self.$('.o_cp_sidebar').hide();
-                self.$('.o_chatter_topbar').hide();
-            } else {
-                self.$('.o_cp_sidebar').show();
-                self.$('.o_chatter_topbar').show();
-                self.$('.o_cp_buttons').show();
             }
         }
 
@@ -98,7 +81,7 @@ odoo.define('coop_membership.AccessButtons', function(require) {
             var res_model = this.state.model;
             this._rpc({
                 model: 'res.users',
-                method: 'check_access_buttons',
+                method: 'check_access_ui',
                 args: [context.uid, res_model],
                 context: context,
             }).then(function(result) {
@@ -107,10 +90,8 @@ odoo.define('coop_membership.AccessButtons', function(require) {
         },
 
         hide_button: function(result) {
-            if (result) {
+            if (!result.o_button_import) {
                 self.$('.o_button_import').hide();
-            } else {
-                self.$('.o_button_import').show();
             }
         },
 
@@ -120,7 +101,7 @@ odoo.define('coop_membership.AccessButtons', function(require) {
             var res_model = this.state.model;
             this._rpc({
                 model: 'res.users',
-                method: 'check_access_buttons',
+                method: 'check_access_ui',
                 args: [context.uid, res_model],
                 context: context,
             }).then(function(result) {
@@ -129,15 +110,10 @@ odoo.define('coop_membership.AccessButtons', function(require) {
         },
 
         hide_button_select: function(result) {
-            if (result) {
+            if (!result.o_cp_sidebar) {
                 self.$('.o_cp_sidebar ').hide();
-            } else {
-                self.$('.o_cp_sidebar').show();
             }
         },
-
-
-
     })
 
 });
