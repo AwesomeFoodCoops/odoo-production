@@ -1,6 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_partner_memberspace,MemberSpace Access Partner,model_res_partner,coop_memberspace.group_memberspace,1,1,0,0
-access_shift_ticket_memberspace,MemberSpace Access Shift Ticket,coop_shift.model_shift_ticket,coop_memberspace.group_memberspace,1,0,0,0
+access_shift_ticket_memberspace,MemberSpace Access Shift Ticket,coop_shift.model_shift_ticket,coop_memberspace.group_memberspace,1,1,0,0
 access_shift_registration_memberspace,MemberSpace Access Shift Registration,coop_memberspace.model_shift_registration,coop_memberspace.group_memberspace,1,1,1,0
 access_shift_mail_memberspace,MemberSpace Access Shift Mail,coop_shift.model_shift_mail,coop_memberspace.group_memberspace,1,1,0,0
 access_shift_shift_memberspace,MemberSpace Access Shift Shift,coop_shift.model_shift_shift,coop_memberspace.group_memberspace,1,0,0,0
