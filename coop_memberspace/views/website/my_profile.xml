@@ -209,10 +209,10 @@
                                     </label>
                                 </div>
                             </div>
-                            <h4 style="margin-left: 15px;font-size: 25px;">
+                            <h4 t-if="user.partner_id.config_receipt_options in (3, 4)" style="margin-left: 15px;font-size: 25px;">
                                 Ticket par email
                             </h4>
-                            <div class="row">
+                            <div t-if="user.partner_id.config_receipt_options in (3, 4)" class="row">
                                 <div class="col-xs-4 col-sm-4 col-md-4 text-right">
                                     <h4>Activate :</h4>
                                 </div>
