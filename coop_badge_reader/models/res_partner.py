@@ -111,7 +111,10 @@ class ResPartner(models.Model):
         ext_type_env = self.env["shift.extension.type"]
         date_start_str = fields.Date.context_today(self)
         grace_ext_type = ext_type_env.sudo().search(
-            [("is_grace_period", "=", True)], limit=1
+            [("is_grace_period", "=", True),
+             "|",
+             ('extension_method', '=', 'to_next_regular_shift'),
+             ('duration', '>', 0)], limit=1
         )
         if not grace_ext_type:
             return False
@@ -135,10 +138,13 @@ class ResPartner(models.Model):
             # the next shift date
             next_shift_date = fields.Date.from_string(next_shift_date)
             next_shift_date += timedelta(days=1)
-            if date_stop_str > next_shift_date:
+            if date_stop_str > next_shift_date or \
+                    grace_ext_type.extension_method == "to_next_regular_shift":
                 date_stop_str = next_shift_date
-            else:
-                date_stop_str = date_stop_str
+        if date_stop_str <= date_start_str:
+            # No create extension when duration<=0 and extension_method is Fixed
+            return False
+
         # Create extension
         res = shift_ext_env.sudo().create(
             {
