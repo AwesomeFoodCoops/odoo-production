@@ -15,7 +15,7 @@
                     attrs="{'invisible':['|','|','|',('can_reconcile_expense', '=', False), ('all_lines_reconciled','=',True), ('line_ids','=',[]), ('state', '!=', 'open')]}"/>
                 <button string="Auto Reconcile POS Payments"
                     name="button_reconcile_pos" type="object"
-                    attrs="{'invisible':['|','|','|',('can_reconcile_expense', '=', False), ('all_lines_reconciled','=',True),  ('line_ids','=',[]), ('state', '!=', 'open')]}"/>
+                    attrs="{'invisible':['|','|','|',('can_reconcile_pos', '=', False), ('all_lines_reconciled','=',True),  ('line_ids','=',[]), ('state', '!=', 'open')]}"/>
             </button>
         </field>
     </record>  

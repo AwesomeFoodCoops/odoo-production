@@ -40,7 +40,11 @@ class AccountBankStatement(models.Model):
     def button_reconcile_bank_expense(self):
         """ Tries to automatically reconcile bank expenses """
         self.ensure_one()
-        self.line_ids._reconcile_bank_expense()
+        count = self.line_ids._reconcile_bank_expense()
+        if count == 0:
+            raise UserError(_(
+                'No line is matched to Bank Expense Pattern'
+            ))
 
     @api.multi
     def button_reconcile_pos(self):
@@ -101,8 +105,8 @@ class AccountBankStatement(models.Model):
                 not_reconciled_alt_lines = rec._pos_reconcile_lines(alt_lines)
 
                 # Process combinations
-                not_reconciled_lines, not_reconciled_alt_lines = \
-                    rec._pos_reconcile_lines_combined(lines, alt_lines)
+                if not_reconciled_lines and not_reconciled_alt_lines:
+                    rec._pos_reconcile_lines_combined(not_reconciled_lines, not_reconciled_alt_lines)
 
     def _pos_reconcile_lines(self, lines):
         '''
@@ -128,6 +132,7 @@ class AccountBankStatement(models.Model):
             self._pos_reconcile_statement_with_lines(
                 lines=line, statement=statement)
             reconciled_lines |= line
+        return (lines - reconciled_lines)
 
     def _pos_reconcile_lines_combined(self, lines, alt_lines):
         '''
@@ -170,6 +175,7 @@ class AccountBankStatement(models.Model):
                     lines=(line | alt_line), statement=statement)
                 reconciled_lines |= line
                 reconciled_alt_lines |= alt_line
+                break  # line has already reconciled, break the loop then.
         # Return tuple
         return (
             lines - reconciled_lines,
