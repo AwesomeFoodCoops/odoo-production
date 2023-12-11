@@ -69,5 +69,5 @@ msgstr "A la date du service, comme votre compteur de services d'avance est posi
 msgid "You are going to cancel your participation in the service <b><span class=\"service_name\"/></b>.\n"
 "                            <b> Thank you for warning us.</b> Following this cancellation, <b>your participation will be released on the schedule.</b>"
 msgstr "<p>Vous allez annuler votre participation au service de <b><span class=\"service_name\"/></b>.\n"
-"                  <b> Merci de nous prévenir.</b> Suite à cette annulation, <b>votre place sera libérée sur le planning.</b>\n"
+"                  <b> Merci de nous avoir prévenus.</b> Suite à cette annulation, <b>votre place sera libérée sur le planning.</b>\n"
 "         </p>"
