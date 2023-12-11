@@ -363,7 +363,7 @@ msgid "<span style=\"font-size: 15px;font-weight: 600\">Your status is “up to 
 "                                    you must be at +1 or more.\n"
 "                                </span>"
 msgstr "<span style=\"font-size: 15px;font-weight: 600\">Votre statut est “à jour” à zéro\n"
-"                                    points ou plus. Par contre, pour être en règle pour le prochain décompte volants\n"
+"                                    point ou plus. Par contre, pour être en règle pour le prochain décompte volants\n"
 "                                    vous devez être à +1 ou plus.\n"
 "                                </span>"
 

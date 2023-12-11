@@ -1,0 +1,6 @@
+
+#. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.stock_inventory_line_tree2
+#: model_terms:ir.ui.view,arch_db:stock.view_inventory_form
+msgid "Real Quantity"
+msgstr "Quantité vérifiée"
