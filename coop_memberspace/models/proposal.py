@@ -134,10 +134,16 @@ class Proposal(models.Model):
                 continue
             # Create new shift registration for member B
             shift_ticket_id = False
+            shift_ticket_id_2 = False
             for ticket in record.src_shift_id.shift_ticket_ids:
                 if ticket.seats_available > 0:
                     shift_ticket_id = ticket.id
-                    break
+                    if ticket.shift_type == \
+                            record.des_registration_id.partner_id.shift_type:
+                        shift_ticket_id_2 = ticket.id
+                        break
+            if shift_ticket_id_2:
+                shift_ticket_id = shift_ticket_id_2
             if not shift_ticket_id:
                 continue
             
