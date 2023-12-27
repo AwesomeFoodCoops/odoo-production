@@ -24,7 +24,11 @@ class MassMailingList(models.Model):
             FROM mail_mass_mailing_contact ct
             JOIN mail_mass_mailing_contact_list_rel ctr
                 ON ctr.contact_id = ct.id
-            JOIN res_partner rp
+            JOIN (
+                SELECT DISTINCT ON (email) id, email, is_member
+                FROM res_partner
+                ORDER BY email, is_member DESC NULLS LAST
+            ) rp
                 ON rp.email = ct.email
             WHERE rp.is_member IS FALSE
                 AND ctr.list_id in {ctr_ids}
