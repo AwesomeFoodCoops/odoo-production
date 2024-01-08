@@ -247,7 +247,10 @@ class AccountReconciliation(models.AbstractModel):
                     'write_off':
                         matching_amls[line.id].get('status') == 'write_off',
                 }
-                if not line.partner_id and partner_map.get(line.id):
+                if (line.journal_id.set_default_reconcile_partner and
+                     not line.partner_id and
+                     partner_map.get(line.id)
+                ):
                     partner_obj = self.env['res.partner']
                     partner = partner_obj.browse(partner_map[line.id])
                     line_vals.update({
