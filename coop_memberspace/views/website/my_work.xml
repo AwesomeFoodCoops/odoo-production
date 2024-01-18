@@ -454,8 +454,7 @@
                                     </td>
                                     <!-- end -->
                                     <td>
-                                        <span data-toggle="modal" data-target="#modal_exchange_shift"
-                                              t-att-registration-id="shift_reg and shift_reg.id or 0"
+                                        <span t-att-registration-id="shift_reg and shift_reg.id or 0"
                                               t-att-shift-id="shift.id"
                                               class="fa fa-plus-square select-shift-proposal"/>
                                     </td>
