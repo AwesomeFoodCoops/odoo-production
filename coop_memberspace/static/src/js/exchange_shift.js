@@ -98,6 +98,15 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                         if(!shifts.length) {
                             $('.create-proposal').addClass('d-none');
                             $('.modal_exchange_shift_body').append('<tr class="text-center"> <td>No shift available </td></tr>');
+                        } else if(shifts.length === 1){
+                            let src_registration_id = self.shift_on_market;
+                            let src_shift = self.shift_available;
+                            let des_registration_id = shifts[0].id;
+                            self.des_registration_id = des_registration_id;
+                            let resp = self.show_shift_proposal_confirmation(src_registration_id, src_shift, des_registration_id);
+                            resp.then(function(){
+                                $('#modal_confirm_exchange_shift').modal('show');
+                            });
                         } else {
                             shifts.forEach(function(shift, idx, array) {
                                 let data = `
@@ -109,36 +118,26 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                                 `;
                                 $('.modal_exchange_shift_body').append(data);
                             })
+                            $('#modal_exchange_shift').modal('show');
                         }
                     })
                 });
 
                 $('.exchange-shift').on('click', '.confirm-shift-proposal', function(e) {
                     let src_registration_id = self.shift_on_market;
-                    let des_registration_id = parseInt($('input[name=registration_input]:checked').val());
                     let src_shift = self.shift_available;
-                    self._rpc({
-                        model: 'shift.registration',
-                        method: 'shifts_to_confirm',
-                        args: [src_registration_id, des_registration_id, src_shift],
-                    })
-                    .then(function(resp){
-                        var code = resp[0];
-                        var mesg = resp[1];
+                    let des_registration_id = parseInt($('input[name=registration_input]:checked').val());
+                    let resp = self.show_shift_proposal_confirmation(src_registration_id, src_shift, des_registration_id);
+                    resp.then(function(){
                         $('#modal_exchange_shift').modal('hide');
-                        $('.modal_confirm_shift_body').empty();
-                        $('.modal_confirm_shift_body').append('<span>' + mesg + ' </span>');
-                        if(!des_registration_id || code === 0) {
-                            $('.create-proposal').addClass('d-none');
-                        }
-                        else {
-                            $('.create-proposal').removeClass('d-none');
-                        }
-                    })
+                    });
                 });
                 $('#modal_confirm_exchange_shift').on('click', '.create-proposal', function(e) {
                     let src_registration_id = self.shift_on_market;
                     let des_registration_id = parseInt($('input[name=registration_input]:checked').val());
+                    if (!des_registration_id && self.des_registration_id !== undefined){
+                        des_registration_id = self.des_registration_id;
+                    }
                     let src_shift = self.shift_available;
                     self._rpc({
                         model: 'shift.registration',
@@ -152,6 +151,25 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                     .fail(function(error, event) {
                         $('#modal_confirm_exchange_shift').modal('hide');
                     });
+                });
+            },
+            show_shift_proposal_confirmation: function (src_registration_id, src_shift, des_registration_id){
+                return this._rpc({
+                    model: 'shift.registration',
+                    method: 'shifts_to_confirm',
+                    args: [src_registration_id, des_registration_id, src_shift],
+                })
+                .then(function(resp){
+                    var code = resp[0];
+                    var mesg = resp[1];
+                    $('.modal_confirm_shift_body').empty();
+                    $('.modal_confirm_shift_body').append('<span>' + mesg + ' </span>');
+                    if(!des_registration_id || code === 0) {
+                        $('.create-proposal').addClass('d-none');
+                    }
+                    else {
+                        $('.create-proposal').removeClass('d-none');
+                    }
                 });
             }
         })

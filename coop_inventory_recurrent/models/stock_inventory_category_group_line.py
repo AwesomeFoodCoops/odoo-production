@@ -9,6 +9,7 @@ class StockInventoryCategoryGroupLine(models.Model):
 
     group_id = fields.Many2one(
         comodel_name="stock.inventory.category.group",
+        ondelete="cascade"
     )
     category_id = fields.Many2one(
         'product.category', string='Product category',

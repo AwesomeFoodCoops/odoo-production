@@ -1243,6 +1243,12 @@ msgid "Schedule an advance service"
 msgstr "Programmer un service anticipé"
 
 #. module: coop_memberspace
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_company__show_advance_service
+#: model:ir.model.fields,field_description:coop_memberspace.field_res_config_settings__show_advance_service
+msgid "Show schedule an advance service"
+msgstr "Afficher programmer un service anticipé"
+
+#. module: coop_memberspace
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.classic_counter
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.extra_counter
 #: model_terms:ir.ui.view,arch_db:coop_memberspace.ftop_my_counter

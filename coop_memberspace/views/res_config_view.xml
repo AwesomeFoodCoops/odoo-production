@@ -41,6 +41,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="show_advance_service"/>
+                        </div>
+                        <div class="o_setting_right_pane" >
+                            <label for="show_advance_service"/>
+                            <div class="text-muted">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </xpath>
             <xpath expr="//div[@data-key='coop_membership']/div[last()]" position="inside">
