@@ -189,7 +189,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" t-if="user.company_id.show_advance_service">
                 <div style="border: 1px solid #b2b7bb;padding: 10px;margin-bottom:10px;">
                     <p style="font-size: 25px;font-weight: 600">Schedule an advance service</p>
                     <p class="text-center">You can do services in addition to your usual services. From 2 accumulated
@@ -202,6 +202,13 @@
                 </div>
             </div>
         </div>
+    </template>
+
+    <!-- To update the view updated by user from UI manually -->
+    <template id="mywork_standard_update_for_custom" inherit_id="coop_memberspace.mywork_standard">
+        <xpath expr="div[3]/div[2]" position="attributes">
+            <attribute name="t-if">user.company_id.show_advance_service</attribute>
+        </xpath>
     </template>
 
     <template id="coop_memberspace.counter">
@@ -454,8 +461,7 @@
                                     </td>
                                     <!-- end -->
                                     <td>
-                                        <span data-toggle="modal" data-target="#modal_exchange_shift"
-                                              t-att-registration-id="shift_reg and shift_reg.id or 0"
+                                        <span t-att-registration-id="shift_reg and shift_reg.id or 0"
                                               t-att-shift-id="shift.id"
                                               class="fa fa-plus-square select-shift-proposal"/>
                                     </td>

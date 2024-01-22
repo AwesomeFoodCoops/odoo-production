@@ -40,6 +40,10 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="coop_memberspace.ftop_shift_cancellation_duration",
         default=24
     )
+    show_advance_service = fields.Boolean(
+        related="company_id.show_advance_service",
+        readonly=False
+    )
 
     # Constraints
     @api.multi
