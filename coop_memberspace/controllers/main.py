@@ -174,38 +174,11 @@ class Website(WebsiteController):
     )
     def page_programmer_un_extra(self, **kwargs):
         user = request.env.user
-        tmpl = user.partner_id.tmpl_reg_line_ids.filtered(
-            lambda r: r.is_current
-        )
         shift_env = request.env["shift.shift"]
         shifts_available = shift_env
-        if tmpl:
-            shifts_available = (
-                shift_env.sudo()
-                .search(
-                    [
-                        ("shift_template_id.is_technical", "=", False),
-                        (
-                            "shift_template_id",
-                            "!=",
-                            tmpl[0].shift_template_id.id,
-                        ),
-                        (
-                            "date_begin",
-                            ">=",
-                            (datetime.now() + timedelta(days=1)).strftime(
-                                "%Y-%m-%d 00:00:00"
-                            ),
-                        ),
-                        '|',
-                        ('registration_ids', '=', False),
-                        ('registration_ids.partner_id', 'not in', user.partner_id.ids),
-                        ('shift_template_id.shift_type_id.is_ftop', '=', False),
-                        ('state', '!=', 'cancel')
-                    ],
-                    order='date_begin'
-                )
-            )
+        domain = shift_env.get_domain_programmer_un_extra()
+        if domain:
+            shifts_available = shift_env.sudo().search(domain, order='date_begin')
             shifts_available = shifts_available.filtered(
                 lambda t: t.seats_availability == 'unlimited' or \
                     t.seats_reserved < t.seats_max)
