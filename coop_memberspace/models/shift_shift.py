@@ -1,5 +1,6 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 from odoo import models, api, fields
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 
 
 class ShiftShift(models.Model):
@@ -105,3 +106,31 @@ class ShiftShift(models.Model):
         ]
         ticket = self.env["shift.ticket"].search(args, limit=1)
         return ticket.ids, msg
+
+    @api.model
+    def get_domain_programmer_un_extra(self, days=1):
+        user = self.env.user
+        tmpl = user.partner_id.tmpl_reg_line_ids.filtered(
+            lambda r: r.is_current
+        )
+        domain = []
+        if tmpl:
+            domain = [
+                ("shift_template_id.is_technical", "=", False),
+                (
+                    "shift_template_id",
+                    "!=",
+                    tmpl[0].shift_template_id.id,
+                ),
+                (
+                    "date_begin",
+                    ">",
+                    (datetime.now() + timedelta(days=days)).strftime(DTF),
+                ),
+                '|',
+                ('registration_ids', '=', False),
+                ('registration_ids.partner_id', 'not in', user.partner_id.ids),
+                ('shift_template_id.shift_type_id.is_ftop', '=', False),
+                ('state', '!=', 'cancel')
+            ]
+        return domain
