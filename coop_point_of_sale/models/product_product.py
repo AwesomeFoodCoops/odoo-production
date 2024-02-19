@@ -28,7 +28,7 @@ class ProductProduct(models.Model):
 
     @api.onchange('available_in_pos')
     def onchange_available_in_pos(self):
-        if not self.available_in_pos and not self.check_pos_session_running():
+        if not self.available_in_pos and not self.sudo().check_pos_session_running():
             self.force_unavailable_in_pos = True
             self.available_in_pos = True
 
