@@ -30,7 +30,7 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                         }
                         else {
                             let data = `
-                                <span>En cours </span>
+                                <span>${self.get_cancel_label()} </span>
                                 <button class="material-icons button-icon remove-proposal"
                                     registration-id="${registration_id}"
                                     data-toggle="modal" data-target="#modal_confirm_cancel_proposal">remove_circle_outline</button>
@@ -152,6 +152,9 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                         $('#modal_confirm_exchange_shift').modal('hide');
                     });
                 });
+            },
+            get_cancel_label: function () {
+                return "En cours";
             },
             show_shift_proposal_confirmation: function (src_registration_id, src_shift, des_registration_id){
                 return this._rpc({
