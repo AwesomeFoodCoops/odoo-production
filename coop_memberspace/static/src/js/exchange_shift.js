@@ -4,6 +4,7 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
     var sAnimations = require('website.content.snippets.animation');
     var session = require('web.session');
     var ajax = require("web.ajax");
+
     sAnimations.registry.exchange_shift =
         sAnimations.Class.extend({
             selector: '.exchange-shift',
@@ -88,6 +89,7 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                 $('.exchange-shift').on('click', '.select-shift-proposal', function(e) {
                     self.shift_on_market = parseInt($(this).attr('registration-id'));
                     self.shift_available = parseInt($(this).attr('shift-id'));
+                    $.blockUI();
                     self._rpc({
                         model: 'shift.registration',
                         method: 'shifts_to_proposal',
@@ -121,6 +123,9 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                             $('#modal_exchange_shift').modal('show');
                         }
                     })
+                    .always(function () {
+                        $.unblockUI();
+                    });
                 });
 
                 $('.exchange-shift').on('click', '.confirm-shift-proposal', function(e) {
@@ -139,6 +144,7 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                         des_registration_id = self.des_registration_id;
                     }
                     let src_shift = self.shift_available;
+                    $.blockUI();
                     self._rpc({
                         model: 'shift.registration',
                         method: 'create_proposal',
@@ -149,8 +155,12 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                         $('#modal_confirm_exchange_shift').modal('hide');
                     })
                     .fail(function(error, event) {
+                        $.unblockUI();
                         $('#modal_confirm_exchange_shift').modal('hide');
-                    });
+                    })
+                    .always(function () {
+                        // $.unblockUI();
+                    });;
                 });
             },
             get_cancel_label: function () {
