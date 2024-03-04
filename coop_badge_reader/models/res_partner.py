@@ -36,6 +36,14 @@ class ResPartner(models.Model):
         store=True,
         selection=BADGE_PARTNER_BOOTSTRAP_COOPERATIVE_STATE,
     )
+    error_message = fields.Text(
+        compute="_compute_error_message",
+    )
+
+    @api.multi
+    def _compute_error_message(self):
+        for record in self:
+            record.error_message = ""
 
     # Compute Section
     @api.depends("cooperative_state")

@@ -42,7 +42,7 @@ angular.module('starter').factory('ResPartnerModel', ['$q', 'jsonRpc', function 
 
         GetById: function(partner_id) {
             return jsonRpc.searchRead('res.partner', [['id', '=', partner_id]], [
-                'id', 'name', 'street', 'street2', 'zip', 'city', 'customer', 'country_id', 'phone', 'mobile', 'bootstrap_cooperative_state', 'cooperative_state', 'display_name', 'badge_to_distribute', 'contact_us_message']).then(function (partner_res) {
+                'id', 'name', 'street', 'street2', 'zip', 'city', 'customer', 'country_id', 'phone', 'mobile', 'bootstrap_cooperative_state', 'cooperative_state', 'display_name', 'badge_to_distribute', 'contact_us_message', 'error_message']).then(function (partner_res) {
                 if (partner_res.records.length == 1){
                     var res = partner_res.records[0];
                     res.image_url = "../../../web/image?model=res.partner&id=" + partner_id + "&field=image";
@@ -55,7 +55,7 @@ angular.module('starter').factory('ResPartnerModel', ['$q', 'jsonRpc', function 
 
         GetByIds: function(partner_ids) {
             return jsonRpc.searchRead('res.partner', [['id', 'in', partner_ids]], [
-                'id', 'name', 'street', 'street2', 'zip', 'city', 'customer', 'country_id', 'phone', 'mobile', 'bootstrap_cooperative_state', 'cooperative_state', 'display_name']).then(function (partner_res) {
+                'id', 'name', 'street', 'street2', 'zip', 'city', 'customer', 'country_id', 'phone', 'mobile', 'bootstrap_cooperative_state', 'cooperative_state', 'display_name', 'error_message']).then(function (partner_res) {
                 partner_res.records.forEach(function(partner) {
                     partner.image_url = "../../../web/image?model=res.partner&id=" + partner.id + "&field=image";
                 });

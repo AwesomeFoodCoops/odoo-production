@@ -11,6 +11,9 @@ angular.module('starter').controller('PartnerFormCtrl', ['$scope', '$state',  '$
             ResPartnerModel.GracePartner(parseInt(toParams['partner_id'])).then(function (grace_result){
                 ResPartnerModel.GetById(toParams['partner_id']).then(function (partner_res){
                     partner_res.css_class = 'partner-' + partner_res.bootstrap_cooperative_state;
+                    if (partner_res.error_message) {
+                        partner_res.css_class = 'partner-error';
+                    }
                     $document[0].getElementById('sound_res_partner_' + partner_res.bootstrap_cooperative_state).play();
                     $scope.partner = partner_res;
                     $scope.contact_us_message = $sce.trustAsHtml(partner_res.contact_us_message);
