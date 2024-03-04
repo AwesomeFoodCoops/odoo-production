@@ -30,6 +30,10 @@ div.jumbotron{
     background-color: #d9534f;
 }
 
+.partner-error {
+    background-color: #000000;
+}
+
 .partner-search {
     background-color: #FFF;
 }
