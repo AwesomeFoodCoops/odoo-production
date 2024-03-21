@@ -125,6 +125,7 @@ class ShiftRegistration(models.Model):
                 }
             record.write({
                 "exchange_state": "in_progress",
+                "exchange_replacing_reg_id": False,
             })
         return {
             'code': 1,
@@ -153,7 +154,7 @@ class ShiftRegistration(models.Model):
         for shift in shifts:
             exist_proposal = self.env["proposal"].search(
                 [
-                    ("state", "not in", ["cancel", "refuse"]),
+                    ("state", "not in", ["cancel", "refuse", "accept"]),
                     "|",
                     "&",
                     ("src_registration_id", "=", self.id),
