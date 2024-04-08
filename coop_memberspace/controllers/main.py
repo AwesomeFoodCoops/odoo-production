@@ -209,15 +209,17 @@ class Website(WebsiteController):
                 ("shift_id.shift_type_id.is_ftop", "=", False),
             ]
         )
+        args = [
+            ("partner_id", "!=", user.partner_id.id),
+            # ("state", "!=", "cancel"),
+            # ("exchange_state", "=", "in_progress"),
+            # ("exchange_replacing_reg_id", '!=', False),
+            ("date_begin", ">=", today),
+            ("date_begin", "<=", tomorrow),
+        ]
+        args = shift_registration_env.get_extra_domain_on_market(args)
         shifts_on_market = shift_registration_env.sudo().search(
-            [
-                ("partner_id", "!=", user.partner_id.id),
-                ("state", "!=", "cancel"),
-                ("exchange_state", "=", "in_progress"),
-                ("exchange_replacing_reg_id", '!=', False),
-                ("date_begin", ">=", today),
-                ("date_begin", "<=", tomorrow),
-            ],
+            args,
             order="date_begin",
         )
         # Shifts of my own but cancel by mistake

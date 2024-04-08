@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 from odoo import models, api, fields, _
 from odoo.exceptions import UserError
+from odoo.osv import expression
 
 
 class ShiftRegistration(models.Model):
@@ -295,3 +296,12 @@ class ShiftRegistration(models.Model):
             order="date_begin",
         )
         return shift_upcomming
+
+    def get_extra_domain_on_market(self, args, check_replacing=True):
+        args2 = [
+            ("state", "!=", "cancel"),
+            ("exchange_state", "=", "in_progress"),
+        ]
+        if check_replacing:
+            args2.append(("exchange_replacing_reg_id", '!=', False))
+        return expression.AND([args, args2])

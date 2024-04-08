@@ -298,7 +298,7 @@ class ShiftRegistration(models.Model):
                 if vals_state == 'draft':
                     if shift_reg.partner_id:
                         counter_events = \
-                            shift_reg.partner_id.counter_event_ids.filtered(
+                            shift_reg.partner_id.sudo().counter_event_ids.filtered(
                                 lambda c: c.shift_id.id ==
                                 shift_reg.shift_id.id)
                         for event in counter_events:
