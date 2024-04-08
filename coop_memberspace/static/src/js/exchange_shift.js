@@ -18,32 +18,7 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                     self.registration_id = parseInt($(this).attr('registration-id'));
                 });
                 $('.exchange-shift').on('click', '.go-to-market', function(e) {
-                    let btn_go_to_market = this;
-                    let registration_id = parseInt($(this).attr('registration-id'));
-                    self._rpc({
-                        model: 'shift.registration',
-                        method: 'add_shift_regis_to_market',
-                        args: [[registration_id]],
-                    })
-                    .then(function(res){
-                        if (res.code === 0){
-                            alert(res.msg);
-                        }
-                        else {
-                            let data = `
-                                <span>${self.get_cancel_label()} </span>
-                                <button class="material-icons button-icon remove-proposal"
-                                    registration-id="${registration_id}"
-                                    data-toggle="modal" data-target="#modal_confirm_cancel_proposal">remove_circle_outline</button>
-                            `;
-                            let parent = $(btn_go_to_market).parent();
-                            while(parent.children(":first").length > 0) {
-                                parent.children(":first").remove();
-                            }
-                            parent.append(data);
-                            //$(btn_go_to_market).remove();
-                        }
-                    })
+                    self.go_to_market(this);
                 });
 
                 $('#modal_confirm_cancel_proposal').on('click', '.cancel-proposal', function(e) {
@@ -53,16 +28,14 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                         args: [[self.registration_id]],
                     })
                     .then(function(e){
-                        let data = `
-                            <button class="material-icons button-icon go-to-market" style="margin-right: 10px;"
-                                registration-id="${self.registration_id}">swap_horiz</button>
-                        `;
+                        let data = self.get_swap_btn_html(self.registration_id);
                         let parent = $(self.btn_remove).parent();
                         while(parent.children(":first").length > 0) {
                             parent.children(":first").remove();
                         }
                         parent.append(data);
                         $('#modal_confirm_cancel_proposal').modal('hide');
+                        self.post_cancel_proposal();
                     })
                 });
                 $('.exchange-shift').on('click', '.browse-expected-attendee', function(e) {
@@ -99,7 +72,9 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                         $('.modal_exchange_shift_body').empty();
                         if(!shifts.length) {
                             $('.create-proposal').addClass('d-none');
+                            $('#modal_exchange_shift .confirm-shift-proposal').addClass('d-none');
                             $('.modal_exchange_shift_body').append('<tr class="text-center"> <td>No shift available </td></tr>');
+                            $('#modal_exchange_shift').modal('show');
                         } else if(shifts.length === 1){
                             let src_registration_id = self.shift_on_market;
                             let src_shift = self.shift_available;
@@ -120,6 +95,7 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                                 `;
                                 $('.modal_exchange_shift_body').append(data);
                             })
+                            $('#modal_exchange_shift .confirm-shift-proposal').removeClass('d-none');
                             $('#modal_exchange_shift').modal('show');
                         }
                     })
@@ -163,6 +139,43 @@ odoo.define('coop_memberspace.exchange_shift', function (require) {
                     });;
                 });
             },
+            go_to_market: function(btn) {
+                const self = this;
+                let btn_go_to_market = btn;
+                let registration_id = parseInt($(btn).attr('registration-id'));
+                return self._rpc({
+                    model: 'shift.registration',
+                    method: 'add_shift_regis_to_market',
+                    args: [[registration_id]],
+                })
+                .then(function(res){
+                    if (res.code === 0){
+                        alert(res.msg);
+                    }
+                    else {
+                        let data = `
+                            <span>${self.get_cancel_label()} </span>
+                            <button class="material-icons button-icon remove-proposal"
+                                registration-id="${registration_id}"
+                                data-toggle="modal" data-target="#modal_confirm_cancel_proposal">remove_circle_outline</button>
+                        `;
+                        let parent = $(btn_go_to_market).parent();
+                        while(parent.children(":first").length > 0) {
+                            parent.children(":first").remove();
+                        }
+                        parent.append(data);
+                        //$(btn_go_to_market).remove();
+                    }
+                })
+            },
+            get_swap_btn_html: function(registration_id) {
+                const data = `
+                    <button class="material-icons button-icon go-to-market" style="margin-right: 10px;"
+                        registration-id="${registration_id}">swap_horiz</button>
+                `;
+                return data;
+            },
+            post_cancel_proposal: function(){},
             get_cancel_label: function () {
                 return "En cours";
             },
