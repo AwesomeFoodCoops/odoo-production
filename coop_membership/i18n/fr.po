@@ -2876,6 +2876,12 @@ msgid "Partner : Update Is Unsubscribed State"
 msgstr "Partenaire: la mise à jour est un état non souscrit"
 
 #. module: coop_membership
+#: model:ir.actions.act_window,name:coop_membership.action_res_partner_inform
+#: model:ir.ui.menu,name:coop_membership.menu_res_partner_inform
+msgid "Partner Inform"
+msgstr "Informé que"
+
+#. module: coop_membership
 #: model:ir.model.fields,field_description:coop_membership.field_account_invoice__partner_owned_share_id
 msgid "Partner Owned Share"
 msgstr "Partage détenu par le partenaire"
