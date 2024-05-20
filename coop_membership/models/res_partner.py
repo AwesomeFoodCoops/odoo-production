@@ -625,8 +625,9 @@ class ResPartner(models.Model):
                 [('for_associated_people', '=', True)], limit=1)
             if barcode_rule_id:
                 partner.barcode_rule_id = barcode_rule_id.id
-            partner.generate_base()
-            partner.generate_barcode()
+            if partner.barcode_rule_id.generate_automate:
+                partner.generate_base()
+                partner.generate_barcode()
 
     @api.multi
     def send_welcome_email(self):

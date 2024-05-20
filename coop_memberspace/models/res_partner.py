@@ -113,20 +113,27 @@ class ResPartner(models.Model):
             user = self.env.cr.fetchone()
             if user:
                 user = Users.browse(user[0])
-            if not user:
-                vals.update(
-                    {
-                        "partner_id": member.id,
-                        "name": member.name,
-                        "login": member.email,
-                        "email": member.email,
-                        "image": member.image,
-                    }
-                )
-                # Users.with_context(no_reset_password=True).create(vals)
-                new_users |= Users.create(vals)
-            elif user.active:
-                user.partner_id = member.id
+            try:
+                with self.env.cr.savepoint():
+                    if not user:
+                        vals.update(
+                            {
+                                "partner_id": member.id,
+                                "name": member.name,
+                                "login": member.email,
+                                "email": member.email,
+                                "image": member.image,
+                            }
+                        )
+                        # Users.with_context(no_reset_password=True).create(vals)
+                        new_users |= Users.create(vals)
+                    elif user.active:
+                        user.partner_id = member.id
+            except Exception as e:
+                _logger.exception(e)
+                self.invalidate_cache()
+            else:
+                self.env.cr.commit()
         return new_users
 
     @api.model
