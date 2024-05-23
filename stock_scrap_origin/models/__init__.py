@@ -17,5 +17,6 @@
 #
 ##############################################################################
 
+from . import res_setting
 from . import stock_scrap_origin
 from . import stock_scrap
