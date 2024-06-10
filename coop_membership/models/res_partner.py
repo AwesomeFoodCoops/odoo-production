@@ -625,7 +625,7 @@ class ResPartner(models.Model):
                 [('for_associated_people', '=', True)], limit=1)
             if barcode_rule_id:
                 partner.barcode_rule_id = barcode_rule_id.id
-            if partner.barcode_rule_id.generate_automate:
+            if partner.barcode_rule_id.generate_type == "sequence":
                 partner.generate_base()
                 partner.generate_barcode()
 
