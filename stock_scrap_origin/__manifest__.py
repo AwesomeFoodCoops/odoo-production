@@ -20,7 +20,7 @@
 {
     'name': 'Stock Scrap Origin',
     'summary': 'Add the origin of the scrap.',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.1',
     'category': 'Warehouse',
     'website': 'https://trobz.com',
     'author': 'Trobz',
@@ -30,6 +30,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'views/stock_config_settings_views.xml',
         'views/stock_scrap_origin_view.xml',
     ],
     'installable': True,
