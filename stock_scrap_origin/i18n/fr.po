@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-02 07:53+0000\n"
-"PO-Revision-Date: 2023-02-02 07:53+0000\n"
+"POT-Creation-Date: 2024-05-23 08:18+0000\n"
+"PO-Revision-Date: 2024-05-23 08:18+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: stock_scrap_origin
+#: model:ir.model,name:stock_scrap_origin.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de config"
 
 #. module: stock_scrap_origin
 #: model:ir.model.fields,field_description:stock_scrap_origin.field_stock_scrap_origin__create_uid
@@ -51,6 +56,11 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: stock_scrap_origin
+#: model_terms:ir.ui.view,arch_db:stock_scrap_origin.stock_config_settings_view_form_inherit
+msgid "Make the Scrap Origin is required on Scrap Order form view"
+msgstr "L'origine du rebut est requise dans la vue du formulaire de commande de rebut"
+
+#. module: stock_scrap_origin
 #: model:ir.model.fields,field_description:stock_scrap_origin.field_stock_scrap_origin__name
 msgid "Name"
 msgstr "Nom"
@@ -66,6 +76,12 @@ msgid "Scrap"
 msgstr "Rebut"
 
 #. module: stock_scrap_origin
+#: model:ir.model.fields,field_description:stock_scrap_origin.field_res_config_settings__scrap_origin_required
+#: model:ir.model.fields,field_description:stock_scrap_origin.field_stock_scrap__scrap_origin_required
+msgid "Scrap Origin Required"
+msgstr "Origines des rebuts est requise"
+
+#. module: stock_scrap_origin
 #: model:ir.actions.act_window,name:stock_scrap_origin.action_stock_scrap_origin
 #: model:ir.ui.menu,name:stock_scrap_origin.menu_stock_scrap_origin
 msgid "Stock Scrap Origins"
@@ -75,3 +91,4 @@ msgstr "Origines des rebuts"
 #: model:ir.model,name:stock_scrap_origin.model_stock_scrap_origin
 msgid "The origin of the scrap"
 msgstr "Origines des rebuts"
+

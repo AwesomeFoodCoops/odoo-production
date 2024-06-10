@@ -18,6 +18,7 @@
 ##############################################################################
 
 from odoo import api, fields, models
+from odoo.tools import safe_eval
 
 
 class StockScrap(models.Model):
@@ -28,3 +29,14 @@ class StockScrap(models.Model):
         string="Origin",
         states={'done': [('readonly', True)]}
     )
+    scrap_origin_required = fields.Boolean(
+        compute="_compute_scrap_origin_required"
+    )
+
+    # Depend on scrap_qty to make its value triggered when onchange
+    @api.depends("scrap_qty")
+    def _compute_scrap_origin_required(self):
+        icp_sudo = self.env['ir.config_parameter'].sudo()
+        scrap_origin_required = safe_eval(icp_sudo.get_param(
+            'scrap_order.scrap_origin_required', 'False'))
+        self.update({"scrap_origin_required": scrap_origin_required})
