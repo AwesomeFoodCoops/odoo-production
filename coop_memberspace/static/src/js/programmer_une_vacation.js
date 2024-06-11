@@ -23,6 +23,9 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                 </tr>`;
                 return body_ftop_programmer;
             },
+            post_create_shift: function(result){
+                return true;
+            },
             start: function () {
                 var self = this;
                 ajax.jsonRpc("/web/session/get_session_info", "call").then(function (sessiondata) {
@@ -90,6 +93,7 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                                 args: [vals],
                              })
                             .then(function(result) {
+                                self.post_create_shift();
                                 self._rpc({
                                     model: 'shift.registration',
                                     method: 'get_coordinators',
