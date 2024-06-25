@@ -62,8 +62,8 @@ class ResUsers(models.Model):
                         ('state', '!=', 'cancel'),
                         (
                             "shift_template_id",
-                            "!=",
-                            tmpl[0].shift_template_id.id,
+                            "not in",
+                            tmpl.mapped("shift_template_id.id"),
                         ),
                         (
                             "date_begin",
