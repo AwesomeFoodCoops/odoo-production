@@ -26,8 +26,8 @@
                                                 <t t-esc="product['product'].code"/><br/>
                                             </t>
                                         </div>
-                                        <t t-if="product['product'].weight"><t t-esc="product['product'].weight"/> kg --- <t t-esc="product['product'].price_weight"/> €/kg<br/></t>
-                                        <t t-if="not(product['product'].weight) and product['product'].volume"><t t-esc="product['product'].volume"/>L --- <t t-esc="product['product'].price_volume"/> €/L<br/></t>
+                                        <t t-if="product['product'].weight"><t t-esc="product['product'].weight"/> kg --- <t t-esc="'%0.2f' % (product['product'].price_weight)"/> €/kg<br/></t>
+                                        <t t-if="not(product['product'].weight) and product['product'].volume"><t t-esc="product['product'].volume"/>L --- <t t-esc="'%0.2f' % (product['product'].price_volume)"/> €/L<br/></t>
                                     </div>
                                 </div>
                                 <div class="label_right_vege">
