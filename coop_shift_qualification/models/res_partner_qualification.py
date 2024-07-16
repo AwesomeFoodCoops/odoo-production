@@ -31,7 +31,7 @@ class PartnerQualification(models.Model):
     name = fields.Char(required=True, default="/")
     is_leader = fields.Boolean()
     seq = fields.Integer(string="Sequence")
-    can_be_leader = fields.Boolean(compute="comute_can_be_leader")
+    can_be_leader = fields.Boolean(compute="compute_can_be_leader")
 
     @api.constrains("name")
     def constrains_name(self):
@@ -44,9 +44,9 @@ class PartnerQualification(models.Model):
                 ))
 
     @api.depends("name")
-    def comute_can_be_leader(self):
+    def compute_can_be_leader(self):
         get_param = self.env["ir.config_parameter"].sudo().get_param
-        nb_of_leader = get_param("coop_shift_qualification.nb_of_leader", 1)
+        nb_of_leader = int(get_param("coop_shift_qualification.nb_of_leader", 1))
         reg_nb_of_leader = self.env["res.partner.qualification"].\
             search_count([("is_leader", "=", True)])
         for rec in self:
@@ -59,7 +59,7 @@ class PartnerQualification(models.Model):
             if not rec.is_leader:
                 continue
             get_param = self.env["ir.config_parameter"].sudo().get_param
-            nb_of_leader = get_param("coop_shift_qualification.nb_of_leader", 1)
+            nb_of_leader = int(get_param("coop_shift_qualification.nb_of_leader", 1))
             reg_nb_of_leader = self.env["res.partner.qualification"].\
                 search_count([("is_leader", "=", True)])
             if nb_of_leader < reg_nb_of_leader:
