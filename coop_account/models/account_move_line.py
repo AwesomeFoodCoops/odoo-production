@@ -15,7 +15,9 @@ class AccountMoveLine(models.Model):
     full_reconcile_id = fields.Many2one(index=True)
     other_balance = fields.Monetary(
         string='Other Balance',
-        default=0.0)
+        compute="_compute_other_balance",
+        store=True
+    )
     search_year = fields.Char(
         string='Year (Search)', compute='_compute_date_search',
         multi='_date_search', store=True, index=True)
@@ -26,30 +28,11 @@ class AccountMoveLine(models.Model):
         string='Day (Search)', compute='_compute_date_search',
         multi='_date_search', store=True, index=True)
 
-    @api.model
-    def create(self, vals):
-        debit = vals.get('debit', 0)
-        credit = vals.get('credit', 0)
-        vals.update({
-            'other_balance': credit - debit,
-        })
-        return super(AccountMoveLine, self).create(vals)
-
     @api.multi
-    def write(self, vals):
-        self.calculate_orther_balance(vals)
-        return super(AccountMoveLine, self).write(vals)
-
-    @api.multi
-    def calculate_orther_balance(self, vals):
+    @api.depends("credit", "debit")
+    def _compute_other_balance(self):
         for record in self:
-            if 'debit' in vals or 'credit' in vals:
-                debit = vals.get('debit', record.debit)
-                credit = vals.get('credit', record.credit)
-                vals.update({
-                    'other_balance': credit - debit,
-                })
-        return True
+            record.other_balance = record.credit - record.debit
 
     @api.multi
     @api.constrains('move_id', 'account_id')
