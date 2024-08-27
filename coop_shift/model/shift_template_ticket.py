@@ -87,6 +87,8 @@ class ShiftTemplateTicket(models.Model):
         if "seats_availability" in vals.keys():
             new_vals['seats_availability'] = vals['seats_availability']
         for ticket in self:
+            if not ticket._check_propagated_seats():
+                continue
             shifts = ticket.shift_template_id.shift_ids.filtered(
                 lambda s: s.date_begin >= fields.Datetime.now())
             tickets = shifts.mapped(
@@ -94,3 +96,6 @@ class ShiftTemplateTicket(models.Model):
                 lambda t, t2=ticket: t.shift_type == t2.shift_type)
             tickets.write(new_vals)
         return super(ShiftTemplateTicket, self).write(vals)
+
+    def _check_propagated_seats(self):
+        return True
