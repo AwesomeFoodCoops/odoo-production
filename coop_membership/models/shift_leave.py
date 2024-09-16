@@ -475,8 +475,10 @@ class ShiftLeave(models.Model):
                 # put end date to template which has closest begin day and
                 # update state leave
                 if last_templates:
-                    last_templates[0].date_end = fields.Date.from_string(
-                        leave.start_date) - timedelta(days=1)
+                    last_templates.write({
+                        "date_end": fields.Date.from_string(
+                            leave.start_date) - timedelta(days=1)
+                    })
 
         return True
 
