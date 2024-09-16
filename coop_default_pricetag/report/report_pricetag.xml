@@ -164,8 +164,14 @@
                         </div>
                         <div class="sb_weight_price">
                             <div class="sblabel_left">
-                                <t t-if="product['product'].weight"><t t-esc="product['product'].weight"/> kg <br/>
-                                <t t-esc="'%0.2f' % (product['product'].price_weight)"/> €/kg<br/></t>
+                                <t t-if="product['product'].weight">
+                                    <t t-esc="product['product'].weight"/> kg <br/>
+                                    <t t-esc="'%0.2f' % (product['product'].price_weight)"/> €/kg<br/>
+                                </t>
+                                <t t-if="not(product['product'].weight) and product['product'].volume">
+                                    <t t-esc="product['product'].volume" /> L <br/>
+                                    <t t-esc="'%0.2f' % (product['product'].price_volume)"/> €/L <br />
+                                </t>
                             </div>
                             <div class="sblabel_right">
                                     <t t-esc="'%0.2f' % (product['product'].list_price)"/>€
