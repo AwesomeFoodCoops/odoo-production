@@ -451,16 +451,20 @@ class ShiftChangeTeam(models.Model):
                 self.partner_state = 'subscribed'
                 self.show_partner_state = False
             # compute next shift date
-            reg = self.partner_id.tmpl_reg_ids.filtered(
+            regs = self.partner_id.tmpl_reg_ids.filtered(
                 lambda r: r.is_current)
-            if reg:
-                self.current_shift_template_id = reg[0].shift_template_id
+            if regs:
                 next_shifts = \
-                    self.current_shift_template_id.shift_ids.filtered(
-                        lambda s: s.date_begin >= fields.Datetime.now())
-
-                self.next_current_shift_date = next_shifts and \
-                    next_shifts[0].date_begin.date() or False
+                    regs.mapped("shift_template_id.shift_ids").filtered(
+                        lambda s: s.date_begin >= fields.Datetime.now()
+                    ).sorted("date_begin")
+                if next_shifts:
+                    next_shift = next_shifts[0]
+                    self.next_current_shift_date = next_shift.date_begin.date()
+                    self.current_shift_template_id = next_shift.shift_template_id
+                else:
+                    self.next_current_shift_date = False
+                    self.current_shift_template_id = False                
 
     @api.multi
     def check_num_week(self, new_next_shift_date):
