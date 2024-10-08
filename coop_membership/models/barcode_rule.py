@@ -3,7 +3,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models, _, tools
 from odoo.exceptions import ValidationError
 
 
@@ -35,3 +35,32 @@ class BarcodeRule(models.Model):
                 [('for_associated_people', '=', True)])) > 1:
             raise ValidationError(_(
                 "'For Associated People' field should be unique."))
+
+    @api.model
+    @tools.ormcache('model')
+    def get_automatic_rule_ids(self, model):
+        """It provides a cached indicator for barcode automation.
+
+        Note that this cache needs to be explicitly cleared when
+        `generate_automate` is changed on an associated `barcode.rule`.
+
+        Args:
+            model (str): Name of model to search for.
+        Returns:
+            list of int: IDs of the automated barcode rules for model.
+
+        """
+        record = self.search([
+            ('generate_model', '=', model),
+            ('generate_automate', '=', True),
+            # F#T64236: [Chaudron] - Purchase/Vendor: impossible to create a new vendor
+            ('for_associated_people', '=', False)
+        ])
+        return record.ids
+
+    @api.model_cr_context
+    def _clear_cache(self, vals):
+        """It clears the caches if certain vals are updated."""
+        fields = ('generate_model', 'generate_automate', 'for_associated_people')
+        if any(k in vals for k in fields):
+            self.clear_caches()
