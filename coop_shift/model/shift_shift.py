@@ -423,8 +423,10 @@ class ShiftShift(models.Model):
     @api.model
     def run_shift_confirmation(self):
         # This method is called by the cron task
+        day_nb = int(self.env['ir.config_parameter'].sudo().\
+            get_param("shift.confirmation_days", SHIFT_CONFIRMATION_DAYS))
         compare_date = fields.Date.to_string(
-            datetime.today() + timedelta(days=SHIFT_CONFIRMATION_DAYS))
+            datetime.today() + timedelta(days=day_nb))
         shifts = self.env['shift.shift'].search([
             ('state', '=', 'draft'),
             ('date_begin', '<=', compare_date)])
