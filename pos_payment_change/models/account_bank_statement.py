@@ -27,10 +27,10 @@ class AccountBankStatement(models.Model):
     @api.multi
     def confirm_bank_cash_change(self):
         self.ensure_one()
-        neg_st_lines = self.line_ids.filtered(
-            lambda l: l.amount < 0.0 and l.pos_statement_id)
+        positive_st_lines = self.line_ids.filtered(
+            lambda l: l.amount > 0.0 and l.pos_statement_id)
         pos_orders = []
-        for line in neg_st_lines:
+        for line in positive_st_lines:
             if line.pos_statement_id.id in pos_orders:
                 continue
             pos_orders.append(line.pos_statement_id.id)
@@ -49,12 +49,10 @@ class AccountBankStatement(models.Model):
         for statement in statements:
             journal = statement.journal_id
             if journal.type == 'cash' and journal.change_account_id:
-                neg_st_lines = statement.line_ids.filtered(
-                    lambda l: l.amount < 0.0 and l.pos_statement_id)
+                # Payment by customer
+                statement.confirm_bank_cash_change()
 
-                if neg_st_lines:
-                    statement.confirm_bank_cash_change()
-
+                # Cashier withdraw the cash at POS
                 cashdraw_lines = statement.line_ids.filtered(
                     lambda l: not l.pos_statement_id)
                 if cashdraw_lines:
