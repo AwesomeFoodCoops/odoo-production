@@ -54,8 +54,8 @@ Overload models.PosModel
             if (selectedLine) {
                 var mode = this.numpad_state.get('mode');
                 if( mode === 'quantity'){
-                    if (val == '0'){
-                          order.remove_orderline(selectedLine);
+                    if (val == '0' && this.pos.config.qty_zero_remove_line){
+                        order.remove_orderline(selectedLine);
                     }
                     else {
                         selectedLine.set_quantity(val);
