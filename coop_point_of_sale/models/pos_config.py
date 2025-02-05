@@ -27,6 +27,10 @@ class PosConfig(models.Model):
     )
 
     payable_to = fields.Char(string="Payable to")
+    qty_zero_remove_line = fields.Boolean(
+        string="Remove Zero Qty Line",
+        default=True
+    )
 
     @api.model
     def default_get(self, fields):

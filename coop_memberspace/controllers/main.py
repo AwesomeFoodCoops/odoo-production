@@ -393,7 +393,8 @@ class Website(WebsiteController):
                 "num_of_sales": sales_count,
                 "turnover_year_wo_tax": int(datas[0]),
                 "turnover_year_tax": int(datas[1]),
-                "average_basket": int(datas[1]) / sales_count,
+                "average_basket": (int(datas[1]) / sales_count) \
+                    if sales_count > 0 else 0,
             },
         )
 
