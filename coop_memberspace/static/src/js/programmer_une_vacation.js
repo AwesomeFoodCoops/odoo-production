@@ -101,8 +101,8 @@ odoo.define('coop_memberspace.programmer_une_vacation', function (require) {
                                 })
 
                                 .then(function(coordinators) {
-                                    let time = $('#time-' + self.shift_id).text();
-                                    let hour = $('#hour-' + self.shift_id).text();
+                                    let time = $('#time-' + self.shift_id).html();
+                                    let hour = $('#hour-' + self.shift_id).html();
                                     let new_shift = `
                                         <tr>
                                             <td scope="row">${time + ' '}</td>
