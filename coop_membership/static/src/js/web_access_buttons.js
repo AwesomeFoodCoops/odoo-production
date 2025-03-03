@@ -5,6 +5,38 @@ odoo.define('coop_membership.AccessButtons', function(require) {
     var session = require('web.session');
     var ListRenderer = require('web.ListRenderer');
     var FormRenderer = require('web.FormRenderer');
+    var KanbanRenderer = require('web.KanbanRenderer');
+
+    KanbanRenderer.include({
+
+        _renderView: function() {
+            var self = this;
+            return this._super.apply(this, arguments)
+                .then(function() {
+                    self.check_hide_buttons()
+                });
+        },
+        check_hide_buttons: function() {
+            var self = this;
+            var context = this.state.context;
+            var res_model = this.state.model;
+            this._rpc({
+                model: 'res.users',
+                method: 'check_access_ui',
+                args: [context.uid, res_model],
+                context: context,
+            }).then(function(result) {
+                self.hide_button(result);
+            });
+        },
+
+        hide_button: function(result) {
+            if (!result.o_cp_buttons){
+                self.$('.o_cp_buttons').hide();
+            }
+        }
+
+    });
 
     FormRenderer.include({
 
@@ -52,13 +84,12 @@ odoo.define('coop_membership.AccessButtons', function(require) {
 
     ListRenderer.include({
 
-        _renderButton: function(record, node) {
+        _renderView: function() {
             var self = this;
-            var res = this._super.apply(this, arguments);
-            if (!session.is_admin) {
-                self.check_hide_buttons();
-            }
-            return res;
+            return this._super.apply(this, arguments)
+                .then(function() {
+                    self.check_hide_buttons()
+                });
         },
 
         _onSelectRecord: function(event) {
@@ -92,6 +123,9 @@ odoo.define('coop_membership.AccessButtons', function(require) {
         hide_button: function(result) {
             if (!result.o_button_import) {
                 self.$('.o_button_import').hide();
+            }
+            if (!result.o_cp_buttons){
+                self.$('.o_cp_buttons').hide();
             }
         },
 
