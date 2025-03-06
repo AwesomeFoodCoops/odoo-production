@@ -22,13 +22,11 @@ class ShiftTemplateRegistration(models.Model):
                             raise ValidationError(warn_msg)
 
                         tmpl.user_ids |= partner
-                        tmpl.removed_user_ids -= partner
                         for shift in shifts:
                             shift.user_ids |= partner
                 elif action == 'del':
                     if partner in tmpl.user_ids:
                         tmpl.user_ids -= partner
-                        tmpl.removed_user_ids |= partner
                         for shift in shifts:
                             shift.user_ids -= partner
 
