@@ -236,8 +236,6 @@ class ShiftRegistration(models.Model):
 
     def check_cancellable_ftop_shift(self):
         self.ensure_one()
-        if self.shift_type != 'ftop':
-            return False
         icp_sudo = self.env['ir.config_parameter'].sudo()
         duration = int(icp_sudo.get_param(
             'coop_memberspace.ftop_shift_cancellation_duration', 24))
