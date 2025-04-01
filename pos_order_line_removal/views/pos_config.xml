@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_pos_config_form_inherit" model="ir.ui.view">
+        <field name="name">pos.config.form.view.inherit</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='category_reference']/.." position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" >
+                    <div class="o_setting_left_pane">
+                        <field name="pos_line_remove_btn"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="pos_line_remove_btn"/>
+                        <div class="text-muted">
+                            If checked, Add a button to remove order line
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box" >
+                    <div class="o_setting_left_pane">
+                        <field name="pos_line_remove_warning"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="pos_line_remove_warning"/>
+                        <div class="text-muted">
+                            If checked, a warning will be shown when removing order lines
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
