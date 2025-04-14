@@ -1,0 +1,66 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_order_line_removal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-11 13:32+0000\n"
+"PO-Revision-Date: 2025-04-11 13:32+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_order_line_removal
+#. openerp-web
+#: code:addons/pos_order_line_removal/static/src/js/screens.js:22
+#: code:addons/pos_order_line_removal/static/src/js/screens.js:48
+#, python-format
+msgid "Confirming"
+msgstr "Confirmer"
+
+#. module: pos_order_line_removal
+#: model_terms:ir.ui.view,arch_db:pos_order_line_removal.view_pos_config_form_inherit
+msgid "If checked, Add a button to remove order line"
+msgstr "Si cette case est cochée, ajouter un bouton pour supprimer la ligne de commande"
+
+#. module: pos_order_line_removal
+#: model:ir.model.fields,help:pos_order_line_removal.field_pos_config__pos_line_remove_warning
+#: model_terms:ir.ui.view,arch_db:pos_order_line_removal.view_pos_config_form_inherit
+msgid "If checked, a warning will be shown when removing order lines"
+msgstr "Si cette case est cochée, un avertissement s'affichera lors de la suppression des lignes de commande"
+
+#. module: pos_order_line_removal
+#: model:ir.model,name:pos_order_line_removal.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Paramétrage du point de vente"
+
+#. module: pos_order_line_removal
+#: model:ir.model.fields,field_description:pos_order_line_removal.field_pos_config__pos_line_remove_btn
+msgid "Show Remove button on order line"
+msgstr "Afficher le bouton Supprimer sur la ligne de commande"
+
+#. module: pos_order_line_removal
+#: model:ir.model.fields,field_description:pos_order_line_removal.field_pos_config__pos_line_remove_warning
+msgid "Warning on removing order lines"
+msgstr "Avertissement sur la suppression des lignes de commande"
+
+#. module: pos_order_line_removal
+#. openerp-web
+#: code:addons/pos_order_line_removal/static/src/js/screens.js:23
+#: code:addons/pos_order_line_removal/static/src/js/screens.js:49
+#, python-format
+msgid "You are about to remove the item"
+msgstr "Attention vous allez supprimer l'article"
+
+#. module: pos_order_line_removal
+#. openerp-web
+#: code:addons/pos_order_line_removal/static/src/js/screens.js:25
+#: code:addons/pos_order_line_removal/static/src/js/screens.js:51
+#, python-format
+msgid "from the receipt. Please confirm or cancel"
+msgstr "du ticket de caisse. Merci de confirmer, sinon annuler"
