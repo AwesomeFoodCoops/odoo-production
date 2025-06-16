@@ -24,9 +24,7 @@ class ShiftLeaveWizard(models.TransientModel):
 
             if leave.non_defined_type and leave.non_defined_leave:
                 tmpl_name = 'coop_membership.confirm_leave_non_define_email'
-                mail_tmpl = self.env.ref(tmpl_name)
-                if mail_tmpl:
-                    mail_tmpl.send_mail(leave.id)
+                self._send_leave_mail(leave, tmpl_name)
                 return res
 
             elif not (leave.type_id and leave.type_id.is_temp_leave):
@@ -37,8 +35,16 @@ class ShiftLeaveWizard(models.TransientModel):
                     'coop_membership.coop_ftop_leave_email' or \
                     'coop_membership.coop_abcd_leave_email'
 
-            mail_tmpl = self.env.ref(tmpl_name)
-            if mail_tmpl:
-                mail_tmpl.send_mail(leave.id)
+            self._send_leave_mail(leave, tmpl_name)
 
         return res
+
+    def _send_leave_mail(self, leave, template_name=None):
+        if not leave or not template_name:
+            return False
+        mail_tmpl = self.env.ref(template_name, raise_if_not_found=False)
+        if mail_tmpl:
+            if hasattr(mail_tmpl, 'active') and not mail_tmpl.active:
+                return False
+            mail_tmpl.send_mail(leave.id)
+        return True
