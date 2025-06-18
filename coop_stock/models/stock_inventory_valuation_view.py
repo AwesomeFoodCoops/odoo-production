@@ -13,6 +13,22 @@ class StockInventoryValuationView(models.TransientModel):
 class StockInventoryValuationReport(models.TransientModel):
     _inherit = 'report.stock.inventory.valuation.report'
 
+    def _get_result_line(self, product, standard_price):
+        line = {
+                'name': product.name,
+                'reference': product.default_code,
+                'barcode': product.barcode,
+                'qty_at_date': product.qty_at_date,
+                'uom_id': product.uom_id,
+                'currency_id': product.currency_id,
+                'cost_currency_id': product.cost_currency_id,
+                'standard_price': standard_price,
+                'stock_value': product.qty_at_date * standard_price,
+                'cost_method': product.cost_method,
+                'categ_name': product.categ_id.name
+            }
+        return line
+
     @api.multi
     def _compute_results(self):
         '''
@@ -32,17 +48,5 @@ class StockInventoryValuationReport(models.TransientModel):
                 standard_price = product.get_history_price(
                     self.env.user.company_id.id,
                     date=self.date)
-            line = {
-                'name': product.name,
-                'reference': product.default_code,
-                'barcode': product.barcode,
-                'qty_at_date': product.qty_at_date,
-                'uom_id': product.uom_id,
-                'currency_id': product.currency_id,
-                'cost_currency_id': product.cost_currency_id,
-                'standard_price': standard_price,
-                'stock_value': product.qty_at_date * standard_price,
-                'cost_method': product.cost_method,
-                'categ_name': product.categ_id.name
-            }
+            line = self._get_result_line(product, standard_price)
             self.results += ReportLine.new(line)

@@ -22,9 +22,8 @@ class StockInventoryValuationReport(models.TransientModel):
 class ReportStockInventoryValuationReportXlsx(models.TransientModel):
     _inherit = 'report.s_i_v_r.report_stock_inventory_valuation_report_xlsx'
 
-    def _get_ws_params(self, wb, data, objects):
-
-        stock_inventory_valuation_template = {
+    def _get_wanted_list(self):
+        return {
             '1_number': {
                 'header': {
                     'value': '#',
@@ -102,6 +101,13 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
             },
         }
 
+    def _get_column_total_index(self):
+        return 7
+
+    def _get_ws_params(self, wb, data, objects):
+
+        stock_inventory_valuation_template = self._get_wanted_list()
+
         ws_params = {
             'ws_name': _('Inventory Valuation Report'),
             'generate_ws_method': '_inventory_valuation_report',
@@ -111,6 +117,19 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
             'col_specs': stock_inventory_valuation_template,
         }
         return [ws_params]
+
+    def _get_render_space(self, row_pos, line):
+        render_space = {
+            'n': row_pos-5,
+            'name': line.name or '',
+            'reference': line.reference or '',
+            'barcode': line.barcode or '',
+            'qty_at_date': line.qty_at_date or 0.000,
+            'standard_price': line.standard_price or 0.00,
+            'stock_value': line.stock_value or 0.00,
+            'categ_name': line.categ_name
+        }
+        return render_space
 
     def _inventory_valuation_report(self, wb, ws, ws_params, data, objects):
 
@@ -149,17 +168,8 @@ class ReportStockInventoryValuationReportXlsx(models.TransientModel):
             for line in o.results:
                 row_pos = self._write_line(
                     ws, row_pos, ws_params, col_specs_section='data',
-                    render_space={
-                        'n': row_pos-5,
-                        'name': line.name or '',
-                        'reference': line.reference or '',
-                        'barcode': line.barcode or '',
-                        'qty_at_date': line.qty_at_date or 0.000,
-                        'standard_price': line.standard_price or 0.00,
-                        'stock_value': line.stock_value or 0.00,
-                        'categ_name': line.categ_name
-                    },
+                    render_space=self._get_render_space(row_pos, line),
                     default_format=self.format_tcell_left)
                 total += line.stock_value
 
-            ws.write(row_pos, 7, total, self.format_theader_blue_amount_right)
+            ws.write(row_pos, self._get_column_total_index(), total, self.format_theader_blue_amount_right)
