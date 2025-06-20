@@ -487,6 +487,7 @@ class ShiftLeave(models.Model):
         leave_env = self.env['shift.leave']
 
         leave_to_send = leave_env.search([
+            ('state', 'not in', ['cancel', 'draft']),
             ('is_send_reminder', '=', False),
             ('non_defined_leave', '=', True),
             ('stop_date', '<=',
