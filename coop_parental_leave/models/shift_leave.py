@@ -226,22 +226,12 @@ class ShiftLeave(models.Model):
             # Send abandoned email
             abandoned_parental_leave_email_template.send_mail(leave.id)
 
-    @api.model
-    def send_mail_reminder_non_defined_leaves(self):
-        # Check if there is a mail template
-        mail_template = self.env.ref(
-            "coop_membership.reminder_end_leave_email"
-        )
-        if mail_template:
-            today_dt = fields.Date.today()
-            forward_15days_dt = today_dt + relativedelta(days=15)
-            to_send_parental_leaves = self.search([
-                ("is_send_reminder", "=", False),
-                ("non_defined_leave", "=", True),
-                ("is_parental_leave", "=", True),
-                ("stop_date", "<=", forward_15days_dt),
-                ("start_date", "<", today_dt),
-            ])
-            for leave in to_send_parental_leaves:
-                mail_template.send_mail(leave.id)
-        return super(ShiftLeave, self).send_mail_reminder_non_defined_leaves()
+    def _get_mail_reminder_domain(self):
+        """Get domain for searching leaves to send reminder"""
+        args = super()._get_mail_reminder_domain()
+        today_dt = fields.Date.today()
+        args += [
+            ("is_parental_leave", "=", True),
+            ("start_date", "<", today_dt),
+        ]
+        return args

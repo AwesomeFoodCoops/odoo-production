@@ -482,17 +482,25 @@ class ShiftLeave(models.Model):
 
         return True
 
-    @api.model
-    def send_mail_reminder_non_defined_leaves(self):
-        leave_env = self.env['shift.leave']
-
-        leave_to_send = leave_env.search([
+    def _get_mail_reminder_domain(self):
+        """Get domain for searching leaves to send reminder"""
+        day_nb = int(self.env['ir.config_parameter'].sudo().\
+            get_param("coop_membership.leave_reminder_days", 10))
+        return [
             ('state', 'not in', ['cancel', 'draft']),
             ('is_send_reminder', '=', False),
             ('non_defined_leave', '=', True),
             ('stop_date', '<=',
-             (datetime.now() + timedelta(days=10)).strftime('%Y-%m-%d'))
-        ])
+             (datetime.now() + timedelta(days=day_nb)).strftime('%Y-%m-%d'))
+        ]
+
+    @api.model
+    def send_mail_reminder_non_defined_leaves(self):
+        leave_env = self.env['shift.leave']
+
+        # search leaves to send reminder
+        args = self._get_mail_reminder_domain()
+        leave_to_send = leave_env.search(args)
 
         # get mail template and send
         mail_template = self.env.ref(

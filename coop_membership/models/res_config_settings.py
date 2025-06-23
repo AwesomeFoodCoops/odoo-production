@@ -15,6 +15,10 @@ class ResConfigSettings(models.TransientModel):
         related='company_id.company_name',
         readonly=False,
     )
+    shift_leave_remind_days = fields.Integer(
+        'Leve Reminder Days',
+        config_parameter="coop_membership.leave_reminder_days",
+    )
     max_nb_associated_people = fields.Integer(
         'Maximum Associated People',
         config_parameter="coop_membership.max_nb_associated_people",
