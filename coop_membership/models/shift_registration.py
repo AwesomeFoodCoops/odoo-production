@@ -220,6 +220,43 @@ class ShiftRegistration(models.Model):
                         mail_template.send_mail(partner.id)
         return res
 
+    def _get_reference_counter_point_qty(
+        self,
+        shift_type,
+        registration_state,
+        custom_reference_points=None
+    ):
+        """
+        Returns the point value for a given shift type and registration state.
+
+        Args:
+            shift_type (str): Type of the shift, e.g., 'standard', 'ftop'.
+            registration_state (str): Registration status like 'done', 'absent', etc.
+            custom_reference_points (dict, optional): Dictionary to override or extend default point values.
+
+        Returns:
+            int: Point value corresponding to the combination. Defaults to 0 if not defined.
+        """
+        default_reference_points = {
+            "ftop": {
+                "done": 1,
+                "replaced": 1,
+                "absent": -1,
+                "excused": -1
+            },
+            "standard": {
+                "done": 1,
+                "replaced": 1,
+                "absent": -2,
+                "excused": -1
+            }
+        }
+
+        if custom_reference_points:
+            default_reference_points.update(custom_reference_points)
+
+        return default_reference_points.get(shift_type, {}).get(registration_state, 0)
+
     @api.multi
     def write(self, vals):
         """
@@ -248,7 +285,9 @@ class ShiftRegistration(models.Model):
                         counter_vals['name'] = reason
 
                     elif vals_state in ['absent']:
-                        counter_vals['point_qty'] = -1
+                        counter_vals['point_qty'] = self._get_reference_counter_point_qty(
+                            shift_reg.shift_type, vals_state
+                        )
                         counter_vals['name'] = _('Absent')
 
                         # Mark the point as ignored if the member is in
@@ -260,18 +299,24 @@ class ShiftRegistration(models.Model):
                     elif vals_state in ['excused'] and \
                             shift_reg.template_created:
                         reason = vals_state == _('Excused')
-                        counter_vals['point_qty'] = -1
+                        counter_vals['point_qty'] = self._get_reference_counter_point_qty(
+                            shift_reg.shift_type, vals_state
+                        )
                         counter_vals['name'] = reason
 
                 elif shift_reg.shift_type == 'standard':
                     # Check if a member is belong to the template
                     if shift_reg.template_created:
                         if vals_state in ['absent']:
-                            counter_vals['point_qty'] = -2
+                            counter_vals['point_qty'] = self._get_reference_counter_point_qty(
+                                shift_reg.shift_type, vals_state
+                            )
                             counter_vals['name'] = _('Absent')
 
                         elif vals_state in ['excused']:
-                            counter_vals['point_qty'] = -1
+                            counter_vals['point_qty'] = self._get_reference_counter_point_qty(
+                                shift_reg.shift_type, vals_state
+                            )
                             counter_vals['name'] = _('Excused')
                     else:
                         if vals_state in ['done', 'replaced']:
