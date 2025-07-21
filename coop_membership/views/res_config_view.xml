@@ -48,6 +48,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="o_setting_right_pane">
+                                <label for="shift_leave_remind_days"/>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="shift_leave_remind_days"/> days.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <h2>Membership</h2>

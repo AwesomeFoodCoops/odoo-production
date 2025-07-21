@@ -46,5 +46,10 @@ Rejoindre la coopérative passe exclusivement par votre présence à une réunio
             <field name="value"></field>
         </record>
 
+        <record model="ir.config_parameter" id="leave_reminder_days">
+            <field name="key">coop_membership.leave_reminder_days</field>
+            <field name="value">10</field>
+        </record>
+
     </data>
 </odoo>
