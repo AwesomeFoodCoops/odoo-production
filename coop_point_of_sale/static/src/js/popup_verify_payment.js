@@ -8,61 +8,72 @@
 odoo.define('coop_point_of_sale.popup_screen_payment', function (require) {
     "use strict";
 
-    var models = require('point_of_sale.models');
-    var screens = require('point_of_sale.screens');
-    var core = require('web.core');
-    var gui = require('point_of_sale.gui');
-    var _t = core._t;
+    var rpc = require('web.rpc');
 
-    screens.PaymentScreenWidget.include({
-        click_paymentmethods: function(id) {
-            var self = this;
+    rpc.query({
+        model: 'ir.config_parameter',
+        method: 'get_param',
+        args: ['coop_point_of_sale.popup_verify_payment_enabled', 'True'],
+    }).then(function (value) {
+        if (value !== 'True') {
+            return;
+        }
 
-            var payable_to = '';
-            var account_journal_ids = [];
-            if (this.pos.config_info_settings.payable_to){
-                payable_to = this.pos.config_info_settings.payable_to;
-            }
+        var models = require('point_of_sale.models');
+        var screens = require('point_of_sale.screens');
+        var core = require('web.core');
+        var gui = require('point_of_sale.gui');
+        var _t = core._t;
 
-            if (this.pos.config_info_settings.account_journal_ids){
-                account_journal_ids = this.pos.config_info_settings.account_journal_ids;
-            }
-            /*var  = this.pos.config_settings ? this.pos.config_settings.receipt_options : false;*/
-            var currentPaymentLines = this.pos.get_order().paymentlines.models;
+        screens.PaymentScreenWidget.include({
+            click_paymentmethods: function (id) {
+                var self = this;
 
-            var sameMethodPaymentLines = currentPaymentLines.filter(function(paymentline){
-                return paymentline.cashregister.journal_id[0] == id;
-            });
-
-            if (!sameMethodPaymentLines.length) {
-                var thanks_message = _("Merci de vérifier sur le chèque :"); 
-                var lemon = _("le montant"); 
-                var la_date = _("la date"); 
-                var order_messages = _("l'ordre: " + payable_to);
-                var signature = _("la présence d'une signature");
-
-
-                if(account_journal_ids.includes(id)){
-                    this.gui.show_popup('okpopup',{
-                    'title': _('Vérifier sur le chèque'),
-                    'thanks_message': thanks_message,
-                    'lemon': lemon,
-                    'la_date': la_date,
-                    'order_messages': order_messages,
-                    'signature': signature,
-                    'cancel_callback': function(){
-                            var selectedPaymentLineEle = $('.paymentline.selected');
-                            if (selectedPaymentLineEle) {
-                                var paymentLineId = $(selectedPaymentLineEle[0]).find('.delete-button').data('cid');
-                                if(paymentLineId) self.click_delete_paymentline(paymentLineId);   
-                            }
-                        },
-                    });
+                var payable_to = '';
+                var account_journal_ids = [];
+                if (this.pos.config_info_settings.payable_to) {
+                    payable_to = this.pos.config_info_settings.payable_to;
                 }
-                this._super.apply(this, arguments);
-            }
-        },
+
+                if (this.pos.config_info_settings.account_journal_ids) {
+                    account_journal_ids = this.pos.config_info_settings.account_journal_ids;
+                }
+                /*var  = this.pos.config_settings ? this.pos.config_settings.receipt_options : false;*/
+                var currentPaymentLines = this.pos.get_order().paymentlines.models;
+
+                var sameMethodPaymentLines = currentPaymentLines.filter(function (paymentline) {
+                    return paymentline.cashregister.journal_id[0] == id;
+                });
+
+                if (!sameMethodPaymentLines.length) {
+                    var thanks_message = _("Merci de vérifier sur le chèque :");
+                    var lemon = _("le montant");
+                    var la_date = _("la date");
+                    var order_messages = _("l'ordre: " + payable_to);
+                    var signature = _("la présence d'une signature");
+
+
+                    if (account_journal_ids.includes(id)) {
+                        this.gui.show_popup('okpopup', {
+                            'title': _('Vérifier sur le chèque'),
+                            'thanks_message': thanks_message,
+                            'lemon': lemon,
+                            'la_date': la_date,
+                            'order_messages': order_messages,
+                            'signature': signature,
+                            'cancel_callback': function () {
+                                var selectedPaymentLineEle = $('.paymentline.selected');
+                                if (selectedPaymentLineEle) {
+                                    var paymentLineId = $(selectedPaymentLineEle[0]).find('.delete-button').data('cid');
+                                    if (paymentLineId) self.click_delete_paymentline(paymentLineId);
+                                }
+                            },
+                        });
+                    }
+                    this._super.apply(this, arguments);
+                }
+            },
+        });
+
     });
-
-
 });
