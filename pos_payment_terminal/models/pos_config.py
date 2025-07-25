@@ -27,3 +27,8 @@ class PosConfig(models.Model):
     iface_payment_terminal = fields.Boolean(
         string='Payment Terminal',
         help="A payment terminal is available on the Proxy")
+
+    hide_return_to_basket_btn_as_soon_as_payment_line_exists = fields.Boolean(
+        string='Prevent from returning to basket from payment screen as soon as a payment line exists',
+        default=True
+    )
