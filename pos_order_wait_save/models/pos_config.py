@@ -16,3 +16,13 @@ class PosConfig(models.Model):
             "Set to 0 to disable."
         ),
     )
+
+    order_wait_save_retry_push_timeout = fields.Float(
+        "Time before retrying save order stored in local storage",
+        default=0,
+        help=(
+            "Time (seconds) to wait after button validate is clicked "
+            "before trying again to save orders whose saving has not been acknowledged yet. "
+            "It should be bigger than parameter \"Order timeout\" or set to 0 to disable."
+        ),
+    )
