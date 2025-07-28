@@ -26,6 +26,18 @@
                             <field name="payable_to" colspan="4" nolabel="1"/>
                         </div>
                     </div>
+                    <div class="o_setting_left_pane">
+                        <field name="enable_popup_verify_payment"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <div>
+                            <label string="Allow execution of script popup_verify_payment"
+                                   for="enable_popup_verify_payment"/>
+                            <div class="text-muted">
+                                Enable additional checks on payment screen (block new line if a payment line of that type already exists, etc.)
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </xpath>
             <!-- <xpath expr="//group" position="inside">
@@ -46,6 +58,7 @@
                     </div>
                 </div>
             </xpath>
+
         </field>
     </record>
 
