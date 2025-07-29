@@ -10,7 +10,9 @@ odoo.define('pos_payment_terminal.screens', function (require) {
             var line = this.pos.get_order().selected_paymentline;
             if(line){
                 var auto = line.get_automatic_payment_terminal();
-                $('.back').hide();
+                if(this.pos.config.hide_return_to_basket_btn_as_soon_as_payment_line_exists) {
+                    $('.back').hide();
+                }
                 if (auto) {
                     this.pos.proxy.payment_terminal_transaction_start(self, self.pos.currency.name);
                 }

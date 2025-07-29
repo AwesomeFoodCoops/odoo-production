@@ -10,6 +10,25 @@
                     <field name="iface_payment_terminal"/>
                 </div>
             </xpath>
+            <xpath expr="//div[@id='payment_methods']/.." position="after">
+                <h2>Navigation between screens</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="hide_return_to_basket_btn_as_soon_as_payment_line_exists"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div>
+                                <label string="Hide return to basket button"
+                                       for="hide_return_to_basket_btn_as_soon_as_payment_line_exists"/>
+                                <div class="text-muted">
+                                    Prevent returning to basket from payment screen as soon as a payment line exists.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
         </field>
     </record>
 </odoo>
