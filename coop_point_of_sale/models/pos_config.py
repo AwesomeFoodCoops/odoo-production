@@ -32,6 +32,11 @@ class PosConfig(models.Model):
         default=True
     )
 
+    enable_popup_verify_payment = fields.Boolean(
+        string="Allow execution of script popup_verify_payment",
+        default=True
+    )
+
     @api.model
     def default_get(self, fields):
         res = super(PosConfig, self).default_get(fields)

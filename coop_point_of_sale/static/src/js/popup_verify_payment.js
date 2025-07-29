@@ -18,6 +18,11 @@ odoo.define('coop_point_of_sale.popup_screen_payment', function (require) {
         click_paymentmethods: function(id) {
             var self = this;
 
+            if(!this.pos.config.enable_popup_verify_payment) {
+                this._super.apply(this, arguments);
+                return;
+            }
+
             var payable_to = '';
             var account_journal_ids = [];
             if (this.pos.config_info_settings.payable_to){
