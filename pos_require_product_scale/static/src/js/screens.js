@@ -23,14 +23,14 @@ odoo.define('pos_require_product_scale.screens', function (require) {
                     }
                     var lines = _.filter(
                         self.pos.get_order().get_orderlines(),
-                        function(line) { return line.quantity === 1.0 && line.product.to_weight}
+                        function(line) { return Number.isInteger(line.quantity) && line.product.to_weight}
                     );
                     if (lines.length > 0) {
                         self.gui.back();
                         self.gui.show_popup(
                             'confirm',
                             {
-                                'title': _t('Warning the product quantity 1kg for the products to weight with scale'),
+                                'title': _t('Attention: One or more items to be weighed show a round weight (1 kg, 2 kg, 3 kg…)'),
                                 'body': (
                                     _t('The product(s) may need to be weighted with scale: ')
                                     + _.map(lines, function(line) { return line.product.display_name }).join(', ')

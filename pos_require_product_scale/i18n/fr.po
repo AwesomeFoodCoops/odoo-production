@@ -41,8 +41,14 @@ msgstr "Il est peut-être nécessaire de vérifier ce poids pour: "
 
 #. module: pos_require_product_scale
 #. openerp-web
-#: code:addons/pos_require_product_scale/static/src/js/screens.js:30
 #: model_terms:ir.ui.view,arch_db:pos_require_product_scale.view_pos_config_form
 #, python-format
 msgid "Warning the product quantity 1kg for the products to weight with scale"
 msgstr "Attention il y a un/des articles à peser dont le poids indiqué est 1 kg exactement"
+
+#. module: pos_require_product_scale
+#. openerp-web
+#: code:addons/pos_require_product_scale/static/src/js/screens.js:33
+#, python-format
+msgid "Attention: One or more items to be weighed show a round weight (1 kg, 2 kg, 3 kg…)"
+msgstr "Attention : un ou plusieurs articles à peser affichent un poids rond (1 kg, 2 kg, 3 kg…)"
