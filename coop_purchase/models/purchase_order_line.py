@@ -63,12 +63,17 @@ class PurchaseOrderLine(models.Model):
                     vendor_price_line = vendor_price_line[0]
                     current_sequence = vendor_price_line.sequence
 
+                    min_sequence_not_unique = product.seller_ids.mapped("sequence").count(min_sequence) > 1
+
                     # No update if the current vendor is the main one
-                    if vendor_price_line.sequence != min_sequence:
+                    if (
+                        vendor_price_line.sequence != min_sequence
+                        or min_sequence_not_unique  # Allows to recover from non unique sequence (messed up data)
+                    ):
                         for seller in product.seller_ids:
                             if (
                                 seller.id != vendor_price_line.id
-                                and seller.sequence < current_sequence
+                                and seller.sequence <= current_sequence  # <= instead of < recovers from non unique seq
                             ):
                                 seller.write({"sequence": seller.sequence + 1})
                         main_vendor = vendor_price_line.name

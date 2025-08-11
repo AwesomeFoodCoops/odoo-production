@@ -97,6 +97,9 @@ class ShiftShift(models.Model):
     end_time = fields.Float(
         string='End Time', compute='_compute_end_date_fields', store=True,
         multi="end_date")
+    end_time_string = fields.Char(
+        string='End Time', compute='_compute_end_date_fields',
+        multi="end_date")
     user_ids = fields.Many2many(
         'res.partner', 'res_partner_shift_shift_rel', 'shift_template_id',
         'partner_id', string='Shift Leaders')
@@ -415,6 +418,10 @@ class ShiftShift(models.Model):
                 start_date_object_tz = utc_timestamp.astimezone(context_tz)
                 shift.end_time = (start_date_object_tz.hour +
                                   (start_date_object_tz.minute / 60.0))
+                shift.end_time_string = "%02d:%02d" % (
+                    start_date_object_tz.hour,
+                    start_date_object_tz.minute,
+                )
 
     @api.multi
     def button_confirm(self):

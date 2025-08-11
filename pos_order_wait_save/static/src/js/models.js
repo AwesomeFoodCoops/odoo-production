@@ -26,6 +26,9 @@ odoo.define('pos_order_wait_save.models', function (require) {
             var new_timeout = self.config.order_wait_save_timeout * 1000;
             options.timeout = new_timeout;
             this.set('synch', {state: 'connecting', pending: orders.length});
+            if(self.config.order_wait_save_retry_push_timeout > 0) {
+                setTimeout(() => posmodel.push_order(), self.config.order_wait_save_retry_push_timeout * 1000);
+            }
             return self._save_to_server(orders, options).done(function (server_ids) {
                 var pending = self.db.get_orders().length;
                 self.set('synch', {

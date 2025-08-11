@@ -117,11 +117,11 @@ class ProductProduct(models.Model):
                             self._send_to_scale_bizerba('unlink', product)
                             # Create in the new group
                             defered[product.id] = 'create'
-                        elif self._check_vals_scale_bizerba(vals, product):
-                            # Data related to the scale
-                            defered[product.id] = 'write'
                         elif vals.get('available_in_pos'):
                             defered[product.id] = 'create'
+                        elif product.available_in_pos and self._check_vals_scale_bizerba(vals, product):
+                            # Data related to the scale
+                            defered[product.id] = 'write'
 
         ctx['bizerba_off'] = True
         res = super(ProductProduct, self).write(vals)
