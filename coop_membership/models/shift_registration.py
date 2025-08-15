@@ -318,6 +318,14 @@ class ShiftRegistration(models.Model):
                                 shift_reg.shift_type, vals_state
                             )
                             counter_vals['name'] = _('Excused')
+                        elif vals_state == 'done':
+                            # F#T66036: [SQQ]Pb with makeup shift after exchange
+                            if shift_reg._is_replacing_makeup_shift():
+                                reason = _('Attended')
+                                counter_vals['point_qty'] = self._get_reference_counter_point_qty(
+                                    shift_reg.shift_type, vals_state
+                                )
+                                counter_vals['name'] = reason
                     else:
                         if vals_state in ['done', 'replaced']:
                             reason = _('Attended')
@@ -366,6 +374,9 @@ class ShiftRegistration(models.Model):
                 vals or 'shift_id' in vals:
             self.check_leave_time()
         return res
+
+    def _is_replacing_makeup_shift(self):
+        return False
 
     @api.multi
     def get_standard_supplemental_credit(self):
