@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 
 import pytz
 from odoo import api, fields, models
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 
 _logger = logging.getLogger(__name__)
 
@@ -45,6 +46,21 @@ class ResUsers(models.Model):
             _logger.debug("Error while convering time by user lang")
             return False
 
+    def ftop_get_shift_date_begin(self):
+        """
+        Return the datetime which shift must be after
+        """
+        icp_sudo = self.env['ir.config_parameter'].sudo()
+        duration = int(icp_sudo.get_param(
+            'coop_memberspace.ftop_get_shift_duration', -1))
+        if duration > -1:
+            return (datetime.now() + timedelta(hours=duration)).strftime(
+                DTF
+            )
+        return (datetime.now() + timedelta(days=1)).strftime(
+            "%Y-%m-%d 00:00:00"
+        )
+
     @api.model
     def ftop_get_shift(self):
         user = self.env.user
@@ -55,6 +71,7 @@ class ResUsers(models.Model):
         shifts_available = shift_env
         shifts = []
         if tmpl:
+            date_begin = self.ftop_get_shift_date_begin()
             shifts_available = (
                 shift_env.sudo()
                 .search(
@@ -68,9 +85,7 @@ class ResUsers(models.Model):
                         (
                             "date_begin",
                             ">=",
-                            (datetime.now() + timedelta(days=1)).strftime(
-                                "%Y-%m-%d 00:00:00"
-                            ),
+                            date_begin,
                         ),
                     ]
                 )
