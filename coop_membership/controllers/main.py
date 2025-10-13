@@ -164,8 +164,11 @@ class WebsiteRegisterMeeting(http.Controller):
 
         # conver dob to correct format in database
         try:
-            dob = datetime.strptime(
-                dob, "%d/%m/%Y").date().strftime('%Y-%m-%d')
+            dob_date = datetime.strptime(dob, "%d/%m/%Y").date()
+            if dob_date < datetime.strptime("01/01/1900", "%d/%m/%Y").date():
+                dob = False
+            else:
+                dob = dob_date.strftime('%Y-%m-%d')
         except BaseException:
             _logger.warning(
                 """Convert birthdate from %s on
@@ -212,7 +215,7 @@ class WebsiteRegisterMeeting(http.Controller):
                 'city': city,
                 'social_registration': social_registration,
                 'zipcode': zipcode,
-                'dob': datetime.strptime(
+                'dob': dob and datetime.strptime(
                     dob, '%Y-%m-%d').date().strftime("%d/%m/%Y"),
             }
             return request.render(
