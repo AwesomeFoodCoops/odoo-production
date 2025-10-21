@@ -11,30 +11,6 @@ _logger = logging.getLogger(__name__)
 
 
 class WebsiteRegisterMeeting(http.Controller):
-    def prepare_data_events(self, events):
-        data = []
-        REGISTER_USER_ID = \
-            int(request.env['ir.config_parameter'].sudo(
-            ).sudo().get_param('register_user_id'))
-        user = request.env['res.users'].browse(REGISTER_USER_ID)
-
-        for event in events:
-            # Build address info event
-            event_address_obj = event.address_id
-            street = event_address_obj and event_address_obj.street or ''
-            zip_code = event_address_obj and event_address_obj.zip or ''
-            city = event_address_obj and event_address_obj.city or ''
-            address = u"{} {} {}".format(street, zip_code, city)
-            # Get correct time
-            date_tz = user.sudo().tz
-            self_in_tz = event.with_context(tz=(date_tz or 'UTC'))
-            date_begin = fields.Datetime.from_string(event.date_begin)
-            date_begin = fields.Datetime.context_timestamp(
-                self_in_tz, date_begin)
-            date_begin = date_begin.strftime('%d/%m/%Y %H:%M:%S')
-            data.append([event.id, address, date_begin])
-        return data
-
     @http.route(['/discovery'], type='http',
                 auth="public", website=True)
     def get_discover_meeting(self, **post):
@@ -57,7 +33,7 @@ class WebsiteRegisterMeeting(http.Controller):
         available_events = events.filtered(
             lambda e: not (e.seats_availability == 'limited' and
                            e.seats_available < 1))
-        datas = self.prepare_data_events(available_events)
+        datas = available_events._get_event_data_for_register_form()
 
         event_config = request.env['res.config.settings'].sudo().search(
             [], limit=1, order="id desc"
@@ -92,7 +68,7 @@ class WebsiteRegisterMeeting(http.Controller):
         available_events = events.filtered(
             lambda e: not (e.seats_availability == 'limited' and
                            e.seats_available < 1 and e.state == 'confirm'))
-        datas = self.prepare_data_events(available_events)
+        datas = available_events._get_event_data_for_register_form()
 
         name = post.get('name', False)
         email = post.get('email', False)
