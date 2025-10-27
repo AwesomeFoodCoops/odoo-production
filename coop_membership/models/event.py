@@ -41,3 +41,25 @@ class Event(models.Model):
     def _get_default_seats_max(self):
         event_confg = self.env['res.config.settings'].sudo().get_values()
         return event_confg and event_confg.get('seats_max') or 0
+
+    def _get_event_data_for_register_form(self):
+        data = []
+        REGISTER_USER_ID = \
+            int(self.env['ir.config_parameter'].sudo(
+            ).sudo().get_param('register_user_id'))
+        user = self.env['res.users'].browse(REGISTER_USER_ID)
+
+        for event in self:
+            # Build address info event
+            event_address = event.address_id
+            street = event_address.street or ''
+            zip_code = event_address.zip or ''
+            city = event_address.city or ''
+            address = u"{} {} {}".format(street, zip_code, city)
+            # Get correct time
+            date_tz = user.sudo().tz
+            self_in_tz = event.with_context(tz=(date_tz or 'UTC'))
+            date_begin = fields.Datetime.context_timestamp(
+                self_in_tz, event.date_begin)
+            data.append([event.id, address, date_begin.strftime('%d/%m/%Y %H:%M:%S'), date_begin])
+        return data
