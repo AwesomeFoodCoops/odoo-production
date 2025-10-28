@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="utm_source_view_form" model="ir.ui.view">
+        <field name="inherit_id" ref="utm.utm_source_view_form"/>
+        <field name="model">utm.source</field>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_for_discovery_meeting"/>
+            </field>
+        </field>
+    </record>
+</odoo>

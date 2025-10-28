@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="register_form_inherit" inherit_id="coop_membership.register_form">
+        <xpath expr="//input[@name='select_event']/../../.." position="before">
+            <div t-if="sources" class="wrap-input100 input_radio validate-input bg1 dropDownSelect2">
+                <span class="label-input100 long-text">How did you find us?</span>
+                <br/>
+                <div>
+                    <t t-foreach="sources" t-as="source">
+                        <input type="radio" name="select_source"
+                            class="validate-input-option validate-input" t-att-value="source.id">
+                            <span t-field="source.name"/>
+                        </input>
+                        <br/>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <template id="register_again_form_inherit" inherit_id="coop_membership.register_again_form">
+        <xpath expr="//input[@name='select_event']/../../.." position="before">
+            <div t-if="sources" class="wrap-input100 input_radio validate-input bg1 dropDownSelect2">
+                <span class="label-input100 long-text">How did you find us?</span>
+                <br/>
+                <div>
+                    <t t-foreach="sources" t-as="source">
+                        <input type="radio" name="select_source"
+                            class="validate-input-option validate-input" t-att-value="source.id">
+                            <span t-field="source.name"/>
+                        </input>
+                        <br/>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

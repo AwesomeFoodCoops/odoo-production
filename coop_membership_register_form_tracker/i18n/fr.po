@@ -1,0 +1,60 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_membership_register_form_tracker
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-28 05:05+0000\n"
+"PO-Revision-Date: 2025-10-28 05:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.register_again_form_inherit
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.register_form_inherit
+msgid "<span class=\"label-input100 long-text\">How did you find us?</span>\n"
+"                <br/>"
+msgstr "<span class=\"label-input100 long-text\">Comment nous avez-vous connu ?</span>\n"
+"                <br/>"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.view_res_partner_filter
+msgid "Campaign"
+msgstr "Campagne"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model,name:coop_membership_register_form_tracker.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_mail_mass_mailing__is_for_discovery_meeting
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source__is_for_discovery_meeting
+msgid "Is For Discovery Meeting"
+msgstr "Pour réunion découverte"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.view_partner_form
+msgid "Marketing"
+msgstr "Marketing"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.view_res_partner_filter
+msgid "Medium"
+msgstr "Support"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.view_res_partner_filter
+msgid "Source"
+msgstr "Origine"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model,name:coop_membership_register_form_tracker.model_utm_source
+msgid "UTM Source"
+msgstr "Source UTM"
