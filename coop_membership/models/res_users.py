@@ -121,3 +121,9 @@ class ResUsers(models.Model):
         if self.has_group(
             'coop_membership.group_membership_action_sidebar'):
             resp["o_cp_sidebar"] = True
+        if self.has_group(
+            'base_import_security_group.group_import_csv'):
+            # F#T66616 - [Chaudron] Membres/Contacts: show import btn
+            # for users in this group
+            resp["o_button_import"] = True
+
