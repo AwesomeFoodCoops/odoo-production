@@ -29,6 +29,7 @@
         'utm'
     ],
     'data': [
+        "security/ir.model.access.csv",
         'views/res_partner_view.xml',
         "views/utm.xml",
         "views/web_templates.xml"

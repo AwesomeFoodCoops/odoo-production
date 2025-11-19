@@ -2,34 +2,80 @@
 <odoo>
     <template id="register_form_inherit" inherit_id="coop_membership.register_form">
         <xpath expr="//input[@name='select_event']/../../.." position="before">
-            <div t-if="sources" class="wrap-input100 input_radio validate-input bg1 dropDownSelect2">
-                <span class="label-input100 long-text">How did you find us?</span>
-                <br/>
+            <div t-if="source_datas" class="wrap-input100 input_radio bg1 dropDownSelect2">
+                <span class="label-input100 long-text">How did you find <t t-esc="company_name or 'us'"/>?</span>
+                <div style="font-style: italic; margin: 5px 0px;">
+                    (You can check multiple items.)
+                </div>
                 <div>
-                    <t t-foreach="sources" t-as="source">
-                        <input type="radio" name="select_source"
-                            class="validate-input-option validate-input" t-att-value="source.id">
+                    <!-- Source w/o category -->
+                    <t t-foreach="source_datas[0]" t-as="source">
+                        <input type="checkbox" t-att-name="'select_sources-%d'%source.id"
+                            class="" t-att-value="source.id">
                             <span t-field="source.name"/>
                         </input>
                         <br/>
                     </t>
+                    <!-- Source with category -->
+                    <t t-foreach="source_datas[1]" t-as="category">
+                        <fieldset>
+                            <legend t-esc="category"/>
+                            <t t-foreach="source_datas[2][category]" t-as="source">
+                                <input type="checkbox" t-att-name="'select_sources-%d'%source.id"
+                                    style="margin-left: 10px;"
+                                    class="" t-att-value="source.id">
+                                    <span t-field="source.name"/>
+                                </input>
+                                <br/>
+                            </t>
+                        </fieldset>
+                    </t>
+                    <!-- Other: free text -->
+                    <div class="" style="margin-top: 10px;">
+                        <span>Other:</span>
+                        <input type="text" name="other_source" class="input100" placeholder="........................."
+                            style="display: inline; width: 80%; height: 20px;"/>
+                    </div>
                 </div>
             </div>
         </xpath>
     </template>
     <template id="register_again_form_inherit" inherit_id="coop_membership.register_again_form">
         <xpath expr="//input[@name='select_event']/../../.." position="before">
-            <div t-if="sources" class="wrap-input100 input_radio validate-input bg1 dropDownSelect2">
-                <span class="label-input100 long-text">How did you find us?</span>
-                <br/>
+            <div t-if="source_datas" class="wrap-input100 input_radio validate-input bg1 dropDownSelect2">
+                <span class="label-input100 long-text">How did you find <t t-esc="company_name"/>?</span>
+                <div style="font-style: italic; margin: 5px 0px;">
+                    (You can check multiple items.)
+                </div>
                 <div>
-                    <t t-foreach="sources" t-as="source">
-                        <input type="radio" name="select_source"
-                            class="validate-input-option validate-input" t-att-value="source.id">
+                    <!-- Source w/o category -->
+                    <t t-foreach="source_datas[0]" t-as="source">
+                        <input type="checkbox" t-att-name="'select_sources-%d'%source.id"
+                            class="" t-att-value="source.id">
                             <span t-field="source.name"/>
                         </input>
                         <br/>
                     </t>
+                    <!-- Source with category -->
+                    <t t-foreach="source_datas[1]" t-as="category">
+                        <fieldset>
+                            <legend t-esc="category"/>
+                            <t t-foreach="source_datas[2][category]" t-as="source">
+                                <input type="checkbox" t-att-name="'select_sources-%d'%source.id"
+                                    style="margin-left: 10px;"
+                                    class="" t-att-value="source.id">
+                                    <span t-field="source.name"/>
+                                </input>
+                                <br/>
+                            </t>
+                        </fieldset>
+                    </t>
+                    <!-- Other: free text -->
+                    <div class="" style="margin-top: 10px;">
+                        <span>Other:</span>
+                        <input type="text" name="other_source" class="input100" placeholder="........................."
+                            style="display: inline; width: 80%; height: 20px;"/>
+                    </div>
                 </div>
             </div>
         </xpath>

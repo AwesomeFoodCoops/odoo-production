@@ -11,6 +11,7 @@
                     <field name="medium_id"/>
                     <field name="campaign_id"/>
                     <field name="source_id"/>
+                    <field name="utm_source_ids" widget="many2many_tags"/>
                 </group>
             </xpath>
         </field>
@@ -25,6 +26,7 @@
                 <field name="medium_id" invisible="True"/>
                 <field name="campaign_id" invisible="True"/>
                 <field name="source_id" invisible="True"/>
+                <field name="utm_source_ids" widget="many2many_tags"/>
             </xpath>
         </field>
     </record>
@@ -39,6 +41,7 @@
                 <field name="medium_id"/>
                 <field name="campaign_id"/>
                 <field name="source_id"/>
+                <field name="utm_source_ids"/>
             </xpath>
             <xpath expr="//group">
                 <filter name="medium" string="Medium" context="{'group_by': 'medium_id'}"/>

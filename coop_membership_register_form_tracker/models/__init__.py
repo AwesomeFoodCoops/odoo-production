@@ -19,3 +19,4 @@
 
 from . import res_partner
 from . import utm_source
+from . import utm_source_category
