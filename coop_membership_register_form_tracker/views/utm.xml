@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="utm_source_view_tree" model="ir.ui.view">
+        <field name="inherit_id" ref="utm.utm_source_view_tree"/>
+        <field name="model">utm.source</field>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="sequence" widget="handle"/>
+            </field>
+            <field name="name" position="after">
+                <field name="is_for_discovery_meeting"/>
+            </field>
+        </field>
+    </record>
+    <record id="utm_source_view_form" model="ir.ui.view">
+        <field name="inherit_id" ref="utm.utm_source_view_form"/>
+        <field name="model">utm.source</field>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="sequence"/>
+            </field>
+            <field name="name" position="after">
+                <field name="is_for_discovery_meeting"/>
+                <field name="category_id"/>
+            </field>
+        </field>
+    </record>
+    <record id="utm_source_view_filter" model="ir.ui.view">
+        <field name="name">Soures</field>
+        <field name="model">utm.source</field>
+        <field name="arch" type="xml">
+            <search string="Tracked Source">
+                <field name="name"/>
+                <field name="category_id"/>
+                <filter name="filter_is_for_discovery" string="Is For Discovery Meeting"
+                    domain="[('is_for_discovery_meeting', '=', True)]"/>
+                <group string="Group By" name="group_by">
+                    <filter name="group_filter_is_for_discovery" string="Is For Discovery Meeting"
+                            context="{'group_by':'is_for_discovery_meeting'}"/>
+                    <filter name="group_category" string="Category"
+                            context="{'group_by':'category_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

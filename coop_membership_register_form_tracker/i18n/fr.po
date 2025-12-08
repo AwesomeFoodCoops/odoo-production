@@ -1,0 +1,152 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* coop_membership_register_form_tracker
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-26 04:35+0000\n"
+"PO-Revision-Date: 2025-11-26 04:35+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.register_again_form_inherit
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.register_form_inherit
+msgid "(You can check multiple items.)"
+msgstr "(Vous pouvez cocher plusieurs points.)"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.register_again_form_inherit
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.register_form_inherit
+msgid "<span>Other:</span>"
+msgstr "<span>Autre (précisez):</span>"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.view_res_partner_filter
+msgid "Campaign"
+msgstr "Campagne"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_mail_mass_mailing__category_id
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source__category_id
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.utm_source_view_filter
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model,name:coop_membership_register_form_tracker.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source_category__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source_category__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_res_partner__utm_source_ids
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_res_users__utm_source_ids
+msgid "Discovery Meeting Sources"
+msgstr "Sources des réunion découverte"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source_category__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.utm_source_view_filter
+msgid "Group By"
+msgstr "Regrouper par"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.register_again_form_inherit
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.register_form_inherit
+msgid "How did you find"
+msgstr "Comment avez-vous connu"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source_category__id
+msgid "ID"
+msgstr ""
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_mail_mass_mailing__is_for_discovery_meeting
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source__is_for_discovery_meeting
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.utm_source_view_filter
+msgid "Is For Discovery Meeting"
+msgstr "Pour réunion découverte"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source_category____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source_category__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source_category__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.view_partner_form
+msgid "Marketing"
+msgstr ""
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.view_res_partner_filter
+msgid "Medium"
+msgstr "Moyen"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source_category__name
+msgid "Name"
+msgstr ""
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.register_again_form_inherit
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.register_form_inherit
+msgid "Other source..."
+msgstr "Autre source..."
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_mail_mass_mailing__sequence
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source__sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model.fields,field_description:coop_membership_register_form_tracker.field_utm_source_category__source_ids
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.view_res_partner_filter
+msgid "Source"
+msgstr "Origine"
+
+#. module: coop_membership_register_form_tracker
+#: model_terms:ir.ui.view,arch_db:coop_membership_register_form_tracker.utm_source_view_filter
+msgid "Tracked Source"
+msgstr ""
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model,name:coop_membership_register_form_tracker.model_utm_source
+msgid "UTM Source"
+msgstr "Source UTM"
+
+#. module: coop_membership_register_form_tracker
+#: model:ir.model,name:coop_membership_register_form_tracker.model_utm_source_category
+msgid "UTM Source Category"
+msgstr ""
