@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_model_utm_source_category_all,access_model_utm_source_category_all,model_utm_source_category,,1,0,0,0
+access_model_utm_source_category_user,access_model_utm_source_category_user,model_utm_source_category,base.group_user,1,1,1,1

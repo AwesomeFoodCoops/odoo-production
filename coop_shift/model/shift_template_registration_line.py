@@ -142,7 +142,12 @@ class ShiftTemplateRegistrationLine(models.Model):
             ('state', '!=', 'done')
         ]
         if begin:
-            shift_domain.append(('date_begin', '>', begin))
+            # F#T66337 - [Chaudron] BdM: date of the first service prior to subscription date
+            # Don't take into account shifts in the past
+            today = fields.Datetime.to_string(fields.Datetime.context_timestamp(
+                self, fields.Datetime.now()
+            ))
+            shift_domain.append(('date_begin', '>', max(begin, today)))
         if end:
             shift_domain.append(('date_end', '<', end))
         shifts = self.env['shift.shift'].search(shift_domain)
@@ -277,6 +282,7 @@ class ShiftTemplateRegistrationLine(models.Model):
                     not e or s.date_end.date() <= e) and (
                     s.state not in ('done', 'cancel')))
 
+            today = fields.Datetime.context_timestamp(self, fields.Datetime.now())
             for shift in shifts:
                 found = partner_found = False
                 for registration in shift.registration_ids:
@@ -290,7 +296,9 @@ class ShiftTemplateRegistrationLine(models.Model):
                     if partner_found:
                         partner_found.tmpl_reg_line_id = line
                         partner_found.state = state
-                    else:
+                    elif shift.date_begin.date() >= today.date():
+                        # F#T66337 - [Chaudron] BdM: date of the first service ...
+                        # Don't take into account shifts in the past
                         ticket_id = shift.shift_ticket_ids.filtered(
                             lambda t: t.product_id ==
                             st_reg.shift_ticket_id.product_id)[0]

@@ -44,6 +44,7 @@ class WebsiteRegisterMeeting(http.Controller):
             'description': event_config and event_config.description or "",
             'notice': event_config and event_config.notice or ""
         }
+        value = self._prepare_register_form_vals(value)
         return request.render("coop_membership.register_form", value)
 
     @http.route(['/discovery/reregister'], type='http',
@@ -99,6 +100,7 @@ class WebsiteRegisterMeeting(http.Controller):
             'datas': datas,
             'captcha_site_key': captcha_site_key,
         }
+        value = self._prepare_register_form_vals(value)
         return request.render("coop_membership.register_again_form", value)
 
     @http.route(['/web/membership/register/submit'], type='http',
@@ -219,6 +221,7 @@ class WebsiteRegisterMeeting(http.Controller):
                 'mobile': mobile,
                 'birthdate_date': dob or False,
             }
+            partner_val = self._prepare_partner_val(partner_val, **post)
             # Create contact partner
             partner = self.create_contact_partner(
                 partner_val, user)
@@ -263,3 +266,11 @@ class WebsiteRegisterMeeting(http.Controller):
         partner_id = partner_obj.create(
             partner_val)
         return partner_id
+
+    def _prepare_partner_val(self, partner_val):
+        # Create hook for other modules to implement
+        return partner_val
+
+    def _prepare_register_form_vals(self, vals):
+        # Create hook for other modules to implement
+        return vals
