@@ -6,7 +6,7 @@ from odoo.http import request
 
 class WebsiteRegisterMeetingTracker(WebsiteRegisterMeeting):
     def _prepare_partner_val(self, partner_val, **post):
-        partner_val = super()._prepare_partner_val(partner_val)
+        partner_val = super()._prepare_partner_val(partner_val, **post)
         # Add UTM Sources
         source_ids = self._parse_sources(post)
         if source_ids:
