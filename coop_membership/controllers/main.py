@@ -267,7 +267,7 @@ class WebsiteRegisterMeeting(http.Controller):
             partner_val)
         return partner_id
 
-    def _prepare_partner_val(self, partner_val):
+    def _prepare_partner_val(self, partner_val, **post):
         # Create hook for other modules to implement
         return partner_val
 
