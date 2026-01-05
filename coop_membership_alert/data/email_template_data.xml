@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="email_member_alert" model="mail.template">
+        <field name="name">Member: Mail d'alerte</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.email|safe}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="subject">Vous êtes en alerte</field>
+        <field name="body_html"><![CDATA[
+<p>Bonjour,</p>
+<h2>Qu'est-ce que ça veut dire ?</h2>
+<p>
+    Simplement que, dû à une ou plusieurs absences récentes à vos services, votre compteur de points est aujourd'hui en négatif.
+</p>
+<h2>Qu'est-ce que cela implique ?</h2>
+<p>
+    Pas de panique, il n'y a pas d'autres conséquences pour le moment que ce mail. Le règlement intérieur du Chaudron vous accorde un délai de 28 jours pour rattraper vos services de retard (en plus de faire vos services habituels).
+</p>
+<p>
+    Si votre compteur remonte à 0 ou plus d'ici là, votre statut redeviendra « à jour ». Sinon, à l'issue de ces 28 jours, votre statut et votre droit d'achat au magasin seront suspendus mais nous espérons toutefois que vous n'en arriverez pas là.
+</p>
+
+<h2>Que faire ?</h2>
+<p>
+    Dans votre cas, cette échéance de 28 jours se terminera le ${object.date_alert_stop and format_tz(object.date_alert_stop, tz=user.tz, format='%d.%m.%Y')} alors n'hésitez pas à vous connecter tout de suite sur votre espace personnel avec le lien suivant et à programmer un service anticipé avant cette date.
+</p>
+<p>
+    <a href="${(object.company_id.website or '')|safe}" style="cursor: pointer; line-height: 1.5; display: inline-block; border-radius: 100px; padding: 0.45rem 1.35rem; color: rgb(255, 255, 255); background-color: rgb(19, 132, 150); font-size: 14px;">
+        Mon espace personnel 
+    </a>
+</p>
+<p>
+    « Il n'y a que ceux qui ne font rien qui ne se trompent jamais »et vous savez que nous en faisons beaucoup pour notre coopérative :)
+</p>
+<p>
+    Vous avez une question ? Vous pensez qu'il y a une erreur ? Notre bureau des membres est à votre écoute, contactez-le en répondant à ce mail.
+</p>
+<p>
+    Nous vous souhaitons une excellente journée et à bientôt au magasin !
+</p>
+<p style="color: rgb(181, 99, 8); font-size: 12px;">
+    (Ce message est le premier d'une fonctionnalité en cours d'implémentation, il est possible que votre date d'échéance soit déjà passée auquel cas il est URGENT de contacter au plus vite le bureau des membres pour en discuter à défaut de quoi vous serez suspendu dans les jours qui viennent)
+</p>
+<br/>
+<br/>
+<p>Regards,<br/></p>
+<br/>
+<br/>
+]]></field>
+    </record>
+
+    <record id="email_member_suspended" model="mail.template">
+        <field name="name">Member: Mail de suspension</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${user.partner_id.email or ''|safe}</field>
+        <field name="lang">${user.partner_id.lang}</field>
+        <field name="subject">Coopérateur passé au statut suspendu</field>
+        <field name="body_html"><![CDATA[
+<div>
+    <p>Bonjour,</p>
+    <p>Voici la liste des membres qui ont été marqués comme suspendus: </p>
+    % set members = ctx.get("members") or object.get_suspended_members(max_count=ctx.get("max_count", 5), limit=ctx.get("limit", 200), set_count=False)
+    <table class="table-email-tmpl table-bordered">
+        <thead>
+            <tr>
+                <th width="5px;">
+                    No.
+                </th>
+                <th width="15px;">
+                    Nom
+                </th>
+                <th width="8px;">
+                    Prénom
+                </th>
+                <th width="8px;">
+                    Numéro du coopérateur
+                </th>
+                <th width="8px;">
+                    Statut du coopérateur
+                </th>
+                <th width="8px;">
+                    Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            % for member in members:
+            <tr>
+                % set no = members.index(member) + 1
+                % set names = member.get_partner_firstlast_name()
+                % set first_name = names[0]
+                % set last_name = names[1]
+                <td class="text-right">
+                    ${no}
+                </td>
+                <td>
+                    ${last_name}
+                </td>
+                <td>
+                    ${first_name}
+                </td>
+                <td class="text-right">
+                    ${member.barcode_base}
+                </td>
+                <td>
+                    Suspendu
+                </td>
+                <td>
+                    ${member.date_alert_stop and format_tz(member.date_alert_stop, tz=user.tz, format='%d.%m.%Y')}
+                </td>
+            </tr>
+            % endfor
+        </tbody>
+    </table>
+    <br/>
+    <p>Merci de prendre les actions nécessaires.</p>
+    <br/>
+    <p>Cordialement,</p>
+    ${object.get_mail_template_signature()}
+    <br/>
+</div>
+
+<style type="text/css">
+.table-email-tmpl td {
+    padding: 2px 5px;
+}
+.text-right {
+    text-align: right;
+}
+
+.table-email-tmpl {
+    width: 70%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+.table-email-tmpl thead tr {
+    background-color: #eee;
+}
+.table-email-tmpl th,
+.table-email-tmpl td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table-email-tmpl thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table-email-tmpl tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+.table-email-tmpl {
+    background-color: #fff;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+    border-bottom-width: 2px;
+}
+
+</style>]]>
+        </field>
+    </record>
+</odoo>
